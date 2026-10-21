@@ -4,14 +4,17 @@ Observed October 21, 2026. The [generated inventory](weibo_media_inventory.md)
 contains the authoritative per-account post totals. A verified identity is not
 a guarantee of current ownership, current posting, or complete historical recovery.
 
-## Executed result
+## Earlier collection checkpoint
 
-The registry now has **12 confirmed account identities across 11 outlets**.
+At the preceding checkpoint, the registry had **12 confirmed account identities across 11 outlets**.
 All 12 have a recorded collection attempt. **1,135 distinct in-window posts
 were recovered from 10 accounts**, comprising 822 accessible source bodies
 and 313 explicitly truncated previews. NYT Chinese and WSJ Chinese remain
 the two confirmed historical accounts with no recovered in-window posts.
 No confirmed account is left unattempted.
+See [further account discovery](discovery_round2.md) and the generated inventory
+for subsequent additions and current totals; the numbers in this section
+describe the earlier published checkpoint.
 
 Of the ranked 1,000 U.S. websites, five have a confirmed account identity in
 this research: Forbes, Fortune and Bloomberg have current-profile evidence;

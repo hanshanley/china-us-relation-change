@@ -1,0 +1,3 @@
+outlet_id,candidate_uid,observed_display_name,source_url,decision,reason
+fast-company,6596153448,FASTCOMPANY中文版,https://www.sina.cn/media/6596153448,unresolved_not_counted,"Current profile name alone does not bind this later UID to a publisher. Historical publisher-linked fcchinese is separately verified as UID3181199897."
+vogue,6610595351,VOGUE时尚网,https://www.sina.cn/media/6610595351,unresolved_not_counted,"Do not bind this same-named profile to voguewebsite. That publisher-linked handle resolves to a different UID1655526104, currently VogueFilm."

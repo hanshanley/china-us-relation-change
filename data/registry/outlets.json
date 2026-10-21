@@ -58,19 +58,19 @@
       "id": "cnn", "name": "CNN", "category": "broadcaster",
       "aliases": ["美国有线电视新闻网"], "us_basis": "U.S. news broadcaster.",
       "source_url": "https://www.cnn.com/", "research_status": "reviewed",
-      "notes": "Bounded homepage scan (first 1.5 MB) found no Weibo outbound link; not a comprehensive social-account search. Review date: 2026-10-21."
+      "notes": "Homepage screening and expanded English/Chinese alias searches found reporting about Weibo and unrelated pages, but no qualifying publisher-bound or institution-certified CNN account. Unresolved, not absent. Review date: 2026-10-21."
     },
     {
       "id": "cnbc", "name": "CNBC", "category": "broadcaster",
       "aliases": ["消费者新闻与商业频道"], "us_basis": "U.S. business-news broadcaster.",
       "source_url": "https://www.cnbc.com/", "research_status": "reviewed",
-      "notes": "Bounded homepage scan (first 1.5 MB) found no Weibo outbound link; not a comprehensive social-account search. Review date: 2026-10-21."
+      "notes": "Homepage screening and expanded English/Chinese alias searches did not establish a qualifying CNBC account/UID relationship. Unrelated Chinese-language pages were not promoted. Unresolved, not absent. Review date: 2026-10-21."
     },
     {
       "id": "ap", "name": "The Associated Press", "category": "newswire",
       "aliases": ["美联社"], "us_basis": "U.S. news cooperative.",
       "source_url": "https://apnews.com/", "research_status": "reviewed",
-      "notes": "Homepage returned HTTP 403. No identity conclusion can be drawn from blocked access. Review date: 2026-10-21."
+      "notes": "Homepage initially returned HTTP403; subsequent searches for 美联社/AP美联社/美国联合通讯社 and publisher sources still did not resolve a qualifying account/UID. Access/search failures are not evidence of absence. Review date: 2026-10-21."
     },
     {
       "id": "washington-post", "name": "The Washington Post", "category": "newspaper",
@@ -82,7 +82,7 @@
       "id": "sinovision", "name": "SinoVision / 美国中文网", "category": "us_chinese_language",
       "aliases": ["美国中文电视", "美国中文网"], "us_basis": "U.S. Chinese-language television/news operation.",
       "source_url": "https://www.sinovision.net/", "research_status": "reviewed",
-      "notes": "Stable account identity remains unresolved, not absent. Original 2013 research in People's Daily Overseas Edition names 美国中文电视 among Sina-certified overseas media (https://paper.people.com.cn/rmrbhwb/page/2013-12/27/13/hwbhmkjc27c.pdf), but does not bind a UID/handle. Two archived publisher homepages exposed no institutional profile link; the 2020 Sina element was a share button. Search access now reports robots restrictions. Distinct from 侨报/uschinapress.com. Review date: 2026-10-21."
+      "notes": "Resolved in the next discovery round: the 2016 archived publisher homepage links to sinovision; a 2017 archived profile binds UID 1885985453. Public Sina profile currently names 美国中文电视 and the publisher domain. Distinct from 侨报/uschinapress.com. Review date: 2026-10-21."
     },
     {
       "id": "china-press", "name": "The China Press / 侨报", "category": "us_chinese_language",
@@ -100,19 +100,80 @@
       "id": "sing-tao-us", "name": "Sing Tao Daily, U.S. edition", "category": "us_chinese_language",
       "aliases": ["星岛日报美国版", "星島日報美國版"], "us_basis": "U.S. edition of a Chinese-language newspaper; do not conflate its accounts with non-U.S. editions.",
       "source_url": "https://www.singtaousa.com/", "research_status": "reviewed",
-      "notes": "Publisher homepage was accessible, but no literal Weibo link was found. No official U.S.-edition account established. Review date: 2026-10-21."
+      "notes": "Current and archived U.S.-edition publisher pages and Chinese regional aliases did not resolve a qualifying U.S.-edition account. UID1924115501 explicitly represents Hong Kong's 星島網 and was excluded rather than counted as Sing Tao USA. Unresolved, not absent. Review date: 2026-10-21."
     },
     {
       "id": "ktsf", "name": "KTSF", "category": "us_chinese_language",
       "aliases": ["KTSF26", "旧金山26台"], "us_basis": "U.S. television station serving Chinese-language audiences.",
       "source_url": "https://www.ktsf.com/", "research_status": "reviewed",
-      "notes": "Homepage returned HTTP 403. No official account established. Review date: 2026-10-21."
+      "notes": "The 2012 archived KTSF homepage links to ktsf26; a 2011 archived profile binds UID 2413381772. Same institutional profile remains publicly observable; newest visible material is August 2020, so activity is not called current. Review date: 2026-10-21."
     },
     {
       "id": "npr", "name": "NPR", "category": "broadcaster",
       "aliases": ["美国全国公共广播电台"], "us_basis": "U.S. public-radio news organization.",
-      "source_url": "https://www.npr.org/", "research_status": "pending",
-      "notes": "Roster expansion candidate; no account claim."
+      "source_url": "https://www.npr.org/", "research_status": "reviewed",
+      "notes": "Expanded English/Chinese alias searches and publisher-owned sources did not resolve a publisher-linked or organization-certified account. Unresolved, not verified absent. Review date: 2026-10-21."
+    },
+    {
+      "id": "fast-company", "name": "Fast Company / historical China edition", "category": "business",
+      "aliases": ["快公司", "快公司FastCompany", "FCChinese"], "us_basis": "U.S. business/innovation publication; historical Chinese-edition account separately labeled.",
+      "source_url": "https://www.fastcompany.com/", "research_status": "reviewed",
+      "notes": "Archived fastcompany.cn publisher homepage links to fcchinese; archived profile binds UID 3181199897. Distinguish this historical account from the modern FASTCOMPANY中文版 UID6596153448 lead, which has not met the publisher-binding threshold. Review date: 2026-10-21."
+    },
+    {
+      "id": "techcrunch", "name": "TechCrunch / historical Chinese edition", "category": "digital_news",
+      "aliases": ["TechCrunch中文版", "TechCrunch中国", "TC中文网"], "us_basis": "U.S. technology/startup news publication; publisher confirmed a Chinese edition through TechNode.",
+      "source_url": "https://techcrunch.com/", "research_status": "reviewed",
+      "notes": "Publisher-linked historical tcchinese UID3561737261 is now named 动点出海. TechNode's own about page dates the TechCrunch partnership to 2013-2019. Current TechNode-branded posts must not be relabeled TechCrunch content. Review date: 2026-10-21."
+    },
+    {
+      "id": "gq", "name": "GQ / China", "category": "lifestyle",
+      "aliases": ["GQofficial", "经英GQ", "智族GQ"], "us_basis": "U.S.-origin men's fashion/culture media brand; Chinese edition and local publisher relationship separately labeled.",
+      "source_url": "https://www.gq.com/", "research_status": "reviewed",
+      "notes": "Current gq.com.cn publisher homepage directly links UID9150715932 and public Sina certification names GQ官方微博. Condé Nast announces a January2026 China relaunch with Nanfang Media Group. This is specialist lifestyle media, not a U.S. general-news broadcaster. Review date: 2026-10-21."
+    },
+    {
+      "id": "vogue", "name": "Vogue / China", "category": "lifestyle",
+      "aliases": ["VOGUE服饰与美容", "voguechina"], "us_basis": "U.S.-origin fashion/culture media brand; China edition included separately from the U.S. newsroom.",
+      "source_url": "https://www.vogue.com/", "research_status": "reviewed",
+      "notes": "Archived Chinese publisher homepage links separately to voguechina (UID1765870915) and voguewebsite (UID1655526104, now VogueFilm); archived UID bindings and current public institutional profiles verify both. Same-named UID6610595351 does not match the publisher-linked website handle's UID and is not promoted. Two accounts, one outlet. Review date: 2026-10-21."
+    },
+    {
+      "id": "harpers-bazaar", "name": "Harper's BAZAAR / China", "category": "lifestyle",
+      "aliases": ["时尚芭莎", "Harper's BAZAAR中国版"], "us_basis": "U.S.-origin fashion/culture magazine brand; explicitly labeled Chinese-edition operation.",
+      "source_url": "https://www.harpersbazaar.com/", "research_status": "reviewed",
+      "notes": "Public Sina institutional tag names 《时尚芭莎》官方微博 and bio explicitly identifies Harper's BAZAAR中国版. Exact legal account operator and current licensing contract not independently established. Review date: 2026-10-21."
+    },
+    {
+      "id": "wwd", "name": "WWD / China", "category": "trade_news",
+      "aliases": ["WWD国际时尚特讯", "Women's Wear Daily"], "us_basis": "U.S.-origin fashion-industry trade-news publication founded in New York; separately labeled Chinese edition.",
+      "source_url": "https://wwd.com/", "research_status": "reviewed",
+      "notes": "Chinese publisher's public static footer explicitly names its Weibo @WWD国际时尚特讯; current public Sina institutional profile binds that name to UID7207615461 and identifies WWD's Chinese edition. Static JavaScript was read, not executed. Review date: 2026-10-21."
+    },
+    {
+      "id": "nbc-news", "name": "NBC News", "category": "broadcaster", "aliases": ["NBC新闻", "美国全国广播公司"],
+      "us_basis": "U.S. news broadcaster.", "source_url": "https://www.nbcnews.com/", "research_status": "reviewed",
+      "notes": "Focused English/Chinese alias and publisher-source searches found articles about Weibo but no qualifying institutional account. NBCUniversal entertainment accounts were not substituted for NBC News. Unresolved, not absent. Review date: 2026-10-21."
+    },
+    {
+      "id": "abc-news", "name": "ABC News, United States", "category": "broadcaster", "aliases": ["ABC新闻", "美国广播公司"],
+      "us_basis": "U.S. news broadcaster, distinct from Australian Broadcasting Corporation.", "source_url": "https://abcnews.go.com/", "research_status": "reviewed",
+      "notes": "Focused alias and publisher-social-page searches yielded no qualifying U.S. account. ABC Australia identities were excluded. Unresolved, not absent. Review date: 2026-10-21."
+    },
+    {
+      "id": "cbs-news", "name": "CBS News", "category": "broadcaster", "aliases": ["CBS新闻", "哥伦比亚广播公司"],
+      "us_basis": "U.S. news broadcaster.", "source_url": "https://www.cbsnews.com/", "research_status": "reviewed",
+      "notes": "Focused alias and publisher-owned searches found reporting about Weibo, not a publisher-linked or institution-certified CBS News account. Unresolved, not absent. Review date: 2026-10-21."
+    },
+    {
+      "id": "fox-news", "name": "Fox News", "category": "broadcaster", "aliases": ["福克斯新闻", "FOX新闻"],
+      "us_basis": "U.S. news broadcaster.", "source_url": "https://www.foxnews.com/", "research_status": "reviewed",
+      "notes": "Focused alias and publisher-source searches did not resolve an official account. An unrelated personal Foxs result was rejected as a lead, not recorded as a Fox News account. Unresolved, not absent. Review date: 2026-10-21."
+    },
+    {
+      "id": "voa", "name": "Voice of America", "category": "broadcaster", "aliases": ["美国之音", "VOA"],
+      "us_basis": "U.S.-based international news broadcaster.", "source_url": "https://www.voanews.com/", "research_status": "reviewed",
+      "notes": "English/Chinese aliases and publisher social pages did not establish a qualifying account/UID relationship. No claim of absence or current operational status is inferred. Review date: 2026-10-21."
     }
   ],
   "accounts": [
@@ -203,6 +264,78 @@
       "relationship": "U.S.-based Chinese-language newspaper's Los Angeles regional account; not an independent outlet or duplicate of the North America account",
       "officialness": "confirmed", "existence": "current_evidence", "accessibility": "unknown",
       "notes": "Publisher's archived dedicated social page links through an image-map area to laworldjournal. 2021 archived profile binds UID 2514536744; current public Sina profile explicitly certifies 美国洛杉矶世界日报官方微博."
+    },
+    {
+      "id": "sinovision-weibo", "outlet_id": "sinovision", "uid": "1885985453", "handle": "sinovision",
+      "display_name": "美国中文电视", "profile_url": "https://weibo.com/u/1885985453", "language": "zh-Hans",
+      "operator": "SinoVision / 美国中文电视、美国中文网; exact legal account-owning entity not separately established",
+      "relationship": "U.S.-based Chinese-language broadcaster's own publisher-linked account; distinct from China Press",
+      "officialness": "confirmed", "existence": "current_evidence", "accessibility": "unknown",
+      "notes": "2016 archived publisher homepage links to sinovision; 2017 archived profile binds UID1885985453. Current public Sina profile names the broadcaster and sinovision.net, with October21,2026 material. Current-profile evidence is not a guarantee of full historical retrieval."
+    },
+    {
+      "id": "ktsf-weibo", "outlet_id": "ktsf", "uid": "2413381772", "handle": "ktsf26",
+      "display_name": "KTSF26台", "profile_url": "https://weibo.com/u/2413381772", "language": "zh-Hant",
+      "operator": "Historical KTSF Channel26 publisher-linked account; current legal account operator unresolved",
+      "relationship": "U.S. Bay Area Chinese-language television station account; historically official, not asserted currently active",
+      "officialness": "confirmed", "existence": "historical", "accessibility": "unknown",
+      "notes": "2012 archived KTSF homepage links to ktsf26 and a 2011 archived platform profile binds UID2413381772. Current syndicated institutional profile remains observable; newest visible material is August8,2020. Historical officialness and posting recency are separate."
+    },
+    {
+      "id": "fast-company-china-historical", "outlet_id": "fast-company", "uid": "3181199897", "handle": "fcchinese",
+      "display_name": "快公司FastCompany", "profile_url": "https://weibo.com/fcchinese", "language": "zh-Hans",
+      "operator": "上海星捷迅驰文化发展有限公司, named in the archived publisher footer; current legal operation unresolved",
+      "relationship": "Historical Fast Company Chinese-edition publisher account; not conflated with a later Chinese-edition relaunch",
+      "officialness": "confirmed", "existence": "historical", "accessibility": "unknown",
+      "notes": "2017 fastcompany.cn homepage directly links enterprise handle fcchinese; archived Weibo profile binds UID3181199897. Current public Sina title is 快公司FastCompany. Current licensing terms/operation are not asserted; UID6596153448 FASTCOMPANY中文版 remains a separate unresolved lead."
+    },
+    {
+      "id": "techcrunch-china-historical", "outlet_id": "techcrunch", "uid": "3561737261", "handle": "tcchinese",
+      "display_name": "TechCrunch中文版", "profile_url": "https://weibo.com/tcchinese", "language": "zh-Hans",
+      "operator": "TechNode, historical TechCrunch China partner; current UID is branded 动点出海",
+      "relationship": "Historical partner-operated Chinese edition, documented2013-2019; current TechNode output is outside this account's TechCrunch attribution",
+      "officialness": "confirmed", "existence": "historical", "accessibility": "unknown",
+      "notes": "2019 archived TechCrunch China homepage links tcchinese and archived profile binds UID3561737261. TechNode states the partnership lasted2013-2019. Current public UID title is 动点出海, so the collector's exact profile-name gate must reject current posts rather than import them as TechCrunch."
+    },
+    {
+      "id": "gq-china", "outlet_id": "gq", "uid": "9150715932", "handle": null,
+      "display_name": "GQofficial", "profile_url": "https://weibo.com/u/9150715932", "language": "zh-Hans",
+      "operator": "China GQ operation; Condé Nast describes a 2026 brand collaboration with Nanfang Media Group; legal account-owning entity not independently established",
+      "relationship": "Chinese fashion/culture edition of a U.S.-origin media brand; not the U.S. GQ newsroom account",
+      "officialness": "confirmed", "existence": "current_evidence", "accessibility": "unknown",
+      "notes": "Current gq.com.cn footer explicitly labels 官方微博 and links UID9150715932; public Sina profile independently says GQ官方微博. Condé Nast's January15,2026 relaunch announcement supplies edition/partner context, not a claim of U.S.-newsroom operation."
+    },
+    {
+      "id": "vogue-china", "outlet_id": "vogue", "uid": "1765870915", "handle": "voguechina",
+      "display_name": "VOGUE服饰与美容", "profile_url": "https://weibo.com/voguechina", "language": "zh-Hans",
+      "operator": "Vogue China operation under a copyright cooperation partnership described by Condé Nast; legal account owner not separately established",
+      "relationship": "Chinese fashion/culture edition of Vogue, separately labeled from Vogue U.S.",
+      "officialness": "confirmed", "existence": "current_evidence", "accessibility": "unknown",
+      "notes": "2020 archived publisher homepage links voguechina; February2026 archived platform profile binds UID1765870915 and contains January-February2026 posts. Current public Sina profile explicitly says 《Vogue服饰与美容》杂志官方微博."
+    },
+    {
+      "id": "vogue-china-film", "outlet_id": "vogue", "uid": "1655526104", "handle": "voguewebsite",
+      "display_name": "VogueFilm", "profile_url": "https://weibo.com/u/1655526104", "language": "zh-Hans",
+      "operator": "Vogue China website/film channel; exact legal account owner not separately established",
+      "relationship": "Publisher-linked Vogue China website account, now VogueFilm; a second channel of the same outlet, not an additional publisher",
+      "officialness": "confirmed", "existence": "current_evidence", "accessibility": "unknown",
+      "notes": "2020 publisher footer labels voguewebsite as VOGUE中国官方微博; 2025 archived handle resolves UID1655526104 titled VogueFilm. Current public bio says VogueFilm时装电影官方账号 and institutional tag names 《VOGUE服饰与美容》杂志官网. Do not substitute same-named UID6610595351."
+    },
+    {
+      "id": "harpers-bazaar-china", "outlet_id": "harpers-bazaar", "uid": "1708288824", "handle": null,
+      "display_name": "时尚芭莎", "profile_url": "https://weibo.com/u/1708288824", "language": "zh-Hans",
+      "operator": "Harper's BAZAAR China operation; exact current legal account operator unresolved",
+      "relationship": "Explicitly identified Harper's BAZAAR Chinese edition; current licensing contract and U.S.-newsroom operation not asserted",
+      "officialness": "confirmed", "existence": "current_evidence", "accessibility": "unknown",
+      "notes": "Public Sina institutional tag explicitly states 《时尚芭莎》官方微博 and bio identifies Harper's BAZAAR中国版. Specialist fashion/culture media; not counted as an additional U.S. general-news website."
+    },
+    {
+      "id": "wwd-china", "outlet_id": "wwd", "uid": "7207615461", "handle": null,
+      "display_name": "WWD国际时尚特讯", "profile_url": "https://weibo.com/u/7207615461", "language": "zh-Hans",
+      "operator": "WWD China / Chinamind Next operation, named in the Chinese publisher site; exact legal account-owning entity not separately established",
+      "relationship": "Chinese edition of New York-origin fashion-industry trade-news publisher WWD; not the U.S. newsroom account",
+      "officialness": "confirmed", "existence": "current_evidence", "accessibility": "unknown",
+      "notes": "Publisher's public common JavaScript footer explicitly names its Sina account @WWD国际时尚特讯; no script was executed. Current Sina institutional profile binds that display name to UID7207615461 and describes the WWD Chinese edition and 2019 China launch."
     },
     {
       "id": "wsj-chinese-candidate", "outlet_id": "wsj", "uid": "1649159940", "handle": "chinesewsj",
@@ -375,6 +508,174 @@
       "source_url": "https://www.sina.cn/media/2514536744", "source_type": "platform_certification",
       "observed_at": "2026-10-21T15:23:02.049310+00:00", "claim_date": null, "supports": "identity",
       "justification": "Public Sina profile title names 洛杉磯世界日報 and tag explicitly states 美国洛杉矶世界日报官方微博; its bio describes Los Angeles local reporting and North American Chinese audiences."
+    },
+    {
+      "id": "sinovision-publisher-link", "account_id": "sinovision-weibo",
+      "source_url": "https://web.archive.org/web/20160105132012id_/http://sinovision.net/", "source_type": "publisher_link",
+      "observed_at": "2026-10-21T00:00:00+00:00", "claim_date": "2016-01-05T13:20:12+00:00", "supports": "historical",
+      "justification": "Archived publisher homepage titled 首页 - 美国中文网 contains a direct social anchor to http://weibo.com/sinovision. Positive publisher ownership evidence, unlike incidental share buttons in other sampled years."
+    },
+    {
+      "id": "sinovision-archived-uid", "account_id": "sinovision-weibo",
+      "source_url": "https://web.archive.org/web/20170606193458id_/http://weibo.com/sinovision", "source_type": "archived_profile",
+      "observed_at": "2026-10-21T00:00:00+00:00", "claim_date": "2017-06-06T19:34:58+00:00", "supports": "historical",
+      "justification": "Publisher-linked sinovision archive title names 美国中文电视; CONFIG oid is 1885985453 and onick is 美国中文电视. Bio names 美国中文电视、美国中文网 and sinovision.net."
+    },
+    {
+      "id": "sinovision-current-profile", "account_id": "sinovision-weibo",
+      "source_url": "https://www.sina.cn/media/1885985453", "source_type": "platform_profile",
+      "observed_at": "2026-10-21T00:00:00+00:00", "claim_date": null, "supports": "access",
+      "justification": "Public profile keeps 美国中文电视 title, names sinovision.net and describes the U.S. Chinese-content broadcaster established1990. Visible feed includes October21,2026 material; no full-history claim."
+    },
+    {
+      "id": "ktsf-publisher-link", "account_id": "ktsf-weibo",
+      "source_url": "https://web.archive.org/web/20120106034541id_/http://ktsf.com/", "source_type": "publisher_link",
+      "observed_at": "2026-10-21T00:00:00+00:00", "claim_date": "2012-01-06T03:45:41+00:00", "supports": "historical",
+      "justification": "Archived KTSF Channel26 institutional homepage contains an anchor to http://www.weibo.com/ktsf26 with an image alt Weibo."
+    },
+    {
+      "id": "ktsf-archived-uid", "account_id": "ktsf-weibo",
+      "source_url": "https://web.archive.org/web/20111005002143id_/http://weibo.com/ktsf26", "source_type": "platform_certification",
+      "observed_at": "2026-10-21T00:00:00+00:00", "claim_date": "2011-10-05T00:21:43+00:00", "supports": "historical",
+      "justification": "Archived ktsf26 page title is KTSF26台; legacy oid marker is 2413381772 and organization text says 美国旧金山华语电视台-KTSF26台. Binds publisher-linked handle to stable UID."
+    },
+    {
+      "id": "ktsf-current-profile", "account_id": "ktsf-weibo",
+      "source_url": "https://www.sina.cn/media/2413381772", "source_type": "platform_profile",
+      "observed_at": "2026-10-21T00:00:00+00:00", "claim_date": null, "supports": "access",
+      "justification": "Public profile still names KTSF26台 and 美国旧金山华语电视台-KTSF26台. Latest visible material dated August8,2020; retained as historical official identity, not a current-active claim."
+    },
+    {
+      "id": "fast-company-publisher-link", "account_id": "fast-company-china-historical",
+      "source_url": "https://web.archive.org/web/20170313024259id_/http://www.fastcompany.cn/", "source_type": "publisher_link",
+      "observed_at": "2026-10-21T16:52:54.461460+00:00", "claim_date": "2017-03-13T02:42:59+00:00", "supports": "historical",
+      "justification": "Archived 快公司中文网 publisher homepage directly links http://e.weibo.com/fcchinese as 新浪微博. Footer names 上海星捷迅驰文化发展有限公司."
+    },
+    {
+      "id": "fast-company-archived-uid", "account_id": "fast-company-china-historical",
+      "source_url": "https://web.archive.org/web/20171104080303id_/http://weibo.com/fcchinese", "source_type": "archived_profile",
+      "observed_at": "2026-10-21T16:54:36.660482+00:00", "claim_date": "2017-11-04T08:03:03+00:00", "supports": "historical",
+      "justification": "Archived publisher-linked fcchinese profile title names 快公司, CONFIG oid is 3181199897 and recognizable account feed records are present. Current public Sina profile uses the expanded 快公司FastCompany name under that UID."
+    },
+    {
+      "id": "fast-company-current-profile", "account_id": "fast-company-china-historical",
+      "source_url": "https://www.sina.cn/media/3181199897", "source_type": "platform_profile",
+      "observed_at": "2026-10-21T16:55:29.481968+00:00", "claim_date": null, "supports": "access",
+      "justification": "Public profile title is 快公司FastCompany; bio describes Fast Company as a business/innovation publication. Same UID remains observable; current license/operator status is not independently asserted."
+    },
+    {
+      "id": "techcrunch-us-edition-launch", "account_id": "techcrunch-china-historical",
+      "source_url": "https://techcrunch.com/2013/08/06/techcrunch-china-is-our-latest-international-expansion-and-its-live-now/", "source_type": "publisher_statement",
+      "observed_at": "2026-10-21T00:00:00+00:00", "claim_date": "2013-08-06", "supports": "relationship",
+      "justification": "U.S. publisher announces its Chinese-language edition and TechNode partnership; establishes historical edition relationship, not a present-day license or current UID brand."
+    },
+    {
+      "id": "techcrunch-publisher-link", "account_id": "techcrunch-china-historical",
+      "source_url": "https://web.archive.org/web/20190101004152id_/https://techcrunch.cn/", "source_type": "publisher_link",
+      "observed_at": "2026-10-21T16:52:56.532575+00:00", "claim_date": "2019-01-01T00:41:52+00:00", "supports": "historical",
+      "justification": "Archived TechCrunch中文版 publisher homepage's Follow Us section directly links https://weibo.com/tcchinese; separate service.weibo.com share buttons were excluded."
+    },
+    {
+      "id": "techcrunch-archived-uid", "account_id": "techcrunch-china-historical",
+      "source_url": "https://web.archive.org/web/20190419102649id_/https://www.weibo.com/tcchinese", "source_type": "archived_profile",
+      "observed_at": "2026-10-21T16:53:03.382751+00:00", "claim_date": "2019-04-19T10:26:49+00:00", "supports": "historical",
+      "justification": "Archived tcchinese profile title is TechCrunch中文版 and CONFIG oid is 3561737261. Feed material in this inspected capture is December2018-April2019, outside the requested corpus window."
+    },
+    {
+      "id": "technode-partnership-dates", "account_id": "techcrunch-china-historical",
+      "source_url": "https://technode.com/about/", "source_type": "publisher_statement",
+      "observed_at": "2026-10-21T00:00:00+00:00", "claim_date": null, "supports": "relationship",
+      "justification": "TechNode's own about page explicitly dates its exclusive China partnership with TechCrunch to 2013-2019. Current independent TechNode output must not be assumed to remain TechCrunch publication."
+    },
+    {
+      "id": "techcrunch-uid-rebrand", "account_id": "techcrunch-china-historical",
+      "source_url": "https://www.sina.cn/media/3561737261", "source_type": "platform_profile",
+      "observed_at": "2026-10-21T16:48:07.524914+00:00", "claim_date": null, "supports": "access",
+      "justification": "Current public UID is named 动点出海 and explicitly describes a TechNode outbound-business vertical. This is evidence of rebranding, not a current TechCrunch account. Its current feed must fail the historical display-name gate."
+    },
+    {
+      "id": "gq-current-publisher-link", "account_id": "gq-china",
+      "source_url": "https://www.gq.com.cn/", "source_type": "publisher_link",
+      "observed_at": "2026-10-21T16:50:19.627114+00:00", "claim_date": null, "supports": "identity",
+      "justification": "Current Chinese publisher footer lists 官方微博 and directly links https://weibo.com/u/9150715932. This is a publisher-owned UID binding, not inference from a name or logo."
+    },
+    {
+      "id": "gq-current-platform-profile", "account_id": "gq-china",
+      "source_url": "https://www.sina.cn/media/9150715932", "source_type": "platform_certification",
+      "observed_at": "2026-10-21T16:51:15.641760+00:00", "claim_date": null, "supports": "identity",
+      "justification": "Public Sina title GQofficial, bio and institution-naming tag explicitly state GQ官方微博. UID agrees with current publisher homepage."
+    },
+    {
+      "id": "gq-china-relaunch", "account_id": "gq-china",
+      "source_url": "https://www.condenast.com/de/news/gq-relaunches-china-operations", "source_type": "publisher_statement",
+      "observed_at": "2026-10-21T00:00:00+00:00", "claim_date": "2026-01-15", "supports": "relationship",
+      "justification": "Publisher's relaunch statement identifies the GQ China collaboration with Nanfang Media Group and January15,2026 debut of Jingying GQ. Separate edition relationship from U.S.-newsroom operation."
+    },
+    {
+      "id": "vogue-publisher-link", "account_id": "vogue-china",
+      "source_url": "https://web.archive.org/web/20200101043855id_/http://www.vogue.com.cn/", "source_type": "publisher_link",
+      "observed_at": "2026-10-21T16:52:46.051849+00:00", "claim_date": "2020-01-01T04:38:55+00:00", "supports": "historical",
+      "justification": "Archived VOGUE Chinese publisher homepage directly links //weibo.com/voguechina in its institutional navigation. A distinct website account link was not conflated with this magazine account."
+    },
+    {
+      "id": "vogue-archived-uid", "account_id": "vogue-china",
+      "source_url": "https://web.archive.org/web/20260201065319id_/https://weibo.com/voguechina", "source_type": "archived_profile",
+      "observed_at": "2026-10-21T16:53:00.145578+00:00", "claim_date": "2026-02-01T06:53:19+00:00", "supports": "historical",
+      "justification": "Archived voguechina title names VOGUE服饰与美容 and CONFIG oid is 1765870915. Capture contains 15 verifiable posts published January30-February1,2026."
+    },
+    {
+      "id": "vogue-current-platform-profile", "account_id": "vogue-china",
+      "source_url": "https://www.sina.cn/media/1765870915", "source_type": "platform_certification",
+      "observed_at": "2026-10-21T16:55:35.668870+00:00", "claim_date": null, "supports": "identity",
+      "justification": "Public title VOGUE服饰与美容 and institution tag explicitly state 《Vogue服饰与美容》杂志官方微博; UID matches the publisher-linked handle's archive."
+    },
+    {
+      "id": "vogue-china-partnership", "account_id": "vogue-china",
+      "source_url": "https://www.condenast.com/news/rocco-liu-vogue", "source_type": "publisher_statement",
+      "observed_at": "2026-10-21T00:00:00+00:00", "claim_date": "2024-07-12", "supports": "relationship",
+      "justification": "Condé Nast identifies 服饰与美容 Vogue and describes the China publication as operating under a copyright cooperation partnership. This does not identify the account as Vogue U.S."
+    },
+    {
+      "id": "vogue-website-publisher-link", "account_id": "vogue-china-film",
+      "source_url": "https://web.archive.org/web/20200101043855id_/http://www.vogue.com.cn/", "source_type": "publisher_link",
+      "observed_at": "2026-10-21T16:52:46.051849+00:00", "claim_date": "2020-01-01T04:38:55+00:00", "supports": "historical",
+      "justification": "Archived publisher footer links //weibo.com/voguewebsite and explicitly labels it VOGUE中国官方微博. Separate from the voguechina magazine profile anchor."
+    },
+    {
+      "id": "vogue-website-archived-uid", "account_id": "vogue-china-film",
+      "source_url": "https://web.archive.org/web/20250102174924id_/https://weibo.com/voguewebsite", "source_type": "archived_profile",
+      "observed_at": "2026-10-21T17:01:03.086893+00:00", "claim_date": "2025-01-02T17:49:24+00:00", "supports": "historical",
+      "justification": "Publisher-linked voguewebsite archive has title VogueFilm and CONFIG oid1655526104. This disproves the shortcut of binding the similarly named UID6610595351 to that publisher-linked handle."
+    },
+    {
+      "id": "vogue-film-current-profile", "account_id": "vogue-china-film",
+      "source_url": "https://www.sina.cn/media/1655526104", "source_type": "platform_certification",
+      "observed_at": "2026-10-21T17:01:48.826754+00:00", "claim_date": null, "supports": "identity",
+      "justification": "Current public title VogueFilm, bio VogueFilm时装电影官方账号 and institutional tag 《VOGUE服饰与美容》杂志官网 connect the website account's current film channel to the same publisher."
+    },
+    {
+      "id": "harpers-bazaar-platform-profile", "account_id": "harpers-bazaar-china",
+      "source_url": "https://www.sina.cn/media/1708288824", "source_type": "platform_certification",
+      "observed_at": "2026-10-21T16:51:24.180221+00:00", "claim_date": null, "supports": "identity",
+      "justification": "Public institution-naming tag explicitly says 《时尚芭莎》官方微博. Bio independently identifies the publication as Harper's BAZAAR中国版. Current legal licensing terms are not inferred."
+    },
+    {
+      "id": "harpers-bazaar-hearst-editions", "account_id": "harpers-bazaar-china",
+      "source_url": "https://www.hearstglobalsolutions.com/brands/harpers-bazaar", "source_type": "publisher_statement",
+      "observed_at": "2026-10-21T00:00:00+00:00", "claim_date": null, "supports": "relationship",
+      "justification": "Hearst's own global brand page lists China among Harper's BAZAAR editions. This independently corroborates the China-edition relationship; dated audience metrics on the page are not treated as current and it does not independently establish legal account ownership."
+    },
+    {
+      "id": "wwd-publisher-weibo-declaration", "account_id": "wwd-china",
+      "source_url": "https://www.wwdgreaterchina.com/build/js/common-2.0.13.min.js", "source_type": "publisher_statement",
+      "observed_at": "2026-10-21T16:52:46.053171+00:00", "claim_date": null, "supports": "identity",
+      "justification": "Publisher's own public static footer explicitly names @WWD国际时尚特讯 beside its Sina icon and Weibo QR reference. Read as text without executing JavaScript or downloading QR/media. Corresponding public institutional profile resolves that display name to UID7207615461."
+    },
+    {
+      "id": "wwd-platform-edition-profile", "account_id": "wwd-china",
+      "source_url": "https://www.sina.cn/media/7207615461", "source_type": "platform_profile",
+      "observed_at": "2026-10-21T16:51:26.439542+00:00", "claim_date": null, "supports": "relationship",
+      "justification": "Public title WWD国际时尚特讯 matches the publisher-declared Weibo name. Institutional tag names WWD中文版; bio identifies Women's Wear Daily's New York origins, its fashion-industry news role and 2019 China launch. This is a Chinese trade-news edition, not the U.S. newsroom."
     },
     {
       "id": "wsj-archived-publisher-link", "account_id": "wsj-chinese-candidate",

@@ -156,6 +156,7 @@ def report(db, path):
               "text is reproduced in this report. See [top-1,000 U.S. website screening](top1000_us_screening.md) "
               "for the separate ranked discovery roster, [collection follow-up](collection_followup.md) "
               "for explicit account/post assessments and the scraper evaluation, and "
+              "[further discovery](discovery_round2.md) for subsequent publisher-link research, and "
               "[access pilot](access_pilot.md) for source-level "
               "access checks and archive gaps.", ""]
     target = Path(path)

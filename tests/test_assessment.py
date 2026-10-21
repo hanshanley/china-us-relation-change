@@ -102,11 +102,15 @@ class AssessmentTest(unittest.TestCase):
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
             source = root / "registry.json"
-            source.write_text(json.dumps(registry()))
+            data = registry()
+            data["outlets"].append(dict(data["outlets"][0], id="cnn", name="CNN",
+                                        source_url="https://www.cnn.com/"))
+            source.write_text(json.dumps(data))
             db = connect(root / "database.sqlite")
             load(db, source)
             rows = [{"domain": f"ranked-{n}.test", "name": f"Publisher {n}", "us_position": n}
                     for n in range(1, 1001)]
+            rows[0].update(domain="edition.cnn.com", name="CNN")
             roster, screening, journal = root / "roster.csv", root / "screen.csv", root / "checks.jsonl"
             write_csv(roster, rows, list(rows[0]))
             write_csv(screening, [{"domain": r["domain"], "status": "screened_no_link"}
@@ -125,6 +129,7 @@ class AssessmentTest(unittest.TestCase):
             self.assertIsNone(combined[-1]["us_position"])
             self.assertTrue(combined[-1]["has_ever_official_weibo"])
             self.assertEqual(combined[-1]["account_ids"], ["test-account"])
+            self.assertEqual(combined[0]["manual_review"][0]["outlet_id"], "cnn")
             self.assertEqual(combined[-1]["post_collection"]["test-account"]["status"], "not_attempted")
             self.assertTrue(all(r["has_ever_official_weibo"] is None for r in combined[:1000]))
             db.close()

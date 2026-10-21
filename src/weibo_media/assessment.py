@@ -150,7 +150,7 @@ def domain_key(url):
 def outlet_domain(outlet):
     return {"forbes": "forbes.com", "fortune": "fortune.com", "hbr": "hbr.org",
             "nyt": "nytimes.com", "wsj": "wsj.com", "bloomberg": "bloomberg.com",
-            "scientific-american": "scientificamerican.com"}.get(
+            "scientific-american": "scientificamerican.com", "cnn": "edition.cnn.com"}.get(
                 outlet["id"], domain_key(outlet["source_url"]))
 
 

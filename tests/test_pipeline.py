@@ -166,6 +166,16 @@ class PipelineTest(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "identity"):
             parse_feed(feed([record()]), "Another outlet")
 
+    def test_rebranded_uid_does_not_import_another_publisher_as_historical_account(self):
+        url = "https://www.sina.cn/media/" + UID
+        client = FakeClient({url: feed([record()]).replace(
+            "测试媒体的微博_新浪新闻", "Unrelated Brand的微博_新浪新闻")})
+        run = collect_account(self.db, "test-account", *self.bounds, client, limit=10)
+        self.assertIn("identity", run["error"])
+        self.assertEqual(run["posts_recovered"], 0)
+        self.assertEqual(self.db.execute("SELECT COUNT(*) FROM posts").fetchone()[0], 0)
+        self.assertEqual(client.calls, [url])
+
     def test_resume_skips_old_pinned_post_without_stopping_and_deduplicates(self):
         pinned = record("90071992547409930", "2019-01-01 00:00")
         client = FakeClient({
