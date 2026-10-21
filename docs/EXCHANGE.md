@@ -82,7 +82,8 @@ unverified or blocked. Selecting one shows its specific gap instead of a zero.
 manual dispatch. It also checks relevant implementation pushes. There is no
 deployment step.
 
-The workflow checks the existing publication/parsers, refreshes sources, builds
+The workflow uses Ubuntu 24.04 and Python 3.12 rather than a moving runner image.
+It checks the existing publication/parsers, refreshes sources, builds
 offline, then checks downloads, computations and browser behavior before any
 publication commit. A concurrency group serializes refresh jobs. Unexpected
 remote branch advances fail a push rather than forcing or rewriting history.
