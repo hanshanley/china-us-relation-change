@@ -31,7 +31,8 @@ def report(db, path):
         "",
         f"**Posts recovered for {recovered_accounts} of {len(confirmed)} confirmed accounts.** "
         f"{unattempted} confirmed accounts have no recorded collection attempt. "
-        "Zero recovered posts after an attempt means an access/coverage gap, not zero account output.",
+        "Zero recovered posts after an attempt can reflect access, attribution or coverage limits, "
+        "not zero account output.",
         "There is no verified-negative outlet list: missing publisher links and access failures "
         "remain unknowns. The complete ranked and supplemental account-status ledger is linked "
         "in the [collection follow-up](collection_followup.md).",
@@ -164,8 +165,9 @@ def report(db, path):
               "for the separate ranked discovery roster, [collection follow-up](collection_followup.md) "
               "for explicit account/post assessments and the scraper evaluation, "
               "[further discovery](discovery_round2.md) for subsequent publisher-link research, "
-              "[continued discovery](discovery_iteration3.md) for additional identities, licensing "
-              "cutoffs and false-lead audits, and [access pilot](access_pilot.md) for source-level "
+              "[continued discovery](discovery_iteration3.md) for additional identities and licensing "
+              "cutoffs, [further publisher traces](discovery_iteration4.md) for subsequent ranked, "
+              "technology and historical-account checks, and [access pilot](access_pilot.md) for source-level "
               "access checks and archive gaps.", ""]
     target = Path(path)
     target.parent.mkdir(parents=True, exist_ok=True)

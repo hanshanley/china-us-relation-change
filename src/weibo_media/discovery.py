@@ -352,7 +352,9 @@ def publish(roster_path, screening_directory, directory, report_path):
         "adds further business, technology, U.S. Chinese-language and licensed specialist-media "
         "identities, including the separate NYT-licensed T China style edition. It also records "
         "publisher-announced license termination: unchanged profile names do not establish a "
-        "continuing U.S. license. Current status and legal operator uncertainty remain explicit.", "",
+        "continuing U.S. license. [Further publisher traces](discovery_iteration4.md) verify "
+        "additional ranked publishers and reconstruct historical channel/UID changes without "
+        "relabeling independent successor posts. Current status and legal operator uncertainty remain explicit.", "",
         "## Complete machine-readable deliverables", "",
         "- [All 1,000 ranked U.S. domains](../data/discovery/us_top1000.csv)",
         "- [Ranking source manifest](../data/discovery/us_top1000.manifest.json)",

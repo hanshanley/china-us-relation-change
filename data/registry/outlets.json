@@ -44,9 +44,9 @@
     },
     {
       "id": "wsj", "name": "The Wall Street Journal", "category": "newspaper",
-      "aliases": ["华尔街日报", "华尔街日报中文网"], "us_basis": "U.S. newspaper; Chinese-language edition.",
+      "aliases": ["华尔街日报", "华尔街日报中文网", "出色WSJ中文版"], "us_basis": "U.S. newspaper; historical Chinese-language news account and separately licensed WSJ Magazine Chinese style edition.",
       "source_url": "https://cn.wsj.com/", "research_status": "reviewed",
-      "notes": "Historical officialness now verified: archived WSJ Chinese homepage links to chinesewsj (2018); archived platform profile binds that handle to UID 1649159940 (2019). Current publisher access returned HTTP 401; present account activity remains unverified. Review date: 2026-10-21."
+      "notes": "Historical Chinese-news account chinesewsj UID1649159940 remains distinct from the WSJ Magazine Chinese style edition. A 2022 institutional archive verifies 出色WSJ中文版 UID6596153448, matching the launch article's exact account link and Dow Jones' own executive interview about the Huasheng partnership. That UID now uses FASTCOMPANY中文版; current posts are not imported as WSJ, nor is the new brand's U.S. license inferred. Two historical accounts, one WSJ publisher/domain. Review date: 2026-10-21."
     },
     {
       "id": "bloomberg", "name": "Bloomberg / Bloomberg Businessweek China", "category": "business",
@@ -343,6 +343,24 @@
       "notes": "2021/2023 archived certified profiles bind esquire to UID1195397063. Hearst says it announced termination of the China license in November2023; the same displayed name persists in 2026 and is not proof of license renewal. Collection excludes November1,2023 onward, conservatively before that announced month. A search result merely discussing an Esquire cover was authored by an unrelated entertainment account and was rejected as an identity lead. Review date: 2026-10-21."
     },
     {
+      "id": "car-and-driver", "name": "Car and Driver / China", "category": "automotive_news",
+      "aliases": ["名车志", "名车志Daily", "名车志CAR AND DRIVER"], "us_basis": "U.S.-based automotive publication owned by Hearst; Hearst's own China pages explicitly map Car and Driver to 名车志 and its Chinese website.",
+      "source_url": "https://www.caranddriver.com/", "research_status": "reviewed",
+      "notes": "Hearst identifies the 1995 China copyright partnership with Shanghai Century Publishing and the later cad.com.cn/Daily website. Current Sina institutional profiles distinguish the magazine UID1649873781 from website/Daily UID1993356640; the archived publisher links cadweb, bound to the latter UID. Daily's latest visible post is March2019; not called currently active. Two accounts, one supplementary publisher. Exact2026 licensing terms not independently audited. Review date: 2026-10-21."
+    },
+    {
+      "id": "vice", "name": "VICE / historical China operation", "category": "digital_news",
+      "aliases": ["VICE中国", "异视频"], "us_basis": "Canadian-founded but U.S.-based global digital-news/documentary company; first-party corporate releases identify Brooklyn, New York headquarters and U.S. operations.",
+      "source_url": "https://www.vice.com/", "research_status": "reviewed",
+      "notes": "2017/2019 archived vice.cn social navigation links vicechina and viceland. Archived profiles bind the main China UID2163553891 and local video-channel UID5636758069. The operator's reported October1,2019 announcement ended VICE and associated brands; current BIE别的 and Real Image Media output is excluded. Handle viceland here identifies the local 异视频 channel, not automatically the U.S. television network. Review date: 2026-10-21."
+    },
+    {
+      "id": "barrons", "name": "Barron's / China", "category": "business",
+      "aliases": ["Barrons巴伦", "巴伦", "巴伦周刊", "巴伦中国"], "us_basis": "U.S. investment-news publication published by Dow Jones; source position122 in the selected U.S. media roster.",
+      "source_url": "https://www.barrons.com/", "research_status": "reviewed",
+      "notes": "Current Sina certification explicitly identifies the official Barron's investment-news platform under UID6890696793, with a bio naming its official Chinese channel. Dow Jones' own December11,2018 release documents a ten-year China partnership with Caijing; current legal account ownership and any later contract changes are not independently audited. The separate MarketWatch brand is not inferred to have an account from common ownership. Review date: 2026-10-21."
+    },
+    {
       "id": "instyle", "name": "InStyle / China", "category": "lifestyle",
       "aliases": ["InStyle优家", "InStyle优家画报", "优家画报"], "us_basis": "U.S.-origin magazine brand; Time Inc.'s first-party May3,2017 announcement documents its licensed Chinese weekly with Modern Media.",
       "source_url": "https://www.instyle.com/", "research_status": "reviewed",
@@ -624,6 +642,56 @@
       "relationship": "Institutionally identified Chinese lifestyle edition of InStyle; U.S. publisher documented its Modern Media license/launch, not U.S.-newsroom operation",
       "officialness": "confirmed", "existence": "current_evidence", "accessibility": "unknown",
       "notes": "Public Sina bio explicitly identifies the simplified-Chinese InStyle edition and institutional tag names Instyle 优家画报官方微博. Time Inc.'s May3,2017 first-party launch announcement corroborates the edition identity and Modern Media relationship; it does not independently prove current contract renewal."
+    },
+    {
+      "id": "car-and-driver-china-magazine", "outlet_id": "car-and-driver", "uid": "1649873781", "handle": null,
+      "display_name": "名车志", "profile_url": "https://weibo.com/u/1649873781", "language": "zh-Hans",
+      "operator": "Car and Driver China / 名车志; Hearst documents Shanghai Century Publishing copyright cooperation, exact current legal account owner not separately audited",
+      "relationship": "Chinese automotive-news magazine edition of Car and Driver; not the U.S. editorial account",
+      "officialness": "confirmed", "existence": "current_evidence", "accessibility": "unknown",
+      "notes": "Current institution explicitly names 《名车志》官方微博; bio identifies the U.S.1955 publication and 1995 China introduction. Hearst's own Chinese brand/licensing pages independently provide the exact English/Chinese edition bridge. Current identity evidence does not independently establish unchanged2026 legal terms."
+    },
+    {
+      "id": "car-and-driver-china-daily", "outlet_id": "car-and-driver", "uid": "1993356640", "handle": "cadweb",
+      "display_name": "名车志Daily", "profile_url": "https://weibo.com/cadweb", "language": "zh-Hans",
+      "operator": "Historical cad.com.cn / Car and Driver China website and Daily operation; current legal operator unresolved",
+      "relationship": "Publisher-linked Chinese website/Daily channel of Car and Driver, separate from its magazine account",
+      "officialness": "confirmed", "existence": "historical", "accessibility": "unknown",
+      "notes": "2014 publisher navigation labels its official Weibo and links cadweb; 2013 archive binds UID1993356640. Current public tag says 《名车志》中文网官方微博, but the newest visible post is March6,2019. Observable profile identity is not evidence of current activity or recovered2020+ posts."
+    },
+    {
+      "id": "vice-china-historical", "outlet_id": "vice", "uid": "2163553891", "handle": "vicechina",
+      "display_name": "VICE中国", "profile_url": "https://weibo.com/vicechina", "language": "zh-Hans",
+      "operator": "Historical 异视异色（北京）文化传播有限公司 / VICE China partner; current UID is BIE别的",
+      "relationship": "Historical publisher-linked Chinese VICE news/culture operation; independent BIE output after closure is excluded",
+      "attribution_end": "2019-10-01",
+      "officialness": "confirmed", "existence": "historical", "accessibility": "unknown",
+      "notes": "2017/2019 publisher pages link vicechina; January2019 profile binds UID2163553891 and VICE中国. Original2020 reporting quotes the operator's October1,2019 announcement stopping VICE and associated brands. Current BIE别的 is not treated as a current VICE account. The attribution cutoff precedes the requested2020-2026 corpus window."
+    },
+    {
+      "id": "vice-china-video-historical", "outlet_id": "vice", "uid": "5636758069", "handle": "viceland",
+      "display_name": "异视频", "profile_url": "https://weibo.com/viceland", "language": "zh-Hans",
+      "operator": "Historical VICE China local video channel; current institutional bio names Real Image Media",
+      "relationship": "Historical publisher-linked Chinese VICE video channel; vanity handle viceland does not establish it as the U.S. VICELAND television account",
+      "attribution_end": "2019-10-01",
+      "officialness": "confirmed", "existence": "historical", "accessibility": "unknown",
+      "notes": "2019 vice.cn links viceland repeatedly in its own social navigation; archived profile binds UID5636758069 and title 异视频. Current institution names Real Image Media and has no recognizable visible feed. That empty view is not zero historical output. Operator closure cutoff excludes later independent/local-brand posts even if the display name is unchanged."
+    },
+    {
+      "id": "wsj-magazine-china-historical", "outlet_id": "wsj", "uid": "6596153448", "handle": null,
+      "display_name": "出色WSJ中文版", "profile_url": "https://weibo.com/u/6596153448", "language": "zh-Hans",
+      "operator": "Historical WSJ Magazine Chinese edition / Huasheng Media partnership; current UID is FASTCOMPANY中文版",
+      "relationship": "Historically licensed Chinese style/culture edition of WSJ Magazine; not the WSJ Chinese-news account, and current Fast Company branding is not automatically attributed to WSJ",
+      "officialness": "confirmed", "existence": "historical", "accessibility": "unknown",
+      "notes": "Launch article's exact numeric profile link resolves a UID previously seen only as an unresolved Fast Company lead. May2022 archive explicitly certifies 《出色WSJ》中文版 and binds the UID. Dow Jones executive's first-hand interview confirms the Huasheng WSJ Magazine partnership. Current FASTCOMPANY中文版 is rejected by the WSJ name gate; no second account is invented for the same UID."
+    },
+    {
+      "id": "barrons-china", "outlet_id": "barrons", "uid": "6890696793", "handle": null,
+      "display_name": "Barrons巴伦", "profile_url": "https://weibo.com/u/6890696793", "language": "zh-Hans",
+      "operator": "Barron's Chinese platform / Caijing partnership announced by Dow Jones; exact legal account-owning entity not separately established",
+      "relationship": "Chinese-language investment-news edition/channel of Barron's, with a publisher-announced Caijing partnership; not assumed to be the U.S. newsroom's direct account",
+      "officialness": "confirmed", "existence": "current_evidence", "accessibility": "unknown",
+      "notes": "Institutional tag explicitly names 全球投资资讯和服务平台《巴伦》（barron's）官方微博 and bio identifies the official Chinese platform. Publisher-issued 2018 statement describes a ten-year franchise partnership with Caijing. This supports the edition relationship, not proof of unchanged legal contract terms as of2026."
     },
     {
       "id": "wsj-chinese-candidate", "outlet_id": "wsj", "uid": "1649159940", "handle": "chinesewsj",
@@ -1246,6 +1314,144 @@
       "source_url": "https://news.people.inc/time-inc-archives?item=194", "source_type": "publisher_statement",
       "observed_at": "2026-10-21T18:20:02.488249+00:00", "claim_date": "2017-05-03", "supports": "relationship",
       "justification": "Time Inc.'s corporate announcement, preserved by its successor publisher, explicitly documents the licensed launch of INSTYLE Modern Lady with Modern Media Group and identifies the weekly formerly called Modern Lady. First-party edition/partner proof, not a retailer's translation."
+    },
+    {
+      "id": "car-driver-magazine-institution", "account_id": "car-and-driver-china-magazine",
+      "source_url": "https://www.sina.cn/media/1649873781", "source_type": "platform_certification",
+      "observed_at": "2026-10-21T19:49:00.328546+00:00", "claim_date": null, "supports": "identity",
+      "justification": "Explicit 《名车志》官方微博 institutional tag and bio naming the U.S.1955 publication/1995 China launch identify the magazine account. Hearst's separate first-party licensing pages map the Chinese name to Car and Driver."
+    },
+    {
+      "id": "car-driver-magazine-publisher-license", "account_id": "car-and-driver-china-magazine",
+      "source_url": "https://www.hearst.com.cn/2013/1112/118.shtml", "source_type": "publisher_statement",
+      "observed_at": "2026-10-21T19:59:23.030615+00:00", "claim_date": "2013-11-12", "supports": "relationship",
+      "justification": "Hearst's own Chinese page explicitly identifies Car and Driver China and the 1995 copyright cooperation with Shanghai Century Publishing. Readable in the public indexed publisher source; scripted403 was not bypassed. Historical edition bridge, not independent proof of2026 renewal."
+    },
+    {
+      "id": "car-driver-magazine-platform-family", "account_id": "car-and-driver-china-magazine",
+      "source_url": "https://www.hearst.com.cn/brand/caranddriver/", "source_type": "publisher_statement",
+      "observed_at": "2026-10-21T19:59:22.196458+00:00", "claim_date": null, "supports": "relationship",
+      "justification": "Publisher brand page explicitly identifies Car and Driver名车志 and its magazine, cad.com.cn website, apps and Daily channels. Public indexed page was read; direct client403 was not circumvented."
+    },
+    {
+      "id": "car-driver-daily-institution", "account_id": "car-and-driver-china-daily",
+      "source_url": "https://www.sina.cn/media/1993356640", "source_type": "platform_certification",
+      "observed_at": "2026-10-21T19:49:02.559340+00:00", "claim_date": null, "supports": "identity",
+      "justification": "Institutional tag explicitly names 《名车志》中文网官方微博, with current title 名车志Daily. Latest visible publication is March6,2019; no current posting or2020+ recovery is inferred."
+    },
+    {
+      "id": "car-driver-daily-publisher-link", "account_id": "car-and-driver-china-daily",
+      "source_url": "https://web.archive.org/web/20140101230958id_/http://www.cad.com.cn/", "source_type": "publisher_link",
+      "observed_at": "2026-10-21T19:51:16.422500+00:00", "claim_date": "2014-01-01T23:09:58+00:00", "supports": "historical",
+      "justification": "Archived publisher's subscription/social navigation labels 官方微博 and links weibo.com/cadweb. This is publisher-managed navigation, not a user's article mention."
+    },
+    {
+      "id": "car-driver-daily-2013-uid", "account_id": "car-and-driver-china-daily",
+      "source_url": "https://web.archive.org/web/20130926184655id_/http://www.weibo.com/cadweb", "source_type": "archived_profile",
+      "observed_at": "2026-10-21T19:55:41.761885+00:00", "claim_date": "2013-09-26T18:46:55+00:00", "supports": "historical",
+      "justification": "Publisher-linked handle's archived title 名车志Daily and CONFIG oid1993356640 bind the website account. Distinct from the magazine UID1649873781."
+    },
+    {
+      "id": "car-driver-daily-publisher-family", "account_id": "car-and-driver-china-daily",
+      "source_url": "https://www.hearst.com.cn/brand/caranddriver/", "source_type": "publisher_statement",
+      "observed_at": "2026-10-21T19:59:22.196458+00:00", "claim_date": null, "supports": "relationship",
+      "justification": "Hearst's first-party brand page directly names cad.com.cn as the Chinese Car and Driver site and records its 2012 Daily relaunch, avoiding an English/Chinese-name inference alone."
+    },
+    {
+      "id": "vice-china-publisher-link", "account_id": "vice-china-historical",
+      "source_url": "https://web.archive.org/web/20170101142049id_/http://www.vice.cn/", "source_type": "publisher_link",
+      "observed_at": "2026-10-21T19:51:20.115028+00:00", "claim_date": "2017-01-01T14:20:49+00:00", "supports": "historical",
+      "justification": "VICE China's own archived homepage links weibo.com/vicechina in its managed social navigation. January2019 publisher capture repeats the link."
+    },
+    {
+      "id": "vice-china-2019-profile", "account_id": "vice-china-historical",
+      "source_url": "https://web.archive.org/web/20190126214004id_/https://www.weibo.com/vicechina", "source_type": "archived_profile",
+      "observed_at": "2026-10-21T19:55:44.745733+00:00", "claim_date": "2019-01-26T21:40:04+00:00", "supports": "historical",
+      "justification": "Publisher-linked profile title VICE中国, CONFIG oid2163553891 and institution naming 异视异色（北京）文化传播有限公司 bind the main China account."
+    },
+    {
+      "id": "vice-china-operator-closure", "account_id": "vice-china-historical",
+      "source_url": "https://m.thepaper.cn/baijiahao_9007826", "source_type": "reported_operator_statement",
+      "observed_at": "2026-10-21T20:04:46.810558+00:00", "claim_date": "2020-09-03", "supports": "relationship",
+      "justification": "Original reporting/interview quotes the operator's October1,2019 announcement stopping VICE and associated brands and explains the independent BIE successor. Source publication date is2020; the reported closure event is2019. Publication cutoff2019-10-01 prevents current BIE material being attributed to VICE."
+    },
+    {
+      "id": "vice-china-current-rebrand", "account_id": "vice-china-historical",
+      "source_url": "https://www.sina.cn/media/2163553891", "source_type": "platform_profile",
+      "observed_at": "2026-10-21T19:59:16.582059+00:00", "claim_date": null, "supports": "access",
+      "justification": "Current UID title is BIE别的, not VICE中国. Visible successor content is not imported as U.S. VICE material."
+    },
+    {
+      "id": "vice-china-us-headquarters", "account_id": "vice-china-historical",
+      "source_url": "https://www.vicemediagroup.com/wp-content/uploads/2021/10/VICE-Media-Group-Names-Kyle-Pleva-as-Vice-President-of-US-Corporate-Communications-1.pdf", "source_type": "publisher_statement",
+      "observed_at": "2026-10-21T20:04:46.810558+00:00", "claim_date": "2021-10-26", "supports": "relationship",
+      "justification": "Publisher-issued corporate release explicitly locates VICE headquarters in Brooklyn, New York. U.S.-based company status is distinguished from the brand's Canadian founding; no present CEO or ownership assertion is made."
+    },
+    {
+      "id": "vice-video-publisher-link", "account_id": "vice-china-video-historical",
+      "source_url": "https://web.archive.org/web/20190103075922id_/http://www.vice.cn:80/", "source_type": "publisher_link",
+      "observed_at": "2026-10-21T19:51:22.143912+00:00", "claim_date": "2019-01-03T07:59:22+00:00", "supports": "historical",
+      "justification": "VICE China repeats weibo.com/viceland in its own social-menu and social-icon lists alongside vicechina. This is publisher-managed navigation, not a content mention or automatically a U.S. VICELAND TV account."
+    },
+    {
+      "id": "vice-video-2019-profile", "account_id": "vice-china-video-historical",
+      "source_url": "https://web.archive.org/web/20190126042700id_/https://www.weibo.com/viceland", "source_type": "archived_profile",
+      "observed_at": "2026-10-21T19:55:45.831856+00:00", "claim_date": "2019-01-26T04:27:00+00:00", "supports": "historical",
+      "justification": "Publisher-linked handle binds CONFIG oid5636758069 and title 异视频, with VICE-branded local-channel content. Numeric identity differs from the main China account."
+    },
+    {
+      "id": "vice-video-operator-closure", "account_id": "vice-china-video-historical",
+      "source_url": "https://m.thepaper.cn/baijiahao_9007826", "source_type": "reported_operator_statement",
+      "observed_at": "2026-10-21T20:04:46.810558+00:00", "claim_date": "2020-09-03", "supports": "relationship",
+      "justification": "Original reporting quotes the local operator's October1,2019 cessation of VICE and associated brands. The historical local-video relationship is therefore bounded before2020; current Real Image Media activity is not assumed authorized VICE activity."
+    },
+    {
+      "id": "vice-video-current-institution", "account_id": "vice-china-video-historical",
+      "source_url": "https://www.sina.cn/media/5636758069", "source_type": "platform_profile",
+      "observed_at": "2026-10-21T19:59:21.074472+00:00", "claim_date": null, "supports": "access",
+      "justification": "Current institutional bio names Real Image Media and the source exposes no recognizable visible feed. No deletion or zero-historical-output claim is inferred."
+    },
+    {
+      "id": "vice-video-us-publisher", "account_id": "vice-china-video-historical",
+      "source_url": "https://www.vicemediagroup.com/wp-content/uploads/2021/10/VICE-Media-Group-Names-Kyle-Pleva-as-Vice-President-of-US-Corporate-Communications-1.pdf", "source_type": "publisher_statement",
+      "observed_at": "2026-10-21T20:04:46.810558+00:00", "claim_date": "2021-10-26", "supports": "relationship",
+      "justification": "VICE's own corporate publication identifies Brooklyn, New York headquarters, supporting the U.S.-based parent-media inclusion without relabeling the China channel as the U.S. television network."
+    },
+    {
+      "id": "wsj-magazine-2022-institution", "account_id": "wsj-magazine-china-historical",
+      "source_url": "https://web.archive.org/web/20220518235548id_/https://www.weibo.com/u/6596153448", "source_type": "platform_certification",
+      "observed_at": "2026-10-21T20:01:27.752459+00:00", "claim_date": "2022-05-18T23:55:48+00:00", "supports": "historical",
+      "justification": "Exact archive has CONFIG oid6596153448, title 出色WSJ中文版 and institution explicitly naming 《出色WSJ》中文版. Resolves the surprising launch-article numeric link independently of the current Fast Company name."
+    },
+    {
+      "id": "wsj-magazine-publisher-partnership", "account_id": "wsj-magazine-china-historical",
+      "source_url": "https://www.fipp.com/news/dow-jonesmd-media-industry-changing-fortunes/", "source_type": "direct_confirmation",
+      "observed_at": "2026-10-21T20:04:46.810558+00:00", "claim_date": "2020-01-16", "supports": "relationship",
+      "justification": "First-hand interview with Dow Jones' managing director explicitly confirms the WSJ Magazine/Huasheng Media partnership, separately from Barron's/Caijing. Establishes the U.S. publisher/edition relationship without implying a revived WSJ Chinese-news account."
+    },
+    {
+      "id": "wsj-magazine-launch-link-lead", "account_id": "wsj-magazine-china-historical",
+      "source_url": "https://socialbeta.com/article/104558", "source_type": "launch_reporting",
+      "observed_at": "2026-10-21T20:00:35.088942+00:00", "claim_date": "2019-07-24", "supports": "historical",
+      "justification": "Launch coverage explicitly labels @出色 WSJ 中文版 and links https://weibo.com/u/6596153448. Third-party link was a discovery lead, not sufficient proof alone; the 2022 institution and publisher executive confirmation establish identity/relationship."
+    },
+    {
+      "id": "wsj-magazine-current-rebrand", "account_id": "wsj-magazine-china-historical",
+      "source_url": "https://www.sina.cn/media/6596153448", "source_type": "platform_profile",
+      "observed_at": "2026-10-21T20:04:46.810558+00:00", "claim_date": null, "supports": "access",
+      "justification": "Current title and nominal tag are FASTCOMPANY中文版, without explicit current publisher/contract linkage. This does not erase the confirmed historical WSJ edition identity or establish a new authorized Fast Company account. Current bodies must fail the historical WSJ name gate."
+    },
+    {
+      "id": "barrons-current-institution", "account_id": "barrons-china",
+      "source_url": "https://www.sina.cn/media/6890696793", "source_type": "platform_certification",
+      "observed_at": "2026-10-21T19:48:55.792841+00:00", "claim_date": null, "supports": "identity",
+      "justification": "Current institutional tag explicitly identifies the official Barron's investment-information platform; profile bio identifies Barron's official Chinese channel. Stable UID and display name Barrons巴伦 agree. Not a third-party commentator merely quoting Barron's."
+    },
+    {
+      "id": "barrons-publisher-china-partnership", "account_id": "barrons-china",
+      "source_url": "https://www.globenewswire.com/news-release/2018/12/12/1665602/6837/en/barron-s-expands-into-china.html", "source_type": "publisher_statement",
+      "observed_at": "2026-10-21T19:51:24.020688+00:00", "claim_date": "2018-12-11", "supports": "relationship",
+      "justification": "Press release explicitly issued by Dow Jones & Company announces a ten-year partnership/franchise with Caijing and identifies Barron's as its investment publication. Timestamp is December11,2018 ET, although URL/UTC date is December12. Read through the public web source; direct scripted retrieval returned403 and was not bypassed. WeChat launch language alone was not used to assert a Sina UID."
     },
     {
       "id": "wsj-archived-publisher-link", "account_id": "wsj-chinese-candidate",
