@@ -70,6 +70,20 @@ def check():
                     assert comparison(change(partial, reference), partial["unit"]) in text
             else:
                 assert not panel.is_visible()
+        for geo in ["CHN", "HKG", "MAC", "TWN"]:
+            page.select_option("#geography", geo)
+            page.select_option("#direction", "to_us")
+            page.select_option("#measure", "international_students")
+            page.locator("#selected-table").evaluate("node => node.open = true")
+            expect(page.locator("#series-table thead")).to_contain_text("Population definition")
+            expect(page.locator("#series-table tbody tr").filter(has_text="2020/21")).to_contain_text(
+                "expanded pandemic population")
+            expect(page.locator("#series-table tbody tr").filter(has_text="2023/24")).to_contain_text(
+                "standard temporary-visa population")
+            page.select_option("#chart-mode", "index")
+            expect(page.locator("#chart .gap")).to_contain_text("Definitions differ")
+            assert page.locator("#chart svg").count() == 0
+            page.select_option("#chart-mode", "levels")
         page.select_option("#geography", "CHN")
         page.select_option("#direction", "to_us")
         page.select_option("#measure", "visitors")
@@ -99,6 +113,9 @@ def check():
         page = context.new_page()
         page.goto((ROOT / "site/index.html").as_uri())
         assert page.locator("noscript").is_visible()
+        page.locator("#selected-table summary").click()
+        expect(page.locator("#series-table tbody tr").filter(has_text="2020/21")).to_contain_text(
+            "expanded pandemic population")
         assert page.locator("#all-values details").count() > 30
         page.locator("#all-values summary").first.click()
         assert page.locator("#all-values table").first.is_visible()

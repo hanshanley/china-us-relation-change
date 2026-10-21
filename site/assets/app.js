@@ -63,9 +63,12 @@
     if (chartBackground) {
       chartBackground.setAttribute("fill", data.chart_themes[$("chart-theme").value].background);
     }
+    const variedDefinitions = new Set(annual.map(r => r.comparability)).size > 1;
     $("series-table").innerHTML = `<div class="table-scroll"><table><caption>Exact annual observations</caption>
-      <thead><tr><th scope="col">Period</th><th scope="col">Value</th><th scope="col">Status</th></tr></thead><tbody>` +
-      annual.map(r => `<tr><th scope="row">${escape(r.period)}</th><td>${escape(format(r.value, r.unit))}</td><td>${escape(r.status)}</td></tr>`).join("") +
+      <thead><tr><th scope="col">Period</th><th scope="col">Value</th><th scope="col">Status</th>` +
+      (variedDefinitions ? '<th scope="col">Population definition</th>' : "") + "</tr></thead><tbody>" +
+      annual.map(r => `<tr><th scope="row">${escape(r.period)}</th><td>${escape(format(r.value, r.unit))}</td><td>${escape(r.status)}</td>` +
+        (variedDefinitions ? `<td>${escape(r.definition)}</td>` : "") + "</tr>").join("") +
       "</tbody></table></div>";
     const manifest = data.sources[current.source_id];
     $("series-source").innerHTML = `Source: <a href="${escape(current.source_url)}">${escape(data.source_names[current.source_id])}</a>` +

@@ -16,8 +16,8 @@
     "vintage": "Comtrade annual records through 2025"
   },
   "iie": {
-    "last_recorded_check": "2026-10-21T14:43:03+00:00",
-    "last_successful_retrieval": "2026-10-21T14:43:03+00:00",
+    "last_recorded_check": "2026-10-21T17:01:48+00:00",
+    "last_successful_retrieval": "2026-10-21T17:01:48+00:00",
     "notes": "Reviewed 2025 PDFs are rechecked daily; new annual report discovery requires manual review. The country-factsheet index was access-restricted during source audit.",
     "observations": 72,
     "status": "available",
@@ -48,8 +48,8 @@
     "vintage": "Official annual CSV through 2025"
   },
   "uis": {
-    "last_recorded_check": "2026-10-21T15:37:28+00:00",
-    "last_successful_retrieval": "2026-10-21T15:37:28+00:00",
+    "last_recorded_check": "2026-10-21T17:01:48+00:00",
+    "last_successful_retrieval": "2026-10-21T17:01:48+00:00",
     "notes": "Taiwan not separately listed; U.S.-to-mainland records may be absent.",
     "observations": 76,
     "status": "available",

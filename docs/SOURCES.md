@@ -23,9 +23,28 @@ mobility, Open Doors enrollment-plus-OPT, and academic-credit study abroad are
 different series and must never be spliced. Academic years use their ending year
 for the 2020 baseline, with the original period label retained.
 
+[IIE's student-census methodology](https://opendoorsdata.org/about/about-international-student-census/)
+expands the international-student definition in Open Doors 2021–2023
+(2020/21–2022/23) to cover coursework from outside the U.S. regardless of visa
+status, then returns to the pre-pandemic definition in Open Doors 2024
+(2023/24). OPT-inclusive observations receive separate standard and
+pandemic-expanded comparison identities. Charts break at both boundaries,
+display those dates in exported figure notes, and reject the incompatible
+full-history 2020 index. Standard-population 2024/25-versus-2019/20 comparisons
+remain valid. This is not a definition change to the separate study-abroad
+participation measure. Annual tables show each year's population definition
+when it varies.
+
+UIS responses provide reporting years rather than exact reference dates.
+`period_start` and `period_end` are therefore null for reporting-year rows;
+the year, source footnotes and fractional estimates remain unchanged.
+
 Trade direction follows goods/services, not payment direction: U.S. exports are
 U.S. to partner; U.S. imports are partner to U.S. Source revisions replace earlier
 vintages. Missing or suppressed observations remain nullable.
+Each Comtrade row must explicitly match its requested `period`/`refYear`,
+annual `freqCode=A`, and goods `typeCode=C`. Mismatches fail candidate validation
+rather than inheriting a year or frequency from the request.
 
 All change calculations require matching definition and period coverage. Partial
 years compare identical intervals only. Geography totals are not summed across

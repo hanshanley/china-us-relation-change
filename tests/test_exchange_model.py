@@ -57,6 +57,30 @@ def test_academic_label_preserves_year_ending():
                   row(period_basis="academic"))["percent"] == 100
 
 
+def test_reporting_year_keeps_unknown_dates_and_valid_comparisons():
+    report = row(period_basis="reporting")
+    assert report["period"] == "2020"
+    assert report["period_start"] is None and report["period_end"] is None
+    assert validate([report])
+    assert change(row(2024, 150, period_basis="reporting"), report)["percent"] == 50
+    report["period_start"], report["period_end"] = "2020-01-01", "2020-12-31"
+    with pytest.raises(ValueError, match="must not invent exact dates"):
+        validate([report])
+
+
+@pytest.mark.parametrize("basis", ["academic", "reporting"])
+def test_year_only_periods_reject_months_and_partial_frequencies(basis):
+    with pytest.raises(ValueError, match="annual observations without a month"):
+        row(period_basis=basis, frequency="ytd", month=6)
+    report = row(period_basis=basis)
+    report["frequency"] = "monthly"
+    with pytest.raises(ValueError, match="annual observations"):
+        validate([report])
+    report["frequency"], report["period"] = "annual", "2021"
+    with pytest.raises(ValueError, match="period label"):
+        validate([report])
+
+
 def test_february_compares_across_leap_years():
     assert change(row(2024, 150, frequency="monthly", month=2),
                   row(2023, 100, frequency="monthly", month=2))["percent"] == 50

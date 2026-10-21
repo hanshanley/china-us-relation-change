@@ -123,7 +123,12 @@ def svg_chart(rows, indexed=False, theme="themarginoferror"):
         parts.append(f'<circle cx="{x(year):.2f}" cy="{y(values[year]):.2f}" r="4" fill="{color}">'
                      f'<title>{esc(label)}</title></circle>')
     source = SOURCE_NAMES.get(sample["source_id"], sample["source_id"])
+    breaks = [current["period"] for previous, current in zip(annual, annual[1:])
+              if current["comparability"] != previous["comparability"]]
     note = f"Source: {source}. Annual observations; missing years and definition changes are not connected."
+    if breaks:
+        note = (f"Source: {source}. Population-definition breaks: " + ", ".join(breaks) +
+                ". Missing years and definition changes are not connected.")
     if sample["period_basis"] == "academic":
         note += " Academic years use ending years."
     if sample["period_basis"] == "reporting":
@@ -157,11 +162,14 @@ def figure_links(paths):
 
 def annual_table(rows):
     annual = sorted((r for r in rows if r["frequency"] == "annual"), key=lambda r: r["year"])
+    varied = len({r["comparability"] for r in annual}) > 1
     body = "".join(
         f'<tr><th scope="row">{esc(r["period"])}</th><td>{esc(number(r["value"], r["unit"]))}</td>'
-        f'<td>{esc(r["status"])}</td></tr>' for r in annual)
+        f'<td>{esc(r["status"])}</td>' +
+        (f'<td>{esc(r["definition"])}</td>' if varied else "") + '</tr>' for r in annual)
     return ('<div class="table-scroll"><table><caption>Exact annual observations</caption>'
-            '<thead><tr><th scope="col">Period</th><th scope="col">Value</th><th scope="col">Status</th></tr></thead>'
+            '<thead><tr><th scope="col">Period</th><th scope="col">Value</th><th scope="col">Status</th>' +
+            ('<th scope="col">Population definition</th>' if varied else "") + '</tr></thead>' +
             f"<tbody>{body}</tbody></table></div>")
 
 
@@ -220,8 +228,11 @@ def build(root):
                               for theme, files in figure_paths[series_id].items()}
             gallery[category].append(f'<article><h3>{esc(heading)}</h3><p>{esc(SOURCE_NAMES[sample["source_id"]])}</p>'
                                      + figure_links(relative_links) + '</article>')
+        definition = ("Population definitions vary by year; each row includes its definition."
+                      if len({r["comparability"] for r in series_rows if r["frequency"] == "annual"}) > 1
+                      else sample["definition"])
         all_tables.append(f'<details><summary>{esc(heading)} <span class="muted">({esc(SOURCE_NAMES[sample["source_id"]])})</span></summary>'
-                          f'<p>{esc(sample["definition"])}</p>{annual_table(series_rows)}</details>')
+                          f'<p>{esc(definition)}</p>{annual_table(series_rows)}</details>')
     payload = {"observations": rows, "sources": sources, "coverage": matrix,
                "geographies": GEOGRAPHIES, "measures": MEASURES,
                "source_names": SOURCE_NAMES, "charts": charts, "chart_themes": CHART_THEMES,

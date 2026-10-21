@@ -105,8 +105,17 @@ is showing an index.
   IIE counts are available for only two recent years; there is no 2020 baseline
   for that specific series. Academic years retain their labels and use ending
   years on the chart. Exact academic start/end dates are not invented.
+- IIE's OPT-inclusive population expands in 2020/21–2022/23 to include online
+  coursework from outside the U.S. regardless of visa status, then returns to
+  the pre-pandemic definition in 2023/24. Distinct comparison identities break
+  chart lines at 2020/21 and 2023/24; the full-history index is unavailable
+  because those populations cannot all share the 2020 baseline. Latest
+  2024/25-versus-2019/20 comparisons remain valid. Study-abroad participation
+  does not inherit this international-student definition break.
 - UIS reporting years are not physical-presence years. Fractional source
-  estimates are preserved, including in exact tables and downloads.
+  estimates are preserved, including in exact tables and downloads. Reporting
+  years retain their year label but have null exact start/end dates, just as
+  academic years do; neither implies a January–December reference period.
 - Visitor counts are trips, not unique tourists. NTTO is residence-based,
   qualified-visa, overnight, all-purpose visitation. Taiwan and Macau counts
   include broader arrival populations. Only Taiwan currently supplies a
@@ -157,6 +166,10 @@ changes. A retrieval timestamp or raw-response checksum alone is not:
 responses can contain volatile metadata. Unchanged rows retain their original
 published provenance. A daily no-op creates a run log/artifact but **no commit**.
 Source outage transitions are recorded without erasing last-known-good rows.
+Custom adapter mappings refresh only the selected sources: omitted observation
+rows and source manifests remain unchanged, including their health and dates.
+The attempt log lists only sources actually checked. An empty mapping is a
+publication no-op; it does not clear the dataset.
 
 Network errors, HTTP failures and exhausted retries mark a source degraded
 (or unavailable if it never supplied data). Malformed candidates, changed
@@ -164,6 +177,10 @@ layouts, incompatible units, ambiguous source totals and invalid values fail
 the run before candidate publication files are written. Per-file publication
 writes are atomic; the validated Git commit is the published snapshot boundary.
 No automatic commit occurs on a failed check.
+Comtrade responses must match the requested year in both `period` and
+`refYear`, use annual frequency `A` and goods type `C`, and retain the required
+reporter, partner, aggregate and paired flows. A wrong-period or monthly response
+cannot be relabelled as an annual observation.
 
 The workflow writes commits as **Hans Hanley**, without Copilot authorship,
 co-author or session trailers. It uses the repository's `GITHUB_TOKEN` with

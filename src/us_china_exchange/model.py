@@ -33,6 +33,9 @@ def observation(source, origin, destination, measure, year, value,
                 definition, unit=None, frequency="annual", month=None,
                 period_basis="calendar", status="observed", notes="",
                 comparability=""):
+    year_only = period_basis in {"academic", "reporting"}
+    if year_only and (frequency != "annual" or month is not None):
+        raise ValueError("Academic and reporting years require annual observations without a month")
     if frequency in {"monthly", "ytd"} and month is None:
         raise ValueError("Monthly and YTD observations require an ending month")
     if month is not None and (isinstance(month, bool) or not 1 <= month <= 12):
@@ -47,8 +50,8 @@ def observation(source, origin, destination, measure, year, value,
         "series_id": series_id, "source_id": source,
         "origin": origin, "destination": destination, "measure": measure,
         "year": year, "period": label, "period_basis": period_basis,
-        "period_start": None if period_basis == "academic" else f"{year}-{start_month:02d}-01",
-        "period_end": None if period_basis == "academic" else (
+        "period_start": None if year_only else f"{year}-{start_month:02d}-01",
+        "period_end": None if year_only else (
             f"{year}-{end_month:02d}-{calendar.monthrange(year, end_month)[1]}"),
         "frequency": frequency, "unit": unit or (
             "USD" if measure in {"goods", "services"} else
@@ -86,11 +89,15 @@ def validate(rows):
             raise ValueError("Missingness and observation status disagree")
         if row["period_basis"] not in {"calendar", "academic", "reporting"}:
             raise ValueError("Unknown period basis")
-        if row["period_basis"] == "academic":
+        if row["period_basis"] in {"academic", "reporting"}:
             if row["period_start"] is not None or row["period_end"] is not None:
-                raise ValueError("Academic periods must not invent exact dates")
-            if row["period"] != f"{row['year'] - 1}/{str(row['year'])[-2:]}":
-                raise ValueError("Invalid academic period label")
+                raise ValueError("Academic and reporting periods must not invent exact dates")
+            if row["frequency"] != "annual":
+                raise ValueError("Academic and reporting years require annual observations")
+            label = (f"{row['year'] - 1}/{str(row['year'])[-2:]}"
+                     if row["period_basis"] == "academic" else str(row["year"]))
+            if row["period"] != label:
+                raise ValueError("Invalid academic or reporting period label")
         else:
             start = date.fromisoformat(row["period_start"])
             end = date.fromisoformat(row["period_end"])

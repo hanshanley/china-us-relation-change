@@ -8,8 +8,8 @@ from xml.etree import ElementTree
 from bs4 import BeautifulSoup
 from PIL import Image, ImageColor
 
-from us_china_exchange.model import observation
-from us_china_exchange.render import build, svg_chart
+from us_china_exchange.model import change, observation
+from us_china_exchange.render import annual_table, build, svg_chart
 from us_china_exchange.theme import CHART_THEMES, PNG_HEIGHT, PNG_WIDTH
 
 
@@ -59,6 +59,25 @@ def test_charts_break_missing_years_and_definition_changes():
     paths = [x for x in doc.iter() if x.get("class") == "data-line"]
     assert paths[0].get("d").count("M") == 3
     assert "Definitions differ" in svg_chart(rows, indexed=True)
+
+
+def test_iie_publication_breaks_pandemic_history_without_losing_valid_headline():
+    rows = [r for r in json.loads((ROOT / "data/site/observations.json").read_text())
+            if r["series_id"] == "iie:CHN:USA:international_students"]
+    doc = ElementTree.fromstring(svg_chart(rows))
+    path = next(x for x in doc.iter() if x.get("class") == "data-line")
+    assert path.get("d").count("M") == 3
+    note = " ".join(x.text or "" for x in doc.iter() if x.get("class") == "figure-source")
+    assert "2020/21" in note and "2023/24" in note
+    assert "Definitions differ" in svg_chart(rows, indexed=True)
+    annual = {r["year"]: r for r in rows}
+    assert change(annual[2025], annual[2020])["percent"] is not None
+    table = BeautifulSoup(annual_table(rows), "html.parser")
+    assert table.select_one("thead th:last-child").text == "Population definition"
+    pandemic = next(r for r in table.select("tbody tr") if r.th.text == "2020/21")
+    assert "expanded pandemic population" in pandemic.select("td")[-1].text
+    restored = next(r for r in table.select("tbody tr") if r.th.text == "2023/24")
+    assert "standard temporary-visa population" in restored.select("td")[-1].text
 
 
 def test_figure_background_variants_preserve_data_and_foreground(tmp_path):

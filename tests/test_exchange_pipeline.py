@@ -10,9 +10,9 @@ class FakeClient:
     now = "2026-10-21T00:00:00+00:00"
 
 
-def adapter(value=100, vintage="Release 1"):
+def adapter(value=100, vintage="Release 1", source="sample"):
     def fetch(client):
-        row = observation("sample", "CHN", "USA", "visitors", 2020, value, "Test scope")
+        row = observation(source, "CHN", "USA", "visitors", 2020, value, "Test scope")
         row.update(source_url="https://example.org/official.csv", raw_sha256="a" * 64,
                    retrieved_at=client.now, source_vintage=vintage)
         return [row], vintage, "Source notes"
@@ -66,3 +66,47 @@ def test_volatile_raw_checksum_does_not_create_publication_change(tmp_path):
         return rows, vintage, notes
 
     assert not refresh(tmp_path, {"sample": different_container}, FakeClient())["publication_changed"]
+
+
+def test_partial_refresh_preserves_omitted_rows_manifests_and_noop(tmp_path):
+    refresh(tmp_path, {"sample": adapter(), "other": adapter(200, source="other")}, FakeClient())
+
+    def outage(client):
+        raise SourceUnavailable("HTTP 503")
+
+    refresh(tmp_path, {"other": outage}, FakeClient())
+    output = tmp_path / "data/site"
+    old_rows = json.loads((output / "observations.json").read_text())
+    old_manifest = json.loads((output / "sources.json").read_text())["other"]
+    assert old_manifest["status"] == "degraded"
+    report = refresh(tmp_path, {"sample": adapter(125, "Release 2")}, FakeClient())
+    rows = json.loads((output / "observations.json").read_text())
+    assert {r["source_id"] for r in rows} == {"sample", "other"}
+    assert next(r for r in rows if r["source_id"] == "other") == next(
+        r for r in old_rows if r["source_id"] == "other")
+    assert next(r for r in rows if r["source_id"] == "sample")["value"] == 125
+    assert json.loads((output / "sources.json").read_text())["other"] == old_manifest
+    assert set(report["sources"]) == {"sample"}
+    before = {p.name: p.read_bytes() for p in output.iterdir()}
+    assert not refresh(tmp_path, {"sample": adapter(125, "Release 2")}, FakeClient())["publication_changed"]
+    assert not refresh(tmp_path, {}, FakeClient())["publication_changed"]
+    with pytest.raises(ValueError):
+        refresh(tmp_path, {"sample": adapter(-1)}, FakeClient())
+    assert before == {p.name: p.read_bytes() for p in output.iterdir()}
+
+
+def test_refresh_repairs_legacy_reporting_dates_with_validated_candidate(tmp_path):
+    refresh(tmp_path, {"sample": adapter()}, FakeClient())
+    path = tmp_path / "data/site/observations.json"
+    old_rows = json.loads(path.read_text())
+    old_rows[0]["period_basis"] = "reporting"
+    path.write_text(json.dumps(old_rows))
+
+    def corrected(client):
+        rows, vintage, notes = adapter()(client)
+        rows[0].update(period_basis="reporting", period_start=None, period_end=None)
+        return rows, vintage, notes
+
+    assert refresh(tmp_path, {"sample": corrected}, FakeClient())["publication_changed"]
+    row = json.loads(path.read_text())[0]
+    assert row["period_start"] is None and row["period_end"] is None

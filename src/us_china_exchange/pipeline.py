@@ -76,8 +76,10 @@ def refresh(root, adapters=None, client=None):
     old_rows = load(output / "observations.json", [])
     previous = load(output / "sources.json", {})
     client = client or Client(root / "data/local/exchange/raw")
-    rows, manifests, checks = [], {}, {}
     adapters = ADAPTERS if adapters is None else adapters
+    rows = [r for r in old_rows if r["source_id"] not in adapters]
+    manifests = {sid: manifest for sid, manifest in previous.items() if sid not in adapters}
+    checks = {}
     for source_id, adapter in adapters.items():
         old = [r for r in old_rows if r["source_id"] == source_id]
         prior = previous.get(source_id, {})
@@ -92,7 +94,7 @@ def refresh(root, adapters=None, client=None):
             merged = {key(r): r for r in old}
             merged.update({key(r): r for r in candidate})
             candidate = validate(list(merged.values()))
-            changed = stable_rows(candidate) != stable_rows(validate(old))
+            changed = stable_rows(candidate) != stable_rows(sorted(old, key=key))
             if not changed:
                 candidate = old
             rows.extend(candidate)

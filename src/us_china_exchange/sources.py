@@ -301,15 +301,27 @@ def parse_iie(content, geo):
             ("study_abroad", match[4], "USA", geo),
         ]:
             missing = value in {"Null", "N/A"}
+            pandemic = 2021 <= year <= 2023
+            student_definition = (
+                "IIE Open Doors international students, including Optional Practical Training (OPT); " +
+                ("expanded pandemic population includes coursework from outside the U.S. regardless of visa status"
+                 if pandemic else
+                 "standard temporary-visa population; excludes students enrolled online from outside the U.S."))
+            population_note = (
+                " Open Doors 2021-2023 (2020/21-2022/23) expanded the population to coursework from outside "
+                "the U.S. regardless of visa status; Open Doors 2024 returned to the pre-pandemic definition. "
+                "These populations are not directly comparable.")
             rows.append(observation(
                 "iie", origin, destination, measure, year,
                 None if missing else int(value.replace(",", "")),
-                ("IIE Open Doors international students, including Optional Practical Training (OPT); "
-                 "not enrolled-only or necessarily physically present"
+                (student_definition
                  if measure == "international_students" else
                  "IIE Open Doors U.S. students receiving academic credit for study abroad; participation, not degree enrollment"),
                 period_basis="academic", status="missing" if missing else "observed",
-                notes="Academic year ending shown. Pandemic remote participation affects physical-presence interpretation."))
+                comparability=("iie:international_students:" + ("pandemic-expanded" if pandemic else "standard")
+                               if measure == "international_students" else ""),
+                notes="Academic year ending shown. Counts are not departures." +
+                (population_note if measure == "international_students" else "")))
     enrollment = {}
     for level in ["Undergraduate", "Graduate", "Non-Degree"]:
         match = re.search(level + r"\n([\d,]+)\n([\d,]+)\n", text)
@@ -455,6 +467,9 @@ def comtrade(client):
         seen = set()
         for rec in data["data"]:
             flow = rec["flowCode"]
+            if (str(rec.get("period")) != str(year) or rec.get("refYear") != year
+                    or rec.get("freqCode") != "A" or rec.get("typeCode") != "C"):
+                raise ValueError("Comtrade returned the wrong period, frequency or trade type")
             if (rec["reporterCode"], rec["partnerCode"], rec["cmdCode"]) != (842, 446, "TOTAL"):
                 raise ValueError("Comtrade partner or aggregate mismatch")
             if flow not in {"X", "M"} or flow in seen:

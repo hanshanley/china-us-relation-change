@@ -1,4 +1,5 @@
 import io
+import json
 from datetime import datetime
 from types import SimpleNamespace
 
@@ -183,3 +184,52 @@ def test_macau_rejects_conflicting_extracted_us_totals(monkeypatch):
     monkeypatch.setattr(sources, "PdfReader", lambda stream: SimpleNamespace(pages=[page]))
     with pytest.raises(ValueError, match="Ambiguous"):
         sources.parse_macau(b"%PDF fixture", 2025)
+
+
+def test_iie_pandemic_population_break_is_not_applied_to_study_abroad(monkeypatch):
+    text = "\n".join(f"{year - 1}/{str(year)[-2:]}\n100\n10" for year in range(2018, 2026))
+    text += "\nUndergraduate\n10\n20\nGraduate\n30\n40\nNon-Degree\n5\n6\nOPT\n1\n2\n"
+    page = SimpleNamespace(extract_text=lambda: text)
+    monkeypatch.setattr(sources, "PdfReader", lambda stream: SimpleNamespace(pages=[page]))
+    rows = sources.parse_iie(b"%PDF fixture", "CHN")
+    students = {r["year"]: r for r in rows if r["measure"] == "international_students"}
+    abroad = {r["year"]: r for r in rows if r["measure"] == "study_abroad"}
+    assert change(students[2021], students[2020])["absolute"] is None
+    assert change(students[2024], students[2023])["absolute"] is None
+    assert change(students[2023], students[2021])["absolute"] == 0
+    assert change(students[2025], students[2020])["absolute"] == 0
+    assert "regardless of visa status" in students[2021]["definition"]
+    assert "excludes students enrolled online" in students[2025]["definition"]
+    assert change(abroad[2021], abroad[2020])["absolute"] == 0
+
+
+def comtrade_client(overrides=None):
+    def get(url, params):
+        records = []
+        for flow in ["X", "M"]:
+            row = dict(typeCode="C", freqCode="A", period=str(params["period"]), refYear=params["period"],
+                       reporterCode=842, partnerCode=446, cmdCode="TOTAL", flowCode=flow,
+                       fobvalue=100, cifvalue=125)
+            row.update(overrides or {})
+            records.append(row)
+        return json.dumps({"data": records}).encode(), {
+            "url": url, "sha256": "a" * 64, "retrieved_at": "2026-10-21T00:00:00+00:00"}
+    return SimpleNamespace(get=get, json=json.loads)
+
+
+@pytest.mark.parametrize("overrides", [
+    {"period": "1999"}, {"refYear": 1999}, {"freqCode": "M"}, {"typeCode": "S"},
+])
+def test_comtrade_rejects_wrong_returned_period_frequency_or_type(monkeypatch, overrides):
+    monkeypatch.setattr(sources.time, "sleep", lambda seconds: None)
+    with pytest.raises(ValueError, match="wrong period, frequency or trade type"):
+        sources.comtrade(comtrade_client(overrides))
+
+
+def test_comtrade_retains_valid_annual_flow_valuations(monkeypatch):
+    monkeypatch.setattr(sources.time, "sleep", lambda seconds: None)
+    monkeypatch.setattr(sources, "datetime", SimpleNamespace(now=lambda: SimpleNamespace(year=2002)))
+    rows, _, _ = sources.comtrade(comtrade_client())
+    assert {(r["year"], r["origin"], r["destination"], r["value"]) for r in rows} == {
+        (2000, "USA", "MAC", 100), (2000, "MAC", "USA", 125),
+        (2001, "USA", "MAC", 100), (2001, "MAC", "USA", 125)}
