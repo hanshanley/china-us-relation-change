@@ -8,6 +8,7 @@ from datetime import date
 GEOGRAPHIES = {"CHN": "Mainland China", "HKG": "Hong Kong",
                "MAC": "Macau", "TWN": "Taiwan", "USA": "United States"}
 MEASURES = {
+    "enrolled_students": "Enrolled international students (excluding OPT)",
     "degree_students": "Degree enrollment",
     "international_students": "International students, including OPT",
     "study_abroad": "Academic-credit study abroad",
@@ -31,6 +32,10 @@ def observation(source, origin, destination, measure, year, value,
                 definition, unit=None, frequency="annual", month=None,
                 period_basis="calendar", status="observed", notes="",
                 comparability=""):
+    if frequency in {"monthly", "ytd"} and month is None:
+        raise ValueError("Monthly and YTD observations require an ending month")
+    if month is not None and (isinstance(month, bool) or not 1 <= month <= 12):
+        raise ValueError("Invalid month")
     end_month = month or 12
     start_month = month if frequency == "monthly" else 1
     label = str(year) if month is None else f"{year}-{month:02d}"
@@ -41,8 +46,9 @@ def observation(source, origin, destination, measure, year, value,
         "series_id": series_id, "source_id": source,
         "origin": origin, "destination": destination, "measure": measure,
         "year": year, "period": label, "period_basis": period_basis,
-        "period_start": f"{year}-{start_month:02d}-01",
-        "period_end": f"{year}-{end_month:02d}-{calendar.monthrange(year, end_month)[1]}",
+        "period_start": None if period_basis == "academic" else f"{year}-{start_month:02d}-01",
+        "period_end": None if period_basis == "academic" else (
+            f"{year}-{end_month:02d}-{calendar.monthrange(year, end_month)[1]}"),
         "frequency": frequency, "unit": unit or (
             "USD" if measure in {"goods", "services"} else
             "trips" if "visitors" in measure else "students"),
@@ -77,11 +83,26 @@ def validate(rows):
             raise ValueError("Invalid observation value")
         if (value is None) != (row["status"] in {"missing", "suppressed"}):
             raise ValueError("Missingness and observation status disagree")
-        start, end = date.fromisoformat(row["period_start"]), date.fromisoformat(row["period_end"])
-        if start > end or end.year != row["year"]:
-            raise ValueError("Invalid period boundaries")
         if row["period_basis"] not in {"calendar", "academic", "reporting"}:
             raise ValueError("Unknown period basis")
+        if row["period_basis"] == "academic":
+            if row["period_start"] is not None or row["period_end"] is not None:
+                raise ValueError("Academic periods must not invent exact dates")
+            if row["period"] != f"{row['year'] - 1}/{str(row['year'])[-2:]}":
+                raise ValueError("Invalid academic period label")
+        else:
+            start = date.fromisoformat(row["period_start"])
+            end = date.fromisoformat(row["period_end"])
+            if start > end or start.year != row["year"] or end.year != row["year"]:
+                raise ValueError("Invalid period boundaries")
+            if start.day != 1 or end.day != calendar.monthrange(end.year, end.month)[1]:
+                raise ValueError("Periods must cover complete months")
+            if row["frequency"] == "annual" and (start.month, end.month) != (1, 12):
+                raise ValueError("Annual periods must cover a full year")
+            if row["frequency"] == "monthly" and start.month != end.month:
+                raise ValueError("Monthly periods must cover one month")
+            if row["frequency"] == "ytd" and start.month != 1:
+                raise ValueError("YTD periods must begin in January")
         if row["frequency"] not in {"annual", "monthly", "ytd"}:
             raise ValueError("Unknown frequency")
         if not row["source_id"] or not row["definition"]:
@@ -94,8 +115,8 @@ def change(current, baseline):
         return {"absolute": None, "percent": None, "reason": "Baseline unavailable"}
     fields = ("series_id", "frequency", "period_basis", "comparability", "unit")
     if any(current[f] != baseline[f] for f in fields) or (
-        current["period_start"][5:] != baseline["period_start"][5:]
-        or current["period_end"][5:] != baseline["period_end"][5:]
+        (current["period_start"] or "")[5:7] != (baseline["period_start"] or "")[5:7]
+        or (current["period_end"] or "")[5:7] != (baseline["period_end"] or "")[5:7]
     ):
         return {"absolute": None, "percent": None, "reason": "Definitions or periods differ"}
     if current["value"] is None:
@@ -123,9 +144,29 @@ def coverage(rows):
                     "last_year": max(years) if years else None, "available_years": years,
                     "baseline_2020": 2020 in years,
                     "source_ids": sorted({r["source_id"] for r in subset}),
-                    "reason": "" if available else (
-                        "No separately reported Taiwan series in UNESCO UIS; alternative official education data required"
-                        if measure == "degree_students" and geo == "TWN" else
-                        "No verified observations retrieved; see source attempts and limitations"),
+                    "reason": "" if available else gap_reason(geo, origin, measure),
                 })
     return result
+
+
+def gap_reason(geo, origin, measure):
+    if measure == "degree_students":
+        if geo == "TWN":
+            return "Taiwan is not separately listed in UIS bilateral tertiary-mobility indicators; IIE counts have a different scope."
+        return "UIS bilateral origin/destination request returned no records; no compatible destination degree-enrollment series verified."
+    if measure == "enrolled_students":
+        return "Reviewed IIE academic-level breakdowns cover students hosted in the U.S. only; destination enrolled-only counts are unverified."
+    if measure == "international_students":
+        return "OPT-inclusive IIE totals describe students hosted in the U.S.; not an outbound U.S. enrollment measure."
+    if measure == "study_abroad":
+        return "IIE credit-study-abroad statistics cover U.S.-origin participants only; reverse-direction participation is not reported here."
+    if measure == "leisure_visitors":
+        return "Available arrival sources are all-purpose trips; no separately verified leisure-purpose series for this direction."
+    if measure == "services":
+        return "BEA selected-country workbook does not separately report Macau; no current compatible bilateral services series verified."
+    if measure == "visitors" and origin == "USA":
+        if geo == "HKG":
+            return "HKTB and Census and Statistics Department visitor-table downloads returned HTTP 403; official data.gov.hk archive had no matching snapshot."
+        if geo == "CHN":
+            return "No current U.S.-origin all-mode visitor table verified in mainland official releases; historic arrivals are not spliced to air-passenger proxies."
+    return "No verified compatible primary-source observations; missing values are never inferred as zero."

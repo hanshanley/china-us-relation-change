@@ -1,0 +1,1335 @@
+[
+  {
+    "available_years": [
+      2024,
+      2025
+    ],
+    "baseline_2020": false,
+    "destination": "USA",
+    "first_year": 2024,
+    "last_year": 2025,
+    "measure": "enrolled_students",
+    "observations": 2,
+    "origin": "CHN",
+    "reason": "",
+    "source_ids": [
+      "iie"
+    ]
+  },
+  {
+    "available_years": [
+      2013,
+      2014,
+      2015,
+      2016,
+      2017,
+      2018,
+      2020,
+      2021,
+      2023
+    ],
+    "baseline_2020": true,
+    "destination": "USA",
+    "first_year": 2013,
+    "last_year": 2023,
+    "measure": "degree_students",
+    "observations": 9,
+    "origin": "CHN",
+    "reason": "",
+    "source_ids": [
+      "uis"
+    ]
+  },
+  {
+    "available_years": [
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+    ],
+    "baseline_2020": true,
+    "destination": "USA",
+    "first_year": 2018,
+    "last_year": 2025,
+    "measure": "international_students",
+    "observations": 8,
+    "origin": "CHN",
+    "reason": "",
+    "source_ids": [
+      "iie"
+    ]
+  },
+  {
+    "available_years": [],
+    "baseline_2020": false,
+    "destination": "USA",
+    "first_year": null,
+    "last_year": null,
+    "measure": "study_abroad",
+    "observations": 0,
+    "origin": "CHN",
+    "reason": "IIE credit-study-abroad statistics cover U.S.-origin participants only; reverse-direction participation is not reported here.",
+    "source_ids": []
+  },
+  {
+    "available_years": [
+      2010,
+      2011,
+      2012,
+      2013,
+      2014,
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+    ],
+    "baseline_2020": true,
+    "destination": "USA",
+    "first_year": 2010,
+    "last_year": 2025,
+    "measure": "visitors",
+    "observations": 234,
+    "origin": "CHN",
+    "reason": "",
+    "source_ids": [
+      "ntto"
+    ]
+  },
+  {
+    "available_years": [],
+    "baseline_2020": false,
+    "destination": "USA",
+    "first_year": null,
+    "last_year": null,
+    "measure": "leisure_visitors",
+    "observations": 0,
+    "origin": "CHN",
+    "reason": "Available arrival sources are all-purpose trips; no separately verified leisure-purpose series for this direction.",
+    "source_ids": []
+  },
+  {
+    "available_years": [
+      2010,
+      2011,
+      2012,
+      2013,
+      2014,
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+    ],
+    "baseline_2020": true,
+    "destination": "USA",
+    "first_year": 2010,
+    "last_year": 2025,
+    "measure": "goods",
+    "observations": 33,
+    "origin": "CHN",
+    "reason": "",
+    "source_ids": [
+      "bea"
+    ]
+  },
+  {
+    "available_years": [
+      2010,
+      2011,
+      2012,
+      2013,
+      2014,
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+    ],
+    "baseline_2020": true,
+    "destination": "USA",
+    "first_year": 2010,
+    "last_year": 2025,
+    "measure": "services",
+    "observations": 33,
+    "origin": "CHN",
+    "reason": "",
+    "source_ids": [
+      "bea"
+    ]
+  },
+  {
+    "available_years": [],
+    "baseline_2020": false,
+    "destination": "CHN",
+    "first_year": null,
+    "last_year": null,
+    "measure": "enrolled_students",
+    "observations": 0,
+    "origin": "USA",
+    "reason": "Reviewed IIE academic-level breakdowns cover students hosted in the U.S. only; destination enrolled-only counts are unverified.",
+    "source_ids": []
+  },
+  {
+    "available_years": [],
+    "baseline_2020": false,
+    "destination": "CHN",
+    "first_year": null,
+    "last_year": null,
+    "measure": "degree_students",
+    "observations": 0,
+    "origin": "USA",
+    "reason": "UIS bilateral origin/destination request returned no records; no compatible destination degree-enrollment series verified.",
+    "source_ids": []
+  },
+  {
+    "available_years": [],
+    "baseline_2020": false,
+    "destination": "CHN",
+    "first_year": null,
+    "last_year": null,
+    "measure": "international_students",
+    "observations": 0,
+    "origin": "USA",
+    "reason": "OPT-inclusive IIE totals describe students hosted in the U.S.; not an outbound U.S. enrollment measure.",
+    "source_ids": []
+  },
+  {
+    "available_years": [
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024
+    ],
+    "baseline_2020": true,
+    "destination": "CHN",
+    "first_year": 2018,
+    "last_year": 2024,
+    "measure": "study_abroad",
+    "observations": 7,
+    "origin": "USA",
+    "reason": "",
+    "source_ids": [
+      "iie"
+    ]
+  },
+  {
+    "available_years": [],
+    "baseline_2020": false,
+    "destination": "CHN",
+    "first_year": null,
+    "last_year": null,
+    "measure": "visitors",
+    "observations": 0,
+    "origin": "USA",
+    "reason": "No current U.S.-origin all-mode visitor table verified in mainland official releases; historic arrivals are not spliced to air-passenger proxies.",
+    "source_ids": []
+  },
+  {
+    "available_years": [],
+    "baseline_2020": false,
+    "destination": "CHN",
+    "first_year": null,
+    "last_year": null,
+    "measure": "leisure_visitors",
+    "observations": 0,
+    "origin": "USA",
+    "reason": "Available arrival sources are all-purpose trips; no separately verified leisure-purpose series for this direction.",
+    "source_ids": []
+  },
+  {
+    "available_years": [
+      2010,
+      2011,
+      2012,
+      2013,
+      2014,
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+    ],
+    "baseline_2020": true,
+    "destination": "CHN",
+    "first_year": 2010,
+    "last_year": 2025,
+    "measure": "goods",
+    "observations": 33,
+    "origin": "USA",
+    "reason": "",
+    "source_ids": [
+      "bea"
+    ]
+  },
+  {
+    "available_years": [
+      2010,
+      2011,
+      2012,
+      2013,
+      2014,
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+    ],
+    "baseline_2020": true,
+    "destination": "CHN",
+    "first_year": 2010,
+    "last_year": 2025,
+    "measure": "services",
+    "observations": 33,
+    "origin": "USA",
+    "reason": "",
+    "source_ids": [
+      "bea"
+    ]
+  },
+  {
+    "available_years": [
+      2024,
+      2025
+    ],
+    "baseline_2020": false,
+    "destination": "USA",
+    "first_year": 2024,
+    "last_year": 2025,
+    "measure": "enrolled_students",
+    "observations": 2,
+    "origin": "HKG",
+    "reason": "",
+    "source_ids": [
+      "iie"
+    ]
+  },
+  {
+    "available_years": [
+      2013,
+      2014,
+      2015,
+      2016,
+      2017,
+      2018,
+      2020,
+      2021,
+      2023
+    ],
+    "baseline_2020": true,
+    "destination": "USA",
+    "first_year": 2013,
+    "last_year": 2023,
+    "measure": "degree_students",
+    "observations": 9,
+    "origin": "HKG",
+    "reason": "",
+    "source_ids": [
+      "uis"
+    ]
+  },
+  {
+    "available_years": [
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+    ],
+    "baseline_2020": true,
+    "destination": "USA",
+    "first_year": 2018,
+    "last_year": 2025,
+    "measure": "international_students",
+    "observations": 8,
+    "origin": "HKG",
+    "reason": "",
+    "source_ids": [
+      "iie"
+    ]
+  },
+  {
+    "available_years": [],
+    "baseline_2020": false,
+    "destination": "USA",
+    "first_year": null,
+    "last_year": null,
+    "measure": "study_abroad",
+    "observations": 0,
+    "origin": "HKG",
+    "reason": "IIE credit-study-abroad statistics cover U.S.-origin participants only; reverse-direction participation is not reported here.",
+    "source_ids": []
+  },
+  {
+    "available_years": [
+      2010,
+      2011,
+      2012,
+      2013,
+      2014,
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+    ],
+    "baseline_2020": true,
+    "destination": "USA",
+    "first_year": 2010,
+    "last_year": 2025,
+    "measure": "visitors",
+    "observations": 234,
+    "origin": "HKG",
+    "reason": "",
+    "source_ids": [
+      "ntto"
+    ]
+  },
+  {
+    "available_years": [],
+    "baseline_2020": false,
+    "destination": "USA",
+    "first_year": null,
+    "last_year": null,
+    "measure": "leisure_visitors",
+    "observations": 0,
+    "origin": "HKG",
+    "reason": "Available arrival sources are all-purpose trips; no separately verified leisure-purpose series for this direction.",
+    "source_ids": []
+  },
+  {
+    "available_years": [
+      2010,
+      2011,
+      2012,
+      2013,
+      2014,
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+    ],
+    "baseline_2020": true,
+    "destination": "USA",
+    "first_year": 2010,
+    "last_year": 2025,
+    "measure": "goods",
+    "observations": 33,
+    "origin": "HKG",
+    "reason": "",
+    "source_ids": [
+      "bea"
+    ]
+  },
+  {
+    "available_years": [
+      2010,
+      2011,
+      2012,
+      2013,
+      2014,
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+    ],
+    "baseline_2020": true,
+    "destination": "USA",
+    "first_year": 2010,
+    "last_year": 2025,
+    "measure": "services",
+    "observations": 33,
+    "origin": "HKG",
+    "reason": "",
+    "source_ids": [
+      "bea"
+    ]
+  },
+  {
+    "available_years": [],
+    "baseline_2020": false,
+    "destination": "HKG",
+    "first_year": null,
+    "last_year": null,
+    "measure": "enrolled_students",
+    "observations": 0,
+    "origin": "USA",
+    "reason": "Reviewed IIE academic-level breakdowns cover students hosted in the U.S. only; destination enrolled-only counts are unverified.",
+    "source_ids": []
+  },
+  {
+    "available_years": [
+      2010,
+      2011,
+      2012,
+      2013,
+      2014,
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024
+    ],
+    "baseline_2020": true,
+    "destination": "HKG",
+    "first_year": 2010,
+    "last_year": 2024,
+    "measure": "degree_students",
+    "observations": 15,
+    "origin": "USA",
+    "reason": "",
+    "source_ids": [
+      "uis"
+    ]
+  },
+  {
+    "available_years": [],
+    "baseline_2020": false,
+    "destination": "HKG",
+    "first_year": null,
+    "last_year": null,
+    "measure": "international_students",
+    "observations": 0,
+    "origin": "USA",
+    "reason": "OPT-inclusive IIE totals describe students hosted in the U.S.; not an outbound U.S. enrollment measure.",
+    "source_ids": []
+  },
+  {
+    "available_years": [
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024
+    ],
+    "baseline_2020": true,
+    "destination": "HKG",
+    "first_year": 2018,
+    "last_year": 2024,
+    "measure": "study_abroad",
+    "observations": 7,
+    "origin": "USA",
+    "reason": "",
+    "source_ids": [
+      "iie"
+    ]
+  },
+  {
+    "available_years": [],
+    "baseline_2020": false,
+    "destination": "HKG",
+    "first_year": null,
+    "last_year": null,
+    "measure": "visitors",
+    "observations": 0,
+    "origin": "USA",
+    "reason": "HKTB and Census and Statistics Department visitor-table downloads returned HTTP 403; official data.gov.hk archive had no matching snapshot.",
+    "source_ids": []
+  },
+  {
+    "available_years": [],
+    "baseline_2020": false,
+    "destination": "HKG",
+    "first_year": null,
+    "last_year": null,
+    "measure": "leisure_visitors",
+    "observations": 0,
+    "origin": "USA",
+    "reason": "Available arrival sources are all-purpose trips; no separately verified leisure-purpose series for this direction.",
+    "source_ids": []
+  },
+  {
+    "available_years": [
+      2010,
+      2011,
+      2012,
+      2013,
+      2014,
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+    ],
+    "baseline_2020": true,
+    "destination": "HKG",
+    "first_year": 2010,
+    "last_year": 2025,
+    "measure": "goods",
+    "observations": 33,
+    "origin": "USA",
+    "reason": "",
+    "source_ids": [
+      "bea"
+    ]
+  },
+  {
+    "available_years": [
+      2010,
+      2011,
+      2012,
+      2013,
+      2014,
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+    ],
+    "baseline_2020": true,
+    "destination": "HKG",
+    "first_year": 2010,
+    "last_year": 2025,
+    "measure": "services",
+    "observations": 33,
+    "origin": "USA",
+    "reason": "",
+    "source_ids": [
+      "bea"
+    ]
+  },
+  {
+    "available_years": [
+      2024,
+      2025
+    ],
+    "baseline_2020": false,
+    "destination": "USA",
+    "first_year": 2024,
+    "last_year": 2025,
+    "measure": "enrolled_students",
+    "observations": 2,
+    "origin": "MAC",
+    "reason": "",
+    "source_ids": [
+      "iie"
+    ]
+  },
+  {
+    "available_years": [
+      2013,
+      2014,
+      2015,
+      2016,
+      2017,
+      2018,
+      2020,
+      2021,
+      2023
+    ],
+    "baseline_2020": true,
+    "destination": "USA",
+    "first_year": 2013,
+    "last_year": 2023,
+    "measure": "degree_students",
+    "observations": 9,
+    "origin": "MAC",
+    "reason": "",
+    "source_ids": [
+      "uis"
+    ]
+  },
+  {
+    "available_years": [
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+    ],
+    "baseline_2020": true,
+    "destination": "USA",
+    "first_year": 2018,
+    "last_year": 2025,
+    "measure": "international_students",
+    "observations": 8,
+    "origin": "MAC",
+    "reason": "",
+    "source_ids": [
+      "iie"
+    ]
+  },
+  {
+    "available_years": [],
+    "baseline_2020": false,
+    "destination": "USA",
+    "first_year": null,
+    "last_year": null,
+    "measure": "study_abroad",
+    "observations": 0,
+    "origin": "MAC",
+    "reason": "IIE credit-study-abroad statistics cover U.S.-origin participants only; reverse-direction participation is not reported here.",
+    "source_ids": []
+  },
+  {
+    "available_years": [
+      2010,
+      2011,
+      2012,
+      2013,
+      2014,
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+    ],
+    "baseline_2020": true,
+    "destination": "USA",
+    "first_year": 2010,
+    "last_year": 2025,
+    "measure": "visitors",
+    "observations": 234,
+    "origin": "MAC",
+    "reason": "",
+    "source_ids": [
+      "ntto"
+    ]
+  },
+  {
+    "available_years": [],
+    "baseline_2020": false,
+    "destination": "USA",
+    "first_year": null,
+    "last_year": null,
+    "measure": "leisure_visitors",
+    "observations": 0,
+    "origin": "MAC",
+    "reason": "Available arrival sources are all-purpose trips; no separately verified leisure-purpose series for this direction.",
+    "source_ids": []
+  },
+  {
+    "available_years": [
+      2010,
+      2011,
+      2012,
+      2013,
+      2014,
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+    ],
+    "baseline_2020": true,
+    "destination": "USA",
+    "first_year": 2010,
+    "last_year": 2025,
+    "measure": "goods",
+    "observations": 16,
+    "origin": "MAC",
+    "reason": "",
+    "source_ids": [
+      "comtrade"
+    ]
+  },
+  {
+    "available_years": [],
+    "baseline_2020": false,
+    "destination": "USA",
+    "first_year": null,
+    "last_year": null,
+    "measure": "services",
+    "observations": 0,
+    "origin": "MAC",
+    "reason": "BEA selected-country workbook does not separately report Macau; no current compatible bilateral services series verified.",
+    "source_ids": []
+  },
+  {
+    "available_years": [],
+    "baseline_2020": false,
+    "destination": "MAC",
+    "first_year": null,
+    "last_year": null,
+    "measure": "enrolled_students",
+    "observations": 0,
+    "origin": "USA",
+    "reason": "Reviewed IIE academic-level breakdowns cover students hosted in the U.S. only; destination enrolled-only counts are unverified.",
+    "source_ids": []
+  },
+  {
+    "available_years": [
+      2010,
+      2011,
+      2012,
+      2013,
+      2014,
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024
+    ],
+    "baseline_2020": true,
+    "destination": "MAC",
+    "first_year": 2010,
+    "last_year": 2024,
+    "measure": "degree_students",
+    "observations": 15,
+    "origin": "USA",
+    "reason": "",
+    "source_ids": [
+      "uis"
+    ]
+  },
+  {
+    "available_years": [],
+    "baseline_2020": false,
+    "destination": "MAC",
+    "first_year": null,
+    "last_year": null,
+    "measure": "international_students",
+    "observations": 0,
+    "origin": "USA",
+    "reason": "OPT-inclusive IIE totals describe students hosted in the U.S.; not an outbound U.S. enrollment measure.",
+    "source_ids": []
+  },
+  {
+    "available_years": [
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024
+    ],
+    "baseline_2020": true,
+    "destination": "MAC",
+    "first_year": 2018,
+    "last_year": 2024,
+    "measure": "study_abroad",
+    "observations": 7,
+    "origin": "USA",
+    "reason": "",
+    "source_ids": [
+      "iie"
+    ]
+  },
+  {
+    "available_years": [
+      2013,
+      2014,
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2023,
+      2025
+    ],
+    "baseline_2020": true,
+    "destination": "MAC",
+    "first_year": 2013,
+    "last_year": 2025,
+    "measure": "visitors",
+    "observations": 10,
+    "origin": "USA",
+    "reason": "",
+    "source_ids": [
+      "macau_tourism"
+    ]
+  },
+  {
+    "available_years": [],
+    "baseline_2020": false,
+    "destination": "MAC",
+    "first_year": null,
+    "last_year": null,
+    "measure": "leisure_visitors",
+    "observations": 0,
+    "origin": "USA",
+    "reason": "Available arrival sources are all-purpose trips; no separately verified leisure-purpose series for this direction.",
+    "source_ids": []
+  },
+  {
+    "available_years": [
+      2010,
+      2011,
+      2012,
+      2013,
+      2014,
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+    ],
+    "baseline_2020": true,
+    "destination": "MAC",
+    "first_year": 2010,
+    "last_year": 2025,
+    "measure": "goods",
+    "observations": 16,
+    "origin": "USA",
+    "reason": "",
+    "source_ids": [
+      "comtrade"
+    ]
+  },
+  {
+    "available_years": [],
+    "baseline_2020": false,
+    "destination": "MAC",
+    "first_year": null,
+    "last_year": null,
+    "measure": "services",
+    "observations": 0,
+    "origin": "USA",
+    "reason": "BEA selected-country workbook does not separately report Macau; no current compatible bilateral services series verified.",
+    "source_ids": []
+  },
+  {
+    "available_years": [
+      2024,
+      2025
+    ],
+    "baseline_2020": false,
+    "destination": "USA",
+    "first_year": 2024,
+    "last_year": 2025,
+    "measure": "enrolled_students",
+    "observations": 2,
+    "origin": "TWN",
+    "reason": "",
+    "source_ids": [
+      "iie"
+    ]
+  },
+  {
+    "available_years": [],
+    "baseline_2020": false,
+    "destination": "USA",
+    "first_year": null,
+    "last_year": null,
+    "measure": "degree_students",
+    "observations": 0,
+    "origin": "TWN",
+    "reason": "Taiwan is not separately listed in UIS bilateral tertiary-mobility indicators; IIE counts have a different scope.",
+    "source_ids": []
+  },
+  {
+    "available_years": [
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+    ],
+    "baseline_2020": true,
+    "destination": "USA",
+    "first_year": 2018,
+    "last_year": 2025,
+    "measure": "international_students",
+    "observations": 8,
+    "origin": "TWN",
+    "reason": "",
+    "source_ids": [
+      "iie"
+    ]
+  },
+  {
+    "available_years": [],
+    "baseline_2020": false,
+    "destination": "USA",
+    "first_year": null,
+    "last_year": null,
+    "measure": "study_abroad",
+    "observations": 0,
+    "origin": "TWN",
+    "reason": "IIE credit-study-abroad statistics cover U.S.-origin participants only; reverse-direction participation is not reported here.",
+    "source_ids": []
+  },
+  {
+    "available_years": [
+      2010,
+      2011,
+      2012,
+      2013,
+      2014,
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+    ],
+    "baseline_2020": true,
+    "destination": "USA",
+    "first_year": 2010,
+    "last_year": 2025,
+    "measure": "visitors",
+    "observations": 234,
+    "origin": "TWN",
+    "reason": "",
+    "source_ids": [
+      "ntto"
+    ]
+  },
+  {
+    "available_years": [],
+    "baseline_2020": false,
+    "destination": "USA",
+    "first_year": null,
+    "last_year": null,
+    "measure": "leisure_visitors",
+    "observations": 0,
+    "origin": "TWN",
+    "reason": "Available arrival sources are all-purpose trips; no separately verified leisure-purpose series for this direction.",
+    "source_ids": []
+  },
+  {
+    "available_years": [
+      2010,
+      2011,
+      2012,
+      2013,
+      2014,
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+    ],
+    "baseline_2020": true,
+    "destination": "USA",
+    "first_year": 2010,
+    "last_year": 2025,
+    "measure": "goods",
+    "observations": 33,
+    "origin": "TWN",
+    "reason": "",
+    "source_ids": [
+      "bea"
+    ]
+  },
+  {
+    "available_years": [
+      2010,
+      2011,
+      2012,
+      2013,
+      2014,
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+    ],
+    "baseline_2020": true,
+    "destination": "USA",
+    "first_year": 2010,
+    "last_year": 2025,
+    "measure": "services",
+    "observations": 33,
+    "origin": "TWN",
+    "reason": "",
+    "source_ids": [
+      "bea"
+    ]
+  },
+  {
+    "available_years": [],
+    "baseline_2020": false,
+    "destination": "TWN",
+    "first_year": null,
+    "last_year": null,
+    "measure": "enrolled_students",
+    "observations": 0,
+    "origin": "USA",
+    "reason": "Reviewed IIE academic-level breakdowns cover students hosted in the U.S. only; destination enrolled-only counts are unverified.",
+    "source_ids": []
+  },
+  {
+    "available_years": [],
+    "baseline_2020": false,
+    "destination": "TWN",
+    "first_year": null,
+    "last_year": null,
+    "measure": "degree_students",
+    "observations": 0,
+    "origin": "USA",
+    "reason": "Taiwan is not separately listed in UIS bilateral tertiary-mobility indicators; IIE counts have a different scope.",
+    "source_ids": []
+  },
+  {
+    "available_years": [],
+    "baseline_2020": false,
+    "destination": "TWN",
+    "first_year": null,
+    "last_year": null,
+    "measure": "international_students",
+    "observations": 0,
+    "origin": "USA",
+    "reason": "OPT-inclusive IIE totals describe students hosted in the U.S.; not an outbound U.S. enrollment measure.",
+    "source_ids": []
+  },
+  {
+    "available_years": [
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024
+    ],
+    "baseline_2020": true,
+    "destination": "TWN",
+    "first_year": 2018,
+    "last_year": 2024,
+    "measure": "study_abroad",
+    "observations": 7,
+    "origin": "USA",
+    "reason": "",
+    "source_ids": [
+      "iie"
+    ]
+  },
+  {
+    "available_years": [
+      2012,
+      2013,
+      2014,
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+    ],
+    "baseline_2020": true,
+    "destination": "TWN",
+    "first_year": 2012,
+    "last_year": 2025,
+    "measure": "visitors",
+    "observations": 14,
+    "origin": "USA",
+    "reason": "",
+    "source_ids": [
+      "taiwan_tourism"
+    ]
+  },
+  {
+    "available_years": [
+      2012,
+      2013,
+      2014,
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+    ],
+    "baseline_2020": true,
+    "destination": "TWN",
+    "first_year": 2012,
+    "last_year": 2025,
+    "measure": "leisure_visitors",
+    "observations": 14,
+    "origin": "USA",
+    "reason": "",
+    "source_ids": [
+      "taiwan_tourism"
+    ]
+  },
+  {
+    "available_years": [
+      2010,
+      2011,
+      2012,
+      2013,
+      2014,
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+    ],
+    "baseline_2020": true,
+    "destination": "TWN",
+    "first_year": 2010,
+    "last_year": 2025,
+    "measure": "goods",
+    "observations": 33,
+    "origin": "USA",
+    "reason": "",
+    "source_ids": [
+      "bea"
+    ]
+  },
+  {
+    "available_years": [
+      2010,
+      2011,
+      2012,
+      2013,
+      2014,
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+    ],
+    "baseline_2020": true,
+    "destination": "TWN",
+    "first_year": 2010,
+    "last_year": 2025,
+    "measure": "services",
+    "observations": 33,
+    "origin": "USA",
+    "reason": "",
+    "source_ids": [
+      "bea"
+    ]
+  }
+]

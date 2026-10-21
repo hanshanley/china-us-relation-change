@@ -1,0 +1,401 @@
+"""Primary-source parsers. A changed document layout fails closed."""
+
+import csv
+import io
+import re
+import time
+from datetime import datetime
+from urllib.parse import urljoin
+
+from bs4 import BeautifulSoup
+from openpyxl import load_workbook
+from pypdf import PdfReader
+
+from .model import observation
+
+
+BEA = "https://www.bea.gov/data/intl-trade-investment/international-trade-goods-and-services"
+NTTO = "https://www.trade.gov/i-94-arrivals-program"
+UIS = "https://api.uis.unesco.org/api/public/"
+TAIWAN = "https://stat.taiwan.net.tw/data/opendata/6"
+IIE_INDEX = "https://opendoorsdata.org/2025-country-and-area-fact-sheet-pdfs/"
+IIE_FILES = {
+    "CHN": "https://opendoorsdata.org/wp-content/uploads/2026/01/OD_China_Fact-Sheet-2025.pdf",
+    "HKG": "https://opendoorsdata.org/wp-content/uploads/2026/01/OD_Hong-Kong_Fact-Sheet-2025.pdf",
+    "MAC": "https://opendoorsdata.org/wp-content/uploads/2026/01/OD_Macau_Fact-Sheet-2025.pdf",
+    "TWN": "https://opendoorsdata.org/wp-content/uploads/2026/01/OD_Taiwan_Fact-Sheet-2025.pdf",
+}
+
+
+def workbook(content):
+    if not content.startswith(b"PK"):
+        raise ValueError("Expected an XLSX workbook")
+    return load_workbook(io.BytesIO(content), data_only=True, read_only=True)
+
+
+def attach(rows, asset, vintage):
+    for row in rows:
+        row.update(source_url=asset["url"], raw_sha256=asset["sha256"],
+                   retrieved_at=asset["retrieved_at"], source_vintage=vintage)
+    return rows
+
+
+def links(content, base):
+    return [(urljoin(base, a["href"]), a.get_text(" ", strip=True))
+            for a in BeautifulSoup(content, "html.parser").select("a[href]")]
+
+
+def parse_bea(content):
+    book = workbook(content)
+    rows = []
+    vintage = str(book["Table 4"].cell(1, 1).value)
+    if not vintage.startswith("Last updated "):
+        raise ValueError("BEA release label missing")
+    for number, measure, outbound in [(4, "goods", True), (5, "goods", False),
+                                      (7, "services", True), (8, "services", False)]:
+        table = list(book[f"Table {number}"].values)
+        if "Millions of dollars" not in str(table[3][0]):
+            raise ValueError("Unexpected BEA units")
+        header = next(r for r in table if r[0] == "Period" and "China" in r)
+        section = None
+        quarters = {}
+        for cells in table:
+            label = str(cells[0]).strip()
+            if label in {"Annual", "Quarterly"}:
+                section = label
+                continue
+            match = re.fullmatch(r"(\d{4})(?:\s+([1-4]))?(?:\s*\(R\))?", label)
+            if not match:
+                continue
+            year = int(match[1])
+            if year < 2010:
+                continue
+            for name, geo in [("China", "CHN"), ("Hong Kong", "HKG"), ("Taiwan", "TWN")]:
+                value = cells[header.index(name)]
+                if not isinstance(value, (float, int)):
+                    raise ValueError(f"Unexpected BEA value: {name} {label}")
+                origin, destination = ("USA", geo) if outbound else (geo, "USA")
+                if section == "Annual" and match[2] is None:
+                    rows.append(observation("bea", origin, destination, measure, year,
+                                            value * 1_000_000,
+                                            "BEA balance-of-payments basis; nominal USD; annual, not seasonally adjusted",
+                                            notes="Source units: millions of USD. " + label))
+                elif section == "Quarterly" and match[2]:
+                    quarters[(geo, year, int(match[2]))] = value * 1_000_000
+        if not quarters:
+            raise ValueError("BEA quarterly block missing")
+        latest_year = max(k[1] for k in quarters)
+        end_quarter = max(k[2] for k in quarters if k[1] == latest_year)
+        for name, geo in [("China", "CHN"), ("Hong Kong", "HKG"), ("Taiwan", "TWN")]:
+            for year in range(2010, latest_year + 1):
+                values = [quarters.get((geo, year, q)) for q in range(1, end_quarter + 1)]
+                if all(v is not None for v in values):
+                    origin, destination = ("USA", geo) if outbound else (geo, "USA")
+                    rows.append(observation(
+                        "bea", origin, destination, measure, year, sum(values),
+                        "BEA balance-of-payments basis; nominal USD; seasonally adjusted quarterly sums",
+                        frequency="ytd", month=end_quarter * 3,
+                        notes=f"Derived from complete Q1-Q{end_quarter}; source may revise history."))
+    if len([r for r in rows if r["frequency"] == "annual"]) < 12:
+        raise ValueError("Incomplete BEA annual tables")
+    return rows, vintage
+
+
+def bea(client):
+    page, _ = client.get(BEA)
+    urls = [u for u, text in links(page, BEA) if "geo-time-series" in u and u.endswith(".xlsx")]
+    if len(set(urls)) != 1:
+        raise ValueError("Could not uniquely discover BEA geographic history")
+    content, asset = client.get(urls[0])
+    rows, vintage = parse_bea(content)
+    return attach(rows, asset, vintage), vintage, ""
+
+
+COUNTRIES = {"China": "CHN", "Hong Kong": "HKG", "Macao SAR": "MAC", "Taiwan": "TWN"}
+VISIT_DEFINITION = (
+    "NTTO I-94 overnight visitor trips by country of residence, qualified visa types; "
+    "all purposes, not unique people or leisure-only visitors")
+
+
+def parse_ntto(content, monthly=False):
+    book = workbook(content)
+    table = list(book["Monthly" if monthly else "Annual"].values)
+    headers = table[0]
+    country_col = 1 if monthly else 0
+    periods = []
+    for col, label in enumerate(headers):
+        month = None
+        if monthly:
+            if isinstance(label, datetime):
+                year, month = label.year, label.month
+            else:
+                match = re.match(r"^(\d{4})-(\d{1,2})(?:\D|$)", str(label))
+                if not match:
+                    continue
+                year, month = map(int, match.groups())
+        else:
+            if not isinstance(label, int) or isinstance(label, bool):
+                continue
+            year = label
+        if year >= 2010:
+            periods.append((col, year, month, str(label)))
+    rows, found = [], set()
+    for cells in table:
+        geo = COUNTRIES.get(cells[country_col])
+        if not geo:
+            continue
+        found.add(geo)
+        for col, year, month, label in periods:
+            value = cells[col]
+            if value is not None and not isinstance(value, (int, float)):
+                raise ValueError(f"Unexpected NTTO value: {geo} {label}")
+            rows.append(observation(
+                "ntto", geo, "USA", "visitors", year, value, VISIT_DEFINITION,
+                frequency="monthly" if monthly else "annual", month=month,
+                status="missing" if value is None else (
+                    "provisional" if "preliminary" in label.lower() else "observed"),
+                notes=label if monthly else "Official annual total; may differ from revised monthly sums."))
+    if found != set(COUNTRIES.values()) or not periods:
+        raise ValueError("NTTO geography or period headers missing")
+    if monthly:
+        available = [r for r in rows if r["value"] is not None]
+        year = max(r["year"] for r in available)
+        end_month = max(int(r["period"][5:7]) for r in available if r["year"] == year)
+        index = {(r["origin"], r["year"], int(r["period"][5:7])): r for r in rows}
+        for geo in found:
+            for y in range(2010, year + 1):
+                months = [index.get((geo, y, m)) for m in range(1, end_month + 1)]
+                if all(r is not None and r["value"] is not None for r in months):
+                    rows.append(observation(
+                        "ntto", geo, "USA", "visitors", y, sum(r["value"] for r in months),
+                        VISIT_DEFINITION, frequency="ytd", month=end_month,
+                        status="provisional" if any(r["status"] == "provisional" for r in months) else "observed",
+                        notes="Derived sum of complete January-to-cutoff monthly observations."))
+    vintage = "Workbook modified " + str(book.properties.modified or "date not supplied")
+    return rows, vintage
+
+
+def ntto(client):
+    page, _ = client.get(NTTO)
+    found = links(page, NTTO)
+    rows, vintages = [], []
+    for monthly in [False, True]:
+        urls = [u for u, text in found if ".xlsx" in u.lower()
+                and ("monthly" if monthly else "annual") in (u + text).lower()
+                and ("residence" in (u + text).lower())
+                and ("present" in (u + text).lower())]
+        if not urls:
+            raise ValueError("NTTO current history link missing")
+        url = urls[0].replace("www.trade.gov//", "www.trade.gov/")
+        content, asset = client.get(url)
+        candidate, vintage = parse_ntto(content, monthly)
+        rows.extend(attach(candidate, asset, vintage))
+        vintages.append(vintage)
+    return rows, "; ".join(vintages), "Workbook modification dates are not official publication dates."
+
+
+def uis(client):
+    content, _ = client.get(UIS + "definitions/indicators")
+    catalog = client.json(content)
+    if isinstance(catalog, dict):
+        catalog = catalog.get("indicators", catalog.get("records", []))
+    catalog_by_id = {str(x["indicatorCode"]): x for x in catalog}
+    rows, updates = [], []
+    for geo, indicator in [("CHN", "26528"), ("HKG", "26532"), ("MAC", "26547")]:
+        for origin, destination, indicator_id in [(geo, "USA", indicator), ("USA", geo, "26503")]:
+            content, asset = client.get(
+                UIS + "data/indicators",
+                params={"indicator": indicator_id, "geoUnit": destination,
+                        "start": 2010, "footnotes": "true"})
+            data = client.json(content)
+            if not isinstance(data.get("records"), list):
+                raise ValueError("UIS records missing")
+            info = catalog_by_id.get(indicator_id, {})
+            vintage = info.get("lastDataUpdateDescription", "UIS release date not supplied")
+            updates.append(vintage)
+            candidate = []
+            for rec in data["records"]:
+                if str(rec["indicatorId"]) != indicator_id or rec["geoUnit"] != destination:
+                    raise ValueError("UIS indicator/destination mismatch")
+                value = rec["value"]
+                candidate.append(observation(
+                    "uis", origin, destination, "degree_students", int(rec["year"]), value,
+                    "UIS internationally mobile tertiary degree/diploma students; destination-reported; reporting year",
+                    period_basis="reporting", status="missing" if value is None else "observed",
+                    notes="Qualifier: " + str(rec.get("qualifier")) +
+                    "; footnotes: " + str(rec.get("footnotes", [])) +
+                    "; fractional source estimates retained. Not a physical-presence or departure count."))
+            rows.extend(attach(candidate, asset, vintage))
+    if not rows:
+        raise ValueError("UIS returned no observations across all requested series")
+    return rows, "; ".join(sorted(set(updates))), "Taiwan not separately listed; U.S.-to-mainland records may be absent."
+
+
+def parse_taiwan(content):
+    reader = csv.DictReader(io.StringIO(content.decode("utf-8-sig")))
+    if not {"年別", "細分", "合計", "觀光"}.issubset(reader.fieldnames or []):
+        raise ValueError("Taiwan CSV column layout changed")
+    records = list(reader)
+    rows = []
+    for rec in records:
+        if not rec["細分"].endswith("USA"):
+            continue
+        for measure, col in [("visitors", "合計"), ("leisure_visitors", "觀光")]:
+            value = int(rec[col].replace(",", ""))
+            rows.append(observation(
+                "taiwan_tourism", "USA", "TWN", measure, int(rec["年別"]), value,
+                "Taiwan inbound visitor arrivals by residence, " +
+                ("all purposes" if measure == "visitors" else "declared sightseeing purpose") +
+                "; trips, not unique people; not restricted to overnight stays"))
+    if not rows:
+        raise ValueError("Taiwan CSV has no U.S. residence records")
+    return rows
+
+
+def taiwan(client):
+    content, asset = client.get(TAIWAN)
+    rows = parse_taiwan(content)
+    vintage = "Official annual CSV through " + str(max(r["year"] for r in rows))
+    return attach(rows, asset, vintage), vintage, "Public open-data CSV; scope differs from NTTO overnight trips."
+
+
+def parse_iie(content, geo):
+    if not content.startswith(b"%PDF"):
+        raise ValueError("Expected an IIE PDF")
+    text = "\n".join(re.sub(r"[ \t]+", "", line) for page in
+                     PdfReader(io.BytesIO(content)).pages for line in page.extract_text().splitlines())
+    rows = []
+    for match in re.finditer(r"(20\d{2})/(\d{2})\n([\d,]+)\n([\d,]+|Null|N/A)", text):
+        year = int(match[1]) + 1
+        if int(match[2]) != year % 100:
+            raise ValueError("IIE academic year ending mismatch")
+        for measure, value, origin, destination in [
+            ("international_students", match[3], geo, "USA"),
+            ("study_abroad", match[4], "USA", geo),
+        ]:
+            missing = value in {"Null", "N/A"}
+            rows.append(observation(
+                "iie", origin, destination, measure, year,
+                None if missing else int(value.replace(",", "")),
+                ("IIE Open Doors international students, including Optional Practical Training (OPT); "
+                 "not enrolled-only or necessarily physically present"
+                 if measure == "international_students" else
+                 "IIE Open Doors U.S. students receiving academic credit for study abroad; participation, not degree enrollment"),
+                period_basis="academic", status="missing" if missing else "observed",
+                notes="Academic year ending shown. Pandemic remote participation affects physical-presence interpretation."))
+    enrollment = {}
+    for level in ["Undergraduate", "Graduate", "Non-Degree"]:
+        match = re.search(level + r"\n([\d,]+)\n([\d,]+)\n", text)
+        if not match:
+            raise ValueError("IIE enrollment breakdown layout changed: " + level)
+        enrollment[level] = [int(match[n].replace(",", "")) for n in [1, 2]]
+    latest = max((r["year"] for r in rows), default=0)
+    if latest != 2025 or len(rows) != 16:
+        raise ValueError("IIE reviewed 2025 fact-sheet layout or vintage changed")
+    for i, year in enumerate([2024, 2025]):
+        rows.append(observation(
+            "iie", geo, "USA", "enrolled_students", year,
+            sum(values[i] for values in enrollment.values()),
+            "IIE Open Doors undergraduate + graduate + non-degree enrollment; excludes OPT; "
+            "not necessarily physically present", period_basis="academic",
+            notes="Derived by adding three published academic-level counts, never OPT."))
+    return rows
+
+
+def iie(client):
+    rows = []
+    for geo, url in IIE_FILES.items():
+        content, asset = client.get(url)
+        rows.extend(attach(parse_iie(content, geo), asset, "Open Doors 2025"))
+    return rows, "Open Doors 2025", (
+        "Reviewed 2025 PDFs are rechecked daily; new annual report discovery requires manual review. "
+        "The country-factsheet index was access-restricted during source audit.")
+
+
+MACAU_INDEX = "https://dataplus.macaotourism.gov.mo/Publication/StatisticalTables?lang=E"
+
+
+def parse_macau(content, year):
+    if not content.startswith(b"%PDF"):
+        raise ValueError("Expected a Macau tourism PDF")
+    text = "\n".join(p.extract_text() for p in PdfReader(io.BytesIO(content)).pages)
+    if str(year) not in text or "Visitor Arrivals" not in text:
+        raise ValueError("Unexpected Macau report vintage or content")
+    matches = re.findall(r"(?:USA|U\.S\.A\.?|United States(?: of America)?)\s+(\d[\d,]*)(?=\s)", text)
+    values = {int(v.replace(",", "")) for v in matches
+              if re.fullmatch(r"\d{1,3}(?:,\d{3})+|\d+", v)}
+    if len(values) > 1:
+        raise ValueError("Ambiguous U.S. totals in Macau report; review required")
+    return next(iter(values)) if values else None
+
+
+def macau(client):
+    page, _ = client.get(MACAU_INDEX)
+    urls = [urljoin("https://dataplus.macaotourism.gov.mo/", o["value"])
+            for o in BeautifulSoup(page, "html.parser").select("option[value]")
+            if "VAHightlights" in o["value"] and "Dec" in o["value"]]
+    urls = [(int(re.search(r"/(\d{4})/", u)[1]), u) for u in urls]
+    urls = [(year, u) for year, u in urls if year >= 2010]
+    if not urls:
+        raise ValueError("Macau annual report archive missing")
+    rows = []
+    for year, url in sorted(urls):
+        content, asset = client.get(url)
+        value = parse_macau(content, year)
+        rows.extend(attach([observation(
+            "macau_tourism", "USA", "MAC", "visitors", year, value,
+            "MGTO/DSEC visitor arrivals attributed to the U.S. source market; "
+            "same-day and overnight trips, not unique people",
+            status="observed" if value is not None else "missing",
+            notes="December report cumulative annual table; country may be absent from selected-market tables. "
+            "2020 report contains a stale Jan-Nov section heading; surrounding text identifies annual 2020 totals."
+        )], asset, f"MGTO December {year}"))
+    return rows, f"MGTO annual highlights through {max(y for y, u in urls)}", (
+        "Selected-market PDFs; unlisted U.S. values are missing, never zero. "
+        "This adapter covers complete annual reports, not newer monthly highlights.")
+
+
+def comtrade(client):
+    rows = []
+    latest = datetime.now().year - 1
+    for year in range(2010, latest + 1):
+        content, asset = client.get(
+            "https://comtradeapi.un.org/public/v1/preview/C/A/HS",
+            params={"period": year, "reporterCode": 842, "partnerCode": 446,
+                    "cmdCode": "TOTAL", "flowCode": "X,M"})
+        data = client.json(content)
+        if not isinstance(data.get("data"), list):
+            raise ValueError("Comtrade records missing")
+        seen = set()
+        for rec in data["data"]:
+            flow = rec["flowCode"]
+            if (rec["reporterCode"], rec["partnerCode"], rec["cmdCode"]) != (842, 446, "TOTAL"):
+                raise ValueError("Comtrade partner or aggregate mismatch")
+            if flow not in {"X", "M"} or flow in seen:
+                raise ValueError("Unexpected Comtrade flow")
+            seen.add(flow)
+            valuation = "FOB" if flow == "X" else "CIF"
+            value = rec.get("fobvalue" if flow == "X" else "cifvalue")
+            if not isinstance(value, (int, float)):
+                raise ValueError("Comtrade documented " + valuation + " valuation unavailable")
+            origin, destination = ("USA", "MAC") if flow == "X" else ("MAC", "USA")
+            rows.extend(attach([observation(
+                "comtrade", origin, destination, "goods", year, value,
+                "UN Comtrade, U.S.-reported aggregate goods trade with Macao; " +
+                valuation + " value, nominal USD; customs basis, not BEA balance-of-payments basis",
+                notes="Reported aggregate; source isAggregate=" + str(rec.get("isAggregate")) +
+                ", isReported=" + str(rec.get("isReported")) +
+                ". Not comparable to BEA accounting basis across geographies."
+            )], asset, "Comtrade annual " + str(year)))
+        if data["data"] and seen != {"X", "M"}:
+            raise ValueError("Comtrade incomplete bilateral flow pair")
+        time.sleep(1)
+    if not rows:
+        raise ValueError("Comtrade returned no Macao goods records")
+    return rows, "Comtrade annual records through " + str(max(r["year"] for r in rows)), (
+        "U.S.-reported customs trade: exports FOB, imports CIF; intentionally not spliced with BEA balance-of-payments series.")
+
+
+ADAPTERS = {"bea": bea, "ntto": ntto, "uis": uis,
+            "taiwan_tourism": taiwan, "iie": iie,
+            "macau_tourism": macau, "comtrade": comtrade}

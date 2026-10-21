@@ -1,0 +1,63 @@
+import io
+from datetime import datetime
+
+import pytest
+from openpyxl import Workbook
+
+from us_china_exchange.sources import COUNTRIES, parse_bea, parse_ntto, parse_taiwan
+
+
+def xlsx(book):
+    stream = io.BytesIO()
+    book.save(stream)
+    return stream.getvalue()
+
+
+def test_bea_scale_directions_and_matched_quarter_sums():
+    book = Workbook()
+    book.remove(book.active)
+    for n in [4, 5, 7, 8]:
+        sheet = book.create_sheet(f"Table {n}")
+        for cells in [
+            ["Last updated September 3, 2026"], ["Title"], ["Trade"],
+            ["[Millions of dollars, quarters seasonally adjusted]"], [],
+            ["Period", "China", "Hong Kong", "Taiwan"], ["Annual"],
+            ["2020", 10, 20, 30], ["Quarterly"],
+            ["2020 1", 1, 2, 3], ["2020 2", 4, 5, 6],
+            ["2026 1 (R)", 7, 8, 9], ["2026 2", 10, 11, 12],
+        ]:
+            sheet.append(cells)
+    rows, vintage = parse_bea(xlsx(book))
+    assert len(rows) == 36
+    assert {r["origin"] for r in rows} == {"USA", "CHN", "HKG", "TWN"}
+    row = next(r for r in rows if r["origin"] == "USA" and r["destination"] == "CHN"
+               and r["measure"] == "services" and r["frequency"] == "ytd" and r["year"] == 2026)
+    assert row["value"] == 17_000_000
+    assert row["period"] == "2026-06"
+    assert "seasonally adjusted" in row["definition"]
+
+
+def test_ntto_mixed_headers_single_digit_months_and_provisional_ytd():
+    book = Workbook()
+    sheet = book.active
+    sheet.title = "Monthly"
+    sheet.append(["#", "Country", "Region", datetime(2020, 1, 2),
+                  datetime(2020, 2, 3), "2022-1", "2022-2",
+                  "2026-01", "2026-02\nPreliminary"])
+    for i, country in enumerate(COUNTRIES):
+        sheet.append([i, country, "Asia", 10, 20, 40, 50, 60, 70])
+    rows, _ = parse_ntto(xlsx(book), monthly=True)
+    assert len([r for r in rows if r["frequency"] == "monthly"]) == 24
+    assert next(r for r in rows if r["period"] == "2022-02" and r["origin"] == "MAC")["value"] == 50
+    current = next(r for r in rows if r["year"] == 2026 and r["frequency"] == "ytd")
+    assert current["value"] == 130
+    assert current["status"] == "provisional"
+
+
+def test_taiwan_all_purpose_and_leisure_are_separate():
+    content = "年別,細分,合計,觀光\n2020,美國 USA,\"82,872\",\"26,634\"\n".encode("utf-8-sig")
+    rows = parse_taiwan(content)
+    assert {r["measure"]: r["value"] for r in rows} == {
+        "visitors": 82872, "leisure_visitors": 26634}
+    with pytest.raises(ValueError):
+        parse_taiwan(b"year,country\n2020,USA\n")

@@ -1,6 +1,6 @@
 import pytest
 
-from us_china_exchange.model import change, coverage, observation, validate
+from us_china_exchange.model import MEASURES, change, coverage, observation, validate
 
 
 def row(year=2020, value=100, **kwargs):
@@ -39,10 +39,20 @@ def test_incompatible_population_and_periods_not_compared():
 
 def test_coverage_includes_all_geographies_and_explicit_gaps():
     result = coverage([row()])
-    assert len(result) == 4 * 2 * 7
+    assert len(result) == 4 * 2 * len(MEASURES)
     assert sum(r["observations"] for r in result) == 1
     assert all(r["reason"] for r in result if not r["observations"])
 
 
 def test_academic_label_preserves_year_ending():
     assert row(period_basis="academic")["period"] == "2019/20"
+    assert row(period_basis="academic")["period_start"] is None
+    assert change(row(2024, 200, period_basis="academic"),
+                  row(period_basis="academic"))["percent"] == 100
+
+
+def test_february_compares_across_leap_years():
+    assert change(row(2024, 150, frequency="monthly", month=2),
+                  row(2023, 100, frequency="monthly", month=2))["percent"] == 50
+    with pytest.raises(ValueError, match="ending month"):
+        row(frequency="monthly")

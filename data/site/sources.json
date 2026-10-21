@@ -1,0 +1,58 @@
+{
+  "bea": {
+    "last_recorded_check": "2026-10-21T14:43:03+00:00",
+    "last_successful_retrieval": "2026-10-21T14:43:03+00:00",
+    "notes": "",
+    "observations": 396,
+    "status": "available",
+    "vintage": "Last updated September 3, 2026"
+  },
+  "comtrade": {
+    "last_recorded_check": "2026-10-21T14:47:13+00:00",
+    "last_successful_retrieval": "2026-10-21T14:47:13+00:00",
+    "notes": "U.S.-reported customs trade: exports FOB, imports CIF; intentionally not spliced with BEA balance-of-payments series.",
+    "observations": 32,
+    "status": "available",
+    "vintage": "Comtrade annual records through 2025"
+  },
+  "iie": {
+    "last_recorded_check": "2026-10-21T14:43:03+00:00",
+    "last_successful_retrieval": "2026-10-21T14:43:03+00:00",
+    "notes": "Reviewed 2025 PDFs are rechecked daily; new annual report discovery requires manual review. The country-factsheet index was access-restricted during source audit.",
+    "observations": 72,
+    "status": "available",
+    "vintage": "Open Doors 2025"
+  },
+  "macau_tourism": {
+    "last_recorded_check": "2026-10-21T14:47:13+00:00",
+    "last_successful_retrieval": "2026-10-21T14:47:13+00:00",
+    "notes": "Selected-market PDFs; unlisted U.S. values are missing, never zero. This adapter covers complete annual reports, not newer monthly highlights.",
+    "observations": 16,
+    "status": "available",
+    "vintage": "MGTO annual highlights through 2025"
+  },
+  "ntto": {
+    "last_recorded_check": "2026-10-21T14:47:13+00:00",
+    "last_successful_retrieval": "2026-10-21T14:47:13+00:00",
+    "notes": "Workbook modification dates are not official publication dates.",
+    "observations": 936,
+    "status": "available",
+    "vintage": "Workbook modified 2026-03-24 14:05:25; Workbook modified 2026-10-20 13:51:14"
+  },
+  "taiwan_tourism": {
+    "last_recorded_check": "2026-10-21T14:43:03+00:00",
+    "last_successful_retrieval": "2026-10-21T14:43:03+00:00",
+    "notes": "Public open-data CSV; scope differs from NTTO overnight trips.",
+    "observations": 28,
+    "status": "available",
+    "vintage": "Official annual CSV through 2025"
+  },
+  "uis": {
+    "last_recorded_check": "2026-10-21T14:47:13+00:00",
+    "last_successful_retrieval": "2026-10-21T14:47:13+00:00",
+    "notes": "Taiwan not separately listed; U.S.-to-mainland records may be absent.",
+    "observations": 57,
+    "status": "available",
+    "vintage": "February 2026 Data Release"
+  }
+}
