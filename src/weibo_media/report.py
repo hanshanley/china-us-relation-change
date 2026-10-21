@@ -1,0 +1,148 @@
+from pathlib import Path
+
+from .export import coverage
+from .storage import now
+
+
+def cell(value):
+    return str(value if value is not None else "unknown").replace("|", "\\|").replace("\n", " ")
+
+
+def report(db, path):
+    outlets = db.execute("SELECT * FROM outlets ORDER BY name").fetchall()
+    accounts = db.execute("""
+        SELECT a.*,o.name AS outlet FROM accounts a
+        JOIN outlets o ON o.id=a.outlet_id ORDER BY o.name,a.id
+    """).fetchall()
+    reviewed = sum(row["research_status"] == "reviewed" for row in outlets)
+    lines = [
+        "# U.S. news-media accounts on Sina Weibo",
+        "",
+        f"Generated: {now()}. Registry claims retain their own observation dates.",
+        "",
+        f"Candidate roster: **{len(outlets)} outlets; {reviewed} reviewed; "
+        f"{len(outlets) - reviewed} pending**. This is an expandable research roster, not a census.",
+        "Officialness, historical existence, operator relationship, and current access are distinct.",
+        "A visitor/login gate does not establish that an account was suspended or deleted.",
+        "",
+        "## Confirmed official accounts",
+        "",
+        "| Outlet / edition | Account | UID | Relationship | Existence evidence | Direct access |",
+        "|---|---|---|---|---|---|",
+    ]
+    for account in accounts:
+        if account["officialness"] == "confirmed":
+            lines.append("| " + " | ".join(cell(value) for value in (
+                account["outlet"], f"[{account['display_name']}]({account['profile_url']})",
+                account["uid"], account["relationship"], account["existence"],
+                account["accessibility"],
+            )) + " |")
+    lines += ["", "### Evidence and operator notes", ""]
+    for account in accounts:
+        lines += [f"**{cell(account['outlet'])} / {cell(account['display_name'])}** "
+                  f"({account['officialness']}). Operator: {cell(account['operator'])}. "
+                  f"{cell(account['notes'])}", ""]
+        evidence = db.execute("SELECT * FROM evidence WHERE account_id=? ORDER BY id",
+                              (account["id"],)).fetchall()
+        for item in evidence:
+            lines.append(f"- [{item['id']}]({item['source_url']}) [{item['source_type']}; "
+                         f"supports {item['supports']}; observed {item['observed_at']}; "
+                         f"claim date {cell(item['claim_date'])}]: {cell(item['justification'])}")
+        lines.append("")
+    lines += ["## Reviewed and pending outlets", "",
+              "| Outlet | Research status | Account result / limits |",
+              "|---|---|---|"]
+    for outlet in outlets:
+        found = [a for a in accounts if a["outlet_id"] == outlet["id"]]
+        result = "; ".join(f"{a['display_name']}: {a['officialness']}" for a in found)
+        if not result:
+            result = ("Not found in reviewed sources; not evidence of absence"
+                      if outlet["research_status"] == "reviewed" else "Not yet reviewed")
+        lines.append(f"| [{cell(outlet['name'])}]({outlet['source_url']}) | "
+                     f"{outlet['research_status']} | {cell(result)}. {cell(outlet['notes'])} |")
+    lines += ["", "## Recovered corpus and coverage", "",
+              "Requested publication interval: January 1, 2020 through October 21, 2026 "
+              "(Asia/Shanghai). Per-run bounds in coverage.csv are authoritative for custom runs.",
+              "All counts below are recovered/observed posts, not total output. No zero-activity "
+              "claim is made for missing months. Historical recovery remains partial.",
+              "",
+              "| Account | Recovered posts | Earliest observed UTC | Latest observed UTC | Latest run | Gap / limitation |",
+              "|---|---|---|---|---|---|"]
+    for row in coverage(db):
+        lines.append("| " + " | ".join(cell(value) for value in (
+            row["account_id"], row["recovered_posts"], row["earliest_observed_post"],
+            row["latest_observed_post"], row["latest_run_status"] or "not attempted",
+            row["latest_error"] or row["limitations"] or "Not collected",
+        )) + " |")
+    lines += ["", "### Text completeness", "",
+              "| Account | Text status | Recovered posts |",
+              "|---|---|---|"]
+    for row in db.execute("""
+        SELECT account_id,text_status,COUNT(*) AS count FROM posts
+        GROUP BY account_id,text_status ORDER BY account_id,text_status
+    """):
+        lines.append(f"| {row['account_id']} | {row['text_status']} | {row['count']} |")
+    lines += ["", "## Observed monthly activity", "",
+              "Counts use publication months in Asia/Shanghai. Unknown post kinds are retained, "
+              "not silently classified as original posts.", "",
+              "| Account | Month | Kind | Recovered posts |",
+              "|---|---|---|---|"]
+    for row in db.execute("""
+        SELECT account_id, strftime('%Y-%m',published_utc,'+8 hours') AS month,
+               kind, COUNT(*) AS count FROM posts GROUP BY account_id,month,kind
+        ORDER BY account_id,month,kind
+    """):
+        lines.append(f"| {row['account_id']} | {row['month']} | {row['kind']} | {row['count']} |")
+    lines += ["", "## Engagement observations", "",
+              "Grouped by source and observation day, not by publication date. "
+              "Each group uses the latest snapshot per post on that day. Counts may be cached; "
+              "these are not historic engagement trajectories or cross-account performance rankings. "
+              "Missing values are excluded, not converted to zero.", "",
+              "| Account | Source | Observation day UTC | Posts | Mean likes (n) | Mean comments (n) | Mean reposts (n) |",
+              "|---|---|---|---|---|---|---|"]
+    for row in db.execute("""
+        WITH ranked AS (
+          SELECT o.*,p.account_id,
+            ROW_NUMBER() OVER (
+              PARTITION BY o.post_id,o.source_type,substr(o.observed_at,1,10)
+              ORDER BY o.observed_at DESC,o.source_url
+            ) AS rank
+          FROM observations o JOIN posts p ON p.id=o.post_id
+        )
+        SELECT account_id,source_type,substr(observed_at,1,10) AS day,COUNT(*) AS count,
+          AVG(likes) AS likes,COUNT(likes) AS likes_n,
+          AVG(comments) AS comments,COUNT(comments) AS comments_n,
+          AVG(reposts) AS reposts,COUNT(reposts) AS reposts_n
+        FROM ranked WHERE rank=1 GROUP BY account_id,source_type,day
+        ORDER BY account_id,source_type,day
+    """):
+        metrics = []
+        for name in ("likes", "comments", "reposts"):
+            metrics.append(f"{row[name]:.2f} ({row[name + '_n']})" if row[name] is not None else "unknown (0)")
+        lines.append("| " + " | ".join([cell(row[key]) for key in (
+            "account_id", "source_type", "day", "count")] + metrics) + " |")
+    lines += ["", "## Method and remaining gaps", "",
+              "Discovery prioritizes publisher-owned outbound links, explicit platform certification "
+              "naming the outlet, and first-hand publisher confirmation. Search results and matching "
+              "logos alone do not confirm officialness.",
+              "",
+              "Collection uses the pilot-verified public Sina syndication feed, linked detail pages, "
+              "and selected public Wayback profile snapshots, respecting robots rules and access failures. "
+              "No Weibo gates are bypassed. "
+              "Detail text is labeled source_full: the complete accessible syndicated body, not a "
+              "guarantee of fidelity to an inaccessible original. Feed previews remain truncated "
+              "in provenance. Reposts cannot reliably be identified on this source.",
+              "",
+              "No feed-history pagination has been demonstrated. Archive index hits alone are not "
+              "recovered posts. Authorized/manual/archive JSONL imports can extend coverage, retaining "
+              "publication versus capture dates. Resolve unknown UIDs before attempting account-specific "
+              "syndication retrieval. No claim is made that any outlet lacking evidence never used Weibo.",
+              "",
+              "Corpus text and raw responses are local-only by default. Public exports omit posts "
+              "without explicit redistribution permission and list omissions. No third-party post "
+              "text is reproduced in this report. See [access pilot](access_pilot.md) for source-level "
+              "access checks and archive gaps.", ""]
+    target = Path(path)
+    target.parent.mkdir(parents=True, exist_ok=True)
+    target.write_text("\n".join(lines), encoding="utf-8")
+    return {"report": str(target), "outlets": len(outlets), "accounts": len(accounts)}

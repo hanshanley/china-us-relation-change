@@ -1,0 +1,216 @@
+{
+  "outlets": [
+    {
+      "id": "forbes", "name": "Forbes / Forbes China", "category": "business",
+      "aliases": ["福布斯", "福布斯中文网"], "us_basis": "U.S. business-media brand; Chinese edition included separately from the U.S. newsroom.",
+      "source_url": "https://www.forbeschina.com/", "research_status": "reviewed",
+      "notes": "Publisher homepage links directly to the account. Review date: 2026-10-21."
+    },
+    {
+      "id": "fortune", "name": "Fortune / Fortune China", "category": "business",
+      "aliases": ["财富", "财富中文网"], "us_basis": "U.S. business-media brand; Chinese edition included with an explicit operator distinction.",
+      "source_url": "https://www.fortunechina.com/", "research_status": "reviewed",
+      "notes": "Publisher outbound link and archived profile agree on identity. Review date: 2026-10-21."
+    },
+    {
+      "id": "hbr", "name": "Harvard Business Review / China", "category": "business",
+      "aliases": ["哈佛商业评论", "哈佛商业评论中国"], "us_basis": "U.S. management publication; HBR's own global-editions page lists licensed HBR China.",
+      "source_url": "https://hbr.org/global-editions", "research_status": "reviewed",
+      "notes": "Chinese edition's platform certification is explicit. hbrchina.org redirects to hbrcitic.com. Review date: 2026-10-21."
+    },
+    {
+      "id": "nyt", "name": "The New York Times", "category": "newspaper",
+      "aliases": ["纽约时报", "纽约时报中文网", "nytchinese"], "us_basis": "U.S. newspaper; Chinese-language newsroom edition.",
+      "source_url": "https://cn.nytimes.com/", "research_status": "reviewed",
+      "notes": "Historical official account confirmed directly to a reporter in 2012. Current homepage did not expose a Weibo link. No current activity claim. Review date: 2026-10-21."
+    },
+    {
+      "id": "wsj", "name": "The Wall Street Journal", "category": "newspaper",
+      "aliases": ["华尔街日报", "华尔街日报中文网"], "us_basis": "U.S. newspaper; Chinese-language edition.",
+      "source_url": "https://cn.wsj.com/", "research_status": "reviewed",
+      "notes": "Historical academic research describes an official account; candidate UID found in a third-party repost. Direct primary certification still unresolved. Publisher request failed with HTTP 401/Forbidden. Review date: 2026-10-21."
+    },
+    {
+      "id": "bloomberg", "name": "Bloomberg / Bloomberg Businessweek China", "category": "business",
+      "aliases": ["彭博", "彭博商业周刊中文版", "商业周刊中文版"], "us_basis": "U.S. news and business-media brand; any local edition must be distinguished.",
+      "source_url": "https://www.bloombergmedia.com/", "research_status": "reviewed",
+      "notes": "No Weibo link found on reviewed Bloomberg Media homepage; corporate press page returned HTTP 403. bbwc.cn had a small i商周 landing page. A third-party directory names a Chinese-edition account but supplies insufficient primary identity evidence. Review date: 2026-10-21."
+    },
+    {
+      "id": "cnn", "name": "CNN", "category": "broadcaster",
+      "aliases": ["美国有线电视新闻网"], "us_basis": "U.S. news broadcaster.",
+      "source_url": "https://www.cnn.com/", "research_status": "reviewed",
+      "notes": "Bounded homepage scan (first 1.5 MB) found no Weibo outbound link; not a comprehensive social-account search. Review date: 2026-10-21."
+    },
+    {
+      "id": "cnbc", "name": "CNBC", "category": "broadcaster",
+      "aliases": ["消费者新闻与商业频道"], "us_basis": "U.S. business-news broadcaster.",
+      "source_url": "https://www.cnbc.com/", "research_status": "reviewed",
+      "notes": "Bounded homepage scan (first 1.5 MB) found no Weibo outbound link; not a comprehensive social-account search. Review date: 2026-10-21."
+    },
+    {
+      "id": "ap", "name": "The Associated Press", "category": "newswire",
+      "aliases": ["美联社"], "us_basis": "U.S. news cooperative.",
+      "source_url": "https://apnews.com/", "research_status": "reviewed",
+      "notes": "Homepage returned HTTP 403. No identity conclusion can be drawn from blocked access. Review date: 2026-10-21."
+    },
+    {
+      "id": "washington-post", "name": "The Washington Post", "category": "newspaper",
+      "aliases": ["华盛顿邮报"], "us_basis": "U.S. newspaper.",
+      "source_url": "https://www.washingtonpost.com/", "research_status": "reviewed",
+      "notes": "Homepage retrieval timed out; account identity remains unestablished. Review date: 2026-10-21."
+    },
+    {
+      "id": "sinovision", "name": "SinoVision / 美国中文网", "category": "us_chinese_language",
+      "aliases": ["美国中文电视", "美国中文网"], "us_basis": "U.S. Chinese-language television/news operation.",
+      "source_url": "https://www.sinovision.net/", "research_status": "reviewed",
+      "notes": "Homepage retrieval was not a usable outlet page in the final check (78 bytes). No official account established. Distinct from 侨报/uschinapress.com. Review date: 2026-10-21."
+    },
+    {
+      "id": "china-press", "name": "The China Press / 侨报", "category": "us_chinese_language",
+      "aliases": ["侨报", "美国侨报网"], "us_basis": "U.S. Chinese-language newspaper.",
+      "source_url": "https://www.uschinapress.com/", "research_status": "reviewed",
+      "notes": "Homepage returned HTTP 403 or 406 across attempts. No official account established. Review date: 2026-10-21."
+    },
+    {
+      "id": "world-journal", "name": "World Journal / 世界日报", "category": "us_chinese_language",
+      "aliases": ["世界日报", "世界日報"], "us_basis": "U.S. Chinese-language newspaper edition; overseas ownership does not exclude a U.S.-based outlet.",
+      "source_url": "https://www.worldjournal.com/", "research_status": "reviewed",
+      "notes": "HTTP 403 on one attempt; a later HTTP 200 returned only 702 bytes, not usable publisher content. No official account established. Review date: 2026-10-21."
+    },
+    {
+      "id": "sing-tao-us", "name": "Sing Tao Daily, U.S. edition", "category": "us_chinese_language",
+      "aliases": ["星岛日报美国版", "星島日報美國版"], "us_basis": "U.S. edition of a Chinese-language newspaper; do not conflate its accounts with non-U.S. editions.",
+      "source_url": "https://www.singtaousa.com/", "research_status": "reviewed",
+      "notes": "Publisher homepage was accessible, but no literal Weibo link was found. No official U.S.-edition account established. Review date: 2026-10-21."
+    },
+    {
+      "id": "ktsf", "name": "KTSF", "category": "us_chinese_language",
+      "aliases": ["KTSF26", "旧金山26台"], "us_basis": "U.S. television station serving Chinese-language audiences.",
+      "source_url": "https://www.ktsf.com/", "research_status": "reviewed",
+      "notes": "Homepage returned HTTP 403. No official account established. Review date: 2026-10-21."
+    },
+    {
+      "id": "npr", "name": "NPR", "category": "broadcaster",
+      "aliases": ["美国全国公共广播电台"], "us_basis": "U.S. public-radio news organization.",
+      "source_url": "https://www.npr.org/", "research_status": "pending",
+      "notes": "Roster expansion candidate; no account claim."
+    }
+  ],
+  "accounts": [
+    {
+      "id": "forbes-china", "outlet_id": "forbes", "uid": "1765373140", "handle": null,
+      "display_name": "福布斯中文网", "profile_url": "https://weibo.com/u/1765373140", "language": "zh-Hans",
+      "operator": "Forbes China / 福布斯中文网; exact operating legal entity not established",
+      "relationship": "Chinese edition / local branded publisher; not asserted to be the U.S. newsroom account",
+      "officialness": "confirmed", "existence": "current_evidence", "accessibility": "login_required",
+      "notes": "Direct Weibo requests reached a visitor gate. A separate public Sina syndication profile exposes posts and organization-naming certification."
+    },
+    {
+      "id": "fortune-china", "outlet_id": "fortune", "uid": "1657987915", "handle": "fortunechina",
+      "display_name": "财富中文网", "profile_url": "https://www.weibo.com/fortunechina", "language": "zh-Hans",
+      "operator": "Fortune China Publishing Limited / 财富出版社有限公司, according to the publisher's company page",
+      "relationship": "Authorized Chinese edition; account is for Fortune China, not assumed to be the U.S. newsroom",
+      "officialness": "confirmed", "existence": "current_evidence", "accessibility": "login_required",
+      "notes": "UID resolved from a usable 2026-03-10 archived profile and verified against the current Sina syndication profile. Direct Weibo visitor gate; public syndicated text accessible."
+    },
+    {
+      "id": "hbr-china", "outlet_id": "hbr", "uid": "2793358674", "handle": null,
+      "display_name": "哈佛商业评论", "profile_url": "https://weibo.com/u/2793358674", "language": "zh-Hans",
+      "operator": "HBR Chinese edition; exact current operating legal entity not established",
+      "relationship": "Licensed Chinese edition; HBR lists HBR China among its international licensed editions",
+      "officialness": "confirmed", "existence": "current_evidence", "accessibility": "unknown",
+      "notes": "Public Sina profile explicitly says 《哈佛商业评论》中文版官方微博. This evidence is syndicated platform certification; direct Weibo access was not separately tested for this account."
+    },
+    {
+      "id": "nyt-chinese-historical", "outlet_id": "nyt", "uid": null, "handle": "nytchinese",
+      "display_name": "The New York Times Chinese / nytchinese", "profile_url": "https://weibo.com/nytchinese", "language": "zh-Hans",
+      "operator": "The New York Times Chinese-language edition, historically confirmed by the publisher to TechCrunch",
+      "relationship": "Publisher-operated Chinese-language news edition; historical account",
+      "officialness": "confirmed", "existence": "historical", "accessibility": "login_required",
+      "notes": "Historical officialness is confirmed, not current survival or posting. No stable UID or in-window post corpus yet established. A visitor gate does not establish deletion."
+    },
+    {
+      "id": "wsj-chinese-candidate", "outlet_id": "wsj", "uid": "1649159940", "handle": null,
+      "display_name": "华尔街日报中文网 (historical candidate)", "profile_url": "https://weibo.com/u/1649159940", "language": "zh-Hans",
+      "operator": "unknown",
+      "relationship": "Candidate Chinese-language WSJ account; primary identity and current operator require verification",
+      "officialness": "unresolved", "existence": "historical", "accessibility": "unknown",
+      "notes": "Original research describes the official account, but the UID comes only from a third-party repost link and is not promoted to confirmed. Public Sina media route redirected to a generic homepage, not an account feed. Excluded from official-account corpus."
+    }
+  ],
+  "evidence": [
+    {
+      "id": "forbes-publisher-link", "account_id": "forbes-china",
+      "source_url": "https://www.forbeschina.com/", "source_type": "publisher_link",
+      "observed_at": "2026-10-21T00:00:00+00:00", "claim_date": null, "supports": "identity",
+      "justification": "Publisher homepage contains an outbound href to https://weibo.com/u/1765373140."
+    },
+    {
+      "id": "forbes-platform-profile", "account_id": "forbes-china",
+      "source_url": "https://www.sina.cn/media/1765373140", "source_type": "platform_certification",
+      "observed_at": "2026-10-21T00:00:00+00:00", "claim_date": null, "supports": "identity",
+      "justification": "Sina's profile names 福布斯中文网 and explicitly identifies it as the official Weibo of that organization."
+    },
+    {
+      "id": "forbes-edition-description", "account_id": "forbes-china",
+      "source_url": "https://www.sina.cn/media/1765373140", "source_type": "platform_profile",
+      "observed_at": "2026-10-21T00:00:00+00:00", "claim_date": null, "supports": "relationship",
+      "justification": "Profile describes the Forbes Chinese edition and forbeschina.com. Exact legal operator and licensing terms remain unverified."
+    },
+    {
+      "id": "fortune-publisher-link", "account_id": "fortune-china",
+      "source_url": "https://www.fortunechina.com/", "source_type": "publisher_link",
+      "observed_at": "2026-10-21T00:00:00+00:00", "claim_date": null, "supports": "identity",
+      "justification": "Publisher homepage contains an outbound href to https://www.weibo.com/fortunechina."
+    },
+    {
+      "id": "fortune-archive-uid", "account_id": "fortune-china",
+      "source_url": "https://web.archive.org/web/20260310032620id_/https://weibo.com/fortunechina", "source_type": "platform_certification",
+      "observed_at": "2026-10-21T00:00:00+00:00", "claim_date": "2026-03-10T03:26:20+00:00", "supports": "historical",
+      "justification": "Archived profile title names 财富中文网, metadata identifies the official Fortune China account, and $CONFIG oid is 1657987915. Replay is gzip-encoded, not empty."
+    },
+    {
+      "id": "fortune-operator", "account_id": "fortune-china",
+      "source_url": "https://app.fortunechina.com/first/2008-02/4825.htm", "source_type": "publisher_statement",
+      "observed_at": "2026-10-21T00:00:00+00:00", "claim_date": null, "supports": "relationship",
+      "justification": "Publisher company page identifies the Chinese edition's operator as Fortune China Publishing Limited / 财富出版社有限公司. URL contains 2008, but current text has been updated; no original claim date is inferred."
+    },
+    {
+      "id": "fortune-current-profile", "account_id": "fortune-china",
+      "source_url": "https://www.sina.cn/media/1657987915", "source_type": "platform_certification",
+      "observed_at": "2026-10-21T00:00:00+00:00", "claim_date": null, "supports": "identity",
+      "justification": "Public Sina profile explicitly certifies 财富中文网 as the Chinese edition's official account. Its description identifies the edition as authorized by FORTUNE."
+    },
+    {
+      "id": "hbr-platform-profile", "account_id": "hbr-china",
+      "source_url": "https://www.sina.cn/media/2793358674", "source_type": "platform_certification",
+      "observed_at": "2026-10-21T00:00:00+00:00", "claim_date": null, "supports": "identity",
+      "justification": "Public Sina profile names 哈佛商业评论 and explicitly labels it the official Weibo of the Chinese edition."
+    },
+    {
+      "id": "hbr-licensed-edition", "account_id": "hbr-china",
+      "source_url": "https://hbr.org/global-editions", "source_type": "publisher_statement",
+      "observed_at": "2026-10-21T00:00:00+00:00", "claim_date": null, "supports": "relationship",
+      "justification": "HBR identifies HBR China as a licensed international edition."
+    },
+    {
+      "id": "nyt-historical-confirmation", "account_id": "nyt-chinese-historical",
+      "source_url": "https://techcrunch.com/2012/07/03/one-week-on-new-york-times-social-media-accounts-shut-down-in-china-site-still-up/", "source_type": "direct_confirmation",
+      "observed_at": "2026-10-21T00:00:00+00:00", "claim_date": "2012-07-03", "supports": "historical",
+      "justification": "TechCrunch reports the Times directly confirmed ownership of nytchinese. This establishes historical officialness only."
+    },
+    {
+      "id": "wsj-original-research", "account_id": "wsj-chinese-candidate",
+      "source_url": "https://www.rmlt.com.cn/2015/0109/368045_2.shtml", "source_type": "research_publication",
+      "observed_at": "2026-10-21T00:00:00+00:00", "claim_date": "2015-01-09", "supports": "historical",
+      "justification": "Original research describes 华尔街日报中文网 as an official Weibo account opened in 2009. Does not independently bind this candidate UID to the publisher."
+    },
+    {
+      "id": "wsj-candidate-uid", "account_id": "wsj-chinese-candidate",
+      "source_url": "https://peachring.com/u/1931511234-grace_xiang/", "source_type": "third_party_repost",
+      "observed_at": "2026-10-21T00:00:00+00:00", "claim_date": null, "supports": "identity",
+      "justification": "Third-party repost text attributes a link containing UID 1649159940 to 华尔街日报中文网. Discovery lead only, not sufficient primary confirmation."
+    }
+  ]
+}
