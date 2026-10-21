@@ -70,6 +70,13 @@ class DiscoveryTest(unittest.TestCase):
         self.assertIn("https://weibo.com/testpublisher", parser.links)
         self.assertEqual(account_link("http://weibo.com/testhandle/", ""),
                          "https://weibo.com/testhandle")
+        parser.feed('<a href="http://weibo.com/LA18Chinese/profile?s=6cm7D0">Weibo</a>')
+        self.assertIn("https://weibo.com/LA18Chinese", parser.links)
+        self.assertEqual(account_link("https://weibo.com/u/123456/profile/", ""),
+                         "https://weibo.com/u/123456")
+        for path in ("share/profile", "login/profile", "123/456/profile",
+                     "testhandle/profile/123"):
+            self.assertIsNone(account_link("https://weibo.com/" + path, ""))
         self.assertIsNone(account_link("https://user:pass@weibo.com/fake", ""))
 
     @patch("weibo_media.discovery.time.sleep")

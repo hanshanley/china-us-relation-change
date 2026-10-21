@@ -63,7 +63,7 @@ class Node:
         if self.attrs.get("action-type") == "fl_unfold":
             return ""
         if self.tag == "img":
-            return self.attrs.get("alt", "")
+            return self.attrs.get("alt") or ""
         parts = []
         for child in self.children:
             parts.append(child.text() if isinstance(child, Node) else child)

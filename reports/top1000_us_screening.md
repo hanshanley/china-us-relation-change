@@ -1,6 +1,6 @@
 # Top 1,000 U.S. news websites: Weibo screening
 
-Published: 2026-10-21T20:30:41.309590+00:00. All 1,000 selected domains have an attempted-check record.
+Published: 2026-10-21T22:13:12.653741+00:00. All 1,000 selected domains have an attempted-check record.
 
 ## U.S.-only ranking and selection
 

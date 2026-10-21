@@ -213,7 +213,7 @@
       "id": "sports-illustrated", "name": "Sports Illustrated", "category": "sports_news", "aliases": ["体育画报", "SI体育画报"],
       "us_basis": "U.S. sports-news publication with a documented historical China content/brand partnership.",
       "source_url": "https://www.si.com/", "research_status": "reviewed",
-      "notes": "The historical SI/Tiyu Huabao partnership does not establish that today's CHAMPION冠军画报 UID7573324529 belongs to the U.S. publisher or the same licensed edition. Institutional Chinese sports-magazine identity verified only as a lead; U.S. relationship remains unresolved. Review date: 2026-10-21."
+      "notes": "Further historical-alias research verifies sichina UID1686824184: a 2011 platform profile explicitly names 体育画报官方微博, and the publisher's own archived brand graphic directly combines Sports Illustrated, 体育画报, its official Weibo and the SEEC/Time Inc./China Sports Publications partnership. A primary corporate filing corroborates the historical China venture. This does not transfer U.S. affiliation to current CHAMPION冠军画报 UID7573324529, which remains a separate unresolved lead. Latest visible legacy-account post is November2020; current legal license continuity is not independently audited. Review date: 2026-10-21."
     },
     {
       "id": "espn", "name": "ESPN", "category": "sports_news", "aliases": ["ESPN中文", "ESPN体育"],
@@ -353,6 +353,72 @@
       "aliases": ["VICE中国", "异视频"], "us_basis": "Canadian-founded but U.S.-based global digital-news/documentary company; first-party corporate releases identify Brooklyn, New York headquarters and U.S. operations.",
       "source_url": "https://www.vice.com/", "research_status": "reviewed",
       "notes": "2017/2019 archived vice.cn social navigation links vicechina and viceland. Archived profiles bind the main China UID2163553891 and local video-channel UID5636758069. The operator's reported October1,2019 announcement ended VICE and associated brands; current BIE别的 and Real Image Media output is excluded. Handle viceland here identifies the local 异视频 channel, not automatically the U.S. television network. Review date: 2026-10-21."
+    },
+    {
+      "id": "ee-times", "name": "EE Times / China", "category": "trade_news",
+      "aliases": ["电子工程专辑", "EE Times China", "eetchina"], "us_basis": "Electronics-news publication in the U.S.-headquartered AspenCore media network; publisher explicitly lists EE Times and EE Times China and identifies its U.S. headquarters.",
+      "source_url": "https://www.eetimes.com/", "research_status": "reviewed",
+      "notes": "A 2014 publisher footer directly links eetchina; a 2022 archived profile binds UID1729790647 and the same account remains publicly observable with2026 material. Matching names and unrelated suggested-profile badges were not sufficient: the owned publisher link provides the identity proof. Live China-site requests timed out, so permitted publisher archives and AspenCore's own edition/network statements were used. Engineering/electronics trade news, not general-news reporting. Review date: 2026-10-21."
+    },
+    {
+      "id": "edn", "name": "EDN / China", "category": "trade_news",
+      "aliases": ["EDNChina", "电子技术设计", "EDN China"], "us_basis": "Engineering publication in U.S.-headquartered AspenCore's EDN network; its own publisher explicitly identifies EDN China and the U.S. headquarters.",
+      "source_url": "https://www.edn.com/", "research_status": "reviewed",
+      "notes": "2021 archived and current institutional tags explicitly name EDNChina电子技术设计ednchina.com官方微博 under UID1069456721. AspenCore independently documents the Chinese edition/community. Current profile identity is observable, but newest visible publication is June8,2021; no current posting activity is inferred. Technical trade publication/community, not a general-news newsroom. Review date: 2026-10-21."
+    },
+    {
+      "id": "billboard", "name": "Billboard / Chinese-language institutional channel", "category": "music_trade_news",
+      "aliases": ["Billboard_official", "Billboard公告牌"], "us_basis": "U.S. music-industry publication; PMC's own Billboard brand page identifies its music-news, charts and publishing operation.",
+      "source_url": "https://www.billboard.com/", "research_status": "reviewed",
+      "notes": "Current Sina tag explicitly names Billboard公告牌官方微博 under UID7747130271. This is kept separate from earlier Billboard中国/music-promotion profiles and from Billboard Radio China. Exact local legal account operator/licensing contract not independently audited; a nominally similar fan or music-promotion account is not substituted. Review date: 2026-10-21."
+    },
+    {
+      "id": "ieee-spectrum", "name": "IEEE Spectrum / Chinese-magazine candidate", "category": "specialist",
+      "aliases": ["IEEE科技纵览", "科技纵览"], "us_basis": "U.S.-based IEEE engineering/science publication; a candidate Chinese-magazine profile claims an authorized IEEE Spectrum edition.",
+      "source_url": "https://spectrum.ieee.org/", "research_status": "reviewed",
+      "notes": "Candidate UID3031145917 is named IEEE科技纵览 and self-describes a licensed Chinese magazine. No explicit institution-naming certification or independently retrieved publisher-controlled Weibo link was established in this pass. A cited publisher page and masthead PDF returned404; exact archive queries did not recover them, and the cited public repository was unavailable. Not promoted on matching name/bio alone. Parent IEEE organization UID2008779105 is not a Spectrum-magazine identity. Unknown, not absent. Review date: 2026-10-21."
+    },
+    {
+      "id": "pcmag", "name": "PCMag / historical PC Magazine China", "category": "digital_news",
+      "aliases": ["PC Magazine", "PCMAG", "电脑时空"], "us_basis": "U.S. technology-news/reviews publication; the publisher-owned 2009 China site explicitly identifies PCMagazine电脑时空 and Ziff Davis, corroborated by a primary corporate China-venture report.",
+      "source_url": "https://www.pcmag.com/", "research_status": "reviewed",
+      "notes": "Corrected historical Chinese title from the actual publisher footer rather than assuming every 个人电脑 account represents PC Magazine. Current China-domain access failed; available homepage captures end before Sina Weibo's launch. Three tested publisher-derived Weibo aliases had no indexed rows. No qualifying account UID established. Source: https://web.archive.org/web/20090209235420id_/http://www.pcmag.com.cn:80/ . Unknown, not absent. Review date: 2026-10-21."
+    },
+    {
+      "id": "marketwatch", "name": "MarketWatch", "category": "business",
+      "aliases": ["市场观察", "道琼斯市场观察"], "us_basis": "U.S. financial-news publication under Dow Jones, distinct from its WSJ and Barron's sibling brands.",
+      "source_url": "https://www.marketwatch.com/", "research_status": "reviewed",
+      "notes": "Targeted English/Chinese brand and official-account searches did not resolve a qualifying institutional UID. Reporting about Weibo and other Dow Jones brands' confirmed accounts do not prove a MarketWatch account. Existing ranked publisher checks remain bounded/inconclusive, not verified negatives. Unknown, not absent. Review date: 2026-10-21."
+    },
+    {
+      "id": "architectural-digest", "name": "Architectural Digest / AD China", "category": "design_media",
+      "aliases": ["安邸AD", "Architectural Digest China"], "us_basis": "Publisher's own About page explicitly states Architectural Digest originated in the U.S. in1920 and identifies the April15,2011 Chinese-edition copyright cooperation.",
+      "source_url": "https://www.architecturaldigest.com/", "research_status": "reviewed",
+      "notes": "Current Chinese publisher homepage links numeric UID2090187862 in its own social navigation. About page names Architectural Digest/安邸AD, the U.S. publication and China Women Publishing/Condé Nast cooperation, and separately labels its official Sina account. Current Sina title/institution agree. Architecture/design/lifestyle publication, not a general-news newsroom; exact legal account ownership not independently audited. Review date: 2026-10-21."
+    },
+    {
+      "id": "robb-report", "name": "Robb Report / China", "category": "lifestyle",
+      "aliases": ["罗博报告", "RobbReport", "Robb Report China"], "us_basis": "U.S.-origin luxury/lifestyle magazine; its Chinese publisher's archived About page explicitly identifies the U.S. Robb Report edition and its own2007 Chinese launch.",
+      "source_url": "https://robbreport.com/", "research_status": "reviewed",
+      "notes": "Publisher-owned2014 follow widget and actual2020 numeric profile anchor independently bind UID1734995435. Current institution names RobbReport中文版. A pinned February5,2026 publisher preview announces restoration of the common platform name 罗博报告 and claims Trends Media's continuing Greater China copyright-representative role; it was inspected rather than assumed to announce a license termination. Its full detail redirected cross-host and was not followed. Exact legal ownership and license continuity are not independently audited. Luxury/lifestyle edition, not a U.S. general-news newsroom. Review date: 2026-10-21."
+    },
+    {
+      "id": "la18", "name": "LA18 / KSCI-TV Chinese channel", "category": "us_chinese_language",
+      "aliases": ["洛杉矶18台", "洛城18台", "洛城18台和188台", "LA18Chinese", "LA18 KSCI-TV"], "us_basis": "Publisher's own archived About and Contact pages identify a U.S. Asian-language television station, its Southern California news programming and Los Angeles, California office.",
+      "source_url": "https://www.la18.tv/", "research_status": "reviewed",
+      "notes": "Actual2016 station footer links LA18Chinese/profile; a2013 profile binds UID3603914371. Current Sina institution explicitly identifies LA18-KSCI TV under display name 洛杉矶18台. Current identity evidence is not current posting activity: newest visible post is June5,2017. Publisher archives, not a guessed similarly named regional broadcaster, establish the relationship. Review date: 2026-10-21."
+    },
+    {
+      "id": "chineseinny", "name": "ChineseInNY / NYChinaRen candidate", "category": "community_information",
+      "aliases": ["纽约华人资讯网", "NYChinaRen"], "us_basis": "U.S.-oriented local news/information website candidate. U.S. audience and service hours are explicit, but its physical/editorial base and network grouping remain unverified; not admitted to the confirmed U.S. publisher count.",
+      "source_url": "https://www.chineseinny.com/", "research_status": "reviewed",
+      "notes": "Current publisher-managed dropdown explicitly labels its nychinaren link as the official Weibo. This is positive publisher-link evidence, not a failed official-account search. Stable UID remains unresolved; no exact alias archive was recovered. About text inconsistently combines a New York brand with Northern California/San Francisco audience wording. Do not invent a New York headquarters, independent corporate status or ownership equivalence with ChineseInLA from common templates, city menus or service telephone numbers. Retained as a scope/UID-pending lead rather than a confirmed U.S.-based publisher/account row. Review date: 2026-10-21."
+    },
+    {
+      "id": "conde-nast-traveler", "name": "Conde Nast Traveler / China", "category": "travel_media",
+      "aliases": ["悦游中国", "悦游Conde Nast Traveler", "悦游Condé Nast Traveler", "悦游杂志"], "us_basis": "Publisher's own international-edition navigation explicitly identifies cntraveler.com as the U.S. publication, separately from the U.K. cntraveller.com; its About page establishes the Chinese Condé Nast Traveler copyright-cooperation edition.",
+      "source_url": "https://www.cntraveler.com/", "research_status": "reviewed",
+      "notes": "Earlier current/2016/2021 pages and two guessed aliases did not expose a profile, but the actual March2013 launch homepage explicitly labels ilovetraveling as 悦游杂志官方微博. February2022 archive binds UID2519542552, and current institution explicitly names the magazine. The same social box separately promotes the named CNT肖彦 profile, UID3116988493; that is not a second verified website/publisher account. Chinese travel/lifestyle edition, not assumed U.S.-newsroom operation. Review date: 2026-10-21."
     },
     {
       "id": "barrons", "name": "Barron's / China", "category": "business",
@@ -692,6 +758,70 @@
       "relationship": "Chinese-language investment-news edition/channel of Barron's, with a publisher-announced Caijing partnership; not assumed to be the U.S. newsroom's direct account",
       "officialness": "confirmed", "existence": "current_evidence", "accessibility": "unknown",
       "notes": "Institutional tag explicitly names 全球投资资讯和服务平台《巴伦》（barron's）官方微博 and bio identifies the official Chinese platform. Publisher-issued 2018 statement describes a ten-year franchise partnership with Caijing. This supports the edition relationship, not proof of unchanged legal contract terms as of2026."
+    },
+    {
+      "id": "si-china-historical", "outlet_id": "sports-illustrated", "uid": "1686824184", "handle": "sichina",
+      "display_name": "体育画报", "profile_url": "https://weibo.com/sichina", "language": "zh-Hans",
+      "operator": "Historical Sports Illustrated China / SEEC, Time Inc. and China Sports Publications partnership; exact current legal account owner and later license continuity not independently audited",
+      "relationship": "Historically documented Sports Illustrated Chinese sports-news edition; not the unrelated/current CHAMPION candidate and not U.S.-newsroom-authored content",
+      "officialness": "confirmed", "existence": "historical", "accessibility": "unknown",
+      "notes": "2011 primary institutional profile names 体育画报官方微博 and uses legacy owner $oid1686824184, corroborated by repeated owner fields and current Sina identity. The publisher's own brand graphic explicitly maps the Sports Illustrated Chinese magazine, website and official Weibo. Latest visible source post is November30,2020. Historical affiliation is confirmed; current U.S. license renewal is not asserted."
+    },
+    {
+      "id": "ee-times-china", "outlet_id": "ee-times", "uid": "1729790647", "handle": "eetchina",
+      "display_name": "电子工程专辑", "profile_url": "https://weibo.com/eetchina", "language": "zh-Hans",
+      "operator": "EE Times China / AspenCore network; historical website names eMedia Asia, exact current legal account-owning entity not separately audited",
+      "relationship": "Chinese electronics-news channel of EE Times in the U.S.-headquartered AspenCore network; not the U.S. newsroom's direct feed",
+      "officialness": "confirmed", "existence": "current_evidence", "accessibility": "unknown",
+      "notes": "Identity is based on actual publisher-managed 2014 footer links and the archived handle/UID binding, not suggested-profile badges or a generic bio. Current source title matches; AspenCore's own current network and edition page establish the publication relationship. China website network timeouts did not become account-existence negatives."
+    },
+    {
+      "id": "edn-china", "outlet_id": "edn", "uid": "1069456721", "handle": "ednchina",
+      "display_name": "EDNChina", "profile_url": "https://weibo.com/ednchina", "language": "zh-Hans",
+      "operator": "EDN China / AspenCore network; exact current legal account owner not independently audited",
+      "relationship": "Chinese engineering-publication/community channel in AspenCore's EDN network, separately labeled from the U.S. publication",
+      "officialness": "confirmed", "existence": "current_evidence", "accessibility": "unknown",
+      "notes": "Archived and current institutions explicitly name EDNChina电子技术设计ednchina.com官方微博. Publisher's own EDN China and global-network pages independently identify the operation. Current-profile evidence is not current posting activity: newest visible post is June8,2021, and the100-entry feed also contains2019 records."
+    },
+    {
+      "id": "billboard-chinese-institution", "outlet_id": "billboard", "uid": "7747130271", "handle": null,
+      "display_name": "Billboard_official", "profile_url": "https://weibo.com/u/7747130271", "language": "zh-Hans",
+      "operator": "Chinese-language Billboard-branded institutional operation; exact legal account-owning entity and licensing contract not independently established",
+      "relationship": "Explicitly institution-identified Chinese-language Billboard music-news channel; not assumed U.S.-newsroom-operated or conflated with earlier China/radio/fan accounts",
+      "officialness": "confirmed", "existence": "current_evidence", "accessibility": "unknown",
+      "notes": "Current institution explicitly says Billboard公告牌官方微博 under UID7747130271. PMC's own actual Billboard brand page corroborates the global publication, not the local account's legal contract. Generic music-promotion profiles and inaccessible publisher article bodies were not used as official-account proof."
+    },
+    {
+      "id": "architectural-digest-china", "outlet_id": "architectural-digest", "uid": "2090187862", "handle": "adstyle",
+      "display_name": "安邸AD", "profile_url": "https://weibo.com/u/2090187862", "language": "zh-Hans",
+      "operator": "AD China / 中国妇女杂志社 and Condé Nast publication copyright cooperation; exact legal account-owning entity not independently audited",
+      "relationship": "Publisher-linked Chinese architecture/design edition of U.S.-origin Architectural Digest; separately labeled from the U.S. editorial account",
+      "officialness": "confirmed", "existence": "current_evidence", "accessibility": "unknown",
+      "notes": "Actual current publisher navigation links the numeric UID. Its About page explicitly maps 安邸AD to Architectural Digest, gives the U.S.1920 origin and China2011 cooperation, and names its Sina account. Current institutional tag identifies 《安邸》杂志社. Decorative empty-alt images in publisher HTML were not mistaken for missing account links."
+    },
+    {
+      "id": "robb-report-china", "outlet_id": "robb-report", "uid": "1734995435", "handle": null,
+      "display_name": "罗博报告", "profile_url": "https://weibo.com/u/1734995435", "language": "zh-Hans",
+      "operator": "Robb Report Chinese edition / 时尚传媒集团 according to publisher statements; exact account-owning entity and present legal terms not independently audited",
+      "relationship": "Publisher-linked Chinese luxury/lifestyle edition of the U.S. Robb Report brand; not assumed to be the U.S. newsroom's account",
+      "officialness": "confirmed", "existence": "current_evidence", "accessibility": "unknown",
+      "notes": "Actual publisher follow widget in2014 and numeric social anchor in2020 identify this UID. Current institution and publisher's February2026 pinned preview name the same Robb Report edition. Preview announces platform-name restoration, not a demonstrated brand-license termination; unavailable full detail remains a visible coverage gap. Title-only2013 vanity capture was not used as UID proof."
+    },
+    {
+      "id": "la18-chinese", "outlet_id": "la18", "uid": "3603914371", "handle": "LA18Chinese",
+      "display_name": "洛杉矶18台", "profile_url": "https://weibo.com/LA18Chinese", "language": "zh-Hans",
+      "operator": "LA18 / KSCI-TV Chinese-language station channel; exact current legal account control not independently audited",
+      "relationship": "Publisher-linked Chinese-language channel of the U.S. LA18/KSCI television station, not a licensed Chinese magazine or an inferred sibling broadcaster",
+      "officialness": "confirmed", "existence": "current_evidence", "accessibility": "unknown",
+      "notes": "2016 station footer directly links LA18Chinese/profile;2013 archived profile title 洛城18台和188台 binds the same numeric UID. Current display is 洛杉矶18台, with an institution explicitly naming LA18-KSCI TV and a bio linking la18.tv. Newest visible post is June5,2017, before the requested corpus interval; an observable old profile is not current activity."
+    },
+    {
+      "id": "conde-nast-traveler-china", "outlet_id": "conde-nast-traveler", "uid": "2519542552", "handle": "ilovetraveling",
+      "display_name": "悦游中国", "profile_url": "https://weibo.com/ilovetraveling", "language": "zh-Hans",
+      "operator": "Chinese Condé Nast Traveler edition / 中国妇女杂志社 and Condé Nast copyright cooperation; exact legal account owner not independently audited",
+      "relationship": "Publisher-linked Chinese travel/lifestyle edition of U.S. Condé Nast Traveler, not asserted to be the U.S. newsroom account",
+      "officialness": "confirmed", "existence": "current_evidence", "accessibility": "unknown",
+      "notes": "2013 publisher launch page repeatedly labels ilovetraveling as the magazine's official Weibo. Exact2022 archived owner and current explicit magazine institution agree on UID2519542552. A separately promoted named person's UID3116988493 is excluded rather than miscounted as another official publication channel."
     },
     {
       "id": "wsj-chinese-candidate", "outlet_id": "wsj", "uid": "1649159940", "handle": "chinesewsj",
@@ -1440,6 +1570,216 @@
       "source_url": "https://www.sina.cn/media/6596153448", "source_type": "platform_profile",
       "observed_at": "2026-10-21T20:04:46.810558+00:00", "claim_date": null, "supports": "access",
       "justification": "Current title and nominal tag are FASTCOMPANY中文版, without explicit current publisher/contract linkage. This does not erase the confirmed historical WSJ edition identity or establish a new authorized Fast Company account. Current bodies must fail the historical WSJ name gate."
+    },
+    {
+      "id": "si-china-2011-institution", "account_id": "si-china-historical",
+      "source_url": "https://web.archive.org/web/20110621133247id_/http://weibo.com:80/sichina", "source_type": "platform_certification",
+      "observed_at": "2026-10-21T20:17:50.739697+00:00", "claim_date": "2011-06-21T13:32:47+00:00", "supports": "historical",
+      "justification": "Primary profile explicitly names 体育画报官方微博 and sichina. Legacy owner $oid1686824184 is repeated in owner-specific group/nickname fields, not inferred from suggested users. A later2013 title-only shell lacked sufficient owner metadata and was not used as UID proof."
+    },
+    {
+      "id": "si-china-current-institution", "account_id": "si-china-historical",
+      "source_url": "https://www.sina.cn/media/1686824184", "source_type": "platform_certification",
+      "observed_at": "2026-10-21T20:20:11.544065+00:00", "claim_date": null, "supports": "identity",
+      "justification": "Current numeric profile repeats 体育画报 and explicit 体育画报官方微博 certification. Latest visible post is November30,2020; no current posting or later U.S. license renewal is asserted."
+    },
+    {
+      "id": "si-china-publisher-brand-page", "account_id": "si-china-historical",
+      "source_url": "https://web.archive.org/web/20160205035555id_/http://www.sichina.com/pp.html", "source_type": "publisher_statement",
+      "observed_at": "2026-10-21T20:33:28.739091+00:00", "claim_date": "2016-02-05T03:55:55+00:00", "supports": "relationship",
+      "justification": "Publisher's About/brand page embeds its own graphic explicitly combining Sports Illustrated, 体育画报, the magazine, website and official Weibo, with SEEC, Time Inc. and China Sports Publications at the footer. This is a publisher-controlled edition bridge, not a retailer translation."
+    },
+    {
+      "id": "si-china-publisher-identity-graphic", "account_id": "si-china-historical",
+      "source_url": "https://web.archive.org/web/20160205023510id_/http://m1.magspace.cn/201207/2012071816265617613.jpg", "source_type": "publisher_statement",
+      "observed_at": "2026-10-21T20:37:41.592030+00:00", "claim_date": "2016-02-05T02:35:10+00:00", "supports": "relationship",
+      "justification": "Actual embedded publisher identity graphic was retrieved and visually read because the About-page bridge is image-based, not HTML text. It explicitly labels Sports Illustrated体育画报 and 体育画报官方微博. No old audience estimates or post-media assets are imported or republished."
+    },
+    {
+      "id": "si-china-partner-corporate-filing", "account_id": "si-china-historical",
+      "source_url": "https://www.hkexnews.hk/listedco/listconews/sehk/2006/1004/00205/ewf108.pdf", "source_type": "publisher_statement",
+      "observed_at": "2026-10-21T20:31:43.563615+00:00", "claim_date": "2006-10-04", "supports": "relationship",
+      "justification": "SEEC's original corporate filing explicitly describes the Time Inc. Sports Illustrated Mainland China venture, trial copies and planned official publication. Filing date is not presented as an exact first-issue date or current license confirmation."
+    },
+    {
+      "id": "ee-times-publisher-weibo-link", "account_id": "ee-times-china",
+      "source_url": "https://web.archive.org/web/20140112012224id_/http://www.eet-china.com:80/", "source_type": "publisher_link",
+      "observed_at": "2026-10-21T20:22:28.964735+00:00", "claim_date": "2014-01-12T01:22:24+00:00", "supports": "historical",
+      "justification": "Actual publisher footer contains live anchor elements to weibo.com/eetchina?topnav=1, labeled 微博. A separate commented-out promotional anchor and recommended profiles were not relied on."
+    },
+    {
+      "id": "ee-times-2022-profile-uid", "account_id": "ee-times-china",
+      "source_url": "https://web.archive.org/web/20220401180523id_/https://weibo.com/eetchina", "source_type": "archived_profile",
+      "observed_at": "2026-10-21T20:20:07.385933+00:00", "claim_date": "2022-04-01T18:05:23+00:00", "supports": "historical",
+      "justification": "Publisher-linked handle has title 电子工程专辑 and CONFIG oid1729790647. Generic profile description is not institution-naming certification; the separate publisher link supplies officialness proof."
+    },
+    {
+      "id": "ee-times-current-profile", "account_id": "ee-times-china",
+      "source_url": "https://www.sina.cn/media/1729790647", "source_type": "platform_profile",
+      "observed_at": "2026-10-21T20:20:15.034446+00:00", "claim_date": null, "supports": "access",
+      "justification": "Current numeric source repeats the established publisher title and provides2026 material. No institution badge is invented from unrelated suggested accounts in the archived page."
+    },
+    {
+      "id": "ee-times-parent-edition-statement", "account_id": "ee-times-china",
+      "source_url": "https://aspencore.com/partner/ee-times-china/", "source_type": "publisher_statement",
+      "observed_at": "2026-10-21T20:27:15.914515+00:00", "claim_date": "2021-08-20", "supports": "relationship",
+      "justification": "AspenCore's own edition page explicitly identifies EE Times China and its electronics-news mission. Its current global media page independently lists EE Times and EE Times China in the same publisher network."
+    },
+    {
+      "id": "ee-times-us-publisher-headquarters", "account_id": "ee-times-china",
+      "source_url": "https://aspencore.com/contact/", "source_type": "publisher_statement",
+      "observed_at": "2026-10-21T20:27:18.575391+00:00", "claim_date": null, "supports": "relationship",
+      "justification": "Publisher's own Worldwide Headquarters/Main Headquarters section explicitly identifies Centennial, Colorado, United States, separately from its China and other regional offices. Establishes U.S.-based parent publisher, not U.S. authorship of Chinese posts."
+    },
+    {
+      "id": "edn-2021-institution", "account_id": "edn-china",
+      "source_url": "https://web.archive.org/web/20210807140019id_/https://weibo.com/ednchina", "source_type": "platform_certification",
+      "observed_at": "2026-10-21T20:20:10.499431+00:00", "claim_date": "2021-08-07T14:00:19+00:00", "supports": "historical",
+      "justification": "Archived profile explicitly certifies EDNChina电子技术设计ednchina.com官方微博, with CONFIG oid1069456721 and EDNChina title. English/Chinese publication and domain are named, not inferred from a logo."
+    },
+    {
+      "id": "edn-current-institution", "account_id": "edn-china",
+      "source_url": "https://www.sina.cn/media/1069456721", "source_type": "platform_certification",
+      "observed_at": "2026-10-21T20:20:17.179092+00:00", "claim_date": null, "supports": "identity",
+      "justification": "Current profile retains the same explicit EDNChina official-account institutional tag. Its latest visible post is June8,2021; current identity is not a claim of current posting activity."
+    },
+    {
+      "id": "edn-parent-edition-statement", "account_id": "edn-china",
+      "source_url": "https://aspencore.com/partner/edn-china/", "source_type": "publisher_statement",
+      "observed_at": "2026-10-21T20:27:17.578012+00:00", "claim_date": "2021-08-20", "supports": "relationship",
+      "justification": "Publisher's own EDN China page explicitly identifies the engineering publication/community, its long-form technical material and relationship to EE Times China. General user-authored community blogs alone were not used as account proof."
+    },
+    {
+      "id": "edn-us-publisher-headquarters", "account_id": "edn-china",
+      "source_url": "https://aspencore.com/contact/", "source_type": "publisher_statement",
+      "observed_at": "2026-10-21T20:27:18.575391+00:00", "claim_date": null, "supports": "relationship",
+      "justification": "AspenCore's own office listing explicitly locates its main headquarters in Colorado, United States, while separately naming China offices; its network lists EDN and EDN China."
+    },
+    {
+      "id": "billboard-current-institution", "account_id": "billboard-chinese-institution",
+      "source_url": "https://www.sina.cn/media/7747130271", "source_type": "platform_certification",
+      "observed_at": "2026-10-21T20:17:53.429114+00:00", "claim_date": null, "supports": "identity",
+      "justification": "Current institutional tag explicitly identifies Billboard公告牌官方微博, with display name Billboard_official and stable UID7747130271. Earlier China/music-promotion accounts or the radio brand are not substituted."
+    },
+    {
+      "id": "billboard-publisher-brand-statement", "account_id": "billboard-chinese-institution",
+      "source_url": "https://www.pmc.com/our-brands/billboard", "source_type": "publisher_statement",
+      "observed_at": "2026-10-21T20:42:39.161829+00:00", "claim_date": null, "supports": "relationship",
+      "justification": "Actual brand URL was discovered on PMC's own canonical homepage and retrieved successfully. It identifies Billboard as its music-news/charts publication. This confirms the global brand and parent, not a specific local Chinese licensing contract; inaccessible article bodies were not used as proof."
+    },
+    {
+      "id": "barrons-publisher-executive-corroboration", "account_id": "barrons-china",
+      "source_url": "https://www.fipp.com/news/dow-jonesmd-media-industry-changing-fortunes/", "source_type": "direct_confirmation",
+      "observed_at": "2026-10-21T20:37:01.668406+00:00", "claim_date": "2020-01-16", "supports": "relationship",
+      "justification": "Successfully retrieved first-hand Dow Jones executive interview explicitly confirms Barron's China with Caijing in Beijing and separately WSJ Magazine with Huasheng. Independent primary corroboration of the edition/partner relationship, without relying only on the inaccessible scripted press-release route."
+    },
+    {
+      "id": "ad-china-current-publisher-link", "account_id": "architectural-digest-china",
+      "source_url": "https://www.adstyle.com.cn/", "source_type": "publisher_link",
+      "observed_at": "2026-10-21T21:03:55.268490+00:00", "claim_date": null, "supports": "identity",
+      "justification": "Publisher-managed desktop/mobile social navigation directly links https://weibo.com/u/2090187862. This is an actual profile anchor, not a share URL, incidental story mention or only a same-named badge."
+    },
+    {
+      "id": "ad-china-publisher-edition-and-social-statement", "account_id": "architectural-digest-china",
+      "source_url": "https://www.adstyle.com.cn/about.html", "source_type": "publisher_statement",
+      "observed_at": "2026-10-21T21:06:04.064424+00:00", "claim_date": null, "supports": "relationship",
+      "justification": "Publisher explicitly identifies Architectural Digest/安邸AD, its U.S.1920 origin, the April15,2011 China publication cooperation and its own 新浪微博@安邸AD. Page observation date is not the historical launch or contract date; exact present legal terms are not inferred."
+    },
+    {
+      "id": "ad-china-current-institution", "account_id": "architectural-digest-china",
+      "source_url": "https://www.sina.cn/media/2090187862", "source_type": "platform_certification",
+      "observed_at": "2026-10-21T21:10:17.114826+00:00", "claim_date": null, "supports": "identity",
+      "justification": "Current title 安邸AD, institution 《安邸》杂志社 and bio explicitly naming the publication/copyright cooperation agree with the publisher-owned numeric profile link."
+    },
+    {
+      "id": "ad-china-archive-handle-binding", "account_id": "architectural-digest-china",
+      "source_url": "https://web.archive.org/web/20230202193149id_/https://weibo.com/adstyle", "source_type": "archived_profile",
+      "observed_at": "2026-10-21T21:17:35.621545+00:00", "claim_date": "2023-02-02T19:31:49+00:00", "supports": "historical",
+      "justification": "Accepted archive recovery binds adstyle to CONFIG owner2090187862 and the registered 安邸AD publisher identity. Complements the publisher's current numeric anchor and About-page alias instead of inventing a vanity handle from the display name."
+    },
+    {
+      "id": "robb-publisher-owned-follow-widget", "account_id": "robb-report-china",
+      "source_url": "https://web.archive.org/web/20140104160258id_/http://robbreport.cn/", "source_type": "publisher_link",
+      "observed_at": "2026-10-21T21:17:39.461229+00:00", "claim_date": "2014-01-04T16:02:58+00:00", "supports": "historical",
+      "justification": "Actual publisher-owned follow-button iframe explicitly specifies UID1734995435. A separately commented vanity link was not accepted as an active official-account anchor."
+    },
+    {
+      "id": "robb-publisher-owned-numeric-anchor", "account_id": "robb-report-china",
+      "source_url": "https://web.archive.org/web/20200124221054id_/http://robbreport.cn:80/", "source_type": "publisher_link",
+      "observed_at": "2026-10-21T21:17:40.512252+00:00", "claim_date": "2020-01-24T22:10:54+00:00", "supports": "historical",
+      "justification": "Actual publisher-managed social navigation directly links weibo.com/u/1734995435 and labels 罗博报告, independently corroborating the earlier follow widget. Not a commented link, title-only shell or article share."
+    },
+    {
+      "id": "robb-publisher-about-edition-bridge", "account_id": "robb-report-china",
+      "source_url": "https://web.archive.org/web/20220310010644id_/http://robbreport.cn/about/aboutus.html", "source_type": "publisher_statement",
+      "observed_at": "2026-10-21T21:32:08.516278+00:00", "claim_date": "2022-03-10T01:06:44+00:00", "supports": "relationship",
+      "justification": "Original publisher About page explicitly identifies the U.S. Robb Report edition, the Chinese publication's2007 launch and the shared international edition family. Its stale marketing/audience figures are not reproduced or treated as present-day measurements."
+    },
+    {
+      "id": "robb-current-institution", "account_id": "robb-report-china",
+      "source_url": "https://www.sina.cn/media/1734995435", "source_type": "platform_certification",
+      "observed_at": "2026-10-21T21:32:05.079014+00:00", "claim_date": null, "supports": "identity",
+      "justification": "Current institution explicitly names RobbReport中文版 and the same UID/display 罗博报告. Bio identifies the2007 Chinese publication and Trends Group; independent publisher-owned UID evidence supplies the binding rather than a matching logo or self-description alone."
+    },
+    {
+      "id": "robb-publisher-platform-name-preview", "account_id": "robb-report-china",
+      "source_url": "https://www.sina.cn/media/1734995435", "source_type": "publisher_statement",
+      "observed_at": "2026-10-21T21:32:05.079014+00:00", "claim_date": "2026-02-05", "supports": "relationship",
+      "justification": "Pinned first-party February5,2026 preview announces restoration of the platform name 罗博报告 and explicitly claims Trends Media's Greater China copyright-representative role. The full post's cross-host redirect was not followed, so this is not a complete-notice transcription or independent legal-contract audit; it is not misread as a demonstrated license termination."
+    },
+    {
+      "id": "la18-publisher-footer-profile-link", "account_id": "la18-chinese",
+      "source_url": "https://web.archive.org/web/20160106190929id_/http://www.la18.tv/", "source_type": "publisher_link",
+      "observed_at": "2026-10-21T21:42:03.914896+00:00", "claim_date": "2016-01-06T19:09:29+00:00", "supports": "historical",
+      "justification": "Actual station-managed social footer links weibo.com/LA18Chinese/profile?s=6cm7D0 next to its Twitter account. This is a profile-tab URL, not a share button or incidental story reference."
+    },
+    {
+      "id": "la18-archive-owner-binding", "account_id": "la18-chinese",
+      "source_url": "https://web.archive.org/web/20131122154125id_/http://www.weibo.com/LA18Chinese", "source_type": "archived_profile",
+      "observed_at": "2026-10-21T21:44:21.286486+00:00", "claim_date": "2013-11-22T15:41:25+00:00", "supports": "historical",
+      "justification": "Exact publisher-linked handle's profile title is 洛城18台和188台 and CONFIG owner UID3603914371. Binds the actual broadcaster-owned social link to a stable identity."
+    },
+    {
+      "id": "la18-us-station-about", "account_id": "la18-chinese",
+      "source_url": "https://web.archive.org/web/20110423021834id_/http://la18.tv/Landing/Default.aspx?PI=1017", "source_type": "publisher_statement",
+      "observed_at": "2026-10-21T21:44:22.808698+00:00", "claim_date": "2011-04-23T02:18:34+00:00", "supports": "relationship",
+      "justification": "Station's own About page explicitly identifies its U.S. Asian-language television operation and Southern California news/sports/entertainment programming. Old audience estimates are not reported as current facts."
+    },
+    {
+      "id": "la18-us-station-contact", "account_id": "la18-chinese",
+      "source_url": "https://web.archive.org/web/20160106134339id_/http://www.la18.tv:80/contact-us/", "source_type": "publisher_statement",
+      "observed_at": "2026-10-21T21:44:24.085583+00:00", "claim_date": "2016-01-06T13:43:39+00:00", "supports": "relationship",
+      "justification": "Publisher-managed station contact page explicitly locates KSCI TV in Los Angeles, California. Used to establish the U.S. broadcasting operation, not to infer an unrelated similarly named account."
+    },
+    {
+      "id": "la18-current-institution", "account_id": "la18-chinese",
+      "source_url": "https://www.sina.cn/media/3603914371", "source_type": "platform_certification",
+      "observed_at": "2026-10-21T21:45:38.555836+00:00", "claim_date": null, "supports": "identity",
+      "justification": "Current institution explicitly names 洛城18台 LA18-KSCI TV, with matching station-domain bio and display 洛杉矶18台. Newest visible post is June5,2017; identity evidence is not current posting activity."
+    },
+    {
+      "id": "traveler-publisher-launch-account-link", "account_id": "conde-nast-traveler-china",
+      "source_url": "https://web.archive.org/web/20130311191922id_/http://www.cntraveler.com.cn/", "source_type": "publisher_link",
+      "observed_at": "2026-10-21T21:56:31.429469+00:00", "claim_date": "2013-03-11T19:19:22+00:00", "supports": "historical",
+      "justification": "Actual launch-era publisher homepage repeatedly links e.weibo.com/ilovetraveling as 悦游杂志官方微博 beside the Condé Nast Traveler China launch statement. Separate neighboring links label CNT肖彦, not a second official publisher account; role is established at the individual link, not borrowed from the whole social box."
+    },
+    {
+      "id": "traveler-archive-owner-binding", "account_id": "conde-nast-traveler-china",
+      "source_url": "https://web.archive.org/web/20220210023913id_/https://weibo.com/ilovetraveling", "source_type": "archived_profile",
+      "observed_at": "2026-10-21T22:03:00.179422+00:00", "claim_date": "2022-02-10T02:39:13+00:00", "supports": "historical",
+      "justification": "Exact publisher-linked handle's archived profile title is 悦游中国, CONFIG owner2519542552 and institution explicitly names the Condé Nast Traveler magazine's official account. Publisher avatar URL agrees but is not the sole UID proof."
+    },
+    {
+      "id": "traveler-current-institution", "account_id": "conde-nast-traveler-china",
+      "source_url": "https://www.sina.cn/media/2519542552", "source_type": "platform_certification",
+      "observed_at": "2026-10-21T21:58:04.210801+00:00", "claim_date": null, "supports": "identity",
+      "justification": "Current display 悦游中国 and institution explicitly identify 《悦游Condé Nast Traveler》杂志官方微博. Bio separately names the China Women Publishing/Condé Nast copyright-cooperation edition, agreeing with the publisher's own site."
+    },
+    {
+      "id": "traveler-publisher-edition-bridge", "account_id": "conde-nast-traveler-china",
+      "source_url": "https://www.cntraveler.com.cn/about.html", "source_type": "publisher_statement",
+      "observed_at": "2026-10-21T21:06:07.250670+00:00", "claim_date": null, "supports": "relationship",
+      "justification": "Publisher About page explicitly identifies the Chinese Condé Nast Traveler copyright cooperation. Its own international navigation labels cntraveler.com as U.S. and cntraveller.com as U.K.; the two English-edition domains are not conflated. Generic JavaScript Weibo sharing was not accepted as account proof."
     },
     {
       "id": "barrons-current-institution", "account_id": "barrons-china",

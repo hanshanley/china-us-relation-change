@@ -195,6 +195,8 @@ class PipelineTest(unittest.TestCase):
         parsed = parse_detail(detail(), POST_ID, UID)
         self.assertEqual(parsed["text"], FULL_TEXT)
         self.assertEqual(parsed["text_status"], "source_full")
+        self.assertEqual(parse_detail(detail(text=FULL_TEXT + '<img alt><img alt="">'),
+                                      POST_ID, UID)["text"], FULL_TEXT)
         with self.assertRaisesRegex(ValueError, "author UID mismatch"):
             parse_detail(detail(uid="999"), POST_ID, UID)
         with self.assertRaisesRegex(ValueError, "ID mismatch"):

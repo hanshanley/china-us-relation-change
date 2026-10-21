@@ -96,11 +96,11 @@ def account_link(value, page_url):
         legacy = re.fullmatch(r"/p/(?:100505|100606)([0-9]+)(?:/home)?", path)
         if legacy:
             return "https://weibo.com/u/" + legacy[1]
-        match = re.fullmatch(r"/(?:u/[0-9]+|[A-Za-z0-9_]+)", path)
+        match = re.fullmatch(r"/(u/[0-9]+|[A-Za-z0-9_]+)(?:/profile)?", path)
         reserved = {"login", "signup", "register", "share", "home", "search", "about",
                     "p", "tv", "n", "u", "international", "overseas", "newlogin"}
-        if match and path[1:].lower() not in reserved:
-            return "https://" + ("weibo.com" if host == "e.weibo.com" else host) + path
+        if match and match[1].lower() not in reserved:
+            return "https://" + ("weibo.com" if host == "e.weibo.com" else host) + "/" + match[1]
     if host == "m.weibo.cn" and re.fullmatch(r"/(?:u|profile)/[0-9]+", path):
         return "https://" + host + path
     return None
