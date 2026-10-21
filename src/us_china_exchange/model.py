@@ -75,8 +75,12 @@ def validate(rows):
             raise ValueError("Unknown geography")
         if (row["origin"] == "USA") == (row["destination"] == "USA"):
             raise ValueError("Observation must have exactly one U.S. endpoint")
-        if row["measure"] not in MEASURES or row["year"] < START_YEAR:
+        if (row["measure"] not in MEASURES or isinstance(row["year"], bool)
+                or not isinstance(row["year"], int) or row["year"] < START_YEAR):
             raise ValueError("Unsupported measure or year")
+        expected_series = f"{row['source_id']}:{row['origin']}:{row['destination']}:{row['measure']}"
+        if row["series_id"] != expected_series:
+            raise ValueError("Series identity does not match its source, geography and measure")
         if row["status"] not in {"observed", "estimated", "provisional", "missing", "suppressed"}:
             raise ValueError("Unknown observation status")
         value = row["value"]
@@ -89,6 +93,8 @@ def validate(rows):
             raise ValueError("Missingness and observation status disagree")
         if row["period_basis"] not in {"calendar", "academic", "reporting"}:
             raise ValueError("Unknown period basis")
+        if row["frequency"] not in {"annual", "monthly", "ytd"}:
+            raise ValueError("Unknown frequency")
         if row["period_basis"] in {"academic", "reporting"}:
             if row["period_start"] is not None or row["period_end"] is not None:
                 raise ValueError("Academic and reporting periods must not invent exact dates")
@@ -111,8 +117,9 @@ def validate(rows):
                 raise ValueError("Monthly periods must cover one month")
             if row["frequency"] == "ytd" and start.month != 1:
                 raise ValueError("YTD periods must begin in January")
-        if row["frequency"] not in {"annual", "monthly", "ytd"}:
-            raise ValueError("Unknown frequency")
+            label = str(row["year"]) if row["frequency"] == "annual" else f"{row['year']}-{end.month:02d}"
+            if row["period"] != label:
+                raise ValueError("Invalid calendar period label")
         if not row["source_id"] or not row["definition"]:
             raise ValueError("Missing provenance or definition")
     return sorted(rows, key=key)

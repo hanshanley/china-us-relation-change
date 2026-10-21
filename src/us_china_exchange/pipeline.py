@@ -127,16 +127,22 @@ def refresh(root, adapters=None, client=None):
                 "checked_at": client.now, "publication_changed": False,
                 "publication_blocked": True, "sources": checks}))
             raise
-    rows = validate(rows)
-    for row in rows:
-        if not all(row.get(k) for k in ["source_url", "raw_sha256", "retrieved_at", "source_vintage"]):
-            raise ValueError("Observation provenance incomplete")
-    files = {"observations.json": rows, "sources.json": manifests,
-             "coverage.json": coverage(rows)}
-    # No candidate publication files are touched until every parser and validator succeeds.
+    try:
+        rows = validate(rows)
+        for row in rows:
+            if not all(row.get(k) for k in ["source_url", "raw_sha256", "retrieved_at", "source_vintage"]):
+                raise ValueError(f"Observation provenance incomplete: {key(row)}")
+        files = {"observations.json": rows, "sources.json": manifests,
+                 "coverage.json": coverage(rows)}
+        texts = {filename: json_text(value) for filename, value in files.items()}
+    except Exception as exc:
+        write_atomic(root / "data/local/exchange/check.json", json_text({
+            "checked_at": client.now, "publication_changed": False,
+            "publication_blocked": True, "error": str(exc), "sources": checks}))
+        raise
+    # Validate and serialize the entire candidate before touching publication files.
     changed = False
-    for filename, value in files.items():
-        text = json_text(value)
+    for filename, text in texts.items():
         path = output / filename
         if not path.exists() or path.read_text() != text:
             write_atomic(path, text)

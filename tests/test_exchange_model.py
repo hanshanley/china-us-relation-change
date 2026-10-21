@@ -19,6 +19,39 @@ def test_history_accepts_2000_but_not_out_of_scope_years():
         validate([row(1999)])
 
 
+@pytest.mark.parametrize("series_id", [
+    "other:CHN:USA:visitors", "test:USA:CHN:visitors",
+    "test:HKG:USA:visitors", "test:CHN:USA:goods",
+])
+def test_series_identity_must_match_observation_fields(series_id):
+    record = row()
+    record["series_id"] = series_id
+    with pytest.raises(ValueError, match="Series identity"):
+        validate([record])
+
+
+@pytest.mark.parametrize("kwargs,label", [
+    ({}, "2025"),
+    ({"frequency": "monthly", "month": 6}, "2020-07"),
+    ({"frequency": "ytd", "month": 6}, "2020-6"),
+    ({"frequency": "ytd", "month": 6}, "2020"),
+])
+def test_calendar_labels_must_match_year_frequency_and_end_month(kwargs, label):
+    record = row(**kwargs)
+    assert validate([record])
+    record["period"] = label
+    with pytest.raises(ValueError, match="calendar period label"):
+        validate([record])
+
+
+@pytest.mark.parametrize("year", [2020.0, "2020", True])
+def test_year_must_be_an_integer(year):
+    record = row()
+    record["year"] = year
+    with pytest.raises(ValueError, match="Unsupported measure or year"):
+        validate([record])
+
+
 @pytest.mark.parametrize("value", [float("nan"), float("inf"), -1, True])
 def test_invalid_values_rejected(value):
     with pytest.raises(ValueError):

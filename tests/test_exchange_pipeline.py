@@ -110,3 +110,58 @@ def test_refresh_repairs_legacy_reporting_dates_with_validated_candidate(tmp_pat
     assert refresh(tmp_path, {"sample": corrected}, FakeClient())["publication_changed"]
     row = json.loads(path.read_text())[0]
     assert row["period_start"] is None and row["period_end"] is None
+
+
+@pytest.mark.parametrize("previous_log", [False, True])
+@pytest.mark.parametrize("failure", ["provenance", "serialization"])
+def test_final_failures_record_current_attempt_before_any_publication_write(tmp_path, previous_log, failure):
+    refresh(tmp_path, {"sample": adapter()}, FakeClient())
+    output = tmp_path / "data/site"
+    before = {p.name: p.read_bytes() for p in output.iterdir()}
+    log = tmp_path / "data/local/exchange/check.json"
+    if not previous_log:
+        log.unlink()
+    client = FakeClient()
+    client.now = "2026-10-22T00:00:00+00:00"
+
+    def invalid(client):
+        rows, vintage, notes = adapter(125)(client)
+        if failure == "provenance":
+            rows[0]["raw_sha256"] = ""
+        else:
+            vintage = {"not JSON serializable"}
+        return rows, vintage, notes
+
+    message = "provenance incomplete" if failure == "provenance" else "JSON serializable"
+    with pytest.raises((ValueError, TypeError), match=message):
+        refresh(tmp_path, {"sample": invalid}, client)
+    assert before == {p.name: p.read_bytes() for p in output.iterdir()}
+    report = json.loads(log.read_text())
+    assert report["checked_at"] == client.now
+    assert report["publication_blocked"] is True
+    assert report["publication_changed"] is False
+    assert message in report["error"]
+    assert report["sources"]["sample"]["checked_at"] == client.now
+    refresh(tmp_path, {"sample": adapter(125, "Release 2")}, client)
+    assert "publication_blocked" not in json.loads(log.read_text())
+    assert json.loads((output / "observations.json").read_text())[0]["value"] == 125
+
+
+def test_final_validation_logs_invalid_retained_source_without_publishing_selected_update(tmp_path):
+    refresh(tmp_path, {"sample": adapter(), "other": adapter(200, source="other")}, FakeClient())
+    output = tmp_path / "data/site"
+    path = output / "observations.json"
+    stored = json.loads(path.read_text())
+    next(r for r in stored if r["source_id"] == "other")["period"] = "2025"
+    path.write_text(json.dumps(stored))
+    before = {p.name: p.read_bytes() for p in output.iterdir()}
+    client = FakeClient()
+    client.now = "2026-10-22T00:00:00+00:00"
+    with pytest.raises(ValueError, match="calendar period label"):
+        refresh(tmp_path, {"sample": adapter(125)}, client)
+    assert before == {p.name: p.read_bytes() for p in output.iterdir()}
+    report = json.loads((tmp_path / "data/local/exchange/check.json").read_text())
+    assert report["checked_at"] == client.now
+    assert report["publication_blocked"] is True
+    assert "calendar period label" in report["error"]
+    assert set(report["sources"]) == {"sample"}

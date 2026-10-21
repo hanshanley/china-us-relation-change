@@ -45,6 +45,12 @@ raw-response checksum. `exchange.json` also contains sources and coverage.
 CSV exports contain full observation rows, not just a source inventory.
 Raw third-party PDFs and workbooks are deliberately not published.
 
+Canonical validation requires each `series_id` to match its source, origin,
+destination and measure fields. Years must be integers; calendar period labels
+must be the matching `YYYY` for annual data or `YYYY-MM` for monthly/YTD data,
+with the month matching the validated ending boundary. Academic and reporting
+labels follow their own year-only rules.
+
 ## Plot styling and publication backgrounds
 
 Charts follow the `uk_decline` project's `vizstyle` house settings: serif type,
@@ -177,6 +183,12 @@ layouts, incompatible units, ambiguous source totals and invalid values fail
 the run before candidate publication files are written. Per-file publication
 writes are atomic; the validated Git commit is the published snapshot boundary.
 No automatic commit occurs on a failed check.
+Final cross-source/provenance validation and JSON serialization also finish
+before any publication file is written. If either fails, `check.json` records
+the current attempt time, `publication_blocked: true`,
+`publication_changed: false` and a top-level `error` diagnostic. This creates a
+new failure log or replaces an older successful one, while preserving the
+prior publication files.
 Comtrade responses must match the requested year in both `period` and
 `refYear`, use annual frequency `A` and goods type `C`, and retain the required
 reporter, partner, aggregate and paired flows. A wrong-period or monthly response
