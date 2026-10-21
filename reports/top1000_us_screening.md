@@ -1,6 +1,6 @@
 # Top 1,000 U.S. news websites: Weibo screening
 
-Published: 2026-10-21T22:13:12.653741+00:00. All 1,000 selected domains have an attempted-check record.
+Published: 2026-10-21T22:50:54.258238+00:00. All 1,000 selected domains have an attempted-check record.
 
 ## U.S.-only ranking and selection
 
@@ -22,11 +22,11 @@ SCImago (n.d.), *SCImago Media Rankings* [Portal], retrieved October 21, 2026. S
 
 Each check requests the publisher robots policy and, only if allowed, at most 1.5 MB of the homepage. Explicit robots 404/410 means no rules at that path; policy errors, HTML challenge pages posing as robots files, login/rate limits, unsupported redirects and inaccessible hosts are not bypassed. Requests are paced per domain with bounded cross-domain concurrency. A recovery pass checks www aliases' robots independently and supports HTTPS 308 redirects; old events remain in the local journal while exports use the latest result per domain. The earlier interrupted exploratory pass is excluded.
 
-**This is 1,000 attempted publisher checks, not 1,000 verified account decisions.** `screened_no_link` means no recognized profile anchor in the returned snapshot; it is not a negative Weibo-account finding. Tiny/non-HTML pages, blocked pages and robots restrictions are inconclusive. JavaScript-rendered links, Chinese editions, historical pages, contact pages and alternate domains are outside this bounded homepage pass.
+**This is 1,000 attempted publisher checks, not 1,000 verified account decisions.** `screened_no_link` means no recognized account link in the returned snapshot; it is not a negative Weibo-account finding. Tiny/non-HTML pages, blocked pages and robots restrictions are inconclusive. JavaScript-rendered links, Chinese editions, historical pages, contact pages and alternate domains are outside this bounded homepage pass. These are capture-time outcomes: later support for explicit profile tabs and known UID-bearing follow/timeline widgets does not retroactively reprocess saved checks.
 
 ## Publisher-link candidates
 
-Links below require manual identity/edition review; homepage links can be partners rather than the publisher's own account. Share buttons, post URLs and incidental script text are not classified as profile links.
+Links below require manual identity/edition review; homepage links can be partners rather than the publisher's own account. Known follow/timeline widgets expose candidate UIDs, not automatic officialness. Share buttons, post URLs, ambiguous widget UIDs and incidental script text are not classified as account links.
 
 | U.S. position | Publisher | Homepage | Profile links |
 |---:|---|---|---|

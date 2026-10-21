@@ -5,11 +5,11 @@ than treating earlier unsuccessful searches as account-existence negatives.
 U.S.-based outlets, licensed Chinese editions, historical accounts and current
 independent successor brands remain distinct.
 
-The reconciled checkpoint contains **49 confirmed account identities across
-42 outlet/brand groups**, with **3,776 recovered posts from 39 accounts**.
-This is fourteen identities and eleven outlet/brand groups beyond the earlier
-35-account checkpoint, not fourteen newly found U.S. general-news newsrooms.
-The registry holds 75 reviewed outlet/candidate rows and 164 evidence records.
+The reconciled checkpoint contains **51 confirmed account identities across
+44 outlet/brand groups**, with **3,901 recovered posts from 40 accounts**.
+This is sixteen identities and thirteen outlet/brand groups beyond the earlier
+35-account checkpoint, not sixteen newly found U.S. general-news newsrooms.
+The registry holds 87 reviewed outlet/candidate rows and 173 evidence records.
 
 ## First additional verified identities
 
@@ -223,9 +223,9 @@ The neighboring UID3116988493 is explicitly labeled CNT肖彦, not a second
 official website account. The official-magazine label must not be borrowed
 from the whole social box and applied to that named profile.
 
-### Reconciled corpus and unresolved publisher leads
+### Reconciled 49-account checkpoint and unresolved publisher leads
 
-The 3,776-post snapshot contains **3,170 source-full accessible bodies** and
+The `ca2a186` 49-account snapshot contains **3,170 source-full accessible bodies** and
 **606 explicitly truncated records**. Source-full does not certify completeness
 against the original Weibo post. Full-content local CSV/JSONL exports retain
 all recoverable text and provenance; source changes, observations and
@@ -235,7 +235,7 @@ attempt, and all saved feed cursors at this checkpoint are exhausted.
 Within the selected 1,000 U.S.-classified source domains, the evidence still
 establishes **ten positive publisher domains and 990 unknowns**, not 990
 verified absences. Supplemental brands are not silently added to that
-denominator. The combined ranked/supplemental ledger has 1,040 distinct
+denominator. At that checkpoint the combined ranked/supplemental ledger had 1,040 distinct
 domains. These source-country labels are not a corporate-ownership census.
 
 The [New York community portal](https://www.chineseinny.com/aboutus.html)
@@ -254,6 +254,83 @@ Mansion Global's own2017 About page calls the publication 环域居 and
 explicitly distinguishes its newsroom from WSJ; the WSJ account is therefore
 not transferred. Guessed translations and empty alias indexes are not proof.
 Additional trade-publication publisher links remain under review.
+
+### Fourth pass: TechTarget and Golf Digest
+
+**TechTarget:** The [Chinese publisher's actual2014 navigation](https://web.archive.org/web/20140101040005id_/http://www.techtarget.com.cn/)
+explicitly labels `ttchina` as its Weibo, beside a separately labeled
+TechTarget美国 link. The [2011 profile](https://web.archive.org/web/20110523004337id_/http://weibo.com:80/ttchina)
+uses legacy `$oid` to bind UID1684793947, distinct from the empty logged-in
+`$uid`. Current [TechTarget中国 certification](https://www.sina.cn/media/1684793947)
+agrees with that identity.
+Publisher-owned [2014](https://web.archive.org/web/20140106005341id_/http://www.techtarget.com.cn:80/aboutus.aspx)
+and [2026](https://web.archive.org/web/20260113011639id_/https://www.techtarget.com.cn/about-us/)
+About captures explicitly identify the U.S. Boston-area enterprise-IT media
+network. Old stock-market and marketing statements are not asserted as
+current facts. Following-box names were not promoted as nine further official
+accounts, and login-triggering controls were not followed.
+
+The retained 100-entry feed spans
+December 19, 2013-August 30, 2017, entirely before the requested window. One
+metadata-only response was preserved as an unsuccessful attempt; an ordinary
+bounded retry, without access-method changes, returned the recognizable feed.
+Zero eligible posts is not a claim of zero historical output.
+
+**Golf Digest:** Guessed China domains failed. Instead of stopping or assuming
+the similarly named GOLF Magazine account, research followed Golf Digest's
+actual U.S. publisher navigation to its
+[international-editions page](https://web.archive.org/web/20140106190829id_/http://www.golfdigest.com:80/magazine/international).
+It explicitly lists USA Golf Digest and the real China domain
+`golfdigestchina.cn`. That [Chinese publisher's own2014 homepage](https://web.archive.org/web/20140112092530id_/http://www.golfdigestchina.cn:80/)
+is titled 高尔夫大师中国官方网站 and embeds a Sina timeline widget with
+UID1671481074. The [2022 profile](https://web.archive.org/web/20220517052214id_/https://www.weibo.com/golfdigest)
+and [current institution](https://www.sina.cn/media/1671481074) agree.
+This is not GOLF Magazine UID1869615717.
+
+The brand-looking `golfdigestchina` alias instead resolves to a named
+individual UID1499162167 and is excluded. Brand-derived handles and editorial
+names are not extra publisher accounts. Current legal account ownership and
+license renewal remain unaudited. Recovery accepted 100 live-source records
+and two archived sets of fifteen; overlapping IDs reconcile these to
+**125 distinct posts**, not 130.
+
+The link recognizer now also extracts explicit UIDs from the two actual
+follow/timeline widget formats encountered in Robb Report and Golf Digest
+publisher pages. Share widgets, ambiguous/duplicate UID parameters, unrelated
+widget hosts and incidental scripts are excluded. These remain discovery
+candidates requiring contextual verification, not automatic officialness.
+The original 1,000-site capture-time screening has not been represented as a
+new widget-aware rerun.
+
+### Current reconciled corpus and source-cohort limits
+
+The final iteration snapshot has **3,901 distinct posts: 3,277 source-full
+accessible bodies and 624 explicitly truncated records**, from 40 of the 51
+confirmed accounts. All 51 have collection attempts, no run remains running
+and all saved feed cursors are exhausted. Coverage remains partial: these
+observations do not prove complete 2020-2026 timelines or that source-full
+bodies exactly reproduce every original Weibo post.
+
+The current ranked/supplemental ledger contains **1,052 distinct domains**,
+of which 44 have confirmed account evidence. The selected 1,000-domain cohort
+still has ten positives and 990 unknowns, with **zero verified-negative
+account claims**. A source-membership cross-check also finds `usnews.com`,
+`newsweek.com`, `theverge.com`, `thedailybeast.com`, `huffpost.com` and
+`golfdigest.com` absent from that selected roster. Supplemental reviews are
+therefore essential; absence from this reputation-ranked source is not a
+claim that a publication is foreign or low-traffic.
+
+Further original publisher-root archives were actually read for TIME,
+Newsweek, The Atlantic, The New Yorker, U.S. News, The Verge, The Daily Beast,
+Huffington Post and CNN International, without resolving new official
+profiles in those bounded snapshots. TIME's2013 capture contained archive
+infrastructure, not the publisher; it was rejected and replaced by an actual
+2014 publisher capture. CNBC Asia's empty root index was not treated as a
+site closure or account absence. Newly documented U.S. Chinese-language
+newspaper checks include Southern Chinese Daily News, ChineseOfChicago,
+Ming Pao New York, Chinese Business News and Seattle Chinese Times; failed
+modern pages were followed through actual historical About/Contact pages
+where available, without manufacturing account negatives.
 
 IEEE Spectrum's candidate UID3031145917 remains **unconfirmed**: its name and
 bio claim the Chinese magazine, but no independently retrieved publisher-to-

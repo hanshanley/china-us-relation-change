@@ -13,7 +13,7 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from html.parser import HTMLParser
 from pathlib import Path
 from urllib.error import HTTPError, URLError
-from urllib.parse import urljoin, urlsplit
+from urllib.parse import parse_qs, urljoin, urlsplit
 from urllib.request import HTTPRedirectHandler, Request, build_opener
 from urllib.robotparser import RobotFileParser
 from xml.etree import ElementTree
@@ -92,6 +92,18 @@ def account_link(value, page_url):
         return None
     host = url.hostname or ""
     path = url.path.rstrip("/")
+    if (host, path) in {
+            ("widget.weibo.com", "/relationship/followbutton.php"),
+            ("service.t.sina.com.cn", "/widget/WeiboShow.php")}:
+        try:
+            if url.port not in (None, 443 if url.scheme == "https" else 80):
+                return None
+        except ValueError:
+            return None
+        uids = parse_qs(url.query, keep_blank_values=True).get("uid", [])
+        if len(uids) == 1 and re.fullmatch(r"[1-9][0-9]*", uids[0]):
+            return "https://weibo.com/u/" + uids[0]
+        return None
     if host in {"weibo.com", "www.weibo.com", "weibo.cn", "www.weibo.cn", "e.weibo.com"}:
         legacy = re.fullmatch(r"/p/(?:100505|100606)([0-9]+)(?:/home)?", path)
         if legacy:
@@ -113,8 +125,9 @@ class SocialLinks(HTMLParser):
         self.links = set()
 
     def handle_starttag(self, tag, attrs):
-        if tag in {"a", "area"}:
-            link = account_link(dict(attrs).get("href", ""), self.page_url)
+        if tag in {"a", "area", "iframe"}:
+            value = dict(attrs).get("src" if tag == "iframe" else "href", "")
+            link = account_link(value, self.page_url)
             if link:
                 self.links.add(link)
 
@@ -317,14 +330,17 @@ def publish(roster_path, screening_directory, directory, report_path):
         "and supports HTTPS 308 redirects; old events remain in the local journal while exports "
         "use the latest result per domain. The earlier interrupted exploratory pass is excluded.", "",
         "**This is 1,000 attempted publisher checks, not 1,000 verified account decisions.** "
-        "`screened_no_link` means no recognized profile anchor in the returned snapshot; it is "
+        "`screened_no_link` means no recognized account link in the returned snapshot; it is "
         "not a negative Weibo-account finding. Tiny/non-HTML pages, blocked pages and robots "
         "restrictions are inconclusive. JavaScript-rendered links, Chinese editions, historical "
-        "pages, contact pages and alternate domains are outside this bounded homepage pass.", "",
+        "pages, contact pages and alternate domains are outside this bounded homepage pass. "
+        "These are capture-time outcomes: later support for explicit profile tabs and known "
+        "UID-bearing follow/timeline widgets does not retroactively reprocess saved checks.", "",
         "## Publisher-link candidates", "",
         "Links below require manual identity/edition review; homepage links can be partners rather "
-        "than the publisher's own account. Share buttons, post URLs and incidental script text "
-        "are not classified as profile links.", "",
+        "than the publisher's own account. Known follow/timeline widgets expose candidate UIDs, "
+        "not automatic officialness. Share buttons, post URLs, ambiguous widget UIDs and "
+        "incidental script text are not classified as account links.", "",
         "| U.S. position | Publisher | Homepage | Profile links |", "|---:|---|---|---|",
     ]
     for row in results:

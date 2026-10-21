@@ -421,6 +421,78 @@
       "notes": "Earlier current/2016/2021 pages and two guessed aliases did not expose a profile, but the actual March2013 launch homepage explicitly labels ilovetraveling as 悦游杂志官方微博. February2022 archive binds UID2519542552, and current institution explicitly names the magazine. The same social box separately promotes the named CNT肖彦 profile, UID3116988493; that is not a second verified website/publisher account. Chinese travel/lifestyle edition, not assumed U.S.-newsroom operation. Review date: 2026-10-21."
     },
     {
+      "id": "techtarget", "name": "TechTarget / China", "category": "trade_news",
+      "aliases": ["TechTarget中国", "TT中国", "ttchina"], "us_basis": "Original publisher About pages explicitly identify the enterprise-IT media network's U.S. Boston-area headquarters and its Chinese operation; the Chinese publisher separately links TechTarget美国.",
+      "source_url": "https://www.techtarget.com/", "research_status": "reviewed",
+      "notes": "Actual2014 publisher navigation labels ttchina as TechTarget中国微博. A2011 archived profile's legacy $oid binds UID1684793947; current institutional tag explicitly names TechTarget中国官方微博. Publisher-owned2014 and2026 About captures independently establish the U.S. network relationship. Latest visible publication in the100-entry snapshot is August30,2017, before the corpus window. A transient metadata-only response was recorded; one ordinary retry recovered the recognizable feed without changing access methods. Old IPO/marketing figures and current legal ownership are not independently audited. Following-box names are leads only, not additional verified accounts or a collected follower dataset. Review date: 2026-10-21."
+    },
+    {
+      "id": "mansion-global", "name": "Mansion Global / Chinese service", "category": "business",
+      "aliases": ["环域居", "寰域居", "MansionGlobal"], "us_basis": "U.S. Dow Jones real-estate-news property; its original Chinese publisher About page explicitly identifies its Dow Jones relationship and separate newsroom.",
+      "source_url": "https://www.mansionglobal.com/", "research_status": "reviewed",
+      "notes": "2016/2017 publisher homepages and the2017 About page were actually inspected. The publisher calls its Chinese service 寰域居/环域居 and explicitly distinguishes its newsroom from WSJ. No qualifying profile was resolved in those pages; two empty vanity indexes are not verified absence. Do not transfer WSJ/Barron's accounts or assume an invented Chinese translation is the publisher's name. Source: https://web.archive.org/web/20170510210116id_/http://www.mansionglobal.com:80/cn/about_us . Review date: 2026-10-21."
+    },
+    {
+      "id": "southern-chinese-daily", "name": "Southern Chinese Daily News / Southern News Media Group", "category": "us_chinese_language",
+      "aliases": ["美南新聞", "美南新闻", "美南報業電視傳媒集團"], "us_basis": "U.S.-focused Chinese-language newspaper/media group identified by its own2014/2016 publisher titles and2025 U.S. Asian-media description; independent ownership audit not claimed.",
+      "source_url": "https://scdaily.com/", "research_status": "reviewed",
+      "notes": "Current hostname initially failed, but actual publisher homepage archives from2014,2016 and2025 were read. No qualifying Weibo profile was resolved in those pages. A Houston address inside an obituary is not publisher-headquarters proof; the guessed scdaily alias's empty index is not a verified account negative. Source: https://web.archive.org/web/20250101070209id_/https://scdaily.com/ . Review date: 2026-10-21."
+    },
+    {
+      "id": "chinese-of-chicago", "name": "ChineseOfChicago / 芝加哥侨学网", "category": "us_chinese_language",
+      "aliases": ["芝加哥侨学网"], "us_basis": "Chicago-focused Chinese community-news/information publisher; its own About page describes its2009 establishment and Greater Chicago community-news role. Legal headquarters not independently audited.",
+      "source_url": "https://www.chineseofchicago.com/", "research_status": "reviewed",
+      "notes": "Current network access failed, so original2012/2020 publisher roots and a2026 publisher About capture were inspected. No qualifying account link was resolved. Local-news identity and account existence are separate; unreadable pages or missing links are not verified negatives. Source: https://web.archive.org/web/20260110152720id_/http://www.chineseofchicago.com/aboutus.aspx . Review date: 2026-10-21."
+    },
+    {
+      "id": "ming-pao-us", "name": "Ming Pao / New York edition historical evidence", "category": "us_chinese_language",
+      "aliases": ["明報新聞網海外版 - 紐約", "明报美东版", "明報紐約"], "us_basis": "Historical U.S. New York publication edition explicitly identified by the publisher's own2014/2017 archived titles; separated from Hong Kong and Canadian editions.",
+      "source_url": "https://www.mingpaony.com/", "research_status": "reviewed",
+      "notes": "Actual2014 and2017 New York publisher roots were read without resolving an official Weibo profile. A parent Hong Kong or Canadian Ming Pao account is not automatically the U.S. edition. Historical publisher evidence is not a current-publication or account-deletion claim. Source: https://web.archive.org/web/20170202212158id_/http://www.mingpaony.com/ . Review date: 2026-10-21."
+    },
+    {
+      "id": "chinese-business-news-us", "name": "Chinese Business News / 中華商報 (U.S.)", "category": "us_chinese_language",
+      "aliases": ["中華商報", "中华商报", "ChineseBizNews"], "us_basis": "Publisher's own2014 contact page identifies the Chinese business newspaper's U.S. Tyloon Media operator and City of Industry, California editorial office.",
+      "source_url": "https://www.chinesebiznews.com/", "research_status": "reviewed",
+      "notes": "Actual2014 publisher homepage and editorial contact were inspected; the2021 homepage capture was not substantive publisher evidence. No qualifying official profile was resolved. Matching Chinese titles from another country are not substituted. Source: https://web.archive.org/web/20140209084451id_/http://www.chinesebiznews.com/index.php/2008-04-12-07-09-25.html . Unknown, not absent. Review date: 2026-10-21."
+    },
+    {
+      "id": "seattle-chinese-times", "name": "Seattle Chinese Times / 西城时报", "category": "us_chinese_language",
+      "aliases": ["西城时报", "西城時報"], "us_basis": "Publisher's own About page identifies a bilingual Pacific Northwest newspaper launched in May2004; current archived contact/homepage explicitly identify the Seattle media outlet.",
+      "source_url": "https://seattlechinesetimes.com/", "research_status": "reviewed",
+      "notes": "Actual2014/2022 publisher homepages,2014 About and2026 Contact pages were read. No qualifying Weibo link was resolved in those inspected sources; observed Facebook/Instagram/LinkedIn/YouTube links do not prove account absence on another service. Source: https://web.archive.org/web/20140203114819id_/http://www.seattlechinesetimes.com/english/about-us . Review date: 2026-10-21."
+    },
+    {
+      "id": "golf-digest", "name": "Golf Digest / China", "category": "sports_news",
+      "aliases": ["高尔夫大师", "Golf Digest China", "GolfDigest"], "us_basis": "U.S. publisher's own international-editions listing explicitly identifies Golf Digest under USA and Golf Digest China at golfdigestchina.cn, separating the two publication operations.",
+      "source_url": "https://www.golfdigest.com/", "research_status": "reviewed",
+      "notes": "Guessed China domains failed, but the actual U.S. publisher's international listing supplied golfdigestchina.cn. Its2014 homepage is titled 高尔夫大师中国官方网站 and embeds a publisher-managed Sina timeline widget for UID1671481074. Archived golfdigest owner and current explicit magazine institution agree. This is distinct from GOLF Magazine/高尔夫杂志 UID1869615717. Alias golfdigestchina belongs to a named individual UID1499162167 and is not counted as another publisher account. Current license renewal/legal account ownership not independently audited. Review date: 2026-10-21."
+    },
+    {
+      "id": "us-news-world-report", "name": "U.S. News & World Report", "category": "general_news",
+      "aliases": ["US News", "美国新闻与世界报道"], "us_basis": "U.S.-origin news/rankings publication candidate; original2013 publisher homepage identifies U.S. News & World Report. Current legal ownership not independently audited in this account-search pass.",
+      "source_url": "https://www.usnews.com/", "research_status": "reviewed",
+      "notes": "An actual2013 publisher homepage was inspected without resolving a qualifying institutional profile. Education-admissions agents, matching translated names or unrelated ranking-service accounts are not substituted for the publication's account. Source: https://web.archive.org/web/20130101002534id_/http://www.usnews.com/ . Unknown, not absent. Review date: 2026-10-21."
+    },
+    {
+      "id": "the-verge", "name": "The Verge", "category": "digital_news",
+      "aliases": ["TheVerge"], "us_basis": "U.S.-origin technology-news brand candidate; its actual2013 publisher homepage was inspected. Current legal headquarters/ownership not independently audited in this account-search pass.",
+      "source_url": "https://www.theverge.com/", "research_status": "reviewed",
+      "notes": "Legacy publisher-root examination did not resolve a qualifying account. Source: https://web.archive.org/web/20130103054610id_/http://www.theverge.com:80/? . Matching fan/translation profiles are not officialness proof; no negative account-existence claim. Review date: 2026-10-21."
+    },
+    {
+      "id": "daily-beast", "name": "The Daily Beast", "category": "digital_news",
+      "aliases": ["DailyBeast", "每日野兽"], "us_basis": "U.S.-origin digital-news brand candidate; its actual2013 publisher homepage was inspected. Current legal headquarters/ownership not independently audited in this account-search pass.",
+      "source_url": "https://www.thedailybeast.com/", "research_status": "reviewed",
+      "notes": "Legacy publisher homepage did not resolve an official Weibo profile. A historical relationship to Newsweek does not confer either publication's account on the other. Source: https://web.archive.org/web/20130101042452id_/http://www.thedailybeast.com/ . Unknown, not absent. Review date: 2026-10-21."
+    },
+    {
+      "id": "huffpost", "name": "HuffPost / historical Huffington Post", "category": "digital_news",
+      "aliases": ["Huffington Post", "The Huffington Post", "赫芬顿邮报"], "us_basis": "U.S.-origin digital-news brand candidate; original2013 Huffington Post publisher homepage was inspected. Current legal headquarters/ownership not independently audited in this account-search pass.",
+      "source_url": "https://www.huffpost.com/", "research_status": "reviewed",
+      "notes": "Actual2013 publisher homepage under its historical domain was read without resolving a qualifying profile. Foreign regional editions and independent translations are not silently equated with the U.S. newsroom. Source: https://web.archive.org/web/20130101060306id_/http://www.huffingtonpost.com/ . Unknown, not absent. Review date: 2026-10-21."
+    },
+    {
       "id": "barrons", "name": "Barron's / China", "category": "business",
       "aliases": ["Barrons巴伦", "巴伦", "巴伦周刊", "巴伦中国"], "us_basis": "U.S. investment-news publication published by Dow Jones; source position122 in the selected U.S. media roster.",
       "source_url": "https://www.barrons.com/", "research_status": "reviewed",
@@ -822,6 +894,22 @@
       "relationship": "Publisher-linked Chinese travel/lifestyle edition of U.S. Condé Nast Traveler, not asserted to be the U.S. newsroom account",
       "officialness": "confirmed", "existence": "current_evidence", "accessibility": "unknown",
       "notes": "2013 publisher launch page repeatedly labels ilovetraveling as the magazine's official Weibo. Exact2022 archived owner and current explicit magazine institution agree on UID2519542552. A separately promoted named person's UID3116988493 is excluded rather than miscounted as another official publication channel."
+    },
+    {
+      "id": "techtarget-china", "outlet_id": "techtarget", "uid": "1684793947", "handle": "ttchina",
+      "display_name": "TechTarget中国", "profile_url": "https://weibo.com/ttchina", "language": "zh-Hans",
+      "operator": "TechTarget中国 enterprise-IT media operation; exact legal account-owning entity and present contractual structure not independently audited",
+      "relationship": "Publisher-linked Chinese institutional channel in the U.S.-origin enterprise-IT media network; not assumed to be the U.S. newsroom",
+      "officialness": "confirmed", "existence": "current_evidence", "accessibility": "unknown",
+      "notes": "2014 Chinese publisher navigation explicitly links ttchina next to TechTarget美国. Legacy2011 owner UID1684793947 and current named institutional certification agree despite display evolution from TT中国 to TechTarget中国. Current identity does not establish current posting activity. Following-box names are not counted as additional official channels."
+    },
+    {
+      "id": "golf-digest-china", "outlet_id": "golf-digest", "uid": "1671481074", "handle": "golfdigest",
+      "display_name": "高尔夫大师", "profile_url": "https://weibo.com/golfdigest", "language": "zh-Hans",
+      "operator": "高尔夫大师 magazine / historical Chinese publisher at golfdigestchina.cn; exact present legal account owner and license renewal not independently audited",
+      "relationship": "Publisher-linked Chinese edition in the U.S. Golf Digest international-edition family; not the separate GOLF Magazine account or assumed U.S. newsroom",
+      "officialness": "confirmed", "existence": "current_evidence", "accessibility": "unknown",
+      "notes": "Actual U.S. publisher listing identifies the correct Chinese domain; that publisher's2014 timeline widget explicitly names UID1671481074. The2022 golfdigest archive and current magazine institution agree. Another brand-looking alias, golfdigestchina, is a named individual and is excluded."
     },
     {
       "id": "wsj-chinese-candidate", "outlet_id": "wsj", "uid": "1649159940", "handle": "chinesewsj",
@@ -1780,6 +1868,60 @@
       "source_url": "https://www.cntraveler.com.cn/about.html", "source_type": "publisher_statement",
       "observed_at": "2026-10-21T21:06:07.250670+00:00", "claim_date": null, "supports": "relationship",
       "justification": "Publisher About page explicitly identifies the Chinese Condé Nast Traveler copyright cooperation. Its own international navigation labels cntraveler.com as U.S. and cntraveller.com as U.K.; the two English-edition domains are not conflated. Generic JavaScript Weibo sharing was not accepted as account proof."
+    },
+    {
+      "id": "techtarget-publisher-owned-account-link", "account_id": "techtarget-china",
+      "source_url": "https://web.archive.org/web/20140101040005id_/http://www.techtarget.com.cn/", "source_type": "publisher_link",
+      "observed_at": "2026-10-21T22:06:51.992199+00:00", "claim_date": "2014-01-01T04:00:05+00:00", "supports": "historical",
+      "justification": "Actual publisher-managed navigation links weibo.com/ttchina with title TechTarget中国微博, immediately beside the separately labeled TechTarget美国 website. This is an institutional profile link, not an article share or a follower recommendation."
+    },
+    {
+      "id": "techtarget-legacy-owner-binding", "account_id": "techtarget-china",
+      "source_url": "https://web.archive.org/web/20110523004337id_/http://weibo.com:80/ttchina", "source_type": "archived_profile",
+      "observed_at": "2026-10-21T22:10:41.823596+00:00", "claim_date": "2011-05-23T00:43:37+00:00", "supports": "historical",
+      "justification": "Publisher-linked handle's original profile title is TT中国 and legacy CONFIG $oid is1684793947, distinct from the empty logged-in $uid. Profile text identifies TechTarget官方微博. Neighboring following-box names are not promoted as verified channels."
+    },
+    {
+      "id": "techtarget-publisher-us-headquarters-2014", "account_id": "techtarget-china",
+      "source_url": "https://web.archive.org/web/20140106005341id_/http://www.techtarget.com.cn:80/aboutus.aspx", "source_type": "publisher_statement",
+      "observed_at": "2026-10-21T22:13:12.924962+00:00", "claim_date": "2014-01-06T00:53:41+00:00", "supports": "relationship",
+      "justification": "Publisher's own About page explicitly identifies the professional enterprise-IT media network, its1999 establishment and Boston-area U.S. headquarters. Stale audience, stock-market and growth figures are not asserted as current facts."
+    },
+    {
+      "id": "techtarget-publisher-us-network-2026", "account_id": "techtarget-china",
+      "source_url": "https://web.archive.org/web/20260113011639id_/https://www.techtarget.com.cn/about-us/", "source_type": "publisher_statement",
+      "observed_at": "2026-10-21T22:13:14.335269+00:00", "claim_date": "2026-01-13T01:16:39+00:00", "supports": "relationship",
+      "justification": "Later publisher About capture separately describes TechTarget中国 and the U.S.-headquartered global network, linking techtarget.com for global cooperation. Capture date is not an independent audit of subsequent ownership, contract changes or the page's stale marketing statements."
+    },
+    {
+      "id": "techtarget-current-institution", "account_id": "techtarget-china",
+      "source_url": "https://www.sina.cn/media/1684793947", "source_type": "platform_certification",
+      "observed_at": "2026-10-21T22:17:47.671489+00:00", "claim_date": null, "supports": "identity",
+      "justification": "Current institution explicitly names 全球领先的企业级专业IT网络媒体—TechTarget中国官方微博. Display name, UID and publisher-domain bio agree with the publisher-owned historical link and original owner binding; current identity is not current activity."
+    },
+    {
+      "id": "golf-digest-us-publisher-editions-list", "account_id": "golf-digest-china",
+      "source_url": "https://web.archive.org/web/20140106190829id_/http://www.golfdigest.com:80/magazine/international", "source_type": "publisher_statement",
+      "observed_at": "2026-10-21T22:37:47.983316+00:00", "claim_date": "2014-01-06T19:08:29+00:00", "supports": "relationship",
+      "justification": "U.S. publisher's actual international-editions page explicitly lists USA Golf Digest at golfdigest.com and China Golf Digest China at golfdigestchina.cn. Resolves the real Chinese publisher domain instead of guessing from an English brand or conflating GOLF Magazine."
+    },
+    {
+      "id": "golf-digest-china-owned-timeline-widget", "account_id": "golf-digest-china",
+      "source_url": "https://web.archive.org/web/20140112092530id_/http://www.golfdigestchina.cn:80/", "source_type": "publisher_link",
+      "observed_at": "2026-10-21T22:39:13.306617+00:00", "claim_date": "2014-01-12T09:25:30+00:00", "supports": "historical",
+      "justification": "Actual publisher domain supplied by the U.S. edition listing is titled 高尔夫大师中国官方网站 and embeds a Sina WeiboShow timeline with explicit UID1671481074. It is a publisher-managed timeline, not an incidental linked post or share widget."
+    },
+    {
+      "id": "golf-digest-archived-owner-binding", "account_id": "golf-digest-china",
+      "source_url": "https://web.archive.org/web/20220517052214id_/https://www.weibo.com/golfdigest", "source_type": "archived_profile",
+      "observed_at": "2026-10-21T22:37:44.462610+00:00", "claim_date": "2022-05-17T05:22:14+00:00", "supports": "historical",
+      "justification": "Exact golfdigest profile title is 高尔夫大师, CONFIG owner1671481074 and named institution 《高尔夫大师》杂志官方微博, independently matching the publisher widget. The other alias's individual profile is not counted."
+    },
+    {
+      "id": "golf-digest-current-institution", "account_id": "golf-digest-china",
+      "source_url": "https://www.sina.cn/media/1671481074", "source_type": "platform_certification",
+      "observed_at": "2026-10-21T22:39:07.784188+00:00", "claim_date": null, "supports": "identity",
+      "justification": "Current display and explicit 《高尔夫大师》杂志官方微博 institution agree on the publisher-widget UID. Identity evidence is separate from an independent current-license or U.S.-editorial-control audit."
     },
     {
       "id": "barrons-current-institution", "account_id": "barrons-china",

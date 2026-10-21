@@ -79,6 +79,32 @@ class DiscoveryTest(unittest.TestCase):
             self.assertIsNone(account_link("https://weibo.com/" + path, ""))
         self.assertIsNone(account_link("https://user:pass@weibo.com/fake", ""))
 
+    def test_publisher_widgets_resolve_explicit_ids_but_not_shares(self):
+        parser = SocialLinks("https://publisher.test/")
+        parser.feed(
+            '<iframe src="http://widget.weibo.com/relationship/followbutton.php'
+            '?width=63&amp;uid=1734995435"></iframe>'
+            '<iframe src="//service.t.sina.com.cn/widget/WeiboShow.php'
+            '?height=460&amp;uid=1671481074"></iframe>'
+            '<iframe src="https://service.weibo.com/share/share.php?uid=123"></iframe>'
+            '<iframe src="https://widget.weibo.com.evil.test/relationship/followbutton.php'
+            '?uid=123"></iframe>'
+            '<iframe src="https://widget.weibo.com/relationship/followbutton.php'
+            '?uid=123&amp;uid=456"></iframe>'
+            '<iframe src="https://widget.weibo.com/relationship/followbutton.php'
+            '?uid=&amp;uid=123"></iframe>'
+            '<iframe src="https://widget.weibo.com:8443/relationship/followbutton.php'
+            '?uid=123"></iframe>'
+            '<script src="https://widget.weibo.com/relationship/followbutton.php'
+            '?uid=123"></script>'
+        )
+        self.assertEqual(parser.links, {
+            "https://weibo.com/u/1734995435", "https://weibo.com/u/1671481074",
+        })
+        for uid in ("", "0", "-1", "not_an_id"):
+            self.assertIsNone(account_link(
+                "https://widget.weibo.com/relationship/followbutton.php?uid=" + uid, ""))
+
     @patch("weibo_media.discovery.time.sleep")
     @patch("weibo_media.discovery.fetch")
     def test_robots_fail_closed_and_no_links_is_not_account_absence(self, fetch, sleep):
