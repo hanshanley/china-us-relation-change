@@ -23,16 +23,18 @@ unknowns, not negatives.
 | Cosmopolitan China, historical | `1518966617` | 2020/2021 archived profiles and certification establish the magazine account. Hearst states it announced license termination in November2023; later same-branded posts are excluded. |
 | Esquire China, historical | `1195397063` | 2021/2023 certified profiles establish the magazine account. Same November2023 publisher-announced termination applies despite unchanged current profile branding. |
 | InStyle China | `1666485652` | Current institution explicitly identifies the simplified-Chinese edition. Time Inc.'s first-party 2017 launch announcement identifies the Modern Media partnership; exact current contract renewal remains unverified. |
+| Bloomberg Businessweek China, historical | `2462605080` | 2019 archived certification explicitly names 彭博商业周刊中文版官方微博. Current UID is i商周; its posts are not automatically attributed to the former brand. Distinct account, same Bloomberg publisher/domain. |
 
-Entrepreneur, Engadget, CNET, ZDNet, GOLF, Cosmopolitan and Esquire have
-documented historical Chinese-edition/operation relationships. Discovery,
+Entrepreneur, Engadget, CNET, ZDNet, GOLF, Cosmopolitan, Esquire and Bloomberg
+Businessweek China have documented historical Chinese-edition/operation relationships. Discovery,
 NYLON, EurekAlert, ChineseInLA, T China and InStyle have currently observable
-institutional profiles. They are not thirteen newly verified U.S.-newsroom-operated
-accounts. T China shares the existing NYT publisher/domain; it is a separate
-licensed style edition, not a second newly discovered U.S. website.
-Entrepreneur and GOLF are additional positive institutions in the selected ranked U.S. roster
-(source positions 29 and 51); the other technology/specialist identities are
-supplementary to that source's domain coverage.
+institutional profiles. They are not fourteen newly verified U.S.-newsroom-operated
+accounts. T China and Businessweek China share existing NYT and Bloomberg
+publisher/domain rows; neither creates another U.S. website in the denominator.
+Entrepreneur and GOLF are additional positive publishers in the selected ranked
+U.S. roster (source positions 29 and 51). Additional channels for NYT and Bloomberg
+map to their existing ranked domains; other newly added publisher domains are
+supplementary to that source's coverage.
 
 ### Primary evidence chains
 
@@ -96,6 +98,15 @@ supplementary to that source's domain coverage.
   dated May3,2017, and [current institution](https://www.sina.cn/media/1666485652).
   The first-party announcement is preserved by the successor publisher and
   documents the Chinese weekly with Modern Media, not merely a translated title.
+- Bloomberg Businessweek: [2019 certified profile](https://web.archive.org/web/20190418035649id_/https://www.weibo.com/businessweekchina),
+  [2014 UID corroboration](https://web.archive.org/web/20140406153158id_/http://www.weibo.com/businessweekchina),
+  [publisher's edition description](https://www.bbwc.cn/) and
+  [current renamed UID](https://www.sina.cn/media/2462605080).
+  Current and sampled 2022/2023 publisher pages exposed no profile anchors.
+  Testing a small set of publisher-derived aliases against the archive index
+  found `businessweekchina`; the exact profile certification then established
+  the UID. It is not Taiwan's independent 商業周刊. No current i商周 body is
+  accepted without stronger continuity evidence.
 
 ### A failed nickname lookup was not the end of the search
 
@@ -227,6 +238,41 @@ UID but a different publisher name, and both were rejected without adding
 their current local-brand posts to the U.S. historical-brand corpus.
 
 ## Data and scope
+
+This iteration brings the persisted inventory to **35 confirmed account identities
+across 31 publishers**, with **61 manually reviewed candidate outlets and 102
+evidence records**. That is fourteen additional identities and twelve additional
+publishers beyond the preceding 21-account/19-publisher checkpoint. Multichannel
+NYT, Bloomberg, Vogue and World Journal accounts do not inflate publisher counts.
+
+The recovered corpus contains **2,440 distinct posts from 29 accounts**:
+**1,970 source-full bodies and 470 explicitly truncated previews**. Source-full
+means the entire accessible syndicated/archive body, not an independently
+guaranteed complete Weibo original. All 35 accounts have collection attempts.
+Zero recovered posts for the other six are coverage/identity gaps, not evidence
+of zero output.
+
+| Newly added account in this final pass | Distinct recovered posts | Important limit |
+|---|---:|---|
+| ChineseInLA | 124 | 95 eligible current-feed posts plus 29 archived posts; five newer Shanghai-dated feed entries were outside the fixed publication window. |
+| T China | 100 | Licensed style/culture channel, not NYT Chinese news. |
+| InStyle China | 100 | Local edition, not U.S.-newsroom-authored material. |
+| Historical Cosmopolitan China | 32 | Pre-cutoff archived posts only; current same-name posts excluded. |
+| Historical Esquire China | 33 | Pre-cutoff archived posts only. Two March2023 posts have identical displayed timestamps but different stable IDs and remain distinct. |
+| Historical Bloomberg Businessweek China | 0 | Current i商周 feed rejected by the publisher-name gate; usable observed archives precede2020, and tested in-window UID/case-variant queries had no rows. |
+
+The current feeds of ChineseInLA, T China and InStyle had fifteen unavailable
+detail pages in total; their labeled previews were retained rather than gates or
+cross-host redirects being followed. Recovery remains partial. The historical
+Hearst accounts' current feeds contributed no post after the attribution cutoff.
+
+The selected 1,000-domain U.S. roster now has **eight verified-positive publisher
+domains and 992 unknowns**, with **zero verified negatives**. Four positive
+domains have currently observable account-identity evidence and four have only
+historical evidence. NYT's current-identity flag is supplied by T China, **not**
+the historical Chinese-news account. The combined ranked/supplemental ledger
+contains 1,028 distinct domain rows; specialist and community-media additions
+outside the ranking remain explicitly supplemental.
 
 The [generated account inventory](weibo_media_inventory.md) and account
 assessments hold the current corpus totals. Histories remain partial, and

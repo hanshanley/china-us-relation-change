@@ -52,7 +52,7 @@
       "id": "bloomberg", "name": "Bloomberg / Bloomberg Businessweek China", "category": "business",
       "aliases": ["彭博", "彭博商业周刊中文版", "商业周刊中文版"], "us_basis": "U.S. news and business-media brand; any local edition must be distinguished.",
       "source_url": "https://www.bloombergmedia.com/", "research_status": "reviewed",
-      "notes": "Expanded research found a publisher-owned Bloomberg China about page linking to chinabloomberg. Its 2022 archived platform profile binds the handle to UID 5076455752; current public Sina profile explicitly identifies 彭博Bloomberg官方微博. Separate Bloomberg Businessweek licensed-edition candidates are not conflated with this corporate/news brand account. Review date: 2026-10-21."
+      "notes": "Publisher-owned Bloomberg China about page links chinabloomberg, bound to UID5076455752 by a 2022 archive and current explicit institutional certification. Further archive research separately verified businessweekchina UID2462605080 with explicit 彭博商业周刊中文版官方微博 certification in2019. That UID is now branded i商周; current local-brand posts are not automatically imported as Bloomberg Businessweek. Two distinct channels under one publisher/domain. Review date: 2026-10-21."
     },
     {
       "id": "cnn", "name": "CNN", "category": "broadcaster",
@@ -574,6 +574,14 @@
       "relationship": "Chinese-language channel of a U.S.-based science-news release service; not the Science research journal or an independent-newsroom feed",
       "officialness": "confirmed", "existence": "current_evidence", "accessibility": "unknown",
       "notes": "2021 publisher contact page directly names the ASCII Weibo handle. 2022/2023 archived profiles bind UID2949617444 and contain in-window posts. Current public bio identifies the AAAS-founded science-news service and institutional tag says 美国科学促进会 AAAS 全球科学新闻服务平台. Release distribution must remain distinguished from original news reporting."
+    },
+    {
+      "id": "bloomberg-businessweek-china-historical", "outlet_id": "bloomberg", "uid": "2462605080", "handle": "businessweekchina",
+      "display_name": "商业周刊中文版", "profile_url": "https://weibo.com/businessweekchina", "language": "zh-Hans",
+      "operator": "Historical Bloomberg Businessweek China local publication with Modern/Meta Media and China Commerce and Trade Press; current account is branded i商周",
+      "relationship": "Historical Bloomberg Businessweek Chinese-magazine edition, distinct from Bloomberg China's corporate/news account; current i商周 output is not automatically attributed to the former brand",
+      "officialness": "confirmed", "existence": "historical", "accessibility": "unknown",
+      "notes": "2014/2019 archived handle businessweekchina binds UID2462605080; 2019 certification explicitly names 彭博商业周刊中文版官方微博. Current Sina title/certification is i商周. The publisher's bbwc.cn site still describes the historical Bloomberg joint venture, but exact present rebrand/license continuity is not independently verified. The collector must reject i商周 bodies under the historical registered publisher name. No second U.S. publisher/domain is counted."
     },
     {
       "id": "nyt-t-china", "outlet_id": "nyt", "uid": "5769294690", "handle": null,
@@ -1108,6 +1116,30 @@
       "justification": "Public institutional tag explicitly names 美国科学促进会 AAAS 全球科学新闻服务平台; bio identifies the AAAS-founded news-release service and its role distributing research leads. This is not the Science journal's separate editorial account."
     },
     {
+      "id": "businessweek-2019-certified-uid", "account_id": "bloomberg-businessweek-china-historical",
+      "source_url": "https://web.archive.org/web/20190418035649id_/https://www.weibo.com/businessweekchina", "source_type": "platform_certification",
+      "observed_at": "2026-10-21T18:34:04.560181+00:00", "claim_date": "2019-04-18T03:56:49+00:00", "supports": "historical",
+      "justification": "Archived profile title 商业周刊中文版, CONFIG oid2462605080 and explicit 彭博商业周刊中文版官方微博 certification bind the magazine account. Not Taiwan's independent 商業周刊, and not Bloomberg's separate corporate/news account."
+    },
+    {
+      "id": "businessweek-2014-profile-uid", "account_id": "bloomberg-businessweek-china-historical",
+      "source_url": "https://web.archive.org/web/20140406153158id_/http://www.weibo.com/businessweekchina", "source_type": "archived_profile",
+      "observed_at": "2026-10-21T18:34:07.750878+00:00", "claim_date": "2014-04-06T15:31:58+00:00", "supports": "historical",
+      "justification": "Earlier exact archive independently repeats the magazine title and stable UID2462605080. Archive availability predating2020 does not establish recoverable in-window posts."
+    },
+    {
+      "id": "businessweek-publisher-edition-description", "account_id": "bloomberg-businessweek-china-historical",
+      "source_url": "https://www.bbwc.cn/", "source_type": "publisher_statement",
+      "observed_at": "2026-10-21T18:25:14.500881+00:00", "claim_date": null, "supports": "relationship",
+      "justification": "Publisher-owned i商周 page explicitly identifies the Chinese Bloomberg Businessweek edition as a joint venture of Meta Media, Bloomberg and CCTP, with Chinese and English descriptions. This bridges the U.S. publication but is not an independently verified account-rebrand or current contract-renewal statement. Current page and 2022/2023 homepage captures expose no qualifying Weibo profile anchors."
+    },
+    {
+      "id": "businessweek-current-rebrand", "account_id": "bloomberg-businessweek-china-historical",
+      "source_url": "https://www.sina.cn/media/2462605080", "source_type": "platform_profile",
+      "observed_at": "2026-10-21T18:34:08.543603+00:00", "claim_date": null, "supports": "access",
+      "justification": "Same UID's current title and institutional tag name i商周, not the registered historical 商业周刊中文版. Present local-brand posts are excluded rather than relabeled as Bloomberg Businessweek. Empty exact numeric/case-variant archive queries for2020-2026 remain coverage gaps, not no-post findings."
+    },
+    {
       "id": "nyt-t-china-publisher-license", "account_id": "nyt-t-china",
       "source_url": "https://web.archive.org/web/20250208023005id_/https://nytlicensing.com/content/t-style-magazine/", "source_type": "publisher_statement",
       "observed_at": "2026-10-21T18:12:40.521698+00:00", "claim_date": "2025-02-08T02:30:05+00:00", "supports": "relationship",
@@ -1158,7 +1190,7 @@
     {
       "id": "cosmopolitan-hearst-license-termination", "account_id": "cosmopolitan-china-historical",
       "source_url": "https://www.hearstmagazinesinternational.com/news/update-regarding-cosmopolitan-and-esquire-china/", "source_type": "publisher_statement",
-      "observed_at": "2026-10-21T18:20:02.988470+00:00", "claim_date": null, "supports": "relationship",
+      "observed_at": "2026-10-21T18:20:02.988470+00:00", "claim_date": "2025-11-17", "supports": "relationship",
       "justification": "Hearst's own bilingual statement says it announced termination of its Cosmopolitan and Esquire China licenses in November2023 and requested cessation of brand use. This is the publisher's account of the dispute, not an independent legal adjudication. The exact effective day is not specified; collection conservatively excludes November1,2023 onward."
     },
     {
@@ -1171,12 +1203,12 @@
       "id": "esquire-2023-profile-uid", "account_id": "esquire-china-historical",
       "source_url": "https://web.archive.org/web/20230328030434id_/https://weibo.com/esquire", "source_type": "platform_certification",
       "observed_at": "2026-10-21T18:23:18.907518+00:00", "claim_date": "2023-03-28T03:04:34+00:00", "supports": "historical",
-      "justification": "Second exact archive repeats the same handle, UID and explicit magazine certification. Contains17 recognizable rows, including a duplicated pinned post; distinct-post counts must be deduplicated."
+      "justification": "Second exact archive repeats the same handle, UID and explicit magazine certification. Contains17 distinct post IDs; two posts share a publication timestamp and must not be collapsed merely because the displayed dates match."
     },
     {
       "id": "esquire-hearst-license-termination", "account_id": "esquire-china-historical",
       "source_url": "https://www.hearstmagazinesinternational.com/news/update-regarding-cosmopolitan-and-esquire-china/", "source_type": "publisher_statement",
-      "observed_at": "2026-10-21T18:20:02.988470+00:00", "claim_date": null, "supports": "relationship",
+      "observed_at": "2026-10-21T18:20:02.988470+00:00", "claim_date": "2025-11-17", "supports": "relationship",
       "justification": "Hearst states it announced termination of the Esquire and Cosmopolitan China licenses in November2023. Current branded Sina profiles do not override that statement. Exclusive Shanghai cutoff2023-11-01 is a conservative collection boundary, not an asserted exact legal termination date."
     },
     {
