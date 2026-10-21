@@ -83,7 +83,7 @@ class AssessmentTest(unittest.TestCase):
             self.assertEqual(account_assessments(db, roster, screening, checks)[0]["account_status"],
                              "confirmed_historical_only")
             self.assertIsNone(account_assessments(
-                db, roster, screening, checks)[0]["has_current_official_weibo"])
+                db, roster, screening, checks)[0]["has_current_profile_evidence"])
             db.close()
 
     def test_publication_refuses_an_incomplete_domain_assessment(self):

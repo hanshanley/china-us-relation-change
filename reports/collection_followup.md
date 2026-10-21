@@ -4,6 +4,21 @@ Observed October 21, 2026. The [generated inventory](weibo_media_inventory.md)
 contains the authoritative per-account post totals. A verified identity is not
 a guarantee of current ownership, current posting, or complete historical recovery.
 
+## Executed result
+
+The registry now has **12 confirmed account identities across 11 outlets**.
+All 12 have a recorded collection attempt. **1,135 distinct in-window posts
+were recovered from 10 accounts**, comprising 822 accessible source bodies
+and 313 explicitly truncated previews. NYT Chinese and WSJ Chinese remain
+the two confirmed historical accounts with no recovered in-window posts.
+No confirmed account is left unattempted.
+
+Of the ranked 1,000 U.S. websites, five have a confirmed account identity in
+this research: Forbes, Fortune and Bloomberg have current-profile evidence;
+NYT and WSJ have historical-only evidence. **The other 995 remain unknown,
+not verified negatives.** Other confirmed specialist and U.S. Chinese-language
+outlets are explicitly supplemental to this particular ranking.
+
 ## Explicit account decisions, not missing-link guesses
 
 The complete assessments are:
@@ -14,12 +29,15 @@ The complete assessments are:
   plus separately labeled manual-roster outlets outside that ranking.
 
 Each row exposes `account_status`, `has_ever_official_weibo`,
-`has_current_official_weibo`, account identifiers, identity evidence, operator
+`has_current_profile_evidence`, account identifiers, identity evidence, operator
 relationships, `has_collected_posts`, post counts, and account-specific
 collection status/errors. JSONL preserves nested source checks and evidence.
 There are **no verified-negative account findings**. An unknown is JSON `null`
 in the yes/no fields, not `false`; historical officialness is `true` for
 `has_ever_official_weibo` but does not establish a current account.
+Current-profile evidence means a currently observable publisher/platform
+identity surface; it does not independently establish direct Weibo availability,
+recent posting, or present-day legal operation.
 `has_collected_posts=false` means our corpus has no posts for that row, not
 that its publisher never posted.
 

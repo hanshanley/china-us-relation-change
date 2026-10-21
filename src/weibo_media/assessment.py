@@ -197,7 +197,7 @@ def account_assessments(db, roster, screening, checks):
             account_profiles=[a["profile_url"] for a in confirmed],
             relationships=[a["relationship"] for a in confirmed],
             has_ever_official_weibo=True if confirmed else None,
-            has_current_official_weibo=True if "current_evidence" in existence else None,
+            has_current_profile_evidence=True if "current_evidence" in existence else None,
             verified_no_account=False,
             assessment_reason=("Primary identity evidence; see evidence records and edition relationship."
                                if confirmed else "No verified account decision; missing links are not proof of absence."),
@@ -260,6 +260,7 @@ def main():
     if args.publish:
         db = connect(args.db)
         try:
+            db.execute("BEGIN")
             results = publish(db, "data/discovery/us_top1000.csv", args.screening,
                               Path(args.work) / "publisher_pages.jsonl", "data/discovery")
             print(json.dumps({"assessed": len(results)}, indent=2))

@@ -1,6 +1,6 @@
 # Top 1,000 U.S. news websites: Weibo screening
 
-Published: 2026-10-21T15:06:31.475351+00:00. All 1,000 selected domains have an attempted-check record.
+Published: 2026-10-21T15:34:02.422971+00:00. All 1,000 selected domains have an attempted-check record.
 
 ## U.S.-only ranking and selection
 
@@ -34,7 +34,7 @@ Links below require manual identity/edition review; homepage links can be partne
 
 ## Manually verified identities remain separate
 
-See the [evidence-backed account inventory](weibo_media_inventory.md). Expanded targeted verification resolved WSJ Chinese as historically official (`chinesewsj`, UID `1649159940`) using an archived publisher link and archived platform UID. It also confirmed National Geographic's Chinese-language account (`1644225642`) and Scientific American's Chinese-edition magazine account (`1235572171`), plus MIT Technology Review's Chinese-language account (`1738690784`). These three additional specialist brands do not appear in the selected SCImago 1,000; they are supplementary discoveries, not results manufactured from the ranking scan. Current status and legal operator uncertainty remain explicit. No additional post backfill was performed in this verification pass.
+See the [evidence-backed account inventory](weibo_media_inventory.md). Expanded targeted verification resolved WSJ Chinese as historically official (`chinesewsj`, UID `1649159940`) using an archived publisher link and archived platform UID. It also confirmed National Geographic's Chinese-language account (`1644225642`) and Scientific American's Chinese-edition magazine account (`1235572171`), plus MIT Technology Review's Chinese-language account (`1738690784`). These three additional specialist brands do not appear in the selected SCImago 1,000; they are supplementary discoveries, not results manufactured from the ranking scan. Subsequent [collection follow-up](collection_followup.md) also verified Bloomberg China, China Press and two regional World Journal accounts, collected the newly verified public feeds, and investigated historical archive failures. Current status and legal operator uncertainty remain explicit.
 
 ## Complete machine-readable deliverables
 
@@ -43,7 +43,12 @@ See the [evidence-backed account inventory](weibo_media_inventory.md). Expanded 
 - [All 1,000 checks, CSV](../data/discovery/us_top1000_screening.csv)
 - [All 1,000 checks, JSONL](../data/discovery/us_top1000_screening.jsonl)
 
-Every roster row is retained, including blocked and inconclusive checks. No post text or publisher article bodies are included in these screening exports.
+- [All 1,000 account decisions and post counts, CSV](../data/discovery/us_top1000_accounts.csv)
+- [All 1,000 account decisions and evidence, JSONL](../data/discovery/us_top1000_accounts.jsonl)
+- [Ranked plus supplemental outlet assessments, CSV](../data/discovery/outlet_account_assessments.csv)
+- [Ranked plus supplemental outlet assessments, JSONL](../data/discovery/outlet_account_assessments.jsonl)
+
+Every roster row is retained, including blocked and inconclusive checks. No post text or publisher article bodies are included in these screening exports. The account assessment fields distinguish confirmed identities, historical-only evidence and unknowns; there are no verified-negative account findings. Collected-post booleans refer only to our recovered corpus, not true account output.
 
 ## Reproduce or resume
 
