@@ -38,7 +38,7 @@
     },
     {
       "id": "nyt", "name": "The New York Times", "category": "newspaper",
-      "aliases": ["纽约时报", "纽约时报中文网", "nytchinese", "T中文版"], "us_basis": "U.S. newspaper; historical Chinese-language news account and a separately licensed T China style-magazine channel.",
+      "aliases": ["纽约时报", "纽约时报中文网", "nytchinese", "T中文版", "TMagazineChina"], "us_basis": "U.S. newspaper; historical Chinese-language news account and a separately licensed T China style-magazine channel.",
       "source_url": "https://cn.nytimes.com/", "research_status": "reviewed",
       "notes": "Historical nytchinese news account confirmed directly to a reporter in 2012; its current survival/activity is not established. A distinct current T中文版 UID5769294690 represents the licensed T China style edition: NYT's own February2025 licensing-page capture names Huasheng Media. The style account is not evidence that the Chinese-news account resumed. Two accounts, one publisher/domain. Review date: 2026-10-21."
     },
@@ -589,7 +589,7 @@
       "operator": "T China / Huasheng Media, named by NYT Licensing in February2025; exact legal account-owning entity not separately established",
       "relationship": "Licensed T: The New York Times Style Magazine Chinese edition; local style/culture publisher, not the NYT Chinese-news account or U.S. newsroom",
       "officialness": "confirmed", "existence": "current_evidence", "accessibility": "unknown",
-      "notes": "Sina institutional tag explicitly names 杂志《T》中文版. NYT's own licensing page, captured February8,2025, explicitly identifies T China as licensed to Huasheng Media and launched in2015. Current-profile evidence concerns the observable style edition, not proof of an October2026 contract renewal. Same NYT publisher/domain as the historical news account; no additional U.S. website is counted."
+      "notes": "Sina institutional tag explicitly names 杂志《T》中文版. NYT's own licensing page, captured February8,2025, explicitly identifies T China as licensed to Huasheng Media and launched in2015. Reviewed 2020/2023 profiles use the historical name TMagazineChina; 2020 certification names Huasheng's corporate operator and 2023 certification repeats the Chinese T edition. Current-profile evidence is not proof of an October2026 contract renewal. Same NYT publisher/domain as the historical news account; no additional U.S. website is counted."
     },
     {
       "id": "chineseinla-weibo", "outlet_id": "chineseinla", "uid": "1738757345", "handle": "chineseinla",
@@ -1174,6 +1174,30 @@
       "source_url": "https://web.archive.org/web/20221004131211id_/https://www.weibo.com/chineseinla", "source_type": "archived_profile",
       "observed_at": "2026-10-21T18:23:20.935817+00:00", "claim_date": "2022-10-04T13:12:11+00:00", "supports": "historical",
       "justification": "Second independently indexed archive repeats the publisher title, domain and UID, with14 recognizable feed records. Does not convert the publisher-hosted forum post into a first-party corporate statement."
+    },
+    {
+      "id": "chineseinla-2025-profile-uid", "account_id": "chineseinla-weibo",
+      "source_url": "https://web.archive.org/web/20250323001730id_/https://weibo.com/chineseinla", "source_type": "archived_profile",
+      "observed_at": "2026-10-21T18:53:01.474620+00:00", "claim_date": "2025-03-23T00:17:30+00:00", "supports": "historical",
+      "justification": "An expanded archive-year query locates the same publisher title and UID in2025, with15 recognizable posts accepted by the exact UID/name/date gates. Extends observed historical coverage rather than claiming a complete timeline."
+    },
+    {
+      "id": "chineseinla-2026-profile-uid", "account_id": "chineseinla-weibo",
+      "source_url": "https://web.archive.org/web/20260201201338id_/https://weibo.com/chineseinla", "source_type": "archived_profile",
+      "observed_at": "2026-10-21T18:53:02.407542+00:00", "claim_date": "2026-02-01T20:13:38+00:00", "supports": "historical",
+      "justification": "Exact February2026 profile repeats the established publisher UID/name and supplies15 additional recognizable posts; publication and capture times remain separate."
+    },
+    {
+      "id": "nyt-t-china-2020-reviewed-alias", "account_id": "nyt-t-china",
+      "source_url": "https://web.archive.org/web/20201003145708id_/https://weibo.com/u/5769294690", "source_type": "platform_certification",
+      "observed_at": "2026-10-21T18:53:03.611824+00:00", "claim_date": "2020-10-03T14:57:08+00:00", "supports": "historical",
+      "justification": "Exact owner UID5769294690 has historical title TMagazineChina and platform certification naming Huasheng's Chinese corporate operator, consistent with NYT's separately documented T China licensee. Capture initially failed the name gate; only after this explicit edition/operator review was TMagazineChina added as a reviewed alias."
+    },
+    {
+      "id": "nyt-t-china-2023-reviewed-alias", "account_id": "nyt-t-china",
+      "source_url": "https://web.archive.org/web/20230412183400id_/https://weibo.com/u/5769294690", "source_type": "platform_certification",
+      "observed_at": "2026-10-21T18:53:05.225828+00:00", "claim_date": "2023-04-12T18:34:00+00:00", "supports": "historical",
+      "justification": "Same owner UID and historical TMagazineChina title, with explicit 杂志《T》中文版 certification, independently corroborate continuity to the current T中文版 edition. Fifteen recognizable 2023 rows are eligible only after reviewed alias validation."
     },
     {
       "id": "cosmopolitan-2021-certified-uid", "account_id": "cosmopolitan-china-historical",

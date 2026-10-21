@@ -74,15 +74,25 @@ supplementary to that source's coverage.
   This is a science-news release service, not an independently reported
   general-news outlet; its category remains explicit in the assessments.
 - T China: [NYT's own licensing page, February2025 capture](https://web.archive.org/web/20250208023005id_/https://nytlicensing.com/content/t-style-magazine/)
-  and [current institutional profile](https://www.sina.cn/media/5769294690).
+  and [current institutional profile](https://www.sina.cn/media/5769294690),
+  plus [2020](https://web.archive.org/web/20201003145708id_/https://weibo.com/u/5769294690)
+  and [2023](https://web.archive.org/web/20230412183400id_/https://weibo.com/u/5769294690)
+  profiles under the historical name `TMagazineChina`.
   The publisher explicitly names Huasheng Media as the T China licensee and a
   2015 launch. The capture date is not a contract-signing date. A current
   advertising-representative page returned a parked shell and was not accepted
   as evidence; following the actual NYT licensing citation recovered primary proof.
+  Both older profiles initially failed the exact-name gate. Inspection then
+  established the same UID, Huasheng corporate certification in2020 and explicit
+  Chinese T-magazine certification in2023. Only after that review was the alias
+  admitted, yielding fourteen and fifteen archived posts respectively.
 - ChineseInLA: [publisher About page](https://www.chineseinla.com/aboutus.html),
   [current institution](https://www.sina.cn/media/1738757345),
   [2020 profile](https://web.archive.org/web/20200414204556id_/https://www.weibo.com/chineseinla)
-  and [2022 profile](https://web.archive.org/web/20221004131211id_/https://www.weibo.com/chineseinla).
+  and [2022 profile](https://web.archive.org/web/20221004131211id_/https://www.weibo.com/chineseinla),
+  followed by [2025](https://web.archive.org/web/20250323001730id_/https://weibo.com/chineseinla)
+  and [February2026](https://web.archive.org/web/20260201201338id_/https://weibo.com/chineseinla)
+  snapshots located by expanding the archive-year range.
   The About page states the publisher operates Sina Weibo, but did not expose
   an exact outbound href. The href initially found on a forum topic was
   **not** treated as publisher-managed navigation; the handle/UID was instead
@@ -240,22 +250,29 @@ their current local-brand posts to the U.S. historical-brand corpus.
 ## Data and scope
 
 This iteration brings the persisted inventory to **35 confirmed account identities
-across 31 publishers**, with **61 manually reviewed candidate outlets and 102
+across 31 publishers**, with **61 manually reviewed candidate outlets and 106
 evidence records**. That is fourteen additional identities and twelve additional
 publishers beyond the preceding 21-account/19-publisher checkpoint. Multichannel
 NYT, Bloomberg, Vogue and World Journal accounts do not inflate publisher counts.
 
-The recovered corpus contains **2,440 distinct posts from 29 accounts**:
-**1,970 source-full bodies and 470 explicitly truncated previews**. Source-full
+The recovered corpus contains **2,874 distinct posts from 29 accounts**:
+**2,361 source-full bodies and 513 explicitly truncated previews**. Source-full
 means the entire accessible syndicated/archive body, not an independently
 guaranteed complete Weibo original. All 35 accounts have collection attempts.
 Zero recovered posts for the other six are coverage/identity gaps, not evidence
 of zero output.
 
+After the provisional 2,440-post publication, four additional archive snapshots
+contributed 59 posts, and finishing five already-captured feed checkpoints
+contributed another 375. GQ, Vogue, Harper's BAZAAR, WWD and VogueFilm now have
+all 100 entries processed in each captured feed. No known unprocessed entries
+remain in the saved feed snapshots; this is not complete historical pagination
+or a claim that no newer live posts exist.
+
 | Newly added account in this final pass | Distinct recovered posts | Important limit |
 |---|---:|---|
-| ChineseInLA | 124 | 95 eligible current-feed posts plus 29 archived posts; five newer Shanghai-dated feed entries were outside the fixed publication window. |
-| T China | 100 | Licensed style/culture channel, not NYT Chinese news. |
+| ChineseInLA | 154 | 95 eligible current-feed posts plus 59 archived posts; five newer Shanghai-dated feed entries were outside the fixed publication window. |
+| T China | 129 | 100 current-feed posts plus 29 reviewed historical-alias posts; licensed style/culture channel, not NYT Chinese news. |
 | InStyle China | 100 | Local edition, not U.S.-newsroom-authored material. |
 | Historical Cosmopolitan China | 32 | Pre-cutoff archived posts only; current same-name posts excluded. |
 | Historical Esquire China | 33 | Pre-cutoff archived posts only. Two March2023 posts have identical displayed timestamps but different stable IDs and remain distinct. |
