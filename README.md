@@ -1,5 +1,11 @@
 # U.S. news media on Weibo
 
+This repository also contains an independent **U.S. bilateral exchange
+dashboard** for students, visitor trips, and trade with mainland China,
+Hong Kong, Macau, and Taiwan. Open [`site/index.html`](site/index.html) locally;
+see [exchange setup, definitions and operations](docs/EXCHANGE.md) and
+[source contracts](docs/SOURCES.md). Hosting is not configured.
+
 An evidence-backed account inventory and small, resumable post-recovery CLI.
 The scope includes U.S. news brands, their explicitly labeled Chinese editions,
 and U.S.-based Chinese-language outlets. It is **not an exhaustive census**.
