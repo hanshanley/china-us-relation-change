@@ -346,7 +346,10 @@ def publish(roster_path, screening_directory, directory, report_path):
         "manufactured from the ranking scan. Subsequent [collection follow-up](collection_followup.md) "
         "also verified Bloomberg China, China Press and two regional World Journal accounts, "
         "collected the newly verified public feeds, and investigated historical archive failures. "
-        "Current status and legal operator uncertainty remain explicit.", "",
+        "The next [discovery round](discovery_round2.md) adds the historical Fast Company "
+        "publisher at U.S. source position33 and further supplementary accounts, while auditing "
+        "UID rebranding and same-name false leads. Current status and legal operator uncertainty "
+        "remain explicit.", "",
         "## Complete machine-readable deliverables", "",
         "- [All 1,000 ranked U.S. domains](../data/discovery/us_top1000.csv)",
         "- [Ranking source manifest](../data/discovery/us_top1000.manifest.json)",

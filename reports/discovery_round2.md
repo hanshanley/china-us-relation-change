@@ -103,3 +103,27 @@ and `posts.csv`. Public
 (also JSONL) retain positive, historical and unknown decisions separately.
 The CNN manual-review crosswalk now maps to the ranking's actual
 `edition.cnn.com` domain rather than creating a duplicate supplemental CNN row.
+
+## Completed collection checkpoint
+
+This round added **441 distinct posts**, bringing the complete local corpus
+to **1,576 posts from 18 accounts**. Every one of the 21 confirmed accounts
+has a recorded attempt. The corpus contains 1,202 accessible source bodies
+and 374 explicitly truncated previews, not a complete historical backfill.
+
+| Newly verified account | Recovered posts |
+|---|---:|
+| SinoVision / 美国中文电视 | 101 |
+| KTSF26台 | 100 |
+| Fast Company / 快公司FastCompany | 100 |
+| GQ China | 25 |
+| Vogue China magazine | 40 |
+| VogueFilm | 25 |
+| Harper's BAZAAR China | 25 |
+| WWD China | 25 |
+| Historical TechCrunch Chinese | 0; current rebranded feed rejected |
+
+The ranked 1,000-site ledger now contains **six confirmed publisher identities
+and 994 unknowns**, with no verified-negative findings. The ranked-plus-
+supplemental ledger has 1,014 distinct domain rows; it does not add out-of-
+ranking discoveries to the ranked denominator.

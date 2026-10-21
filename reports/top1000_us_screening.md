@@ -1,6 +1,6 @@
 # Top 1,000 U.S. news websites: Weibo screening
 
-Published: 2026-10-21T15:34:02.422971+00:00. All 1,000 selected domains have an attempted-check record.
+Published: 2026-10-21T17:12:53.657997+00:00. All 1,000 selected domains have an attempted-check record.
 
 ## U.S.-only ranking and selection
 
@@ -34,7 +34,7 @@ Links below require manual identity/edition review; homepage links can be partne
 
 ## Manually verified identities remain separate
 
-See the [evidence-backed account inventory](weibo_media_inventory.md). Expanded targeted verification resolved WSJ Chinese as historically official (`chinesewsj`, UID `1649159940`) using an archived publisher link and archived platform UID. It also confirmed National Geographic's Chinese-language account (`1644225642`) and Scientific American's Chinese-edition magazine account (`1235572171`), plus MIT Technology Review's Chinese-language account (`1738690784`). These three additional specialist brands do not appear in the selected SCImago 1,000; they are supplementary discoveries, not results manufactured from the ranking scan. Subsequent [collection follow-up](collection_followup.md) also verified Bloomberg China, China Press and two regional World Journal accounts, collected the newly verified public feeds, and investigated historical archive failures. Current status and legal operator uncertainty remain explicit.
+See the [evidence-backed account inventory](weibo_media_inventory.md). Expanded targeted verification resolved WSJ Chinese as historically official (`chinesewsj`, UID `1649159940`) using an archived publisher link and archived platform UID. It also confirmed National Geographic's Chinese-language account (`1644225642`) and Scientific American's Chinese-edition magazine account (`1235572171`), plus MIT Technology Review's Chinese-language account (`1738690784`). These three additional specialist brands do not appear in the selected SCImago 1,000; they are supplementary discoveries, not results manufactured from the ranking scan. Subsequent [collection follow-up](collection_followup.md) also verified Bloomberg China, China Press and two regional World Journal accounts, collected the newly verified public feeds, and investigated historical archive failures. The next [discovery round](discovery_round2.md) adds the historical Fast Company publisher at U.S. source position33 and further supplementary accounts, while auditing UID rebranding and same-name false leads. Current status and legal operator uncertainty remain explicit.
 
 ## Complete machine-readable deliverables
 
