@@ -54,3 +54,15 @@ def test_malformed_candidate_does_not_publish(tmp_path):
     with pytest.raises(ValueError):
         refresh(tmp_path, {"sample": adapter(-1)}, FakeClient())
     assert before == {p.name: p.read_bytes() for p in (tmp_path / "data/site").iterdir()}
+    assert json.loads((tmp_path / "data/local/exchange/check.json").read_text())["publication_blocked"]
+
+
+def test_volatile_raw_checksum_does_not_create_publication_change(tmp_path):
+    refresh(tmp_path, {"sample": adapter()}, FakeClient())
+
+    def different_container(client):
+        rows, vintage, notes = adapter()(client)
+        rows[0]["raw_sha256"] = "b" * 64
+        return rows, vintage, notes
+
+    assert not refresh(tmp_path, {"sample": different_container}, FakeClient())["publication_changed"]

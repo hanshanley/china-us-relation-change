@@ -116,6 +116,13 @@ def refresh(root, adapters=None, client=None):
             manifests[source_id] = manifest
             checks[source_id] = {"status": manifest["status"], "checked_at": client.now,
                                  "error": str(exc)}
+        except Exception as exc:
+            checks[source_id] = {"status": "invalid_candidate", "checked_at": client.now,
+                                 "error": str(exc)}
+            write_atomic(root / "data/local/exchange/check.json", json_text({
+                "checked_at": client.now, "publication_changed": False,
+                "publication_blocked": True, "sources": checks}))
+            raise
     rows = validate(rows)
     for row in rows:
         if not all(row.get(k) for k in ["source_url", "raw_sha256", "retrieved_at", "source_vintage"]):

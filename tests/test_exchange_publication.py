@@ -14,6 +14,11 @@ def published():
     return json.loads((ROOT / "data/site/observations.json").read_text())
 
 
+def reviewed_snapshot():
+    # Freeze the independently reviewed vintage, not future legitimate revisions.
+    return json.loads((ROOT / "tests/fixtures/exchange_reviewed_2026-10-21.json").read_text())
+
+
 @pytest.mark.parametrize("origin,destination,measure,baseline,latest", [
     ("CHN", "USA", "goods", 432582, 309039),
     ("USA", "CHN", "goods", 125145, 107002),
@@ -30,7 +35,7 @@ def published():
 ])
 def test_reviewed_bea_million_dollar_checkpoints(origin, destination, measure, baseline, latest):
     index = {(r["origin"], r["destination"], r["measure"], r["year"]): r["value"]
-             for r in published() if r["source_id"] == "bea" and r["frequency"] == "annual"}
+             for r in reviewed_snapshot() if r["source_id"] == "bea" and r["frequency"] == "annual"}
     assert index[(origin, destination, measure, 2020)] == baseline * 1_000_000
     assert index[(origin, destination, measure, 2025)] == latest * 1_000_000
 
@@ -53,7 +58,7 @@ def test_reviewed_bea_million_dollar_checkpoints(origin, destination, measure, b
     ("macau_tourism", "USA", "MAC", "visitors", 2025, 162460),
 ])
 def test_reviewed_people_checkpoints(source, origin, destination, measure, year, value):
-    row = next(r for r in published() if
+    row = next(r for r in reviewed_snapshot() if
                (r["source_id"], r["origin"], r["destination"], r["measure"], r["year"], r["frequency"])
                == (source, origin, destination, measure, year, "annual"))
     assert row["value"] == value
