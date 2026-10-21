@@ -38,9 +38,9 @@
     },
     {
       "id": "nyt", "name": "The New York Times", "category": "newspaper",
-      "aliases": ["纽约时报", "纽约时报中文网", "nytchinese"], "us_basis": "U.S. newspaper; Chinese-language newsroom edition.",
+      "aliases": ["纽约时报", "纽约时报中文网", "nytchinese", "T中文版"], "us_basis": "U.S. newspaper; historical Chinese-language news account and a separately licensed T China style-magazine channel.",
       "source_url": "https://cn.nytimes.com/", "research_status": "reviewed",
-      "notes": "Historical official account confirmed directly to a reporter in 2012. Current homepage did not expose a Weibo link. No current activity claim. Review date: 2026-10-21."
+      "notes": "Historical nytchinese news account confirmed directly to a reporter in 2012; its current survival/activity is not established. A distinct current T中文版 UID5769294690 represents the licensed T China style edition: NYT's own February2025 licensing-page capture names Huasheng Media. The style account is not evidence that the Chinese-news account resumed. Two accounts, one publisher/domain. Review date: 2026-10-21."
     },
     {
       "id": "wsj", "name": "The Wall Street Journal", "category": "newspaper",
@@ -305,6 +305,48 @@
       "us_basis": "Fox Corporation's U.S.-based sports-news/broadcast assets; distinct from former Disney-controlled regional FOX Sports operations.",
       "source_url": "https://www.foxsports.com/", "research_status": "reviewed",
       "notes": "Current U.S. publisher pages and 2016 Asia/2019-2020 Taiwan archived social links exposed no qualifying Sina account. Regional operations transferred to Disney in2019 and must not be automatically attributed to U.S. FOX Sports. Unresolved, not absent. Review date: 2026-10-21."
+    },
+    {
+      "id": "chineseinla", "name": "ChineseInLA / 洛杉矶华人资讯网", "category": "us_chinese_community_media",
+      "aliases": ["洛杉矶华人资讯网", "美国华人资讯网", "ChineseInLA"], "us_basis": "Publisher's About page states it was founded in Los Angeles in January2006 and serves the Greater Los Angeles Chinese community; news/information publishing coexists with classifieds and local services.",
+      "source_url": "https://www.chineseinla.com/", "research_status": "reviewed",
+      "notes": "Current Sina institution names the Los Angeles Chinese classifieds/information publisher, links chineseinla.com and locates it in the U.S. Publisher-managed About page explicitly states it operates Sina Weibo, but no exact outbound href was captured there. The exact handle found in a forum topic was subsequently independently bound to UID1738757345 in 2020/2022 platform archives. Mixed community news/information media, not a traditional newspaper. Review date: 2026-10-21."
+    },
+    {
+      "id": "international-daily-us", "name": "International Daily News, United States", "category": "us_chinese_language",
+      "aliases": ["美国国际日报", "美國國際日報"], "us_basis": "Los Angeles-area Chinese-language newspaper documented in the California ethnic-media directory and historical reporting; distinguish the U.S. operation from the Indonesian edition.",
+      "source_url": "https://www.chinesetoday.com/", "research_status": "reviewed",
+      "notes": "Publisher-domain retrieval timed out on October21,2026. Targeted U.S./Los Angeles aliases and institutional/archive searches did not establish a qualifying U.S. Weibo UID. Historical Sino-Indonesian corporate links do not transfer an Indonesian account to the U.S. edition. California directory: https://americancommunitymedia.org/wp-content/uploads/2020/05/EMS_CADirectoryEthnicMediaSpring20_5-1-20.pdf ; a 2010 report distinguishes the U.S. and Indonesian publications: https://news.sina.cn/sa/2010-07-24/detail-ikftssap3334882.d.html . Unknown, not absent."
+    },
+    {
+      "id": "iciti-tv-us", "name": "iCITI TV / 城市新闻网", "category": "us_chinese_language",
+      "aliases": ["美国城市卫视", "美国鹰龙传媒", "iCity News"], "us_basis": "EDI Media's first-party publisher statement identifies its iCITI television/news operation and Los Angeles headquarters.",
+      "source_url": "https://icitynews.com/", "research_status": "reviewed",
+      "notes": "First-party https://icitynews.com/?p=441321 identifies EDI Media, the Los Angeles broadcaster and its news platforms. Institutional/publisher-social searches did not resolve a qualifying Sina UID. Historical ICN TV must not be equated with this iCITI operation solely because both use 城市卫视. Unknown, not absent. Review date: 2026-10-21."
+    },
+    {
+      "id": "sing-tao-us-radio", "name": "Sing Tao Chinese Radio, United States", "category": "us_chinese_language",
+      "aliases": ["星岛中文电台", "星島中文電台", "Sing Tao Chinese Radio"], "us_basis": "First-party contact/legal page identifies Sing Tao Newspapers San Francisco Ltd. and the South San Francisco radio/news operation.",
+      "source_url": "https://www.chineseradio.com/main/", "research_status": "reviewed",
+      "notes": "First-party https://www.chineseradio.com/main/contact/ establishes the U.S. radio publisher. Current schedules/news do not establish a Weibo identity. No U.S.-specific Sina UID was verified; Facebook evidence is not Sina evidence. Hong Kong UID1924115501 remains excluded. Distinct radio site/channel from the U.S. newspaper-domain review. Unknown, not absent. Review date: 2026-10-21."
+    },
+    {
+      "id": "cosmopolitan", "name": "Cosmopolitan / historical China edition", "category": "lifestyle",
+      "aliases": ["时尚COSMO", "时尚COSMOPOLITAN"], "us_basis": "U.S.-origin Hearst magazine brand; historical China license is explicitly acknowledged by Hearst.",
+      "source_url": "https://www.cosmopolitan.com/", "research_status": "reviewed",
+      "notes": "2020/2021 archived platform profiles bind cosmopolitan to UID1518966617 and explicitly name the Chinese magazine. Hearst says it announced termination of the China license in November2023. Continued 2026 branding/certification is not accepted as a continuing U.S. license. Collection excludes publications from November1,2023, a conservative cutoff before the announced termination month rather than an asserted exact contract date. Review date: 2026-10-21."
+    },
+    {
+      "id": "esquire", "name": "Esquire / historical China edition", "category": "lifestyle",
+      "aliases": ["时尚先生Esquire", "时尚先生"], "us_basis": "U.S.-origin Hearst magazine brand; publisher explicitly acknowledges its historical China licensing arrangement.",
+      "source_url": "https://www.esquire.com/", "research_status": "reviewed",
+      "notes": "2021/2023 archived certified profiles bind esquire to UID1195397063. Hearst says it announced termination of the China license in November2023; the same displayed name persists in 2026 and is not proof of license renewal. Collection excludes November1,2023 onward, conservatively before that announced month. A search result merely discussing an Esquire cover was authored by an unrelated entertainment account and was rejected as an identity lead. Review date: 2026-10-21."
+    },
+    {
+      "id": "instyle", "name": "InStyle / China", "category": "lifestyle",
+      "aliases": ["InStyle优家", "InStyle优家画报", "优家画报"], "us_basis": "U.S.-origin magazine brand; Time Inc.'s first-party May3,2017 announcement documents its licensed Chinese weekly with Modern Media.",
+      "source_url": "https://www.instyle.com/", "research_status": "reviewed",
+      "notes": "Current Sina institutional tag explicitly names Instyle 优家画报官方微博 under UID1666485652, and bio identifies InStyle's simplified-Chinese edition. The publisher's archived corporate announcement establishes the 2017 edition/partner relationship; exact current contract renewal and legal account owner are not independently verified. Specialist lifestyle media, not a general-news newsroom. Review date: 2026-10-21."
     }
   ],
   "accounts": [
@@ -425,6 +467,7 @@
       "display_name": "TechCrunch中文版", "profile_url": "https://weibo.com/tcchinese", "language": "zh-Hans",
       "operator": "TechNode, historical TechCrunch China partner; current UID is branded 动点出海",
       "relationship": "Historical partner-operated Chinese edition, documented2013-2019; current TechNode output is outside this account's TechCrunch attribution",
+      "attribution_end": "2020-01-01",
       "officialness": "confirmed", "existence": "historical", "accessibility": "unknown",
       "notes": "2019 archived TechCrunch China homepage links tcchinese and archived profile binds UID3561737261. TechNode states the partnership lasted2013-2019. Current public UID title is 动点出海, so the collector's exact profile-name gate must reject current posts rather than import them as TechCrunch."
     },
@@ -531,6 +574,48 @@
       "relationship": "Chinese-language channel of a U.S.-based science-news release service; not the Science research journal or an independent-newsroom feed",
       "officialness": "confirmed", "existence": "current_evidence", "accessibility": "unknown",
       "notes": "2021 publisher contact page directly names the ASCII Weibo handle. 2022/2023 archived profiles bind UID2949617444 and contain in-window posts. Current public bio identifies the AAAS-founded science-news service and institutional tag says 美国科学促进会 AAAS 全球科学新闻服务平台. Release distribution must remain distinguished from original news reporting."
+    },
+    {
+      "id": "nyt-t-china", "outlet_id": "nyt", "uid": "5769294690", "handle": null,
+      "display_name": "T中文版", "profile_url": "https://weibo.com/u/5769294690", "language": "zh-Hans",
+      "operator": "T China / Huasheng Media, named by NYT Licensing in February2025; exact legal account-owning entity not separately established",
+      "relationship": "Licensed T: The New York Times Style Magazine Chinese edition; local style/culture publisher, not the NYT Chinese-news account or U.S. newsroom",
+      "officialness": "confirmed", "existence": "current_evidence", "accessibility": "unknown",
+      "notes": "Sina institutional tag explicitly names 杂志《T》中文版. NYT's own licensing page, captured February8,2025, explicitly identifies T China as licensed to Huasheng Media and launched in2015. Current-profile evidence concerns the observable style edition, not proof of an October2026 contract renewal. Same NYT publisher/domain as the historical news account; no additional U.S. website is counted."
+    },
+    {
+      "id": "chineseinla-weibo", "outlet_id": "chineseinla", "uid": "1738757345", "handle": "chineseinla",
+      "display_name": "洛杉矶华人资讯网", "profile_url": "https://weibo.com/chineseinla", "language": "zh-Hans",
+      "operator": "ChineseInLA / 洛杉矶华人资讯网, U.S. community-news/information publisher; exact legal account owner not separately documented",
+      "relationship": "U.S.-based Chinese-language community-media publisher's institutional account; mixed news/information, classifieds and lifestyle, not a licensed Chinese edition of a U.S. magazine",
+      "officialness": "confirmed", "existence": "current_evidence", "accessibility": "unknown",
+      "notes": "Current institutional tag names 洛杉矶华人分类信息网站, links the publisher domain and gives U.S. location. Publisher-managed About page says it operates Sina Weibo, but its exact outbound href was not captured. The forum-body handle was independently bound to this UID by 2020/2022 archived profiles. User-generated forum text alone was not treated as a publisher-owned account link."
+    },
+    {
+      "id": "cosmopolitan-china-historical", "outlet_id": "cosmopolitan", "uid": "1518966617", "handle": "cosmopolitan",
+      "display_name": "时尚COSMO", "profile_url": "https://weibo.com/cosmopolitan", "language": "zh-Hans",
+      "operator": "Historical Chinese-edition magazine account associated with Trends/TPH; exact license counterparty/legal account ownership not independently adjudicated",
+      "relationship": "Historical Cosmopolitan China licensed edition; Hearst states the license was terminated, announced November2023; subsequent local-brand output is excluded",
+      "attribution_end": "2023-11-01",
+      "officialness": "confirmed", "existence": "historical", "accessibility": "unknown",
+      "notes": "2020/2021 archives bind UID1518966617 and the magazine name. Current Sina certification still says 《时尚COSMOPOLITAN》官方微博, illustrating why unchanged names do not establish continued authorization. The exclusive Shanghai cutoff precedes the announced termination month; it is a conservative research boundary, not an exact legal termination date. Only pre-cutoff posts may enter this historical-edition corpus."
+    },
+    {
+      "id": "esquire-china-historical", "outlet_id": "esquire", "uid": "1195397063", "handle": "esquire",
+      "display_name": "时尚先生Esquire", "profile_url": "https://weibo.com/esquire", "language": "zh-Hans",
+      "operator": "Historical Chinese-edition magazine account associated with Trends/TPH; exact license counterparty/legal account ownership not independently adjudicated",
+      "relationship": "Historical Esquire China licensed edition; publisher-announced November2023 termination means later same-named local posts are not treated as authorized U.S.-brand output",
+      "attribution_end": "2023-11-01",
+      "officialness": "confirmed", "existence": "historical", "accessibility": "unknown",
+      "notes": "2021/2023 certified profiles bind handle esquire to UID1195397063. Current Sina still shows the same branded title and official-magazine tag, but Hearst's termination statement takes precedence over those nominal labels. The cutoff conservatively excludes the announced termination month onward, without asserting an exact contractual day."
+    },
+    {
+      "id": "instyle-china", "outlet_id": "instyle", "uid": "1666485652", "handle": null,
+      "display_name": "InStyle优家", "profile_url": "https://weibo.com/u/1666485652", "language": "zh-Hans",
+      "operator": "InStyle China / Modern Media partnership announced in2017; exact current legal account owner not independently established",
+      "relationship": "Institutionally identified Chinese lifestyle edition of InStyle; U.S. publisher documented its Modern Media license/launch, not U.S.-newsroom operation",
+      "officialness": "confirmed", "existence": "current_evidence", "accessibility": "unknown",
+      "notes": "Public Sina bio explicitly identifies the simplified-Chinese InStyle edition and institutional tag names Instyle 优家画报官方微博. Time Inc.'s May3,2017 first-party launch announcement corroborates the edition identity and Modern Media relationship; it does not independently prove current contract renewal."
     },
     {
       "id": "wsj-chinese-candidate", "outlet_id": "wsj", "uid": "1649159940", "handle": "chinesewsj",
@@ -1021,6 +1106,90 @@
       "source_url": "https://www.sina.cn/media/2949617444", "source_type": "platform_certification",
       "observed_at": "2026-10-21T17:53:56.155718+00:00", "claim_date": null, "supports": "identity",
       "justification": "Public institutional tag explicitly names 美国科学促进会 AAAS 全球科学新闻服务平台; bio identifies the AAAS-founded news-release service and its role distributing research leads. This is not the Science journal's separate editorial account."
+    },
+    {
+      "id": "nyt-t-china-publisher-license", "account_id": "nyt-t-china",
+      "source_url": "https://web.archive.org/web/20250208023005id_/https://nytlicensing.com/content/t-style-magazine/", "source_type": "publisher_statement",
+      "observed_at": "2026-10-21T18:12:40.521698+00:00", "claim_date": "2025-02-08T02:30:05+00:00", "supports": "relationship",
+      "justification": "NYT's own licensing page explicitly lists T China among its licensed editions, identifies Huasheng Media as licensee and states a 2015 launch. Claim date is the exact archive capture, not a contract-signing date. The parked advertising-representative page was not used as proof."
+    },
+    {
+      "id": "nyt-t-china-institution", "account_id": "nyt-t-china",
+      "source_url": "https://www.sina.cn/media/5769294690", "source_type": "platform_certification",
+      "observed_at": "2026-10-21T18:16:01.309598+00:00", "claim_date": null, "supports": "identity",
+      "justification": "Public institutional tag explicitly identifies 杂志《T》中文版 under the stable UID and display name T中文版. Separately linked through NYT's licensing statement to the style edition; not the historical nytchinese news account."
+    },
+    {
+      "id": "chineseinla-current-institution", "account_id": "chineseinla-weibo",
+      "source_url": "https://www.sina.cn/media/1738757345", "source_type": "platform_certification",
+      "observed_at": "2026-10-21T18:25:08.052378+00:00", "claim_date": null, "supports": "identity",
+      "justification": "Institutional tag names 洛杉矶华人分类信息网站; profile title names 洛杉矶华人资讯网, bio links chineseinla.com and location is 海外 美国. This is the publisher's mixed community-information/news account, not solely a traditional newsroom."
+    },
+    {
+      "id": "chineseinla-publisher-about", "account_id": "chineseinla-weibo",
+      "source_url": "https://www.chineseinla.com/aboutus.html", "source_type": "publisher_statement",
+      "observed_at": "2026-10-21T18:16:38+00:00", "claim_date": null, "supports": "relationship",
+      "justification": "Publisher-managed About page states a January2006 Los Angeles founding and explicitly says the publisher operates Sina Weibo and Facebook. No exact Weibo href was captured there. The exact link on a separately inspected forum topic was user-generated context, not accepted as publisher-managed social navigation."
+    },
+    {
+      "id": "chineseinla-2020-profile-uid", "account_id": "chineseinla-weibo",
+      "source_url": "https://web.archive.org/web/20200414204556id_/https://www.weibo.com/chineseinla", "source_type": "archived_profile",
+      "observed_at": "2026-10-21T18:23:19.718271+00:00", "claim_date": "2020-04-14T20:45:56+00:00", "supports": "historical",
+      "justification": "Exact archived chineseinla handle has the publisher's Chinese title, CONFIG oid1738757345 and linked publisher domain, independently binding the forum-discovered handle. Contains15 recognizable feed records; publication and capture dates are separate."
+    },
+    {
+      "id": "chineseinla-2022-profile-uid", "account_id": "chineseinla-weibo",
+      "source_url": "https://web.archive.org/web/20221004131211id_/https://www.weibo.com/chineseinla", "source_type": "archived_profile",
+      "observed_at": "2026-10-21T18:23:20.935817+00:00", "claim_date": "2022-10-04T13:12:11+00:00", "supports": "historical",
+      "justification": "Second independently indexed archive repeats the publisher title, domain and UID, with14 recognizable feed records. Does not convert the publisher-hosted forum post into a first-party corporate statement."
+    },
+    {
+      "id": "cosmopolitan-2021-certified-uid", "account_id": "cosmopolitan-china-historical",
+      "source_url": "https://web.archive.org/web/20211201004322id_/https://www.weibo.com/cosmopolitan", "source_type": "platform_certification",
+      "observed_at": "2026-10-21T18:23:16.398466+00:00", "claim_date": "2021-12-01T00:43:22+00:00", "supports": "historical",
+      "justification": "Archived handle cosmopolitan has title 时尚COSMO, CONFIG oid1518966617 and explicit 《时尚COSMOPOLITAN》官方微博 certification. Historical identity precedes Hearst's announced license termination."
+    },
+    {
+      "id": "cosmopolitan-2020-profile-uid", "account_id": "cosmopolitan-china-historical",
+      "source_url": "https://web.archive.org/web/20200523112602id_/https://www.weibo.com/cosmopolitan", "source_type": "archived_profile",
+      "observed_at": "2026-10-21T18:23:12.566889+00:00", "claim_date": "2020-05-23T11:26:02+00:00", "supports": "historical",
+      "justification": "Second archived profile binds the same title and UID and contains16 recognizable 2020 feed records. Current same-name branding is not relied on as proof of a renewed license."
+    },
+    {
+      "id": "cosmopolitan-hearst-license-termination", "account_id": "cosmopolitan-china-historical",
+      "source_url": "https://www.hearstmagazinesinternational.com/news/update-regarding-cosmopolitan-and-esquire-china/", "source_type": "publisher_statement",
+      "observed_at": "2026-10-21T18:20:02.988470+00:00", "claim_date": null, "supports": "relationship",
+      "justification": "Hearst's own bilingual statement says it announced termination of its Cosmopolitan and Esquire China licenses in November2023 and requested cessation of brand use. This is the publisher's account of the dispute, not an independent legal adjudication. The exact effective day is not specified; collection conservatively excludes November1,2023 onward."
+    },
+    {
+      "id": "esquire-2021-certified-uid", "account_id": "esquire-china-historical",
+      "source_url": "https://web.archive.org/web/20211202012419id_/https://weibo.com/esquire", "source_type": "platform_certification",
+      "observed_at": "2026-10-21T18:23:17.482467+00:00", "claim_date": "2021-12-02T01:24:19+00:00", "supports": "historical",
+      "justification": "Archived esquire profile title 时尚先生Esquire, CONFIG oid1195397063 and explicit 《时尚先生Esquire》官方微博 certification bind the account before the announced license termination. A third-party entertainment post about the magazine was not mistaken for the publisher."
+    },
+    {
+      "id": "esquire-2023-profile-uid", "account_id": "esquire-china-historical",
+      "source_url": "https://web.archive.org/web/20230328030434id_/https://weibo.com/esquire", "source_type": "platform_certification",
+      "observed_at": "2026-10-21T18:23:18.907518+00:00", "claim_date": "2023-03-28T03:04:34+00:00", "supports": "historical",
+      "justification": "Second exact archive repeats the same handle, UID and explicit magazine certification. Contains17 recognizable rows, including a duplicated pinned post; distinct-post counts must be deduplicated."
+    },
+    {
+      "id": "esquire-hearst-license-termination", "account_id": "esquire-china-historical",
+      "source_url": "https://www.hearstmagazinesinternational.com/news/update-regarding-cosmopolitan-and-esquire-china/", "source_type": "publisher_statement",
+      "observed_at": "2026-10-21T18:20:02.988470+00:00", "claim_date": null, "supports": "relationship",
+      "justification": "Hearst states it announced termination of the Esquire and Cosmopolitan China licenses in November2023. Current branded Sina profiles do not override that statement. Exclusive Shanghai cutoff2023-11-01 is a conservative collection boundary, not an asserted exact legal termination date."
+    },
+    {
+      "id": "instyle-current-institution", "account_id": "instyle-china",
+      "source_url": "https://www.sina.cn/media/1666485652", "source_type": "platform_certification",
+      "observed_at": "2026-10-21T18:20:00.233116+00:00", "claim_date": null, "supports": "identity",
+      "justification": "Public title InStyle优家, institutional tag Instyle 优家画报官方微博 and bio explicitly naming InStyle's simplified-Chinese edition identify this publisher channel. Current contractual renewal is not inferred from certification alone."
+    },
+    {
+      "id": "instyle-publisher-china-launch", "account_id": "instyle-china",
+      "source_url": "https://news.people.inc/time-inc-archives?item=194", "source_type": "publisher_statement",
+      "observed_at": "2026-10-21T18:20:02.488249+00:00", "claim_date": "2017-05-03", "supports": "relationship",
+      "justification": "Time Inc.'s corporate announcement, preserved by its successor publisher, explicitly documents the licensed launch of INSTYLE Modern Lady with Modern Media Group and identifies the weekly formerly called Modern Lady. First-party edition/partner proof, not a retailer's translation."
     },
     {
       "id": "wsj-archived-publisher-link", "account_id": "wsj-chinese-candidate",

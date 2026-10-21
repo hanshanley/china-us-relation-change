@@ -2,8 +2,9 @@
 
 Observed October 21, 2026. This iteration includes a business-publisher trace,
 historical technology-publisher traces, an eleven-publication news-magazine/
-newspaper pass, sports leads, and two separately categorized specialist-media
-identities. Missing links and failed searches remain unknowns, not negatives.
+newspaper pass, sports leads, additional specialist editions and a four-target
+U.S. Chinese-language media pass. Missing links and failed searches remain
+unknowns, not negatives.
 
 ## Additional positive identities
 
@@ -17,11 +18,18 @@ identities. Missing links and failed searches remain unknowns, not negatives.
 | NYLON China | `6298663816` | Public institutional designation names NYLON尼龙杂志中国版. This is a separately labeled fashion/music/culture edition; exact current China licensing terms are unresolved. |
 | GOLF Magazine China | `1869615717` | Current magazine institution is verified. A 2014 bilingual joint-project announcement maps the Chinese publication to Golf Magazine China Edition; current U.S. licensing after the brand's 2018 sale remains unverified. |
 | EurekAlert! Chinese | `2949617444` | First-party AAAS contact page names the historical ASCII handle; two archived profiles bind UID and actual posts. Current institution explicitly identifies the U.S. AAAS science-news service, not the separate Science journal account. |
+| T China / T中文版 | `5769294690` | NYT's own licensing page explicitly names T China and Huasheng Media; current Sina institution identifies the Chinese T magazine. This is the licensed style/culture channel, not a revived NYT Chinese-news account or an additional publisher/domain. |
+| ChineseInLA | `1738757345` | Institutional certification, linked publisher domain and U.S. location agree with the publisher's own Los Angeles About page. Two profile archives independently bind the handle. Mixed community news/information and classifieds, not a traditional newspaper. |
+| Cosmopolitan China, historical | `1518966617` | 2020/2021 archived profiles and certification establish the magazine account. Hearst states it announced license termination in November2023; later same-branded posts are excluded. |
+| Esquire China, historical | `1195397063` | 2021/2023 certified profiles establish the magazine account. Same November2023 publisher-announced termination applies despite unchanged current profile branding. |
+| InStyle China | `1666485652` | Current institution explicitly identifies the simplified-Chinese edition. Time Inc.'s first-party 2017 launch announcement identifies the Modern Media partnership; exact current contract renewal remains unverified. |
 
-Entrepreneur, Engadget, CNET, ZDNet and GOLF have documented historical
-Chinese-edition/operation relationships. Discovery, NYLON and EurekAlert
-have currently observable institutional profiles.
-They are not eight newly verified U.S.-newsroom-operated accounts.
+Entrepreneur, Engadget, CNET, ZDNet, GOLF, Cosmopolitan and Esquire have
+documented historical Chinese-edition/operation relationships. Discovery,
+NYLON, EurekAlert, ChineseInLA, T China and InStyle have currently observable
+institutional profiles. They are not thirteen newly verified U.S.-newsroom-operated
+accounts. T China shares the existing NYT publisher/domain; it is a separate
+licensed style edition, not a second newly discovered U.S. website.
 Entrepreneur and GOLF are additional positive institutions in the selected ranked U.S. roster
 (source positions 29 and 51); the other technology/specialist identities are
 supplementary to that source's domain coverage.
@@ -63,6 +71,31 @@ supplementary to that source's domain coverage.
   and [current institutional profile](https://www.sina.cn/media/2949617444).
   This is a science-news release service, not an independently reported
   general-news outlet; its category remains explicit in the assessments.
+- T China: [NYT's own licensing page, February2025 capture](https://web.archive.org/web/20250208023005id_/https://nytlicensing.com/content/t-style-magazine/)
+  and [current institutional profile](https://www.sina.cn/media/5769294690).
+  The publisher explicitly names Huasheng Media as the T China licensee and a
+  2015 launch. The capture date is not a contract-signing date. A current
+  advertising-representative page returned a parked shell and was not accepted
+  as evidence; following the actual NYT licensing citation recovered primary proof.
+- ChineseInLA: [publisher About page](https://www.chineseinla.com/aboutus.html),
+  [current institution](https://www.sina.cn/media/1738757345),
+  [2020 profile](https://web.archive.org/web/20200414204556id_/https://www.weibo.com/chineseinla)
+  and [2022 profile](https://web.archive.org/web/20221004131211id_/https://www.weibo.com/chineseinla).
+  The About page states the publisher operates Sina Weibo, but did not expose
+  an exact outbound href. The href initially found on a forum topic was
+  **not** treated as publisher-managed navigation; the handle/UID was instead
+  independently resolved through the platform archives and current institution.
+- Cosmopolitan: [2020 profile](https://web.archive.org/web/20200523112602id_/https://www.weibo.com/cosmopolitan),
+  [2021 certified profile](https://web.archive.org/web/20211201004322id_/https://www.weibo.com/cosmopolitan)
+  and [Hearst's termination statement](https://www.hearstmagazinesinternational.com/news/update-regarding-cosmopolitan-and-esquire-china/).
+- Esquire: [2021 certified profile](https://web.archive.org/web/20211202012419id_/https://weibo.com/esquire),
+  [2023 certified profile](https://web.archive.org/web/20230328030434id_/https://weibo.com/esquire)
+  and the same first-party Hearst statement. A current entertainment-account
+  post about an Esquire cover was rejected rather than mistaken for Esquire itself.
+- InStyle: [Time Inc.'s corporate launch announcement](https://news.people.inc/time-inc-archives?item=194),
+  dated May3,2017, and [current institution](https://www.sina.cn/media/1666485652).
+  The first-party announcement is preserved by the successor publisher and
+  documents the Chinese weekly with Modern Media, not merely a translated title.
 
 ### A failed nickname lookup was not the end of the search
 
@@ -76,6 +109,40 @@ gate or live blocked page was bypassed.
 
 All account proofs and relationship caveats are retained in the registry
 and complete account-assessment CSV/JSONL, not only in prose.
+
+### Same-name profiles can outlast a U.S. license
+
+Hearst's own statement says it announced termination of its Cosmopolitan and
+Esquire China licenses in November2023. Both current Sina profiles still use
+the brands and official-magazine tags. We record Hearst's position without
+purporting to adjudicate the underlying dispute or infer renewal from those
+nominal tags.
+
+The registry therefore treats both as historical and specifies an exclusive
+Asia/Shanghai `attribution_end` of November1,2023. This conservative collection
+boundary excludes the announced termination month onward; it is **not** an
+assertion of the exact contractual termination day. Only earlier archive posts
+are eligible. TechCrunch's documented 2013-2019 partner relationship similarly
+has an exclusive January1,2020 cutoff.
+
+The common normalizer applies these cutoffs to live feeds, archives and
+authorized imports, including resumed feeds. This protects against later
+same-name posts as well as obvious renamed UIDs. Existing databases migrate
+without losing identities or posts; old registry records default to an
+unestablished cutoff. Reports, account exports and assessment maps expose the
+recorded limits.
+
+## Additional U.S. Chinese-language news-media pass
+
+Forty-five focused public searches/requests covered four actual U.S. targets.
+A narrow follow-up checked publisher-managed versus user-generated link context.
+ChineseInLA was confirmed above; the following remain unknown:
+
+| U.S. publisher | First-party/primary operation evidence | Remaining account gap |
+|---|---|---|
+| International Daily News | [California ethnic-media directory](https://americancommunitymedia.org/wp-content/uploads/2020/05/EMS_CADirectoryEthnicMediaSpring20_5-1-20.pdf); [historical report distinguishing U.S. and Indonesian operations](https://news.sina.cn/sa/2010-07-24/detail-ikftssap3334882.d.html) | `chinesetoday.com` timed out; no qualifying U.S. UID established. Do not transfer the Indonesian edition's identity. |
+| iCITI TV / iCity News | [EDI Media's own Los Angeles operation statement](https://icitynews.com/?p=441321) | No qualifying UID established. Historical ICN TV is not automatically the same operator merely because of a shared Chinese name. |
+| Sing Tao Chinese Radio | [U.S. publisher/contact page](https://www.chineseradio.com/main/contact/) | No U.S.-specific UID established. Facebook is not Sina evidence, and Hong Kong UID1924115501 is not attributed to the U.S. station. |
 
 ## Further ranked-outlet investigation
 

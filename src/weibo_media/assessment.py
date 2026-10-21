@@ -204,6 +204,8 @@ def account_assessments(db, roster, screening, checks):
             post_counts=counts, recovered_posts=sum(counts.values()),
             has_collected_posts=bool(sum(counts.values())),
             post_collection=collection,
+            attribution_ends={a["id"]: a["attribution_end"] for a in confirmed
+                              if a["attribution_end"] is not None},
             homepage_check=screening[row["domain"]]["status"],
             publisher_page_check=checks[row["domain"]], evidence=evidence,
             manual_review=manual,

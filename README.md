@@ -61,6 +61,13 @@ their errors are saved in the run checkpoint and do not prevent other feed
 entries from being processed. A new feed pass retries details. `archive` reruns
 deduplicate post IDs and retain snapshot provenance.
 
+Accounts may specify an optional `attribution_end` date (`YYYY-MM-DD`, exclusive,
+Asia/Shanghai). Live collection, archives and imports all exclude publications
+on or after that cutoff, even if the UID and displayed brand name are unchanged.
+Evidence and account notes explain conservative cutoffs; they are not necessarily
+exact contract-termination dates. Existing registries and databases without the
+field remain compatible. An absent cutoff is not evidence of a continuing license.
+
 Collection runs are deliberately **partial**, even when the visible feed is
 exhausted: no complete historical pagination has been demonstrated. Blocked
 accounts are recorded rather than silently skipped. Exit code `2` means that

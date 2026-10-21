@@ -348,8 +348,11 @@ def publish(roster_path, screening_directory, directory, report_path):
         "collected the newly verified public feeds, and investigated historical archive failures. "
         "The next [discovery round](discovery_round2.md) adds the historical Fast Company "
         "publisher at U.S. source position33 and further supplementary accounts, while auditing "
-        "UID rebranding and same-name false leads. Current status and legal operator uncertainty "
-        "remain explicit.", "",
+        "UID rebranding and same-name false leads. The [continuing iteration](discovery_iteration3.md) "
+        "adds further business, technology, U.S. Chinese-language and licensed specialist-media "
+        "identities, including the separate NYT-licensed T China style edition. It also records "
+        "publisher-announced license termination: unchanged profile names do not establish a "
+        "continuing U.S. license. Current status and legal operator uncertainty remain explicit.", "",
         "## Complete machine-readable deliverables", "",
         "- [All 1,000 ranked U.S. domains](../data/discovery/us_top1000.csv)",
         "- [Ranking source manifest](../data/discovery/us_top1000.manifest.json)",

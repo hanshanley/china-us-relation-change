@@ -38,15 +38,16 @@ def report(db, path):
         "",
         "## Confirmed official accounts",
         "",
-        "| Outlet / edition | Account | UID | Relationship | Existence evidence | Direct access | Recovered posts | Collection |",
-        "|---|---|---|---|---|---|---:|---|",
+        "| Outlet / edition | Account | UID | Relationship | Existence evidence | Direct access | Attribution end | Recovered posts | Collection |",
+        "|---|---|---|---|---|---|---|---:|---|",
     ]
     for account in accounts:
         if account["officialness"] == "confirmed":
             lines.append("| " + " | ".join(cell(value) for value in (
                 account["outlet"], f"[{account['display_name']}]({account['profile_url']})",
                 account["uid"], account["relationship"], account["existence"],
-                account["accessibility"], account_coverage[account["id"]]["recovered_posts"],
+                account["accessibility"], account["attribution_end"] or "not established",
+                account_coverage[account["id"]]["recovered_posts"],
                 account_coverage[account["id"]]["latest_run_status"] or "not attempted",
             )) + " |")
     lines += ["", "### Evidence and operator notes", ""]
@@ -146,6 +147,12 @@ def report(db, path):
               "guarantee of fidelity to an inaccessible original. Feed previews remain truncated "
               "in provenance. Reposts cannot reliably be identified on this source.",
               "",
+              "An attribution end excludes posts on or after that Asia/Shanghai date across live, "
+              "archive and import routes, even when a UID retains the same name. These are "
+              "evidence-backed collection cutoffs, not necessarily exact contract-termination dates; "
+              "see each account's evidence and notes. An unestablished cutoff does not prove "
+              "a continuing U.S. license.",
+              "",
               "No feed-history pagination has been demonstrated. Archive index hits alone are not "
               "recovered posts. Authorized/manual/archive JSONL imports can extend coverage, retaining "
               "publication versus capture dates. Resolve unknown UIDs before attempting account-specific "
@@ -155,9 +162,10 @@ def report(db, path):
               "without explicit redistribution permission and list omissions. No third-party post "
               "text is reproduced in this report. See [top-1,000 U.S. website screening](top1000_us_screening.md) "
               "for the separate ranked discovery roster, [collection follow-up](collection_followup.md) "
-              "for explicit account/post assessments and the scraper evaluation, and "
-              "[further discovery](discovery_round2.md) for subsequent publisher-link research, and "
-              "[access pilot](access_pilot.md) for source-level "
+              "for explicit account/post assessments and the scraper evaluation, "
+              "[further discovery](discovery_round2.md) for subsequent publisher-link research, "
+              "[continued discovery](discovery_iteration3.md) for additional identities, licensing "
+              "cutoffs and false-lead audits, and [access pilot](access_pilot.md) for source-level "
               "access checks and archive gaps.", ""]
     target = Path(path)
     target.parent.mkdir(parents=True, exist_ok=True)

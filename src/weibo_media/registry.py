@@ -1,5 +1,5 @@
 import json
-from datetime import datetime
+from datetime import date, datetime
 from urllib.parse import urlsplit
 
 from .storage import json_text
@@ -13,7 +13,7 @@ FIELDS = {
                 "research_status", "notes"},
     "accounts": {"id", "outlet_id", "uid", "handle", "display_name", "profile_url",
                  "language", "operator", "relationship", "officialness", "existence",
-                 "accessibility", "notes"},
+                 "accessibility", "notes", "attribution_end"},
     "evidence": {"id", "account_id", "source_url", "source_type", "observed_at",
                  "claim_date", "supports", "justification"},
 }
@@ -34,9 +34,11 @@ def validate(data):
         if not isinstance(data.get(table), list):
             raise ValueError(f"Registry requires a {table} list")
         for row in data[table]:
+            if table == "accounts" and isinstance(row, dict):
+                row.setdefault("attribution_end", None)
             if not isinstance(row, dict) or set(row) != fields:
                 raise ValueError(f"{table} row fields must be exactly: {', '.join(sorted(fields))}")
-            nullable = {"uid", "handle", "claim_date"}
+            nullable = {"uid", "handle", "claim_date", "attribution_end"}
             for key, value in row.items():
                 if key == "aliases":
                     if not isinstance(value, list) or any(not isinstance(v, str) for v in value):
@@ -72,6 +74,8 @@ def validate(data):
             raise ValueError("Unsupported existence status")
         if account["accessibility"] not in {"observable", "login_required", "unavailable", "unknown"}:
             raise ValueError("Unsupported accessibility")
+        if account["attribution_end"] is not None:
+            date.fromisoformat(account["attribution_end"])
         valid_url(account["profile_url"])
         uid = account.get("uid")
         if uid is not None:

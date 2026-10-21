@@ -1,6 +1,7 @@
 import csv
 import gzip
 import json
+import sqlite3
 import tempfile
 import unittest
 from pathlib import Path
@@ -137,7 +138,41 @@ class PipelineTest(unittest.TestCase):
         data["evidence"][0]["observed_at"] = "2026-10-21"
         with self.assertRaisesRegex(ValueError, "timezone"):
             validate(data)
+        for cutoff in ("2023-02-30", "2023-11-01T00:00:00+08:00", True):
+            data = registry()
+            data["accounts"][0]["attribution_end"] = cutoff
+            with self.assertRaises(ValueError):
+                validate(data)
         self.assertEqual(validate(registry())["accounts"][0]["uid"], UID)
+
+    def test_legacy_account_migration_preserves_identity_and_persists_cutoff(self):
+        path = self.root / "legacy.sqlite"
+        account = registry()["accounts"][0]
+        columns = list(account)
+        with sqlite3.connect(path) as legacy:
+            legacy.execute("CREATE TABLE accounts (" + ",".join(
+                column + (" TEXT PRIMARY KEY" if column == "id" else " TEXT")
+                for column in columns) + ")")
+            legacy.execute("INSERT INTO accounts VALUES (" + ",".join("?" for _ in columns) + ")",
+                           [account[column] for column in columns])
+        migrated = connect(path)
+        try:
+            row = migrated.execute("SELECT * FROM accounts").fetchone()
+            self.assertEqual(row["uid"], UID)
+            self.assertIsNone(row["attribution_end"])
+            data = registry()
+            data["accounts"][0]["attribution_end"] = "2023-11-01"
+            self.path.write_text(json.dumps(data), encoding="utf-8")
+            load(migrated, self.path)
+        finally:
+            migrated.close()
+        reopened = connect(path)
+        try:
+            row = reopened.execute("SELECT * FROM accounts").fetchone()
+            self.assertEqual(row["uid"], UID)
+            self.assertEqual(row["attribution_end"], "2023-11-01")
+        finally:
+            reopened.close()
 
     def test_shanghai_boundaries_and_author_restrictions(self):
         for date, included in [
@@ -193,6 +228,37 @@ class PipelineTest(unittest.TestCase):
         self.assertEqual(self.db.execute("SELECT COUNT(*) FROM provenance").fetchone()[0], 2)
         self.assertEqual(self.db.execute("SELECT text FROM posts").fetchone()[0], FULL_TEXT)
         collect_account(self.db, "test-account", *self.bounds, client, limit=2)
+        self.assertEqual(self.db.execute("SELECT COUNT(*) FROM posts").fetchone()[0], 1)
+
+    def test_attribution_end_filters_same_named_feed_archive_and_import(self):
+        with self.db:
+            self.db.execute("UPDATE accounts SET attribution_end='2023-11-01'")
+        account = self.db.execute("SELECT * FROM accounts").fetchone()
+        before = record(date="2023-10-31 23:59:59")
+        after = record("90071992547409932", "2023-11-01 00:00")
+        self.assertIsNotNone(normalize(before, account, *self.bounds))
+        self.assertIsNone(normalize(after, account, *self.bounds))
+        self.assertIsNone(normalize(
+            dict(after, published_original="2023-10-31T16:00:00Z"), account, *self.bounds))
+        url = "https://www.sina.cn/media/" + UID
+        client = FakeClient({
+            url: feed([after, before]),
+            before["source_url"]: detail().replace("2020-01-01 00:00", before["published_original"]),
+        })
+        run = collect_account(self.db, "test-account", *self.bounds, client, limit=2)
+        self.assertEqual(run["posts_recovered"], 1)
+        self.assertEqual(client.calls, [url, before["source_url"]])
+        archive_url = "https://web.archive.org/web/20240101000000id_/https://weibo.com/fixture"
+        html = archived(post_id=after["id"]).replace("2020-01-01 00:00", after["published_original"])
+        run = collect_archive(self.db, "test-account", archive_url, *self.bounds,
+                              FakeClient({archive_url: html}))
+        self.assertIsNone(run["error"])
+        self.assertEqual(run["posts_recovered"], 0)
+        importing = self.root / "after_cutoff.jsonl"
+        importing.write_text(json.dumps(after) + "\n", encoding="utf-8")
+        self.assertEqual(import_posts(self.db, importing, *self.bounds),
+                         {"accepted": 0, "outside_window": 1})
+        self.assertEqual(self.db.execute("SELECT id FROM posts").fetchall()[0]["id"], before["id"])
         self.assertEqual(self.db.execute("SELECT COUNT(*) FROM posts").fetchone()[0], 1)
 
     def test_unavailable_pinned_detail_retains_preview_and_continues(self):

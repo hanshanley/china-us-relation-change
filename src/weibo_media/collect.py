@@ -274,6 +274,9 @@ def normalize(record, account, start, end):
     if dt.tzinfo is None:
         dt = dt.replace(tzinfo=SHANGHAI)
     utc = timestamp(dt.isoformat())
+    cutoff = account["attribution_end"] if "attribution_end" in account.keys() else None
+    if cutoff:
+        end = min(end, window(cutoff, cutoff)[0])
     if not start <= utc < end:
         return None
     text = record.get("text")

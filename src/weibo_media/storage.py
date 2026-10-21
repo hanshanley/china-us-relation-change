@@ -25,7 +25,7 @@ def connect(path):
             profile_url TEXT NOT NULL, language TEXT NOT NULL,
             operator TEXT NOT NULL, relationship TEXT NOT NULL,
             officialness TEXT NOT NULL, existence TEXT NOT NULL,
-            accessibility TEXT NOT NULL, notes TEXT NOT NULL
+            accessibility TEXT NOT NULL, notes TEXT NOT NULL, attribution_end TEXT
         );
         CREATE TABLE IF NOT EXISTS evidence (
             id TEXT PRIMARY KEY, account_id TEXT NOT NULL REFERENCES accounts(id),
@@ -63,6 +63,9 @@ def connect(path):
             PRIMARY KEY (post_id, observed_at, source_url)
         );
     """)
+    if "attribution_end" not in {row["name"] for row in db.execute("PRAGMA table_info(accounts)")}:
+        with db:
+            db.execute("ALTER TABLE accounts ADD COLUMN attribution_end TEXT")
     return db
 
 
