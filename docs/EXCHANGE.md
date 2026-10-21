@@ -99,6 +99,27 @@ showing the most recent years; exact tables remain available underneath.
 Downloads explicitly contain reported values even when the interactive chart
 is showing an index.
 
+### Combined regional comparisons
+
+Open `site/comparisons.html`, linked from the dashboard. These new comparisons
+include **mainland China, Hong Kong and Macau only**; Taiwan is excluded, while
+the existing individual series and source dataset are retained. The same
+`PARTNER_COLORS` mapping drives every individual and combined chart: China deep
+red, Hong Kong blue and Macau gold.
+
+Comparisons are separated by measure and direction; student populations,
+visitor definitions, goods and services are never combined into one total.
+Unavailable geographies remain labelled rather than acquiring a zero line.
+Raw-value and logarithmic views are provided in both publication backgrounds;
+logarithmic views omit genuine zeros, leave gaps, and never add pseudocounts.
+Missing years and population-definition breaks remain disconnected.
+
+Combined PNG/SVG exports live under
+`outputs/figures/<category>/comparisons/<background>/` and the matching site
+directory. The offline catalog includes both views. Macau goods retain their
+different customs accounting and a dashed line, with an explicit caveat against
+treating them as identical to the other geographies' BEA accounting.
+
 ## Definitions and comparisons
 
 - History starts in 2000 **where verified**. The publication does not pretend

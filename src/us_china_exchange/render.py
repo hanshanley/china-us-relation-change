@@ -11,9 +11,9 @@ from pathlib import Path
 
 import resvg_py
 
-from .model import START_YEAR, GEOGRAPHIES, MEASURES, change, coverage, json_text, validate
+from .model import START_YEAR, GEOGRAPHIES, MEASURES, change, coverage, gap_reason, json_text, validate
 from .pipeline import load, write_atomic
-from .theme import (CHART_HEIGHT, CHART_THEMES, CHART_WIDTH, FIGURE_CATEGORIES, FONT,
+from .theme import (CHART_HEIGHT, CHART_THEMES, CHART_WIDTH, COMPARISON_GEOGRAPHIES, FIGURE_CATEGORIES, FONT,
                     FONT_FILES, GRID, MUTED, PARTNER_COLORS, PNG_HEIGHT, PNG_WIDTH,
                     TEXT, figure_category)
 
@@ -36,6 +36,8 @@ def esc(value):
 def number(value, unit="", compact=False):
     if value is None:
         return "Not available"
+    if compact and abs(value) >= 1_000_000_000_000:
+        return ("$" if unit == "USD" else "") + f"{value / 1_000_000_000_000:,.1f}T"
     if compact and abs(value) >= 1_000_000_000:
         return ("$" if unit == "USD" else "") + f"{value / 1_000_000_000:,.1f}B"
     if compact and abs(value) >= 1_000_000:
@@ -139,6 +141,115 @@ def svg_chart(rows, indexed=False, theme="themarginoferror"):
     return "".join(parts)
 
 
+def regional_series(rows, measure, direction):
+    if direction not in {"to_us", "from_us"}:
+        raise ValueError("Unknown comparison direction")
+    groups = {}
+    for geo in COMPARISON_GEOGRAPHIES:
+        origin, destination = (geo, "USA") if direction == "to_us" else ("USA", geo)
+        annual = sorted((r for r in rows if r["measure"] == measure and r["frequency"] == "annual"
+                         and r["origin"] == origin and r["destination"] == destination),
+                        key=lambda r: r["year"])
+        if len({r["series_id"] for r in annual}) > 1:
+            raise ValueError("Comparison requires one source series per geography and measure")
+        groups[geo] = annual
+    return groups
+
+
+def svg_comparison(rows, measure, direction, theme="themarginoferror", logarithmic=False):
+    groups = regional_series(rows, measure, direction)
+    present = [r for annual in groups.values() for r in annual if r["value"] is not None]
+    if not present:
+        return '<p class="gap">No verified annual observations for this measure and direction.</p>'
+    if len({(r["unit"], r["period_basis"]) for r in present}) != 1:
+        raise ValueError("Comparison units and period bases must match")
+    plotted = [r for r in present if not logarithmic or r["value"] > 0]
+    if not plotted:
+        return '<p class="gap">No positive observations are available for a logarithmic view.</p>'
+    end = max(2021, max(r["year"] for annual in groups.values() for r in annual))
+    x = lambda year: 115 + (year - START_YEAR) / (end - START_YEAR) * 835
+    if logarithmic:
+        low = math.floor(math.log10(min(r["value"] for r in plotted)))
+        high = max(low + 1, math.ceil(math.log10(max(r["value"] for r in plotted))))
+        ticks = [10 ** power for power in range(low, high + 1)]
+        y = lambda value: 420 - (math.log10(value) - low) / (high - low) * 240
+    else:
+        maximum = max(r["value"] for r in plotted) * 1.13 or 1
+        magnitude = 10 ** math.floor(math.log10(maximum))
+        maximum = math.ceil(maximum / magnitude) * magnitude
+        ticks = [0, maximum / 2, maximum]
+        y = lambda value: 420 - value / maximum * 240
+    direction_label = "To the United States" if direction == "to_us" else "From the United States"
+    title = MEASURES[measure] + ": " + direction_label
+    unit = "Nominal USD" if present[0]["unit"] == "USD" else present[0]["unit"].capitalize()
+    if logarithmic:
+        unit += " (log scale)"
+    parts = [
+        f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {CHART_WIDTH} {CHART_HEIGHT}" role="img" aria-label="{esc(title)}">',
+        f'<title>{esc(title)}</title><desc>Three separate geographies, not a regional total. Missing observations and definition changes are not connected.</desc>',
+        f'<rect class="chart-background" width="{CHART_WIDTH}" height="{CHART_HEIGHT}" fill="{CHART_THEMES[theme]["background"]}"/>',
+        f'<g font-family="{esc(FONT)}" font-size="20" fill="{MUTED}">',
+        f'<text x="115" y="40" font-size="28" font-weight="bold" fill="{TEXT}">{esc(MEASURES[measure])}</text>',
+        f'<text x="115" y="75" font-size="22">{esc(direction_label)}</text>',
+    ]
+    missing = []
+    for i, geo in enumerate(COMPARISON_GEOGRAPHIES):
+        color = PARTNER_COLORS[geo]
+        available = any(r["value"] is not None for r in groups[geo])
+        if not available:
+            missing.append(GEOGRAPHIES[geo])
+        pos = 115 + i * 270
+        dash = ' stroke-dasharray="7 4"' if any(r["source_id"] == "comtrade" for r in groups[geo]) else ""
+        parts.append(f'<path class="legend-swatch" data-geography="{geo}" d="M{pos} 108h28" stroke="{color}" stroke-width="3.2"{dash}/>'
+                     f'<text x="{pos + 36}" y="114" fill="{TEXT}">{esc(GEOGRAPHIES[geo])}{"*" if not available else ""}</text>')
+    parts.append(f'<text x="115" y="153">{esc(unit)}</text>')
+    for value in ticks:
+        parts.append(f'<path d="M115 {y(value):.2f}H950" stroke="{GRID}" stroke-opacity="0.6" stroke-width="0.5"/>'
+                     f'<text x="100" y="{y(value) + 6:.2f}" text-anchor="end">{esc(number(value, present[0]["unit"], compact=True))}</text>')
+    for year in sorted(set(range(START_YEAR, end - 1, 5)) | {end}):
+        parts.append(f'<text x="{x(year):.2f}" y="455" font-size="18" text-anchor="middle">{year}</text>')
+    parts.append(f'<path d="M115 180V420H950" stroke="{GRID}" stroke-width="0.8" fill="none"/>'
+                 f'<path d="M{x(2020):.2f} 180V420" stroke="{MUTED}" stroke-width="0.8" stroke-dasharray="4 5"/>'
+                 f'<text x="{x(2020) - 8:.2f}" y="153" text-anchor="end">2020 baseline</text>')
+    for geo, annual in groups.items():
+        data = [r for r in annual if r["value"] is not None and (not logarithmic or r["value"] > 0)]
+        if not data:
+            continue
+        path, previous = [], None
+        for row in data:
+            connected = (previous is not None and row["year"] == previous["year"] + 1
+                         and row["comparability"] == previous["comparability"])
+            path.append(f'{"L" if connected else "M"}{x(row["year"]):.2f},{y(row["value"]):.2f}')
+            previous = row
+        dash = ' stroke-dasharray="7 4"' if data[0]["source_id"] == "comtrade" else ""
+        parts.append(f'<path class="data-line" data-geography="{geo}" data-series-id="{esc(data[0]["series_id"])}" '
+                     f'd="{" ".join(path)}" fill="none" stroke="{PARTNER_COLORS[geo]}" stroke-width="3.2" stroke-linejoin="round"{dash}/>')
+        for row in data:
+            label = GEOGRAPHIES[geo] + " · " + row["period"] + ": " + number(row["value"], row["unit"])
+            parts.append(f'<circle data-geography="{geo}" data-period="{esc(row["period"])}" cx="{x(row["year"]):.2f}" '
+                         f'cy="{y(row["value"]):.2f}" r="3" fill="{PARTNER_COLORS[geo]}"><title>{esc(label)}</title></circle>')
+    note = "Sources: " + "; ".join(SOURCE_NAMES.get(s, s) for s in sorted({r["source_id"] for r in present})) + ". "
+    if measure == "goods" and any(r["source_id"] == "comtrade" for r in present):
+        note += "Macau dashed: customs exports FOB/imports CIF; others: BEA balance-of-payments. Accounting differs. "
+    if measure == "visitors" and direction == "from_us":
+        note += "Macau: travel-document issuing place (residence before April 2015). Trips, not people. "
+    if measure == "international_students":
+        note += "IIE population expands in 2020/21–2022/23. "
+    if present[0]["period_basis"] == "academic":
+        note += "Academic years use ending years. "
+    if present[0]["period_basis"] == "reporting":
+        note += "Reporting years; not physical-presence counts. "
+    if missing:
+        note += "*No verified series: " + ", ".join(missing) + ". "
+    note += "Missing years and definition changes stay unconnected."
+    if logarithmic:
+        note += " Log scale: zeros are omitted, never replaced."
+    for line, text in enumerate(textwrap.wrap(note, width=108)):
+        parts.append(f'<text class="figure-source" x="115" y="{500 + line * 20}" font-size="14" font-style="italic">{esc(text)}</text>')
+    parts.append("</g></svg>")
+    return "".join(parts)
+
+
 def png_chart(svg):
     fonts = Path(__file__).parent / "static/fonts"
     # This renderer release sizes the PNG from intrinsic SVG dimensions, not width/height options.
@@ -233,6 +344,79 @@ def build(root):
                       else sample["definition"])
         all_tables.append(f'<details><summary>{esc(heading)} <span class="muted">({esc(SOURCE_NAMES[sample["source_id"]])})</span></summary>'
                           f'<p>{esc(definition)}</p>{annual_table(series_rows)}</details>')
+    comparison_cards, comparison_count = [], 0
+    for measure in MEASURES:
+        for direction in ("to_us", "from_us"):
+            regional = regional_series(rows, measure, direction)
+            label = "To the United States" if direction == "to_us" else "From the United States"
+            heading = MEASURES[measure] + " · " + label
+            versions = {}
+            for scale in ("levels", "log"):
+                svg = svg_comparison(rows, measure, direction, logarithmic=scale == "log")
+                if not svg.startswith("<svg"):
+                    continue
+                versions[scale] = {}
+                for theme in CHART_THEMES:
+                    themed = svg_comparison(rows, measure, direction, theme, logarithmic=scale == "log")
+                    png = png_chart(themed)
+                    versions[scale][theme] = {}
+                    for suffix, content in (("svg", themed + "\n"), ("png", png)):
+                        relative = (Path(figure_category(measure)) / "comparisons" / theme /
+                                    f"chn-hkg-mac-{direction}-{measure}-{scale}.{suffix}")
+                        write_atomic(figures / relative, content)
+                        write_atomic(site / "figures" / relative, content)
+                        versions[scale][theme][suffix] = "figures/" + relative.as_posix()
+            body = ""
+            if "levels" in versions:
+                comparison_count += 1
+                image = versions["levels"]["themarginoferror"]["png"]
+                body += (f'<div class="comparison-chart" tabindex="0" role="region" aria-label="{esc(heading)}">'
+                         f'<img src="{esc(image)}" alt="{esc(heading)}: mainland China, Hong Kong and Macau" '
+                         'width="1000" height="600" loading="lazy"></div>' +
+                         figure_links(versions["levels"]))
+                if "log" in versions:
+                    image = versions["log"]["themarginoferror"]["png"]
+                    body += ('<details><summary>Logarithmic view — useful when series differ greatly in size</summary>'
+                             f'<div class="comparison-chart"><img src="{esc(image)}" alt="{esc(heading)} on a log scale" '
+                             'width="1000" height="600" loading="lazy"></div>' +
+                             figure_links(versions["log"]) + '</details>')
+                catalog = f'<article class="combined-chart"><h3>Three-geography comparison: {esc(heading)}</h3>'
+                for scale, paths in versions.items():
+                    relative_paths = {theme: {kind: path.removeprefix("figures/") for kind, path in files.items()}
+                                      for theme, files in paths.items()}
+                    catalog += f'<h4>{"Reported values" if scale == "levels" else "Logarithmic view"}</h4>' + figure_links(relative_paths)
+                gallery[figure_category(measure)].insert(0, catalog + '</article>')
+            else:
+                body += '<p class="gap">No verified annual series for these geographies in this direction. Missing is not zero.</p>'
+            body += '<details><summary>Exact values, definitions and unavailable series</summary>'
+            for geo, annual in regional.items():
+                present = [r for r in annual if r["value"] is not None]
+                body += f'<h3>{esc(GEOGRAPHIES[geo])}</h3>'
+                if present:
+                    latest = max(present, key=lambda r: r["year"])
+                    body += (f'<p>Source: <a href="{esc(latest["source_url"])}">{esc(SOURCE_NAMES[latest["source_id"]])}</a>'
+                             f' · {esc(latest["source_vintage"])}. Latest: {esc(latest["period"])}.</p>' + annual_table(annual))
+                else:
+                    body += f'<p>{esc(gap_reason(geo, geo if direction == "to_us" else "USA", measure))}</p>'
+            body += '</details>'
+            comparison_cards.append(f'<section class="series-panel" id="{measure}-{direction}"><h2>{esc(heading)}</h2>{body}</section>')
+    comparison_document = ('<!doctype html><html lang="en"><head><meta charset="utf-8">'
+                           '<meta name="viewport" content="width=device-width,initial-scale=1">'
+                           '<title>China, Hong Kong and Macau | U.S. exchange comparisons</title>'
+                           '<link rel="stylesheet" href="assets/style.css"></head><body><div class="page">'
+                           '<header><p><a href="index.html">Individual series and complete data</a></p>'
+                           '<h1>Three geographies.<br>One chart.</h1>'
+                           '<p class="lead">Mainland China, Hong Kong and Macau, with a fixed colour for each geography. '
+                           'Taiwan is excluded from these comparisons. No regional totals are constructed.</p>'
+                           '<p>Annual history from 2000 where verified. Series can end in different years. '
+                           'An asterisk identifies an unavailable series, not zero. Log views omit true zeros and never replace them.</p>'
+                           '<p>Macau goods use customs accounting; the other goods lines use BEA balance-of-payments accounting. '
+                           'The dashed Macau line is not an identical accounting measure. Population-definition breaks remain gaps.</p>'
+                           '<p>All figures are available as 3000 × 1800 PNGs and SVGs, with both publication backgrounds.</p>'
+                           '<p><a href="downloads/observations.csv" download>Complete observations CSV</a> · '
+                           '<a href="downloads/exchange.json" download>Complete dataset and provenance JSON</a></p></header><main>' +
+                           "".join(comparison_cards) + '</main></div></body></html>')
+    write_atomic(site / "comparisons.html", comparison_document)
     payload = {"observations": rows, "sources": sources, "coverage": matrix,
                "geographies": GEOGRAPHIES, "measures": MEASURES,
                "source_names": SOURCE_NAMES, "charts": charts, "chart_themes": CHART_THEMES,
@@ -319,6 +503,7 @@ def build(root):
 Four separate geographies. Both directions. History since {START_YEAR}; change since 2020.</p>
 <p class="scope">History from {START_YEAR} where available \u00b7 Latest verified period varies by series \u00b7 Nominal USD for trade</p></header>
 <main id="main">
+<p><a href="comparisons.html">Compare mainland China, Hong Kong and Macau on the same charts</a></p>
 <form class="controls" aria-label="Explore bilateral series" onsubmit="return false">
 <label for="geography">Geography<select id="geography">{options}</select></label>
 <label for="direction">Direction<select id="direction">{direction_options}</select></label>
@@ -367,4 +552,5 @@ Four separate geographies. Both directions. History since {START_YEAR}; change s
 </div><script type="application/json" id="exchange-data">{embedded}</script></body></html>
 """
     write_atomic(site / "index.html", document)
-    return {"observations": len(rows), "series": len(groups), "coverage_cells": len(matrix)}
+    return {"observations": len(rows), "series": len(groups), "coverage_cells": len(matrix),
+            "comparisons": comparison_count}

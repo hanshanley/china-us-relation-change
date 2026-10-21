@@ -5,12 +5,13 @@ import shutil
 from pathlib import Path
 from xml.etree import ElementTree
 
+import pytest
 from bs4 import BeautifulSoup
 from PIL import Image, ImageColor
 
 from us_china_exchange.model import change, observation
-from us_china_exchange.render import annual_table, build, svg_chart
-from us_china_exchange.theme import CHART_THEMES, PNG_HEIGHT, PNG_WIDTH
+from us_china_exchange.render import annual_table, build, regional_series, svg_chart, svg_comparison
+from us_china_exchange.theme import CHART_THEMES, COMPARISON_GEOGRAPHIES, PARTNER_COLORS, PNG_HEIGHT, PNG_WIDTH
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -44,6 +45,12 @@ def test_offline_build_download_round_trip_and_reproducibility(tmp_path):
     gallery = BeautifulSoup((site / "figures/index.html").read_text(), "html.parser")
     for a in gallery.select("a[href]"):
         assert (site / "figures" / a["href"]).is_file()
+    comparisons = BeautifulSoup((site / "comparisons.html").read_text(), "html.parser")
+    for node in comparisons.select("a[href],img[src]"):
+        target = node.get("href") or node["src"]
+        if not target.startswith(("https://", "#")):
+            assert (site / target).is_file()
+    assert result["comparisons"] == 11
     before = {p.relative_to(tmp_path): p.read_bytes() for p in tmp_path.rglob("*") if p.is_file()}
     build(tmp_path)
     assert before == {p.relative_to(tmp_path): p.read_bytes() for p in tmp_path.rglob("*") if p.is_file()}
@@ -59,6 +66,71 @@ def test_charts_break_missing_years_and_definition_changes():
     paths = [x for x in doc.iter() if x.get("class") == "data-line"]
     assert paths[0].get("d").count("M") == 3
     assert "Definitions differ" in svg_chart(rows, indexed=True)
+
+
+def test_comparison_colors_gaps_and_taiwan_exclusion():
+    rows = [observation("test", geo, "USA", "visitors", year, 100 + year - 2018,
+                        "Trips", comparability="new" if year == 2021 else "old")
+            for geo in COMPARISON_GEOGRAPHIES for year in [2018, 2020, 2021]]
+    svg = svg_comparison(rows, "visitors", "to_us")
+    taiwan = observation("test", "TWN", "USA", "visitors", 2040, 10 ** 15, "Trips")
+    assert svg_comparison(rows + [taiwan], "visitors", "to_us") == svg
+    doc = ElementTree.fromstring(svg)
+    lines = [x for x in doc.iter() if x.get("class") == "data-line"]
+    assert {x.get("data-geography") for x in lines} == set(COMPARISON_GEOGRAPHIES)
+    for path in lines:
+        assert path.get("stroke") == PARTNER_COLORS[path.get("data-geography")]
+        assert path.get("d").count("M") == 3
+    assert "Taiwan" not in svg and "TWN" not in svg
+
+
+def test_log_comparison_omits_zeros_and_preserves_missing_series():
+    rows = [observation("test", "CHN", "USA", "visitors", year, value, "Trips")
+            for year, value in [(2019, 10), (2020, 0), (2021, 100)]]
+    doc = ElementTree.fromstring(svg_comparison(rows, "visitors", "to_us", logarithmic=True))
+    points = [x for x in doc.iter() if x.tag.endswith("circle")]
+    assert {x.get("data-period") for x in points} == {"2019", "2021"}
+    path = next(x for x in doc.iter() if x.get("class") == "data-line")
+    assert path.get("d").count("M") == 2
+    assert "zeros are omitted" in "".join(doc.itertext())
+    assert "*No verified series: Hong Kong, Macau" in "".join(doc.itertext())
+    assert "No verified annual" in svg_comparison(rows, "services", "from_us")
+
+
+def test_comparisons_reject_conflicting_sources_or_units():
+    rows = [observation("test", "CHN", "USA", "goods", 2020, 100, "Goods")]
+    conflict = observation("other", "CHN", "USA", "goods", 2020, 100, "Goods")
+    with pytest.raises(ValueError, match="one source series"):
+        svg_comparison(rows + [conflict], "goods", "to_us")
+    wrong_unit = observation("test", "HKG", "USA", "goods", 2020, 100, "Goods", unit="students")
+    with pytest.raises(ValueError, match="units and period bases"):
+        svg_comparison(rows + [wrong_unit], "goods", "to_us")
+
+
+def test_published_comparisons_match_geography_colors_and_annual_points(tmp_path):
+    shutil.copytree(ROOT / "data/site", tmp_path / "data/site")
+    build(tmp_path)
+    rows = json.loads((ROOT / "data/site/observations.json").read_text())
+    files = list((tmp_path / "outputs/figures").glob("*/comparisons/*/*.svg"))
+    assert len(files) == 44
+    for path in files:
+        direction, measure, scale = path.stem.removeprefix("chn-hkg-mac-").split("-", 2)
+        groups = regional_series(rows, measure, direction)
+        doc = ElementTree.fromstring(path.read_text())
+        for geo, annual in groups.items():
+            points = [x for x in doc.iter() if x.tag.endswith("circle") and x.get("data-geography") == geo]
+            expected = {r["period"] for r in annual if r["value"] is not None and
+                        (scale != "log" or r["value"] > 0)}
+            assert {x.get("data-period") for x in points} == expected
+            assert all(x.get("fill") == PARTNER_COLORS[geo] for x in points)
+        assert all(x.get("data-geography") != "TWN" for x in doc.iter())
+        assert path.with_suffix(".png").read_bytes() == (
+            tmp_path / "site/figures" / path.relative_to(tmp_path / "outputs/figures")).with_suffix(".png").read_bytes()
+        with Image.open(path.with_suffix(".png")) as image:
+            assert image.size == (PNG_WIDTH, PNG_HEIGHT)
+        if measure == "goods":
+            macau = next(x for x in doc.iter() if x.get("class") == "data-line" and x.get("data-geography") == "MAC")
+            assert macau.get("stroke-dasharray") and "Accounting differs" in "".join(doc.itertext())
 
 
 def test_iie_publication_breaks_pandemic_history_without_losing_valid_headline():

@@ -19,6 +19,7 @@ CHART_THEMES = {
     "substack": {"label": "Substack", "background": "#F5F5F5"},
 }
 PARTNER_COLORS = {"CHN": "#7B2D26", "HKG": BLUE, "MAC": GOLD, "TWN": GREEN}
+COMPARISON_GEOGRAPHIES = ("CHN", "HKG", "MAC")
 FIGURE_CATEGORIES = {
     "students": "Students",
     "visitors": "Visitor trips",
