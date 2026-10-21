@@ -62,7 +62,9 @@ def stable_rows(rows):
 
 def write_atomic(path, text):
     path.parent.mkdir(parents=True, exist_ok=True)
-    with tempfile.NamedTemporaryFile(mode="w", encoding="utf-8", dir=path.parent, delete=False) as handle:
+    binary = isinstance(text, bytes)
+    with tempfile.NamedTemporaryFile(mode="wb" if binary else "w", dir=path.parent, delete=False,
+                                     **({} if binary else {"encoding": "utf-8"})) as handle:
         handle.write(text)
         temporary = handle.name
     os.replace(temporary, path)

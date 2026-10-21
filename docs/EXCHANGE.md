@@ -13,7 +13,7 @@ Python 3.9+:
 
 ```sh
 python3 -m venv .venv
-.venv/bin/python -m pip install -r requirements-exchange.txt
+.venv/bin/python -m pip install -r requirements-exchange-dev.txt
 .venv/bin/python scripts/update.py
 .venv/bin/python scripts/build_site.py
 PYTHONPATH=src .venv/bin/python -m pytest tests/test_exchange_*.py -q
@@ -21,7 +21,10 @@ PYTHONPATH=src .venv/bin/python -m pytest tests/test_exchange_*.py -q
 
 `update.py` checks official releases and reconciles the full small-source history.
 `build_site.py` performs **no network requests**; it reproduces the website,
-complete downloads and SVG figures from committed publication tables.
+complete downloads, high-resolution PNG figures and optional SVGs from
+committed publication tables. Building alone needs only
+`requirements-exchange.txt`; the development requirements also supply the image
+and browser checks.
 
 | Location | Purpose |
 |---|---|
@@ -32,7 +35,8 @@ complete downloads and SVG figures from committed publication tables.
 | `data/local/exchange/raw/` | Local raw responses named by SHA-256; ignored, not redistributed |
 | `data/local/exchange/check.json` | Actual latest attempt, including unchanged checks and failures |
 | `site/` | Generated offline website, accessible tables, complete CSV/JSON downloads |
-| `outputs/figures/` | Standalone SVG figures, with both named publication-background variants |
+| `outputs/figures/` | PNG/SVG charts organized by category, then publication background |
+| `outputs/figures/index.html` | Offline chart catalog with human-readable titles and download links |
 | `tests/fixtures/exchange_reviewed_2026-10-21.json` | Frozen numeric review checkpoints, not a constraint on future source revisions |
 
 Every downloaded observation has its definition, direction, unit, period basis,
@@ -52,21 +56,42 @@ colours. Both bilateral directions retain the same partner colour.
 
 `src/us_china_exchange/theme.py` translates the reference settings into native
 SVG so the offline build does not depend on another checkout or Matplotlib.
-Figure titles and source notes are part of the downloadable SVG, not only the
-surrounding website. Each series has both versions:
+SVGs remain the interactive/vector representation, but **PNG is the primary
+publication download**. Each PNG is **3000 by 1800 pixels**, with larger titles,
+axes and source text, not merely the previous tiny image upscaled. Titles and
+source notes are part of both downloadable formats, not only the website.
+
+`resvg-py` rasterizes the SVGs entirely offline using bundled, unmodified
+[DejaVu Serif 2.37](https://github.com/dejavu-fonts/dejavu-fonts/releases/tag/version_2_37)
+regular, bold and italic fonts. Their license is retained in
+`src/us_china_exchange/static/fonts/LICENSE` and copied into the offline site.
+System fonts are disabled for PNG generation so macOS and Linux use the same
+glyphs and metrics. The renderer is pinned to a release with binary wheels for
+both local Python 3.9/macOS and CI Python 3.12/Linux.
+
+Each category is in its own folder: `students`, `visitors`, `goods_trade` and
+`services_trade`. Within each category, every series has both backgrounds:
 
 | Version | Background | Output and download directories |
 |---|---|---|
-| The Margin of Error | Warm `#F7F5F0` | `outputs/figures/themarginoferror/`, `site/figures/themarginoferror/` |
-| Substack | Article `#F5F5F5` | `outputs/figures/substack/`, `site/figures/substack/` |
+| The Margin of Error | Warm `#F7F5F0` | `outputs/figures/<category>/themarginoferror/`, `site/figures/<category>/themarginoferror/` |
+| Substack | Article `#F5F5F5` | `outputs/figures/<category>/substack/`, `site/figures/<category>/substack/` |
 
 These match the reference project's original house plots and its separate
 `outputs/page_background/` Substack copies, respectively. Only the background
 changes: data, dimensions, typography, colours and line breaks are identical.
-The original root SVG paths remain available as The Margin of Error copies.
-Use the chart's **Background** selector to preview either version; both download
-links also work without JavaScript. Downloads explicitly contain reported
-values even when the interactive chart is showing an index.
+For example, mainland-China-to-U.S. goods trade is
+`outputs/figures/goods_trade/substack/bea-CHN-USA-goods.png`.
+The previous flat SVG directories are retired; the build removes only their
+known generated filenames, not unrelated figures.
+
+Use the chart's **Background** selector to preview either version; all PNG/SVG
+download links and the category catalog work without JavaScript. On narrow
+screens, charts retain an 800-pixel minimum width instead of shrinking labels
+to unreadable text. They scroll horizontally by touch or keyboard, initially
+showing the most recent years; exact tables remain available underneath.
+Downloads explicitly contain reported values even when the interactive chart
+is showing an index.
 
 ## Definitions and comparisons
 
@@ -176,7 +201,9 @@ For browser checks:
 These exercise every geography/direction/measure, exact values and 2020
 changes, the partial-year panel, index mode, keyboard interaction, mobile
 overflow, both publication backgrounds, figure-text clipping, and no-JavaScript
-tables/downloads. Unit tests cover source units/directions,
+tables/downloads. Unit tests verify all PNG dimensions, background and series
+colours, categorized files/catalog links and byte-identical offline rebuilds.
+They also cover source units/directions,
 mixed Excel header types, leap February, missingness, source outages/recovery,
 numeric revisions, malformed-input rollback, unchanged refreshes and
 byte-identical offline rebuilds. Review checkpoints are frozen to their source

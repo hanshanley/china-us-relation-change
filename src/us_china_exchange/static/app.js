@@ -58,6 +58,7 @@
       <p id="yoy-change">Prior year: ${escape(difference(current, previous))}</p></div></div>`;
     $("definition").textContent = current.definition;
     $("chart").innerHTML = data.charts[current.series_id][$("chart-mode").value];
+    $("chart").scrollLeft = $("chart").scrollWidth;
     const chartBackground = $("chart").querySelector(".chart-background");
     if (chartBackground) {
       chartBackground.setAttribute("fill", data.chart_themes[$("chart-theme").value].background);
@@ -71,11 +72,11 @@
       ` \u00b7 ${escape(current.source_vintage)} \u00b7 ${escape(manifest.status)}. ` +
       `Published retrieval: ${escape(current.retrieved_at)}. ${escape(manifest.notes || "")}`;
     $("series-notes").textContent = current.notes;
-    const slug = escape(current.series_id.replaceAll(":", "-"));
-    $("figure-link").innerHTML = `<p><a href="figures/${slug}.svg" download>Download this chart \u00b7 SVG (reported values)</a></p>` +
-      `<p class="figure-variants">Publication backgrounds (same reported values): ` +
-      Object.entries(data.chart_themes).map(([key, theme]) =>
-        `<a href="figures/${escape(key)}/${slug}.svg" download>${escape(theme.label)} SVG</a>`).join(" \u00b7 ") + "</p>";
+    $("figure-link").innerHTML = "<p>Download reported values as a high-resolution PNG or editable SVG:</p><ul>" +
+      Object.entries(data.figures[current.series_id]).map(([theme, files]) =>
+        `<li>${escape(data.chart_themes[theme].label)}: ` +
+        `<a href="${escape(files.png)}" download>PNG (3000 \u00d7 1800)</a> \u00b7 ` +
+        `<a href="${escape(files.svg)}" download>SVG</a></li>`).join("") + "</ul>";
     const partials = rows.filter(r => r.frequency === "ytd" && r.value !== null)
       .sort((a, b) => a.period.localeCompare(b.period));
     const partial = partials.at(-1);

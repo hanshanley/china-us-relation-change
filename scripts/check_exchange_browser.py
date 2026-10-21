@@ -10,7 +10,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 from us_china_exchange.model import change
 from us_china_exchange.render import comparison, number
-from us_china_exchange.theme import CHART_THEMES
+from us_china_exchange.theme import CHART_THEMES, PNG_HEIGHT, PNG_WIDTH
 
 
 def check():
@@ -22,6 +22,7 @@ def check():
         errors = []
         page.on("pageerror", lambda error: errors.append(str(error)))
         page.goto((ROOT / "site/index.html").as_uri())
+        page.evaluate("document.fonts.ready")
         for cell in matrix:
             origin, destination, measure = (cell[k] for k in ["origin", "destination", "measure"])
             geo = destination if origin == "USA" else origin
@@ -44,12 +45,16 @@ def check():
             assert "2000" in page.locator("#chart").inner_text()
             assert page.locator("#chart svg text").evaluate_all("""nodes => nodes.every(node => {
               const box = node.getBBox();
-              return box.x >= 0 && box.y >= 0 && box.x + box.width <= 900 && box.y + box.height <= 470;
+              const bounds = node.ownerSVGElement.viewBox.baseVal;
+              return box.x >= 0 && box.y >= 0 && box.x + box.width <= bounds.width && box.y + box.height <= bounds.height;
             })"""), (origin, destination, measure, "clipped figure text")
             for theme, spec in CHART_THEMES.items():
                 page.select_option("#chart-theme", theme)
                 assert page.locator("#chart .chart-background").get_attribute("fill") == spec["background"]
-                assert page.locator(f'#figure-link a[href*="/{theme}/"]').count() == 1
+                links = page.locator(f'#figure-link a[href*="/{theme}/"]')
+                assert links.count() == 2
+                png_path = page.locator(f'#figure-link a[href*="/{theme}/"][href$=".png"]').get_attribute("href")
+                assert (ROOT / "site" / png_path).is_file()
             partials = [r for r in rows if (r["origin"], r["destination"], r["measure"], r["frequency"])
                         == (origin, destination, measure, "ytd") and r["value"] is not None]
             partial = max(partials, key=lambda r: r["period"]) if partials else None
@@ -75,6 +80,14 @@ def check():
             assert "seasonally adjusted" in page.locator("#partial-panel").inner_text()
         page.set_viewport_size({"width": 390, "height": 844})
         assert not page.evaluate("document.documentElement.scrollWidth > innerWidth")
+        assert page.locator("#chart").evaluate("node => node.scrollWidth > node.clientWidth")
+        assert page.locator("#chart svg text:not(.figure-source)").evaluate_all("""nodes =>
+          nodes.every(node => parseFloat(getComputedStyle(node).fontSize) *
+          node.ownerSVGElement.getBoundingClientRect().width /
+          node.ownerSVGElement.viewBox.baseVal.width >= 16)""")
+        page.locator("#chart").focus()
+        page.keyboard.press("ArrowRight")
+        page.wait_for_function("document.getElementById('chart').scrollLeft > 0")
         page.locator("#geography").focus()
         page.keyboard.press("h" if sys.platform == "darwin" else "ArrowDown")
         page.keyboard.press("Tab")
@@ -90,7 +103,12 @@ def check():
         page.locator("#all-values summary").first.click()
         assert page.locator("#all-values table").first.is_visible()
         for theme in CHART_THEMES:
-            assert page.locator(f'#figure-link a[href*="/{theme}/"]').count() == 1
+            assert page.locator(f'#figure-link a[href*="/{theme}/"]').count() == 2
+        png_link = page.locator('#figure-link a[href$=".png"]').first.get_attribute("href")
+        page.goto((ROOT / "site" / png_link).as_uri())
+        image = page.locator("img")
+        assert image.evaluate("img => [img.naturalWidth, img.naturalHeight]") == [PNG_WIDTH, PNG_HEIGHT]
+        page.go_back()
         assert not page.evaluate("document.documentElement.scrollWidth > innerWidth")
         assert not errors, errors
         browser.close()

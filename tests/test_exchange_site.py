@@ -6,10 +6,11 @@ from pathlib import Path
 from xml.etree import ElementTree
 
 from bs4 import BeautifulSoup
+from PIL import Image, ImageColor
 
 from us_china_exchange.model import observation
 from us_china_exchange.render import build, svg_chart
-from us_china_exchange.theme import CHART_THEMES
+from us_china_exchange.theme import CHART_THEMES, PNG_HEIGHT, PNG_WIDTH
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -40,6 +41,9 @@ def test_offline_build_download_round_trip_and_reproducibility(tmp_path):
         href = a["href"]
         if not href.startswith(("https://", "#")):
             assert (site / href).is_file(), href
+    gallery = BeautifulSoup((site / "figures/index.html").read_text(), "html.parser")
+    for a in gallery.select("a[href]"):
+        assert (site / "figures" / a["href"]).is_file()
     before = {p.relative_to(tmp_path): p.read_bytes() for p in tmp_path.rglob("*") if p.is_file()}
     build(tmp_path)
     assert before == {p.relative_to(tmp_path): p.read_bytes() for p in tmp_path.rglob("*") if p.is_file()}
@@ -60,20 +64,51 @@ def test_charts_break_missing_years_and_definition_changes():
 def test_figure_background_variants_preserve_data_and_foreground(tmp_path):
     shutil.copytree(ROOT / "data/site", tmp_path / "data/site")
     build(tmp_path)
-    for original in (tmp_path / "outputs/figures").glob("*.svg"):
+    figures = tmp_path / "outputs/figures"
+    assert {p.name for p in figures.iterdir() if p.is_dir()} == {
+        "students", "visitors", "goods_trade", "services_trade"}
+    assert not list(figures.glob("*.svg"))
+    originals = list(figures.glob("*/themarginoferror/*.svg"))
+    assert len(originals) == 38
+    for original in originals:
         doc = ElementTree.fromstring(original.read_text())
         assert "serif" in original.read_text()
         assert any(x.get("class") == "figure-source" for x in doc.iter())
         assert any(x.text == "2000" for x in doc.iter())
+        line_color = next(x.get("stroke") for x in doc.iter() if x.get("class") == "data-line")
         for theme, spec in CHART_THEMES.items():
-            path = tmp_path / "outputs/figures" / theme / original.name
+            path = original.parent.parent / theme / original.name
             exported = path.read_bytes()
-            assert exported == (tmp_path / "site/figures" / theme / original.name).read_bytes()
+            site_path = tmp_path / "site/figures" / path.relative_to(figures)
+            assert exported == site_path.read_bytes()
+            assert path.with_suffix(".png").read_bytes() == site_path.with_suffix(".png").read_bytes()
+            with Image.open(path.with_suffix(".png")) as image:
+                assert image.size == (PNG_WIDTH, PNG_HEIGHT)
+                assert image.getpixel((0, 0)) == (*ImageColor.getrgb(spec["background"]), 255)
+                colors = {color for count, color in image.getcolors(PNG_WIDTH * PNG_HEIGHT)}
+                assert (*ImageColor.getrgb(line_color), 255) in colors
             variant = ElementTree.fromstring(exported)
             background = next(x for x in variant.iter() if x.get("class") == "chart-background")
             assert background.get("fill") == spec["background"]
             background.set("fill", "#F7F5F0")
             assert ElementTree.tostring(variant) == ElementTree.tostring(doc)
+
+
+def test_chart_build_removes_only_known_legacy_exports(tmp_path):
+    shutil.copytree(ROOT / "data/site", tmp_path / "data/site")
+    path = tmp_path / "data/site/observations.json"
+    rows = [r for r in json.loads(path.read_text()) if r["series_id"] == "bea:USA:TWN:goods"]
+    path.write_text(json.dumps(rows))
+    figures = tmp_path / "outputs/figures"
+    figures.mkdir(parents=True)
+    legacy = figures / "bea-USA-TWN-goods.svg"
+    legacy.write_text("Previous generated figure")
+    unrelated = figures / "custom.svg"
+    unrelated.write_text("User-owned figure")
+    build(tmp_path)
+    assert not legacy.exists()
+    assert unrelated.read_text() == "User-owned figure"
+    assert (figures / "goods_trade/substack/bea-USA-TWN-goods.png").is_file()
 
 
 def test_first_build_without_default_source_uses_available_series(tmp_path):
@@ -87,4 +122,4 @@ def test_first_build_without_default_source_uses_available_series(tmp_path):
     assert page.select_one("#direction option[selected]")["value"] == "from_us"
     assert page.select_one("#measure option[selected]")["value"] == "goods"
     assert page.select_one("#series-title").text == "United States \u2192 Taiwan"
-    assert page.select_one("#figure-link a")["href"] == "figures/bea-USA-TWN-goods.svg"
+    assert page.select_one("#figure-link a")["href"] == "figures/goods_trade/themarginoferror/bea-USA-TWN-goods.png"

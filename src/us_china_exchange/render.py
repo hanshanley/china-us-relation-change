@@ -9,9 +9,13 @@ import textwrap
 from collections import defaultdict
 from pathlib import Path
 
+import resvg_py
+
 from .model import START_YEAR, GEOGRAPHIES, MEASURES, change, coverage, json_text, validate
 from .pipeline import load, write_atomic
-from .theme import CHART_THEMES, FONT, GRID, MUTED, PARTNER_COLORS, TEXT
+from .theme import (CHART_HEIGHT, CHART_THEMES, CHART_WIDTH, FIGURE_CATEGORIES, FONT,
+                    FONT_FILES, GRID, MUTED, PARTNER_COLORS, PNG_HEIGHT, PNG_WIDTH,
+                    TEXT, figure_category)
 
 
 SOURCE_NAMES = {
@@ -76,35 +80,35 @@ def svg_chart(rows, indexed=False, theme="themarginoferror"):
     maximum = max(values.values()) * 1.13 or 1
     magnitude = 10 ** math.floor(math.log10(maximum))
     maximum = math.ceil(maximum / magnitude) * magnitude
-    x = lambda year: 88 + (year - START_YEAR) / (end - START_YEAR) * 754
-    y = lambda value: 350 - value / maximum * 235
+    x = lambda year: 115 + (year - START_YEAR) / (end - START_YEAR) * 835
+    y = lambda value: 435 - value / maximum * 285
     sample = present[0]
     partner = sample["destination"] if sample["origin"] == "USA" else sample["origin"]
     color = PARTNER_COLORS[partner]
     heading = MEASURES[sample["measure"]]
     direction = f"{GEOGRAPHIES[sample['origin']]} to {GEOGRAPHIES[sample['destination']]}"
     title = f"{heading}: {direction}"
-    parts = [f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 470" role="img" aria-label="{esc(title)}">',
+    parts = [f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {CHART_WIDTH} {CHART_HEIGHT}" role="img" aria-label="{esc(title)}">',
              f"<title>{esc(title)}</title>",
              f"<desc>Annual history from {START_YEAR} where available. Missing years and definition changes break the line. Exact values are in the complete data download.</desc>",
-             f'<rect class="chart-background" width="900" height="470" fill="{background}"/>',
-             f'<g font-family="{esc(FONT)}" font-size="15" fill="{MUTED}">',
-             f'<text x="88" y="35" font-size="23" font-weight="bold" fill="{TEXT}">{esc(heading)}</text>',
-             f'<text x="88" y="62" font-size="17">{esc(direction)}</text>']
+             f'<rect class="chart-background" width="{CHART_WIDTH}" height="{CHART_HEIGHT}" fill="{background}"/>',
+             f'<g font-family="{esc(FONT)}" font-size="20" fill="{MUTED}">',
+             f'<text x="115" y="45" font-size="28" font-weight="bold" fill="{TEXT}">{esc(heading)}</text>',
+             f'<text x="115" y="80" font-size="22">{esc(direction)}</text>']
     for fraction in [0, 0.5, 1]:
         value = maximum * fraction
         label = f"{value:.0f}" if indexed else number(value, unit, compact=True)
-        parts.append(f'<path d="M88 {y(value):.2f}H842" stroke="{GRID}" stroke-opacity="0.6" stroke-width="0.5"/>'
-                     f'<text x="76" y="{y(value) + 5:.2f}" text-anchor="end">{esc(label)}</text>')
+        parts.append(f'<path d="M115 {y(value):.2f}H950" stroke="{GRID}" stroke-opacity="0.6" stroke-width="0.5"/>'
+                     f'<text x="100" y="{y(value) + 6:.2f}" text-anchor="end">{esc(label)}</text>')
     for year in sorted(set(range(START_YEAR, end - 1, 5)) | {end}):
-        parts.append(f'<text x="{x(year):.2f}" y="378" text-anchor="middle">{year}</text>')
-    parts.append(f'<path d="M88 115V350H842" stroke="{GRID}" stroke-width="0.8" fill="none"/>')
-    parts.append(f'<path d="M{x(2020):.2f} 115V350" stroke="{MUTED}" stroke-width="0.8" stroke-dasharray="4 5"/>')
-    parts.append(f'<text x="{x(2020) - 8:.2f}" y="99" text-anchor="end">2020 baseline</text>')
+        parts.append(f'<text x="{x(year):.2f}" y="472" text-anchor="middle">{year}</text>')
+    parts.append(f'<path d="M115 150V435H950" stroke="{GRID}" stroke-width="0.8" fill="none"/>')
+    parts.append(f'<path d="M{x(2020):.2f} 150V435" stroke="{MUTED}" stroke-width="0.8" stroke-dasharray="4 5"/>')
+    parts.append(f'<text x="{x(2020) - 8:.2f}" y="125" text-anchor="end">2020 baseline</text>')
     if indexed:
-        parts.append(f'<text x="88" y="99" fill="{TEXT}">2020 = 100</text>')
+        parts.append(f'<text x="115" y="125" fill="{TEXT}">2020 = 100</text>')
     else:
-        parts.append(f'<text x="88" y="99" fill="{TEXT}">{esc("Nominal USD" if unit == "USD" else unit.capitalize())}</text>')
+        parts.append(f'<text x="115" y="125" fill="{TEXT}">{esc("Nominal USD" if unit == "USD" else unit.capitalize())}</text>')
     path, previous, previous_definition = [], None, None
     for year, value in sorted(values.items()):
         definition = next(r["comparability"] for r in present if r["year"] == year)
@@ -112,11 +116,11 @@ def svg_chart(rows, indexed=False, theme="themarginoferror"):
         path.append(f"{'L' if connected else 'M'}{x(year):.2f},{y(value):.2f}")
         previous = year
         previous_definition = definition
-    parts.append(f'<path class="data-line" d="{" ".join(path)}" fill="none" stroke="{color}" stroke-width="2.8" stroke-linejoin="round"/>')
+    parts.append(f'<path class="data-line" d="{" ".join(path)}" fill="none" stroke="{color}" stroke-width="3.2" stroke-linejoin="round"/>')
     for row in present:
         year = row["year"]
         label = row["period"] + ": " + number(row["value"], unit)
-        parts.append(f'<circle cx="{x(year):.2f}" cy="{y(values[year]):.2f}" r="3.5" fill="{color}">'
+        parts.append(f'<circle cx="{x(year):.2f}" cy="{y(values[year]):.2f}" r="4" fill="{color}">'
                      f'<title>{esc(label)}</title></circle>')
     source = SOURCE_NAMES.get(sample["source_id"], sample["source_id"])
     note = f"Source: {source}. Annual observations; missing years and definition changes are not connected."
@@ -124,10 +128,31 @@ def svg_chart(rows, indexed=False, theme="themarginoferror"):
         note += " Academic years use ending years."
     if sample["period_basis"] == "reporting":
         note += " Reporting years, not physical-presence counts."
-    for line, text in enumerate(textwrap.wrap(note, width=100)):
-        parts.append(f'<text class="figure-source" x="88" y="{414 + line * 18}" font-size="12" font-style="italic">{esc(text)}</text>')
+    for line, text in enumerate(textwrap.wrap(note, width=90)):
+        parts.append(f'<text class="figure-source" x="115" y="{520 + line * 23}" font-size="16" font-style="italic">{esc(text)}</text>')
     parts.append("</g></svg>")
     return "".join(parts)
+
+
+def png_chart(svg):
+    fonts = Path(__file__).parent / "static/fonts"
+    # This renderer release sizes the PNG from intrinsic SVG dimensions, not width/height options.
+    svg = svg.replace("<svg ", f'<svg width="{PNG_WIDTH}" height="{PNG_HEIGHT}" ', 1)
+    png = resvg_py.svg_to_bytes(
+        svg_string=svg, skip_system_fonts=True,
+        font_files=[str(fonts / name) for name in FONT_FILES],
+        font_family="DejaVu Serif", serif_family="DejaVu Serif")
+    if (int.from_bytes(png[16:20], "big"), int.from_bytes(png[20:24], "big")) != (PNG_WIDTH, PNG_HEIGHT):
+        raise ValueError("PNG renderer did not preserve the required export dimensions")
+    return png
+
+
+def figure_links(paths):
+    return ('<p>Download reported values as a high-resolution PNG or editable SVG:</p><ul>' +
+            "".join(f'<li>{esc(CHART_THEMES[theme]["label"])}: '
+                    f'<a href="{esc(files["png"])}" download>PNG (3000 \u00d7 1800)</a> \u00b7 '
+                    f'<a href="{esc(files["svg"])}" download>SVG</a></li>'
+                    for theme, files in paths.items()) + '</ul>')
 
 
 def annual_table(rows):
@@ -165,7 +190,8 @@ def build(root):
     groups = defaultdict(list)
     for row in rows:
         groups[row["series_id"]].append(row)
-    charts, all_tables = {}, []
+    charts, all_tables, figure_paths = {}, [], {}
+    gallery = defaultdict(list)
     site = root / "site"
     figures = root / "outputs/figures"
     for series_id, series_rows in sorted(groups.items()):
@@ -175,20 +201,32 @@ def build(root):
         indexed = svg_chart(series_rows, True)
         charts[series_id] = {"levels": levels, "index": indexed}
         if levels.startswith("<svg"):
-            write_atomic(figures / (slug + ".svg"), levels + "\n")
-            write_atomic(site / "figures" / (slug + ".svg"), levels + "\n")
+            category = figure_category(sample["measure"])
+            figure_paths[series_id] = {}
             for theme in CHART_THEMES:
                 themed = svg_chart(series_rows, theme=theme)
-                write_atomic(figures / theme / (slug + ".svg"), themed + "\n")
-                write_atomic(site / "figures" / theme / (slug + ".svg"), themed + "\n")
+                png = png_chart(themed)
+                files = {}
+                for suffix, content in [("svg", themed + "\n"), ("png", png)]:
+                    relative = Path(category) / theme / (slug + "." + suffix)
+                    write_atomic(figures / relative, content)
+                    write_atomic(site / "figures" / relative, content)
+                    files[suffix] = "figures/" + relative.as_posix()
+                figure_paths[series_id][theme] = files
         heading = (GEOGRAPHIES[sample["origin"]] + " \u2192 " + GEOGRAPHIES[sample["destination"]] +
                    " \u00b7 " + MEASURES[sample["measure"]])
+        if series_id in figure_paths:
+            relative_links = {theme: {kind: path.removeprefix("figures/") for kind, path in files.items()}
+                              for theme, files in figure_paths[series_id].items()}
+            gallery[category].append(f'<article><h3>{esc(heading)}</h3><p>{esc(SOURCE_NAMES[sample["source_id"]])}</p>'
+                                     + figure_links(relative_links) + '</article>')
         all_tables.append(f'<details><summary>{esc(heading)} <span class="muted">({esc(SOURCE_NAMES[sample["source_id"]])})</span></summary>'
                           f'<p>{esc(sample["definition"])}</p>{annual_table(series_rows)}</details>')
     payload = {"observations": rows, "sources": sources, "coverage": matrix,
                "geographies": GEOGRAPHIES, "measures": MEASURES,
-               "source_names": SOURCE_NAMES, "charts": charts, "chart_themes": CHART_THEMES}
-    download = {k: v for k, v in payload.items() if k not in {"charts", "chart_themes"}}
+               "source_names": SOURCE_NAMES, "charts": charts, "chart_themes": CHART_THEMES,
+               "figures": figure_paths}
+    download = {k: v for k, v in payload.items() if k not in {"charts", "chart_themes", "figures"}}
     write_atomic(site / "downloads/exchange.json", json_text(download))
     write_atomic(site / "downloads/observations.json", json_text(rows))
     write_atomic(site / "downloads/coverage.json", json_text(matrix))
@@ -201,6 +239,32 @@ def build(root):
     package = Path(__file__).parent
     for name in ["style.css", "app.js"]:
         write_atomic(site / "assets" / name, (package / "static" / name).read_text())
+    for name in FONT_FILES + ("LICENSE",):
+        write_atomic(site / "assets/fonts" / name, (package / "static/fonts" / name).read_bytes())
+    figure_index = ('<!doctype html><html lang="en"><meta charset="utf-8">'
+                    '<meta name="viewport" content="width=device-width,initial-scale=1">'
+                    '<title>Exchange charts by category</title>'
+                    '<style>body{max-width:1000px;margin:auto;padding:24px;font:18px/1.6 Georgia,serif;'
+                    'color:#1A1A1A;background:#F7F5F0}article{padding:12px 0;border-bottom:1px solid #D6D3CC}'
+                    'a{color:#3D6F8C}h2{margin-top:48px}h3{font-size:21px}li{margin:8px 0}</style>'
+                    '<h1>Exchange charts by category</h1>'
+                    '<p>PNG images are 3000 \u00d7 1800 pixels. Both backgrounds contain the same reported values.</p>' +
+                    "".join(f'<section><h2>{label}</h2>{"".join(gallery[category])}</section>'
+                            for category, label in FIGURE_CATEGORIES.items()) + '</html>')
+    write_atomic(figures / "index.html", figure_index)
+    write_atomic(site / "figures/index.html", figure_index)
+    # Retire only known generated paths from the previous flat export layout.
+    for directory in (figures, site / "figures"):
+        for sid in groups:
+            slug = sid.replace(":", "-") + ".svg"
+            for relative in [Path(slug)] + [Path(theme) / slug for theme in CHART_THEMES]:
+                legacy = directory / relative
+                if legacy.is_file():
+                    legacy.unlink()
+        for theme in CHART_THEMES:
+            legacy_directory = directory / theme
+            if legacy_directory.is_dir() and not any(legacy_directory.iterdir()):
+                legacy_directory.rmdir()
     candidates = {sid: series for sid, series in groups.items()
                   if any(r["frequency"] == "annual" and r["value"] is not None for r in series)}
     if not candidates:
@@ -214,7 +278,6 @@ def build(root):
                   key=lambda r: r["year"])
     selected_geo = current["destination"] if current["origin"] == "USA" else current["origin"]
     selected_direction = "from_us" if current["origin"] == "USA" else "to_us"
-    selected_slug = selected_id.replace(":", "-")
     selected_source = sources.get(current["source_id"], {})
     cov_rows = "".join(
         f'<tr><td>{esc(GEOGRAPHIES[c["origin"]])} \u2192 {esc(GEOGRAPHIES[c["destination"]])}</td>'
@@ -258,7 +321,8 @@ Four separate geographies. Both directions. History since {START_YEAR}; change s
 <div class="chart-heading"><h3>Annual history</h3><div class="chart-control"><label for="chart-mode">Display</label>
 <select id="chart-mode"><option value="levels">Reported values</option><option value="index">2020 = 100</option></select></div>
 <div class="chart-control"><label for="chart-theme">Background</label><select id="chart-theme">{theme_options}</select></div></div>
-<div id="chart">{charts[selected_id]["levels"]}</div>
+<div id="chart" tabindex="0" role="region" aria-label="Annual chart; scroll horizontally on narrow screens">{charts[selected_id]["levels"]}</div>
+<p class="chart-note chart-scroll-hint">On a narrow screen, scroll the chart sideways to keep its labels readable.</p>
 <p class="chart-note">Gaps stay gaps. Academic-year labels use their ending year on the axis; the 2020 baseline is 2019/20, not calendar 2020. Reporting-year UIS data are not physical-presence counts.</p>
 <details id="selected-table"><summary>Exact values for this series</summary><div id="series-table">{annual_table(selected)}</div></details>
 <div id="partial-panel" class="partial" hidden></div>
@@ -273,9 +337,8 @@ Four separate geographies. Both directions. History since {START_YEAR}; change s
 <section id="downloads"><h2>The complete data, not just the chart.</h2>
 <p>All observations, including monthly history and matched YTD sums, definitions, missingness, source vintages, request URLs, retrieval timestamps and raw-response checksums.</p>
 <div class="downloads"><a href="downloads/observations.csv" download>All observations \u00b7 CSV</a><a href="downloads/exchange.json" download>Complete dataset + coverage \u00b7 JSON</a></div>
-<div id="figure-link"><p><a href="figures/{esc(selected_slug)}.svg" download>Download this chart \u00b7 SVG (reported values)</a></p>
-<p class="figure-variants">Publication backgrounds (same reported values):
-{" · ".join(f'<a href="figures/{theme}/{esc(selected_slug)}.svg" download>{esc(spec["label"])} SVG</a>' for theme, spec in CHART_THEMES.items())}</p></div></section>
+<div id="figure-link">{figure_links(figure_paths[selected_id])}</div>
+<p><a href="figures/index.html">Browse all charts by category</a>: students, visitors, goods trade and services trade.</p></section>
 <section id="coverage"><h2>Coverage, including the gaps.</h2>
 <p>Missing does not mean zero. No interpolation, regional allocation, or passenger/visa proxy fills an unavailable bilateral series.</p>
 <details><summary>View all four geographies, both directions and every measure</summary>
