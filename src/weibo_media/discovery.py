@@ -92,12 +92,15 @@ def account_link(value, page_url):
         return None
     host = url.hostname or ""
     path = url.path.rstrip("/")
-    if host in {"weibo.com", "www.weibo.com", "weibo.cn", "www.weibo.cn"}:
+    if host in {"weibo.com", "www.weibo.com", "weibo.cn", "www.weibo.cn", "e.weibo.com"}:
+        legacy = re.fullmatch(r"/p/(?:100505|100606)([0-9]+)(?:/home)?", path)
+        if legacy:
+            return "https://weibo.com/u/" + legacy[1]
         match = re.fullmatch(r"/(?:u/[0-9]+|[A-Za-z0-9_]+)", path)
         reserved = {"login", "signup", "register", "share", "home", "search", "about",
                     "p", "tv", "n", "u", "international", "overseas", "newlogin"}
         if match and path[1:].lower() not in reserved:
-            return "https://" + host + path
+            return "https://" + ("weibo.com" if host == "e.weibo.com" else host) + path
     if host == "m.weibo.cn" and re.fullmatch(r"/(?:u|profile)/[0-9]+", path):
         return "https://" + host + path
     return None
@@ -110,7 +113,7 @@ class SocialLinks(HTMLParser):
         self.links = set()
 
     def handle_starttag(self, tag, attrs):
-        if tag == "a":
+        if tag in {"a", "area"}:
             link = account_link(dict(attrs).get("href", ""), self.page_url)
             if link:
                 self.links.add(link)
@@ -340,15 +343,24 @@ def publish(roster_path, screening_directory, directory, report_path):
         "Chinese-edition magazine account (`1235572171`), plus MIT Technology Review's "
         "Chinese-language account (`1738690784`). These three additional specialist brands "
         "do not appear in the selected SCImago 1,000; they are supplementary discoveries, not results "
-        "manufactured from the ranking scan. Current status and legal operator uncertainty remain "
-        "explicit. No additional post backfill was performed in this verification pass.", "",
+        "manufactured from the ranking scan. Subsequent [collection follow-up](collection_followup.md) "
+        "also verified Bloomberg China, China Press and two regional World Journal accounts, "
+        "collected the newly verified public feeds, and investigated historical archive failures. "
+        "Current status and legal operator uncertainty remain explicit.", "",
         "## Complete machine-readable deliverables", "",
         "- [All 1,000 ranked U.S. domains](../data/discovery/us_top1000.csv)",
         "- [Ranking source manifest](../data/discovery/us_top1000.manifest.json)",
         "- [All 1,000 checks, CSV](../data/discovery/us_top1000_screening.csv)",
         "- [All 1,000 checks, JSONL](../data/discovery/us_top1000_screening.jsonl)", "",
+        "- [All 1,000 account decisions and post counts, CSV](../data/discovery/us_top1000_accounts.csv)",
+        "- [All 1,000 account decisions and evidence, JSONL](../data/discovery/us_top1000_accounts.jsonl)",
+        "- [Ranked plus supplemental outlet assessments, CSV](../data/discovery/outlet_account_assessments.csv)",
+        "- [Ranked plus supplemental outlet assessments, JSONL](../data/discovery/outlet_account_assessments.jsonl)", "",
         "Every roster row is retained, including blocked and inconclusive checks. No post text "
-        "or publisher article bodies are included in these screening exports.", "",
+        "or publisher article bodies are included in these screening exports. The account "
+        "assessment fields distinguish confirmed identities, historical-only evidence and unknowns; "
+        "there are no verified-negative account findings. Collected-post booleans refer only to "
+        "our recovered corpus, not true account output.", "",
         "## Reproduce or resume", "",
         "Requires Python 3.9+ and no additional packages. From the repository root:", "",
         "```sh", "export PYTHONPATH=src", "mkdir -p data/local/discovery",

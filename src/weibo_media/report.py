@@ -15,6 +15,10 @@ def report(db, path):
         JOIN outlets o ON o.id=a.outlet_id ORDER BY o.name,a.id
     """).fetchall()
     reviewed = sum(row["research_status"] == "reviewed" for row in outlets)
+    account_coverage = {row["account_id"]: row for row in coverage(db)}
+    confirmed = [a for a in accounts if a["officialness"] == "confirmed"]
+    recovered_accounts = sum(account_coverage[a["id"]]["recovered_posts"] > 0 for a in confirmed)
+    unattempted = sum(account_coverage[a["id"]]["latest_run_status"] is None for a in confirmed)
     lines = [
         "# U.S. news-media accounts on Sina Weibo",
         "",
@@ -25,17 +29,25 @@ def report(db, path):
         "Officialness, historical existence, operator relationship, and current access are distinct.",
         "A visitor/login gate does not establish that an account was suspended or deleted.",
         "",
+        f"**Posts recovered for {recovered_accounts} of {len(confirmed)} confirmed accounts.** "
+        f"{unattempted} confirmed accounts have no recorded collection attempt. "
+        "Zero recovered posts after an attempt means an access/coverage gap, not zero account output.",
+        "There is no verified-negative outlet list: missing publisher links and access failures "
+        "remain unknowns. The complete ranked and supplemental account-status ledger is linked "
+        "in the [collection follow-up](collection_followup.md).",
+        "",
         "## Confirmed official accounts",
         "",
-        "| Outlet / edition | Account | UID | Relationship | Existence evidence | Direct access |",
-        "|---|---|---|---|---|---|",
+        "| Outlet / edition | Account | UID | Relationship | Existence evidence | Direct access | Recovered posts | Collection |",
+        "|---|---|---|---|---|---|---:|---|",
     ]
     for account in accounts:
         if account["officialness"] == "confirmed":
             lines.append("| " + " | ".join(cell(value) for value in (
                 account["outlet"], f"[{account['display_name']}]({account['profile_url']})",
                 account["uid"], account["relationship"], account["existence"],
-                account["accessibility"],
+                account["accessibility"], account_coverage[account["id"]]["recovered_posts"],
+                account_coverage[account["id"]]["latest_run_status"] or "not attempted",
             )) + " |")
     lines += ["", "### Evidence and operator notes", ""]
     for account in accounts:
@@ -68,7 +80,7 @@ def report(db, path):
               "",
               "| Account | Recovered posts | Earliest observed UTC | Latest observed UTC | Latest run | Gap / limitation |",
               "|---|---|---|---|---|---|"]
-    for row in coverage(db):
+    for row in account_coverage.values():
         lines.append("| " + " | ".join(cell(value) for value in (
             row["account_id"], row["recovered_posts"], row["earliest_observed_post"],
             row["latest_observed_post"],
@@ -142,7 +154,9 @@ def report(db, path):
               "Corpus text and raw responses are local-only by default. Public exports omit posts "
               "without explicit redistribution permission and list omissions. No third-party post "
               "text is reproduced in this report. See [top-1,000 U.S. website screening](top1000_us_screening.md) "
-              "for the separate ranked discovery roster, and [access pilot](access_pilot.md) for source-level "
+              "for the separate ranked discovery roster, [collection follow-up](collection_followup.md) "
+              "for explicit account/post assessments and the scraper evaluation, and "
+              "[access pilot](access_pilot.md) for source-level "
               "access checks and archive gaps.", ""]
     target = Path(path)
     target.parent.mkdir(parents=True, exist_ok=True)

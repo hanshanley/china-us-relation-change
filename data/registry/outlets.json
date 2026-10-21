@@ -52,7 +52,7 @@
       "id": "bloomberg", "name": "Bloomberg / Bloomberg Businessweek China", "category": "business",
       "aliases": ["彭博", "彭博商业周刊中文版", "商业周刊中文版"], "us_basis": "U.S. news and business-media brand; any local edition must be distinguished.",
       "source_url": "https://www.bloombergmedia.com/", "research_status": "reviewed",
-      "notes": "No Weibo link found on reviewed Bloomberg Media homepage; corporate press page returned HTTP 403. bbwc.cn had a small i商周 landing page. A third-party directory names a Chinese-edition account but supplies insufficient primary identity evidence. Review date: 2026-10-21."
+      "notes": "Expanded research found a publisher-owned Bloomberg China about page linking to chinabloomberg. Its 2022 archived platform profile binds the handle to UID 5076455752; current public Sina profile explicitly identifies 彭博Bloomberg官方微博. Separate Bloomberg Businessweek licensed-edition candidates are not conflated with this corporate/news brand account. Review date: 2026-10-21."
     },
     {
       "id": "cnn", "name": "CNN", "category": "broadcaster",
@@ -82,19 +82,19 @@
       "id": "sinovision", "name": "SinoVision / 美国中文网", "category": "us_chinese_language",
       "aliases": ["美国中文电视", "美国中文网"], "us_basis": "U.S. Chinese-language television/news operation.",
       "source_url": "https://www.sinovision.net/", "research_status": "reviewed",
-      "notes": "Homepage retrieval was not a usable outlet page in the final check (78 bytes). No official account established. Distinct from 侨报/uschinapress.com. Review date: 2026-10-21."
+      "notes": "Stable account identity remains unresolved, not absent. Original 2013 research in People's Daily Overseas Edition names 美国中文电视 among Sina-certified overseas media (https://paper.people.com.cn/rmrbhwb/page/2013-12/27/13/hwbhmkjc27c.pdf), but does not bind a UID/handle. Two archived publisher homepages exposed no institutional profile link; the 2020 Sina element was a share button. Search access now reports robots restrictions. Distinct from 侨报/uschinapress.com. Review date: 2026-10-21."
     },
     {
       "id": "china-press", "name": "The China Press / 侨报", "category": "us_chinese_language",
       "aliases": ["侨报", "美国侨报网"], "us_basis": "U.S. Chinese-language newspaper.",
       "source_url": "https://www.uschinapress.com/", "research_status": "reviewed",
-      "notes": "Homepage returned HTTP 403 or 406 across attempts. No official account established. Review date: 2026-10-21."
+      "notes": "Archived publisher homepage (2020) directly links to uschinapress; archived platform profile binds UID 1823184085. Current public Sina profile has been renamed 侨报美西 and still describes 美国侨报网. Historical officialness confirmed; current regional operator not independently reverified. Review date: 2026-10-21."
     },
     {
       "id": "world-journal", "name": "World Journal / 世界日报", "category": "us_chinese_language",
       "aliases": ["世界日报", "世界日報"], "us_basis": "U.S. Chinese-language newspaper edition; overseas ownership does not exclude a U.S.-based outlet.",
       "source_url": "https://www.worldjournal.com/", "research_status": "reviewed",
-      "notes": "HTTP 403 on one attempt; a later HTTP 200 returned only 702 bytes, not usable publisher content. No official account established. Review date: 2026-10-21."
+      "notes": "Archived publisher's dedicated page-weibo page (2020) contains clickable image-map links to worldjournalnews and laworldjournal. Archived profiles bind both UIDs, and current public Sina profiles explicitly certify the North America and Los Angeles accounts. Review date: 2026-10-21."
     },
     {
       "id": "sing-tao-us", "name": "Sing Tao Daily, U.S. edition", "category": "us_chinese_language",
@@ -146,7 +146,7 @@
       "operator": "Chinese-language National Geographic branded operation; exact legal account operator unresolved",
       "relationship": "Chinese-language branded account; not asserted to be U.S.-newsroom-operated",
       "officialness": "confirmed", "existence": "current_evidence", "accessibility": "unknown",
-      "notes": "Sina profile names 美国国家地理, explicitly says 美国国家地理官方微博 and directs readers to its Chinese website. Direct Weibo access and current legal licensing terms were not independently established; no post backfill attempted."
+      "notes": "Sina profile names 美国国家地理, explicitly says 美国国家地理官方微博 and directs readers to its Chinese website. Direct Weibo access and current legal licensing terms were not independently established. Public-feed collection was executed; coverage is recorded in collection runs."
     },
     {
       "id": "scientific-american-china", "outlet_id": "scientific-american", "uid": "1235572171", "handle": null,
@@ -154,7 +154,7 @@
       "operator": "《环球科学》杂志社有限公司, named in the edition website footer; legal account ownership not separately documented",
       "relationship": "Chinese edition of Scientific American; not asserted to be the U.S. newsroom account",
       "officialness": "confirmed", "existence": "current_evidence", "accessibility": "unknown",
-      "notes": "Public profile says 《环球科学》杂志官方微博 and labels the edition 《科学美国人》中文版. Publisher homepage independently identifies the Chinese edition and company. No current posting or historical completeness claim; no post backfill attempted."
+      "notes": "Public profile says 《环球科学》杂志官方微博 and labels the edition 《科学美国人》中文版. Publisher homepage independently identifies the Chinese edition and company. Public-feed collection was executed; no historical completeness claim."
     },
     {
       "id": "mit-technology-review-china", "outlet_id": "mit-technology-review", "uid": "1738690784", "handle": null,
@@ -162,7 +162,7 @@
       "operator": "Chinese-language MIT Technology Review operation; exact current legal account operator unresolved",
       "relationship": "Chinese-language branded account; not asserted to be U.S.-newsroom-operated or to have independently verified current licensing terms",
       "officialness": "confirmed", "existence": "current_evidence", "accessibility": "unknown",
-      "notes": "Public Sina profile title names 麻省理工科技评论 and organization-naming tag explicitly says 《麻省理工科技评论》杂志官方微博. Publisher's Chinese article route returned a JavaScript shell, so current operator/licensing assertions were not inferred from search snippets. No backfill attempted."
+      "notes": "Public Sina profile title names 麻省理工科技评论 and organization-naming tag explicitly says 《麻省理工科技评论》杂志官方微博. Publisher's Chinese article route returned a JavaScript shell, so current operator/licensing assertions were not inferred from search snippets. Public-feed collection was executed; no historical completeness claim."
     },
     {
       "id": "nyt-chinese-historical", "outlet_id": "nyt", "uid": "2782194035", "handle": "nytchinese",
@@ -171,6 +171,38 @@
       "relationship": "Publisher-operated Chinese-language news edition; historical account",
       "officialness": "confirmed", "existence": "historical", "accessibility": "login_required",
       "notes": "Historical officialness is confirmed, not current survival or posting. UID resolved from the 2012-06-28 archived profile; no in-window post corpus yet established. A visitor gate does not establish deletion."
+    },
+    {
+      "id": "bloomberg-china", "outlet_id": "bloomberg", "uid": "5076455752", "handle": "chinabloomberg",
+      "display_name": "彭博Bloomberg", "profile_url": "https://weibo.com/chinabloomberg", "language": "zh-Hans",
+      "operator": "Bloomberg China branded operation, linked by Bloomberg's Chinese corporate website; exact legal account-owning entity not established",
+      "relationship": "Bloomberg Chinese-language corporate/news brand account; not conflated with Bloomberg Businessweek's separately licensed editions",
+      "officialness": "confirmed", "existence": "current_evidence", "accessibility": "unknown",
+      "notes": "Publisher about page links to chinabloomberg; 2022 archived profile binds UID 5076455752. Current Sina profile title, bio and explicit official-account tag agree. Direct Weibo access not attempted; live syndicated posting does not establish complete history."
+    },
+    {
+      "id": "china-press-weibo", "outlet_id": "china-press", "uid": "1823184085", "handle": "uschinapress",
+      "display_name": "侨报美西", "profile_url": "https://weibo.com/uschinapress", "language": "zh-Hans",
+      "operator": "Historical The China Press / 美国侨报网 account; current regional legal operator unresolved",
+      "relationship": "U.S.-based Chinese-language newspaper account, now branded 侨报美西; historically publisher-linked, not a separately licensed U.S.-brand edition",
+      "officialness": "confirmed", "existence": "historical", "accessibility": "unknown",
+      "notes": "2020 archived publisher homepage links to uschinapress. 2020-2022 archived profiles name 美国侨报网 and bind UID 1823184085. Current Sina title is 侨报美西, with a bio naming 美国侨报网 and 100 visible feed posts; current legal operation after the name change is not independently established."
+    },
+    {
+      "id": "world-journal-north-america", "outlet_id": "world-journal", "uid": "3229879502", "handle": "worldjournalnews",
+      "display_name": "北美世界日報", "profile_url": "https://weibo.com/worldjournalnews", "language": "zh-Hant",
+      "operator": "World Journal North America; exact legal account-owning entity not separately established",
+      "relationship": "U.S.-based Chinese-language newspaper's North America account; distinct from its Los Angeles regional account",
+      "officialness": "confirmed", "existence": "current_evidence", "accessibility": "unknown",
+      "notes": "Publisher's archived dedicated social page links through an image-map area to worldjournalnews. Archived profiles bind UID 3229879502; current public Sina profile explicitly states 北美世界日報官方微博 and names worldjournal.com."
+    },
+    {
+      "id": "world-journal-los-angeles", "outlet_id": "world-journal", "uid": "2514536744", "handle": "laworldjournal",
+      "display_name": "洛杉磯世界日報", "profile_url": "https://weibo.com/laworldjournal", "language": "zh-Hant",
+      "operator": "World Journal Los Angeles regional operation; exact legal account-owning entity not separately established",
+      "relationship": "U.S.-based Chinese-language newspaper's Los Angeles regional account; not an independent outlet or duplicate of the North America account",
+      "officialness": "confirmed", "existence": "current_evidence", "accessibility": "unknown",
+      "notes": "Publisher's archived dedicated social page links through an image-map area to laworldjournal. 2021 archived profile binds UID 2514536744; current public Sina profile explicitly certifies 美国洛杉矶世界日报官方微博."
     },
     {
       "id": "wsj-chinese-candidate", "outlet_id": "wsj", "uid": "1649159940", "handle": "chinesewsj",
@@ -271,6 +303,78 @@
       "source_url": "https://web.archive.org/web/20120628101255id_/http://www.weibo.com/nytchinese", "source_type": "archived_profile",
       "observed_at": "2026-10-21T00:00:00+00:00", "claim_date": "2012-06-28T10:12:55+00:00", "supports": "historical",
       "justification": "Archived nytchinese profile title names 纽约时报中文网 and $CONFIG oid is 2782194035. Binds the historically confirmed handle to a stable UID; no present-day activity claim."
+    },
+    {
+      "id": "bloomberg-china-publisher-link", "account_id": "bloomberg-china",
+      "source_url": "https://www.bloombergchina.com/about-us/", "source_type": "publisher_link",
+      "observed_at": "2026-10-21T15:17:35.196647+00:00", "claim_date": null, "supports": "identity",
+      "justification": "Directly fetched publisher-owned Chinese Bloomberg about page contains a profile anchor to https://www.weibo.com/chinabloomberg. Fetch checked publisher robots; the 151325-byte HTML was usable despite another web client receiving HTTP403."
+    },
+    {
+      "id": "bloomberg-china-archive-uid", "account_id": "bloomberg-china",
+      "source_url": "https://web.archive.org/web/20220629133800id_/https://www.weibo.com/chinabloomberg", "source_type": "archived_profile",
+      "observed_at": "2026-10-21T15:18:17.426589+00:00", "claim_date": "2022-06-29T13:38:00+00:00", "supports": "historical",
+      "justification": "Archived chinabloomberg profile title names 彭博Bloomberg and CONFIG oid is 5076455752. Fourteen verifiable account feed records have publication dates June21-29,2022. Earlier 2015/2017 captures corroborate the same UID but are outside the requested corpus."
+    },
+    {
+      "id": "bloomberg-china-current-profile", "account_id": "bloomberg-china",
+      "source_url": "https://www.sina.cn/media/5076455752", "source_type": "platform_certification",
+      "observed_at": "2026-10-21T15:18:39.805433+00:00", "claim_date": null, "supports": "identity",
+      "justification": "Direct public Sina profile title names 彭博Bloomberg, organization tag states 彭博Bloomberg官方微博, and bio describes Bloomberg's financial information/news/data business. Visible feed contains 100 entries; identity agrees with publisher-linked handle and archived UID."
+    },
+    {
+      "id": "china-press-archived-publisher-link", "account_id": "china-press-weibo",
+      "source_url": "https://web.archive.org/web/20200101140938id_/http://www.uschinapress.com/", "source_type": "publisher_link",
+      "observed_at": "2026-10-21T15:20:23.837939+00:00", "claim_date": "2020-01-01T14:09:38+00:00", "supports": "historical",
+      "justification": "Archived publisher homepage directly links to http://weibo.com/uschinapress with navigation query parameters. A 2013 archived publisher homepage independently repeats the same account link."
+    },
+    {
+      "id": "china-press-archived-uid", "account_id": "china-press-weibo",
+      "source_url": "https://web.archive.org/web/20200215021312id_/https://www.weibo.com/uschinapress", "source_type": "archived_profile",
+      "observed_at": "2026-10-21T15:20:57.045302+00:00", "claim_date": "2020-02-15T02:13:12+00:00", "supports": "historical",
+      "justification": "Archived publisher-linked uschinapress profile title is 美国侨报网 and CONFIG oid is 1823184085. Same UID recurs in usable 2021/2022 captures, each with 15 feed records."
+    },
+    {
+      "id": "china-press-current-profile", "account_id": "china-press-weibo",
+      "source_url": "https://www.sina.cn/media/1823184085", "source_type": "platform_profile",
+      "observed_at": "2026-10-21T15:21:25.824428+00:00", "claim_date": null, "supports": "access",
+      "justification": "Current public Sina profile for historical UID has title 侨报美西, bio naming 美国侨报网 and 100 feed entries. Records the renamed observable profile, not a separate assertion about current legal account ownership."
+    },
+    {
+      "id": "world-journal-na-publisher-link", "account_id": "world-journal-north-america",
+      "source_url": "https://web.archive.org/web/20200114054006id_/https://www.worldjournal.com/page-weibo/", "source_type": "publisher_link",
+      "observed_at": "2026-10-21T15:21:20.832254+00:00", "claim_date": "2020-01-14T05:40:06+00:00", "supports": "historical",
+      "justification": "Publisher's dedicated Weibo page has an HTML image-map area href pointing to https://weibo.com/worldjournalnews. This is a clickable institutional profile link, not a share button."
+    },
+    {
+      "id": "world-journal-la-publisher-link", "account_id": "world-journal-los-angeles",
+      "source_url": "https://web.archive.org/web/20200114054006id_/https://www.worldjournal.com/page-weibo/", "source_type": "publisher_link",
+      "observed_at": "2026-10-21T15:21:20.832254+00:00", "claim_date": "2020-01-14T05:40:06+00:00", "supports": "historical",
+      "justification": "Publisher's dedicated Weibo page has a separate HTML image-map area href pointing to https://weibo.com/laworldjournal, distinct from the North America account."
+    },
+    {
+      "id": "world-journal-na-archived-uid", "account_id": "world-journal-north-america",
+      "source_url": "https://web.archive.org/web/20240711045444id_/https://www.weibo.com/worldjournalnews", "source_type": "archived_profile",
+      "observed_at": "2026-10-21T15:22:36.906325+00:00", "claim_date": "2024-07-11T04:54:44+00:00", "supports": "historical",
+      "justification": "Archived worldjournalnews title names 北美世界日報 and CONFIG oid is 3229879502, with 15 recognizable feed records. A 2025 replay repeats those cached records; capture date is not latest post date."
+    },
+    {
+      "id": "world-journal-la-archived-uid", "account_id": "world-journal-los-angeles",
+      "source_url": "https://web.archive.org/web/20211209084124id_/https://www.weibo.com/laworldjournal", "source_type": "archived_profile",
+      "observed_at": "2026-10-21T15:22:46.184077+00:00", "claim_date": "2021-12-09T08:41:24+00:00", "supports": "historical",
+      "justification": "Archived laworldjournal title names 洛杉磯世界日報 and CONFIG oid is 2514536744. It contains 15 feed records published May2020; the later capture date is retained separately."
+    },
+    {
+      "id": "world-journal-na-current-profile", "account_id": "world-journal-north-america",
+      "source_url": "https://www.sina.cn/media/3229879502", "source_type": "platform_certification",
+      "observed_at": "2026-10-21T15:22:55.713155+00:00", "claim_date": null, "supports": "identity",
+      "justification": "Public Sina profile title and official tag state 北美世界日報官方微博. Bio identifies the North America Chinese-language media group and worldjournal.com, independently agreeing with the archived publisher link and UID."
+    },
+    {
+      "id": "world-journal-la-current-profile", "account_id": "world-journal-los-angeles",
+      "source_url": "https://www.sina.cn/media/2514536744", "source_type": "platform_certification",
+      "observed_at": "2026-10-21T15:23:02.049310+00:00", "claim_date": null, "supports": "identity",
+      "justification": "Public Sina profile title names 洛杉磯世界日報 and tag explicitly states 美国洛杉矶世界日报官方微博; its bio describes Los Angeles local reporting and North American Chinese audiences."
     },
     {
       "id": "wsj-archived-publisher-link", "account_id": "wsj-chinese-candidate",

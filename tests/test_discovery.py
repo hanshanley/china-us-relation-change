@@ -66,6 +66,8 @@ class DiscoveryTest(unittest.TestCase):
             '<a href>Empty attribute</a>'
         )
         self.assertEqual(parser.links, {"https://weibo.com/u/1765373140"})
+        parser.feed('<map><area href="https://weibo.com/testpublisher" shape="rect"></map>')
+        self.assertIn("https://weibo.com/testpublisher", parser.links)
         self.assertEqual(account_link("http://weibo.com/testhandle/", ""),
                          "https://weibo.com/testhandle")
         self.assertIsNone(account_link("https://user:pass@weibo.com/fake", ""))

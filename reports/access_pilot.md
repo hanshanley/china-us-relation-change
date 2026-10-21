@@ -4,6 +4,8 @@ Observed on **October 21, 2026**. These are actual network checks, not fixture
 results. Access can differ by time, region, and client. Registry evidence uses
 date-granularity observation labels at midnight UTC; exact post-source retrieval
 and capture timestamps are retained separately in the local database.
+See the [collection follow-up](collection_followup.md) for subsequent account
+discoveries, deeper verification, and the evaluation of the suggested scraper.
 
 ## Account identity
 
@@ -14,12 +16,16 @@ and capture timestamps are retained separately in the local database.
 | Harvard Business Review, Chinese edition | [Sina profile](https://www.sina.cn/media/2793358674) explicitly identifies the edition's official account; [HBR global editions](https://hbr.org/global-editions) establishes the licensing relationship | Confirmed; UID `2793358674`; exact legal account operator unresolved |
 | The New York Times, Chinese edition | [First-hand publisher confirmation to TechCrunch](https://techcrunch.com/2012/07/03/one-week-on-new-york-times-social-media-accounts-shut-down-in-china-site-still-up/); [2012 archived profile](https://web.archive.org/web/20120628101255id_/http://www.weibo.com/nytchinese) binds handle to UID | Historically confirmed; UID `2782194035`; no current-survival claim |
 | The Wall Street Journal, Chinese edition | [Archived publisher homepage, 2018](https://web.archive.org/web/20181009043938/https://cn.wsj.com/) links to `chinesewsj`; [archived platform profile, 2019](https://web.archive.org/web/20190724092335/https://www.weibo.com/chinesewsj) binds it to UID `1649159940` | Historically confirmed after expanded verification; present account availability/activity unresolved. No in-window corpus recovered. |
-| National Geographic, Chinese-language account | [Sina profile](https://www.sina.cn/media/1644225642) explicitly names 美国国家地理官方微博 | Newly confirmed; UID `1644225642`; exact legal operator unresolved; no backfill attempted |
-| Scientific American / 环球科学 | [Sina profile](https://www.sina.cn/media/1235572171) names the official magazine account and Chinese edition; [publisher homepage](https://www.huanqiukexue.com/) independently identifies the edition and company | Newly confirmed Chinese-edition account; UID `1235572171`; no backfill attempted |
-| MIT Technology Review, Chinese-language account | [Sina profile](https://www.sina.cn/media/1738690784) explicitly names 《麻省理工科技评论》杂志官方微博 | Newly confirmed; UID `1738690784`; current legal operator/licensing terms unresolved; no backfill attempted |
+| National Geographic, Chinese-language account | [Sina profile](https://www.sina.cn/media/1644225642) explicitly names 美国国家地理官方微博 | Confirmed; UID `1644225642`; exact legal operator unresolved; 100 feed entries recovered |
+| Scientific American / 环球科学 | [Sina profile](https://www.sina.cn/media/1235572171) names the official magazine account and Chinese edition; [publisher homepage](https://www.huanqiukexue.com/) independently identifies the edition and company | Confirmed Chinese-edition account; UID `1235572171`; 100 feed entries recovered |
+| MIT Technology Review, Chinese-language account | [Sina profile](https://www.sina.cn/media/1738690784) explicitly names 《麻省理工科技评论》杂志官方微博 | Confirmed; UID `1738690784`; current legal operator/licensing terms unresolved; 100 feed entries recovered |
+| Bloomberg China | [Publisher about page](https://www.bloombergchina.com/about-us/) links to `chinabloomberg`; archive and current public profile agree on UID | Confirmed; UID `5076455752`; feed and archive collection executed in follow-up |
+| The China Press / 侨报 | [Archived publisher homepage](https://web.archive.org/web/20200101140938id_/http://www.uschinapress.com/) links to `uschinapress`; archived profile binds UID | Historically confirmed; UID `1823184085`; current profile renamed 侨报美西; current legal operator unresolved |
+| World Journal North America / Los Angeles | [Archived publisher social page](https://web.archive.org/web/20200114054006id_/https://www.worldjournal.com/page-weibo/) links to both regional handles; current platform certification agrees | Confirmed; separate UIDs `3229879502` and `2514536744`; one outlet, two accounts |
 
-The roster includes U.S.-based Chinese-language outlets, but no account for
-those outlets was confirmed in this bounded pass. In particular, SinoVision /
+The initial pass did not confirm a U.S.-based Chinese-language outlet account;
+the expanded follow-up confirmed China Press and two World Journal accounts.
+SinoVision's stable account identity remains unresolved. In particular, SinoVision /
 美国中文网 and The China Press / 侨报 are separate outlets, not aliases.
 Publisher access failures and limited searches are recorded in the registry;
 they are not negative proof that accounts do not exist.
@@ -98,7 +104,7 @@ Logged-out archive templates put visible like counts inside `like_status`
 nodes on login links, rather than `fl_like` actions. Both representations are
 parsed; the four usable 2021-2026 snapshots were refreshed after this correction.
 
-## Executed collection
+## Initial executed collection (before the follow-up)
 
 The completed bounded run recovered **378 distinct posts**: 101 for Forbes
 China, 177 for Fortune China (100 public-feed posts and 77 archived posts),
