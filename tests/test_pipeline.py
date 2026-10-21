@@ -85,7 +85,8 @@ def detail(post_id=POST_ID, uid=UID, text=FULL_TEXT):
 def archived(post_id=POST_ID, uid=UID, truncated=False):
     expand = '<a action-type="fl_unfold">展开全文</a>' if truncated else ""
     return (
-        "<html><script>$CONFIG['oid']='" + uid + "';</script>"
+        "<html><head><title>测试媒体的微博_微博</title></head>"
+        "<script>$CONFIG['oid']='" + uid + "';</script>"
         f'<div class="WB_feed_type" mid="{post_id}" tbinfo="ouid={uid}">'
         '<div node-type="feed_list_content" class="WB_text">归档正文'
         '<img alt="[微笑]">' + expand + '</div>'
@@ -225,6 +226,11 @@ class PipelineTest(unittest.TestCase):
     def test_archive_capture_identity_truncation_and_idempotence(self):
         url = "https://web.archive.org/web/20200315170409id_/https://weibo.com/fixture"
         self.assertEqual(archive_time(url), "2020-03-15T17:04:09+00:00")
+        self.assertEqual(archive_time(
+            "https://web.archive.org/web/20140317074207id_/http://weibo.com:80/cnetnews"),
+            "2014-03-17T07:42:07+00:00")
+        with self.assertRaises(ValueError):
+            archive_time(url.replace("https://weibo.com/", "https://weibo.com:80/"))
         with self.assertRaises(ValueError):
             archive_time("https://web.archive.org/web/latest/https://weibo.com/fixture")
         with self.assertRaisesRegex(AccessBlocked, "different capture"):
@@ -254,6 +260,18 @@ class PipelineTest(unittest.TestCase):
         self.assertEqual(len(records), 1)
         self.assertEqual(records[0]["id"], POST_ID)
         self.assertEqual(records[0]["text"], "归档正文[微笑]")
+
+    def test_archive_rebranded_uid_is_rejected_but_reviewed_alias_is_allowed(self):
+        url = "https://web.archive.org/web/20200315170409id_/https://weibo.com/fixture"
+        changed = archived().replace("测试媒体的微博", "Unrelated Brand的微博")
+        run = collect_archive(self.db, "test-account", url, *self.bounds, FakeClient({url: changed}))
+        self.assertEqual(run["posts_recovered"], 0)
+        self.assertIn("publisher name", run["error"])
+        self.assertEqual(self.db.execute("SELECT COUNT(*) FROM posts").fetchone()[0], 0)
+        historical_alias = archived().replace("测试媒体的微博", "测试的微博")
+        run = collect_archive(
+            self.db, "test-account", url, *self.bounds, FakeClient({url: historical_alias}))
+        self.assertEqual(run["posts_recovered"], 1)
 
     def test_archive_logged_out_like_count_remains_observable(self):
         html = archived().replace(
@@ -331,6 +349,31 @@ class PipelineTest(unittest.TestCase):
         with self.assertRaises(AccessBlocked), patch.object(client.opener, "open") as request:
             client.request("https://www.sina.cn/media/" + UID)
         request.assert_not_called()
+
+    def test_declared_archive_encoding_preserves_chinese_publisher_evidence(self):
+        from email.message import Message
+
+        class Response:
+            def __init__(self, encoding="gbk", headers=None):
+                self.body = '<meta charset="gb2312"><title>科技资讯网喆</title>'.encode(encoding)
+                self.headers = headers
+
+            def __enter__(self):
+                return self
+
+            def __exit__(self, *args):
+                pass
+
+            def read(self, limit):
+                return self.body
+
+        client = PublicClient()
+        with patch.object(client.opener, "open", return_value=Response()), patch("time.sleep"):
+            self.assertIn("科技资讯网喆", client.request("https://web.archive.org/example"))
+        headers = Message()
+        headers["Content-Type"] = "text/html; charset=utf-8"
+        with patch.object(client.opener, "open", return_value=Response("utf-8", headers)), patch("time.sleep"):
+            self.assertIn("科技资讯网喆", client.request("https://web.archive.org/example"))
 
 
 if __name__ == "__main__":

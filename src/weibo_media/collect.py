@@ -207,7 +207,24 @@ class PublicClient:
                             content = compressed.read(5_000_001)
                         if len(content) > 5_000_000:
                             raise ValueError("Decompressed source exceeds response size limit")
-                    return content.decode("utf-8")
+                    headers = getattr(response, "headers", None)
+                    encoding = headers.get_content_charset() if headers is not None else None
+                    if not encoding:
+                        declared = re.search(
+                            rb"<meta\b[^>]*\bcharset\s*=\s*[\"']?\s*([A-Za-z0-9._-]+)",
+                            content[:4096], re.IGNORECASE,
+                        )
+                        encoding = declared[1].decode("ascii") if declared else "utf-8"
+                    if encoding.strip().lower() in {
+                        "chinese", "csgb2312", "csiso58gb231280", "gb2312", "gb_2312",
+                        "gb_2312-80", "gbk", "iso-ir-58", "x-gbk",
+                    }:
+                        # HTML's GBK-family labels use the gb18030 decoder.
+                        encoding = "gb18030"
+                    try:
+                        return content.decode(encoding)
+                    except LookupError:
+                        raise ValueError("Unsupported declared source encoding") from None
             except HTTPError as error:
                 if error.code in {401, 403, 406, 418, 429, 432}:
                     self.blocked = f"HTTP {error.code}; no access-control bypass attempted"

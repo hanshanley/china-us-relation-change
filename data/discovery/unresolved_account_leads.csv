@@ -1,3 +1,7 @@
 outlet_id,candidate_uid,observed_display_name,source_url,decision,reason
 fast-company,6596153448,FASTCOMPANY中文版,https://www.sina.cn/media/6596153448,unresolved_not_counted,"Current profile name alone does not bind this later UID to a publisher. Historical publisher-linked fcchinese is separately verified as UID3181199897."
 vogue,6610595351,VOGUE时尚网,https://www.sina.cn/media/6610595351,unresolved_not_counted,"Do not bind this same-named profile to voguewebsite. That publisher-linked handle resolves to a different UID1655526104, currently VogueFilm."
+sports-illustrated,7573324529,CHAMPION冠军画报,https://www.sina.cn/media/7573324529,us_brand_relationship_unresolved,"An official Chinese sports magazine profile is not proof of a Sports Illustrated license. The historical SI/Tiyu Huabao relationship does not establish continuity to this 2021-joined account."
+time,1644119190,时代周报,https://www.sina.cn/media/1644119190,excluded_wrong_publication,"This is the Guangzhou-based Chinese publication Time Weekly, not U.S. TIME magazine."
+newsweek,1642512402,中国新闻周刊,https://weibo.com/u/1642512402,excluded_wrong_publication,"China Newsweek is a separate Chinese publication, not a demonstrated U.S. Newsweek licensed edition."
+the-atlantic,6298663816,NYLON_CHINA,https://www.sina.cn/media/6298663816,excluded_wrong_publication,"The UID is independently identified as NYLON China. Its separate verified identity must not be credited to The Atlantic."

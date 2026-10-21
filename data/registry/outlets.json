@@ -174,6 +174,137 @@
       "id": "voa", "name": "Voice of America", "category": "broadcaster", "aliases": ["美国之音", "VOA"],
       "us_basis": "U.S.-based international news broadcaster.", "source_url": "https://www.voanews.com/", "research_status": "reviewed",
       "notes": "English/Chinese aliases and publisher social pages did not establish a qualifying account/UID relationship. No claim of absence or current operational status is inferred. Review date: 2026-10-21."
+    },
+    {
+      "id": "entrepreneur", "name": "Entrepreneur / historical Entrepreneur China", "category": "business",
+      "aliases": ["创业邦", "Entrepreneur China Magazine", "Cyzone"], "us_basis": "U.S. business publication with a first-party documented historical Chinese edition/license partner.",
+      "source_url": "https://www.entrepreneur.com/", "research_status": "reviewed",
+      "notes": "Cyzone's own legacy contact/copyright pages identify Entrepreneur authorization and Entrepreneur China Magazine. Public Sina institutional profile binds 创业邦 to UID1649252577 and cyzone.cn. Current Cyzone output is not asserted to be Entrepreneur U.S. newsroom content or proof of a continuing U.S. license. Review date: 2026-10-21."
+    },
+    {
+      "id": "engadget", "name": "Engadget / historical China edition", "category": "digital_news",
+      "aliases": ["engadgetChina", "Engadget中国版"], "us_basis": "U.S.-based technology news brand; historical Chinese edition was hosted on the publisher's own cn.engadget.com subdomain.",
+      "source_url": "https://www.engadget.com/", "research_status": "reviewed",
+      "notes": "2021 archived publisher homepage links weibo.com/engadget; 2020/2021 archived profiles bind UID1796783321 and provide in-window posts. Current public Sina route redirects away from supported account routes. Do not conflate with the separately operated Taiwan Cool3C / 瘾科技 site. Review date: 2026-10-21."
+    },
+    {
+      "id": "cnet", "name": "CNET / historical China operation", "category": "digital_news",
+      "aliases": ["CNET", "CNET科技资讯网", "CNETNews"], "us_basis": "U.S. technology-news publisher; archived Chinese publisher pages identify the CBS Interactive China operation.",
+      "source_url": "https://www.cnet.com/", "research_status": "reviewed",
+      "notes": "Archived CNET China homepage links cnetnews and explicitly labels an institutional Weibo widget with UID1644676117. Archived 2014 profile certifies CNET; the current UID is 科技行者, a separately branded China platform. Current 科技行者 output is not automatically U.S. CNET content. Review date: 2026-10-21."
+    },
+    {
+      "id": "zdnet", "name": "ZDNet / historical China operation", "category": "digital_news",
+      "aliases": ["ZDNet", "ZDNet至顶网"], "us_basis": "U.S. technology-news publisher; archived China profile explicitly identifies its then-U.S. CBS Interactive ownership.",
+      "source_url": "https://www.zdnet.com/", "research_status": "reviewed",
+      "notes": "Archived publisher homepage links zdnetchina and 2014 archived profile binds UID1686203097, explicitly identifying ZDNet and U.S. CBS Interactive. Current title 至顶网 omits ZDNet and is not relabeled as present-day U.S. publisher output. Review date: 2026-10-21."
+    },
+    {
+      "id": "inc", "name": "Inc. Magazine", "category": "business", "aliases": ["Inc.", "Inc.公司"],
+      "us_basis": "U.S. business magazine.", "source_url": "https://www.inc.com/", "research_status": "reviewed",
+      "notes": "Current and archived official Inc foreign-licensing lists do not name China, but that is not proof of no account or no past partnership. Retailer translation Inc.公司 is not an authenticated edition. No qualifying Weibo UID verified. Review date: 2026-10-21."
+    },
+    {
+      "id": "business-insider", "name": "Business Insider", "category": "digital_news", "aliases": ["商业内幕", "BI中文站", "BI中文网"],
+      "us_basis": "U.S.-based business/technology news publication.", "source_url": "https://www.businessinsider.com/", "research_status": "reviewed",
+      "notes": "Chinese partner/translation references, articles about Weibo and lookalike domains did not establish a publisher-bound Sina identity. Tencent content-licensing discussion is not itself account ownership evidence. Unresolved, not absent. Review date: 2026-10-21."
+    },
+    {
+      "id": "sports-illustrated", "name": "Sports Illustrated", "category": "sports_news", "aliases": ["体育画报", "SI体育画报"],
+      "us_basis": "U.S. sports-news publication with a documented historical China content/brand partnership.",
+      "source_url": "https://www.si.com/", "research_status": "reviewed",
+      "notes": "The historical SI/Tiyu Huabao partnership does not establish that today's CHAMPION冠军画报 UID7573324529 belongs to the U.S. publisher or the same licensed edition. Institutional Chinese sports-magazine identity verified only as a lead; U.S. relationship remains unresolved. Review date: 2026-10-21."
+    },
+    {
+      "id": "espn", "name": "ESPN", "category": "sports_news", "aliases": ["ESPN中文", "ESPN体育"],
+      "us_basis": "U.S. sports broadcaster/news publisher.", "source_url": "https://www.espn.com/", "research_status": "reviewed",
+      "notes": "Targeted Chinese/English institutional-account searches yielded no qualifying publisher/UID binding. Fan coverage, quotes from ESPN and Disney corporate accounts were not substituted. Unresolved, not absent. Review date: 2026-10-21."
+    },
+    {
+      "id": "time", "name": "TIME", "category": "news_magazine", "aliases": ["时代周刊", "时代杂志"],
+      "us_basis": "U.S. news magazine.", "source_url": "https://time.com/", "research_status": "reviewed",
+      "notes": "Alias/publisher searches and a December2015 publisher capture yielded no qualifying account. Chinese 时代周报/timeweekly UID1644119190 is a different Guangzhou publication and was excluded. Unresolved, not absent. Review date: 2026-10-21."
+    },
+    {
+      "id": "newsweek", "name": "Newsweek", "category": "news_magazine", "aliases": ["新闻周刊", "美国新闻周刊"],
+      "us_basis": "U.S.-based news magazine.", "source_url": "https://www.newsweek.com/", "research_status": "reviewed",
+      "notes": "Publisher/alias/archive searches yielded no qualifying account; a Weibo topic page is coverage, not ownership. 中国新闻周刊 UID1642512402 is a separate Chinese publication, not a proven U.S. Newsweek edition. Unresolved, not absent. Review date: 2026-10-21."
+    },
+    {
+      "id": "usa-today", "name": "USA TODAY", "category": "newspaper", "aliases": ["今日美国"],
+      "us_basis": "U.S. newspaper/news publisher.", "source_url": "https://www.usatoday.com/", "research_status": "reviewed",
+      "notes": "Alias, institutional-source and publisher searches plus January2016 archived homepage yielded no qualifying UID or publisher link. Pay/access restrictions and missing archive matches are not absence evidence. Review date: 2026-10-21."
+    },
+    {
+      "id": "new-york-post", "name": "New York Post", "category": "newspaper", "aliases": ["纽约邮报", "紐約郵報"],
+      "us_basis": "U.S. newspaper.", "source_url": "https://nypost.com/", "research_status": "reviewed",
+      "notes": "English/Chinese aliases, publisher contact page and December2015 archived homepage did not establish an institutional Weibo account. References inside others' posts were excluded. Unresolved, not absent. Review date: 2026-10-21."
+    },
+    {
+      "id": "los-angeles-times", "name": "Los Angeles Times", "category": "newspaper", "aliases": ["洛杉矶时报", "洛杉磯時報"],
+      "us_basis": "U.S. newspaper.", "source_url": "https://www.latimes.com/", "research_status": "reviewed",
+      "notes": "Alias/publisher/archive research produced no qualifying UID. Three numeric search hits instead identified the U.S. Embassy, Xinhua and Tesla; none was counted as a newspaper account. Unresolved, not absent. Review date: 2026-10-21."
+    },
+    {
+      "id": "chicago-tribune", "name": "Chicago Tribune", "category": "newspaper", "aliases": ["芝加哥论坛报", "芝加哥論壇報"],
+      "us_basis": "U.S. newspaper.", "source_url": "https://www.chicagotribune.com/", "research_status": "reviewed",
+      "notes": "Alias, publisher about/contact and December2015 homepage archive checks found no qualifying account/UID. No claim that every past page was inspected or that no account exists. Review date: 2026-10-21."
+    },
+    {
+      "id": "boston-globe", "name": "The Boston Globe", "category": "newspaper", "aliases": ["波士顿环球报", "波士頓環球報"],
+      "us_basis": "U.S. newspaper.", "source_url": "https://www.bostonglobe.com/", "research_status": "reviewed",
+      "notes": "Alias, publisher contact and January2016 homepage archive checks did not bind a qualifying institutional UID. Unresolved, not absent. Review date: 2026-10-21."
+    },
+    {
+      "id": "san-francisco-chronicle", "name": "San Francisco Chronicle / SFGATE", "category": "newspaper", "aliases": ["旧金山纪事报", "舊金山紀事報", "三藩市紀事報", "SFGATE"],
+      "us_basis": "U.S. newspaper/news brands under Hearst; sibling-brand identities not automatically transferred.",
+      "source_url": "https://www.sfgate.com/", "research_status": "reviewed",
+      "notes": "Both Chronicle and SFGATE source domains, aliases and sampled December2015 SFGATE archive produced no qualifying Weibo binding. Evidence for another Hearst brand is not Chronicle evidence. Unresolved, not absent. Review date: 2026-10-21."
+    },
+    {
+      "id": "the-atlantic", "name": "The Atlantic", "category": "news_magazine", "aliases": ["大西洋月刊", "大西洋杂志"],
+      "us_basis": "U.S. news/culture magazine.", "source_url": "https://www.theatlantic.com/", "research_status": "reviewed",
+      "notes": "Alias/publisher/archive searches did not verify an account. One profile result resolved to NYLON_CHINA, not The Atlantic. Translation/reading pages were not promoted. Unresolved, not absent. Review date: 2026-10-21."
+    },
+    {
+      "id": "new-yorker", "name": "The New Yorker", "category": "news_magazine", "aliases": ["纽约客", "紐約客", "纽约人"],
+      "us_basis": "U.S. news/culture magazine.", "source_url": "https://www.newyorker.com/", "research_status": "reviewed",
+      "notes": "Publisher/contact pages, aliases and January2016 homepage archive did not resolve an institution-certified or publisher-linked UID. Personal and translation accounts were excluded. Unresolved, not absent. Review date: 2026-10-21."
+    },
+    {
+      "id": "politico", "name": "POLITICO", "category": "digital_news", "aliases": ["政治报", "政客"],
+      "us_basis": "U.S.-based political-news publication.", "source_url": "https://www.politico.com/", "research_status": "reviewed",
+      "notes": "Publisher China coverage and January2016 homepage capture establish reporting, not a Chinese edition or Weibo account. Generic Chinese political terms were not treated as brand identity. Unresolved, not absent. Review date: 2026-10-21."
+    },
+    {
+      "id": "discovery-channel", "name": "Discovery Channel / China", "category": "factual_broadcaster",
+      "aliases": ["Discovery探索频道", "探索频道"], "us_basis": "U.S.-origin nonfiction/documentary media brand; Chinese-language regional account separately labeled.",
+      "source_url": "https://www.discovery.com/", "research_status": "reviewed",
+      "notes": "Public Sina institutional tag explicitly names Discovery探索频道官方微博 under UID1829451103. This is factual/documentary media, not a newly established U.S. general-news newsroom. U.S. origin is independently documented by the publisher's archived corporate announcement. Review date: 2026-10-21."
+    },
+    {
+      "id": "nylon", "name": "NYLON / China", "category": "lifestyle",
+      "aliases": ["NYLON_CHINA", "NYLON尼龙杂志中国版"], "us_basis": "U.S.-origin fashion/music/culture publication; China edition distinct from the U.S. publisher's newsroom.",
+      "source_url": "https://www.nylon.com/", "research_status": "reviewed",
+      "notes": "Public institutional profile explicitly identifies NYLON尼龙杂志中国版 under UID6298663816. First-party NYLON/BDG pages establish the media brand; exact current China licensing contract/operator is not independently established. A false Atlantic-query hit is not Atlantic evidence, but this separately researched edition has its own identity. Review date: 2026-10-21."
+    },
+    {
+      "id": "golf-magazine", "name": "GOLF Magazine / historical China edition", "category": "sports_news",
+      "aliases": ["高尔夫杂志", "Golf Magazine China Edition", "高尔夫杂志中国版"], "us_basis": "U.S. GOLF Magazine/GOLF.com brand; historical China-edition institution separately identified by a bilingual joint-project announcement.",
+      "source_url": "https://golf.com/", "research_status": "reviewed",
+      "notes": "Institutional Sina profile binds 高尔夫杂志 to UID1869615717. GGA's own 2014 bilingual announcement maps that publication to Golf Magazine China Edition, corroborated by AGIF. Current license continuity after the U.S. brand's 2018 ownership change is not independently established. Distinct from Golf Digest/高尔夫大师. Review date: 2026-10-21."
+    },
+    {
+      "id": "eurekalert", "name": "EurekAlert! / AAAS Chinese news-release service", "category": "science_news_release_service",
+      "aliases": ["EurekAlert_中文版", "EurekAlertChinese", "優睿科", "优睿科"], "us_basis": "U.S.-based AAAS science-news release service; archived publisher contact page names its Washington DC office and official Weibo link.",
+      "source_url": "https://www.eurekalert.org/", "research_status": "reviewed",
+      "notes": "An indexed current contact page used a Unicode nickname link that yielded no exact archive rows. The 2021 archived publisher contact instead exposed eurekalertchinese; archived profiles resolved UID2949617444 and provided actual posts. Current institutional profile explicitly identifies the U.S. AAAS science-news service. News-release distribution, not independent reporting or the Science journal's own account. Review date: 2026-10-21."
+    },
+    {
+      "id": "fox-sports", "name": "FOX Sports, United States", "category": "sports_news", "aliases": ["FOX体育", "福克斯体育"],
+      "us_basis": "Fox Corporation's U.S.-based sports-news/broadcast assets; distinct from former Disney-controlled regional FOX Sports operations.",
+      "source_url": "https://www.foxsports.com/", "research_status": "reviewed",
+      "notes": "Current U.S. publisher pages and 2016 Asia/2019-2020 Taiwan archived social links exposed no qualifying Sina account. Regional operations transferred to Disney in2019 and must not be automatically attributed to U.S. FOX Sports. Unresolved, not absent. Review date: 2026-10-21."
     }
   ],
   "accounts": [
@@ -336,6 +467,70 @@
       "relationship": "Chinese edition of New York-origin fashion-industry trade-news publisher WWD; not the U.S. newsroom account",
       "officialness": "confirmed", "existence": "current_evidence", "accessibility": "unknown",
       "notes": "Publisher's public common JavaScript footer explicitly names its Sina account @WWD国际时尚特讯; no script was executed. Current Sina institutional profile binds that display name to UID7207615461 and describes the WWD Chinese edition and 2019 China launch."
+    },
+    {
+      "id": "entrepreneur-china-historical", "outlet_id": "entrepreneur", "uid": "1649252577", "handle": null,
+      "display_name": "创业邦", "profile_url": "https://weibo.com/u/1649252577", "language": "zh-Hans",
+      "operator": "Cyzone / 创业邦; historical Entrepreneur China license partner, not the Entrepreneur U.S. newsroom",
+      "relationship": "Historically licensed Entrepreneur China Magazine / China partner; continuing U.S. licensing or editorial control of current Cyzone posts not established",
+      "officialness": "confirmed", "existence": "historical", "accessibility": "unknown",
+      "notes": "Public institutional profile binds 创业邦 and cyzone.cn to UID1649252577. First-party legacy Cyzone pages identify Entrepreneur authorization and Entrepreneur China Magazine. Current account is active under the Cyzone brand; posts are labeled as this local partner account, not U.S.-authored Entrepreneur reporting."
+    },
+    {
+      "id": "engadget-china-historical", "outlet_id": "engadget", "uid": "1796783321", "handle": "engadget",
+      "display_name": "engadgetChina", "profile_url": "https://weibo.com/engadget", "language": "zh-Hans",
+      "operator": "Historical Engadget China publisher operation on cn.engadget.com; current account availability unresolved",
+      "relationship": "Publisher-owned Chinese-language technology-news edition; not Taiwan Cool3C's later independent 瘾科技 operation",
+      "officialness": "confirmed", "existence": "historical", "accessibility": "unknown",
+      "notes": "2021 archived cn.engadget.com navigation directly links weibo.com/engadget. 2020 and2021 archived profiles bind UID1796783321 and contain in-window feed records. Current Sina route redirected; a 2025 archive shell lacked an owner marker and was not treated as a usable profile."
+    },
+    {
+      "id": "cnet-china-historical", "outlet_id": "cnet", "uid": "1644676117", "handle": "cnetnews",
+      "display_name": "CNET", "profile_url": "https://weibo.com/cnetnews", "language": "zh-Hans",
+      "operator": "Historical CBS Interactive China / CNET科技资讯网; current UID is branded 科技行者",
+      "relationship": "Historical U.S. technology-news publisher's China operation; current independently branded Chinese output is excluded from CNET attribution",
+      "officialness": "confirmed", "existence": "historical", "accessibility": "unknown",
+      "notes": "2015 publisher page labels its CNET官方微博 widget with UID1644676117 and links cnetnews. 2014 archived profile title CNET and institution text explicitly name CNET官方微博. Current title 科技行者 must fail publisher-name validation in live and archived collection."
+    },
+    {
+      "id": "zdnet-china-historical", "outlet_id": "zdnet", "uid": "1686203097", "handle": "zdnetchina",
+      "display_name": "ZDNet", "profile_url": "https://weibo.com/zdnetchina", "language": "zh-Hans",
+      "operator": "Historical CBS Interactive China / ZDNet至顶网; current UID is branded 至顶网",
+      "relationship": "Historical U.S. technology-news publisher's Chinese operation; current local-brand output is not automatically ZDNet U.S. content",
+      "officialness": "confirmed", "existence": "historical", "accessibility": "unknown",
+      "notes": "2014 publisher homepage links zdnetchina; archived profile binds UID1686203097 and explicitly names ZDNet官方微博 and then-U.S. CBS Interactive ownership. Current public title 至顶网 must not be silently substituted for the registered historical publisher identity."
+    },
+    {
+      "id": "discovery-china", "outlet_id": "discovery-channel", "uid": "1829451103", "handle": null,
+      "display_name": "Discovery探索频道", "profile_url": "https://weibo.com/u/1829451103", "language": "zh-Hans",
+      "operator": "Chinese-language Discovery brand operation; exact legal account owner unresolved",
+      "relationship": "Regional account of U.S.-origin factual/documentary broadcaster; not represented as an English-language general-news newsroom",
+      "officialness": "confirmed", "existence": "current_evidence", "accessibility": "unknown",
+      "notes": "Public institution tag explicitly states Discovery探索频道官方微博. Bio describes its global factual/real-life content brand. Native account output can include brand marketing; no claim that every post is news reporting."
+    },
+    {
+      "id": "nylon-china", "outlet_id": "nylon", "uid": "6298663816", "handle": null,
+      "display_name": "NYLON_CHINA", "profile_url": "https://weibo.com/u/6298663816", "language": "zh-Hans",
+      "operator": "NYLON China local-edition operation; exact current legal account owner and licensing terms unresolved",
+      "relationship": "Institutionally identified Chinese fashion/music/culture edition of the U.S.-origin NYLON brand, not the U.S. editorial account",
+      "officialness": "confirmed", "existence": "current_evidence", "accessibility": "unknown",
+      "notes": "Public Sina institutional descriptor explicitly identifies NYLON尼龙杂志中国版 under this UID. Categorized as specialist lifestyle media, not an additional general-news newspaper; current U.S. editorial control is not inferred."
+    },
+    {
+      "id": "golf-china-historical", "outlet_id": "golf-magazine", "uid": "1869615717", "handle": null,
+      "display_name": "高尔夫杂志", "profile_url": "https://weibo.com/u/1869615717", "language": "zh-Hans",
+      "operator": "高尔夫杂志 / historical Golf Magazine China Edition; exact legal account owner not separately established",
+      "relationship": "Historically identified GOLF Magazine China Edition; current post-2018 U.S. license renewal/editorial control not established",
+      "officialness": "confirmed", "existence": "historical", "accessibility": "unknown",
+      "notes": "Public institutional tag explicitly says 《高尔夫》杂志官方微博. GGA's first-party bilingual project announcement maps 高尔夫杂志中国版 to Golf Magazine China Edition; AGIF independently names the same collaborator. This is not Golf Digest. Current local account activity does not independently prove U.S. license renewal."
+    },
+    {
+      "id": "eurekalert-chinese", "outlet_id": "eurekalert", "uid": "2949617444", "handle": "eurekalertchinese",
+      "display_name": "EurekAlert_中文版", "profile_url": "https://weibo.com/eurekalertchinese", "language": "zh-Hans",
+      "operator": "EurekAlert! / American Association for the Advancement of Science (AAAS)",
+      "relationship": "Chinese-language channel of a U.S.-based science-news release service; not the Science research journal or an independent-newsroom feed",
+      "officialness": "confirmed", "existence": "current_evidence", "accessibility": "unknown",
+      "notes": "2021 publisher contact page directly names the ASCII Weibo handle. 2022/2023 archived profiles bind UID2949617444 and contain in-window posts. Current public bio identifies the AAAS-founded science-news service and institutional tag says 美国科学促进会 AAAS 全球科学新闻服务平台. Release distribution must remain distinguished from original news reporting."
     },
     {
       "id": "wsj-chinese-candidate", "outlet_id": "wsj", "uid": "1649159940", "handle": "chinesewsj",
@@ -676,6 +871,156 @@
       "source_url": "https://www.sina.cn/media/7207615461", "source_type": "platform_profile",
       "observed_at": "2026-10-21T16:51:26.439542+00:00", "claim_date": null, "supports": "relationship",
       "justification": "Public title WWD国际时尚特讯 matches the publisher-declared Weibo name. Institutional tag names WWD中文版; bio identifies Women's Wear Daily's New York origins, its fashion-industry news role and 2019 China launch. This is a Chinese trade-news edition, not the U.S. newsroom."
+    },
+    {
+      "id": "entrepreneur-cyzone-platform-identity", "account_id": "entrepreneur-china-historical",
+      "source_url": "https://www.sina.cn/media/1649252577.html", "source_type": "platform_certification",
+      "observed_at": "2026-10-21T00:00:00+00:00", "claim_date": null, "supports": "identity",
+      "justification": "Public institutional profile names 创业邦官方微博, gives cyzone.cn as its website and binds the institution to UID1649252577. Current Cyzone activity is not evidence of current U.S. Entrepreneur editorial control."
+    },
+    {
+      "id": "entrepreneur-cyzone-license", "account_id": "entrepreneur-china-historical",
+      "source_url": "https://demochina.cyzone.cn/contact.html", "source_type": "publisher_statement",
+      "observed_at": "2026-10-21T00:00:00+00:00", "claim_date": null, "supports": "relationship",
+      "justification": "Cyzone's own legacy contact page describes 创业邦 as Entrepreneur Group's exclusive authorized China partner. Treated as historical licensing evidence, not proof of a continuing current U.S. license."
+    },
+    {
+      "id": "entrepreneur-china-magazine-name", "account_id": "entrepreneur-china-historical",
+      "source_url": "https://demochina.cyzone.cn/2013/en/contact.html", "source_type": "publisher_statement",
+      "observed_at": "2026-10-21T00:00:00+00:00", "claim_date": null, "supports": "relationship",
+      "justification": "First-party English event/contact page explicitly calls the publication Entrepreneur China Magazine. Distinguishes a historical edition identity from mere occasional syndication or a retailer's translated magazine title."
+    },
+    {
+      "id": "entrepreneur-cyzone-copyright", "account_id": "entrepreneur-china-historical",
+      "source_url": "https://special.cyzone.cn/special/index/type?type_id=747", "source_type": "publisher_statement",
+      "observed_at": "2026-10-21T00:00:00+00:00", "claim_date": null, "supports": "relationship",
+      "justification": "Cyzone's copyright statement identifies authorized Entrepreneur magazine/website material. This alone does not establish that all original Cyzone stories were produced by Entrepreneur U.S."
+    },
+    {
+      "id": "engadget-publisher-account-link", "account_id": "engadget-china-historical",
+      "source_url": "https://web.archive.org/web/20210102052612id_/https://cn.engadget.com/", "source_type": "publisher_link",
+      "observed_at": "2026-10-21T17:18:59.453582+00:00", "claim_date": "2021-01-02T05:26:12+00:00", "supports": "historical",
+      "justification": "Archived Engadget中国版 on the publisher-owned cn.engadget.com subdomain directly links https://www.weibo.com/engadget in institutional navigation. Numerous article share buttons were separately excluded."
+    },
+    {
+      "id": "engadget-archive-uid-2020", "account_id": "engadget-china-historical",
+      "source_url": "https://web.archive.org/web/20200324161526id_/https://www.weibo.com/engadget", "source_type": "archived_profile",
+      "observed_at": "2026-10-21T17:21:05.111319+00:00", "claim_date": "2020-03-24T16:15:26+00:00", "supports": "historical",
+      "justification": "Publisher-linked handle's archived profile title is engadgetChina and CONFIG oid1796783321. It contains 15 recognizable feed records published March4-21,2020."
+    },
+    {
+      "id": "engadget-archive-uid-2021", "account_id": "engadget-china-historical",
+      "source_url": "https://web.archive.org/web/20210718020644id_/https://weibo.com/engadget", "source_type": "archived_profile",
+      "observed_at": "2026-10-21T17:21:10.065057+00:00", "claim_date": "2021-07-18T02:06:44+00:00", "supports": "historical",
+      "justification": "Second archived profile repeats engadgetChina and UID1796783321, with 15 recognizable feed records published July15-16,2021. A 2025 generic shell did not establish current account status."
+    },
+    {
+      "id": "cnet-publisher-weibo-widget", "account_id": "cnet-china-historical",
+      "source_url": "https://web.archive.org/web/20150101234602id_/http://www.cnetnews.com.cn/", "source_type": "publisher_link",
+      "observed_at": "2026-10-21T17:23:12.302885+00:00", "claim_date": "2015-01-01T23:46:02+00:00", "supports": "historical",
+      "justification": "Archived CNET科技资讯网 publisher homepage directly links e.weibo.com/cnetnews and labels a CNET官方微博 widget whose iframe specifies uid1644676117. This is an institutional timeline widget, not a share button."
+    },
+    {
+      "id": "cnet-archived-platform-identity", "account_id": "cnet-china-historical",
+      "source_url": "https://web.archive.org/web/20140317074207id_/http://weibo.com:80/cnetnews", "source_type": "platform_certification",
+      "observed_at": "2026-10-21T17:28:24.506265+00:00", "claim_date": "2014-03-17T07:42:07+00:00", "supports": "historical",
+      "justification": "Exact default-port-preserving archive title is CNET的微博, CONFIG oid1644676117 and institutional text explicitly identifies CNETwww.cnetnews.com.cn官方微博. No capture timestamp or original URL was guessed."
+    },
+    {
+      "id": "cnet-current-uid-rebrand", "account_id": "cnet-china-historical",
+      "source_url": "https://www.sina.cn/media/1644676117", "source_type": "platform_profile",
+      "observed_at": "2026-10-21T17:25:20.871824+00:00", "claim_date": null, "supports": "access",
+      "justification": "Current UID is named 科技行者 and describes a Chinese technology-media platform, not CNET. Current independently branded content must not be imported as historical U.S. publisher output solely because UID is unchanged."
+    },
+    {
+      "id": "zdnet-publisher-account-link", "account_id": "zdnet-china-historical",
+      "source_url": "https://web.archive.org/web/20140101041452id_/http://www.zdnet.com.cn/", "source_type": "publisher_link",
+      "observed_at": "2026-10-21T17:27:44.687837+00:00", "claim_date": "2014-01-01T04:14:52+00:00", "supports": "historical",
+      "justification": "Archived ZDNet China institutional navigation links weibo.com/zdnetchina as @zdnet; footer explicitly names CBS Interactive copyright and the local China operation."
+    },
+    {
+      "id": "zdnet-archived-platform-identity", "account_id": "zdnet-china-historical",
+      "source_url": "https://web.archive.org/web/20140117000909id_/http://www.weibo.com/zdnetchina", "source_type": "platform_certification",
+      "observed_at": "2026-10-21T17:28:29.415881+00:00", "claim_date": "2014-01-17T00:09:09+00:00", "supports": "historical",
+      "justification": "Archived profile title ZDNet, CONFIG oid1686203097, institutional label ZDNet官方微博 and bio explicitly state its then-U.S. CBS Interactive relationship."
+    },
+    {
+      "id": "zdnet-current-uid-rebrand", "account_id": "zdnet-china-historical",
+      "source_url": "https://www.sina.cn/media/1686203097", "source_type": "platform_profile",
+      "observed_at": "2026-10-21T17:25:28.088491+00:00", "claim_date": null, "supports": "access",
+      "justification": "Current UID is named 至顶网 and describes an AI industry-service organization. It is not automatically the current U.S. ZDNet publication; registry retains the historical publisher name for collection validation."
+    },
+    {
+      "id": "discovery-platform-identity", "account_id": "discovery-china",
+      "source_url": "https://www.sina.cn/media/1829451103", "source_type": "platform_certification",
+      "observed_at": "2026-10-21T17:38:46.928715+00:00", "claim_date": null, "supports": "identity",
+      "justification": "Public title Discovery探索频道 and institution tag explicitly state Discovery探索频道官方微博. UID is a named regional media-brand identity, not inferred solely from a logo or a mention in another account's post."
+    },
+    {
+      "id": "discovery-us-nonfiction-origin", "account_id": "discovery-china",
+      "source_url": "https://ir.wbd.com/news-and-events/financial-news/financial-news-details/2008/Discovery-Communications-Begins-Trading-as-a-Public-Company/default.aspx", "source_type": "publisher_statement",
+      "observed_at": "2026-10-21T00:00:00+00:00", "claim_date": "2008-09-18", "supports": "relationship",
+      "justification": "Publisher corporate announcement documents Discovery Channel's 1985 U.S. launch and its nonfiction-media business. Historical origin statement, not present-day audience or ownership metrics."
+    },
+    {
+      "id": "nylon-china-platform-identity", "account_id": "nylon-china",
+      "source_url": "https://www.sina.cn/media/6298663816", "source_type": "platform_certification",
+      "observed_at": "2026-10-21T17:38:53.101555+00:00", "claim_date": null, "supports": "identity",
+      "justification": "Public institutional descriptor explicitly names NYLON尼龙杂志中国版 and resolves the NYLON_CHINA display name to UID6298663816. This does not bind the profile to The Atlantic or establish U.S. editorial control."
+    },
+    {
+      "id": "nylon-first-party-brand", "account_id": "nylon-china",
+      "source_url": "https://www.bdg.com/nylon", "source_type": "publisher_statement",
+      "observed_at": "2026-10-21T00:00:00+00:00", "claim_date": null, "supports": "relationship",
+      "justification": "BDG's own NYLON brand page identifies the fashion/culture/music publication. Used to establish brand context, not a claim that this page itself proves the China account's legal licensing agreement."
+    },
+    {
+      "id": "golf-china-platform-identity", "account_id": "golf-china-historical",
+      "source_url": "https://www.sina.cn/media/1869615717", "source_type": "platform_certification",
+      "observed_at": "2026-10-21T00:00:00+00:00", "claim_date": null, "supports": "identity",
+      "justification": "Public institutional profile explicitly names 《高尔夫》杂志官方微博 under UID1869615717. Current October2026 local account activity is not itself proof of a continuing U.S. licensing agreement."
+    },
+    {
+      "id": "golf-china-bilingual-edition-bridge", "account_id": "golf-china-historical",
+      "source_url": "https://ggapartners.com/wp-content/uploads/2014/10/Press-Release_GGA_Institute-for-Best-Practice-Launch_October-8-2014_English-Mandarin.pdf", "source_type": "partner_statement",
+      "observed_at": "2026-10-21T00:00:00+00:00", "claim_date": "2014-10-08", "supports": "relationship",
+      "justification": "Joint-project organizer's original bilingual announcement directly maps the English participant Golf Magazine China Edition to 高尔夫杂志中国版. Establishes historical institutional edition identity, not present legal license renewal."
+    },
+    {
+      "id": "golf-china-agif-corroboration", "account_id": "golf-china-historical",
+      "source_url": "https://agif.asia/2014/10/agif-supports-new-institute-for-best-practice/", "source_type": "partner_statement",
+      "observed_at": "2026-10-21T00:00:00+00:00", "claim_date": "2014-10-12", "supports": "relationship",
+      "justification": "Asian Golf Industry Federation's own announcement names Golf Magazine China Edition as the institutional project collaborator. Not a magazine retailer or third-party translation label."
+    },
+    {
+      "id": "golf-us-brand-ownership-change", "account_id": "golf-china-historical",
+      "source_url": "https://www.prnewswire.com/news-releases/howard-milstein-and-emigrant-capital-purchase-golf-magazine-and-golfcom-300595254.html", "source_type": "publisher_statement",
+      "observed_at": "2026-10-21T00:00:00+00:00", "claim_date": "2018-02-07", "supports": "relationship",
+      "justification": "Buyer's issued announcement documents acquisition of the U.S. GOLF Magazine/GOLF.com brand. Earlier China-edition evidence does not establish renewal following this ownership change."
+    },
+    {
+      "id": "eurekalert-publisher-ascii-account-link", "account_id": "eurekalert-chinese",
+      "source_url": "https://web.archive.org/web/20210815075434id_/https://www.eurekalert.org/language/chinese/contact", "source_type": "publisher_link",
+      "observed_at": "2026-10-21T17:52:42.227200+00:00", "claim_date": "2021-08-15T07:54:34+00:00", "supports": "historical",
+      "justification": "Archived first-party AAAS/EurekAlert Chinese contact page explicitly links weibo.com/eurekalertchinese in the Weibo section and institutional sidebar. Its Washington DC AAAS office address independently supports U.S. inclusion."
+    },
+    {
+      "id": "eurekalert-2022-profile-uid", "account_id": "eurekalert-chinese",
+      "source_url": "https://web.archive.org/web/20220519204131id_/https://www.weibo.com/eurekalertchinese", "source_type": "archived_profile",
+      "observed_at": "2026-10-21T17:52:58.067553+00:00", "claim_date": "2022-05-19T20:41:31+00:00", "supports": "historical",
+      "justification": "Publisher-linked handle's archived title is EurekAlert_中文版; CONFIG oid2949617444 and15 recognizable feed records bind the numeric account to the service. Publication dates differ from capture date."
+    },
+    {
+      "id": "eurekalert-2023-profile-uid", "account_id": "eurekalert-chinese",
+      "source_url": "https://web.archive.org/web/20230510153431id_/https://www.weibo.com/eurekalertchinese", "source_type": "archived_profile",
+      "observed_at": "2026-10-21T17:53:02.530004+00:00", "claim_date": "2023-05-10T15:34:31+00:00", "supports": "historical",
+      "justification": "Second archive repeats the same publisher name and UID, with15 recognizable records published in2022-2023. Empty searches for the different Unicode nickname route were not treated as account absence."
+    },
+    {
+      "id": "eurekalert-current-institution", "account_id": "eurekalert-chinese",
+      "source_url": "https://www.sina.cn/media/2949617444", "source_type": "platform_certification",
+      "observed_at": "2026-10-21T17:53:56.155718+00:00", "claim_date": null, "supports": "identity",
+      "justification": "Public institutional tag explicitly names 美国科学促进会 AAAS 全球科学新闻服务平台; bio identifies the AAAS-founded news-release service and its role distributing research leads. This is not the Science journal's separate editorial account."
     },
     {
       "id": "wsj-archived-publisher-link", "account_id": "wsj-chinese-candidate",

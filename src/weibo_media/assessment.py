@@ -167,7 +167,7 @@ def account_assessments(db, roster, screening, checks):
         matched = mapping.get(row["domain"], [])
         manual = [{
             "outlet_id": outlet["id"], "research_status": outlet["research_status"],
-            "notes": outlet["notes"], "us_basis": outlet["us_basis"],
+            "category": outlet["category"], "notes": outlet["notes"], "us_basis": outlet["us_basis"],
         } for outlet in outlets.values() if outlet_domain(outlet) == row["domain"]]
         confirmed = [a for a in matched if a["officialness"] == "confirmed"]
         candidates = checks[row["domain"]]["candidate_links"]

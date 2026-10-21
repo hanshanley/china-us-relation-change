@@ -16,7 +16,8 @@ ARCHIVE_LIMITATIONS = (
 
 def archive_time(url):
     match = re.fullmatch(
-        r"https://web\.archive\.org/web/([0-9]{14})id_/https?://(?:www\.)?weibo\.com/"
+        r"https://web\.archive\.org/web/([0-9]{14})id_/"
+        r"(?:http://(?:www\.)?weibo\.com(?::80)?|https://(?:www\.)?weibo\.com(?::443)?)/"
         r"(?:u/[0-9]+|[A-Za-z0-9_]+)", url)
     if not match:
         raise ValueError("Expected a Wayback id_ profile replay URL with a 14-digit capture timestamp")
@@ -50,11 +51,16 @@ class ArchiveClient(PublicClient):
         return html
 
 
-def parse_archive(html, expected_uid):
+def parse_archive(html, expected_uid, expected_names=None):
     owner = re.search(r"\$CONFIG\[['\"]oid['\"]\]\s*=\s*['\"]([0-9]+)['\"]", html)
     if not owner or owner[1] != expected_uid:
         raise ValueError("Archived profile owner UID mismatch or missing")
     root = HTMLTree(html).root
+    if expected_names:
+        heads = [node for node in root.walk() if node.tag == "head"]
+        titles = [node.text() for head in heads for node in head.walk() if node.tag == "title"]
+        if not any(title.startswith(name + "的微博") for name in expected_names for title in titles):
+            raise ValueError("Archived profile publisher name does not match the registry")
     items = root.find("WB_feed_type")
     if not items:
         fragments = []
@@ -130,7 +136,10 @@ def collect_archive(db, account_id, url, start, end, client):
         recovered = 0
         retrieved_at = now()
         with db:
-            for record in parse_archive(html, account["uid"]):
+            aliases = json.loads(db.execute(
+                "SELECT aliases FROM outlets WHERE id=?", (account["outlet_id"],)
+            ).fetchone()[0])
+            for record in parse_archive(html, account["uid"], [account["display_name"]] + aliases):
                 record.update(source_url=url, source_type="archive",
                               retrieved_at=retrieved_at, captured_at=captured_at)
                 post = normalize(record, account, start, end)
