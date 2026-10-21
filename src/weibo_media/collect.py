@@ -1,4 +1,5 @@
 import gzip
+import io
 import json
 import re
 import time
@@ -192,9 +193,9 @@ class PublicClient:
     def request(self, url):
         if self.blocked:
             raise AccessBlocked(self.blocked)
-        time.sleep(max(0, self.delay - (time.monotonic() - self.last_request)))
-        self.last_request = time.monotonic()
         for attempt in range(3):
+            time.sleep(max(0, self.delay - (time.monotonic() - self.last_request)))
+            self.last_request = time.monotonic()
             try:
                 with self.opener.open(Request(url, headers={"User-Agent": USER_AGENT}),
                                       timeout=30) as response:
@@ -202,7 +203,8 @@ class PublicClient:
                     if len(content) > 5_000_000:
                         raise ValueError("Source exceeds response size limit")
                     if content[:2] == b"\x1f\x8b":
-                        content = gzip.decompress(content)
+                        with gzip.GzipFile(fileobj=io.BytesIO(content)) as compressed:
+                            content = compressed.read(5_000_001)
                         if len(content) > 5_000_000:
                             raise ValueError("Decompressed source exceeds response size limit")
                     return content.decode("utf-8")
@@ -275,6 +277,15 @@ def normalize(record, account, start, end):
         raise ValueError("Archived posts require their capture timestamp")
     if record.get("captured_at") and utc > record["captured_at"]:
         raise ValueError("Post publication cannot follow source capture")
+    if record.get("captured_at") and record["captured_at"] > record["retrieved_at"]:
+        raise ValueError("Source capture cannot follow retrieval")
+    reference = record.get("referenced_id")
+    if reference is not None and (not isinstance(reference, str) or
+                                  not re.fullmatch(r"[0-9]+", reference)):
+        raise ValueError("Referenced post ID must be a numeric string or null")
+    commentary = record.get("repost_commentary")
+    if commentary is not None and not isinstance(commentary, str):
+        raise ValueError("Repost commentary must be a string or null")
     if record.get("redistribution", "unknown") not in {"unknown", "permitted", "restricted"}:
         raise ValueError("Unsupported redistribution status")
     for key in ("likes", "comments", "reposts"):

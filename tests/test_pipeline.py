@@ -1,4 +1,3 @@
-import copy
 import csv
 import gzip
 import json
@@ -6,11 +5,12 @@ import tempfile
 import unittest
 from pathlib import Path
 from unittest.mock import patch
+from urllib.request import Request
 
 from weibo_media.archive import archive_time, collect_archive, parse_archive
 from weibo_media.cli import main
 from weibo_media.collect import (
-    AccessBlocked, PublicClient, collect_account, import_posts, normalize,
+    AccessBlocked, PublicClient, SameHostRedirect, collect_account, import_posts, normalize,
     parse_detail, parse_feed, window,
 )
 from weibo_media.export import export
@@ -217,6 +217,10 @@ class PipelineTest(unittest.TestCase):
         self.assertEqual(archive_time(url), "2020-03-15T17:04:09+00:00")
         with self.assertRaises(ValueError):
             archive_time("https://web.archive.org/web/latest/https://weibo.com/fixture")
+        with self.assertRaisesRegex(AccessBlocked, "different capture"):
+            SameHostRedirect().redirect_request(
+                Request(url), None, 302, "Found", {},
+                url.replace("20200315170409", "20200316170409"))
         with self.assertRaisesRegex(ValueError, "owner UID"):
             parse_archive(archived(uid="999"), UID)
         self.assertEqual(parse_archive(archived(truncated=True), UID)[0]["text_status"], "truncated")
@@ -231,6 +235,24 @@ class PipelineTest(unittest.TestCase):
         self.assertEqual(observation["likes"], 3)
         self.assertIsNone(observation["comments"])
         self.assertEqual(self.db.execute("SELECT COUNT(*) FROM posts").fetchone()[0], 1)
+
+    def test_archive_json_embedded_feed_is_decoded_without_executing_scripts(self):
+        fragment = archived().split("</script>", 1)[1].removesuffix("</html>")
+        html = ("<script>$CONFIG['oid']='" + UID + "';</script>"
+                "<script>FM.view(" + json.dumps({"html": fragment}) + ");</script>")
+        records = parse_archive(html, UID)
+        self.assertEqual(len(records), 1)
+        self.assertEqual(records[0]["id"], POST_ID)
+        self.assertEqual(records[0]["text"], "归档正文[微笑]")
+
+    def test_archive_logged_out_like_count_remains_observable(self):
+        html = archived().replace(
+            '<a action-type="fl_like">赞 3</a>',
+            '<div class="WB_feed_handle"><a action-type="login">'
+            '<span node-type="like_status">&#241;2034</span></a></div>'
+            '<span node-type="like_status">99</span>',
+        )
+        self.assertEqual(parse_archive(html, UID)[0]["likes"], 2034)
 
     def test_full_text_csv_jsonl_roundtrip_public_omissions_and_import_rollback(self):
         post = normalize(record(), self.account, *self.bounds)

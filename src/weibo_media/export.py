@@ -22,7 +22,8 @@ def coverage(db):
                COUNT(p.id) AS recovered_posts,
                MIN(p.published_utc) AS earliest_observed_post,
                MAX(p.published_utc) AS latest_observed_post,
-               r.status AS latest_run_status, r.error AS latest_error,
+               r.status AS latest_run_status, r.source_type AS latest_run_source,
+               r.error AS latest_error,
                r.window_start, r.window_end, r.limitations
         FROM accounts a LEFT JOIN posts p ON p.account_id=a.id
         LEFT JOIN runs r ON r.id=(

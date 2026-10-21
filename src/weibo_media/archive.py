@@ -1,3 +1,4 @@
+import json
 import re
 from datetime import datetime, timezone
 from urllib.robotparser import RobotFileParser
@@ -54,8 +55,19 @@ def parse_archive(html, expected_uid):
     if not owner or owner[1] != expected_uid:
         raise ValueError("Archived profile owner UID mismatch or missing")
     root = HTMLTree(html).root
+    items = root.find("WB_feed_type")
+    if not items:
+        fragments = []
+        for match in re.finditer(r"FM\.view\(\s*", html):
+            try:
+                document, _ = json.JSONDecoder().raw_decode(html[match.end():])
+            except ValueError:
+                continue
+            if isinstance(document, dict) and isinstance(document.get("html"), str):
+                fragments.append(document["html"])
+        items = HTMLTree("".join(fragments)).root.find("WB_feed_type")
     records = []
-    for item in root.find("WB_feed_type"):
+    for item in items:
         authors = dict(re.findall(r"([a-z]+)=([0-9]+)", item.attrs.get("tbinfo", "")))
         if authors.get("ouid") != expected_uid:
             continue
@@ -83,9 +95,13 @@ def parse_archive(html, expected_uid):
             "repost_commentary": own_text if is_repost else None,
             "likes": None, "comments": None, "reposts": None,
         }
-        for node in item.walk():
+        handles = item.find("WB_feed_handle")
+        metric_root = handles[0] if handles else item
+        for node in metric_root.walk():
             action = node.attrs.get("action-type")
             metric = {"fl_forward": "reposts", "fl_comment": "comments", "fl_like": "likes"}.get(action)
+            if node.attrs.get("node-type") == "like_status":
+                metric = "likes"
             if metric:
                 values = re.findall(r"(?<![0-9])[0-9]+(?![0-9])", node.text())
                 if len(values) == 1 and not any(unit in node.text() for unit in ("万", "亿", ".")):

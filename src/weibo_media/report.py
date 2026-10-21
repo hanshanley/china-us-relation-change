@@ -71,7 +71,8 @@ def report(db, path):
     for row in coverage(db):
         lines.append("| " + " | ".join(cell(value) for value in (
             row["account_id"], row["recovered_posts"], row["earliest_observed_post"],
-            row["latest_observed_post"], row["latest_run_status"] or "not attempted",
+            row["latest_observed_post"],
+            f"{row['latest_run_source']}: {row['latest_run_status']}" if row["latest_run_status"] else "not attempted",
             row["latest_error"] or row["limitations"] or "Not collected",
         )) + " |")
     lines += ["", "### Text completeness", "",

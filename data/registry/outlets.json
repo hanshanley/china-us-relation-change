@@ -123,12 +123,12 @@
       "notes": "Public Sina profile explicitly says 《哈佛商业评论》中文版官方微博. This evidence is syndicated platform certification; direct Weibo access was not separately tested for this account."
     },
     {
-      "id": "nyt-chinese-historical", "outlet_id": "nyt", "uid": null, "handle": "nytchinese",
+      "id": "nyt-chinese-historical", "outlet_id": "nyt", "uid": "2782194035", "handle": "nytchinese",
       "display_name": "The New York Times Chinese / nytchinese", "profile_url": "https://weibo.com/nytchinese", "language": "zh-Hans",
       "operator": "The New York Times Chinese-language edition, historically confirmed by the publisher to TechCrunch",
       "relationship": "Publisher-operated Chinese-language news edition; historical account",
       "officialness": "confirmed", "existence": "historical", "accessibility": "login_required",
-      "notes": "Historical officialness is confirmed, not current survival or posting. No stable UID or in-window post corpus yet established. A visitor gate does not establish deletion."
+      "notes": "Historical officialness is confirmed, not current survival or posting. UID resolved from the 2012-06-28 archived profile; no in-window post corpus yet established. A visitor gate does not establish deletion."
     },
     {
       "id": "wsj-chinese-candidate", "outlet_id": "wsj", "uid": "1649159940", "handle": null,
@@ -199,6 +199,12 @@
       "source_url": "https://techcrunch.com/2012/07/03/one-week-on-new-york-times-social-media-accounts-shut-down-in-china-site-still-up/", "source_type": "direct_confirmation",
       "observed_at": "2026-10-21T00:00:00+00:00", "claim_date": "2012-07-03", "supports": "historical",
       "justification": "TechCrunch reports the Times directly confirmed ownership of nytchinese. This establishes historical officialness only."
+    },
+    {
+      "id": "nyt-archive-uid", "account_id": "nyt-chinese-historical",
+      "source_url": "https://web.archive.org/web/20120628101255id_/http://www.weibo.com/nytchinese", "source_type": "archived_profile",
+      "observed_at": "2026-10-21T00:00:00+00:00", "claim_date": "2012-06-28T10:12:55+00:00", "supports": "historical",
+      "justification": "Archived nytchinese profile title names 纽约时报中文网 and $CONFIG oid is 2782194035. Binds the historically confirmed handle to a stable UID; no present-day activity claim."
     },
     {
       "id": "wsj-original-research", "account_id": "wsj-chinese-candidate",
