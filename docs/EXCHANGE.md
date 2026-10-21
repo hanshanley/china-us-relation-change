@@ -118,9 +118,11 @@ IIE's reviewed 2025 PDFs are re-fetched daily, but discovering/accepting a **new
 annual edition requires manual review**. Update its URLs and parser only after
 checking the new report's table layout and definitions. Some official index
 pages return 403; do not bypass those restrictions. Macau's selected-market
-PDFs can omit the U.S. or rasterize tables; unextractable values remain missing,
-not zero. Its adapter covers annual December reports, not current monthly
-highlights. The coverage matrix exposes those limits.
+PDFs can omit the U.S. or rasterize tables. The 2024 annual value was visually
+reviewed in both image tables and locked to the PDF checksum; a changed
+unextractable PDF fails pending renewed review. Other unverified values remain
+missing, not zero. Its adapter covers annual December reports, not current
+monthly highlights. The coverage matrix exposes those limits.
 
 For browser checks:
 

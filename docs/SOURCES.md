@@ -84,3 +84,23 @@ YTD rows are derived only when all January-to-cutoff months or Q1-to-cutoff
 quarters exist. The same cutoff is used for the current, prior and 2020 years.
 Official annual NTTO values are not overwritten with sums of revised monthly
 data. Their discrepancies can be revisions, not parser corrections.
+
+### Reviewed raster table
+
+MGTO's [December 2024 report](https://dataplus.macaotourism.gov.mo/document/ENG/Book/VAHightlights/2024/tourism%20highlights_Dec_%202024_E.pdf)
+has image-only annual market tables on page 2. Both the overall selected-market
+table and the long-haul-market table show **147,941 USA arrivals** for 2024;
+both report +57.7% against 2023. This is an annual total, not December alone.
+The visual review was performed October 21, 2026 by extracting the PDF's images
+with the optional `pypdf[image]` extra and inspecting both tables directly.
+Neither the images nor the PDF are redistributed.
+
+`MACAU_REVIEWED_IMAGES` in the source adapter locks that reviewed figure to
+raw SHA-256
+`90d43db762b5635ed467161b72d2cb7b03e19f19a49691878d893615691b6061`.
+A different PDF cannot inherit this manual reading: if automatic extraction is
+still unavailable, the adapter fails pending a new visual review. The published
+observation explicitly labels that method and retains the exact PDF URL.
+The 2021 image table lists only mainland China, Hong Kong and Taiwan, so it
+does not justify a U.S. value. The 2010–2012 narrative U.S. figures refer to
+December alone and are not substituted for annual counts.

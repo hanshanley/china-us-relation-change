@@ -24,9 +24,9 @@
     "vintage": "Open Doors 2025"
   },
   "macau_tourism": {
-    "last_recorded_check": "2026-10-21T14:47:13+00:00",
-    "last_successful_retrieval": "2026-10-21T14:47:13+00:00",
-    "notes": "Selected-market PDFs; unlisted U.S. values are missing, never zero. This adapter covers complete annual reports, not newer monthly highlights.",
+    "last_recorded_check": "2026-10-21T15:08:34+00:00",
+    "last_successful_retrieval": "2026-10-21T15:08:34+00:00",
+    "notes": "Selected-market PDFs; unlisted U.S. values are missing, never zero. The 2024 raster table uses a checksum-locked manual visual review. This adapter covers complete annual reports, not newer monthly highlights.",
     "observations": 16,
     "status": "available",
     "vintage": "MGTO annual highlights through 2025"

@@ -916,6 +916,7 @@
       2019,
       2020,
       2023,
+      2024,
       2025
     ],
     "baseline_2020": true,
@@ -923,7 +924,7 @@
     "first_year": 2013,
     "last_year": 2025,
     "measure": "visitors",
-    "observations": 10,
+    "observations": 11,
     "origin": "USA",
     "reason": "",
     "source_ids": [

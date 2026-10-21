@@ -11,7 +11,7 @@ from bs4 import BeautifulSoup
 from openpyxl import load_workbook
 from pypdf import PdfReader
 
-from .model import observation
+from .model import digest, observation
 
 
 BEA = "https://www.bea.gov/data/intl-trade-investment/international-trade-goods-and-services"
@@ -313,6 +313,10 @@ def iie(client):
 
 
 MACAU_INDEX = "https://dataplus.macaotourism.gov.mo/Publication/StatisticalTables?lang=E"
+MACAU_REVIEWED_IMAGES = {
+    2024: {"sha256": "90d43db762b5635ed467161b72d2cb7b03e19f19a49691878d893615691b6061",
+           "value": 147941, "page": 2},
+}
 
 
 def parse_macau(content, year):
@@ -326,6 +330,11 @@ def parse_macau(content, year):
               if re.fullmatch(r"\d{1,3}(?:,\d{3})+|\d+", v)}
     if len(values) > 1:
         raise ValueError("Ambiguous U.S. totals in Macau report; review required")
+    if not values and year in MACAU_REVIEWED_IMAGES:
+        reviewed = MACAU_REVIEWED_IMAGES[year]
+        if digest(content) != reviewed["sha256"]:
+            raise ValueError("Macau raster report changed; renew the manual visual review")
+        return reviewed["value"]
     return next(iter(values)) if values else None
 
 
@@ -342,16 +351,23 @@ def macau(client):
     for year, url in sorted(urls):
         content, asset = client.get(url)
         value = parse_macau(content, year)
+        reviewed = MACAU_REVIEWED_IMAGES.get(year)
+        review_note = (
+            f" Manually read both rasterized USA annual-market tables on page {reviewed['page']}; "
+            "review locked to this raw SHA-256."
+            if reviewed and digest(content) == reviewed["sha256"] else "")
         rows.extend(attach([observation(
             "macau_tourism", "USA", "MAC", "visitors", year, value,
             "MGTO/DSEC visitor arrivals attributed to the U.S. source market; "
             "same-day and overnight trips, not unique people",
             status="observed" if value is not None else "missing",
             notes="December report cumulative annual table; country may be absent from selected-market tables. "
-            "2020 report contains a stale Jan-Nov section heading; surrounding text identifies annual 2020 totals."
+            "2020 report contains a stale Jan-Nov section heading; surrounding text identifies annual 2020 totals." +
+            review_note
         )], asset, f"MGTO December {year}"))
     return rows, f"MGTO annual highlights through {max(y for y, u in urls)}", (
         "Selected-market PDFs; unlisted U.S. values are missing, never zero. "
+        "The 2024 raster table uses a checksum-locked manual visual review. "
         "This adapter covers complete annual reports, not newer monthly highlights.")
 
 

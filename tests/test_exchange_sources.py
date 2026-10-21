@@ -1,10 +1,13 @@
 import io
 from datetime import datetime
+from types import SimpleNamespace
 
 import pytest
 from openpyxl import Workbook
 
 from us_china_exchange.sources import COUNTRIES, parse_bea, parse_ntto, parse_taiwan
+from us_china_exchange import sources
+from us_china_exchange.model import digest
 
 
 def xlsx(book):
@@ -61,3 +64,21 @@ def test_taiwan_all_purpose_and_leisure_are_separate():
         "visitors": 82872, "leisure_visitors": 26634}
     with pytest.raises(ValueError):
         parse_taiwan(b"year,country\n2020,USA\n")
+
+
+def test_macau_reviewed_raster_value_requires_exact_source_checksum(monkeypatch):
+    content = b"%PDF fixture without readable market table"
+    page = SimpleNamespace(extract_text=lambda: "Visitor Arrivals 2024")
+    monkeypatch.setattr(sources, "PdfReader", lambda stream: SimpleNamespace(pages=[page]))
+    monkeypatch.setattr(sources, "MACAU_REVIEWED_IMAGES", {
+        2024: {"sha256": digest(content), "value": 147941, "page": 2}})
+    assert sources.parse_macau(content, 2024) == 147941
+    with pytest.raises(ValueError, match="manual visual review"):
+        sources.parse_macau(content + b"changed", 2024)
+
+
+def test_macau_rejects_conflicting_extracted_us_totals(monkeypatch):
+    page = SimpleNamespace(extract_text=lambda: "Visitor Arrivals 2025\nUSA 100 \nU.S.A. 200 ")
+    monkeypatch.setattr(sources, "PdfReader", lambda stream: SimpleNamespace(pages=[page]))
+    with pytest.raises(ValueError, match="Ambiguous"):
+        sources.parse_macau(b"%PDF fixture", 2025)

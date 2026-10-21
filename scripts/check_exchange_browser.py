@@ -4,7 +4,7 @@ import json
 from pathlib import Path
 import sys
 
-from playwright.sync_api import sync_playwright
+from playwright.sync_api import expect, sync_playwright
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
@@ -67,7 +67,9 @@ def check():
         assert not page.evaluate("document.documentElement.scrollWidth > innerWidth")
         page.locator("#geography").focus()
         page.keyboard.press("h")
-        assert "Hong Kong" in page.locator("#series-title").inner_text()
+        page.keyboard.press("Tab")
+        expect(page.locator("#series-title")).to_contain_text("Hong Kong")
+        expect(page.locator("#direction")).to_be_focused()
         page.close()
         context = browser.new_context(java_script_enabled=False, viewport={"width": 390, "height": 844})
         page = context.new_page()
