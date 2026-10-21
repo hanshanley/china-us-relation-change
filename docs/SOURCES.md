@@ -85,22 +85,30 @@ quarters exist. The same cutoff is used for the current, prior and 2020 years.
 Official annual NTTO values are not overwritten with sums of revised monthly
 data. Their discrepancies can be revisions, not parser corrections.
 
-### Reviewed raster table
+### Macau annual profiles and classification break
 
 MGTO's [December 2024 report](https://dataplus.macaotourism.gov.mo/document/ENG/Book/VAHightlights/2024/tourism%20highlights_Dec_%202024_E.pdf)
 has image-only annual market tables on page 2. Both the overall selected-market
 table and the long-haul-market table show **147,941 USA arrivals** for 2024;
 both report +57.7% against 2023. This is an annual total, not December alone.
-The visual review was performed October 21, 2026 by extracting the PDF's images
-with the optional `pypdf[image]` extra and inspecting both tables directly.
-Neither the images nor the PDF are redistributed.
+Direct image review initially recovered that value, but the live adapter no
+longer needs a manual seed: [Market Performance 2024](https://dataplus.macaotourism.gov.mo/document/CHT/Book/MarketPerformance/2024/Market%20Performance%202024.pdf),
+PDF page 42, has a machine-readable U.S. profile for 2019–2024. It confirms the
+2024 value and supplies 2021 **171** and 2022 **1,777**. Its issuing-document
+profile is distinct from the nationality tables elsewhere in the same report.
 
-`MACAU_REVIEWED_IMAGES` in the source adapter locks that reviewed figure to
-raw SHA-256
-`90d43db762b5635ed467161b72d2cb7b03e19f19a49691878d893615691b6061`.
-A different PDF cannot inherit this manual reading: if automatic extraction is
-still unavailable, the adapter fails pending a new visual review. The published
-observation explicitly labels that method and retains the exact PDF URL.
-The 2021 image table lists only mainland China, Hong Kong and Taiwan, so it
-does not justify a U.S. value. The 2010–2012 narrative U.S. figures refer to
-December alone and are not substituted for annual counts.
+The archive also supplies [Market Performance 2015](https://dataplus.macaotourism.gov.mo/document/CHT/Book/MarketPerformance/2015/Market%20Performance%20%202015.pdf),
+PDF page 42, covering 2010–2015: 2010 **188,254**, 2011 **196,065**, and
+2012 **188,730**. Its overlapping 2013–2015 totals match the December highlights.
+The adapter discovers the latest complete annual market report, rechecks the
+2015 history, requires six complete years, and reconciles sea + land + air for
+every total. Profile rows take precedence over older highlights; newer profiles
+take precedence over older profiles. Exact PDF URLs, editions and checksums
+remain attached to observations. No PDFs or extracted images are redistributed.
+
+[MGTO's methodology](https://dataplus.macaotourism.gov.mo/Indicator/VisitorsSummary/SummaryBar?lang=E)
+documents a switch in April 2015 from place of residence to place of issue of
+travel document. Pre-2015 observations, the mixed 2015 transition and 2016+
+observations receive distinct comparison identities. Chart paths break at both
+boundaries; pre-transition values are not comparable with 2020. Document-issue
+attribution does not establish U.S. residence or a departure from the U.S.

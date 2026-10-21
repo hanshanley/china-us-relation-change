@@ -7,7 +7,7 @@ from openpyxl import Workbook
 
 from us_china_exchange.sources import COUNTRIES, parse_bea, parse_ntto, parse_taiwan
 from us_china_exchange import sources
-from us_china_exchange.model import digest
+from us_china_exchange.model import change
 
 
 def xlsx(book):
@@ -66,15 +66,56 @@ def test_taiwan_all_purpose_and_leisure_are_separate():
         parse_taiwan(b"year,country\n2020,USA\n")
 
 
-def test_macau_reviewed_raster_value_requires_exact_source_checksum(monkeypatch):
-    content = b"%PDF fixture without readable market table"
-    page = SimpleNamespace(extract_text=lambda: "Visitor Arrivals 2024")
+def test_macau_profile_reconciles_modes_and_excludes_monthly_rows(monkeypatch):
+    text = "VISITOR ARRIVALS FROM U.S.A.\nPlace of Issue of Travel Document\n"
+    text += "\n".join(f"{year} 3 104 64 171 100.0%" for year in range(2019, 2025))
+    text += "\nJanuary 1 2 3 6 4.0%"
+    page = SimpleNamespace(extract_text=lambda: text)
     monkeypatch.setattr(sources, "PdfReader", lambda stream: SimpleNamespace(pages=[page]))
-    monkeypatch.setattr(sources, "MACAU_REVIEWED_IMAGES", {
-        2024: {"sha256": digest(content), "value": 147941, "page": 2}})
-    assert sources.parse_macau(content, 2024) == 147941
-    with pytest.raises(ValueError, match="manual visual review"):
-        sources.parse_macau(content + b"changed", 2024)
+    assert sources.parse_macau_market(b"%PDF fixture", 2024) == dict.fromkeys(range(2019, 2025), 171)
+    text = text.replace("2022 3 104 64 171", "2022 3 104 64 172")
+    with pytest.raises(ValueError, match="reconcile"):
+        sources.parse_macau_market(b"%PDF fixture", 2024)
+    text = text.replace("Place of Issue of Travel Document", "Nationality")
+    with pytest.raises(ValueError, match="issuing-document profile"):
+        sources.parse_macau_market(b"%PDF fixture", 2024)
+
+
+def test_macau_classification_break_is_not_compared_with_2020():
+    rows = {year: sources.macau_observation(year, 100, "") for year in [2014, 2015, 2016, 2020, 2025]}
+    assert change(rows[2014], rows[2020])["absolute"] is None
+    assert change(rows[2015], rows[2020])["absolute"] is None
+    assert change(rows[2016], rows[2020])["absolute"] == 0
+    assert change(rows[2025], rows[2020])["absolute"] == 0
+
+
+def test_macau_discovers_historical_and_latest_complete_profiles(monkeypatch):
+    paths = [
+        "/VAHightlights/2015/Dec.pdf", "/VAHightlights/2025/Dec.pdf",
+        "/MarketPerformance/2015/Market Performance  2015.pdf",
+        "/MarketPerformance/2023/Market Performance 2023.pdf",
+        "/MarketPerformance/2024/Market Performance 2024.pdf",
+        "/MarketPerformance/2025/Market Performance 2025 Jan-Sep.pdf",
+    ]
+    archive = "".join(f'<option value="{path}"></option>' for path in paths).encode()
+    requested = []
+
+    def get(url):
+        requested.append(url)
+        return (archive if url == sources.MACAU_INDEX else b"%PDF fixture",
+                {"url": url, "sha256": "a" * 64, "retrieved_at": "2026-10-21T00:00:00+00:00"})
+
+    monkeypatch.setattr(sources, "parse_macau", lambda content, year: 999)
+    monkeypatch.setattr(sources, "parse_macau_market",
+                        lambda content, edition: dict.fromkeys(range(edition - 5, edition + 1), edition))
+    rows, _, _ = sources.macau(SimpleNamespace(get=get))
+    rows = {row["year"]: row for row in rows}
+    assert rows[2010]["value"] == rows[2015]["value"] == 2015
+    assert rows[2024]["value"] == 2024
+    assert rows[2025]["value"] == 999
+    assert rows[2015]["source_url"].endswith(paths[2])
+    assert rows[2024]["source_url"].endswith(paths[4])
+    assert not any("2023" in url or "Jan-Sep" in url for url in requested)
 
 
 def test_macau_rejects_conflicting_extracted_us_totals(monkeypatch):

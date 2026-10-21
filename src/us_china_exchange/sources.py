@@ -11,7 +11,7 @@ from bs4 import BeautifulSoup
 from openpyxl import load_workbook
 from pypdf import PdfReader
 
-from .model import digest, observation
+from .model import observation
 
 
 BEA = "https://www.bea.gov/data/intl-trade-investment/international-trade-goods-and-services"
@@ -313,10 +313,6 @@ def iie(client):
 
 
 MACAU_INDEX = "https://dataplus.macaotourism.gov.mo/Publication/StatisticalTables?lang=E"
-MACAU_REVIEWED_IMAGES = {
-    2024: {"sha256": "90d43db762b5635ed467161b72d2cb7b03e19f19a49691878d893615691b6061",
-           "value": 147941, "page": 2},
-}
 
 
 def parse_macau(content, year):
@@ -330,12 +326,40 @@ def parse_macau(content, year):
               if re.fullmatch(r"\d{1,3}(?:,\d{3})+|\d+", v)}
     if len(values) > 1:
         raise ValueError("Ambiguous U.S. totals in Macau report; review required")
-    if not values and year in MACAU_REVIEWED_IMAGES:
-        reviewed = MACAU_REVIEWED_IMAGES[year]
-        if digest(content) != reviewed["sha256"]:
-            raise ValueError("Macau raster report changed; renew the manual visual review")
-        return reviewed["value"]
     return next(iter(values)) if values else None
+
+
+def parse_macau_market(content, edition):
+    if not content.startswith(b"%PDF"):
+        raise ValueError("Expected a Macau market-performance PDF")
+    pages = [p.extract_text() for p in PdfReader(io.BytesIO(content)).pages]
+    profiles = [t for t in pages if "VISITOR ARRIVALS FROM U.S.A." in t]
+    if len(profiles) != 1 or "place of issue of travel document" not in " ".join(profiles[0].split()).lower():
+        raise ValueError("Macau U.S. issuing-document profile missing or ambiguous")
+    values = {}
+    for match in re.finditer(
+            r"^(20\d{2})[ \t]+([\d,]+)[ \t]+([\d,]+)[ \t]+([\d,]+)[ \t]+([\d,]+)[ \t]+100\.0%",
+            profiles[0], re.MULTILINE):
+        year, sea, land, air, total = (int(v.replace(",", "")) for v in match.groups())
+        if year in values or sea + land + air != total:
+            raise ValueError("Macau annual profile totals do not reconcile")
+        values[year] = total
+    if set(values) != set(range(edition - 5, edition + 1)):
+        raise ValueError("Macau annual profile must cover six complete years")
+    return values
+
+
+def macau_observation(year, value, notes):
+    basis = ("place of residence" if year < 2015 else
+             "mixed residence/document-issue transition" if year == 2015 else
+             "place of issue of travel document")
+    return observation(
+        "macau_tourism", "USA", "MAC", "visitors", year, value,
+        f"MGTO/DSEC U.S.-attributed arrivals by {basis}; same-day and overnight trips, not unique people",
+        comparability="macau:" + basis,
+        status="observed" if value is not None else "missing",
+        notes=notes + " Classification changed in April 2015; 2015 mixes methods. "
+        "Document-issue attribution is not U.S. residence or a departure from the U.S.")
 
 
 def macau(client):
@@ -347,27 +371,38 @@ def macau(client):
     urls = [(year, u) for year, u in urls if year >= 2010]
     if not urls:
         raise ValueError("Macau annual report archive missing")
-    rows = []
+    rows = {}
     for year, url in sorted(urls):
         content, asset = client.get(url)
         value = parse_macau(content, year)
-        reviewed = MACAU_REVIEWED_IMAGES.get(year)
-        review_note = (
-            f" Manually read both rasterized USA annual-market tables on page {reviewed['page']}; "
-            "review locked to this raw SHA-256."
-            if reviewed and digest(content) == reviewed["sha256"] else "")
-        rows.extend(attach([observation(
-            "macau_tourism", "USA", "MAC", "visitors", year, value,
-            "MGTO/DSEC visitor arrivals attributed to the U.S. source market; "
-            "same-day and overnight trips, not unique people",
-            status="observed" if value is not None else "missing",
-            notes="December report cumulative annual table; country may be absent from selected-market tables. "
-            "2020 report contains a stale Jan-Nov section heading; surrounding text identifies annual 2020 totals." +
-            review_note
-        )], asset, f"MGTO December {year}"))
-    return rows, f"MGTO annual highlights through {max(y for y, u in urls)}", (
+        rows[year] = attach([macau_observation(
+            year, value,
+            "December report cumulative annual table; country may be absent from selected-market tables. "
+            "2020 report contains a stale Jan-Nov section heading; surrounding text identifies annual 2020 totals."
+        )], asset, f"MGTO December {year}")[0]
+    profiles = []
+    for option in BeautifulSoup(page, "html.parser").select("option[value]"):
+        match = re.search(r"/Market Performance\s+(\d{4})\.pdf$", option["value"])
+        if match:
+            profiles.append((int(match[1]), urljoin(MACAU_INDEX, option["value"])))
+    if not profiles:
+        raise ValueError("Macau complete annual market-performance archive missing")
+    historical = next((p for p in profiles if p[0] == 2015), None)
+    if historical is None:
+        raise ValueError("Macau historical 2015 profile missing")
+    latest = max(profiles)
+    for edition, url in sorted({historical, latest}):
+        content, asset = client.get(url)
+        for year, value in parse_macau_market(content, edition).items():
+            rows[year] = attach([macau_observation(
+                year, value, f"Machine-read U.S. annual profile in Market Performance {edition}; "
+                "sea + land + air reconciles to total. Complete annual profile takes priority over older highlights."
+            )], asset, f"MGTO Market Performance {edition}")[0]
+    return list(rows.values()), (
+        f"MGTO annual highlights through {max(y for y, u in urls)}; Market Performance 2015 and {latest[0]}"), (
         "Selected-market PDFs; unlisted U.S. values are missing, never zero. "
-        "The 2024 raster table uses a checksum-locked manual visual review. "
+        "Latest complete annual market profile fills selected-market omissions. "
+        "Residence classification changed to issuing place of travel document in April 2015; transition is not comparable. "
         "This adapter covers complete annual reports, not newer monthly highlights.")
 
 
