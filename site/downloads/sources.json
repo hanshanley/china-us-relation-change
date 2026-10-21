@@ -1,17 +1,17 @@
 {
   "bea": {
-    "last_recorded_check": "2026-10-21T14:43:03+00:00",
-    "last_successful_retrieval": "2026-10-21T14:43:03+00:00",
-    "notes": "",
-    "observations": 396,
+    "last_recorded_check": "2026-10-21T15:37:28+00:00",
+    "last_successful_retrieval": "2026-10-21T15:37:28+00:00",
+    "notes": "Annual 2000/2001 use the December 5, 2024 geographic workbook with its own provenance; the current workbook repeats the 2000 label and omits 2001. Later years use the current release.",
+    "observations": 636,
     "status": "available",
     "vintage": "Last updated September 3, 2026"
   },
   "comtrade": {
-    "last_recorded_check": "2026-10-21T14:47:13+00:00",
-    "last_successful_retrieval": "2026-10-21T14:47:13+00:00",
+    "last_recorded_check": "2026-10-21T15:37:28+00:00",
+    "last_successful_retrieval": "2026-10-21T15:37:28+00:00",
     "notes": "U.S.-reported customs trade: exports FOB, imports CIF; intentionally not spliced with BEA balance-of-payments series.",
-    "observations": 32,
+    "observations": 52,
     "status": "available",
     "vintage": "Comtrade annual records through 2025"
   },
@@ -24,18 +24,18 @@
     "vintage": "Open Doors 2025"
   },
   "macau_tourism": {
-    "last_recorded_check": "2026-10-21T15:20:34+00:00",
-    "last_successful_retrieval": "2026-10-21T15:20:34+00:00",
-    "notes": "Selected-market PDFs; unlisted U.S. values are missing, never zero. Latest complete annual market profile fills selected-market omissions. Residence classification changed to issuing place of travel document in April 2015; transition is not comparable. This adapter covers complete annual reports, not newer monthly highlights.",
-    "observations": 16,
+    "last_recorded_check": "2026-10-21T15:37:28+00:00",
+    "last_successful_retrieval": "2026-10-21T15:37:28+00:00",
+    "notes": "Selected-market PDFs; unlisted U.S. values are missing, never zero. Latest complete annual market profile fills selected-market omissions. Arrivals exclude non-resident workers/students from 2008. Residence classification changed to issuing place of travel document in April 2015; transition is not comparable. This adapter covers complete annual reports, not newer monthly highlights.",
+    "observations": 23,
     "status": "available",
-    "vintage": "MGTO annual highlights through 2025; Market Performance 2015 and 2024"
+    "vintage": "MGTO annual highlights through 2025; Market Performance 2008, 2010, 2015, 2024"
   },
   "ntto": {
-    "last_recorded_check": "2026-10-21T14:47:13+00:00",
-    "last_successful_retrieval": "2026-10-21T14:47:13+00:00",
+    "last_recorded_check": "2026-10-21T15:37:28+00:00",
+    "last_successful_retrieval": "2026-10-21T15:37:28+00:00",
     "notes": "Workbook modification dates are not official publication dates.",
-    "observations": 936,
+    "observations": 1496,
     "status": "available",
     "vintage": "Workbook modified 2026-03-24 14:05:25; Workbook modified 2026-10-20 13:51:14"
   },
@@ -48,10 +48,10 @@
     "vintage": "Official annual CSV through 2025"
   },
   "uis": {
-    "last_recorded_check": "2026-10-21T14:47:13+00:00",
-    "last_successful_retrieval": "2026-10-21T14:47:13+00:00",
+    "last_recorded_check": "2026-10-21T15:37:28+00:00",
+    "last_successful_retrieval": "2026-10-21T15:37:28+00:00",
     "notes": "Taiwan not separately listed; U.S.-to-mainland records may be absent.",
-    "observations": 57,
+    "observations": 76,
     "status": "available",
     "vintage": "February 2026 Data Release"
   }

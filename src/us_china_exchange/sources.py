@@ -11,10 +11,11 @@ from bs4 import BeautifulSoup
 from openpyxl import load_workbook
 from pypdf import PdfReader
 
-from .model import observation
+from .model import START_YEAR, observation
 
 
 BEA = "https://www.bea.gov/data/intl-trade-investment/international-trade-goods-and-services"
+BEA_HISTORY = "https://www.bea.gov/sites/default/files/2024-12/trad-geo-time-series-1024.xlsx"
 NTTO = "https://www.trade.gov/i-94-arrivals-program"
 UIS = "https://api.uis.unesco.org/api/public/"
 TAIWAN = "https://stat.taiwan.net.tw/data/opendata/6"
@@ -45,7 +46,11 @@ def links(content, base):
             for a in BeautifulSoup(content, "html.parser").select("a[href]")]
 
 
-def parse_bea(content):
+class BEAEarlyHistoryError(ValueError):
+    pass
+
+
+def parse_bea(content, omit_ambiguous_early_history=False):
     book = workbook(content)
     rows = []
     vintage = str(book["Table 4"].cell(1, 1).value)
@@ -57,6 +62,12 @@ def parse_bea(content):
         if "Millions of dollars" not in str(table[3][0]):
             raise ValueError("Unexpected BEA units")
         header = next(r for r in table if r[0] == "Period" and "China" in r)
+        annual_start = next(i for i, r in enumerate(table) if r[0] == "Annual") + 1
+        quarterly_start = next(i for i, r in enumerate(table) if r[0] == "Quarterly")
+        annual_labels = [str(r[0]) for r in table[annual_start:quarterly_start]]
+        if annual_labels.count("2000") == 2 and "2001" not in annual_labels:
+            if not omit_ambiguous_early_history:
+                raise BEAEarlyHistoryError("BEA repeats 2000 and omits 2001; require independently labelled history")
         section = None
         quarters = {}
         for cells in table:
@@ -68,7 +79,9 @@ def parse_bea(content):
             if not match:
                 continue
             year = int(match[1])
-            if year < 2010:
+            if year < START_YEAR:
+                continue
+            if omit_ambiguous_early_history and section == "Annual" and year in {2000, 2001}:
                 continue
             for name, geo in [("China", "CHN"), ("Hong Kong", "HKG"), ("Taiwan", "TWN")]:
                 value = cells[header.index(name)]
@@ -87,7 +100,7 @@ def parse_bea(content):
         latest_year = max(k[1] for k in quarters)
         end_quarter = max(k[2] for k in quarters if k[1] == latest_year)
         for name, geo in [("China", "CHN"), ("Hong Kong", "HKG"), ("Taiwan", "TWN")]:
-            for year in range(2010, latest_year + 1):
+            for year in range(START_YEAR, latest_year + 1):
                 values = [quarters.get((geo, year, q)) for q in range(1, end_quarter + 1)]
                 if all(v is not None for v in values):
                     origin, destination = ("USA", geo) if outbound else (geo, "USA")
@@ -107,7 +120,21 @@ def bea(client):
     if len(set(urls)) != 1:
         raise ValueError("Could not uniquely discover BEA geographic history")
     content, asset = client.get(urls[0])
-    rows, vintage = parse_bea(content)
+    try:
+        rows, vintage = parse_bea(content)
+    except BEAEarlyHistoryError:
+        historical, history_asset = client.get(BEA_HISTORY)
+        history_rows, history_vintage = parse_bea(historical)
+        history_rows = [r for r in history_rows if r["frequency"] == "annual" and r["year"] in {2000, 2001}]
+        if len(history_rows) != 24:
+            raise ValueError("BEA independently labelled 2000/2001 history incomplete")
+        for row in history_rows:
+            row["notes"] += " Archived release used because the current workbook repeats 2000 and omits 2001; no year inferred."
+        rows, vintage = parse_bea(content, omit_ambiguous_early_history=True)
+        rows = attach(rows, asset, vintage) + attach(history_rows, history_asset, history_vintage)
+        return rows, vintage, (
+            "Annual 2000/2001 use the December 5, 2024 geographic workbook with its own provenance; "
+            "the current workbook repeats the 2000 label and omits 2001. Later years use the current release.")
     return attach(rows, asset, vintage), vintage, ""
 
 
@@ -137,7 +164,7 @@ def parse_ntto(content, monthly=False):
             if not isinstance(label, int) or isinstance(label, bool):
                 continue
             year = label
-        if year >= 2010:
+        if year >= START_YEAR:
             periods.append((col, year, month, str(label)))
     rows, found = [], set()
     for cells in table:
@@ -163,7 +190,7 @@ def parse_ntto(content, monthly=False):
         end_month = max(int(r["period"][5:7]) for r in available if r["year"] == year)
         index = {(r["origin"], r["year"], int(r["period"][5:7])): r for r in rows}
         for geo in found:
-            for y in range(2010, year + 1):
+            for y in range(START_YEAR, year + 1):
                 months = [index.get((geo, y, m)) for m in range(1, end_month + 1)]
                 if all(r is not None and r["value"] is not None for r in months):
                     rows.append(observation(
@@ -206,7 +233,7 @@ def uis(client):
             content, asset = client.get(
                 UIS + "data/indicators",
                 params={"indicator": indicator_id, "geoUnit": destination,
-                        "start": 2010, "footnotes": "true"})
+                        "start": START_YEAR, "footnotes": "true"})
             data = client.json(content)
             if not isinstance(data.get("records"), list):
                 raise ValueError("UIS records missing")
@@ -334,11 +361,12 @@ def parse_macau_market(content, edition):
         raise ValueError("Expected a Macau market-performance PDF")
     pages = [p.extract_text() for p in PdfReader(io.BytesIO(content)).pages]
     profiles = [t for t in pages if "VISITOR ARRIVALS FROM U.S.A." in t]
-    if len(profiles) != 1 or "place of issue of travel document" not in " ".join(profiles[0].split()).lower():
-        raise ValueError("Macau U.S. issuing-document profile missing or ambiguous")
+    basis = "place of residence" if edition < 2015 else "place of issue of travel document"
+    if len(profiles) != 1 or basis not in " ".join(profiles[0].split()).lower():
+        raise ValueError("Macau U.S. residence/issuing-document profile missing or ambiguous")
     values = {}
     for match in re.finditer(
-            r"^(20\d{2})[ \t]+([\d,]+)[ \t]+([\d,]+)[ \t]+([\d,]+)[ \t]+([\d,]+)[ \t]+100\.0%",
+            r"^(20\d{2})[ \t]+([\d,]+)[ \t]+([\d,]+)[ \t]+([\d,]+)[ \t]+([\d,]+)[ \t]+100\.0+%",
             profiles[0], re.MULTILINE):
         year, sea, land, air, total = (int(v.replace(",", "")) for v in match.groups())
         if year in values or sea + land + air != total:
@@ -350,7 +378,8 @@ def parse_macau_market(content, edition):
 
 
 def macau_observation(year, value, notes):
-    basis = ("place of residence" if year < 2015 else
+    basis = ("place of residence; includes non-resident workers and students" if year < 2008 else
+             "place of residence" if year < 2015 else
              "mixed residence/document-issue transition" if year == 2015 else
              "place of issue of travel document")
     return observation(
@@ -358,7 +387,8 @@ def macau_observation(year, value, notes):
         f"MGTO/DSEC U.S.-attributed arrivals by {basis}; same-day and overnight trips, not unique people",
         comparability="macau:" + basis,
         status="observed" if value is not None else "missing",
-        notes=notes + " Classification changed in April 2015; 2015 mixes methods. "
+        notes=notes + " From 2008, arrivals exclude non-resident workers and students. "
+        "Classification changed in April 2015; 2015 mixes methods. "
         "Document-issue attribution is not U.S. residence or a departure from the U.S.")
 
 
@@ -368,7 +398,7 @@ def macau(client):
             for o in BeautifulSoup(page, "html.parser").select("option[value]")
             if "VAHightlights" in o["value"] and "Dec" in o["value"]]
     urls = [(int(re.search(r"/(\d{4})/", u)[1]), u) for u in urls]
-    urls = [(year, u) for year, u in urls if year >= 2010]
+    urls = [(year, u) for year, u in urls if year >= START_YEAR]
     if not urls:
         raise ValueError("Macau annual report archive missing")
     rows = {}
@@ -383,15 +413,18 @@ def macau(client):
     profiles = []
     for option in BeautifulSoup(page, "html.parser").select("option[value]"):
         match = re.search(r"/Market Performance\s+(\d{4})\.pdf$", option["value"])
+        if not match:
+            match = re.search(r"/M12_Market(?:ing)?Performance_(\d{4})_\d+\.pdf$", option["value"])
         if match:
             profiles.append((int(match[1]), urljoin(MACAU_INDEX, option["value"])))
     if not profiles:
         raise ValueError("Macau complete annual market-performance archive missing")
-    historical = next((p for p in profiles if p[0] == 2015), None)
-    if historical is None:
-        raise ValueError("Macau historical 2015 profile missing")
+    historical = [next((p for p in profiles if p[0] == year), None) for year in [2008, 2010, 2015]]
+    if any(p is None for p in historical):
+        raise ValueError("Macau historical 2008/2010/2015 profile missing")
     latest = max(profiles)
-    for edition, url in sorted({historical, latest}):
+    editions = sorted(set(historical + [latest]))
+    for edition, url in editions:
         content, asset = client.get(url)
         for year, value in parse_macau_market(content, edition).items():
             rows[year] = attach([macau_observation(
@@ -399,9 +432,11 @@ def macau(client):
                 "sea + land + air reconciles to total. Complete annual profile takes priority over older highlights."
             )], asset, f"MGTO Market Performance {edition}")[0]
     return list(rows.values()), (
-        f"MGTO annual highlights through {max(y for y, u in urls)}; Market Performance 2015 and {latest[0]}"), (
+        f"MGTO annual highlights through {max(y for y, u in urls)}; Market Performance " +
+        ", ".join(str(year) for year, _ in editions)), (
         "Selected-market PDFs; unlisted U.S. values are missing, never zero. "
         "Latest complete annual market profile fills selected-market omissions. "
+        "Arrivals exclude non-resident workers/students from 2008. "
         "Residence classification changed to issuing place of travel document in April 2015; transition is not comparable. "
         "This adapter covers complete annual reports, not newer monthly highlights.")
 
@@ -409,7 +444,7 @@ def macau(client):
 def comtrade(client):
     rows = []
     latest = datetime.now().year - 1
-    for year in range(2010, latest + 1):
+    for year in range(START_YEAR, latest + 1):
         content, asset = client.get(
             "https://comtradeapi.un.org/public/v1/preview/C/A/HS",
             params={"period": year, "reporterCode": 842, "partnerCode": 446,

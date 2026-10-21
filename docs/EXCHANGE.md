@@ -32,7 +32,7 @@ complete downloads and SVG figures from committed publication tables.
 | `data/local/exchange/raw/` | Local raw responses named by SHA-256; ignored, not redistributed |
 | `data/local/exchange/check.json` | Actual latest attempt, including unchanged checks and failures |
 | `site/` | Generated offline website, accessible tables, complete CSV/JSON downloads |
-| `outputs/figures/` | Matching standalone SVG figures |
+| `outputs/figures/` | Standalone SVG figures, with both named publication-background variants |
 | `tests/fixtures/exchange_reviewed_2026-10-21.json` | Frozen numeric review checkpoints, not a constraint on future source revisions |
 
 Every downloaded observation has its definition, direction, unit, period basis,
@@ -41,10 +41,40 @@ raw-response checksum. `exchange.json` also contains sources and coverage.
 CSV exports contain full observation rows, not just a source inventory.
 Raw third-party PDFs and workbooks are deliberately not published.
 
+## Plot styling and publication backgrounds
+
+Charts follow the `uk_decline` project's `vizstyle` house settings: serif type,
+near-black ink, muted grey labels, light horizontal gridlines (0.6 opacity),
+0.8-width left/bottom axes, no top/right frame, and italic collecting-source
+notes. Mainland China retains its deep-red country identity (`#7B2D26`);
+Hong Kong, Macau and Taiwan use distinct blue, gold and green house-palette
+colours. Both bilateral directions retain the same partner colour.
+
+`src/us_china_exchange/theme.py` translates the reference settings into native
+SVG so the offline build does not depend on another checkout or Matplotlib.
+Figure titles and source notes are part of the downloadable SVG, not only the
+surrounding website. Each series has both versions:
+
+| Version | Background | Output and download directories |
+|---|---|---|
+| The Margin of Error | Warm `#F7F5F0` | `outputs/figures/themarginoferror/`, `site/figures/themarginoferror/` |
+| Substack | Article `#F5F5F5` | `outputs/figures/substack/`, `site/figures/substack/` |
+
+These match the reference project's original house plots and its separate
+`outputs/page_background/` Substack copies, respectively. Only the background
+changes: data, dimensions, typography, colours and line breaks are identical.
+The original root SVG paths remain available as The Margin of Error copies.
+Use the chart's **Background** selector to preview either version; both download
+links also work without JavaScript. Downloads explicitly contain reported
+values even when the interactive chart is showing an index.
+
 ## Definitions and comparisons
 
-- History starts in 2010 **where verified**. The publication does not pretend
+- History starts in 2000 **where verified**. The publication does not pretend
   each series is complete from that year or has the same latest period.
+  Goods, BEA services and visitors to the U.S. now have annual coverage from
+  2000. Macau-bound arrivals start in 2003, Taiwan-bound arrivals in 2012, and
+  student coverage varies by source. Missing earlier years are not estimated.
 - Student measures are distinct: enrolled-only, including OPT, internationally
   mobile degree students, and U.S. academic-credit study abroad. Enrolled-only
   IIE counts are available for only two recent years; there is no 2020 baseline
@@ -55,13 +85,18 @@ Raw third-party PDFs and workbooks are deliberately not published.
 - Visitor counts are trips, not unique tourists. NTTO is residence-based,
   qualified-visa, overnight, all-purpose visitation. Taiwan and Macau counts
   include broader arrival populations. Only Taiwan currently supplies a
-  separately verified sightseeing-purpose series. Macau changed from residence
+  separately verified sightseeing-purpose series. Macau excluded non-resident
+  workers and students starting in 2008, then changed from residence
   to travel-document issuing place in April 2015; 2015 is a mixed-method
-  transition. Charts break at those boundaries and incompatible years cannot
+  transition. Charts break at all those boundaries and incompatible years cannot
   be compared with 2020.
 - BEA goods/services use nominal USD and balance-of-payments accounting.
   Comtrade Macau goods use customs accounting: U.S. exports FOB, imports CIF.
-  Cross-geography totals are not produced.
+  Cross-geography totals are not produced. BEA's current annual workbook has a
+  repeated 2000 label and no 2001 label. Those two annual years use the correctly
+  labelled December 5, 2024 official workbook, retaining that older vintage and
+  its exact provenance. Current-release quarterly data and later annual years
+  remain separate. No year is inferred from row position.
 - Latest complete annual values compare with **2020**, not 2019. Academic
   baselines use 2019/20. Absolute and percent changes require matching
   populations, units, series and period coverage. Zero or unavailable
@@ -122,7 +157,7 @@ IIE's reviewed 2025 PDFs are re-fetched daily, but discovering/accepting a **new
 annual edition requires manual review**. Update its URLs and parser only after
 checking the new report's table layout and definitions. Some official index
 pages return 403; do not bypass those restrictions. Macau's selected-market
-PDFs can omit the U.S. or rasterize tables. Its 2015 historical market profile
+PDFs can omit the U.S. or rasterize tables. Its 2008, 2010 and 2015 historical market profiles
 and automatically discovered latest complete market profile supply machine-read
 annual U.S. totals; sea, land and air components must sum to each total. They
 fill the December highlights' gaps, including the previously image-only 2024
@@ -140,7 +175,8 @@ For browser checks:
 
 These exercise every geography/direction/measure, exact values and 2020
 changes, the partial-year panel, index mode, keyboard interaction, mobile
-overflow, and no-JavaScript tables. Unit tests cover source units/directions,
+overflow, both publication backgrounds, figure-text clipping, and no-JavaScript
+tables/downloads. Unit tests cover source units/directions,
 mixed Excel header types, leap February, missingness, source outages/recovery,
 numeric revisions, malformed-input rollback, unchanged refreshes and
 byte-identical offline rebuilds. Review checkpoints are frozen to their source

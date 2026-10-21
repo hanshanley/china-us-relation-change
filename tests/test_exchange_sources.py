@@ -25,19 +25,57 @@ def test_bea_scale_directions_and_matched_quarter_sums():
             ["Last updated September 3, 2026"], ["Title"], ["Trade"],
             ["[Millions of dollars, quarters seasonally adjusted]"], [],
             ["Period", "China", "Hong Kong", "Taiwan"], ["Annual"],
-            ["2020", 10, 20, 30], ["Quarterly"],
+            ["1999", 1, 2, 3], ["2000", 4, 5, 6], ["2020", 10, 20, 30], ["Quarterly"],
             ["2020 1", 1, 2, 3], ["2020 2", 4, 5, 6],
             ["2026 1 (R)", 7, 8, 9], ["2026 2", 10, 11, 12],
         ]:
             sheet.append(cells)
     rows, vintage = parse_bea(xlsx(book))
-    assert len(rows) == 36
+    assert len(rows) == 48
+    assert min(r["year"] for r in rows) == 2000
+    assert next(r for r in rows if r["year"] == 2000 and r["origin"] == "USA"
+                and r["destination"] == "CHN" and r["measure"] == "goods")["value"] == 4_000_000
     assert {r["origin"] for r in rows} == {"USA", "CHN", "HKG", "TWN"}
     row = next(r for r in rows if r["origin"] == "USA" and r["destination"] == "CHN"
                and r["measure"] == "services" and r["frequency"] == "ytd" and r["year"] == 2026)
     assert row["value"] == 17_000_000
     assert row["period"] == "2026-06"
     assert "seasonally adjusted" in row["definition"]
+
+
+def test_bea_ambiguous_early_labels_use_independently_labelled_archive():
+    def content(archived=False):
+        book = Workbook()
+        book.remove(book.active)
+        for n in [4, 5, 7, 8]:
+            sheet = book.create_sheet(f"Table {n}")
+            for cells in [
+                ["Last updated December 5, 2024" if archived else "Last updated September 3, 2026"],
+                ["Title"], ["Trade"], ["Millions of dollars"], [],
+                ["Period", "China", "Hong Kong", "Taiwan"], ["Annual"],
+                [2000, 1, 2, 3], [2001 if archived else 2000, 4, 5, 6],
+                [2020, 10, 20, 30], ["Quarterly"], ["2020 1", 1, 2, 3],
+            ]:
+                sheet.append(cells)
+        return xlsx(book)
+
+    current, archived = content(), content(True)
+    with pytest.raises(sources.BEAEarlyHistoryError):
+        parse_bea(current)
+
+    def get(url):
+        page = b'<a href="https://example.test/geo-time-series.xlsx">History</a>'
+        body = page if url == sources.BEA else archived if url == sources.BEA_HISTORY else current
+        return body, {"url": url, "sha256": "a" * 64, "retrieved_at": "2026-10-21T00:00:00+00:00"}
+
+    rows, _, notes = sources.bea(SimpleNamespace(get=get))
+    history = [r for r in rows if r["frequency"] == "annual" and r["year"] < 2002]
+    assert len(history) == 24
+    assert {r["source_url"] for r in history} == {sources.BEA_HISTORY}
+    assert {r["source_vintage"] for r in history} == {"Last updated December 5, 2024"}
+    assert {r["value"] for r in history if r["year"] == 2001} == {4_000_000, 5_000_000, 6_000_000}
+    assert all(r["source_url"] != sources.BEA_HISTORY for r in rows if r["year"] == 2020)
+    assert "repeats the 2000 label" in notes
 
 
 def test_ntto_mixed_headers_single_digit_months_and_provisional_ytd():
@@ -66,23 +104,42 @@ def test_taiwan_all_purpose_and_leisure_are_separate():
         parse_taiwan(b"year,country\n2020,USA\n")
 
 
-def test_macau_profile_reconciles_modes_and_excludes_monthly_rows(monkeypatch):
-    text = "VISITOR ARRIVALS FROM U.S.A.\nPlace of Issue of Travel Document\n"
-    text += "\n".join(f"{year} 3 104 64 171 100.0%" for year in range(2019, 2025))
+def test_ntto_retains_annual_history_from_2000():
+    book = Workbook()
+    sheet = book.active
+    sheet.title = "Annual"
+    sheet.append(["Country", 1999, 2000, 2001])
+    for country in COUNTRIES:
+        sheet.append([country, 9, 10, 11])
+    rows, _ = parse_ntto(xlsx(book))
+    assert {r["year"] for r in rows} == {2000, 2001}
+    assert {r["value"] for r in rows if r["year"] == 2000} == {10}
+
+
+@pytest.mark.parametrize("edition,basis,share", [
+    (2008, "PLACE OF RESIDENCE", "100.00%"),
+    (2024, "Place of Issue of Travel Document", "100.0%"),
+])
+def test_macau_profile_reconciles_modes_and_excludes_monthly_rows(monkeypatch, edition, basis, share):
+    text = "VISITOR ARRIVALS FROM U.S.A.\n" + basis + "\n"
+    years = range(edition - 5, edition + 1)
+    text += "\n".join(f"{year} 3 104 64 171 {share}" for year in years)
     text += "\nJanuary 1 2 3 6 4.0%"
     page = SimpleNamespace(extract_text=lambda: text)
     monkeypatch.setattr(sources, "PdfReader", lambda stream: SimpleNamespace(pages=[page]))
-    assert sources.parse_macau_market(b"%PDF fixture", 2024) == dict.fromkeys(range(2019, 2025), 171)
-    text = text.replace("2022 3 104 64 171", "2022 3 104 64 172")
+    assert sources.parse_macau_market(b"%PDF fixture", edition) == dict.fromkeys(years, 171)
+    text = text.replace(f"{edition - 2} 3 104 64 171", f"{edition - 2} 3 104 64 172")
     with pytest.raises(ValueError, match="reconcile"):
-        sources.parse_macau_market(b"%PDF fixture", 2024)
-    text = text.replace("Place of Issue of Travel Document", "Nationality")
+        sources.parse_macau_market(b"%PDF fixture", edition)
+    text = text.replace(basis, "Nationality")
     with pytest.raises(ValueError, match="issuing-document profile"):
-        sources.parse_macau_market(b"%PDF fixture", 2024)
+        sources.parse_macau_market(b"%PDF fixture", edition)
 
 
 def test_macau_classification_break_is_not_compared_with_2020():
-    rows = {year: sources.macau_observation(year, 100, "") for year in [2014, 2015, 2016, 2020, 2025]}
+    rows = {year: sources.macau_observation(year, 100, "")
+            for year in [2007, 2008, 2014, 2015, 2016, 2020, 2025]}
+    assert change(rows[2007], rows[2008])["absolute"] is None
     assert change(rows[2014], rows[2020])["absolute"] is None
     assert change(rows[2015], rows[2020])["absolute"] is None
     assert change(rows[2016], rows[2020])["absolute"] == 0
@@ -96,6 +153,8 @@ def test_macau_discovers_historical_and_latest_complete_profiles(monkeypatch):
         "/MarketPerformance/2023/Market Performance 2023.pdf",
         "/MarketPerformance/2024/Market Performance 2024.pdf",
         "/MarketPerformance/2025/Market Performance 2025 Jan-Sep.pdf",
+        "/MarketPerformance/2008/M12_MarketingPerformance_2008_1246941849.pdf",
+        "/MarketPerformance/2010/M12_MarketPerformance_2010_1298431536.pdf",
     ]
     archive = "".join(f'<option value="{path}"></option>' for path in paths).encode()
     requested = []
@@ -113,6 +172,7 @@ def test_macau_discovers_historical_and_latest_complete_profiles(monkeypatch):
     assert rows[2010]["value"] == rows[2015]["value"] == 2015
     assert rows[2024]["value"] == 2024
     assert rows[2025]["value"] == 999
+    assert rows[2003]["value"] == 2008
     assert rows[2015]["source_url"].endswith(paths[2])
     assert rows[2024]["source_url"].endswith(paths[4])
     assert not any("2023" in url or "Jan-Sep" in url for url in requested)

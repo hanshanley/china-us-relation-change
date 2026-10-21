@@ -9,6 +9,7 @@ from bs4 import BeautifulSoup
 
 from us_china_exchange.model import observation
 from us_china_exchange.render import build, svg_chart
+from us_china_exchange.theme import CHART_THEMES
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -51,9 +52,28 @@ def test_charts_break_missing_years_and_definition_changes():
     rows = [row(2018), row(2020), row(2021, "new definition")]
     svg = svg_chart(rows)
     doc = ElementTree.fromstring(svg)
-    paths = [x for x in doc.iter() if x.tag.endswith("path") and x.get("stroke") == "#24586d"]
+    paths = [x for x in doc.iter() if x.get("class") == "data-line"]
     assert paths[0].get("d").count("M") == 3
     assert "Definitions differ" in svg_chart(rows, indexed=True)
+
+
+def test_figure_background_variants_preserve_data_and_foreground(tmp_path):
+    shutil.copytree(ROOT / "data/site", tmp_path / "data/site")
+    build(tmp_path)
+    for original in (tmp_path / "outputs/figures").glob("*.svg"):
+        doc = ElementTree.fromstring(original.read_text())
+        assert "serif" in original.read_text()
+        assert any(x.get("class") == "figure-source" for x in doc.iter())
+        assert any(x.text == "2000" for x in doc.iter())
+        for theme, spec in CHART_THEMES.items():
+            path = tmp_path / "outputs/figures" / theme / original.name
+            exported = path.read_bytes()
+            assert exported == (tmp_path / "site/figures" / theme / original.name).read_bytes()
+            variant = ElementTree.fromstring(exported)
+            background = next(x for x in variant.iter() if x.get("class") == "chart-background")
+            assert background.get("fill") == spec["background"]
+            background.set("fill", "#F7F5F0")
+            assert ElementTree.tostring(variant) == ElementTree.tostring(doc)
 
 
 def test_first_build_without_default_source_uses_available_series(tmp_path):

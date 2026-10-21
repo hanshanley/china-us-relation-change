@@ -69,3 +69,11 @@ def test_publication_has_no_duplicate_keys_and_complete_provenance():
     assert validate(rows)
     assert all(len(r["raw_sha256"]) == 64 and r["source_url"].startswith("https://") for r in rows)
     assert not any(r["period_start"] is not None for r in rows if r["period_basis"] == "academic")
+
+
+def test_publication_retains_year_2000_trade_and_inbound_visitor_history():
+    rows = [r for r in published() if r["frequency"] == "annual" and r["value"] is not None]
+    series = {r["series_id"] for r in rows if r["source_id"] in {"bea", "comtrade", "ntto"}}
+    assert len(series) == 18
+    for sid in series:
+        assert any(r["series_id"] == sid and r["year"] == 2000 for r in rows), sid

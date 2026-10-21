@@ -13,6 +13,12 @@ def test_zero_is_not_missing_and_duplicate_fails():
         validate([row(), row()])
 
 
+def test_history_accepts_2000_but_not_out_of_scope_years():
+    assert validate([row(2000)])[0]["year"] == 2000
+    with pytest.raises(ValueError, match="Unsupported measure or year"):
+        validate([row(1999)])
+
+
 @pytest.mark.parametrize("value", [float("nan"), float("inf"), -1, True])
 def test_invalid_values_rejected(value):
     with pytest.raises(ValueError):

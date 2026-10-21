@@ -10,6 +10,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 from us_china_exchange.model import change
 from us_china_exchange.render import comparison, number
+from us_china_exchange.theme import CHART_THEMES
 
 
 def check():
@@ -40,6 +41,15 @@ def check():
             baseline = next((r for r in available if r["year"] == 2020), None)
             assert page.locator("#baseline-change").inner_text() == comparison(change(current, baseline), current["unit"])
             assert page.locator("#chart svg").count() == 1
+            assert "2000" in page.locator("#chart").inner_text()
+            assert page.locator("#chart svg text").evaluate_all("""nodes => nodes.every(node => {
+              const box = node.getBBox();
+              return box.x >= 0 && box.y >= 0 && box.x + box.width <= 900 && box.y + box.height <= 470;
+            })"""), (origin, destination, measure, "clipped figure text")
+            for theme, spec in CHART_THEMES.items():
+                page.select_option("#chart-theme", theme)
+                assert page.locator("#chart .chart-background").get_attribute("fill") == spec["background"]
+                assert page.locator(f'#figure-link a[href*="/{theme}/"]').count() == 1
             partials = [r for r in rows if (r["origin"], r["destination"], r["measure"], r["frequency"])
                         == (origin, destination, measure, "ytd") and r["value"] is not None]
             partial = max(partials, key=lambda r: r["period"]) if partials else None
@@ -79,6 +89,8 @@ def check():
         assert page.locator("#all-values details").count() > 30
         page.locator("#all-values summary").first.click()
         assert page.locator("#all-values table").first.is_visible()
+        for theme in CHART_THEMES:
+            assert page.locator(f'#figure-link a[href*="/{theme}/"]').count() == 1
         assert not page.evaluate("document.documentElement.scrollWidth > innerWidth")
         assert not errors, errors
         browser.close()

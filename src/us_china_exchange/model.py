@@ -5,6 +5,7 @@ import math
 from datetime import date
 
 
+START_YEAR = 2000
 GEOGRAPHIES = {"CHN": "Mainland China", "HKG": "Hong Kong",
                "MAC": "Macau", "TWN": "Taiwan", "USA": "United States"}
 MEASURES = {
@@ -71,7 +72,7 @@ def validate(rows):
             raise ValueError("Unknown geography")
         if (row["origin"] == "USA") == (row["destination"] == "USA"):
             raise ValueError("Observation must have exactly one U.S. endpoint")
-        if row["measure"] not in MEASURES or row["year"] < 2010:
+        if row["measure"] not in MEASURES or row["year"] < START_YEAR:
             raise ValueError("Unsupported measure or year")
         if row["status"] not in {"observed", "estimated", "provisional", "missing", "suppressed"}:
             raise ValueError("Unknown observation status")

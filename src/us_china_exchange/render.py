@@ -4,11 +4,14 @@ import csv
 import html
 import io
 import json
+import math
+import textwrap
 from collections import defaultdict
 from pathlib import Path
 
-from .model import GEOGRAPHIES, MEASURES, change, coverage, json_text, validate
+from .model import START_YEAR, GEOGRAPHIES, MEASURES, change, coverage, json_text, validate
 from .pipeline import load, write_atomic
+from .theme import CHART_THEMES, FONT, GRID, MUTED, PARTNER_COLORS, TEXT
 
 
 SOURCE_NAMES = {
@@ -54,7 +57,8 @@ def comparison(result, unit):
              else " \u00b7 " + result["reason"]))
 
 
-def svg_chart(rows, indexed=False):
+def svg_chart(rows, indexed=False, theme="themarginoferror"):
+    background = CHART_THEMES[theme]["background"]
     annual = sorted((r for r in rows if r["frequency"] == "annual"), key=lambda r: r["year"])
     present = [r for r in annual if r["value"] is not None]
     if not present:
@@ -70,27 +74,37 @@ def svg_chart(rows, indexed=False):
     values = {r["year"]: (r["value"] / ref["value"] * 100 if indexed else r["value"])
               for r in present}
     maximum = max(values.values()) * 1.13 or 1
-    x = lambda year: 88 + (year - 2010) / (end - 2010) * 754
-    y = lambda value: 277 - value / maximum * 230
-    title = f"{MEASURES[present[0]['measure']]}: {GEOGRAPHIES[present[0]['origin']]} to {GEOGRAPHIES[present[0]['destination']]}"
-    parts = [f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 340" role="img" aria-label="{esc(title)}">',
+    magnitude = 10 ** math.floor(math.log10(maximum))
+    maximum = math.ceil(maximum / magnitude) * magnitude
+    x = lambda year: 88 + (year - START_YEAR) / (end - START_YEAR) * 754
+    y = lambda value: 350 - value / maximum * 235
+    sample = present[0]
+    partner = sample["destination"] if sample["origin"] == "USA" else sample["origin"]
+    color = PARTNER_COLORS[partner]
+    heading = MEASURES[sample["measure"]]
+    direction = f"{GEOGRAPHIES[sample['origin']]} to {GEOGRAPHIES[sample['destination']]}"
+    title = f"{heading}: {direction}"
+    parts = [f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 470" role="img" aria-label="{esc(title)}">',
              f"<title>{esc(title)}</title>",
-             "<desc>Annual observations from 2010. Missing years are gaps, not zero. Exact values are in the adjacent table.</desc>",
-             '<rect width="900" height="340" fill="#fff"/>',
-             '<g font-family="system-ui,sans-serif" font-size="14" fill="#53616a">']
+             f"<desc>Annual history from {START_YEAR} where available. Missing years and definition changes break the line. Exact values are in the complete data download.</desc>",
+             f'<rect class="chart-background" width="900" height="470" fill="{background}"/>',
+             f'<g font-family="{esc(FONT)}" font-size="15" fill="{MUTED}">',
+             f'<text x="88" y="35" font-size="23" font-weight="bold" fill="{TEXT}">{esc(heading)}</text>',
+             f'<text x="88" y="62" font-size="17">{esc(direction)}</text>']
     for fraction in [0, 0.5, 1]:
         value = maximum * fraction
         label = f"{value:.0f}" if indexed else number(value, unit, compact=True)
-        parts.append(f'<path d="M88 {y(value):.2f}H842" stroke="#e7ebed"/>'
+        parts.append(f'<path d="M88 {y(value):.2f}H842" stroke="{GRID}" stroke-opacity="0.6" stroke-width="0.5"/>'
                      f'<text x="76" y="{y(value) + 5:.2f}" text-anchor="end">{esc(label)}</text>')
-    for year in sorted({2010, 2015, 2020, end}):
-        parts.append(f'<text x="{x(year):.2f}" y="308" text-anchor="middle">{year}</text>')
-    parts.append(f'<path d="M{x(2020):.2f} 35V277" stroke="#9b8261" stroke-dasharray="4 5"/>')
-    parts.append(f'<text x="{x(2020) + 8:.2f}" y="27" fill="#806640">2020 baseline</text>')
+    for year in sorted(set(range(START_YEAR, end - 1, 5)) | {end}):
+        parts.append(f'<text x="{x(year):.2f}" y="378" text-anchor="middle">{year}</text>')
+    parts.append(f'<path d="M88 115V350H842" stroke="{GRID}" stroke-width="0.8" fill="none"/>')
+    parts.append(f'<path d="M{x(2020):.2f} 115V350" stroke="{MUTED}" stroke-width="0.8" stroke-dasharray="4 5"/>')
+    parts.append(f'<text x="{x(2020) - 8:.2f}" y="99" text-anchor="end">2020 baseline</text>')
     if indexed:
-        parts.append('<text x="88" y="27">2020 = 100</text>')
+        parts.append(f'<text x="88" y="99" fill="{TEXT}">2020 = 100</text>')
     else:
-        parts.append(f'<text x="88" y="27">{esc("Nominal USD" if unit == "USD" else unit.capitalize())}</text>')
+        parts.append(f'<text x="88" y="99" fill="{TEXT}">{esc("Nominal USD" if unit == "USD" else unit.capitalize())}</text>')
     path, previous, previous_definition = [], None, None
     for year, value in sorted(values.items()):
         definition = next(r["comparability"] for r in present if r["year"] == year)
@@ -98,12 +112,20 @@ def svg_chart(rows, indexed=False):
         path.append(f"{'L' if connected else 'M'}{x(year):.2f},{y(value):.2f}")
         previous = year
         previous_definition = definition
-    parts.append(f'<path d="{" ".join(path)}" fill="none" stroke="#24586d" stroke-width="3" stroke-linejoin="round"/>')
+    parts.append(f'<path class="data-line" d="{" ".join(path)}" fill="none" stroke="{color}" stroke-width="2.8" stroke-linejoin="round"/>')
     for row in present:
         year = row["year"]
         label = row["period"] + ": " + number(row["value"], unit)
-        parts.append(f'<circle cx="{x(year):.2f}" cy="{y(values[year]):.2f}" r="4" fill="#24586d">'
+        parts.append(f'<circle cx="{x(year):.2f}" cy="{y(values[year]):.2f}" r="3.5" fill="{color}">'
                      f'<title>{esc(label)}</title></circle>')
+    source = SOURCE_NAMES.get(sample["source_id"], sample["source_id"])
+    note = f"Source: {source}. Annual observations; missing years and definition changes are not connected."
+    if sample["period_basis"] == "academic":
+        note += " Academic years use ending years."
+    if sample["period_basis"] == "reporting":
+        note += " Reporting years, not physical-presence counts."
+    for line, text in enumerate(textwrap.wrap(note, width=100)):
+        parts.append(f'<text class="figure-source" x="88" y="{414 + line * 18}" font-size="12" font-style="italic">{esc(text)}</text>')
     parts.append("</g></svg>")
     return "".join(parts)
 
@@ -155,14 +177,18 @@ def build(root):
         if levels.startswith("<svg"):
             write_atomic(figures / (slug + ".svg"), levels + "\n")
             write_atomic(site / "figures" / (slug + ".svg"), levels + "\n")
+            for theme in CHART_THEMES:
+                themed = svg_chart(series_rows, theme=theme)
+                write_atomic(figures / theme / (slug + ".svg"), themed + "\n")
+                write_atomic(site / "figures" / theme / (slug + ".svg"), themed + "\n")
         heading = (GEOGRAPHIES[sample["origin"]] + " \u2192 " + GEOGRAPHIES[sample["destination"]] +
                    " \u00b7 " + MEASURES[sample["measure"]])
         all_tables.append(f'<details><summary>{esc(heading)} <span class="muted">({esc(SOURCE_NAMES[sample["source_id"]])})</span></summary>'
                           f'<p>{esc(sample["definition"])}</p>{annual_table(series_rows)}</details>')
     payload = {"observations": rows, "sources": sources, "coverage": matrix,
                "geographies": GEOGRAPHIES, "measures": MEASURES,
-               "source_names": SOURCE_NAMES, "charts": charts}
-    download = {k: v for k, v in payload.items() if k != "charts"}
+               "source_names": SOURCE_NAMES, "charts": charts, "chart_themes": CHART_THEMES}
+    download = {k: v for k, v in payload.items() if k not in {"charts", "chart_themes"}}
     write_atomic(site / "downloads/exchange.json", json_text(download))
     write_atomic(site / "downloads/observations.json", json_text(rows))
     write_atomic(site / "downloads/coverage.json", json_text(matrix))
@@ -206,6 +232,7 @@ def build(root):
                                 for k, v in [("to_us", "To U.S."), ("from_us", "From U.S.")])
     measure_options = "".join(f'<option value="{k}"{" selected" if k == current["measure"] else ""}>{esc(v)}</option>'
                               for k, v in MEASURES.items())
+    theme_options = "".join(f'<option value="{k}">{esc(v["label"])}</option>' for k, v in CHART_THEMES.items())
     embedded = json_text(payload).replace("<", "\\u003c")
     document = f"""<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
@@ -215,8 +242,8 @@ def build(root):
 <body><a class="skip" href="#main">Skip to content</a><div class="page">
 <header><p class="eyebrow">A bilateral exchange monitor</p><h1>Students, visitors<br>and trade.</h1>
 <p class="lead">The United States and mainland China, Hong Kong, Macau, and Taiwan.
-Four separate geographies. Both directions. Change since 2020.</p>
-<p class="scope">History from 2010 where available \u00b7 Latest verified period varies by series \u00b7 Nominal USD for trade</p></header>
+Four separate geographies. Both directions. History since {START_YEAR}; change since 2020.</p>
+<p class="scope">History from {START_YEAR} where available \u00b7 Latest verified period varies by series \u00b7 Nominal USD for trade</p></header>
 <main id="main">
 <form class="controls" aria-label="Explore bilateral series" onsubmit="return false">
 <label for="geography">Geography<select id="geography">{options}</select></label>
@@ -229,7 +256,8 @@ Four separate geographies. Both directions. Change since 2020.</p>
 <div id="annual-headlines" aria-live="polite">{initial_panel(selected)}</div>
 <p class="definition" id="definition">{esc(current["definition"])}</p>
 <div class="chart-heading"><h3>Annual history</h3><div class="chart-control"><label for="chart-mode">Display</label>
-<select id="chart-mode"><option value="levels">Reported values</option><option value="index">2020 = 100</option></select></div></div>
+<select id="chart-mode"><option value="levels">Reported values</option><option value="index">2020 = 100</option></select></div>
+<div class="chart-control"><label for="chart-theme">Background</label><select id="chart-theme">{theme_options}</select></div></div>
 <div id="chart">{charts[selected_id]["levels"]}</div>
 <p class="chart-note">Gaps stay gaps. Academic-year labels use their ending year on the axis; the 2020 baseline is 2019/20, not calendar 2020. Reporting-year UIS data are not physical-presence counts.</p>
 <details id="selected-table"><summary>Exact values for this series</summary><div id="series-table">{annual_table(selected)}</div></details>
@@ -245,7 +273,9 @@ Four separate geographies. Both directions. Change since 2020.</p>
 <section id="downloads"><h2>The complete data, not just the chart.</h2>
 <p>All observations, including monthly history and matched YTD sums, definitions, missingness, source vintages, request URLs, retrieval timestamps and raw-response checksums.</p>
 <div class="downloads"><a href="downloads/observations.csv" download>All observations \u00b7 CSV</a><a href="downloads/exchange.json" download>Complete dataset + coverage \u00b7 JSON</a></div>
-<p id="figure-link"><a href="figures/{esc(selected_slug)}.svg" download>Download this chart \u00b7 SVG (reported values)</a></p></section>
+<div id="figure-link"><p><a href="figures/{esc(selected_slug)}.svg" download>Download this chart \u00b7 SVG (reported values)</a></p>
+<p class="figure-variants">Publication backgrounds (same reported values):
+{" · ".join(f'<a href="figures/{theme}/{esc(selected_slug)}.svg" download>{esc(spec["label"])} SVG</a>' for theme, spec in CHART_THEMES.items())}</p></div></section>
 <section id="coverage"><h2>Coverage, including the gaps.</h2>
 <p>Missing does not mean zero. No interpolation, regional allocation, or passenger/visa proxy fills an unavailable bilateral series.</p>
 <details><summary>View all four geographies, both directions and every measure</summary>

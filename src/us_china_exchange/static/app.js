@@ -58,6 +58,10 @@
       <p id="yoy-change">Prior year: ${escape(difference(current, previous))}</p></div></div>`;
     $("definition").textContent = current.definition;
     $("chart").innerHTML = data.charts[current.series_id][$("chart-mode").value];
+    const chartBackground = $("chart").querySelector(".chart-background");
+    if (chartBackground) {
+      chartBackground.setAttribute("fill", data.chart_themes[$("chart-theme").value].background);
+    }
     $("series-table").innerHTML = `<div class="table-scroll"><table><caption>Exact annual observations</caption>
       <thead><tr><th scope="col">Period</th><th scope="col">Value</th><th scope="col">Status</th></tr></thead><tbody>` +
       annual.map(r => `<tr><th scope="row">${escape(r.period)}</th><td>${escape(format(r.value, r.unit))}</td><td>${escape(r.status)}</td></tr>`).join("") +
@@ -67,7 +71,11 @@
       ` \u00b7 ${escape(current.source_vintage)} \u00b7 ${escape(manifest.status)}. ` +
       `Published retrieval: ${escape(current.retrieved_at)}. ${escape(manifest.notes || "")}`;
     $("series-notes").textContent = current.notes;
-    $("figure-link").innerHTML = `<a href="figures/${escape(current.series_id.replaceAll(":", "-"))}.svg" download>Download this chart \u00b7 SVG (reported values)</a>`;
+    const slug = escape(current.series_id.replaceAll(":", "-"));
+    $("figure-link").innerHTML = `<p><a href="figures/${slug}.svg" download>Download this chart \u00b7 SVG (reported values)</a></p>` +
+      `<p class="figure-variants">Publication backgrounds (same reported values): ` +
+      Object.entries(data.chart_themes).map(([key, theme]) =>
+        `<a href="figures/${escape(key)}/${slug}.svg" download>${escape(theme.label)} SVG</a>`).join(" \u00b7 ") + "</p>";
     const partials = rows.filter(r => r.frequency === "ytd" && r.value !== null)
       .sort((a, b) => a.period.localeCompare(b.period));
     const partial = partials.at(-1);
@@ -85,7 +93,7 @@
         <p>Source vintage: ${escape(partial.source_vintage)}. No annualization or full-year comparison.</p>`;
     }
   }
-  for (const id of ["geography", "direction", "measure", "chart-mode"]) {
+  for (const id of ["geography", "direction", "measure", "chart-mode", "chart-theme"]) {
     $(id).addEventListener("change", render);
   }
   render();
