@@ -13,7 +13,10 @@ and capture timestamps are retained separately in the local database.
 | Fortune China | [Publisher homepage](https://www.fortunechina.com/) outbound link; [archived profile](https://web.archive.org/web/20260310032620id_/https://weibo.com/fortunechina); [current Sina profile](https://www.sina.cn/media/1657987915) | Confirmed; UID `1657987915` |
 | Harvard Business Review, Chinese edition | [Sina profile](https://www.sina.cn/media/2793358674) explicitly identifies the edition's official account; [HBR global editions](https://hbr.org/global-editions) establishes the licensing relationship | Confirmed; UID `2793358674`; exact legal account operator unresolved |
 | The New York Times, Chinese edition | [First-hand publisher confirmation to TechCrunch](https://techcrunch.com/2012/07/03/one-week-on-new-york-times-social-media-accounts-shut-down-in-china-site-still-up/); [2012 archived profile](https://web.archive.org/web/20120628101255id_/http://www.weibo.com/nytchinese) binds handle to UID | Historically confirmed; UID `2782194035`; no current-survival claim |
-| The Wall Street Journal, Chinese edition | [Original research](https://www.rmlt.com.cn/2015/0109/368045_2.shtml) describes an official historical account; a [third-party repost index](https://peachring.com/u/1931511234-grace_xiang/) suggests UID `1649159940` | Unresolved UID-to-publisher binding; excluded from official-account corpus. Third-party page later returned HTTP 403. |
+| The Wall Street Journal, Chinese edition | [Archived publisher homepage, 2018](https://web.archive.org/web/20181009043938/https://cn.wsj.com/) links to `chinesewsj`; [archived platform profile, 2019](https://web.archive.org/web/20190724092335/https://www.weibo.com/chinesewsj) binds it to UID `1649159940` | Historically confirmed after expanded verification; present account availability/activity unresolved. No in-window corpus recovered. |
+| National Geographic, Chinese-language account | [Sina profile](https://www.sina.cn/media/1644225642) explicitly names 美国国家地理官方微博 | Newly confirmed; UID `1644225642`; exact legal operator unresolved; no backfill attempted |
+| Scientific American / 环球科学 | [Sina profile](https://www.sina.cn/media/1235572171) names the official magazine account and Chinese edition; [publisher homepage](https://www.huanqiukexue.com/) independently identifies the edition and company | Newly confirmed Chinese-edition account; UID `1235572171`; no backfill attempted |
+| MIT Technology Review, Chinese-language account | [Sina profile](https://www.sina.cn/media/1738690784) explicitly names 《麻省理工科技评论》杂志官方微博 | Newly confirmed; UID `1738690784`; current legal operator/licensing terms unresolved; no backfill attempted |
 
 The roster includes U.S.-based Chinese-language outlets, but no account for
 those outlets was confirmed in this bounded pass. In particular, SinoVision /
@@ -32,7 +35,7 @@ they are not negative proof that accounts do not exist.
 | `/media/1765373140` | 101 visible feed entries, including an older pinned September 8 post ahead of October 21 posts | Do not infer chronological order or stop at the pinned date |
 | `/media/1657987915` | 100 visible feed entries; explicit Fortune China certification | Collect linked accessible details; mark historical coverage partial |
 | `/media/2793358674` | 100 visible feed entries; explicit Chinese-edition HBR certification | Collect linked accessible details; unknown repost status remains unknown |
-| `/media/2782194035` and candidate `/media/1649159940` | Redirected off the supported host/route toward a generic Sina homepage | Do not follow as an account feed or infer inactivity |
+| `/media/2782194035` and `/media/1649159940` | Redirected off the supported host/route toward a generic Sina homepage | Do not follow as an account feed or infer inactivity |
 | Linked Sina detail pages | Some expose a main `article-content` body and structured author URL; others redirect away from supported routes | Verify author UID and post ID; retain a labeled feed preview if detail is unavailable |
 
 For example, the Forbes post with ID `5356507123421092` has 153 characters in

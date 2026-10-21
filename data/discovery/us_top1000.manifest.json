@@ -1,0 +1,13 @@
+{
+  "source_url": "https://www.scimagomedia.com/rankings.php?country=United+States",
+  "download_url": "https://www.scimagomedia.com/rankings.php?country=United+States&download=1",
+  "processed_at": "2026-10-21T14:51:03.925861+00:00",
+  "source_sha256": "7b41774a2e1062aa3c5783670e9a2c02c5f06b0141033a92485c3563af60f72f",
+  "source_rows": 1139,
+  "selected_rows": 1000,
+  "selection": "First N distinct U.S.-labeled domains in downloaded source order; ties retain source order.",
+  "metric": "SCImago digital reputation, not audience/traffic or editorial quality.",
+  "ranking_vintage": "Not specified in download; processed_at is not an edition date.",
+  "country": "Source classification; not independently verified U.S. ownership.",
+  "reuse": "Non-commercial use with citation, per source website."
+}

@@ -1,8 +1,8 @@
 # U.S. news-media accounts on Sina Weibo
 
-Generated: 2026-10-21T14:43:15.870208+00:00. Registry claims retain their own observation dates.
+Generated: 2026-10-21T15:04:39.330472+00:00. Registry claims retain their own observation dates.
 
-Candidate roster: **16 outlets; 15 reviewed; 1 pending**. This is an expandable research roster, not a census.
+Candidate roster: **19 outlets; 18 reviewed; 1 pending**. This is an expandable research roster, not a census.
 Officialness, historical existence, operator relationship, and current access are distinct.
 A visitor/login gate does not establish that an account was suspended or deleted.
 
@@ -13,7 +13,11 @@ A visitor/login gate does not establish that an account was suspended or deleted
 | Forbes / Forbes China | [福布斯中文网](https://weibo.com/u/1765373140) | 1765373140 | Chinese edition / local branded publisher; not asserted to be the U.S. newsroom account | current_evidence | login_required |
 | Fortune / Fortune China | [财富中文网](https://www.weibo.com/fortunechina) | 1657987915 | Authorized Chinese edition; account is for Fortune China, not assumed to be the U.S. newsroom | current_evidence | login_required |
 | Harvard Business Review / China | [哈佛商业评论](https://weibo.com/u/2793358674) | 2793358674 | Licensed Chinese edition; HBR lists HBR China among its international licensed editions | current_evidence | unknown |
+| MIT Technology Review / China | [麻省理工科技评论](https://weibo.com/u/1738690784) | 1738690784 | Chinese-language branded account; not asserted to be U.S.-newsroom-operated or to have independently verified current licensing terms | current_evidence | unknown |
+| National Geographic / China | [美国国家地理](https://weibo.com/u/1644225642) | 1644225642 | Chinese-language branded account; not asserted to be U.S.-newsroom-operated | current_evidence | unknown |
+| Scientific American / Huanqiu Kexue | [环球科学杂志社](https://weibo.com/u/1235572171) | 1235572171 | Chinese edition of Scientific American; not asserted to be the U.S. newsroom account | current_evidence | unknown |
 | The New York Times | [The New York Times Chinese / nytchinese](https://weibo.com/nytchinese) | 2782194035 | Publisher-operated Chinese-language news edition; historical account | historical | login_required |
+| The Wall Street Journal | [华尔街日报中文网](https://weibo.com/chinesewsj) | 1649159940 | Historical official Chinese-language WSJ account; not a current-activity assertion | historical | unknown |
 
 ### Evidence and operator notes
 
@@ -35,13 +39,28 @@ A visitor/login gate does not establish that an account was suspended or deleted
 - [hbr-licensed-edition](https://hbr.org/global-editions) [publisher_statement; supports relationship; observed 2026-10-21T00:00:00+00:00; claim date unknown]: HBR identifies HBR China as a licensed international edition.
 - [hbr-platform-profile](https://www.sina.cn/media/2793358674) [platform_certification; supports identity; observed 2026-10-21T00:00:00+00:00; claim date unknown]: Public Sina profile names 哈佛商业评论 and explicitly labels it the official Weibo of the Chinese edition.
 
+**MIT Technology Review / China / 麻省理工科技评论** (confirmed). Operator: Chinese-language MIT Technology Review operation; exact current legal account operator unresolved. Public Sina profile title names 麻省理工科技评论 and organization-naming tag explicitly says 《麻省理工科技评论》杂志官方微博. Publisher's Chinese article route returned a JavaScript shell, so current operator/licensing assertions were not inferred from search snippets. No backfill attempted.
+
+- [mit-technology-review-platform-profile](https://www.sina.cn/media/1738690784) [platform_certification; supports identity; observed 2026-10-21T14:58:16.125567+00:00; claim date unknown]: Directly fetched public Sina profile title names 麻省理工科技评论 and tag explicitly states 《麻省理工科技评论》杂志官方微博. Bio describes its MIT origin and innovation focus. Legal operator and current licensing terms remain unresolved.
+
+**National Geographic / China / 美国国家地理** (confirmed). Operator: Chinese-language National Geographic branded operation; exact legal account operator unresolved. Sina profile names 美国国家地理, explicitly says 美国国家地理官方微博 and directs readers to its Chinese website. Direct Weibo access and current legal licensing terms were not independently established; no post backfill attempted.
+
+- [national-geographic-platform-profile](https://www.sina.cn/media/1644225642) [platform_certification; supports identity; observed 2026-10-21T14:52:51.316700+00:00; claim date unknown]: Directly fetched public Sina profile title names 美国国家地理; organization-naming tag explicitly states 美国国家地理官方微博. Bio describes exclusive images/information and its Chinese website. Exact legal operator unresolved.
+
+**Scientific American / Huanqiu Kexue / 环球科学杂志社** (confirmed). Operator: 《环球科学》杂志社有限公司, named in the edition website footer; legal account ownership not separately documented. Public profile says 《环球科学》杂志官方微博 and labels the edition 《科学美国人》中文版. Publisher homepage independently identifies the Chinese edition and company. No current posting or historical completeness claim; no post backfill attempted.
+
+- [scientific-american-platform-profile](https://www.sina.cn/media/1235572171) [platform_certification; supports identity; observed 2026-10-21T14:52:53.628045+00:00; claim date unknown]: Directly fetched profile title names 环球科学杂志社; bio explicitly states 《环球科学》杂志官方微博 and platform tag states 《科学美国人》中文版.
+- [scientific-american-publisher-edition](https://www.huanqiukexue.com/) [publisher_statement; supports relationship; observed 2026-10-21T14:52:53.628045+00:00; claim date unknown]: Publisher homepage footer explicitly identifies 环球科学 as 《科学美国人》中文版 and names 《环球科学》杂志社有限公司. This supports the edition/operator relationship, not a claim of U.S.-newsroom operation.
+
 **The New York Times / The New York Times Chinese / nytchinese** (confirmed). Operator: The New York Times Chinese-language edition, historically confirmed by the publisher to TechCrunch. Historical officialness is confirmed, not current survival or posting. UID resolved from the 2012-06-28 archived profile; no in-window post corpus yet established. A visitor gate does not establish deletion.
 
 - [nyt-archive-uid](https://web.archive.org/web/20120628101255id_/http://www.weibo.com/nytchinese) [archived_profile; supports historical; observed 2026-10-21T00:00:00+00:00; claim date 2012-06-28T10:12:55+00:00]: Archived nytchinese profile title names 纽约时报中文网 and $CONFIG oid is 2782194035. Binds the historically confirmed handle to a stable UID; no present-day activity claim.
 - [nyt-historical-confirmation](https://techcrunch.com/2012/07/03/one-week-on-new-york-times-social-media-accounts-shut-down-in-china-site-still-up/) [direct_confirmation; supports historical; observed 2026-10-21T00:00:00+00:00; claim date 2012-07-03]: TechCrunch reports the Times directly confirmed ownership of nytchinese. This establishes historical officialness only.
 
-**The Wall Street Journal / 华尔街日报中文网 (historical candidate)** (unresolved). Operator: unknown. Original research describes the official account, but the UID comes only from a third-party repost link and is not promoted to confirmed. Public Sina media route redirected to a generic homepage, not an account feed. Excluded from official-account corpus.
+**The Wall Street Journal / 华尔街日报中文网** (confirmed). Operator: Historical WSJ Chinese publisher-promoted account; current legal account operator unresolved. 2018 archived publisher homepage links to chinesewsj; 2019 archived platform profile binds it to UID 1649159940 and explicitly names the official account. Current Sina route redirects generically and publisher access returns HTTP 401. Stable registry ID retained from the former candidate entry; no in-window posts recovered.
 
+- [wsj-archived-platform-uid](https://web.archive.org/web/20190724092335/https://www.weibo.com/chinesewsj) [platform_certification; supports historical; observed 2026-10-21T00:00:00+00:00; claim date 2019-07-24T09:23:35+00:00]: Archived chinesewsj platform profile has $CONFIG oid 1649159940, onick 华尔街日报中文网 and institutional text 华尔街日报中文网官方微博. Together with the archived publisher link, resolves the UID identity; snapshot rendering is not proof of posting that day.
+- [wsj-archived-publisher-link](https://web.archive.org/web/20181009043938/https://cn.wsj.com/) [publisher_link; supports historical; observed 2026-10-21T00:00:00+00:00; claim date 2018-10-09T04:39:38+00:00]: Archived WSJ Chinese publisher homepage contains href http://e.weibo.com/chinesewsj labeled 关注@华尔街日报中文网, repeated in the page configuration. Publisher-to-handle binding; historical, not current operation.
 - [wsj-candidate-uid](https://peachring.com/u/1931511234-grace_xiang/) [third_party_repost; supports identity; observed 2026-10-21T00:00:00+00:00; claim date unknown]: Third-party repost text attributes a link containing UID 1649159940 to 华尔街日报中文网. Discovery lead only, not sufficient primary confirmation.
 - [wsj-original-research](https://www.rmlt.com.cn/2015/0109/368045_2.shtml) [research_publication; supports historical; observed 2026-10-21T00:00:00+00:00; claim date 2015-01-09]: Original research describes 华尔街日报中文网 as an official Weibo account opened in 2009. Does not independently bind this candidate UID to the publisher.
 
@@ -56,13 +75,16 @@ A visitor/login gate does not establish that an account was suspended or deleted
 | [Fortune / Fortune China](https://www.fortunechina.com/) | reviewed | 财富中文网: confirmed. Publisher outbound link and archived profile agree on identity. Review date: 2026-10-21. |
 | [Harvard Business Review / China](https://hbr.org/global-editions) | reviewed | 哈佛商业评论: confirmed. Chinese edition's platform certification is explicit. hbrchina.org redirects to hbrcitic.com. Review date: 2026-10-21. |
 | [KTSF](https://www.ktsf.com/) | reviewed | Not found in reviewed sources; not evidence of absence. Homepage returned HTTP 403. No official account established. Review date: 2026-10-21. |
+| [MIT Technology Review / China](https://www.technologyreview.com/) | reviewed | 麻省理工科技评论: confirmed. Additional targeted specialist lead, absent from the selected SCImago 1000. Public Sina platform explicitly identifies the official magazine account. Current legal operator and licensing terms not independently verified. Review date: 2026-10-21. |
 | [NPR](https://www.npr.org/) | pending | Not yet reviewed. Roster expansion candidate; no account claim. |
+| [National Geographic / China](https://www.nationalgeographic.com/) | reviewed | 美国国家地理: confirmed. Additional targeted lead, not present in the selected SCImago top 1000. Public Sina profile explicitly identifies the official account. Do not confuse with the unrelated Chinese National Geography / 中国国家地理. Review date: 2026-10-21. |
+| [Scientific American / Huanqiu Kexue](https://www.huanqiukexue.com/) | reviewed | 环球科学杂志社: confirmed. Additional targeted lead, not present in the selected SCImago top 1000. Public platform profile identifies the Chinese edition and official magazine account; publisher website independently names the edition and operator. Review date: 2026-10-21. |
 | [Sing Tao Daily, U.S. edition](https://www.singtaousa.com/) | reviewed | Not found in reviewed sources; not evidence of absence. Publisher homepage was accessible, but no literal Weibo link was found. No official U.S.-edition account established. Review date: 2026-10-21. |
 | [SinoVision / 美国中文网](https://www.sinovision.net/) | reviewed | Not found in reviewed sources; not evidence of absence. Homepage retrieval was not a usable outlet page in the final check (78 bytes). No official account established. Distinct from 侨报/uschinapress.com. Review date: 2026-10-21. |
 | [The Associated Press](https://apnews.com/) | reviewed | Not found in reviewed sources; not evidence of absence. Homepage returned HTTP 403. No identity conclusion can be drawn from blocked access. Review date: 2026-10-21. |
 | [The China Press / 侨报](https://www.uschinapress.com/) | reviewed | Not found in reviewed sources; not evidence of absence. Homepage returned HTTP 403 or 406 across attempts. No official account established. Review date: 2026-10-21. |
 | [The New York Times](https://cn.nytimes.com/) | reviewed | The New York Times Chinese / nytchinese: confirmed. Historical official account confirmed directly to a reporter in 2012. Current homepage did not expose a Weibo link. No current activity claim. Review date: 2026-10-21. |
-| [The Wall Street Journal](https://cn.wsj.com/) | reviewed | 华尔街日报中文网 (historical candidate): unresolved. Historical academic research describes an official account; candidate UID found in a third-party repost. Direct primary certification still unresolved. Publisher request failed with HTTP 401/Forbidden. Review date: 2026-10-21. |
+| [The Wall Street Journal](https://cn.wsj.com/) | reviewed | 华尔街日报中文网: confirmed. Historical officialness now verified: archived WSJ Chinese homepage links to chinesewsj (2018); archived platform profile binds that handle to UID 1649159940 (2019). Current publisher access returned HTTP 401; present account activity remains unverified. Review date: 2026-10-21. |
 | [The Washington Post](https://www.washingtonpost.com/) | reviewed | Not found in reviewed sources; not evidence of absence. Homepage retrieval timed out; account identity remains unestablished. Review date: 2026-10-21. |
 | [World Journal / 世界日报](https://www.worldjournal.com/) | reviewed | Not found in reviewed sources; not evidence of absence. HTTP 403 on one attempt; a later HTTP 200 returned only 702 bytes, not usable publisher content. No official account established. Review date: 2026-10-21. |
 
@@ -76,7 +98,10 @@ All counts below are recovered/observed posts, not total output. No zero-activit
 | forbes-china | 101 | 2026-09-08T09:09:00+00:00 | 2026-10-21T09:18:00+00:00 | archive: partial | Archived profile owner UID mismatch or missing |
 | fortune-china | 177 | 2020-03-06T08:29:00+00:00 | 2026-10-21T13:50:00+00:00 | archive: partial | Single archived profile snapshot; no full timeline backfill. Unexpanded posts are truncated. Engagement belongs to capture time, not retrieval/publication time. Snapshots can contain cached data and omit deleted posts. |
 | hbr-china | 100 | 2026-08-12T08:38:00+00:00 | 2026-10-21T12:00:00+00:00 | sina_syndication: partial | 2 detail pages unavailable; previews retained. {"5331130053822179": "Cross-host or non-HTTPS redirect; access not followed", "5345220771973483": "Cross-host or non-HTTPS redirect; access not followed"} |
+| mit-technology-review-china | 0 | unknown | unknown | not attempted | Not collected |
+| national-geographic-china | 0 | unknown | unknown | not attempted | Not collected |
 | nyt-chinese-historical | 0 | unknown | unknown | sina_syndication: blocked | Cross-host or non-HTTPS redirect; access not followed |
+| scientific-american-china | 0 | unknown | unknown | not attempted | Not collected |
 | wsj-chinese-candidate | 0 | unknown | unknown | not attempted | Not collected |
 
 ### Text completeness
@@ -131,4 +156,4 @@ Collection uses the pilot-verified public Sina syndication feed, linked detail p
 
 No feed-history pagination has been demonstrated. Archive index hits alone are not recovered posts. Authorized/manual/archive JSONL imports can extend coverage, retaining publication versus capture dates. Resolve unknown UIDs before attempting account-specific syndication retrieval. No claim is made that any outlet lacking evidence never used Weibo.
 
-Corpus text and raw responses are local-only by default. Public exports omit posts without explicit redistribution permission and list omissions. No third-party post text is reproduced in this report. See [access pilot](access_pilot.md) for source-level access checks and archive gaps.
+Corpus text and raw responses are local-only by default. Public exports omit posts without explicit redistribution permission and list omissions. No third-party post text is reproduced in this report. See [top-1,000 U.S. website screening](top1000_us_screening.md) for the separate ranked discovery roster, and [access pilot](access_pilot.md) for source-level access checks and archive gaps.

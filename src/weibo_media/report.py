@@ -141,7 +141,8 @@ def report(db, path):
               "",
               "Corpus text and raw responses are local-only by default. Public exports omit posts "
               "without explicit redistribution permission and list omissions. No third-party post "
-              "text is reproduced in this report. See [access pilot](access_pilot.md) for source-level "
+              "text is reproduced in this report. See [top-1,000 U.S. website screening](top1000_us_screening.md) "
+              "for the separate ranked discovery roster, and [access pilot](access_pilot.md) for source-level "
               "access checks and archive gaps.", ""]
     target = Path(path)
     target.parent.mkdir(parents=True, exist_ok=True)

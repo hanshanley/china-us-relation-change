@@ -19,6 +19,24 @@
       "notes": "Chinese edition's platform certification is explicit. hbrchina.org redirects to hbrcitic.com. Review date: 2026-10-21."
     },
     {
+      "id": "national-geographic", "name": "National Geographic / China", "category": "specialist",
+      "aliases": ["美国国家地理", "国家地理中文网"], "us_basis": "U.S.-based science/geography media brand; Chinese-language branded operation distinguished from the U.S. newsroom.",
+      "source_url": "https://www.nationalgeographic.com/", "research_status": "reviewed",
+      "notes": "Additional targeted lead, not present in the selected SCImago top 1000. Public Sina profile explicitly identifies the official account. Do not confuse with the unrelated Chinese National Geography / 中国国家地理. Review date: 2026-10-21."
+    },
+    {
+      "id": "scientific-american", "name": "Scientific American / Huanqiu Kexue", "category": "specialist",
+      "aliases": ["科学美国人", "环球科学", "环球科学杂志社"], "us_basis": "U.S.-based science publication; explicitly licensed Chinese edition included separately.",
+      "source_url": "https://www.huanqiukexue.com/", "research_status": "reviewed",
+      "notes": "Additional targeted lead, not present in the selected SCImago top 1000. Public platform profile identifies the Chinese edition and official magazine account; publisher website independently names the edition and operator. Review date: 2026-10-21."
+    },
+    {
+      "id": "mit-technology-review", "name": "MIT Technology Review / China", "category": "specialist",
+      "aliases": ["麻省理工科技评论", "MIT科技评论"], "us_basis": "U.S.-based MIT Technology Review media brand; Chinese-language operation separately labeled.",
+      "source_url": "https://www.technologyreview.com/", "research_status": "reviewed",
+      "notes": "Additional targeted specialist lead, absent from the selected SCImago 1000. Public Sina platform explicitly identifies the official magazine account. Current legal operator and licensing terms not independently verified. Review date: 2026-10-21."
+    },
+    {
       "id": "nyt", "name": "The New York Times", "category": "newspaper",
       "aliases": ["纽约时报", "纽约时报中文网", "nytchinese"], "us_basis": "U.S. newspaper; Chinese-language newsroom edition.",
       "source_url": "https://cn.nytimes.com/", "research_status": "reviewed",
@@ -28,7 +46,7 @@
       "id": "wsj", "name": "The Wall Street Journal", "category": "newspaper",
       "aliases": ["华尔街日报", "华尔街日报中文网"], "us_basis": "U.S. newspaper; Chinese-language edition.",
       "source_url": "https://cn.wsj.com/", "research_status": "reviewed",
-      "notes": "Historical academic research describes an official account; candidate UID found in a third-party repost. Direct primary certification still unresolved. Publisher request failed with HTTP 401/Forbidden. Review date: 2026-10-21."
+      "notes": "Historical officialness now verified: archived WSJ Chinese homepage links to chinesewsj (2018); archived platform profile binds that handle to UID 1649159940 (2019). Current publisher access returned HTTP 401; present account activity remains unverified. Review date: 2026-10-21."
     },
     {
       "id": "bloomberg", "name": "Bloomberg / Bloomberg Businessweek China", "category": "business",
@@ -123,6 +141,30 @@
       "notes": "Public Sina profile explicitly says 《哈佛商业评论》中文版官方微博. This evidence is syndicated platform certification; direct Weibo access was not separately tested for this account."
     },
     {
+      "id": "national-geographic-china", "outlet_id": "national-geographic", "uid": "1644225642", "handle": null,
+      "display_name": "美国国家地理", "profile_url": "https://weibo.com/u/1644225642", "language": "zh-Hans",
+      "operator": "Chinese-language National Geographic branded operation; exact legal account operator unresolved",
+      "relationship": "Chinese-language branded account; not asserted to be U.S.-newsroom-operated",
+      "officialness": "confirmed", "existence": "current_evidence", "accessibility": "unknown",
+      "notes": "Sina profile names 美国国家地理, explicitly says 美国国家地理官方微博 and directs readers to its Chinese website. Direct Weibo access and current legal licensing terms were not independently established; no post backfill attempted."
+    },
+    {
+      "id": "scientific-american-china", "outlet_id": "scientific-american", "uid": "1235572171", "handle": null,
+      "display_name": "环球科学杂志社", "profile_url": "https://weibo.com/u/1235572171", "language": "zh-Hans",
+      "operator": "《环球科学》杂志社有限公司, named in the edition website footer; legal account ownership not separately documented",
+      "relationship": "Chinese edition of Scientific American; not asserted to be the U.S. newsroom account",
+      "officialness": "confirmed", "existence": "current_evidence", "accessibility": "unknown",
+      "notes": "Public profile says 《环球科学》杂志官方微博 and labels the edition 《科学美国人》中文版. Publisher homepage independently identifies the Chinese edition and company. No current posting or historical completeness claim; no post backfill attempted."
+    },
+    {
+      "id": "mit-technology-review-china", "outlet_id": "mit-technology-review", "uid": "1738690784", "handle": null,
+      "display_name": "麻省理工科技评论", "profile_url": "https://weibo.com/u/1738690784", "language": "zh-Hans",
+      "operator": "Chinese-language MIT Technology Review operation; exact current legal account operator unresolved",
+      "relationship": "Chinese-language branded account; not asserted to be U.S.-newsroom-operated or to have independently verified current licensing terms",
+      "officialness": "confirmed", "existence": "current_evidence", "accessibility": "unknown",
+      "notes": "Public Sina profile title names 麻省理工科技评论 and organization-naming tag explicitly says 《麻省理工科技评论》杂志官方微博. Publisher's Chinese article route returned a JavaScript shell, so current operator/licensing assertions were not inferred from search snippets. No backfill attempted."
+    },
+    {
       "id": "nyt-chinese-historical", "outlet_id": "nyt", "uid": "2782194035", "handle": "nytchinese",
       "display_name": "The New York Times Chinese / nytchinese", "profile_url": "https://weibo.com/nytchinese", "language": "zh-Hans",
       "operator": "The New York Times Chinese-language edition, historically confirmed by the publisher to TechCrunch",
@@ -131,12 +173,12 @@
       "notes": "Historical officialness is confirmed, not current survival or posting. UID resolved from the 2012-06-28 archived profile; no in-window post corpus yet established. A visitor gate does not establish deletion."
     },
     {
-      "id": "wsj-chinese-candidate", "outlet_id": "wsj", "uid": "1649159940", "handle": null,
-      "display_name": "华尔街日报中文网 (historical candidate)", "profile_url": "https://weibo.com/u/1649159940", "language": "zh-Hans",
-      "operator": "unknown",
-      "relationship": "Candidate Chinese-language WSJ account; primary identity and current operator require verification",
-      "officialness": "unresolved", "existence": "historical", "accessibility": "unknown",
-      "notes": "Original research describes the official account, but the UID comes only from a third-party repost link and is not promoted to confirmed. Public Sina media route redirected to a generic homepage, not an account feed. Excluded from official-account corpus."
+      "id": "wsj-chinese-candidate", "outlet_id": "wsj", "uid": "1649159940", "handle": "chinesewsj",
+      "display_name": "华尔街日报中文网", "profile_url": "https://weibo.com/chinesewsj", "language": "zh-Hans",
+      "operator": "Historical WSJ Chinese publisher-promoted account; current legal account operator unresolved",
+      "relationship": "Historical official Chinese-language WSJ account; not a current-activity assertion",
+      "officialness": "confirmed", "existence": "historical", "accessibility": "unknown",
+      "notes": "2018 archived publisher homepage links to chinesewsj; 2019 archived platform profile binds it to UID 1649159940 and explicitly names the official account. Current Sina route redirects generically and publisher access returns HTTP 401. Stable registry ID retained from the former candidate entry; no in-window posts recovered."
     }
   ],
   "evidence": [
@@ -195,6 +237,30 @@
       "justification": "HBR identifies HBR China as a licensed international edition."
     },
     {
+      "id": "national-geographic-platform-profile", "account_id": "national-geographic-china",
+      "source_url": "https://www.sina.cn/media/1644225642", "source_type": "platform_certification",
+      "observed_at": "2026-10-21T14:52:51.316700+00:00", "claim_date": null, "supports": "identity",
+      "justification": "Directly fetched public Sina profile title names 美国国家地理; organization-naming tag explicitly states 美国国家地理官方微博. Bio describes exclusive images/information and its Chinese website. Exact legal operator unresolved."
+    },
+    {
+      "id": "scientific-american-platform-profile", "account_id": "scientific-american-china",
+      "source_url": "https://www.sina.cn/media/1235572171", "source_type": "platform_certification",
+      "observed_at": "2026-10-21T14:52:53.628045+00:00", "claim_date": null, "supports": "identity",
+      "justification": "Directly fetched profile title names 环球科学杂志社; bio explicitly states 《环球科学》杂志官方微博 and platform tag states 《科学美国人》中文版."
+    },
+    {
+      "id": "scientific-american-publisher-edition", "account_id": "scientific-american-china",
+      "source_url": "https://www.huanqiukexue.com/", "source_type": "publisher_statement",
+      "observed_at": "2026-10-21T14:52:53.628045+00:00", "claim_date": null, "supports": "relationship",
+      "justification": "Publisher homepage footer explicitly identifies 环球科学 as 《科学美国人》中文版 and names 《环球科学》杂志社有限公司. This supports the edition/operator relationship, not a claim of U.S.-newsroom operation."
+    },
+    {
+      "id": "mit-technology-review-platform-profile", "account_id": "mit-technology-review-china",
+      "source_url": "https://www.sina.cn/media/1738690784", "source_type": "platform_certification",
+      "observed_at": "2026-10-21T14:58:16.125567+00:00", "claim_date": null, "supports": "identity",
+      "justification": "Directly fetched public Sina profile title names 麻省理工科技评论 and tag explicitly states 《麻省理工科技评论》杂志官方微博. Bio describes its MIT origin and innovation focus. Legal operator and current licensing terms remain unresolved."
+    },
+    {
       "id": "nyt-historical-confirmation", "account_id": "nyt-chinese-historical",
       "source_url": "https://techcrunch.com/2012/07/03/one-week-on-new-york-times-social-media-accounts-shut-down-in-china-site-still-up/", "source_type": "direct_confirmation",
       "observed_at": "2026-10-21T00:00:00+00:00", "claim_date": "2012-07-03", "supports": "historical",
@@ -205,6 +271,18 @@
       "source_url": "https://web.archive.org/web/20120628101255id_/http://www.weibo.com/nytchinese", "source_type": "archived_profile",
       "observed_at": "2026-10-21T00:00:00+00:00", "claim_date": "2012-06-28T10:12:55+00:00", "supports": "historical",
       "justification": "Archived nytchinese profile title names 纽约时报中文网 and $CONFIG oid is 2782194035. Binds the historically confirmed handle to a stable UID; no present-day activity claim."
+    },
+    {
+      "id": "wsj-archived-publisher-link", "account_id": "wsj-chinese-candidate",
+      "source_url": "https://web.archive.org/web/20181009043938/https://cn.wsj.com/", "source_type": "publisher_link",
+      "observed_at": "2026-10-21T00:00:00+00:00", "claim_date": "2018-10-09T04:39:38+00:00", "supports": "historical",
+      "justification": "Archived WSJ Chinese publisher homepage contains href http://e.weibo.com/chinesewsj labeled 关注@华尔街日报中文网, repeated in the page configuration. Publisher-to-handle binding; historical, not current operation."
+    },
+    {
+      "id": "wsj-archived-platform-uid", "account_id": "wsj-chinese-candidate",
+      "source_url": "https://web.archive.org/web/20190724092335/https://www.weibo.com/chinesewsj", "source_type": "platform_certification",
+      "observed_at": "2026-10-21T00:00:00+00:00", "claim_date": "2019-07-24T09:23:35+00:00", "supports": "historical",
+      "justification": "Archived chinesewsj platform profile has $CONFIG oid 1649159940, onick 华尔街日报中文网 and institutional text 华尔街日报中文网官方微博. Together with the archived publisher link, resolves the UID identity; snapshot rendering is not proof of posting that day."
     },
     {
       "id": "wsj-original-research", "account_id": "wsj-chinese-candidate",
