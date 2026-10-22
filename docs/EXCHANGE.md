@@ -44,6 +44,11 @@ status, exact source request, release/vintage label, retrieval timestamp and
 raw-response checksum. `exchange.json` also contains sources and coverage.
 CSV exports contain full observation rows, not just a source inventory.
 Raw third-party PDFs and workbooks are deliberately not published.
+The complete JSON also includes source access/reuse policies. Source availability
+does not imply permission to automate retrieval or commercially republish it.
+IIE retrieval is paused, its retained observations are explicitly a reviewed
+snapshot, and IIE/MGTO reuse restrictions are shown on the pages and affected
+figure footnotes. Publication-background exports do not grant publication rights.
 
 Canonical validation requires each `series_id` to match its source, origin,
 destination and measure fields. Years must be integers; calendar period labels
@@ -90,6 +95,10 @@ For example, mainland-China-to-U.S. goods trade is
 `outputs/figures/goods_trade/substack/bea-CHN-USA-goods.png`.
 The previous flat SVG directories are retired; the build removes only their
 known generated filenames, not unrelated figures.
+When a series is suppressed, disappears from the canonical input, or loses all
+positive values for its log view, its obsolete generated exports are removed
+from both figure trees. User-owned figures are preserved. Removing the frozen
+Weibo input also withdraws its known pages, aggregate downloads and figures.
 
 Use the chart's **Background** selector to preview either version; all PNG/SVG
 download links and the category catalog work without JavaScript. On narrow
@@ -180,6 +189,12 @@ private database are not modified by the chart integration.
   estimates are preserved, including in exact tables and downloads. Reporting
   years retain their year label but have null exact start/end dates, just as
   academic years do; neither implies a January–December reference period.
+  UIS magnitude and qualifier codes remain in observation notes. `NA` becomes
+  null with `not_applicable` status, not an observed zero; `SUPP` stays
+  `suppressed`, and `INCLUDED` becomes `included_elsewhere`. `NIL` retains its
+  genuine source zero and flag. `LOWREL` is labelled `low_reliability`, and
+  national/UIS estimates are `estimated`. `INCLUDES` remains explicitly flagged;
+  unknown flags and flag/value contradictions fail closed.
 - Visitor counts are trips, not unique tourists. NTTO is residence-based,
   qualified-visa, overnight, all-purpose visitation. Taiwan and Macau counts
   include broader arrival populations. Only Taiwan currently supplies a
@@ -234,6 +249,11 @@ Custom adapter mappings refresh only the selected sources: omitted observation
 rows and source manifests remain unchanged, including their health and dates.
 The attempt log lists only sources actually checked. An empty mapping is a
 publication no-op; it does not clear the dataset.
+IIE is an explicit policy check, not a network attempt: it reports
+`permission_required` and `retrieval_attempted: false`, retaining the reviewed
+observations, release vintage and last successful retrieval date. Repeated
+policy checks are publication no-ops. Explicitly selecting the IIE adapter does
+not bypass this gate.
 
 Network errors, HTTP failures and exhausted retries mark a source degraded
 (or unavailable if it never supplied data). Malformed candidates, changed
@@ -265,10 +285,22 @@ be official release dates.
 
 ## Maintenance and validation
 
-IIE's reviewed 2025 PDFs are re-fetched daily, but discovering/accepting a **new
-annual edition requires manual review**. Update its URLs and parser only after
-checking the new report's table layout and definitions. Some official index
-pages return 403; do not bypass those restrictions. Macau's selected-market
+IIE's reviewed 2025 observations remain frozen. Its current terms prohibit
+automated downloading/analysis, so neither daily refreshes nor explicit adapter
+calls retrieve its PDFs. There is no environment-variable override. Before any
+new IIE retrieval or commercial reuse, establish and document applicable
+permission or a permitted replacement source, then review the report's layout
+and definitions before changing the gate. Existing data do not become newly
+checked just because another source refreshes.
+
+MGTO's published site terms limit use to noncommercial purposes; separate
+commercial reuse permission is not verified. The source manifests, JSON policy
+records, page notices and affected figure footnotes expose this restriction.
+Neither the Substack nor The Margin of Error background is a rights clearance.
+These notices do not determine copyright or contractual enforceability.
+
+Some official index pages return 403; do not bypass those restrictions.
+Macau's selected-market
 PDFs can omit the U.S. or rasterize tables. Its 2008, 2010 and 2015 historical market profiles
 and automatically discovered latest complete market profile supply machine-read
 annual U.S. totals; sea, land and air components must sum to each total. They

@@ -64,6 +64,13 @@ def test_null_requires_explicit_status():
     assert validate([row(value=None, status="suppressed")])[0]["status"] == "suppressed"
 
 
+@pytest.mark.parametrize("status", ["not_applicable", "included_elsewhere"])
+def test_non_numeric_source_statuses_cannot_become_observed_zeros(status):
+    assert validate([row(value=None, status=status)])
+    with pytest.raises(ValueError, match="Missingness"):
+        validate([row(value=0, status=status)])
+
+
 def test_change_and_zero_baseline():
     assert change(row(2024, 150), row())["percent"] == 50
     assert change(row(2024), row(value=0))["percent"] is None

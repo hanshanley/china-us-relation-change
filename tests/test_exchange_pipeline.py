@@ -68,6 +68,34 @@ def test_volatile_raw_checksum_does_not_create_publication_change(tmp_path):
     assert not refresh(tmp_path, {"sample": different_container}, FakeClient())["publication_changed"]
 
 
+def test_iie_permission_gate_never_calls_adapter_or_advances_retrieval(tmp_path):
+    refresh(tmp_path, {"sample": adapter(source="sample")}, FakeClient())
+    output = tmp_path / "data/site"
+    rows = json.loads((output / "observations.json").read_text())
+    rows[0].update(source_id="iie", series_id="iie:CHN:USA:visitors")
+    (output / "observations.json").write_text(json.dumps(rows))
+    old = {"status": "available", "vintage": "Reviewed release",
+           "last_successful_retrieval": FakeClient.now, "last_recorded_check": FakeClient.now,
+           "notes": "Reviewed snapshot", "observations": 1}
+    (output / "sources.json").write_text(json.dumps({"iie": old}))
+    def forbidden(client):
+        pytest.fail("The restricted adapter must not be called")
+
+    client = FakeClient()
+    client.now = "2026-10-22T00:00:00+00:00"
+    report = refresh(tmp_path, {"iie": forbidden}, client)
+    assert json.loads((output / "observations.json").read_text()) == rows
+    manifest = json.loads((output / "sources.json").read_text())["iie"]
+    assert manifest["status"] == "permission_required"
+    assert manifest["last_successful_retrieval"] == old["last_successful_retrieval"]
+    assert manifest["vintage"] == old["vintage"]
+    assert report["sources"]["iie"]["retrieval_attempted"] is False
+    published = {p.name: p.read_bytes() for p in output.iterdir()}
+    client.now = "2026-10-23T00:00:00+00:00"
+    assert not refresh(tmp_path, {"iie": forbidden}, client)["publication_changed"]
+    assert published == {p.name: p.read_bytes() for p in output.iterdir()}
+
+
 def test_partial_refresh_preserves_omitted_rows_manifests_and_noop(tmp_path):
     refresh(tmp_path, {"sample": adapter(), "other": adapter(200, source="other")}, FakeClient())
 

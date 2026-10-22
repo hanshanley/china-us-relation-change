@@ -13,6 +13,7 @@ import resvg_py
 
 from .model import START_YEAR, GEOGRAPHIES, MEASURES, change, coverage, gap_reason, json_text, validate
 from .pipeline import load, write_atomic
+from .sources import SOURCE_POLICIES
 from .weibo_analysis import WEIBO_CHARTS, svg_weibo, validate_summary
 from .theme import (CHART_HEIGHT, CHART_THEMES, CHART_WIDTH, COMPARISON_GEOGRAPHIES, FIGURE_CATEGORIES, FONT,
                     FONT_FILES, GRID, MUTED, PARTNER_COLORS, PNG_HEIGHT, PNG_WIDTH,
@@ -32,6 +33,14 @@ SOURCE_NAMES = {
 
 def esc(value):
     return html.escape(str(value), quote=True)
+
+
+def source_notices(source_ids):
+    notices = [f'<li><strong>{esc(SOURCE_NAMES[sid])}:</strong> {esc(SOURCE_POLICIES[sid]["notice"])} '
+               f'<a href="{esc(SOURCE_POLICIES[sid]["terms_url"])}">Source terms</a></li>'
+               for sid in sorted(set(source_ids) & SOURCE_POLICIES.keys())]
+    return ('<details class="source-restrictions"><summary>Source access and reuse restrictions</summary><ul>' +
+            "".join(notices) + '</ul></details>') if notices else ""
 
 
 def number(value, unit="", compact=False):
@@ -136,6 +145,8 @@ def svg_chart(rows, indexed=False, theme="themarginoferror"):
         note += " Academic years use ending years."
     if sample["period_basis"] == "reporting":
         note += " Reporting years, not physical-presence counts."
+    if sample["source_id"] in SOURCE_POLICIES:
+        note += " " + SOURCE_POLICIES[sample["source_id"]]["figure_notice"]
     for line, text in enumerate(textwrap.wrap(note, width=90)):
         parts.append(f'<text class="figure-source" x="115" y="{520 + line * 23}" font-size="16" font-style="italic">{esc(text)}</text>')
     parts.append("</g></svg>")
@@ -245,6 +256,8 @@ def svg_comparison(rows, measure, direction, theme="themarginoferror", logarithm
     note += "Missing years and definition changes stay unconnected."
     if logarithmic:
         note += " Log scale: zeros are omitted, never replaced."
+    for sid in sorted({r["source_id"] for r in present} & SOURCE_POLICIES.keys()):
+        note += " " + SOURCE_POLICIES[sid]["figure_notice"]
     for line, text in enumerate(textwrap.wrap(note, width=108)):
         parts.append(f'<text class="figure-source" x="115" y="{500 + line * 20}" font-size="14" font-style="italic">{esc(text)}</text>')
     parts.append("</g></svg>")
@@ -283,6 +296,14 @@ def export_figure(root, relative, svg):
     return files
 
 
+def remove_figure(root, relative):
+    for suffix in ("png", "svg"):
+        for directory in (root / "outputs/figures", root / "site/figures"):
+            path = directory / (str(relative) + "." + suffix)
+            if path.is_file():
+                path.unlink()
+
+
 def build_weibo(root, summary, gallery):
     validate_summary(summary)
     cards = []
@@ -301,12 +322,7 @@ def build_weibo(root, summary, gallery):
             gallery["weibo"].append(f'<article><h3>{esc(title)}</h3>{figure_links(relative)}</article>')
         else:
             for theme in CHART_THEMES:
-                for suffix in ("png", "svg"):
-                    relative = Path("weibo") / theme / (metric + "." + suffix)
-                    for directory in (root / "outputs/figures", root / "site/figures"):
-                        path = directory / relative
-                        if path.is_file():
-                            path.unlink()
+                remove_figure(root, Path("weibo") / theme / metric)
             body = '<p class="gap">No recovered publication dates in this frozen snapshot.</p>'
         cards.append(f'<section class="series-panel"><h2>{esc(title)}</h2>{body}</section>')
     write_atomic(root / "site/downloads/weibo-summary.json", json_text(summary))
@@ -396,6 +412,14 @@ def build(root):
     gallery = defaultdict(list)
     site = root / "site"
     figures = root / "outputs/figures"
+    previous_ids = {r["series_id"] for r in load(site / "downloads/observations.json", [])}
+    for sid in previous_ids - groups.keys():
+        parts = sid.split(":")
+        if (len(parts) != 4 or parts[0] not in SOURCE_NAMES or parts[1] not in GEOGRAPHIES
+                or parts[2] not in GEOGRAPHIES or parts[3] not in MEASURES):
+            continue
+        for theme in CHART_THEMES:
+            remove_figure(root, Path(figure_category(parts[3])) / theme / sid.replace(":", "-"))
     for series_id, series_rows in sorted(groups.items()):
         sample = series_rows[0]
         slug = series_id.replace(":", "-")
@@ -408,6 +432,9 @@ def build(root):
             for theme in CHART_THEMES:
                 themed = svg_chart(series_rows, theme=theme)
                 figure_paths[series_id][theme] = export_figure(root, Path(category) / theme / slug, themed)
+        else:
+            for theme in CHART_THEMES:
+                remove_figure(root, Path(figure_category(sample["measure"])) / theme / slug)
         heading = (GEOGRAPHIES[sample["origin"]] + " \u2192 " + GEOGRAPHIES[sample["destination"]] +
                    " \u00b7 " + MEASURES[sample["measure"]])
         if series_id in figure_paths:
@@ -430,6 +457,10 @@ def build(root):
             for scale in ("levels", "log"):
                 svg = svg_comparison(rows, measure, direction, logarithmic=scale == "log")
                 if not svg.startswith("<svg"):
+                    for theme in CHART_THEMES:
+                        relative = (Path(figure_category(measure)) / "comparisons" / theme /
+                                    f"chn-hkg-mac-{direction}-{measure}-{scale}")
+                        remove_figure(root, relative)
                     continue
                 versions[scale] = {}
                 for theme in CHART_THEMES:
@@ -484,6 +515,9 @@ def build(root):
                            '<p>Macau goods use customs accounting; the other goods lines use BEA balance-of-payments accounting. '
                            'The dashed Macau line is not an identical accounting measure. Population-definition breaks remain gaps.</p>'
                            '<p>All figures are available as 3000 × 1800 PNGs and SVGs, with both publication backgrounds.</p>'
+                           + source_notices(r["source_id"] for r in rows
+                                            if r["origin"] in COMPARISON_GEOGRAPHIES
+                                            or r["destination"] in COMPARISON_GEOGRAPHIES) +
                            '<p><a href="downloads/observations.csv" download>Complete observations CSV</a> · '
                            '<a href="downloads/exchange.json" download>Complete dataset and provenance JSON</a></p></header><main>' +
                            "".join(comparison_cards) + '</main></div></body></html>')
@@ -491,8 +525,18 @@ def build(root):
     weibo_summary = load(root / "data/site/weibo_summary.json", None)
     if weibo_summary is not None:
         build_weibo(root, weibo_summary, gallery)
+    else:
+        for theme in CHART_THEMES:
+            for metric in WEIBO_CHARTS:
+                remove_figure(root, Path("weibo") / theme / metric)
+        for relative in ["weibo.html", "downloads/weibo-summary.json", "downloads/weibo-accounts.csv",
+                         "downloads/weibo-years.csv", "downloads/weibo-text-completeness.csv"]:
+            path = site / relative
+            if path.is_file():
+                path.unlink()
     payload = {"observations": rows, "sources": sources, "coverage": matrix,
                "geographies": GEOGRAPHIES, "measures": MEASURES,
+               "source_policies": SOURCE_POLICIES,
                "source_names": SOURCE_NAMES, "charts": charts, "chart_themes": CHART_THEMES,
                "figures": figure_paths}
     download = {k: v for k, v in payload.items() if k not in {"charts", "chart_themes", "figures"}}
@@ -618,6 +662,7 @@ Four separate geographies. Both directions. History since {START_YEAR}; change s
 <tbody>{cov_rows}</tbody></table></div></details></section>
 <section id="sources"><h2>Sources and recorded checks.</h2>
 <p>Dates below belong to the published snapshot. An unchanged daily check does not rewrite them. The daily workflow's check artifact records every actual attempt; a successful check is not a new data release.</p>
+{source_notices(sources)}
 <div class="table-scroll"><table class="sources-table"><caption>Source release, health and publication provenance</caption>
 <thead><tr><th>Source</th><th>Health</th><th>Source vintage</th><th>Published successful retrieval</th><th>Last recorded publication check</th><th>Notes</th></tr></thead>
 <tbody>{source_rows}</tbody></table></div></section>

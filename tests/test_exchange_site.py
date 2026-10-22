@@ -24,6 +24,7 @@ def test_offline_build_download_round_trip_and_reproducibility(tmp_path):
     site = tmp_path / "site"
     bundle = json.loads((site / "downloads/exchange.json").read_text())
     assert bundle["observations"] == canonical
+    assert "iie" in bundle["source_policies"] and "macau_tourism" in bundle["source_policies"]
     assert len(bundle["coverage"]) == 64
     downloaded = list(csv.DictReader(io.StringIO((site / "downloads/observations.csv").read_text())))
     assert len(downloaded) == len(canonical) == result["observations"]
@@ -35,6 +36,8 @@ def test_offline_build_download_round_trip_and_reproducibility(tmp_path):
         assert actual["definition"] == expected["definition"]
         assert actual["raw_sha256"] == expected["raw_sha256"]
     page = BeautifulSoup((site / "index.html").read_text(), "html.parser")
+    assert "automatic retrieval is paused" in page.select_one(".source-restrictions").text
+    assert "Commercial reuse permission has not been verified" in page.select_one(".source-restrictions").text
     assert len(page.select("#all-values details")) == result["series"]
     assert page.select_one("noscript")
     assert page.select_one("#all-values table")
@@ -46,6 +49,7 @@ def test_offline_build_download_round_trip_and_reproducibility(tmp_path):
     for a in gallery.select("a[href]"):
         assert (site / "figures" / a["href"]).is_file()
     comparisons = BeautifulSoup((site / "comparisons.html").read_text(), "html.parser")
+    assert "automatic retrieval is paused" in comparisons.select_one(".source-restrictions").text
     for node in comparisons.select("a[href],img[src]"):
         target = node.get("href") or node["src"]
         if not target.startswith(("https://", "#")):
@@ -200,6 +204,39 @@ def test_chart_build_removes_only_known_legacy_exports(tmp_path):
     assert not legacy.exists()
     assert unrelated.read_text() == "User-owned figure"
     assert (figures / "goods_trade/substack/bea-USA-TWN-goods.png").is_file()
+
+
+@pytest.mark.parametrize("correction", ["suppressed", "removed", "zero"])
+def test_corrected_series_cannot_leave_stale_individual_or_comparison_exports(tmp_path, correction):
+    output = tmp_path / "data/site"
+    output.mkdir(parents=True)
+    rows = [r for r in json.loads((ROOT / "data/site/observations.json").read_text())
+            if r["series_id"] in {"bea:USA:CHN:goods", "iie:CHN:USA:international_students"}
+            and r["frequency"] == "annual" and r["year"] == 2020]
+    path = output / "observations.json"
+    path.write_text(json.dumps(rows))
+    (output / "sources.json").write_text((ROOT / "data/site/sources.json").read_text())
+    build(tmp_path)
+    figures = tmp_path / "outputs/figures"
+    original = {p.relative_to(figures) for p in (figures / "goods_trade").rglob("*") if p.is_file()}
+    assert len(original) == 12
+    for directory in (figures, tmp_path / "site/figures"):
+        (directory / "goods_trade/substack/custom.svg").write_text("User-owned figure")
+    for row in rows:
+        if row["measure"] == "goods":
+            row.update(value=0 if correction == "zero" else None,
+                       status="observed" if correction == "zero" else "suppressed")
+    if correction == "removed":
+        rows = [r for r in rows if r["measure"] != "goods"]
+    path.write_text(json.dumps(rows))
+    build(tmp_path)
+    for relative in original:
+        expected = correction == "zero" and "-log." not in relative.name
+        for directory in (figures, tmp_path / "site/figures"):
+            assert (directory / relative).is_file() == expected
+    for directory in (figures, tmp_path / "site/figures"):
+        assert (directory / "goods_trade/substack/custom.svg").read_text() == "User-owned figure"
+    assert list((figures / "students").rglob("*.png"))
 
 
 def test_first_build_without_default_source_uses_available_series(tmp_path):

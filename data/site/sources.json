@@ -16,17 +16,17 @@
     "vintage": "Comtrade annual records through 2025"
   },
   "iie": {
-    "last_recorded_check": "2026-10-21T17:01:48+00:00",
+    "last_recorded_check": "2026-10-22T01:27:39+00:00",
     "last_successful_retrieval": "2026-10-21T17:01:48+00:00",
-    "notes": "Reviewed 2025 PDFs are rechecked daily; new annual report discovery requires manual review. The country-factsheet index was access-restricted during source audit.",
+    "notes": "IIE automatic retrieval is paused: its terms prohibit automated downloading and analysis. Previously reviewed observations are retained, not newly checked. Separate retrieval and reuse permission has not been verified; public access is not commercial-use clearance.",
     "observations": 72,
-    "status": "available",
+    "status": "permission_required",
     "vintage": "Open Doors 2025"
   },
   "macau_tourism": {
-    "last_recorded_check": "2026-10-21T15:37:28+00:00",
+    "last_recorded_check": "2026-10-22T01:27:39+00:00",
     "last_successful_retrieval": "2026-10-21T15:37:28+00:00",
-    "notes": "Selected-market PDFs; unlisted U.S. values are missing, never zero. Latest complete annual market profile fills selected-market omissions. Arrivals exclude non-resident workers/students from 2008. Residence classification changed to issuing place of travel document in April 2015; transition is not comparable. This adapter covers complete annual reports, not newer monthly highlights.",
+    "notes": "Selected-market PDFs; unlisted U.S. values are missing, never zero. Latest complete annual market profile fills selected-market omissions. Arrivals exclude non-resident workers/students from 2008. Residence classification changed to issuing place of travel document in April 2015; transition is not comparable. This adapter covers complete annual reports, not newer monthly highlights. MGTO site terms limit use to noncommercial purposes. Commercial reuse permission has not been verified; these exports do not grant publication rights.",
     "observations": 23,
     "status": "available",
     "vintage": "MGTO annual highlights through 2025; Market Performance 2008, 2010, 2015, 2024"
@@ -48,8 +48,8 @@
     "vintage": "Official annual CSV through 2025"
   },
   "uis": {
-    "last_recorded_check": "2026-10-21T17:01:48+00:00",
-    "last_successful_retrieval": "2026-10-21T17:01:48+00:00",
+    "last_recorded_check": "2026-10-22T01:27:39+00:00",
+    "last_successful_retrieval": "2026-10-22T01:27:39+00:00",
     "notes": "Taiwan not separately listed; U.S.-to-mainland records may be absent.",
     "observations": 76,
     "status": "available",

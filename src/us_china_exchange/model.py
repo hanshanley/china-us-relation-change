@@ -81,7 +81,8 @@ def validate(rows):
         expected_series = f"{row['source_id']}:{row['origin']}:{row['destination']}:{row['measure']}"
         if row["series_id"] != expected_series:
             raise ValueError("Series identity does not match its source, geography and measure")
-        if row["status"] not in {"observed", "estimated", "provisional", "missing", "suppressed"}:
+        null_statuses = {"missing", "suppressed", "not_applicable", "included_elsewhere"}
+        if row["status"] not in null_statuses | {"observed", "estimated", "provisional", "low_reliability"}:
             raise ValueError("Unknown observation status")
         value = row["value"]
         if value is not None and (
@@ -89,7 +90,7 @@ def validate(rows):
             or not math.isfinite(value) or value < 0
         ):
             raise ValueError("Invalid observation value")
-        if (value is None) != (row["status"] in {"missing", "suppressed"}):
+        if (value is None) != (row["status"] in null_statuses):
             raise ValueError("Missingness and observation status disagree")
         if row["period_basis"] not in {"calendar", "academic", "reporting"}:
             raise ValueError("Unknown period basis")

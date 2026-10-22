@@ -11,7 +11,7 @@ from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
 
 from .model import coverage, digest, json_text, key, validate
-from .sources import ADAPTERS
+from .sources import ADAPTERS, SOURCE_POLICIES, SourcePermissionRequired
 
 
 class SourceUnavailable(RuntimeError):
@@ -84,6 +84,9 @@ def refresh(root, adapters=None, client=None):
         old = [r for r in old_rows if r["source_id"] == source_id]
         prior = previous.get(source_id, {})
         try:
+            policy = SOURCE_POLICIES.get(source_id, {})
+            if policy.get("automatic_retrieval") is False:
+                raise SourcePermissionRequired(policy["notice"])
             candidate, vintage, notes = adapter(client)
             if not candidate:
                 raise ValueError(source_id + " returned an empty candidate")
@@ -110,6 +113,17 @@ def refresh(root, adapters=None, client=None):
             manifests[source_id] = manifest if meaningful else prior
             checks[source_id] = {"status": "available", "checked_at": client.now,
                                  "changed": meaningful}
+        except SourcePermissionRequired as exc:
+            rows.extend(old)
+            manifest = dict(prior, status="permission_required", notes=str(exc),
+                            last_recorded_check=client.now, observations=len(old))
+            manifest.pop("error", None)
+            meaningful = any(prior.get(k) != manifest.get(k)
+                             for k in ["status", "notes", "observations", "error"])
+            manifests[source_id] = manifest if meaningful else prior
+            checks[source_id] = {"status": "permission_required", "checked_at": client.now,
+                                 "retrieval_attempted": False, "changed": meaningful,
+                                 "reason": str(exc)}
         except SourceUnavailable as exc:
             rows.extend(old)
             manifest = dict(prior, status="degraded" if old else "unavailable",

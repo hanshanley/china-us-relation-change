@@ -8,7 +8,7 @@ from openpyxl import Workbook
 
 from us_china_exchange.sources import COUNTRIES, parse_bea, parse_ntto, parse_taiwan
 from us_china_exchange import sources
-from us_china_exchange.model import change
+from us_china_exchange.model import change, validate
 
 
 def xlsx(book):
@@ -201,6 +201,55 @@ def test_iie_pandemic_population_break_is_not_applied_to_study_abroad(monkeypatc
     assert "regardless of visa status" in students[2021]["definition"]
     assert "excludes students enrolled online" in students[2025]["definition"]
     assert change(abroad[2021], abroad[2020])["absolute"] == 0
+
+
+def uis_client(**overrides):
+    def get(url, params=None):
+        record = dict(value=12, magnitude=None, qualifier=None, footnotes=[], year=2024)
+        record.update(overrides)
+        if params is not None:
+            record.update(indicatorId=params["indicator"], geoUnit=params["geoUnit"])
+        payload = [] if params is None else {"records": [record]}
+        return json.dumps(payload).encode(), {
+            "url": url, "sha256": "a" * 64, "retrieved_at": "2026-10-21T00:00:00+00:00"}
+    return SimpleNamespace(get=get, json=json.loads)
+
+
+@pytest.mark.parametrize("magnitude,qualifier,value,status,expected", [
+    (None, None, 12, "observed", 12),
+    ("NIL", None, 0, "observed", 0),
+    ("NA", None, 0, "not_applicable", None),
+    ("SUPP", None, None, "suppressed", None),
+    ("INCLUDED", None, None, "included_elsewhere", None),
+    ("LOWREL", "NAT_EST", 12, "low_reliability", 12),
+    ("INCLUDES", None, 12, "observed", 12),
+    (None, "NAT_EST", 12.5, "estimated", 12.5),
+    (None, "UIS_EST", 12.5, "estimated", 12.5),
+])
+def test_uis_preserves_source_flags_without_inventing_zeros(magnitude, qualifier, value, status, expected):
+    rows, _, _ = sources.uis(uis_client(magnitude=magnitude, qualifier=qualifier, value=value))
+    assert validate(rows)
+    assert all(r["status"] == status and r["value"] == expected for r in rows)
+    assert all(str(qualifier) in r["notes"] for r in rows)
+    if magnitude:
+        assert all(f"Magnitude: {magnitude}; source value: {value}" in r["notes"] for r in rows)
+
+
+@pytest.mark.parametrize("overrides", [
+    {"magnitude": "UNKNOWN"}, {"qualifier": "UNKNOWN"},
+    {"magnitude": "NA", "value": 12}, {"magnitude": "NIL", "value": True},
+    {"magnitude": "SUPP", "value": 12}, {"magnitude": "LOWREL", "value": None},
+])
+def test_uis_unknown_or_inconsistent_flags_fail_closed(overrides):
+    with pytest.raises(ValueError, match="UIS"):
+        sources.uis(uis_client(**overrides))
+
+
+def test_iie_adapter_is_blocked_before_any_network_call():
+    def get(url):
+        pytest.fail("Restricted IIE PDFs must not be requested")
+    with pytest.raises(sources.SourcePermissionRequired, match="automatic retrieval is paused"):
+        sources.iie(SimpleNamespace(get=get))
 
 
 def comtrade_client(overrides=None):

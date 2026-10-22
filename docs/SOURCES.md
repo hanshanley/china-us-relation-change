@@ -6,7 +6,7 @@ and Taiwan separately, from 2000 where verified. Missing coverage is not zero.
 | Domain | Primary source | Contract and limitation |
 |---|---|---|
 | Degree enrollment | [UNESCO UIS](https://api.uis.unesco.org/api/public/documentation/) | Bilateral inbound tertiary degree/diploma mobility; exclude credit exchanges. Geo units use ISO alpha-3, including `MAC`, not numeric codes. Taiwan is not a separately available UIS reporting geography. |
-| International student totals and credit study abroad | [IIE Open Doors country sheets](https://opendoorsdata.org/2025-country-and-area-fact-sheet-pdfs/) | The reviewed 2025 PDFs are accessible even though some index/data pages return 403. All four geographies: 2017/18–2024/25 totals including OPT; credit participation through 2023/24. Enrolled-only counts for 2023/24 and 2024/25 sum undergraduate, graduate and non-degree counts, excluding OPT. PDFs are rechecked daily; new report discovery requires manual review. |
+| International student totals and credit study abroad | [IIE Open Doors country sheets](https://opendoorsdata.org/2025-country-and-area-fact-sheet-pdfs/) | Retained reviewed 2025 snapshot, not automatically refreshed: IIE's terms prohibit automated downloading/analysis and separate permission is not verified. All four geographies: 2017/18–2024/25 totals including OPT; credit participation through 2023/24. Enrolled-only counts for 2023/24 and 2024/25 sum undergraduate, graduate and non-degree counts, excluding OPT. New retrieval/reuse requires permission review as well as layout/definition review. |
 | Goods and services, China/Hong Kong/Taiwan | [BEA geographic history](https://www.bea.gov/data/intl-trade-investment/international-trade-goods-and-services) | Discover the `geo-time-series.xlsx` download. Tables 4/5: goods exports/imports; 7/8: services exports/imports. **Balance-of-payments basis**, not Census customs trade. Multiply million USD by 1,000,000. Annual history from 2000; matched YTD sums of complete seasonally adjusted quarters, separately defined from annual totals. The current workbook's repeated 2000 / missing 2001 annual labels require the independently labelled December 2024 archive for those two years; no row-position correction. Macau is not separately reported. |
 | Macau goods | [UN Comtrade public API](https://comtradeapi.un.org/) | U.S. reporter 842, Macao partner 446, aggregate HS TOTAL, annual flows X/M. Exports FOB; imports CIF. These are customs statistics, not BEA BOP; the differing import valuation is conspicuous. No uncertain Taiwan mapping is used. |
 | Visitors to U.S. | [NTTO I-94](https://www.trade.gov/i-94-arrivals-program) | Official country-of-residence visitor trips, including non-leisure purposes; annual and monthly spreadsheets are public. |
@@ -38,6 +38,13 @@ when it varies.
 UIS responses provide reporting years rather than exact reference dates.
 `period_start` and `period_end` are therefore null for reporting-year rows;
 the year, source footnotes and fractional estimates remain unchanged.
+Magnitude and qualifier flags are preserved in notes. `NA` source zeros become
+null `not_applicable` observations, `SUPP` is `suppressed`, and `INCLUDED` is
+`included_elsewhere`. `NIL` remains a flagged source zero. `LOWREL` is
+`low_reliability`, while `NAT_EST` and `UIS_EST` produce `estimated` numeric
+observations. `INCLUDES` remains explicitly flagged. Unknown flags and
+contradictory value/flag pairs fail validation instead of silently becoming
+observed counts.
 
 Trade direction follows goods/services, not payment direction: U.S. exports are
 U.S. to partner; U.S. imports are partner to U.S. Source revisions replace earlier
@@ -59,6 +66,22 @@ source page text, and source artwork remain local; no license to redistribute
 those third-party documents is asserted. Taiwan's catalog identifies the
 government open-data license. Consult publisher terms before redistributing
 raw material; the dashboard does not redistribute IIE fact sheets.
+
+### Source access and reuse restrictions
+
+As reviewed on October 21, 2026, [IIE's terms](https://www.iie.org/terms-and-conditions/)
+prohibit automated downloading/analysis and restrict commercial use. IIE's
+adapter and refresh orchestrator therefore block network retrieval, retain
+reviewed observations with `permission_required` health, and do not advance
+their retrieval provenance. No separate permission has been verified.
+
+[MGTO's limited license](https://dataplus.macaotourism.gov.mo/Indicator/VisitorsSummary/SummaryBar?lang=E)
+states noncommercial use. Separate commercial republication permission remains
+unverified. Source notes, complete JSON policy records, page notices and
+affected PNG/SVG footnotes expose that limitation. Raw document exclusion and
+a publication-background export do not establish reuse permission. Resolving
+permission requires an actual permission review, not toggling an automated
+override; these controls do not make a legal determination about factual data.
 
 ## Verified gaps and rejected substitutes
 

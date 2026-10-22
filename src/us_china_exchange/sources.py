@@ -26,6 +26,29 @@ IIE_FILES = {
     "MAC": "https://opendoorsdata.org/wp-content/uploads/2026/01/OD_Macau_Fact-Sheet-2025.pdf",
     "TWN": "https://opendoorsdata.org/wp-content/uploads/2026/01/OD_Taiwan_Fact-Sheet-2025.pdf",
 }
+SOURCE_POLICIES = {
+    "iie": {
+        "automatic_retrieval": False,
+        "terms_url": "https://www.iie.org/terms-and-conditions/",
+        "notice": (
+            "IIE automatic retrieval is paused: its terms prohibit automated downloading and analysis. "
+            "Previously reviewed observations are retained, not newly checked. Separate retrieval and "
+            "reuse permission has not been verified; public access is not commercial-use clearance."),
+        "figure_notice": "IIE: automatic refresh paused; reuse permission unverified.",
+    },
+    "macau_tourism": {
+        "automatic_retrieval": True,
+        "terms_url": "https://dataplus.macaotourism.gov.mo/Indicator/VisitorsSummary/SummaryBar?lang=E",
+        "notice": (
+            "MGTO site terms limit use to noncommercial purposes. Commercial reuse permission has not "
+            "been verified; these exports do not grant publication rights."),
+        "figure_notice": "MGTO: commercial reuse permission unverified.",
+    },
+}
+
+
+class SourcePermissionRequired(RuntimeError):
+    pass
 
 
 def workbook(content):
@@ -245,11 +268,31 @@ def uis(client):
                 if str(rec["indicatorId"]) != indicator_id or rec["geoUnit"] != destination:
                     raise ValueError("UIS indicator/destination mismatch")
                 value = rec["value"]
+                magnitude, qualifier = rec.get("magnitude"), rec.get("qualifier")
+                if magnitude not in {None, "NIL", "NA", "SUPP", "LOWREL", "INCLUDED", "INCLUDES"}:
+                    raise ValueError("Unknown UIS magnitude flag")
+                if qualifier not in {None, "NAT_EST", "UIS_EST"}:
+                    raise ValueError("Unknown UIS qualifier flag")
+                if magnitude in {"NIL", "NA"} and (isinstance(value, bool) or value != 0):
+                    raise ValueError("UIS NIL/NA flags require a source zero")
+                if magnitude in {"SUPP", "INCLUDED"} and value is not None:
+                    raise ValueError("UIS suppressed/included values must be blank")
+                if magnitude in {"LOWREL", "INCLUDES"} and value is None:
+                    raise ValueError("UIS reliability/inclusion flags require a numeric value")
+                if magnitude in {"NA", "SUPP", "INCLUDED"}:
+                    status = {"NA": "not_applicable", "SUPP": "suppressed",
+                              "INCLUDED": "included_elsewhere"}[magnitude]
+                    value = None
+                else:
+                    status = ("missing" if value is None else "low_reliability" if magnitude == "LOWREL"
+                              else "estimated" if qualifier else "observed")
+                flag_note = (f"Magnitude: {magnitude}; source value: {rec['value']}; "
+                             if magnitude is not None else "")
                 candidate.append(observation(
                     "uis", origin, destination, "degree_students", int(rec["year"]), value,
                     "UIS internationally mobile tertiary degree/diploma students; destination-reported; reporting year",
-                    period_basis="reporting", status="missing" if value is None else "observed",
-                    notes="Qualifier: " + str(rec.get("qualifier")) +
+                    period_basis="reporting", status=status,
+                    notes=flag_note + "Qualifier: " + str(qualifier) +
                     "; footnotes: " + str(rec.get("footnotes", [])) +
                     "; fractional source estimates retained. Not a physical-presence or departure count."))
             rows.extend(attach(candidate, asset, vintage))
@@ -342,13 +385,7 @@ def parse_iie(content, geo):
 
 
 def iie(client):
-    rows = []
-    for geo, url in IIE_FILES.items():
-        content, asset = client.get(url)
-        rows.extend(attach(parse_iie(content, geo), asset, "Open Doors 2025"))
-    return rows, "Open Doors 2025", (
-        "Reviewed 2025 PDFs are rechecked daily; new annual report discovery requires manual review. "
-        "The country-factsheet index was access-restricted during source audit.")
+    raise SourcePermissionRequired(SOURCE_POLICIES["iie"]["notice"])
 
 
 MACAU_INDEX = "https://dataplus.macaotourism.gov.mo/Publication/StatisticalTables?lang=E"
@@ -450,7 +487,8 @@ def macau(client):
         "Latest complete annual market profile fills selected-market omissions. "
         "Arrivals exclude non-resident workers/students from 2008. "
         "Residence classification changed to issuing place of travel document in April 2015; transition is not comparable. "
-        "This adapter covers complete annual reports, not newer monthly highlights.")
+        "This adapter covers complete annual reports, not newer monthly highlights. " +
+        SOURCE_POLICIES["macau_tourism"]["notice"])
 
 
 def comtrade(client):

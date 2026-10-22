@@ -117,3 +117,9 @@ def test_weibo_outputs_publish_only_complete_aggregates_and_both_backgrounds(tmp
     build(tmp_path)
     assert len(list((tmp_path / "outputs/figures/weibo").glob("*/*.png"))) == 6
     assert not list((tmp_path / "site/figures/weibo").glob("*/publication-years.*"))
+    (tmp_path / "data/site/weibo_summary.json").unlink()
+    build(tmp_path)
+    assert not list((tmp_path / "outputs/figures/weibo").glob("*/*.png"))
+    assert not list((tmp_path / "site/figures/weibo").glob("*/*.svg"))
+    assert not (tmp_path / "site/weibo.html").exists()
+    assert not list((tmp_path / "site/downloads").glob("weibo-*"))
