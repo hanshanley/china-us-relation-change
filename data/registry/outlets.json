@@ -640,6 +640,69 @@
       "notes": "Live robots request returned HTTP403 before any publisher page was fetched; no live hostname/path workaround was used. Independently permitted January1,2020 root capture at oklahoman.com was readable and actually titled News OK; that title and capture date are retained rather than presented as a current homepage. No qualifying Weibo link was resolved. Empty evidence or policy refusal is not a verified account negative. Review date: 2026-10-22 UTC."
     },
     {
+      "id": "seattle-times", "name": "The Seattle Times", "category": "newspaper",
+      "aliases": ["The Seattle Times", "西雅图时报"],
+      "us_basis": "U.S.-classified source position54; actual newspaper root, newsroom Contact and linked company Who We Are page identify the Seattle/Pacific Northwest news publisher. Corporate nationality and headquarters are not independently audited.",
+      "source_url": "https://www.seattletimes.com/", "research_status": "reviewed",
+      "notes": "Complete current root, actual /contact/ and linked company.seattletimes.com/who-we-are/ were read without a qualifying Weibo profile. The exact publication-owned community item matches its website but has no main Sina identifier; that is a missing locator, not account-absence evidence. A bounded name-derived exact archive index was also empty. Do not substitute Seattle Chinese Post, Seattle Chinese Times, staff or the parent company's unrelated channels. Unknown, not absent. Review date: 2026-10-22 UTC."
+    },
+    {
+      "id": "philadelphia-inquirer", "name": "The Philadelphia Inquirer", "category": "newspaper",
+      "aliases": ["The Philadelphia Inquirer", "费城问询报"],
+      "us_basis": "Selected United States-classified Philadelphia publication at source position55; its actual homepage, newsroom directory and institutional Contact identify the U.S. paper, not the Philippine Inquirer network.",
+      "source_url": "https://www.inquirer.com/", "research_status": "reviewed",
+      "notes": "Initial2,000,000-byte root was explicitly truncated. A bounded larger read recovered the complete3,339,529-byte document; actual copyright, newsroom-directory and separately followed /contact-us/ pages were also read. No qualifying publisher Weibo link was resolved. Staff social links were not promoted. The article-owned community item matches inquirer.com and has no main Sina identifier, which is not an account negative. Unknown, not absent. Review date: 2026-10-22 UTC."
+    },
+    {
+      "id": "san-diego-union-tribune", "name": "The San Diego Union-Tribune", "category": "newspaper",
+      "aliases": ["San Diego Union-Tribune", "U-T San Diego"],
+      "us_basis": "U.S.-classified source position56; own About identifies the San Diego publication and its Union predecessor's1868 founding. Present corporate control is not independently audited.",
+      "source_url": "https://www.sandiegouniontribune.com/", "research_status": "reviewed",
+      "notes": "Complete current root and actual About were read without a qualifying Weibo link. Actual Contact redirects to the same About page and is not independent corroboration. The correct publication-owned community item matches this website but lacks a main Sina identifier. Spanish/community sister publications, staff and other MediaNews Group outlets are not dedicated account proof. Unknown, not absent. Review date: 2026-10-22 UTC."
+    },
+    {
+      "id": "nerdwallet", "name": "NerdWallet", "category": "financial_information_platform",
+      "aliases": ["NerdWallet"],
+      "us_basis": "United States-classified financial-information domain at selected source position57; its actual Company page identifies the consumer-finance information business. The roster label is not an independent legal-domicile audit.",
+      "source_url": "https://www.nerdwallet.com/", "research_status": "reviewed",
+      "notes": "Complete current root and actual /company page were read without a qualifying Weibo profile. The article-owned community item matches nerdwallet.com and identifies the business/website, but no main Sina locator was found. Missing identifiers, financial articles mentioning social platforms, app sharing and employee accounts are not official-profile or absence evidence. Unknown, not absent. Review date: 2026-10-22 UTC."
+    },
+    {
+      "id": "new-york-daily-news", "name": "New York Daily News", "category": "newspaper",
+      "aliases": ["New York Daily News", "纽约每日新闻"],
+      "us_basis": "U.S.-classified source position58; own About identifies its New York reporting role since1919. Distinct from other cities' Daily News publications, without an independent current ownership audit.",
+      "source_url": "https://www.nydailynews.com/", "research_status": "reviewed",
+      "notes": "Complete root, actual About and Contact were read without a qualifying Weibo link; malformed email-looking relative links were not followed. About carries explicit AI/text-data-mining reuse restrictions; no deeper publisher-article mining or article-body redistribution was pursued. The correct article-owned community item has no main Sina identifier, and a bounded name-derived profile index was empty. Neither is a verified account negative. Staff, Philadelphia Daily News and similarly named overseas publications were not substituted. Review date: 2026-10-22 UTC."
+    },
+    {
+      "id": "seattle-chinese-post", "name": "Seattle Chinese Post / 西華報 / WA Chinese Post", "category": "us_chinese_language",
+      "aliases": ["Seattle Chinese Post", "西華報", "西华报", "WA Chinese Post", "wachinesepost"],
+      "us_basis": "Publisher's own Chinese About records its January20,1982 establishment for Greater Seattle's Chinese community; current Contact identifies the Washington-based Asia Pacific Cultural Center operation. Publication history and present digital ownership are separately stated.",
+      "source_url": "https://seattlechinesepost.com/", "research_status": "reviewed",
+      "notes": "Current root and actual Chinese About/Contact pages were read. About explicitly dates print cessation to January31,2023 and online ownership transfer to APCC to October5,2023, with WA Chinese Post branding; these are not inferred Weibo ownership/attribution cutoffs. Exact2012 root archive failed strict decoding; separately indexed exact2013 capture was readable without a qualifying profile link. No Weibo identity was resolved. Do not conflate 西華報 with 西城時報 or borrow Northwest Asian Weekly/APCC accounts. Unknown, not absent. Review date: 2026-10-22 UTC."
+    },
+    {
+      "id": "une-news", "name": "UNE News Express / 美国新闻速递", "category": "us_chinese_language",
+      "aliases": ["UNE新闻速递", "UNE 新闻速递", "US News Express", "美国新闻速递"],
+      "us_basis": "Own About states January2016 establishment by North American media professionals and scholars, based in the United States and serving Chinese/English communities. This is a publisher self-description, not an independent corporate/headquarters audit.",
+      "source_url": "https://www.unecne.com/", "research_status": "reviewed",
+      "notes": "Current owned root, About, Contact and legal notice were read; legal notice explicitly identifies legacy usnewsexpress domains. Bare legacy domain failed hostname TLS verification, which was not disabled; the independently identified current publisher site and exact2016 legacy archive were used instead. No qualifying Weibo link was resolved. Numeric long-form article-author candidate6547448743 currently displays 美国生活速递 without publication-specific certification; a story credit to UNE is not an independent publisher/Weibo binding. Do not add that different name as a UNE alias or import its posts. Unknown, not absent. Review date: 2026-10-22 UTC."
+    },
+    {
+      "id": "hollywood-reporter", "name": "The Hollywood Reporter", "category": "entertainment_trade_news",
+      "aliases": ["The Hollywood Reporter", "THR", "好莱坞报道", "荷里活報道"],
+      "us_basis": "U.S. entertainment-trade publication: its own Contact identifies Los Angeles offices, and PMC's retained primary corporate timeline records its1930 founding. A current legal-control audit is not asserted.",
+      "source_url": "https://www.hollywoodreporter.com/", "research_status": "reviewed",
+      "notes": "Actual current root and Contact were read without a qualifying Weibo profile. Candidate1651785085 is named 这里是好莱坞 and carries yellow film-blogger verification; HollywoodReporter appears in a contact string, not publication-specific certification or an owned publisher binding. It remains unbound, not confirmed fake/unaffiliated. The correct publication-owned community item has no main Sina identifier; a bounded exact name-derived profile index was empty. Secondary reports of a2015 Tencent Chinese site are only a further licensed-site lead, not this numeric account's identity proof. Unknown, not absent. Review date: 2026-10-22 UTC."
+    },
+    {
+      "id": "dingding-tv", "name": "DingDingTV / 丁丁电视", "category": "us_chinese_language",
+      "aliases": ["DingDingTV", "丁丁电视", "丁丁電視DingDingTV"],
+      "us_basis": "U.S.-Chinese web-TV publisher candidate: its independently retrieved exact2012 publisher homepage explicitly identifies American Chinese-language internet TV/program production. Present headquarters, operations and legal control are not independently audited.",
+      "source_url": "https://www.dingdingtv.com/", "research_status": "reviewed",
+      "notes": "Current robots response was unusable, so no live publisher page was fetched or hostname/path workaround attempted. Exact2012 owned homepage was independently readable. A2015 event-listed dingdingtv handle is now bound to UID1732716720 through2011 owner scope and2017 config, but all inspected certification identifies the founder, not an institutional TV account; current profile is 硅谷丁丁 with yellow creator verification. A brand-looking2011 display name does not override owner-role evidence. The founder profile is excluded from organizational counts; the publisher's own Weibo remains unresolved, not verified absent. Review date: 2026-10-22 UTC."
+    },
+    {
       "id": "variety", "name": "Variety / Chinese edition", "category": "entertainment_trade_news",
       "aliases": ["视相Variety", "Variety China", "Variety中文版"],
       "us_basis": "U.S. publication: PMC's own corporate history identifies Variety's1905 New York founding by Sime Silverman. PMC's June5,2019 announcement independently documents its licensed Chinese edition and Beijing partner.",

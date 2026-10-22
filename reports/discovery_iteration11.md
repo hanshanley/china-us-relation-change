@@ -5,6 +5,9 @@ Research observed October 22, 2026 UTC/EDT, continuing checkpoint
 through October 21, 2026 inclusive, Asia/Shanghai. The recurring discovery
 task remains open.
 
+This is a historical checkpoint. [The next identity-screening follow-up](discovery_iteration12.md)
+records nine further publisher reviews without inflating confirmed account counts.
+
 ## Variety's actual Chinese title resolves the account lead
 
 The licensed publication's Chinese name is **视相Variety**, not a generic

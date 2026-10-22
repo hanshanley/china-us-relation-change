@@ -387,7 +387,9 @@ def publish(roster_path, screening_directory, directory, report_path):
         "(discovery_iteration10.md) verifies Rolling Stone's Chinese edition and its publisher's "
         "license announcement, alongside five more ranked reviews. [Trade-edition and archive follow-up]"
         "(discovery_iteration11.md) resolves Variety's Chinese edition and advances ranked publishers "
-        "through dated primary archives without relabeling failed captures. Current status and legal operator "
+        "through dated primary archives without relabeling failed captures. [Identity-screening follow-up]"
+        "(discovery_iteration12.md) reviews nine further publishers and keeps founder, blogger and unbound article-author "
+        "candidates outside confirmed identity counts. Current status and legal operator "
         "uncertainty remain explicit.", "",
         "## Complete machine-readable deliverables", "",
         "- [All 1,000 ranked U.S. domains](../data/discovery/us_top1000.csv)",
