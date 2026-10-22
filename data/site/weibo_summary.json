@@ -1025,15 +1025,15 @@
     {
       "account_id": "travel-leisure-china",
       "attribution_end": null,
-      "earliest_publication_utc": "2025-06-03T05:34:00+00:00",
+      "earliest_publication_utc": "2021-12-20T06:25:00+00:00",
       "existence": "current_evidence",
       "latest_publication_utc": "2026-10-12T04:03:00+00:00",
-      "latest_run_source": "sina_syndication",
+      "latest_run_source": "import",
       "latest_run_status": "partial",
       "outlet_id": "travel-leisure",
       "outlet_name": "Travel + Leisure / Chinese edition",
       "profile_url": "https://weibo.com/tandlchina",
-      "recovered_posts": 99,
+      "recovered_posts": 102,
       "relationship": "Publisher-linked Chinese travel/lifestyle edition of the U.S. flagship brand; not the U.S. magazine newsroom or the unrelated timeshare company's corporate account"
     },
     {
@@ -1208,16 +1208,16 @@
   "roster": {
     "confirmed_accounts": 86,
     "confirmed_outlets": 61,
-    "outlets": 191,
-    "reviewed_outlets": 191
+    "outlets": 197,
+    "reviewed_outlets": 197
   },
   "source": {
-    "corpus_metadata_sha256": "614024a8e7531044de01acef29e13a0d1d278b685d8d1f1cea50022236e3f96f",
+    "corpus_metadata_sha256": "e902fa08b7531e8e69c6b32003109f767bdbf2f139d02494843a2034f3cc801c",
     "excluded_attribution_posts": 0,
     "excluded_unconfirmed_posts": 0,
-    "latest_collection_at": "2026-10-22T11:23:31.608072+00:00",
+    "latest_collection_at": "2026-10-22T11:49:43.720470+00:00",
     "publication_timezone": "Asia/Shanghai",
-    "registry_sha256": "90fcc5c7ef40294cce96431af95e5f1399515831ef1de3ad8858ee725e7dca9e",
+    "registry_sha256": "26fa89c3b4fccf5c59a2eab09b36127ea840d6643e902c7b57f14791b13c36b4",
     "requested_windows": [
       {
         "end": "2026-10-21T16:00:00+00:00",
@@ -1227,7 +1227,7 @@
   },
   "text_completeness": [
     {
-      "recovered_posts": 5757,
+      "recovered_posts": 5760,
       "status": "source_full"
     },
     {
@@ -1250,11 +1250,11 @@
       "year": 2020
     },
     {
-      "recovered_posts": 398,
+      "recovered_posts": 399,
       "year": 2021
     },
     {
-      "recovered_posts": 413,
+      "recovered_posts": 414,
       "year": 2022
     },
     {
@@ -1262,7 +1262,7 @@
       "year": 2023
     },
     {
-      "recovered_posts": 191,
+      "recovered_posts": 192,
       "year": 2024
     },
     {

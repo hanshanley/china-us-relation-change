@@ -745,6 +745,48 @@
       "notes": "Actual masthead domain failed modern TLS protocol negotiation; verification/security was not weakened and no HTTP downgrade used. Exact2015 domain capture was only a framing wrapper pointing to acmediaonline.net, not an inspected newspaper site. That destination currently failed DNS; its sole retrieved2020 archived capture was gambling-branded, not publisher content, so no social identifier there was attributed to the newspaper and no hacking/ownership cause asserted. The printed masthead and publication-branded issue remain scope evidence only; no official Sina account was resolved. Unknown, not absent. Review date: 2026-10-22 UTC."
     },
     {
+      "id": "telemundo", "name": "Telemundo / Noticias Telemundo", "category": "broadcast_news",
+      "aliases": ["Telemundo", "Noticias Telemundo", "Telemundo Noticias"],
+      "us_basis": "United States-classified source position110; actual network root separately links its Noticias Telemundo newsroom section. Current corporate domicile/headquarters and legal account control are not independently audited.",
+      "source_url": "https://www.telemundo.com/", "research_status": "reviewed",
+      "notes": "Complete network root and actual /noticias were read without a qualifying owned Weibo link. The ranked source calls the domain Telemundo Noticias; raw source name/domain/order preserved rather than silently narrowing the whole domain to one newsroom or counting network/section twice. Parent NBCUniversal, actors, dramas, fans and the different Univision network were not substituted. Correct network community item has an older msnlatino.telemundo.com website statement, not a current exact-domain match or wrong-entity proof, and no main Sina ID. Unknown, not absent. Review date: 2026-10-22 UTC."
+    },
+    {
+      "id": "yardbarker", "name": "Yardbarker", "category": "sports_news",
+      "aliases": ["Yardbarker", "Yardbarker.com"],
+      "us_basis": "United States-classified source position111; actual publisher About identifies its2006 sports-media founding, editorial/syndication operation and subsequent ownership history. Current U.S. corporate ownership is not implied by source-country classification.",
+      "source_url": "https://www.yardbarker.com/", "research_status": "reviewed",
+      "notes": "Complete root/About/Contact were read without a qualifying Sina profile. Own About explicitly describes FOX acquisition2010, independent spinout2017, Playmaker2021 and Better Collective2024, not an assumed current FOX channel or social-account transfer/cutoff. Hundreds of syndicated publishers, athletes, sports teams and parent-company accounts are not Yardbarker identities. Correct publication community main website matches without a main Sina identifier. Unknown, not absent. Review date: 2026-10-22 UTC."
+    },
+    {
+      "id": "arkansas-democrat-gazette", "name": "Arkansas Democrat-Gazette", "category": "newspaper",
+      "aliases": ["Arkansas Democrat-Gazette", "ArkansasOnline"],
+      "us_basis": "United States-classified source position112; actual publisher root and Contact identify the Arkansas newspaper and Little Rock newsroom. Present legal ownership is not independently audited.",
+      "source_url": "https://www.arkansasonline.com/", "research_status": "reviewed",
+      "notes": "Complete root/Contact and its actual letters-to-editor form were read without a qualifying owned Weibo profile. The form was not submitted; reader/staff/other Democrat-Gazette titles and sports-team accounts were not publisher identities. Correct community publication main website matches without a main Sina identifier. Original source name/domain/order preserved. Unknown, not absent. Review date: 2026-10-22 UTC."
+    },
+    {
+      "id": "cincinnati-enquirer", "name": "The Cincinnati Enquirer", "category": "newspaper",
+      "aliases": ["The Cincinnati Enquirer", "Cincinnati Enquirer", "Cincinnati.com"],
+      "us_basis": "United States-classified source position113; correct Cincinnati newspaper community item identifies cincinnati.com and its historical enquirer.com alternative. Current legal ownership/headquarters not independently audited.",
+      "source_url": "https://www.cincinnati.com/", "research_status": "reviewed",
+      "notes": "Live robots request returned403 before a publisher body was fetched. No live alias/path/user-agent workaround and no archive request were attempted; the separately recorded archive403 restriction remains active. The community item's enquirer.com alternative is not permission to bypass the refusal. National Enquirer, other Enquirer papers, staff and parent-company channels were not substituted. Correct item has expected main website and no main Sina ID. Original doubled Cincinnati source name remains unchanged. Unknown, not absent. Review date: 2026-10-22 UTC."
+    },
+    {
+      "id": "daily-inter-lake", "name": "Daily Inter Lake / Kalispell", "category": "newspaper",
+      "aliases": ["Daily Inter Lake", "The Daily Inter Lake", "Kalispell Inter Lake"],
+      "us_basis": "United States-classified source position114; actual publisher Contact explicitly identifies the Kalispell, Montana newsroom,1889 founding and regional news operation.",
+      "source_url": "https://dailyinterlake.com/", "research_status": "reviewed",
+      "notes": "Complete root and actual Contact were read without a qualifying Sina locator. Contact identifies Hagadone Media Montana's flagship paper and lists sister titles; these are not multiplied into accounts or borrowed as this newspaper's UID. Actual social-directory list of Facebook/Instagram/YouTube/X is bounded evidence, not proof of never operating Weibo. Correct community main website matches without a main Sina identifier. Unknown, not absent. Review date: 2026-10-22 UTC."
+    },
+    {
+      "id": "travel-weekly", "name": "Travel Weekly / China-edition lead", "category": "travel_trade_media",
+      "aliases": ["Travel Weekly", "TravelWeekly China", "TravelWeekly旅讯", "旅讯TWC"],
+      "us_basis": "The publication's actual March4,2014 issued release explicitly identifies U.S. Northstar in Secaucus, New Jersey and integrates its North American Travel Weekly brand with the acquired China/Asia editions under a Singapore entity. Current legal ownership/control not independently audited.",
+      "source_url": "https://www.travelweekly.com/", "research_status": "reviewed",
+      "notes": "U.S. root policy request403; old China robots redirect resolved by headers to travelweekly-asia.com, whose policy independently returned403. Northstar corporate policy also403; none were bypassed through another live path/agent. Independently permitted publisher-issued PRNewswire statement https://www.prnasia.com/story/93798-1.shtml was actually read, establishing historical U.S.-China publisher relationship, not a Sina UID or current license renewal. Digital-issue host redirected to an app entry point, not a retrieved magazine issue. Hotel posts report names TravelWeekly旅讯/旅讯TWC but neither author ownership, numeric UID nor equivalence/rename was verified. Hotel/tourism-board/PRNewswire channels, UK's distinct Travel Weekly and China-based 环球旅讯TravelDaily were not substituted. No verified U.S.-linked account or posts added. Unknown, not absent. Review date: 2026-10-22 UTC."
+    },
+    {
       "id": "the-state", "name": "The State / Columbia", "category": "newspaper",
       "aliases": ["The State", "The State Columbia"],
       "us_basis": "United States-classified source position105; independently read exact January1,2016 publisher root explicitly identifies Columbia, South Carolina news and The State newspaper.",

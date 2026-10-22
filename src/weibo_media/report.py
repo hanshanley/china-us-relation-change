@@ -205,6 +205,8 @@ def report(db, path):
               "identities, printed-license evidence and early-window archive recovery, "
               "[Interior Design and 2023-archive follow-up](discovery_iteration22.md) for a domain-certified "
               "publication channel, preserved cached recovery and explicit access-restriction boundaries, "
+              "[Travel-publication and ranked follow-up](discovery_iteration23.md) for older native recovery, "
+              "five further publisher reviews and a travel-trade relationship without an assumed account, "
               "and [access pilot](access_pilot.md) for source-level "
               "access checks and archive gaps.", ""]
     target = Path(path)

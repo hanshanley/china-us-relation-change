@@ -11,6 +11,9 @@ U.S.-staffed newsroom or the publisher's personal account.
 Recovery adds **99 eligible native posts** and **15 distinct
 2023 Artforum posts** from already saved archival HTML.
 
+This is a historical checkpoint. [The next ranked/travel follow-up](discovery_iteration23.md)
+reviews additional publishers and recovers older Travel + Leisure posts without inventing a new account.
+
 ## Interior Design: domain-specific certification and primary relationship
 
 The actual U.S. publisher [root](https://interiordesign.net/)
