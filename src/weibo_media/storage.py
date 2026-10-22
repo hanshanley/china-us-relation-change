@@ -80,7 +80,7 @@ def rows(db, table):
     return [dict(row) for row in db.execute(f"SELECT * FROM {table} ORDER BY {order}")]
 
 
-def put_post(db, post):
+def put_post(db, post, *, prefer_canonical=False):
     existing = db.execute("SELECT * FROM posts WHERE id=?", (post["id"],)).fetchone()
     if existing and (existing["uid"] != post["uid"] or
                      existing["account_id"] != post["account_id"]):
@@ -91,14 +91,25 @@ def put_post(db, post):
         "repost_commentary", "redistribution",
     )
     quality = {"truncated": 0, "unknown": 1, "source_full": 2, "full": 3}
+    incoming_source = existing_source = 0
+    if (existing and existing["text_status"] == post["text_status"] == "source_full"
+            and existing["kind"] != "repost" and post.get("kind") != "repost"):
+        native_url = f"https://www.sina.cn/news/detail/{post['id']}.html"
+        incoming_source = int(post["source_type"] == "sina_syndication" and post["source_url"] == native_url)
+        existing_source = int(db.execute(
+            "SELECT 1 FROM provenance WHERE post_id=? AND text=? AND text_status='source_full' "
+            "AND source_type='sina_syndication' AND source_url=? LIMIT 1",
+            (post["id"], existing["text"], native_url)).fetchone() is not None)
     if not existing:
         db.execute(
             f"INSERT INTO posts ({','.join(columns)}) VALUES ({','.join('?' for _ in columns)})",
             [post.get(column) for column in columns],
         )
-    elif (quality[post["text_status"]] > quality[existing["text_status"]] or
+    elif ((prefer_canonical and quality[post["text_status"]] >= quality[existing["text_status"]]) or
+          quality[post["text_status"]] > quality[existing["text_status"]] or
           (quality[post["text_status"]] == quality[existing["text_status"]] and
-           len(post["text"]) >= len(existing["text"]))):
+           (incoming_source > existing_source or
+            (incoming_source == existing_source and len(post["text"]) >= len(existing["text"]))))):
         updates = {column: post.get(column) for column in columns[3:]}
         for column in ("kind", "referenced_id", "repost_commentary", "redistribution"):
             if updates[column] in (None, "unknown"):
@@ -108,6 +119,13 @@ def put_post(db, post):
             " WHERE id=?",
             [updates[column] for column in columns[3:]] + [post["id"]],
         )
+    else:
+        metadata = {column: post.get(column) for column in (
+            "kind", "referenced_id", "repost_commentary", "redistribution")
+            if existing[column] in (None, "unknown") and post.get(column) not in (None, "unknown")}
+        if metadata:
+            db.execute("UPDATE posts SET " + ",".join(column + "=?" for column in metadata) + " WHERE id=?",
+                       list(metadata.values()) + [post["id"]])
     db.execute(
         "INSERT OR IGNORE INTO provenance VALUES (?,?,?,?,?,?,?)",
         (post["id"], post["source_url"], post["source_type"], post["retrieved_at"],

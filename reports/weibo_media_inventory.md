@@ -1,6 +1,6 @@
 # U.S. news-media accounts on Sina Weibo
 
-Generated: 2026-10-22T17:44:04.832011+00:00. Registry claims retain their own observation dates.
+Generated: 2026-10-22T19:51:56.837328+00:00. Registry claims retain their own observation dates.
 
 Candidate roster: **202 outlets; 202 reviewed; 0 pending**. This is an expandable research roster, not a census.
 Officialness, historical existence, operator relationship, and current access are distinct.
@@ -10,6 +10,7 @@ A visitor/login gate does not establish that an account was suspended or deleted
 
 **Posts partially recovered for 68 of 87 documented channels.** 0 documented channels have no recorded collection attempt. Zero recovered posts after an attempt can reflect access, attribution or coverage limits, not zero account output.
 There is no verified-negative outlet list: missing publisher links and access failures remain unknowns. The complete ranked and supplemental account-status ledger is linked in the [collection follow-up](collection_followup.md).
+The [primary-source recheck](weibo_primary_source_audit.md) records source-level text corrections and distinguishes rechecked numeric identities from historical bindings still pending revalidation. A documented UID is not automatically a freshly revalidated identity.
 
 ## Documented official current and historical channels
 

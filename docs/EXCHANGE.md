@@ -154,7 +154,7 @@ To refresh after local Weibo collection and registry loading:
 The command reads the database in a read-only transaction, checks registry
 alignment, excludes unconfirmed accounts and publications on/after historical
 attribution cutoffs, and freezes `data/site/weibo_summary.json`. Publication
-years use Asia/Shanghai, not UTC. Raw post text is never queried or published.
+years use Asia/Shanghai, not UTC. Raw post text is never published.
 The committed snapshot contains complete per-account, year and completeness
 aggregates, source hashes, latest collection time, exclusion counts and
 requested windows; the site supplies JSON and CSV downloads of those aggregates.
@@ -178,6 +178,22 @@ list. Homepage screening and manual review are separate. Unknowns and
 unresolved candidates are not verified negatives; an absent assessment does
 not establish any absence rate. The complete domain-level decisions remain
 in `data/discovery/us_top1000_accounts.{csv,jsonl}`.
+
+Version 3 adds a primary-source recheck, distinct from registry flags and
+database/export reconciliation. The adjacent
+`data/discovery/weibo_primary_audit.json` is bound to registry bytes and
+canonical post content hashes. Read-only SQLite returns hashes rather than
+raw post bodies for the freshness check. Registry/body changes or later
+unreviewed source conflicts affecting existing posts stop publication until
+the source audit is refreshed; unchanged counts alone are insufficient.
+Versions 1 and 2 remain readable without inventing source-audit results.
+
+Complete per-account recheck statuses, methods, source URLs/hashes and notes
+are retained in the frozen JSON and account CSV. Rechecked numeric bindings,
+historical bindings still pending recheck, and a vanity-only unresolved UID
+remain separate. The dated [primary-source audit](../reports/weibo_primary_source_audit.md)
+documents actual text corrections and remaining gaps. Its complete post-source
+CSV is audit metadata, explicitly not the private full-text corpus.
 
 The ordinary offline site build reproduces Weibo figures from that frozen
 snapshot without requiring the database. Daily exchange refreshes **do not**

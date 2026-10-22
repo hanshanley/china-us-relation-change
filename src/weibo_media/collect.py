@@ -60,7 +60,7 @@ class Node:
     def text(self):
         if self.tag in {"script", "style", "svg"}:
             return ""
-        if self.attrs.get("action-type") == "fl_unfold":
+        if self.attrs.get("action-type") == "fl_unfold" or self.attrs.get("ignore") == "ignore":
             return ""
         if self.tag == "img":
             return self.attrs.get("alt") or ""
@@ -156,9 +156,11 @@ def parse_detail(html, expected_id, expected_uid):
     article = articles[0]
     author = article.get("author", {})
     author_url = author.get("url") if isinstance(author, dict) else None
-    author_path = urlsplit(author_url).path if isinstance(author_url, str) else ""
-    if not re.fullmatch(r"/u/[0-9]+", author_path):
-        raise ValueError("Missing unambiguous detail author identity")
+    author_uri = urlsplit(author_url) if isinstance(author_url, str) else urlsplit("")
+    author_path = author_uri.path
+    if (author_uri.scheme not in {"http", "https"} or author_uri.hostname not in {"weibo.com", "www.weibo.com"}
+            or author_uri.username or author_uri.password or not re.fullmatch(r"/u/[0-9]+", author_path)):
+        raise ValueError("Missing unambiguous Weibo author identity")
     if author_path != f"/u/{expected_uid}":
         raise SourceConflict("Detail author UID mismatch")
     body = tree.find("article-content")
@@ -183,6 +185,11 @@ class SameHostRedirect(HTTPRedirectHandler):
         if (urlsplit(newurl).scheme != "https" or
                 urlsplit(newurl).hostname != urlsplit(request.full_url).hostname):
             raise AccessBlocked("Cross-host or non-HTTPS redirect; access not followed")
+        if urlsplit(request.full_url).hostname == "www.sina.cn":
+            original, destination = urlsplit(request.full_url), urlsplit(newurl)
+            if (re.fullmatch(r"/(?:media/[0-9]+|news/detail/[0-9]+\.html)", original.path)
+                    and (destination.path != original.path or destination.query or destination.fragment)):
+                raise SourceConflict("Sina redirect changed the requested source identity or route")
         if urlsplit(request.full_url).hostname == "web.archive.org":
             old_capture = re.search(r"/web/([0-9]{14})id_/", request.full_url)
             new_capture = re.search(r"/web/([0-9]{14})id_/", newurl)
@@ -456,14 +463,15 @@ def import_posts(db, path, start, end):
                 else:
                     events = [record]
                 kept = False
-                for event in events:
+                for event_index, event in enumerate(events):
                     if event.get("post_id", record["id"]) != record["id"]:
                         raise ValueError("Provenance post ID mismatch")
                     post = normalize(dict(record, **{key: event[key] for key in (
                         "source_url", "source_type", "retrieved_at", "captured_at",
                         "text", "text_status") if key in event}), account, start, end)
                     if post:
-                        put_post(db, post)
+                        put_post(db, post, prefer_canonical=record.get("provenance") is not None
+                                 and event_index == len(events) - 1)
                         kept = True
                 if kept:
                     for observation in record.get("engagement_observations", []):

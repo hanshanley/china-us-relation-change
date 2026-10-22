@@ -44,6 +44,9 @@ def report(db, path):
         "There is no verified-negative outlet list: missing publisher links and access failures "
         "remain unknowns. The complete ranked and supplemental account-status ledger is linked "
         "in the [collection follow-up](collection_followup.md).",
+        "The [primary-source recheck](weibo_primary_source_audit.md) records source-level text "
+        "corrections and distinguishes rechecked numeric identities from historical bindings "
+        "still pending revalidation. A documented UID is not automatically a freshly revalidated identity.",
         "",
         "## Documented official current and historical channels",
         "",

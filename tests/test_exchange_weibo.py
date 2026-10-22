@@ -8,6 +8,7 @@ import pytest
 from PIL import Image
 
 from us_china_exchange.render import build, build_weibo
+from us_china_exchange.model import digest, json_text
 from us_china_exchange.weibo_analysis import create_summary, svg_weibo, validate_summary
 from weibo_media.registry import load
 from weibo_media.storage import connect
@@ -60,6 +61,39 @@ def snapshot_inputs(tmp_path, unresolved_uid_channels=0):
                         "2019-12-31T16:00:00+00:00", "2026-10-21T16:00:00+00:00", "partial", "Partial fixture"))
     db.close()
     return database, path
+
+
+def primary_audit_input(database, registry, summary, path):
+    db = connect(database)
+    try:
+        canonical = [dict(r, text_sha256=digest(r["text"].encode())) for r in db.execute(
+            "SELECT id,account_id,uid,published_utc,text_status,text FROM posts ORDER BY id")]
+        for row in canonical:
+            del row["text"]
+    finally:
+        db.close()
+    audit = {
+        "version": 1, "audited_at": "2026-10-22T18:00:00+00:00",
+        "registry_sha256": digest(registry.read_bytes()),
+        "canonical_posts_sha256": digest(json_text(canonical).encode()),
+        "post_manifest_sha256": "b" * 64,
+        "scope": "Synthetic primary identity and source-text consistency fixture, not completeness.",
+        "accounts": [
+            dict(account_id=a["account_id"], uid=a["uid"],
+                 status="numeric_binding_rechecked", method="fixture_primary_source",
+                 source_url=a["profile_url"], source_sha256="a" * 64,
+                 observed_name=a["display_name"], observed_certification=None, note="Synthetic review")
+            for a in summary["accounts"]
+        ],
+        "corpus": dict(posts_checked=sum(a["recovered_posts"] for a in summary["accounts"]),
+                       primary_text_matches=sum(a["recovered_posts"] for a in summary["accounts"]),
+                       native_detail_sources_checked=2, archived_sources_checked=0,
+                       live_registered_profiles_attempted=2, live_registered_profiles_readable=1,
+                       current_profile_name_matches=1, explicit_prior_detail_conflicts_found=0,
+                       canonical_text_corrections=0),
+    }
+    path.write_text(json_text(audit))
+    return audit
 
 
 def test_summary_respects_timezone_attribution_and_private_corpus(tmp_path):
@@ -191,6 +225,75 @@ def test_legacy_snapshot_does_not_invent_uid_resolution(tmp_path, monkeypatch):
     assert "Numeric UID resolution was not recorded in this legacy snapshot" in page
     assert "channels have resolved numeric UIDs" not in page
     assert "UID resolution, evidence" not in page
+
+
+def test_primary_audit_exposes_pending_bindings_and_rejects_stale_text(tmp_path, monkeypatch):
+    database, registry = snapshot_inputs(tmp_path)
+    db = connect(database)
+    with db:
+        db.execute("DELETE FROM posts WHERE account_id='account2'")
+    db.close()
+    base = create_summary(database, registry)
+    path = tmp_path / "audit.json"
+    audit = primary_audit_input(database, registry, base, path)
+    audit["accounts"][1].update(status="numeric_binding_recheck_pending",
+                                method="prior_archive_not_reread", source_sha256=None)
+    path.write_text(json.dumps(audit))
+    summary = create_summary(database, registry, audit_path=path)
+    assert summary["version"] == 3
+    assert summary["roster"]["resolved_numeric_accounts"] == 2
+    assert summary["accounts"][1]["uid"] == "2"
+    assert summary["accounts"][1]["primary_audit_status"] == "numeric_binding_recheck_pending"
+    assert "PRIVATE_BODY" not in json.dumps(summary)
+    monkeypatch.setattr("us_china_exchange.render.png_chart", lambda svg: b"fixture")
+    build_weibo(tmp_path, summary, {"weibo": []})
+    page = (tmp_path / "site/weibo.html").read_text()
+    assert "1 numeric bindings rechecked; 1 historical numeric bindings still pending" in page
+    assert "Publisher 2" in page and "Historical UID recheck pending" in page
+    with (tmp_path / "site/downloads/weibo-accounts.csv").open(newline="") as stream:
+        rows = list(csv.DictReader(stream))
+    assert rows[1]["uid"] == "2" and rows[1]["primary_audit_status"] == "numeric_binding_recheck_pending"
+    assert rows[1]["primary_audit_source_sha256"] == ""
+    before = (tmp_path / "site/downloads/weibo-accounts.csv").read_bytes()
+    build_weibo(tmp_path, json.loads(json.dumps(summary, sort_keys=True)), {"weibo": []})
+    assert before == (tmp_path / "site/downloads/weibo-accounts.csv").read_bytes()
+    db = connect(database)
+    with db:
+        db.execute("UPDATE posts SET text='CHANGED_PRIVATE_BODY' WHERE id='p1'")
+    db.close()
+    with pytest.raises(ValueError, match="audit is stale"):
+        create_summary(database, registry, audit_path=path)
+
+
+def test_primary_audit_does_not_publish_extra_raw_source_fields(tmp_path):
+    database, registry = snapshot_inputs(tmp_path)
+    base = create_summary(database, registry)
+    path = tmp_path / "audit.json"
+    audit = primary_audit_input(database, registry, base, path)
+    audit["accounts"][0]["raw_html"] = "PRIVATE_SOURCE_BODY"
+    path.write_text(json_text(audit))
+    with pytest.raises(ValueError, match="Unexpected primary source audit fields"):
+        create_summary(database, registry, audit_path=path)
+    audit = primary_audit_input(database, registry, base, path)
+    audit["accounts"][0]["source_url"] = "javascript:alert(1)"
+    path.write_text(json_text(audit))
+    with pytest.raises(ValueError, match="Invalid primary source audit URL"):
+        create_summary(database, registry, audit_path=path)
+
+
+def test_new_source_conflict_requires_reaudit_even_when_canonical_text_did_not_change(tmp_path):
+    database, registry = snapshot_inputs(tmp_path)
+    base = create_summary(database, registry)
+    path = tmp_path / "audit.json"
+    primary_audit_input(database, registry, base, path)
+    db = connect(database)
+    with db:
+        db.execute("UPDATE runs SET finished_at=?,checkpoint=? WHERE account_id='account1'",
+                   ("2026-10-22T19:00:00+00:00",
+                    json.dumps({"source_conflicts": {"p1": "Detail author UID mismatch"}})))
+    db.close()
+    with pytest.raises(ValueError, match="source conflicts.*require re-audit"):
+        create_summary(database, registry, audit_path=path)
 
 
 def test_weibo_outputs_publish_only_complete_aggregates_and_both_backgrounds(tmp_path):

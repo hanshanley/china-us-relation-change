@@ -6,6 +6,13 @@ a guarantee of current ownership, current posting, or complete historical recove
 
 ## Published snapshot: October 22, 2026
 
+The [primary-source recheck](weibo_primary_source_audit.md) now reports
+**84 numeric bindings rechecked, two historical numeric rechecks pending,
+and one historical vanity-only channel with UID unresolved**. All 6,521
+canonical texts were checked against primary-source captures; 21 canonical
+texts were corrected for selection/extraction defects while preserving all
+prior source variants. This is source-level validation, not just matching totals.
+
 There are **87 documented current/historical channels across 62 publisher/brand
 groups: 86 resolved numeric UIDs and one historical vanity-only URL**. VOA's
 publisher-designated `legalwindow` channel remains UID-unresolved; the numeric

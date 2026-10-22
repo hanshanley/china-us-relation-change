@@ -3,11 +3,13 @@
 import html
 import json
 import math
+import re
 import sqlite3
 import textwrap
 from collections import Counter
 from datetime import date, datetime, timezone
 from pathlib import Path
+from urllib.parse import urlsplit
 from zoneinfo import ZoneInfo
 
 from .model import digest, json_text
@@ -26,6 +28,17 @@ TEXT_LABELS = {
     "full": "Explicitly full original",
     "unknown": "Unknown completeness",
 }
+AUDIT_LABELS = {
+    "numeric_binding_rechecked": "Numeric identity rechecked",
+    "numeric_binding_recheck_pending": "Historical UID recheck pending",
+    "vanity_rechecked_uid_unresolved": "Vanity rechecked; UID unresolved",
+}
+AUDIT_ACCOUNT_FIELDS = {"account_id", "uid", "status", "method", "source_url", "source_sha256",
+                        "observed_name", "observed_certification", "note"}
+AUDIT_CORPUS_FIELDS = {"posts_checked", "primary_text_matches", "native_detail_sources_checked",
+                       "archived_sources_checked", "live_registered_profiles_attempted",
+                       "live_registered_profiles_readable", "current_profile_name_matches",
+                       "explicit_prior_detail_conflicts_found", "canonical_text_corrections"}
 
 
 def timestamp(value):
@@ -74,12 +87,18 @@ def cohort_summary(path, accounts):
     }
 
 
-def create_summary(database, registry_path, assessment_path=None):
+def create_summary(database, registry_path, assessment_path=None, audit_path=None):
     from weibo_media.registry import validate as validate_registry
 
     registry_path = Path(registry_path)
     registry_bytes = registry_path.read_bytes()
     registry = validate_registry(json.loads(registry_bytes))
+    explicit_audit = audit_path is not None
+    audit_path = (Path(audit_path) if explicit_audit else
+                  registry_path.parent.parent / "discovery/weibo_primary_audit.json")
+    if explicit_audit and not audit_path.is_file():
+        raise FileNotFoundError(audit_path)
+    audit_bytes = audit_path.read_bytes() if audit_path.is_file() else None
     db = sqlite3.connect(Path(database).resolve().as_uri() + "?mode=ro", uri=True)
     db.row_factory = sqlite3.Row
     try:
@@ -93,8 +112,12 @@ def create_summary(database, registry_path, assessment_path=None):
             raise ValueError("Weibo registry and database differ; load the registry before taking a snapshot")
         posts = [dict(r) for r in db.execute(
             "SELECT id,account_id,uid,published_utc,text_status FROM posts ORDER BY id")]
+        if audit_bytes is not None:
+            db.create_function("audit_text_sha256", 1, lambda value: digest(value.encode()))
+            text_hashes = dict(db.execute("SELECT id,audit_text_sha256(text) FROM posts"))
         runs = [dict(r) for r in db.execute(
-            "SELECT account_id,status,source_type,started_at,finished_at,window_start,window_end FROM runs ORDER BY id")]
+            "SELECT account_id,status,source_type,started_at,finished_at,window_start,window_end,checkpoint "
+            "FROM runs ORDER BY id")]
     finally:
         db.close()
     if registry_path.read_bytes() != registry_bytes:
@@ -180,24 +203,51 @@ def create_summary(database, registry_path, assessment_path=None):
         raise FileNotFoundError(assessment_path)
     if assessment_path.is_file():
         summary["cohort"] = cohort_summary(assessment_path, accounts)
+    if audit_bytes is not None:
+        audit = json.loads(audit_bytes)
+        unreviewed = {post_id for run in runs
+                      if run["checkpoint"] and timestamp(run["finished_at"] or run["started_at"]) > timestamp(audit["audited_at"])
+                      for post_id in json.loads(run["checkpoint"]).get("source_conflicts", {})}
+        if unreviewed.intersection(p["id"] for p in posts):
+            raise ValueError("New source conflicts in the existing corpus require re-audit before publication")
+        canonical = [dict(p, text_sha256=text_hashes[p["id"]]) for p in posts]
+        if (audit_path.read_bytes() != audit_bytes
+                or audit.get("registry_sha256") != digest(registry_bytes)
+                or audit.get("canonical_posts_sha256") != digest(json_text(canonical).encode())):
+            raise ValueError("Primary source audit is stale; re-audit changed registry or post contents before publication")
+        summary["version"] = 3
+        summary["primary_source_audit"] = audit
+        summary["source"]["primary_audit_sha256"] = digest(json_text(audit).encode())
+        by_id = {row["account_id"]: row for row in audit["accounts"]}
+        if set(by_id) != set(confirmed):
+            raise ValueError("Primary source audit and confirmed account roster differ")
+        for account in accounts:
+            row = by_id[account["account_id"]]
+            for key in ("status", "method", "note", "source_url", "source_sha256"):
+                account["primary_audit_" + key] = row[key]
     return validate_summary(summary)
 
 
 def validate_summary(summary):
     version = summary.get("version")
     fields = {"version", "source", "roster", "accounts", "yearly", "text_completeness"}
-    if version == 2:
+    if version in (2, 3):
         fields.add("cohort")
+    if version == 3:
+        fields.add("primary_source_audit")
     if set(summary) != fields:
         raise ValueError("Unexpected Weibo aggregate fields; post text must not be published")
-    if version not in (1, 2) or summary["source"]["publication_timezone"] != "Asia/Shanghai":
+    if version not in (1, 2, 3) or summary["source"]["publication_timezone"] != "Asia/Shanghai":
         raise ValueError("Unsupported Weibo aggregate snapshot")
-    if set(summary["source"]) != {"registry_sha256", "corpus_metadata_sha256", "latest_collection_at",
-                                 "publication_timezone", "requested_windows",
-                                 "excluded_unconfirmed_posts", "excluded_attribution_posts"}:
+    source_fields = {"registry_sha256", "corpus_metadata_sha256", "latest_collection_at",
+                     "publication_timezone", "requested_windows",
+                     "excluded_unconfirmed_posts", "excluded_attribution_posts"}
+    if version == 3:
+        source_fields.add("primary_audit_sha256")
+    if set(summary["source"]) != source_fields:
         raise ValueError("Unexpected Weibo source fields")
     roster_fields = {"outlets", "reviewed_outlets", "confirmed_accounts", "confirmed_outlets"}
-    if version == 2:
+    if version in (2, 3):
         roster_fields |= {"resolved_numeric_accounts", "unresolved_numeric_accounts"}
     if set(summary["roster"]) != roster_fields:
         raise ValueError("Unexpected Weibo roster fields")
@@ -217,9 +267,11 @@ def validate_summary(summary):
     account_fields = {"account_id", "outlet_id", "outlet_name", "profile_url", "relationship", "existence",
                       "attribution_end", "recovered_posts", "earliest_publication_utc",
                       "latest_publication_utc", "latest_run_status", "latest_run_source"}
-    if version == 2:
+    if version in (2, 3):
         account_fields |= {"uid", "handle", "display_name", "uid_resolution", "category", "us_basis",
                            "operator", "notes", "evidence"}
+    if version == 3:
+        account_fields |= {"primary_audit_" + k for k in ("status", "method", "note", "source_url", "source_sha256")}
     if any(set(a) != account_fields for a in accounts):
         raise ValueError("Unexpected Weibo account aggregate fields")
     if any(set(r) != {"year", "recovered_posts"} for r in yearly) or any(
@@ -245,7 +297,7 @@ def validate_summary(summary):
         raise ValueError("Weibo aggregate totals do not reconcile")
     if summary["roster"]["confirmed_outlets"] != len({a["outlet_id"] for a in accounts}):
         raise ValueError("Weibo confirmed-outlet count does not reconcile")
-    if version == 2:
+    if version in (2, 3):
         uids = [a["uid"] for a in accounts if a["uid"] is not None]
         if (any(not isinstance(uid, str) or not uid.isascii() or not uid.isdigit() for uid in uids)
                 or len(set(uids)) != len(uids)
@@ -272,6 +324,46 @@ def validate_summary(summary):
                                                "unknown_domains", "candidate_domains",
                                                "verified_negative_domains")) != cohort["selected_domains"]):
                 raise ValueError("Weibo cohort totals do not reconcile")
+    if version == 3:
+        audit = summary["primary_source_audit"]
+        audit_fields = {"version", "audited_at", "registry_sha256", "canonical_posts_sha256",
+                        "post_manifest_sha256", "scope", "accounts", "corpus"}
+        if (set(audit) != audit_fields or audit["version"] != 1
+                or set(audit["corpus"]) != AUDIT_CORPUS_FIELDS
+                or any(set(a) != AUDIT_ACCOUNT_FIELDS for a in audit["accounts"])):
+            raise ValueError("Unexpected primary source audit fields; raw source text must not be published")
+        timestamp(audit["audited_at"])
+        if summary["source"]["primary_audit_sha256"] != digest(json_text(audit).encode()):
+            raise ValueError("Primary source audit checksum does not reconcile")
+        if (audit["registry_sha256"] != summary["source"]["registry_sha256"]
+                or any(not isinstance(audit[k], str) or not re.fullmatch(r"[0-9a-f]{64}", audit[k])
+                       for k in ("registry_sha256", "canonical_posts_sha256", "post_manifest_sha256"))
+                or any(type(v) is not int or v < 0 for v in audit["corpus"].values())):
+            raise ValueError("Invalid primary source audit hashes or counts")
+        by_id = {a["account_id"]: a for a in audit["accounts"]}
+        if len(by_id) != len(audit["accounts"]) or set(by_id) != {a["account_id"] for a in accounts}:
+            raise ValueError("Primary source audit account decisions do not reconcile")
+        for account in accounts:
+            row = by_id[account["account_id"]]
+            url = urlsplit(row["source_url"]) if isinstance(row["source_url"], str) else None
+            if not url or url.scheme not in {"http", "https"} or not url.netloc or url.username or url.password:
+                raise ValueError("Invalid primary source audit URL")
+            if (row["uid"] != account["uid"] or row["status"] not in AUDIT_LABELS
+                    or any(account["primary_audit_" + k] != row[k] for k in (
+                        "status", "method", "note", "source_url", "source_sha256"))
+                    or (row["status"] == "vanity_rechecked_uid_unresolved") != (row["uid"] is None)
+                    or (row["status"] == "numeric_binding_recheck_pending" and account["recovered_posts"])
+                    or (row["source_sha256"] is not None
+                        and (not isinstance(row["source_sha256"], str)
+                             or not re.fullmatch(r"[0-9a-f]{64}", row["source_sha256"])))
+                    or (row["status"] != "numeric_binding_recheck_pending" and row["source_sha256"] is None)):
+                raise ValueError("Primary source audit identity decision does not reconcile")
+        corpus = audit["corpus"]
+        if (corpus["posts_checked"] != totals[0] or corpus["primary_text_matches"] != totals[0]
+                or corpus["live_registered_profiles_readable"] > corpus["live_registered_profiles_attempted"]
+                or corpus["live_registered_profiles_attempted"] > summary["roster"]["resolved_numeric_accounts"]
+                or corpus["current_profile_name_matches"] > sum(a["existence"] == "current_evidence" for a in accounts)):
+            raise ValueError("Primary source audit coverage does not reconcile")
     return summary
 
 
@@ -286,8 +378,13 @@ def svg_weibo(summary, metric, theme="themarginoferror"):
         unresolved = summary["roster"].get("unresolved_numeric_accounts")
         identity = (f"Numeric UID unresolved for {unresolved} channel(s). " if unresolved is not None else
                     "Numeric UID resolution is not recorded in this legacy snapshot. ")
+        if "primary_source_audit" in summary:
+            decisions = summary["primary_source_audit"]["accounts"]
+            rechecked = sum(a["status"] == "numeric_binding_rechecked" for a in decisions)
+            pending = sum(a["status"] == "numeric_binding_recheck_pending" for a in decisions)
+            identity = f"UID recheck: {rechecked} done, {pending} pending, {unresolved} unresolved. "
         note = ("Only documented channels; unknown outlet domains are excluded. " + identity
-                + "Profile evidence does not prove current activity, U.S. operation or continuing licensing.")
+                + "Profile identity does not prove activity, U.S. operation or ongoing licensing.")
     elif metric == "recovery-coverage":
         recovered = sum(a["recovered_posts"] > 0 for a in accounts)
         unattempted = sum(a["recovered_posts"] == 0 and a["latest_run_status"] is None for a in accounts)

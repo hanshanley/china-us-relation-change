@@ -16,7 +16,7 @@ from .business_analysis import CHARTS as BUSINESS_CHARTS, RETIRED_CHARTS as BUSI
 from .language_analysis import CHARTS as LANGUAGE_CHARTS, chart_points, svg_language_chart, validate_language_data
 from .pipeline import load, write_atomic
 from .sources import SOURCE_POLICIES
-from .weibo_analysis import WEIBO_CHARTS, svg_weibo, validate_summary
+from .weibo_analysis import AUDIT_LABELS, WEIBO_CHARTS, svg_weibo, validate_summary
 from .theme import (CHART_HEIGHT, CHART_THEMES, CHART_WIDTH, COMPARISON_GEOGRAPHIES, FIGURE_CATEGORIES, FONT,
                     FONT_FILES, GRID, MUTED, PARTNER_COLORS, PNG_HEIGHT, PNG_WIDTH,
                     TEXT, figure_category)
@@ -344,8 +344,33 @@ def build_weibo(root, summary, gallery):
                   f'{roster["unresolved_numeric_accounts"]:,} do not.</strong> '
                   'A documented historical vanity URL is not a resolved numeric account. '
                   'No candidate UID or posts are assigned without an established identity binding.</p>'
-                  if summary["version"] == 2 else
+                  if summary["version"] >= 2 else
                   '<p>Numeric UID resolution was not recorded in this legacy snapshot.</p>')
+    audit = summary.get("primary_source_audit")
+    audit_text = ""
+    if audit:
+        decisions = audit["accounts"]
+        rechecked = sum(a["status"] == "numeric_binding_rechecked" for a in decisions)
+        pending = sum(a["status"] == "numeric_binding_recheck_pending" for a in decisions)
+        unresolved = sum(a["status"] == "vanity_rechecked_uid_unresolved" for a in decisions)
+        pending_names = ", ".join(a["display_name"] for a in summary["accounts"]
+                                  if a["primary_audit_status"] == "numeric_binding_recheck_pending")
+        pending_text = (f'Pending historical numeric bindings: {esc(pending_names)}. '
+                        'Previous historical evidence is retained, not represented as freshly revalidated. '
+                        if pending_names else '')
+        audit_text = (
+            f'<p><strong>Primary-source recheck ({esc(audit["audited_at"][:10])}): '
+            f'{rechecked:,} numeric bindings rechecked; {pending:,} historical numeric bindings still pending; '
+            f'{unresolved:,} historical vanity-only channel remains UID-unresolved.</strong> '
+            f'All {audit["corpus"]["primary_text_matches"]:,} stored texts matched their primary source snapshots, '
+            'including explicitly truncated previews—not independently complete originals. '
+            f'{audit["corpus"]["canonical_text_corrections"]:,} canonical text selections were corrected; '
+            'prior source variants remain preserved privately. '
+            + pending_text +
+            '<a href="https://github.com/hanshanley/china-us-relation-change/blob/main/reports/weibo_primary_source_audit.md">'
+            'Methods, findings and unresolved checks</a> · '
+            '<a href="https://github.com/hanshanley/china-us-relation-change/blob/main/data/discovery/weibo_post_source_audit.csv">'
+            f'Complete {audit["corpus"]["posts_checked"]:,}-row source-audit metadata manifest (not post text)</a>.</p>')
     cohort = summary.get("cohort")
     cohort_text = (
         f'<p><strong>Selected U.S.-classified cohort: {cohort["selected_domains"]:,} domains; '
@@ -361,20 +386,24 @@ def build_weibo(root, summary, gallery):
         'Complete domain-by-domain decisions in the repository</a>.</p>'
         if cohort else '<p>No ranked-cohort assessment is included in this snapshot; no absence rate is inferred.</p>')
     metadata_note = ('per-account relationships, UID resolution, evidence and attribution exclusions are retained '
-                     'in the complete JSON and account CSV.' if summary["version"] == 2 else
+                     'in the complete JSON and account CSV.' if summary["version"] >= 2 else
                      'per-account relationships and attribution exclusions are retained in the aggregate JSON.')
     table = "".join(f'<tr><th scope="row">{esc(a["outlet_name"])}</th>'
                     f'<td>{esc(a.get("display_name", "not recorded"))}<br>'
-                    f'{esc(a.get("uid") or ("UID unresolved" if summary["version"] == 2 else "UID not recorded"))}</td>'
+                    f'{esc(a.get("uid") or ("UID unresolved" if summary["version"] >= 2 else "UID not recorded"))}</td>'
                     f'<td>{esc(a["existence"])}<br>{esc(a["relationship"])}</td>'
+                    f'<td>{esc(AUDIT_LABELS.get(a.get("primary_audit_status"), "Not assessed in this snapshot"))}</td>'
                     f'<td>{a["recovered_posts"]:,}</td><td>{esc(a["latest_run_status"] or "not attempted")}</td>'
                     f'<td>{esc(a["attribution_end"] or "not established")}</td>'
                     f'<td><a href="{esc(a["profile_url"])}">Registered profile</a>'
                     + ('<details><summary>Evidence and scope</summary><p>'
-                       + esc(a["us_basis"]) + '</p><p>' + esc(a["notes"]) + '</p><ul>'
+                       + esc(a["us_basis"]) + '</p><p>' + esc(a["notes"]) + '</p>'
+                       + (f'<p>{esc(a["primary_audit_note"])} '
+                          f'<a href="{esc(a["primary_audit_source_url"])}">Audit source</a></p>'
+                          if "primary_audit_note" in a else '') + '<ul>'
                        + "".join(f'<li><a href="{esc(e["source_url"])}">{esc(e["source_type"])}</a>: '
                                  f'{esc(e["justification"])}</li>' for e in a["evidence"])
-                       + '</ul></details>' if summary["version"] == 2 else '')
+                       + '</ul></details>' if summary["version"] >= 2 else '')
                     + '</td></tr>' for a in summary["accounts"])
     document = ('<!doctype html><html lang="en"><head><meta charset="utf-8">'
                 '<meta name="viewport" content="width=device-width,initial-scale=1">'
@@ -386,7 +415,7 @@ def build_weibo(root, summary, gallery):
                 f'{roster["confirmed_accounts"]:,} documented current or historical channels '
                 f'across {roster["confirmed_outlets"]:,} publisher/brand groups. '
                 f'{total:,} posts partially recovered from {recovered:,} channels—not complete timelines.</p>'
-                + resolution + cohort_text +
+                + resolution + audit_text + cohort_text +
                 '<p>This is a frozen aggregate snapshot, not a live Weibo feed. Current identity evidence does not prove '
                 'current activity, present-day control or continuing licensing. '
                 'Zero recovery does not mean zero posting; unknown accounts are not verified absences. '
@@ -408,7 +437,8 @@ def build_weibo(root, summary, gallery):
                 '<a href="downloads/weibo-text-completeness.csv" download>All text-completeness aggregates · CSV</a></p>'
                 '</header><main>' + "".join(cards) +
                 '<section class="series-panel"><h2>Account coverage details</h2><div class="table-scroll"><table>'
-                '<thead><tr><th>Outlet / edition</th><th>Channel / numeric UID</th><th>Evidence period / relationship</th><th>Recovered posts</th>'
+                '<thead><tr><th>Outlet / edition</th><th>Channel / numeric UID</th><th>Evidence period / relationship</th>'
+                '<th>Primary recheck</th><th>Recovered posts</th>'
                 '<th>Latest run</th><th>Exclusive attribution end</th><th>Source</th></tr></thead>'
                 f'<tbody>{table}</tbody></table></div></section></main></div></body></html>')
     write_atomic(root / "site/weibo.html", document)

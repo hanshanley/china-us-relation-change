@@ -73,6 +73,8 @@ supported. Requests use an identifiable user agent, robots checks, conservative
 spacing, bounded network/5xx retries, and no login/CAPTCHA bypass. HTTP access or
 rate-limit failures stop further network requests by that client. Archive
 redirects to different capture timestamps are refused.
+Sina redirects that change the requested profile/post identity or source route
+are also refused, even when the hostname stays the same.
 
 A `collect` rerun resumes an unfinished persisted feed snapshot. Once its cursor
 is exhausted, another invocation starts a fresh snapshot. Post IDs deduplicate
@@ -86,6 +88,13 @@ An explicit detail-page contradiction in post ID, author UID, or the requested
 date/attribution bounds is different from an unavailable detail page: that source
 is skipped, not imported as a fallback preview. Such conflicts are retained in
 the run checkpoint's `source_conflicts` for review.
+
+Canonical text selection compares completeness before length. Equally
+`source_full` original/unknown-kind records prefer a validated native detail body
+over longer archived UI renderings; known reposts retain longer quoted context.
+Ignored archival pin controls are excluded from post text. Canonical imports
+restore the supplied, provenance-matched choice among equal-quality variants.
+Every prior source variant remains in provenance rather than being discarded.
 
 Accounts may specify an optional `attribution_end` date (`YYYY-MM-DD`, exclusive,
 Asia/Shanghai). Live collection, archives and imports all exclude publications

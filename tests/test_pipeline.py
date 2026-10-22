@@ -11,7 +11,7 @@ from urllib.request import Request
 from weibo_media.archive import archive_time, collect_archive, parse_archive
 from weibo_media.cli import main
 from weibo_media.collect import (
-    AccessBlocked, PublicClient, SameHostRedirect, collect_account, import_posts, normalize,
+    AccessBlocked, PublicClient, SameHostRedirect, SourceConflict, collect_account, import_posts, normalize,
     parse_detail, parse_feed, window,
 )
 from weibo_media.export import export
@@ -199,10 +199,78 @@ class PipelineTest(unittest.TestCase):
                                       POST_ID, UID)["text"], FULL_TEXT)
         with self.assertRaisesRegex(ValueError, "author UID mismatch"):
             parse_detail(detail(uid="999"), POST_ID, UID)
+        with self.assertRaisesRegex(ValueError, "Weibo author identity"):
+            parse_detail(detail().replace("https://weibo.com/u/", "https://example.org/u/"), POST_ID, UID)
         with self.assertRaisesRegex(ValueError, "ID mismatch"):
             parse_detail(detail(), "123", UID)
         with self.assertRaisesRegex(ValueError, "identity"):
             parse_feed(feed([record()]), "Another outlet")
+
+    def test_archived_pin_control_is_not_post_text(self):
+        body = archived().replace(
+            "归档正文", '<a ignore="ignore" href="javascript:void(0);">置顶</a>\n   置顶说明：归档正文')
+        parsed = parse_archive(body, UID, ["测试媒体"])[0]
+        self.assertEqual(parsed["text"], "置顶说明：归档正文[微笑]")
+
+    def test_sina_same_host_redirect_cannot_change_source_identity(self):
+        handler = SameHostRedirect()
+        for original, destination in (
+            (f"https://www.sina.cn/media/{UID}", "https://www.sina.cn/media/999"),
+            (f"https://www.sina.cn/news/detail/{POST_ID}.html", "https://www.sina.cn/news/detail/999.html"),
+            (f"https://www.sina.cn/media/{UID}", f"https://www.sina.cn/media/{UID}?uid=999"),
+        ):
+            with self.subTest(destination=destination), self.assertRaises(SourceConflict):
+                handler.redirect_request(Request(original), None, 302, "", {}, destination)
+
+    def test_native_body_wins_over_longer_rendered_archive_without_losing_provenance(self):
+        for number, reverse in enumerate((False, True)):
+            post_id = str(int(POST_ID) + number)
+            native = normalize(record(post_id=post_id, text="实际正文 http://t.cn/example"),
+                               self.account, *self.bounds)
+            archive = normalize(dict(
+                record(post_id=post_id, text="置顶\n   实际正文 O网页链接" + "\u200b" * 50),
+                source_type="archive", source_url="https://web.archive.org/web/20200101010000id_/https://weibo.com/fixture",
+                captured_at="2020-01-01T01:00:00+00:00", kind="original"), self.account, *self.bounds)
+            for post in ((native, archive) if reverse else (archive, native)):
+                with self.db:
+                    put_post(self.db, post)
+            actual = self.db.execute("SELECT * FROM posts WHERE id=?", (post_id,)).fetchone()
+            self.assertEqual(actual["text"], native["text"])
+            self.assertEqual(actual["kind"], "original")
+            self.assertEqual(self.db.execute(
+                "SELECT COUNT(*) FROM provenance WHERE post_id=?", (post_id,)).fetchone()[0], 2)
+
+    def test_native_preference_does_not_discard_archived_repost_context(self):
+        native = normalize(record(text="转发评论"), self.account, *self.bounds)
+        archive = normalize(dict(
+            record(text="转发评论\n\n带引述的原文"), source_type="archive",
+            source_url="https://web.archive.org/web/20200101010000id_/https://weibo.com/fixture",
+            captured_at="2020-01-01T01:00:00+00:00", kind="repost",
+            referenced_id="123", repost_commentary="转发评论"), self.account, *self.bounds)
+        with self.db:
+            put_post(self.db, archive)
+            put_post(self.db, native)
+        actual = self.db.execute("SELECT * FROM posts").fetchone()
+        self.assertEqual(actual["text"], archive["text"])
+        self.assertEqual(actual["repost_commentary"], "转发评论")
+        self.assertEqual(actual["referenced_id"], "123")
+
+    def test_canonical_import_preserves_shorter_cleaned_text_and_legacy_variants(self):
+        native = normalize(record(text="规范正文"), self.account, *self.bounds)
+        dirty = dict(native, text="置顶\n   规范正文" + "\u200b" * 20)
+        events = [
+            dict(post_id=POST_ID, source_url=native["source_url"], source_type=native["source_type"],
+                 retrieved_at=OBSERVED, captured_at="", text=dirty["text"], text_status="source_full"),
+            dict(post_id=POST_ID, source_url=native["source_url"], source_type=native["source_type"],
+                 retrieved_at="2026-10-21T14:01:00+00:00", captured_at="",
+                 text=native["text"], text_status="source_full"),
+        ]
+        path = self.root / "canonical.jsonl"
+        path.write_text(json.dumps(dict(native, provenance=events), ensure_ascii=False) + "\n")
+        result = import_posts(self.db, path, *self.bounds)
+        self.assertEqual(result, {"accepted": 1, "outside_window": 0})
+        self.assertEqual(self.db.execute("SELECT text FROM posts").fetchone()[0], native["text"])
+        self.assertEqual(self.db.execute("SELECT COUNT(*) FROM provenance").fetchone()[0], 2)
 
     def test_rebranded_uid_does_not_import_another_publisher_as_historical_account(self):
         url = "https://www.sina.cn/media/" + UID
