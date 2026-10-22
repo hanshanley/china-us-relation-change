@@ -449,6 +449,20 @@
       "relationship": "Chinese-language branded account; not asserted to be U.S.-newsroom-operated"
     },
     {
+      "account_id": "npr-china-historical",
+      "attribution_end": null,
+      "earliest_publication_utc": "2020-03-14T14:40:00+00:00",
+      "existence": "historical",
+      "latest_publication_utc": "2023-04-17T02:43:00+00:00",
+      "latest_run_source": "import",
+      "latest_run_status": "partial",
+      "outlet_id": "npr",
+      "outlet_name": "NPR",
+      "profile_url": "https://weibo.com/nprshanghai",
+      "recovered_posts": 15,
+      "relationship": "Historical Chinese-language organizational channel for U.S. NPR, not a separate publisher, licensed magazine or inferred reporter's personal profile"
+    },
+    {
       "account_id": "nylon-china",
       "attribution_end": null,
       "earliest_publication_utc": "2026-10-05T06:34:00+00:00",
@@ -716,18 +730,18 @@
     }
   ],
   "roster": {
-    "confirmed_accounts": 51,
-    "confirmed_outlets": 44,
+    "confirmed_accounts": 52,
+    "confirmed_outlets": 45,
     "outlets": 87,
     "reviewed_outlets": 87
   },
   "source": {
-    "corpus_metadata_sha256": "496001f3acfd4c0a37a025bc92e3a13a69296bd3b09ddfd03b65673c8b7c0306",
+    "corpus_metadata_sha256": "5d29b93c0b3e570b2b24f5af6d1087c4ef85c16bbfc3e75124c698b12cd21482",
     "excluded_attribution_posts": 0,
     "excluded_unconfirmed_posts": 0,
-    "latest_collection_at": "2026-10-21T22:47:54.390373+00:00",
+    "latest_collection_at": "2026-10-22T00:27:08.467100+00:00",
     "publication_timezone": "Asia/Shanghai",
-    "registry_sha256": "88631ccde0ad46fcc523d8b5249982e459b3b083683994973bcbb51f756ee155",
+    "registry_sha256": "5be281ebfa1b1438e11fc101fb70b835f25cf4342d2fe786cfafde9af55dcd5a",
     "requested_windows": [
       {
         "end": "2026-10-21T16:00:00+00:00",
@@ -737,11 +751,11 @@
   },
   "text_completeness": [
     {
-      "recovered_posts": 3277,
+      "recovered_posts": 3289,
       "status": "source_full"
     },
     {
-      "recovered_posts": 624,
+      "recovered_posts": 627,
       "status": "truncated"
     },
     {
@@ -756,11 +770,11 @@
   "version": 1,
   "yearly": [
     {
-      "recovered_posts": 494,
+      "recovered_posts": 506,
       "year": 2020
     },
     {
-      "recovered_posts": 154,
+      "recovered_posts": 156,
       "year": 2021
     },
     {
@@ -768,7 +782,7 @@
       "year": 2022
     },
     {
-      "recovered_posts": 193,
+      "recovered_posts": 194,
       "year": 2023
     },
     {

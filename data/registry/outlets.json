@@ -110,9 +110,9 @@
     },
     {
       "id": "npr", "name": "NPR", "category": "broadcaster",
-      "aliases": ["美国全国公共广播电台"], "us_basis": "U.S. public-radio news organization.",
+      "aliases": ["美国全国公共广播电台", "美国全国公共广播电台NPR", "National Public Radio"], "us_basis": "U.S. public-radio news organization; source position5 in the selected U.S.-classified media roster.",
       "source_url": "https://www.npr.org/", "research_status": "reviewed",
-      "notes": "Expanded English/Chinese alias searches and publisher-owned sources did not resolve a publisher-linked or organization-certified account. Unresolved, not verified absent. Review date: 2026-10-21."
+      "notes": "A newly located community identifier nprshanghai was only a discovery lead. Direct archived platform review independently binds UID2370374565, the NPR display name and its own institution-naming certification in2023; the certification was scoped to the owner's verify_area and posts, not recommended profiles. Current Sina and2025 archive use a generic numeric display while retaining the old NPR descriptor, so the registry conservatively records historical officialness rather than active/current legal control. This does not establish deletion or suspension. The visible April2023 announcement concerns Twitter, not cessation of Weibo. Live NPR-domain robots restrictions were respected. Review date: 2026-10-21 EDT /2026-10-22 UTC."
     },
     {
       "id": "fast-company", "name": "Fast Company / historical China edition", "category": "business",
@@ -910,6 +910,14 @@
       "relationship": "Publisher-linked Chinese edition in the U.S. Golf Digest international-edition family; not the separate GOLF Magazine account or assumed U.S. newsroom",
       "officialness": "confirmed", "existence": "current_evidence", "accessibility": "unknown",
       "notes": "Actual U.S. publisher listing identifies the correct Chinese domain; that publisher's2014 timeline widget explicitly names UID1671481074. The2022 golfdigest archive and current magazine institution agree. Another brand-looking alias, golfdigestchina, is a named individual and is excluded."
+    },
+    {
+      "id": "npr-china-historical", "outlet_id": "npr", "uid": "2370374565", "handle": "nprshanghai",
+      "display_name": "美国全国公共广播电台NPR", "profile_url": "https://weibo.com/nprshanghai", "language": "zh-Hans",
+      "operator": "Historical NPR Chinese-language institutional account; exact legal account-owning entity and present control not independently audited",
+      "relationship": "Historical Chinese-language organizational channel for U.S. NPR, not a separate publisher, licensed magazine or inferred reporter's personal profile",
+      "officialness": "confirmed", "existence": "historical", "accessibility": "unknown",
+      "notes": "2023 archived owner-specific certification explicitly names National Public Radio官方微博, with UID2370374565 and NPR display. A2012 capture independently binds the same handle/UID but its title-only shell is not standalone officialness proof. By2025 the display is 用户2370374565; numeric placeholders are deliberately not added as publisher-name aliases to weaken collection checks. No deletion/suspension or current active-control claim is made."
     },
     {
       "id": "wsj-chinese-candidate", "outlet_id": "wsj", "uid": "1649159940", "handle": "chinesewsj",
@@ -1922,6 +1930,24 @@
       "source_url": "https://www.sina.cn/media/1671481074", "source_type": "platform_certification",
       "observed_at": "2026-10-21T22:39:07.784188+00:00", "claim_date": null, "supports": "identity",
       "justification": "Current display and explicit 《高尔夫大师》杂志官方微博 institution agree on the publisher-widget UID. Identity evidence is separate from an independent current-license or U.S.-editorial-control audit."
+    },
+    {
+      "id": "npr-archived-owner-institution-2023", "account_id": "npr-china-historical",
+      "source_url": "https://web.archive.org/web/20231120101934id_/https://weibo.com/nprshanghai", "source_type": "platform_certification",
+      "observed_at": "2026-10-22T00:19:58.285126+00:00", "claim_date": "2023-11-20T10:19:34+00:00", "supports": "historical",
+      "justification": "Direct archive has CONFIG owner2370374565 and NPR title. Owner's verify_area explicitly names 美国全国公共广播电台（National Public Radio）官方微博; owner-scoped feed records also carry institutional certification. Recommended-profile badges were separately excluded from the proof."
+    },
+    {
+      "id": "npr-handle-owner-binding-2012", "account_id": "npr-china-historical",
+      "source_url": "https://web.archive.org/web/20120214023910id_/http://www.weibo.com/nprshanghai", "source_type": "archived_profile",
+      "observed_at": "2026-10-22T00:20:00.428776+00:00", "claim_date": "2012-02-14T02:39:10+00:00", "supports": "historical",
+      "justification": "Earlier capture repeats the NPR title and CONFIG owner2370374565 for nprshanghai. Its body is a loading shell, so it corroborates handle/UID identity but is not treated as proof of posting activity or independent officialness."
+    },
+    {
+      "id": "npr-current-placeholder-profile", "account_id": "npr-china-historical",
+      "source_url": "https://www.sina.cn/media/2370374565", "source_type": "platform_profile",
+      "observed_at": "2026-10-22T00:20:37.469307+00:00", "claim_date": null, "supports": "access",
+      "justification": "Current public profile uses 用户2370374565 while retaining the NPR institutional descriptor and old NPR-related posts. This supports observation/access, not a claim of current corporate control or account deletion. The strict publisher-name gate remains unchanged; eligible named-owner archives provide historical recovery."
     },
     {
       "id": "barrons-current-institution", "account_id": "barrons-china",

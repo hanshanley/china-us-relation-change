@@ -1,12 +1,12 @@
 # U.S. news-media accounts on Sina Weibo
 
-Generated: 2026-10-21T22:50:53.699681+00:00. Registry claims retain their own observation dates.
+Generated: 2026-10-22T00:30:22.651171+00:00. Registry claims retain their own observation dates.
 
 Candidate roster: **87 outlets; 87 reviewed; 0 pending**. This is an expandable research roster, not a census.
 Officialness, historical existence, operator relationship, and current access are distinct.
 A visitor/login gate does not establish that an account was suspended or deleted.
 
-**Posts recovered for 40 of 51 confirmed accounts.** 0 confirmed accounts have no recorded collection attempt. Zero recovered posts after an attempt can reflect access, attribution or coverage limits, not zero account output.
+**Posts recovered for 41 of 52 confirmed accounts.** 0 confirmed accounts have no recorded collection attempt. Zero recovered posts after an attempt can reflect access, attribution or coverage limits, not zero account output.
 There is no verified-negative outlet list: missing publisher links and access failures remain unknowns. The complete ranked and supplemental account-status ledger is linked in the [collection follow-up](collection_followup.md).
 
 ## Confirmed official accounts
@@ -43,6 +43,7 @@ There is no verified-negative outlet list: missing publisher links and access fa
 | KTSF | [KTSF26台](https://weibo.com/u/2413381772) | 2413381772 | U.S. Bay Area Chinese-language television station account; historically official, not asserted currently active | historical | unknown | not established | 100 | partial |
 | LA18 / KSCI-TV Chinese channel | [洛杉矶18台](https://weibo.com/LA18Chinese) | 3603914371 | Publisher-linked Chinese-language channel of the U.S. LA18/KSCI television station, not a licensed Chinese magazine or an inferred sibling broadcaster | current_evidence | unknown | not established | 0 | partial |
 | MIT Technology Review / China | [麻省理工科技评论](https://weibo.com/u/1738690784) | 1738690784 | Chinese-language branded account; not asserted to be U.S.-newsroom-operated or to have independently verified current licensing terms | current_evidence | unknown | not established | 100 | partial |
+| NPR | [美国全国公共广播电台NPR](https://weibo.com/nprshanghai) | 2370374565 | Historical Chinese-language organizational channel for U.S. NPR, not a separate publisher, licensed magazine or inferred reporter's personal profile | historical | unknown | not established | 15 | partial |
 | NYLON / China | [NYLON_CHINA](https://weibo.com/u/6298663816) | 6298663816 | Institutionally identified Chinese fashion/music/culture edition of the U.S.-origin NYLON brand, not the U.S. editorial account | current_evidence | unknown | not established | 100 | partial |
 | National Geographic / China | [美国国家地理](https://weibo.com/u/1644225642) | 1644225642 | Chinese-language branded account; not asserted to be U.S.-newsroom-operated | current_evidence | unknown | not established | 100 | partial |
 | Robb Report / China | [罗博报告](https://weibo.com/u/1734995435) | 1734995435 | Publisher-linked Chinese luxury/lifestyle edition of the U.S. Robb Report brand; not assumed to be the U.S. newsroom's account | current_evidence | unknown | not established | 101 | partial |
@@ -257,6 +258,12 @@ There is no verified-negative outlet list: missing publisher links and access fa
 
 - [mit-technology-review-platform-profile](https://www.sina.cn/media/1738690784) [platform_certification; supports identity; observed 2026-10-21T14:58:16.125567+00:00; claim date unknown]: Directly fetched public Sina profile title names 麻省理工科技评论 and tag explicitly states 《麻省理工科技评论》杂志官方微博. Bio describes its MIT origin and innovation focus. Legal operator and current licensing terms remain unresolved.
 
+**NPR / 美国全国公共广播电台NPR** (confirmed). Operator: Historical NPR Chinese-language institutional account; exact legal account-owning entity and present control not independently audited. 2023 archived owner-specific certification explicitly names National Public Radio官方微博, with UID2370374565 and NPR display. A2012 capture independently binds the same handle/UID but its title-only shell is not standalone officialness proof. By2025 the display is 用户2370374565; numeric placeholders are deliberately not added as publisher-name aliases to weaken collection checks. No deletion/suspension or current active-control claim is made.
+
+- [npr-archived-owner-institution-2023](https://web.archive.org/web/20231120101934id_/https://weibo.com/nprshanghai) [platform_certification; supports historical; observed 2026-10-22T00:19:58.285126+00:00; claim date 2023-11-20T10:19:34+00:00]: Direct archive has CONFIG owner2370374565 and NPR title. Owner's verify_area explicitly names 美国全国公共广播电台（National Public Radio）官方微博; owner-scoped feed records also carry institutional certification. Recommended-profile badges were separately excluded from the proof.
+- [npr-current-placeholder-profile](https://www.sina.cn/media/2370374565) [platform_profile; supports access; observed 2026-10-22T00:20:37.469307+00:00; claim date unknown]: Current public profile uses 用户2370374565 while retaining the NPR institutional descriptor and old NPR-related posts. This supports observation/access, not a claim of current corporate control or account deletion. The strict publisher-name gate remains unchanged; eligible named-owner archives provide historical recovery.
+- [npr-handle-owner-binding-2012](https://web.archive.org/web/20120214023910id_/http://www.weibo.com/nprshanghai) [archived_profile; supports historical; observed 2026-10-22T00:20:00.428776+00:00; claim date 2012-02-14T02:39:10+00:00]: Earlier capture repeats the NPR title and CONFIG owner2370374565 for nprshanghai. Its body is a loading shell, so it corroborates handle/UID identity but is not treated as proof of posting activity or independent officialness.
+
 **NYLON / China / NYLON_CHINA** (confirmed). Operator: NYLON China local-edition operation; exact current legal account owner and licensing terms unresolved. Public Sina institutional descriptor explicitly identifies NYLON尼龙杂志中国版 under this UID. Categorized as specialist lifestyle media, not an additional general-news newspaper; current U.S. editorial control is not inferred.
 
 - [nylon-china-platform-identity](https://www.sina.cn/media/6298663816) [platform_certification; supports identity; observed 2026-10-21T17:38:53.101555+00:00; claim date unknown]: Public institutional descriptor explicitly names NYLON尼龙杂志中国版 and resolves the NYLON_CHINA display name to UID6298663816. This does not bind the profile to The Atlantic or establish U.S. editorial control.
@@ -446,7 +453,7 @@ There is no verified-negative outlet list: missing publisher links and access fa
 | [MarketWatch](https://www.marketwatch.com/) | reviewed | Not found in reviewed sources; not evidence of absence. Targeted English/Chinese brand and official-account searches did not resolve a qualifying institutional UID. Reporting about Weibo and other Dow Jones brands' confirmed accounts do not prove a MarketWatch account. Existing ranked publisher checks remain bounded/inconclusive, not verified negatives. Unknown, not absent. Review date: 2026-10-21. |
 | [Ming Pao / New York edition historical evidence](https://www.mingpaony.com/) | reviewed | Not found in reviewed sources; not evidence of absence. Actual2014 and2017 New York publisher roots were read without resolving an official Weibo profile. A parent Hong Kong or Canadian Ming Pao account is not automatically the U.S. edition. Historical publisher evidence is not a current-publication or account-deletion claim. Source: https://web.archive.org/web/20170202212158id_/http://www.mingpaony.com/ . Review date: 2026-10-21. |
 | [NBC News](https://www.nbcnews.com/) | reviewed | Not found in reviewed sources; not evidence of absence. Focused English/Chinese alias and publisher-source searches found articles about Weibo but no qualifying institutional account. NBCUniversal entertainment accounts were not substituted for NBC News. Unresolved, not absent. Review date: 2026-10-21. |
-| [NPR](https://www.npr.org/) | reviewed | Not found in reviewed sources; not evidence of absence. Expanded English/Chinese alias searches and publisher-owned sources did not resolve a publisher-linked or organization-certified account. Unresolved, not verified absent. Review date: 2026-10-21. |
+| [NPR](https://www.npr.org/) | reviewed | 美国全国公共广播电台NPR: confirmed. A newly located community identifier nprshanghai was only a discovery lead. Direct archived platform review independently binds UID2370374565, the NPR display name and its own institution-naming certification in2023; the certification was scoped to the owner's verify_area and posts, not recommended profiles. Current Sina and2025 archive use a generic numeric display while retaining the old NPR descriptor, so the registry conservatively records historical officialness rather than active/current legal control. This does not establish deletion or suspension. The visible April2023 announcement concerns Twitter, not cessation of Weibo. Live NPR-domain robots restrictions were respected. Review date: 2026-10-21 EDT /2026-10-22 UTC. |
 | [NYLON / China](https://www.nylon.com/) | reviewed | NYLON_CHINA: confirmed. Public institutional profile explicitly identifies NYLON尼龙杂志中国版 under UID6298663816. First-party NYLON/BDG pages establish the media brand; exact current China licensing contract/operator is not independently established. A false Atlantic-query hit is not Atlantic evidence, but this separately researched edition has its own identity. Review date: 2026-10-21. |
 | [National Geographic / China](https://www.nationalgeographic.com/) | reviewed | 美国国家地理: confirmed. Additional targeted lead, not present in the selected SCImago top 1000. Public Sina profile explicitly identifies the official account. Do not confuse with the unrelated Chinese National Geography / 中国国家地理. Review date: 2026-10-21. |
 | [New York Post](https://nypost.com/) | reviewed | Not found in reviewed sources; not evidence of absence. English/Chinese aliases, publisher contact page and December2015 archived homepage did not establish an institutional Weibo account. References inside others' posts were excluded. Unresolved, not absent. Review date: 2026-10-21. |
@@ -524,6 +531,7 @@ All counts below are recovered/observed posts, not total output. No zero-activit
 | la18-chinese | 0 | unknown | unknown | sina_syndication: partial | Public Sina syndication feed only; no historical pagination is exposed. Feed exhaustion is not historical completeness. Detail text is source_full, not independently verified against Weibo. Repost classification may be unknown. Engagement counts are source snapshots and may be stale. |
 | mit-technology-review-china | 100 | 2026-09-29T01:02:00+00:00 | 2026-10-21T10:12:00+00:00 | sina_syndication: partial | 12 detail pages unavailable; previews retained. {"5348558720991611": "Cross-host or non-HTTPS redirect; access not followed", "5349987962848781": "Cross-host or non-HTTPS redirect; access not followed", "5351818826875261": "Cross-host or non-HTTPS redirect; access not followed", "5352173157746737": "Cross-host or non-HTTPS redirect; access not followed", "5352173359599597": "Cross-host or non-HTTPS redirect; access not followed", "5353978567331098": "Cross-host or non-HTTPS redirect; access not followed", "5354286600947439": "Cross-host or non-HTTPS redirect; access not followed", "5354335664080732": "Cross-host or non-HTTPS redirect; access not followed", "5355105739346314": "Cross-host or non-HTTPS redirect; access not followed", "5356420155049659": "Cross-host or non-HTTPS redirect; access not followed", "5356444981135640": "Cross-host or non-HTTPS redirect; access not followed", "5356520759885916": "Cross-host or non-HTTPS redirect; access not followed"} |
 | national-geographic-china | 100 | 2025-12-01T06:00:00+00:00 | 2026-10-21T09:00:00+00:00 | sina_syndication: partial | 5 detail pages unavailable; previews retained. {"5245181323903203": "Cross-host or non-HTTPS redirect; access not followed", "5247702843262060": "Cross-host or non-HTTPS redirect; access not followed", "5253134554235323": "Cross-host or non-HTTPS redirect; access not followed", "5271613294773153": "Cross-host or non-HTTPS redirect; access not followed", "5282517838201731": "Cross-host or non-HTTPS redirect; access not followed"} |
+| npr-china-historical | 15 | 2020-03-14T14:40:00+00:00 | 2023-04-17T02:43:00+00:00 | import: partial | Imported records only; no claim of historical completeness. |
 | nylon-china | 100 | 2026-10-05T06:34:00+00:00 | 2026-10-21T14:42:00+00:00 | sina_syndication: partial | 7 detail pages unavailable; previews retained. {"5350667721900758": "Cross-host or non-HTTPS redirect; access not followed", "5351417529239673": "Cross-host or non-HTTPS redirect; access not followed", "5353942846539305": "Cross-host or non-HTTPS redirect; access not followed", "5353975944577893": "Cross-host or non-HTTPS redirect; access not followed", "5353982911316021": "Cross-host or non-HTTPS redirect; access not followed", "5356173705348097": "Cross-host or non-HTTPS redirect; access not followed", "5356176591290777": "Cross-host or non-HTTPS redirect; access not followed"} |
 | nyt-chinese-historical | 0 | unknown | unknown | archive: blocked | Archive redirected to a different capture; timestamp not assumed |
 | nyt-t-china | 129 | 2020-09-28T07:58:00+00:00 | 2026-10-21T11:16:00+00:00 | archive: partial | Single archived profile snapshot; no full timeline backfill. Unexpanded posts are truncated. Engagement belongs to capture time, not retrieval/publication time. Snapshots can contain cached data and omit deleted posts. |
@@ -602,6 +610,8 @@ All counts below are recovered/observed posts, not total output. No zero-activit
 | mit-technology-review-china | truncated | 12 |
 | national-geographic-china | source_full | 95 |
 | national-geographic-china | truncated | 5 |
+| npr-china-historical | source_full | 12 |
+| npr-china-historical | truncated | 3 |
 | nylon-china | source_full | 93 |
 | nylon-china | truncated | 7 |
 | nyt-t-china | source_full | 103 |
@@ -816,6 +826,14 @@ Counts use publication months in Asia/Shanghai. Unknown post kinds are retained,
 | national-geographic-china | 2026-04 | unknown | 15 |
 | national-geographic-china | 2026-05 | unknown | 1 |
 | national-geographic-china | 2026-10 | unknown | 3 |
+| npr-china-historical | 2020-03 | original | 2 |
+| npr-china-historical | 2020-03 | repost | 5 |
+| npr-china-historical | 2020-05 | repost | 1 |
+| npr-china-historical | 2020-09 | original | 3 |
+| npr-china-historical | 2020-11 | original | 1 |
+| npr-china-historical | 2021-05 | original | 1 |
+| npr-china-historical | 2021-09 | repost | 1 |
+| npr-china-historical | 2023-04 | original | 1 |
 | nylon-china | 2026-10 | unknown | 100 |
 | nyt-t-china | 2020-09 | original | 10 |
 | nyt-t-china | 2020-09 | repost | 1 |
@@ -965,6 +983,8 @@ Grouped by source and observation day, not by publication date. Each group uses 
 | ktsf-weibo | sina_syndication | 2026-10-21 | 100 | 1.02 (100) | 0.25 (100) | 0.21 (100) |
 | mit-technology-review-china | sina_syndication | 2026-10-21 | 100 | 5.15 (100) | 0.59 (100) | 4.14 (100) |
 | national-geographic-china | sina_syndication | 2026-10-21 | 100 | 56.49 (100) | 7.18 (100) | 14.13 (100) |
+| npr-china-historical | archive | 2022-01-22 | 14 | 27.64 (14) | 11.86 (14) | 9.79 (14) |
+| npr-china-historical | archive | 2023-11-20 | 15 | 28.33 (15) | 11.93 (15) | 9.60 (15) |
 | nylon-china | sina_syndication | 2026-10-21 | 100 | 893.37 (95) | 199.67 (100) | 229.51 (100) |
 | nyt-t-china | archive | 2020-10-03 | 13 | 11.38 (13) | 2.00 (5) | 7.29 (7) |
 | nyt-t-china | archive | 2023-04-12 | 15 | 25768.47 (15) | 1883.69 (13) | 33566.56 (9) |
@@ -994,4 +1014,4 @@ An attribution end excludes posts on or after that Asia/Shanghai date across liv
 
 No feed-history pagination has been demonstrated. Archive index hits alone are not recovered posts. Authorized/manual/archive JSONL imports can extend coverage, retaining publication versus capture dates. Resolve unknown UIDs before attempting account-specific syndication retrieval. No claim is made that any outlet lacking evidence never used Weibo.
 
-Corpus text and raw responses are local-only by default. Public exports omit posts without explicit redistribution permission and list omissions. No third-party post text is reproduced in this report. See [top-1,000 U.S. website screening](top1000_us_screening.md) for the separate ranked discovery roster, [collection follow-up](collection_followup.md) for explicit account/post assessments and the scraper evaluation, [further discovery](discovery_round2.md) for subsequent publisher-link research, [continued discovery](discovery_iteration3.md) for additional identities and licensing cutoffs, [further publisher traces](discovery_iteration4.md) for subsequent ranked, technology and historical-account checks, and [access pilot](access_pilot.md) for source-level access checks and archive gaps.
+Corpus text and raw responses are local-only by default. Public exports omit posts without explicit redistribution permission and list omissions. No third-party post text is reproduced in this report. See [top-1,000 U.S. website screening](top1000_us_screening.md) for the separate ranked discovery roster, [collection follow-up](collection_followup.md) for explicit account/post assessments and the scraper evaluation, [further discovery](discovery_round2.md) for subsequent publisher-link research, [continued discovery](discovery_iteration3.md) for additional identities and licensing cutoffs, [further publisher traces](discovery_iteration4.md) for subsequent ranked, technology and historical-account checks, [continued newsroom discovery](discovery_iteration5.md) for NPR and archive-bound detail recovery, and [access pilot](access_pilot.md) for source-level access checks and archive gaps.

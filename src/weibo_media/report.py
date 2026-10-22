@@ -167,7 +167,8 @@ def report(db, path):
               "[further discovery](discovery_round2.md) for subsequent publisher-link research, "
               "[continued discovery](discovery_iteration3.md) for additional identities and licensing "
               "cutoffs, [further publisher traces](discovery_iteration4.md) for subsequent ranked, "
-              "technology and historical-account checks, and [access pilot](access_pilot.md) for source-level "
+              "technology and historical-account checks, [continued newsroom discovery](discovery_iteration5.md) "
+              "for NPR and archive-bound detail recovery, and [access pilot](access_pilot.md) for source-level "
               "access checks and archive gaps.", ""]
     target = Path(path)
     target.parent.mkdir(parents=True, exist_ok=True)

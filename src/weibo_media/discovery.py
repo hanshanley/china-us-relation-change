@@ -370,7 +370,10 @@ def publish(roster_path, screening_directory, directory, report_path):
         "publisher-announced license termination: unchanged profile names do not establish a "
         "continuing U.S. license. [Further publisher traces](discovery_iteration4.md) verify "
         "additional ranked publishers and reconstruct historical channel/UID changes without "
-        "relabeling independent successor posts. Current status and legal operator uncertainty remain explicit.", "",
+        "relabeling independent successor posts. [Continued newsroom discovery](discovery_iteration5.md) "
+        "adds the historical NPR identity at source position5 and recovers archive-bound native "
+        "details without relaxing live profile-name checks. Current status and legal operator "
+        "uncertainty remain explicit.", "",
         "## Complete machine-readable deliverables", "",
         "- [All 1,000 ranked U.S. domains](../data/discovery/us_top1000.csv)",
         "- [Ranking source manifest](../data/discovery/us_top1000.manifest.json)",
