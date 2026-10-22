@@ -745,6 +745,55 @@
       "notes": "Actual masthead domain failed modern TLS protocol negotiation; verification/security was not weakened and no HTTP downgrade used. Exact2015 domain capture was only a framing wrapper pointing to acmediaonline.net, not an inspected newspaper site. That destination currently failed DNS; its sole retrieved2020 archived capture was gambling-branded, not publisher content, so no social identifier there was attributed to the newspaper and no hacking/ownership cause asserted. The printed masthead and publication-branded issue remain scope evidence only; no official Sina account was resolved. Unknown, not absent. Review date: 2026-10-22 UTC."
     },
     {
+      "id": "tampa-bay-times", "name": "Tampa Bay Times", "category": "newspaper",
+      "aliases": ["Tampa Bay Times", "St. Petersburg Times"],
+      "us_basis": "U.S.-classified source position64; own About identifies the Florida newspaper and its primary St. Petersburg mailing address. Current legal ownership is not independently audited.",
+      "source_url": "https://www.tampabay.com/", "research_status": "reviewed",
+      "notes": "Complete actual root, About and Contact were read without a qualifying Weibo link. About explicitly lists its Facebook, Twitter, Instagram and YouTube engagement; an omitted platform is not account-absence proof. Correct publication-specific community item matches tampabay.com but has no main Sina identifier. Poynter, Florida Trend, individual reporters and regional sports accounts are not dedicated newspaper accounts by inference. Unknown, not absent. Review date: 2026-10-22 UTC."
+    },
+    {
+      "id": "live365", "name": "Live365", "category": "internet_radio_platform",
+      "aliases": ["Live365", "Live 365"],
+      "us_basis": "United States-classified source position65; its actual About identifies an internet-radio broadcasting/listening platform, not an independent local newspaper. The cohort country label is not a separate corporate-domicile audit.",
+      "source_url": "https://live365.com/", "research_status": "reviewed",
+      "notes": "Complete actual root and linked /about page were read without a qualifying Weibo profile. Its own identity is a radio platform; individual hosted stations, DJs and generic Live365-looking creator names are not the platform's organizational account. Correct community item matches live365.com and describes an online service, with no main Sina identifier. Missing identifiers and social links do not prove absence. Unknown, not absent. Review date: 2026-10-22 UTC."
+    },
+    {
+      "id": "baltimore-sun", "name": "The Baltimore Sun", "category": "newspaper",
+      "aliases": ["The Baltimore Sun", "Baltimore Sun"],
+      "us_basis": "U.S.-classified source position66; own About identifies the Maryland newspaper founded in1837. Its parent, sister publications and staff are separate identities; current corporate control is not independently audited.",
+      "source_url": "https://www.baltimoresun.com/", "research_status": "reviewed",
+      "notes": "Complete root, actual About and separately followed Contact were readable without a qualifying Weibo profile. /about-us/ redirects to /about/ and is not independent corroboration. About includes explicit AI/text-data-mining reuse restrictions; no deeper publisher-article mining or article-body redistribution was pursued. Correct publication-specific community item matches baltimoresun.com and has no main Sina identifier. Capital Gazette, Carroll County Times, parent channels and reporters were not substituted. Unknown, not absent. Review date: 2026-10-22 UTC."
+    },
+    {
+      "id": "orange-county-register", "name": "The Orange County Register", "category": "newspaper",
+      "aliases": ["Orange County Register", "The Orange County Register", "Santa Ana Orange County Register"],
+      "us_basis": "U.S.-classified source position68; own About identifies its Orange County, California news role and the newsroom's move from Santa Ana to Anaheim. Present legal ownership is not independently audited.",
+      "source_url": "https://www.ocregister.com/", "research_status": "reviewed",
+      "notes": "Complete root and actual About/Contact were read without a qualifying Weibo link. Contact's slash redirect is one source, not two. The correct publication-specific community item matches ocregister.com with no main Sina identifier. Other Southern California News Group publications, county agencies, Register-titled newspapers and individual reporters are not this paper's own account. Unknown, not absent. Review date: 2026-10-22 UTC."
+    },
+    {
+      "id": "sacramento-bee", "name": "The Sacramento Bee", "category": "newspaper",
+      "aliases": ["The Sacramento Bee", "Sacramento Bee"],
+      "us_basis": "U.S.-classified source position69; independently read exact January2012 original publisher homepage identifies the Sacramento, California newspaper. This is historical publisher scope, not a current legal-control audit.",
+      "source_url": "https://www.sacbee.com/", "research_status": "reviewed",
+      "notes": "Current robots request timed out before any live publisher page was fetched. Independently permitted exact January1,2012 root capture was readable under its actual Sacramento Bee title and timestamp, without a qualifying profile link. No silent substitution of the indexed2013 capture occurred. Correct publication-specific community item matches sacbee.com but has no main Sina identifier. McClatchy, other Bee newspapers and staff profiles are not dedicated publication proof. Unknown, not absent. Review date: 2026-10-22 UTC."
+    },
+    {
+      "id": "travel-leisure", "name": "Travel + Leisure / Chinese edition", "category": "travel_lifestyle_media",
+      "aliases": ["Travel + Leisure China", "漫旅TravelLeisure", "漫旅Travel+Leisure", "漫旅", "悦旅杂志", "悦旅Travel+Leisure"],
+      "us_basis": "Publication-specific primary2020 and2022 corporate statements explicitly distinguish the U.S. flagship Travel + Leisure magazine from its China international edition. A joint2014 China-edition/GfK research report independently identifies 漫旅Travel+Leisure as a member of that international-edition network.",
+      "source_url": "https://www.travelandleisure.com/", "research_status": "reviewed",
+      "notes": "The joint report's actual printed publisher route is /index.yl, not the search OCR's /index.yj. Exact2013 owned page at that real route links tandlchina, and exact2014 platform owner config independently binds UID2519357914/悦旅杂志. The2012 profile replay redirected to another timestamp and was rejected, not silently substituted. Current owner has blue institutional certification explicitly naming 《漫旅Travel+Leisure》杂志官方微博. One historical/current channel, not a second account for the later name. Initial100-entry feed includes one October22,2026 post outside the fixed October21 cutoff; only99 records were initially in-window. Current account identity is not independently audited license continuity, legal control or U.S.-newsroom staffing. Main U.S. root402 and China robots timeout were respected; corporate statements and exact archives were independently permitted. Review date: 2026-10-22 UTC."
+    },
+    {
+      "id": "motortrend", "name": "MotorTrend", "category": "automotive_media",
+      "aliases": ["MotorTrend", "Motor Trend"],
+      "us_basis": "Actual U.S. publisher Contact identifies its editorial office in El Segundo, California. Its automotive-publication identity is separate from a Chinese operator's historical copyright cooperation.",
+      "source_url": "https://www.motortrend.com/", "research_status": "reviewed",
+      "notes": "Complete current root, About and actual Contact were readable without a qualifying owned Weibo link. A native post independently binds UID1198183614 to the blue-certified Chinese magazine 汽车族杂志, but an exact2023 operator business page identifies that title as founded under China's People's Daily/China Automotive News and describes Motor Trend copyright cooperation at its founding. That historical cooperation is not sufficient to assert this UID is MotorTrend's own institutional account or a continuing licensed U.S.-brand edition. Held outside confirmed accounts without declaring it fake or denying historical cooperation. The current operator host TLS handshake timed out; the separately indexed exact2023 archive was readable, without downgrading TLS. Unknown, not absent. Review date: 2026-10-22 UTC."
+    },
+    {
       "id": "self", "name": "SELF / historical Chinese magazine and website channels", "category": "health_lifestyle_media",
       "aliases": ["SELF China", "悦己SELF", "HELLO悦己", "Hello悦己", "悦己女性网", "悦己网"],
       "us_basis": "SELF's own editorial About explicitly places its headquarters at1 World Trade Center in New York City. The Chinese publication's own2013 homepage identifies the SELF magazine and separately labels its official magazine and official website Weibo channels.",
@@ -814,6 +863,14 @@
     }
   ],
   "accounts": [
+    {
+      "id": "travel-leisure-china", "outlet_id": "travel-leisure", "uid": "2519357914", "handle": "tandlchina",
+      "display_name": "漫旅TravelLeisure", "profile_url": "https://weibo.com/tandlchina", "language": "zh-Hans",
+      "operator": "Travel + Leisure China publishing operation; historical and current legal account owner and exact license terms not independently audited",
+      "relationship": "Publisher-linked Chinese travel/lifestyle edition of the U.S. flagship brand; not the U.S. magazine newsroom or the unrelated timeshare company's corporate account",
+      "officialness": "confirmed", "existence": "current_evidence", "accessibility": "unknown",
+      "notes": "Exact2013 owned publisher page links tandlchina and independently indexed2014 owner oid/onick bind UID2519357914/悦旅杂志. Current blue institutional certification explicitly names 《漫旅Travel+Leisure》杂志官方微博. Joint2014 edition/GfK report and U.S. publisher's2020/2022 edition statements establish the brand relationship separately. The October22,2026 feed entry must remain outside the fixed October21 cutoff. Current branding does not prove independently audited present licensing, U.S. editorial authorship or complete historical recovery."
+    },
     {
       "id": "self-china-magazine-historical", "outlet_id": "self", "uid": "1797140201", "handle": "helloself",
       "display_name": "HELLO悦己", "profile_url": "https://weibo.com/helloself", "language": "zh-Hans",
@@ -1446,6 +1503,42 @@
     }
   ],
   "evidence": [
+    {
+      "id": "travel-leisure-owned-2013-social-link", "account_id": "travel-leisure-china",
+      "source_url": "https://web.archive.org/web/20130321173622id_/http://www.travelandleisurechina.com:80/index.yl", "source_type": "publisher_link",
+      "observed_at": "2026-10-22T07:24:48.635603+00:00", "claim_date": "2013-03-21T17:36:22+00:00", "supports": "identity",
+      "justification": "Exact owned Travel+Leisure China page links weibo.com/tandlchina and identifies the 悦旅 Travel+Leisure magazine, with U.S./Asia edition links. Actual route index.yl is independently printed in the joint2014 report; the indexed OCR's index.yj was corrected by reading the PDF, not guessed as an equivalent capture."
+    },
+    {
+      "id": "travel-leisure-2014-owner-binding", "account_id": "travel-leisure-china",
+      "source_url": "https://web.archive.org/web/20140331051002id_/http://www.weibo.com/tandlchina", "source_type": "platform_profile",
+      "observed_at": "2026-10-22T07:25:36.744113+00:00", "claim_date": "2014-03-31T05:10:02+00:00", "supports": "historical",
+      "justification": "Independently indexed exact2014 handle capture has title 悦旅杂志的微博 and matching owner oid2519357914/onick悦旅杂志. Independently binds the publisher-linked handle to today's UID; the failed2012 replay redirected to a different timestamp and is not credited as a readable source."
+    },
+    {
+      "id": "travel-leisure-current-institution", "account_id": "travel-leisure-china",
+      "source_url": "https://www.sina.cn/media/2519357914", "source_type": "platform_certification",
+      "observed_at": "2026-10-22T07:21:22.263822+00:00", "claim_date": null, "supports": "identity",
+      "justification": "Owner-scoped profile carries a blue-v institution badge and expressly certifies 《漫旅Travel+Leisure》杂志官方微博 under 漫旅TravelLeisure. Not a travel blogger, hotel, timeshare sales account or a generic similarly named travel service. Current profile certification is not backdated to historical posts."
+    },
+    {
+      "id": "travel-leisure-2014-joint-edition-report", "account_id": "travel-leisure-china",
+      "source_url": "https://www.pataprodigy.org/CStaff/Comm/2014ChinaLuxuryTravel%20ResearchSummary.pdf", "source_type": "publisher_statement",
+      "observed_at": "2026-10-22T07:24:06.235109+00:00", "claim_date": null, "supports": "relationship",
+      "justification": "Primary joint2014 Travel+Leisure China/GfK research summary explicitly describes 漫旅Travel+Leisure as a Travel+Leisure international-edition member on printed page11 and gives the actual publisher index.yl route. Establishes the Chinese name/edition relationship, not a newly inferred account UID, staffing claim or present contract renewal."
+    },
+    {
+      "id": "travel-leisure-2020-us-flagship-china-edition", "account_id": "travel-leisure-china",
+      "source_url": "https://news.people.inc/2020-02-20-Travel-Leisure-Releases-15th-Annual-It-List-An-Editor-Curated-Collection-Of-The-Best-New-Hotels-In-The-World", "source_type": "publisher_statement",
+      "observed_at": "2026-10-22T07:22:20.906869+00:00", "claim_date": "2020-02-20", "supports": "relationship",
+      "justification": "Retained primary Meredith release explicitly distinguishes the U.S. flagship and international editions in China, India, Mexico and Southeast Asia, and identifies the U.S. magazine's1971 launch and official website. This is publication-specific U.S. scope rather than headquarters borrowed from a parent or a timeshare-company account."
+    },
+    {
+      "id": "travel-leisure-2022-us-china-edition-context", "account_id": "travel-leisure-china",
+      "source_url": "https://news.people.inc/2022-04-12-TRAVEL-LEISURE-ANNOUNCES-THE-IT-LIST-OF-BEST-NEW-HOTELS-2022", "source_type": "publisher_statement",
+      "observed_at": "2026-10-22T07:22:23.592981+00:00", "claim_date": "2022-04-12", "supports": "relationship",
+      "justification": "Dated primary publisher statement again explicitly names the U.S. flagship magazine and China international edition, distinguishing the publishing portfolio from the brand-owning Travel+Leisure Co. Context is dated2022; no unverified current license-continuity date, legal account owner or U.S. staffing is asserted."
+    },
     {
       "id": "self-magazine-owned-2013-link", "account_id": "self-china-magazine-historical",
       "source_url": "https://web.archive.org/web/20130102073526id_/http://www.self.com.cn:80/", "source_type": "publisher_link",

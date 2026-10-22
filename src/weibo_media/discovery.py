@@ -391,7 +391,9 @@ def publish(roster_path, screening_directory, directory, report_path):
         "(discovery_iteration12.md) reviews nine further publishers and keeps founder, blogger and unbound article-author "
         "candidates outside confirmed identity counts. [Historical SELF follow-up]"
         "(discovery_iteration13.md) resolves two publisher-designated channels through a new dated "
-        "homepage and keeps renamed successor output outside the historical corpus. Current status and legal operator "
+        "homepage and keeps renamed successor output outside the historical corpus. [Travel + Leisure follow-up]"
+        "(discovery_iteration14.md) resolves the Chinese edition through a corrected primary-document route, "
+        "recovers eligible posts and keeps a separate copyright partner outside confirmed identities. Current status and legal operator "
         "uncertainty remain explicit.", "",
         "## Complete machine-readable deliverables", "",
         "- [All 1,000 ranked U.S. domains](../data/discovery/us_top1000.csv)",

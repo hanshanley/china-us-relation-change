@@ -4,6 +4,9 @@ Research observed October 22, 2026 UTC/EDT, continuing checkpoint
 `e5489b0`. The fixed post-publication interval remains January 1, 2020
 through October 21, 2026 inclusive, Asia/Shanghai.
 
+This is a historical checkpoint. [The Travel + Leisure follow-up](discovery_iteration14.md)
+adds a separately verified edition and eligible posts without changing the publication window.
+
 **Two historical account identities were verified under one SELF
 publisher/brand group.** These are the Chinese edition's magazine and
 website channels, not two independent U.S. newsrooms. No new eligible

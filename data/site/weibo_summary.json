@@ -939,6 +939,20 @@
       "relationship": "Publisher-linked Chinese institutional channel in the U.S.-origin enterprise-IT media network; not assumed to be the U.S. newsroom"
     },
     {
+      "account_id": "travel-leisure-china",
+      "attribution_end": null,
+      "earliest_publication_utc": "2025-06-03T05:34:00+00:00",
+      "existence": "current_evidence",
+      "latest_publication_utc": "2026-10-12T04:03:00+00:00",
+      "latest_run_source": "sina_syndication",
+      "latest_run_status": "partial",
+      "outlet_id": "travel-leisure",
+      "outlet_name": "Travel + Leisure / Chinese edition",
+      "profile_url": "https://weibo.com/tandlchina",
+      "recovered_posts": 99,
+      "relationship": "Publisher-linked Chinese travel/lifestyle edition of the U.S. flagship brand; not the U.S. magazine newsroom or the unrelated timeshare company's corporate account"
+    },
+    {
       "account_id": "variety-china",
       "attribution_end": null,
       "earliest_publication_utc": "2020-01-08T05:00:00+00:00",
@@ -1094,18 +1108,18 @@
     }
   ],
   "roster": {
-    "confirmed_accounts": 78,
-    "confirmed_outlets": 54,
-    "outlets": 131,
-    "reviewed_outlets": 131
+    "confirmed_accounts": 79,
+    "confirmed_outlets": 55,
+    "outlets": 138,
+    "reviewed_outlets": 138
   },
   "source": {
-    "corpus_metadata_sha256": "563b37575e8049e58a4d4ee66dd54dca0121fe96d9b1d4ef4a1ef26236789269",
+    "corpus_metadata_sha256": "cb5a26a67f6f4db07de36569307c37e5fc75ce6d950281653a8383b1a8719cfb",
     "excluded_attribution_posts": 0,
     "excluded_unconfirmed_posts": 0,
-    "latest_collection_at": "2026-10-22T07:00:38.592135+00:00",
+    "latest_collection_at": "2026-10-22T07:29:39.348736+00:00",
     "publication_timezone": "Asia/Shanghai",
-    "registry_sha256": "f57d830742895b64d6363e7ea300088429082eee505deebbd45f584369b549af",
+    "registry_sha256": "109cc1269832fac938dbb8ac0dafa54982540c677992380164ce07c0440bfa73",
     "requested_windows": [
       {
         "end": "2026-10-21T16:00:00+00:00",
@@ -1115,11 +1129,11 @@
   },
   "text_completeness": [
     {
-      "recovered_posts": 5037,
+      "recovered_posts": 5134,
       "status": "source_full"
     },
     {
-      "recovered_posts": 723,
+      "recovered_posts": 725,
       "status": "truncated"
     },
     {
@@ -1154,11 +1168,11 @@
       "year": 2024
     },
     {
-      "recovered_posts": 219,
+      "recovered_posts": 259,
       "year": 2025
     },
     {
-      "recovered_posts": 3888,
+      "recovered_posts": 3947,
       "year": 2026
     }
   ]

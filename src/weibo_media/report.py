@@ -187,6 +187,8 @@ def report(db, path):
               "and explicitly excluded founder/unbound blogger and long-form author candidates, "
               "[historical SELF follow-up](discovery_iteration13.md) for two newly resolved "
               "publisher-designated channels and the renamed-magazine attribution boundary, "
+              "[Travel + Leisure follow-up](discovery_iteration14.md) for its publisher-linked "
+              "Chinese edition, fixed-window recovery and a separately held copyright partner, "
               "and [access pilot](access_pilot.md) for source-level "
               "access checks and archive gaps.", ""]
     target = Path(path)
