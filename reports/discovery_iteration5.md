@@ -55,7 +55,11 @@ local corpus has **12 source-full accessible bodies and three truncated
 records**. Source-full still does not certify completeness against the
 original Weibo text. Raw responses and all post text remain private.
 
-## Current checkpoint and continuing frontier
+## Published NPR checkpoint and continuing frontier
+
+The following figures describe commit `bfd0efc`, not a perpetually current
+total. The [next publisher-account checkpoint](discovery_iteration6.md)
+continues this work and its generated inventory carries the later counts.
 
 The registry now has **52 confirmed account identities across 45 outlet/brand
 groups**, with 87 reviewed outlet/candidate rows and 176 evidence records.

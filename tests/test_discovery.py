@@ -86,6 +86,10 @@ class DiscoveryTest(unittest.TestCase):
             '?width=63&amp;uid=1734995435"></iframe>'
             '<iframe src="//service.t.sina.com.cn/widget/WeiboShow.php'
             '?height=460&amp;uid=1671481074"></iframe>'
+            '<iframe src="//widget.weibo.com/weiboshow/index.php'
+            '?width=300&amp;uid=1649036617"></iframe>'
+            '<!-- <iframe src="//widget.weibo.com/weiboshow/index.php'
+            '?uid=1742278305"></iframe> -->'
             '<iframe src="https://service.weibo.com/share/share.php?uid=123"></iframe>'
             '<iframe src="https://widget.weibo.com.evil.test/relationship/followbutton.php'
             '?uid=123"></iframe>'
@@ -100,6 +104,7 @@ class DiscoveryTest(unittest.TestCase):
         )
         self.assertEqual(parser.links, {
             "https://weibo.com/u/1734995435", "https://weibo.com/u/1671481074",
+            "https://weibo.com/u/1649036617",
         })
         for uid in ("", "0", "-1", "not_an_id"):
             self.assertIsNone(account_link(

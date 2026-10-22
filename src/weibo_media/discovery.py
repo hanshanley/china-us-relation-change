@@ -94,6 +94,7 @@ def account_link(value, page_url):
     path = url.path.rstrip("/")
     if (host, path) in {
             ("widget.weibo.com", "/relationship/followbutton.php"),
+            ("widget.weibo.com", "/weiboshow/index.php"),
             ("service.t.sina.com.cn", "/widget/WeiboShow.php")}:
         try:
             if url.port not in (None, 443 if url.scheme == "https" else 80):
@@ -372,7 +373,10 @@ def publish(roster_path, screening_directory, directory, report_path):
         "additional ranked publishers and reconstruct historical channel/UID changes without "
         "relabeling independent successor posts. [Continued newsroom discovery](discovery_iteration5.md) "
         "adds the historical NPR identity at source position5 and recovers archive-bound native "
-        "details without relaxing live profile-name checks. Current status and legal operator "
+        "details without relaxing live profile-name checks. [Publisher account clusters]"
+        "(discovery_iteration6.md) adds the historical Popular Science Chinese edition and "
+        "explicitly labeled release-distribution channels; multiple sector feeds are not "
+        "independent newsrooms. Current status and legal operator "
         "uncertainty remain explicit.", "",
         "## Complete machine-readable deliverables", "",
         "- [All 1,000 ranked U.S. domains](../data/discovery/us_top1000.csv)",

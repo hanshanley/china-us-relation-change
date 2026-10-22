@@ -189,7 +189,8 @@ def svg_weibo(summary, metric, theme="themarginoferror"):
         values = [("Current identity evidence", counts["current_evidence"], BLUE),
                   ("Historical evidence", counts["historical"], GOLD),
                   ("Existence unknown", counts["unknown"], MUTED)]
-        note = "Current identity evidence does not establish current activity. The research roster is not a census."
+        note = ("Channels include press-release services. Current identity evidence does not prove "
+                "current activity or an independent newsroom.")
     elif metric == "recovery-coverage":
         recovered = sum(a["recovered_posts"] > 0 for a in accounts)
         unattempted = sum(a["recovered_posts"] == 0 and a["latest_run_status"] is None for a in accounts)

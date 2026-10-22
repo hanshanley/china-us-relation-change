@@ -493,6 +493,34 @@
       "notes": "Actual2013 publisher homepage under its historical domain was read without resolving a qualifying profile. Foreign regional editions and independent translations are not silently equated with the U.S. newsroom. Source: https://web.archive.org/web/20130101060306id_/http://www.huffingtonpost.com/ . Unknown, not absent. Review date: 2026-10-21."
     },
     {
+      "id": "popular-science", "name": "Popular Science / historical Chinese edition", "category": "science_media",
+      "aliases": ["科技新时代", "Popular Science China", "PS+科技新时代"],
+      "us_basis": "U.S. popular-science publication; the Chinese magazine's own historical presentation explicitly identifies Popular Science's U.S. origin and its Chinese edition.",
+      "source_url": "https://www.popsci.com/", "research_status": "reviewed",
+      "notes": "Exact January2014 publisher-homepage capture links popscichina and independently embeds UID1925964485. The archived2011-themed magazine presentation separately names that UID as the official magazine account, distinct from its editors' personal accounts. A scanned publisher-domain notice dated2014-10-08 says Wanhua Media's distribution ends with the October2014 issue, not that all editions or legal licenses necessarily ended on October8. The November2014 boundary is a conservative recovery cutoff for this documented historical operation; current successor activity is not attributed to the U.S. brand. Stable UID is publisher-proven even though the selected2012 profile replay redirected to another capture and was refused. Review date: 2026-10-22 UTC."
+    },
+    {
+      "id": "pr-newswire", "name": "PR Newswire / Chinese distribution channels", "category": "press_release_service",
+      "aliases": ["美通社", "美通社资讯", "美通说传播", "媒体情报", "投资者关系资讯", "美通社财经资讯", "美通社IT资讯", "美通社活动资讯", "美通社汽车资讯", "美通社教育资讯", "美通社快消资讯", "美通社健康资讯", "美通社旅游资讯", "美通社娱乐资讯", "美通社能源资讯", "美通社房地产资讯", "美速通商务咨询北京分公司"],
+      "us_basis": "News-release publisher in the U.S.-headquartered Cision group: its own regional About page explicitly identifies Cision's Chicago, United States headquarters and the PR Newswire operation; its main institutional profile separately lists the United States.",
+      "source_url": "https://www.prnewswire.com/", "research_status": "reviewed",
+      "notes": "Publisher-owned prnasia.com/weibo/ explicitly presents its account cluster through18 active UID-bearing timeline widgets. Seventeen have named PR Newswire/company/sector identities; anonymous UID1660674903 remains a continuity lead. Commented widget1742278305 is not counted. All channels belong to one publisher/brand group, not17 independent media outlets. Press releases, communications advice and regional service promotion are not independent U.S. newsroom reporting; repeated releases across channels are not independent news stories. Current corporate control/legal ownership is not independently audited. Source: https://www.prnasia.com/about . Review date: 2026-10-22 UTC."
+    },
+    {
+      "id": "business-wire", "name": "Business Wire / Chinese partner channel", "category": "press_release_service",
+      "aliases": ["美国商业资讯", "美国商业资讯中文版", "Business Wire China"],
+      "us_basis": "U.S.-origin commercial news-release publisher: its own corporate milestone document explicitly records the1961 San Francisco founding. Chinese portal/account is a regional partner-operated distribution channel, not asserted to be U.S.-staffed.",
+      "source_url": "https://www.businesswire.com/", "research_status": "reviewed",
+      "notes": "Businesswirechina.com contact page embeds UID2676312451. Its About page names Interfax News Service Limited as an independent authorized distributor and expressly disclaims legal agency, partnership or joint venture with Business Wire. Current profile explicitly certifies Business Wire China's official account. This is a branded Chinese release-distribution channel, not proof that Interfax is a U.S. publisher, not a separate U.S. newsroom, and not an independent audit of current contract/ownership terms. Source: https://www.businesswirechina.com/en/about/about_us.html . Review date: 2026-10-22 UTC."
+    },
+    {
+      "id": "wharton-knowledge", "name": "Knowledge@Wharton / Chinese publication-account lead", "category": "academic_business_media",
+      "aliases": ["沃顿知识在线", "Knowledge at Wharton"],
+      "us_basis": "U.S. Wharton/Penn business-knowledge publication; Wharton's own2014 media-programme report explicitly identifies Knowledge@Wharton's Weibo account, separately from ordinary third-party media coverage.",
+      "source_url": "https://knowledge.wharton.upenn.edu/", "research_status": "reviewed",
+      "notes": "Primary publisher PDF contents and page131 explicitly label Knowledge@Wharton's own Weibo account; screenshots provide positive historical presence evidence. Stable profile URL/UID is still unresolved, so no fabricated locator or parent-school profile is inserted into the resolved account inventory. This is not a negative account finding. Source: https://news.wharton.upenn.edu/wp-content/uploads/2012/06/Wharton-Global-Forum-Beijing_Coverage-Wrap-Up-Report_20140702.pdf . Review date: 2026-10-22 UTC."
+    },
+    {
       "id": "barrons", "name": "Barron's / China", "category": "business",
       "aliases": ["Barrons巴伦", "巴伦", "巴伦周刊", "巴伦中国"], "us_basis": "U.S. investment-news publication published by Dow Jones; source position122 in the selected U.S. media roster.",
       "source_url": "https://www.barrons.com/", "research_status": "reviewed",
@@ -910,6 +938,159 @@
       "relationship": "Publisher-linked Chinese edition in the U.S. Golf Digest international-edition family; not the separate GOLF Magazine account or assumed U.S. newsroom",
       "officialness": "confirmed", "existence": "current_evidence", "accessibility": "unknown",
       "notes": "Actual U.S. publisher listing identifies the correct Chinese domain; that publisher's2014 timeline widget explicitly names UID1671481074. The2022 golfdigest archive and current magazine institution agree. Another brand-looking alias, golfdigestchina, is a named individual and is excluded."
+    },
+    {
+      "id": "popular-science-china-historical", "outlet_id": "popular-science", "uid": "1925964485", "handle": "popscichina",
+      "display_name": "科技新时代", "profile_url": "https://weibo.com/popscichina", "language": "zh-Hans",
+      "operator": "Historical Chinese magazine operation; Wanhua Media distributed through the October2014 issue. Exact legal Weibo account owner unverified",
+      "relationship": "Historical Popular Science Chinese-edition account, not current U.S.-newsroom control or later similarly named academic publications",
+      "officialness": "confirmed", "existence": "historical", "accessibility": "unknown",
+      "attribution_end": "2014-11-01",
+      "notes": "Publisher-owned archived homepage explicitly links the handle and UID-bearing widget; archived magazine presentation independently labels the same UID official and separates editors' profiles. Conservative cutoff follows documented regional distribution change, not an independently established trademark-license expiry. Requested2020-2026 window begins after the cutoff; no post from that window is attributed to this historical operation."
+    },
+    {
+      "id": "prnewswire-china-main", "outlet_id": "pr-newswire", "uid": "1782643177", "handle": null,
+      "display_name": "美通社", "profile_url": "https://weibo.com/u/1782643177", "language": "zh-Hans",
+      "operator": "PR Newswire / Cision Chinese-language institutional channel; exact current legal account owner not independently audited",
+      "relationship": "Publisher-linked news-release distribution account, not an independent U.S. editorial newsroom",
+      "officialness": "confirmed", "existence": "current_evidence", "accessibility": "unknown",
+      "notes": "Active publisher directory widget and explicit PR Newswire institutional profile agree on the UID. Profile lists United States; stale audience/history claims are not current measurements."
+    },
+    {
+      "id": "prnewswire-china-news", "outlet_id": "pr-newswire", "uid": "1649036617", "handle": null,
+      "display_name": "美通社资讯", "profile_url": "https://weibo.com/u/1649036617", "language": "zh-Hans",
+      "operator": "PR Newswire Chinese news-release distribution team; current legal ownership not independently audited",
+      "relationship": "Publisher-linked Chinese news-release feed, not another independent publisher or U.S. newsroom",
+      "officialness": "confirmed", "existence": "current_evidence", "accessibility": "unknown",
+      "notes": "Publisher directory's first active widget explicitly identifies this UID; current institution names 美通社资讯官方微博. Different UID from the main 美通社 account."
+    },
+    {
+      "id": "prnewswire-communications", "outlet_id": "pr-newswire", "uid": "1729383631", "handle": null,
+      "display_name": "美通说传播", "profile_url": "https://weibo.com/u/1729383631", "language": "zh-Hans",
+      "operator": "PR Newswire Chinese communications channel / named Beijing branch of 美速通商务咨询（上海）有限公司",
+      "relationship": "Publisher-owned communications/public-relations information channel, not an independent editorial news outlet",
+      "officialness": "confirmed", "existence": "current_evidence", "accessibility": "unknown",
+      "notes": "Directory UID matches current publisher-naming bio and explicit company institutional certification. Marketing advice and publisher promotion are not relabeled independent journalism."
+    },
+    {
+      "id": "prnewswire-media-intelligence", "outlet_id": "pr-newswire", "uid": "1701477804", "handle": null,
+      "display_name": "媒体情报", "profile_url": "https://weibo.com/u/1701477804", "language": "zh-Hans",
+      "operator": "PR Newswire publisher-linked media-information channel; exact legal owner not independently audited",
+      "relationship": "Publisher-owned media-information service channel within the same PR Newswire group",
+      "officialness": "confirmed", "existence": "current_evidence", "accessibility": "unknown",
+      "notes": "Officialness rests on the owned directory's exact widget UID, not a generic name or badge. Profile bio separately states that PR Newswire presents the channel."
+    },
+    {
+      "id": "prnewswire-investor-relations", "outlet_id": "pr-newswire", "uid": "1729410342", "handle": null,
+      "display_name": "投资者关系资讯", "profile_url": "https://weibo.com/u/1729410342", "language": "zh-Hans",
+      "operator": "PR Newswire Chinese investor-relations information channel",
+      "relationship": "Publisher-linked investor-communications/release service channel, not an independent financial newsroom",
+      "officialness": "confirmed", "existence": "current_evidence", "accessibility": "unknown",
+      "notes": "Active publisher widget UID and explicit 美通社投资者关系资讯 institutional descriptor agree. No investment guidance or current account activity is inferred from the name."
+    },
+    {
+      "id": "prnewswire-beijing-multimedia", "outlet_id": "pr-newswire", "uid": "2027974901", "handle": null,
+      "display_name": "美速通商务咨询北京分公司", "profile_url": "https://weibo.com/u/2027974901", "language": "zh-Hans",
+      "operator": "Named Beijing company branch in the PR Newswire publisher's own account directory",
+      "relationship": "Regional publisher service/multimedia communications account, not another magazine or U.S. newsroom",
+      "officialness": "confirmed", "existence": "current_evidence", "accessibility": "unknown",
+      "notes": "Publisher's active directory widget establishes the account link; company-naming institutional profile agrees. Corporate services/promotion are explicitly distinguished from editorial news."
+    },
+    {
+      "id": "prnewswire-finance", "outlet_id": "pr-newswire", "uid": "1733310493", "handle": null,
+      "display_name": "美通社财经资讯", "profile_url": "https://weibo.com/u/1733310493", "language": "zh-Hans",
+      "operator": "PR Newswire Chinese financial-release channel",
+      "relationship": "Publisher-linked financial press-release distribution channel within one newswire group",
+      "officialness": "confirmed", "existence": "current_evidence", "accessibility": "unknown",
+      "notes": "Exact publisher widget UID and named official institutional profile agree. Old2011 survey wording in the bio is not treated as current activity."
+    },
+    {
+      "id": "prnewswire-it", "outlet_id": "pr-newswire", "uid": "1729503667", "handle": null,
+      "display_name": "美通社IT资讯", "profile_url": "https://weibo.com/u/1729503667", "language": "zh-Hans",
+      "operator": "PR Newswire Chinese technology-release channel",
+      "relationship": "Publisher-linked technology-sector release feed, not an independent technology newsroom",
+      "officialness": "confirmed", "existence": "current_evidence", "accessibility": "unknown",
+      "notes": "Owned directory widget and explicit 美通社IT科技资讯 institution bind this UID. Current identity is separate from current posting activity."
+    },
+    {
+      "id": "prnewswire-events", "outlet_id": "pr-newswire", "uid": "1894434582", "handle": null,
+      "display_name": "美通社活动资讯", "profile_url": "https://weibo.com/u/1894434582", "language": "zh-Hans",
+      "operator": "PR Newswire Chinese event-information channel",
+      "relationship": "Publisher-owned conference/event distribution and promotion channel, not a separate publisher",
+      "officialness": "confirmed", "existence": "current_evidence", "accessibility": "unknown",
+      "notes": "Active directory widget and 美通社会展资讯官方微博 institution agree. Event announcements are not relabeled independent reporting."
+    },
+    {
+      "id": "prnewswire-automotive", "outlet_id": "pr-newswire", "uid": "2011675567", "handle": null,
+      "display_name": "美通社汽车资讯", "profile_url": "https://weibo.com/u/2011675567", "language": "zh-Hans",
+      "operator": "PR Newswire Chinese automotive-release channel",
+      "relationship": "Publisher-linked automotive press-release feed within one newswire group",
+      "officialness": "confirmed", "existence": "current_evidence", "accessibility": "unknown",
+      "notes": "Owned widget UID and named automotive-channel institution agree. Stale survey copy is not proof of current activity."
+    },
+    {
+      "id": "prnewswire-education", "outlet_id": "pr-newswire", "uid": "2011650567", "handle": null,
+      "display_name": "美通社教育资讯", "profile_url": "https://weibo.com/u/2011650567", "language": "zh-Hans",
+      "operator": "PR Newswire Chinese education/human-resources release channel",
+      "relationship": "Publisher-linked education-sector release distribution channel, not another independent outlet",
+      "officialness": "confirmed", "existence": "current_evidence", "accessibility": "unknown",
+      "notes": "Exact active directory UID and 美通社教育资讯官方微博 institutional profile agree."
+    },
+    {
+      "id": "prnewswire-consumer", "outlet_id": "pr-newswire", "uid": "2011691367", "handle": null,
+      "display_name": "美通社快消资讯", "profile_url": "https://weibo.com/u/2011691367", "language": "zh-Hans",
+      "operator": "PR Newswire Chinese consumer-goods release channel",
+      "relationship": "Publisher-linked consumer-goods release feed within the same publisher group",
+      "officialness": "confirmed", "existence": "current_evidence", "accessibility": "unknown",
+      "notes": "Owned directory UID and named official institutional profile agree; repeated company releases across channels are not independent news stories."
+    },
+    {
+      "id": "prnewswire-health", "outlet_id": "pr-newswire", "uid": "2012328555", "handle": null,
+      "display_name": "美通社健康资讯", "profile_url": "https://weibo.com/u/2012328555", "language": "zh-Hans",
+      "operator": "PR Newswire Chinese health/medical release channel",
+      "relationship": "Publisher-linked health-sector press-release distribution, not independent medical reporting",
+      "officialness": "confirmed", "existence": "current_evidence", "accessibility": "unknown",
+      "notes": "Active publisher widget and 美通社健康资讯官方微博 institution bind this UID. Corporate medical claims are not treated as independently verified advice."
+    },
+    {
+      "id": "prnewswire-travel", "outlet_id": "pr-newswire", "uid": "1782703277", "handle": null,
+      "display_name": "美通社旅游资讯", "profile_url": "https://weibo.com/u/1782703277", "language": "zh-Hans",
+      "operator": "PR Newswire Chinese travel-release channel",
+      "relationship": "Publisher-linked travel-sector release feed, not a separate travel publisher",
+      "officialness": "confirmed", "existence": "current_evidence", "accessibility": "unknown",
+      "notes": "Owned directory widget and named official institutional profile agree. Stale audience claims are not current measurements."
+    },
+    {
+      "id": "prnewswire-entertainment", "outlet_id": "pr-newswire", "uid": "1729504231", "handle": null,
+      "display_name": "美通社娱乐资讯", "profile_url": "https://weibo.com/u/1729504231", "language": "zh-Hans",
+      "operator": "PR Newswire Chinese entertainment-release channel",
+      "relationship": "Publisher-linked entertainment/fashion release distribution, not another independent outlet",
+      "officialness": "confirmed", "existence": "current_evidence", "accessibility": "unknown",
+      "notes": "Exact active directory UID and 美通社娱乐资讯官方微博 institution agree."
+    },
+    {
+      "id": "prnewswire-energy", "outlet_id": "pr-newswire", "uid": "2012284841", "handle": null,
+      "display_name": "美通社能源资讯", "profile_url": "https://weibo.com/u/2012284841", "language": "zh-Hans",
+      "operator": "PR Newswire Chinese energy/environment release channel",
+      "relationship": "Publisher-linked energy-sector release distribution account within one newswire group",
+      "officialness": "confirmed", "existence": "current_evidence", "accessibility": "unknown",
+      "notes": "Owned directory widget and named official institutional profile agree; observed identity does not prove current posting activity."
+    },
+    {
+      "id": "prnewswire-real-estate", "outlet_id": "pr-newswire", "uid": "2012343755", "handle": null,
+      "display_name": "美通社房地产资讯", "profile_url": "https://weibo.com/u/2012343755", "language": "zh-Hans",
+      "operator": "PR Newswire Chinese real-estate release channel",
+      "relationship": "Publisher-linked property-sector press-release feed, not another independent financial newsroom",
+      "officialness": "confirmed", "existence": "current_evidence", "accessibility": "unknown",
+      "notes": "Active publisher widget and 美通社房地产资讯官方微博 institution agree. Old survey copy is not current activity evidence."
+    },
+    {
+      "id": "business-wire-china-partner", "outlet_id": "business-wire", "uid": "2676312451", "handle": null,
+      "display_name": "美国商业资讯中文版", "profile_url": "https://weibo.com/u/2676312451", "language": "zh-Hans",
+      "operator": "Interfax News Service Limited, self-described independent authorized distributor; not Business Wire's legal agent, partner or joint venturer",
+      "relationship": "Independent distributor's Business Wire-branded Chinese release channel; not a U.S.-staffed editorial newsroom or proof of direct U.S. account ownership",
+      "officialness": "confirmed", "existence": "current_evidence", "accessibility": "unknown",
+      "notes": "Portal's owned contact-page widget explicitly names UID2676312451; current institution names 美国商业资讯(Business Wire China)官方微博. Partner About page declares the distribution relationship; U.S. brand origin is independently established by Business Wire's own corporate milestone document. Operator location and brand origin are not conflated."
     },
     {
       "id": "npr-china-historical", "outlet_id": "npr", "uid": "2370374565", "handle": "nprshanghai",
@@ -1954,6 +2135,264 @@
       "source_url": "https://www.sina.cn/media/6890696793", "source_type": "platform_certification",
       "observed_at": "2026-10-21T19:48:55.792841+00:00", "claim_date": null, "supports": "identity",
       "justification": "Current institutional tag explicitly identifies the official Barron's investment-information platform; profile bio identifies Barron's official Chinese channel. Stable UID and display name Barrons巴伦 agree. Not a third-party commentator merely quoting Barron's."
+    },
+    {
+      "id": "popularscience-owned-archived-profile-and-widget", "account_id": "popular-science-china-historical",
+      "source_url": "https://web.archive.org/web/20140111014736id_/http://www.popscichina.com:80/", "source_type": "publisher_link",
+      "observed_at": "2026-10-22T01:38:05.118767+00:00", "claim_date": "2014-01-11T01:47:36+00:00", "supports": "identity",
+      "justification": "Actual magazine-owned homepage identifies itself as Popular Science/科技新时代, links weibo.com/popscichina in its social box and independently embeds timeline widget UID1925964485. The vanity and numeric links are one verified account identity, not two accounts."
+    },
+    {
+      "id": "popularscience-archived-magazine-official-presentation", "account_id": "popular-science-china-historical",
+      "source_url": "https://web.archive.org/web/20120504043746id_/http://tech.sina.com.cn/d/2011PopSci/", "source_type": "publisher_statement",
+      "observed_at": "2026-10-22T01:38:08.055027+00:00", "claim_date": "2012-05-04T04:37:46+00:00", "supports": "relationship",
+      "justification": "The magazine's2011-themed presentation, independently captured in2012, explicitly identifies Popular Science's U.S. origin and Chinese edition; its official-magazine label, widget and contact footer bind UID1925964485 to popscichina and the publisher domain. Neighboring named editors are separately labeled personal profiles and not admitted as extra publication accounts. Capture time is not asserted to be the page's original publication date."
+    },
+    {
+      "id": "popularscience-owned-distribution-change-notice", "account_id": "popular-science-china-historical",
+      "source_url": "https://web.archive.org/web/20141222170838id_/http://www.popscichina.com/wp-content/uploads/2014/10/about_stop_publishing.pdf", "source_type": "publisher_statement",
+      "observed_at": "2026-10-22T01:37:28.087428+00:00", "claim_date": "2014-10-08", "supports": "relationship",
+      "justification": "Direct visual review of the scanned publisher-domain notice establishes that Wanhua Media will no longer handle distribution beginning with the November2014 issue and refunds later subscriptions. The conservative2014-11-01 recovery cutoff follows that documented operation change; the notice is not proof that all Chinese editions, trademark licenses or the Weibo account ceased on October8."
+    },
+    {
+      "id": "prnewswire-owned-main-widget", "account_id": "prnewswire-china-main",
+      "source_url": "https://www.prnasia.com/weibo/", "source_type": "publisher_link",
+      "observed_at": "2026-10-22T01:00:05.898316+00:00", "claim_date": null, "supports": "identity",
+      "justification": "Publisher-owned account directory's active timeline iframe explicitly identifies UID1782643177. One PR Newswire channel, not a separate independent newsroom."
+    },
+    {
+      "id": "prnewswire-owned-news-widget", "account_id": "prnewswire-china-news",
+      "source_url": "https://www.prnasia.com/weibo/", "source_type": "publisher_link",
+      "observed_at": "2026-10-22T01:00:05.898316+00:00", "claim_date": null, "supports": "identity",
+      "justification": "Publisher's first active timeline widget names UID1649036617, independently of neighboring main-account UID1782643177."
+    },
+    {
+      "id": "prnewswire-owned-communications-widget", "account_id": "prnewswire-communications",
+      "source_url": "https://www.prnasia.com/weibo/", "source_type": "publisher_link",
+      "observed_at": "2026-10-22T01:00:05.898316+00:00", "claim_date": null, "supports": "identity",
+      "justification": "Publisher-owned live account directory explicitly embeds UID1729383631. Communications advice and corporate promotion remain separate from independent reporting."
+    },
+    {
+      "id": "prnewswire-owned-media-intelligence-widget", "account_id": "prnewswire-media-intelligence",
+      "source_url": "https://www.prnasia.com/weibo/", "source_type": "publisher_link",
+      "observed_at": "2026-10-22T01:00:05.898316+00:00", "claim_date": null, "supports": "identity",
+      "justification": "Owned directory explicitly links UID1701477804. Officialness is supported by the publisher-controlled link, not the generic display name or an assumed institutional badge."
+    },
+    {
+      "id": "prnewswire-owned-investor-relations-widget", "account_id": "prnewswire-investor-relations",
+      "source_url": "https://www.prnasia.com/weibo/", "source_type": "publisher_link",
+      "observed_at": "2026-10-22T01:00:05.898316+00:00", "claim_date": null, "supports": "identity",
+      "justification": "Publisher account-cluster widget explicitly names UID1729410342; a service channel within the same PR Newswire group."
+    },
+    {
+      "id": "prnewswire-owned-beijing-widget", "account_id": "prnewswire-beijing-multimedia",
+      "source_url": "https://www.prnasia.com/weibo/", "source_type": "publisher_link",
+      "observed_at": "2026-10-22T01:00:05.898316+00:00", "claim_date": null, "supports": "identity",
+      "justification": "Owned account directory embeds UID2027974901. The regional corporate/service profile is counted as one publisher channel, not another newspaper."
+    },
+    {
+      "id": "prnewswire-owned-finance-widget", "account_id": "prnewswire-finance",
+      "source_url": "https://www.prnasia.com/weibo/", "source_type": "publisher_link",
+      "observed_at": "2026-10-22T01:00:05.898316+00:00", "claim_date": null, "supports": "identity",
+      "justification": "Active publisher-controlled finance-channel widget explicitly names UID1733310493."
+    },
+    {
+      "id": "prnewswire-owned-it-widget", "account_id": "prnewswire-it",
+      "source_url": "https://www.prnasia.com/weibo/", "source_type": "publisher_link",
+      "observed_at": "2026-10-22T01:00:05.898316+00:00", "claim_date": null, "supports": "identity",
+      "justification": "Active publisher-controlled technology-channel widget explicitly names UID1729503667."
+    },
+    {
+      "id": "prnewswire-owned-events-widget", "account_id": "prnewswire-events",
+      "source_url": "https://www.prnasia.com/weibo/", "source_type": "publisher_link",
+      "observed_at": "2026-10-22T01:00:05.898316+00:00", "claim_date": null, "supports": "identity",
+      "justification": "Active publisher-controlled event-information widget explicitly names UID1894434582."
+    },
+    {
+      "id": "prnewswire-owned-automotive-widget", "account_id": "prnewswire-automotive",
+      "source_url": "https://www.prnasia.com/weibo/", "source_type": "publisher_link",
+      "observed_at": "2026-10-22T01:00:05.898316+00:00", "claim_date": null, "supports": "identity",
+      "justification": "Active publisher-controlled automotive-channel widget explicitly names UID2011675567."
+    },
+    {
+      "id": "prnewswire-owned-education-widget", "account_id": "prnewswire-education",
+      "source_url": "https://www.prnasia.com/weibo/", "source_type": "publisher_link",
+      "observed_at": "2026-10-22T01:00:05.898316+00:00", "claim_date": null, "supports": "identity",
+      "justification": "Active publisher-controlled education-channel widget explicitly names UID2011650567."
+    },
+    {
+      "id": "prnewswire-owned-consumer-widget", "account_id": "prnewswire-consumer",
+      "source_url": "https://www.prnasia.com/weibo/", "source_type": "publisher_link",
+      "observed_at": "2026-10-22T01:00:05.898316+00:00", "claim_date": null, "supports": "identity",
+      "justification": "Active publisher-controlled consumer-goods widget explicitly names UID2011691367."
+    },
+    {
+      "id": "prnewswire-owned-health-widget", "account_id": "prnewswire-health",
+      "source_url": "https://www.prnasia.com/weibo/", "source_type": "publisher_link",
+      "observed_at": "2026-10-22T01:00:05.898316+00:00", "claim_date": null, "supports": "identity",
+      "justification": "Active publisher-controlled health-release widget explicitly names UID2012328555."
+    },
+    {
+      "id": "prnewswire-owned-travel-widget", "account_id": "prnewswire-travel",
+      "source_url": "https://www.prnasia.com/weibo/", "source_type": "publisher_link",
+      "observed_at": "2026-10-22T01:00:05.898316+00:00", "claim_date": null, "supports": "identity",
+      "justification": "Active publisher-controlled travel-release widget explicitly names UID1782703277."
+    },
+    {
+      "id": "prnewswire-owned-entertainment-widget", "account_id": "prnewswire-entertainment",
+      "source_url": "https://www.prnasia.com/weibo/", "source_type": "publisher_link",
+      "observed_at": "2026-10-22T01:00:05.898316+00:00", "claim_date": null, "supports": "identity",
+      "justification": "Active publisher-controlled entertainment-release widget explicitly names UID1729504231."
+    },
+    {
+      "id": "prnewswire-owned-energy-widget", "account_id": "prnewswire-energy",
+      "source_url": "https://www.prnasia.com/weibo/", "source_type": "publisher_link",
+      "observed_at": "2026-10-22T01:00:05.898316+00:00", "claim_date": null, "supports": "identity",
+      "justification": "Active publisher-controlled energy-release widget explicitly names UID2012284841."
+    },
+    {
+      "id": "prnewswire-owned-real-estate-widget", "account_id": "prnewswire-real-estate",
+      "source_url": "https://www.prnasia.com/weibo/", "source_type": "publisher_link",
+      "observed_at": "2026-10-22T01:00:05.898316+00:00", "claim_date": null, "supports": "identity",
+      "justification": "Active publisher-controlled property-release widget explicitly names UID2012343755. Commented iframe1742278305 elsewhere on the page is not extracted or counted."
+    },
+    {
+      "id": "prnewswire-current-main-institution", "account_id": "prnewswire-china-main",
+      "source_url": "https://www.sina.cn/media/1782643177", "source_type": "platform_certification",
+      "observed_at": "2026-10-22T01:02:53.146586+00:00", "claim_date": null, "supports": "identity",
+      "justification": "Current 美通社 profile explicitly identifies PR Newswire's official institutional account and lists United States. Confirms the directory-linked identity, not current posting frequency or independently audited legal control."
+    },
+    {
+      "id": "prnewswire-current-news-institution", "account_id": "prnewswire-china-news",
+      "source_url": "https://www.sina.cn/media/1649036617", "source_type": "platform_certification",
+      "observed_at": "2026-10-22T01:02:48.400622+00:00", "claim_date": null, "supports": "identity",
+      "justification": "Current 美通社资讯 profile explicitly names 美通社资讯官方微博. UID agrees with the publisher's owned directory."
+    },
+    {
+      "id": "prnewswire-current-communications-profile", "account_id": "prnewswire-communications",
+      "source_url": "https://www.sina.cn/media/1729383631", "source_type": "platform_profile",
+      "observed_at": "2026-10-22T01:02:56.054024+00:00", "claim_date": null, "supports": "identity",
+      "justification": "美通说传播 profile identifies PR Newswire and its named Shanghai company's Beijing branch. Confirms the owned directory's account identity, not independent newsroom status."
+    },
+    {
+      "id": "prnewswire-current-media-intelligence-profile", "account_id": "prnewswire-media-intelligence",
+      "source_url": "https://www.sina.cn/media/1701477804", "source_type": "platform_profile",
+      "observed_at": "2026-10-22T01:02:58.592340+00:00", "claim_date": null, "supports": "identity",
+      "justification": "媒体情报 bio explicitly says the service is presented by PR Newswire. No strong institutional badge is asserted; the separate publisher-controlled exact UID link establishes officialness."
+    },
+    {
+      "id": "prnewswire-current-investor-relations-profile", "account_id": "prnewswire-investor-relations",
+      "source_url": "https://www.sina.cn/media/1729410342", "source_type": "platform_profile",
+      "observed_at": "2026-10-22T01:03:01.175936+00:00", "claim_date": null, "supports": "identity",
+      "justification": "投资者关系资讯 profile's institutional descriptor names 美通社投资者关系资讯, agreeing with the owned directory UID."
+    },
+    {
+      "id": "prnewswire-current-beijing-profile", "account_id": "prnewswire-beijing-multimedia",
+      "source_url": "https://www.sina.cn/media/2027974901", "source_type": "platform_profile",
+      "observed_at": "2026-10-22T01:03:03.681902+00:00", "claim_date": null, "supports": "identity",
+      "justification": "Named 美速通商务咨询北京分公司 corporate profile agrees with the publisher-owned directory link. Corporate-service content does not establish another independent publication."
+    },
+    {
+      "id": "prnewswire-current-finance-profile", "account_id": "prnewswire-finance",
+      "source_url": "https://www.sina.cn/media/1733310493", "source_type": "platform_profile",
+      "observed_at": "2026-10-22T01:03:08.744102+00:00", "claim_date": null, "supports": "identity",
+      "justification": "美通社财经资讯 named official institution agrees with the publisher directory. Bio's old2011 survey copy is not current-activity evidence."
+    },
+    {
+      "id": "prnewswire-current-it-profile", "account_id": "prnewswire-it",
+      "source_url": "https://www.sina.cn/media/1729503667", "source_type": "platform_profile",
+      "observed_at": "2026-10-22T01:03:11.046764+00:00", "claim_date": null, "supports": "identity",
+      "justification": "美通社IT资讯 profile has a 美通社IT科技资讯 institutional descriptor; exact UID agrees with the publisher-owned widget."
+    },
+    {
+      "id": "prnewswire-current-events-profile", "account_id": "prnewswire-events",
+      "source_url": "https://www.sina.cn/media/1894434582", "source_type": "platform_profile",
+      "observed_at": "2026-10-22T01:03:13.225487+00:00", "claim_date": null, "supports": "identity",
+      "justification": "美通社活动资讯 profile names 美通社会展资讯官方微博, agreeing with the owned directory's UID."
+    },
+    {
+      "id": "prnewswire-current-automotive-profile", "account_id": "prnewswire-automotive",
+      "source_url": "https://www.sina.cn/media/2011675567", "source_type": "platform_profile",
+      "observed_at": "2026-10-22T01:03:15.477078+00:00", "claim_date": null, "supports": "identity",
+      "justification": "美通社汽车资讯 named official institution agrees with the owned automotive-channel widget. Old survey copy is not current output evidence."
+    },
+    {
+      "id": "prnewswire-current-education-profile", "account_id": "prnewswire-education",
+      "source_url": "https://www.sina.cn/media/2011650567", "source_type": "platform_profile",
+      "observed_at": "2026-10-22T01:03:17.734194+00:00", "claim_date": null, "supports": "identity",
+      "justification": "美通社教育资讯 named official institutional profile agrees with the publisher's exact widget UID."
+    },
+    {
+      "id": "prnewswire-current-consumer-profile", "account_id": "prnewswire-consumer",
+      "source_url": "https://www.sina.cn/media/2011691367", "source_type": "platform_profile",
+      "observed_at": "2026-10-22T01:03:19.961185+00:00", "claim_date": null, "supports": "identity",
+      "justification": "美通社快消资讯 named official institutional profile agrees with the publisher-owned consumer-release widget."
+    },
+    {
+      "id": "prnewswire-current-health-profile", "account_id": "prnewswire-health",
+      "source_url": "https://www.sina.cn/media/2012328555", "source_type": "platform_profile",
+      "observed_at": "2026-10-22T01:03:22.203327+00:00", "claim_date": null, "supports": "identity",
+      "justification": "美通社健康资讯 named official institution agrees with the directory UID; identity verification does not independently validate medical claims."
+    },
+    {
+      "id": "prnewswire-current-travel-profile", "account_id": "prnewswire-travel",
+      "source_url": "https://www.sina.cn/media/1782703277", "source_type": "platform_profile",
+      "observed_at": "2026-10-22T01:03:24.408236+00:00", "claim_date": null, "supports": "identity",
+      "justification": "美通社旅游资讯 named official institutional profile agrees with the owned travel-channel widget."
+    },
+    {
+      "id": "prnewswire-current-entertainment-profile", "account_id": "prnewswire-entertainment",
+      "source_url": "https://www.sina.cn/media/1729504231", "source_type": "platform_profile",
+      "observed_at": "2026-10-22T01:03:26.702975+00:00", "claim_date": null, "supports": "identity",
+      "justification": "美通社娱乐资讯 named official institutional profile agrees with the owned entertainment-channel widget."
+    },
+    {
+      "id": "prnewswire-current-energy-profile", "account_id": "prnewswire-energy",
+      "source_url": "https://www.sina.cn/media/2012284841", "source_type": "platform_profile",
+      "observed_at": "2026-10-22T01:03:28.966639+00:00", "claim_date": null, "supports": "identity",
+      "justification": "美通社能源资讯 named official institutional profile agrees with the owned energy-channel widget."
+    },
+    {
+      "id": "prnewswire-current-real-estate-profile", "account_id": "prnewswire-real-estate",
+      "source_url": "https://www.sina.cn/media/2012343755", "source_type": "platform_profile",
+      "observed_at": "2026-10-22T01:03:31.252368+00:00", "claim_date": null, "supports": "identity",
+      "justification": "美通社房地产资讯 named official institutional profile agrees with the owned property-channel widget."
+    },
+    {
+      "id": "prnewswire-owned-us-group-basis", "account_id": "prnewswire-china-main",
+      "source_url": "https://www.prnasia.com/about", "source_type": "publisher_statement",
+      "observed_at": "2026-10-22T01:02:48.409697+00:00", "claim_date": null, "supports": "relationship",
+      "justification": "Publisher identifies its PR Newswire news-release business, Chinese company and Cision affiliation, explicitly locating Cision's headquarters in Chicago, United States. The global brand's1954 history is not attributed to the present Shanghai LLC's legal incorporation. No promotional market-size claims or independent current ownership audit is asserted."
+    },
+    {
+      "id": "prnewswire-owned-service-scope", "account_id": "prnewswire-china-main",
+      "source_url": "https://www.prnewswire.com/about-pr-newswire/", "source_type": "publisher_statement",
+      "observed_at": "2026-10-22T01:20:27.142719+00:00", "claim_date": null, "supports": "relationship",
+      "justification": "Global publisher's own About page describes press-release distribution and communications services. These sector/company accounts remain one release-distribution publisher, not17 independent editorial outlets."
+    },
+    {
+      "id": "businesswire-china-owned-contact-widget", "account_id": "business-wire-china-partner",
+      "source_url": "https://www.businesswirechina.com/zh/about/contact.html", "source_type": "publisher_link",
+      "observed_at": "2026-10-22T01:00:10.770387+00:00", "claim_date": null, "supports": "identity",
+      "justification": "Regional Business Wire-branded portal's own contact page explicitly embeds timeline widget UID2676312451. Portal is distributor-operated, not assumed owned by the U.S. publisher."
+    },
+    {
+      "id": "businesswire-china-current-institution", "account_id": "business-wire-china-partner",
+      "source_url": "https://www.sina.cn/media/2676312451", "source_type": "platform_certification",
+      "observed_at": "2026-10-22T01:03:33.539968+00:00", "claim_date": null, "supports": "identity",
+      "justification": "Current 美国商业资讯中文版 profile explicitly certifies 美国商业资讯(Business Wire China)官方微博; exact UID matches the regional portal's widget."
+    },
+    {
+      "id": "businesswire-china-independent-distributor", "account_id": "business-wire-china-partner",
+      "source_url": "https://www.businesswirechina.com/en/about/about_us.html", "source_type": "publisher_statement",
+      "observed_at": "2026-10-22T01:20:27.142719+00:00", "claim_date": null, "supports": "relationship",
+      "justification": "Site identifies independent operator Interfax News Service Limited as an authorized Business Wire distributor and expressly disclaims legal agency, partnership and joint venture. This supports a branded distribution relationship, not direct U.S. newsroom/account ownership or a current contract audit."
+    },
+    {
+      "id": "businesswire-owned-us-origin-and-distribution-history", "account_id": "business-wire-china-partner",
+      "source_url": "https://mms.businesswire.com/media/20140930005849/en/434193/1/BWSOC930_timeline_2014v6.pdf", "source_type": "publisher_statement",
+      "observed_at": "2026-10-22T01:20:27.142719+00:00", "claim_date": null, "supports": "relationship",
+      "justification": "Business Wire's own2014 milestone PDF explicitly records its1961 San Francisco founding and2000s international distribution agreements including Interfax. Historical relationship and U.S. brand origin are corroborated, not converted into a current ownership or contract-continuity assertion."
     },
     {
       "id": "barrons-publisher-china-partnership", "account_id": "barrons-china",

@@ -71,6 +71,20 @@
       "relationship": "Bloomberg Chinese-language corporate/news brand account; not conflated with Bloomberg Businessweek's separately licensed editions"
     },
     {
+      "account_id": "business-wire-china-partner",
+      "attribution_end": null,
+      "earliest_publication_utc": "2026-09-29T09:15:00+00:00",
+      "existence": "current_evidence",
+      "latest_publication_utc": "2026-10-21T06:24:00+00:00",
+      "latest_run_source": "sina_syndication",
+      "latest_run_status": "partial",
+      "outlet_id": "business-wire",
+      "outlet_name": "Business Wire / Chinese partner channel",
+      "profile_url": "https://weibo.com/u/2676312451",
+      "recovered_posts": 56,
+      "relationship": "Independent distributor's Business Wire-branded Chinese release channel; not a U.S.-staffed editorial newsroom or proof of direct U.S. account ownership"
+    },
+    {
       "account_id": "car-and-driver-china-daily",
       "attribution_end": null,
       "earliest_publication_utc": null,
@@ -505,6 +519,258 @@
       "relationship": "Licensed T: The New York Times Style Magazine Chinese edition; local style/culture publisher, not the NYT Chinese-news account or U.S. newsroom"
     },
     {
+      "account_id": "popular-science-china-historical",
+      "attribution_end": "2014-11-01",
+      "earliest_publication_utc": null,
+      "existence": "historical",
+      "latest_publication_utc": null,
+      "latest_run_source": "sina_syndication",
+      "latest_run_status": "partial",
+      "outlet_id": "popular-science",
+      "outlet_name": "Popular Science / historical Chinese edition",
+      "profile_url": "https://weibo.com/popscichina",
+      "recovered_posts": 0,
+      "relationship": "Historical Popular Science Chinese-edition account, not current U.S.-newsroom control or later similarly named academic publications"
+    },
+    {
+      "account_id": "prnewswire-automotive",
+      "attribution_end": null,
+      "earliest_publication_utc": "2026-08-18T06:05:00+00:00",
+      "existence": "current_evidence",
+      "latest_publication_utc": "2026-10-21T07:27:00+00:00",
+      "latest_run_source": "sina_syndication",
+      "latest_run_status": "partial",
+      "outlet_id": "pr-newswire",
+      "outlet_name": "PR Newswire / Chinese distribution channels",
+      "profile_url": "https://weibo.com/u/2011675567",
+      "recovered_posts": 100,
+      "relationship": "Publisher-linked automotive press-release feed within one newswire group"
+    },
+    {
+      "account_id": "prnewswire-beijing-multimedia",
+      "attribution_end": null,
+      "earliest_publication_utc": null,
+      "existence": "current_evidence",
+      "latest_publication_utc": null,
+      "latest_run_source": "sina_syndication",
+      "latest_run_status": "partial",
+      "outlet_id": "pr-newswire",
+      "outlet_name": "PR Newswire / Chinese distribution channels",
+      "profile_url": "https://weibo.com/u/2027974901",
+      "recovered_posts": 0,
+      "relationship": "Regional publisher service/multimedia communications account, not another magazine or U.S. newsroom"
+    },
+    {
+      "account_id": "prnewswire-china-main",
+      "attribution_end": null,
+      "earliest_publication_utc": null,
+      "existence": "current_evidence",
+      "latest_publication_utc": null,
+      "latest_run_source": "sina_syndication",
+      "latest_run_status": "partial",
+      "outlet_id": "pr-newswire",
+      "outlet_name": "PR Newswire / Chinese distribution channels",
+      "profile_url": "https://weibo.com/u/1782643177",
+      "recovered_posts": 0,
+      "relationship": "Publisher-linked news-release distribution account, not an independent U.S. editorial newsroom"
+    },
+    {
+      "account_id": "prnewswire-china-news",
+      "attribution_end": null,
+      "earliest_publication_utc": "2026-06-29T06:00:00+00:00",
+      "existence": "current_evidence",
+      "latest_publication_utc": "2026-10-21T15:03:00+00:00",
+      "latest_run_source": "sina_syndication",
+      "latest_run_status": "partial",
+      "outlet_id": "pr-newswire",
+      "outlet_name": "PR Newswire / Chinese distribution channels",
+      "profile_url": "https://weibo.com/u/1649036617",
+      "recovered_posts": 89,
+      "relationship": "Publisher-linked Chinese news-release feed, not another independent publisher or U.S. newsroom"
+    },
+    {
+      "account_id": "prnewswire-communications",
+      "attribution_end": null,
+      "earliest_publication_utc": "2021-03-26T20:07:00+00:00",
+      "existence": "current_evidence",
+      "latest_publication_utc": "2022-05-04T03:48:00+00:00",
+      "latest_run_source": "sina_syndication",
+      "latest_run_status": "partial",
+      "outlet_id": "pr-newswire",
+      "outlet_name": "PR Newswire / Chinese distribution channels",
+      "profile_url": "https://weibo.com/u/1729383631",
+      "recovered_posts": 99,
+      "relationship": "Publisher-owned communications/public-relations information channel, not an independent editorial news outlet"
+    },
+    {
+      "account_id": "prnewswire-consumer",
+      "attribution_end": null,
+      "earliest_publication_utc": "2026-09-24T10:59:00+00:00",
+      "existence": "current_evidence",
+      "latest_publication_utc": "2026-10-21T13:15:00+00:00",
+      "latest_run_source": "sina_syndication",
+      "latest_run_status": "partial",
+      "outlet_id": "pr-newswire",
+      "outlet_name": "PR Newswire / Chinese distribution channels",
+      "profile_url": "https://weibo.com/u/2011691367",
+      "recovered_posts": 97,
+      "relationship": "Publisher-linked consumer-goods release feed within the same publisher group"
+    },
+    {
+      "account_id": "prnewswire-education",
+      "attribution_end": null,
+      "earliest_publication_utc": "2026-07-28T06:57:00+00:00",
+      "existence": "current_evidence",
+      "latest_publication_utc": "2026-10-21T07:03:00+00:00",
+      "latest_run_source": "sina_syndication",
+      "latest_run_status": "partial",
+      "outlet_id": "pr-newswire",
+      "outlet_name": "PR Newswire / Chinese distribution channels",
+      "profile_url": "https://weibo.com/u/2011650567",
+      "recovered_posts": 100,
+      "relationship": "Publisher-linked education-sector release distribution channel, not another independent outlet"
+    },
+    {
+      "account_id": "prnewswire-energy",
+      "attribution_end": null,
+      "earliest_publication_utc": "2026-09-18T04:57:00+00:00",
+      "existence": "current_evidence",
+      "latest_publication_utc": "2026-10-21T09:15:00+00:00",
+      "latest_run_source": "sina_syndication",
+      "latest_run_status": "partial",
+      "outlet_id": "pr-newswire",
+      "outlet_name": "PR Newswire / Chinese distribution channels",
+      "profile_url": "https://weibo.com/u/2012284841",
+      "recovered_posts": 99,
+      "relationship": "Publisher-linked energy-sector release distribution account within one newswire group"
+    },
+    {
+      "account_id": "prnewswire-entertainment",
+      "attribution_end": null,
+      "earliest_publication_utc": "2026-09-21T06:43:00+00:00",
+      "existence": "current_evidence",
+      "latest_publication_utc": "2026-10-21T08:36:00+00:00",
+      "latest_run_source": "sina_syndication",
+      "latest_run_status": "partial",
+      "outlet_id": "pr-newswire",
+      "outlet_name": "PR Newswire / Chinese distribution channels",
+      "profile_url": "https://weibo.com/u/1729504231",
+      "recovered_posts": 98,
+      "relationship": "Publisher-linked entertainment/fashion release distribution, not another independent outlet"
+    },
+    {
+      "account_id": "prnewswire-events",
+      "attribution_end": null,
+      "earliest_publication_utc": "2026-10-09T03:32:00+00:00",
+      "existence": "current_evidence",
+      "latest_publication_utc": "2026-10-21T15:03:00+00:00",
+      "latest_run_source": "sina_syndication",
+      "latest_run_status": "partial",
+      "outlet_id": "pr-newswire",
+      "outlet_name": "PR Newswire / Chinese distribution channels",
+      "profile_url": "https://weibo.com/u/1894434582",
+      "recovered_posts": 98,
+      "relationship": "Publisher-owned conference/event distribution and promotion channel, not a separate publisher"
+    },
+    {
+      "account_id": "prnewswire-finance",
+      "attribution_end": null,
+      "earliest_publication_utc": "2026-08-17T03:56:00+00:00",
+      "existence": "current_evidence",
+      "latest_publication_utc": "2026-10-21T08:00:00+00:00",
+      "latest_run_source": "sina_syndication",
+      "latest_run_status": "partial",
+      "outlet_id": "pr-newswire",
+      "outlet_name": "PR Newswire / Chinese distribution channels",
+      "profile_url": "https://weibo.com/u/1733310493",
+      "recovered_posts": 99,
+      "relationship": "Publisher-linked financial press-release distribution channel within one newswire group"
+    },
+    {
+      "account_id": "prnewswire-health",
+      "attribution_end": null,
+      "earliest_publication_utc": "2026-10-02T00:58:00+00:00",
+      "existence": "current_evidence",
+      "latest_publication_utc": "2026-10-21T14:00:00+00:00",
+      "latest_run_source": "sina_syndication",
+      "latest_run_status": "partial",
+      "outlet_id": "pr-newswire",
+      "outlet_name": "PR Newswire / Chinese distribution channels",
+      "profile_url": "https://weibo.com/u/2012328555",
+      "recovered_posts": 98,
+      "relationship": "Publisher-linked health-sector press-release distribution, not independent medical reporting"
+    },
+    {
+      "account_id": "prnewswire-investor-relations",
+      "attribution_end": null,
+      "earliest_publication_utc": null,
+      "existence": "current_evidence",
+      "latest_publication_utc": null,
+      "latest_run_source": "sina_syndication",
+      "latest_run_status": "partial",
+      "outlet_id": "pr-newswire",
+      "outlet_name": "PR Newswire / Chinese distribution channels",
+      "profile_url": "https://weibo.com/u/1729410342",
+      "recovered_posts": 0,
+      "relationship": "Publisher-linked investor-communications/release service channel, not an independent financial newsroom"
+    },
+    {
+      "account_id": "prnewswire-it",
+      "attribution_end": null,
+      "earliest_publication_utc": "2026-10-13T06:21:00+00:00",
+      "existence": "current_evidence",
+      "latest_publication_utc": "2026-10-21T15:03:00+00:00",
+      "latest_run_source": "sina_syndication",
+      "latest_run_status": "partial",
+      "outlet_id": "pr-newswire",
+      "outlet_name": "PR Newswire / Chinese distribution channels",
+      "profile_url": "https://weibo.com/u/1729503667",
+      "recovered_posts": 95,
+      "relationship": "Publisher-linked technology-sector release feed, not an independent technology newsroom"
+    },
+    {
+      "account_id": "prnewswire-media-intelligence",
+      "attribution_end": null,
+      "earliest_publication_utc": null,
+      "existence": "current_evidence",
+      "latest_publication_utc": null,
+      "latest_run_source": "sina_syndication",
+      "latest_run_status": "partial",
+      "outlet_id": "pr-newswire",
+      "outlet_name": "PR Newswire / Chinese distribution channels",
+      "profile_url": "https://weibo.com/u/1701477804",
+      "recovered_posts": 0,
+      "relationship": "Publisher-owned media-information service channel within the same PR Newswire group"
+    },
+    {
+      "account_id": "prnewswire-real-estate",
+      "attribution_end": null,
+      "earliest_publication_utc": "2026-07-21T07:48:00+00:00",
+      "existence": "current_evidence",
+      "latest_publication_utc": "2026-10-20T07:45:00+00:00",
+      "latest_run_source": "sina_syndication",
+      "latest_run_status": "partial",
+      "outlet_id": "pr-newswire",
+      "outlet_name": "PR Newswire / Chinese distribution channels",
+      "profile_url": "https://weibo.com/u/2012343755",
+      "recovered_posts": 99,
+      "relationship": "Publisher-linked property-sector press-release feed, not another independent financial newsroom"
+    },
+    {
+      "account_id": "prnewswire-travel",
+      "attribution_end": null,
+      "earliest_publication_utc": "2026-09-21T06:07:00+00:00",
+      "existence": "current_evidence",
+      "latest_publication_utc": "2026-10-21T07:00:00+00:00",
+      "latest_run_source": "sina_syndication",
+      "latest_run_status": "partial",
+      "outlet_id": "pr-newswire",
+      "outlet_name": "PR Newswire / Chinese distribution channels",
+      "profile_url": "https://weibo.com/u/1782703277",
+      "recovered_posts": 98,
+      "relationship": "Publisher-linked travel-sector release feed, not a separate travel publisher"
+    },
+    {
       "account_id": "robb-report-china",
       "attribution_end": null,
       "earliest_publication_utc": "2026-02-05T10:27:00+00:00",
@@ -692,7 +958,7 @@
       "earliest_publication_utc": "2022-05-11T12:16:00+00:00",
       "existence": "historical",
       "latest_publication_utc": "2022-05-18T12:03:00+00:00",
-      "latest_run_source": "sina_syndication",
+      "latest_run_source": "import",
       "latest_run_status": "partial",
       "outlet_id": "wsj",
       "outlet_name": "The Wall Street Journal",
@@ -730,18 +996,18 @@
     }
   ],
   "roster": {
-    "confirmed_accounts": 52,
-    "confirmed_outlets": 45,
-    "outlets": 87,
-    "reviewed_outlets": 87
+    "confirmed_accounts": 71,
+    "confirmed_outlets": 48,
+    "outlets": 91,
+    "reviewed_outlets": 91
   },
   "source": {
-    "corpus_metadata_sha256": "5d29b93c0b3e570b2b24f5af6d1087c4ef85c16bbfc3e75124c698b12cd21482",
+    "corpus_metadata_sha256": "6c4c9289dffcfb0dc162db163721ef759b9235593019d3ffeb3e4deeca6339c9",
     "excluded_attribution_posts": 0,
     "excluded_unconfirmed_posts": 0,
-    "latest_collection_at": "2026-10-22T00:27:08.467100+00:00",
+    "latest_collection_at": "2026-10-22T01:57:42.755014+00:00",
     "publication_timezone": "Asia/Shanghai",
-    "registry_sha256": "5be281ebfa1b1438e11fc101fb70b835f25cf4342d2fe786cfafde9af55dcd5a",
+    "registry_sha256": "63eeca17608e2ac886f6b508fdeecb12e5b796cc68afbf04f6a713ee3abafa73",
     "requested_windows": [
       {
         "end": "2026-10-21T16:00:00+00:00",
@@ -751,11 +1017,11 @@
   },
   "text_completeness": [
     {
-      "recovered_posts": 3289,
+      "recovered_posts": 4565,
       "status": "source_full"
     },
     {
-      "recovered_posts": 627,
+      "recovered_posts": 676,
       "status": "truncated"
     },
     {
@@ -774,11 +1040,11 @@
       "year": 2020
     },
     {
-      "recovered_posts": 156,
+      "recovered_posts": 239,
       "year": 2021
     },
     {
-      "recovered_posts": 180,
+      "recovered_posts": 196,
       "year": 2022
     },
     {
@@ -794,7 +1060,7 @@
       "year": 2025
     },
     {
-      "recovered_posts": 2561,
+      "recovered_posts": 3787,
       "year": 2026
     }
   ]

@@ -27,6 +27,9 @@ def report(db, path):
         f"Candidate roster: **{len(outlets)} outlets; {reviewed} reviewed; "
         f"{len(outlets) - reviewed} pending**. This is an expandable research roster, not a census.",
         "Officialness, historical existence, operator relationship, and current access are distinct.",
+        "Account totals are not independent outlet totals: one publisher can operate multiple "
+        "channels. Press-release services and independent regional distributors are explicitly "
+        "labeled; they are not presented as independent U.S. editorial newsrooms.",
         "A visitor/login gate does not establish that an account was suspended or deleted.",
         "",
         f"**Posts recovered for {recovered_accounts} of {len(confirmed)} confirmed accounts.** "
@@ -70,7 +73,7 @@ def report(db, path):
         found = [a for a in accounts if a["outlet_id"] == outlet["id"]]
         result = "; ".join(f"{a['display_name']}: {a['officialness']}" for a in found)
         if not result:
-            result = ("Not found in reviewed sources; not evidence of absence"
+            result = ("No resolved account identity in registry; see source notes, not a negative finding"
                       if outlet["research_status"] == "reviewed" else "Not yet reviewed")
         lines.append(f"| [{cell(outlet['name'])}]({outlet['source_url']}) | "
                      f"{outlet['research_status']} | {cell(result)}. {cell(outlet['notes'])} |")
@@ -168,7 +171,9 @@ def report(db, path):
               "[continued discovery](discovery_iteration3.md) for additional identities and licensing "
               "cutoffs, [further publisher traces](discovery_iteration4.md) for subsequent ranked, "
               "technology and historical-account checks, [continued newsroom discovery](discovery_iteration5.md) "
-              "for NPR and archive-bound detail recovery, and [access pilot](access_pilot.md) for source-level "
+              "for NPR and archive-bound detail recovery, [publisher account clusters](discovery_iteration6.md) "
+              "for release-distribution channels and unresolved historical locators, "
+              "and [access pilot](access_pilot.md) for source-level "
               "access checks and archive gaps.", ""]
     target = Path(path)
     target.parent.mkdir(parents=True, exist_ok=True)
