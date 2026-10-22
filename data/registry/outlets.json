@@ -745,6 +745,55 @@
       "notes": "Actual masthead domain failed modern TLS protocol negotiation; verification/security was not weakened and no HTTP downgrade used. Exact2015 domain capture was only a framing wrapper pointing to acmediaonline.net, not an inspected newspaper site. That destination currently failed DNS; its sole retrieved2020 archived capture was gambling-branded, not publisher content, so no social identifier there was attributed to the newspaper and no hacking/ownership cause asserted. The printed masthead and publication-branded issue remain scope evidence only; no official Sina account was resolved. Unknown, not absent. Review date: 2026-10-22 UTC."
     },
     {
+      "id": "spokesman-review", "name": "The Spokesman-Review", "category": "newspaper",
+      "aliases": ["The Spokesman-Review", "Spokane Spokesman-Review"],
+      "us_basis": "United States-classified source position100; current publisher root, actual Masthead and Customer Care identify the Spokane, Washington newspaper and its local newsroom.",
+      "source_url": "https://www.spokesman.com/", "research_status": "reviewed",
+      "notes": "Complete root and actual /masthead/ and /customer-service/ were read without a qualifying Sina profile. Routes came from real publisher links. Spokane corporate/newsroom address is institutional context, not evidence from a reader advertisement or staff biography. Masthead names, Cowles parent jobs, sports teams and other Spokesman publications were not substitute accounts. Correct newspaper community item website matches without a main Sina identifier. Unknown, not absent. Review date: 2026-10-22 UTC."
+    },
+    {
+      "id": "greensboro-news-record", "name": "Greensboro News & Record", "category": "newspaper",
+      "aliases": ["Greensboro News & Record", "News & Record", "Greensboro News and Record"],
+      "us_basis": "United States-classified source position101; actual publisher root explicitly identifies Greensboro and North Carolina reporting, and actual Contact identifies the newspaper.",
+      "source_url": "https://greensboro.com/", "research_status": "reviewed",
+      "notes": "Complete root and Contact were read without a qualifying Weibo link. Correct publication-specific community main website matches without a main Sina identifier. Contact templates, staff, generic News/Record publications and corporate siblings were not account evidence. Unknown, not absent. Review date: 2026-10-22 UTC."
+    },
+    {
+      "id": "masslive", "name": "MassLive", "category": "digital_news",
+      "aliases": ["MassLive", "MassLive.com"],
+      "us_basis": "United States-classified source position102; exact January1,2016 publisher homepage identifies MassLive's Massachusetts local-news operation. It is not automatically identical to a newspaper sharing its host.",
+      "source_url": "https://www.masslive.com/", "research_status": "reviewed",
+      "notes": "Live root returned403 and was not retried through another live hostname/path/user agent. Independent exact2012 archive failed text decoding and was not credited as read; genuinely later20160101051441 root was readable without a qualifying Weibo link. Crucial community guard: /wiki/MassLive actually resolves to The Republican (Springfield, Massachusetts), Q2276678, whose item includes masslive.com; that shared website is NOT a separate MassLive entity/UID binding. The newspaper item, staff and parent-company accounts were not borrowed. Original ranked name Mass Live/domain/order preserved. Unknown, not absent. Review date: 2026-10-22 UTC."
+    },
+    {
+      "id": "reading-eagle", "name": "Reading Eagle", "category": "newspaper",
+      "aliases": ["Reading Eagle", "The Reading Eagle"],
+      "us_basis": "United States-classified source position103; publisher's actual About identifies Berks County and surrounding Pennsylvania reporting, independently of generic reading/eagle names.",
+      "source_url": "https://www.readingeagle.com/", "research_status": "reviewed",
+      "notes": "Complete root, About and Contact were read without a qualifying Sina account. Contact slash redirect is one page, not independent corroboration. About's awards describe the newspaper, not current ownership or a social-account date. Correct newspaper community item website matches without a main Sina identifier. Staff, sports mascots, other Eagle newspapers and corporate siblings were not substituted. Unknown, not absent. Review date: 2026-10-22 UTC."
+    },
+    {
+      "id": "roanoke-times", "name": "The Roanoke Times", "category": "newspaper",
+      "aliases": ["The Roanoke Times", "Roanoke Times"],
+      "us_basis": "United States-classified source position104; actual publisher root and Contact identify Roanoke, Virginia reporting. Legal corporate control is not independently audited.",
+      "source_url": "https://roanoke.com/", "research_status": "reviewed",
+      "notes": "Complete root and actual Contact were read without a qualifying Weibo profile. Contact slash variants and unexpanded template placeholders are not extra evidence. Correct newspaper community main website matches without a main Sina identifier. Other Times newspapers, staff and parent channels were not promoted. Unknown, not absent. Review date: 2026-10-22 UTC."
+    },
+    {
+      "id": "artforum", "name": "Artforum / Chinese-language platform", "category": "art_media",
+      "aliases": ["Artforum", "艺术论坛Artforum", "艺术论坛", "Artforum中文网"],
+      "us_basis": "Actual publisher Contact explicitly identifies Artforum's New York headquarters and Artforum Media, LLC, New York trademark; the U.S. publisher's own website directly designates its Chinese-language site.",
+      "source_url": "https://www.artforum.com/", "research_status": "reviewed",
+      "notes": "U.S. root/About directly link artforum.com.cn; actual Chinese root and Contact directly designate numeric Weibo1750011241, independently bound to the expected feed title and exact native author. The profile has NO observed blue badge; officialness rests on publisher-owned designation, not an invented certification. Chinese template's malformed artforum.com.cn.cn self-link was not followed or used as evidence. Platform bio's2007 Chinese-site date and2010 profile join label are not audited legal control or post-attribution cutoffs. This is one Artforum Chinese-language institutional channel, not a third account for PMC, Art in America, staff or galleries. Review date: 2026-10-22 UTC."
+    },
+    {
+      "id": "artnews", "name": "ARTnews / licensed Chinese edition", "category": "art_media",
+      "aliases": ["ARTnews", "ARTnews中文版"],
+      "us_basis": "U.S. publisher's own About describes its1902 publication history and actual Contact identifies its New York office. The actual June2024 Chinese issue's printed colophon explicitly licenses the title from Art Media, LLC, a PMC affiliate.",
+      "source_url": "https://www.artnews.com/", "research_status": "reviewed",
+      "notes": "Numeric Sina7832237238 has explicit magazine-specific blue certification; an independently validated January23,2024 native post names the Chinese launch. The actual June15,2024 issue, retrieved completely as a46,539,223-byte/67-page PDF on the artist-hosted source, has printed license/rights credits on PDF page4 naming Life Style Media Group/Yimeizhiyuan and Art Media, LLC. Only institutional colophon metadata was inspected, not deeper article mining; full PDF remains private. Underlying Chinese legal-periodical title 玩家惠 and its1994 founding, copyright2023, issue publication2024 and profile join2023 are separate dates/entities, not U.S. ARTnews founding or account/licensing cutoffs. Current exact operator/continuous license renewal are unaudited. Distinct from UK The Art Newspaper, Art in America and Artforum despite shared or similar names. Review date: 2026-10-22 UTC."
+    },
+    {
       "id": "fort-worth-star-telegram", "name": "Fort Worth Star-Telegram", "category": "newspaper",
       "aliases": ["Fort Worth Star-Telegram", "Star-Telegram"],
       "us_basis": "United States-classified source position95; exact January1,2016 publisher homepage explicitly identifies Fort Worth, Texas news and the Star-Telegram. Current corporate nationality/legal ownership are not independently audited.",
@@ -1183,6 +1232,36 @@
       "relationship": "Publisher-designated historical official SELF Chinese website channel, distinct from the magazine channel within one brand group",
       "officialness": "confirmed", "existence": "historical", "accessibility": "unknown",
       "notes": "Owned2013 box explicitly labels selfwebsite 《悦己SELF》杂志官网微博, not a staff link. Independent2011 owner scope binds UID1658402750/悦己网; an exact2020 capture retains UID/name 悦己女性网 but its14 recognized posts are dated2017. Current92-entry feed is likewise2017-only. Capture date, visible stale bio and no in-window recovery are not current activity, absence or complete-history proof."
+    },
+    {
+      "id": "artforum-china",
+      "outlet_id": "artforum",
+      "uid": "1750011241",
+      "handle": null,
+      "display_name": "艺术论坛Artforum",
+      "profile_url": "https://weibo.com/u/1750011241",
+      "language": "zh-Hans",
+      "operator": "Artforum Chinese-language platform designated by the U.S. publisher and its own Chinese Contact; exact current legal account control unaudited",
+      "relationship": "Publisher-linked Chinese-language institutional channel of U.S. Artforum; not a separate publisher for its corporate parent or asserted independent U.S. newsroom staffing",
+      "officialness": "confirmed",
+      "existence": "current_evidence",
+      "accessibility": "unknown",
+      "notes": "U.S. owned root/About point to the Chinese site, whose root/Contact directly link UID1750011241. Expected numeric feed title and native5355333705012498 author agree. No blue verification badge was observed or claimed; publisher-owned designation establishes officialness. Chinese-site founding/profile join labels are not account-attribution cutoffs."
+    },
+    {
+      "id": "artnews-china",
+      "outlet_id": "artnews",
+      "uid": "7832237238",
+      "handle": null,
+      "display_name": "ARTnews中文版",
+      "profile_url": "https://weibo.com/u/7832237238",
+      "language": "zh-Hans",
+      "operator": "June2024 printed license credits name Life Style Media Group/Yimeizhiyuan (Beijing) Culture Media Co., Ltd.; current legal Weibo owner and later contracts unaudited",
+      "relationship": "Historically licensed Chinese edition of U.S. ARTnews, with current publication-specific institutional certification; not a verified continuously renewed license or U.S.-staffed newsroom",
+      "officialness": "confirmed",
+      "existence": "current_evidence",
+      "accessibility": "unknown",
+      "notes": "Owner blue-v certification explicitly identifies 《ARTnews中文版》杂志官方微博. Actual printed June2024 colophon independently states the Art Media, LLC license. Exact January23,2024 native4993344659259803 independently validates author UID and launch-caption publication; today's certification is not backdated. Four October22,2026 feed records must be excluded from the fixed interval."
     },
     {
       "id": "visionaire-china",
@@ -1970,6 +2049,96 @@
       "source_url": "https://www.self.com/info/about-self", "source_type": "publisher_statement",
       "observed_at": "2026-10-22T06:54:46.979621+00:00", "claim_date": null, "supports": "relationship",
       "justification": "Same U.S. SELF publication identified by its own New York editorial headquarters and brand About; the historical China publisher separately designates its website channel. Two social UIDs are one publisher/brand group, not two independent U.S. newsrooms or a borrowed parent-company account."
+    },
+    {
+      "id": "artforum-us-designated-chinese-site",
+      "account_id": "artforum-china",
+      "source_url": "https://www.artforum.com/",
+      "source_type": "publisher_statement",
+      "observed_at": "2026-10-22T10:42:22.587805+00:00",
+      "claim_date": null,
+      "supports": "relationship",
+      "justification": "Actual U.S. publisher root directly links https://artforum.com.cn/ under 艺术论坛; its actual About repeats the same designated Chinese site. This is a publisher-owned relationship, not inference from an unrelated site sharing an English word or a parent-company portfolio list."
+    },
+    {
+      "id": "artforum-chinese-publisher-numeric-link",
+      "account_id": "artforum-china",
+      "source_url": "https://www.artforum.com.cn/",
+      "source_type": "publisher_link",
+      "observed_at": "2026-10-22T10:41:44.376840+00:00",
+      "claim_date": null,
+      "supports": "identity",
+      "justification": "Actual designated Chinese publisher root links numeric Weibo/u/1750011241; actual Contact repeats it. Permitted numeric Sina feed title matches 艺术论坛Artforum. No blue badge exists in the inspected profile, and none is invented; officialness follows the publisher's own numeric designation."
+    },
+    {
+      "id": "artforum-own-new-york-headquarters",
+      "account_id": "artforum-china",
+      "source_url": "https://www.artforum.com.cn/contact",
+      "source_type": "publisher_statement",
+      "observed_at": "2026-10-22T10:41:46.988048+00:00",
+      "claim_date": null,
+      "supports": "relationship",
+      "justification": "Designated publisher Contact explicitly labels Artforum's New York headquarters at475 Fifth Avenue and the Artforum Media, LLC, New York trademark. Supplies U.S. institutional context separately from a Chinese audience/location label; precise current legal Weibo ownership is not audited."
+    },
+    {
+      "id": "artforum-native-author-uid",
+      "account_id": "artforum-china",
+      "source_url": "https://www.sina.cn/news/detail/5355333705012498.html",
+      "source_type": "platform_post",
+      "observed_at": "2026-10-22T10:43:37.667045+00:00",
+      "claim_date": "2026-10-18",
+      "supports": "identity",
+      "justification": "Exact native post ID, unique NewsArticle author/u/1750011241 and one available body bind the October18,2026 11:35 Shanghai publication to 艺术论坛Artforum, separately from publisher footer links. Other artists/galleries quoted by the magazine are not account owners."
+    },
+    {
+      "id": "artforum-2020-archived-owner",
+      "account_id": "artforum-china",
+      "source_url": "https://web.archive.org/web/20200406172642id_/https://www.weibo.com/u/1750011241",
+      "source_type": "archived_profile",
+      "observed_at": "2026-10-22T10:50:00.384206+00:00",
+      "claim_date": "2020-04-06",
+      "supports": "identity",
+      "justification": "Exact April6,2020 UTC capture has owner-scoped $CONFIG oid1750011241 and onick艺术论坛Artforum, matching title and publisher's now-designated numeric account. Recognized own-author posts were published March29-April6,2020 Shanghai, not in2026 or on every later capture date. No historical blue badge, join date or legal-control continuity is invented."
+    },
+    {
+      "id": "artnews-current-institution",
+      "account_id": "artnews-china",
+      "source_url": "https://www.sina.cn/media/7832237238",
+      "source_type": "platform_certification",
+      "observed_at": "2026-10-22T10:42:27.983926+00:00",
+      "claim_date": null,
+      "supports": "identity",
+      "justification": "Owner title ARTnews中文版, blue-v institution badge and explicit 《ARTnews中文版》杂志官方微博 identify the publication's Chinese edition, not a generic art-news account, The Art Newspaper or a named editor."
+    },
+    {
+      "id": "artnews-actual-chinese-colophon-license",
+      "account_id": "artnews-china",
+      "source_url": "https://tangyuting.org/wp-content/uploads/2024/11/2024e5b9b46e69c88e5888ae794b5e5ad90e5888a.pdf",
+      "source_type": "publisher_statement",
+      "observed_at": "2026-10-22T10:46:00.196227+00:00",
+      "claim_date": "2024-06-15",
+      "supports": "relationship",
+      "justification": "Actual June2024 issue's printed colophon on PDF page4 explicitly states publication under license from Art Media, LLC, a PMC affiliate, naming Life Style Media Group/Yimeizhiyuan. Complete artist-hosted PDF is46,539,223bytes/67pages; primary evidence is the printed colophon, not the hosting artist's identity or an unverified search snippet. June15 is the issue's printed publication date, not the license's start/end or proof of continuous renewal."
+    },
+    {
+      "id": "artnews-owned-new-york-contact",
+      "account_id": "artnews-china",
+      "source_url": "https://www.artnews.com/contact-us/",
+      "source_type": "publisher_statement",
+      "observed_at": "2026-10-22T10:43:13.112592+00:00",
+      "claim_date": null,
+      "supports": "relationship",
+      "justification": "Actual U.S. publisher Contact explicitly identifies ARTnews at475 Fifth Avenue, New York; its own About separately describes publication since1902. The nearby separately labeled Art in America office is not merged into this brand or given its Weibo UID."
+    },
+    {
+      "id": "artnews-native-launch-author",
+      "account_id": "artnews-china",
+      "source_url": "https://www.sina.cn/news/detail/4993344659259803.html",
+      "source_type": "platform_post",
+      "observed_at": "2026-10-22T10:43:42.823475+00:00",
+      "claim_date": "2024-01-23",
+      "supports": "identity",
+      "justification": "Exact native ID, unique NewsArticle author/u/7832237238 and available Chinese-launch caption bind January23,2024 14:00 Shanghai to ARTnews中文版. It predates the exposed2026 feed; current badge is not asserted contemporaneous2024 certification or a legal launch/ownership cutoff."
     },
     {
       "id": "visionaire-current-institution",

@@ -15,6 +15,34 @@
       "relationship": "Publisher-linked Chinese architecture/design edition of U.S.-origin Architectural Digest; separately labeled from the U.S. editorial account"
     },
     {
+      "account_id": "artforum-china",
+      "attribution_end": null,
+      "earliest_publication_utc": "2020-03-29T03:10:00+00:00",
+      "existence": "current_evidence",
+      "latest_publication_utc": "2026-10-18T03:35:00+00:00",
+      "latest_run_source": "import",
+      "latest_run_status": "partial",
+      "outlet_id": "artforum",
+      "outlet_name": "Artforum / Chinese-language platform",
+      "profile_url": "https://weibo.com/u/1750011241",
+      "recovered_posts": 145,
+      "relationship": "Publisher-linked Chinese-language institutional channel of U.S. Artforum; not a separate publisher for its corporate parent or asserted independent U.S. newsroom staffing"
+    },
+    {
+      "account_id": "artnews-china",
+      "attribution_end": null,
+      "earliest_publication_utc": "2024-01-23T06:00:00+00:00",
+      "existence": "current_evidence",
+      "latest_publication_utc": "2026-10-21T04:03:00+00:00",
+      "latest_run_source": "import",
+      "latest_run_status": "partial",
+      "outlet_id": "artnews",
+      "outlet_name": "ARTnews / licensed Chinese edition",
+      "profile_url": "https://weibo.com/u/7832237238",
+      "recovered_posts": 99,
+      "relationship": "Historically licensed Chinese edition of U.S. ARTnews, with current publication-specific institutional certification; not a verified continuously renewed license or U.S.-staffed newsroom"
+    },
+    {
       "account_id": "barrons-china",
       "attribution_end": null,
       "earliest_publication_utc": "2026-09-07T06:46:00+00:00",
@@ -1164,18 +1192,18 @@
     }
   ],
   "roster": {
-    "confirmed_accounts": 83,
-    "confirmed_outlets": 58,
-    "outlets": 177,
-    "reviewed_outlets": 177
+    "confirmed_accounts": 85,
+    "confirmed_outlets": 60,
+    "outlets": 184,
+    "reviewed_outlets": 184
   },
   "source": {
-    "corpus_metadata_sha256": "b5b08776c468613a783dfe6eff5de18c8464c90e082ecdf29f047244b4609c15",
+    "corpus_metadata_sha256": "361d33cf9fa2403ebcaab1c9d713477a2c97da851e90e934dcaa84cb612e6e44",
     "excluded_attribution_posts": 0,
     "excluded_unconfirmed_posts": 0,
-    "latest_collection_at": "2026-10-22T10:25:51.030189+00:00",
+    "latest_collection_at": "2026-10-22T10:57:28.658535+00:00",
     "publication_timezone": "Asia/Shanghai",
-    "registry_sha256": "e13b6cc27610a1ffb9238110231951385b5ffd5b3251c58fe8b1227739e7716a",
+    "registry_sha256": "9aa7e75cf0777e5e2474775600cb2f06f0235d7a220fb4de87e83cd8711c0870",
     "requested_windows": [
       {
         "end": "2026-10-21T16:00:00+00:00",
@@ -1185,11 +1213,11 @@
   },
   "text_completeness": [
     {
-      "recovered_posts": 5419,
+      "recovered_posts": 5645,
       "status": "source_full"
     },
     {
-      "recovered_posts": 741,
+      "recovered_posts": 759,
       "status": "truncated"
     },
     {
@@ -1204,15 +1232,15 @@
   "version": 1,
   "yearly": [
     {
-      "recovered_posts": 507,
+      "recovered_posts": 522,
       "year": 2020
     },
     {
-      "recovered_posts": 384,
+      "recovered_posts": 398,
       "year": 2021
     },
     {
-      "recovered_posts": 398,
+      "recovered_posts": 413,
       "year": 2022
     },
     {
@@ -1220,15 +1248,15 @@
       "year": 2023
     },
     {
-      "recovered_posts": 189,
+      "recovered_posts": 191,
       "year": 2024
     },
     {
-      "recovered_posts": 302,
+      "recovered_posts": 304,
       "year": 2025
     },
     {
-      "recovered_posts": 4120,
+      "recovered_posts": 4316,
       "year": 2026
     }
   ]

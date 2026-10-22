@@ -201,6 +201,8 @@ def report(db, path):
               "and a station programme distinguished from an organizational Sina account, "
               "[VISIONAIRE and regional-publisher follow-up](discovery_iteration20.md) for a publisher-documented "
               "Chinese-edition identity, fixed-window recovery and five further ranked reviews, "
+              "[Artforum and ARTnews follow-up](discovery_iteration21.md) for separately verified art-media "
+              "identities, printed-license evidence and early-window archive recovery, "
               "and [access pilot](access_pilot.md) for source-level "
               "access checks and archive gaps.", ""]
     target = Path(path)

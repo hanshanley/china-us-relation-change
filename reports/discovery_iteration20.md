@@ -12,6 +12,9 @@ newsroom. Recovery adds **101 eligible posts**, including five
 independently validated older native sources beyond the capped
 feed.
 
+This is a historical checkpoint. [The next art-media follow-up](discovery_iteration21.md)
+adds Artforum and ARTnews with separate publisher/edition proofs and older archives.
+
 ## VISIONAIRE: publisher relationship, not just an English name
 
 The actual publisher's
