@@ -113,6 +113,20 @@
       "relationship": "Chinese automotive-news magazine edition of Car and Driver; not the U.S. editorial account"
     },
     {
+      "account_id": "china-press-bay-area",
+      "attribution_end": null,
+      "earliest_publication_utc": "2021-03-29T21:33:00+00:00",
+      "existence": "current_evidence",
+      "latest_publication_utc": "2026-05-18T17:40:00+00:00",
+      "latest_run_source": "sina_syndication",
+      "latest_run_status": "partial",
+      "outlet_id": "china-press",
+      "outlet_name": "The China Press / \u4fa8\u62a5",
+      "profile_url": "https://weibo.com/u/5253982517",
+      "recovered_posts": 100,
+      "relationship": "U.S. Chinese-language newspaper's Bay Area website channel; second identity under one China Press group, not a separate outlet or an inferred Seattle account"
+    },
+    {
       "account_id": "china-press-weibo",
       "attribution_end": null,
       "earliest_publication_utc": "2020-02-12T06:18:00+00:00",
@@ -1108,18 +1122,18 @@
     }
   ],
   "roster": {
-    "confirmed_accounts": 79,
+    "confirmed_accounts": 80,
     "confirmed_outlets": 55,
-    "outlets": 138,
-    "reviewed_outlets": 138
+    "outlets": 146,
+    "reviewed_outlets": 146
   },
   "source": {
-    "corpus_metadata_sha256": "cb5a26a67f6f4db07de36569307c37e5fc75ce6d950281653a8383b1a8719cfb",
+    "corpus_metadata_sha256": "db1dcbd3a1fd49d8dc550a749a71fcee84a05a8bda70fb8e050a6d72c28bcba8",
     "excluded_attribution_posts": 0,
     "excluded_unconfirmed_posts": 0,
-    "latest_collection_at": "2026-10-22T07:29:39.348736+00:00",
+    "latest_collection_at": "2026-10-22T07:58:36.368630+00:00",
     "publication_timezone": "Asia/Shanghai",
-    "registry_sha256": "109cc1269832fac938dbb8ac0dafa54982540c677992380164ce07c0440bfa73",
+    "registry_sha256": "391e5c03d5fbf8348720050d9c112acc16179c2688ca8594e0212101c7256d03",
     "requested_windows": [
       {
         "end": "2026-10-21T16:00:00+00:00",
@@ -1129,11 +1143,11 @@
   },
   "text_completeness": [
     {
-      "recovered_posts": 5134,
+      "recovered_posts": 5230,
       "status": "source_full"
     },
     {
-      "recovered_posts": 725,
+      "recovered_posts": 729,
       "status": "truncated"
     },
     {
@@ -1152,7 +1166,7 @@
       "year": 2020
     },
     {
-      "recovered_posts": 354,
+      "recovered_posts": 384,
       "year": 2021
     },
     {
@@ -1172,7 +1186,7 @@
       "year": 2025
     },
     {
-      "recovered_posts": 3947,
+      "recovered_posts": 4017,
       "year": 2026
     }
   ]

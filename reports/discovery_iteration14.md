@@ -5,6 +5,9 @@ Research observed October 22, 2026 UTC/EDT, continuing checkpoint
 October 21, 2026 inclusive, Asia/Shanghai. It did not advance with this
 research date.
 
+This is a historical checkpoint. [The China Press Bay Area follow-up](discovery_iteration15.md)
+adds another U.S. newspaper channel and preserves the distinction between accounts and publishers.
+
 **One additional publisher-linked account was verified: Travel +
 Leisure's Chinese edition, UID `2519357914`.** It contributes **99
 eligible posts**, with two explicitly retained previews. A separate

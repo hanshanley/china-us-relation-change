@@ -189,6 +189,8 @@ def report(db, path):
               "publisher-designated channels and the renamed-magazine attribution boundary, "
               "[Travel + Leisure follow-up](discovery_iteration14.md) for its publisher-linked "
               "Chinese edition, fixed-window recovery and a separately held copyright partner, "
+              "[China Press Bay Area follow-up](discovery_iteration15.md) for a second U.S. "
+              "newspaper channel without inferring Seattle identity from a shared widget, "
               "and [access pilot](access_pilot.md) for source-level "
               "access checks and archive gaps.", ""]
     target = Path(path)

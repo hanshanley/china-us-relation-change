@@ -86,9 +86,9 @@
     },
     {
       "id": "china-press", "name": "The China Press / 侨报", "category": "us_chinese_language",
-      "aliases": ["侨报", "美国侨报网"], "us_basis": "U.S. Chinese-language newspaper.",
+      "aliases": ["侨报", "美国侨报网", "旧金山湾区在线"], "us_basis": "U.S. Chinese-language newspaper; its Bay Area website channel is separately identified within the same publisher group.",
       "source_url": "https://www.uschinapress.com/", "research_status": "reviewed",
-      "notes": "Archived publisher homepage (2020) directly links to uschinapress; archived platform profile binds UID 1823184085. Current public Sina profile has been renamed 侨报美西 and still describes 美国侨报网. Historical officialness confirmed; current regional operator not independently reverified. Review date: 2026-10-21."
+      "notes": "Archived publisher homepage (2020) directly links to uschinapress; archived platform profile binds UID1823184085, now 侨报美西, without independently audited current legal control. A second publisher-linked UID5253982517 is explicitly certified as 美国侨报网旧金山湾区网站: exact2015 San Francisco publisher root directly links it. A2014 Seattle root embeds the same Bay Area UID, so the shared widget does not prove a Seattle account or geographic rename. Government-indexed seattleonline remains an independently unbound handle, not this account's alias. Two channels, one China Press group, not two independent publishers. Review date: 2026-10-22 UTC."
     },
     {
       "id": "world-journal", "name": "World Journal / 世界日报", "category": "us_chinese_language",
@@ -745,6 +745,62 @@
       "notes": "Actual masthead domain failed modern TLS protocol negotiation; verification/security was not weakened and no HTTP downgrade used. Exact2015 domain capture was only a framing wrapper pointing to acmediaonline.net, not an inspected newspaper site. That destination currently failed DNS; its sole retrieved2020 archived capture was gambling-branded, not publisher content, so no social identifier there was attributed to the newspaper and no hacking/ownership cause asserted. The printed masthead and publication-branded issue remain scope evidence only; no official Sina account was resolved. Unknown, not absent. Review date: 2026-10-22 UTC."
     },
     {
+      "id": "salt-lake-tribune", "name": "The Salt Lake Tribune", "category": "newspaper",
+      "aliases": ["Salt Lake Tribune", "The Salt Lake Tribune"],
+      "us_basis": "United States-classified source position70; own About explicitly describes its Utah reporting role and2019 nonprofit conversion. Current legal-control details are not independently audited.",
+      "source_url": "https://www.sltrib.com/", "research_status": "reviewed",
+      "notes": "Complete actual root, About and Contact were read without a qualifying Weibo link. The correct publication-specific community item matches sltrib.com and has no main Sina identifier. Deseret News is a separate publication despite joint operating history; ownership organizations, individual reporters and Utah sports accounts were not substituted. Missing links or identifiers are not account-absence proof. Unknown, not absent. Review date: 2026-10-22 UTC."
+    },
+    {
+      "id": "deseret-news", "name": "Deseret News", "category": "newspaper",
+      "aliases": ["Deseret News", "Deseret"],
+      "us_basis": "United States-classified source position71; actual publisher About and Contact identify the Salt Lake City, Utah newspaper. Corporate nationality and present legal account control are not independently audited.",
+      "source_url": "https://www.deseret.com/", "research_status": "reviewed",
+      "notes": "Complete current root and actual linked /pages/about-us/ and /pages/contact-us/ were read without a qualifying Weibo profile; the nonstandard institutional routes were discovered from the publisher rather than guessed. Correct community item matches deseret.com and retains the legacy deseretnews domain, without a main Sina identifier. Deseret-owned businesses, religious institutions, staff and Salt Lake Tribune accounts are not this newspaper's own profile by inference. Unknown, not absent. Review date: 2026-10-22 UTC."
+    },
+    {
+      "id": "st-paul-pioneer-press", "name": "St. Paul Pioneer Press", "category": "newspaper",
+      "aliases": ["Pioneer Press", "St. Paul Pioneer Press", "TwinCities.com"],
+      "us_basis": "United States-classified source position72; actual publisher root and Contact identify the St. Paul, Minnesota newspaper. Other Pioneer Press publications are not interchangeable with this newsroom.",
+      "source_url": "https://www.twincities.com/", "research_status": "reviewed",
+      "notes": "Complete root and real Contact were readable without a qualifying Weibo link; /contact-us redirects to /contactus/ and is one institutional source, not independent corroboration. Contact includes explicit AI/text-data-mining reuse restrictions; no deeper publisher-article mining or article-body redistribution was pursued. Correct publication-specific community item matches twincities.com but has no main Sina identifier. Staff and regional sports-team accounts were not promoted. Unknown, not absent. Review date: 2026-10-22 UTC."
+    },
+    {
+      "id": "news-observer", "name": "The News & Observer", "category": "newspaper",
+      "aliases": ["The News & Observer", "News and Observer", "Raleigh News & Observer"],
+      "us_basis": "U.S.-classified source position73; independently read exact January2012 original publisher homepage identifies Raleigh, Durham and Chapel Hill, North Carolina reporting. Current legal ownership is not independently audited.",
+      "source_url": "https://www.newsobserver.com/", "research_status": "reviewed",
+      "notes": "Actual live robots request timed out before any live publisher page was fetched. Independently permitted exact January1,2012 publisher root was readable with its real title and capture timestamp, without a qualifying Weibo link; the indexed2013 capture was not silently substituted. Correct article-owned community item matches newsobserver.com without a main Sina identifier. Other Observer newspapers, McClatchy channels and reporters are not dedicated publication proof. Unknown, not absent. Review date: 2026-10-22 UTC."
+    },
+    {
+      "id": "propublica", "name": "ProPublica", "category": "nonprofit_investigative_news",
+      "aliases": ["ProPublica", "Pro Publica"],
+      "us_basis": "U.S.-classified source position74; own About identifies its nonprofit investigative newsroom and reporting in all50 U.S. states. Headquarters and present corporate/account control are not independently audited.",
+      "source_url": "https://www.propublica.org/", "research_status": "reviewed",
+      "notes": "Complete root, actual About and Contact were read without a qualifying Weibo profile. Correct publication-specific community item matches propublica.org and has no main Sina identifier. Onion, API and alternate access routes were not used; newsroom tip-submission channels, partner publications, staff and similarly named creators were not treated as an organizational Weibo. Missing identifiers are not absence evidence. Unknown, not absent. Review date: 2026-10-22 UTC."
+    },
+    {
+      "id": "aat-tv", "name": "AAT Television / Asian American TV", "category": "us_chinese_language",
+      "aliases": ["AAT TV", "AATTV", "AAT Television", "Asian American TV"],
+      "us_basis": "Exact2013 owned publisher homepage explicitly identifies Washington State's multi-Asian television service; the actual March24,2022 King County Metro guide separately identifies the Seattle-based broadcaster. These dated sources are not a current legal-control or carriage audit.",
+      "source_url": "https://www.aattv.com/", "research_status": "reviewed",
+      "notes": "Current publisher host refused connection; no HTTP downgrade or live hostname/path workaround was used. Independently permitted exact2013 publisher root and its actual About/Company Information archives were readable without a qualifying Weibo link; the latter explicitly identifies Seattle operations and distinguishes1993 establishment from1995 first broadcast. The complete19-page2022 agency guide was read after resolving its10MB cap; it describes a separate directory spreadsheet that was not retrieved. Missing Weibo mentions do not prove absence, and old carriage is not asserted current. Similarly named AMTV, AAATTV, AT&T and staff profiles were not silently equated with this Washington broadcaster. Organizational Weibo remains unknown. Review date: 2026-10-22 UTC."
+    },
+    {
+      "id": "sourcing-journal", "name": "Sourcing Journal / Chinese-edition lead", "category": "trade_news",
+      "aliases": ["Sourcing Journal", "Sourcing Journal全球供应链", "SJ全球供应链"],
+      "us_basis": "U.S. trade-media portfolio publication documented in PMC's own2017 acquisition statement and2026 New York publication/event statement; China Mind Next's own About separately identifies its Chinese content operation. A standalone current legal-domicile audit is not asserted.",
+      "source_url": "https://sourcingjournal.com/", "research_status": "reviewed",
+      "notes": "Original robots request redirected outside the checked host and was not automatically followed. Header-only metadata identifies the real destination wwd.com/sourcing-journal/; independently checked WWD robots then permitted the actual publication-titled section and Contact. Complete pages had no qualifying Weibo link. Chinese operator's actual About names Sourcing Journal全球供应链, not a publication-specific Weibo UID. Shared WWD ownership, founder biography, WeChat/Sohu distribution and WWD's own account do not prove a separate SJ account. Unknown, not absent. Review date: 2026-10-22 UTC."
+    },
+    {
+      "id": "footwear-news", "name": "Footwear News / Chinese-edition lead", "category": "trade_news",
+      "aliases": ["Footwear News", "FootWearNews国际鞋履", "FN国际鞋履"],
+      "us_basis": "Named FN trade-media brand in PMC's own U.S. Fairchild portfolio statement; independently read Footwear News publication section now resides on WWD's publisher site. Chinese operator's About separately identifies FootWearNews国际鞋履; present standalone headquarters are not independently audited.",
+      "source_url": "https://footwearnews.com/", "research_status": "reviewed",
+      "notes": "Original robots request redirected to WWD robots and was refused by the cross-publisher guard. Header-only metadata resolved that destination without fetching it automatically; independently checked WWD policy permitted the actual Footwear News section and Contact, with no qualifying Weibo link. The publication-specific Chinese operator description is an edition lead, not a social-account binding. WWD, BeautyINC and Sourcing Journal channels, individual editors, retailers and shoe brands were not substituted. Unknown, not absent. Review date: 2026-10-22 UTC."
+    },
+    {
       "id": "tampa-bay-times", "name": "Tampa Bay Times", "category": "newspaper",
       "aliases": ["Tampa Bay Times", "St. Petersburg Times"],
       "us_basis": "U.S.-classified source position64; own About identifies the Florida newspaper and its primary St. Petersburg mailing address. Current legal ownership is not independently audited.",
@@ -863,6 +919,14 @@
     }
   ],
   "accounts": [
+    {
+      "id": "china-press-bay-area", "outlet_id": "china-press", "uid": "5253982517", "handle": null,
+      "display_name": "旧金山湾区在线", "profile_url": "https://weibo.com/u/5253982517", "language": "zh-Hans",
+      "operator": "The China Press Bay Area website operation; exact current legal account owner and regional corporate continuity not independently audited",
+      "relationship": "U.S. Chinese-language newspaper's Bay Area website channel; second identity under one China Press group, not a separate outlet or an inferred Seattle account",
+      "officialness": "confirmed", "existence": "current_evidence", "accessibility": "unknown",
+      "notes": "Exact January9,2015 sf.uschinapress.com publisher root titled 金山在线 directly links UID5253982517 and labels the Bay Area microblog. Current blue institutional certification explicitly identifies 美国侨报网旧金山湾区网站. A2014 Seattle page embeds this same UID, which is not proof of a Seattle geographic identity or rename; government-indexed seattleonline is independently unbound and not an alias. Initial available100-entry feed spans March2021-May2026, not complete history or proof of inactivity after that source's newest entry."
+    },
     {
       "id": "travel-leisure-china", "outlet_id": "travel-leisure", "uid": "2519357914", "handle": "tandlchina",
       "display_name": "漫旅TravelLeisure", "profile_url": "https://weibo.com/tandlchina", "language": "zh-Hans",
@@ -1503,6 +1567,24 @@
     }
   ],
   "evidence": [
+    {
+      "id": "china-press-bay-owned-2015-link", "account_id": "china-press-bay-area",
+      "source_url": "https://web.archive.org/web/20150109112934id_/http://sf.uschinapress.com:80/", "source_type": "publisher_link",
+      "observed_at": "2026-10-22T07:52:07.738891+00:00", "claim_date": "2015-01-09T11:29:34+00:00", "supports": "identity",
+      "justification": "Exact San Francisco China Press publisher root titled 金山在线 has 金山微博/关注我们 sections, a UID5253982517 timeline-widget locator and a separate direct profile anchor for that same UID. Widget metadata was parsed without fetching the widget. This is Bay Area publisher designation, not proof of a Seattle account."
+    },
+    {
+      "id": "china-press-bay-current-institution", "account_id": "china-press-bay-area",
+      "source_url": "https://www.sina.cn/media/5253982517", "source_type": "platform_certification",
+      "observed_at": "2026-10-22T07:49:08.534154+00:00", "claim_date": null, "supports": "identity",
+      "justification": "Owner profile displays 旧金山湾区在线, blue-v institutional badge and explicit 美国侨报网旧金山湾区网站 certification. Its self-described2014 launch and visible2021-2026 feed are separate from independently audited legal control, continuous activity or historical certification dates."
+    },
+    {
+      "id": "china-press-bay-seattle-widget-boundary", "account_id": "china-press-bay-area",
+      "source_url": "https://web.archive.org/web/20141020142227id_/http://sea.uschinapress.com:80/", "source_type": "publisher_link",
+      "observed_at": "2026-10-22T07:47:57.907096+00:00", "claim_date": "2014-10-20T14:22:27+00:00", "supports": "relationship",
+      "justification": "Seattle China Press homepage's 西城微博 widget references5253982517, but the independent Bay Area publisher link and current institutional identity identify that UID as Bay Area. Preserve the shared publisher linkage without inventing a Seattle alias, geographic rename or binding to separately indexed seattleonline."
+    },
     {
       "id": "travel-leisure-owned-2013-social-link", "account_id": "travel-leisure-china",
       "source_url": "https://web.archive.org/web/20130321173622id_/http://www.travelandleisurechina.com:80/index.yl", "source_type": "publisher_link",

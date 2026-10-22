@@ -393,7 +393,9 @@ def publish(roster_path, screening_directory, directory, report_path):
         "(discovery_iteration13.md) resolves two publisher-designated channels through a new dated "
         "homepage and keeps renamed successor output outside the historical corpus. [Travel + Leisure follow-up]"
         "(discovery_iteration14.md) resolves the Chinese edition through a corrected primary-document route, "
-        "recovers eligible posts and keeps a separate copyright partner outside confirmed identities. Current status and legal operator "
+        "recovers eligible posts and keeps a separate copyright partner outside confirmed identities. [China Press Bay Area follow-up]"
+        "(discovery_iteration15.md) adds a second newspaper channel without conflating shared regional widgets, "
+        "and resolves actual trade-publication redirects without borrowing sister accounts. Current status and legal operator "
         "uncertainty remain explicit.", "",
         "## Complete machine-readable deliverables", "",
         "- [All 1,000 ranked U.S. domains](../data/discovery/us_top1000.csv)",
