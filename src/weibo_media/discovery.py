@@ -376,7 +376,9 @@ def publish(roster_path, screening_directory, directory, report_path):
         "details without relaxing live profile-name checks. [Publisher account clusters]"
         "(discovery_iteration6.md) adds the historical Popular Science Chinese edition and "
         "explicitly labeled release-distribution channels; multiple sector feeds are not "
-        "independent newsrooms. Current status and legal operator "
+        "independent newsrooms. [Publication identity follow-up](discovery_iteration7.md) resolves "
+        "Knowledge at Wharton's locator and reassesses Popular Science's current identity and "
+        "distribution-based cutoff. Current status and legal operator "
         "uncertainty remain explicit.", "",
         "## Complete machine-readable deliverables", "",
         "- [All 1,000 ranked U.S. domains](../data/discovery/us_top1000.csv)",

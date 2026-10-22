@@ -493,11 +493,11 @@
       "notes": "Actual2013 publisher homepage under its historical domain was read without resolving a qualifying profile. Foreign regional editions and independent translations are not silently equated with the U.S. newsroom. Source: https://web.archive.org/web/20130101060306id_/http://www.huffingtonpost.com/ . Unknown, not absent. Review date: 2026-10-21."
     },
     {
-      "id": "popular-science", "name": "Popular Science / historical Chinese edition", "category": "science_media",
-      "aliases": ["科技新时代", "Popular Science China", "PS+科技新时代"],
+      "id": "popular-science", "name": "Popular Science / Chinese-edition channel", "category": "science_media",
+      "aliases": ["科技新时代", "Popular Science China", "PS+科技新时代", "PS大众科学"],
       "us_basis": "U.S. popular-science publication; the Chinese magazine's own historical presentation explicitly identifies Popular Science's U.S. origin and its Chinese edition.",
       "source_url": "https://www.popsci.com/", "research_status": "reviewed",
-      "notes": "Exact January2014 publisher-homepage capture links popscichina and independently embeds UID1925964485. The archived2011-themed magazine presentation separately names that UID as the official magazine account, distinct from its editors' personal accounts. A scanned publisher-domain notice dated2014-10-08 says Wanhua Media's distribution ends with the October2014 issue, not that all editions or legal licenses necessarily ended on October8. The November2014 boundary is a conservative recovery cutoff for this documented historical operation; current successor activity is not attributed to the U.S. brand. Stable UID is publisher-proven even though the selected2012 profile replay redirected to another capture and was refused. Review date: 2026-10-22 UTC."
+      "notes": "Exact January2014 publisher-homepage capture links popscichina and independently embeds UID1925964485; the archived magazine presentation labels the same UID official, separately from editors. Current owner-scoped institutional certification explicitly names the U.S. Popular Science Chinese edition under PS大众科学, and native post/author identity is independently verified. The2014-10-08 notice concerns Wanhua Media's distribution ending with the October issue, not demonstrated termination of the U.S. brand relationship. The earlier exploratory November2014 cutoff is withdrawn rather than treating a distributor handoff as license termination. Current identity evidence does not independently audit legal ownership or license continuity; recovered output is this Chinese-edition channel, not asserted U.S.-newsroom authorship. Review date: 2026-10-22 UTC."
     },
     {
       "id": "pr-newswire", "name": "PR Newswire / Chinese distribution channels", "category": "press_release_service",
@@ -514,11 +514,11 @@
       "notes": "Businesswirechina.com contact page embeds UID2676312451. Its About page names Interfax News Service Limited as an independent authorized distributor and expressly disclaims legal agency, partnership or joint venture with Business Wire. Current profile explicitly certifies Business Wire China's official account. This is a branded Chinese release-distribution channel, not proof that Interfax is a U.S. publisher, not a separate U.S. newsroom, and not an independent audit of current contract/ownership terms. Source: https://www.businesswirechina.com/en/about/about_us.html . Review date: 2026-10-22 UTC."
     },
     {
-      "id": "wharton-knowledge", "name": "Knowledge@Wharton / Chinese publication-account lead", "category": "academic_business_media",
-      "aliases": ["沃顿知识在线", "Knowledge at Wharton"],
-      "us_basis": "U.S. Wharton/Penn business-knowledge publication; Wharton's own2014 media-programme report explicitly identifies Knowledge@Wharton's Weibo account, separately from ordinary third-party media coverage.",
+      "id": "wharton-knowledge", "name": "Knowledge at Wharton / Chinese edition", "category": "academic_business_media",
+      "aliases": ["沃顿知识在线", "Knowledge at Wharton", "Knowledge@Wharton"],
+      "us_basis": "U.S. Wharton/Penn business-knowledge publication: Wharton's own2014 report identifies its publication-specific Weibo account, and the historical Chinese publication website attributes copyright to Penn/Wharton and links the U.S. edition.",
       "source_url": "https://knowledge.wharton.upenn.edu/", "research_status": "reviewed",
-      "notes": "Primary publisher PDF contents and page131 explicitly label Knowledge@Wharton's own Weibo account; screenshots provide positive historical presence evidence. Stable profile URL/UID is still unresolved, so no fabricated locator or parent-school profile is inserted into the resolved account inventory. This is not a negative account finding. Source: https://news.wharton.upenn.edu/wp-content/uploads/2012/06/Wharton-Global-Forum-Beijing_Coverage-Wrap-Up-Report_20140702.pdf . Review date: 2026-10-22 UTC."
+      "notes": "The locator gap is resolved: an independently indexed2011 whartonckw archive explicitly certifies 沃顿知识在线官方微博 and consistently binds owner UID1749002512 through name-bearing scope objects and canonical profile URLs. This matches the publication-specific presence established by Wharton's own2014 report. The current public profile retains the publication name and owner-scoped institutional certification; it is not a parent-school or staff profile borrowed by inference. Chinese editorial operation is separately labeled; current identity is not proof of current posting activity or independently audited legal account ownership. Review date: 2026-10-22 UTC."
     },
     {
       "id": "barrons", "name": "Barron's / China", "category": "business",
@@ -940,13 +940,21 @@
       "notes": "Actual U.S. publisher listing identifies the correct Chinese domain; that publisher's2014 timeline widget explicitly names UID1671481074. The2022 golfdigest archive and current magazine institution agree. Another brand-looking alias, golfdigestchina, is a named individual and is excluded."
     },
     {
+      "id": "knowledge-wharton-china", "outlet_id": "wharton-knowledge", "uid": "1749002512", "handle": "whartonckw",
+      "display_name": "沃顿知识在线", "profile_url": "https://weibo.com/u/1749002512", "language": "zh-Hans",
+      "operator": "Knowledge at Wharton Chinese-language publication operation in the Penn/Wharton publishing network; exact current legal Weibo account owner unaudited",
+      "relationship": "Publication-specific Chinese-language Knowledge at Wharton channel, not a parent-school or staff account inferred from shared branding and not asserted U.S.-newsroom staffing",
+      "officialness": "confirmed", "existence": "current_evidence", "accessibility": "unknown",
+      "notes": "The2011 owner header explicitly names the publication's official account. scope.defaulturl/globalurl and name-bearing scope.nickname/setGroup objects agree on UID1749002512; unrelated recommended profiles were ignored. Wharton's own2014 report separately identifies its publication's Weibo account. Current owner name, blue institutional badge and publication-specific certification agree; source counters are not treated as current measurements or posting-activity proof."
+    },
+    {
       "id": "popular-science-china-historical", "outlet_id": "popular-science", "uid": "1925964485", "handle": "popscichina",
-      "display_name": "科技新时代", "profile_url": "https://weibo.com/popscichina", "language": "zh-Hans",
-      "operator": "Historical Chinese magazine operation; Wanhua Media distributed through the October2014 issue. Exact legal Weibo account owner unverified",
-      "relationship": "Historical Popular Science Chinese-edition account, not current U.S.-newsroom control or later similarly named academic publications",
-      "officialness": "confirmed", "existence": "historical", "accessibility": "unknown",
-      "attribution_end": "2014-11-01",
-      "notes": "Publisher-owned archived homepage explicitly links the handle and UID-bearing widget; archived magazine presentation independently labels the same UID official and separates editors' profiles. Conservative cutoff follows documented regional distribution change, not an independently established trademark-license expiry. Requested2020-2026 window begins after the cutoff; no post from that window is attributed to this historical operation."
+      "display_name": "PS大众科学", "profile_url": "https://weibo.com/u/1925964485", "language": "zh-Hans",
+      "operator": "Chinese-language Popular Science-branded operation; exact legal account owner and current license contract not independently audited",
+      "relationship": "Publisher-proven Chinese-edition UID with current U.S.-brand-naming institutional certification; not asserted U.S.-newsroom authorship",
+      "officialness": "confirmed", "existence": "current_evidence", "accessibility": "unknown",
+      "attribution_end": null,
+      "notes": "Historical account ID and handle are retained for compatibility; the current profile link uses the stable UID. PS大众科学 is admitted as a name only after independently checking its owner-specific certification naming Popular Science's Chinese edition, not by relaxing the parser for similar names. A native2026 post independently matches this UID. The previous2014-11-01 cutoff was an overly broad inference from a distributor's notice and is withdrawn; no current legal-control or uninterrupted-license claim is made. Other publishers' actual license-termination cutoffs remain unchanged."
     },
     {
       "id": "prnewswire-china-main", "outlet_id": "pr-newswire", "uid": "1782643177", "handle": null,
@@ -2137,6 +2145,30 @@
       "justification": "Current institutional tag explicitly identifies the official Barron's investment-information platform; profile bio identifies Barron's official Chinese channel. Stable UID and display name Barrons巴伦 agree. Not a third-party commentator merely quoting Barron's."
     },
     {
+      "id": "wharton-archived-publication-institution-and-owner", "account_id": "knowledge-wharton-china",
+      "source_url": "https://web.archive.org/web/20110504215454id_/http://weibo.com:80/whartonckw", "source_type": "platform_certification",
+      "observed_at": "2026-10-22T02:31:44.003367+00:00", "claim_date": "2011-05-04T21:54:54+00:00", "supports": "identity",
+      "justification": "Actual named profile's own myTxt header has 新浪认证 and 沃顿知识在线官方微博. scope.defaulturl/globalurl name UID1749002512; scope.nickname/setGroup bind the same UID to the encoded publication name and scope.realname agrees. This is the profile owner, not a viewer, recommended account, parent school or named individual. Wharton-prefixed archive neighbors are not automatically accepted."
+    },
+    {
+      "id": "wharton-owned-forum-publication-account-presence", "account_id": "knowledge-wharton-china",
+      "source_url": "https://news.wharton.upenn.edu/wp-content/uploads/2012/06/Wharton-Global-Forum-Beijing_Coverage-Wrap-Up-Report_20140702.pdf", "source_type": "publisher_statement",
+      "observed_at": "2026-10-22T02:32:31.287030+00:00", "claim_date": null, "supports": "relationship",
+      "justification": "Wharton's own2014 Beijing Forum media report explicitly identifies Knowledge@Wharton's Weibo account in its contents and page131, with screenshots of its June2014 posts. This independently establishes publication-specific ownership/presence, not merely the school's existence; the independently retrieved profile provides the missing locator. Old screenshots and read counts are not2020-2026 corpus records or current engagement."
+    },
+    {
+      "id": "wharton-owned-chinese-publication-network", "account_id": "knowledge-wharton-china",
+      "source_url": "https://web.archive.org/web/20140908002705id_/http://www.knowledgeatwharton.com.cn/", "source_type": "publisher_statement",
+      "observed_at": "2026-10-22T01:25:02.260124+00:00", "claim_date": "2014-09-08T00:27:05+00:00", "supports": "relationship",
+      "justification": "Actual Chinese publication homepage identifies the Knowledge@Wharton global network, links the U.S. English publication and attributes copyright to Penn/Wharton. This supports the U.S. publication relationship while distinguishing its Chinese-language operation; no present-day ownership of an expired Chinese domain is inferred."
+    },
+    {
+      "id": "wharton-current-publication-institution", "account_id": "knowledge-wharton-china",
+      "source_url": "https://www.sina.cn/media/1749002512", "source_type": "platform_certification",
+      "observed_at": "2026-10-22T02:33:16.517587+00:00", "claim_date": null, "supports": "identity",
+      "justification": "Current owner display 沃顿知识在线, blue institutional badge and exact 沃顿知识在线官方微博 descriptor agree with the historical UID/name. Owner bio identifies the Wharton business-knowledge publication; no account is inferred from a parent university or staff mention. Observable current identity does not establish current activity, U.S. staffing or audited legal control."
+    },
+    {
       "id": "popularscience-owned-archived-profile-and-widget", "account_id": "popular-science-china-historical",
       "source_url": "https://web.archive.org/web/20140111014736id_/http://www.popscichina.com:80/", "source_type": "publisher_link",
       "observed_at": "2026-10-22T01:38:05.118767+00:00", "claim_date": "2014-01-11T01:47:36+00:00", "supports": "identity",
@@ -2152,7 +2184,19 @@
       "id": "popularscience-owned-distribution-change-notice", "account_id": "popular-science-china-historical",
       "source_url": "https://web.archive.org/web/20141222170838id_/http://www.popscichina.com/wp-content/uploads/2014/10/about_stop_publishing.pdf", "source_type": "publisher_statement",
       "observed_at": "2026-10-22T01:37:28.087428+00:00", "claim_date": "2014-10-08", "supports": "relationship",
-      "justification": "Direct visual review of the scanned publisher-domain notice establishes that Wanhua Media will no longer handle distribution beginning with the November2014 issue and refunds later subscriptions. The conservative2014-11-01 recovery cutoff follows that documented operation change; the notice is not proof that all Chinese editions, trademark licenses or the Weibo account ceased on October8."
+      "justification": "Direct visual review establishes that Wanhua Media will no longer handle distribution beginning with the November2014 issue and refunds later subscriptions. This is not proof of trademark-license termination or cessation of the Weibo account. Its earlier exploratory use as a blanket attribution cutoff is withdrawn after owner-scoped current U.S.-brand certification was independently checked."
+    },
+    {
+      "id": "popularscience-current-owner-us-brand-certification", "account_id": "popular-science-china-historical",
+      "source_url": "https://www.sina.cn/media/1925964485", "source_type": "platform_certification",
+      "observed_at": "2026-10-22T02:26:36.515565+00:00", "claim_date": null, "supports": "identity",
+      "justification": "Review of the already retrieved current profile scopes the blue institutional badge and descriptor to the owner: 美国著名科技杂志《大众科学(Popular Science)》中文版, displayed as PS大众科学. This is not an inference from a generic logo, recommendation or numeric placeholder. Observation records current identity evidence, not legal account ownership or license approval date."
+    },
+    {
+      "id": "popularscience-current-native-author-certification", "account_id": "popular-science-china-historical",
+      "source_url": "https://www.sina.cn/news/detail/5308203458888978.html", "source_type": "platform_certification",
+      "observed_at": "2026-10-22T02:23:40.499410+00:00", "claim_date": null, "supports": "identity",
+      "justification": "Native detail independently passes exact post-ID and JSON-LD author-UID1925964485 checks and displays PS大众科学 with explicit 微博认证 naming the U.S. Popular Science Chinese edition. Publication is2026-06-10; the certification is observed at retrieval, not assumed historically approved on that publication date. This supports the verified current alias without weakening feed name checks or proving current legal control."
     },
     {
       "id": "prnewswire-owned-main-widget", "account_id": "prnewswire-china-main",

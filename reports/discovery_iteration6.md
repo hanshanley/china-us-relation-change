@@ -4,6 +4,12 @@ Research observed October 21, 2026 EDT / October 22, 2026 UTC. This continues
 the NPR checkpoint rather than closing the inventory. The publication window
 remains January 1, 2020 through October 21, 2026 inclusive, Asia/Shanghai.
 
+This document describes checkpoint `53c5c62`. The
+[following verification pass](discovery_iteration7.md) resolves Knowledge at
+Wharton's locator and reassesses the exploratory Popular Science cutoff;
+the earlier figures and interpretations below are retained as that
+checkpoint's chronology, not presented as perpetually current findings.
+
 ## Nineteen additional identities, not nineteen independent newsrooms
 
 The resolved inventory has **71 confirmed account identities across 48

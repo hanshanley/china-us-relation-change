@@ -173,6 +173,8 @@ def report(db, path):
               "technology and historical-account checks, [continued newsroom discovery](discovery_iteration5.md) "
               "for NPR and archive-bound detail recovery, [publisher account clusters](discovery_iteration6.md) "
               "for release-distribution channels and unresolved historical locators, "
+              "[publication identity follow-up](discovery_iteration7.md) for Knowledge at Wharton's "
+              "resolved account and Popular Science's current identity/cutoff reassessment, "
               "and [access pilot](access_pilot.md) for source-level "
               "access checks and archive gaps.", ""]
     target = Path(path)
