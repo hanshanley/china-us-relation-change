@@ -6,6 +6,12 @@ Hong Kong, Macau, and Taiwan. Open [`site/index.html`](site/index.html) locally;
 see [exchange setup, definitions and operations](docs/EXCHANGE.md) and
 [source contracts](docs/SOURCES.md). Hosting is not configured.
 
+The [combined exchange charts](site/comparisons.html) compare mainland China,
+Hong Kong and Macau only. The [Weibo research charts](site/weibo.html) separately
+show a frozen, aggregate account/corpus-coverage snapshot, not total activity or
+popularity. See [graph generation and limits](docs/EXCHANGE.md#weibo-research-graphs)
+for the read-only summary builder and PNG/SVG exports.
+
 An evidence-backed account inventory and small, resumable post-recovery CLI.
 The scope includes U.S. news brands, their explicitly labeled Chinese editions,
 and U.S.-based Chinese-language outlets. It is **not an exhaustive census**.

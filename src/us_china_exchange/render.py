@@ -13,6 +13,7 @@ import resvg_py
 
 from .model import START_YEAR, GEOGRAPHIES, MEASURES, change, coverage, gap_reason, json_text, validate
 from .pipeline import load, write_atomic
+from .weibo_analysis import WEIBO_CHARTS, svg_weibo, validate_summary
 from .theme import (CHART_HEIGHT, CHART_THEMES, CHART_WIDTH, COMPARISON_GEOGRAPHIES, FIGURE_CATEGORIES, FONT,
                     FONT_FILES, GRID, MUTED, PARTNER_COLORS, PNG_HEIGHT, PNG_WIDTH,
                     TEXT, figure_category)
@@ -271,6 +272,88 @@ def figure_links(paths):
                     for theme, files in paths.items()) + '</ul>')
 
 
+def export_figure(root, relative, svg):
+    png = png_chart(svg)
+    files = {}
+    for suffix, content in (("svg", svg + "\n"), ("png", png)):
+        path = Path(str(relative) + "." + suffix)
+        write_atomic(root / "outputs/figures" / path, content)
+        write_atomic(root / "site/figures" / path, content)
+        files[suffix] = "figures/" + path.as_posix()
+    return files
+
+
+def build_weibo(root, summary, gallery):
+    validate_summary(summary)
+    cards = []
+    for metric, title in WEIBO_CHARTS.items():
+        paths = {}
+        for theme in CHART_THEMES:
+            svg = svg_weibo(summary, metric, theme)
+            if svg.startswith("<svg"):
+                paths[theme] = export_figure(root, Path("weibo") / theme / metric, svg)
+        if paths:
+            image = paths["themarginoferror"]["png"]
+            body = (f'<div class="comparison-chart"><img src="{esc(image)}" alt="{esc(title)}" '
+                    'width="1000" height="600" loading="lazy"></div>' + figure_links(paths))
+            relative = {theme: {kind: path.removeprefix("figures/") for kind, path in files.items()}
+                        for theme, files in paths.items()}
+            gallery["weibo"].append(f'<article><h3>{esc(title)}</h3>{figure_links(relative)}</article>')
+        else:
+            for theme in CHART_THEMES:
+                for suffix in ("png", "svg"):
+                    relative = Path("weibo") / theme / (metric + "." + suffix)
+                    for directory in (root / "outputs/figures", root / "site/figures"):
+                        path = directory / relative
+                        if path.is_file():
+                            path.unlink()
+            body = '<p class="gap">No recovered publication dates in this frozen snapshot.</p>'
+        cards.append(f'<section class="series-panel"><h2>{esc(title)}</h2>{body}</section>')
+    write_atomic(root / "site/downloads/weibo-summary.json", json_text(summary))
+    for name, records in (("accounts", summary["accounts"]), ("years", summary["yearly"]),
+                          ("text-completeness", summary["text_completeness"])):
+        stream = io.StringIO(newline="")
+        columns = list(records[0]) if records else (["year", "recovered_posts"] if name == "years" else ["account_id"])
+        writer = csv.DictWriter(stream, fieldnames=columns, lineterminator="\n")
+        writer.writeheader()
+        writer.writerows(records)
+        write_atomic(root / f"site/downloads/weibo-{name}.csv", stream.getvalue())
+    roster = summary["roster"]
+    total = sum(a["recovered_posts"] for a in summary["accounts"])
+    recovered = sum(a["recovered_posts"] > 0 for a in summary["accounts"])
+    table = "".join(f'<tr><th scope="row">{esc(a["outlet_name"])}</th><td>{esc(a["existence"])}</td>'
+                    f'<td>{a["recovered_posts"]:,}</td><td>{esc(a["latest_run_status"] or "not attempted")}</td>'
+                    f'<td>{esc(a["attribution_end"] or "not established")}</td>'
+                    f'<td><a href="{esc(a["profile_url"])}">Registered profile</a></td></tr>' for a in summary["accounts"])
+    document = ('<!doctype html><html lang="en"><head><meta charset="utf-8">'
+                '<meta name="viewport" content="width=device-width,initial-scale=1">'
+                '<title>Weibo research coverage</title><link rel="stylesheet" href="assets/style.css"></head>'
+                '<body><div class="page"><header><p><a href="index.html">Exchange dashboard</a> · '
+                '<a href="comparisons.html">Three-geography comparisons</a></p><h1>Weibo research.</h1>'
+                '<p class="lead">Account evidence and recovered-corpus coverage—not a census of posting activity.</p>'
+                f'<p>{roster["outlets"]:,} outlets in the research roster; {roster["confirmed_accounts"]:,} confirmed accounts '
+                f'across {roster["confirmed_outlets"]:,} outlets. {total:,} posts recovered from {recovered:,} accounts.</p>'
+                '<p>This is a frozen aggregate snapshot, not a live Weibo feed. Current identity evidence does not prove '
+                'current activity. Zero recovery does not mean zero posting; unknown accounts are not verified absences. '
+                'Historical licensing cutoffs are respected. Counts are not audience size, popularity or evidence of a causal link to trade or travel.</p>'
+                '<p>The sample includes explicitly labelled Chinese editions and U.S.-based Chinese-language media. '
+                'Institutional identity is not proof of direct U.S.-newsroom operation or a continuing license; '
+                'per-account relationships and attribution exclusions are retained in the aggregate JSON.</p>'
+                '<p>Only aggregate counts and public institutional account metadata are published. No post text, '
+                'private corpus records or engagement rankings are included. Sources and requested collection windows '
+                'are identified in the complete aggregate JSON.</p>'
+                '<p><a href="downloads/weibo-summary.json" download>Complete aggregate snapshot and provenance · JSON</a> · '
+                '<a href="downloads/weibo-accounts.csv" download>All account aggregates · CSV</a> · '
+                '<a href="downloads/weibo-years.csv" download>All publication-year aggregates · CSV</a> · '
+                '<a href="downloads/weibo-text-completeness.csv" download>All text-completeness aggregates · CSV</a></p>'
+                '</header><main>' + "".join(cards) +
+                '<section class="series-panel"><h2>Account coverage details</h2><div class="table-scroll"><table>'
+                '<thead><tr><th>Outlet / edition</th><th>Identity evidence</th><th>Recovered posts</th>'
+                '<th>Latest run</th><th>Exclusive attribution end</th><th>Source</th></tr></thead>'
+                f'<tbody>{table}</tbody></table></div></section></main></div></body></html>')
+    write_atomic(root / "site/weibo.html", document)
+
+
 def annual_table(rows):
     annual = sorted((r for r in rows if r["frequency"] == "annual"), key=lambda r: r["year"])
     varied = len({r["comparability"] for r in annual}) > 1
@@ -324,14 +407,7 @@ def build(root):
             figure_paths[series_id] = {}
             for theme in CHART_THEMES:
                 themed = svg_chart(series_rows, theme=theme)
-                png = png_chart(themed)
-                files = {}
-                for suffix, content in [("svg", themed + "\n"), ("png", png)]:
-                    relative = Path(category) / theme / (slug + "." + suffix)
-                    write_atomic(figures / relative, content)
-                    write_atomic(site / "figures" / relative, content)
-                    files[suffix] = "figures/" + relative.as_posix()
-                figure_paths[series_id][theme] = files
+                figure_paths[series_id][theme] = export_figure(root, Path(category) / theme / slug, themed)
         heading = (GEOGRAPHIES[sample["origin"]] + " \u2192 " + GEOGRAPHIES[sample["destination"]] +
                    " \u00b7 " + MEASURES[sample["measure"]])
         if series_id in figure_paths:
@@ -358,14 +434,9 @@ def build(root):
                 versions[scale] = {}
                 for theme in CHART_THEMES:
                     themed = svg_comparison(rows, measure, direction, theme, logarithmic=scale == "log")
-                    png = png_chart(themed)
-                    versions[scale][theme] = {}
-                    for suffix, content in (("svg", themed + "\n"), ("png", png)):
-                        relative = (Path(figure_category(measure)) / "comparisons" / theme /
-                                    f"chn-hkg-mac-{direction}-{measure}-{scale}.{suffix}")
-                        write_atomic(figures / relative, content)
-                        write_atomic(site / "figures" / relative, content)
-                        versions[scale][theme][suffix] = "figures/" + relative.as_posix()
+                    relative = (Path(figure_category(measure)) / "comparisons" / theme /
+                                f"chn-hkg-mac-{direction}-{measure}-{scale}")
+                    versions[scale][theme] = export_figure(root, relative, themed)
             body = ""
             if "levels" in versions:
                 comparison_count += 1
@@ -417,6 +488,9 @@ def build(root):
                            '<a href="downloads/exchange.json" download>Complete dataset and provenance JSON</a></p></header><main>' +
                            "".join(comparison_cards) + '</main></div></body></html>')
     write_atomic(site / "comparisons.html", comparison_document)
+    weibo_summary = load(root / "data/site/weibo_summary.json", None)
+    if weibo_summary is not None:
+        build_weibo(root, weibo_summary, gallery)
     payload = {"observations": rows, "sources": sources, "coverage": matrix,
                "geographies": GEOGRAPHIES, "measures": MEASURES,
                "source_names": SOURCE_NAMES, "charts": charts, "chart_themes": CHART_THEMES,
@@ -504,6 +578,7 @@ Four separate geographies. Both directions. History since {START_YEAR}; change s
 <p class="scope">History from {START_YEAR} where available \u00b7 Latest verified period varies by series \u00b7 Nominal USD for trade</p></header>
 <main id="main">
 <p><a href="comparisons.html">Compare mainland China, Hong Kong and Macau on the same charts</a></p>
+{"<p><a href='weibo.html'>Weibo account evidence and recovered-corpus graphs</a> — separate research coverage, not an exchange-flow measure.</p>" if weibo_summary is not None else ""}
 <form class="controls" aria-label="Explore bilateral series" onsubmit="return false">
 <label for="geography">Geography<select id="geography">{options}</select></label>
 <label for="direction">Direction<select id="direction">{direction_options}</select></label>

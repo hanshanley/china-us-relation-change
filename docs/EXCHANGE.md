@@ -120,6 +120,43 @@ directory. The offline catalog includes both views. Macau goods retain their
 different customs accounting and a dashed line, with an explicit caveat against
 treating them as identical to the other geographies' BEA accounting.
 
+### Weibo research graphs
+
+`site/weibo.html` adds a separate initial set of Weibo analysis figures:
+confirmed-account identity evidence, recovered-corpus coverage, recovered posts
+by publication year, and text completeness. They use the same house typography
+and both publication backgrounds, under `outputs/figures/weibo/<background>/`
+and `site/figures/weibo/<background>/`. The figure catalog links all of them.
+
+These are **research coverage statistics**, not a census, posting-activity trend,
+audience/popularity ranking or causal explanation for exchange flows.
+Current identity evidence does not establish current activity. No recovered
+posts does not mean an account posted nothing. `source_full` means the entire
+accessible source body, not an independently verified complete original.
+Missing publication years remain unobserved, not zero-activity years.
+
+To refresh after local Weibo collection and registry loading:
+
+```sh
+.venv/bin/python scripts/build_weibo_summary.py --db data/local/weibo.sqlite
+```
+
+The command reads the database in a read-only transaction, checks registry
+alignment, excludes unconfirmed accounts and publications on/after historical
+attribution cutoffs, and freezes `data/site/weibo_summary.json`. Publication
+years use Asia/Shanghai, not UTC. Raw post text is never queried or published.
+The committed snapshot contains complete per-account, year and completeness
+aggregates, source hashes, latest collection time, exclusion counts and
+requested windows; the site supplies JSON and CSV downloads of those aggregates.
+The raw private corpus retains its separate rights and redistribution limits.
+
+The ordinary offline site build reproduces Weibo figures from that frozen
+snapshot without requiring the database. Daily exchange refreshes **do not**
+collect Weibo or silently advance its snapshot date. Refresh and commit the
+aggregate input explicitly after new research; the workflow also checks pushes
+to this input and its builder. Existing Weibo collection/analysis code and the
+private database are not modified by the chart integration.
+
 ## Definitions and comparisons
 
 - History starts in 2000 **where verified**. The publication does not pretend

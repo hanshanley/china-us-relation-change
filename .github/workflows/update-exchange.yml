@@ -11,6 +11,8 @@ on:
       - "scripts/*exchange*"
       - "scripts/update.py"
       - "scripts/build_site.py"
+      - "scripts/build_weibo_summary.py"
+      - "data/site/weibo_summary.json"
       - "tests/test_exchange*"
       - "tests/fixtures/exchange*"
       - "requirements-exchange*"

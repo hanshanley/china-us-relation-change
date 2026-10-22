@@ -157,9 +157,9 @@ def test_figure_background_variants_preserve_data_and_foreground(tmp_path):
     build(tmp_path)
     figures = tmp_path / "outputs/figures"
     assert {p.name for p in figures.iterdir() if p.is_dir()} == {
-        "students", "visitors", "goods_trade", "services_trade"}
+        "students", "visitors", "goods_trade", "services_trade", "weibo"}
     assert not list(figures.glob("*.svg"))
-    originals = list(figures.glob("*/themarginoferror/*.svg"))
+    originals = list(figures.glob("*/themarginoferror/*-USA-*.svg"))
     assert len(originals) == 38
     for original in originals:
         doc = ElementTree.fromstring(original.read_text())

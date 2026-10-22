@@ -129,12 +129,14 @@ def check():
         assert not page.evaluate("document.documentElement.scrollWidth > innerWidth")
         page.goto((ROOT / "site/index.html").as_uri())
         page.evaluate("document.fonts.ready")
-        for path in sorted((ROOT / "site/figures").glob("*/comparisons/*/*.svg")):
+        publication_svgs = list((ROOT / "site/figures").glob("*/comparisons/*/*.svg"))
+        publication_svgs += list((ROOT / "site/figures/weibo").glob("*/*.svg"))
+        for path in sorted(publication_svgs):
             page.locator("#chart").evaluate("(node, svg) => node.innerHTML = svg", path.read_text())
             assert page.locator("#chart svg text").evaluate_all("""nodes => nodes.every(node => {
               const box = node.getBBox(), bounds = node.ownerSVGElement.viewBox.baseVal;
               return box.x >= 0 && box.y >= 0 && box.x + box.width <= bounds.width && box.y + box.height <= bounds.height;
-            })"""), (str(path), "clipped comparison text")
+            })"""), (str(path), "clipped publication text")
         page.goto((ROOT / "site/comparisons.html").as_uri())
         assert page.locator(".series-panel").count() == 16
         images = page.locator('img[src$="-levels.png"]')
@@ -144,6 +146,16 @@ def check():
             expect(image).to_have_js_property("naturalWidth", PNG_WIDTH)
             expect(image).to_have_js_property("naturalHeight", PNG_HEIGHT)
         assert not page.evaluate("document.documentElement.scrollWidth > innerWidth")
+        if (ROOT / "site/weibo.html").exists():
+            page.goto((ROOT / "site/weibo.html").as_uri())
+            images = page.locator("img")
+            summary = json.loads((ROOT / "data/site/weibo_summary.json").read_text())
+            assert images.count() == (4 if summary["yearly"] else 3)
+            for image in images.all():
+                image.scroll_into_view_if_needed()
+                expect(image).to_have_js_property("naturalWidth", PNG_WIDTH)
+                expect(image).to_have_js_property("naturalHeight", PNG_HEIGHT)
+            assert not page.evaluate("document.documentElement.scrollWidth > innerWidth")
         assert not errors, errors
         browser.close()
     print("Browser acceptance passed: all 64 combinations, exact changes, YTD, keyboard, mobile, no JavaScript.")
