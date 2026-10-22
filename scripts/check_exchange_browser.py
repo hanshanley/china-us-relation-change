@@ -132,19 +132,20 @@ def check():
         publication_svgs = list((ROOT / "site/figures").glob("*/comparisons/*/*.svg"))
         publication_svgs += list((ROOT / "site/figures/weibo").glob("*/*.svg"))
         publication_svgs += list((ROOT / "site/figures/language_learning").glob("*/*.svg"))
+        publication_svgs += list((ROOT / "site/figures/business_presence").glob("*/*.svg"))
         for path in sorted(publication_svgs):
             page.locator("#chart").evaluate("(node, svg) => node.innerHTML = svg", path.read_text())
             assert page.locator("#chart svg text").evaluate_all("""nodes => nodes.every(node => {
               const box = node.getBBox(), bounds = node.ownerSVGElement.viewBox.baseVal;
               return box.x >= 0 && box.y >= 0 && box.x + box.width <= bounds.width && box.y + box.height <= bounds.height;
             })"""), (str(path), "clipped publication text")
-            if path.parent.parent.name == "language_learning":
+            if path.parent.parent.name in {"language_learning", "business_presence"}:
                 assert page.locator("#chart .legend-label,#chart .year-tick").evaluate_all("""nodes =>
                   nodes.every((node, i) => nodes.slice(i + 1).every(other => {
                     const a = node.getBBox(), b = other.getBBox();
                     return a.x + a.width + 8 <= b.x || b.x + b.width + 8 <= a.x ||
                            a.y + a.height <= b.y || b.y + b.height <= a.y;
-                  }))"""), (str(path), "overlapping language legend or year labels")
+                  }))"""), (str(path), "overlapping indicator legend or year labels")
         page.goto((ROOT / "site/comparisons.html").as_uri())
         assert page.locator(".series-panel").count() == 16
         images = page.locator('img[src$="-levels.png"]')
@@ -159,6 +160,16 @@ def check():
             expect(page.locator("header")).to_contain_text("global, not U.S.-only")
             images = page.locator("img")
             assert images.count() >= 7
+            for image in images.all():
+                image.scroll_into_view_if_needed()
+                expect(image).to_have_js_property("naturalWidth", PNG_WIDTH)
+                expect(image).to_have_js_property("naturalHeight", PNG_HEIGHT)
+            assert not page.evaluate("document.documentElement.scrollWidth > innerWidth")
+        if (ROOT / "site/business-presence.html").exists():
+            page.goto((ROOT / "site/business-presence.html").as_uri())
+            expect(page.locator("header")).to_contain_text("different counting units")
+            images = page.locator("img")
+            assert images.count() == 5
             for image in images.all():
                 image.scroll_into_view_if_needed()
                 expect(image).to_have_js_property("naturalWidth", PNG_WIDTH)

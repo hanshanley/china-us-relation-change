@@ -12,6 +12,7 @@ from pathlib import Path
 import resvg_py
 
 from .model import START_YEAR, GEOGRAPHIES, MEASURES, change, coverage, gap_reason, json_text, validate
+from .business_analysis import CHARTS as BUSINESS_CHARTS, build_business, validate_business_data
 from .language_analysis import CHARTS as LANGUAGE_CHARTS, chart_points, svg_language_chart, validate_language_data
 from .pipeline import load, write_atomic
 from .sources import SOURCE_POLICIES
@@ -591,6 +592,9 @@ def build(root):
     language_data = load(root / "data/site/language_learning.json", None)
     if language_data is not None:
         validate_language_data(language_data)
+    business_data = load(root / "data/site/business_presence.json", None)
+    if business_data is not None:
+        validate_business_data(business_data)
     matrix = coverage(rows)
     groups = defaultdict(list)
     for row in rows:
@@ -731,6 +735,16 @@ def build(root):
             path = site / relative
             if path.is_file():
                 path.unlink()
+    business_count = build_business(root, business_data, gallery) if business_data is not None else 0
+    if business_data is None:
+        for chart_id in BUSINESS_CHARTS:
+            for theme in CHART_THEMES:
+                remove_figure(root, Path("business_presence") / theme / chart_id)
+        for relative in ["business-presence.html", "downloads/business-presence.json",
+                         "downloads/business-observations.csv", "downloads/business-chart-values.csv"]:
+            path = site / relative
+            if path.is_file():
+                path.unlink()
     payload = {"observations": rows, "sources": sources, "coverage": matrix,
                "geographies": GEOGRAPHIES, "measures": MEASURES,
                "source_policies": SOURCE_POLICIES,
@@ -820,6 +834,7 @@ Four separate geographies. Both directions. History since {START_YEAR}; change s
 <main id="main">
 <p><a href="comparisons.html">Compare mainland China, Hong Kong and Macau on the same charts</a></p>
 {"<p><a href='language-learning.html'>Chinese-language learning: college, AP, school programs and degree awards</a> — separate educational indicators, not bilateral flows.</p>" if language_data is not None else ""}
+{"<p><a href='business-presence.html'>Business presence: U.S. companies and affiliates in China and Europe, plus EU-controlled enterprises in China</a>.</p>" if business_data is not None else ""}
 {"<p><a href='weibo.html'>Weibo account evidence and recovered-corpus graphs</a> — separate research coverage, not an exchange-flow measure.</p>" if weibo_summary is not None else ""}
 <form class="controls" aria-label="Explore bilateral series" onsubmit="return false">
 <label for="geography">Geography<select id="geography">{options}</select></label>
@@ -871,4 +886,4 @@ Four separate geographies. Both directions. History since {START_YEAR}; change s
 """
     write_atomic(site / "index.html", document)
     return {"observations": len(rows), "series": len(groups), "coverage_cells": len(matrix),
-            "comparisons": comparison_count, "language_charts": language_count}
+            "comparisons": comparison_count, "language_charts": language_count, "business_charts": business_count}

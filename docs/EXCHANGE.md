@@ -253,6 +253,60 @@ source PDFs, workbooks, report artwork or exam questions. MLA ordinary-use
 restrictions and unverified commercial reuse permission remain disclosed in
 source notes and figure footnotes; publication backgrounds do not grant rights.
 
+### Business presence
+
+Open `site/business-presence.html`. This section covers both U.S. businesses in
+China versus Europe and EU-controlled enterprises in China, but does not mix
+their counting units or imply matched coverage.
+
+| Measure | Verified history and definition |
+|---|---|
+| Distinct U.S. parent companies by host market | BEA benchmark observations in 2004, 2009, 2014 and 2019. A parent appears once per host market but may appear in both China and Europe; do not add the two counts. The foreign-affiliate definition starts at 10% ownership, not necessarily majority control. Reporting exclusions apply. These are not an annual company census or uniquely American ultimate owners. |
+| Majority-owned U.S.-parent affiliates | Annual fiscal years ending 2000-2023 for mainland China and BEA-defined Europe. Count affiliate entities, including holding companies, not distinct parents, branch offices, openings or closures. Before 2009, nonbank coverage applies. |
+| EU-controlled enterprises in China | Eurostat outward FATS, fixed `EU27_2020` membership, excluding the UK; NACE B-S except O, market producers. Observed counts from 2014-2022, with 2021 estimated. Preserve every returned year: 2010-2012 unavailable; 2013 and 2023 confidential. These are not unique European parents or all Europe. |
+
+The U.S. affiliate reporting cutoff changes from $7 million through 2003 to
+$10 million in 2004-2008 and $25 million from 2009, based on assets, sales or
+net income/loss. These are nominal, not inflation-adjusted, cutoffs.
+Benchmark remeasurement and coverage can create level changes; chart lines
+break in 2004, 2009, 2014 and 2019. Parent benchmark observations are isolated.
+The indexed U.S. comparison uses each market's own 2020 baseline and only
+the matching 2019-onward regime. Its clearly labelled index axis is non-zero.
+No incompatible full-history percentage is calculated.
+
+BEA Europe includes the UK, Switzerland, Russia and other non-EU countries;
+it is not EU27. Eurostat uses ultimate EU27 control, a different statistical
+unit/sector universe and no matched BEA size cutoff. Its 2021 EBS methodology
+boundary is disconnected. U.S./EU levels are in separate panels, not treated
+as a comparable ranking or ratio. Missing/confidential values never become
+zero, and confidential totals are not reconstructed from member-country data.
+
+As verified October 22, 2026, the latest BEA activity release covers 2023
+(preliminary); the 2024 release is scheduled for November 20, 2026. The source
+release and definitions are retained in the manifest. Later years are not
+invented or inferred from investment-position data.
+
+The frozen input is `data/site/business_presence.json`; the page exports the
+complete JSON, every source observation in `business-observations.csv`, and
+every raw/derived chart point in `business-chart-values.csv`. All five chart
+families have 3000-by-1800 PNGs and SVGs under
+`outputs/figures/business_presence/<background>/` and the mirrored site tree.
+China remains deep red and Europe blue across these charts.
+
+```sh
+.venv/bin/python scripts/build_business_data.py --data-only
+.venv/bin/python scripts/build_site.py
+PYTHONPATH=src .venv/bin/python -m pytest tests/test_exchange_business.py -q
+```
+
+The collection command is explicit and manual; `--refresh` re-fetches its
+reviewed public assets rather than using checksummed local files. It writes
+the frozen candidate only after all sources and validation succeed.
+Daily exchange jobs only rebuild these indicators offline; they do not fetch
+new business data. The shared indicator SVG renderer preserves the existing
+language figures byte-for-byte. Removing a frozen input withdraws its known
+page, downloads and charts, never user-owned figures.
+
 ## Definitions and comparisons
 
 - History starts in 2000 **where verified**. The publication does not pretend

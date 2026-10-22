@@ -19,6 +19,12 @@ awards. These are separate educational indicators, not a combined learner total.
 AP global administration counts and historical U.S. public-school graduating
 cohorts are explicitly separate. See [definitions and manual refresh](docs/EXCHANGE.md#chinese-language-learning).
 
+The [business-presence section](site/business-presence.html) separates distinct
+U.S. parent companies in China/Europe from annual foreign-affiliate counts and
+EU-controlled enterprises in China. It includes history from 2000 where
+verified, explicit survey/threshold breaks, complete downloads and both chart
+backgrounds. See [business definitions and refresh](docs/EXCHANGE.md#business-presence).
+
 An evidence-backed account inventory and small, resumable post-recovery CLI.
 The scope includes U.S. news brands, their explicitly labeled Chinese editions,
 and U.S.-based Chinese-language outlets. It is **not an exhaustive census**.

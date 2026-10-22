@@ -59,6 +59,26 @@ Retrieval is an explicit reviewed-source command, not scheduled scraping.
 and unverified commercial reuse remain disclosed. No raw source reports,
 institution-level workbook, report artwork or exam questions are redistributed.
 
+## Business-presence sources
+
+`data/site/business_presence.json` retains all 70 observations, including
+explicit confidential/unavailable cells, series definitions, source URLs,
+selected table members, retrieval timestamps and SHA-256 checksums.
+
+| Primary source | Contract |
+|---|---|
+| [BEA majority-owned affiliate history](https://www.bea.gov/sites/default/files/2025-08/selected-mofas-cntry.xls) | Country sheets 2009-2023, first numeric column: affiliate counts above $25m assets, sales or net income/loss, not employees, dollars or unique parents. Use China and Europe directly; never sum individual country parent counts into a region. 2023 is preliminary. |
+| [BEA data archive](https://www.bea.gov/international/di1usdop/archives) | Retained revised 2000-2008 ZIPs: Table III.A1, including split `Tab3A1a/b/c` and the 2007 `_new` filename. Nonbank coverage and historical reporting exclusions; $7m through 2003, $10m for 2004-2008. The 2004 benchmark's original methodology confirms those thresholds. |
+| [BEA 2004 benchmark](https://apps.bea.gov/international/zip/usdia2004revised.zip), [2009 parent tables](https://apps.bea.gov/international/xls/usdia_2009r/Part%20I%20K1-K2.xls), [2014 parent tables](https://apps.bea.gov/international/xls/usdia2014r/PartI-K1-K2.xls), [2019 parent tables](https://apps.bea.gov/international/xls/usdia2019r/PartI-K1-K2.xls) | Table I.M2 in 2004 and I.K2 subsequently: **Number of U.S. parents**, country by affiliate industry, All industries. Unique within each host region, not across regions. Reporting/coverage changes and minority-owned affiliates prevent substitution with majority-owned entity counts. Annual 2018, 2022 and 2023 parent-table inventories do not supply this country table. |
+| [BEA definitions](https://www.bea.gov/international/usdia2023p-info), [geography](https://apps.bea.gov/international/bp_web/geographic_area_definitions.pdf), [2023 release](https://www.bea.gov/news/2025/activities-us-multinational-enterprises-2023) | U.S.-resident parents, not necessarily ultimately U.S.-owned; majority-owned foreign affiliates exceed 50% combined U.S.-parent ownership. Europe is BEA's broad region, not EU27. The release confirms the 2024 activity data are scheduled for November 2026, not yet observed on October 22. |
+| [Eurostat historical API](https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out2_r2?lang=EN&geo=EU27_2020&partner=CN_X_HK&indic_bp=ENT&nace_r2=B-S_X_O) | `A`, `EU27_2020`, `CN_X_HK`, `B-S_X_O`, `ENT`; 2010-2020. Validate the returned dimensions, not just the requested URL. Keep fixed EU27 membership; do not replace missing EU27 values with EU28 or sums of confidential country cells. |
+| [Eurostat current API](https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out_part?lang=EN&geo=EU27_2020&partner=CN_X_HK&indic_sbs=ENT_NR&nace_r2=B-S_X_O), [methodology](https://ec.europa.eu/eurostat/cache/metadata/en/fats_out_sims.htm) | Same geographic/sector selection; `ENT_NR`, from 2021. `e` stays estimated; `|C` stays null/suppressed, even if the API supplied a zero placeholder. Preserve source flags, break on `b`/`d` and the 2021 EBS boundary, and fail on unknown flags. Not a matched U.S./EU count of all companies. |
+
+Raw source archives, workbooks, publication text and artwork remain local.
+Only numerical aggregates, original definitions and our figures are published.
+All indicators are business-presence stocks, not border crossings, investment
+flows or a composite measure of U.S.-China contact.
+
 ## Interpretation
 
 Students are stocks or academic-year participation, not departures. UIS degree

@@ -1,0 +1,1184 @@
+{
+  "context": {
+    "geography": "China excludes Hong Kong; Macau is separately identified by the sources. BEA Europe is broader than EU27 and includes the UK, Switzerland, Russia and other non-EU countries. Eurostat uses fixed EU27_2020 membership, excluding the UK.",
+    "interpretation": "Company counts, affiliate entities and branch locations are distinct. U.S. parents and ultimately EU-controlled enterprises are not matched ownership populations; BEA and Eurostat levels must not be used to rank otherwise comparable business presence.",
+    "question": "How has the business presence linking the United States, China and Europe changed?",
+    "release_timing": "As checked October 22, 2026, BEA's latest activity release covers 2023. The published schedule puts the 2024 activity release on November 20, 2026; no 2024 value is inferred.",
+    "rights": "Publish aggregate statistics and original charts only; raw workbooks and reports remain local. Sources and retrieval checksums accompany every observation."
+  },
+  "coverage": [
+    {
+      "description": "Verified 2004, 2009, 2014 and 2019 host-country parent counts. No annual company census verified; do not fill later years with affiliate counts.",
+      "id": "unique_us_parents",
+      "status": "benchmarks_only"
+    },
+    {
+      "description": "2000-2023 for mainland China and BEA-defined Europe. Nonbank/reporting thresholds and benchmark coverage create explicit breaks.",
+      "id": "us_affiliates",
+      "status": "available"
+    },
+    {
+      "description": "Fixed EU27, not all Europe; available years: 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022; confidential: 2013, 2023; unavailable: 2010, 2011, 2012. Confidential and unavailable cells remain null. The 2021 methodology boundary is disconnected.",
+      "id": "eu_affiliates",
+      "status": "partial"
+    }
+  ],
+  "observations": [
+    {
+      "comparability": "bea_affiliates:1999",
+      "notes": "Nonbank affiliate count; 1999 benchmark reporting regime.",
+      "series_id": "bea_affiliates:china",
+      "source_id": "bea_affiliates_2000",
+      "status": "observed",
+      "value": 458,
+      "year": 2000
+    },
+    {
+      "comparability": "bea_affiliates:1999",
+      "notes": "Nonbank affiliate count; 1999 benchmark reporting regime.",
+      "series_id": "bea_affiliates:china",
+      "source_id": "bea_affiliates_2001",
+      "status": "observed",
+      "value": 492,
+      "year": 2001
+    },
+    {
+      "comparability": "bea_affiliates:1999",
+      "notes": "Nonbank affiliate count; 1999 benchmark reporting regime.",
+      "series_id": "bea_affiliates:china",
+      "source_id": "bea_affiliates_2002",
+      "status": "observed",
+      "value": 509,
+      "year": 2002
+    },
+    {
+      "comparability": "bea_affiliates:1999",
+      "notes": "Nonbank affiliate count; 1999 benchmark reporting regime.",
+      "series_id": "bea_affiliates:china",
+      "source_id": "bea_affiliates_2003",
+      "status": "observed",
+      "value": 510,
+      "year": 2003
+    },
+    {
+      "comparability": "bea_affiliates:2004",
+      "notes": "Nonbank affiliate count; 2004 benchmark reporting regime.",
+      "series_id": "bea_affiliates:china",
+      "source_id": "bea_affiliates_2004",
+      "status": "observed",
+      "value": 652,
+      "year": 2004
+    },
+    {
+      "comparability": "bea_affiliates:2004",
+      "notes": "Nonbank affiliate count; 2004 benchmark reporting regime.",
+      "series_id": "bea_affiliates:china",
+      "source_id": "bea_affiliates_2005",
+      "status": "observed",
+      "value": 692,
+      "year": 2005
+    },
+    {
+      "comparability": "bea_affiliates:2004",
+      "notes": "Nonbank affiliate count; 2004 benchmark reporting regime.",
+      "series_id": "bea_affiliates:china",
+      "source_id": "bea_affiliates_2006",
+      "status": "observed",
+      "value": 762,
+      "year": 2006
+    },
+    {
+      "comparability": "bea_affiliates:2004",
+      "notes": "Nonbank affiliate count; 2004 benchmark reporting regime.",
+      "series_id": "bea_affiliates:china",
+      "source_id": "bea_affiliates_2007",
+      "status": "observed",
+      "value": 832,
+      "year": 2007
+    },
+    {
+      "comparability": "bea_affiliates:2004",
+      "notes": "Nonbank affiliate count; 2004 benchmark reporting regime.",
+      "series_id": "bea_affiliates:china",
+      "source_id": "bea_affiliates_2008",
+      "status": "observed",
+      "value": 845,
+      "year": 2008
+    },
+    {
+      "comparability": "bea_affiliates:2009",
+      "notes": "All-industry majority-owned affiliate count above $25m; revised source year.",
+      "series_id": "bea_affiliates:china",
+      "source_id": "bea_affiliates_2009",
+      "status": "observed",
+      "value": 1016,
+      "year": 2009
+    },
+    {
+      "comparability": "bea_affiliates:2009",
+      "notes": "All-industry majority-owned affiliate count above $25m; revised source year.",
+      "series_id": "bea_affiliates:china",
+      "source_id": "bea_affiliates_2010",
+      "status": "observed",
+      "value": 1052,
+      "year": 2010
+    },
+    {
+      "comparability": "bea_affiliates:2009",
+      "notes": "All-industry majority-owned affiliate count above $25m; revised source year.",
+      "series_id": "bea_affiliates:china",
+      "source_id": "bea_affiliates_2011",
+      "status": "observed",
+      "value": 1091,
+      "year": 2011
+    },
+    {
+      "comparability": "bea_affiliates:2009",
+      "notes": "All-industry majority-owned affiliate count above $25m; revised source year.",
+      "series_id": "bea_affiliates:china",
+      "source_id": "bea_affiliates_2012",
+      "status": "observed",
+      "value": 1124,
+      "year": 2012
+    },
+    {
+      "comparability": "bea_affiliates:2009",
+      "notes": "All-industry majority-owned affiliate count above $25m; revised source year.",
+      "series_id": "bea_affiliates:china",
+      "source_id": "bea_affiliates_2013",
+      "status": "observed",
+      "value": 1161,
+      "year": 2013
+    },
+    {
+      "comparability": "bea_affiliates:2014",
+      "notes": "All-industry majority-owned affiliate count above $25m; revised source year.",
+      "series_id": "bea_affiliates:china",
+      "source_id": "bea_affiliates_2014",
+      "status": "observed",
+      "value": 1561,
+      "year": 2014
+    },
+    {
+      "comparability": "bea_affiliates:2014",
+      "notes": "All-industry majority-owned affiliate count above $25m; revised source year.",
+      "series_id": "bea_affiliates:china",
+      "source_id": "bea_affiliates_2015",
+      "status": "observed",
+      "value": 1610,
+      "year": 2015
+    },
+    {
+      "comparability": "bea_affiliates:2014",
+      "notes": "All-industry majority-owned affiliate count above $25m; revised source year.",
+      "series_id": "bea_affiliates:china",
+      "source_id": "bea_affiliates_2016",
+      "status": "observed",
+      "value": 1665,
+      "year": 2016
+    },
+    {
+      "comparability": "bea_affiliates:2014",
+      "notes": "All-industry majority-owned affiliate count above $25m; revised source year.",
+      "series_id": "bea_affiliates:china",
+      "source_id": "bea_affiliates_2017",
+      "status": "observed",
+      "value": 1720,
+      "year": 2017
+    },
+    {
+      "comparability": "bea_affiliates:2014",
+      "notes": "All-industry majority-owned affiliate count above $25m; revised source year.",
+      "series_id": "bea_affiliates:china",
+      "source_id": "bea_affiliates_2018",
+      "status": "observed",
+      "value": 1737,
+      "year": 2018
+    },
+    {
+      "comparability": "bea_affiliates:2019",
+      "notes": "All-industry majority-owned affiliate count above $25m; revised source year.",
+      "series_id": "bea_affiliates:china",
+      "source_id": "bea_affiliates_2019",
+      "status": "observed",
+      "value": 1939,
+      "year": 2019
+    },
+    {
+      "comparability": "bea_affiliates:2019",
+      "notes": "All-industry majority-owned affiliate count above $25m; revised source year.",
+      "series_id": "bea_affiliates:china",
+      "source_id": "bea_affiliates_2020",
+      "status": "observed",
+      "value": 1917,
+      "year": 2020
+    },
+    {
+      "comparability": "bea_affiliates:2019",
+      "notes": "All-industry majority-owned affiliate count above $25m; revised source year.",
+      "series_id": "bea_affiliates:china",
+      "source_id": "bea_affiliates_2021",
+      "status": "observed",
+      "value": 1942,
+      "year": 2021
+    },
+    {
+      "comparability": "bea_affiliates:2019",
+      "notes": "All-industry majority-owned affiliate count above $25m; revised source year.",
+      "series_id": "bea_affiliates:china",
+      "source_id": "bea_affiliates_2022",
+      "status": "observed",
+      "value": 1934,
+      "year": 2022
+    },
+    {
+      "comparability": "bea_affiliates:2019",
+      "notes": "All-industry majority-owned affiliate count above $25m; preliminary source year.",
+      "series_id": "bea_affiliates:china",
+      "source_id": "bea_affiliates_2023",
+      "status": "provisional",
+      "value": 1950,
+      "year": 2023
+    },
+    {
+      "comparability": "bea_affiliates:1999",
+      "notes": "Nonbank affiliate count; 1999 benchmark reporting regime.",
+      "series_id": "bea_affiliates:europe",
+      "source_id": "bea_affiliates_2000",
+      "status": "observed",
+      "value": 10893,
+      "year": 2000
+    },
+    {
+      "comparability": "bea_affiliates:1999",
+      "notes": "Nonbank affiliate count; 1999 benchmark reporting regime.",
+      "series_id": "bea_affiliates:europe",
+      "source_id": "bea_affiliates_2001",
+      "status": "observed",
+      "value": 11224,
+      "year": 2001
+    },
+    {
+      "comparability": "bea_affiliates:1999",
+      "notes": "Nonbank affiliate count; 1999 benchmark reporting regime.",
+      "series_id": "bea_affiliates:europe",
+      "source_id": "bea_affiliates_2002",
+      "status": "observed",
+      "value": 11612,
+      "year": 2002
+    },
+    {
+      "comparability": "bea_affiliates:1999",
+      "notes": "Nonbank affiliate count; 1999 benchmark reporting regime.",
+      "series_id": "bea_affiliates:europe",
+      "source_id": "bea_affiliates_2003",
+      "status": "observed",
+      "value": 11380,
+      "year": 2003
+    },
+    {
+      "comparability": "bea_affiliates:2004",
+      "notes": "Nonbank affiliate count; 2004 benchmark reporting regime.",
+      "series_id": "bea_affiliates:europe",
+      "source_id": "bea_affiliates_2004",
+      "status": "observed",
+      "value": 12045,
+      "year": 2004
+    },
+    {
+      "comparability": "bea_affiliates:2004",
+      "notes": "Nonbank affiliate count; 2004 benchmark reporting regime.",
+      "series_id": "bea_affiliates:europe",
+      "source_id": "bea_affiliates_2005",
+      "status": "observed",
+      "value": 12296,
+      "year": 2005
+    },
+    {
+      "comparability": "bea_affiliates:2004",
+      "notes": "Nonbank affiliate count; 2004 benchmark reporting regime.",
+      "series_id": "bea_affiliates:europe",
+      "source_id": "bea_affiliates_2006",
+      "status": "observed",
+      "value": 12881,
+      "year": 2006
+    },
+    {
+      "comparability": "bea_affiliates:2004",
+      "notes": "Nonbank affiliate count; 2004 benchmark reporting regime.",
+      "series_id": "bea_affiliates:europe",
+      "source_id": "bea_affiliates_2007",
+      "status": "observed",
+      "value": 13220,
+      "year": 2007
+    },
+    {
+      "comparability": "bea_affiliates:2004",
+      "notes": "Nonbank affiliate count; 2004 benchmark reporting regime.",
+      "series_id": "bea_affiliates:europe",
+      "source_id": "bea_affiliates_2008",
+      "status": "observed",
+      "value": 13057,
+      "year": 2008
+    },
+    {
+      "comparability": "bea_affiliates:2009",
+      "notes": "All-industry majority-owned affiliate count above $25m; revised source year.",
+      "series_id": "bea_affiliates:europe",
+      "source_id": "bea_affiliates_2009",
+      "status": "observed",
+      "value": 13080,
+      "year": 2009
+    },
+    {
+      "comparability": "bea_affiliates:2009",
+      "notes": "All-industry majority-owned affiliate count above $25m; revised source year.",
+      "series_id": "bea_affiliates:europe",
+      "source_id": "bea_affiliates_2010",
+      "status": "observed",
+      "value": 13148,
+      "year": 2010
+    },
+    {
+      "comparability": "bea_affiliates:2009",
+      "notes": "All-industry majority-owned affiliate count above $25m; revised source year.",
+      "series_id": "bea_affiliates:europe",
+      "source_id": "bea_affiliates_2011",
+      "status": "observed",
+      "value": 13431,
+      "year": 2011
+    },
+    {
+      "comparability": "bea_affiliates:2009",
+      "notes": "All-industry majority-owned affiliate count above $25m; revised source year.",
+      "series_id": "bea_affiliates:europe",
+      "source_id": "bea_affiliates_2012",
+      "status": "observed",
+      "value": 13827,
+      "year": 2012
+    },
+    {
+      "comparability": "bea_affiliates:2009",
+      "notes": "All-industry majority-owned affiliate count above $25m; revised source year.",
+      "series_id": "bea_affiliates:europe",
+      "source_id": "bea_affiliates_2013",
+      "status": "observed",
+      "value": 13976,
+      "year": 2013
+    },
+    {
+      "comparability": "bea_affiliates:2014",
+      "notes": "All-industry majority-owned affiliate count above $25m; revised source year.",
+      "series_id": "bea_affiliates:europe",
+      "source_id": "bea_affiliates_2014",
+      "status": "observed",
+      "value": 17157,
+      "year": 2014
+    },
+    {
+      "comparability": "bea_affiliates:2014",
+      "notes": "All-industry majority-owned affiliate count above $25m; revised source year.",
+      "series_id": "bea_affiliates:europe",
+      "source_id": "bea_affiliates_2015",
+      "status": "observed",
+      "value": 17426,
+      "year": 2015
+    },
+    {
+      "comparability": "bea_affiliates:2014",
+      "notes": "All-industry majority-owned affiliate count above $25m; revised source year.",
+      "series_id": "bea_affiliates:europe",
+      "source_id": "bea_affiliates_2016",
+      "status": "observed",
+      "value": 17558,
+      "year": 2016
+    },
+    {
+      "comparability": "bea_affiliates:2014",
+      "notes": "All-industry majority-owned affiliate count above $25m; revised source year.",
+      "series_id": "bea_affiliates:europe",
+      "source_id": "bea_affiliates_2017",
+      "status": "observed",
+      "value": 17734,
+      "year": 2017
+    },
+    {
+      "comparability": "bea_affiliates:2014",
+      "notes": "All-industry majority-owned affiliate count above $25m; revised source year.",
+      "series_id": "bea_affiliates:europe",
+      "source_id": "bea_affiliates_2018",
+      "status": "observed",
+      "value": 17823,
+      "year": 2018
+    },
+    {
+      "comparability": "bea_affiliates:2019",
+      "notes": "All-industry majority-owned affiliate count above $25m; revised source year.",
+      "series_id": "bea_affiliates:europe",
+      "source_id": "bea_affiliates_2019",
+      "status": "observed",
+      "value": 18994,
+      "year": 2019
+    },
+    {
+      "comparability": "bea_affiliates:2019",
+      "notes": "All-industry majority-owned affiliate count above $25m; revised source year.",
+      "series_id": "bea_affiliates:europe",
+      "source_id": "bea_affiliates_2020",
+      "status": "observed",
+      "value": 18744,
+      "year": 2020
+    },
+    {
+      "comparability": "bea_affiliates:2019",
+      "notes": "All-industry majority-owned affiliate count above $25m; revised source year.",
+      "series_id": "bea_affiliates:europe",
+      "source_id": "bea_affiliates_2021",
+      "status": "observed",
+      "value": 18464,
+      "year": 2021
+    },
+    {
+      "comparability": "bea_affiliates:2019",
+      "notes": "All-industry majority-owned affiliate count above $25m; revised source year.",
+      "series_id": "bea_affiliates:europe",
+      "source_id": "bea_affiliates_2022",
+      "status": "observed",
+      "value": 17990,
+      "year": 2022
+    },
+    {
+      "comparability": "bea_affiliates:2019",
+      "notes": "All-industry majority-owned affiliate count above $25m; preliminary source year.",
+      "series_id": "bea_affiliates:europe",
+      "source_id": "bea_affiliates_2023",
+      "status": "provisional",
+      "value": 17956,
+      "year": 2023
+    },
+    {
+      "comparability": "bea_parents:2004",
+      "notes": "",
+      "series_id": "bea_parents:china",
+      "source_id": "bea_parents_2004",
+      "status": "observed",
+      "value": 581,
+      "year": 2004
+    },
+    {
+      "comparability": "bea_parents:2009",
+      "notes": "",
+      "series_id": "bea_parents:china",
+      "source_id": "bea_parents_2009",
+      "status": "observed",
+      "value": 841,
+      "year": 2009
+    },
+    {
+      "comparability": "bea_parents:2014",
+      "notes": "",
+      "series_id": "bea_parents:china",
+      "source_id": "bea_parents_2014",
+      "status": "observed",
+      "value": 1244,
+      "year": 2014
+    },
+    {
+      "comparability": "bea_parents:2019",
+      "notes": "",
+      "series_id": "bea_parents:china",
+      "source_id": "bea_parents_2019",
+      "status": "observed",
+      "value": 1134,
+      "year": 2019
+    },
+    {
+      "comparability": "bea_parents:2004",
+      "notes": "",
+      "series_id": "bea_parents:europe",
+      "source_id": "bea_parents_2004",
+      "status": "observed",
+      "value": 1833,
+      "year": 2004
+    },
+    {
+      "comparability": "bea_parents:2009",
+      "notes": "",
+      "series_id": "bea_parents:europe",
+      "source_id": "bea_parents_2009",
+      "status": "observed",
+      "value": 1771,
+      "year": 2009
+    },
+    {
+      "comparability": "bea_parents:2014",
+      "notes": "",
+      "series_id": "bea_parents:europe",
+      "source_id": "bea_parents_2014",
+      "status": "observed",
+      "value": 2824,
+      "year": 2014
+    },
+    {
+      "comparability": "bea_parents:2019",
+      "notes": "",
+      "series_id": "bea_parents:europe",
+      "source_id": "bea_parents_2019",
+      "status": "observed",
+      "value": 2701,
+      "year": 2019
+    },
+    {
+      "comparability": "fats_out2_r2:EU27_2020:0",
+      "notes": "Eurostat source flags: none",
+      "series_id": "eurostat_affiliates:china",
+      "source_id": "fats_out2_r2",
+      "status": "missing",
+      "value": null,
+      "year": 2010
+    },
+    {
+      "comparability": "fats_out2_r2:EU27_2020:0",
+      "notes": "Eurostat source flags: none",
+      "series_id": "eurostat_affiliates:china",
+      "source_id": "fats_out2_r2",
+      "status": "missing",
+      "value": null,
+      "year": 2011
+    },
+    {
+      "comparability": "fats_out2_r2:EU27_2020:0",
+      "notes": "Eurostat source flags: none",
+      "series_id": "eurostat_affiliates:china",
+      "source_id": "fats_out2_r2",
+      "status": "missing",
+      "value": null,
+      "year": 2012
+    },
+    {
+      "comparability": "fats_out2_r2:EU27_2020:0",
+      "notes": "Eurostat source flags: |C",
+      "series_id": "eurostat_affiliates:china",
+      "source_id": "fats_out2_r2",
+      "status": "suppressed",
+      "value": null,
+      "year": 2013
+    },
+    {
+      "comparability": "fats_out2_r2:EU27_2020:0",
+      "notes": "Eurostat source flags: none",
+      "series_id": "eurostat_affiliates:china",
+      "source_id": "fats_out2_r2",
+      "status": "observed",
+      "value": 6746,
+      "year": 2014
+    },
+    {
+      "comparability": "fats_out2_r2:EU27_2020:0",
+      "notes": "Eurostat source flags: none",
+      "series_id": "eurostat_affiliates:china",
+      "source_id": "fats_out2_r2",
+      "status": "observed",
+      "value": 6731,
+      "year": 2015
+    },
+    {
+      "comparability": "fats_out2_r2:EU27_2020:0",
+      "notes": "Eurostat source flags: none",
+      "series_id": "eurostat_affiliates:china",
+      "source_id": "fats_out2_r2",
+      "status": "observed",
+      "value": 7301,
+      "year": 2016
+    },
+    {
+      "comparability": "fats_out2_r2:EU27_2020:0",
+      "notes": "Eurostat source flags: none",
+      "series_id": "eurostat_affiliates:china",
+      "source_id": "fats_out2_r2",
+      "status": "observed",
+      "value": 7234,
+      "year": 2017
+    },
+    {
+      "comparability": "fats_out2_r2:EU27_2020:0",
+      "notes": "Eurostat source flags: none",
+      "series_id": "eurostat_affiliates:china",
+      "source_id": "fats_out2_r2",
+      "status": "observed",
+      "value": 7312,
+      "year": 2018
+    },
+    {
+      "comparability": "fats_out2_r2:EU27_2020:0",
+      "notes": "Eurostat source flags: none",
+      "series_id": "eurostat_affiliates:china",
+      "source_id": "fats_out2_r2",
+      "status": "observed",
+      "value": 7577,
+      "year": 2019
+    },
+    {
+      "comparability": "fats_out2_r2:EU27_2020:0",
+      "notes": "Eurostat source flags: none",
+      "series_id": "eurostat_affiliates:china",
+      "source_id": "fats_out2_r2",
+      "status": "observed",
+      "value": 7528,
+      "year": 2020
+    },
+    {
+      "comparability": "fats_out_part:EU27_2020:0",
+      "notes": "Eurostat source flags: e",
+      "series_id": "eurostat_affiliates:china",
+      "source_id": "fats_out_part",
+      "status": "estimated",
+      "value": 6900,
+      "year": 2021
+    },
+    {
+      "comparability": "fats_out_part:EU27_2020:0",
+      "notes": "Eurostat source flags: none",
+      "series_id": "eurostat_affiliates:china",
+      "source_id": "fats_out_part",
+      "status": "observed",
+      "value": 7191,
+      "year": 2022
+    },
+    {
+      "comparability": "fats_out_part:EU27_2020:0",
+      "notes": "Eurostat source flags: |C",
+      "series_id": "eurostat_affiliates:china",
+      "source_id": "fats_out_part",
+      "status": "suppressed",
+      "value": null,
+      "year": 2023
+    }
+  ],
+  "series": {
+    "bea_affiliates:china": {
+      "cadence": "annual",
+      "label": "China",
+      "measure": "majority_owned_affiliates",
+      "notes": "Entities, not unique parent companies, offices or storefronts. U.S. parents are U.S.-resident, not necessarily ultimately U.S.-owned. Includes holding companies. Nonbank coverage before 2009; reporting cutoffs $7m through 2003, $10m in 2004-2008, $25m from 2009. Counts exclude benchmark-exempt affiliates. Lines break at benchmark regimes.",
+      "period_basis": "fiscal ending year",
+      "scope": "Foreign affiliates in mainland China, excluding Hong Kong and Macau; combined U.S.-parent ownership over 50%",
+      "unit": "affiliates"
+    },
+    "bea_affiliates:europe": {
+      "cadence": "annual",
+      "label": "Europe",
+      "measure": "majority_owned_affiliates",
+      "notes": "Entities, not unique parent companies, offices or storefronts. U.S. parents are U.S.-resident, not necessarily ultimately U.S.-owned. Includes holding companies. Nonbank coverage before 2009; reporting cutoffs $7m through 2003, $10m in 2004-2008, $25m from 2009. Counts exclude benchmark-exempt affiliates. Lines break at benchmark regimes.",
+      "period_basis": "fiscal ending year",
+      "scope": "Foreign affiliates in BEA-defined Europe, not EU27; combined U.S.-parent ownership over 50%",
+      "unit": "affiliates"
+    },
+    "bea_parents:china": {
+      "cadence": "benchmark",
+      "label": "China",
+      "measure": "parent_companies",
+      "notes": "Benchmark observations only, not an annual census. A parent is counted once per host country/region, but can appear in both China and Europe: never add these counts. Country attribution and reporting exclusions follow each benchmark. Not restricted to ultimately American-owned companies. Do not substitute majority-owned affiliate counts for parent counts.",
+      "period_basis": "fiscal ending year",
+      "scope": "Distinct U.S.-resident parent companies with affiliates in China; at least 10% foreign-affiliate ownership; BEA reporting exclusions apply",
+      "unit": "U.S. parents"
+    },
+    "bea_parents:europe": {
+      "cadence": "benchmark",
+      "label": "Europe",
+      "measure": "parent_companies",
+      "notes": "Benchmark observations only, not an annual census. A parent is counted once per host country/region, but can appear in both China and Europe: never add these counts. Country attribution and reporting exclusions follow each benchmark. Not restricted to ultimately American-owned companies. Do not substitute majority-owned affiliate counts for parent counts.",
+      "period_basis": "fiscal ending year",
+      "scope": "Distinct U.S.-resident parent companies with affiliates in Europe; at least 10% foreign-affiliate ownership; BEA reporting exclusions apply",
+      "unit": "U.S. parents"
+    },
+    "eurostat_affiliates:china": {
+      "cadence": "annual",
+      "label": "EU27-controlled affiliates",
+      "measure": "controlled_enterprises",
+      "notes": "Eurostat enterprise units, not unique European parents or all Europe. Macao is a separate partner. Not matched to BEA's size cutoff, U.S.-resident parent basis or consolidation. EBS methodology changes from 2021; do not join across that boundary or treat confidential cells as zero.",
+      "period_basis": "reference year",
+      "scope": "China except Hong Kong; ultimately controlled from fixed EU27_2020 membership, excluding the UK; market producers NACE B-S except O",
+      "unit": "enterprises"
+    }
+  },
+  "sources": {
+    "bea_affiliates_2000": {
+      "assets": [
+        {
+          "request_url": "https://apps.bea.gov/international/zip/USDIA2000revised.ZIP",
+          "retrieved_at": "2026-10-22T17:18:15+00:00",
+          "sha256": "b0f6941375b2835a1118c45b656c3077ce2079e3ff64dddd9a2449c1c530dd87",
+          "url": "https://apps.bea.gov/international/zip/USDIA2000revised.ZIP"
+        }
+      ],
+      "locator": "Table III.A1, Number of affiliates; Tab3A1a.xls, Tab3A1b.xls, Tab3A1c.xls",
+      "name": "U.S. Bureau of Economic Analysis",
+      "notes": "Majority-owned nonbank affiliates; benchmark-exempt entities excluded. Not comparable across the 2004 reporting-regime or 2009 banking/threshold changes.",
+      "vintage": "Revised 2000 operations; historical benchmark regime"
+    },
+    "bea_affiliates_2001": {
+      "assets": [
+        {
+          "request_url": "https://apps.bea.gov/international/zip/USDIA2001revised.zip",
+          "retrieved_at": "2026-10-22T17:31:29+00:00",
+          "sha256": "998bf6a7bea11a24a16922a7cf7976c268bae865d58732540faf561a2d66cb60",
+          "url": "https://apps.bea.gov/international/zip/USDIA2001revised.zip"
+        }
+      ],
+      "locator": "Table III.A1, Number of affiliates; Tab3A1a.xls, Tab3A1b.xls, Tab3A1c.xls",
+      "name": "U.S. Bureau of Economic Analysis",
+      "notes": "Majority-owned nonbank affiliates; benchmark-exempt entities excluded. Not comparable across the 2004 reporting-regime or 2009 banking/threshold changes.",
+      "vintage": "Revised 2001 operations; historical benchmark regime"
+    },
+    "bea_affiliates_2002": {
+      "assets": [
+        {
+          "request_url": "https://apps.bea.gov/international/zip/USDIA2002revised.zip",
+          "retrieved_at": "2026-10-22T17:31:30+00:00",
+          "sha256": "91889ad263d8ccda73c3ea72f35debb870041a89e118e531d9520ffd14b4da2e",
+          "url": "https://apps.bea.gov/international/zip/USDIA2002revised.zip"
+        }
+      ],
+      "locator": "Table III.A1, Number of affiliates; Tab3A1a.xls, Tab3A1b.xls, Tab3A1c.xls",
+      "name": "U.S. Bureau of Economic Analysis",
+      "notes": "Majority-owned nonbank affiliates; benchmark-exempt entities excluded. Not comparable across the 2004 reporting-regime or 2009 banking/threshold changes.",
+      "vintage": "Revised 2002 operations; historical benchmark regime"
+    },
+    "bea_affiliates_2003": {
+      "assets": [
+        {
+          "request_url": "https://apps.bea.gov/international/zip/usdia2003revised.zip",
+          "retrieved_at": "2026-10-22T17:31:31+00:00",
+          "sha256": "c8004aabebfd9a14ac88881abd91203796d6a80399ee49f70d8bdb8150a6bd7b",
+          "url": "https://apps.bea.gov/international/zip/usdia2003revised.zip"
+        }
+      ],
+      "locator": "Table III.A1, Number of affiliates; Tab3A1a.xls, Tab3A1b.xls, Tab3A1c.xls",
+      "name": "U.S. Bureau of Economic Analysis",
+      "notes": "Majority-owned nonbank affiliates; benchmark-exempt entities excluded. Not comparable across the 2004 reporting-regime or 2009 banking/threshold changes.",
+      "vintage": "Revised 2003 operations; historical benchmark regime"
+    },
+    "bea_affiliates_2004": {
+      "assets": [
+        {
+          "request_url": "https://apps.bea.gov/international/zip/usdia2004revised.zip",
+          "retrieved_at": "2026-10-22T17:18:51+00:00",
+          "sha256": "da9e5b9c8c584a7dfabe5554f58dcd82c60e5b217386e3119540e92413f2534e",
+          "url": "https://apps.bea.gov/international/zip/usdia2004revised.zip"
+        }
+      ],
+      "locator": "Table III.A1, Number of affiliates; Tab3A1.xls",
+      "name": "U.S. Bureau of Economic Analysis",
+      "notes": "Majority-owned nonbank affiliates; benchmark-exempt entities excluded. Not comparable across the 2004 reporting-regime or 2009 banking/threshold changes.",
+      "vintage": "Revised 2004 operations; historical benchmark regime"
+    },
+    "bea_affiliates_2005": {
+      "assets": [
+        {
+          "request_url": "https://apps.bea.gov/international/zip/USDIA2005revised.zip",
+          "retrieved_at": "2026-10-22T17:31:32+00:00",
+          "sha256": "99bd6967002a6cda40b9f31c96f1648ed326f6eba6232a247a4dde01b1b80e28",
+          "url": "https://apps.bea.gov/international/zip/USDIA2005revised.zip"
+        }
+      ],
+      "locator": "Table III.A1, Number of affiliates; Tab3A1.xls",
+      "name": "U.S. Bureau of Economic Analysis",
+      "notes": "Majority-owned nonbank affiliates; benchmark-exempt entities excluded. Not comparable across the 2004 reporting-regime or 2009 banking/threshold changes.",
+      "vintage": "Revised 2005 operations; historical benchmark regime"
+    },
+    "bea_affiliates_2006": {
+      "assets": [
+        {
+          "request_url": "https://apps.bea.gov/international/zip/USDIA2006revised.zip",
+          "retrieved_at": "2026-10-22T17:31:33+00:00",
+          "sha256": "91a0fefc732501212893ee3f2c5d72f40ca1441fa12332cfa0c78ec3ddc716a6",
+          "url": "https://apps.bea.gov/international/zip/USDIA2006revised.zip"
+        }
+      ],
+      "locator": "Table III.A1, Number of affiliates; Tab3A1.xls",
+      "name": "U.S. Bureau of Economic Analysis",
+      "notes": "Majority-owned nonbank affiliates; benchmark-exempt entities excluded. Not comparable across the 2004 reporting-regime or 2009 banking/threshold changes.",
+      "vintage": "Revised 2006 operations; historical benchmark regime"
+    },
+    "bea_affiliates_2007": {
+      "assets": [
+        {
+          "request_url": "https://apps.bea.gov/international/zip/USDIA2007revised.zip",
+          "retrieved_at": "2026-10-22T17:31:34+00:00",
+          "sha256": "aac8163ebe0da50bd577d5ccc2ee512356563978e55f40c74ec6081617f4ffb4",
+          "url": "https://apps.bea.gov/international/zip/USDIA2007revised.zip"
+        }
+      ],
+      "locator": "Table III.A1, Number of affiliates; Tab3A1_new.xls",
+      "name": "U.S. Bureau of Economic Analysis",
+      "notes": "Majority-owned nonbank affiliates; benchmark-exempt entities excluded. Not comparable across the 2004 reporting-regime or 2009 banking/threshold changes.",
+      "vintage": "Revised 2007 operations; historical benchmark regime"
+    },
+    "bea_affiliates_2008": {
+      "assets": [
+        {
+          "request_url": "https://apps.bea.gov/international/pdf/usdia_2008r/USDIA_08R.zip",
+          "retrieved_at": "2026-10-22T17:18:52+00:00",
+          "sha256": "aa27a0aca8db1e52e555620518df657137a2bc899662c0f53a29cae597b8eb32",
+          "url": "https://apps.bea.gov/international/pdf/usdia_2008r/USDIA_08R.zip"
+        }
+      ],
+      "locator": "Table III.A1, Number of affiliates; Tab3A1.xls",
+      "name": "U.S. Bureau of Economic Analysis",
+      "notes": "Majority-owned nonbank affiliates; benchmark-exempt entities excluded. Not comparable across the 2004 reporting-regime or 2009 banking/threshold changes.",
+      "vintage": "Revised 2008 operations; historical benchmark regime"
+    },
+    "bea_affiliates_2009": {
+      "assets": [
+        {
+          "request_url": "https://www.bea.gov/sites/default/files/2025-08/selected-mofas-cntry.xls",
+          "retrieved_at": "2026-10-22T17:17:32+00:00",
+          "sha256": "21ea3cc97b7b1df20c767b200202e7e20f1aa5968cd9f2e3113e893a511b688b",
+          "url": "https://www.bea.gov/sites/default/files/2025-08/selected-mofas-cntry.xls"
+        }
+      ],
+      "locator": "Sheet 2009; China/Europe rows; Number of affiliates above $25m",
+      "name": "U.S. Bureau of Economic Analysis",
+      "notes": "Majority-owned affiliates across all industries. Assets, sales or net income/loss must exceed $25m. Not all small businesses or physical offices; includes holding entities. 2014 and 2019 benchmarks can change coverage: their boundaries are not connected.",
+      "vintage": "2009-2023 selected-data workbook; 2009 fiscal year"
+    },
+    "bea_affiliates_2010": {
+      "assets": [
+        {
+          "request_url": "https://www.bea.gov/sites/default/files/2025-08/selected-mofas-cntry.xls",
+          "retrieved_at": "2026-10-22T17:17:32+00:00",
+          "sha256": "21ea3cc97b7b1df20c767b200202e7e20f1aa5968cd9f2e3113e893a511b688b",
+          "url": "https://www.bea.gov/sites/default/files/2025-08/selected-mofas-cntry.xls"
+        }
+      ],
+      "locator": "Sheet 2010; China/Europe rows; Number of affiliates above $25m",
+      "name": "U.S. Bureau of Economic Analysis",
+      "notes": "Majority-owned affiliates across all industries. Assets, sales or net income/loss must exceed $25m. Not all small businesses or physical offices; includes holding entities. 2014 and 2019 benchmarks can change coverage: their boundaries are not connected.",
+      "vintage": "2009-2023 selected-data workbook; 2010 fiscal year"
+    },
+    "bea_affiliates_2011": {
+      "assets": [
+        {
+          "request_url": "https://www.bea.gov/sites/default/files/2025-08/selected-mofas-cntry.xls",
+          "retrieved_at": "2026-10-22T17:17:32+00:00",
+          "sha256": "21ea3cc97b7b1df20c767b200202e7e20f1aa5968cd9f2e3113e893a511b688b",
+          "url": "https://www.bea.gov/sites/default/files/2025-08/selected-mofas-cntry.xls"
+        }
+      ],
+      "locator": "Sheet 2011; China/Europe rows; Number of affiliates above $25m",
+      "name": "U.S. Bureau of Economic Analysis",
+      "notes": "Majority-owned affiliates across all industries. Assets, sales or net income/loss must exceed $25m. Not all small businesses or physical offices; includes holding entities. 2014 and 2019 benchmarks can change coverage: their boundaries are not connected.",
+      "vintage": "2009-2023 selected-data workbook; 2011 fiscal year"
+    },
+    "bea_affiliates_2012": {
+      "assets": [
+        {
+          "request_url": "https://www.bea.gov/sites/default/files/2025-08/selected-mofas-cntry.xls",
+          "retrieved_at": "2026-10-22T17:17:32+00:00",
+          "sha256": "21ea3cc97b7b1df20c767b200202e7e20f1aa5968cd9f2e3113e893a511b688b",
+          "url": "https://www.bea.gov/sites/default/files/2025-08/selected-mofas-cntry.xls"
+        }
+      ],
+      "locator": "Sheet 2012; China/Europe rows; Number of affiliates above $25m",
+      "name": "U.S. Bureau of Economic Analysis",
+      "notes": "Majority-owned affiliates across all industries. Assets, sales or net income/loss must exceed $25m. Not all small businesses or physical offices; includes holding entities. 2014 and 2019 benchmarks can change coverage: their boundaries are not connected.",
+      "vintage": "2009-2023 selected-data workbook; 2012 fiscal year"
+    },
+    "bea_affiliates_2013": {
+      "assets": [
+        {
+          "request_url": "https://www.bea.gov/sites/default/files/2025-08/selected-mofas-cntry.xls",
+          "retrieved_at": "2026-10-22T17:17:32+00:00",
+          "sha256": "21ea3cc97b7b1df20c767b200202e7e20f1aa5968cd9f2e3113e893a511b688b",
+          "url": "https://www.bea.gov/sites/default/files/2025-08/selected-mofas-cntry.xls"
+        }
+      ],
+      "locator": "Sheet 2013; China/Europe rows; Number of affiliates above $25m",
+      "name": "U.S. Bureau of Economic Analysis",
+      "notes": "Majority-owned affiliates across all industries. Assets, sales or net income/loss must exceed $25m. Not all small businesses or physical offices; includes holding entities. 2014 and 2019 benchmarks can change coverage: their boundaries are not connected.",
+      "vintage": "2009-2023 selected-data workbook; 2013 fiscal year"
+    },
+    "bea_affiliates_2014": {
+      "assets": [
+        {
+          "request_url": "https://www.bea.gov/sites/default/files/2025-08/selected-mofas-cntry.xls",
+          "retrieved_at": "2026-10-22T17:17:32+00:00",
+          "sha256": "21ea3cc97b7b1df20c767b200202e7e20f1aa5968cd9f2e3113e893a511b688b",
+          "url": "https://www.bea.gov/sites/default/files/2025-08/selected-mofas-cntry.xls"
+        }
+      ],
+      "locator": "Sheet 2014; China/Europe rows; Number of affiliates above $25m",
+      "name": "U.S. Bureau of Economic Analysis",
+      "notes": "Majority-owned affiliates across all industries. Assets, sales or net income/loss must exceed $25m. Not all small businesses or physical offices; includes holding entities. 2014 and 2019 benchmarks can change coverage: their boundaries are not connected.",
+      "vintage": "2009-2023 selected-data workbook; 2014 fiscal year"
+    },
+    "bea_affiliates_2015": {
+      "assets": [
+        {
+          "request_url": "https://www.bea.gov/sites/default/files/2025-08/selected-mofas-cntry.xls",
+          "retrieved_at": "2026-10-22T17:17:32+00:00",
+          "sha256": "21ea3cc97b7b1df20c767b200202e7e20f1aa5968cd9f2e3113e893a511b688b",
+          "url": "https://www.bea.gov/sites/default/files/2025-08/selected-mofas-cntry.xls"
+        }
+      ],
+      "locator": "Sheet 2015; China/Europe rows; Number of affiliates above $25m",
+      "name": "U.S. Bureau of Economic Analysis",
+      "notes": "Majority-owned affiliates across all industries. Assets, sales or net income/loss must exceed $25m. Not all small businesses or physical offices; includes holding entities. 2014 and 2019 benchmarks can change coverage: their boundaries are not connected.",
+      "vintage": "2009-2023 selected-data workbook; 2015 fiscal year"
+    },
+    "bea_affiliates_2016": {
+      "assets": [
+        {
+          "request_url": "https://www.bea.gov/sites/default/files/2025-08/selected-mofas-cntry.xls",
+          "retrieved_at": "2026-10-22T17:17:32+00:00",
+          "sha256": "21ea3cc97b7b1df20c767b200202e7e20f1aa5968cd9f2e3113e893a511b688b",
+          "url": "https://www.bea.gov/sites/default/files/2025-08/selected-mofas-cntry.xls"
+        }
+      ],
+      "locator": "Sheet 2016; China/Europe rows; Number of affiliates above $25m",
+      "name": "U.S. Bureau of Economic Analysis",
+      "notes": "Majority-owned affiliates across all industries. Assets, sales or net income/loss must exceed $25m. Not all small businesses or physical offices; includes holding entities. 2014 and 2019 benchmarks can change coverage: their boundaries are not connected.",
+      "vintage": "2009-2023 selected-data workbook; 2016 fiscal year"
+    },
+    "bea_affiliates_2017": {
+      "assets": [
+        {
+          "request_url": "https://www.bea.gov/sites/default/files/2025-08/selected-mofas-cntry.xls",
+          "retrieved_at": "2026-10-22T17:17:32+00:00",
+          "sha256": "21ea3cc97b7b1df20c767b200202e7e20f1aa5968cd9f2e3113e893a511b688b",
+          "url": "https://www.bea.gov/sites/default/files/2025-08/selected-mofas-cntry.xls"
+        }
+      ],
+      "locator": "Sheet 2017; China/Europe rows; Number of affiliates above $25m",
+      "name": "U.S. Bureau of Economic Analysis",
+      "notes": "Majority-owned affiliates across all industries. Assets, sales or net income/loss must exceed $25m. Not all small businesses or physical offices; includes holding entities. 2014 and 2019 benchmarks can change coverage: their boundaries are not connected.",
+      "vintage": "2009-2023 selected-data workbook; 2017 fiscal year"
+    },
+    "bea_affiliates_2018": {
+      "assets": [
+        {
+          "request_url": "https://www.bea.gov/sites/default/files/2025-08/selected-mofas-cntry.xls",
+          "retrieved_at": "2026-10-22T17:17:32+00:00",
+          "sha256": "21ea3cc97b7b1df20c767b200202e7e20f1aa5968cd9f2e3113e893a511b688b",
+          "url": "https://www.bea.gov/sites/default/files/2025-08/selected-mofas-cntry.xls"
+        }
+      ],
+      "locator": "Sheet 2018; China/Europe rows; Number of affiliates above $25m",
+      "name": "U.S. Bureau of Economic Analysis",
+      "notes": "Majority-owned affiliates across all industries. Assets, sales or net income/loss must exceed $25m. Not all small businesses or physical offices; includes holding entities. 2014 and 2019 benchmarks can change coverage: their boundaries are not connected.",
+      "vintage": "2009-2023 selected-data workbook; 2018 fiscal year"
+    },
+    "bea_affiliates_2019": {
+      "assets": [
+        {
+          "request_url": "https://www.bea.gov/sites/default/files/2025-08/selected-mofas-cntry.xls",
+          "retrieved_at": "2026-10-22T17:17:32+00:00",
+          "sha256": "21ea3cc97b7b1df20c767b200202e7e20f1aa5968cd9f2e3113e893a511b688b",
+          "url": "https://www.bea.gov/sites/default/files/2025-08/selected-mofas-cntry.xls"
+        }
+      ],
+      "locator": "Sheet 2019; China/Europe rows; Number of affiliates above $25m",
+      "name": "U.S. Bureau of Economic Analysis",
+      "notes": "Majority-owned affiliates across all industries. Assets, sales or net income/loss must exceed $25m. Not all small businesses or physical offices; includes holding entities. 2014 and 2019 benchmarks can change coverage: their boundaries are not connected.",
+      "vintage": "2009-2023 selected-data workbook; 2019 fiscal year"
+    },
+    "bea_affiliates_2020": {
+      "assets": [
+        {
+          "request_url": "https://www.bea.gov/sites/default/files/2025-08/selected-mofas-cntry.xls",
+          "retrieved_at": "2026-10-22T17:17:32+00:00",
+          "sha256": "21ea3cc97b7b1df20c767b200202e7e20f1aa5968cd9f2e3113e893a511b688b",
+          "url": "https://www.bea.gov/sites/default/files/2025-08/selected-mofas-cntry.xls"
+        }
+      ],
+      "locator": "Sheet 2020; China/Europe rows; Number of affiliates above $25m",
+      "name": "U.S. Bureau of Economic Analysis",
+      "notes": "Majority-owned affiliates across all industries. Assets, sales or net income/loss must exceed $25m. Not all small businesses or physical offices; includes holding entities. 2014 and 2019 benchmarks can change coverage: their boundaries are not connected.",
+      "vintage": "2009-2023 selected-data workbook; 2020 fiscal year"
+    },
+    "bea_affiliates_2021": {
+      "assets": [
+        {
+          "request_url": "https://www.bea.gov/sites/default/files/2025-08/selected-mofas-cntry.xls",
+          "retrieved_at": "2026-10-22T17:17:32+00:00",
+          "sha256": "21ea3cc97b7b1df20c767b200202e7e20f1aa5968cd9f2e3113e893a511b688b",
+          "url": "https://www.bea.gov/sites/default/files/2025-08/selected-mofas-cntry.xls"
+        }
+      ],
+      "locator": "Sheet 2021; China/Europe rows; Number of affiliates above $25m",
+      "name": "U.S. Bureau of Economic Analysis",
+      "notes": "Majority-owned affiliates across all industries. Assets, sales or net income/loss must exceed $25m. Not all small businesses or physical offices; includes holding entities. 2014 and 2019 benchmarks can change coverage: their boundaries are not connected.",
+      "vintage": "2009-2023 selected-data workbook; 2021 fiscal year"
+    },
+    "bea_affiliates_2022": {
+      "assets": [
+        {
+          "request_url": "https://www.bea.gov/sites/default/files/2025-08/selected-mofas-cntry.xls",
+          "retrieved_at": "2026-10-22T17:17:32+00:00",
+          "sha256": "21ea3cc97b7b1df20c767b200202e7e20f1aa5968cd9f2e3113e893a511b688b",
+          "url": "https://www.bea.gov/sites/default/files/2025-08/selected-mofas-cntry.xls"
+        }
+      ],
+      "locator": "Sheet 2022; China/Europe rows; Number of affiliates above $25m",
+      "name": "U.S. Bureau of Economic Analysis",
+      "notes": "Majority-owned affiliates across all industries. Assets, sales or net income/loss must exceed $25m. Not all small businesses or physical offices; includes holding entities. 2014 and 2019 benchmarks can change coverage: their boundaries are not connected.",
+      "vintage": "2009-2023 selected-data workbook; 2022 fiscal year"
+    },
+    "bea_affiliates_2023": {
+      "assets": [
+        {
+          "request_url": "https://www.bea.gov/sites/default/files/2025-08/selected-mofas-cntry.xls",
+          "retrieved_at": "2026-10-22T17:17:32+00:00",
+          "sha256": "21ea3cc97b7b1df20c767b200202e7e20f1aa5968cd9f2e3113e893a511b688b",
+          "url": "https://www.bea.gov/sites/default/files/2025-08/selected-mofas-cntry.xls"
+        }
+      ],
+      "locator": "Sheet 2023; China/Europe rows; Number of affiliates above $25m",
+      "name": "U.S. Bureau of Economic Analysis",
+      "notes": "Majority-owned affiliates across all industries. Assets, sales or net income/loss must exceed $25m. Not all small businesses or physical offices; includes holding entities. 2014 and 2019 benchmarks can change coverage: their boundaries are not connected.",
+      "vintage": "2009-2023 selected-data workbook; 2023 fiscal year"
+    },
+    "bea_current_notes": {
+      "assets": [
+        {
+          "request_url": "https://www.bea.gov/international/usdia2023p-info",
+          "retrieved_at": "2026-10-22T17:33:24+00:00",
+          "sha256": "fa7f09afee55328f4161ca08e0cedb0865b76028750fdc1a1cef8307d18cb900",
+          "url": "https://www.bea.gov/international/usdia2023p-info"
+        }
+      ],
+      "locator": "Definitions and source coverage",
+      "name": "BEA",
+      "notes": "",
+      "vintage": "Reviewed source definitions"
+    },
+    "bea_geography": {
+      "assets": [
+        {
+          "request_url": "https://apps.bea.gov/international/bp_web/geographic_area_definitions.pdf",
+          "retrieved_at": "2026-10-22T17:33:24+00:00",
+          "sha256": "a8c1b95c494a9d82eb5fa778f6c174cef612c5af66c760ae5f04b3f4e6564f94",
+          "url": "https://apps.bea.gov/international/bp_web/geographic_area_definitions.pdf"
+        }
+      ],
+      "locator": "Definitions and source coverage",
+      "name": "BEA",
+      "notes": "",
+      "vintage": "Reviewed source definitions"
+    },
+    "bea_parents_2004": {
+      "assets": [
+        {
+          "request_url": "https://apps.bea.gov/international/zip/usdia2004revised.zip",
+          "retrieved_at": "2026-10-22T17:18:51+00:00",
+          "sha256": "da9e5b9c8c584a7dfabe5554f58dcd82c60e5b217386e3119540e92413f2534e",
+          "url": "https://apps.bea.gov/international/zip/usdia2004revised.zip"
+        }
+      ],
+      "locator": "Tab1M2.xls; Table I.M2; All industries",
+      "name": "U.S. Bureau of Economic Analysis",
+      "notes": "U.S. parents counted once in each country where they have affiliates. Reporting exclusions apply; the 2004 benchmark changed the affiliate reporting cutoff from $7m to $10m.",
+      "vintage": "Revised 2004 benchmark"
+    },
+    "bea_parents_2009": {
+      "assets": [
+        {
+          "request_url": "https://apps.bea.gov/international/xls/usdia_2009r/Part%20I%20K1-K2.xls",
+          "retrieved_at": "2026-10-22T17:22:52+00:00",
+          "sha256": "4256878ed173f35818d332bb711c566e670c3fa097ad2cd71eb0d9ba6cdeefe2",
+          "url": "https://apps.bea.gov/international/xls/usdia_2009r/Part%20I%20K1-K2.xls"
+        }
+      ],
+      "locator": "Table I.K2; Number of U.S. parents; country rows, All industries",
+      "name": "U.S. Bureau of Economic Analysis",
+      "notes": "Unique within each host region, not across regions; includes parents with minority-owned affiliates. Benchmark reporting exclusions and coverage apply; these points are not an annual series.",
+      "vintage": "Revised 2009 benchmark"
+    },
+    "bea_parents_2014": {
+      "assets": [
+        {
+          "request_url": "https://apps.bea.gov/international/xls/usdia2014r/PartI-K1-K2.xls",
+          "retrieved_at": "2026-10-22T17:20:44+00:00",
+          "sha256": "9c03733b67bf7e239bc82a362735132e50506f93b9350beaaf70a2186e5f3427",
+          "url": "https://apps.bea.gov/international/xls/usdia2014r/PartI-K1-K2.xls"
+        }
+      ],
+      "locator": "Table I.K2; Number of U.S. parents; country rows, All industries",
+      "name": "U.S. Bureau of Economic Analysis",
+      "notes": "Unique within each host region, not across regions; includes parents with minority-owned affiliates. Benchmark reporting exclusions and coverage apply; these points are not an annual series.",
+      "vintage": "Revised 2014 benchmark"
+    },
+    "bea_parents_2019": {
+      "assets": [
+        {
+          "request_url": "https://apps.bea.gov/international/xls/usdia2019r/PartI-K1-K2.xls",
+          "retrieved_at": "2026-10-22T17:20:43+00:00",
+          "sha256": "e0a7848bb2b0508de7d470ae443070fa02acec4f04eb96f54e55a568d06ec214",
+          "url": "https://apps.bea.gov/international/xls/usdia2019r/PartI-K1-K2.xls"
+        }
+      ],
+      "locator": "Table I.K2; Number of U.S. parents; country rows, All industries",
+      "name": "U.S. Bureau of Economic Analysis",
+      "notes": "Unique within each host region, not across regions; includes parents with minority-owned affiliates. Benchmark reporting exclusions and coverage apply; these points are not an annual series.",
+      "vintage": "Revised 2019 benchmark"
+    },
+    "bea_release": {
+      "assets": [
+        {
+          "request_url": "https://www.bea.gov/news/2025/activities-us-multinational-enterprises-2023",
+          "retrieved_at": "2026-10-22T17:44:55+00:00",
+          "sha256": "ce59a996459d29a1b1e51d679384689ab623db9524ddf96ab1354a556d5470c6",
+          "url": "https://www.bea.gov/news/2025/activities-us-multinational-enterprises-2023"
+        }
+      ],
+      "locator": "Definitions and source coverage",
+      "name": "BEA",
+      "notes": "",
+      "vintage": "Reviewed source definitions"
+    },
+    "eurostat_methods": {
+      "assets": [
+        {
+          "request_url": "https://ec.europa.eu/eurostat/cache/metadata/en/fats_out_sims.htm",
+          "retrieved_at": "2026-10-22T17:33:26+00:00",
+          "sha256": "a3b2072ccf7e2d2c51782be84caf99a1fb28058a36b8ffbe1643bd8676a740a7",
+          "url": "https://ec.europa.eu/eurostat/cache/metadata/en/fats_out_sims.htm"
+        }
+      ],
+      "locator": "Definitions and source coverage",
+      "name": "Eurostat",
+      "notes": "",
+      "vintage": "Reviewed source definitions"
+    },
+    "fats_out2_r2": {
+      "assets": [
+        {
+          "request_url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out2_r2?lang=EN&geo=EU27_2020&partner=CN_X_HK&indic_bp=ENT&nace_r2=B-S_X_O",
+          "retrieved_at": "2026-10-22T17:19:30+00:00",
+          "sha256": "5863dc8cac7b7d414ebc0800ab815047b41ddab783e3316c691d7f72dd2ea7c1",
+          "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out2_r2?lang=EN&geo=EU27_2020&partner=CN_X_HK&indic_bp=ENT&nace_r2=B-S_X_O"
+        }
+      ],
+      "locator": "A; EU27_2020; CN_X_HK; B-S_X_O; indic_bp=ENT",
+      "name": "Eurostat",
+      "notes": "Fixed EU27 membership. Preserve estimated, break and confidential flags. Legacy 2010-2020 and post-2021 EBS series remain disconnected. No reconstruction of confidential totals from member-country values.",
+      "vintage": "Outward FATS, main variables - NACE Rev. 2 activity (2010-2020); updated 2024-04-25T11:00:00+0200"
+    },
+    "fats_out_part": {
+      "assets": [
+        {
+          "request_url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out_part?lang=EN&geo=EU27_2020&partner=CN_X_HK&indic_sbs=ENT_NR&nace_r2=B-S_X_O",
+          "retrieved_at": "2026-10-22T17:18:15+00:00",
+          "sha256": "5e89fbd072e664351b26df439b46ebdc2c1e787fe6025944ccd8f32569ac17dd",
+          "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out_part?lang=EN&geo=EU27_2020&partner=CN_X_HK&indic_sbs=ENT_NR&nace_r2=B-S_X_O"
+        }
+      ],
+      "locator": "A; EU27_2020; CN_X_HK; B-S_X_O; indic_sbs=ENT_NR",
+      "name": "Eurostat",
+      "notes": "Fixed EU27 membership. Preserve estimated, break and confidential flags. Legacy 2010-2020 and post-2021 EBS series remain disconnected. No reconstruction of confidential totals from member-country values.",
+      "vintage": "Foreign affiliates of the EU enterprises by detailed breakdown of country of the affiliates (from 2021 onwards); updated 2026-03-31T23:00:00+0200"
+    }
+  },
+  "version": 1
+}

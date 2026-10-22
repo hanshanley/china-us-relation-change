@@ -1,0 +1,84 @@
+"""House-style charts for separate, explicitly defined aggregate indicators."""
+
+import html
+import math
+import textwrap
+
+from .theme import CHART_THEMES, FONT, GRID, MUTED, TEXT
+
+
+def svg_indicator_chart(config, groups, theme, description, point_class):
+    points = [r for group in groups for r in group["points"]]
+    if not points:
+        return None
+    esc = lambda value: html.escape(str(value), quote=True)
+    maximum = max(r["plotted_value"] for r in points) * 1.15 or 1
+    magnitude = 10 ** math.floor(math.log10(maximum))
+    maximum = math.ceil(maximum / magnitude) * magnitude
+    minimum, maximum = config.get("y_min", 0), config.get("y_max", maximum)
+    if maximum <= minimum or any(not minimum <= r["plotted_value"] <= maximum for r in points):
+        raise ValueError("Indicator axis limits cannot clip observations")
+    bars = config["mode"] == "bars"
+    first = config.get("first_year", 2000) if not bars else min(r["year"] for r in points)
+    last = max(first + 1, max(r["year"] for r in points), config.get("last_year", 0))
+    x = lambda year: 115 + (year - first) / (last - first) * 835
+    y = lambda value: 420 - (value - minimum) / (maximum - minimum) * 250
+    parts = [
+        '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 600" role="img" '
+        f'aria-label="{esc(config["title"])}"><title>{esc(config["title"])}</title>',
+        f'<desc>{esc(description)}</desc>',
+        f'<rect class="chart-background" width="1000" height="600" fill="{CHART_THEMES[theme]["background"]}"/>',
+        f'<g font-family="{esc(FONT)}" font-size="20" fill="{MUTED}">',
+        f'<text x="115" y="40" font-size="27" font-weight="bold" fill="{TEXT}">{esc(config["title"])}</text>',
+        f'<text x="115" y="77" font-size="18">{esc(config["subtitle"])}</text>',
+        f'<text class="axis-unit" x="115" y="145" font-size="18">{esc(config["unit"])}</text>',
+    ]
+    if not bars:
+        for i, group in enumerate(groups):
+            pos = ([115, 550] if len(groups) <= 2 else [115, 345, 550, 760])[i]
+            parts.append(f'<path d="M{pos} 108h25" stroke="{group["color"]}" stroke-width="3"/>'
+                         f'<text class="legend-label" x="{pos + 33}" y="114" font-size="17" fill="{TEXT}">{esc(group["label"])}</text>')
+    for fraction in (0, .5, 1):
+        value = minimum + (maximum - minimum) * fraction
+        label = f"{value:.1f}%" if config["mode"] == "share" else f"{value:,.0f}"
+        parts.append(f'<path d="M115 {y(value):.2f}H950" stroke="{GRID}" stroke-opacity=".6" stroke-width=".5"/>'
+                     f'<text x="100" y="{y(value) + 6:.2f}" text-anchor="end">{esc(label)}</text>')
+    parts.append(f'<path d="M115 170V420H950" stroke="{GRID}" stroke-width=".8" fill="none"/>')
+    if bars:
+        for i, group in enumerate(groups):
+            if len(group["points"]) != 1:
+                raise ValueError("Program inventory bars require separate single-snapshot series")
+            r = group["points"][0]
+            pos = 115 + (i + .5) / len(groups) * 835
+            height = 420 - y(r["plotted_value"])
+            parts.append(
+                f'<rect class="{point_class}" data-series-id="{esc(group["id"])}" data-year="{r["year"]}" '
+                f'data-value="{r["plotted_value"]}" x="{pos - 65:.2f}" y="{y(r["plotted_value"]):.2f}" '
+                f'width="130" height="{height:.2f}" fill="{group["color"]}"/>'
+                f'<text x="{pos:.2f}" y="{y(r["plotted_value"]) - 12:.2f}" text-anchor="middle" fill="{TEXT}">{r["value"]:,}</text>'
+                f'<text x="{pos:.2f}" y="450" text-anchor="middle">{r["year"]}</text>'
+                f'<text x="{pos:.2f}" y="478" text-anchor="middle" font-size="18">{esc(group["label"])}</text>')
+    else:
+        for year in [year for year in range(first, last, 5) if last - year >= 2] + [last]:
+            parts.append(f'<text class="year-tick" x="{x(year):.2f}" y="457" text-anchor="middle" font-size="18">{year}</text>')
+        for group in groups:
+            path, previous = [], None
+            for r in group["points"]:
+                same_definition = previous is not None and previous["comparability"] == r["comparability"]
+                contiguous = previous is not None and (r["year"] == previous["year"] + 1
+                    if group["cadence"] == "annual" else
+                    group["scheduled_years"].index(r["year"]) == group["scheduled_years"].index(previous["year"]) + 1)
+                connected = same_definition and contiguous
+                path.append(f'{"L" if connected else "M"}{x(r["year"]):.2f},{y(r["plotted_value"]):.2f}')
+                previous = r
+            parts.append(f'<path class="data-line" data-series-id="{esc(group["id"])}" d="{" ".join(path)}" '
+                         f'stroke="{group["color"]}" stroke-width="3" fill="none"/>')
+            for r in group["points"]:
+                parts.append(f'<circle class="{point_class}" data-series-id="{esc(group["id"])}" '
+                             f'data-year="{r["year"]}" data-value="{r["plotted_value"]}" '
+                             f'cx="{x(r["year"]):.2f}" cy="{y(r["plotted_value"]):.2f}" r="4" fill="{group["color"]}">'
+                             f'<title>{esc(group["label"])} {r["year"]}: {r["plotted_value"]:,.4f} {esc(config["unit"])}</title></circle>')
+    for i, text in enumerate(textwrap.wrap(config["note"], width=106)):
+        parts.append(f'<text class="figure-source" x="115" y="{520 + i * 20}" font-size="14" font-style="italic">{esc(text)}</text>')
+    parts.append("</g></svg>")
+    return "".join(parts)
