@@ -411,7 +411,9 @@ def publish(roster_path, screening_directory, directory, report_path):
         "(discovery_iteration22.md) verifies a domain-certified publication channel, recovers already saved historical "
         "material and separates publisher identity from blocked access or personal accounts. [Travel-publication and ranked follow-up]"
         "(discovery_iteration23.md) advances five ranked reviews and independently recovers older native posts "
-        "without promoting reported travel-trade names to confirmed account identities. Current status and legal operator "
+        "without promoting reported travel-trade names to confirmed account identities. [VOA programme follow-up]"
+        "(discovery_iteration24.md) establishes a publisher-designated historical Sina vanity channel while "
+        "leaving numeric-owner attribution explicitly unresolved. Current status and legal operator "
         "uncertainty remain explicit.", "",
         "## Complete machine-readable deliverables", "",
         "- [All 1,000 ranked U.S. domains](../data/discovery/us_top1000.csv)",

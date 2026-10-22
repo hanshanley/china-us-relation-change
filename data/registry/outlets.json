@@ -173,7 +173,7 @@
     {
       "id": "voa", "name": "Voice of America", "category": "broadcaster", "aliases": ["美国之音", "VOA"],
       "us_basis": "U.S.-based international news broadcaster.", "source_url": "https://www.voanews.com/", "research_status": "reviewed",
-      "notes": "English/Chinese aliases and publisher social pages did not establish a qualifying account/UID relationship. No claim of absence or current operational status is inferred. Review date: 2026-10-21."
+      "notes": "Newly retrieved actual publisher November2,2014 programme notice explicitly designates Sina Weibo/legalwindow for 法律窗口, not a presenter-only Twitter account or a generic mention of Weibo. Actual programme directory repeats that Sina link; a December20,2014 first-party report separately says the programme posted on Sina. Historical publisher-designated vanity channel is confirmed; this is not a current whole-network operational/account-control claim. Numeric2143652601 appears in the separately linked Sina BLOG URL and yields a matching unbadged VOA-law/books profile, but cross-platform UID identity/vanity mapping remains unproved and is held outside the confirmed account UID. No candidate post is imported. Linked blog's static325-byte script points to blog_notopen controller; not executed/followed and not interpreted as Weibo deletion. No broadcaster funding/staffing/current-broadcast-status inference or join/last-post attribution cutoff. Review date: 2026-10-22 UTC."
     },
     {
       "id": "entrepreneur", "name": "Entrepreneur / historical Entrepreneur China", "category": "business",
@@ -743,6 +743,41 @@
       "us_basis": "Publication's June17,2022 printed masthead identifies its Rockville, Maryland office, publisher role and acmedia.us website. Publication-branded hosting metadata describes a March1994 start; current corporate/legal control is not independently audited.",
       "source_url": "https://www.acmedia.us/", "research_status": "reviewed",
       "notes": "Actual masthead domain failed modern TLS protocol negotiation; verification/security was not weakened and no HTTP downgrade used. Exact2015 domain capture was only a framing wrapper pointing to acmediaonline.net, not an inspected newspaper site. That destination currently failed DNS; its sole retrieved2020 archived capture was gambling-branded, not publisher content, so no social identifier there was attributed to the newspaper and no hacking/ownership cause asserted. The printed masthead and publication-branded issue remain scope evidence only; no official Sina account was resolved. Unknown, not absent. Review date: 2026-10-22 UTC."
+    },
+    {
+      "id": "lexington-herald-leader", "name": "Lexington Herald-Leader", "category": "newspaper",
+      "aliases": ["Lexington Herald-Leader", "Kentucky.com"],
+      "us_basis": "United States-classified source position115; correct newspaper community item identifies the Lexington, Kentucky publication and kentucky.com. Current corporate legal control is not independently audited.",
+      "source_url": "https://www.kentucky.com/", "research_status": "reviewed",
+      "notes": "Live robots retrieval timed out before a newspaper page was fetched. No current About/Contact body or readable archive is invented; archive access restriction remains operative and no archive request was made. Correct publication-specific main website matches without a main Sina identifier. Other Herald/Leader papers, Kentucky state services and parent/staff accounts were not substituted. Unknown, not absent. Review date: 2026-10-22 UTC."
+    },
+    {
+      "id": "morning-call", "name": "The Morning Call / Allentown", "category": "newspaper",
+      "aliases": ["The Morning Call", "Allentown Morning Call"],
+      "us_basis": "United States-classified source position116; actual publisher root/About/Contact identify Allentown and Lehigh Valley, Pennsylvania local news.",
+      "source_url": "https://www.mcall.com/", "research_status": "reviewed",
+      "notes": "Complete root and actual About/Contact were read without a qualifying owned Sina link. Contact slash redirect is one institutional source, not independent corroboration. Staff-directory and corrections links were not account owners. Correct newspaper community main website matches without a main Sina identifier. Other Morning papers, parent/sister accounts and named reporters were not borrowed. Unknown, not absent. Review date: 2026-10-22 UTC."
+    },
+    {
+      "id": "new-hampshire-union-leader", "name": "New Hampshire Union Leader", "category": "newspaper",
+      "aliases": ["New Hampshire Union Leader", "Manchester Union Leader", "Union Leader"],
+      "us_basis": "United States-classified source position117; correct newspaper community item identifies the Manchester, New Hampshire publication and unionleader.com. Current legal ownership not independently audited.",
+      "source_url": "https://www.unionleader.com/", "research_status": "reviewed",
+      "notes": "Robots was read but live root returned403; no other live path/host/user-agent or archive workaround was attempted. Correct publication item main website matches without a main Sina identifier. Generic union leaders, union organizations, other Leader newspapers and politicians' personal accounts were not substituted. Unknown, not absent. Review date: 2026-10-22 UTC."
+    },
+    {
+      "id": "daily-breeze", "name": "Daily Breeze / Torrance and South Bay", "category": "newspaper",
+      "aliases": ["Daily Breeze", "Torrance Daily Breeze"],
+      "us_basis": "United States-classified source position118; actual publisher root and Contact identify the Southern California Daily Breeze and its local newsroom.",
+      "source_url": "https://www.dailybreeze.com/", "research_status": "reviewed",
+      "notes": "Complete root and actual Contact were read without a qualifying Weibo profile. Slash variants resolve to one Contact, not independent evidence. Regional parent/sister papers, staff, beach/travel businesses and other Breeze names were not this publication's accounts. Correct community main website matches without a main Sina identifier. Original source name Torrance Breeze/domain/order preserved. Unknown, not absent. Review date: 2026-10-22 UTC."
+    },
+    {
+      "id": "daily-progress", "name": "The Daily Progress / Charlottesville", "category": "newspaper",
+      "aliases": ["The Daily Progress", "Charlottesville Daily Progress"],
+      "us_basis": "United States-classified source position119; actual publisher root/Contact explicitly identify Charlottesville, Virginia news reporting.",
+      "source_url": "https://dailyprogress.com/", "research_status": "reviewed",
+      "notes": "Complete root and actual Contact were read without a qualifying Sina locator. Contact staff links and template placeholders are not institutional-account evidence. Correct newspaper community main website matches without a main Sina identifier. Other Progress titles, generic progress organizations and corporate siblings were not borrowed. Unknown, not absent. Review date: 2026-10-22 UTC."
     },
     {
       "id": "telemundo", "name": "Telemundo / Noticias Telemundo", "category": "broadcast_news",
@@ -1323,6 +1358,21 @@
       "relationship": "Publisher-designated historical official SELF Chinese website channel, distinct from the magazine channel within one brand group",
       "officialness": "confirmed", "existence": "historical", "accessibility": "unknown",
       "notes": "Owned2013 box explicitly labels selfwebsite 《悦己SELF》杂志官网微博, not a staff link. Independent2011 owner scope binds UID1658402750/悦己网; an exact2020 capture retains UID/name 悦己女性网 but its14 recognized posts are dated2017. Current92-entry feed is likewise2017-only. Capture date, visible stale bio and no in-window recovery are not current activity, absence or complete-history proof."
+    },
+    {
+      "id": "voa-legalwindow-historical",
+      "outlet_id": "voa",
+      "uid": null,
+      "handle": "legalwindow",
+      "display_name": "法律窗口",
+      "profile_url": "https://www.weibo.com/legalwindow",
+      "language": "zh-Hans",
+      "operator": "Historical VOA 法律窗口 programme channel expressly designated by the publisher; current numeric owner and legal platform control unresolved",
+      "relationship": "Historical publisher-designated Sina account of a VOA programme, not a new publisher or a named presenter's personal Twitter account; no current whole-network operational assertion",
+      "officialness": "confirmed",
+      "existence": "historical",
+      "accessibility": "unknown",
+      "notes": "VOA-owned November2014 notice explicitly invites following the programme on Sina Weibo/legalwindow; actual programme directory repeats it and December2014 report confirms programme posting on Sina. Stable vanity existence/officialness is verified independently of numeric UID. Candidate2143652601 came from a separately labeled Sina BLOG URL; matching programme name/bio is suggestive but not a validated vanity-to-UID mapping. Keep UID null and import no candidate posts until independent numeric binding. No blue badge, current activity, agency staffing or account-attribution cutoff inferred."
     },
     {
       "id": "interior-design-china",
@@ -2155,6 +2205,36 @@
       "source_url": "https://www.self.com/info/about-self", "source_type": "publisher_statement",
       "observed_at": "2026-10-22T06:54:46.979621+00:00", "claim_date": null, "supports": "relationship",
       "justification": "Same U.S. SELF publication identified by its own New York editorial headquarters and brand About; the historical China publisher separately designates its website channel. Two social UIDs are one publisher/brand group, not two independent U.S. newsrooms or a borrowed parent-company account."
+    },
+    {
+      "id": "voa-legalwindow-owned-sina-designation",
+      "account_id": "voa-legalwindow-historical",
+      "source_url": "https://www.voachinese.com/a/legal-windows-interraction/2550823.html",
+      "source_type": "publisher_link",
+      "observed_at": "2026-10-22T12:15:13.446543+00:00",
+      "claim_date": "2014-11-02",
+      "supports": "identity",
+      "justification": "Actual publisher notice explicitly says to follow this programme on 新浪微博 and links weibo.com/legalwindow; separate lines label the Sina BLOG numeric URL and Twitter@yaweius. Confirms the historical programme's official vanity account, not a numeric Weibo UID derived from a blog ID or a Twitter translation. Printed November2014 article date is distinct from the live2026 page clock. Same notice explicitly supplies the programme's VOA Washington,D.C. U.S. correspondence address."
+    },
+    {
+      "id": "voa-legalwindow-owned-programme-directory",
+      "account_id": "voa-legalwindow-historical",
+      "source_url": "https://www.voachinese.com/p/6246.html",
+      "source_type": "publisher_statement",
+      "observed_at": "2026-10-22T12:15:15.848928+00:00",
+      "claim_date": null,
+      "supports": "relationship",
+      "justification": "Actual VOA programme directory labels 法律窗口, describes the programme's U.S.-law focus and2002 origin, and repeats the legalwindow Sina link. This is a programme channel rather than merely the presenter's name. The2002 programme origin,2017 listed episode and2026 rendered page header do not establish account launch, current broadcasting or continuous ownership."
+    },
+    {
+      "id": "voa-legalwindow-owned-posting-report",
+      "account_id": "voa-legalwindow-historical",
+      "source_url": "https://www.voachinese.com/a/plaintiff-disappears-before-supreme-court-20141219/2566510.html",
+      "source_type": "publisher_statement",
+      "observed_at": "2026-10-22T12:16:50.988384+00:00",
+      "claim_date": "2014-12-20",
+      "supports": "identity",
+      "justification": "Separately retrieved first-party report explicitly says VOA法律窗口节目 posted a notice on 新浪微博. Corroborates actual historical programme use of Sina, not merely reporting about Weibo or use of generic 微博 for Twitter. It does not itself supply a numeric owner or establish current operation/activity."
     },
     {
       "id": "interior-design-domain-institution",

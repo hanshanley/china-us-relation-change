@@ -11,6 +11,9 @@ beyond its previously exposed feed. A newly retrieved
 publisher-issued statement establishes a U.S.–China travel-trade
 relationship, not a verified Weibo owner.
 
+This is a historical checkpoint. [The next national-brand follow-up](discovery_iteration24.md)
+verifies VOA's programme-designated historical Sina URL without guessing its numeric owner.
+
 ## Older native recovery: Travel + Leisure, not Travel Weekly
 
 The already confirmed account **漫旅TravelLeisure**, UID

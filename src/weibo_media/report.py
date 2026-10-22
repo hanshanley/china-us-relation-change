@@ -207,6 +207,8 @@ def report(db, path):
               "publication channel, preserved cached recovery and explicit access-restriction boundaries, "
               "[Travel-publication and ranked follow-up](discovery_iteration23.md) for older native recovery, "
               "five further publisher reviews and a travel-trade relationship without an assumed account, "
+              "[VOA programme follow-up](discovery_iteration24.md) for a publisher-verified historical Sina "
+              "vanity channel kept separate from its unresolved numeric owner and unimported candidate posts, "
               "and [access pilot](access_pilot.md) for source-level "
               "access checks and archive gaps.", ""]
     target = Path(path)

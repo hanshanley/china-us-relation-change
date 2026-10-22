@@ -1093,6 +1093,20 @@
       "relationship": "U.S.-origin art/fashion publication with publisher-documented China venture and current explicitly certified Chinese-edition account; not asserted U.S. newsroom staffing or independently audited license continuity"
     },
     {
+      "account_id": "voa-legalwindow-historical",
+      "attribution_end": null,
+      "earliest_publication_utc": null,
+      "existence": "historical",
+      "latest_publication_utc": null,
+      "latest_run_source": "sina_syndication",
+      "latest_run_status": "blocked",
+      "outlet_id": "voa",
+      "outlet_name": "Voice of America",
+      "profile_url": "https://www.weibo.com/legalwindow",
+      "recovered_posts": 0,
+      "relationship": "Historical publisher-designated Sina account of a VOA programme, not a new publisher or a named presenter's personal Twitter account; no current whole-network operational assertion"
+    },
+    {
       "account_id": "vogue-china",
       "attribution_end": null,
       "earliest_publication_utc": "2026-01-30T02:35:00+00:00",
@@ -1206,18 +1220,18 @@
     }
   ],
   "roster": {
-    "confirmed_accounts": 86,
-    "confirmed_outlets": 61,
-    "outlets": 197,
-    "reviewed_outlets": 197
+    "confirmed_accounts": 87,
+    "confirmed_outlets": 62,
+    "outlets": 202,
+    "reviewed_outlets": 202
   },
   "source": {
     "corpus_metadata_sha256": "e902fa08b7531e8e69c6b32003109f767bdbf2f139d02494843a2034f3cc801c",
     "excluded_attribution_posts": 0,
     "excluded_unconfirmed_posts": 0,
-    "latest_collection_at": "2026-10-22T11:49:43.720470+00:00",
+    "latest_collection_at": "2026-10-22T12:21:30.503751+00:00",
     "publication_timezone": "Asia/Shanghai",
-    "registry_sha256": "26fa89c3b4fccf5c59a2eab09b36127ea840d6643e902c7b57f14791b13c36b4",
+    "registry_sha256": "981fbd126c9a2d16e2105ea77cee4034b63ac7d553081985c9e3d0b1d5bfa946",
     "requested_windows": [
       {
         "end": "2026-10-21T16:00:00+00:00",
