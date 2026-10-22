@@ -16,6 +16,8 @@ on:
       - "scripts/build_business_data.py"
       - "scripts/build_business_publication.py"
       - "scripts/check_business_publication.py"
+      - "scripts/build_exchange_publication.py"
+      - "scripts/check_exchange_publication.py"
       - "data/site/weibo_summary.json"
       - "data/site/language_learning.json"
       - "data/site/business_presence.json"
@@ -59,8 +61,8 @@ jobs:
           python scripts/build_site.py
           PYTHONPATH=src python -m pytest tests/test_exchange_*.py -q
           python scripts/check_exchange_browser.py
-          python scripts/build_business_publication.py --output data/local/business-publication
-          python scripts/check_business_publication.py --site data/local/business-publication
+          python scripts/build_exchange_publication.py --output data/local/collective-publication
+          python scripts/check_exchange_publication.py --site data/local/collective-publication
           git diff --check
       - name: Record actual check status
         if: always()

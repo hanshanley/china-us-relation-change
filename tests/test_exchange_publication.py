@@ -1,8 +1,12 @@
 """Reviewed source-table checkpoints, not generated expected values."""
+import csv
+import hashlib
+import importlib.util
 import json
 from pathlib import Path
 
 import pytest
+from bs4 import BeautifulSoup
 
 from us_china_exchange.model import validate
 
@@ -77,3 +81,47 @@ def test_publication_retains_year_2000_trade_and_inbound_visitor_history():
     assert len(series) == 18
     for sid in series:
         assert any(r["series_id"] == sid and r["year"] == 2000 for r in rows), sid
+
+
+def test_collective_export_preserves_complete_inputs_and_native_plot_boundaries(tmp_path):
+    spec = importlib.util.spec_from_file_location("exchange_publication", ROOT / "scripts/build_exchange_publication.py")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    manifest = module.build_publication(ROOT, tmp_path, "checked-revision")
+    expected = published()
+    actual = json.loads((tmp_path / "downloads/exchange.json").read_text())
+    assert actual["observations"] == expected
+    assert manifest["observations"] == len(expected)
+    with (tmp_path / "downloads/observations.csv").open() as stream:
+        assert len(list(csv.DictReader(stream))) == len(expected)
+    for path, checksum in manifest["files"].items():
+        assert hashlib.sha256((tmp_path / path).read_bytes()).hexdigest() == checksum
+    for input_name, output_name in [("language_learning", "language-learning"), ("business_presence", "business-presence"),
+                                    ("weibo_summary", "weibo-summary")]:
+        assert json.loads((tmp_path / f"downloads/{output_name}.json").read_text()) == json.loads(
+            (ROOT / f"data/site/{input_name}.json").read_text())
+    for name in module.PAGES:
+        page = BeautifulSoup((tmp_path / name).read_text(), "html.parser")
+        assert len(page.select("h1")) == 1 and len(page.select(".analysis-tabs a")) == 6
+        assert not page.select("iframe")
+        for a in page.select('a[href^="figures/"]'):
+            assert a.has_attr("data-original-chart") and (tmp_path / a["href"]).is_file()
+    page = BeautifulSoup((tmp_path / "index.html").read_text(), "html.parser")
+    assert not page.select('#geography option[value="TWN"]')
+    assert page.select_one('#measure option[selected]')["value"] == "goods"
+    assert "2025" in page.select_one("#annual-headlines").text
+    assert page.select_one("form.controls").has_attr("hidden")
+    business = BeautifulSoup((tmp_path / "business-presence.html").read_text(), "html.parser")
+    model = json.loads(business.select_one("#us-affiliates-china .plot-data").string)
+    assert len(model["groups"][0]["points"]) == 24
+    assert [p["year"] for p in model["groups"][0]["points"] if not p["connect"]] == [2000, 2004, 2009, 2014, 2019]
+    language = BeautifulSoup((tmp_path / "language-learning.html").read_text(), "html.parser")
+    assert language.select_one("#module-chart option[selected]")["value"] == "ap-chinese-global"
+    assert language.select_one("main > section").select_one(".native-chart")
+    inventories = json.loads(language.select_one("#school-program-inventories .plot-data").string)
+    assert all(str(year) in row["label"] for year, row in zip([2011, 2021, 2025], inventories["bars"]))
+    comparisons = BeautifulSoup((tmp_path / "comparisons.html").read_text(), "html.parser")
+    model = json.loads(comparisons.select_one("#goods-to_us .plot-data").string)
+    assert len(model["groups"]) == 3
+    assert next(g for g in model["groups"] if g["label"] == "Macau")["dash"] == "7 4"
+    assert not list(tmp_path.rglob("*.pdf")) and not list(tmp_path.rglob("*.db"))

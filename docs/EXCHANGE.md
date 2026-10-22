@@ -314,24 +314,31 @@ new business data. The shared indicator SVG renderer preserves the existing
 language figures byte-for-byte. Removing a frozen input withdraws its known
 page, downloads and charts, never user-owned figures.
 
-The business-only publication at
+The collective publication at
 `https://www.themarginoferror.com/china-us-relations/` is built separately:
 
 ```sh
-.venv/bin/python scripts/build_business_publication.py --output data/local/business-publication
-.venv/bin/python scripts/check_business_publication.py --site data/local/business-publication
+.venv/bin/python scripts/build_exchange_publication.py --output data/local/collective-publication
+.venv/bin/python scripts/check_exchange_publication.py --site data/local/collective-publication
 ```
 
-This offline export contains only the reviewed business aggregates, figures,
-definitions and complete downloads, not the exchange, language or private
-Weibo material. It supplies its own publication masthead and a provenance
-manifest with the source revision and asset checksums. Origin selection
-filters the panels and table columns; year selection explicitly filters only
-the table. Plots retain their complete reported histories. Without JavaScript,
-all annual panels and the full table remain available. Both original PNG/SVG
-backgrounds remain downloadable even when the website themes its previews.
-The publication deployment rebuilds this committed snapshot; it does not
-retrieve fresh business data.
+This offline export covers the collective analysis: student exchanges, visitor
+trips, goods/services trade, language learning, business presence and public
+Weibo research aggregates. It never publishes raw posts or source reports.
+The masthead, topic navigation, responsive charts and indicator selectors share
+one publication layout. Screen-sized charts preserve reported values, gaps,
+method boundaries, regional colours and the dashed Macau customs distinction.
+Original 3000-by-1800 PNGs and SVGs in both backgrounds remain unchanged.
+
+Annual exchange data extend through 2025 where available, with separately
+labelled 2026 partial-year observations; these are not annualized or inserted
+into annual charts. College and business series retain their actual earlier
+cutoffs. AP global participation must not be relabelled U.S.-only. Weibo
+research coverage remains distinct from posting activity or popularity.
+Source permission warnings and complete datasets are retained. Without
+JavaScript, the initial chart, all topic charts and full tables remain readable.
+The provenance manifest records the source revision and public-asset checksums.
+The website deployment rebuilds committed snapshots without collecting data.
 
 ## Definitions and comparisons
 
