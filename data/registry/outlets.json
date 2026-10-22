@@ -316,7 +316,7 @@
       "id": "international-daily-us", "name": "International Daily News, United States", "category": "us_chinese_language",
       "aliases": ["美国国际日报", "美國國際日報"], "us_basis": "Los Angeles-area Chinese-language newspaper documented in the California ethnic-media directory and historical reporting; distinguish the U.S. operation from the Indonesian edition.",
       "source_url": "https://www.chinesetoday.com/", "research_status": "reviewed",
-      "notes": "Publisher-domain retrieval timed out on October21,2026. Targeted U.S./Los Angeles aliases and institutional/archive searches did not establish a qualifying U.S. Weibo UID. Historical Sino-Indonesian corporate links do not transfer an Indonesian account to the U.S. edition. California directory: https://americancommunitymedia.org/wp-content/uploads/2020/05/EMS_CADirectoryEthnicMediaSpring20_5-1-20.pdf ; a 2010 report distinguishes the U.S. and Indonesian publications: https://news.sina.cn/sa/2010-07-24/detail-ikftssap3334882.d.html . Unknown, not absent."
+      "notes": "Live publisher-domain retrieval previously timed out. Newly read exact January17,2011 publisher root supplied actual /page/about and /page/contact routes; their separate exact January26,2011 captures identify both the Los Angeles and Jakarta operations and a specifically labeled U.S. office in Monterey Park, California. No qualifying Sina link/widget was recovered; the founder biography is not a publisher account. Historical corporate links, distribution agreements and regional offices do not transfer an Indonesian or partner-newspaper UID to the U.S. edition or establish current addresses/account control. Primary historical Contact: https://web.archive.org/web/20110126113556id_/http://www.chinesetoday.com:80/page/contact . Earlier California-directory and2010 reporting context remains separate corroboration. Unknown, not absent. Review date: 2026-10-22 UTC."
     },
     {
       "id": "iciti-tv-us", "name": "iCITI TV / 城市新闻网", "category": "us_chinese_language",
@@ -448,7 +448,7 @@
       "id": "ming-pao-us", "name": "Ming Pao / New York edition historical evidence", "category": "us_chinese_language",
       "aliases": ["明報新聞網海外版 - 紐約", "明报美东版", "明報紐約"], "us_basis": "Historical U.S. New York publication edition explicitly identified by the publisher's own2014/2017 archived titles; separated from Hong Kong and Canadian editions.",
       "source_url": "https://www.mingpaony.com/", "research_status": "reviewed",
-      "notes": "Actual2014 and2017 New York publisher roots were read without resolving an official Weibo profile. A parent Hong Kong or Canadian Ming Pao account is not automatically the U.S. edition. Historical publisher evidence is not a current-publication or account-deletion claim. Source: https://web.archive.org/web/20170202212158id_/http://www.mingpaony.com/ . Review date: 2026-10-21."
+      "notes": "A newly read exact January9,2011 New York root explicitly labels the overseas New York free newspaper and identifies its Long Island City, New York office and Ming Pao Enterprise subsidiary relationship. Bounded historical link/widget checks found no qualifying Sina locator, consistent with previously inspected2014/2017 roots but not proof of account absence. A Hong Kong parent, Canadian edition or named staff member is not automatically this U.S. edition. The2011 address/subsidiary statement is historical, not independently audited current legal control, publication continuity or an account-deletion claim. New source: https://web.archive.org/web/20110109080810id_/http://www.mingpaony.com/ . Review date: 2026-10-22 UTC."
     },
     {
       "id": "chinese-business-news-us", "name": "Chinese Business News / 中華商報 (U.S.)", "category": "us_chinese_language",
@@ -743,6 +743,48 @@
       "us_basis": "Publication's June17,2022 printed masthead identifies its Rockville, Maryland office, publisher role and acmedia.us website. Publication-branded hosting metadata describes a March1994 start; current corporate/legal control is not independently audited.",
       "source_url": "https://www.acmedia.us/", "research_status": "reviewed",
       "notes": "Actual masthead domain failed modern TLS protocol negotiation; verification/security was not weakened and no HTTP downgrade used. Exact2015 domain capture was only a framing wrapper pointing to acmediaonline.net, not an inspected newspaper site. That destination currently failed DNS; its sole retrieved2020 archived capture was gambling-branded, not publisher content, so no social identifier there was attributed to the newspaper and no hacking/ownership cause asserted. The printed masthead and publication-branded issue remain scope evidence only; no official Sina account was resolved. Unknown, not absent. Review date: 2026-10-22 UTC."
+    },
+    {
+      "id": "fort-worth-star-telegram", "name": "Fort Worth Star-Telegram", "category": "newspaper",
+      "aliases": ["Fort Worth Star-Telegram", "Star-Telegram"],
+      "us_basis": "United States-classified source position95; exact January1,2016 publisher homepage explicitly identifies Fort Worth, Texas news and the Star-Telegram. Current corporate nationality/legal ownership are not independently audited.",
+      "source_url": "https://www.star-telegram.com/", "research_status": "reviewed",
+      "notes": "Live robots request timed out before a publisher page was retrieved. Exact2012 and2013 archive attempts failed text decoding and were not credited as readable; a genuinely later exact20160101051535 root was successfully read without a qualifying Weibo link. Its actual Fort Worth title and correct community item distinguish this publication from generic Star/Telegram names and messaging-platform accounts. Main website statement matches, no main Sina identifier. No unavailable archive body was reconstructed or missing link turned into absence. Unknown, not absent. Review date: 2026-10-22 UTC."
+    },
+    {
+      "id": "virginian-pilot", "name": "The Virginian-Pilot", "category": "newspaper",
+      "aliases": ["The Virginian-Pilot", "Virginian-Pilot", "Norfolk Virginian-Pilot"],
+      "us_basis": "United States-classified source position96; actual current publisher About identifies the Virginia daily founded in1865, independently of other Pilot-named publications or aviation accounts.",
+      "source_url": "https://www.pilotonline.com/", "research_status": "reviewed",
+      "notes": "Complete root, actual About and Contact were read without a qualifying owned Weibo profile. Contact slash redirect is one page, not independent corroboration. About names Virginia Media and shared Daily Press newsroom contacts, but neither a sister newspaper, parent-company channel nor staff member was substituted for this paper. Correct publication-specific community item includes pilotonline.com among its main website statements without a main Sina identifier. Unknown, not absent. Review date: 2026-10-22 UTC."
+    },
+    {
+      "id": "charleston-post-courier", "name": "The Post and Courier / Charleston", "category": "newspaper",
+      "aliases": ["The Post and Courier", "Charleston Post and Courier"],
+      "us_basis": "United States-classified source position97; actual publisher root explicitly identifies Charleston, South Carolina, and its social-media directory identifies the regional news operation. Legal ownership not independently audited.",
+      "source_url": "https://www.postandcourier.com/", "research_status": "reviewed",
+      "notes": "Complete root and actual /social_media/ directory were read without a qualifying Sina locator. Publisher-linked /site/about.html and /site/contact.html are robots-disallowed and were NOT retrieved or bypassed. The readable directory names Facebook, Twitter and Instagram channels; that bounded list is not proof of never having Weibo. Regional social pages and generic Post/Courier publications were not extra accounts. Correct community item main website matches without a main Sina identifier. Unknown, not absent. Review date: 2026-10-22 UTC."
+    },
+    {
+      "id": "pittsburgh-tribune-review", "name": "TribLIVE / Pittsburgh Tribune-Review", "category": "newspaper",
+      "aliases": ["Pittsburgh Tribune-Review", "TribLIVE", "Tribune-Review"],
+      "us_basis": "United States-classified source position98; publisher's own media-kit history explicitly links the Pittsburgh newspaper and ongoing TribLIVE reporting in southwestern Pennsylvania. This is not a generic Tribune or a parent substituted for an unrelated title.",
+      "source_url": "https://triblive.com/", "research_status": "reviewed",
+      "notes": "Complete root and actual /news/contactus/ were read. Root's actual About points to mediakit.triblive.com/about/who-we-are/; that separate host's robots policy was checked independently before reading its institutional history. It describes the Pittsburgh edition, cessation of that print edition in2016 and continuing online coverage, not an inferred Weibo transfer/deletion/cutoff. No qualifying owned Sina link; staff, contact forms, radio service and sister papers not substituted. Correct community item matches triblive.com without a main Sina identifier. Original ranked source name/domain/order remain unchanged. Unknown, not absent. Review date: 2026-10-22 UTC."
+    },
+    {
+      "id": "tulsa-world", "name": "Tulsa World", "category": "newspaper",
+      "aliases": ["Tulsa World", "The Tulsa World"],
+      "us_basis": "United States-classified source position99; actual publisher root identifies Tulsa County and metropolitan Oklahoma reporting, and its actual Contact identifies this newspaper. Current corporate legal control not independently audited.",
+      "source_url": "https://tulsaworld.com/", "research_status": "reviewed",
+      "notes": "Complete root and Contact were readable without a qualifying Weibo profile. Contact slash variants are one page; template placeholders and staff paths were not publisher identity evidence. Correct newspaper community item main website matches without a main Sina identifier. Other World papers, Chinese-language World Journal, sports teams and corporate siblings were not substituted. Unknown, not absent. Review date: 2026-10-22 UTC."
+    },
+    {
+      "id": "visionaire", "name": "VISIONAIRE / Chinese edition", "category": "art_fashion_media",
+      "aliases": ["VISIONAIRE", "VISIONAIRE China", "VISIONAIRE中文", "VISIONAIRE中文版"],
+      "us_basis": "Publisher's own joint-venture statement explicitly identifies VISIONAIRE as an NYC-based multimedia company; its own history identifies limited-edition publishing since1991 and a separate2023 statement documents its VISIONAIRE CHINA venture.",
+      "source_url": "https://visionaireworld.com/", "research_status": "reviewed",
+      "notes": "Actual publisher About, New York publication history, Shanghai joint-venture statement and VISIONAIRE CHINA launch statement were retrieved. Numeric Sina profile6862397933 carries blue institutional certification explicitly naming the Chinese edition; an independent exact native NewsArticle author binds the same UID and publication. This is an art/fashion publication and China operation of a U.S.-origin brand, not asserted a U.S. newsroom or an independent U.S.-ownership/current-license audit. The2018 profile join label,2019 venture context and October2023 launch events are not invented account-attribution cutoffs. V magazine, VMAN, STARK itself, individual collaborators and fans are not additional identities. Review date: 2026-10-22 UTC."
     },
     {
       "id": "hartford-courant", "name": "Hartford Courant", "category": "newspaper",
@@ -1141,6 +1183,21 @@
       "relationship": "Publisher-designated historical official SELF Chinese website channel, distinct from the magazine channel within one brand group",
       "officialness": "confirmed", "existence": "historical", "accessibility": "unknown",
       "notes": "Owned2013 box explicitly labels selfwebsite 《悦己SELF》杂志官网微博, not a staff link. Independent2011 owner scope binds UID1658402750/悦己网; an exact2020 capture retains UID/name 悦己女性网 but its14 recognized posts are dated2017. Current92-entry feed is likewise2017-only. Capture date, visible stale bio and no in-window recovery are not current activity, absence or complete-history proof."
+    },
+    {
+      "id": "visionaire-china",
+      "outlet_id": "visionaire",
+      "uid": "6862397933",
+      "handle": null,
+      "display_name": "VISIONAIRE中文",
+      "profile_url": "https://weibo.com/u/6862397933",
+      "language": "zh-Hans",
+      "operator": "Chinese-edition publication team of VISIONAIRE's publisher-documented China venture; exact current legal Weibo owner and contracting entity unaudited",
+      "relationship": "U.S.-origin art/fashion publication with publisher-documented China venture and current explicitly certified Chinese-edition account; not asserted U.S. newsroom staffing or independently audited license continuity",
+      "officialness": "confirmed",
+      "existence": "current_evidence",
+      "accessibility": "unknown",
+      "notes": "Blue-v institutional header explicitly names 《VISIONAIRE中文版》官方微博. Exact native post5354379507925445 independently validates author UID6862397933. Current feed exposes100 records, four dated October22,2026 outside the fixed window; those must not be imported. Profile join label and publisher launch/venture dates are not account ownership or attribution cutoffs. Current certification is not backdated to older post publication."
     },
     {
       "id": "variety-china", "outlet_id": "variety", "uid": "7246608144", "handle": null,
@@ -1913,6 +1970,46 @@
       "source_url": "https://www.self.com/info/about-self", "source_type": "publisher_statement",
       "observed_at": "2026-10-22T06:54:46.979621+00:00", "claim_date": null, "supports": "relationship",
       "justification": "Same U.S. SELF publication identified by its own New York editorial headquarters and brand About; the historical China publisher separately designates its website channel. Two social UIDs are one publisher/brand group, not two independent U.S. newsrooms or a borrowed parent-company account."
+    },
+    {
+      "id": "visionaire-current-institution",
+      "account_id": "visionaire-china",
+      "source_url": "https://www.sina.cn/media/6862397933",
+      "source_type": "platform_certification",
+      "observed_at": "2026-10-22T10:20:11.158970+00:00",
+      "claim_date": null,
+      "supports": "identity",
+      "justification": "Actual numeric profile title and owner header identify VISIONAIRE中文 with blue-v institution badge and explicit 《VISIONAIRE中文版》官方微博 certification. This publication-specific certification is not a named artist, fan, V magazine or a similarly named generic design service."
+    },
+    {
+      "id": "visionaire-owned-china-launch",
+      "account_id": "visionaire-china",
+      "source_url": "https://visionaireworld.com/blogs/imported/visionaire-china-is-launched",
+      "source_type": "publisher_statement",
+      "observed_at": "2026-10-22T10:20:09.688831+00:00",
+      "claim_date": null,
+      "supports": "relationship",
+      "justification": "U.S. brand's own VISIONAIRE CHINA IS LAUNCHED statement explicitly calls the China operation its new venture and describes October15,17 and18,2023 events with cofounder Cecilia Dean. Those event dates establish the publisher relationship, not an account join date, a current legal-contract audit or an attribution cutoff."
+    },
+    {
+      "id": "visionaire-owned-us-and-china-venture",
+      "account_id": "visionaire-china",
+      "source_url": "https://visionaireworld.com/blogs/imported/visionaire-expands-into-china-with-a-joint-venture",
+      "source_type": "publisher_statement",
+      "observed_at": "2026-10-22T10:20:12.408933+00:00",
+      "claim_date": null,
+      "supports": "relationship",
+      "justification": "Publisher explicitly identifies itself as NYC-based and describes a joint venture with STARK Global Holdings, based in Shanghai. This independently supplies the U.S.-brand basis and China-operation context; the older experiential venture is not assumed legally identical to every later Chinese-edition contract or the account's current owner."
+    },
+    {
+      "id": "visionaire-native-post-author",
+      "account_id": "visionaire-china",
+      "source_url": "https://www.sina.cn/news/detail/5354379507925445.html",
+      "source_type": "platform_post",
+      "observed_at": "2026-10-22T10:18:03.536316+00:00",
+      "claim_date": "2026-10-15",
+      "supports": "identity",
+      "justification": "Exact HTML post ID, unique NewsArticle author URL/u/6862397933, publication name and one available article body independently bind the October15,2026 20:23 Shanghai post to the certified account. Related quotations and celebrity/fan posts are not substituted; today's certification is not backdated to older publications."
     },
     {
       "id": "variety-current-institution", "account_id": "variety-china",

@@ -10,6 +10,9 @@ reviewed. A station programme containing the word Weibo was not
 misrepresented as an organizational account, and an unavailable
 NPR-mention article was not imported as an NPR post.
 
+This is a historical checkpoint. [The next publisher-specific follow-up](discovery_iteration20.md)
+verifies VISIONAIRE's Chinese edition and advances the regional-newspaper review.
+
 ## Five additional ranked publications
 
 Positions refer to the existing SCImago U.S.-classified

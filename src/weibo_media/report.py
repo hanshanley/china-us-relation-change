@@ -199,6 +199,8 @@ def report(db, path):
               "and a real Chinese account held outside U.S. totals without a verified brand relationship, "
               "[Radio-programme and publisher follow-up](discovery_iteration19.md) for five more ranked reviews "
               "and a station programme distinguished from an organizational Sina account, "
+              "[VISIONAIRE and regional-publisher follow-up](discovery_iteration20.md) for a publisher-documented "
+              "Chinese-edition identity, fixed-window recovery and five further ranked reviews, "
               "and [access pilot](access_pilot.md) for source-level "
               "access checks and archive gaps.", ""]
     target = Path(path)

@@ -1037,6 +1037,20 @@
       "relationship": "Historical publisher-linked Chinese VICE video channel; vanity handle viceland does not establish it as the U.S. VICELAND television account"
     },
     {
+      "account_id": "visionaire-china",
+      "attribution_end": null,
+      "earliest_publication_utc": "2024-01-22T04:22:00+00:00",
+      "existence": "current_evidence",
+      "latest_publication_utc": "2026-10-21T08:07:00+00:00",
+      "latest_run_source": "import",
+      "latest_run_status": "partial",
+      "outlet_id": "visionaire",
+      "outlet_name": "VISIONAIRE / Chinese edition",
+      "profile_url": "https://weibo.com/u/6862397933",
+      "recovered_posts": 101,
+      "relationship": "U.S.-origin art/fashion publication with publisher-documented China venture and current explicitly certified Chinese-edition account; not asserted U.S. newsroom staffing or independently audited license continuity"
+    },
+    {
       "account_id": "vogue-china",
       "attribution_end": null,
       "earliest_publication_utc": "2026-01-30T02:35:00+00:00",
@@ -1150,18 +1164,18 @@
     }
   ],
   "roster": {
-    "confirmed_accounts": 82,
-    "confirmed_outlets": 57,
-    "outlets": 171,
-    "reviewed_outlets": 171
+    "confirmed_accounts": 83,
+    "confirmed_outlets": 58,
+    "outlets": 177,
+    "reviewed_outlets": 177
   },
   "source": {
-    "corpus_metadata_sha256": "73b20e35da447de40b7bc3d732f6aa43feac5b0b0d716bbdbf50b1f859bc2e3e",
+    "corpus_metadata_sha256": "b5b08776c468613a783dfe6eff5de18c8464c90e082ecdf29f047244b4609c15",
     "excluded_attribution_posts": 0,
     "excluded_unconfirmed_posts": 0,
-    "latest_collection_at": "2026-10-22T09:01:10.629815+00:00",
+    "latest_collection_at": "2026-10-22T10:25:51.030189+00:00",
     "publication_timezone": "Asia/Shanghai",
-    "registry_sha256": "c89308d7ff974bda766eafcc3baa5d556705d741f04bf305b433b7ef5760f7c2",
+    "registry_sha256": "e13b6cc27610a1ffb9238110231951385b5ffd5b3251c58fe8b1227739e7716a",
     "requested_windows": [
       {
         "end": "2026-10-21T16:00:00+00:00",
@@ -1171,11 +1185,11 @@
   },
   "text_completeness": [
     {
-      "recovered_posts": 5322,
+      "recovered_posts": 5419,
       "status": "source_full"
     },
     {
-      "recovered_posts": 737,
+      "recovered_posts": 741,
       "status": "truncated"
     },
     {
@@ -1206,15 +1220,15 @@
       "year": 2023
     },
     {
-      "recovered_posts": 188,
+      "recovered_posts": 189,
       "year": 2024
     },
     {
-      "recovered_posts": 301,
+      "recovered_posts": 302,
       "year": 2025
     },
     {
-      "recovered_posts": 4021,
+      "recovered_posts": 4120,
       "year": 2026
     }
   ]
