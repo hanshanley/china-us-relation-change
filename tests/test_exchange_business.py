@@ -1,6 +1,8 @@
 import copy
 import csv
 import io
+import importlib.util
+import hashlib
 import json
 from collections import defaultdict
 from pathlib import Path
@@ -220,3 +222,45 @@ def test_invalid_business_input_is_rejected_before_writes_and_deleted_input_with
     assert not (tmp_path / "site/business-presence.html").exists()
     assert not list((tmp_path / "site/downloads").glob("business-*"))
     assert not list((tmp_path / "outputs/figures/business_presence").glob("*/*.*"))
+
+
+def test_publication_is_business_only_with_complete_data_original_downloads_and_provenance(tmp_path):
+    spec = importlib.util.spec_from_file_location("business_publication", ROOT / "scripts/build_business_publication.py")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    output = tmp_path / "published"
+    manifest = module.build_publication(ROOT, output, "verified-source-revision")
+    page = BeautifulSoup((output / "index.html").read_text(), "html.parser")
+    assert page.select_one('link[rel="canonical"]')["href"] == manifest["canonical_url"]
+    assert page.select_one(".publication-header nav").text == "LatestArchiveInteractive analysisAbout"
+    assert not page.select('a[href="index.html"],a[href="language-learning.html"],iframe')
+    assert len(page.select("svg[role=img]")) == 5
+    assert len(page.select("#annual-values [data-business-year]")) == 24
+    assert page.select_one("#business-controls").has_attr("hidden")
+    assert {n["data-business-origin"] for n in page.select("section[data-business-origin]")} == {"us", "eu", "uk", "norway"}
+    assert page.select_one("#business-benchmark-background").get("open") is None
+    assert set(p.name for p in (output / "downloads").iterdir()) == {
+        "business-presence.json", "business-observations.csv", "business-chart-values.csv"}
+    data = json.loads((output / "downloads/business-presence.json").read_text())
+    assert data == published() and manifest["observations"] == 74
+    assert manifest["source_revision"] == "verified-source-revision"
+    for name, checksum in manifest["files"].items():
+        assert hashlib.sha256((output / name).read_bytes()).hexdigest() == checksum
+    with (output / "downloads/business-observations.csv").open() as f:
+        assert len(list(csv.DictReader(f))) == 74
+    for link in page.select('a[href^="figures/"]'):
+        assert link.has_attr("data-original-chart") and (output / link["href"]).is_file()
+    assert not (output / "business-presence.html").exists()
+    assert not any("weibo" in str(p.relative_to(output)) or "language" in str(p.relative_to(output))
+                   for p in output.rglob("*"))
+    custom = output / "figures/business_presence/substack/custom.svg"
+    custom.write_text("User-owned")
+    source = tmp_path / "source"
+    (source / "data/site").mkdir(parents=True)
+    (source / "src/us_china_exchange").mkdir(parents=True)
+    (source / "src/us_china_exchange/static").symlink_to(ROOT / "src/us_china_exchange/static", target_is_directory=True)
+    data["observations"] = [r for r in data["observations"] if not r["series_id"].startswith("eurostat")]
+    (source / "data/site/business_presence.json").write_text(json.dumps(data))
+    module.build_publication(source, output, "next-revision")
+    assert not list((output / "figures/business_presence").glob("*/eu-affiliates-china.*"))
+    assert custom.read_text() == "User-owned"

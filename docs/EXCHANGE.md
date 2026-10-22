@@ -314,6 +314,25 @@ new business data. The shared indicator SVG renderer preserves the existing
 language figures byte-for-byte. Removing a frozen input withdraws its known
 page, downloads and charts, never user-owned figures.
 
+The business-only publication at
+`https://www.themarginoferror.com/china-us-relations/` is built separately:
+
+```sh
+.venv/bin/python scripts/build_business_publication.py --output data/local/business-publication
+.venv/bin/python scripts/check_business_publication.py --site data/local/business-publication
+```
+
+This offline export contains only the reviewed business aggregates, figures,
+definitions and complete downloads, not the exchange, language or private
+Weibo material. It supplies its own publication masthead and a provenance
+manifest with the source revision and asset checksums. Origin selection
+filters the panels and table columns; year selection explicitly filters only
+the table. Plots retain their complete reported histories. Without JavaScript,
+all annual panels and the full table remain available. Both original PNG/SVG
+backgrounds remain downloadable even when the website themes its previews.
+The publication deployment rebuilds this committed snapshot; it does not
+retrieve fresh business data.
+
 ## Definitions and comparisons
 
 - History starts in 2000 **where verified**. The publication does not pretend

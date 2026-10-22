@@ -19,6 +19,9 @@ BENCHMARK_CHART = "us-parent-companies-china"
 COLORS = {"bea_affiliates:china": PARTNER_COLORS["CHN"], "bea_parents:china": PARTNER_COLORS["CHN"],
           "eurostat_affiliates:china": BLUE, "eurostat_historical_eu:china": MUTED,
           "eurostat_uk:china": GOLD, "eurostat_norway:china": GREEN}
+ORIGINS = {"bea_affiliates:china": "us", "bea_parents:china": "us",
+           "eurostat_affiliates:china": "eu", "eurostat_historical_eu:china": "eu",
+           "eurostat_uk:china": "uk", "eurostat_norway:china": "norway"}
 CHARTS = {
     "us-affiliates-china": {
         "title": "U.S.-parent affiliates in China",
@@ -163,7 +166,7 @@ def svg_business_chart(data, chart_id, theme="themarginoferror"):
         "business-point")
 
 
-def build_business(root, data, gallery):
+def build_business(root, data, gallery, publication=False):
     from .render import esc, export_figure, figure_links, remove_figure
 
     validate_business_data(data)
@@ -183,10 +186,15 @@ def build_business(root, data, gallery):
         body = '<p class="gap">No verified observations for this indicator in the frozen snapshot.</p>'
         if paths:
             count += 1
+            figure = (svg_business_chart(data, chart_id) if publication else
+                      f'<img src="{esc(paths["themarginoferror"]["png"])}" width="1000" height="600" loading="lazy" '
+                      f'alt="{esc(config["title"])} - {esc(config["subtitle"])}">')
+            downloads = figure_links(paths)
+            if publication:
+                downloads = downloads.replace("<a ", "<a data-original-chart ")
             body = (f'<div class="comparison-chart" tabindex="0" role="region" aria-label="{esc(config["title"])}">'
-                    f'<img src="{esc(paths["themarginoferror"]["png"])}" width="1000" height="600" loading="lazy" '
-                    f'alt="{esc(config["title"])} - {esc(config["subtitle"])}"></div>'
-                    f'<p class="chart-note">{esc(config["note"])}</p>' + figure_links(paths))
+                    + figure + '</div>' +
+                    f'<p class="chart-note">{esc(config["note"])}</p>' + downloads)
             links = {t: {k: p.removeprefix("figures/") for k, p in files.items()} for t, files in paths.items()}
             gallery["business_presence"].append(
                 f'<article><h3>{esc(config["title"])}</h3><p>{esc(config["subtitle"])}</p>{figure_links(links)}</article>')
@@ -204,7 +212,9 @@ def build_business(root, data, gallery):
                      '<thead><tr><th>Series</th><th>Year / ending year</th><th>Reported count</th>'
                      f'<th>{esc(config["unit"])}</th><th>Status</th><th>Source vintage</th></tr></thead><tbody>'
                      + "".join(exact) + '</tbody></table></div></details>')
-        cards[chart_id] = f'<section class="series-panel" id="{chart_id}"><h2>{esc(config["title"])}</h2>{body}</section>'
+        origin = ORIGINS[config["series"][0]]
+        cards[chart_id] = (f'<section class="series-panel" id="{chart_id}" data-business-origin="{origin}">'
+                           f'<h2>{esc(config["title"])}</h2>{body}</section>')
     raw = []
     for r in data["observations"]:
         definition, provenance = data["series"][r["series_id"]], data["sources"][r["source_id"]]
@@ -239,14 +249,14 @@ def build_business(root, data, gallery):
             r = observations.get((sid, year))
             value = ("Confidential" if r and r["status"] == "suppressed" else "Not reported") if r is None or r["value"] is None else (
                 f'{r["value"]:,}' + (f' ({r["status"]})' if r["status"] != "observed" else ""))
-            cells.append(f'<td>{esc(value)}</td>')
-        yearly.append(f'<tr><th scope="row">{year}</th>{"".join(cells)}</tr>')
+            cells.append(f'<td data-business-origin="{ORIGINS[sid]}">{esc(value)}</td>')
+        yearly.append(f'<tr data-business-year="{year}"><th scope="row">{year}</th>{"".join(cells)}</tr>')
     annual_table = ('<section class="series-panel" id="annual-values"><h2>Every reported year in China</h2>'
                     '<p>Not just endpoints: every available annual count is shown below. Columns have different '
                     'ownership, reporting and sector coverage; they are not a matched ranking or an all-Europe total. '
                     'The historical EU group already includes the UK: overlapping columns must not be added.</p>'
                     '<div class="table-scroll"><table><thead><tr><th>Year / ending year</th>' +
-                    "".join(f'<th>{esc(label)}</th>' for _, label in columns) +
+                    "".join(f'<th data-business-origin="{ORIGINS[sid]}">{esc(label)}</th>' for sid, label in columns) +
                     '</tr></thead><tbody>' + "".join(yearly) + '</tbody></table></div></section>')
     annual_cards = "".join(card for chart_id, card in cards.items() if chart_id != BENCHMARK_CHART)
     benchmark = ('<details class="series-panel" id="business-benchmark-background">'
@@ -254,11 +264,22 @@ def build_business(root, data, gallery):
                  '<p>These four isolated U.S. parent-company observations are background only. They are not '
                  'substituted for the annual affiliate histories above, interpolated or presented as a current census.</p>'
                  + cards[BENCHMARK_CHART] + '</details>')
+    controls = (f'<form id="business-controls" class="controls" hidden aria-label="Explore China business histories">'
+                '<label>Investor origin<select id="business-origin"><option value="all">All reported origins</option>'
+                '<option value="us">United States</option><option value="eu">EU reporting groups</option>'
+                '<option value="uk">United Kingdom</option><option value="norway">Norway</option></select></label>'
+                f'<label>Table start year<input id="business-start" type="number" min="{first}" max="{last}" value="{first}" step="1"></label>'
+                f'<label>Table end year<input id="business-end" type="number" min="{first}" max="{last}" value="{last}" step="1"></label>'
+                '<p id="business-filter-status" role="status" aria-live="polite">'
+                'Charts retain their full reported history. Year filters apply to the exact table only; downloads are complete.</p></form>') if publication else ""
+    navigation = ('<p><a href="index.html">Exchange dashboard</a>' +
+                  (' · <a href="language-learning.html">Language learning</a>' if (root / "site/language-learning.html").is_file() else "") + '</p>')
+    if publication:
+        navigation = ('<p class="eyebrow"><a href="https://www.themarginoferror.com/interactive-analysis/">'
+                      'Interactive analysis</a> / China business presence</p>')
     document = ('<!doctype html><html lang="en"><head><meta charset="utf-8">'
                 '<meta name="viewport" content="width=device-width,initial-scale=1"><title>U.S. and European businesses in China over time</title>'
-                '<link rel="stylesheet" href="assets/style.css"></head><body><div class="page"><header>'
-                '<p><a href="index.html">Exchange dashboard</a>' +
-                (' · <a href="language-learning.html">Language learning</a>' if (root / "site/language-learning.html").is_file() else "") + '</p>'
+                '<link rel="stylesheet" href="assets/style.css"></head><body><div class="page"><header>' + navigation +
                 f'<h1>Businesses in China.</h1><p class="lead">{esc(data["context"]["question"])}</p>'
                 f'<p><strong>Annual histories, {first}-{last} where reported. China is the host in every chart.</strong> '
                 'The main graphs track U.S., EU, UK and Norwegian business presence in China over time—not U.S. '
@@ -269,7 +290,7 @@ def build_business(root, data, gallery):
                 '<p><a href="downloads/business-presence.json" download>Complete dataset and provenance · JSON</a> · '
                 '<a href="downloads/business-observations.csv" download>Every source observation · CSV</a> · '
                 '<a href="downloads/business-chart-values.csv" download>Every plotted value · CSV</a></p></header><main>'
-                + annual_cards + annual_table + benchmark +
+                + controls + annual_cards + annual_table + benchmark +
                 '<section class="series-panel"><h2>Coverage and unresolved counts</h2>'
                 f'<p>{esc(data["context"].get("release_timing", ""))}</p>'
                 '<p>Missing and confidential values stay blank, not zero or invented annual estimates. '
