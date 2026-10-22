@@ -226,6 +226,9 @@ def svg_weibo(summary, metric, theme="themarginoferror"):
         f'<text x="80" y="82">{esc(subtitle)}</text>',
     ]
     annual = metric == "publication-years"
+    unit = "Accounts" if metric in {"identity-evidence", "recovery-coverage"} else "Recovered posts"
+    parts.append(f'<text class="axis-unit" x="{115 if annual else 380}" y="{130 if annual else 116}" '
+                 f'font-size="18" fill="{TEXT}">{unit}</text>')
     for fraction in (0, .5, 1):
         value = maximum * fraction
         if annual:

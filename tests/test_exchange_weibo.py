@@ -41,6 +41,7 @@ def snapshot_inputs(tmp_path):
         ("p2", "account2", "2", "2020-12-31T15:59:00+00:00", "truncated"),
         ("p3", "account2", "2", "2020-12-31T16:00:00+00:00", "source_full"),
         ("p4", "account3", "3", "2021-01-01T00:00:00+00:00", "source_full"),
+        ("p5", "account1", "1", "2022-01-01T00:00:00+00:00", "source_full"),
     ]
     with db:
         for post_id, account, uid, published, status in records:
@@ -64,16 +65,20 @@ def test_summary_respects_timezone_attribution_and_private_corpus(tmp_path):
     before = database.read_bytes()
     summary = create_summary(database, registry)
     assert database.read_bytes() == before
-    assert summary["yearly"] == [{"year": 2020, "recovered_posts": 1}, {"year": 2022, "recovered_posts": 1}]
+    assert summary["yearly"] == [{"year": 2020, "recovered_posts": 1}, {"year": 2022, "recovered_posts": 2}]
     assert summary["source"]["excluded_attribution_posts"] == 1
     assert summary["source"]["excluded_unconfirmed_posts"] == 1
     assert summary["roster"]["confirmed_accounts"] == 2
-    assert sum(a["recovered_posts"] for a in summary["accounts"]) == 2
+    assert sum(a["recovered_posts"] for a in summary["accounts"]) == 3
     assert "PRIVATE_BODY" not in json.dumps(summary)
     doc = ElementTree.fromstring(svg_weibo(summary, "publication-years"))
     bars = [x for x in doc.iter() if x.get("class") == "data-bar"]
     assert {x.get("data-label") for x in bars} == {"2020", "2022"}
     assert "n/a" in "".join(doc.itertext())
+    for metric, total, unit in (("recovery-coverage", 2, "Accounts"), ("text-completeness", 3, "Recovered posts")):
+        figure = ElementTree.fromstring(svg_weibo(summary, metric))
+        assert sum(int(x.get("data-value")) for x in figure.iter() if x.get("class") == "data-bar") == total
+        assert next(x.text for x in figure.iter() if x.get("class") == "axis-unit") == unit
 
 
 def test_summary_rejects_unreconciled_counts_and_extra_private_fields(tmp_path):
