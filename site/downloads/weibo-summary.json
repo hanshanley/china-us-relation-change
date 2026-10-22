@@ -855,6 +855,34 @@
       "relationship": "Chinese edition of Scientific American; not asserted to be the U.S. newsroom account"
     },
     {
+      "account_id": "self-china-magazine-historical",
+      "attribution_end": null,
+      "earliest_publication_utc": null,
+      "existence": "historical",
+      "latest_publication_utc": null,
+      "latest_run_source": "sina_syndication",
+      "latest_run_status": "partial",
+      "outlet_id": "self",
+      "outlet_name": "SELF / historical Chinese magazine and website channels",
+      "profile_url": "https://weibo.com/helloself",
+      "recovered_posts": 0,
+      "relationship": "Publisher-designated historical Chinese SELF magazine account, not a current \u53d1\u75af\u7f16\u8f91\u90e8 successor account or U.S.-newsroom staffing assertion"
+    },
+    {
+      "account_id": "self-china-website-historical",
+      "attribution_end": null,
+      "earliest_publication_utc": null,
+      "existence": "historical",
+      "latest_publication_utc": null,
+      "latest_run_source": "sina_syndication",
+      "latest_run_status": "partial",
+      "outlet_id": "self",
+      "outlet_name": "SELF / historical Chinese magazine and website channels",
+      "profile_url": "https://weibo.com/selfwebsite",
+      "recovered_posts": 0,
+      "relationship": "Publisher-designated historical official SELF Chinese website channel, distinct from the magazine channel within one brand group"
+    },
+    {
       "account_id": "si-china-historical",
       "attribution_end": null,
       "earliest_publication_utc": "2020-01-02T04:03:00+00:00",
@@ -1066,18 +1094,18 @@
     }
   ],
   "roster": {
-    "confirmed_accounts": 76,
-    "confirmed_outlets": 53,
-    "outlets": 124,
-    "reviewed_outlets": 124
+    "confirmed_accounts": 78,
+    "confirmed_outlets": 54,
+    "outlets": 131,
+    "reviewed_outlets": 131
   },
   "source": {
     "corpus_metadata_sha256": "563b37575e8049e58a4d4ee66dd54dca0121fe96d9b1d4ef4a1ef26236789269",
     "excluded_attribution_posts": 0,
     "excluded_unconfirmed_posts": 0,
-    "latest_collection_at": "2026-10-22T05:34:24.790931+00:00",
+    "latest_collection_at": "2026-10-22T07:00:38.592135+00:00",
     "publication_timezone": "Asia/Shanghai",
-    "registry_sha256": "c9f02305160654b7ff9f1a2a24ae18b411e5622d756f018b5c2e3111306e483c",
+    "registry_sha256": "f57d830742895b64d6363e7ea300088429082eee505deebbd45f584369b549af",
     "requested_windows": [
       {
         "end": "2026-10-21T16:00:00+00:00",

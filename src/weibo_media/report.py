@@ -185,6 +185,8 @@ def report(db, path):
               "Chinese-edition identity and independently dated publisher-root checks, "
               "[identity-screening follow-up](discovery_iteration12.md) for nine further reviews "
               "and explicitly excluded founder/unbound blogger and long-form author candidates, "
+              "[historical SELF follow-up](discovery_iteration13.md) for two newly resolved "
+              "publisher-designated channels and the renamed-magazine attribution boundary, "
               "and [access pilot](access_pilot.md) for source-level "
               "access checks and archive gaps.", ""]
     target = Path(path)

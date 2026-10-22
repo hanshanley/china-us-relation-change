@@ -10,6 +10,9 @@ substantive new evidence without inflating organizational account counts.
 Missing links, empty indexes and excluded personal/unbound profiles do
 not establish that the publishers never used Weibo.
 
+This is a historical checkpoint. [The next historical SELF follow-up](discovery_iteration13.md)
+resolves two actual publisher-designated handles without importing a renamed successor.
+
 ## Five further ranked U.S.-classified websites
 
 Positions refer to the existing SCImago digital-reputation cohort,

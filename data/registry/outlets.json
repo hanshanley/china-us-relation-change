@@ -703,6 +703,55 @@
       "notes": "Current robots response was unusable, so no live publisher page was fetched or hostname/path workaround attempted. Exact2012 owned homepage was independently readable. A2015 event-listed dingdingtv handle is now bound to UID1732716720 through2011 owner scope and2017 config, but all inspected certification identifies the founder, not an institutional TV account; current profile is 硅谷丁丁 with yellow creator verification. A brand-looking2011 display name does not override owner-role evidence. The founder profile is excluded from organizational counts; the publisher's own Weibo remains unresolved, not verified absent. Review date: 2026-10-22 UTC."
     },
     {
+      "id": "seeking-alpha", "name": "Seeking Alpha", "category": "financial_information_platform",
+      "aliases": ["Seeking Alpha", "SeekingAlpha"],
+      "us_basis": "United States-classified source position59; actual publisher root and linked corporate About pages identify the investment-research publisher/platform. The country label is not an independent current legal-domicile audit.",
+      "source_url": "https://seekingalpha.com/", "research_status": "reviewed",
+      "notes": "Complete current root and actual about.seekingalpha.com root/About were read without a qualifying Weibo profile. Articles discussing Weibo's stock are not the publisher's social account. The exact publication-owned community item matches seekingalpha.com but has no main Sina identifier; missing locator is not absence proof. Analysts, employees, app sharing and similarly named Chinese investment communities are not substituted. Unknown, not absent. Review date: 2026-10-22 UTC."
+    },
+    {
+      "id": "syracuse-post-standard", "name": "The Post-Standard / Syracuse.com", "category": "local_news",
+      "aliases": ["The Post-Standard", "Syracuse.com", "Syracuse Post-Standard"],
+      "us_basis": "U.S.-classified source position60; independently read original January2013 publisher homepage identifies Syracuse, New York local-news reporting. Current ownership is not independently audited.",
+      "source_url": "https://www.syracuse.com/", "research_status": "reviewed",
+      "notes": "Actual live root returned HTTP403; no live aliases or alternate routes were used to evade it. Exact January1,2013 publisher-root archive was independently readable without a qualifying profile link. Correct article-owned community item matches the publisher domain but lacks a main Sina identifier. Advance parent channels and staff accounts are not the paper's dedicated profile by inference. Unknown, not absent. Review date: 2026-10-22 UTC."
+    },
+    {
+      "id": "buffalo-news", "name": "The Buffalo News", "category": "newspaper",
+      "aliases": ["The Buffalo News", "Buffalo News"],
+      "us_basis": "United States-classified source position61; publisher's own complete root and institutional Contact identify the Buffalo, New York/Erie County publication, not an independent legal-control audit.",
+      "source_url": "https://buffalonews.com/", "research_status": "reviewed",
+      "notes": "Actual current root and /contact/ were readable without a qualifying Weibo profile. Template placeholder links and individual staff paths were not treated as institutional corroboration. The correct publication-owned community item matches buffalonews.com and has no main Sina identifier; that is unresolved discovery, not a verified account negative. Review date: 2026-10-22 UTC."
+    },
+    {
+      "id": "kiplinger", "name": "Kiplinger", "category": "financial_information_media",
+      "aliases": ["Kiplinger", "Kiplinger's"],
+      "us_basis": "U.S.-classified source position62; own About identifies the financial-information publisher and its1920 founding. Current parent ownership and legal headquarters are not independently audited.",
+      "source_url": "https://www.kiplinger.com/", "research_status": "reviewed",
+      "notes": "Initial root and About responses both exceeded the2,000,000-byte cap and were explicitly partial. Bounded larger reads recovered complete2,039,002-byte and2,023,501-byte documents, without a qualifying Weibo profile. Correct article-owned community item matches the publisher website but has no main Sina identifier. Translated books, financial advisers, staff and similarly named investment accounts do not establish an official magazine profile. Unknown, not absent. Review date: 2026-10-22 UTC."
+    },
+    {
+      "id": "richmond-times-dispatch", "name": "Richmond Times-Dispatch", "category": "newspaper",
+      "aliases": ["Richmond Times-Dispatch", "Times-Dispatch"],
+      "us_basis": "United States-classified source position63; own About identifies its Virginia/Richmond reporting history since1850. Current legal control is not independently audited.",
+      "source_url": "https://richmond.com/", "research_status": "reviewed",
+      "notes": "Complete current root and actual About/Contact pages were read without a qualifying publisher Weibo link. Template URL placeholders, staff and other parent-group papers were not promoted. The publication-specific community item matches richmond.com but has no main Sina identifier; missing metadata is not an account negative. Unknown, not absent. Review date: 2026-10-22 UTC."
+    },
+    {
+      "id": "ac-business-news", "name": "A&C Business News / 美华商报", "category": "us_chinese_language",
+      "aliases": ["A&C Business News", "美华商报", "美華商報", "A&C Media Group"],
+      "us_basis": "Publication's June17,2022 printed masthead identifies its Rockville, Maryland office, publisher role and acmedia.us website. Publication-branded hosting metadata describes a March1994 start; current corporate/legal control is not independently audited.",
+      "source_url": "https://www.acmedia.us/", "research_status": "reviewed",
+      "notes": "Actual masthead domain failed modern TLS protocol negotiation; verification/security was not weakened and no HTTP downgrade used. Exact2015 domain capture was only a framing wrapper pointing to acmediaonline.net, not an inspected newspaper site. That destination currently failed DNS; its sole retrieved2020 archived capture was gambling-branded, not publisher content, so no social identifier there was attributed to the newspaper and no hacking/ownership cause asserted. The printed masthead and publication-branded issue remain scope evidence only; no official Sina account was resolved. Unknown, not absent. Review date: 2026-10-22 UTC."
+    },
+    {
+      "id": "self", "name": "SELF / historical Chinese magazine and website channels", "category": "health_lifestyle_media",
+      "aliases": ["SELF China", "悦己SELF", "HELLO悦己", "Hello悦己", "悦己女性网", "悦己网"],
+      "us_basis": "SELF's own editorial About explicitly places its headquarters at1 World Trade Center in New York City. The Chinese publication's own2013 homepage identifies the SELF magazine and separately labels its official magazine and official website Weibo channels.",
+      "source_url": "https://www.self.com/", "research_status": "reviewed",
+      "notes": "Previously checked2014/2016/2017 publisher pages exposed no locator, but a newly read exact2013 homepage has a publisher-authored 悦己微博 box explicitly linking helloself and selfwebsite. Independent2011 archived owner scope binds UIDs1797140201 and1658402750. Magazine UID is now 发疯编辑部, whose current output is not attributed to historical SELF; that successor name is not an allowed alias. Website UID retains 悦己女性网, but its visible feed and2020 capture only contain2017 posts, not eligible2020 publication evidence. Two historical identities, one U.S.-brand Chinese publishing group; present Chinese license/control/activity and U.S.-newsroom staffing not asserted. WeChat rename stories are not substituted as Weibo identity evidence. Review date: 2026-10-22 UTC."
+    },
+    {
       "id": "variety", "name": "Variety / Chinese edition", "category": "entertainment_trade_news",
       "aliases": ["视相Variety", "Variety China", "Variety中文版"],
       "us_basis": "U.S. publication: PMC's own corporate history identifies Variety's1905 New York founding by Sime Silverman. PMC's June5,2019 announcement independently documents its licensed Chinese edition and Beijing partner.",
@@ -765,6 +814,22 @@
     }
   ],
   "accounts": [
+    {
+      "id": "self-china-magazine-historical", "outlet_id": "self", "uid": "1797140201", "handle": "helloself",
+      "display_name": "HELLO悦己", "profile_url": "https://weibo.com/helloself", "language": "zh-Hans",
+      "operator": "Historical SELF Chinese magazine publishing operation; exact former/current legal Weibo account owner not independently audited",
+      "relationship": "Publisher-designated historical Chinese SELF magazine account, not a current 发疯编辑部 successor account or U.S.-newsroom staffing assertion",
+      "officialness": "confirmed", "existence": "historical", "accessibility": "unknown",
+      "notes": "The2013 owned social box explicitly labels helloself 《悦己SELF》杂志官方微博. Independent2011 owner header explicitly names the magazine's official account and repeatedly binds UID1797140201 through name-bearing scope objects/canonical owner URLs. Current name/certification are 发疯编辑部, not SELF; current successor posts must fail the historical-name gate and must not be imported. No arbitrary license-end date or successor alias is introduced."
+    },
+    {
+      "id": "self-china-website-historical", "outlet_id": "self", "uid": "1658402750", "handle": "selfwebsite",
+      "display_name": "悦己女性网", "profile_url": "https://weibo.com/selfwebsite", "language": "zh-Hans",
+      "operator": "Historical SELF Chinese magazine website operation; current account legal control/license continuity not independently audited",
+      "relationship": "Publisher-designated historical official SELF Chinese website channel, distinct from the magazine channel within one brand group",
+      "officialness": "confirmed", "existence": "historical", "accessibility": "unknown",
+      "notes": "Owned2013 box explicitly labels selfwebsite 《悦己SELF》杂志官网微博, not a staff link. Independent2011 owner scope binds UID1658402750/悦己网; an exact2020 capture retains UID/name 悦己女性网 but its14 recognized posts are dated2017. Current92-entry feed is likewise2017-only. Capture date, visible stale bio and no in-window recovery are not current activity, absence or complete-history proof."
+    },
     {
       "id": "variety-china", "outlet_id": "variety", "uid": "7246608144", "handle": null,
       "display_name": "视相Variety", "profile_url": "https://weibo.com/u/7246608144", "language": "zh-Hans",
@@ -1381,6 +1446,54 @@
     }
   ],
   "evidence": [
+    {
+      "id": "self-magazine-owned-2013-link", "account_id": "self-china-magazine-historical",
+      "source_url": "https://web.archive.org/web/20130102073526id_/http://www.self.com.cn:80/", "source_type": "publisher_link",
+      "observed_at": "2026-10-22T06:48:22.072735+00:00", "claim_date": "2013-01-02T07:35:26+00:00", "supports": "identity",
+      "justification": "Owned SELF China homepage's 悦己微博 box explicitly labels helloself/HELLO悦己 《悦己SELF》杂志官方微博, separately from the website account. The adjacent avatar UID was only a locator, not standalone owner proof."
+    },
+    {
+      "id": "self-magazine-2011-owner", "account_id": "self-china-magazine-historical",
+      "source_url": "https://web.archive.org/web/20110430012928id_/http://weibo.com/helloself", "source_type": "platform_certification",
+      "observed_at": "2026-10-22T06:50:18.588772+00:00", "claim_date": "2011-04-30T01:29:28+00:00", "supports": "historical",
+      "justification": "Exact original profile owner header certifies 《悦己SELF》杂志官方围脖. scope.defaulturl/globalurl and name-bearing nickname/setGroup objects independently agree on UID1797140201 and Hello悦己; unrelated viewer/avatar identities are not substituted."
+    },
+    {
+      "id": "self-website-owned-2013-link", "account_id": "self-china-website-historical",
+      "source_url": "https://web.archive.org/web/20130102073526id_/http://www.self.com.cn:80/", "source_type": "publisher_link",
+      "observed_at": "2026-10-22T06:48:22.072735+00:00", "claim_date": "2013-01-02T07:35:26+00:00", "supports": "identity",
+      "justification": "Owned publisher social box explicitly links selfwebsite/悦己女性网 and labels it 《悦己SELF》杂志官网微博. This is the publication website's official channel, not the neighboring magazine account or a staff member."
+    },
+    {
+      "id": "self-website-2011-owner", "account_id": "self-china-website-historical",
+      "source_url": "https://web.archive.org/web/20110514155821id_/http://weibo.com:80/selfwebsite", "source_type": "platform_profile",
+      "observed_at": "2026-10-22T06:50:22.876707+00:00", "claim_date": "2011-05-14T15:58:21+00:00", "supports": "historical",
+      "justification": "Exact original profile has owner header 悦己网/悦己女性网 and consistent owner URLs/name-bearing scope objects for UID1658402750. Independently binds the publisher-linked handle; the page's anonymous/recommended IDs were not used."
+    },
+    {
+      "id": "self-website-2020-owner-continuity", "account_id": "self-china-website-historical",
+      "source_url": "https://web.archive.org/web/20200628151832id_/https://www.weibo.com/selfwebsite", "source_type": "platform_profile",
+      "observed_at": "2026-10-22T06:52:40.617866+00:00", "claim_date": "2020-06-28T15:18:32+00:00", "supports": "historical",
+      "justification": "Exact2020 capture has owner oid1658402750/onick悦己女性网. Its14 author-validated recognized posts are September2017, not2020 publications; this capture supplies identity continuity only and no eligible in-window posts."
+    },
+    {
+      "id": "self-magazine-current-successor-boundary", "account_id": "self-china-magazine-historical",
+      "source_url": "https://www.sina.cn/media/1797140201", "source_type": "platform_profile",
+      "observed_at": "2026-10-22T06:50:14.139833+00:00", "claim_date": null, "supports": "access",
+      "justification": "Current profile name and institution explicitly identify 发疯编辑部; same UID does not establish continuing SELF affiliation. The successor name is not registered as a SELF alias, so its2017-2025 source-feed output is not automatically imported as the historical magazine."
+    },
+    {
+      "id": "self-magazine-us-publication-scope", "account_id": "self-china-magazine-historical",
+      "source_url": "https://www.self.com/info/about-self", "source_type": "publisher_statement",
+      "observed_at": "2026-10-22T06:54:46.979621+00:00", "claim_date": null, "supports": "relationship",
+      "justification": "SELF's own editorial About expressly states its headquarters at1 World Trade Center, New York City, and identifies the health/wellness publication and Condé Nast relationship. U.S. publication scope is separate from Chinese editorial staffing or unverified current China licensing terms."
+    },
+    {
+      "id": "self-website-us-publication-scope", "account_id": "self-china-website-historical",
+      "source_url": "https://www.self.com/info/about-self", "source_type": "publisher_statement",
+      "observed_at": "2026-10-22T06:54:46.979621+00:00", "claim_date": null, "supports": "relationship",
+      "justification": "Same U.S. SELF publication identified by its own New York editorial headquarters and brand About; the historical China publisher separately designates its website channel. Two social UIDs are one publisher/brand group, not two independent U.S. newsrooms or a borrowed parent-company account."
+    },
     {
       "id": "variety-current-institution", "account_id": "variety-china",
       "source_url": "https://www.sina.cn/media/7246608144", "source_type": "platform_certification",
