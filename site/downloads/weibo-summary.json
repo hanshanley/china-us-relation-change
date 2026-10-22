@@ -25,7 +25,7 @@
       "outlet_id": "artforum",
       "outlet_name": "Artforum / Chinese-language platform",
       "profile_url": "https://weibo.com/u/1750011241",
-      "recovered_posts": 145,
+      "recovered_posts": 160,
       "relationship": "Publisher-linked Chinese-language institutional channel of U.S. Artforum; not a separate publisher for its corporate parent or asserted independent U.S. newsroom staffing"
     },
     {
@@ -461,6 +461,20 @@
       "profile_url": "https://weibo.com/u/1666485652",
       "recovered_posts": 100,
       "relationship": "Institutionally identified Chinese lifestyle edition of InStyle; U.S. publisher documented its Modern Media license/launch, not U.S.-newsroom operation"
+    },
+    {
+      "account_id": "interior-design-china",
+      "attribution_end": null,
+      "earliest_publication_utc": "2026-06-03T03:52:00+00:00",
+      "existence": "current_evidence",
+      "latest_publication_utc": "2026-10-21T09:11:00+00:00",
+      "latest_run_source": "sina_syndication",
+      "latest_run_status": "partial",
+      "outlet_id": "interior-design",
+      "outlet_name": "Interior Design / Chinese edition and website",
+      "profile_url": "https://weibo.com/u/1984135065",
+      "recovered_posts": 99,
+      "relationship": "Chinese magazine/website platform with publisher-stated U.S. Interior Design copyright cooperation and domain-specific institutional certification; not a U.S.-staffed newsroom"
     },
     {
       "account_id": "knowledge-wharton-china",
@@ -1192,18 +1206,18 @@
     }
   ],
   "roster": {
-    "confirmed_accounts": 85,
-    "confirmed_outlets": 60,
-    "outlets": 184,
-    "reviewed_outlets": 184
+    "confirmed_accounts": 86,
+    "confirmed_outlets": 61,
+    "outlets": 191,
+    "reviewed_outlets": 191
   },
   "source": {
-    "corpus_metadata_sha256": "361d33cf9fa2403ebcaab1c9d713477a2c97da851e90e934dcaa84cb612e6e44",
+    "corpus_metadata_sha256": "614024a8e7531044de01acef29e13a0d1d278b685d8d1f1cea50022236e3f96f",
     "excluded_attribution_posts": 0,
     "excluded_unconfirmed_posts": 0,
-    "latest_collection_at": "2026-10-22T10:57:28.658535+00:00",
+    "latest_collection_at": "2026-10-22T11:23:31.608072+00:00",
     "publication_timezone": "Asia/Shanghai",
-    "registry_sha256": "9aa7e75cf0777e5e2474775600cb2f06f0235d7a220fb4de87e83cd8711c0870",
+    "registry_sha256": "90fcc5c7ef40294cce96431af95e5f1399515831ef1de3ad8858ee725e7dca9e",
     "requested_windows": [
       {
         "end": "2026-10-21T16:00:00+00:00",
@@ -1213,11 +1227,11 @@
   },
   "text_completeness": [
     {
-      "recovered_posts": 5645,
+      "recovered_posts": 5757,
       "status": "source_full"
     },
     {
-      "recovered_posts": 759,
+      "recovered_posts": 761,
       "status": "truncated"
     },
     {
@@ -1244,7 +1258,7 @@
       "year": 2022
     },
     {
-      "recovered_posts": 260,
+      "recovered_posts": 275,
       "year": 2023
     },
     {
@@ -1256,7 +1270,7 @@
       "year": 2025
     },
     {
-      "recovered_posts": 4316,
+      "recovered_posts": 4415,
       "year": 2026
     }
   ]

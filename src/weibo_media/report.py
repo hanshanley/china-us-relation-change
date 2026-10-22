@@ -203,6 +203,8 @@ def report(db, path):
               "Chinese-edition identity, fixed-window recovery and five further ranked reviews, "
               "[Artforum and ARTnews follow-up](discovery_iteration21.md) for separately verified art-media "
               "identities, printed-license evidence and early-window archive recovery, "
+              "[Interior Design and 2023-archive follow-up](discovery_iteration22.md) for a domain-certified "
+              "publication channel, preserved cached recovery and explicit access-restriction boundaries, "
               "and [access pilot](access_pilot.md) for source-level "
               "access checks and archive gaps.", ""]
     target = Path(path)

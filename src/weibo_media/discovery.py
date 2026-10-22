@@ -407,7 +407,9 @@ def publish(roster_path, screening_directory, directory, report_path):
         "(discovery_iteration20.md) verifies a publisher-documented Chinese edition and advances the ranked "
         "review through actual regional-newspaper sources. [Artforum and ARTnews follow-up]"
         "(discovery_iteration21.md) resolves two distinct art-media identities through publisher designation "
-        "and a printed license, while recovering early-window archived publications. Current status and legal operator "
+        "and a printed license, while recovering early-window archived publications. [Interior Design and 2023-archive follow-up]"
+        "(discovery_iteration22.md) verifies a domain-certified publication channel, recovers already saved historical "
+        "material and separates publisher identity from blocked access or personal accounts. Current status and legal operator "
         "uncertainty remain explicit.", "",
         "## Complete machine-readable deliverables", "",
         "- [All 1,000 ranked U.S. domains](../data/discovery/us_top1000.csv)",

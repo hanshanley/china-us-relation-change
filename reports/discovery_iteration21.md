@@ -12,6 +12,9 @@ ARTnews has explicit magazine certification plus an actual printed
 U.S.-licensor colophon. Neither is presented as an independently
 U.S.-staffed Chinese newsroom.
 
+This is a historical checkpoint. [The next trade-media follow-up](discovery_iteration22.md)
+adds Interior Design's Chinese platform and an additional Artforum 2023 snapshot.
+
 ## Artforum: an owned chain, not an invented blue badge
 
 The actual U.S. publisher's [root](https://www.artforum.com/) and

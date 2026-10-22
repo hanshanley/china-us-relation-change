@@ -745,6 +745,55 @@
       "notes": "Actual masthead domain failed modern TLS protocol negotiation; verification/security was not weakened and no HTTP downgrade used. Exact2015 domain capture was only a framing wrapper pointing to acmediaonline.net, not an inspected newspaper site. That destination currently failed DNS; its sole retrieved2020 archived capture was gambling-branded, not publisher content, so no social identifier there was attributed to the newspaper and no hacking/ownership cause asserted. The printed masthead and publication-branded issue remain scope evidence only; no official Sina account was resolved. Unknown, not absent. Review date: 2026-10-22 UTC."
     },
     {
+      "id": "the-state", "name": "The State / Columbia", "category": "newspaper",
+      "aliases": ["The State", "The State Columbia"],
+      "us_basis": "United States-classified source position105; independently read exact January1,2016 publisher root explicitly identifies Columbia, South Carolina news and The State newspaper.",
+      "source_url": "https://www.thestate.com/", "research_status": "reviewed",
+      "notes": "Live robots request timed out before a publisher page. Exact20160101215335 archive root was readable without a qualifying Sina locator. Correct newspaper community website matches without a main Sina identifier. Generic state/government accounts, The State magazine and similarly translated non-U.S. newspapers were not substituted. No source failure/missing link is an account negative. Unknown, not absent. Review date: 2026-10-22 UTC."
+    },
+    {
+      "id": "jackson-clarion-ledger", "name": "Clarion Ledger / Jackson", "category": "newspaper",
+      "aliases": ["Clarion Ledger", "The Clarion-Ledger", "Jackson Clarion-Ledger"],
+      "us_basis": "United States-classified source position106; correct publication-specific community item identifies the Jackson newspaper and matches clarionledger.com. Present corporate legal control is not independently audited.",
+      "source_url": "https://www.clarionledger.com/", "research_status": "reviewed",
+      "notes": "Live robots request returned403 before a publisher page was fetched. Independent archive CDX request also returned403; the shared archive client stopped rather than attempting the next queued paper or resetting its blocked state. No live alias/path/user-agent or new archive-client workaround was used. Corporate directory context is not a newspaper-specific social-account binding; its parent/siblings, other Ledger papers and named staff were not borrowed. Correct community main website matches without a main Sina identifier. Unknown, not absent. Review date: 2026-10-22 UTC."
+    },
+    {
+      "id": "detroit-free-press", "name": "Detroit Free Press", "category": "newspaper",
+      "aliases": ["Detroit Free Press", "Freep", "Freep.com"],
+      "us_basis": "United States-classified source position107; correct Detroit newspaper community item explicitly matches freep.com, and the independently checked actual USA TODAY Co. brand directory directly designates freep.com. No separate legal ownership audit is asserted.",
+      "source_url": "https://www.freep.com/", "research_status": "reviewed",
+      "notes": "Live robots request returned403 before a publisher page. Its queued archive check was NOT attempted after the preceding Clarion archive CDX403 stopped the shared client. No readable archive or empty archive result is fabricated. Header-only metadata resolved an old corporate robots redirect to www.usatodayco.com; its actual /brands/ was read after independent host-policy checking and designates freep.com, not a Weibo UID. Parent, staff, generic Free Press advocacy groups and differently located Freedom/Liberty newspapers were not substituted. Correct publication item website matches without a main Sina identifier. Unknown, not absent. Review date: 2026-10-22 UTC."
+    },
+    {
+      "id": "winston-salem-journal", "name": "Winston-Salem Journal", "category": "newspaper",
+      "aliases": ["Winston-Salem Journal", "JournalNow"],
+      "us_basis": "United States-classified source position108; actual root and Contact identify Winston-Salem, North Carolina local-news publishing.",
+      "source_url": "https://journalnow.com/", "research_status": "reviewed",
+      "notes": "Complete current root and actual Contact were read without a qualifying Weibo profile. Publisher-linked /about/advertise/mediakit/ is robots-disallowed and was not retrieved. Contact templates, staff and other Journal papers are not account proof. Correct community main website matches without a main Sina identifier. Unknown, not absent. Review date: 2026-10-22 UTC."
+    },
+    {
+      "id": "shaw-local", "name": "Shaw Local / northern Illinois news network", "category": "local_news_network",
+      "aliases": ["Shaw Local", "Shaw Local Enewspapers"],
+      "us_basis": "United States-classified source position109; actual root/Contact identify northern Illinois local-news operations, and the independently checked linked U.S. Shaw Media company describes its Illinois/Iowa publications.",
+      "source_url": "https://www.shawlocal.com/", "research_status": "reviewed",
+      "notes": "Complete root and actual network Contact were read without a qualifying Sina account. Real root links led to independently policy-checked shawmedia.com root/About/Contact and the U.S. family publisher, not Canadian Shaw/Global broadcasting or Hong Kong Shaw studios. The selected domain is a local-news network: its county newspapers, radio and specialty sections were not multiplied into standalone verified accounts. Guessed /wiki/Shaw_Local returned404; missing article is not account absence and a similarly named community entity was not silently substituted. Unknown, not absent. Review date: 2026-10-22 UTC."
+    },
+    {
+      "id": "furniture-today", "name": "Furniture Today / Chinese-edition lead", "category": "trade_news",
+      "aliases": ["Furniture Today", "FurnitureToday", "今日家居FurnitureToday", "美国今日家居"],
+      "us_basis": "Actual U.S. Furniture Today root/About/Contact identify the trade publication under BridgeTower Media. Actual Chinese About explicitly identifies its1976 U.S. flagship and Chinese-edition relationship; legal domicile/continuous license renewal not independently audited.",
+      "source_url": "https://www.furnituretoday.com/", "research_status": "reviewed",
+      "notes": "U.S. root/About/Contact read without a qualifying Sina link. A legacy operator's ft-china.com.cn failed DNS; genuinely located actual furnituretoday.cn root/About/advertising/Contact identify 今日家居FurnitureToday, not merely 今日家具, Shanghai Yunhu Culture and a June2018 relaunch, and call this the only authorized Chinese site. Old Beijing operator/legacy domain and current Shanghai operator are not silently equated or converted into a social-account transfer/cutoff. Actual owned pages provide WeChat and customer-service QQ, NOT a confirmed numeric Weibo account; QQ values are not Sina UIDs. A search-indexed event promotion names @今日家居FurnitureToday, but actual event-source request was inconclusive non-HTML, so not credited as fully retrieved primary designation or stableUID proof. Manufacturers, trade associations, clients' Weibo mentions and WeChat handles were not substituted. Publication identity/actual domain improved; Weibo account remains unknown, not absent. Review date: 2026-10-22 UTC."
+    },
+    {
+      "id": "interior-design", "name": "Interior Design / Chinese edition and website", "category": "design_trade_media",
+      "aliases": ["Interior Design", "Interior Design China", "美国室内设计中文网", "美国《室内设计》中文版"],
+      "us_basis": "Actual U.S. publisher Contact directs communications to Interior Design/SANDOW in Boca Raton, Florida. Chinese operator's own About separately identifies the1932 U.S. magazine and its copyright-cooperation relationship.",
+      "source_url": "https://interiordesign.net/", "research_status": "reviewed",
+      "notes": "Actual Chinese root/About/Contact identify the Chinese edition and website, its Beijing operator and copyright cooperation with U.S. INTERIOR DESIGN. Numeric Sina1984135065 has blue institution badge and exact native certification text 微博认证：www.id-china.com.cn, independently matching the publisher domain; native post5342010044842171 author validates the same UID. An owned platform notice separately describes Weibo promotion but is not itself a numeric-account binding. No direct publisher-owned numeric link was falsely claimed. Publisher Francis Zhao's personal 赵虎微博 is not the institution, and AREA/今日家具 sibling brands are not additional Interior Design accounts. Undated About contains dated-era history/metrics; these are not current age/contract-renewal claims, and2005site/2011profile labels are not attribution cutoffs. Current legal account owner and license continuity unaudited. Review date: 2026-10-22 UTC."
+    },
+    {
       "id": "spokesman-review", "name": "The Spokesman-Review", "category": "newspaper",
       "aliases": ["The Spokesman-Review", "Spokane Spokesman-Review"],
       "us_basis": "United States-classified source position100; current publisher root, actual Masthead and Customer Care identify the Spokane, Washington newspaper and its local newsroom.",
@@ -1232,6 +1281,21 @@
       "relationship": "Publisher-designated historical official SELF Chinese website channel, distinct from the magazine channel within one brand group",
       "officialness": "confirmed", "existence": "historical", "accessibility": "unknown",
       "notes": "Owned2013 box explicitly labels selfwebsite 《悦己SELF》杂志官网微博, not a staff link. Independent2011 owner scope binds UID1658402750/悦己网; an exact2020 capture retains UID/name 悦己女性网 but its14 recognized posts are dated2017. Current92-entry feed is likewise2017-only. Capture date, visible stale bio and no in-window recovery are not current activity, absence or complete-history proof."
+    },
+    {
+      "id": "interior-design-china",
+      "outlet_id": "interior-design",
+      "uid": "1984135065",
+      "handle": null,
+      "display_name": "美国室内设计中文网",
+      "profile_url": "https://weibo.com/u/1984135065",
+      "language": "zh-Hans",
+      "operator": "Chinese site About/Contact identify Beijing Yashi Pheonix Advertising Co., Ltd.; precise current legal Weibo owner and uninterrupted license renewal unaudited",
+      "relationship": "Chinese magazine/website platform with publisher-stated U.S. Interior Design copyright cooperation and domain-specific institutional certification; not a U.S.-staffed newsroom",
+      "officialness": "confirmed",
+      "existence": "current_evidence",
+      "accessibility": "unknown",
+      "notes": "Exact numeric profile title, blue institution badge and native 微博认证：www.id-china.com.cn certification match the Chinese publisher's actual domain. Unique native author/u/1984135065 independently agrees. No generic-blue-badge-only or founder substitution; no unsupported publisher-owned numeric link claim. Initial100-record feed contains one October22 publication beyond the fixed interval."
     },
     {
       "id": "artforum-china",
@@ -2049,6 +2113,66 @@
       "source_url": "https://www.self.com/info/about-self", "source_type": "publisher_statement",
       "observed_at": "2026-10-22T06:54:46.979621+00:00", "claim_date": null, "supports": "relationship",
       "justification": "Same U.S. SELF publication identified by its own New York editorial headquarters and brand About; the historical China publisher separately designates its website channel. Two social UIDs are one publisher/brand group, not two independent U.S. newsrooms or a borrowed parent-company account."
+    },
+    {
+      "id": "interior-design-domain-institution",
+      "account_id": "interior-design-china",
+      "source_url": "https://www.sina.cn/media/1984135065",
+      "source_type": "platform_certification",
+      "observed_at": "2026-10-22T11:15:40.964105+00:00",
+      "claim_date": null,
+      "supports": "identity",
+      "justification": "Numeric profile title is 美国室内设计中文网 and carries blue institution badge. Independent native header explicitly renders 微博认证：www.id-china.com.cn, matching the actual publisher domain. It is not a generic badge/name match, an architect or personal publisher profile."
+    },
+    {
+      "id": "interior-design-china-owned-relationship",
+      "account_id": "interior-design-china",
+      "source_url": "https://www.id-china.com.cn/about",
+      "source_type": "publisher_statement",
+      "observed_at": "2026-10-22T11:16:28.153881+00:00",
+      "claim_date": null,
+      "supports": "relationship",
+      "justification": "Operator's actual About explicitly groups INTERIOR DESIGN CHINA magazine with id-china.com.cn and describes copyright cooperation with the U.S. INTERIOR DESIGN magazine. Its historical1932 founding/70-plus-year wording and platform metrics are not asserted current age, renewed-contract terms or account-control dates."
+    },
+    {
+      "id": "interior-design-owned-us-contact",
+      "account_id": "interior-design-china",
+      "source_url": "https://interiordesign.net/contact-us/",
+      "source_type": "publisher_statement",
+      "observed_at": "2026-10-22T11:14:50.354820+00:00",
+      "claim_date": null,
+      "supports": "relationship",
+      "justification": "Actual U.S. publisher Contact explicitly directs communication to Interior Design/SANDOW at3651FAUBoulevard,BocaRaton,Florida33431. This is the publisher's current communications address, not an invented headquarters claim or U.S. origin inferred from a Chinese username."
+    },
+    {
+      "id": "interior-design-native-author",
+      "account_id": "interior-design-china",
+      "source_url": "https://www.sina.cn/news/detail/5342010044842171.html",
+      "source_type": "platform_post",
+      "observed_at": "2026-10-22T11:15:45.377527+00:00",
+      "claim_date": "2026-09-11",
+      "supports": "identity",
+      "justification": "Exact native ID, unique NewsArticle author/u/1984135065, one available body and domain-specific institution certification bind the September11,2026 17:11 Shanghai post to the publication, not a designer it quotes or founder Francis Zhao's personal account."
+    },
+    {
+      "id": "interior-design-owned-weibo-platform-notice",
+      "account_id": "interior-design-china",
+      "source_url": "https://mixinfo.id-china.com.cn/a-13294-1.html",
+      "source_type": "publisher_statement",
+      "observed_at": "2026-10-22T11:18:02.617260+00:00",
+      "claim_date": null,
+      "supports": "identity",
+      "justification": "Independently policy-checked publisher subdomain hosts an institutional registration/promotion notice explicitly describing its Weibo platform. Confirms the publisher operates that service; this notice alone does not bind a numeric UID and is not represented as doing so."
+    },
+    {
+      "id": "artforum-2023-cached-owner",
+      "account_id": "artforum-china",
+      "source_url": "https://web.archive.org/web/20230208195459id_/https://www.weibo.com/u/1750011241",
+      "source_type": "archived_profile",
+      "observed_at": "2026-10-22T11:14:54.743540+00:00",
+      "claim_date": "2023-02-08",
+      "supports": "identity",
+      "justification": "Exact2023 profile retrieved before a separate archive CDX403 has owner-scoped UID1750011241 and 艺术论坛Artforum name/title. Fifteen actual posts are dated January30-February7,2023 Shanghai; the February8UTC capture is not substituted for publication. Later indexed2024/2025 captures were not retrieved after the archive restriction."
     },
     {
       "id": "artforum-us-designated-chinese-site",
