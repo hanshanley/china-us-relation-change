@@ -63,9 +63,9 @@ def check(site, url=None, screenshots=None):
                     assert page.locator("#ap-chinese-global .screen-point").count() == 38
                     years = page.locator("#ap-chinese-global .screen-year").all_text_contents()
                     assert years[0] == "2007" and years[-1] == "2025"
-                    expect(page.locator("#ap-chinese-global .ap-group-note")).to_contain_text("including")
-                    page.select_option("#module-chart", "ap-language-standard-group")
-                    expect(page.locator("#ap-language-standard-group .ap-group-note")).to_contain_text("Do not add")
+                    expect(page.locator("#ap-chinese-global .ap-scope-note")).to_contain_text("not U.S.-only")
+                    assert page.locator('#module-chart option[value="ap-language-standard-group"]').count() == 0
+                    assert page.locator("#ap-language-standard-group").count() == 0
                 for option in page.locator("#module-chart option").all():
                     page.select_option("#module-chart", option.get_attribute("value"))
                     assert page.locator("[data-module-chart]:visible").count() == 1

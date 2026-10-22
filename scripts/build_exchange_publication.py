@@ -16,6 +16,7 @@ sys.path.insert(0, str(ROOT / "src"))
 
 from bs4 import BeautifulSoup
 from us_china_exchange.model import GEOGRAPHIES, json_text
+from us_china_exchange.language_analysis import RETIRED_CHARTS as LANGUAGE_RETIRED_CHARTS
 from us_china_exchange.render import annual_table, build, figure_links, initial_panel, svg_chart
 
 
@@ -280,14 +281,11 @@ def decorate(site, name, labels, revision):
     observations = {(r["series_id"], r["period"]): r for r in
                     json.loads((site / "downloads/observations.json").read_text()) if r["frequency"] == "annual"}
     if name == "language-learning.html":
-        group_notes = {
-            "ap-chinese-global": "All participants means everyone taking the exam, including the standard-group subset. These are global totals, not U.S.-only.",
-            "ap-language-standard-group": "The standard group is a subset: students did not report regularly speaking/hearing the language or living for at least a month where it is spoken. It is not a U.S.-only or ancestry group. Do not add it to all participants.",
-        }
+        group_notes = {"ap-chinese-global": "Global AP exam participation counts, not U.S.-only counts or a census of all language learners."}
         for chart_id, text in group_notes.items():
             section = soup.select_one("#" + chart_id)
             if section:
-                explanation = soup.new_tag("p", attrs={"class": "ap-group-note"})
+                explanation = soup.new_tag("p", attrs={"class": "ap-scope-note"})
                 explanation.string = text
                 section.select_one(".comparison-chart").insert_before(explanation)
                 link = fragment('<p class="chart-note">No AP Korean exam is offered. '
@@ -402,6 +400,10 @@ def build_publication(source, output, revision):
         (site / "publication-manifest.json").write_text(json_text(manifest), encoding="utf-8")
         output.mkdir(parents=True, exist_ok=True)
         shutil.copytree(site, output, dirs_exist_ok=True)
+        for chart_id in LANGUAGE_RETIRED_CHARTS:
+            for theme in ["themarginoferror", "substack"]:
+                for extension in ["png", "svg", "website.png"]:
+                    (output / "figures/language_learning" / theme / f"{chart_id}.{extension}").unlink(missing_ok=True)
         for old in ["business-publication.css", "business-publication.js"]:
             (output / "assets" / old).unlink(missing_ok=True)
     return manifest

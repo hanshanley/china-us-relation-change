@@ -204,7 +204,7 @@ private database are not modified by the chart integration.
 
 ### Chinese-language learning
 
-Open `site/language-learning.html`. Ten chart families address the college
+Open `site/language-learning.html`. Nine chart families address the college
 boom/reversal, comparison with other languages, school-age pipeline and narrow
 specialist-degree pipeline. They use the existing house typography, stable
 language colours and both publication backgrounds. PNGs are 3000 by 1800;
@@ -217,7 +217,7 @@ These indicators remain separate from canonical bilateral flows:
 |---|---|
 | MLA national college registrations | Fall 2002, 2006, 2009, 2013, 2016 and 2021, using the 2021 report's historical table. Levels, Chinese share of all language registrations, and Chinese/Japanese/Korean/all-language indexes with 2013=100. Registrations are not unique learners. |
 | Matched college institutions | Same complete-count responding institution IDs in 2013 and 2021. Nonresponse placeholders and institutions with any unreported language-count row are excluded; explicit zero-language respondents are retained. This selected cohort is not a national census or a causal estimate. |
-| AP annual administration | Chinese and Japanese global participation, 2007-2025, with separate standard-group subset comparisons for the same years. The subset is included in each total, never an additional population. Neither is a U.S.-only count or an ancestry classification. No AP Korean exam is listed; use the separate MLA college comparison for Korean. |
+| AP annual administration | Total Chinese and Japanese global participation, 2007-2025. Not U.S.-only counts or a census of language learners. No AP Korean exam is listed; use the separate MLA college comparison for Korean. |
 | Historical U.S. AP cohorts | Public-school graduating classes 2007-2013; Chinese exams taken at any point during high school. Not the administration year, all U.S. schools or unique learners. Separate from global annual counts; current U.S.-only administration history remains a documented gap. |
 | IPEDS degree awards | Academic years ending 2000-2024, narrow CIP 16.0301, 50 states/DC, Title IV degree-granting institutions. Bachelor's, master's and doctoral awards are separate; second majors/certificates are excluded from 2001 onward. Reported or imputed awards are not unique people, proficiency measures or all China specialists. |
 | Immersion inventories | CAL 2011, ARC 2021 and Nexus 2025 snapshots use different universes. Categorical bars deliberately do not connect them into a growth trend. |
@@ -228,12 +228,12 @@ actual census rounds, without inventing intervening annual observations. IPEDS
 from the old doctoral category to research/scholarship doctorates. Both boundaries
 break chart lines. Original flags, revision members and filters are retained.
 
-AP years are exam administrations, not graduating classes. Standard-group
-students did not report regularly speaking/hearing the exam language or
-residence of at least one month where it is spoken. College Board describes
-them as generally trained in U.S. schools, not as a U.S.-only or nonheritage
-population. The graph separates all participants from this nested subset.
-Both AP language comparisons have verified counts for 2007-2025. Published
+AP years are exam administrations, not graduating classes. The AP comparison
+shows only total Chinese and Japanese exam participation; the standard-group
+chart and its interpretive discussion have been withdrawn. The reviewed subset
+records remain in the complete source downloads for reproducibility, but are
+not plotted or promoted as a capacity proxy.
+The AP comparison has verified counts for 2007-2025. Published
 2026 score percentages have blank participant counts; no counts are inferred.
 The final subject-specific PDFs take precedence over older program summaries
 or retrospective webpage totals when those vintages disagree.

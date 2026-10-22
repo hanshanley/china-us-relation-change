@@ -11,6 +11,7 @@ from .theme import PARTNER_COLORS
 
 LANGUAGE_COLORS = {"chinese": PARTNER_COLORS["CHN"], "japanese": "#3D6F8C",
                    "korean": "#4A7C59", "all_languages": "#6B6B6B", "spanish": "#C2993E"}
+RETIRED_CHARTS = {"ap-language-standard-group"}
 CHARTS = {
     "college-enrollments": {
         "title": "Chinese/Mandarin course enrollments",
@@ -38,12 +39,7 @@ CHARTS = {
         "title": "AP Chinese and Japanese participation",
         "subtitle": "All participants | global administrations, not U.S.-only",
         "series": ["ap:global_total", "ap:japanese_total"], "unit": "Exam participants", "mode": "levels",
-        "note": "College Board. Same global exam population, including standard-group students. Not all language learners. No AP Korean exam is listed; Korean college enrollments are a separate comparison. No verified 2026 participant counts."},
-    "ap-language-standard-group": {
-        "title": "AP language-background subset",
-        "subtitle": "College Board standard group | subset of each language's total",
-        "series": ["ap:standard_group", "ap:japanese_standard_group"], "unit": "Exam participants", "mode": "levels",
-        "note": "Students did not report regular speaking/hearing of the exam language or residence of at least one month where it is spoken. Not a U.S.-only, nationality or ancestry group. Already included in all participants: do not add."},
+        "note": "College Board global exam totals, not U.S.-only counts or all language learners. No AP Korean exam is listed; Korean college enrollments are a separate comparison. No verified 2026 participant counts."},
     "ap-chinese-us-cohorts": {
         "title": "AP Chinese in U.S. public-school cohorts",
         "subtitle": "Graduating classes 2007-2013 | exams taken during high school",

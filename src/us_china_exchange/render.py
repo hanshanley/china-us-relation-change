@@ -13,7 +13,7 @@ import resvg_py
 
 from .model import START_YEAR, GEOGRAPHIES, MEASURES, change, coverage, gap_reason, json_text, validate
 from .business_analysis import CHARTS as BUSINESS_CHARTS, RETIRED_CHARTS as BUSINESS_RETIRED_CHARTS, build_business, validate_business_data
-from .language_analysis import CHARTS as LANGUAGE_CHARTS, chart_points, svg_language_chart, validate_language_data
+from .language_analysis import CHARTS as LANGUAGE_CHARTS, RETIRED_CHARTS as LANGUAGE_RETIRED_CHARTS, chart_points, svg_language_chart, validate_language_data
 from .pipeline import load, write_atomic
 from .sources import SOURCE_POLICIES
 from .weibo_analysis import AUDIT_LABELS, WEIBO_CHARTS, svg_weibo, validate_summary
@@ -446,6 +446,9 @@ def build_weibo(root, summary, gallery):
 
 def build_languages(root, data, gallery):
     validate_language_data(data)
+    for chart_id in LANGUAGE_RETIRED_CHARTS:
+        for theme in CHART_THEMES:
+            remove_figure(root, Path("language_learning") / theme / chart_id)
     cards, plotted_rows, count = [], [], 0
     for chart_id, config in LANGUAGE_CHARTS.items():
         paths = {}
@@ -549,7 +552,7 @@ def build_languages(root, data, gallery):
                 '<p>College registrations, exam participation, immersion programs and degree awards are different '
                 'populations. They are never added into a learner total or interpreted as border crossings.</p>'
                 '<p>MLA figures concern U.S. institutions. <strong>The annual AP panel is global, not U.S.-only</strong>; '
-                'its standard group is not a geographic or ancestry filter. A separate historical AP panel covers '
+                'a separate historical AP panel covers '
                 'U.S. public-school graduating classes 2007-2013 and exams taken during high school, not annual '
                 'exam administrations. A current U.S.-only annual AP series remains unverified.</p>'
                 '<p>Each panel keeps its actual reference years, source vintage and population. '
@@ -757,7 +760,7 @@ def build(root):
                 path.unlink()
     language_count = build_languages(root, language_data, gallery) if language_data is not None else 0
     if language_data is None:
-        for chart_id in LANGUAGE_CHARTS:
+        for chart_id in set(LANGUAGE_CHARTS) | LANGUAGE_RETIRED_CHARTS:
             for theme in CHART_THEMES:
                 remove_figure(root, Path("language_learning") / theme / chart_id)
         for relative in ["language-learning.html", "downloads/language-learning.json",

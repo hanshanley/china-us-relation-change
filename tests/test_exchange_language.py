@@ -14,7 +14,7 @@ from openpyxl import Workbook
 from PIL import Image
 
 from us_china_exchange import language_sources
-from us_china_exchange.language_analysis import CHARTS, chart_points, svg_language_chart, validate_language_data
+from us_china_exchange.language_analysis import CHARTS, RETIRED_CHARTS, chart_points, svg_language_chart, validate_language_data
 from us_china_exchange.model import digest
 from us_china_exchange.render import build_languages
 from us_china_exchange.render import build
@@ -89,6 +89,12 @@ def test_zero_baselines_missing_rounds_and_doctoral_breaks_are_not_silently_conn
 
 def test_all_language_exports_and_complete_csv_round_trip(tmp_path):
     data = published()
+    for base in ["site/figures/language_learning", "outputs/figures/language_learning"]:
+        for theme in ["themarginoferror", "substack"]:
+            path = tmp_path / base / theme
+            path.mkdir(parents=True)
+            for name in RETIRED_CHARTS:
+                (path / f"{name}.svg").write_text("Retired chart")
     gallery = defaultdict(list)
     count = build_languages(tmp_path, data, gallery)
     assert count == len(CHARTS)
@@ -123,6 +129,9 @@ def test_all_language_exports_and_complete_csv_round_trip(tmp_path):
     page = BeautifulSoup((tmp_path / "site/language-learning.html").read_text(), "html.parser")
     assert "global, not U.S.-only" in page.header.text
     assert "not the full 2021 census" in page.text
+    assert not page.select("#ap-language-standard-group")
+    assert "standard-group" not in page.select_one("#ap-chinese-global").text
+    assert not list(tmp_path.rglob("ap-language-standard-group.*"))
     before = {p.relative_to(tmp_path): p.read_bytes() for p in tmp_path.rglob("*") if p.is_file()}
     build_languages(tmp_path, data, defaultdict(list))
     assert before == {p.relative_to(tmp_path): p.read_bytes() for p in tmp_path.rglob("*") if p.is_file()}
@@ -242,7 +251,7 @@ def test_ap_history_ignores_empty_participation_counts_in_percentage_only_years(
 
 def test_ap_language_benchmarks_have_matching_years_populations_and_colours():
     data = published()
-    for chart_id in ["ap-chinese-global", "ap-language-standard-group"]:
+    for chart_id in ["ap-chinese-global"]:
         groups = chart_points(data, chart_id)
         assert len(groups) == 2
         assert [g["color"] for g in groups] == ["#7B2D26", "#3D6F8C"]
