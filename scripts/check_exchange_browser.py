@@ -168,6 +168,10 @@ def check():
         if (ROOT / "site/business-presence.html").exists():
             page.goto((ROOT / "site/business-presence.html").as_uri())
             expect(page.locator("header")).to_contain_text("different counting units")
+            expect(page.locator("header")).to_contain_text("China is the host in every chart")
+            assert page.locator("#annual-values tbody tr").count() >= 20
+            assert page.locator("#business-benchmark-background").get_attribute("open") is None
+            page.locator("#business-benchmark-background > summary").click()
             images = page.locator("img")
             assert images.count() == 5
             for image in images.all():

@@ -8,8 +8,9 @@ import zipfile
 from pathlib import PurePosixPath
 
 import xlrd
+from openpyxl import load_workbook
 
-from .language_sources import pdf_text, row, series, source
+from .language_sources import row, series, source
 
 
 BEA_CURRENT = "https://www.bea.gov/sites/default/files/2025-08/selected-mofas-cntry.xls"
@@ -30,6 +31,8 @@ PARENT_BOOKS = {
     2019: "https://apps.bea.gov/international/xls/usdia2019r/PartI-K1-K2.xls",
 }
 EUROSTAT = "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/"
+ONS_DATA = "https://www.ons.gov.uk/file?uri=/businessindustryandtrade/internationaltrade/datasets/ukoutwardforeignaffiliatestatisticsofats/2019/ofatspublicationfinal.xlsx"
+ONS_COVERAGE = "https://www.ons.gov.uk/aboutus/transparencyandgovernance/freedomofinformationfoi/ukoutwardforeignaffiliatestatisticsofats2015to2025"
 
 
 def count_cell(value):
@@ -68,7 +71,7 @@ def country_counts(sheets, title):
 
 def collect_business(client):
     definitions, observations, sources = {}, [], {}
-    for region, label in [("china", "China"), ("europe", "Europe")]:
+    for region, label in [("china", "United States")]:
         definitions["bea_affiliates:" + region] = series(
             label, "majority_owned_affiliates", "affiliates",
             f"Foreign affiliates in {'mainland China, excluding Hong Kong and Macau' if region == 'china' else 'BEA-defined Europe, not EU27'}; combined U.S.-parent ownership over 50%",
@@ -79,7 +82,7 @@ def collect_business(client):
             "Counts exclude benchmark-exempt affiliates. Lines break at benchmark regimes.")
         definitions["bea_parents:" + region] = series(
             label, "parent_companies", "U.S. parents",
-            f"Distinct U.S.-resident parent companies with affiliates in {label}; at least 10% foreign-affiliate ownership; BEA reporting exclusions apply",
+            "Distinct U.S.-resident parent companies with affiliates in China; at least 10% foreign-affiliate ownership; BEA reporting exclusions apply",
             "benchmark", "fiscal ending year",
             "Benchmark observations only, not an annual census. A parent is counted once per host country/region, "
             "but can appear in both China and Europe: never add these counts. Country attribution and reporting "
@@ -100,7 +103,7 @@ def collect_business(client):
             [asset], "Table III.A1, Number of affiliates; " + ", ".join(members),
             "Majority-owned nonbank affiliates; benchmark-exempt entities excluded. "
             "Not comparable across the 2004 reporting-regime or 2009 banking/threshold changes.")
-        for region, label in [("china", "China"), ("europe", "Europe")]:
+        for region, label in [("china", "China")]:
             value, status = counts[label]
             observations.append(row("bea_affiliates:" + region, year, value, source_id, status,
                                     f"Nonbank affiliate count; {'1999' if year < 2004 else '2004'} benchmark reporting regime.",
@@ -116,7 +119,7 @@ def collect_business(client):
                 parent[0] + "; Table I.M2; All industries",
                 "U.S. parents counted once in each country where they have affiliates. Reporting exclusions apply; "
                 "the 2004 benchmark changed the affiliate reporting cutoff from $7m to $10m.")
-            for region, label in [("china", "China"), ("europe", "Europe")]:
+            for region, label in [("china", "China")]:
                 value, status = counts[label]
                 observations.append(row("bea_parents:" + region, 2004, value, "bea_parents_2004", status,
                                         comparability="bea_parents:2004"))
@@ -135,7 +138,7 @@ def collect_business(client):
             "Majority-owned affiliates across all industries. Assets, sales or net income/loss must exceed $25m. "
             "Not all small businesses or physical offices; includes holding entities. "
             "2014 and 2019 benchmarks can change coverage: their boundaries are not connected.")
-        for region, label in [("china", "China"), ("europe", "Europe")]:
+        for region, label in [("china", "China")]:
             value, status = counts[label]
             if year == 2023 and value is not None:
                 status = "provisional"
@@ -153,31 +156,79 @@ def collect_business(client):
             "Table I.K2; Number of U.S. parents; country rows, All industries",
             "Unique within each host region, not across regions; includes parents with minority-owned affiliates. "
             "Benchmark reporting exclusions and coverage apply; these points are not an annual series.")
-        for region, label in [("china", "China"), ("europe", "Europe")]:
+        for region, label in [("china", "China")]:
             value, status = counts[label]
             observations.append(row("bea_parents:" + region, year, value, source_id, status,
                                     comparability=f"bea_parents:{year}"))
     definitions["eurostat_affiliates:china"] = series(
-        "EU27-controlled affiliates", "controlled_enterprises", "enterprises",
+        "EU27 (current members)", "controlled_enterprises", "enterprises",
         "China except Hong Kong; ultimately controlled from fixed EU27_2020 membership, excluding the UK; market producers NACE B-S except O",
         "annual", "reference year",
         "Eurostat enterprise units, not unique European parents or all Europe. Macao is a separate partner. "
         "Not matched to BEA's size cutoff, U.S.-resident parent basis or consolidation. "
         "EBS methodology changes from 2021; do not join across that boundary or treat confidential cells as zero.")
-    for dataset, indicator in [("fats_out2_r2", "indic_bp=ENT"), ("fats_out_part", "indic_sbs=ENT_NR")]:
-        url = EUROSTAT + dataset + "?lang=EN&geo=EU27_2020&partner=CN_X_HK&" + indicator + "&nace_r2=B-S_X_O"
+    definitions["eurostat_historical_eu:china"] = series(
+        "EU27 (2007 members)", "controlled_enterprises", "enterprises",
+        "China except Hong Kong; EU27_2007 control, including the UK and excluding Croatia",
+        "annual", "reference year",
+        "Historical EU membership, not the current EU27. NACE Rev. 1.1 through 2009 and Rev. 2 from 2010; "
+        "both classification and membership boundaries remain disconnected. No splice into current-membership counts.")
+    definitions["eurostat_uk:china"] = series(
+        "United Kingdom", "controlled_enterprises", "enterprises",
+        "UK-controlled enterprises in China; Eurostat NACE B-S except O through 2017, ONS total published activity in 2018-2019",
+        "annual", "reference year",
+        "Eurostat historical UK series and revised ONS 2018/2019 estimates. Source and sector boundary in 2018 is disconnected; "
+        "ONS total activity includes agriculture. The 2018 China count agrees across both sources. "
+        "No UK outward affiliate statistics from 2020 onward verified; investment flows are not substituted.")
+    definitions["eurostat_norway:china"] = series(
+        "Norway", "controlled_enterprises", "enterprises",
+        "Norwegian-controlled enterprises in China except Hong Kong; NACE B-S except O",
+        "annual", "reference year",
+        "Norway is outside the EU and is shown separately, not added to an all-Europe total. "
+        "Eurostat's 2021 methodology boundary is disconnected.")
+    queries = [
+        ("fats_out2_r2", "EU27_2020", "eurostat_affiliates:china", None),
+        ("fats_out_part", "EU27_2020", "eurostat_affiliates:china", None),
+        ("fats_out2", "EU27_2007", "eurostat_historical_eu:china", 2009),
+        ("fats_out2_r2", "EU27_2007", "eurostat_historical_eu:china", 2013),
+        ("fats_out2_r2", "UK", "eurostat_uk:china", None),
+        ("fats_out2_r2", "NO", "eurostat_norway:china", None),
+        ("fats_out_part", "NO", "eurostat_norway:china", None),
+    ]
+    for dataset, geo, sid, end in queries:
+        indicator = "indic_sbs=ENT_NR" if dataset == "fats_out_part" else "indic_bp=ENT"
+        activity = "nace_r1=C-O_X_L" if dataset == "fats_out2" else "nace_r2=B-S_X_O"
+        url = EUROSTAT + dataset + f"?lang=EN&geo={geo}&partner=CN_X_HK&" + indicator + "&" + activity
         body, asset = client.get(url)
         data = json.loads(body)
-        points = parse_eurostat(data, dataset)
-        sources[dataset] = source(
+        points = parse_eurostat(data, dataset, geo)
+        source_id = dataset if geo == "EU27_2020" else dataset + "_" + geo
+        sources[source_id] = source(
             "Eurostat", data["label"] + "; updated " + data["updated"], [asset],
-            "A; EU27_2020; CN_X_HK; B-S_X_O; " + indicator,
-            "Fixed EU27 membership. Preserve estimated, break and confidential flags. "
-            "Legacy 2010-2020 and post-2021 EBS series remain disconnected. "
+            f"A; {geo}; CN_X_HK; {activity}; " + indicator,
+            "Keep each control geography, membership and activity classification explicit. "
+            "Preserve estimated, break and confidential flags; methodology boundaries remain disconnected. "
             "No reconstruction of confidential totals from member-country values.")
-        observations.extend(row("eurostat_affiliates:china", year, value, dataset, status,
+        observations.extend(row(sid, year, value, source_id, status,
                                 "Eurostat source flags: " + (flag or "none"), comparability)
-                            for year, value, status, flag, comparability in points)
+                            for year, value, status, flag, comparability in points if end is None or year <= end)
+    body, asset = client.get(ONS_DATA)
+    ons = parse_ons(body)
+    sources["ons_2019"] = source(
+        "Office for National Statistics", "2018 revised and 2019 estimates; released May 20, 2022", [asset],
+        "Table 1 (2018), Table 2 (2019); China row, TOTAL ACTIVITY / ENT",
+        "Foreign enterprise counts, not employment or turnover. Total activity includes agriculture; "
+        "survey-based estimates. Later ONS vintage supersedes overlapping Eurostat UK values.")
+    for year, value, status in ons:
+        observations = [r for r in observations if (r["series_id"], r["year"]) != ("eurostat_uk:china", year)]
+        observations.append(row("eurostat_uk:china", year, value, "ons_2019", status,
+                                "ONS total-activity enterprise estimate, including agriculture; 2018 revised.",
+                                "ons:uk:total_activity:2018_2019"))
+    _, asset = client.get(ONS_COVERAGE)
+    sources["ons_coverage"] = source(
+        "Office for National Statistics", "July 15, 2025 disclosure; checked with current dataset listing", [asset],
+        "Response 2a: outward affiliate statistics unavailable from 2020",
+        "Do not substitute new inward-affiliate statistics or FDI investment values for UK-controlled enterprises in China.")
     # The original methodology documents are retained as provenance, not redistributed.
     for name, url in [
         ("bea_current_notes", "https://www.bea.gov/international/usdia2023p-info"),
@@ -188,38 +239,35 @@ def collect_business(client):
         _, asset = client.get(url)
         sources[name] = source("BEA" if name.startswith("bea") else "Eurostat",
                                "Reviewed source definitions", [asset], "Definitions and source coverage")
-    eu_rows = [r for r in observations if r["series_id"].startswith("eurostat")]
-    eu_coverage = "; ".join(
-        label + ": " + ", ".join(str(r["year"]) for r in eu_rows if r["status"] in statuses)
-        for label, statuses in [("available years", {"observed", "estimated", "provisional", "low_reliability"}),
-                                ("confidential", {"suppressed"}), ("unavailable", {"missing"})])
+    coverage = []
+    for sid in definitions:
+        selected = [r for r in observations if r["series_id"] == sid]
+        actual = [str(r["year"]) for r in selected if r["value"] is not None]
+        confidential = [str(r["year"]) for r in selected if r["status"] == "suppressed"]
+        coverage.append({"id": sid, "status": "benchmark_only" if sid.startswith("bea_parents") else "annual",
+                         "description": "Verified values: " + ", ".join(actual) +
+                         (". Confidential: " + ", ".join(confidential) if confidential else "") +
+                         ". All series concern businesses in China; definitions and gaps are retained."})
     return {
         "version": 1, "series": definitions,
         "observations": sorted(observations, key=lambda r: (r["series_id"], r["year"])),
         "sources": sources,
-        "coverage": [
-            {"id": "unique_us_parents", "status": "benchmarks_only",
-             "description": "Verified 2004, 2009, 2014 and 2019 host-country parent counts. No annual company census verified; do not fill later years with affiliate counts."},
-            {"id": "us_affiliates", "status": "available",
-             "description": "2000-2023 for mainland China and BEA-defined Europe. Nonbank/reporting thresholds and benchmark coverage create explicit breaks."},
-            {"id": "eu_affiliates", "status": "partial",
-             "description": "Fixed EU27, not all Europe; " + eu_coverage +
-                            ". Confidential and unavailable cells remain null. The 2021 methodology boundary is disconnected."},
-        ],
+        "coverage": coverage,
         "context": {
-            "question": "How has the business presence linking the United States, China and Europe changed?",
+            "question": "How has U.S. and European business presence in China changed over time?",
             "interpretation": "Company counts, affiliate entities and branch locations are distinct. U.S. parents and ultimately EU-controlled enterprises are not matched ownership populations; BEA and Eurostat levels must not be used to rank otherwise comparable business presence.",
-            "geography": "China excludes Hong Kong; Macau is separately identified by the sources. BEA Europe is broader than EU27 and includes the UK, Switzerland, Russia and other non-EU countries. Eurostat uses fixed EU27_2020 membership, excluding the UK.",
+            "geography": "China is the host in every chart. European coverage includes current EU27, a separately labelled historical EU membership group, the United Kingdom and Norway. These are not summed into an all-Europe total; Switzerland and other European origins remain outside verified coverage.",
             "rights": "Publish aggregate statistics and original charts only; raw workbooks and reports remain local. Sources and retrieval checksums accompany every observation.",
             "release_timing": "As checked October 22, 2026, BEA's latest activity release covers 2023. The published schedule puts the 2024 activity release on November 20, 2026; no 2024 value is inferred.",
         },
     }
 
 
-def parse_eurostat(data, dataset):
-    indicator = "indic_bp" if dataset == "fats_out2_r2" else "indic_sbs"
-    wanted = {"freq": "A", "nace_r2": "B-S_X_O", indicator: "ENT" if indicator == "indic_bp" else "ENT_NR",
-              "partner": "CN_X_HK", "geo": "EU27_2020"}
+def parse_eurostat(data, dataset, geo="EU27_2020"):
+    indicator = "indic_sbs" if dataset == "fats_out_part" else "indic_bp"
+    activity = {"nace_r1": "C-O_X_L"} if dataset == "fats_out2" else {"nace_r2": "B-S_X_O"}
+    wanted = {"freq": "A", **activity, indicator: "ENT" if indicator == "indic_bp" else "ENT_NR",
+              "partner": "CN_X_HK", "geo": geo}
     if data.get("extension", {}).get("id", "").lower() != dataset or set(data["id"]) != set(wanted) | {"time"}:
         raise ValueError("Eurostat business dataset identity changed")
     for name, code in wanted.items():
@@ -244,8 +292,23 @@ def parse_eurostat(data, dataset):
             status = "provisional" if "p" in flags else "estimated" if flags & {"e", "i"} else "low_reliability" if "u" in flags else status
         if "b" in flags or "d" in flags:
             segment += 1
-        comparability = f"{dataset}:EU27_2020:{segment}"
+        comparability = f"{dataset}:{geo}:{segment}"
         if "d" in flags:
             comparability += ":" + year
         result.append((int(year), value, status, flag, comparability))
+    return result
+
+
+def parse_ons(body):
+    book = load_workbook(io.BytesIO(body), read_only=True, data_only=True)
+    result = []
+    for year, name in [(2018, "Table 1"), (2019, "Table 2")]:
+        rows = list(book[name].iter_rows(min_col=1, max_col=4, values_only=True))
+        if str(year) not in str(rows[0][0]) or rows[8][1] != "TOTAL ACTIVITY" or rows[9][1] != "ENT":
+            raise ValueError("ONS year, sector total or enterprise-count column changed")
+        matches = [r for r in rows if r[0] == "China"]
+        if len(matches) != 1:
+            raise ValueError("ONS China row missing or ambiguous")
+        value, status = count_cell("(D)" if matches[0][1] == "C" else matches[0][1])
+        result.append((year, value, "estimated" if value is not None else status))
     return result

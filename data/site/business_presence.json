@@ -1,26 +1,41 @@
 {
   "context": {
-    "geography": "China excludes Hong Kong; Macau is separately identified by the sources. BEA Europe is broader than EU27 and includes the UK, Switzerland, Russia and other non-EU countries. Eurostat uses fixed EU27_2020 membership, excluding the UK.",
+    "geography": "China is the host in every chart. European coverage includes current EU27, a separately labelled historical EU membership group, the United Kingdom and Norway. These are not summed into an all-Europe total; Switzerland and other European origins remain outside verified coverage.",
     "interpretation": "Company counts, affiliate entities and branch locations are distinct. U.S. parents and ultimately EU-controlled enterprises are not matched ownership populations; BEA and Eurostat levels must not be used to rank otherwise comparable business presence.",
-    "question": "How has the business presence linking the United States, China and Europe changed?",
+    "question": "How has U.S. and European business presence in China changed over time?",
     "release_timing": "As checked October 22, 2026, BEA's latest activity release covers 2023. The published schedule puts the 2024 activity release on November 20, 2026; no 2024 value is inferred.",
     "rights": "Publish aggregate statistics and original charts only; raw workbooks and reports remain local. Sources and retrieval checksums accompany every observation."
   },
   "coverage": [
     {
-      "description": "Verified 2004, 2009, 2014 and 2019 host-country parent counts. No annual company census verified; do not fill later years with affiliate counts.",
-      "id": "unique_us_parents",
-      "status": "benchmarks_only"
+      "description": "Verified values: 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023. All series concern businesses in China; definitions and gaps are retained.",
+      "id": "bea_affiliates:china",
+      "status": "annual"
     },
     {
-      "description": "2000-2023 for mainland China and BEA-defined Europe. Nonbank/reporting thresholds and benchmark coverage create explicit breaks.",
-      "id": "us_affiliates",
-      "status": "available"
+      "description": "Verified values: 2004, 2009, 2014, 2019. All series concern businesses in China; definitions and gaps are retained.",
+      "id": "bea_parents:china",
+      "status": "benchmark_only"
     },
     {
-      "description": "Fixed EU27, not all Europe; available years: 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022; confidential: 2013, 2023; unavailable: 2010, 2011, 2012. Confidential and unavailable cells remain null. The 2021 methodology boundary is disconnected.",
-      "id": "eu_affiliates",
-      "status": "partial"
+      "description": "Verified values: 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022. Confidential: 2013, 2023. All series concern businesses in China; definitions and gaps are retained.",
+      "id": "eurostat_affiliates:china",
+      "status": "annual"
+    },
+    {
+      "description": "Verified values: 2009, 2011, 2012. Confidential: 2010, 2013. All series concern businesses in China; definitions and gaps are retained.",
+      "id": "eurostat_historical_eu:china",
+      "status": "annual"
+    },
+    {
+      "description": "Verified values: 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019. All series concern businesses in China; definitions and gaps are retained.",
+      "id": "eurostat_uk:china",
+      "status": "annual"
+    },
+    {
+      "description": "Verified values: 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023. All series concern businesses in China; definitions and gaps are retained.",
+      "id": "eurostat_norway:china",
+      "status": "annual"
     }
   ],
   "observations": [
@@ -241,222 +256,6 @@
       "year": 2023
     },
     {
-      "comparability": "bea_affiliates:1999",
-      "notes": "Nonbank affiliate count; 1999 benchmark reporting regime.",
-      "series_id": "bea_affiliates:europe",
-      "source_id": "bea_affiliates_2000",
-      "status": "observed",
-      "value": 10893,
-      "year": 2000
-    },
-    {
-      "comparability": "bea_affiliates:1999",
-      "notes": "Nonbank affiliate count; 1999 benchmark reporting regime.",
-      "series_id": "bea_affiliates:europe",
-      "source_id": "bea_affiliates_2001",
-      "status": "observed",
-      "value": 11224,
-      "year": 2001
-    },
-    {
-      "comparability": "bea_affiliates:1999",
-      "notes": "Nonbank affiliate count; 1999 benchmark reporting regime.",
-      "series_id": "bea_affiliates:europe",
-      "source_id": "bea_affiliates_2002",
-      "status": "observed",
-      "value": 11612,
-      "year": 2002
-    },
-    {
-      "comparability": "bea_affiliates:1999",
-      "notes": "Nonbank affiliate count; 1999 benchmark reporting regime.",
-      "series_id": "bea_affiliates:europe",
-      "source_id": "bea_affiliates_2003",
-      "status": "observed",
-      "value": 11380,
-      "year": 2003
-    },
-    {
-      "comparability": "bea_affiliates:2004",
-      "notes": "Nonbank affiliate count; 2004 benchmark reporting regime.",
-      "series_id": "bea_affiliates:europe",
-      "source_id": "bea_affiliates_2004",
-      "status": "observed",
-      "value": 12045,
-      "year": 2004
-    },
-    {
-      "comparability": "bea_affiliates:2004",
-      "notes": "Nonbank affiliate count; 2004 benchmark reporting regime.",
-      "series_id": "bea_affiliates:europe",
-      "source_id": "bea_affiliates_2005",
-      "status": "observed",
-      "value": 12296,
-      "year": 2005
-    },
-    {
-      "comparability": "bea_affiliates:2004",
-      "notes": "Nonbank affiliate count; 2004 benchmark reporting regime.",
-      "series_id": "bea_affiliates:europe",
-      "source_id": "bea_affiliates_2006",
-      "status": "observed",
-      "value": 12881,
-      "year": 2006
-    },
-    {
-      "comparability": "bea_affiliates:2004",
-      "notes": "Nonbank affiliate count; 2004 benchmark reporting regime.",
-      "series_id": "bea_affiliates:europe",
-      "source_id": "bea_affiliates_2007",
-      "status": "observed",
-      "value": 13220,
-      "year": 2007
-    },
-    {
-      "comparability": "bea_affiliates:2004",
-      "notes": "Nonbank affiliate count; 2004 benchmark reporting regime.",
-      "series_id": "bea_affiliates:europe",
-      "source_id": "bea_affiliates_2008",
-      "status": "observed",
-      "value": 13057,
-      "year": 2008
-    },
-    {
-      "comparability": "bea_affiliates:2009",
-      "notes": "All-industry majority-owned affiliate count above $25m; revised source year.",
-      "series_id": "bea_affiliates:europe",
-      "source_id": "bea_affiliates_2009",
-      "status": "observed",
-      "value": 13080,
-      "year": 2009
-    },
-    {
-      "comparability": "bea_affiliates:2009",
-      "notes": "All-industry majority-owned affiliate count above $25m; revised source year.",
-      "series_id": "bea_affiliates:europe",
-      "source_id": "bea_affiliates_2010",
-      "status": "observed",
-      "value": 13148,
-      "year": 2010
-    },
-    {
-      "comparability": "bea_affiliates:2009",
-      "notes": "All-industry majority-owned affiliate count above $25m; revised source year.",
-      "series_id": "bea_affiliates:europe",
-      "source_id": "bea_affiliates_2011",
-      "status": "observed",
-      "value": 13431,
-      "year": 2011
-    },
-    {
-      "comparability": "bea_affiliates:2009",
-      "notes": "All-industry majority-owned affiliate count above $25m; revised source year.",
-      "series_id": "bea_affiliates:europe",
-      "source_id": "bea_affiliates_2012",
-      "status": "observed",
-      "value": 13827,
-      "year": 2012
-    },
-    {
-      "comparability": "bea_affiliates:2009",
-      "notes": "All-industry majority-owned affiliate count above $25m; revised source year.",
-      "series_id": "bea_affiliates:europe",
-      "source_id": "bea_affiliates_2013",
-      "status": "observed",
-      "value": 13976,
-      "year": 2013
-    },
-    {
-      "comparability": "bea_affiliates:2014",
-      "notes": "All-industry majority-owned affiliate count above $25m; revised source year.",
-      "series_id": "bea_affiliates:europe",
-      "source_id": "bea_affiliates_2014",
-      "status": "observed",
-      "value": 17157,
-      "year": 2014
-    },
-    {
-      "comparability": "bea_affiliates:2014",
-      "notes": "All-industry majority-owned affiliate count above $25m; revised source year.",
-      "series_id": "bea_affiliates:europe",
-      "source_id": "bea_affiliates_2015",
-      "status": "observed",
-      "value": 17426,
-      "year": 2015
-    },
-    {
-      "comparability": "bea_affiliates:2014",
-      "notes": "All-industry majority-owned affiliate count above $25m; revised source year.",
-      "series_id": "bea_affiliates:europe",
-      "source_id": "bea_affiliates_2016",
-      "status": "observed",
-      "value": 17558,
-      "year": 2016
-    },
-    {
-      "comparability": "bea_affiliates:2014",
-      "notes": "All-industry majority-owned affiliate count above $25m; revised source year.",
-      "series_id": "bea_affiliates:europe",
-      "source_id": "bea_affiliates_2017",
-      "status": "observed",
-      "value": 17734,
-      "year": 2017
-    },
-    {
-      "comparability": "bea_affiliates:2014",
-      "notes": "All-industry majority-owned affiliate count above $25m; revised source year.",
-      "series_id": "bea_affiliates:europe",
-      "source_id": "bea_affiliates_2018",
-      "status": "observed",
-      "value": 17823,
-      "year": 2018
-    },
-    {
-      "comparability": "bea_affiliates:2019",
-      "notes": "All-industry majority-owned affiliate count above $25m; revised source year.",
-      "series_id": "bea_affiliates:europe",
-      "source_id": "bea_affiliates_2019",
-      "status": "observed",
-      "value": 18994,
-      "year": 2019
-    },
-    {
-      "comparability": "bea_affiliates:2019",
-      "notes": "All-industry majority-owned affiliate count above $25m; revised source year.",
-      "series_id": "bea_affiliates:europe",
-      "source_id": "bea_affiliates_2020",
-      "status": "observed",
-      "value": 18744,
-      "year": 2020
-    },
-    {
-      "comparability": "bea_affiliates:2019",
-      "notes": "All-industry majority-owned affiliate count above $25m; revised source year.",
-      "series_id": "bea_affiliates:europe",
-      "source_id": "bea_affiliates_2021",
-      "status": "observed",
-      "value": 18464,
-      "year": 2021
-    },
-    {
-      "comparability": "bea_affiliates:2019",
-      "notes": "All-industry majority-owned affiliate count above $25m; revised source year.",
-      "series_id": "bea_affiliates:europe",
-      "source_id": "bea_affiliates_2022",
-      "status": "observed",
-      "value": 17990,
-      "year": 2022
-    },
-    {
-      "comparability": "bea_affiliates:2019",
-      "notes": "All-industry majority-owned affiliate count above $25m; preliminary source year.",
-      "series_id": "bea_affiliates:europe",
-      "source_id": "bea_affiliates_2023",
-      "status": "provisional",
-      "value": 17956,
-      "year": 2023
-    },
-    {
       "comparability": "bea_parents:2004",
       "notes": "",
       "series_id": "bea_parents:china",
@@ -490,42 +289,6 @@
       "source_id": "bea_parents_2019",
       "status": "observed",
       "value": 1134,
-      "year": 2019
-    },
-    {
-      "comparability": "bea_parents:2004",
-      "notes": "",
-      "series_id": "bea_parents:europe",
-      "source_id": "bea_parents_2004",
-      "status": "observed",
-      "value": 1833,
-      "year": 2004
-    },
-    {
-      "comparability": "bea_parents:2009",
-      "notes": "",
-      "series_id": "bea_parents:europe",
-      "source_id": "bea_parents_2009",
-      "status": "observed",
-      "value": 1771,
-      "year": 2009
-    },
-    {
-      "comparability": "bea_parents:2014",
-      "notes": "",
-      "series_id": "bea_parents:europe",
-      "source_id": "bea_parents_2014",
-      "status": "observed",
-      "value": 2824,
-      "year": 2014
-    },
-    {
-      "comparability": "bea_parents:2019",
-      "notes": "",
-      "series_id": "bea_parents:europe",
-      "source_id": "bea_parents_2019",
-      "status": "observed",
-      "value": 2701,
       "year": 2019
     },
     {
@@ -653,52 +416,349 @@
       "status": "suppressed",
       "value": null,
       "year": 2023
+    },
+    {
+      "comparability": "fats_out2:EU27_2007:0",
+      "notes": "Eurostat source flags: none",
+      "series_id": "eurostat_historical_eu:china",
+      "source_id": "fats_out2_EU27_2007",
+      "status": "missing",
+      "value": null,
+      "year": 2007
+    },
+    {
+      "comparability": "fats_out2:EU27_2007:0",
+      "notes": "Eurostat source flags: none",
+      "series_id": "eurostat_historical_eu:china",
+      "source_id": "fats_out2_EU27_2007",
+      "status": "missing",
+      "value": null,
+      "year": 2008
+    },
+    {
+      "comparability": "fats_out2:EU27_2007:0",
+      "notes": "Eurostat source flags: none",
+      "series_id": "eurostat_historical_eu:china",
+      "source_id": "fats_out2_EU27_2007",
+      "status": "observed",
+      "value": 5688,
+      "year": 2009
+    },
+    {
+      "comparability": "fats_out2_r2:EU27_2007:0",
+      "notes": "Eurostat source flags: |C",
+      "series_id": "eurostat_historical_eu:china",
+      "source_id": "fats_out2_r2_EU27_2007",
+      "status": "suppressed",
+      "value": null,
+      "year": 2010
+    },
+    {
+      "comparability": "fats_out2_r2:EU27_2007:0",
+      "notes": "Eurostat source flags: none",
+      "series_id": "eurostat_historical_eu:china",
+      "source_id": "fats_out2_r2_EU27_2007",
+      "status": "observed",
+      "value": 6607,
+      "year": 2011
+    },
+    {
+      "comparability": "fats_out2_r2:EU27_2007:0",
+      "notes": "Eurostat source flags: none",
+      "series_id": "eurostat_historical_eu:china",
+      "source_id": "fats_out2_r2_EU27_2007",
+      "status": "observed",
+      "value": 6860,
+      "year": 2012
+    },
+    {
+      "comparability": "fats_out2_r2:EU27_2007:0",
+      "notes": "Eurostat source flags: |C",
+      "series_id": "eurostat_historical_eu:china",
+      "source_id": "fats_out2_r2_EU27_2007",
+      "status": "suppressed",
+      "value": null,
+      "year": 2013
+    },
+    {
+      "comparability": "fats_out2_r2:NO:0",
+      "notes": "Eurostat source flags: none",
+      "series_id": "eurostat_norway:china",
+      "source_id": "fats_out2_r2_NO",
+      "status": "observed",
+      "value": 75,
+      "year": 2010
+    },
+    {
+      "comparability": "fats_out2_r2:NO:0",
+      "notes": "Eurostat source flags: none",
+      "series_id": "eurostat_norway:china",
+      "source_id": "fats_out2_r2_NO",
+      "status": "observed",
+      "value": 75,
+      "year": 2011
+    },
+    {
+      "comparability": "fats_out2_r2:NO:0",
+      "notes": "Eurostat source flags: none",
+      "series_id": "eurostat_norway:china",
+      "source_id": "fats_out2_r2_NO",
+      "status": "observed",
+      "value": 102,
+      "year": 2012
+    },
+    {
+      "comparability": "fats_out2_r2:NO:0",
+      "notes": "Eurostat source flags: none",
+      "series_id": "eurostat_norway:china",
+      "source_id": "fats_out2_r2_NO",
+      "status": "observed",
+      "value": 113,
+      "year": 2013
+    },
+    {
+      "comparability": "fats_out2_r2:NO:0",
+      "notes": "Eurostat source flags: none",
+      "series_id": "eurostat_norway:china",
+      "source_id": "fats_out2_r2_NO",
+      "status": "observed",
+      "value": 108,
+      "year": 2014
+    },
+    {
+      "comparability": "fats_out2_r2:NO:0",
+      "notes": "Eurostat source flags: none",
+      "series_id": "eurostat_norway:china",
+      "source_id": "fats_out2_r2_NO",
+      "status": "observed",
+      "value": 125,
+      "year": 2015
+    },
+    {
+      "comparability": "fats_out2_r2:NO:0",
+      "notes": "Eurostat source flags: none",
+      "series_id": "eurostat_norway:china",
+      "source_id": "fats_out2_r2_NO",
+      "status": "observed",
+      "value": 122,
+      "year": 2016
+    },
+    {
+      "comparability": "fats_out2_r2:NO:0",
+      "notes": "Eurostat source flags: none",
+      "series_id": "eurostat_norway:china",
+      "source_id": "fats_out2_r2_NO",
+      "status": "observed",
+      "value": 109,
+      "year": 2017
+    },
+    {
+      "comparability": "fats_out2_r2:NO:0",
+      "notes": "Eurostat source flags: none",
+      "series_id": "eurostat_norway:china",
+      "source_id": "fats_out2_r2_NO",
+      "status": "observed",
+      "value": 103,
+      "year": 2018
+    },
+    {
+      "comparability": "fats_out2_r2:NO:0",
+      "notes": "Eurostat source flags: none",
+      "series_id": "eurostat_norway:china",
+      "source_id": "fats_out2_r2_NO",
+      "status": "observed",
+      "value": 96,
+      "year": 2019
+    },
+    {
+      "comparability": "fats_out2_r2:NO:0",
+      "notes": "Eurostat source flags: none",
+      "series_id": "eurostat_norway:china",
+      "source_id": "fats_out2_r2_NO",
+      "status": "observed",
+      "value": 86,
+      "year": 2020
+    },
+    {
+      "comparability": "fats_out_part:NO:0",
+      "notes": "Eurostat source flags: none",
+      "series_id": "eurostat_norway:china",
+      "source_id": "fats_out_part_NO",
+      "status": "observed",
+      "value": 89,
+      "year": 2021
+    },
+    {
+      "comparability": "fats_out_part:NO:0",
+      "notes": "Eurostat source flags: none",
+      "series_id": "eurostat_norway:china",
+      "source_id": "fats_out_part_NO",
+      "status": "observed",
+      "value": 91,
+      "year": 2022
+    },
+    {
+      "comparability": "fats_out_part:NO:0",
+      "notes": "Eurostat source flags: none",
+      "series_id": "eurostat_norway:china",
+      "source_id": "fats_out_part_NO",
+      "status": "observed",
+      "value": 88,
+      "year": 2023
+    },
+    {
+      "comparability": "fats_out2_r2:UK:0",
+      "notes": "Eurostat source flags: none",
+      "series_id": "eurostat_uk:china",
+      "source_id": "fats_out2_r2_UK",
+      "status": "observed",
+      "value": 681,
+      "year": 2010
+    },
+    {
+      "comparability": "fats_out2_r2:UK:0",
+      "notes": "Eurostat source flags: none",
+      "series_id": "eurostat_uk:china",
+      "source_id": "fats_out2_r2_UK",
+      "status": "observed",
+      "value": 849,
+      "year": 2011
+    },
+    {
+      "comparability": "fats_out2_r2:UK:0",
+      "notes": "Eurostat source flags: none",
+      "series_id": "eurostat_uk:china",
+      "source_id": "fats_out2_r2_UK",
+      "status": "observed",
+      "value": 654,
+      "year": 2012
+    },
+    {
+      "comparability": "fats_out2_r2:UK:1",
+      "notes": "Eurostat source flags: b",
+      "series_id": "eurostat_uk:china",
+      "source_id": "fats_out2_r2_UK",
+      "status": "observed",
+      "value": 835,
+      "year": 2013
+    },
+    {
+      "comparability": "fats_out2_r2:UK:2",
+      "notes": "Eurostat source flags: b",
+      "series_id": "eurostat_uk:china",
+      "source_id": "fats_out2_r2_UK",
+      "status": "observed",
+      "value": 448,
+      "year": 2014
+    },
+    {
+      "comparability": "fats_out2_r2:UK:3",
+      "notes": "Eurostat source flags: b",
+      "series_id": "eurostat_uk:china",
+      "source_id": "fats_out2_r2_UK",
+      "status": "observed",
+      "value": 704,
+      "year": 2015
+    },
+    {
+      "comparability": "fats_out2_r2:UK:3",
+      "notes": "Eurostat source flags: none",
+      "series_id": "eurostat_uk:china",
+      "source_id": "fats_out2_r2_UK",
+      "status": "observed",
+      "value": 762,
+      "year": 2016
+    },
+    {
+      "comparability": "fats_out2_r2:UK:3",
+      "notes": "Eurostat source flags: none",
+      "series_id": "eurostat_uk:china",
+      "source_id": "fats_out2_r2_UK",
+      "status": "observed",
+      "value": 836,
+      "year": 2017
+    },
+    {
+      "comparability": "ons:uk:total_activity:2018_2019",
+      "notes": "ONS total-activity enterprise estimate, including agriculture; 2018 revised.",
+      "series_id": "eurostat_uk:china",
+      "source_id": "ons_2019",
+      "status": "estimated",
+      "value": 709,
+      "year": 2018
+    },
+    {
+      "comparability": "ons:uk:total_activity:2018_2019",
+      "notes": "ONS total-activity enterprise estimate, including agriculture; 2018 revised.",
+      "series_id": "eurostat_uk:china",
+      "source_id": "ons_2019",
+      "status": "estimated",
+      "value": 531,
+      "year": 2019
+    },
+    {
+      "comparability": "fats_out2_r2:UK:3",
+      "notes": "Eurostat source flags: none",
+      "series_id": "eurostat_uk:china",
+      "source_id": "fats_out2_r2_UK",
+      "status": "missing",
+      "value": null,
+      "year": 2020
     }
   ],
   "series": {
     "bea_affiliates:china": {
       "cadence": "annual",
-      "label": "China",
+      "label": "United States",
       "measure": "majority_owned_affiliates",
       "notes": "Entities, not unique parent companies, offices or storefronts. U.S. parents are U.S.-resident, not necessarily ultimately U.S.-owned. Includes holding companies. Nonbank coverage before 2009; reporting cutoffs $7m through 2003, $10m in 2004-2008, $25m from 2009. Counts exclude benchmark-exempt affiliates. Lines break at benchmark regimes.",
       "period_basis": "fiscal ending year",
       "scope": "Foreign affiliates in mainland China, excluding Hong Kong and Macau; combined U.S.-parent ownership over 50%",
       "unit": "affiliates"
     },
-    "bea_affiliates:europe": {
-      "cadence": "annual",
-      "label": "Europe",
-      "measure": "majority_owned_affiliates",
-      "notes": "Entities, not unique parent companies, offices or storefronts. U.S. parents are U.S.-resident, not necessarily ultimately U.S.-owned. Includes holding companies. Nonbank coverage before 2009; reporting cutoffs $7m through 2003, $10m in 2004-2008, $25m from 2009. Counts exclude benchmark-exempt affiliates. Lines break at benchmark regimes.",
-      "period_basis": "fiscal ending year",
-      "scope": "Foreign affiliates in BEA-defined Europe, not EU27; combined U.S.-parent ownership over 50%",
-      "unit": "affiliates"
-    },
     "bea_parents:china": {
       "cadence": "benchmark",
-      "label": "China",
+      "label": "United States",
       "measure": "parent_companies",
       "notes": "Benchmark observations only, not an annual census. A parent is counted once per host country/region, but can appear in both China and Europe: never add these counts. Country attribution and reporting exclusions follow each benchmark. Not restricted to ultimately American-owned companies. Do not substitute majority-owned affiliate counts for parent counts.",
       "period_basis": "fiscal ending year",
       "scope": "Distinct U.S.-resident parent companies with affiliates in China; at least 10% foreign-affiliate ownership; BEA reporting exclusions apply",
       "unit": "U.S. parents"
     },
-    "bea_parents:europe": {
-      "cadence": "benchmark",
-      "label": "Europe",
-      "measure": "parent_companies",
-      "notes": "Benchmark observations only, not an annual census. A parent is counted once per host country/region, but can appear in both China and Europe: never add these counts. Country attribution and reporting exclusions follow each benchmark. Not restricted to ultimately American-owned companies. Do not substitute majority-owned affiliate counts for parent counts.",
-      "period_basis": "fiscal ending year",
-      "scope": "Distinct U.S.-resident parent companies with affiliates in Europe; at least 10% foreign-affiliate ownership; BEA reporting exclusions apply",
-      "unit": "U.S. parents"
-    },
     "eurostat_affiliates:china": {
       "cadence": "annual",
-      "label": "EU27-controlled affiliates",
+      "label": "EU27 (current members)",
       "measure": "controlled_enterprises",
       "notes": "Eurostat enterprise units, not unique European parents or all Europe. Macao is a separate partner. Not matched to BEA's size cutoff, U.S.-resident parent basis or consolidation. EBS methodology changes from 2021; do not join across that boundary or treat confidential cells as zero.",
       "period_basis": "reference year",
       "scope": "China except Hong Kong; ultimately controlled from fixed EU27_2020 membership, excluding the UK; market producers NACE B-S except O",
+      "unit": "enterprises"
+    },
+    "eurostat_historical_eu:china": {
+      "cadence": "annual",
+      "label": "EU27 (2007 members)",
+      "measure": "controlled_enterprises",
+      "notes": "Historical EU membership, not the current EU27. NACE Rev. 1.1 through 2009 and Rev. 2 from 2010; both classification and membership boundaries remain disconnected. No splice into current-membership counts.",
+      "period_basis": "reference year",
+      "scope": "China except Hong Kong; EU27_2007 control, including the UK and excluding Croatia",
+      "unit": "enterprises"
+    },
+    "eurostat_norway:china": {
+      "cadence": "annual",
+      "label": "Norway",
+      "measure": "controlled_enterprises",
+      "notes": "Norway is outside the EU and is shown separately, not added to an all-Europe total. Eurostat's 2021 methodology boundary is disconnected.",
+      "period_basis": "reference year",
+      "scope": "Norwegian-controlled enterprises in China except Hong Kong; NACE B-S except O",
+      "unit": "enterprises"
+    },
+    "eurostat_uk:china": {
+      "cadence": "annual",
+      "label": "United Kingdom",
+      "measure": "controlled_enterprises",
+      "notes": "Eurostat historical UK series and revised ONS 2018/2019 estimates. Source and sector boundary in 2018 is disconnected; ONS total activity includes agriculture. The 2018 China count agrees across both sources. No UK outward affiliate statistics from 2020 onward verified; investment flows are not substituted.",
+      "period_basis": "reference year",
+      "scope": "UK-controlled enterprises in China; Eurostat NACE B-S except O through 2017, ONS total published activity in 2018-2019",
       "unit": "enterprises"
     }
   },
@@ -1151,6 +1211,20 @@
       "notes": "",
       "vintage": "Reviewed source definitions"
     },
+    "fats_out2_EU27_2007": {
+      "assets": [
+        {
+          "request_url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out2?lang=EN&geo=EU27_2007&partner=CN_X_HK&indic_bp=ENT&nace_r1=C-O_X_L",
+          "retrieved_at": "2026-10-22T18:08:53+00:00",
+          "sha256": "77c6f069887cc6e130b938335778bd90a5dab56c913e429ffef1c373256f3b5c",
+          "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out2?lang=EN&geo=EU27_2007&partner=CN_X_HK&indic_bp=ENT&nace_r1=C-O_X_L"
+        }
+      ],
+      "locator": "A; EU27_2007; CN_X_HK; nace_r1=C-O_X_L; indic_bp=ENT",
+      "name": "Eurostat",
+      "notes": "Keep each control geography, membership and activity classification explicit. Preserve estimated, break and confidential flags; methodology boundaries remain disconnected. No reconstruction of confidential totals from member-country values.",
+      "vintage": "Outward FATS - main variables (2007-2009); updated 2024-04-25T11:00:00+0200"
+    },
     "fats_out2_r2": {
       "assets": [
         {
@@ -1160,9 +1234,51 @@
           "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out2_r2?lang=EN&geo=EU27_2020&partner=CN_X_HK&indic_bp=ENT&nace_r2=B-S_X_O"
         }
       ],
-      "locator": "A; EU27_2020; CN_X_HK; B-S_X_O; indic_bp=ENT",
+      "locator": "A; EU27_2020; CN_X_HK; nace_r2=B-S_X_O; indic_bp=ENT",
       "name": "Eurostat",
-      "notes": "Fixed EU27 membership. Preserve estimated, break and confidential flags. Legacy 2010-2020 and post-2021 EBS series remain disconnected. No reconstruction of confidential totals from member-country values.",
+      "notes": "Keep each control geography, membership and activity classification explicit. Preserve estimated, break and confidential flags; methodology boundaries remain disconnected. No reconstruction of confidential totals from member-country values.",
+      "vintage": "Outward FATS, main variables - NACE Rev. 2 activity (2010-2020); updated 2024-04-25T11:00:00+0200"
+    },
+    "fats_out2_r2_EU27_2007": {
+      "assets": [
+        {
+          "request_url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out2_r2?lang=EN&geo=EU27_2007&partner=CN_X_HK&indic_bp=ENT&nace_r2=B-S_X_O",
+          "retrieved_at": "2026-10-22T18:08:54+00:00",
+          "sha256": "77774fae1f4f4e88b9d9dd1df5ffd67dab8cb276352e38c58bf5540543e08238",
+          "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out2_r2?lang=EN&geo=EU27_2007&partner=CN_X_HK&indic_bp=ENT&nace_r2=B-S_X_O"
+        }
+      ],
+      "locator": "A; EU27_2007; CN_X_HK; nace_r2=B-S_X_O; indic_bp=ENT",
+      "name": "Eurostat",
+      "notes": "Keep each control geography, membership and activity classification explicit. Preserve estimated, break and confidential flags; methodology boundaries remain disconnected. No reconstruction of confidential totals from member-country values.",
+      "vintage": "Outward FATS, main variables - NACE Rev. 2 activity (2010-2020); updated 2024-04-25T11:00:00+0200"
+    },
+    "fats_out2_r2_NO": {
+      "assets": [
+        {
+          "request_url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out2_r2?lang=EN&geo=NO&partner=CN_X_HK&indic_bp=ENT&nace_r2=B-S_X_O",
+          "retrieved_at": "2026-10-22T18:08:57+00:00",
+          "sha256": "06891b351b247a86931bea640f9758dd41328010f534c700109e6158c37d1711",
+          "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out2_r2?lang=EN&geo=NO&partner=CN_X_HK&indic_bp=ENT&nace_r2=B-S_X_O"
+        }
+      ],
+      "locator": "A; NO; CN_X_HK; nace_r2=B-S_X_O; indic_bp=ENT",
+      "name": "Eurostat",
+      "notes": "Keep each control geography, membership and activity classification explicit. Preserve estimated, break and confidential flags; methodology boundaries remain disconnected. No reconstruction of confidential totals from member-country values.",
+      "vintage": "Outward FATS, main variables - NACE Rev. 2 activity (2010-2020); updated 2024-04-25T11:00:00+0200"
+    },
+    "fats_out2_r2_UK": {
+      "assets": [
+        {
+          "request_url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out2_r2?lang=EN&geo=UK&partner=CN_X_HK&indic_bp=ENT&nace_r2=B-S_X_O",
+          "retrieved_at": "2026-10-22T18:08:55+00:00",
+          "sha256": "9cc5627c95a7260c9dc8ddc825517959abfe65ca5ea8f09fdfcd0783e0d65897",
+          "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out2_r2?lang=EN&geo=UK&partner=CN_X_HK&indic_bp=ENT&nace_r2=B-S_X_O"
+        }
+      ],
+      "locator": "A; UK; CN_X_HK; nace_r2=B-S_X_O; indic_bp=ENT",
+      "name": "Eurostat",
+      "notes": "Keep each control geography, membership and activity classification explicit. Preserve estimated, break and confidential flags; methodology boundaries remain disconnected. No reconstruction of confidential totals from member-country values.",
       "vintage": "Outward FATS, main variables - NACE Rev. 2 activity (2010-2020); updated 2024-04-25T11:00:00+0200"
     },
     "fats_out_part": {
@@ -1174,10 +1290,52 @@
           "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out_part?lang=EN&geo=EU27_2020&partner=CN_X_HK&indic_sbs=ENT_NR&nace_r2=B-S_X_O"
         }
       ],
-      "locator": "A; EU27_2020; CN_X_HK; B-S_X_O; indic_sbs=ENT_NR",
+      "locator": "A; EU27_2020; CN_X_HK; nace_r2=B-S_X_O; indic_sbs=ENT_NR",
       "name": "Eurostat",
-      "notes": "Fixed EU27 membership. Preserve estimated, break and confidential flags. Legacy 2010-2020 and post-2021 EBS series remain disconnected. No reconstruction of confidential totals from member-country values.",
+      "notes": "Keep each control geography, membership and activity classification explicit. Preserve estimated, break and confidential flags; methodology boundaries remain disconnected. No reconstruction of confidential totals from member-country values.",
       "vintage": "Foreign affiliates of the EU enterprises by detailed breakdown of country of the affiliates (from 2021 onwards); updated 2026-03-31T23:00:00+0200"
+    },
+    "fats_out_part_NO": {
+      "assets": [
+        {
+          "request_url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out_part?lang=EN&geo=NO&partner=CN_X_HK&indic_sbs=ENT_NR&nace_r2=B-S_X_O",
+          "retrieved_at": "2026-10-22T18:08:58+00:00",
+          "sha256": "eafacf2ab7797280a10e0ee68791aa5a1fc99f31caad1709b1da3a3be310497e",
+          "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out_part?lang=EN&geo=NO&partner=CN_X_HK&indic_sbs=ENT_NR&nace_r2=B-S_X_O"
+        }
+      ],
+      "locator": "A; NO; CN_X_HK; nace_r2=B-S_X_O; indic_sbs=ENT_NR",
+      "name": "Eurostat",
+      "notes": "Keep each control geography, membership and activity classification explicit. Preserve estimated, break and confidential flags; methodology boundaries remain disconnected. No reconstruction of confidential totals from member-country values.",
+      "vintage": "Foreign affiliates of the EU enterprises by detailed breakdown of country of the affiliates (from 2021 onwards); updated 2026-03-31T23:00:00+0200"
+    },
+    "ons_2019": {
+      "assets": [
+        {
+          "request_url": "https://www.ons.gov.uk/file?uri=/businessindustryandtrade/internationaltrade/datasets/ukoutwardforeignaffiliatestatisticsofats/2019/ofatspublicationfinal.xlsx",
+          "retrieved_at": "2026-10-22T18:10:06+00:00",
+          "sha256": "ad7bdcadae6be8a07e61086cf29dc020c546cada2fda3dcc3717bed76581116d",
+          "url": "https://www.ons.gov.uk/file?uri=/businessindustryandtrade/internationaltrade/datasets/ukoutwardforeignaffiliatestatisticsofats/2019/ofatspublicationfinal.xlsx"
+        }
+      ],
+      "locator": "Table 1 (2018), Table 2 (2019); China row, TOTAL ACTIVITY / ENT",
+      "name": "Office for National Statistics",
+      "notes": "Foreign enterprise counts, not employment or turnover. Total activity includes agriculture; survey-based estimates. Later ONS vintage supersedes overlapping Eurostat UK values.",
+      "vintage": "2018 revised and 2019 estimates; released May 20, 2022"
+    },
+    "ons_coverage": {
+      "assets": [
+        {
+          "request_url": "https://www.ons.gov.uk/aboutus/transparencyandgovernance/freedomofinformationfoi/ukoutwardforeignaffiliatestatisticsofats2015to2025",
+          "retrieved_at": "2026-10-22T18:15:34+00:00",
+          "sha256": "a6f9bd2ef411bb31f5311cc7bdba277e56ab6d571397be6a3338a6e277d67ced",
+          "url": "https://www.ons.gov.uk/aboutus/transparencyandgovernance/freedomofinformationfoi/ukoutwardforeignaffiliatestatisticsofats2015to2025"
+        }
+      ],
+      "locator": "Response 2a: outward affiliate statistics unavailable from 2020",
+      "name": "Office for National Statistics",
+      "notes": "Do not substitute new inward-affiliate statistics or FDI investment values for UK-controlled enterprises in China.",
+      "vintage": "July 15, 2025 disclosure; checked with current dataset listing"
     }
   },
   "version": 1

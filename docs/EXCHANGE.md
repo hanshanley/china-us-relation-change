@@ -255,31 +255,35 @@ source notes and figure footnotes; publication backgrounds do not grant rights.
 
 ### Business presence
 
-Open `site/business-presence.html`. This section covers both U.S. businesses in
-China versus Europe and EU-controlled enterprises in China, but does not mix
-their counting units or imply matched coverage.
+Open `site/business-presence.html`. **China is the host in every chart.**
+The page leads with annual U.S. and European business-presence histories and
+a full year-by-year table, not two endpoint counts. It does not chart U.S.
+businesses located in Europe.
 
 | Measure | Verified history and definition |
 |---|---|
-| Distinct U.S. parent companies by host market | BEA benchmark observations in 2004, 2009, 2014 and 2019. A parent appears once per host market but may appear in both China and Europe; do not add the two counts. The foreign-affiliate definition starts at 10% ownership, not necessarily majority control. Reporting exclusions apply. These are not an annual company census or uniquely American ultimate owners. |
-| Majority-owned U.S.-parent affiliates | Annual fiscal years ending 2000-2023 for mainland China and BEA-defined Europe. Count affiliate entities, including holding companies, not distinct parents, branch offices, openings or closures. Before 2009, nonbank coverage applies. |
-| EU-controlled enterprises in China | Eurostat outward FATS, fixed `EU27_2020` membership, excluding the UK; NACE B-S except O, market producers. Observed counts from 2014-2022, with 2021 estimated. Preserve every returned year: 2010-2012 unavailable; 2013 and 2023 confidential. These are not unique European parents or all Europe. |
+| U.S.-parent affiliates in China | All 24 annual fiscal-year observations, 2000-2023. Affiliate entities, including holding companies, not distinct parents, branch offices or annual openings. Nonbank coverage before 2009; reporting thresholds and benchmarks create breaks. |
+| EU-reporting groups in China | Historical EU27 membership (including UK, excluding Croatia) supplies 2009, 2011 and 2012. Current EU27 membership (excluding UK, including Croatia) supplies 2014-2022, with 2021 estimated. Different memberships/classifications are distinct traces, not a joined splice. Confidential and unavailable years remain gaps. |
+| UK-controlled enterprises in China | Ten annual values, 2010-2019. Eurostat history through 2017; ONS revised 2018 and 2019 estimates. The 2018 source/sector boundary is disconnected. ONS total activity includes agriculture. No outward-affiliate counts from 2020 onward verified; do not use newer inward-affiliate or FDI statistics as substitutes. |
+| Norwegian-controlled enterprises in China | Fourteen annual observations, 2010-2023. Eurostat NACE B-S except O; 2021 method boundary disconnected. Norway is outside the EU and is not silently added to a Europe total. |
+| Supplementary U.S. parent-company benchmarks | Only 2004, 2009, 2014 and 2019 are verified. They appear in a collapsed background section, not as the main time series or an annual census. Foreign-affiliate ownership begins at 10%, not necessarily majority control; reporting exclusions apply. No interpolation. |
 
 The U.S. affiliate reporting cutoff changes from $7 million through 2003 to
 $10 million in 2004-2008 and $25 million from 2009, based on assets, sales or
 net income/loss. These are nominal, not inflation-adjusted, cutoffs.
 Benchmark remeasurement and coverage can create level changes; chart lines
 break in 2004, 2009, 2014 and 2019. Parent benchmark observations are isolated.
-The indexed U.S. comparison uses each market's own 2020 baseline and only
-the matching 2019-onward regime. Its clearly labelled index axis is non-zero.
 No incompatible full-history percentage is calculated.
 
-BEA Europe includes the UK, Switzerland, Russia and other non-EU countries;
-it is not EU27. Eurostat uses ultimate EU27 control, a different statistical
-unit/sector universe and no matched BEA size cutoff. Its 2021 EBS methodology
-boundary is disconnected. U.S./EU levels are in separate panels, not treated
-as a comparable ranking or ratio. Missing/confidential values never become
-zero, and confidential totals are not reconstructed from member-country data.
+European origins are not destinations: the EU, UK and Norway series all refer
+to enterprises operating **in China**. This is selected European coverage,
+not a comprehensive all-Europe total; Switzerland and other unverified origins
+are not invented or allocated. Eurostat uses ultimate control and different
+unit/sector coverage from BEA's size-qualified affiliates. U.S. and European
+levels are in separate panels, not a matched ranking or ratio. NACE revisions,
+membership changes, source changes and the 2021 EBS boundary stay disconnected.
+Missing/confidential values never become zero, and confidential totals are
+not reconstructed from member-country data.
 
 As verified October 22, 2026, the latest BEA activity release covers 2023
 (preliminary); the 2024 release is scheduled for November 20, 2026. The source
@@ -291,7 +295,10 @@ complete JSON, every source observation in `business-observations.csv`, and
 every raw/derived chart point in `business-chart-values.csv`. All five chart
 families have 3000-by-1800 PNGs and SVGs under
 `outputs/figures/business_presence/<background>/` and the mirrored site tree.
-China remains deep red and Europe blue across these charts.
+Colors identify investor origins consistently: U.S. deep red, current EU blue,
+historical EU grey, UK gold and Norway green. The four annual chart families
+lead the page; the fifth is the supplementary U.S. benchmark panel.
+Obsolete U.S.-in-Europe plots are withdrawn from both figure trees and catalogs.
 
 ```sh
 .venv/bin/python scripts/build_business_data.py --data-only

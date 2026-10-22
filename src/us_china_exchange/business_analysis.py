@@ -3,7 +3,6 @@
 import csv
 import io
 import json
-import math
 import re
 from datetime import datetime
 from pathlib import Path
@@ -12,45 +11,48 @@ from urllib.parse import urlsplit
 from .indicator_charts import svg_indicator_chart
 from .model import json_text
 from .pipeline import write_atomic
-from .theme import BLUE, CHART_THEMES, PARTNER_COLORS
+from .theme import BLUE, CHART_THEMES, GOLD, GREEN, MUTED, PARTNER_COLORS
 
 
+RETIRED_CHARTS = {"us-parent-companies", "us-affiliates-europe", "us-affiliates-index"}
+BENCHMARK_CHART = "us-parent-companies-china"
+COLORS = {"bea_affiliates:china": PARTNER_COLORS["CHN"], "bea_parents:china": PARTNER_COLORS["CHN"],
+          "eurostat_affiliates:china": BLUE, "eurostat_historical_eu:china": MUTED,
+          "eurostat_uk:china": GOLD, "eurostat_norway:china": GREEN}
 CHARTS = {
-    "us-parent-companies": {
-        "title": "U.S. parent companies by host market",
-        "subtitle": "Distinct U.S. parents | verified benchmark observations",
-        "series": ["bea_parents:china", "bea_parents:europe"], "unit": "U.S. parents", "mode": "levels",
-        "note": "BEA benchmark tables. Parent companies, not affiliate entities or offices; a parent may appear in both markets. Reporting exclusions and benchmark coverage differ. Points are not annual estimates."},
     "us-affiliates-china": {
         "title": "U.S.-parent affiliates in China",
-        "subtitle": "Majority-owned foreign affiliates | fiscal year ending",
+        "subtitle": "Annual observations, 2000-2023 | fiscal year ending",
         "series": ["bea_affiliates:china"], "unit": "Affiliates", "mode": "levels",
         "note": "BEA. Nonbank coverage before 2009; reporting cutoffs $7m through 2003, $10m in 2004-08, $25m from 2009. Benchmark boundaries disconnected. Entity counts include holding companies, not all firms or offices."},
-    "us-affiliates-europe": {
-        "title": "U.S.-parent affiliates in Europe",
-        "subtitle": "BEA-defined Europe, not EU27 | fiscal year ending",
-        "series": ["bea_affiliates:europe"], "unit": "Affiliates", "mode": "levels",
-        "note": "BEA Europe includes the UK and non-EU countries. Nonbank/reporting regimes change in 2004/2009; benchmarks can change coverage. Small exempt entities excluded. Affiliates, not distinct parents or offices."},
-    "us-affiliates-index": {
-        "title": "U.S. affiliates: China and Europe",
-        "subtitle": "Latest comparable benchmark regime | 2020 = 100",
-        "series": ["bea_affiliates:china", "bea_affiliates:europe"], "unit": "2020 = 100", "mode": "index",
-        "baseline": 2020, "first_year": 2019,
-        "note": "Each market uses its own 2020 affiliate count. Only the matching post-2019 benchmark regime is shown; earlier history remains in the level charts. Counts exclude small affiliates and include holding entities."},
     "eu-affiliates-china": {
-        "title": "EU-controlled enterprises in China",
-        "subtitle": "Fixed EU27 membership, excluding UK | Eurostat",
-        "series": ["eurostat_affiliates:china"], "unit": "Enterprises", "mode": "levels",
-        "note": "Eurostat outward FATS, NACE B-S except O. Enterprise units, not European parent counts or all Europe. Confidential/missing years are gaps; 2021 method boundary disconnected. Not matched to BEA size or ownership coverage."},
+        "title": "EU-reporting groups in China",
+        "subtitle": "Annual observations | different memberships kept separate",
+        "series": ["eurostat_historical_eu:china", "eurostat_affiliates:china"], "unit": "Enterprises", "mode": "levels",
+        "note": "Eurostat. Historical EU27 includes UK, excludes Croatia; current EU27 reverses those members. No connecting splice across membership, NACE or 2021 method changes. Gaps are not zero. Not matched to BEA coverage."},
+    "uk-affiliates-china": {
+        "title": "UK-controlled enterprises in China",
+        "subtitle": "Annual observations, 2010-2019 | not UK investment flows",
+        "series": ["eurostat_uk:china"], "unit": "Enterprises", "mode": "levels",
+        "note": "Eurostat history; ONS revised 2018/2019 estimates. Survey breaks and 2018 source/sector boundary disconnected. ONS total activity includes agriculture. No later outward-affiliate counts verified; do not fill with inward or FDI data."},
+    "norway-affiliates-china": {
+        "title": "Norwegian-controlled enterprises in China",
+        "subtitle": "Annual observations, 2010-2023 | Eurostat",
+        "series": ["eurostat_norway:china"], "unit": "Enterprises", "mode": "levels",
+        "note": "Eurostat outward FATS, NACE B-S except O. Norway is outside the EU and shown separately, not summed into all Europe. The 2021 method boundary is disconnected. Not unique Norwegian parent companies or office locations."},
+    BENCHMARK_CHART: {
+        "title": "U.S. parent companies with China affiliates",
+        "subtitle": "Supplementary benchmark observations | NOT an annual series",
+        "series": ["bea_parents:china"], "unit": "U.S. parents", "mode": "levels",
+        "note": "BEA benchmarks only: 2004, 2009, 2014 and 2019. Distinct reported U.S. parents, not annual affiliate entities. Reporting exclusions and benchmark coverage differ. No annual interpolation or current company census."},
 }
 
 
 def validate_business_data(data):
     if set(data) != {"version", "series", "observations", "sources", "coverage", "context"} or data["version"] != 1:
         raise ValueError("Invalid business-presence schema")
-    units = {"bea_parents:china": "U.S. parents", "bea_parents:europe": "U.S. parents",
-             "bea_affiliates:china": "affiliates", "bea_affiliates:europe": "affiliates",
-             "eurostat_affiliates:china": "enterprises"}
+    units = {sid: "U.S. parents" if sid.startswith("bea_parents") else "affiliates" if sid.startswith("bea_affiliates")
+             else "enterprises" for sid in COLORS}
     if not data["series"] or not data["sources"] or not isinstance(data["observations"], list):
         raise ValueError("Business definitions, observations and provenance required")
     for sid, definition in data["series"].items():
@@ -67,8 +69,10 @@ def validate_business_data(data):
             raise ValueError("Benchmark parents must not become annual affiliate counts")
         if sid.startswith("bea_affiliates:") and definition["measure"] != "majority_owned_affiliates":
             raise ValueError("BEA affiliates must not be relabelled parent companies")
-        if sid.startswith("eurostat") and ("EU27_2020" not in definition["scope"] or "excluding the UK" not in definition["scope"]):
+        if sid == "eurostat_affiliates:china" and ("EU27_2020" not in definition["scope"] or "excluding the UK" not in definition["scope"]):
             raise ValueError("Eurostat EU27 must not be relabelled all Europe")
+        if sid == "eurostat_historical_eu:china" and ("EU27_2007" not in definition["scope"] or "including the UK" not in definition["scope"]):
+            raise ValueError("Historical EU membership must remain distinct")
     for item in data["sources"].values():
         if set(item) != {"name", "vintage", "assets", "locator", "notes"} or not item["assets"]:
             raise ValueError("Business source provenance incomplete")
@@ -103,8 +107,14 @@ def validate_business_data(data):
             raise ValueError("Business comparability definition required")
         if r["series_id"].startswith("bea_") and r["source_id"] != r["series_id"].split(":")[0] + "_" + str(r["year"]):
             raise ValueError("BEA business year/source identity mismatch")
-        if r["series_id"].startswith("eurostat") and r["source_id"] != ("fats_out2_r2" if r["year"] <= 2020 else "fats_out_part"):
-            raise ValueError("Eurostat method/source boundary mismatch")
+        expected_source = {
+            "eurostat_affiliates:china": "fats_out2_r2" if r["year"] <= 2020 else "fats_out_part",
+            "eurostat_historical_eu:china": "fats_out2_EU27_2007" if r["year"] <= 2009 else "fats_out2_r2_EU27_2007",
+            "eurostat_uk:china": "ons_2019" if r["year"] in {2018, 2019} else "fats_out2_r2_UK",
+            "eurostat_norway:china": "fats_out2_r2_NO" if r["year"] <= 2020 else "fats_out_part_NO",
+        }
+        if r["series_id"].startswith("eurostat") and r["source_id"] != expected_source[r["series_id"]]:
+            raise ValueError("European method/source boundary mismatch")
     if not all(data["context"].get(k) for k in ("question", "interpretation", "geography", "rights")):
         raise ValueError("Business interpretation and coverage caveats required")
     if any(set(c) != {"id", "status", "description"} for c in data["coverage"]):
@@ -118,24 +128,16 @@ def chart_groups(data, chart_id):
         if sid not in data["series"]:
             continue
         definition = data["series"][sid]
-        expected = "affiliates" if config["mode"] == "index" else config["unit"].lower()
-        if definition["unit"].lower() != expected:
+        if definition["unit"].lower() != config["unit"].lower():
             raise ValueError("Business chart units do not match")
         rows = sorted((r for r in data["observations"] if r["series_id"] == sid), key=lambda r: r["year"])
-        ref = next((r for r in rows if r["year"] == config.get("baseline")), None)
         points = []
         for r in rows:
             if r["value"] is None:
                 continue
-            denominator, value = None, r["value"]
-            if config["mode"] == "index":
-                if ref is None or not ref["value"] or ref["comparability"] != r["comparability"]:
-                    continue
-                denominator = ref["value"]
-                value = value / denominator * 100
-            points.append(dict(r, plotted_value=value, denominator=denominator,
+            points.append(dict(r, plotted_value=r["value"], denominator=None,
                                reported_unit=definition["unit"], plotted_unit=config["unit"]))
-        result.append({"id": sid, "label": definition["label"], "color": PARTNER_COLORS["CHN"] if sid.endswith(":china") else BLUE,
+        result.append({"id": sid, "label": definition["label"], "color": COLORS[sid],
                        "cadence": definition["cadence"], "scheduled_years": [r["year"] for r in rows], "points": points})
     return result
 
@@ -143,16 +145,11 @@ def chart_groups(data, chart_id):
 def svg_business_chart(data, chart_id, theme="themarginoferror"):
     config = dict(CHARTS[chart_id])
     groups = chart_groups(data, chart_id)
-    if config["mode"] == "index":
-        values = [p["plotted_value"] for g in groups for p in g["points"]]
-        if values:
-            config["y_min"] = math.floor(min(values) / 5) * 5
-            config["y_max"] = max(config["y_min"] + 5, math.ceil(max(values) / 5) * 5)
-            config["note"] += " Non-zero index axis."
     selected = [r for r in data["observations"] if r["series_id"] in config["series"]]
     if selected:
         last_year = max(r["year"] for r in selected)
-        config["last_year"] = last_year
+        config["last_year"] = (last_year if chart_id == BENCHMARK_CHART else
+                              max(r["year"] for r in data["observations"] if data["series"][r["series_id"]]["cadence"] == "annual"))
         latest = [r for r in selected if r["year"] == last_year]
         if any(r["status"] == "suppressed" for r in latest):
             config["note"] += f" {last_year} confidential."
@@ -170,7 +167,10 @@ def build_business(root, data, gallery):
     from .render import esc, export_figure, figure_links, remove_figure
 
     validate_business_data(data)
-    cards, plotted, count = [], [], 0
+    for chart_id in RETIRED_CHARTS:
+        for theme in CHART_THEMES:
+            remove_figure(root, Path("business_presence") / theme / chart_id)
+    cards, plotted, count = {}, [], 0
     for chart_id, config in CHARTS.items():
         paths = {}
         for theme in CHART_THEMES:
@@ -204,7 +204,7 @@ def build_business(root, data, gallery):
                      '<thead><tr><th>Series</th><th>Year / ending year</th><th>Reported count</th>'
                      f'<th>{esc(config["unit"])}</th><th>Status</th><th>Source vintage</th></tr></thead><tbody>'
                      + "".join(exact) + '</tbody></table></div></details>')
-        cards.append(f'<section class="series-panel" id="{chart_id}"><h2>{esc(config["title"])}</h2>{body}</section>')
+        cards[chart_id] = f'<section class="series-panel" id="{chart_id}"><h2>{esc(config["title"])}</h2>{body}</section>'
     raw = []
     for r in data["observations"]:
         definition, provenance = data["series"][r["series_id"]], data["sources"][r["source_id"]]
@@ -225,37 +225,56 @@ def build_business(root, data, gallery):
         + "".join(f'<li><a href="{esc(a["url"])}">Primary source</a>; retrieved {esc(a["retrieved_at"])}; '
                   f'SHA-256 <code>{a["sha256"]}</code></li>' for a in s["assets"]) + '</ul></li>'
         for s in data["sources"].values())
-    latest = {}
-    for sid in data["series"]:
-        rows = [r for r in data["observations"] if r["series_id"] == sid and r["value"] is not None]
-        if rows:
-            r = max(rows, key=lambda r: r["year"])
-            latest[sid] = f'{r["value"]:,} in {r["year"]}'
-    headline = (f'<p>Latest verified benchmark parent counts: China <strong>{latest.get("bea_parents:china", "unavailable")}</strong>; '
-                f'Europe <strong>{latest.get("bea_parents:europe", "unavailable")}</strong>. '
-                f'The separate annual majority-owned affiliate counts are China {latest.get("bea_affiliates:china", "unavailable")} '
-                f'and Europe {latest.get("bea_affiliates:europe", "unavailable")}. Do not substitute one counting unit for the other.</p>'
-                f'<p>{esc(data["context"].get("release_timing", ""))}</p>')
+    columns = [("bea_affiliates:china", "U.S. affiliates"), ("eurostat_affiliates:china", "EU27 current members"),
+               ("eurostat_historical_eu:china", "EU27 2007 members"), ("eurostat_uk:china", "UK enterprises"),
+               ("eurostat_norway:china", "Norwegian enterprises")]
+    observations = {(r["series_id"], r["year"]): r for r in data["observations"]}
+    annual = [r for r in data["observations"] if data["series"][r["series_id"]]["cadence"] == "annual"]
+    first = min((r["year"] for r in annual), default=2000)
+    last = max((r["year"] for r in annual), default=first)
+    yearly = []
+    for year in range(first, last + 1):
+        cells = []
+        for sid, _ in columns:
+            r = observations.get((sid, year))
+            value = ("Confidential" if r and r["status"] == "suppressed" else "Not reported") if r is None or r["value"] is None else (
+                f'{r["value"]:,}' + (f' ({r["status"]})' if r["status"] != "observed" else ""))
+            cells.append(f'<td>{esc(value)}</td>')
+        yearly.append(f'<tr><th scope="row">{year}</th>{"".join(cells)}</tr>')
+    annual_table = ('<section class="series-panel" id="annual-values"><h2>Every reported year in China</h2>'
+                    '<p>Not just endpoints: every available annual count is shown below. Columns have different '
+                    'ownership, reporting and sector coverage; they are not a matched ranking or an all-Europe total. '
+                    'The historical EU group already includes the UK: overlapping columns must not be added.</p>'
+                    '<div class="table-scroll"><table><thead><tr><th>Year / ending year</th>' +
+                    "".join(f'<th>{esc(label)}</th>' for _, label in columns) +
+                    '</tr></thead><tbody>' + "".join(yearly) + '</tbody></table></div></section>')
+    annual_cards = "".join(card for chart_id, card in cards.items() if chart_id != BENCHMARK_CHART)
+    benchmark = ('<details class="series-panel" id="business-benchmark-background">'
+                 '<summary>Supplementary company-count benchmarks — not an annual series</summary>'
+                 '<p>These four isolated U.S. parent-company observations are background only. They are not '
+                 'substituted for the annual affiliate histories above, interpolated or presented as a current census.</p>'
+                 + cards[BENCHMARK_CHART] + '</details>')
     document = ('<!doctype html><html lang="en"><head><meta charset="utf-8">'
-                '<meta name="viewport" content="width=device-width,initial-scale=1"><title>Business presence | China and Europe</title>'
+                '<meta name="viewport" content="width=device-width,initial-scale=1"><title>U.S. and European businesses in China over time</title>'
                 '<link rel="stylesheet" href="assets/style.css"></head><body><div class="page"><header>'
                 '<p><a href="index.html">Exchange dashboard</a>' +
                 (' · <a href="language-learning.html">Language learning</a>' if (root / "site/language-learning.html").is_file() else "") + '</p>'
-                f'<h1>Business ties.</h1><p class="lead">{esc(data["context"]["question"])}</p>'
+                f'<h1>Businesses in China.</h1><p class="lead">{esc(data["context"]["question"])}</p>'
+                f'<p><strong>Annual histories, {first}-{last} where reported. China is the host in every chart.</strong> '
+                'The main graphs track U.S., EU, UK and Norwegian business presence in China over time—not U.S. '
+                'businesses located in Europe. Sparse company-count benchmarks are secondary.</p>'
                 '<p><strong>Parent companies, affiliate enterprises and physical branches are different counting units.</strong> '
-                'This page covers both U.S. companies in China versus Europe and EU-controlled enterprises in China, '
-                'without pretending those sources have matched populations.</p>'
+                'Annual affiliate/enterprise counts are not an annual census of unique parent companies or physical offices.</p>'
                 f'<p>{esc(data["context"]["interpretation"])}</p><p>{esc(data["context"]["geography"])}</p>'
-                '<p>These are business-presence stocks, not annual openings, closures, investment flows or a census of '
-                'office locations. No current count of all American-owned businesses in China is established by this publication.</p>'
                 '<p><a href="downloads/business-presence.json" download>Complete dataset and provenance · JSON</a> · '
                 '<a href="downloads/business-observations.csv" download>Every source observation · CSV</a> · '
                 '<a href="downloads/business-chart-values.csv" download>Every plotted value · CSV</a></p></header><main>'
-                '<section class="series-panel"><h2>What the counts establish</h2>' + headline +
-                '<p>Thresholds are nominal dollars, not inflation-adjusted. Apparent growth across survey benchmarks can '
-                'reflect improved coverage. Benchmark parent observations remain isolated; annual affiliate lines break '
-                'at the 2004, 2009, 2014 and 2019 regime boundaries. Eurostat changes methodology in 2021.</p></section>'
-                + "".join(cards) + '<section class="series-panel"><h2>Coverage and unresolved counts</h2>'
+                + annual_cards + annual_table + benchmark +
+                '<section class="series-panel"><h2>Coverage and unresolved counts</h2>'
+                f'<p>{esc(data["context"].get("release_timing", ""))}</p>'
+                '<p>Missing and confidential values stay blank, not zero or invented annual estimates. '
+                'Membership, sector, source, survey and reporting-threshold breaks remain disconnected. '
+                'Colors identify investor origins consistently across these China-hosted charts.</p>'
                 '<div class="table-scroll"><table><thead><tr><th>Indicator</th><th>Status</th><th>Definition</th></tr></thead>'
                 '<tbody>' + coverage + '</tbody></table></div></section><section class="series-panel"><h2>Primary sources</h2>'
                 f'<p>{esc(data["context"]["rights"])}</p><details><summary>Sources, vintages and checksums</summary><ul>'

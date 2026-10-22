@@ -1,5 +1,6 @@
 import copy
 import csv
+import io
 import json
 from collections import defaultdict
 from pathlib import Path
@@ -9,9 +10,10 @@ from xml.etree import ElementTree
 import pytest
 from bs4 import BeautifulSoup
 from PIL import Image, ImageColor
+from openpyxl import Workbook
 
-from us_china_exchange.business_analysis import CHARTS, build_business, chart_groups, svg_business_chart, validate_business_data
-from us_china_exchange.business_sources import count_cell, country_counts, parse_eurostat
+from us_china_exchange.business_analysis import BENCHMARK_CHART, CHARTS, COLORS, RETIRED_CHARTS, build_business, chart_groups, svg_business_chart, validate_business_data
+from us_china_exchange.business_sources import count_cell, country_counts, parse_eurostat, parse_ons
 from us_china_exchange.render import build
 from us_china_exchange.theme import CHART_THEMES, PARTNER_COLORS
 
@@ -38,16 +40,19 @@ def test_distinct_parent_and_affiliate_checkpoints_remain_different_units():
     data = validate_business_data(published())
     rows = {(r["series_id"], r["year"]): r for r in data["observations"]}
     assert [rows[("bea_parents:china", y)]["value"] for y in (2004, 2009, 2014, 2019)] == [581, 841, 1244, 1134]
-    assert rows[("bea_parents:europe", 2019)]["value"] == 2701
     assert rows[("bea_affiliates:china", 2000)]["value"] == 458
     assert rows[("bea_affiliates:china", 2023)]["value"] == 1950
-    assert rows[("bea_affiliates:europe", 2023)]["value"] == 17956
     assert rows[("bea_affiliates:china", 2023)]["status"] == "provisional"
     assert rows[("eurostat_affiliates:china", 2023)]["value"] is None
     assert rows[("eurostat_affiliates:china", 2023)]["status"] == "suppressed"
     assert rows[("eurostat_affiliates:china", 2021)]["status"] == "estimated"
     assert ("bea_parents:china", 2023) not in rows
-    assert len(rows) == 70
+    assert all(sid.endswith(":china") for sid in data["series"])
+    assert [rows[("eurostat_historical_eu:china", y)]["value"] for y in (2009, 2011, 2012)] == [5688, 6607, 6860]
+    assert [rows[("eurostat_uk:china", y)]["value"] for y in (2010, 2018, 2019)] == [681, 709, 531]
+    assert rows[("eurostat_uk:china", 2019)]["status"] == "estimated"
+    assert rows[("eurostat_norway:china", 2023)]["value"] == 88
+    assert len(rows) == 74
 
 
 def test_eurostat_confidential_zero_is_not_published_and_wrong_populations_fail():
@@ -67,6 +72,47 @@ def test_eurostat_confidential_zero_is_not_published_and_wrong_populations_fail(
     assert points[0][-1] != points[1][-1]
     with pytest.raises(ValueError, match="count"):
         count_cell(1.5)
+    data = eurostat()
+    data["dimension"]["geo"]["category"]["index"] = {"UK": 0}
+    assert parse_eurostat(data, "fats_out_part", "UK")[0][1] == 6900
+    with pytest.raises(ValueError, match="different geography"):
+        parse_eurostat(data, "fats_out_part")
+
+
+def test_ons_parser_uses_enterprises_not_employment_and_verifies_year():
+    book = Workbook()
+    book.remove(book.active)
+    for year, name, count in [(2018, "Table 1", 709), (2019, "Table 2", 531)]:
+        sheet = book.create_sheet(name)
+        sheet.cell(1, 1, f"UK Outward Foreign Affiliate Statistics: {year}")
+        sheet.cell(9, 2, "TOTAL ACTIVITY")
+        sheet.cell(10, 2, "ENT")
+        sheet.append(["China", count, 124879, 15247499])
+    stream = io.BytesIO()
+    book.save(stream)
+    assert parse_ons(stream.getvalue()) == [(2018, 709, "estimated"), (2019, 531, "estimated")]
+    book["Table 2"].cell(1, 1, "2020")
+    stream = io.BytesIO()
+    book.save(stream)
+    with pytest.raises(ValueError, match="year"):
+        parse_ons(stream.getvalue())
+
+
+def test_earlier_eu_membership_and_classification_are_not_relabelled_as_current():
+    data = eurostat()
+    data["id"][1] = "nace_r1"
+    data["id"][2] = "indic_bp"
+    del data["dimension"]["nace_r2"], data["dimension"]["indic_sbs"]
+    data["dimension"]["nace_r1"] = {"category": {"index": {"C-O_X_L": 0}}}
+    data["dimension"]["indic_bp"] = {"category": {"index": {"ENT": 0}}}
+    data["dimension"]["geo"]["category"]["index"] = {"EU27_2007": 0}
+    data["dimension"]["time"]["category"]["index"] = {"2007": 0, "2008": 1, "2009": 2}
+    data["extension"]["id"] = "FATS_OUT2"
+    data["value"], data["status"] = {"2": 5688}, {}
+    points = parse_eurostat(data, "fats_out2", "EU27_2007")
+    assert [(r[0], r[1]) for r in points] == [(2007, None), (2008, None), (2009, 5688)]
+    with pytest.raises(ValueError, match="different geography"):
+        parse_eurostat(data, "fats_out2")
 
 
 def test_count_parser_skips_contents_but_rejects_duplicate_country_rows():
@@ -80,27 +126,33 @@ def test_count_parser_skips_contents_but_rejects_duplicate_country_rows():
         country_counts([table, table], "Number of U.S. Parents")
 
 
-def test_benchmark_and_method_boundaries_break_paths_and_index_uses_one_regime():
+def test_annual_histories_and_method_boundaries_are_not_endpoint_snapshots():
     data = published()
-    doc = ElementTree.fromstring(svg_business_chart(data, "us-parent-companies"))
+    doc = ElementTree.fromstring(svg_business_chart(data, BENCHMARK_CHART))
     paths = [n for n in doc.iter() if n.get("class") == "data-line"]
-    assert len(paths) == 2 and all(n.get("d").count("M") == 4 and "L" not in n.get("d") for n in paths)
+    assert len(paths) == 1 and paths[0].get("d").count("M") == 4 and "L" not in paths[0].get("d")
     doc = ElementTree.fromstring(svg_business_chart(data, "us-affiliates-china"))
     assert next(n for n in doc.iter() if n.get("class") == "data-line").get("d").count("M") == 5
-    for group in chart_groups(data, "us-affiliates-index"):
-        assert {r["year"] for r in group["points"]} == set(range(2019, 2024))
-        assert next(r for r in group["points"] if r["year"] == 2020)["plotted_value"] == 100
-    china = chart_groups(data, "us-affiliates-index")[0]["points"][-1]
-    assert china["plotted_value"] == pytest.approx(1950 / 1917 * 100)
+    assert len(chart_groups(data, "us-affiliates-china")[0]["points"]) == 24
+    assert sum(len(g["points"]) for g in chart_groups(data, "eu-affiliates-china")) == 12
+    assert len(chart_groups(data, "uk-affiliates-china")[0]["points"]) == 10
+    assert len(chart_groups(data, "norway-affiliates-china")[0]["points"]) == 14
     doc = ElementTree.fromstring(svg_business_chart(data, "eu-affiliates-china"))
-    assert next(n for n in doc.iter() if n.get("class") == "data-line").get("d").count("M") == 2
+    path = next(n for n in doc.iter() if n.get("class") == "data-line" and n.get("data-series-id") == "eurostat_affiliates:china")
+    assert path.get("d").count("M") == 2
     assert "2023 confidential" in "".join(doc.itertext())
     assert "2023" in [n.text for n in doc.iter() if n.get("class") == "year-tick"]
 
 
 def test_complete_business_downloads_exact_points_backgrounds_and_stale_cleanup(tmp_path):
     data = published()
+    for base in (tmp_path / "outputs/figures/business_presence", tmp_path / "site/figures/business_presence"):
+        (base / "substack").mkdir(parents=True)
+        for chart_id in RETIRED_CHARTS:
+            (base / "substack" / (chart_id + ".svg")).write_text("Obsolete wrong-destination chart")
     assert build_business(tmp_path, data, defaultdict(list)) == 5
+    assert not any((tmp_path / "outputs/figures/business_presence/substack" / (cid + ".svg")).exists()
+                   for cid in RETIRED_CHARTS)
     assert json.loads((tmp_path / "site/downloads/business-presence.json").read_text()) == data
     with (tmp_path / "site/downloads/business-observations.csv").open() as f:
         raw = list(csv.DictReader(f))
@@ -124,8 +176,7 @@ def test_complete_business_downloads_exact_points_backgrounds_and_stale_cleanup(
         assert len(points) == len(expected)
         for p in points:
             assert float(p.get("data-value")) == expected[(p.get("data-series-id"), int(p.get("data-year")))]
-            if p.get("data-series-id").endswith(":china"):
-                assert p.get("fill") == PARTNER_COLORS["CHN"]
+            assert p.get("fill") == COLORS[p.get("data-series-id")]
         for suffix in (".png", ".svg"):
             p = path.with_suffix(suffix)
             assert p.read_bytes() == (tmp_path / "site/figures/business_presence" / p.relative_to(base)).read_bytes()
@@ -135,6 +186,11 @@ def test_complete_business_downloads_exact_points_backgrounds_and_stale_cleanup(
     page = BeautifulSoup((tmp_path / "site/business-presence.html").read_text(), "html.parser")
     assert "different counting units" in page.header.text
     assert "EU27" in page.header.text and "not matched" in page.header.text
+    table = page.select("#annual-values tbody tr")
+    assert len(table) == 24 and table[0].th.text == "2000" and table[-1].th.text == "2023"
+    assert page.select_one("#business-benchmark-background").get("open") is None
+    assert page.select_one("#" + BENCHMARK_CHART).find_parent("details")["id"] == "business-benchmark-background"
+    assert not page.select('#us-affiliates-europe,#us-affiliates-index,#us-parent-companies')
     custom = base / "substack/custom.svg"
     custom.write_text("User-owned")
     data["observations"] = [r for r in data["observations"] if not r["series_id"].startswith("eurostat")]

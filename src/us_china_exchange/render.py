@@ -12,7 +12,7 @@ from pathlib import Path
 import resvg_py
 
 from .model import START_YEAR, GEOGRAPHIES, MEASURES, change, coverage, gap_reason, json_text, validate
-from .business_analysis import CHARTS as BUSINESS_CHARTS, build_business, validate_business_data
+from .business_analysis import CHARTS as BUSINESS_CHARTS, RETIRED_CHARTS as BUSINESS_RETIRED_CHARTS, build_business, validate_business_data
 from .language_analysis import CHARTS as LANGUAGE_CHARTS, chart_points, svg_language_chart, validate_language_data
 from .pipeline import load, write_atomic
 from .sources import SOURCE_POLICIES
@@ -737,7 +737,7 @@ def build(root):
                 path.unlink()
     business_count = build_business(root, business_data, gallery) if business_data is not None else 0
     if business_data is None:
-        for chart_id in BUSINESS_CHARTS:
+        for chart_id in set(BUSINESS_CHARTS) | BUSINESS_RETIRED_CHARTS:
             for theme in CHART_THEMES:
                 remove_figure(root, Path("business_presence") / theme / chart_id)
         for relative in ["business-presence.html", "downloads/business-presence.json",
@@ -834,7 +834,7 @@ Four separate geographies. Both directions. History since {START_YEAR}; change s
 <main id="main">
 <p><a href="comparisons.html">Compare mainland China, Hong Kong and Macau on the same charts</a></p>
 {"<p><a href='language-learning.html'>Chinese-language learning: college, AP, school programs and degree awards</a> — separate educational indicators, not bilateral flows.</p>" if language_data is not None else ""}
-{"<p><a href='business-presence.html'>Business presence: U.S. companies and affiliates in China and Europe, plus EU-controlled enterprises in China</a>.</p>" if business_data is not None else ""}
+{"<p><a href='business-presence.html'>U.S. and European businesses in China over time: annual affiliate and enterprise histories</a>.</p>" if business_data is not None else ""}
 {"<p><a href='weibo.html'>Weibo account evidence and recovered-corpus graphs</a> — separate research coverage, not an exchange-flow measure.</p>" if weibo_summary is not None else ""}
 <form class="controls" aria-label="Explore bilateral series" onsubmit="return false">
 <label for="geography">Geography<select id="geography">{options}</select></label>
