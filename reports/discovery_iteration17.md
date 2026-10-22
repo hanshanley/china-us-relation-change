@@ -9,6 +9,9 @@ News Network / 拉斯维加斯新闻报, UID `5079316821`, handle `lvcnn`.**
 No new eligible posts were recovered. This pass also fixes an actual
 cohort-lookup bug without changing the selected 1,000 domains.
 
+This is a historical checkpoint. [The Chron and cycling-identity follow-up](discovery_iteration18.md)
+advances five ranked reviews without conflating independent publications or an unbound Chinese title.
+
 ## Publisher designation and independent historical owner binding
 
 The [current publisher homepage](https://www.lvcnn.com/) directly

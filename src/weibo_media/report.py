@@ -195,6 +195,8 @@ def report(db, path):
               "U.S.-based regional broadcaster, independently recovered posts and further publisher reviews, "
               "[Las Vegas newspaper follow-up](discovery_iteration17.md) for a historically verified "
               "account, explicit recovery limits and canonical-domain matching without changing cohort membership, "
+              "[Chron and cycling-identity follow-up](discovery_iteration18.md) for five further reviews "
+              "and a real Chinese account held outside U.S. totals without a verified brand relationship, "
               "and [access pilot](access_pilot.md) for source-level "
               "access checks and archive gaps.", ""]
     target = Path(path)

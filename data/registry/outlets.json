@@ -745,6 +745,41 @@
       "notes": "Actual masthead domain failed modern TLS protocol negotiation; verification/security was not weakened and no HTTP downgrade used. Exact2015 domain capture was only a framing wrapper pointing to acmediaonline.net, not an inspected newspaper site. That destination currently failed DNS; its sole retrieved2020 archived capture was gambling-branded, not publisher content, so no social identifier there was attributed to the newspaper and no hacking/ownership cause asserted. The printed masthead and publication-branded issue remain scope evidence only; no official Sina account was resolved. Unknown, not absent. Review date: 2026-10-22 UTC."
     },
     {
+      "id": "chron", "name": "Chron / chron.com", "category": "local_news",
+      "aliases": ["Chron", "Chron.com"],
+      "us_basis": "U.S.-classified source position85 retains the source name Houston Chronicle, but the actual current publisher About explicitly describes Chron as Hearst-owned and independently run from HoustonChronicle.com. Current publication identity is not silently equated with the source cohort's historical label.",
+      "source_url": "https://www.chron.com/", "research_status": "reviewed",
+      "notes": "Complete actual root and About were read without a qualifying Weibo link. About explicitly distinguishes the current Chron newsroom from HoustonChronicle.com; parent ownership, the historical Houston Chronicle community item's two website statements, and staff links do not establish a current shared account. The original selected chron.com domain/name/order remain unchanged; no historical or current Houston Chronicle UID was borrowed. Unknown, not absent. Review date: 2026-10-22 UTC."
+    },
+    {
+      "id": "the-balance", "name": "The Balance", "category": "financial_information_media",
+      "aliases": ["The Balance", "The Balance Money"],
+      "us_basis": "U.S.-classified source position86; independently read exact September2022 selected-domain publisher homepage identifies the personal-finance information publication. Corporate ownership and current legal domicile are not independently audited.",
+      "source_url": "https://www.thebalancemoney.com/", "research_status": "reviewed",
+      "notes": "Actual live root returned HTTP402, respected without live aliases or alternate paths. Independently permitted exact September8,2022 publisher root was readable under The Balance title, without a qualifying Weibo link; the separately indexed2023 capture was not silently substituted. Generic The Balance community item was a musical work and rejected; actual finance-website item matches thebalancemoney.com without a main Sina identifier. Investopedia, other corporate siblings, financial commentators and similarly named Chinese services were not substituted. Unknown, not absent. Review date: 2026-10-22 UTC."
+    },
+    {
+      "id": "baton-rouge-advocate", "name": "The Advocate / Baton Rouge", "category": "newspaper",
+      "aliases": ["Baton Rouge Advocate", "The Advocate Louisiana"],
+      "us_basis": "U.S.-classified source position87; current actual root and linked Help identify the Baton Rouge, Louisiana news publication. It is not the separately titled national Advocate magazine at advocate.com.",
+      "source_url": "https://www.theadvocate.com/", "research_status": "reviewed",
+      "notes": "Complete actual root and publisher-linked /help/ page were read without a qualifying Weibo link. Correct Louisiana newspaper community item matches theadvocate.com but has no main Sina identifier. Advocate magazine, other Advocate newspapers, advocacy organizations, staff and sports teams were not treated as this paper's own account. Unknown, not absent. Review date: 2026-10-22 UTC."
+    },
+    {
+      "id": "portland-press-herald", "name": "Portland Press Herald / Maine Sunday Telegram", "category": "newspaper",
+      "aliases": ["Portland Press Herald", "Maine Sunday Telegram"],
+      "us_basis": "U.S.-classified source position88; own root identifies the Maine newspaper, and its actual About redirect leads to Maine Trust for Local News, whose About specifically identifies pressherald.com as the newspapers' digital home. This is publication-specific Maine scope, not an Oregon publisher or a separate legal-control audit.",
+      "source_url": "https://www.pressherald.com/", "research_status": "reviewed",
+      "notes": "Complete actual root was read without a qualifying Weibo profile. About's cross-publisher redirect was initially refused; header metadata identified www.metln.org, then that actual host's robots policy was checked independently and root/About/Contact read. No parent-group channel or sibling newspaper account was assigned to Press Herald. Correct publication-specific community item matches pressherald.com without a main Sina identifier. Corporate acquisition and print dates were not invented as social-account cutoffs. Unknown, not absent. Review date: 2026-10-22 UTC."
+    },
+    {
+      "id": "billings-gazette", "name": "Billings Gazette", "category": "newspaper",
+      "aliases": ["Billings Gazette", "The Billings Gazette"],
+      "us_basis": "U.S.-classified source position89; actual publisher root explicitly identifies Billings, Montana reporting and its Contact identifies the publication. Present legal ownership is not independently audited.",
+      "source_url": "https://billingsgazette.com/", "research_status": "reviewed",
+      "notes": "Complete root and actual Contact were read without a qualifying Weibo profile. Contact's slash redirect is one source; unexpanded template placeholders and staff paths were not used as institution corroboration. Correct publication-specific community item matches billingsgazette.com without a main Sina identifier. Other Gazette newspapers, Lee parent channels, Montana travel businesses and reporters were not substituted. Unknown, not absent. Review date: 2026-10-22 UTC."
+    },
+    {
       "id": "st-louis-post-dispatch", "name": "St. Louis Post-Dispatch", "category": "newspaper",
       "aliases": ["St. Louis Post-Dispatch", "St Louis Post Dispatch"],
       "us_basis": "U.S.-classified source position80; actual publisher root identifies St. Louis, Missouri reporting and its Contact identifies the newspaper. Present corporate/legal ownership is not independently audited.",
@@ -763,7 +798,7 @@
       "aliases": ["Bicycling", "Bicycling magazine"],
       "us_basis": "United States-classified source position82; own root and actual editorial About identify the cycling publication in the Hearst portfolio. A generic activity or similarly named Chinese publication is not an independently established licensed edition.",
       "source_url": "https://www.bicycling.com/", "research_status": "reviewed",
-      "notes": "Complete root and actual About/Community Guidelines were readable without a qualifying publisher Weibo link. Generic Bicycling article initially resolved to the cycling activity and was rejected; the actual magazine article's own community item matches bicycling.com and has no main Sina identifier. A self-described Sohu 单车志Bicycling官方 byline supplies neither a publisher-specific Sina UID nor an independently established U.S. Bicycling brand/license relationship. That name was not added as an alias or account; no affiliation denial or absence inference. Unknown, not absent. Review date: 2026-10-22 UTC."
+      "notes": "U.S. root and actual About/Community Guidelines were readable without a qualifying Weibo link; the correct magazine community item matches bicycling.com without a main Sina identifier. The prior Sohu 单车志Bicycling官方 lead is now independently bound to Chinese publisher UID2403579654: its own bicycling.net.cn root/About/Contact directly link it, and current blue certification names that Chinese publication. Its actual About/footer identify Kunshan operations; the profile describes Wheel Giant's2010 simplified edition. Neither independently establishes a retrieved U.S. Bicycling brand/license relationship. The real Chinese account remains outside confirmed U.S. identities; its100 visible posts were not imported. No name was added as a U.S. alias and no fraud, unlicensed-operation, permanent non-affiliation or absence claim is made. Review date: 2026-10-22 UTC."
     },
     {
       "id": "toledo-blade", "name": "The Blade / Toledo", "category": "newspaper",

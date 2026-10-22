@@ -399,7 +399,9 @@ def publish(roster_path, screening_directory, directory, report_path):
         "(discovery_iteration16.md) verifies a specifically labeled U.S.-based international broadcaster, "
         "separates its regional identity from the global parent and recovers an older post beyond the feed. [Las Vegas newspaper follow-up]"
         "(discovery_iteration17.md) resolves a historical publisher-linked account and corrects canonical-host "
-        "matching while preserving the selected 1,000 domains exactly. Current status and legal operator "
+        "matching while preserving the selected 1,000 domains exactly. [Chron and cycling-identity follow-up]"
+        "(discovery_iteration18.md) distinguishes current newsrooms and holds a publisher-linked Chinese "
+        "cycling account outside U.S. totals without verified U.S.-brand affiliation. Current status and legal operator "
         "uncertainty remain explicit.", "",
         "## Complete machine-readable deliverables", "",
         "- [All 1,000 ranked U.S. domains](../data/discovery/us_top1000.csv)",

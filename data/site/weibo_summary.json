@@ -1152,8 +1152,8 @@
   "roster": {
     "confirmed_accounts": 82,
     "confirmed_outlets": 57,
-    "outlets": 161,
-    "reviewed_outlets": 161
+    "outlets": 166,
+    "reviewed_outlets": 166
   },
   "source": {
     "corpus_metadata_sha256": "73b20e35da447de40b7bc3d732f6aa43feac5b0b0d716bbdbf50b1f859bc2e3e",
@@ -1161,7 +1161,7 @@
     "excluded_unconfirmed_posts": 0,
     "latest_collection_at": "2026-10-22T09:01:10.629815+00:00",
     "publication_timezone": "Asia/Shanghai",
-    "registry_sha256": "bcc7c34dd050197d276f46f45a42b69521f9452d295647bc895a93a9f32d20d5",
+    "registry_sha256": "0d8d15a1382ab95c2dd0f9d4a972f0b1322400a0e137c468c7188b5ed5b9b7f4",
     "requested_windows": [
       {
         "end": "2026-10-21T16:00:00+00:00",
