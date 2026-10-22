@@ -1,5 +1,5 @@
-status,recovered_posts
-source_full,4565
-truncated,676
-full,0
-unknown,0
+recovered_posts,status
+4565,source_full
+676,truncated
+0,full
+0,unknown
