@@ -1,8 +1,32 @@
 # Account verification and post-collection follow-up
 
-Observed October 21, 2026. The [generated inventory](weibo_media_inventory.md)
+Snapshot updated October 22, 2026. The [generated inventory](weibo_media_inventory.md)
 contains the authoritative per-account post totals. A verified identity is not
 a guarantee of current ownership, current posting, or complete historical recovery.
+
+## Published snapshot: October 22, 2026
+
+There are **87 documented current/historical channels across 62 publisher/brand
+groups: 86 resolved numeric UIDs and one historical vanity-only URL**. VOA's
+publisher-designated `legalwindow` channel remains UID-unresolved; the numeric
+candidate has not been assigned and its posts have not been imported.
+These are not 87 independent U.S. newspapers or uniformly U.S.-operated newsrooms.
+Current-profile evidence for 62 channels and historical-only evidence for 25
+do not establish current activity or continuing licensing.
+
+The selected **1,000 SCImago U.S.-classified domains** are ranked by digital
+reputation, not traffic; their present ownership/nationality was not independently
+audited. **Five have current-profile evidence, seven historical-only evidence,
+988 remain unknown, and zero are verified negatives.** All underwent homepage
+screening, but only 120 have recorded manual review.
+
+**6,521 posts were partially recovered from 68 channels**: 5,760 available source
+bodies and 761 truncated previews. These are not complete timelines or independently
+verified complete original posts; images, video and transcripts were not recovered.
+The public page and complete account downloads expose UIDs, resolution status,
+operator relationships, U.S.-inclusion bases and all curated identity evidence.
+The earlier checkpoints below are retained as historical progress notes, not
+current totals.
 
 ## Earlier collection checkpoint
 

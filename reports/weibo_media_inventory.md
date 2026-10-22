@@ -1,16 +1,17 @@
 # U.S. news-media accounts on Sina Weibo
 
-Generated: 2026-10-22T12:22:52.269103+00:00. Registry claims retain their own observation dates.
+Generated: 2026-10-22T17:44:04.832011+00:00. Registry claims retain their own observation dates.
 
 Candidate roster: **202 outlets; 202 reviewed; 0 pending**. This is an expandable research roster, not a census.
 Officialness, historical existence, operator relationship, and current access are distinct.
 Account totals are not independent outlet totals: one publisher can operate multiple channels. Press-release services and independent regional distributors are explicitly labeled; they are not presented as independent U.S. editorial newsrooms.
 A visitor/login gate does not establish that an account was suspended or deleted.
+**87 documented current/historical channels: 86 have resolved numeric UIDs; 1 do not.** A publisher-designated historical vanity URL establishes that channel, not its numeric identity or current survival. Current profile evidence does not establish present-day control or continuing licensing.
 
-**Posts recovered for 68 of 87 confirmed accounts.** 0 confirmed accounts have no recorded collection attempt. Zero recovered posts after an attempt can reflect access, attribution or coverage limits, not zero account output.
+**Posts partially recovered for 68 of 87 documented channels.** 0 documented channels have no recorded collection attempt. Zero recovered posts after an attempt can reflect access, attribution or coverage limits, not zero account output.
 There is no verified-negative outlet list: missing publisher links and access failures remain unknowns. The complete ranked and supplemental account-status ledger is linked in the [collection follow-up](collection_followup.md).
 
-## Confirmed official accounts
+## Documented official current and historical channels
 
 | Outlet / edition | Account | UID | Relationship | Existence evidence | Direct access | Attribution end | Recovered posts | Collection |
 |---|---|---|---|---|---|---|---:|---|

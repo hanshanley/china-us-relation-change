@@ -21,7 +21,7 @@ WEIBO_CHARTS = {
     "text-completeness": "Text completeness of recovered posts",
 }
 TEXT_LABELS = {
-    "source_full": "Full accessible source body",
+    "source_full": "Available source body",
     "truncated": "Truncated preview",
     "full": "Explicitly full original",
     "unknown": "Unknown completeness",
@@ -35,7 +35,46 @@ def timestamp(value):
     return parsed
 
 
-def create_summary(database, registry_path):
+def cohort_summary(path, accounts):
+    raw = path.read_bytes()
+    rows = [json.loads(line) for line in raw.decode().splitlines() if line.strip()]
+    if not rows or len({r["domain"] for r in rows}) != len(rows):
+        raise ValueError("Invalid or duplicate Weibo cohort domains")
+    by_id = {a["account_id"]: a for a in accounts}
+    statuses = Counter()
+    for row in rows:
+        ids = row["account_ids"]
+        if len(set(ids)) != len(ids) or any(i not in by_id for i in ids):
+            raise ValueError("Weibo cohort contains an unresolved account reference")
+        matched = [by_id[i] for i in ids]
+        expected = ("confirmed_current_evidence" if any(a["existence"] == "current_evidence" for a in matched)
+                    else "confirmed_historical_only" if matched else None)
+        if (row["account_status"] not in {"confirmed_current_evidence", "confirmed_historical_only",
+                                         "unknown", "candidate_requires_verification"}
+                or (expected is not None and row["account_status"] != expected)
+                or (expected is None and row["account_status"].startswith("confirmed_"))
+                or row["account_uids"] != [a["uid"] for a in matched]
+                or row["recovered_posts"] != sum(a["recovered_posts"] for a in matched)
+                or row["verified_no_account"] is not False):
+            raise ValueError("Weibo cohort and account snapshot do not reconcile")
+        statuses[row["account_status"]] += 1
+    sources = {r["ranking_source"] for r in rows}
+    if len(sources) != 1 or path.read_bytes() != raw:
+        raise ValueError("Weibo cohort source changed or has mixed ranking sources")
+    return {
+        "assessment_sha256": digest(raw), "ranking_source": sources.pop(),
+        "ranking_basis": "SCImago U.S.-classified digital reputation, not website traffic",
+        "selected_domains": len(rows),
+        "manually_reviewed_domains": sum(bool(r["manual_review"]) for r in rows),
+        "current_identity_domains": statuses["confirmed_current_evidence"],
+        "historical_only_domains": statuses["confirmed_historical_only"],
+        "unknown_domains": statuses["unknown"],
+        "candidate_domains": statuses["candidate_requires_verification"],
+        "verified_negative_domains": 0,
+    }
+
+
+def create_summary(database, registry_path, assessment_path=None):
     from weibo_media.registry import validate as validate_registry
 
     registry_path = Path(registry_path)
@@ -69,7 +108,7 @@ def create_summary(database, registry_path):
         if account is None:
             excluded_unconfirmed += 1
             continue
-        if post["uid"] != account["uid"]:
+        if account["uid"] is None or post["uid"] != account["uid"]:
             raise ValueError("Weibo post UID does not match its registered account")
         published = timestamp(post["published_utc"])
         local = published.astimezone(ZoneInfo("Asia/Shanghai"))
@@ -90,6 +129,14 @@ def create_summary(database, registry_path):
         accounts.append({
             "account_id": account_id, "outlet_id": account["outlet_id"],
             "outlet_name": outlets[account["outlet_id"]]["name"],
+            "uid": account["uid"], "handle": account["handle"], "display_name": account["display_name"],
+            "uid_resolution": "resolved_numeric_uid" if account["uid"] is not None else "unresolved_numeric_uid",
+            "category": outlets[account["outlet_id"]]["category"],
+            "us_basis": outlets[account["outlet_id"]]["us_basis"],
+            "operator": account["operator"], "notes": account["notes"],
+            "evidence": [{key: e[key] for key in (
+                "source_url", "source_type", "supports", "observed_at", "claim_date", "justification")}
+                for e in registry["evidence"] if e["account_id"] == account_id],
             "profile_url": account["profile_url"], "relationship": account["relationship"],
             "existence": account["existence"], "attribution_end": account["attribution_end"],
             "recovered_posts": counts[account_id],
@@ -98,7 +145,7 @@ def create_summary(database, registry_path):
             "latest_run_status": run.get("status"), "latest_run_source": run.get("source_type"),
         })
     summary = {
-        "version": 1,
+        "version": 2,
         "source": {
             "registry_sha256": digest(registry_bytes),
             "corpus_metadata_sha256": digest(json_text(posts).encode()),
@@ -116,26 +163,43 @@ def create_summary(database, registry_path):
             "reviewed_outlets": sum(o["research_status"] == "reviewed" for o in registry["outlets"]),
             "confirmed_accounts": len(accounts),
             "confirmed_outlets": len({a["outlet_id"] for a in accounts}),
+            "resolved_numeric_accounts": sum(a["uid"] is not None for a in accounts),
+            "unresolved_numeric_accounts": sum(a["uid"] is None for a in accounts),
         },
+        "cohort": None,
         "accounts": accounts,
         "yearly": [{"year": year, "recovered_posts": count} for year, count in sorted(years.items())],
         "text_completeness": [{"status": status, "recovered_posts": statuses[status]} for status in TEXT_LABELS],
     }
     latest = summary["source"]["latest_collection_at"]
     summary["source"]["latest_collection_at"] = latest.isoformat() if latest else None
+    explicit_assessment = assessment_path is not None
+    assessment_path = (Path(assessment_path) if explicit_assessment else
+                       registry_path.parent.parent / "discovery/us_top1000_accounts.jsonl")
+    if explicit_assessment and not assessment_path.is_file():
+        raise FileNotFoundError(assessment_path)
+    if assessment_path.is_file():
+        summary["cohort"] = cohort_summary(assessment_path, accounts)
     return validate_summary(summary)
 
 
 def validate_summary(summary):
-    if set(summary) != {"version", "source", "roster", "accounts", "yearly", "text_completeness"}:
+    version = summary.get("version")
+    fields = {"version", "source", "roster", "accounts", "yearly", "text_completeness"}
+    if version == 2:
+        fields.add("cohort")
+    if set(summary) != fields:
         raise ValueError("Unexpected Weibo aggregate fields; post text must not be published")
-    if summary.get("version") != 1 or summary["source"]["publication_timezone"] != "Asia/Shanghai":
+    if version not in (1, 2) or summary["source"]["publication_timezone"] != "Asia/Shanghai":
         raise ValueError("Unsupported Weibo aggregate snapshot")
     if set(summary["source"]) != {"registry_sha256", "corpus_metadata_sha256", "latest_collection_at",
                                  "publication_timezone", "requested_windows",
                                  "excluded_unconfirmed_posts", "excluded_attribution_posts"}:
         raise ValueError("Unexpected Weibo source fields")
-    if set(summary["roster"]) != {"outlets", "reviewed_outlets", "confirmed_accounts", "confirmed_outlets"}:
+    roster_fields = {"outlets", "reviewed_outlets", "confirmed_accounts", "confirmed_outlets"}
+    if version == 2:
+        roster_fields |= {"resolved_numeric_accounts", "unresolved_numeric_accounts"}
+    if set(summary["roster"]) != roster_fields:
         raise ValueError("Unexpected Weibo roster fields")
     if any(set(window) != {"start", "end"} or timestamp(window["start"]) >= timestamp(window["end"])
            for window in summary["source"]["requested_windows"]):
@@ -153,6 +217,9 @@ def validate_summary(summary):
     account_fields = {"account_id", "outlet_id", "outlet_name", "profile_url", "relationship", "existence",
                       "attribution_end", "recovered_posts", "earliest_publication_utc",
                       "latest_publication_utc", "latest_run_status", "latest_run_source"}
+    if version == 2:
+        account_fields |= {"uid", "handle", "display_name", "uid_resolution", "category", "us_basis",
+                           "operator", "notes", "evidence"}
     if any(set(a) != account_fields for a in accounts):
         raise ValueError("Unexpected Weibo account aggregate fields")
     if any(set(r) != {"year", "recovered_posts"} for r in yearly) or any(
@@ -178,6 +245,33 @@ def validate_summary(summary):
         raise ValueError("Weibo aggregate totals do not reconcile")
     if summary["roster"]["confirmed_outlets"] != len({a["outlet_id"] for a in accounts}):
         raise ValueError("Weibo confirmed-outlet count does not reconcile")
+    if version == 2:
+        uids = [a["uid"] for a in accounts if a["uid"] is not None]
+        if (any(not isinstance(uid, str) or not uid.isascii() or not uid.isdigit() for uid in uids)
+                or len(set(uids)) != len(uids)
+                or summary["roster"]["resolved_numeric_accounts"] != len(uids)
+                or summary["roster"]["unresolved_numeric_accounts"] != len(accounts) - len(uids)
+                or any(a["uid_resolution"] != ("resolved_numeric_uid" if a["uid"] is not None
+                                               else "unresolved_numeric_uid")
+                       or (a["uid"] is None and a["recovered_posts"]) for a in accounts)):
+            raise ValueError("Weibo numeric identity counts do not reconcile")
+        evidence_fields = {"source_url", "source_type", "supports", "observed_at", "claim_date", "justification"}
+        if any(not a["evidence"] or any(set(e) != evidence_fields for e in a["evidence"]) for a in accounts):
+            raise ValueError("Unexpected or missing Weibo account evidence")
+        cohort = summary["cohort"]
+        if cohort is not None:
+            count_fields = {"selected_domains", "manually_reviewed_domains", "current_identity_domains",
+                            "historical_only_domains", "unknown_domains", "candidate_domains",
+                            "verified_negative_domains"}
+            if set(cohort) != count_fields | {"assessment_sha256", "ranking_source", "ranking_basis"}:
+                raise ValueError("Unexpected Weibo cohort fields")
+            if (any(isinstance(cohort[k], bool) or not isinstance(cohort[k], int) or cohort[k] < 0
+                    for k in count_fields)
+                    or cohort["manually_reviewed_domains"] > cohort["selected_domains"]
+                    or sum(cohort[k] for k in ("current_identity_domains", "historical_only_domains",
+                                               "unknown_domains", "candidate_domains",
+                                               "verified_negative_domains")) != cohort["selected_domains"]):
+                raise ValueError("Weibo cohort totals do not reconcile")
     return summary
 
 
@@ -186,11 +280,14 @@ def svg_weibo(summary, metric, theme="themarginoferror"):
     accounts = summary["accounts"]
     if metric == "identity-evidence":
         counts = Counter(a["existence"] for a in accounts)
-        values = [("Current identity evidence", counts["current_evidence"], BLUE),
+        values = [("Current profile evidence", counts["current_evidence"], BLUE),
                   ("Historical evidence", counts["historical"], GOLD),
                   ("Existence unknown", counts["unknown"], MUTED)]
-        note = ("Channels include press-release services. Current identity evidence does not prove "
-                "current activity or an independent newsroom.")
+        unresolved = summary["roster"].get("unresolved_numeric_accounts")
+        identity = (f"Numeric UID unresolved for {unresolved} channel(s). " if unresolved is not None else
+                    "Numeric UID resolution is not recorded in this legacy snapshot. ")
+        note = ("Only documented channels; unknown outlet domains are excluded. " + identity
+                + "Profile evidence does not prove current activity, U.S. operation or continuing licensing.")
     elif metric == "recovery-coverage":
         recovered = sum(a["recovered_posts"] > 0 for a in accounts)
         unattempted = sum(a["recovered_posts"] == 0 and a["latest_run_status"] is None for a in accounts)
@@ -202,7 +299,7 @@ def svg_weibo(summary, metric, theme="themarginoferror"):
         counts = {r["status"]: r["recovered_posts"] for r in summary["text_completeness"]}
         colors = {"source_full": BLUE, "truncated": GOLD, "full": GREEN, "unknown": MUTED}
         values = [(TEXT_LABELS[status], counts[status], colors[status]) for status in TEXT_LABELS]
-        note = "Source-full is the full accessible source body, not an independently verified complete original."
+        note = "Source-full means the available source body, not verified original completeness or recovered images/video."
     elif metric == "publication-years":
         counts = {r["year"]: r["recovered_posts"] for r in summary["yearly"]}
         if not counts:
@@ -227,7 +324,7 @@ def svg_weibo(summary, metric, theme="themarginoferror"):
         f'<text x="80" y="82">{esc(subtitle)}</text>',
     ]
     annual = metric == "publication-years"
-    unit = "Accounts" if metric in {"identity-evidence", "recovery-coverage"} else "Recovered posts"
+    unit = "Documented channels" if metric in {"identity-evidence", "recovery-coverage"} else "Recovered posts"
     parts.append(f'<text class="axis-unit" x="{115 if annual else 380}" y="{130 if annual else 116}" '
                  f'font-size="18" fill="{TEXT}">{unit}</text>')
     for fraction in (0, .5, 1):

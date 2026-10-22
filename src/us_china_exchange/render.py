@@ -333,31 +333,71 @@ def build_weibo(root, summary, gallery):
         columns = sorted(records[0]) if records else (["year", "recovered_posts"] if name == "years" else ["account_id"])
         writer = csv.DictWriter(stream, fieldnames=columns, lineterminator="\n")
         writer.writeheader()
-        writer.writerows(records)
+        writer.writerows({key: json.dumps(value, ensure_ascii=False, sort_keys=True) if isinstance(value, (dict, list))
+                          else value for key, value in row.items()} for row in records)
         write_atomic(root / f"site/downloads/weibo-{name}.csv", stream.getvalue())
     roster = summary["roster"]
     total = sum(a["recovered_posts"] for a in summary["accounts"])
     recovered = sum(a["recovered_posts"] > 0 for a in summary["accounts"])
-    table = "".join(f'<tr><th scope="row">{esc(a["outlet_name"])}</th><td>{esc(a["existence"])}</td>'
+    resolution = (f'<p><strong>{roster["resolved_numeric_accounts"]:,} channels have resolved numeric UIDs; '
+                  f'{roster["unresolved_numeric_accounts"]:,} do not.</strong> '
+                  'A documented historical vanity URL is not a resolved numeric account. '
+                  'No candidate UID or posts are assigned without an established identity binding.</p>'
+                  if summary["version"] == 2 else
+                  '<p>Numeric UID resolution was not recorded in this legacy snapshot.</p>')
+    cohort = summary.get("cohort")
+    cohort_text = (
+        f'<p><strong>Selected U.S.-classified cohort: {cohort["selected_domains"]:,} domains; '
+        f'{cohort["current_identity_domains"]:,} with current profile evidence, '
+        f'{cohort["historical_only_domains"]:,} historical-only, {cohort["unknown_domains"]:,} unknown, '
+        f'{cohort["candidate_domains"]:,} unresolved candidates, '
+        f'{cohort["verified_negative_domains"]:,} verified negatives.</strong> '
+        f'{cohort["manually_reviewed_domains"]:,} domains have recorded manual review. '
+        'Homepage screening is not equivalent to an account-existence audit. '
+        f'Ranking basis: <a href="{esc(cohort["ranking_source"])}">{esc(cohort["ranking_basis"])}</a>. '
+        'The source country classification is not an independently verified current ownership or nationality audit. '
+        '<a href="https://github.com/hanshanley/china-us-relation-change/blob/main/data/discovery/us_top1000_accounts.csv">'
+        'Complete domain-by-domain decisions in the repository</a>.</p>'
+        if cohort else '<p>No ranked-cohort assessment is included in this snapshot; no absence rate is inferred.</p>')
+    metadata_note = ('per-account relationships, UID resolution, evidence and attribution exclusions are retained '
+                     'in the complete JSON and account CSV.' if summary["version"] == 2 else
+                     'per-account relationships and attribution exclusions are retained in the aggregate JSON.')
+    table = "".join(f'<tr><th scope="row">{esc(a["outlet_name"])}</th>'
+                    f'<td>{esc(a.get("display_name", "not recorded"))}<br>'
+                    f'{esc(a.get("uid") or ("UID unresolved" if summary["version"] == 2 else "UID not recorded"))}</td>'
+                    f'<td>{esc(a["existence"])}<br>{esc(a["relationship"])}</td>'
                     f'<td>{a["recovered_posts"]:,}</td><td>{esc(a["latest_run_status"] or "not attempted")}</td>'
                     f'<td>{esc(a["attribution_end"] or "not established")}</td>'
-                    f'<td><a href="{esc(a["profile_url"])}">Registered profile</a></td></tr>' for a in summary["accounts"])
+                    f'<td><a href="{esc(a["profile_url"])}">Registered profile</a>'
+                    + ('<details><summary>Evidence and scope</summary><p>'
+                       + esc(a["us_basis"]) + '</p><p>' + esc(a["notes"]) + '</p><ul>'
+                       + "".join(f'<li><a href="{esc(e["source_url"])}">{esc(e["source_type"])}</a>: '
+                                 f'{esc(e["justification"])}</li>' for e in a["evidence"])
+                       + '</ul></details>' if summary["version"] == 2 else '')
+                    + '</td></tr>' for a in summary["accounts"])
     document = ('<!doctype html><html lang="en"><head><meta charset="utf-8">'
                 '<meta name="viewport" content="width=device-width,initial-scale=1">'
                 '<title>Weibo research coverage</title><link rel="stylesheet" href="assets/style.css"></head>'
                 '<body><div class="page"><header><p><a href="index.html">Exchange dashboard</a> · '
                 '<a href="comparisons.html">Three-geography comparisons</a></p><h1>Weibo research.</h1>'
                 '<p class="lead">Account evidence and recovered-corpus coverage—not a census of posting activity.</p>'
-                f'<p>{roster["outlets"]:,} outlets in the research roster; {roster["confirmed_accounts"]:,} confirmed accounts '
-                f'across {roster["confirmed_outlets"]:,} outlet/brand groups. {total:,} posts recovered from {recovered:,} accounts.</p>'
+                f'<p>{roster["outlets"]:,} entries in the expandable research roster; '
+                f'{roster["confirmed_accounts"]:,} documented current or historical channels '
+                f'across {roster["confirmed_outlets"]:,} publisher/brand groups. '
+                f'{total:,} posts partially recovered from {recovered:,} channels—not complete timelines.</p>'
+                + resolution + cohort_text +
                 '<p>This is a frozen aggregate snapshot, not a live Weibo feed. Current identity evidence does not prove '
-                'current activity. Zero recovery does not mean zero posting; unknown accounts are not verified absences. '
+                'current activity, present-day control or continuing licensing. '
+                'Zero recovery does not mean zero posting; unknown accounts are not verified absences. '
                 'Historical licensing cutoffs are respected. Counts are not audience size, popularity or evidence of a causal link to trade or travel.</p>'
                 '<p>The sample includes explicitly labelled Chinese editions, U.S.-based Chinese-language media, '
                 'press-release services and independent regional distributors. Multiple channels of one publisher '
                 'are not separate outlets; account totals are not independent editorial-newsroom totals. '
                 'Institutional identity is not proof of direct U.S.-newsroom operation or a continuing license; '
-                'per-account relationships and attribution exclusions are retained in the aggregate JSON.</p>'
+                + metadata_note + '</p>'
+                '<p>Available source bodies are not independently verified complete originals. '
+                'Images, video and their transcripts were not recovered. Discovery and post recovery are partial; '
+                'this presentation does not certify exhaustive coverage.</p>'
                 '<p>Only aggregate counts and public institutional account metadata are published. No post text, '
                 'private corpus records or engagement rankings are included. Sources and requested collection windows '
                 'are identified in the complete aggregate JSON.</p>'
@@ -367,7 +407,7 @@ def build_weibo(root, summary, gallery):
                 '<a href="downloads/weibo-text-completeness.csv" download>All text-completeness aggregates · CSV</a></p>'
                 '</header><main>' + "".join(cards) +
                 '<section class="series-panel"><h2>Account coverage details</h2><div class="table-scroll"><table>'
-                '<thead><tr><th>Outlet / edition</th><th>Identity evidence</th><th>Recovered posts</th>'
+                '<thead><tr><th>Outlet / edition</th><th>Channel / numeric UID</th><th>Evidence period / relationship</th><th>Recovered posts</th>'
                 '<th>Latest run</th><th>Exclusive attribution end</th><th>Source</th></tr></thead>'
                 f'<tbody>{table}</tbody></table></div></section></main></div></body></html>')
     write_atomic(root / "site/weibo.html", document)

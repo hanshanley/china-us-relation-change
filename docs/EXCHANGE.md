@@ -132,14 +132,15 @@ treating them as identical to the other geographies' BEA accounting.
 ### Weibo research graphs
 
 `site/weibo.html` adds a separate initial set of Weibo analysis figures:
-confirmed-account identity evidence, recovered-corpus coverage, recovered posts
+documented-channel identity evidence, recovered-corpus coverage, recovered posts
 by publication year, and text completeness. They use the same house typography
 and both publication backgrounds, under `outputs/figures/weibo/<background>/`
 and `site/figures/weibo/<background>/`. The figure catalog links all of them.
 
 These are **research coverage statistics**, not a census, posting-activity trend,
 audience/popularity ranking or causal explanation for exchange flows.
-Current identity evidence does not establish current activity. No recovered
+Current profile evidence does not establish current activity, direct U.S.
+operation, present-day control or continuing licensing. No recovered
 posts does not mean an account posted nothing. `source_full` means the entire
 accessible source body, not an independently verified complete original.
 Missing publication years remain unobserved, not zero-activity years.
@@ -158,6 +159,25 @@ The committed snapshot contains complete per-account, year and completeness
 aggregates, source hashes, latest collection time, exclusion counts and
 requested windows; the site supplies JSON and CSV downloads of those aggregates.
 The raw private corpus retains its separate rights and redistribution limits.
+
+Version 2 snapshots distinguish documented historical/current channels from
+resolved numeric UIDs, including historical vanity-only URLs without inventing
+an account binding. Complete account downloads include UIDs, handles, display
+names, operator relationships, U.S.-inclusion bases, notes and all curated
+evidence. The CSV evidence column is a JSON array, not a truncated excerpt.
+The legacy `confirmed_accounts` field counts documented channels, not known
+numeric identities; use `resolved_numeric_accounts` for the latter.
+Version 1 snapshots remain readable, but their missing UID resolution is
+explicitly identified as unrecorded rather than inferred.
+
+When the adjacent `data/discovery/us_top1000_accounts.jsonl` assessment exists,
+the snapshot includes its checksum and reconciled cohort totals. The selected
+domains are SCImago U.S.-classified digital-reputation results, **not the top
+1,000 by traffic** or an independently audited current ownership/nationality
+list. Homepage screening and manual review are separate. Unknowns and
+unresolved candidates are not verified negatives; an absent assessment does
+not establish any absence rate. The complete domain-level decisions remain
+in `data/discovery/us_top1000_accounts.{csv,jsonl}`.
 
 The ordinary offline site build reproduces Weibo figures from that frozen
 snapshot without requiring the database. Daily exchange refreshes **do not**

@@ -17,6 +17,7 @@ def report(db, path):
     reviewed = sum(row["research_status"] == "reviewed" for row in outlets)
     account_coverage = {row["account_id"]: row for row in coverage(db)}
     confirmed = [a for a in accounts if a["officialness"] == "confirmed"]
+    resolved = sum(a["uid"] is not None for a in confirmed)
     recovered_accounts = sum(account_coverage[a["id"]]["recovered_posts"] > 0 for a in confirmed)
     unattempted = sum(account_coverage[a["id"]]["latest_run_status"] is None for a in confirmed)
     lines = [
@@ -31,16 +32,20 @@ def report(db, path):
         "channels. Press-release services and independent regional distributors are explicitly "
         "labeled; they are not presented as independent U.S. editorial newsrooms.",
         "A visitor/login gate does not establish that an account was suspended or deleted.",
+        f"**{len(confirmed)} documented current/historical channels: {resolved} have resolved "
+        f"numeric UIDs; {len(confirmed) - resolved} do not.** A publisher-designated historical "
+        "vanity URL establishes that channel, not its numeric identity or current survival. "
+        "Current profile evidence does not establish present-day control or continuing licensing.",
         "",
-        f"**Posts recovered for {recovered_accounts} of {len(confirmed)} confirmed accounts.** "
-        f"{unattempted} confirmed accounts have no recorded collection attempt. "
+        f"**Posts partially recovered for {recovered_accounts} of {len(confirmed)} documented channels.** "
+        f"{unattempted} documented channels have no recorded collection attempt. "
         "Zero recovered posts after an attempt can reflect access, attribution or coverage limits, "
         "not zero account output.",
         "There is no verified-negative outlet list: missing publisher links and access failures "
         "remain unknowns. The complete ranked and supplemental account-status ledger is linked "
         "in the [collection follow-up](collection_followup.md).",
         "",
-        "## Confirmed official accounts",
+        "## Documented official current and historical channels",
         "",
         "| Outlet / edition | Account | UID | Relationship | Existence evidence | Direct access | Attribution end | Recovered posts | Collection |",
         "|---|---|---|---|---|---|---|---:|---|",
