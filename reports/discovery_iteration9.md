@@ -5,6 +5,9 @@ interval remains January 1, 2020 through October 21, 2026 inclusive,
 Asia/Shanghai. This continues checkpoint `400b366`; neither a publication
 milestone nor an inaccessible source ends the recurring research.
 
+This is a historical checkpoint. [The next music-publication follow-up](discovery_iteration10.md)
+verifies Rolling Stone's Chinese edition and five further ranked publishers.
+
 ## Chinese Radio Seattle: official handle, independently resolved UID
 
 **Chinese Radio Seattle / 西雅图中文电台** is now historically confirmed as

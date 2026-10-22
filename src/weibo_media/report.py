@@ -179,6 +179,8 @@ def report(db, path):
               "reviews and the Men's Health Chinese edition, "
               "[local-publisher follow-up](discovery_iteration9.md) for Chinese Radio Seattle's "
               "historical account and five further ranked reviews, "
+              "[music-publication follow-up](discovery_iteration10.md) for Rolling Stone's "
+              "Chinese edition, its independently documented license and subsequent ranked reviews, "
               "and [access pilot](access_pilot.md) for source-level "
               "access checks and archive gaps.", ""]
     target = Path(path)

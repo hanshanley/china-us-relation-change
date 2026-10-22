@@ -383,7 +383,9 @@ def publish(roster_path, screening_directory, directory, report_path):
         "negatives, and verifies the supplementary Men's Health Chinese edition. "
         "[Local-publisher follow-up](discovery_iteration9.md) adds the archive-bound Chinese Radio "
         "Seattle identity and five more ranked reviews, while keeping newly located Chicago/New York "
-        "candidates separate from resolved accounts. Current status and legal operator "
+        "candidates separate from resolved accounts. [Music-publication follow-up]"
+        "(discovery_iteration10.md) verifies Rolling Stone's Chinese edition and its publisher's "
+        "license announcement, alongside five more ranked reviews. Current status and legal operator "
         "uncertainty remain explicit.", "",
         "## Complete machine-readable deliverables", "",
         "- [All 1,000 ranked U.S. domains](../data/discovery/us_top1000.csv)",

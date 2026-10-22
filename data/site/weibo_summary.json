@@ -827,6 +827,20 @@
       "relationship": "Publisher-linked Chinese luxury/lifestyle edition of the U.S. Robb Report brand; not assumed to be the U.S. newsroom's account"
     },
     {
+      "account_id": "rolling-stone-china",
+      "attribution_end": null,
+      "earliest_publication_utc": "2021-01-08T09:01:00+00:00",
+      "existence": "current_evidence",
+      "latest_publication_utc": "2022-12-17T14:13:00+00:00",
+      "latest_run_source": "import",
+      "latest_run_status": "partial",
+      "outlet_id": "rolling-stone",
+      "outlet_name": "Rolling Stone / Chinese edition",
+      "profile_url": "https://weibo.com/u/5202168303",
+      "recovered_posts": 101,
+      "relationship": "Historically licensed U.S.-brand Chinese music/culture edition with observable current institutional identity; not U.S.-newsroom staffing or uninterrupted license-control proof"
+    },
+    {
       "account_id": "scientific-american-china",
       "attribution_end": null,
       "earliest_publication_utc": "2025-06-06T01:15:00+00:00",
@@ -1038,18 +1052,18 @@
     }
   ],
   "roster": {
-    "confirmed_accounts": 74,
-    "confirmed_outlets": 51,
-    "outlets": 103,
-    "reviewed_outlets": 103
+    "confirmed_accounts": 75,
+    "confirmed_outlets": 52,
+    "outlets": 109,
+    "reviewed_outlets": 109
   },
   "source": {
-    "corpus_metadata_sha256": "104aa6c2a15d5f9f62df717fb8e0b91c4428e1f2a454f5586df01759ba80dc0a",
+    "corpus_metadata_sha256": "e33d927dbaf40836cb62a50a2cc5964e671cda738a141cbd8a4e09eef649daad",
     "excluded_attribution_posts": 0,
     "excluded_unconfirmed_posts": 0,
-    "latest_collection_at": "2026-10-22T04:32:34.905283+00:00",
+    "latest_collection_at": "2026-10-22T05:04:14.518690+00:00",
     "publication_timezone": "Asia/Shanghai",
-    "registry_sha256": "2edf2dc6ce8b974a7971de60e23405cbc1a1c0833d61c5ed46cfd3045709f29f",
+    "registry_sha256": "7ba85edd1044660a775d661c35747dda27868f78cb396b37f66933659e9af0c8",
     "requested_windows": [
       {
         "end": "2026-10-21T16:00:00+00:00",
@@ -1059,11 +1073,11 @@
   },
   "text_completeness": [
     {
-      "recovered_posts": 4846,
+      "recovered_posts": 4943,
       "status": "source_full"
     },
     {
-      "recovered_posts": 711,
+      "recovered_posts": 715,
       "status": "truncated"
     },
     {
@@ -1082,11 +1096,11 @@
       "year": 2020
     },
     {
-      "recovered_posts": 353,
+      "recovered_posts": 354,
       "year": 2021
     },
     {
-      "recovered_posts": 197,
+      "recovered_posts": 297,
       "year": 2022
     },
     {

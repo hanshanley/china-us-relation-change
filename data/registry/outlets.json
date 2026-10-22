@@ -570,6 +570,48 @@
       "notes": "Owned About page twice links chineseradioseattle and explicitly labels it the official Weibo. Exact2013 and2021 profile captures consistently bind UID2838103342 and the publication name. The current public numeric feed redirects and was not followed; current activity/control are not asserted. About's precise notice says KKNW AM1150 carriage ended October1,2026, so the publisher is not described as still broadcasting there. This is the publication's own account, not a host's personal profile or the separate KKNW station account. Review date: 2026-10-22 UTC."
     },
     {
+      "id": "new-york-magazine", "name": "New York Magazine", "category": "culture_general_news",
+      "aliases": ["New York Magazine", "纽约杂志"],
+      "us_basis": "United States-classified source position42; the publication's own About page records its April1968 launch and describes its magazine, reporting and editorial verticals. Current legal ownership is not independently audited.",
+      "source_url": "https://nymag.com/", "research_status": "reviewed",
+      "notes": "Complete current root and actual footer-linked /newyork/aboutus/, /contactus/ and /press/ pages were read without a qualifying publication Weibo link. The publication explicitly lists Instagram, Twitter and Facebook, but that does not establish absence elsewhere. Distinguish New York Magazine from The New Yorker, The New York Times/T China, staff accounts and general Vox Media channels. Search hits merely citing its articles or carrying another brand's official-Weibo label were not promoted. Unknown, not absent. Review date: 2026-10-22 UTC."
+    },
+    {
+      "id": "univision", "name": "Univision Noticias / Univision", "category": "spanish_language_broadcaster",
+      "aliases": ["Univision Noticias", "N+ Univision", "Univision"],
+      "us_basis": "Selected U.S.-classified media domain at position44; the actual linked corporate page explicitly identifies the Univision network's U.S. broadcast operation, separately from the parent's other Spanish-language services.",
+      "source_url": "https://www.univision.com/", "research_status": "reviewed",
+      "notes": "Complete current network root, actual /noticias news page and explicitly linked corporate.televisaunivision.com root were read without a qualifying Weibo profile. The news page was retrieved under a bounded larger cap rather than silently truncated. A third-party app-directory assertion about Weibo sharing, event-distribution partners, other Televisa services and talent profiles are not broadcaster-account proof. Account remains unknown; corporate association alone is not a dedicated news account. Review date: 2026-10-22 UTC."
+    },
+    {
+      "id": "star-tribune", "name": "Star Tribune / Minnesota", "category": "newspaper",
+      "aliases": ["Star Tribune", "Minnesota Star Tribune", "Minneapolis Star Tribune"],
+      "us_basis": "U.S.-classified source position45; an independently retrieved original2012 publisher homepage identifies its Minneapolis, St. Paul and Minnesota news operation. Corporate ownership is not independently audited.",
+      "source_url": "https://www.startribune.com/", "research_status": "reviewed",
+      "notes": "The live publisher's robots request returned HTTP429 before any publisher page was fetched; no live aliases or alternate routes were used to evade the limit. The independently permitted exact January1,2012 publisher-root capture was readable, without a qualifying Weibo link. Only the exact2012 capture was retrieved; later index rows are not claimed as inspected pages. Access limits and bounded missing-link results do not prove absence. Review date: 2026-10-22 UTC."
+    },
+    {
+      "id": "dallas-morning-news", "name": "The Dallas Morning News", "category": "newspaper",
+      "aliases": ["Dallas Morning News", "达拉斯晨报"],
+      "us_basis": "U.S.-classified Dallas news domain at selected source position46; current own root and actual newsroom Contact page establish the newspaper identity without a separate headquarters or legal-control audit.",
+      "source_url": "https://www.dallasnews.com/", "research_status": "reviewed",
+      "notes": "Current root and actual /contact-us/ page were readable without a qualifying publisher Weibo profile. Footer Our Company points to Hearst's named publication page, but that host's robots request returned403, so the company page was not fetched and its legal-control contents are not asserted. Staff and Dallas sports-team accounts are not the newspaper's own account by inference. Unknown, not absent. Review date: 2026-10-22 UTC."
+    },
+    {
+      "id": "mercury-news", "name": "The Mercury News / San Jose Mercury News", "category": "newspaper",
+      "aliases": ["The Mercury News", "San Jose Mercury News", "圣何塞水星报"],
+      "us_basis": "U.S.-classified source position47; the publisher's actual Contact page identifies its San Jose, California newsroom and Bay Area news operation, not an independently audited legal headquarters.",
+      "source_url": "https://www.mercurynews.com/", "research_status": "reviewed",
+      "notes": "Complete current root and actual Contact page were read without a qualifying Weibo link. Both linked trailing-slash variants were observed; their redirects resolve to the same institutional page, not two independent sources. Bay Area News Group affiliation, individual reporters and San Jose sports organizations are not a dedicated publication account. Account remains unresolved, not verified absent. Review date: 2026-10-22 UTC."
+    },
+    {
+      "id": "rolling-stone", "name": "Rolling Stone / Chinese edition", "category": "music_culture_media",
+      "aliases": ["RollingStone中文版", "RollingStone大水花", "Rolling Stone大水花", "滚石杂志中文版"],
+      "us_basis": "U.S. publication: PMC's own January29,2021 release explicitly locates Rolling Stone in New York, and its corporate history records the magazine's1967 San Francisco founding. The Chinese license partner's editorial operation is separately labeled.",
+      "source_url": "https://www.rollingstone.com/", "research_status": "reviewed",
+      "notes": "PMC's owned2021 announcement names YT Media, a multiyear Chinese-edition license and planned Weibo channels. Current owner-scoped blue institutional certification explicitly names the Rolling Stone Chinese edition under UID5202168303; a January8,2021 launch post independently verifies exact native post/author identity. Today-rendered certification is not backdated to that post's publication. The2014 account join date is not proof of a2014 edition/license, and the visible2022 feed bounds do not establish cessation, current activity or license termination. No unverified print-cessation description is converted into a contractual cutoff. Current legal account ownership and license renewal remain unaudited; not Rolling Stones band fans or Taiwanese Rock Records. Review date: 2026-10-22 UTC."
+    },
+    {
       "id": "mens-health", "name": "Men's Health / Chinese edition", "category": "health_lifestyle_media",
       "aliases": ["男士健康", "时尚健康男士", "时尚健康·男士", "Men'sHealth中文版"],
       "us_basis": "U.S. Men's Health magazine: first-hand2004 China-launch coverage explicitly identifies the American publication and its copyright cooperation with the Chinese men's edition. The current global publisher's own editorial page independently identifies the Men's Health brand.",
@@ -618,6 +660,14 @@
     }
   ],
   "accounts": [
+    {
+      "id": "rolling-stone-china", "outlet_id": "rolling-stone", "uid": "5202168303", "handle": null,
+      "display_name": "RollingStone中文版", "profile_url": "https://weibo.com/u/5202168303", "language": "zh-Hans",
+      "operator": "YT Media is the Chinese-edition partner named in PMC's2021 license announcement; exact current legal account owner and later contracts are not independently audited",
+      "relationship": "Historically licensed U.S.-brand Chinese music/culture edition with observable current institutional identity; not U.S.-newsroom staffing or uninterrupted license-control proof",
+      "officialness": "confirmed", "existence": "current_evidence", "accessibility": "unknown",
+      "notes": "Current owner blue-v certification explicitly names 音乐文化媒体Rolling Stone中文版官方微博. Native launch post4591139791047253 independently binds exact JSON-LD author UID and publication, while PMC directly documents the multiyear China license. Visible feed dates are September17-December17,2022, not current posting activity. No pre2021 publisher output is inferred from the2014 join date, and no unsupported license-end boundary is imposed."
+    },
     {
       "id": "forbes-china", "outlet_id": "forbes", "uid": "1765373140", "handle": null,
       "display_name": "福布斯中文网", "profile_url": "https://weibo.com/u/1765373140", "language": "zh-Hans",
@@ -1218,6 +1268,30 @@
     }
   ],
   "evidence": [
+    {
+      "id": "rolling-stone-current-institution", "account_id": "rolling-stone-china",
+      "source_url": "https://www.sina.cn/media/5202168303", "source_type": "platform_certification",
+      "observed_at": "2026-10-22T04:56:10.188684+00:00", "claim_date": null, "supports": "identity",
+      "justification": "The owner's profile header has a blue-v institution badge, display RollingStone中文版 and explicit 音乐文化媒体Rolling Stone中文版官方微博 certification. This is publication-specific identity evidence, not a band, record label, recommended profile or present posting-activity claim."
+    },
+    {
+      "id": "rolling-stone-2021-pmc-china-license", "account_id": "rolling-stone-china",
+      "source_url": "https://www.pmc.com/news/rolling-stone-announces-launch-of-chinese-edition", "source_type": "publisher_statement",
+      "observed_at": "2026-10-22T04:58:54.395375+00:00", "claim_date": "2021-01-29", "supports": "relationship",
+      "justification": "PMC's own dated announcement identifies Rolling Stone's New York headquarters, YT Media as its multiyear licensed Chinese-edition partner and Weibo among the edition's planned channels. Establishes the historical publisher/license relationship, not exact current contract renewal, U.S. staffing or continuous legal account ownership."
+    },
+    {
+      "id": "rolling-stone-pmc-us-origin", "account_id": "rolling-stone-china",
+      "source_url": "https://www.pmc.com/our-story", "source_type": "publisher_statement",
+      "observed_at": "2026-10-22T04:58:56.527083+00:00", "claim_date": null, "supports": "relationship",
+      "justification": "Publisher's own corporate-history timeline identifies Rolling Stone's1967 founding in San Francisco by Jann Wenner and Ralph J. Gleason. U.S. brand origin is not inferred from a Chinese-language profile's audience or a current unaudited corporate-nationality assumption."
+    },
+    {
+      "id": "rolling-stone-native-launch-post-uid", "account_id": "rolling-stone-china",
+      "source_url": "https://www.sina.cn/news/detail/4591139791047253.html", "source_type": "platform_post",
+      "observed_at": "2026-10-22T04:56:04.770494+00:00", "claim_date": "2021-01-08", "supports": "identity",
+      "justification": "Exact native data-id and the unique NewsArticle author URL independently resolve UID5202168303; author name is RollingStone中文版 and launch text explicitly names Rolling Stone大水花. Publication date is January8,2021 Shanghai; the certification rendered at2026 retrieval is not asserted to be a contemporaneous2021 badge."
+    },
     {
       "id": "crs-owned-official-weibo-link", "account_id": "chinese-radio-seattle-historical",
       "source_url": "https://chineseradioseattle.com/about/", "source_type": "publisher_link",
