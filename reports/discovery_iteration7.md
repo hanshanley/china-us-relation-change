@@ -5,6 +5,11 @@ window remains January 1, 2020 through October 21, 2026 inclusive,
 Asia/Shanghai. This continues checkpoint `53c5c62`; it is not an exhaustive
 account census.
 
+These figures describe checkpoint `5abe1d8`. The
+[next ranked-publisher review](discovery_iteration8.md) continues the work
+and preserves the distinctions between unresolved existence, verified
+institutional identity and actual publisher/operator relationships.
+
 ## Knowledge at Wharton: a publication account, not a borrowed school profile
 
 The previous checkpoint had positive first-party evidence that

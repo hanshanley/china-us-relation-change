@@ -449,6 +449,20 @@
       "relationship": "Publisher-linked Chinese-language channel of the U.S. LA18/KSCI television station, not a licensed Chinese magazine or an inferred sibling broadcaster"
     },
     {
+      "account_id": "mens-health-china",
+      "attribution_end": null,
+      "earliest_publication_utc": "2021-11-15T07:00:00+00:00",
+      "existence": "current_evidence",
+      "latest_publication_utc": "2022-12-07T04:34:00+00:00",
+      "latest_run_source": "sina_syndication",
+      "latest_run_status": "partial",
+      "outlet_id": "mens-health",
+      "outlet_name": "Men's Health / Chinese edition",
+      "profile_url": "https://weibo.com/u/1664080805",
+      "recovered_posts": 100,
+      "relationship": "Historically licensed U.S.-brand Chinese-edition magazine channel with current named institutional identity; not asserted U.S.-newsroom staffing or uninterrupted license control"
+    },
+    {
       "account_id": "mit-technology-review-china",
       "attribution_end": null,
       "earliest_publication_utc": "2026-09-29T01:02:00+00:00",
@@ -1010,18 +1024,18 @@
     }
   ],
   "roster": {
-    "confirmed_accounts": 72,
-    "confirmed_outlets": 49,
-    "outlets": 91,
-    "reviewed_outlets": 91
+    "confirmed_accounts": 73,
+    "confirmed_outlets": 50,
+    "outlets": 97,
+    "reviewed_outlets": 97
   },
   "source": {
-    "corpus_metadata_sha256": "7d241a1b19daaac961be47ebf5908abcce9d757639eef774c1ddf011341a7e60",
+    "corpus_metadata_sha256": "57136ba74b56d95f8e19a186b2cfb4910154a9c67b301373580dec8ed71bbca7",
     "excluded_attribution_posts": 0,
     "excluded_unconfirmed_posts": 0,
-    "latest_collection_at": "2026-10-22T02:38:43.510772+00:00",
+    "latest_collection_at": "2026-10-22T03:38:58.276577+00:00",
     "publication_timezone": "Asia/Shanghai",
-    "registry_sha256": "a6183a5f6833e692b171ff11e9a952169a4146bc6acff42d01adf3a919826ad4",
+    "registry_sha256": "91450094652eedf20e2a0d180c0b53d0cd8caf0d0e0699f05a0301fa747ce140",
     "requested_windows": [
       {
         "end": "2026-10-21T16:00:00+00:00",
@@ -1031,11 +1045,11 @@
   },
   "text_completeness": [
     {
-      "recovered_posts": 4742,
+      "recovered_posts": 4840,
       "status": "source_full"
     },
     {
-      "recovered_posts": 700,
+      "recovered_posts": 702,
       "status": "truncated"
     },
     {
@@ -1054,11 +1068,11 @@
       "year": 2020
     },
     {
-      "recovered_posts": 239,
+      "recovered_posts": 338,
       "year": 2021
     },
     {
-      "recovered_posts": 196,
+      "recovered_posts": 197,
       "year": 2022
     },
     {

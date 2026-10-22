@@ -378,7 +378,9 @@ def publish(roster_path, screening_directory, directory, report_path):
         "explicitly labeled release-distribution channels; multiple sector feeds are not "
         "independent newsrooms. [Publication identity follow-up](discovery_iteration7.md) resolves "
         "Knowledge at Wharton's locator and reassesses Popular Science's current identity and "
-        "distribution-based cutoff. Current status and legal operator "
+        "distribution-based cutoff. [Ranked-publisher follow-up](discovery_iteration8.md) checks "
+        "five further selected-cohort publishers without converting missing evidence into account "
+        "negatives, and verifies the supplementary Men's Health Chinese edition. Current status and legal operator "
         "uncertainty remain explicit.", "",
         "## Complete machine-readable deliverables", "",
         "- [All 1,000 ranked U.S. domains](../data/discovery/us_top1000.csv)",

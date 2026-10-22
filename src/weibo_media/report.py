@@ -175,6 +175,8 @@ def report(db, path):
               "for release-distribution channels and unresolved historical locators, "
               "[publication identity follow-up](discovery_iteration7.md) for Knowledge at Wharton's "
               "resolved account and Popular Science's current identity/cutoff reassessment, "
+              "[ranked-publisher follow-up](discovery_iteration8.md) for five further source-cohort "
+              "reviews and the Men's Health Chinese edition, "
               "and [access pilot](access_pilot.md) for source-level "
               "access checks and archive gaps.", ""]
     target = Path(path)

@@ -493,6 +493,48 @@
       "notes": "Actual2013 publisher homepage under its historical domain was read without resolving a qualifying profile. Foreign regional editions and independent translations are not silently equated with the U.S. newsroom. Source: https://web.archive.org/web/20130101060306id_/http://www.huffingtonpost.com/ . Unknown, not absent. Review date: 2026-10-21."
     },
     {
+      "id": "investopedia", "name": "Investopedia", "category": "financial_education_media",
+      "aliases": ["Investopedia", "投资百科"],
+      "us_basis": "Selected U.S.-classified source-roster domain at position12; this country label is not independently treated as a founding-country or current legal-ownership audit.",
+      "source_url": "https://www.investopedia.com/", "research_status": "reviewed",
+      "notes": "A permitted publisher-root request returned HTTP402; no further live paths or alternate publisher aliases were tried to evade that response. An independently permitted exact January2014 publisher-homepage archive was then retrieved without a qualifying Weibo link. A separate publication-name profile-index query timed out, not a negative result. Indexed China-related articles and a translated Investopedia guidebook do not establish a Chinese website edition or publisher Weibo account. Account existence remains unresolved. Review date: 2026-10-22 UTC."
+    },
+    {
+      "id": "cbs-sports", "name": "CBS Sports", "category": "sports_broadcaster",
+      "aliases": ["CBS Sports", "CBS体育"],
+      "us_basis": "U.S.-classified sports-media domain at selected source position23; its current publisher-controlled root identifies CBS Sports and links Paramount. Ultimate control and physical staffing are not independently audited here.",
+      "source_url": "https://www.cbssports.com/", "research_status": "reviewed",
+      "notes": "Current root was readable with no qualifying Weibo profile link. The actual footer About path /info/aboutus returned an inconclusive non-HTML response. Athletes' accounts, unrelated Chinese media citing CBS Sports and PGA TOUR's own Weibo channels are not broadcaster-account proof. Bounded archive-prefix results were empty, which is not evidence of absence. CBS Sports is separate from CBS News and a generic CBS parent account. Review date: 2026-10-22 UTC."
+    },
+    {
+      "id": "heavy", "name": "Heavy / Heavy.com", "category": "digital_sports_media",
+      "aliases": ["HEAVY", "Heavy.com"],
+      "us_basis": "Publisher's own About page explicitly identifies an independent U.S. media organization; its contact page lists a Las Vegas, Nevada address. Contact location is not asserted as a separately audited headquarters. Selected source position26.",
+      "source_url": "https://heavy.com/", "research_status": "reviewed",
+      "notes": "Actual root, /about/ and /contact-us/ pages were readable without a qualifying Weibo profile link. An independently retrieved heavyclub archive explicitly belongs to a Guangzhou a cappella group, not this U.S. sports-news publisher; its verification badge cannot be transferred to Heavy.com. Other shared-prefix profiles were not automatically accepted. Excluding that wrong organization does not establish that Heavy has no account. Review date: 2026-10-22 UTC."
+    },
+    {
+      "id": "nbc-sports", "name": "NBC Sports", "category": "sports_broadcaster",
+      "aliases": ["NBC Sports", "NBC体育"],
+      "us_basis": "U.S.-classified source position30; the publisher's actual NBC Sports Press Box About page identifies the NBCUniversal sports division and its U.S. broadcast/digital properties. This does not independently audit present-day legal control.",
+      "source_url": "https://www.nbcsports.com/", "research_status": "reviewed",
+      "notes": "Current root and the actual /pressbox/about-nbc-sports page were readable without a qualifying Weibo profile link. A bounded archive-prefix query timed out. Athletes, staff, other publishers quoting NBC, parent NBCUniversal entertainment channels and sports-rights partners are not a dedicated NBC Sports account by inference. NBC News remains a separately reviewed outlet. Review date: 2026-10-22 UTC."
+    },
+    {
+      "id": "siriusxm", "name": "SiriusXM", "category": "audio_broadcaster",
+      "aliases": ["SiriusXM", "Sirius XM"],
+      "us_basis": "Audio/broadcast media domain classified United States in the selected source roster at position31; publisher-controlled root and its explicitly linked corporate site establish the network identity, not an independent ultimate-ownership audit.",
+      "source_url": "https://www.siriusxm.com/", "research_status": "reviewed",
+      "notes": "Actual broadcast-network root and corporate.siriusxm.com root were readable without a qualifying publisher Weibo link. A bounded archive-prefix query timed out. Show hosts, subsidiary services, broadcast partners and shared-name profiles are not proof of the network's own account. No absence or zero-output claim is made. Review date: 2026-10-22 UTC."
+    },
+    {
+      "id": "mens-health", "name": "Men's Health / Chinese edition", "category": "health_lifestyle_media",
+      "aliases": ["男士健康", "时尚健康男士", "时尚健康·男士", "Men'sHealth中文版"],
+      "us_basis": "U.S. Men's Health magazine: first-hand2004 China-launch coverage explicitly identifies the American publication and its copyright cooperation with the Chinese men's edition. The current global publisher's own editorial page independently identifies the Men's Health brand.",
+      "source_url": "https://www.menshealth.com/", "research_status": "reviewed",
+      "notes": "A publisher-authored2013 issue guide supplies actual UID1664080805; the current owner has an institutional magazine badge and a bio explicitly identifying Men'sHealth中文版《时尚健康·男士》. This is the publication, not a fashion editor, model, health practitioner or the parent Trends iPad app. Historically licensed Chinese edition and observable current brand identity are distinguished from U.S.-newsroom operation or independently audited current contracts. Corporate robots access returned403, so no blocked corporate-directory page was fetched. Review date: 2026-10-22 UTC."
+    },
+    {
       "id": "popular-science", "name": "Popular Science / Chinese-edition channel", "category": "science_media",
       "aliases": ["科技新时代", "Popular Science China", "PS+科技新时代", "PS大众科学"],
       "us_basis": "U.S. popular-science publication; the Chinese magazine's own historical presentation explicitly identifies Popular Science's U.S. origin and its Chinese edition.",
@@ -938,6 +980,14 @@
       "relationship": "Publisher-linked Chinese edition in the U.S. Golf Digest international-edition family; not the separate GOLF Magazine account or assumed U.S. newsroom",
       "officialness": "confirmed", "existence": "current_evidence", "accessibility": "unknown",
       "notes": "Actual U.S. publisher listing identifies the correct Chinese domain; that publisher's2014 timeline widget explicitly names UID1671481074. The2022 golfdigest archive and current magazine institution agree. Another brand-looking alias, golfdigestchina, is a named individual and is excluded."
+    },
+    {
+      "id": "mens-health-china", "outlet_id": "mens-health", "uid": "1664080805", "handle": null,
+      "display_name": "男士健康", "profile_url": "https://weibo.com/u/1664080805", "language": "zh-Hans",
+      "operator": "Chinese Men's Health / 时尚健康·男士 publishing operation; exact current legal account owner and license contract not independently audited",
+      "relationship": "Historically licensed U.S.-brand Chinese-edition magazine channel with current named institutional identity; not asserted U.S.-newsroom staffing or uninterrupted license control",
+      "officialness": "confirmed", "existence": "current_evidence", "accessibility": "unknown",
+      "notes": "Current owner blue institutional badge names 男士健康杂志 and bio explicitly identifies Men'sHealth中文版《时尚健康·男士》. A primary2013 issue guide independently carries this exact UID and magazine title; the U.S./China copyright partnership is independently documented in contemporaneous launch coverage. Similar health blogs, staff profiles, models and parent-group app accounts are not substitutes. Current identity does not establish current activity or legal license renewal."
     },
     {
       "id": "knowledge-wharton-china", "outlet_id": "wharton-knowledge", "uid": "1749002512", "handle": "whartonckw",
@@ -2143,6 +2193,30 @@
       "source_url": "https://www.sina.cn/media/6890696793", "source_type": "platform_certification",
       "observed_at": "2026-10-21T19:48:55.792841+00:00", "claim_date": null, "supports": "identity",
       "justification": "Current institutional tag explicitly identifies the official Barron's investment-information platform; profile bio identifies Barron's official Chinese channel. Stable UID and display name Barrons巴伦 agree. Not a third-party commentator merely quoting Barron's."
+    },
+    {
+      "id": "menshealth-current-publication-institution", "account_id": "mens-health-china",
+      "source_url": "https://www.sina.cn/media/1664080805", "source_type": "platform_certification",
+      "observed_at": "2026-10-22T03:27:20.753124+00:00", "claim_date": null, "supports": "identity",
+      "justification": "Owner-scoped blue institutional badge identifies 男士健康杂志, and the owner's bio explicitly identifies Men'sHealth中文版《时尚健康·男士》. This is a publication-specific institutional identity, not an inference from a generic health label, unrelated expert or recommended profile. Cached audience counters are not treated as current measurements."
+    },
+    {
+      "id": "menshealth-owned-2013-issue-guide", "account_id": "mens-health-china",
+      "source_url": "https://e.weibo.com/mediaprofile/article/detail?aid=9485287&comment=1&uid=1664080805", "source_type": "publisher_statement",
+      "observed_at": "2026-10-22T03:27:20.753124+00:00", "claim_date": null, "supports": "relationship",
+      "justification": "Publicly indexed publisher-authored October2013 issue guide is attributed to 男士健康, explicitly carries UID1664080805 and identifies the issue as 时尚健康男士Men's Health. The actual UID is a discovered primary locator, not equated with an editor's blog ID. No blocked live Weibo endpoint was fetched. Issue month is not invented as an exact article-publication date."
+    },
+    {
+      "id": "menshealth-firsthand-china-license-launch", "account_id": "mens-health-china",
+      "source_url": "https://eladies.sina.com.cn/2004-05-28/96212.html", "source_type": "press_coverage",
+      "observed_at": "2026-10-22T03:27:20.753124+00:00", "claim_date": "2004-05-28", "supports": "relationship",
+      "justification": "Contemporaneous first-hand launch coverage explicitly identifies American Men's Health and its Chinese partner 时尚健康男士. It distinguishes2003 cooperation intent from the formal May2004 copyright-cooperation launch. This establishes the historical U.S. brand/Chinese-edition relationship, not an independently audited current contract or legal account owner."
+    },
+    {
+      "id": "menshealth-current-global-editorial-publication", "account_id": "mens-health-china",
+      "source_url": "https://www.menshealth.com/about/a29134632/about-mens-health/", "source_type": "publisher_statement",
+      "observed_at": "2026-10-22T03:33:14.011481+00:00", "claim_date": null, "supports": "relationship",
+      "justification": "Actual global publication root links this current owned editorial-information page, independently identifying the Men's Health publication. Staff biographies and third-party image credits were not treated as publication social accounts or used to infer a headquarters. This global page does not itself prove renewal of the Chinese license."
     },
     {
       "id": "wharton-archived-publication-institution-and-owner", "account_id": "knowledge-wharton-china",
