@@ -401,7 +401,9 @@ def publish(roster_path, screening_directory, directory, report_path):
         "(discovery_iteration17.md) resolves a historical publisher-linked account and corrects canonical-host "
         "matching while preserving the selected 1,000 domains exactly. [Chron and cycling-identity follow-up]"
         "(discovery_iteration18.md) distinguishes current newsrooms and holds a publisher-linked Chinese "
-        "cycling account outside U.S. totals without verified U.S.-brand affiliation. Current status and legal operator "
+        "cycling account outside U.S. totals without verified U.S.-brand affiliation. [Radio-programme and publisher follow-up]"
+        "(discovery_iteration19.md) advances the ranked review and separates a Weibo-themed radio programme "
+        "from a publisher-designated organizational account. Current status and legal operator "
         "uncertainty remain explicit.", "",
         "## Complete machine-readable deliverables", "",
         "- [All 1,000 ranked U.S. domains](../data/discovery/us_top1000.csv)",

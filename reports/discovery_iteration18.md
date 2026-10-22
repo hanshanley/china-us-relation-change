@@ -10,6 +10,9 @@ identity add substantive evidence without inflating the U.S.
 inventory. A real blue-verified account is not sufficient if its
 relationship to the particular U.S. publication remains unverified.
 
+This is a historical checkpoint. [The next publisher and radio-programme follow-up](discovery_iteration19.md)
+adds primary evidence without treating a programme title or platform mention as an account.
+
 ## Chron is not automatically the current Houston Chronicle newsroom
 
 The selected position **85** retains the source domain **`chron.com`**

@@ -328,7 +328,7 @@
       "id": "sing-tao-us-radio", "name": "Sing Tao Chinese Radio, United States", "category": "us_chinese_language",
       "aliases": ["星岛中文电台", "星島中文電台", "Sing Tao Chinese Radio"], "us_basis": "First-party contact/legal page identifies Sing Tao Newspapers San Francisco Ltd. and the South San Francisco radio/news operation.",
       "source_url": "https://www.chineseradio.com/main/", "research_status": "reviewed",
-      "notes": "First-party https://www.chineseradio.com/main/contact/ establishes the U.S. radio publisher. Current schedules/news do not establish a Weibo identity. No U.S.-specific Sina UID was verified; Facebook evidence is not Sina evidence. Hong Kong UID1924115501 remains excluded. Distinct radio site/channel from the U.S. newspaper-domain review. Unknown, not absent. Review date: 2026-10-21."
+      "notes": "First-party contact/legal page establishes the U.S. radio publisher. Newly read exact2011 and2013 root captures, separately indexed May2014 root and2015 /main/ capture supplied no qualifying Sina locator; the failed March2014 replay changed timestamps and was not silently relabeled as May. Actual October9,2019 station page titled 微博天下2歲啦 describes a radio programme and gathering stories from Weibo/WeChat, not a station-account designation or UID. Presenter accounts, programme birthdays, current schedules and Facebook are not organizational Sina proof. Hong Kong UID1924115501 remains excluded rather than borrowed. U.S. station account remains unknown, not absent; no old programme time or launch date is asserted current or a social-account cutoff. Review date: 2026-10-22 UTC."
     },
     {
       "id": "cosmopolitan", "name": "Cosmopolitan / historical China edition", "category": "lifestyle",
@@ -743,6 +743,41 @@
       "us_basis": "Publication's June17,2022 printed masthead identifies its Rockville, Maryland office, publisher role and acmedia.us website. Publication-branded hosting metadata describes a March1994 start; current corporate/legal control is not independently audited.",
       "source_url": "https://www.acmedia.us/", "research_status": "reviewed",
       "notes": "Actual masthead domain failed modern TLS protocol negotiation; verification/security was not weakened and no HTTP downgrade used. Exact2015 domain capture was only a framing wrapper pointing to acmediaonline.net, not an inspected newspaper site. That destination currently failed DNS; its sole retrieved2020 archived capture was gambling-branded, not publisher content, so no social identifier there was attributed to the newspaper and no hacking/ownership cause asserted. The printed masthead and publication-branded issue remain scope evidence only; no official Sina account was resolved. Unknown, not absent. Review date: 2026-10-22 UTC."
+    },
+    {
+      "id": "hartford-courant", "name": "Hartford Courant", "category": "newspaper",
+      "aliases": ["Hartford Courant", "The Hartford Courant"],
+      "us_basis": "United States-classified source position90; actual publisher root and Contact identify Connecticut reporting and the Hartford newspaper. Current legal ownership is not independently audited.",
+      "source_url": "https://www.courant.com/", "research_status": "reviewed",
+      "notes": "Complete root and actual Contact were read without a qualifying Weibo profile. Slash variants resolve to one Contact page, not independent corroboration. Contact includes explicit AI/text-data-mining reuse restrictions; no deeper publisher-article mining or article-body redistribution was pursued. Correct publication-specific community item matches courant.com without a main Sina identifier. Other Courant papers, reporters, UConn sports and parent-company channels were not substituted. Unknown, not absent. Review date: 2026-10-22 UTC."
+    },
+    {
+      "id": "boulder-daily-camera", "name": "Daily Camera / Boulder", "category": "newspaper",
+      "aliases": ["Daily Camera", "Boulder Daily Camera"],
+      "us_basis": "United States-classified source position91; own current root, About and Contact identify Boulder, Colorado local-news publishing. Corporate nationality/current legal control are not independently audited.",
+      "source_url": "https://www.dailycamera.com/", "research_status": "reviewed",
+      "notes": "Complete root and actual About/Contact were read without a qualifying Weibo link. Contact slash redirect is one source. About explicitly restricts AI/text-data-mining reuse; no deeper publisher-article mining or article-body redistribution was pursued. Correct publication-specific community item matches dailycamera.com without a main Sina identifier. Generic camera/photography profiles, staff, other Daily newspapers and corporate siblings were not promoted. Unknown, not absent. Review date: 2026-10-22 UTC."
+    },
+    {
+      "id": "schenectady-daily-gazette", "name": "The Daily Gazette / Schenectady", "category": "newspaper",
+      "aliases": ["The Daily Gazette", "Schenectady Gazette", "Schenectady Daily Gazette"],
+      "us_basis": "United States-classified source position92; actual publisher About identifies the1894 Schenectady Gazette/daily-paper history and New York community operation. Present corporate/account control is not independently audited.",
+      "source_url": "https://www.dailygazette.com/", "research_status": "reviewed",
+      "notes": "Complete current root and its actual nonstandard /site/wide/about.html and /site/contact.html institutional pages were read without a qualifying Weibo profile. These routes came from real publisher links, not guessed About paths. External contact forms, staff, The Recorder/Leader-Herald/Hudson Register sister titles and unrelated Gazette publications were not treated as this paper's own account. Correct community item matches dailygazette.com without a main Sina identifier. Unknown, not absent. Review date: 2026-10-22 UTC."
+    },
+    {
+      "id": "lincoln-journal-star", "name": "Lincoln Journal Star", "category": "newspaper",
+      "aliases": ["Lincoln Journal Star", "Journal Star Lincoln"],
+      "us_basis": "United States-classified source position93; actual publisher root explicitly identifies Lincoln, Nebraska news, and actual Contact identifies this publication. It is not a differently located Journal Star.",
+      "source_url": "https://journalstar.com/", "research_status": "reviewed",
+      "notes": "Complete root and actual Contact were read without a qualifying Weibo link. Slash redirect is one institutional source; unexpanded template placeholders and staff paths were not followed as publisher-account proof. Correct publication-specific community item matches journalstar.com without a main Sina identifier. Peoria Journal Star, other Journal/Star papers, reporters and Nebraska sports-team accounts were not substituted. Unknown, not absent. Review date: 2026-10-22 UTC."
+    },
+    {
+      "id": "racer", "name": "RACER", "category": "motorsports_media",
+      "aliases": ["RACER", "RACER magazine", "Racer.com"],
+      "us_basis": "United States-classified source position94; independently read exact2012 original publisher homepage identifies RACER's racing-news and race-report publication. Current headquarters and legal ownership are not independently audited.",
+      "source_url": "https://racer.com/", "research_status": "reviewed",
+      "notes": "Live robots request returned429 before a publisher page was fetched; no live alias, path or user-agent workaround was used. Independently permitted exact January3,2012 root was readable with its real timestamp, without a qualifying Weibo link; indexed2013 capture was not silently substituted. Actual magazine community article links racer.com but its main item lacks a website statement and Sina identifier; missing property is not absence or wrong-entity proof. Racing teams, drivers, games, generic racer names and corporate parent profiles were not promoted. Unknown, not absent. Review date: 2026-10-22 UTC."
     },
     {
       "id": "chron", "name": "Chron / chron.com", "category": "local_news",
