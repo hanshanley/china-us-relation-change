@@ -360,7 +360,8 @@ def build_weibo(root, summary, gallery):
                         if pending_names else '')
         audit_text = (
             f'<p><strong>Primary-source recheck ({esc(audit["audited_at"][:10])}): '
-            f'{rechecked:,} numeric bindings rechecked; {pending:,} historical numeric bindings still pending; '
+            f'{rechecked:,} numeric binding{"s" if rechecked != 1 else ""} rechecked; '
+            f'{pending:,} historical numeric binding{"s" if pending != 1 else ""} still pending; '
             f'{unresolved:,} historical vanity-only channel remains UID-unresolved.</strong> '
             f'All {audit["corpus"]["primary_text_matches"]:,} stored texts matched their primary source snapshots, '
             'including explicitly truncated previews—not independently complete originals. '

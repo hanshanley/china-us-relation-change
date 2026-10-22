@@ -7,11 +7,14 @@ a guarantee of current ownership, current posting, or complete historical recove
 ## Published snapshot: October 22, 2026
 
 The [primary-source recheck](weibo_primary_source_audit.md) now reports
-**84 numeric bindings rechecked, two historical numeric rechecks pending,
+**85 numeric bindings rechecked, one historical numeric recheck pending,
 and one historical vanity-only channel with UID unresolved**. All 6,521
 canonical texts were checked against primary-source captures; 21 canonical
 texts were corrected for selection/extraction defects while preserving all
 prior source variants. This is source-level validation, not just matching totals.
+WSJ Chinese's numeric binding was independently rechecked in a saved 2017
+first-party Weibo original-author card; NYT Chinese's numeric recheck remains
+pending. The historical WSJ evidence did not add out-of-window posts.
 
 There are **87 documented current/historical channels across 62 publisher/brand
 groups: 86 resolved numeric UIDs and one historical vanity-only URL**. VOA's

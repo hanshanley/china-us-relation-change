@@ -13,14 +13,14 @@ account discovery or complete historical timelines.
 
 | Decision | Channels | Meaning |
 |---|---:|---|
-| Numeric binding rechecked | 84 | Live institutional profile evidence or actual saved historical owner-UID headers re-read; publisher/edition relationships remain explicitly qualified. |
-| Historical numeric binding recheck pending | 2 | NYT Chinese and WSJ Chinese retain previously documented mappings, but those numeric bindings were not independently revalidated in this audit. |
+| Numeric binding rechecked | 85 | Live institutional profiles, saved historical owner-UID headers or an explicit original-author card re-read; publisher/edition relationships remain explicitly qualified. |
+| Historical numeric binding recheck pending | 1 | NYT Chinese retains its previously documented mapping, but that numeric binding was not independently revalidated in this audit. |
 | Publisher-designated historical vanity rechecked; UID unresolved | 1 | VOA's `legalwindow` programme designation is established; its numeric candidate remains unassigned. |
 
 There are still **87 documented current/historical channel records**, not
 87 independent U.S. newspapers or 87 uniformly U.S.-operated newsrooms.
 The 86 previously recorded numeric UIDs must not be confused with the
-84 numeric bindings rechecked here.
+85 numeric bindings rechecked here.
 
 All 86 registered numeric profile routes were attempted through permitted,
 paced Sina syndication pages. **81 were readable; five redirected and were not
@@ -46,6 +46,17 @@ account corpus; that is not a finding that it was deleted.
 The original NYT ownership-confirmation report was reread; it establishes the
 historical `nytchinese` designation, not the numeric UID. A separately identified
 2017 WSJ native post redirected and was not treated as numeric confirmation.
+Subsequent cache inspection resolved WSJ's numeric recheck independently:
+the [saved June 8, 2017 Weibo capture](https://web.archive.org/web/20170608194454id_/http://weibo.com/chinabloomberg)
+contains a scoped original-author card explicitly connecting
+`华尔街日报中文网`, `/chinesewsj` and `usercard` UID `1649159940`.
+The containing feed distinguishes Bloomberg's owner UID `5076455752` from
+the reposted original author's UID `1649159940`. This is first-party platform
+identity markup, not an inference from a quoted name or a third-party repost
+site. The full saved source hash and method are in the account-audit manifest.
+The June 2, 2017 original post is outside the collection window and was not
+imported. Historical identity does not certify current operation or licensing.
+
 VOA's candidate profile still has a matching programme name/books/bio, but
 that does not establish the missing vanity-to-UID binding. No candidate
 posts were imported.
@@ -124,7 +135,7 @@ The complete machine-readable decisions are in
 
 ## Remaining gaps
 
-The two historical numeric rechecks and VOA's numeric binding remain unresolved.
+NYT Chinese's historical numeric recheck and VOA's numeric binding remain unresolved.
 Current legal operation and continuing license terms are not uniformly audited.
 The ranked cohort still has **12 positive domains, 988 unknown domains and zero
 verified negatives**; only 120 have recorded manual review. It is a SCImago

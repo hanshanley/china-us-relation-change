@@ -248,7 +248,7 @@ def test_primary_audit_exposes_pending_bindings_and_rejects_stale_text(tmp_path,
     monkeypatch.setattr("us_china_exchange.render.png_chart", lambda svg: b"fixture")
     build_weibo(tmp_path, summary, {"weibo": []})
     page = (tmp_path / "site/weibo.html").read_text()
-    assert "1 numeric bindings rechecked; 1 historical numeric bindings still pending" in page
+    assert "1 numeric binding rechecked; 1 historical numeric binding still pending" in page
     assert "Publisher 2" in page and "Historical UID recheck pending" in page
     with (tmp_path / "site/downloads/weibo-accounts.csv").open(newline="") as stream:
         rows = list(csv.DictReader(stream))

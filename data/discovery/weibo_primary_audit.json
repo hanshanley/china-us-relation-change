@@ -915,13 +915,13 @@
     },
     {
       "account_id": "wsj-chinese-candidate",
-      "method": "prior_archive_not_reread",
-      "note": "Previously documented historical UID retained, not independently revalidated in this audit. Modern native profile redirects; no saved primary owner HTML was found. The archive access restriction was respected. No recovered posts for this channel.",
+      "method": "cached_primary_original_author_card",
+      "note": "Saved first-party Weibo original-author card independently binds display name \u534e\u5c14\u8857\u65e5\u62a5\u4e2d\u6587\u7f51, vanity chinesewsj and usercard UID 1649159940. The containing Bloomberg feed identifies its own UID as 5076455752 and the reposted original author as 1649159940; these are not conflated. This is historical identity evidence from a 2017 capture, not current control or a new in-window post. No 2017 posts were imported.",
       "observed_certification": null,
-      "observed_name": null,
-      "source_sha256": null,
-      "source_url": "https://web.archive.org/web/20190724092335/https://www.weibo.com/chinesewsj",
-      "status": "numeric_binding_recheck_pending",
+      "observed_name": "\u534e\u5c14\u8857\u65e5\u62a5\u4e2d\u6587\u7f51",
+      "source_sha256": "db0cb201193e0c79d4762b47087b94daeed631da4dbdc0e137b8f772cf337df2",
+      "source_url": "https://web.archive.org/web/20170608194454id_/http://weibo.com/chinabloomberg",
+      "status": "numeric_binding_rechecked",
       "uid": "1649159940"
     },
     {
@@ -958,7 +958,7 @@
       "uid": "1686203097"
     }
   ],
-  "audited_at": "2026-10-22T19:51:55.598955+00:00",
+  "audited_at": "2026-10-22T20:21:49.749946+00:00",
   "canonical_posts_sha256": "242c8aa8adc3dda09fd4b9427491475dbd90b86be82e26d2496bc28ecfa52130",
   "corpus": {
     "archived_sources_checked": 46,

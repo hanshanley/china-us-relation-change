@@ -4664,11 +4664,11 @@
       "operator": "Historical WSJ Chinese publisher-promoted account; current legal account operator unresolved",
       "outlet_id": "wsj",
       "outlet_name": "The Wall Street Journal",
-      "primary_audit_method": "prior_archive_not_reread",
-      "primary_audit_note": "Previously documented historical UID retained, not independently revalidated in this audit. Modern native profile redirects; no saved primary owner HTML was found. The archive access restriction was respected. No recovered posts for this channel.",
-      "primary_audit_source_sha256": null,
-      "primary_audit_source_url": "https://web.archive.org/web/20190724092335/https://www.weibo.com/chinesewsj",
-      "primary_audit_status": "numeric_binding_recheck_pending",
+      "primary_audit_method": "cached_primary_original_author_card",
+      "primary_audit_note": "Saved first-party Weibo original-author card independently binds display name \u534e\u5c14\u8857\u65e5\u62a5\u4e2d\u6587\u7f51, vanity chinesewsj and usercard UID 1649159940. The containing Bloomberg feed identifies its own UID as 5076455752 and the reposted original author as 1649159940; these are not conflated. This is historical identity evidence from a 2017 capture, not current control or a new in-window post. No 2017 posts were imported.",
+      "primary_audit_source_sha256": "db0cb201193e0c79d4762b47087b94daeed631da4dbdc0e137b8f772cf337df2",
+      "primary_audit_source_url": "https://web.archive.org/web/20170608194454id_/http://weibo.com/chinabloomberg",
+      "primary_audit_status": "numeric_binding_rechecked",
       "profile_url": "https://weibo.com/chinesewsj",
       "recovered_posts": 0,
       "relationship": "Historical official Chinese-language WSJ account; not a current-activity assertion",
@@ -5765,13 +5765,13 @@
       },
       {
         "account_id": "wsj-chinese-candidate",
-        "method": "prior_archive_not_reread",
-        "note": "Previously documented historical UID retained, not independently revalidated in this audit. Modern native profile redirects; no saved primary owner HTML was found. The archive access restriction was respected. No recovered posts for this channel.",
+        "method": "cached_primary_original_author_card",
+        "note": "Saved first-party Weibo original-author card independently binds display name \u534e\u5c14\u8857\u65e5\u62a5\u4e2d\u6587\u7f51, vanity chinesewsj and usercard UID 1649159940. The containing Bloomberg feed identifies its own UID as 5076455752 and the reposted original author as 1649159940; these are not conflated. This is historical identity evidence from a 2017 capture, not current control or a new in-window post. No 2017 posts were imported.",
         "observed_certification": null,
-        "observed_name": null,
-        "source_sha256": null,
-        "source_url": "https://web.archive.org/web/20190724092335/https://www.weibo.com/chinesewsj",
-        "status": "numeric_binding_recheck_pending",
+        "observed_name": "\u534e\u5c14\u8857\u65e5\u62a5\u4e2d\u6587\u7f51",
+        "source_sha256": "db0cb201193e0c79d4762b47087b94daeed631da4dbdc0e137b8f772cf337df2",
+        "source_url": "https://web.archive.org/web/20170608194454id_/http://weibo.com/chinabloomberg",
+        "status": "numeric_binding_rechecked",
         "uid": "1649159940"
       },
       {
@@ -5808,7 +5808,7 @@
         "uid": "1686203097"
       }
     ],
-    "audited_at": "2026-10-22T19:51:55.598955+00:00",
+    "audited_at": "2026-10-22T20:21:49.749946+00:00",
     "canonical_posts_sha256": "242c8aa8adc3dda09fd4b9427491475dbd90b86be82e26d2496bc28ecfa52130",
     "corpus": {
       "archived_sources_checked": 46,
@@ -5839,7 +5839,7 @@
     "excluded_attribution_posts": 0,
     "excluded_unconfirmed_posts": 0,
     "latest_collection_at": "2026-10-22T12:21:30.503751+00:00",
-    "primary_audit_sha256": "1c22945841e7694406af77723eca7e713049ec231c208a2f607d0fe3f1b95890",
+    "primary_audit_sha256": "acc13fb9e10856b71426175d26f56c00db301cb83748bdda6e2b6a51498c2b8e",
     "publication_timezone": "Asia/Shanghai",
     "registry_sha256": "981fbd126c9a2d16e2105ea77cee4034b63ac7d553081985c9e3d0b1d5bfa946",
     "requested_windows": [
