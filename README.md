@@ -82,6 +82,11 @@ their errors are saved in the run checkpoint and do not prevent other feed
 entries from being processed. A new feed pass retries details. `archive` reruns
 deduplicate post IDs and retain snapshot provenance.
 
+An explicit detail-page contradiction in post ID, author UID, or the requested
+date/attribution bounds is different from an unavailable detail page: that source
+is skipped, not imported as a fallback preview. Such conflicts are retained in
+the run checkpoint's `source_conflicts` for review.
+
 Accounts may specify an optional `attribution_end` date (`YYYY-MM-DD`, exclusive,
 Asia/Shanghai). Live collection, archives and imports all exclude publications
 on or after that cutoff, even if the UID and displayed brand name are unchanged.

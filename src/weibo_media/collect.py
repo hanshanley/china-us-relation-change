@@ -139,8 +139,10 @@ def parse_feed(html, expected_name=None):
 def parse_detail(html, expected_id, expected_uid):
     tree = HTMLTree(html).root
     root = next((node for node in tree.walk() if node.tag == "html"), None)
-    if root is None or root.attrs.get("data-id") != expected_id:
-        raise ValueError("Detail post ID mismatch")
+    if root is None or not root.attrs.get("data-id"):
+        raise ValueError("Missing detail post identity")
+    if root.attrs["data-id"] != expected_id:
+        raise SourceConflict("Detail post ID mismatch")
     documents = []
     for node in tree.walk():
         if node.tag == "script" and node.attrs.get("type") == "application/ld+json":
@@ -153,8 +155,12 @@ def parse_detail(html, expected_id, expected_uid):
         raise ValueError("Missing unambiguous post provenance in detail page")
     article = articles[0]
     author = article.get("author", {})
-    if isinstance(author, list) or urlsplit(author.get("url", "")).path != f"/u/{expected_uid}":
-        raise ValueError("Detail author UID mismatch")
+    author_url = author.get("url") if isinstance(author, dict) else None
+    author_path = urlsplit(author_url).path if isinstance(author_url, str) else ""
+    if not re.fullmatch(r"/u/[0-9]+", author_path):
+        raise ValueError("Missing unambiguous detail author identity")
+    if author_path != f"/u/{expected_uid}":
+        raise SourceConflict("Detail author UID mismatch")
     body = tree.find("article-content")
     if len(body) != 1 or not body[0].text():
         raise ValueError("Missing detail text")
@@ -165,6 +171,10 @@ def parse_detail(html, expected_id, expected_uid):
 
 
 class AccessBlocked(Exception):
+    pass
+
+
+class SourceConflict(ValueError):
     pass
 
 
@@ -374,7 +384,7 @@ def collect_account(db, account_id, start, end, client, limit=50):
                     item.update(source_type="sina_syndication", retrieved_at=now())
                     post = normalize(item, account, start, end)
                     if not post:
-                        raise ValueError("Detail publication time disagrees with the in-window feed")
+                        raise SourceConflict("Detail publication time disagrees with the in-window feed")
                     # Counts were observed on the feed, not the detail page.
                     for key in ("likes", "comments", "reposts"):
                         post[key] = None
@@ -382,7 +392,13 @@ def collect_account(db, account_id, start, end, client, limit=50):
                     detail_error = error
             recovered_ids = checkpoint.setdefault("recovered_ids", [])
             new_id = preliminary["id"] not in recovered_ids
-            in_window = normalize(preliminary, account, start, end)
+            conflicts = checkpoint.setdefault("source_conflicts", {})
+            if isinstance(detail_error, SourceConflict):
+                conflicts[preliminary["id"]] = str(detail_error)
+                in_window = None
+            else:
+                conflicts.pop(preliminary["id"], None)
+                in_window = normalize(preliminary, account, start, end)
             if in_window and new_id:
                 recovered_ids.append(preliminary["id"])
             detail_errors = checkpoint.setdefault("detail_errors", {})
@@ -402,7 +418,9 @@ def collect_account(db, account_id, start, end, client, limit=50):
                 db.execute("UPDATE runs SET checkpoint=? WHERE id=?", (json_text(checkpoint), run_id))
         with db:
             errors = checkpoint.get("detail_errors", {})
-            summary = f"{len(errors)} detail pages unavailable; previews retained. {json_text(errors)}" if errors else None
+            conflicts = checkpoint.get("source_conflicts", {})
+            summary = (f"{len(errors) - len(conflicts)} detail pages unavailable; previews retained. "
+                       f"{len(conflicts)} source conflicts skipped. {json_text(errors)}" if errors else None)
             db.execute("UPDATE runs SET status=?,finished_at=?,error=? WHERE id=?",
                        ("blocked" if getattr(client, "blocked", None) else "partial",
                         now(), summary, run_id))

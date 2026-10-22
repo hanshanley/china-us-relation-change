@@ -214,6 +214,47 @@ class PipelineTest(unittest.TestCase):
         self.assertEqual(self.db.execute("SELECT COUNT(*) FROM posts").fetchone()[0], 0)
         self.assertEqual(client.calls, [url])
 
+    def test_conflicting_detail_identity_or_date_does_not_become_an_attributed_preview(self):
+        with self.db:
+            self.db.execute("UPDATE accounts SET attribution_end='2023-11-01'")
+        conflicts = [
+            detail(uid="999"),
+            detail(post_id="999"),
+            detail().replace("2020-01-01 00:00", "2026-10-22 00:00"),
+            detail().replace("2020-01-01 00:00", "2023-11-01 00:00"),
+        ]
+        for number, conflicting in enumerate(conflicts, 1):
+            with self.subTest(case=number):
+                good = record(str(int(POST_ID) + number))
+                client = FakeClient({
+                    "https://www.sina.cn/media/" + UID: feed([record(), good]),
+                    record()["source_url"]: conflicting,
+                    good["source_url"]: detail(post_id=good["id"]),
+                })
+                run = collect_account(self.db, "test-account", *self.bounds, client, limit=2)
+                self.assertEqual(run["posts_recovered"], 1)
+                self.assertIsNone(self.db.execute("SELECT id FROM posts WHERE id=?", (POST_ID,)).fetchone())
+                self.assertEqual(self.db.execute(
+                    "SELECT text_status FROM posts WHERE id=?", (good["id"],)).fetchone()[0], "source_full")
+                checkpoint = json.loads(run["checkpoint"])
+                self.assertEqual(checkpoint["next"], 2)
+                self.assertIn(POST_ID, checkpoint["source_conflicts"])
+                self.assertNotIn(POST_ID, checkpoint["recovered_ids"])
+                self.assertIn("source conflicts skipped", run["error"])
+
+    def test_missing_detail_identity_retains_only_the_scoped_feed_preview(self):
+        for body in (detail().replace(f'data-id="{POST_ID}"', ""),
+                     detail().replace(json.dumps("https://weibo.com/u/" + UID), "null")):
+            with self.subTest(body=body[:50]):
+                client = FakeClient({
+                    "https://www.sina.cn/media/" + UID: feed([record()]),
+                    record()["source_url"]: body,
+                })
+                run = collect_account(self.db, "test-account", *self.bounds, client)
+                self.assertEqual(run["posts_recovered"], 1)
+                self.assertEqual(self.db.execute("SELECT text_status FROM posts").fetchone()[0], "truncated")
+                self.assertFalse(json.loads(run["checkpoint"])["source_conflicts"])
+
     def test_resume_skips_old_pinned_post_without_stopping_and_deduplicates(self):
         pinned = record("90071992547409930", "2019-01-01 00:00")
         client = FakeClient({
