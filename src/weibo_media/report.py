@@ -177,6 +177,8 @@ def report(db, path):
               "resolved account and Popular Science's current identity/cutoff reassessment, "
               "[ranked-publisher follow-up](discovery_iteration8.md) for five further source-cohort "
               "reviews and the Men's Health Chinese edition, "
+              "[local-publisher follow-up](discovery_iteration9.md) for Chinese Radio Seattle's "
+              "historical account and five further ranked reviews, "
               "and [access pilot](access_pilot.md) for source-level "
               "access checks and archive gaps.", ""]
     target = Path(path)

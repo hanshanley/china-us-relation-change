@@ -5,6 +5,9 @@ publication interval remains January 1, 2020 through October 21, 2026
 inclusive, Asia/Shanghai. This continues checkpoint `5abe1d8`, rather than
 closing the research at a publication milestone.
 
+This is a historical checkpoint. [The next local-publisher follow-up](discovery_iteration9.md)
+adds Chinese Radio Seattle and five further ranked reviews.
+
 ## Five actual ranked-source reviews
 
 The next previously unreviewed selected-cohort domains were investigated

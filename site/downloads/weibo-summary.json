@@ -127,6 +127,20 @@
       "relationship": "U.S.-based Chinese-language newspaper account, now branded \u4fa8\u62a5\u7f8e\u897f; historically publisher-linked, not a separately licensed U.S.-brand edition"
     },
     {
+      "account_id": "chinese-radio-seattle-historical",
+      "attribution_end": null,
+      "earliest_publication_utc": "2021-12-02T03:16:00+00:00",
+      "existence": "historical",
+      "latest_publication_utc": "2021-12-04T03:42:00+00:00",
+      "latest_run_source": "import",
+      "latest_run_status": "partial",
+      "outlet_id": "chinese-radio-seattle",
+      "outlet_name": "Chinese Radio Seattle / \u897f\u96c5\u56fe\u4e2d\u6587\u7535\u53f0",
+      "profile_url": "https://weibo.com/chineseradioseattle",
+      "recovered_posts": 15,
+      "relationship": "U.S. Chinese-language community-radio/news publisher's own historical official channel, not a present KKNW carriage claim or a host's personal account"
+    },
+    {
       "account_id": "chineseinla-weibo",
       "attribution_end": null,
       "earliest_publication_utc": "2020-04-14T05:00:00+00:00",
@@ -1024,18 +1038,18 @@
     }
   ],
   "roster": {
-    "confirmed_accounts": 73,
-    "confirmed_outlets": 50,
-    "outlets": 97,
-    "reviewed_outlets": 97
+    "confirmed_accounts": 74,
+    "confirmed_outlets": 51,
+    "outlets": 103,
+    "reviewed_outlets": 103
   },
   "source": {
-    "corpus_metadata_sha256": "57136ba74b56d95f8e19a186b2cfb4910154a9c67b301373580dec8ed71bbca7",
+    "corpus_metadata_sha256": "104aa6c2a15d5f9f62df717fb8e0b91c4428e1f2a454f5586df01759ba80dc0a",
     "excluded_attribution_posts": 0,
     "excluded_unconfirmed_posts": 0,
-    "latest_collection_at": "2026-10-22T03:38:58.276577+00:00",
+    "latest_collection_at": "2026-10-22T04:32:34.905283+00:00",
     "publication_timezone": "Asia/Shanghai",
-    "registry_sha256": "91450094652eedf20e2a0d180c0b53d0cd8caf0d0e0699f05a0301fa747ce140",
+    "registry_sha256": "2edf2dc6ce8b974a7971de60e23405cbc1a1c0833d61c5ed46cfd3045709f29f",
     "requested_windows": [
       {
         "end": "2026-10-21T16:00:00+00:00",
@@ -1045,11 +1059,11 @@
   },
   "text_completeness": [
     {
-      "recovered_posts": 4840,
+      "recovered_posts": 4846,
       "status": "source_full"
     },
     {
-      "recovered_posts": 702,
+      "recovered_posts": 711,
       "status": "truncated"
     },
     {
@@ -1068,7 +1082,7 @@
       "year": 2020
     },
     {
-      "recovered_posts": 338,
+      "recovered_posts": 353,
       "year": 2021
     },
     {

@@ -380,7 +380,10 @@ def publish(roster_path, screening_directory, directory, report_path):
         "Knowledge at Wharton's locator and reassesses Popular Science's current identity and "
         "distribution-based cutoff. [Ranked-publisher follow-up](discovery_iteration8.md) checks "
         "five further selected-cohort publishers without converting missing evidence into account "
-        "negatives, and verifies the supplementary Men's Health Chinese edition. Current status and legal operator "
+        "negatives, and verifies the supplementary Men's Health Chinese edition. "
+        "[Local-publisher follow-up](discovery_iteration9.md) adds the archive-bound Chinese Radio "
+        "Seattle identity and five more ranked reviews, while keeping newly located Chicago/New York "
+        "candidates separate from resolved accounts. Current status and legal operator "
         "uncertainty remain explicit.", "",
         "## Complete machine-readable deliverables", "",
         "- [All 1,000 ranked U.S. domains](../data/discovery/us_top1000.csv)",

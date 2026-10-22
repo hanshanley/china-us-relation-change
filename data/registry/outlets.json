@@ -412,7 +412,7 @@
       "id": "chineseinny", "name": "ChineseInNY / NYChinaRen candidate", "category": "community_information",
       "aliases": ["纽约华人资讯网", "NYChinaRen"], "us_basis": "U.S.-oriented local news/information website candidate. U.S. audience and service hours are explicit, but its physical/editorial base and network grouping remain unverified; not admitted to the confirmed U.S. publisher count.",
       "source_url": "https://www.chineseinny.com/", "research_status": "reviewed",
-      "notes": "Current publisher-managed dropdown explicitly labels its nychinaren link as the official Weibo. This is positive publisher-link evidence, not a failed official-account search. Stable UID remains unresolved; no exact alias archive was recovered. About text inconsistently combines a New York brand with Northern California/San Francisco audience wording. Do not invent a New York headquarters, independent corporate status or ownership equivalence with ChineseInLA from common templates, city menus or service telephone numbers. Retained as a scope/UID-pending lead rather than a confirmed U.S.-based publisher/account row. Review date: 2026-10-21."
+      "notes": "Publisher-managed dropdown explicitly labels nychinaren as its official Weibo. A newly indexed same-name Sina candidate is UID3203515410, whose visible profile locates it in Tianjin Heping District; the publisher-linked handle has not been independently bound to that UID. An exact numeric-profile archive index was empty. About text mixes New York branding with Northern California/San Francisco audience wording. Neither audience geography, shared templates, service telephones nor the candidate's self-reported location establishes legal headquarters, independent corporate status or ChineseInLA ownership. Positive publisher-link evidence is retained, but stable handle/UID binding and U.S.-publisher scope remain pending, not a verified-negative account finding. Review date: 2026-10-22 UTC."
     },
     {
       "id": "conde-nast-traveler", "name": "Conde Nast Traveler / China", "category": "travel_media",
@@ -442,7 +442,7 @@
       "id": "chinese-of-chicago", "name": "ChineseOfChicago / 芝加哥侨学网", "category": "us_chinese_language",
       "aliases": ["芝加哥侨学网"], "us_basis": "Chicago-focused Chinese community-news/information publisher; its own About page describes its2009 establishment and Greater Chicago community-news role. Legal headquarters not independently audited.",
       "source_url": "https://www.chineseofchicago.com/", "research_status": "reviewed",
-      "notes": "Current network access failed, so original2012/2020 publisher roots and a2026 publisher About capture were inspected. No qualifying account link was resolved. Local-news identity and account existence are separate; unreadable pages or missing links are not verified negatives. Source: https://web.archive.org/web/20260110152720id_/http://www.chineseofchicago.com/aboutus.aspx . Review date: 2026-10-21."
+      "notes": "Earlier publisher roots lacked a resolved profile, but a newly located April11,2017 Sohu guide attributed to the publisher explicitly names chineseofchicago as its Weibo. An indexed publisher-forum excerpt also mentions its Weibo service; the actual forum request timed out, so staff authorship was not independently established. Exact and bounded-prefix platform archive queries did not resolve a stable UID. The attributed handle is a new positive locator lead, not sufficient numeric-account confirmation or proof of current activity. Original2012/2020 publisher roots and the2026 About capture establish the local publication separately. Source: https://web.archive.org/web/20260110152720id_/http://www.chineseofchicago.com/aboutus.aspx . Review date: 2026-10-22 UTC."
     },
     {
       "id": "ming-pao-us", "name": "Ming Pao / New York edition historical evidence", "category": "us_chinese_language",
@@ -526,6 +526,48 @@
       "us_basis": "Audio/broadcast media domain classified United States in the selected source roster at position31; publisher-controlled root and its explicitly linked corporate site establish the network identity, not an independent ultimate-ownership audit.",
       "source_url": "https://www.siriusxm.com/", "research_status": "reviewed",
       "notes": "Actual broadcast-network root and corporate.siriusxm.com root were readable without a qualifying publisher Weibo link. A bounded archive-prefix query timed out. Show hosts, subsidiary services, broadcast partners and shared-name profiles are not proof of the network's own account. No absence or zero-output claim is made. Review date: 2026-10-22 UTC."
+    },
+    {
+      "id": "nj-com", "name": "NJ.com", "category": "local_news",
+      "aliases": ["NJ.com", "New Jersey news"],
+      "us_basis": "Selected United States-classified media domain at source position34; this roster label is not a separate corporate-ownership or headquarters audit.",
+      "source_url": "https://www.nj.com/", "research_status": "reviewed",
+      "notes": "Actual publisher-root request returned HTTP403. No live hostname aliases or alternative paths were used to evade it. Publisher Weibo existence remains unknown; a blocked page is not a verified account negative. Review date: 2026-10-22 UTC."
+    },
+    {
+      "id": "bleacher-report", "name": "Bleacher Report", "category": "digital_sports_media",
+      "aliases": ["Bleacher Report", "B/R", "看台报告", "露天看台", "B/R足球"],
+      "us_basis": "U.S.-classified sports-media website at selected source position37; current publisher-controlled root, actual Who We Are and Contact B/R pages establish the publication identity, not independently audited legal ownership.",
+      "source_url": "https://bleacherreport.com/", "research_status": "reviewed",
+      "notes": "Initial2,000,000-byte root response was truncated and was not treated as a full screen. A bounded larger read resolved the complete2,925,912-byte document and exposed actual /pages/about and /pages/contact routes, both independently read. No qualifying Weibo link was found in those bounded sources. Chinese B/R and sports aliases are discovery terms only: fans, athletes, translated citations, parent Warner channels and rights partners are not the publisher's own account by inference. Unknown, not absent. Review date: 2026-10-22 UTC."
+    },
+    {
+      "id": "cleveland-plain-dealer", "name": "Cleveland.com / The Plain Dealer", "category": "local_news",
+      "aliases": ["Cleveland.com", "The Plain Dealer"],
+      "us_basis": "United States-classified Cleveland news domain at selected source position38; current corporate ownership and editorial staffing were not independently audited in this account-search pass.",
+      "source_url": "https://www.cleveland.com/", "research_status": "reviewed",
+      "notes": "Actual publisher-root request returned HTTP403; no live alias or alternate-route access bypass was attempted. Dedicated publisher account remains unresolved. Cleveland sports-team, tourism and similarly named personal profiles would not establish a newspaper account. Review date: 2026-10-22 UTC."
+    },
+    {
+      "id": "pittsburgh-post-gazette", "name": "Pittsburgh Post-Gazette", "category": "newspaper",
+      "aliases": ["Pittsburgh Post-Gazette", "匹兹堡邮报"],
+      "us_basis": "United States-classified Pittsburgh newspaper domain at selected source position39; actual publisher homepage was readable, without asserting a separate legal-ownership audit.",
+      "source_url": "https://www.post-gazette.com/", "research_status": "reviewed",
+      "notes": "Complete current root had no qualifying Weibo link. Actual footer Contact Us points to /help, missed by generic About-route matching; that real route was attempted but its cross-publisher or non-HTTPS redirect was not followed. Unreadable contact content and Chinese articles quoting the newspaper are not account-negative or official-profile evidence. Review date: 2026-10-22 UTC."
+    },
+    {
+      "id": "chicago-sun-times", "name": "Chicago Sun-Times", "category": "newspaper",
+      "aliases": ["Chicago Sun-Times", "芝加哥太阳时报"],
+      "us_basis": "U.S.-classified source position40; the newspaper's own About page identifies its1948 founding, Chicago publication role and2022 entry into Chicago Public Media, rather than relying on an unrelated similarly named newspaper.",
+      "source_url": "https://chicago.suntimes.com/", "research_status": "reviewed",
+      "notes": "Actual current root, About, staff and Contact pages were all read without a qualifying publication Weibo link. Contact was followed separately because the initial three-page bound had selected About and staff first. Staff profiles, parent Chicago Public Media/WBEZ and British Sun/Sunday Times identities are not substituted for this U.S. newspaper. Account remains unknown, not verified absent. Review date: 2026-10-22 UTC."
+    },
+    {
+      "id": "chinese-radio-seattle", "name": "Chinese Radio Seattle / 西雅图中文电台", "category": "us_chinese_language",
+      "aliases": ["Chinese Radio Seattle", "西雅图中文电台"],
+      "us_basis": "Publisher's own About page explicitly states its May2012 founding and June25,2012 first broadcast, gives its Bellevue, Washington office and names the supporting Seattle Chinese Broadcasting Association. U.S. community news/broadcast publisher; legal ownership is not independently audited.",
+      "source_url": "https://chineseradioseattle.com/", "research_status": "reviewed",
+      "notes": "Owned About page twice links chineseradioseattle and explicitly labels it the official Weibo. Exact2013 and2021 profile captures consistently bind UID2838103342 and the publication name. The current public numeric feed redirects and was not followed; current activity/control are not asserted. About's precise notice says KKNW AM1150 carriage ended October1,2026, so the publisher is not described as still broadcasting there. This is the publication's own account, not a host's personal profile or the separate KKNW station account. Review date: 2026-10-22 UTC."
     },
     {
       "id": "mens-health", "name": "Men's Health / Chinese edition", "category": "health_lifestyle_media",
@@ -1151,6 +1193,14 @@
       "notes": "Portal's owned contact-page widget explicitly names UID2676312451; current institution names 美国商业资讯(Business Wire China)官方微博. Partner About page declares the distribution relationship; U.S. brand origin is independently established by Business Wire's own corporate milestone document. Operator location and brand origin are not conflated."
     },
     {
+      "id": "chinese-radio-seattle-historical", "outlet_id": "chinese-radio-seattle", "uid": "2838103342", "handle": "chineseradioseattle",
+      "display_name": "西雅图中文电台", "profile_url": "https://weibo.com/chineseradioseattle", "language": "zh-Hans",
+      "operator": "Chinese Radio Seattle publishing operation; exact legal Weibo account-owning entity and current control not independently audited",
+      "relationship": "U.S. Chinese-language community-radio/news publisher's own historical official channel, not a present KKNW carriage claim or a host's personal account",
+      "officialness": "confirmed", "existence": "historical", "accessibility": "unknown",
+      "notes": "Publisher-managed About explicitly labels the handle official. Independent2013/2021 original captures have owner-scoped oid2838103342 and onick西雅图中文电台; the2021 snapshot retains15 recognized posts. Current publisher hyperlink alone does not prove that the numeric account survives or is active; the permitted current feed redirects and was not followed. No deletion or suspension inference is made."
+    },
+    {
       "id": "npr-china-historical", "outlet_id": "npr", "uid": "2370374565", "handle": "nprshanghai",
       "display_name": "美国全国公共广播电台NPR", "profile_url": "https://weibo.com/nprshanghai", "language": "zh-Hans",
       "operator": "Historical NPR Chinese-language institutional account; exact legal account-owning entity and present control not independently audited",
@@ -1168,6 +1218,30 @@
     }
   ],
   "evidence": [
+    {
+      "id": "crs-owned-official-weibo-link", "account_id": "chinese-radio-seattle-historical",
+      "source_url": "https://chineseradioseattle.com/about/", "source_type": "publisher_link",
+      "observed_at": "2026-10-22T04:23:34.581879+00:00", "claim_date": null, "supports": "identity",
+      "justification": "Publisher's own About explicitly labels its clickable chineseradioseattle handle 西雅图中文电台官方微博 and repeats the same social link. Confirms publisher attribution, not current profile survival or posting activity."
+    },
+    {
+      "id": "crs-owned-us-publication-basis", "account_id": "chinese-radio-seattle-historical",
+      "source_url": "https://chineseradioseattle.com/about/", "source_type": "publisher_statement",
+      "observed_at": "2026-10-22T04:23:34.581879+00:00", "claim_date": null, "supports": "relationship",
+      "justification": "Own About records May2012 establishment, June25,2012 first broadcast, a Bellevue WA office and the Seattle Chinese Broadcasting Association. Its dated notice says KKNW AM1150 carriage ended October1,2026; neither current carriage nor audited legal account control is inferred."
+    },
+    {
+      "id": "crs-2013-owner-uid-binding", "account_id": "chinese-radio-seattle-historical",
+      "source_url": "https://web.archive.org/web/20131018001749id_/http://weibo.com:80/chineseradioseattle", "source_type": "platform_profile",
+      "observed_at": "2026-10-22T04:27:51.356424+00:00", "claim_date": "2013-10-18T00:17:49+00:00", "supports": "historical",
+      "justification": "Exact original profile capture has publication title and owner $CONFIG oid2838103342/onick西雅图中文电台. Independently binds the publisher-owned handle to this UID; unrelated viewer/recommended identities are not used."
+    },
+    {
+      "id": "crs-2021-owner-uid-binding", "account_id": "chinese-radio-seattle-historical",
+      "source_url": "https://web.archive.org/web/20211205120714id_/https://www.weibo.com/chineseradioseattle", "source_type": "platform_profile",
+      "observed_at": "2026-10-22T04:28:52.508457+00:00", "claim_date": "2021-12-05T12:07:14+00:00", "supports": "historical",
+      "justification": "Independent exact2021 capture retains the same owner UID and name plus15 author-validated posts dated December2-4,2021 Shanghai. Snapshot identity/posts are historical evidence, not proof of activity on capture day or in2026."
+    },
     {
       "id": "forbes-publisher-link", "account_id": "forbes-china",
       "source_url": "https://www.forbeschina.com/", "source_type": "publisher_link",
