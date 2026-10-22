@@ -5,6 +5,9 @@ Research observed October 22, 2026 UTC/EDT, continuing checkpoint
 October 21, 2026 inclusive, Asia/Shanghai. Publication checkpoints do not
 complete the ongoing discovery task.
 
+This is a historical checkpoint. [The next trade-edition and archive follow-up](discovery_iteration11.md)
+resolves Variety's Chinese edition and continues the actual ranked-source frontier.
+
 ## Another independently identified U.S.-brand publication channel
 
 **Rolling Stone's Chinese edition, RollingStone中文版, is now resolved as

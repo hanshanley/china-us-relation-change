@@ -605,6 +605,48 @@
       "notes": "Complete current root and actual Contact page were read without a qualifying Weibo link. Both linked trailing-slash variants were observed; their redirects resolve to the same institutional page, not two independent sources. Bay Area News Group affiliation, individual reporters and San Jose sports organizations are not a dedicated publication account. Account remains unresolved, not verified absent. Review date: 2026-10-22 UTC."
     },
     {
+      "id": "oregonian", "name": "The Oregonian / OregonLive", "category": "local_news",
+      "aliases": ["The Oregonian", "OregonLive"],
+      "us_basis": "U.S.-classified Oregon news domain at selected source position48; an independently read original2013 publisher homepage identifies its Oregon local-news operation. No separate legal-ownership audit is asserted.",
+      "source_url": "https://www.oregonlive.com/", "research_status": "reviewed",
+      "notes": "Actual live publisher root returned HTTP403; no live aliases or alternate paths were used to evade it. Exact2012 archived root failed strict text decoding, so a separately indexed exact January1,2013 capture was explicitly requested and read. That capture had no qualifying Weibo link; it was not silently relabeled as the failed2012 capture. Account remains unknown, not verified absent. Review date: 2026-10-22 UTC."
+    },
+    {
+      "id": "la-opinion", "name": "La Opinión / Los Angeles", "category": "spanish_language_newspaper",
+      "aliases": ["La Opinión", "LaOpinion"],
+      "us_basis": "U.S.-classified source position49; own Spanish-language About states its1926 Los Angeles, California founding and names the publishing companies. U.S. publication identity is separate from an independently audited current legal-control claim.",
+      "source_url": "https://laopinion.com/", "research_status": "reviewed",
+      "notes": "Complete actual root and its real footer-linked /acerca-de-nosotros/ page were read without a qualifying Weibo profile. The Spanish route was discovered from the publisher rather than guessed through an English About convention. Distinguish the Los Angeles publication from similarly named Latin American newspapers, staff and general parent-company channels. Unknown, not absent. Review date: 2026-10-22 UTC."
+    },
+    {
+      "id": "denver-post", "name": "The Denver Post", "category": "newspaper",
+      "aliases": ["Denver Post", "丹佛邮报"],
+      "us_basis": "U.S.-classified source position50; actual publisher root identifies Colorado news and its Contact page identifies the Denver, Colorado newsroom, not an independently audited legal headquarters.",
+      "source_url": "https://www.denverpost.com/", "research_status": "reviewed",
+      "notes": "Current root and actual footer-linked Contact page were readable without a qualifying Weibo profile. Slash variants resolve to the same Contact page; malformed email-looking relative links were not followed as institutional evidence. Individual reporters, Denver sports organizations and other MediaNews Group publications are not this newspaper's own account by inference. Account remains unknown. Review date: 2026-10-22 UTC."
+    },
+    {
+      "id": "mlive", "name": "MLive / Michigan", "category": "local_news",
+      "aliases": ["MLive", "MLive Michigan"],
+      "us_basis": "United States-classified source position52; independently read original2013 publisher homepage explicitly identifies Michigan local-news reporting. Corporate nationality and ownership are not independently audited.",
+      "source_url": "https://www.mlive.com/", "research_status": "reviewed",
+      "notes": "Actual live root returned HTTP403. No live alias or alternative-route bypass was attempted. Exact2012 archive decoding failed, but the separately indexed January1,2013 original publisher root was readable with its own recorded capture timestamp, without a qualifying profile link. Shared MLive/M直播 names, staff and a generic parent Advance channel do not establish this Michigan publisher's account. Unknown, not absent. Review date: 2026-10-22 UTC."
+    },
+    {
+      "id": "oklahoman", "name": "The Oklahoman / historical News OK", "category": "newspaper",
+      "aliases": ["The Oklahoman", "News OK", "NewsOK"],
+      "us_basis": "U.S.-classified Oklahoma news domain at selected source position53; independently read exact2020 publisher-domain capture identifies its Oklahoma City news operation under the historical News OK title. Current ownership is not independently audited.",
+      "source_url": "https://www.oklahoman.com/", "research_status": "reviewed",
+      "notes": "Live robots request returned HTTP403 before any publisher page was fetched; no live hostname/path workaround was used. Independently permitted January1,2020 root capture at oklahoman.com was readable and actually titled News OK; that title and capture date are retained rather than presented as a current homepage. No qualifying Weibo link was resolved. Empty evidence or policy refusal is not a verified account negative. Review date: 2026-10-22 UTC."
+    },
+    {
+      "id": "variety", "name": "Variety / Chinese edition", "category": "entertainment_trade_news",
+      "aliases": ["视相Variety", "Variety China", "Variety中文版"],
+      "us_basis": "U.S. publication: PMC's own corporate history identifies Variety's1905 New York founding by Sime Silverman. PMC's June5,2019 announcement independently documents its licensed Chinese edition and Beijing partner.",
+      "source_url": "https://variety.com/", "research_status": "reviewed",
+      "notes": "The Chinese publication's actual name is 视相Variety, not an inferred generic 综艺 title. Native post4458445086373109 and owner-scoped current blue institutional certification independently bind UID7246608144 to that publication. PMC's own2019 announcement names Woruitai (Beijing) Culture Media as its licensed edition partner; planned August1 digital/September1 print dates are not asserted as verified completed launches. Current identity does not prove current activity, legal account control or license renewal; the2019 join date is not independently backdated certification. Staff, fan accounts, generic Weibo variety-show services and unrelated Chinese entertainment publications are excluded. Review date: 2026-10-22 UTC."
+    },
+    {
       "id": "rolling-stone", "name": "Rolling Stone / Chinese edition", "category": "music_culture_media",
       "aliases": ["RollingStone中文版", "RollingStone大水花", "Rolling Stone大水花", "滚石杂志中文版"],
       "us_basis": "U.S. publication: PMC's own January29,2021 release explicitly locates Rolling Stone in New York, and its corporate history records the magazine's1967 San Francisco founding. The Chinese license partner's editorial operation is separately labeled.",
@@ -660,6 +702,14 @@
     }
   ],
   "accounts": [
+    {
+      "id": "variety-china", "outlet_id": "variety", "uid": "7246608144", "handle": null,
+      "display_name": "视相Variety", "profile_url": "https://weibo.com/u/7246608144", "language": "zh-Hans",
+      "operator": "Woruitai (Beijing) Culture Media Co. Ltd. is the Chinese-edition partner named in PMC's2019 license announcement; exact current legal Weibo owner and later contracts unaudited",
+      "relationship": "Historically licensed U.S.-brand Chinese entertainment/culture edition with currently observable publication-specific institutional identity; not asserted U.S.-newsroom staffing or continuous license renewal",
+      "officialness": "confirmed", "existence": "current_evidence", "accessibility": "unknown",
+      "notes": "Owner blue-v certification explicitly identifies 《视相Variety》官方微博. Exact native cover post4458445086373109 independently validates author UID and publication name; the badge rendered today is not backdated to that January2020 publication. Current feed exposes101 entries dated May9-June30,2022, not proof of recent activity or complete history. PMC's licensed-edition statement establishes the brand relationship separately from profile-name matching."
+    },
     {
       "id": "rolling-stone-china", "outlet_id": "rolling-stone", "uid": "5202168303", "handle": null,
       "display_name": "RollingStone中文版", "profile_url": "https://weibo.com/u/5202168303", "language": "zh-Hans",
@@ -1268,6 +1318,30 @@
     }
   ],
   "evidence": [
+    {
+      "id": "variety-current-institution", "account_id": "variety-china",
+      "source_url": "https://www.sina.cn/media/7246608144", "source_type": "platform_certification",
+      "observed_at": "2026-10-22T05:24:07.199175+00:00", "claim_date": null, "supports": "identity",
+      "justification": "Owner profile header carries the blue-v institution badge, display 视相Variety and explicit 《视相Variety》官方微博 certification. This publication-specific institution is not a staff member, unrelated generic 综艺 publication, fan account or Weibo platform variety-show service."
+    },
+    {
+      "id": "variety-pmc-2019-chinese-license", "account_id": "variety-china",
+      "source_url": "https://www.pmc.com/news/variety-announces-launch-of-variety-china", "source_type": "publisher_statement",
+      "observed_at": "2026-10-22T05:24:01.911244+00:00", "claim_date": "2019-06-05", "supports": "relationship",
+      "justification": "PMC's own dated announcement licenses a Variety Chinese-language edition to Woruitai (Beijing) Culture Media Co. Ltd., with planned daily digital and monthly print publication. Describes the historical licensed editorial relationship, not independently audited later contract renewal, account legal ownership or actual fulfillment of each announced launch date."
+    },
+    {
+      "id": "variety-pmc-us-origin", "account_id": "variety-china",
+      "source_url": "https://www.pmc.com/our-story", "source_type": "publisher_statement",
+      "observed_at": "2026-10-22T04:58:56.527083+00:00", "claim_date": null, "supports": "relationship",
+      "justification": "Previously retrieved publisher-owned corporate-history timeline explicitly records Variety's1905 New York founding by Sime Silverman and its initial weekly entertainment newspaper. Original source retrieval timestamp is retained; U.S. publication origin is not inferred from a Chinese profile's audience."
+    },
+    {
+      "id": "variety-native-cover-post-uid", "account_id": "variety-china",
+      "source_url": "https://www.sina.cn/news/detail/4458445086373109.html", "source_type": "platform_post",
+      "observed_at": "2026-10-22T05:24:01.871603+00:00", "claim_date": "2020-01-08", "supports": "identity",
+      "justification": "Exact native data-id and unique NewsArticle author URL independently bind post4458445086373109 to UID7246608144 and 视相Variety. The post is dated January8,2020 Shanghai and names the publication's cover; the current certification rendered during2026 retrieval is not asserted as a contemporaneous2020 badge."
+    },
     {
       "id": "rolling-stone-current-institution", "account_id": "rolling-stone-china",
       "source_url": "https://www.sina.cn/media/5202168303", "source_type": "platform_certification",
