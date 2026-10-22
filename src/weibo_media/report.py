@@ -191,6 +191,8 @@ def report(db, path):
               "Chinese edition, fixed-window recovery and a separately held copyright partner, "
               "[China Press Bay Area follow-up](discovery_iteration15.md) for a second U.S. "
               "newspaper channel without inferring Seattle identity from a shared widget, "
+              "[Phoenix Americas follow-up](discovery_iteration16.md) for a specifically labeled "
+              "U.S.-based regional broadcaster, independently recovered posts and further publisher reviews, "
               "and [access pilot](access_pilot.md) for source-level "
               "access checks and archive gaps.", ""]
     target = Path(path)

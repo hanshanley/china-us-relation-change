@@ -745,6 +745,69 @@
       "notes": "Actual masthead domain failed modern TLS protocol negotiation; verification/security was not weakened and no HTTP downgrade used. Exact2015 domain capture was only a framing wrapper pointing to acmediaonline.net, not an inspected newspaper site. That destination currently failed DNS; its sole retrieved2020 archived capture was gambling-branded, not publisher content, so no social identifier there was attributed to the newspaper and no hacking/ownership cause asserted. The printed masthead and publication-branded issue remain scope evidence only; no official Sina account was resolved. Unknown, not absent. Review date: 2026-10-22 UTC."
     },
     {
+      "id": "press-democrat", "name": "The Press Democrat", "category": "newspaper",
+      "aliases": ["The Press Democrat", "Santa Rosa Press Democrat"],
+      "us_basis": "U.S.-classified source position75; own About identifies the Santa Rosa, California publication and its local newspaper history. Current legal control is not independently audited.",
+      "source_url": "https://www.pressdemocrat.com/", "research_status": "reviewed",
+      "notes": "Complete actual root, About and Contact were read without a qualifying Weibo profile. The Contact slash redirect is one source, not independent corroboration. About includes explicit AI/text-data-mining reuse restrictions; no deeper publisher-article mining or article-body redistribution was pursued. Correct publication-specific community item matches pressdemocrat.com without a main Sina identifier. Other Press Democrat News Group publications, staff, political-party accounts and similarly named papers were not substituted. Unknown, not absent. Review date: 2026-10-22 UTC."
+    },
+    {
+      "id": "omaha-world-herald", "name": "Omaha World-Herald", "category": "newspaper",
+      "aliases": ["Omaha World-Herald", "Omaha World Herald"],
+      "us_basis": "U.S.-classified source position76; actual publisher root identifies Omaha and Nebraska news and its institutional Contact identifies the publication. Corporate nationality and legal ownership are not independently audited.",
+      "source_url": "https://omaha.com/", "research_status": "reviewed",
+      "notes": "Complete current root and actual Contact were read without a qualifying Weibo link. Unexpanded template placeholders and individual staff paths were not followed as institutional account evidence. Correct publication-specific community item matches omaha.com but has no main Sina identifier. Lee parent channels, other World-Herald-titled publications and Nebraska sports accounts are not dedicated newspaper proof. Unknown, not absent. Review date: 2026-10-22 UTC."
+    },
+    {
+      "id": "pennlive-patriot-news", "name": "PennLive / The Patriot-News", "category": "local_news",
+      "aliases": ["PennLive", "PennLive.com", "The Patriot-News", "Patriot-News"],
+      "us_basis": "U.S.-classified source position77; independently read exact January2012 publisher root identifies Central Pennsylvania local reporting. The source cohort's Mechanicsburg label is not an independently audited current headquarters.",
+      "source_url": "https://www.pennlive.com/", "research_status": "reviewed",
+      "notes": "Live root returned403, respected without alternate live host/path bypass. The independently permitted exact January3,2012 publisher homepage was readable under its actual PennLive title, without a qualifying Weibo link. Separately indexed2013 capture was not silently substituted. Correct publication-specific community item matches pennlive.com but has no main Sina identifier. Advance parent channels, staff, other Patriot papers and New England Patriots accounts were not promoted. Unknown, not absent. Review date: 2026-10-22 UTC."
+    },
+    {
+      "id": "thestreet", "name": "TheStreet", "category": "financial_information_media",
+      "aliases": ["TheStreet", "The Street"],
+      "us_basis": "U.S.-classified source position78; independently retrieved exact2012 publisher root identifies TheStreet's financial-news and market-analysis service. Present legal ownership is not independently audited.",
+      "source_url": "https://www.thestreet.com/", "research_status": "reviewed",
+      "notes": "Actual live root returned403; no live aliases or alternative paths were used to bypass it. Independently permitted exact January1,2012 homepage was readable without a qualifying account link. Correct community item matches thestreet.com without a main Sina identifier; its historical public-company statement is not asserted as current corporate status. Weibo stock coverage, Wall Street Journal, similarly translated Chinese finance publishers, founders and commentators are not TheStreet's own profile. Unknown, not absent. Review date: 2026-10-22 UTC."
+    },
+    {
+      "id": "kansas-city-star", "name": "The Kansas City Star", "category": "newspaper",
+      "aliases": ["The Kansas City Star", "Kansas City Star"],
+      "us_basis": "U.S.-classified source position79; independently read exact2012 original publisher root identifies the Kansas City newspaper's local-news operation. Current corporate/account control is not independently audited.",
+      "source_url": "https://www.kansascity.com/", "research_status": "reviewed",
+      "notes": "Current robots request timed out before any publisher page was fetched. Independently permitted exact January1,2012 root was readable with its real title/timestamp and no qualifying Weibo link. Indexed2013 capture was not silently substituted. Correct article-owned community item matches kansascity.com without a main Sina identifier. Other Star newspapers, McClatchy parent channels, reporters and local sports teams were not substituted. Unknown, not absent. Review date: 2026-10-22 UTC."
+    },
+    {
+      "id": "northwest-asian-weekly", "name": "Northwest Asian Weekly", "category": "asian_american_news",
+      "aliases": ["Northwest Asian Weekly", "NW Asian Weekly"],
+      "us_basis": "Exact2012 owned About explicitly identifies an English-edition newspaper serving Washington's Asian community and a Seattle Chinatown/International District newsroom. It is not automatically a Chinese-language newspaper because it serves Asian communities.",
+      "source_url": "https://nwasianweekly.com/", "research_status": "reviewed",
+      "notes": "Live robots returned403 before publisher pages were fetched; no live-host/path workaround was used. Independently permitted exact2012 root and actual /about/ archive were read without a qualifying Weibo link. The original capture URL's trailing query marker and timestamp are preserved. Historically sister to Seattle Chinese Post, but the papers and their later ownership/digital histories are separate; no sister-paper account, print-cessation or ownership date is transferred to Weibo by inference. Unknown, not absent. Review date: 2026-10-22 UTC."
+    },
+    {
+      "id": "international-examiner", "name": "International Examiner", "category": "asian_american_news",
+      "aliases": ["The International Examiner", "International Examiner"],
+      "us_basis": "Exact2012 owned About explicitly identifies a Seattle mailing location and service to Asian Pacific American communities since1974. The publication is distinct from the separately registered Chinese-language International Daily News / 国际日报.",
+      "source_url": "https://iexaminer.org/", "research_status": "reviewed",
+      "notes": "Live root returned403 and was not bypassed. Independently permitted exact2012 root, actual /about-ie/ and /about-ie/history/ captures were readable without a qualifying Weibo link. Historical publisher pages establish the actual publication, not current legal-control or activity guarantees. Similar translated names, International Daily News's confirmed account, staff and community partners are not this publication's account by inference. Unknown, not absent. Review date: 2026-10-22 UTC."
+    },
+    {
+      "id": "epoch-times", "name": "The Epoch Times / 大纪元", "category": "us_chinese_language",
+      "aliases": ["The Epoch Times", "Epoch Times", "大纪元", "大紀元", "大纪元时报"],
+      "us_basis": "Own current English About explicitly identifies Chinese-language publishing by Chinese Americans in the United States in2000, and the English publisher root explicitly links its Chinese-language epochtimes.com edition. This establishes publication scope, not an endorsement of editorial self-assessments.",
+      "source_url": "https://www.theepochtimes.com/", "research_status": "reviewed",
+      "notes": "Complete actual English root, About and Contact were read without a qualifying Weibo profile; the English footer explicitly links the Chinese publication. No officialness was inferred from a generic Chinese display name, current politics, platform-censorship assumptions, staff, sister broadcasters or the parent's other channels. Factual U.S. publication identity is separated from the publisher's own editorial mission and awards claims. Organizational Weibo remains unresolved, not verified absent. Review date: 2026-10-22 UTC."
+    },
+    {
+      "id": "phoenix-americas", "name": "Phoenix Satellite Television / Americas U.S. operation", "category": "us_based_international_broadcaster",
+      "aliases": ["凤凰卫视美洲台", "鳳凰衛視美洲台", "凤凰美洲", "Phoenix Satellite Television (US) Inc.", "Phoenix Satellite TV (U.S.) Inc."],
+      "us_basis": "U.S.-based regional broadcaster, not a U.S.-origin or independently U.S.-owned brand: the publisher's own institutional page describes its California headquarters and local news production, and the certified profile explicitly identifies the U.S. company within the Hong Kong Phoenix group.",
+      "source_url": "https://www.ifengus.com/", "research_status": "reviewed",
+      "notes": "Current Americas-specific blue certification and independent native post/author validation bind UID5036617549 to 凤凰卫视美洲台, not the global parent account or a named presenter. Publisher's own2022 platform directory explicitly designates this Weibo name. Bare root's www redirect was refused until the actual www host's robots were checked independently; that permitted root is only a 429-byte HTML application shell, not HTTP429 or a full publication screen. Actual publisher institutional/platform pages were separately read with the web reader. U.S. operation is distinguished from U.S. ownership/origin; current legal account control, precise corporate continuity and present staffing are not independently audited. Initial feed exposes99 unique records plus one independently validated older native post outside that feed. No arbitrary activity/license cutoff is inferred from feed bounds or announced broadcast changes. Review date: 2026-10-22 UTC."
+    },
+    {
       "id": "salt-lake-tribune", "name": "The Salt Lake Tribune", "category": "newspaper",
       "aliases": ["Salt Lake Tribune", "The Salt Lake Tribune"],
       "us_basis": "United States-classified source position70; own About explicitly describes its Utah reporting role and2019 nonprofit conversion. Current legal-control details are not independently audited.",
@@ -919,6 +982,14 @@
     }
   ],
   "accounts": [
+    {
+      "id": "phoenix-americas-weibo", "outlet_id": "phoenix-americas", "uid": "5036617549", "handle": null,
+      "display_name": "凤凰卫视美洲台", "profile_url": "https://weibo.com/u/5036617549", "language": "zh-Hans",
+      "operator": "Phoenix Satellite Television (US) Inc., identified in the institutional profile; exact legal Weibo account owner and current corporate control not independently audited",
+      "relationship": "Americas-specific channel of a U.S.-based Chinese-language broadcaster within the Hong Kong Phoenix group; not the global parent account, a U.S.-origin brand or an independently U.S.-owned newsroom",
+      "officialness": "confirmed", "existence": "current_evidence", "accessibility": "unknown",
+      "notes": "Owner's blue institutional certification expressly identifies 鳳凰衛視美洲台官方微博, while the publisher's own2022 platform list separately designates the same name. Native post4974018524610732 independently validates exact data-id, unique NewsArticle and author /u/5036617549. Initial99-entry feed spans December1,2023 09:07 through October14,2026; the separately validated December1,2023 06:04 native post is older than that feed. Current badge is not backdated to post publication, caption text is not a video/transcript archive, and no unverified broadcast-relaunch or source-feed endpoint is converted into an account-attribution cutoff."
+    },
     {
       "id": "china-press-bay-area", "outlet_id": "china-press", "uid": "5253982517", "handle": null,
       "display_name": "旧金山湾区在线", "profile_url": "https://weibo.com/u/5253982517", "language": "zh-Hans",
@@ -1567,6 +1638,30 @@
     }
   ],
   "evidence": [
+    {
+      "id": "phoenix-americas-current-institution", "account_id": "phoenix-americas-weibo",
+      "source_url": "https://www.sina.cn/media/5036617549", "source_type": "platform_certification",
+      "observed_at": "2026-10-22T08:23:14.307698+00:00", "claim_date": null, "supports": "identity",
+      "justification": "Owner header carries blue-v certification explicitly naming 鳳凰衛視美洲台官方微博. Bio identifies Phoenix Satellite Television (US) Inc., its Hong Kong parent relationship and U.S. broadcasting operation; this is the regional institution, not a parent-company UID or presenter. Current certification and self-described history are not independent current legal-control or historical-badge audits."
+    },
+    {
+      "id": "phoenix-americas-owned-2022-platform-designation", "account_id": "phoenix-americas-weibo",
+      "source_url": "https://ifengus.com/a/31421.html", "source_type": "publisher_statement",
+      "observed_at": "2026-10-22T08:27:51.778478+00:00", "claim_date": "2022-12-20", "supports": "identity",
+      "justification": "Actual publisher-owned event page's 赛事报道平台 section explicitly lists 微博:凤凰卫视美洲台, its own website and the U.S. corporate name. Read separately with the web reader; the permitted current www homepage's empty application shell is not credited as a full article or institutional screen."
+    },
+    {
+      "id": "phoenix-americas-owned-us-operation", "account_id": "phoenix-americas-weibo",
+      "source_url": "https://ifengus.com/c/p/hiring", "source_type": "publisher_statement",
+      "observed_at": "2026-10-22T08:27:51.778478+00:00", "claim_date": null, "supports": "relationship",
+      "justification": "Publisher's actual institutional page describes the channel's2004 move to California, local news/program production and U.S. reporting operations. Supports the named regional broadcaster's U.S. operational basis, not a headquarters borrowed from its global parent, present U.S. ownership or independently audited exact current legal location/staffing."
+    },
+    {
+      "id": "phoenix-americas-native-2023-author-binding", "account_id": "phoenix-americas-weibo",
+      "source_url": "https://www.sina.cn/news/detail/4974018524610732.html", "source_type": "platform_post",
+      "observed_at": "2026-10-22T08:23:20.782199+00:00", "claim_date": "2023-12-01", "supports": "identity",
+      "justification": "Exact native HTML data-id and unique NewsArticle independently bind post4974018524610732 to author /u/5036617549 and the Americas publication. Publication time2023-12-01 06:04 Shanghai is within the fixed window and older than the current feed's earliest record; native engagement is unknown, not copied from unrelated source snapshots."
+    },
     {
       "id": "china-press-bay-owned-2015-link", "account_id": "china-press-bay-area",
       "source_url": "https://web.archive.org/web/20150109112934id_/http://sf.uschinapress.com:80/", "source_type": "publisher_link",

@@ -4,6 +4,9 @@ Research observed October 22, 2026 UTC/EDT, continuing checkpoint
 `015c281`. The fixed publication interval remains January 1, 2020
 through October 21, 2026 inclusive, Asia/Shanghai.
 
+This is a historical checkpoint. [The Phoenix Americas follow-up](discovery_iteration16.md)
+adds a specifically labeled U.S.-based regional broadcaster and advances the ranked review.
+
 **UID `5253982517`, 旧金山湾区在线, is verified as The China Press's
 Bay Area website channel.** It contributes **100 eligible posts**.
 This is another account under the existing China Press publisher

@@ -395,7 +395,9 @@ def publish(roster_path, screening_directory, directory, report_path):
         "(discovery_iteration14.md) resolves the Chinese edition through a corrected primary-document route, "
         "recovers eligible posts and keeps a separate copyright partner outside confirmed identities. [China Press Bay Area follow-up]"
         "(discovery_iteration15.md) adds a second newspaper channel without conflating shared regional widgets, "
-        "and resolves actual trade-publication redirects without borrowing sister accounts. Current status and legal operator "
+        "and resolves actual trade-publication redirects without borrowing sister accounts. [Phoenix Americas follow-up]"
+        "(discovery_iteration16.md) verifies a specifically labeled U.S.-based international broadcaster, "
+        "separates its regional identity from the global parent and recovers an older post beyond the feed. Current status and legal operator "
         "uncertainty remain explicit.", "",
         "## Complete machine-readable deliverables", "",
         "- [All 1,000 ranked U.S. domains](../data/discovery/us_top1000.csv)",
