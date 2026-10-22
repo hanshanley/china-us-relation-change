@@ -19,7 +19,7 @@ def svg_indicator_chart(config, groups, theme, description, point_class):
     if maximum <= minimum or any(not minimum <= r["plotted_value"] <= maximum for r in points):
         raise ValueError("Indicator axis limits cannot clip observations")
     bars = config["mode"] == "bars"
-    first = config.get("first_year", 2000) if not bars else min(r["year"] for r in points)
+    first = config.get("first_year", min(r["year"] for r in points))
     last = max(first + 1, max(r["year"] for r in points), config.get("last_year", 0))
     x = lambda year: 115 + (year - first) / (last - first) * 835
     y = lambda value: 420 - (value - minimum) / (maximum - minimum) * 250
@@ -59,7 +59,9 @@ def svg_indicator_chart(config, groups, theme, description, point_class):
                 f'<text x="{pos:.2f}" y="450" text-anchor="middle">{r["year"]}</text>'
                 f'<text x="{pos:.2f}" y="478" text-anchor="middle" font-size="18">{esc(group["label"])}</text>')
     else:
-        for year in [year for year in range(first, last, 5) if last - year >= 2] + [last]:
+        ticks = [first] + [year for year in range((first // 5 + 1) * 5, last, 5)
+                           if last - year >= 2 and year - first >= 2] + [last]
+        for year in ticks:
             parts.append(f'<text class="year-tick" x="{x(year):.2f}" y="457" text-anchor="middle" font-size="18">{year}</text>')
         for group in groups:
             path, previous = [], None

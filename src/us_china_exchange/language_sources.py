@@ -26,6 +26,14 @@ MLA_REPORT = "https://www.mla.org/content/download/191324/file/Enrollments-in-La
 MLA_DATA = "https://www.mla.org/content/download/191323/file/Historical-language-enrollments-1958-2021.xlsx"
 MLA_SNAPSHOT = "https://www.mla.org/content/download/191129/file/Fall-2022-NL-snapshot.pdf"
 AP_ARCHIVE = "https://reports.collegeboard.org/ap-program-results/data-archive"
+AP_COURSES = "https://apstudents.collegeboard.org/courses"
+AP_GROUP_CONTEXT = {
+    "all_participants": "Everyone taking that language's AP exam, including the standard-group subset.",
+    "standard_group": "A subset whose answers did not report regularly speaking or hearing the exam language, or living for at least one month where it is spoken. Generally school-trained, but not a U.S.-only or ancestry group.",
+    "relationship": "The standard group is already included in all participants. Never add them together.",
+    "years": "Years are annual exam administrations, not graduating classes. Verified counts run from 2007 through 2025. The 2026 score-percentage rows do not provide participant counts.",
+    "korean": "College Board lists AP Chinese and AP Japanese, but no AP Korean exam. Korean benchmarks use MLA college enrollments separately.",
+}
 IPEDS = "https://nces.ed.gov/ipeds/datacenter/data/"
 NEXUS = "https://nexusmandarin.org/publications-1"
 STATES = set("AL AK AZ AR CA CO CT DE DC FL GA HI ID IL IN IA KS KY LA ME MD MA MI MN MS MO MT NE NV NH NJ NM NY NC ND OH OK OR PA RI SC SD TN TX UT VT VA WA WV WI WY".split())
@@ -276,9 +284,14 @@ def ipeds(client, years):
 
 
 def parse_ap_chinese(content, year):
+    return parse_ap_language(content, year, "Chinese")
+
+
+def parse_ap_language(content, year, language):
     text = "\n".join(pdf_text(content))
-    if "CHINESE LANGUAGE" not in " ".join(text.upper().split()) or "Global" not in text or str(year) not in text:
-        raise ValueError("AP Chinese report subject/geography/year changed")
+    if (language.upper() + " LANGUAGE" not in " ".join(text.upper().split())
+            or "Global" not in text or str(year) not in text):
+        raise ValueError(f"AP {language} report subject/geography/year changed")
     total = re.search(r"Total Group.*?Number of Students\s+([\d,]+)", text, re.DOTALL)
     standard = re.search(r"Standard Group\*+.*?Number of Students\s+([\d,]+)", text, re.DOTALL)
     if not total or not standard:
@@ -287,6 +300,111 @@ def parse_ap_chinese(content, year):
     if counts[1] > counts[0]:
         raise ValueError("AP standard group cannot exceed total group")
     return counts
+
+
+def parse_ap_history(content, language):
+    soup = BeautifulSoup(content, "html.parser")
+    result = {}
+    for table in soup.select("table"):
+        caption = table.find("caption")
+        heading = caption.get_text(" ", strip=True) if caption else ""
+        if f"AP {language} Language and Culture" not in heading:
+            continue
+        group = "standard" if "(Standard Group)" in heading else "total" if "(Total Group)" in heading else None
+        if group is None or group in result:
+            raise ValueError("AP historical group identity changed")
+        rows = table.select("tr")
+        columns = [re.sub(r"\s+", "", c.get_text()) for c in rows[0].find_all(["th", "td"])]
+        if columns != ["Year", "5", "4", "3", "2", "1", "3+", "TestTakers", "MeanScore"]:
+            raise ValueError("AP historical count columns changed")
+        values = {}
+        for tr in rows[1:]:
+            cells = [c.get_text(" ", strip=True) for c in tr.find_all(["th", "td"])]
+            if len(cells) != len(columns) or not re.fullmatch(r"20\d{2}", cells[0]):
+                raise ValueError("AP historical row layout changed")
+            if not cells[7]:
+                continue
+            if not re.fullmatch(r"\d[\d,]*", cells[7]):
+                raise ValueError("AP participation count is not an integer")
+            year, value = int(cells[0]), int(cells[7].replace(",", ""))
+            if year in values:
+                raise ValueError("Duplicate AP historical year")
+            values[year] = value
+        result[group] = values
+    if set(result) != {"total", "standard"}:
+        raise ValueError("AP historical total/standard tables missing")
+    return result
+
+
+def ap_benchmarks(client, existing_sources):
+    sources, observations, totals = {}, [], {}
+    for sid in ["ap_volume_2017", "ap_volume_2023", "ap_volume_2024"]:
+        body, _ = client.get(existing_sources[sid]["assets"][0]["request_url"])
+        if sid.endswith("2017"):
+            book = xlrd.open_workbook(file_contents=body)
+            sheet = book.sheet_by_index(0)
+            records = [sheet.row_values(i) for i in range(sheet.nrows)]
+            header = next(r for r in records if any(str(v).strip() in {"2007", "2007.0"} for v in r))
+        else:
+            book = load_workbook(io.BytesIO(body), data_only=True, read_only=True)
+            records = list(book.active.values)
+            start = 2013 if sid.endswith("2023") else 2014
+            header = next(r for r in records if any(str(v).strip() == str(start) for v in r))
+        subject = next(r for r in records if str(r[0]).strip().lower() in {
+            "japanese language", "japanese language and culture", "japanese language & culture"})
+        for i, label in enumerate(header):
+            label = str(label).strip().removesuffix(".0")
+            if re.fullmatch(r"20\d{2}", label):
+                value = subject[i]
+                if isinstance(value, bool) or not isinstance(value, (float, int)) or not math.isfinite(value) or value < 0 or int(value) != value:
+                    raise ValueError("Invalid AP Japanese volume count")
+                totals[int(label)] = (int(value), sid)
+        existing_sources[sid]["locator"] += "; Japanese Language row"
+    if set(totals) != set(range(2007, 2025)):
+        raise ValueError("AP Japanese annual history incomplete")
+    observations += [row("ap:japanese_total", year, value, sid) for year, (value, sid) in sorted(totals.items())]
+    for language in ["Chinese", "Japanese"]:
+        url = f"https://apstudents.collegeboard.org/about-ap-scores/score-distributions/ap-{language.lower()}-language-and-culture"
+        body, asset = client.get(url)
+        history = parse_ap_history(body, language)
+        sid = f"ap_{language.lower()}_history"
+        sources[sid] = source("College Board", f"Historical AP {language} participation tables", [asset],
+                              "Standard Group table; Test Takers column",
+                              "Global participation. Empty 2026 count cells are not zero or inferred from score percentages. "
+                              "Final subject-specific PDF counts take precedence over retrospective webpage counts.")
+        end = 2022 if language == "Chinese" else 2024
+        if not set(range(2007, end + 1)) <= set(history["standard"]):
+            raise ValueError("AP standard-group annual history incomplete")
+        group = "ap:standard_group" if language == "Chinese" else "ap:japanese_standard_group"
+        observations += [row(group, year, history["standard"][year], sid) for year in range(2007, end + 1)]
+    for year in (2023, 2024, 2025):
+        url = f"https://apcentral.collegeboard.org/media/pdf/ap{year % 100}-japanese-language-score-distributions.pdf"
+        body, asset = client.get(url)
+        total, standard = parse_ap_language(body, year, "Japanese")
+        sid = f"ap_japanese_{year}"
+        sources[sid] = source("College Board", f"AP Japanese score distributions, May {year}", [asset],
+                              "Total Group and Standard Group; Number of Students",
+                              "Global final subject report; takes priority over earlier volume or webpage vintages.")
+        observations = [r for r in observations if not (r["series_id"].startswith("ap:japanese") and r["year"] == year)]
+        observations += [row("ap:japanese_total", year, total, sid),
+                         row("ap:japanese_standard_group", year, standard, sid)]
+    body, asset = client.get(AP_COURSES)
+    catalog = BeautifulSoup(body, "html.parser")
+    names = {a.get_text(" ", strip=True) for a in catalog.select("a")}
+    if not {"AP Chinese Language and Culture", "AP Japanese Language and Culture"} <= names or any("AP Korean" in n for n in names):
+        raise ValueError("Review the current AP language catalogue before publishing the Korean availability note")
+    sources["ap_course_catalog"] = source("College Board", "AP course and exam catalogue", [asset],
+                                           "World Languages and Cultures subject list",
+                                           "Chinese and Japanese are listed; no Korean AP exam is listed. Absence of an exam is not zero Korean learners.")
+    definitions = {
+        "ap:japanese_total": series("Japanese · all participants", "exam_participation", "exam participants",
+                                    "Global AP Japanese Language and Culture exam population, including international participation",
+                                    "annual", notes="Not U.S.-only or a count of all Japanese learners."),
+        "ap:japanese_standard_group": series("Japanese · standard-group subset", "exam_participation", "exam participants",
+                                             "Standard group within global AP Japanese reports; neither regular language use/hearing nor one-month-plus residence reported",
+                                             "annual", notes="Subset of all Japanese participants, not a separate geographic, nationality or ancestry group."),
+    }
+    return definitions, observations, sources
 
 
 def ap_global(client):
@@ -353,13 +471,17 @@ def ap_global(client):
         observations += [row("ap:global_total", year, total, source_id),
                          row("ap:standard_group", year, standard, source_id)]
     definitions = {
-        "ap:global_total": series("All AP Chinese participants", "exam_participation", "exam participants",
+        "ap:global_total": series("Chinese · all participants", "exam_participation", "exam participants",
                                  "Global AP Chinese Language and Culture exam population, including international participation",
                                  "annual", notes="Not U.S.-only; not all Chinese learners; repeated participants across years are not deduplicated."),
-        "ap:standard_group": series("AP Chinese standard group", "exam_participation", "exam participants",
+        "ap:standard_group": series("Chinese · standard-group subset", "exam_participation", "exam participants",
                                    "Standard group within global AP Chinese reports; no regular language exposure or one-month-plus residence indicated",
                                    "annual", notes="Generally trained in U.S. schools, but not a geographic or ancestry classification. This is a subset of global total; never add them."),
     }
+    extra_definitions, extra_observations, extra_sources = ap_benchmarks(client, sources)
+    definitions.update(extra_definitions)
+    observations.extend(extra_observations)
+    sources.update(extra_sources)
     return definitions, observations, sources
 
 

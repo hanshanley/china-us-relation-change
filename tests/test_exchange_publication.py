@@ -4,6 +4,7 @@ import hashlib
 import importlib.util
 import json
 from pathlib import Path
+from urllib.parse import urlsplit
 
 import pytest
 from bs4 import BeautifulSoup
@@ -105,7 +106,7 @@ def test_collective_export_preserves_complete_inputs_and_native_plot_boundaries(
         assert len(page.select("h1")) == 1 and len(page.select(".analysis-tabs a")) == 6
         assert not page.select("iframe")
         for a in page.select('a[href^="figures/"]'):
-            assert a.has_attr("data-original-chart") and (tmp_path / a["href"]).is_file()
+            assert a.has_attr("data-original-chart") and (tmp_path / urlsplit(a["href"]).path).is_file()
     page = BeautifulSoup((tmp_path / "index.html").read_text(), "html.parser")
     assert not page.select('#geography option[value="TWN"]')
     assert page.select_one('#measure option[selected]')["value"] == "goods"

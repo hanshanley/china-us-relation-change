@@ -58,6 +58,11 @@ def test_language_population_validation_rejects_global_to_us_relabelling_and_bad
     with pytest.raises(ValueError, match="subset"):
         validate_language_data(data)
     data = published()
+    next(r for r in data["observations"] if (r["series_id"], r["year"]) == (
+        "ap:japanese_standard_group", 2025))["value"] = 10000
+    with pytest.raises(ValueError, match="subset"):
+        validate_language_data(data)
+    data = published()
     data["observations"].append(copy.deepcopy(data["observations"][0]))
     with pytest.raises(ValueError, match="Duplicate"):
         validate_language_data(data)
@@ -220,6 +225,35 @@ def test_ap_parser_does_not_confuse_total_with_passing_or_standard_counts(monkey
     monkeypatch.setattr(language_sources, "pdf_text", lambda body: [text.replace("Chinese", "Japanese")])
     with pytest.raises(ValueError, match="subject"):
         language_sources.parse_ap_chinese(b"fixture", 2025)
+    assert language_sources.parse_ap_language(b"fixture", 2025, "Japanese") == (18518, 4777)
+
+
+def test_ap_history_ignores_empty_participation_counts_in_percentage_only_years():
+    header = "<tr>" + "".join(f"<th>{s}</th>" for s in ["Year", "5", "4", "3", "2", "1", "3+", "Test Takers", "Mean Score"]) + "</tr>"
+    def table(group, count):
+        return (f"<table><caption>Past AP Japanese Language and Culture Score Distributions ({group} Group)</caption>" +
+                header + "<tr>" + "".join(f"<td>{s}</td>" for s in ["2025", "43%", "11%", "20%", "8%", "18%", "74%", count, "3.55"]) +
+                "</tr><tr>" + "".join(f"<td>{s}</td>" for s in ["2026", "47%", "10%", "15%", "7%", "21%", "72%", "", ""]) + "</tr></table>")
+    body = (table("Total", "3,269") + table("Standard", "1,446")).encode()
+    assert language_sources.parse_ap_history(body, "Japanese") == {"total": {2025: 3269}, "standard": {2025: 1446}}
+    with pytest.raises(ValueError, match="tables missing"):
+        language_sources.parse_ap_history(body, "Chinese")
+
+
+def test_ap_language_benchmarks_have_matching_years_populations_and_colours():
+    data = published()
+    for chart_id in ["ap-chinese-global", "ap-language-standard-group"]:
+        groups = chart_points(data, chart_id)
+        assert len(groups) == 2
+        assert [g["color"] for g in groups] == ["#7B2D26", "#3D6F8C"]
+        assert all({p["year"] for p in g["points"]} == set(range(2007, 2026)) for g in groups)
+        doc = ElementTree.fromstring(svg_language_chart(data, chart_id))
+        years = [int(n.text) for n in doc.iter() if n.get("class") == "year-tick"]
+        assert years[0] == 2007 and years[-1] == 2025 and 2026 not in years
+    values = {(r["series_id"], r["year"]): r["value"] for r in data["observations"]}
+    assert values[("ap:japanese_total", 2025)] == 3269
+    assert values[("ap:japanese_standard_group", 2025)] == 1446
+    assert not any(s.startswith("ap:") and "korean" in s for s in data["series"])
 
 
 def test_us_ap_cohorts_exclude_standard_group_counts_and_use_later_reviewed_vintages(monkeypatch):

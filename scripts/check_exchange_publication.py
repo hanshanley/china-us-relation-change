@@ -59,6 +59,13 @@ def check(site, url=None, screenshots=None):
                 page.goto(url.rsplit("/", 1)[0] + "/" + name)
                 page.evaluate("document.fonts.ready")
                 expect(page.locator(".module-controls")).to_be_visible()
+                if name == "language-learning.html":
+                    assert page.locator("#ap-chinese-global .screen-point").count() == 38
+                    years = page.locator("#ap-chinese-global .screen-year").all_text_contents()
+                    assert years[0] == "2007" and years[-1] == "2025"
+                    expect(page.locator("#ap-chinese-global .ap-group-note")).to_contain_text("including")
+                    page.select_option("#module-chart", "ap-language-standard-group")
+                    expect(page.locator("#ap-language-standard-group .ap-group-note")).to_contain_text("Do not add")
                 for option in page.locator("#module-chart option").all():
                     page.select_option("#module-chart", option.get_attribute("value"))
                     assert page.locator("[data-module-chart]:visible").count() == 1
@@ -70,6 +77,9 @@ def check(site, url=None, screenshots=None):
                     assert not page.evaluate("document.documentElement.scrollWidth>innerWidth"), name
                 if screenshots:
                     page.screenshot(path=str(screenshots / f"collective-{name[:-5]}-{width}.png"))
+            page.goto(url.rsplit("/", 1)[0] + "/language-learning.html?indicator=college-benchmarks")
+            expect(page.locator("#module-chart")).to_have_value("college-benchmarks")
+            assert page.locator('#college-benchmarks .screen-line[data-series-id="mla:korean"]').count() == 1
             assert not errors, errors
             page.close()
         context = browser.new_context(java_script_enabled=False, viewport={"width": 390, "height": 844})

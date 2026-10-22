@@ -35,10 +35,15 @@ CHARTS = {
                    "mla_matched:all_languages"], "unit": "2013 = 100", "mode": "index", "baseline": 2013,
         "note": "Same institution IDs with complete reported language-count rows in both rounds; nonresponse excluded, explicit zero-language respondents retained. Selected cohort, not a national total or a causal estimate."},
     "ap-chinese-global": {
-        "title": "AP Chinese exam participation",
-        "subtitle": "Global reports, including international participation - NOT U.S.-only",
-        "series": ["ap:global_total", "ap:standard_group"], "unit": "Exam participants", "mode": "levels",
-        "note": "College Board global reports. Standard group is a subset based on language exposure/training, not U.S. location or ancestry. Never add the two series; neither measures all learners."},
+        "title": "AP Chinese and Japanese participation",
+        "subtitle": "All participants | global administrations, not U.S.-only",
+        "series": ["ap:global_total", "ap:japanese_total"], "unit": "Exam participants", "mode": "levels",
+        "note": "College Board. Same global exam population, including standard-group students. Not all language learners. No AP Korean exam is listed; Korean college enrollments are a separate comparison. No verified 2026 participant counts."},
+    "ap-language-standard-group": {
+        "title": "AP language-background subset",
+        "subtitle": "College Board standard group | subset of each language's total",
+        "series": ["ap:standard_group", "ap:japanese_standard_group"], "unit": "Exam participants", "mode": "levels",
+        "note": "Students did not report regular speaking/hearing of the exam language or residence of at least one month where it is spoken. Not a U.S.-only, nationality or ancestry group. Already included in all participants: do not add."},
     "ap-chinese-us-cohorts": {
         "title": "AP Chinese in U.S. public-school cohorts",
         "subtitle": "Graduating classes 2007-2013 | exams taken during high school",
@@ -123,8 +128,9 @@ def validate_language_data(data):
             raise ValueError("AP U.S. public-school cohorts must retain their graduating-class population")
     by_key = {(r["series_id"], r["year"]): r for r in data["observations"]}
     for r in data["observations"]:
-        if r["series_id"] == "ap:standard_group" and r["value"] is not None:
-            total = by_key.get(("ap:global_total", r["year"]))
+        if r["series_id"] in {"ap:standard_group", "ap:japanese_standard_group"} and r["value"] is not None:
+            total_id = "ap:global_total" if r["series_id"] == "ap:standard_group" else "ap:japanese_total"
+            total = by_key.get((total_id, r["year"]))
             if total is None or total["value"] is None or r["value"] > total["value"]:
                 raise ValueError("AP standard-group subset does not reconcile")
         if r["series_id"] == "mla:chinese" and r["value"] is not None:
@@ -197,7 +203,7 @@ def chart_points(data, chart_id):
                 raise ValueError("Nonfinite plotted language value")
             points.append(dict(r, plotted_value=value, denominator=denominator,
                                reported_unit=data["series"][sid]["unit"], plotted_unit=config["unit"]))
-        language = sid.split(":")[-1]
+        language = ("japanese" if "japanese" in sid else "chinese") if sid.startswith("ap:") else sid.split(":")[-1]
         color = LANGUAGE_COLORS.get(language, ["#7B2D26", "#3D6F8C", "#C2993E"][index % 3])
         grouped.append({"id": sid, "label": data["series"][sid]["label"], "color": color,
                         "points": points, "scheduled_years": [r["year"] for r in selected],

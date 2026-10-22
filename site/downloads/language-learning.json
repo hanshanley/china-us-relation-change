@@ -1,5 +1,12 @@
 {
   "context": {
+    "ap_groups": {
+      "all_participants": "Everyone taking that language's AP exam, including the standard-group subset.",
+      "korean": "College Board lists AP Chinese and AP Japanese, but no AP Korean exam. Korean benchmarks use MLA college enrollments separately.",
+      "relationship": "The standard group is already included in all participants. Never add them together.",
+      "standard_group": "A subset whose answers did not report regularly speaking or hearing the exam language, or living for at least one month where it is spoken. Generally school-trained, but not a U.S.-only or ancestry group.",
+      "years": "Years are annual exam administrations, not graduating classes. Verified counts run from 2007 through 2025. The 2026 score-percentage rows do not provide participant counts."
+    },
     "economist": {
       "date": "2023-08-24",
       "interpretation": "Employment incentives, geopolitical tensions, competing cultural attractions and translation technology are proposed explanations, not a demonstrated causal decomposition.",
@@ -36,7 +43,7 @@
       "status": "available"
     },
     {
-      "description": "Global AP Chinese annual participation from 2007; standard-group subset where verified. Not U.S.-only.",
+      "description": "Global AP Chinese and Japanese counts and standard-group subsets, 2007-2025; not U.S.-only. No verified 2026 participant counts.",
       "id": "ap_global",
       "status": "available"
     },
@@ -64,6 +71,11 @@
       "description": "2014-15-era Chinese enrollment estimate, published 2017. No continuous national learner census verified; do not combine with immersion-program counts.",
       "id": "k12_learners",
       "status": "estimate_only"
+    },
+    {
+      "description": "College Board lists AP Chinese and AP Japanese, but no AP Korean exam. Korean benchmarks use MLA college enrollments separately.",
+      "id": "ap_korean",
+      "status": "not_offered"
     }
   ],
   "observations": [
@@ -237,6 +249,492 @@
       "status": "observed",
       "value": 18518,
       "year": 2025
+    },
+    {
+      "comparability": "ap:japanese_standard_group",
+      "notes": "",
+      "series_id": "ap:japanese_standard_group",
+      "source_id": "ap_japanese_history",
+      "status": "observed",
+      "value": 667,
+      "year": 2007
+    },
+    {
+      "comparability": "ap:japanese_standard_group",
+      "notes": "",
+      "series_id": "ap:japanese_standard_group",
+      "source_id": "ap_japanese_history",
+      "status": "observed",
+      "value": 890,
+      "year": 2008
+    },
+    {
+      "comparability": "ap:japanese_standard_group",
+      "notes": "",
+      "series_id": "ap:japanese_standard_group",
+      "source_id": "ap_japanese_history",
+      "status": "observed",
+      "value": 1114,
+      "year": 2009
+    },
+    {
+      "comparability": "ap:japanese_standard_group",
+      "notes": "",
+      "series_id": "ap:japanese_standard_group",
+      "source_id": "ap_japanese_history",
+      "status": "observed",
+      "value": 1200,
+      "year": 2010
+    },
+    {
+      "comparability": "ap:japanese_standard_group",
+      "notes": "",
+      "series_id": "ap:japanese_standard_group",
+      "source_id": "ap_japanese_history",
+      "status": "observed",
+      "value": 1175,
+      "year": 2011
+    },
+    {
+      "comparability": "ap:japanese_standard_group",
+      "notes": "",
+      "series_id": "ap:japanese_standard_group",
+      "source_id": "ap_japanese_history",
+      "status": "observed",
+      "value": 1192,
+      "year": 2012
+    },
+    {
+      "comparability": "ap:japanese_standard_group",
+      "notes": "",
+      "series_id": "ap:japanese_standard_group",
+      "source_id": "ap_japanese_history",
+      "status": "observed",
+      "value": 1169,
+      "year": 2013
+    },
+    {
+      "comparability": "ap:japanese_standard_group",
+      "notes": "",
+      "series_id": "ap:japanese_standard_group",
+      "source_id": "ap_japanese_history",
+      "status": "observed",
+      "value": 1178,
+      "year": 2014
+    },
+    {
+      "comparability": "ap:japanese_standard_group",
+      "notes": "",
+      "series_id": "ap:japanese_standard_group",
+      "source_id": "ap_japanese_history",
+      "status": "observed",
+      "value": 1341,
+      "year": 2015
+    },
+    {
+      "comparability": "ap:japanese_standard_group",
+      "notes": "",
+      "series_id": "ap:japanese_standard_group",
+      "source_id": "ap_japanese_history",
+      "status": "observed",
+      "value": 1269,
+      "year": 2016
+    },
+    {
+      "comparability": "ap:japanese_standard_group",
+      "notes": "",
+      "series_id": "ap:japanese_standard_group",
+      "source_id": "ap_japanese_history",
+      "status": "observed",
+      "value": 1308,
+      "year": 2017
+    },
+    {
+      "comparability": "ap:japanese_standard_group",
+      "notes": "",
+      "series_id": "ap:japanese_standard_group",
+      "source_id": "ap_japanese_history",
+      "status": "observed",
+      "value": 1270,
+      "year": 2018
+    },
+    {
+      "comparability": "ap:japanese_standard_group",
+      "notes": "",
+      "series_id": "ap:japanese_standard_group",
+      "source_id": "ap_japanese_history",
+      "status": "observed",
+      "value": 1234,
+      "year": 2019
+    },
+    {
+      "comparability": "ap:japanese_standard_group",
+      "notes": "",
+      "series_id": "ap:japanese_standard_group",
+      "source_id": "ap_japanese_history",
+      "status": "observed",
+      "value": 1183,
+      "year": 2020
+    },
+    {
+      "comparability": "ap:japanese_standard_group",
+      "notes": "",
+      "series_id": "ap:japanese_standard_group",
+      "source_id": "ap_japanese_history",
+      "status": "observed",
+      "value": 1019,
+      "year": 2021
+    },
+    {
+      "comparability": "ap:japanese_standard_group",
+      "notes": "",
+      "series_id": "ap:japanese_standard_group",
+      "source_id": "ap_japanese_history",
+      "status": "observed",
+      "value": 1228,
+      "year": 2022
+    },
+    {
+      "comparability": "ap:japanese_standard_group",
+      "notes": "",
+      "series_id": "ap:japanese_standard_group",
+      "source_id": "ap_japanese_2023",
+      "status": "observed",
+      "value": 1294,
+      "year": 2023
+    },
+    {
+      "comparability": "ap:japanese_standard_group",
+      "notes": "",
+      "series_id": "ap:japanese_standard_group",
+      "source_id": "ap_japanese_2024",
+      "status": "observed",
+      "value": 1324,
+      "year": 2024
+    },
+    {
+      "comparability": "ap:japanese_standard_group",
+      "notes": "",
+      "series_id": "ap:japanese_standard_group",
+      "source_id": "ap_japanese_2025",
+      "status": "observed",
+      "value": 1446,
+      "year": 2025
+    },
+    {
+      "comparability": "ap:japanese_total",
+      "notes": "",
+      "series_id": "ap:japanese_total",
+      "source_id": "ap_volume_2017",
+      "status": "observed",
+      "value": 1667,
+      "year": 2007
+    },
+    {
+      "comparability": "ap:japanese_total",
+      "notes": "",
+      "series_id": "ap:japanese_total",
+      "source_id": "ap_volume_2017",
+      "status": "observed",
+      "value": 1538,
+      "year": 2008
+    },
+    {
+      "comparability": "ap:japanese_total",
+      "notes": "",
+      "series_id": "ap:japanese_total",
+      "source_id": "ap_volume_2017",
+      "status": "observed",
+      "value": 2085,
+      "year": 2009
+    },
+    {
+      "comparability": "ap:japanese_total",
+      "notes": "",
+      "series_id": "ap:japanese_total",
+      "source_id": "ap_volume_2017",
+      "status": "observed",
+      "value": 2051,
+      "year": 2010
+    },
+    {
+      "comparability": "ap:japanese_total",
+      "notes": "",
+      "series_id": "ap:japanese_total",
+      "source_id": "ap_volume_2017",
+      "status": "observed",
+      "value": 2226,
+      "year": 2011
+    },
+    {
+      "comparability": "ap:japanese_total",
+      "notes": "",
+      "series_id": "ap:japanese_total",
+      "source_id": "ap_volume_2017",
+      "status": "observed",
+      "value": 2177,
+      "year": 2012
+    },
+    {
+      "comparability": "ap:japanese_total",
+      "notes": "",
+      "series_id": "ap:japanese_total",
+      "source_id": "ap_volume_2023",
+      "status": "observed",
+      "value": 2234,
+      "year": 2013
+    },
+    {
+      "comparability": "ap:japanese_total",
+      "notes": "",
+      "series_id": "ap:japanese_total",
+      "source_id": "ap_volume_2024",
+      "status": "observed",
+      "value": 2311,
+      "year": 2014
+    },
+    {
+      "comparability": "ap:japanese_total",
+      "notes": "",
+      "series_id": "ap:japanese_total",
+      "source_id": "ap_volume_2024",
+      "status": "observed",
+      "value": 2431,
+      "year": 2015
+    },
+    {
+      "comparability": "ap:japanese_total",
+      "notes": "",
+      "series_id": "ap:japanese_total",
+      "source_id": "ap_volume_2024",
+      "status": "observed",
+      "value": 2481,
+      "year": 2016
+    },
+    {
+      "comparability": "ap:japanese_total",
+      "notes": "",
+      "series_id": "ap:japanese_total",
+      "source_id": "ap_volume_2024",
+      "status": "observed",
+      "value": 2429,
+      "year": 2017
+    },
+    {
+      "comparability": "ap:japanese_total",
+      "notes": "",
+      "series_id": "ap:japanese_total",
+      "source_id": "ap_volume_2024",
+      "status": "observed",
+      "value": 2459,
+      "year": 2018
+    },
+    {
+      "comparability": "ap:japanese_total",
+      "notes": "",
+      "series_id": "ap:japanese_total",
+      "source_id": "ap_volume_2024",
+      "status": "observed",
+      "value": 2479,
+      "year": 2019
+    },
+    {
+      "comparability": "ap:japanese_total",
+      "notes": "",
+      "series_id": "ap:japanese_total",
+      "source_id": "ap_volume_2024",
+      "status": "observed",
+      "value": 2581,
+      "year": 2020
+    },
+    {
+      "comparability": "ap:japanese_total",
+      "notes": "",
+      "series_id": "ap:japanese_total",
+      "source_id": "ap_volume_2024",
+      "status": "observed",
+      "value": 2204,
+      "year": 2021
+    },
+    {
+      "comparability": "ap:japanese_total",
+      "notes": "",
+      "series_id": "ap:japanese_total",
+      "source_id": "ap_volume_2024",
+      "status": "observed",
+      "value": 2765,
+      "year": 2022
+    },
+    {
+      "comparability": "ap:japanese_total",
+      "notes": "",
+      "series_id": "ap:japanese_total",
+      "source_id": "ap_japanese_2023",
+      "status": "observed",
+      "value": 3089,
+      "year": 2023
+    },
+    {
+      "comparability": "ap:japanese_total",
+      "notes": "",
+      "series_id": "ap:japanese_total",
+      "source_id": "ap_japanese_2024",
+      "status": "observed",
+      "value": 3125,
+      "year": 2024
+    },
+    {
+      "comparability": "ap:japanese_total",
+      "notes": "",
+      "series_id": "ap:japanese_total",
+      "source_id": "ap_japanese_2025",
+      "status": "observed",
+      "value": 3269,
+      "year": 2025
+    },
+    {
+      "comparability": "ap:standard_group",
+      "notes": "",
+      "series_id": "ap:standard_group",
+      "source_id": "ap_chinese_history",
+      "status": "observed",
+      "value": 363,
+      "year": 2007
+    },
+    {
+      "comparability": "ap:standard_group",
+      "notes": "",
+      "series_id": "ap:standard_group",
+      "source_id": "ap_chinese_history",
+      "status": "observed",
+      "value": 568,
+      "year": 2008
+    },
+    {
+      "comparability": "ap:standard_group",
+      "notes": "",
+      "series_id": "ap:standard_group",
+      "source_id": "ap_chinese_history",
+      "status": "observed",
+      "value": 759,
+      "year": 2009
+    },
+    {
+      "comparability": "ap:standard_group",
+      "notes": "",
+      "series_id": "ap:standard_group",
+      "source_id": "ap_chinese_history",
+      "status": "observed",
+      "value": 1153,
+      "year": 2010
+    },
+    {
+      "comparability": "ap:standard_group",
+      "notes": "",
+      "series_id": "ap:standard_group",
+      "source_id": "ap_chinese_history",
+      "status": "observed",
+      "value": 1346,
+      "year": 2011
+    },
+    {
+      "comparability": "ap:standard_group",
+      "notes": "",
+      "series_id": "ap:standard_group",
+      "source_id": "ap_chinese_history",
+      "status": "observed",
+      "value": 1743,
+      "year": 2012
+    },
+    {
+      "comparability": "ap:standard_group",
+      "notes": "",
+      "series_id": "ap:standard_group",
+      "source_id": "ap_chinese_history",
+      "status": "observed",
+      "value": 1961,
+      "year": 2013
+    },
+    {
+      "comparability": "ap:standard_group",
+      "notes": "",
+      "series_id": "ap:standard_group",
+      "source_id": "ap_chinese_history",
+      "status": "observed",
+      "value": 1850,
+      "year": 2014
+    },
+    {
+      "comparability": "ap:standard_group",
+      "notes": "",
+      "series_id": "ap:standard_group",
+      "source_id": "ap_chinese_history",
+      "status": "observed",
+      "value": 2444,
+      "year": 2015
+    },
+    {
+      "comparability": "ap:standard_group",
+      "notes": "",
+      "series_id": "ap:standard_group",
+      "source_id": "ap_chinese_history",
+      "status": "observed",
+      "value": 2753,
+      "year": 2016
+    },
+    {
+      "comparability": "ap:standard_group",
+      "notes": "",
+      "series_id": "ap:standard_group",
+      "source_id": "ap_chinese_history",
+      "status": "observed",
+      "value": 2880,
+      "year": 2017
+    },
+    {
+      "comparability": "ap:standard_group",
+      "notes": "",
+      "series_id": "ap:standard_group",
+      "source_id": "ap_chinese_history",
+      "status": "observed",
+      "value": 3375,
+      "year": 2018
+    },
+    {
+      "comparability": "ap:standard_group",
+      "notes": "",
+      "series_id": "ap:standard_group",
+      "source_id": "ap_chinese_history",
+      "status": "observed",
+      "value": 3698,
+      "year": 2019
+    },
+    {
+      "comparability": "ap:standard_group",
+      "notes": "",
+      "series_id": "ap:standard_group",
+      "source_id": "ap_chinese_history",
+      "status": "observed",
+      "value": 3781,
+      "year": 2020
+    },
+    {
+      "comparability": "ap:standard_group",
+      "notes": "",
+      "series_id": "ap:standard_group",
+      "source_id": "ap_chinese_history",
+      "status": "observed",
+      "value": 3394,
+      "year": 2021
+    },
+    {
+      "comparability": "ap:standard_group",
+      "notes": "",
+      "series_id": "ap:standard_group",
+      "source_id": "ap_chinese_history",
+      "status": "observed",
+      "value": 4211,
+      "year": 2022
     },
     {
       "comparability": "ap:standard_group",
@@ -1403,16 +1901,34 @@
   "series": {
     "ap:global_total": {
       "cadence": "annual",
-      "label": "All AP Chinese participants",
+      "label": "Chinese \u00b7 all participants",
       "measure": "exam_participation",
       "notes": "Not U.S.-only; not all Chinese learners; repeated participants across years are not deduplicated.",
       "period_basis": "calendar",
       "scope": "Global AP Chinese Language and Culture exam population, including international participation",
       "unit": "exam participants"
     },
+    "ap:japanese_standard_group": {
+      "cadence": "annual",
+      "label": "Japanese \u00b7 standard-group subset",
+      "measure": "exam_participation",
+      "notes": "Subset of all Japanese participants, not a separate geographic, nationality or ancestry group.",
+      "period_basis": "calendar",
+      "scope": "Standard group within global AP Japanese reports; neither regular language use/hearing nor one-month-plus residence reported",
+      "unit": "exam participants"
+    },
+    "ap:japanese_total": {
+      "cadence": "annual",
+      "label": "Japanese \u00b7 all participants",
+      "measure": "exam_participation",
+      "notes": "Not U.S.-only or a count of all Japanese learners.",
+      "period_basis": "calendar",
+      "scope": "Global AP Japanese Language and Culture exam population, including international participation",
+      "unit": "exam participants"
+    },
     "ap:standard_group": {
       "cadence": "annual",
-      "label": "AP Chinese standard group",
+      "label": "Chinese \u00b7 standard-group subset",
       "measure": "exam_participation",
       "notes": "Generally trained in U.S. schools, but not a geographic or ancestry classification. This is a subset of global total; never add them.",
       "period_basis": "calendar",
@@ -1625,6 +2141,20 @@
       "notes": "Global report. Standard group is an exposure/training definition, NOT a U.S.-only or nonheritage demographic count. Subject-specific count takes priority over earlier program-summary vintages.",
       "vintage": "AP Chinese score distributions, May 2025"
     },
+    "ap_chinese_history": {
+      "assets": [
+        {
+          "request_url": "https://apstudents.collegeboard.org/about-ap-scores/score-distributions/ap-chinese-language-and-culture",
+          "retrieved_at": "2026-10-22T19:41:51+00:00",
+          "sha256": "247291ea8801cc00aee2137eecd9230f5510fdd34c8467a9e1f696b640e0feaf",
+          "url": "https://apstudents.collegeboard.org/about-ap-scores/score-distributions/ap-chinese-language-and-culture"
+        }
+      ],
+      "locator": "Standard Group table; Test Takers column",
+      "name": "College Board",
+      "notes": "Global participation. Empty 2026 count cells are not zero or inferred from score percentages. Final subject-specific PDF counts take precedence over retrospective webpage counts.",
+      "vintage": "Historical AP Chinese participation tables"
+    },
     "ap_cohort_2011": {
       "assets": [
         {
@@ -1667,6 +2197,76 @@
       "notes": "Exams taken during high school by each graduating cohort, not an annual exam administration, all U.S. schools, unique learners or the global series. Later reviewed reports take priority for overlapping cohorts; the 2008 total was revised across publications.",
       "vintage": "Report to the Nation 2014; U.S. public-school graduating cohorts"
     },
+    "ap_course_catalog": {
+      "assets": [
+        {
+          "request_url": "https://apstudents.collegeboard.org/courses",
+          "retrieved_at": "2026-10-22T19:45:09+00:00",
+          "sha256": "9324953d4d4fa04f0ebf3a4b6523bacdb328c2b5004ea9da68a0927f909ea9dd",
+          "url": "https://apstudents.collegeboard.org/courses"
+        }
+      ],
+      "locator": "World Languages and Cultures subject list",
+      "name": "College Board",
+      "notes": "Chinese and Japanese are listed; no Korean AP exam is listed. Absence of an exam is not zero Korean learners.",
+      "vintage": "AP course and exam catalogue"
+    },
+    "ap_japanese_2023": {
+      "assets": [
+        {
+          "request_url": "https://apcentral.collegeboard.org/media/pdf/ap23-japanese-language-score-distributions.pdf",
+          "retrieved_at": "2026-10-22T19:45:08+00:00",
+          "sha256": "e3485540057d16ea6a1fd8fd9c0bae692eed7f00585b22ce5358a994d06f2e3a",
+          "url": "https://apcentral.collegeboard.org/media/pdf/ap23-japanese-language-score-distributions.pdf"
+        }
+      ],
+      "locator": "Total Group and Standard Group; Number of Students",
+      "name": "College Board",
+      "notes": "Global final subject report; takes priority over earlier volume or webpage vintages.",
+      "vintage": "AP Japanese score distributions, May 2023"
+    },
+    "ap_japanese_2024": {
+      "assets": [
+        {
+          "request_url": "https://apcentral.collegeboard.org/media/pdf/ap24-japanese-language-score-distributions.pdf",
+          "retrieved_at": "2026-10-22T19:45:09+00:00",
+          "sha256": "7ee7d1426e8c31920dc4f48c3366e09f8711bbf7c4d526e26eac289b61e1a69f",
+          "url": "https://apcentral.collegeboard.org/media/pdf/ap24-japanese-language-score-distributions.pdf"
+        }
+      ],
+      "locator": "Total Group and Standard Group; Number of Students",
+      "name": "College Board",
+      "notes": "Global final subject report; takes priority over earlier volume or webpage vintages.",
+      "vintage": "AP Japanese score distributions, May 2024"
+    },
+    "ap_japanese_2025": {
+      "assets": [
+        {
+          "request_url": "https://apcentral.collegeboard.org/media/pdf/ap25-japanese-language-score-distributions.pdf",
+          "retrieved_at": "2026-10-22T19:45:09+00:00",
+          "sha256": "05c75cb697449ec99966e479d57263166d1b29c5fb33408ac011d9ab107e449b",
+          "url": "https://apcentral.collegeboard.org/media/pdf/ap25-japanese-language-score-distributions.pdf"
+        }
+      ],
+      "locator": "Total Group and Standard Group; Number of Students",
+      "name": "College Board",
+      "notes": "Global final subject report; takes priority over earlier volume or webpage vintages.",
+      "vintage": "AP Japanese score distributions, May 2025"
+    },
+    "ap_japanese_history": {
+      "assets": [
+        {
+          "request_url": "https://apstudents.collegeboard.org/about-ap-scores/score-distributions/ap-japanese-language-and-culture",
+          "retrieved_at": "2026-10-22T19:41:52+00:00",
+          "sha256": "71becad1085783540996c6539880d0c5565451716bd2b04a830340e849e8d98c",
+          "url": "https://apstudents.collegeboard.org/about-ap-scores/score-distributions/ap-japanese-language-and-culture"
+        }
+      ],
+      "locator": "Standard Group table; Test Takers column",
+      "name": "College Board",
+      "notes": "Global participation. Empty 2026 count cells are not zero or inferred from score percentages. Final subject-specific PDF counts take precedence over retrospective webpage counts.",
+      "vintage": "Historical AP Japanese participation tables"
+    },
     "ap_volume_2017": {
       "assets": [
         {
@@ -1676,7 +2276,7 @@
           "url": "https://reports.collegeboard.org/media/xls/2017-Exam-Volume-Change_1.xls"
         }
       ],
-      "locator": "A; Chinese Language row",
+      "locator": "A; Chinese Language row; Japanese Language row",
       "name": "College Board",
       "notes": "Global administrations, not a U.S.-only learner count.",
       "vintage": "AP exam-volume report 2007\u20132017"
@@ -1690,7 +2290,7 @@
           "url": "https://reports.collegeboard.org/media/xlsx/ap-exam-volume-changes-2013-2023.xlsx"
         }
       ],
-      "locator": "Exam Volume Change History; Chinese Language row",
+      "locator": "Exam Volume Change History; Chinese Language row; Japanese Language row",
       "name": "College Board",
       "notes": "Global AP exam administrations, not a U.S.-only learner count.",
       "vintage": "AP exam-volume report through 2023"
@@ -1704,7 +2304,7 @@
           "url": "https://reports.collegeboard.org/media/xlsx/ap-exam-volume-changes-2014-2024.xlsx"
         }
       ],
-      "locator": "Exam Volume Change History; Chinese Language row",
+      "locator": "Exam Volume Change History; Chinese Language row; Japanese Language row",
       "name": "College Board",
       "notes": "Global AP exam administrations, not a U.S.-only learner count.",
       "vintage": "AP exam-volume report through 2024"

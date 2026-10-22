@@ -1,5 +1,6 @@
 "use strict";
 (() => {
+  const revision = new URL(document.currentScript.src).searchParams.get("v");
   const escape = value => String(value).replace(/[&<>"']/g, c =>
     ({"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"}[c]));
   const color = value => /^#[0-9a-f]{6}$/i.test(value) ? value : "#655f55";
@@ -92,6 +93,8 @@
   }
   const moduleSelector = document.getElementById("module-chart");
   if (moduleSelector) {
+    const requested = new URLSearchParams(location.search).get("indicator");
+    if ([...moduleSelector.options].some(option => option.value === requested)) moduleSelector.value = requested;
     const select = () => {
       for (const section of document.querySelectorAll("[data-module-chart]")) {
         section.hidden = section.dataset.moduleChart !== moduleSelector.value;
@@ -141,7 +144,14 @@
       } else {
         models.delete(chart);
       }
-      for (const a of get("figure-link").querySelectorAll("a")) a.dataset.originalChart = "";
+      for (const a of get("figure-link").querySelectorAll("a")) {
+        a.dataset.originalChart = "";
+        if (revision) {
+          const url = new URL(a.href);
+          url.searchParams.set("v", revision);
+          a.href = url.href;
+        }
+      }
       for (const id of ["baseline-change", "yoy-change"]) {
         const node = get(id);
         if (node) {

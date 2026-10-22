@@ -98,7 +98,7 @@ def plot_model(svg, labels, observations):
     return None
 
 
-def decorate(site, name, labels):
+def decorate(site, name, labels, revision):
     soup = BeautifulSoup((site / name).read_text(), "html.parser")
     title, lead, scope = PAGES[name]
     if name == "index.html":
@@ -118,7 +118,7 @@ def decorate(site, name, labels):
         old.decompose()
     soup.head.append(soup.new_tag("link", attrs={"rel": "canonical", "href": CANONICAL + ("" if name == "index.html" else name)}))
     soup.head.append(soup.new_tag("meta", attrs={"name": "description", "content": lead + " " + scope}))
-    soup.head.append(soup.new_tag("link", attrs={"rel": "stylesheet", "href": "assets/publication.css"}))
+    soup.head.append(soup.new_tag("link", attrs={"rel": "stylesheet", "href": f"assets/publication.css?v={revision[:12]}"}))
     soup.body["class"] = ["publication-page"]
     page = soup.select_one(".page")
     main = page.find("main")
@@ -279,6 +279,21 @@ def decorate(site, name, labels):
             main.insert(0, controls)
     observations = {(r["series_id"], r["period"]): r for r in
                     json.loads((site / "downloads/observations.json").read_text()) if r["frequency"] == "annual"}
+    if name == "language-learning.html":
+        group_notes = {
+            "ap-chinese-global": "All participants means everyone taking the exam, including the standard-group subset. These are global totals, not U.S.-only.",
+            "ap-language-standard-group": "The standard group is a subset: students did not report regularly speaking/hearing the language or living for at least a month where it is spoken. It is not a U.S.-only or ancestry group. Do not add it to all participants.",
+        }
+        for chart_id, text in group_notes.items():
+            section = soup.select_one("#" + chart_id)
+            if section:
+                explanation = soup.new_tag("p", attrs={"class": "ap-group-note"})
+                explanation.string = text
+                section.select_one(".comparison-chart").insert_before(explanation)
+                link = fragment('<p class="chart-note">No AP Korean exam is offered. '
+                                '<a href="language-learning.html?indicator=college-benchmarks">Compare Korean, Chinese and Japanese college enrollments instead</a>. '
+                                'Different educational populations are not combined.</p>')
+                section.append(link)
     for block in soup.select(".comparison-chart"):
         image = block.find("img")
         if image is None:
@@ -325,7 +340,9 @@ def decorate(site, name, labels):
                 details.append(ul)
     for a in soup.select('a[href*=".png"],a[href*=".svg"]'):
         a["data-original-chart"] = ""
-    for a in soup.select('a[href="figures/index.html"]'):
+    for a in soup.select('a[href^="downloads/"],a[href^="figures/"]'):
+        a["href"] += ("&" if "?" in a["href"] else "?") + "v=" + revision[:12]
+    for a in soup.select('a[href^="figures/index.html"]'):
         a.find_parent("p").decompose()
     for skip in soup.select(".skip"):
         skip["href"] = "#analysis"
@@ -348,9 +365,9 @@ def decorate(site, name, labels):
     soup.body.insert(0, skip.extract())
     footer = fragment('<footer class="publication-footer"><span>The Margin of Error · Hans W. A. Hanley</span>'
                       '<span><a href="https://github.com/hanshanley/china-us-relation-change">Code + data</a> · '
-                      '<a href="publication-manifest.json">Publication provenance</a></span></footer>')
+                      f'<a href="publication-manifest.json?v={revision[:12]}">Publication provenance</a></span></footer>')
     page.append(footer)
-    script = soup.new_tag("script", attrs={"src": "assets/publication.js", "defer": ""})
+    script = soup.new_tag("script", attrs={"src": f"assets/publication.js?v={revision[:12]}", "defer": ""})
     soup.body.append(script)
     (site / name).write_text(str(soup), encoding="utf-8")
 
@@ -367,7 +384,7 @@ def build_publication(source, output, revision):
             definitions.update({sid: d["label"] for sid, d in data["series"].items()})
         for name in PAGES:
             if (site / name).is_file():
-                decorate(site, name, definitions)
+                decorate(site, name, definitions, revision)
         for name in ["publication.css", "publication.js"]:
             shutil.copyfile(source / "src/us_china_exchange/static" / name, site / "assets" / name)
         (site / "figures/index.html").unlink(missing_ok=True)

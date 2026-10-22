@@ -2,6 +2,8 @@
 """Explicitly review public language data, freeze aggregates, and build offline figures."""
 
 import argparse
+import copy
+import json
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
@@ -10,7 +12,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
 from us_china_exchange.language_analysis import validate_language_data
-from us_china_exchange.language_sources import MLA_SNAPSHOT, ReviewClient, ap_global, ap_us_cohorts, ipeds, mla, schools, source
+from us_china_exchange.language_sources import AP_GROUP_CONTEXT, MLA_SNAPSHOT, ReviewClient, ap_global, ap_us_cohorts, ipeds, mla, schools, source
 from us_china_exchange.model import json_text
 from us_china_exchange.pipeline import write_atomic
 
@@ -44,7 +46,9 @@ def collect(client, last_degree_year=2024):
         {"id": "matched_colleges", "status": "available",
          "description": "Matched 2013/2021 institution IDs with complete reported language-count rows; nonresponse and partial-count responses excluded, explicit zero-language institutions retained."},
         {"id": "ap_global", "status": "available",
-         "description": "Global AP Chinese annual participation from 2007; standard-group subset where verified. Not U.S.-only."},
+         "description": "Global AP Chinese and Japanese annual participation and standard-group subsets, 2007-2025. Not U.S.-only; no verified 2026 counts."},
+        {"id": "ap_korean", "status": "not_offered",
+         "description": "No AP Korean exam appears in the College Board catalogue. Korean college enrollment is a separate MLA benchmark, not an AP series."},
         {"id": "ap_us_cohorts", "status": "historical_only",
          "description": "U.S. public-school graduating classes 2007-2013, counting exams taken during high school. Not the year of exam administration or all U.S. schools."},
         {"id": "ap_us_annual", "status": "not_verified",
@@ -75,6 +79,23 @@ def collect(client, last_degree_year=2024):
         },
         "rights": "Only selected numerical aggregates and our original figures are published, not source reports, artwork, institution-level workbooks or exam questions. Source terms still apply; commercial reuse permission is not established by these exports.",
     }
+    result["context"]["ap_groups"] = AP_GROUP_CONTEXT
+    result["observations"].sort(key=lambda r: (r["series_id"], r["year"]))
+    return validate_language_data(result)
+
+
+def collect_ap(client, prior):
+    result = copy.deepcopy(prior)
+    definitions, observations, sources = ap_global(client)
+    result["series"].update(definitions)
+    result["sources"].update(sources)
+    result["observations"] = [r for r in result["observations"] if not r["series_id"].startswith("ap:")] + observations
+    for item in result["coverage"]:
+        if item["id"] == "ap_global":
+            item["description"] = "Global AP Chinese and Japanese counts and standard-group subsets, 2007-2025; not U.S.-only. No verified 2026 participant counts."
+    result["coverage"] = [r for r in result["coverage"] if r["id"] != "ap_korean"] + [{
+        "id": "ap_korean", "status": "not_offered", "description": AP_GROUP_CONTEXT["korean"]}]
+    result["context"]["ap_groups"] = AP_GROUP_CONTEXT
     result["observations"].sort(key=lambda r: (r["series_id"], r["year"]))
     return validate_language_data(result)
 
@@ -84,8 +105,11 @@ if __name__ == "__main__":
     parser.add_argument("--refresh", action="store_true", help="Explicitly re-fetch reviewed public source files instead of their checksummed local cache")
     parser.add_argument("--last-degree-year", type=int, default=2024)
     parser.add_argument("--data-only", action="store_true")
+    parser.add_argument("--ap-only", action="store_true", help="Review only AP sources; preserve all non-AP observations and definitions")
     args = parser.parse_args()
-    data = collect(ReviewClient(ROOT / "data/local/language-learning/raw", args.refresh), args.last_degree_year)
+    client = ReviewClient(ROOT / "data/local/language-learning/raw", args.refresh)
+    data = (collect_ap(client, json.loads((ROOT / "data/site/language_learning.json").read_text()))
+            if args.ap_only else collect(client, args.last_degree_year))
     write_atomic(ROOT / "data/site/language_learning.json", json_text(data))
     if not args.data_only:
         from us_china_exchange.render import build
