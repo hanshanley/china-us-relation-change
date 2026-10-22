@@ -6,7 +6,7 @@ from xml.etree import ElementTree
 import pytest
 from PIL import Image
 
-from us_china_exchange.render import build
+from us_china_exchange.render import build, build_weibo
 from us_china_exchange.weibo_analysis import create_summary, svg_weibo, validate_summary
 from weibo_media.registry import load
 from weibo_media.storage import connect
@@ -91,6 +91,17 @@ def test_summary_rejects_unreconciled_counts_and_extra_private_fields(tmp_path):
     summary["accounts"][0]["text"] = "PRIVATE_BODY"
     with pytest.raises(ValueError, match="Unexpected Weibo account"):
         validate_summary(summary)
+
+
+def test_weibo_csv_bytes_are_stable_after_json_roundtrip(tmp_path, monkeypatch):
+    database, registry = snapshot_inputs(tmp_path)
+    summary = create_summary(database, registry)
+    monkeypatch.setattr("us_china_exchange.render.png_chart", lambda svg: b"fixture")
+    build_weibo(tmp_path, summary, {"weibo": []})
+    names = ("accounts", "years", "text-completeness")
+    before = {name: (tmp_path / f"site/downloads/weibo-{name}.csv").read_bytes() for name in names}
+    build_weibo(tmp_path, json.loads(json.dumps(summary, sort_keys=True)), {"weibo": []})
+    assert before == {name: (tmp_path / f"site/downloads/weibo-{name}.csv").read_bytes() for name in names}
 
 
 def test_weibo_outputs_publish_only_complete_aggregates_and_both_backgrounds(tmp_path):

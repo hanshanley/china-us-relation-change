@@ -329,7 +329,7 @@ def build_weibo(root, summary, gallery):
     for name, records in (("accounts", summary["accounts"]), ("years", summary["yearly"]),
                           ("text-completeness", summary["text_completeness"])):
         stream = io.StringIO(newline="")
-        columns = list(records[0]) if records else (["year", "recovered_posts"] if name == "years" else ["account_id"])
+        columns = sorted(records[0]) if records else (["year", "recovered_posts"] if name == "years" else ["account_id"])
         writer = csv.DictWriter(stream, fieldnames=columns, lineterminator="\n")
         writer.writeheader()
         writer.writerows(records)

@@ -127,6 +127,11 @@ SHA-256 is
 The combined ledger still contains **1,056 domains** because Wharton's
 publication domain was already present as an unresolved candidate.
 
+CSV field ordering is stable across fresh-summary and frozen-JSON builds.
+A concurrent publication refresh changed column ordering but no research
+values; it is integrated without dropping the newer records or rewriting
+either commit history.
+
 ## Other bounded leads
 
 The publication-specific SELF Wikidata item was resolved through the actual
