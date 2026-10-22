@@ -12,6 +12,7 @@ from pathlib import Path
 import resvg_py
 
 from .model import START_YEAR, GEOGRAPHIES, MEASURES, change, coverage, gap_reason, json_text, validate
+from .language_analysis import CHARTS as LANGUAGE_CHARTS, chart_points, svg_language_chart, validate_language_data
 from .pipeline import load, write_atomic
 from .sources import SOURCE_POLICIES
 from .weibo_analysis import WEIBO_CHARTS, svg_weibo, validate_summary
@@ -372,6 +373,147 @@ def build_weibo(root, summary, gallery):
     write_atomic(root / "site/weibo.html", document)
 
 
+def build_languages(root, data, gallery):
+    validate_language_data(data)
+    cards, plotted_rows, count = [], [], 0
+    for chart_id, config in LANGUAGE_CHARTS.items():
+        paths = {}
+        for theme in CHART_THEMES:
+            svg = svg_language_chart(data, chart_id, theme)
+            relative = Path("language_learning") / theme / chart_id
+            if svg is None:
+                remove_figure(root, relative)
+            else:
+                paths[theme] = export_figure(root, relative, svg)
+        body = '<p class="gap">No verified observations for this indicator in the frozen snapshot.</p>'
+        if paths:
+            count += 1
+            image = paths["themarginoferror"]["png"]
+            body = (f'<div class="comparison-chart" tabindex="0" role="region" aria-label="{esc(config["title"])}">'
+                    f'<img src="{esc(image)}" alt="{esc(config["title"])} - {esc(config["subtitle"])}" '
+                    'width="1000" height="600" loading="lazy"></div>' +
+                    f'<p class="chart-note">{esc(config["note"])}</p>' + figure_links(paths))
+            relative = {theme: {kind: path.removeprefix("figures/") for kind, path in files.items()}
+                        for theme, files in paths.items()}
+            gallery["language_learning"].append(
+                f'<article><h3>{esc(config["title"])}</h3><p>{esc(config["subtitle"])}</p>' +
+                figure_links(relative) + '</article>')
+            exact = []
+            for group in chart_points(data, chart_id):
+                for point in group["points"]:
+                    definition = data["series"][group["id"]]
+                    provenance = data["sources"][point["source_id"]]
+                    plotted_rows.append(dict(point, chart_id=chart_id, label=group["label"],
+                                             scope=definition["scope"], definition=definition["notes"],
+                                             period_basis=definition["period_basis"],
+                                             source_name=provenance["name"],
+                                             source_vintage=provenance["vintage"]))
+                    exact.append(f'<tr><th scope="row">{esc(group["label"])}</th><td>{point["year"]}</td>'
+                                 f'<td>{point["value"]:,}</td><td>{point["plotted_value"]:,.4f}</td>'
+                                 f'<td>{esc(point["status"])}</td><td>{esc(provenance["vintage"])}</td></tr>')
+            body += ('<details><summary>Exact reported and plotted values</summary><div class="table-scroll"><table>'
+                     '<thead><tr><th>Series</th><th>Year / ending year</th><th>Reported count</th>'
+                     f'<th>{esc(config["unit"])}</th><th>Status</th><th>Source vintage</th></tr></thead>'
+                     '<tbody>' + "".join(exact) + '</tbody></table></div></details>')
+        cards.append(f'<section class="series-panel" id="{chart_id}"><h2>{esc(config["title"])}</h2>{body}</section>')
+    write_atomic(root / "site/downloads/language-learning.json", json_text(data))
+    raw_rows = []
+    for observation in data["observations"]:
+        definition = data["series"][observation["series_id"]]
+        provenance = data["sources"][observation["source_id"]]
+        raw_rows.append(dict(observation, **{k: v for k, v in definition.items() if k != "notes"},
+                             definition_notes=definition["notes"], source_name=provenance["name"],
+                             source_vintage=provenance["vintage"], source_locator=provenance["locator"],
+                             source_assets=json.dumps(provenance["assets"], sort_keys=True)))
+    for name, rows in [("language-observations", raw_rows), ("language-chart-values", plotted_rows)]:
+        stream = io.StringIO(newline="")
+        columns = sorted({key for r in rows for key in r})
+        writer = csv.DictWriter(stream, fieldnames=columns, lineterminator="\n")
+        writer.writeheader()
+        writer.writerows(rows)
+        write_atomic(root / "site/downloads" / (name + ".csv"), stream.getvalue())
+    sources = "".join(
+        f'<li><strong>{esc(item["name"])} - {esc(item["vintage"])}</strong>. {esc(item["locator"])}. '
+        f'{esc(item["notes"])}<ul>' +
+        "".join(f'<li><a href="{esc(a["url"])}">Primary source</a>; retrieved {esc(a["retrieved_at"])}; '
+                f'SHA-256 <code>{a["sha256"]}</code></li>' for a in item["assets"]) + '</ul></li>'
+        for item in data["sources"].values())
+    coverage_html = "".join(f'<tr><th scope="row">{esc(c["id"].replace("_", " "))}</th>'
+                            f'<td>{esc(c["status"])}</td><td>{esc(c["description"])}</td></tr>'
+                            for c in data["coverage"])
+    context = data["context"]
+    economist = context["economist"]
+    census = {(r["series_id"], r["year"]): r for r in data["observations"]}
+    latest = max((r for r in data["observations"] if r["series_id"] == "mla:chinese" and r["value"] is not None),
+                 key=lambda r: r["year"], default=None)
+    reference = census.get(("mla:chinese", 2013))
+    census_note = ""
+    if latest and reference and reference["value"] is not None:
+        census_note = (f'<p>The national census shows Chinese/Mandarin moving from {reference["value"]:,} registrations '
+                       f'in 2013 to {latest["value"]:,} in {latest["year"]}. The benchmark and share panels compare '
+                       'this with all-language totals; neither establishes what caused the changes.</p>')
+        earlier_total = census.get(("mla:all_languages", 2013))
+        latest_total = census.get(("mla:all_languages", latest["year"]))
+        if reference["value"] and earlier_total and earlier_total["value"] and latest_total and latest_total["value"]:
+            chinese_change = (latest["value"] / reference["value"] - 1) * 100
+            all_change = (latest_total["value"] / earlier_total["value"] - 1) * 100
+            earlier_share = reference["value"] / earlier_total["value"] * 100
+            latest_share = latest["value"] / latest_total["value"] * 100
+            census_note += (f'<p>Over those same years, Chinese/Mandarin registrations changed {chinese_change:+.1f}%, '
+                            f'compared with {all_change:+.1f}% for all languages. Its share of language registrations '
+                            f'was {earlier_share:.2f}% in 2013 and {latest_share:.2f}% in {latest["year"]}. '
+                            'An absolute decline alone does not establish a China-specific retreat.</p>')
+    estimate = next((r for r in data["observations"] if r["series_id"] == "schools:k12_estimate"), None)
+    school_note = (f'<p>The separate 2014-15-era K-12 survey estimated <strong>{estimate["value"]:,} Chinese '
+                   'enrollments</strong>, combining reported and modeled state data. It is not a current census '
+                   'and excludes substantial community/heritage and summer-school coverage.</p>') if estimate and estimate["value"] is not None else ""
+    document = ('<!doctype html><html lang="en"><head><meta charset="utf-8">'
+                '<meta name="viewport" content="width=device-width,initial-scale=1">'
+                '<title>Learning Chinese | U.S. language-learning indicators</title>'
+                '<link rel="stylesheet" href="assets/style.css"></head><body><div class="page">'
+                '<header><p><a href="index.html">Exchange dashboard</a> · '
+                '<a href="comparisons.html">Three-geography comparisons</a></p>'
+                '<h1>Learning Chinese.</h1>'
+                f'<p class="lead">{esc(context["question"])}</p>'
+                '<p>College registrations, exam participation, immersion programs and degree awards are different '
+                'populations. They are never added into a learner total or interpreted as border crossings.</p>'
+                '<p>MLA figures concern U.S. institutions. <strong>The annual AP panel is global, not U.S.-only</strong>; '
+                'its standard group is not a geographic or ancestry filter. A separate historical AP panel covers '
+                'U.S. public-school graduating classes 2007-2013 and exams taken during high school, not annual '
+                'exam administrations. A current U.S.-only annual AP series remains unverified.</p>'
+                '<p>Each panel keeps its actual reference years, source vintage and population. '
+                'College census rounds are not annual observations; academic-year awards use ending years.</p>'
+                '<p><a href="downloads/language-learning.json" download>Complete dataset, definitions and provenance · JSON</a> · '
+                '<a href="downloads/language-observations.csv" download>Every source observation · CSV</a> · '
+                '<a href="downloads/language-chart-values.csv" download>Every reported and plotted chart value · CSV</a></p>'
+                '</header><main><section class="series-panel"><h2>Reading the Economist claim</h2>'
+                f'<p><a href="{esc(economist["url"])}">{esc(economist["title"])}</a>, '
+                f'{esc(economist["date"])}. {esc(economist["interpretation"])}</p>'
+                '<p>The article cites a rounded 21% decline from 2016 to 2020. That comparison comes from '
+                'the separate MLA pandemic snapshot of 1,308 matched institutions, not the full 2021 census. '
+                'It is retained as context, never spliced into the national census series.</p>'
+                + census_note + '</section>' +
+                "".join(cards) +
+                '<section class="series-panel"><h2>School-age evidence and its limits</h2>' + school_note +
+                '<p>Nexus reports 335 programs in its 2025 U.S. inventory. Its survey received 102 U.S. responses '
+                'plus one from Hong Kong. The 34,341 respondent-associated enrollments therefore do not become '
+                'a U.S. national learner estimate here. Program counts and survey-response counts remain distinct.</p>'
+                '<p>The 2011, 2021 and 2025 inventories use different coverage definitions. Their bars are separate '
+                'snapshots, not evidence of a calculated growth rate. Establishment-year responses among surviving '
+                'survey respondents are not reconstructed counts of programs active in earlier years.</p></section>'
+                '<section class="series-panel"><h2>Coverage and unresolved comparisons</h2><div class="table-scroll"><table>'
+                '<thead><tr><th>Indicator</th><th>Coverage</th><th>Definition and limitation</th></tr></thead>'
+                '<tbody>' + coverage_html + '</tbody></table></div></section>'
+                '<section class="series-panel"><h2>Sources, vintages and reuse</h2>'
+                f'<p>{esc(context["rights"])}</p>'
+                '<p>MLA network terms limit ordinary use to personal noncommercial use; separate commercial reuse '
+                'permission is unverified. These publication backgrounds do not grant source-content rights.</p>'
+                '<details><summary>Primary sources and retained checksums</summary><ul>' +
+                sources + '</ul></details></section></main></div></body></html>')
+    write_atomic(root / "site/language-learning.html", document)
+    return count
+
+
 def annual_table(rows):
     annual = sorted((r for r in rows if r["frequency"] == "annual"), key=lambda r: r["year"])
     varied = len({r["comparability"] for r in annual}) > 1
@@ -406,6 +548,9 @@ def build(root):
     if not rows:
         raise ValueError("No canonical observations; run update.py first")
     sources = load(root / "data/site/sources.json", {})
+    language_data = load(root / "data/site/language_learning.json", None)
+    if language_data is not None:
+        validate_language_data(language_data)
     matrix = coverage(rows)
     groups = defaultdict(list)
     for row in rows:
@@ -536,6 +681,16 @@ def build(root):
             path = site / relative
             if path.is_file():
                 path.unlink()
+    language_count = build_languages(root, language_data, gallery) if language_data is not None else 0
+    if language_data is None:
+        for chart_id in LANGUAGE_CHARTS:
+            for theme in CHART_THEMES:
+                remove_figure(root, Path("language_learning") / theme / chart_id)
+        for relative in ["language-learning.html", "downloads/language-learning.json",
+                         "downloads/language-observations.csv", "downloads/language-chart-values.csv"]:
+            path = site / relative
+            if path.is_file():
+                path.unlink()
     payload = {"observations": rows, "sources": sources, "coverage": matrix,
                "geographies": GEOGRAPHIES, "measures": MEASURES,
                "source_policies": SOURCE_POLICIES,
@@ -624,6 +779,7 @@ Four separate geographies. Both directions. History since {START_YEAR}; change s
 <p class="scope">History from {START_YEAR} where available \u00b7 Latest verified period varies by series \u00b7 Nominal USD for trade</p></header>
 <main id="main">
 <p><a href="comparisons.html">Compare mainland China, Hong Kong and Macau on the same charts</a></p>
+{"<p><a href='language-learning.html'>Chinese-language learning: college, AP, school programs and degree awards</a> — separate educational indicators, not bilateral flows.</p>" if language_data is not None else ""}
 {"<p><a href='weibo.html'>Weibo account evidence and recovered-corpus graphs</a> — separate research coverage, not an exchange-flow measure.</p>" if weibo_summary is not None else ""}
 <form class="controls" aria-label="Explore bilateral series" onsubmit="return false">
 <label for="geography">Geography<select id="geography">{options}</select></label>
@@ -675,4 +831,4 @@ Four separate geographies. Both directions. History since {START_YEAR}; change s
 """
     write_atomic(site / "index.html", document)
     return {"observations": len(rows), "series": len(groups), "coverage_cells": len(matrix),
-            "comparisons": comparison_count}
+            "comparisons": comparison_count, "language_charts": language_count}

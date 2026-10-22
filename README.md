@@ -12,6 +12,13 @@ show a frozen, aggregate account/corpus-coverage snapshot, not total activity or
 popularity. See [graph generation and limits](docs/EXCHANGE.md#weibo-research-graphs)
 for the read-only summary builder and PNG/SVG exports.
 
+The [Chinese-language learning section](site/language-learning.html) adds college
+registrations and their language-study share, matched-institution comparisons,
+AP exam indicators, immersion inventories and annual Chinese-language degree
+awards. These are separate educational indicators, not a combined learner total.
+AP global administration counts and historical U.S. public-school graduating
+cohorts are explicitly separate. See [definitions and manual refresh](docs/EXCHANGE.md#chinese-language-learning).
+
 An evidence-backed account inventory and small, resumable post-recovery CLI.
 The scope includes U.S. news brands, their explicitly labeled Chinese editions,
 and U.S.-based Chinese-language outlets. It is **not an exhaustive census**.

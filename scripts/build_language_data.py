@@ -1,0 +1,92 @@
+#!/usr/bin/env python3
+"""Explicitly review public language data, freeze aggregates, and build offline figures."""
+
+import argparse
+import sys
+from datetime import datetime, timezone
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "src"))
+
+from us_china_exchange.language_analysis import validate_language_data
+from us_china_exchange.language_sources import MLA_SNAPSHOT, ReviewClient, ap_global, ap_us_cohorts, ipeds, mla, schools, source
+from us_china_exchange.model import json_text
+from us_china_exchange.pipeline import write_atomic
+
+
+def collect(client, last_degree_year=2024):
+    if not 2000 <= last_degree_year <= datetime.now(timezone.utc).year:
+        raise ValueError("The final degree year must be between 2000 and the current year")
+    result = {"version": 1, "series": {}, "observations": [], "sources": {}, "coverage": [], "context": {}}
+    for name, fetch in [("MLA", mla), ("AP", ap_global), ("AP U.S. cohorts", ap_us_cohorts),
+                        ("IPEDS", lambda c: ipeds(c, range(2000, last_degree_year + 1))),
+                        ("Schools", schools)]:
+        print("Reviewing " + name + " sources...", flush=True)
+        definitions, observations, sources = fetch(client)
+        if set(definitions) & result["series"].keys() or set(sources) & result["sources"].keys():
+            raise ValueError("Duplicate language-source or series identity")
+        result["series"].update(definitions)
+        result["observations"].extend(observations)
+        result["sources"].update(sources)
+    content, asset = client.get(MLA_SNAPSHOT)
+    from us_china_exchange.language_sources import pdf_text
+    snapshot = "\n".join(pdf_text(content))
+    if "1,308" not in snapshot or "15.4%" not in snapshot:
+        raise ValueError("Reviewed MLA 2020 snapshot scope changed")
+    result["sources"]["mla_snapshot_2020"] = source(
+        "Modern Language Association", "Fall 2020 snapshot; fall 2022 newsletter",
+        [asset], "Snapshot methodology and language comparisons",
+        "1,308 matched institutions; not the full 2021 census. Article's rounded 21% decline is context only, not a national census observation.")
+    result["coverage"] = [
+        {"id": "college_census", "status": "available",
+         "description": "Fall census rounds 2002, 2006, 2009, 2013, 2016 and 2021; one report vintage, no annual interpolation."},
+        {"id": "matched_colleges", "status": "available",
+         "description": "Matched 2013/2021 institution IDs with complete reported language-count rows; nonresponse and partial-count responses excluded, explicit zero-language institutions retained."},
+        {"id": "ap_global", "status": "available",
+         "description": "Global AP Chinese annual participation from 2007; standard-group subset where verified. Not U.S.-only."},
+        {"id": "ap_us_cohorts", "status": "historical_only",
+         "description": "U.S. public-school graduating classes 2007-2013, counting exams taken during high school. Not the year of exam administration or all U.S. schools."},
+        {"id": "ap_us_annual", "status": "not_verified",
+         "description": "A current U.S.-only annual administration series remains unverified. Global reports, their standard group and historical graduating cohorts cannot substitute for that population."},
+        {"id": "degree_awards", "status": "available",
+         "description": f"Annual IPEDS awards from academic year ending 2000 through {last_degree_year}; first major from 2001, 50 states/DC and Title IV degree-granting institutions."},
+        {"id": "immersion_programs", "status": "snapshots_only",
+         "description": "CAL 2011 directory, ARC 2021 public-school canvass and Nexus 2025 mixed-school inventory have different universes; no comparable growth rate."},
+        {"id": "k12_learners", "status": "estimate_only",
+         "description": "2014-15-era Chinese enrollment estimate, published 2017. No continuous national learner census verified; do not combine with immersion-program counts."},
+    ]
+    result["context"] = {
+        "question": "Is the United States losing its capacity to develop Chinese-language expertise, or is learning shifting between educational settings?",
+        "economist": {
+            "title": "Why fewer university students are studying Mandarin",
+            "date": "2023-08-24",
+            "url": "https://www.economist.com/china/2023/08/24/why-fewer-university-students-are-studying-mandarin",
+            "role": "Context, not the numeric source for the census series.",
+            "interpretation": "Employment incentives, geopolitical tensions, competing cultural attractions and translation technology are proposed explanations, not a demonstrated causal decomposition.",
+            "reported_snapshot_change_percent": -21,
+            "snapshot_comparison_years": [2016, 2020],
+            "snapshot_source_id": "mla_snapshot_2020",
+        },
+        "nexus_response_scope": {
+            "year": 2025, "program_responses": 103, "us_program_responses": 102,
+            "hong_kong_program_responses": 1, "response_associated_enrollments": 34341,
+            "note": "Mixed-geography respondent total, not a U.S. national learner count; excluded from U.S. enrollment observations.",
+        },
+        "rights": "Only selected numerical aggregates and our original figures are published, not source reports, artwork, institution-level workbooks or exam questions. Source terms still apply; commercial reuse permission is not established by these exports.",
+    }
+    result["observations"].sort(key=lambda r: (r["series_id"], r["year"]))
+    return validate_language_data(result)
+
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--refresh", action="store_true", help="Explicitly re-fetch reviewed public source files instead of their checksummed local cache")
+    parser.add_argument("--last-degree-year", type=int, default=2024)
+    parser.add_argument("--data-only", action="store_true")
+    args = parser.parse_args()
+    data = collect(ReviewClient(ROOT / "data/local/language-learning/raw", args.refresh), args.last_degree_year)
+    write_atomic(ROOT / "data/site/language_learning.json", json_text(data))
+    if not args.data_only:
+        from us_china_exchange.render import build
+        print(json_text(build(ROOT)), end="")

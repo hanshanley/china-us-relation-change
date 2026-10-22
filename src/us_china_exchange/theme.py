@@ -26,6 +26,7 @@ FIGURE_CATEGORIES = {
     "goods_trade": "Goods trade",
     "services_trade": "Services trade",
     "weibo": "Weibo research coverage",
+    "language_learning": "Language learning",
 }
 
 

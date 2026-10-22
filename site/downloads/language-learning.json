@@ -1,0 +1,2318 @@
+{
+  "context": {
+    "economist": {
+      "date": "2023-08-24",
+      "interpretation": "Employment incentives, geopolitical tensions, competing cultural attractions and translation technology are proposed explanations, not a demonstrated causal decomposition.",
+      "reported_snapshot_change_percent": -21,
+      "role": "Context, not the numeric source for the census series.",
+      "snapshot_comparison_years": [
+        2016,
+        2020
+      ],
+      "snapshot_source_id": "mla_snapshot_2020",
+      "title": "Why fewer university students are studying Mandarin",
+      "url": "https://www.economist.com/china/2023/08/24/why-fewer-university-students-are-studying-mandarin"
+    },
+    "nexus_response_scope": {
+      "hong_kong_program_responses": 1,
+      "note": "Mixed-geography respondent total, not a U.S. national learner count; excluded from U.S. enrollment observations.",
+      "program_responses": 103,
+      "response_associated_enrollments": 34341,
+      "us_program_responses": 102,
+      "year": 2025
+    },
+    "question": "Is the United States losing its capacity to develop Chinese-language expertise, or is learning shifting between educational settings?",
+    "rights": "Only selected numerical aggregates and our original figures are published, not source reports, artwork, institution-level workbooks or exam questions. Source terms still apply; commercial reuse permission is not established by these exports."
+  },
+  "coverage": [
+    {
+      "description": "Fall census rounds 2002, 2006, 2009, 2013, 2016 and 2021; one report vintage, no annual interpolation.",
+      "id": "college_census",
+      "status": "available"
+    },
+    {
+      "description": "Matched 2013/2021 institution IDs with complete reported language-count rows; nonresponse and partial-count responses excluded, explicit zero-language institutions retained.",
+      "id": "matched_colleges",
+      "status": "available"
+    },
+    {
+      "description": "Global AP Chinese annual participation from 2007; standard-group subset where verified. Not U.S.-only.",
+      "id": "ap_global",
+      "status": "available"
+    },
+    {
+      "description": "U.S. public-school graduating classes 2007-2013, counting exams taken during high school. Not the year of exam administration or all U.S. schools.",
+      "id": "ap_us_cohorts",
+      "status": "historical_only"
+    },
+    {
+      "description": "A current U.S.-only annual administration series remains unverified. Global reports, their standard group and historical graduating cohorts cannot substitute for that population.",
+      "id": "ap_us_annual",
+      "status": "not_verified"
+    },
+    {
+      "description": "Annual IPEDS awards from academic year ending 2000 through 2024; first major from 2001, 50 states/DC and Title IV degree-granting institutions.",
+      "id": "degree_awards",
+      "status": "available"
+    },
+    {
+      "description": "CAL 2011 directory, ARC 2021 public-school canvass and Nexus 2025 mixed-school inventory have different universes; no comparable growth rate.",
+      "id": "immersion_programs",
+      "status": "snapshots_only"
+    },
+    {
+      "description": "2014-15-era Chinese enrollment estimate, published 2017. No continuous national learner census verified; do not combine with immersion-program counts.",
+      "id": "k12_learners",
+      "status": "estimate_only"
+    }
+  ],
+  "observations": [
+    {
+      "comparability": "ap:global_total",
+      "notes": "",
+      "series_id": "ap:global_total",
+      "source_id": "ap_volume_2017",
+      "status": "observed",
+      "value": 3261,
+      "year": 2007
+    },
+    {
+      "comparability": "ap:global_total",
+      "notes": "",
+      "series_id": "ap:global_total",
+      "source_id": "ap_volume_2017",
+      "status": "observed",
+      "value": 4311,
+      "year": 2008
+    },
+    {
+      "comparability": "ap:global_total",
+      "notes": "",
+      "series_id": "ap:global_total",
+      "source_id": "ap_volume_2017",
+      "status": "observed",
+      "value": 5100,
+      "year": 2009
+    },
+    {
+      "comparability": "ap:global_total",
+      "notes": "",
+      "series_id": "ap:global_total",
+      "source_id": "ap_volume_2017",
+      "status": "observed",
+      "value": 6388,
+      "year": 2010
+    },
+    {
+      "comparability": "ap:global_total",
+      "notes": "",
+      "series_id": "ap:global_total",
+      "source_id": "ap_volume_2017",
+      "status": "observed",
+      "value": 7970,
+      "year": 2011
+    },
+    {
+      "comparability": "ap:global_total",
+      "notes": "",
+      "series_id": "ap:global_total",
+      "source_id": "ap_volume_2017",
+      "status": "observed",
+      "value": 9357,
+      "year": 2012
+    },
+    {
+      "comparability": "ap:global_total",
+      "notes": "",
+      "series_id": "ap:global_total",
+      "source_id": "ap_volume_2023",
+      "status": "observed",
+      "value": 10121,
+      "year": 2013
+    },
+    {
+      "comparability": "ap:global_total",
+      "notes": "",
+      "series_id": "ap:global_total",
+      "source_id": "ap_volume_2024",
+      "status": "observed",
+      "value": 10728,
+      "year": 2014
+    },
+    {
+      "comparability": "ap:global_total",
+      "notes": "",
+      "series_id": "ap:global_total",
+      "source_id": "ap_volume_2024",
+      "status": "observed",
+      "value": 11633,
+      "year": 2015
+    },
+    {
+      "comparability": "ap:global_total",
+      "notes": "",
+      "series_id": "ap:global_total",
+      "source_id": "ap_volume_2024",
+      "status": "observed",
+      "value": 12524,
+      "year": 2016
+    },
+    {
+      "comparability": "ap:global_total",
+      "notes": "",
+      "series_id": "ap:global_total",
+      "source_id": "ap_volume_2024",
+      "status": "observed",
+      "value": 13091,
+      "year": 2017
+    },
+    {
+      "comparability": "ap:global_total",
+      "notes": "",
+      "series_id": "ap:global_total",
+      "source_id": "ap_volume_2024",
+      "status": "observed",
+      "value": 13825,
+      "year": 2018
+    },
+    {
+      "comparability": "ap:global_total",
+      "notes": "",
+      "series_id": "ap:global_total",
+      "source_id": "ap_volume_2024",
+      "status": "observed",
+      "value": 13853,
+      "year": 2019
+    },
+    {
+      "comparability": "ap:global_total",
+      "notes": "",
+      "series_id": "ap:global_total",
+      "source_id": "ap_volume_2024",
+      "status": "observed",
+      "value": 14663,
+      "year": 2020
+    },
+    {
+      "comparability": "ap:global_total",
+      "notes": "",
+      "series_id": "ap:global_total",
+      "source_id": "ap_volume_2024",
+      "status": "observed",
+      "value": 13122,
+      "year": 2021
+    },
+    {
+      "comparability": "ap:global_total",
+      "notes": "",
+      "series_id": "ap:global_total",
+      "source_id": "ap_volume_2024",
+      "status": "observed",
+      "value": 15277,
+      "year": 2022
+    },
+    {
+      "comparability": "ap:global_total",
+      "notes": "",
+      "series_id": "ap:global_total",
+      "source_id": "ap_chinese_2023",
+      "status": "observed",
+      "value": 16495,
+      "year": 2023
+    },
+    {
+      "comparability": "ap:global_total",
+      "notes": "",
+      "series_id": "ap:global_total",
+      "source_id": "ap_chinese_2024",
+      "status": "observed",
+      "value": 17905,
+      "year": 2024
+    },
+    {
+      "comparability": "ap:global_total",
+      "notes": "",
+      "series_id": "ap:global_total",
+      "source_id": "ap_chinese_2025",
+      "status": "observed",
+      "value": 18518,
+      "year": 2025
+    },
+    {
+      "comparability": "ap:standard_group",
+      "notes": "",
+      "series_id": "ap:standard_group",
+      "source_id": "ap_chinese_2023",
+      "status": "observed",
+      "value": 4020,
+      "year": 2023
+    },
+    {
+      "comparability": "ap:standard_group",
+      "notes": "",
+      "series_id": "ap:standard_group",
+      "source_id": "ap_chinese_2024",
+      "status": "observed",
+      "value": 4543,
+      "year": 2024
+    },
+    {
+      "comparability": "ap:standard_group",
+      "notes": "",
+      "series_id": "ap:standard_group",
+      "source_id": "ap_chinese_2025",
+      "status": "observed",
+      "value": 4777,
+      "year": 2025
+    },
+    {
+      "comparability": "ap_cohort:us_public",
+      "notes": "",
+      "series_id": "ap_cohort:us_public",
+      "source_id": "ap_cohort_2013",
+      "status": "observed",
+      "value": 1056,
+      "year": 2007
+    },
+    {
+      "comparability": "ap_cohort:us_public",
+      "notes": "",
+      "series_id": "ap_cohort:us_public",
+      "source_id": "ap_cohort_2014",
+      "status": "observed",
+      "value": 1992,
+      "year": 2008
+    },
+    {
+      "comparability": "ap_cohort:us_public",
+      "notes": "",
+      "series_id": "ap_cohort:us_public",
+      "source_id": "ap_cohort_2011",
+      "status": "observed",
+      "value": 2694,
+      "year": 2009
+    },
+    {
+      "comparability": "ap_cohort:us_public",
+      "notes": "",
+      "series_id": "ap_cohort:us_public",
+      "source_id": "ap_cohort_2011",
+      "status": "observed",
+      "value": 3428,
+      "year": 2010
+    },
+    {
+      "comparability": "ap_cohort:us_public",
+      "notes": "",
+      "series_id": "ap_cohort:us_public",
+      "source_id": "ap_cohort_2013",
+      "status": "observed",
+      "value": 4128,
+      "year": 2011
+    },
+    {
+      "comparability": "ap_cohort:us_public",
+      "notes": "",
+      "series_id": "ap_cohort:us_public",
+      "source_id": "ap_cohort_2014",
+      "status": "observed",
+      "value": 4983,
+      "year": 2012
+    },
+    {
+      "comparability": "ap_cohort:us_public",
+      "notes": "",
+      "series_id": "ap_cohort:us_public",
+      "source_id": "ap_cohort_2014",
+      "status": "observed",
+      "value": 5684,
+      "year": 2013
+    },
+    {
+      "comparability": "ipeds:bachelors:no_major_split",
+      "notes": "Academic year 1999/00; AWLEVEL=5; 45 eligible source cells.",
+      "series_id": "ipeds:bachelors",
+      "source_id": "ipeds_2000",
+      "status": "reported_or_imputed",
+      "value": 183,
+      "year": 2000
+    },
+    {
+      "comparability": "ipeds:bachelors",
+      "notes": "Academic year 2000/01; AWLEVEL=5; 48 eligible source cells.",
+      "series_id": "ipeds:bachelors",
+      "source_id": "ipeds_2001",
+      "status": "reported_or_imputed",
+      "value": 183,
+      "year": 2001
+    },
+    {
+      "comparability": "ipeds:bachelors",
+      "notes": "Academic year 2001/02; AWLEVEL=5; 46 eligible source cells.",
+      "series_id": "ipeds:bachelors",
+      "source_id": "ipeds_2002",
+      "status": "reported_or_imputed",
+      "value": 189,
+      "year": 2002
+    },
+    {
+      "comparability": "ipeds:bachelors",
+      "notes": "Academic year 2002/03; AWLEVEL=5; 51 eligible source cells.",
+      "series_id": "ipeds:bachelors",
+      "source_id": "ipeds_2003",
+      "status": "reported_or_imputed",
+      "value": 190,
+      "year": 2003
+    },
+    {
+      "comparability": "ipeds:bachelors",
+      "notes": "Academic year 2003/04; AWLEVEL=5; 54 eligible source cells.",
+      "series_id": "ipeds:bachelors",
+      "source_id": "ipeds_2004",
+      "status": "reported_or_imputed",
+      "value": 186,
+      "year": 2004
+    },
+    {
+      "comparability": "ipeds:bachelors",
+      "notes": "Academic year 2004/05; AWLEVEL=5; 54 eligible source cells.",
+      "series_id": "ipeds:bachelors",
+      "source_id": "ipeds_2005",
+      "status": "reported_or_imputed",
+      "value": 208,
+      "year": 2005
+    },
+    {
+      "comparability": "ipeds:bachelors",
+      "notes": "Academic year 2005/06; AWLEVEL=5; 60 eligible source cells.",
+      "series_id": "ipeds:bachelors",
+      "source_id": "ipeds_2006",
+      "status": "reported_or_imputed",
+      "value": 241,
+      "year": 2006
+    },
+    {
+      "comparability": "ipeds:bachelors",
+      "notes": "Academic year 2006/07; AWLEVEL=5; 63 eligible source cells.",
+      "series_id": "ipeds:bachelors",
+      "source_id": "ipeds_2007",
+      "status": "reported_or_imputed",
+      "value": 261,
+      "year": 2007
+    },
+    {
+      "comparability": "ipeds:bachelors",
+      "notes": "Academic year 2007/08; AWLEVEL=5; 65 eligible source cells.",
+      "series_id": "ipeds:bachelors",
+      "source_id": "ipeds_2008",
+      "status": "reported_or_imputed",
+      "value": 289,
+      "year": 2008
+    },
+    {
+      "comparability": "ipeds:bachelors",
+      "notes": "Academic year 2008/09; AWLEVEL=5; 69 eligible source cells.",
+      "series_id": "ipeds:bachelors",
+      "source_id": "ipeds_2009",
+      "status": "reported_or_imputed",
+      "value": 384,
+      "year": 2009
+    },
+    {
+      "comparability": "ipeds:bachelors",
+      "notes": "Academic year 2009/10; AWLEVEL=5; 75 eligible source cells.",
+      "series_id": "ipeds:bachelors",
+      "source_id": "ipeds_2010",
+      "status": "reported_or_imputed",
+      "value": 456,
+      "year": 2010
+    },
+    {
+      "comparability": "ipeds:bachelors",
+      "notes": "Academic year 2010/11; AWLEVEL=5; 80 eligible source cells.",
+      "series_id": "ipeds:bachelors",
+      "source_id": "ipeds_2011",
+      "status": "reported_or_imputed",
+      "value": 449,
+      "year": 2011
+    },
+    {
+      "comparability": "ipeds:bachelors",
+      "notes": "Academic year 2011/12; AWLEVEL=5; 89 eligible source cells.",
+      "series_id": "ipeds:bachelors",
+      "source_id": "ipeds_2012",
+      "status": "reported_or_imputed",
+      "value": 496,
+      "year": 2012
+    },
+    {
+      "comparability": "ipeds:bachelors",
+      "notes": "Academic year 2012/13; AWLEVEL=5; 93 eligible source cells.",
+      "series_id": "ipeds:bachelors",
+      "source_id": "ipeds_2013",
+      "status": "reported_or_imputed",
+      "value": 510,
+      "year": 2013
+    },
+    {
+      "comparability": "ipeds:bachelors",
+      "notes": "Academic year 2013/14; AWLEVEL=5; 97 eligible source cells.",
+      "series_id": "ipeds:bachelors",
+      "source_id": "ipeds_2014",
+      "status": "reported_or_imputed",
+      "value": 497,
+      "year": 2014
+    },
+    {
+      "comparability": "ipeds:bachelors",
+      "notes": "Academic year 2014/15; AWLEVEL=5; 101 eligible source cells.",
+      "series_id": "ipeds:bachelors",
+      "source_id": "ipeds_2015",
+      "status": "reported_or_imputed",
+      "value": 509,
+      "year": 2015
+    },
+    {
+      "comparability": "ipeds:bachelors",
+      "notes": "Academic year 2015/16; AWLEVEL=5; 99 eligible source cells.",
+      "series_id": "ipeds:bachelors",
+      "source_id": "ipeds_2016",
+      "status": "reported_or_imputed",
+      "value": 482,
+      "year": 2016
+    },
+    {
+      "comparability": "ipeds:bachelors",
+      "notes": "Academic year 2016/17; AWLEVEL=5; 103 eligible source cells.",
+      "series_id": "ipeds:bachelors",
+      "source_id": "ipeds_2017",
+      "status": "reported_or_imputed",
+      "value": 450,
+      "year": 2017
+    },
+    {
+      "comparability": "ipeds:bachelors",
+      "notes": "Academic year 2017/18; AWLEVEL=5; 102 eligible source cells.",
+      "series_id": "ipeds:bachelors",
+      "source_id": "ipeds_2018",
+      "status": "reported_or_imputed",
+      "value": 466,
+      "year": 2018
+    },
+    {
+      "comparability": "ipeds:bachelors",
+      "notes": "Academic year 2018/19; AWLEVEL=5; 104 eligible source cells.",
+      "series_id": "ipeds:bachelors",
+      "source_id": "ipeds_2019",
+      "status": "reported_or_imputed",
+      "value": 431,
+      "year": 2019
+    },
+    {
+      "comparability": "ipeds:bachelors",
+      "notes": "Academic year 2019/20; AWLEVEL=5; 105 eligible source cells.",
+      "series_id": "ipeds:bachelors",
+      "source_id": "ipeds_2020",
+      "status": "reported_or_imputed",
+      "value": 381,
+      "year": 2020
+    },
+    {
+      "comparability": "ipeds:bachelors",
+      "notes": "Academic year 2020/21; AWLEVEL=5; 108 eligible source cells.",
+      "series_id": "ipeds:bachelors",
+      "source_id": "ipeds_2021",
+      "status": "reported_or_imputed",
+      "value": 375,
+      "year": 2021
+    },
+    {
+      "comparability": "ipeds:bachelors",
+      "notes": "Academic year 2021/22; AWLEVEL=5; 104 eligible source cells.",
+      "series_id": "ipeds:bachelors",
+      "source_id": "ipeds_2022",
+      "status": "reported_or_imputed",
+      "value": 364,
+      "year": 2022
+    },
+    {
+      "comparability": "ipeds:bachelors",
+      "notes": "Academic year 2022/23; AWLEVEL=5; 106 eligible source cells.",
+      "series_id": "ipeds:bachelors",
+      "source_id": "ipeds_2023",
+      "status": "reported_or_imputed",
+      "value": 314,
+      "year": 2023
+    },
+    {
+      "comparability": "ipeds:bachelors",
+      "notes": "Academic year 2023/24; AWLEVEL=5; 105 eligible source cells.",
+      "series_id": "ipeds:bachelors",
+      "source_id": "ipeds_2024",
+      "status": "reported_or_imputed",
+      "value": 296,
+      "year": 2024
+    },
+    {
+      "comparability": "ipeds:doctorates:no_major_split",
+      "notes": "Academic year 1999/00; AWLEVEL=9; 8 eligible source cells.",
+      "series_id": "ipeds:doctorates",
+      "source_id": "ipeds_2000",
+      "status": "reported_or_imputed",
+      "value": 15,
+      "year": 2000
+    },
+    {
+      "comparability": "ipeds:doctoral_pre2010",
+      "notes": "Academic year 2000/01; AWLEVEL=9; 9 eligible source cells.",
+      "series_id": "ipeds:doctorates",
+      "source_id": "ipeds_2001",
+      "status": "reported_or_imputed",
+      "value": 7,
+      "year": 2001
+    },
+    {
+      "comparability": "ipeds:doctoral_pre2010",
+      "notes": "Academic year 2001/02; AWLEVEL=9; 9 eligible source cells.",
+      "series_id": "ipeds:doctorates",
+      "source_id": "ipeds_2002",
+      "status": "reported_or_imputed",
+      "value": 12,
+      "year": 2002
+    },
+    {
+      "comparability": "ipeds:doctoral_pre2010",
+      "notes": "Academic year 2002/03; AWLEVEL=9; 8 eligible source cells.",
+      "series_id": "ipeds:doctorates",
+      "source_id": "ipeds_2003",
+      "status": "reported_or_imputed",
+      "value": 9,
+      "year": 2003
+    },
+    {
+      "comparability": "ipeds:doctoral_pre2010",
+      "notes": "Academic year 2003/04; AWLEVEL=9; 6 eligible source cells.",
+      "series_id": "ipeds:doctorates",
+      "source_id": "ipeds_2004",
+      "status": "reported_or_imputed",
+      "value": 5,
+      "year": 2004
+    },
+    {
+      "comparability": "ipeds:doctoral_pre2010",
+      "notes": "Academic year 2004/05; AWLEVEL=9; 7 eligible source cells.",
+      "series_id": "ipeds:doctorates",
+      "source_id": "ipeds_2005",
+      "status": "reported_or_imputed",
+      "value": 8,
+      "year": 2005
+    },
+    {
+      "comparability": "ipeds:doctoral_pre2010",
+      "notes": "Academic year 2005/06; AWLEVEL=9; 8 eligible source cells.",
+      "series_id": "ipeds:doctorates",
+      "source_id": "ipeds_2006",
+      "status": "reported_or_imputed",
+      "value": 10,
+      "year": 2006
+    },
+    {
+      "comparability": "ipeds:doctoral_pre2010",
+      "notes": "Academic year 2006/07; AWLEVEL=9; 5 eligible source cells.",
+      "series_id": "ipeds:doctorates",
+      "source_id": "ipeds_2007",
+      "status": "reported_or_imputed",
+      "value": 2,
+      "year": 2007
+    },
+    {
+      "comparability": "ipeds:doctoral_pre2010",
+      "notes": "Academic year 2007/08; AWLEVEL=9; 5 eligible source cells.",
+      "series_id": "ipeds:doctorates",
+      "source_id": "ipeds_2008",
+      "status": "reported_or_imputed",
+      "value": 4,
+      "year": 2008
+    },
+    {
+      "comparability": "ipeds:doctoral_pre2010",
+      "notes": "Academic year 2008/09; AWLEVEL=9; 3 eligible source cells.",
+      "series_id": "ipeds:doctorates",
+      "source_id": "ipeds_2009",
+      "status": "reported_or_imputed",
+      "value": 4,
+      "year": 2009
+    },
+    {
+      "comparability": "ipeds:doctorates",
+      "notes": "Academic year 2009/10; AWLEVEL=17; 6 eligible source cells.",
+      "series_id": "ipeds:doctorates",
+      "source_id": "ipeds_2010",
+      "status": "reported_or_imputed",
+      "value": 12,
+      "year": 2010
+    },
+    {
+      "comparability": "ipeds:doctorates",
+      "notes": "Academic year 2010/11; AWLEVEL=17; 6 eligible source cells.",
+      "series_id": "ipeds:doctorates",
+      "source_id": "ipeds_2011",
+      "status": "reported_or_imputed",
+      "value": 8,
+      "year": 2011
+    },
+    {
+      "comparability": "ipeds:doctorates",
+      "notes": "Academic year 2011/12; AWLEVEL=17; 6 eligible source cells.",
+      "series_id": "ipeds:doctorates",
+      "source_id": "ipeds_2012",
+      "status": "reported_or_imputed",
+      "value": 9,
+      "year": 2012
+    },
+    {
+      "comparability": "ipeds:doctorates",
+      "notes": "Academic year 2012/13; AWLEVEL=17; 7 eligible source cells.",
+      "series_id": "ipeds:doctorates",
+      "source_id": "ipeds_2013",
+      "status": "reported_or_imputed",
+      "value": 12,
+      "year": 2013
+    },
+    {
+      "comparability": "ipeds:doctorates",
+      "notes": "Academic year 2013/14; AWLEVEL=17; 6 eligible source cells.",
+      "series_id": "ipeds:doctorates",
+      "source_id": "ipeds_2014",
+      "status": "reported_or_imputed",
+      "value": 3,
+      "year": 2014
+    },
+    {
+      "comparability": "ipeds:doctorates",
+      "notes": "Academic year 2014/15; AWLEVEL=17; 7 eligible source cells.",
+      "series_id": "ipeds:doctorates",
+      "source_id": "ipeds_2015",
+      "status": "reported_or_imputed",
+      "value": 6,
+      "year": 2015
+    },
+    {
+      "comparability": "ipeds:doctorates",
+      "notes": "Academic year 2015/16; AWLEVEL=17; 6 eligible source cells.",
+      "series_id": "ipeds:doctorates",
+      "source_id": "ipeds_2016",
+      "status": "reported_or_imputed",
+      "value": 7,
+      "year": 2016
+    },
+    {
+      "comparability": "ipeds:doctorates",
+      "notes": "Academic year 2016/17; AWLEVEL=17; 5 eligible source cells.",
+      "series_id": "ipeds:doctorates",
+      "source_id": "ipeds_2017",
+      "status": "reported_or_imputed",
+      "value": 14,
+      "year": 2017
+    },
+    {
+      "comparability": "ipeds:doctorates",
+      "notes": "Academic year 2017/18; AWLEVEL=17; 6 eligible source cells.",
+      "series_id": "ipeds:doctorates",
+      "source_id": "ipeds_2018",
+      "status": "reported_or_imputed",
+      "value": 11,
+      "year": 2018
+    },
+    {
+      "comparability": "ipeds:doctorates",
+      "notes": "Academic year 2018/19; AWLEVEL=17; 6 eligible source cells.",
+      "series_id": "ipeds:doctorates",
+      "source_id": "ipeds_2019",
+      "status": "reported_or_imputed",
+      "value": 14,
+      "year": 2019
+    },
+    {
+      "comparability": "ipeds:doctorates",
+      "notes": "Academic year 2019/20; AWLEVEL=17; 6 eligible source cells.",
+      "series_id": "ipeds:doctorates",
+      "source_id": "ipeds_2020",
+      "status": "reported_or_imputed",
+      "value": 12,
+      "year": 2020
+    },
+    {
+      "comparability": "ipeds:doctorates",
+      "notes": "Academic year 2020/21; AWLEVEL=17; 6 eligible source cells.",
+      "series_id": "ipeds:doctorates",
+      "source_id": "ipeds_2021",
+      "status": "reported_or_imputed",
+      "value": 8,
+      "year": 2021
+    },
+    {
+      "comparability": "ipeds:doctorates",
+      "notes": "Academic year 2021/22; AWLEVEL=17; 5 eligible source cells.",
+      "series_id": "ipeds:doctorates",
+      "source_id": "ipeds_2022",
+      "status": "reported_or_imputed",
+      "value": 14,
+      "year": 2022
+    },
+    {
+      "comparability": "ipeds:doctorates",
+      "notes": "Academic year 2022/23; AWLEVEL=17; 6 eligible source cells.",
+      "series_id": "ipeds:doctorates",
+      "source_id": "ipeds_2023",
+      "status": "reported_or_imputed",
+      "value": 10,
+      "year": 2023
+    },
+    {
+      "comparability": "ipeds:doctorates",
+      "notes": "Academic year 2023/24; AWLEVEL=17; 6 eligible source cells.",
+      "series_id": "ipeds:doctorates",
+      "source_id": "ipeds_2024",
+      "status": "reported_or_imputed",
+      "value": 11,
+      "year": 2024
+    },
+    {
+      "comparability": "ipeds:masters:no_major_split",
+      "notes": "Academic year 1999/00; AWLEVEL=7; 11 eligible source cells.",
+      "series_id": "ipeds:masters",
+      "source_id": "ipeds_2000",
+      "status": "reported_or_imputed",
+      "value": 18,
+      "year": 2000
+    },
+    {
+      "comparability": "ipeds:masters",
+      "notes": "Academic year 2000/01; AWLEVEL=7; 11 eligible source cells.",
+      "series_id": "ipeds:masters",
+      "source_id": "ipeds_2001",
+      "status": "reported_or_imputed",
+      "value": 13,
+      "year": 2001
+    },
+    {
+      "comparability": "ipeds:masters",
+      "notes": "Academic year 2001/02; AWLEVEL=7; 11 eligible source cells.",
+      "series_id": "ipeds:masters",
+      "source_id": "ipeds_2002",
+      "status": "reported_or_imputed",
+      "value": 16,
+      "year": 2002
+    },
+    {
+      "comparability": "ipeds:masters",
+      "notes": "Academic year 2002/03; AWLEVEL=7; 14 eligible source cells.",
+      "series_id": "ipeds:masters",
+      "source_id": "ipeds_2003",
+      "status": "reported_or_imputed",
+      "value": 12,
+      "year": 2003
+    },
+    {
+      "comparability": "ipeds:masters",
+      "notes": "Academic year 2003/04; AWLEVEL=7; 11 eligible source cells.",
+      "series_id": "ipeds:masters",
+      "source_id": "ipeds_2004",
+      "status": "reported_or_imputed",
+      "value": 15,
+      "year": 2004
+    },
+    {
+      "comparability": "ipeds:masters",
+      "notes": "Academic year 2004/05; AWLEVEL=7; 9 eligible source cells.",
+      "series_id": "ipeds:masters",
+      "source_id": "ipeds_2005",
+      "status": "reported_or_imputed",
+      "value": 21,
+      "year": 2005
+    },
+    {
+      "comparability": "ipeds:masters",
+      "notes": "Academic year 2005/06; AWLEVEL=7; 12 eligible source cells.",
+      "series_id": "ipeds:masters",
+      "source_id": "ipeds_2006",
+      "status": "reported_or_imputed",
+      "value": 20,
+      "year": 2006
+    },
+    {
+      "comparability": "ipeds:masters",
+      "notes": "Academic year 2006/07; AWLEVEL=7; 11 eligible source cells.",
+      "series_id": "ipeds:masters",
+      "source_id": "ipeds_2007",
+      "status": "reported_or_imputed",
+      "value": 30,
+      "year": 2007
+    },
+    {
+      "comparability": "ipeds:masters",
+      "notes": "Academic year 2007/08; AWLEVEL=7; 12 eligible source cells.",
+      "series_id": "ipeds:masters",
+      "source_id": "ipeds_2008",
+      "status": "reported_or_imputed",
+      "value": 35,
+      "year": 2008
+    },
+    {
+      "comparability": "ipeds:masters",
+      "notes": "Academic year 2008/09; AWLEVEL=7; 15 eligible source cells.",
+      "series_id": "ipeds:masters",
+      "source_id": "ipeds_2009",
+      "status": "reported_or_imputed",
+      "value": 45,
+      "year": 2009
+    },
+    {
+      "comparability": "ipeds:masters",
+      "notes": "Academic year 2009/10; AWLEVEL=7; 14 eligible source cells.",
+      "series_id": "ipeds:masters",
+      "source_id": "ipeds_2010",
+      "status": "reported_or_imputed",
+      "value": 51,
+      "year": 2010
+    },
+    {
+      "comparability": "ipeds:masters",
+      "notes": "Academic year 2010/11; AWLEVEL=7; 13 eligible source cells.",
+      "series_id": "ipeds:masters",
+      "source_id": "ipeds_2011",
+      "status": "reported_or_imputed",
+      "value": 51,
+      "year": 2011
+    },
+    {
+      "comparability": "ipeds:masters",
+      "notes": "Academic year 2011/12; AWLEVEL=7; 13 eligible source cells.",
+      "series_id": "ipeds:masters",
+      "source_id": "ipeds_2012",
+      "status": "reported_or_imputed",
+      "value": 46,
+      "year": 2012
+    },
+    {
+      "comparability": "ipeds:masters",
+      "notes": "Academic year 2012/13; AWLEVEL=7; 12 eligible source cells.",
+      "series_id": "ipeds:masters",
+      "source_id": "ipeds_2013",
+      "status": "reported_or_imputed",
+      "value": 61,
+      "year": 2013
+    },
+    {
+      "comparability": "ipeds:masters",
+      "notes": "Academic year 2013/14; AWLEVEL=7; 12 eligible source cells.",
+      "series_id": "ipeds:masters",
+      "source_id": "ipeds_2014",
+      "status": "reported_or_imputed",
+      "value": 46,
+      "year": 2014
+    },
+    {
+      "comparability": "ipeds:masters",
+      "notes": "Academic year 2014/15; AWLEVEL=7; 13 eligible source cells.",
+      "series_id": "ipeds:masters",
+      "source_id": "ipeds_2015",
+      "status": "reported_or_imputed",
+      "value": 48,
+      "year": 2015
+    },
+    {
+      "comparability": "ipeds:masters",
+      "notes": "Academic year 2015/16; AWLEVEL=7; 12 eligible source cells.",
+      "series_id": "ipeds:masters",
+      "source_id": "ipeds_2016",
+      "status": "reported_or_imputed",
+      "value": 44,
+      "year": 2016
+    },
+    {
+      "comparability": "ipeds:masters",
+      "notes": "Academic year 2016/17; AWLEVEL=7; 13 eligible source cells.",
+      "series_id": "ipeds:masters",
+      "source_id": "ipeds_2017",
+      "status": "reported_or_imputed",
+      "value": 51,
+      "year": 2017
+    },
+    {
+      "comparability": "ipeds:masters",
+      "notes": "Academic year 2017/18; AWLEVEL=7; 14 eligible source cells.",
+      "series_id": "ipeds:masters",
+      "source_id": "ipeds_2018",
+      "status": "reported_or_imputed",
+      "value": 46,
+      "year": 2018
+    },
+    {
+      "comparability": "ipeds:masters",
+      "notes": "Academic year 2018/19; AWLEVEL=7; 15 eligible source cells.",
+      "series_id": "ipeds:masters",
+      "source_id": "ipeds_2019",
+      "status": "reported_or_imputed",
+      "value": 35,
+      "year": 2019
+    },
+    {
+      "comparability": "ipeds:masters",
+      "notes": "Academic year 2019/20; AWLEVEL=7; 16 eligible source cells.",
+      "series_id": "ipeds:masters",
+      "source_id": "ipeds_2020",
+      "status": "reported_or_imputed",
+      "value": 40,
+      "year": 2020
+    },
+    {
+      "comparability": "ipeds:masters",
+      "notes": "Academic year 2020/21; AWLEVEL=7; 17 eligible source cells.",
+      "series_id": "ipeds:masters",
+      "source_id": "ipeds_2021",
+      "status": "reported_or_imputed",
+      "value": 34,
+      "year": 2021
+    },
+    {
+      "comparability": "ipeds:masters",
+      "notes": "Academic year 2021/22; AWLEVEL=7; 15 eligible source cells.",
+      "series_id": "ipeds:masters",
+      "source_id": "ipeds_2022",
+      "status": "reported_or_imputed",
+      "value": 26,
+      "year": 2022
+    },
+    {
+      "comparability": "ipeds:masters",
+      "notes": "Academic year 2022/23; AWLEVEL=7; 15 eligible source cells.",
+      "series_id": "ipeds:masters",
+      "source_id": "ipeds_2023",
+      "status": "reported_or_imputed",
+      "value": 39,
+      "year": 2023
+    },
+    {
+      "comparability": "ipeds:masters",
+      "notes": "Academic year 2023/24; AWLEVEL=7; 14 eligible source cells.",
+      "series_id": "ipeds:masters",
+      "source_id": "ipeds_2024",
+      "status": "reported_or_imputed",
+      "value": 28,
+      "year": 2024
+    },
+    {
+      "comparability": "mla:all_languages",
+      "notes": "",
+      "series_id": "mla:all_languages",
+      "source_id": "mla_report_2021",
+      "status": "observed",
+      "value": 1395807,
+      "year": 2002
+    },
+    {
+      "comparability": "mla:all_languages",
+      "notes": "",
+      "series_id": "mla:all_languages",
+      "source_id": "mla_report_2021",
+      "status": "observed",
+      "value": 1575838,
+      "year": 2006
+    },
+    {
+      "comparability": "mla:all_languages",
+      "notes": "",
+      "series_id": "mla:all_languages",
+      "source_id": "mla_report_2021",
+      "status": "observed",
+      "value": 1673566,
+      "year": 2009
+    },
+    {
+      "comparability": "mla:all_languages",
+      "notes": "",
+      "series_id": "mla:all_languages",
+      "source_id": "mla_report_2021",
+      "status": "observed",
+      "value": 1561176,
+      "year": 2013
+    },
+    {
+      "comparability": "mla:all_languages",
+      "notes": "",
+      "series_id": "mla:all_languages",
+      "source_id": "mla_report_2021",
+      "status": "observed",
+      "value": 1418584,
+      "year": 2016
+    },
+    {
+      "comparability": "mla:all_languages",
+      "notes": "",
+      "series_id": "mla:all_languages",
+      "source_id": "mla_report_2021",
+      "status": "observed",
+      "value": 1182562,
+      "year": 2021
+    },
+    {
+      "comparability": "mla:chinese",
+      "notes": "",
+      "series_id": "mla:chinese",
+      "source_id": "mla_report_2021",
+      "status": "observed",
+      "value": 34153,
+      "year": 2002
+    },
+    {
+      "comparability": "mla:chinese",
+      "notes": "",
+      "series_id": "mla:chinese",
+      "source_id": "mla_report_2021",
+      "status": "observed",
+      "value": 51382,
+      "year": 2006
+    },
+    {
+      "comparability": "mla:chinese",
+      "notes": "",
+      "series_id": "mla:chinese",
+      "source_id": "mla_report_2021",
+      "status": "observed",
+      "value": 61612,
+      "year": 2009
+    },
+    {
+      "comparability": "mla:chinese",
+      "notes": "",
+      "series_id": "mla:chinese",
+      "source_id": "mla_report_2021",
+      "status": "observed",
+      "value": 61997,
+      "year": 2013
+    },
+    {
+      "comparability": "mla:chinese",
+      "notes": "",
+      "series_id": "mla:chinese",
+      "source_id": "mla_report_2021",
+      "status": "observed",
+      "value": 54248,
+      "year": 2016
+    },
+    {
+      "comparability": "mla:chinese",
+      "notes": "",
+      "series_id": "mla:chinese",
+      "source_id": "mla_report_2021",
+      "status": "observed",
+      "value": 46492,
+      "year": 2021
+    },
+    {
+      "comparability": "mla:japanese",
+      "notes": "",
+      "series_id": "mla:japanese",
+      "source_id": "mla_report_2021",
+      "status": "observed",
+      "value": 52238,
+      "year": 2002
+    },
+    {
+      "comparability": "mla:japanese",
+      "notes": "",
+      "series_id": "mla:japanese",
+      "source_id": "mla_report_2021",
+      "status": "observed",
+      "value": 65410,
+      "year": 2006
+    },
+    {
+      "comparability": "mla:japanese",
+      "notes": "",
+      "series_id": "mla:japanese",
+      "source_id": "mla_report_2021",
+      "status": "observed",
+      "value": 72357,
+      "year": 2009
+    },
+    {
+      "comparability": "mla:japanese",
+      "notes": "",
+      "series_id": "mla:japanese",
+      "source_id": "mla_report_2021",
+      "status": "observed",
+      "value": 66771,
+      "year": 2013
+    },
+    {
+      "comparability": "mla:japanese",
+      "notes": "",
+      "series_id": "mla:japanese",
+      "source_id": "mla_report_2021",
+      "status": "observed",
+      "value": 68810,
+      "year": 2016
+    },
+    {
+      "comparability": "mla:japanese",
+      "notes": "",
+      "series_id": "mla:japanese",
+      "source_id": "mla_report_2021",
+      "status": "observed",
+      "value": 65661,
+      "year": 2021
+    },
+    {
+      "comparability": "mla:korean",
+      "notes": "",
+      "series_id": "mla:korean",
+      "source_id": "mla_report_2021",
+      "status": "observed",
+      "value": 5211,
+      "year": 2002
+    },
+    {
+      "comparability": "mla:korean",
+      "notes": "",
+      "series_id": "mla:korean",
+      "source_id": "mla_report_2021",
+      "status": "observed",
+      "value": 7146,
+      "year": 2006
+    },
+    {
+      "comparability": "mla:korean",
+      "notes": "",
+      "series_id": "mla:korean",
+      "source_id": "mla_report_2021",
+      "status": "observed",
+      "value": 8449,
+      "year": 2009
+    },
+    {
+      "comparability": "mla:korean",
+      "notes": "",
+      "series_id": "mla:korean",
+      "source_id": "mla_report_2021",
+      "status": "observed",
+      "value": 12256,
+      "year": 2013
+    },
+    {
+      "comparability": "mla:korean",
+      "notes": "",
+      "series_id": "mla:korean",
+      "source_id": "mla_report_2021",
+      "status": "observed",
+      "value": 13936,
+      "year": 2016
+    },
+    {
+      "comparability": "mla:korean",
+      "notes": "",
+      "series_id": "mla:korean",
+      "source_id": "mla_report_2021",
+      "status": "observed",
+      "value": 19270,
+      "year": 2021
+    },
+    {
+      "comparability": "mla:spanish",
+      "notes": "",
+      "series_id": "mla:spanish",
+      "source_id": "mla_report_2021",
+      "status": "observed",
+      "value": 745215,
+      "year": 2002
+    },
+    {
+      "comparability": "mla:spanish",
+      "notes": "",
+      "series_id": "mla:spanish",
+      "source_id": "mla_report_2021",
+      "status": "observed",
+      "value": 822148,
+      "year": 2006
+    },
+    {
+      "comparability": "mla:spanish",
+      "notes": "",
+      "series_id": "mla:spanish",
+      "source_id": "mla_report_2021",
+      "status": "observed",
+      "value": 861015,
+      "year": 2009
+    },
+    {
+      "comparability": "mla:spanish",
+      "notes": "",
+      "series_id": "mla:spanish",
+      "source_id": "mla_report_2021",
+      "status": "observed",
+      "value": 789888,
+      "year": 2013
+    },
+    {
+      "comparability": "mla:spanish",
+      "notes": "",
+      "series_id": "mla:spanish",
+      "source_id": "mla_report_2021",
+      "status": "observed",
+      "value": 712962,
+      "year": 2016
+    },
+    {
+      "comparability": "mla:spanish",
+      "notes": "",
+      "series_id": "mla:spanish",
+      "source_id": "mla_report_2021",
+      "status": "observed",
+      "value": 584453,
+      "year": 2021
+    },
+    {
+      "comparability": "mla_matched:all_languages",
+      "notes": "",
+      "series_id": "mla_matched:all_languages",
+      "source_id": "mla_matched_2021",
+      "status": "observed",
+      "value": 1443976,
+      "year": 2013
+    },
+    {
+      "comparability": "mla_matched:all_languages",
+      "notes": "",
+      "series_id": "mla_matched:all_languages",
+      "source_id": "mla_matched_2021",
+      "status": "observed",
+      "value": 1121738,
+      "year": 2021
+    },
+    {
+      "comparability": "mla_matched:chinese",
+      "notes": "",
+      "series_id": "mla_matched:chinese",
+      "source_id": "mla_matched_2021",
+      "status": "observed",
+      "value": 58168,
+      "year": 2013
+    },
+    {
+      "comparability": "mla_matched:chinese",
+      "notes": "",
+      "series_id": "mla_matched:chinese",
+      "source_id": "mla_matched_2021",
+      "status": "observed",
+      "value": 44026,
+      "year": 2021
+    },
+    {
+      "comparability": "mla_matched:japanese",
+      "notes": "",
+      "series_id": "mla_matched:japanese",
+      "source_id": "mla_matched_2021",
+      "status": "observed",
+      "value": 61667,
+      "year": 2013
+    },
+    {
+      "comparability": "mla_matched:japanese",
+      "notes": "",
+      "series_id": "mla_matched:japanese",
+      "source_id": "mla_matched_2021",
+      "status": "observed",
+      "value": 62317,
+      "year": 2021
+    },
+    {
+      "comparability": "mla_matched:korean",
+      "notes": "",
+      "series_id": "mla_matched:korean",
+      "source_id": "mla_matched_2021",
+      "status": "observed",
+      "value": 10315,
+      "year": 2013
+    },
+    {
+      "comparability": "mla_matched:korean",
+      "notes": "",
+      "series_id": "mla_matched:korean",
+      "source_id": "mla_matched_2021",
+      "status": "observed",
+      "value": 17691,
+      "year": 2021
+    },
+    {
+      "comparability": "mla_matched:spanish",
+      "notes": "",
+      "series_id": "mla_matched:spanish",
+      "source_id": "mla_matched_2021",
+      "status": "observed",
+      "value": 728938,
+      "year": 2013
+    },
+    {
+      "comparability": "mla_matched:spanish",
+      "notes": "",
+      "series_id": "mla_matched:spanish",
+      "source_id": "mla_matched_2021",
+      "status": "observed",
+      "value": 556008,
+      "year": 2021
+    },
+    {
+      "comparability": "schools:arc_public",
+      "notes": "",
+      "series_id": "schools:arc_public",
+      "source_id": "arc_public",
+      "status": "observed",
+      "value": 312,
+      "year": 2021
+    },
+    {
+      "comparability": "schools:cal_directory",
+      "notes": "",
+      "series_id": "schools:cal_directory",
+      "source_id": "cal_directory",
+      "status": "observed",
+      "value": 71,
+      "year": 2011
+    },
+    {
+      "comparability": "schools:k12_estimate",
+      "notes": "2014-15-era survey reference period; 2015 is the ending-year plot key, not an exact common measurement date.",
+      "series_id": "schools:k12_estimate",
+      "source_id": "k12_2017",
+      "status": "estimated",
+      "value": 227086,
+      "year": 2015
+    },
+    {
+      "comparability": "schools:nexus_all",
+      "notes": "",
+      "series_id": "schools:nexus_all",
+      "source_id": "nexus_2025",
+      "status": "observed",
+      "value": 335,
+      "year": 2025
+    }
+  ],
+  "series": {
+    "ap:global_total": {
+      "cadence": "annual",
+      "label": "All AP Chinese participants",
+      "measure": "exam_participation",
+      "notes": "Not U.S.-only; not all Chinese learners; repeated participants across years are not deduplicated.",
+      "period_basis": "calendar",
+      "scope": "Global AP Chinese Language and Culture exam population, including international participation",
+      "unit": "exam participants"
+    },
+    "ap:standard_group": {
+      "cadence": "annual",
+      "label": "AP Chinese standard group",
+      "measure": "exam_participation",
+      "notes": "Generally trained in U.S. schools, but not a geographic or ancestry classification. This is a subset of global total; never add them.",
+      "period_basis": "calendar",
+      "scope": "Standard group within global AP Chinese reports; no regular language exposure or one-month-plus residence indicated",
+      "unit": "exam participants"
+    },
+    "ap_cohort:us_public": {
+      "cadence": "annual",
+      "label": "U.S. public-school cohorts",
+      "measure": "cohort_exam_participation",
+      "notes": "Year identifies the graduating class, not the year each exam was taken. The exam began in 2007. Only 2007-2013 cohorts verified here; do not splice into the global annual administration series.",
+      "period_basis": "graduating class",
+      "scope": "U.S. public-school graduating classes; Chinese AP exams taken during high school; not private-school or global totals",
+      "unit": "exams"
+    },
+    "ipeds:bachelors": {
+      "cadence": "annual",
+      "label": "Bachelor's",
+      "measure": "degree_awards",
+      "notes": "Awards, not unique people or all China specialists. NCES reported/imputed counts; certificates excluded. First-major restriction from 2001; 2000 has no separate major-number field.",
+      "period_basis": "academic ending year",
+      "scope": "50 states and DC; Title IV degree-granting institutions; CIP 16.0301; first major from 2001",
+      "unit": "awards"
+    },
+    "ipeds:doctorates": {
+      "cadence": "annual",
+      "label": "Doctoral",
+      "measure": "degree_awards",
+      "notes": "2000 has no separate major-number field; first-major restriction from 2001. Pre-2010: old doctoral category (9); from 2010: research/scholarship doctorates (17). Definition break is not connected.",
+      "period_basis": "academic ending year",
+      "scope": "50 states and DC; Title IV degree-granting institutions; CIP 16.0301; first major from 2001",
+      "unit": "awards"
+    },
+    "ipeds:masters": {
+      "cadence": "annual",
+      "label": "Master's",
+      "measure": "degree_awards",
+      "notes": "First-major restriction from 2001; 2000 has no separate major-number field.",
+      "period_basis": "academic ending year",
+      "scope": "50 states and DC; Title IV degree-granting institutions; CIP 16.0301; first major from 2001",
+      "unit": "awards"
+    },
+    "mla:all_languages": {
+      "cadence": "census",
+      "label": "All languages",
+      "measure": "course_enrollments",
+      "notes": "Published 2021-report vintage. Registrations, not unique students; all languages includes ASL and classical languages.",
+      "period_basis": "calendar",
+      "scope": "U.S. colleges and universities; undergraduate and graduate fall language course registrations",
+      "unit": "course registrations"
+    },
+    "mla:chinese": {
+      "cadence": "census",
+      "label": "Chinese/Mandarin",
+      "measure": "course_enrollments",
+      "notes": "Published 2021-report vintage. Registrations, not unique students; all languages includes ASL and classical languages.",
+      "period_basis": "calendar",
+      "scope": "U.S. colleges and universities; undergraduate and graduate fall language course registrations",
+      "unit": "course registrations"
+    },
+    "mla:japanese": {
+      "cadence": "census",
+      "label": "Japanese",
+      "measure": "course_enrollments",
+      "notes": "Published 2021-report vintage. Registrations, not unique students; all languages includes ASL and classical languages.",
+      "period_basis": "calendar",
+      "scope": "U.S. colleges and universities; undergraduate and graduate fall language course registrations",
+      "unit": "course registrations"
+    },
+    "mla:korean": {
+      "cadence": "census",
+      "label": "Korean",
+      "measure": "course_enrollments",
+      "notes": "Published 2021-report vintage. Registrations, not unique students; all languages includes ASL and classical languages.",
+      "period_basis": "calendar",
+      "scope": "U.S. colleges and universities; undergraduate and graduate fall language course registrations",
+      "unit": "course registrations"
+    },
+    "mla:spanish": {
+      "cadence": "census",
+      "label": "Spanish",
+      "measure": "course_enrollments",
+      "notes": "Published 2021-report vintage. Registrations, not unique students; all languages includes ASL and classical languages.",
+      "period_basis": "calendar",
+      "scope": "U.S. colleges and universities; undergraduate and graduate fall language course registrations",
+      "unit": "course registrations"
+    },
+    "mla_matched:all_languages": {
+      "cadence": "paired census",
+      "label": "All languages",
+      "measure": "course_enrollments",
+      "notes": "Nonrespondents excluded; explicit zero-language respondents retained. Institutions with any unreported language-count row in either endpoint are excluded, so missing benchmark or other-language counts are not treated as zero. An absent language at a responding institution means no reported registrations, not proof of no language activity. This is not the national census total and excludes institutions outside the matched cohort.",
+      "period_basis": "calendar",
+      "scope": "Matched set of 2257 MLA institution IDs responding in both fall 2013 and fall 2021",
+      "unit": "course registrations"
+    },
+    "mla_matched:chinese": {
+      "cadence": "paired census",
+      "label": "Chinese/Mandarin",
+      "measure": "course_enrollments",
+      "notes": "Nonrespondents excluded; explicit zero-language respondents retained. Institutions with any unreported language-count row in either endpoint are excluded, so missing benchmark or other-language counts are not treated as zero. An absent language at a responding institution means no reported registrations, not proof of no language activity. This is not the national census total and excludes institutions outside the matched cohort.",
+      "period_basis": "calendar",
+      "scope": "Matched set of 2257 MLA institution IDs responding in both fall 2013 and fall 2021",
+      "unit": "course registrations"
+    },
+    "mla_matched:japanese": {
+      "cadence": "paired census",
+      "label": "Japanese",
+      "measure": "course_enrollments",
+      "notes": "Nonrespondents excluded; explicit zero-language respondents retained. Institutions with any unreported language-count row in either endpoint are excluded, so missing benchmark or other-language counts are not treated as zero. An absent language at a responding institution means no reported registrations, not proof of no language activity. This is not the national census total and excludes institutions outside the matched cohort.",
+      "period_basis": "calendar",
+      "scope": "Matched set of 2257 MLA institution IDs responding in both fall 2013 and fall 2021",
+      "unit": "course registrations"
+    },
+    "mla_matched:korean": {
+      "cadence": "paired census",
+      "label": "Korean",
+      "measure": "course_enrollments",
+      "notes": "Nonrespondents excluded; explicit zero-language respondents retained. Institutions with any unreported language-count row in either endpoint are excluded, so missing benchmark or other-language counts are not treated as zero. An absent language at a responding institution means no reported registrations, not proof of no language activity. This is not the national census total and excludes institutions outside the matched cohort.",
+      "period_basis": "calendar",
+      "scope": "Matched set of 2257 MLA institution IDs responding in both fall 2013 and fall 2021",
+      "unit": "course registrations"
+    },
+    "mla_matched:spanish": {
+      "cadence": "paired census",
+      "label": "Spanish",
+      "measure": "course_enrollments",
+      "notes": "Nonrespondents excluded; explicit zero-language respondents retained. Institutions with any unreported language-count row in either endpoint are excluded, so missing benchmark or other-language counts are not treated as zero. An absent language at a responding institution means no reported registrations, not proof of no language activity. This is not the national census total and excludes institutions outside the matched cohort.",
+      "period_basis": "calendar",
+      "scope": "Matched set of 2257 MLA institution IDs responding in both fall 2013 and fall 2021",
+      "unit": "course registrations"
+    },
+    "schools:arc_public": {
+      "cadence": "snapshot",
+      "label": "Public-school DLI",
+      "measure": "program_inventory",
+      "notes": "Different inventory universe and methodology; not a comparable annual growth series.",
+      "period_basis": "calendar",
+      "scope": "U.S. public-school dual-language/immersion canvass; each school housing a program is counted",
+      "unit": "programs"
+    },
+    "schools:cal_directory": {
+      "cadence": "snapshot",
+      "label": "CAL directory",
+      "measure": "program_inventory",
+      "notes": "Different inventory universe and methodology; not a comparable annual growth series.",
+      "period_basis": "calendar",
+      "scope": "U.S. foreign-language immersion directory; CAL's 2011 inventory definition, not ARC public-school canvass",
+      "unit": "programs"
+    },
+    "schools:k12_estimate": {
+      "cadence": "snapshot",
+      "label": "K-12 Chinese enrollment estimate",
+      "measure": "estimated_enrollments",
+      "notes": "Published June 2017. A mixed-data/model estimate, not an enumerated census; excludes substantial community/heritage and summer networks.",
+      "period_basis": "2014-15-era reference period",
+      "scope": "U.S. formal K-12 schools; reported state counts plus model-based estimates for missing state data",
+      "unit": "enrollments"
+    },
+    "schools:nexus_all": {
+      "cadence": "snapshot",
+      "label": "Mixed school types",
+      "measure": "program_inventory",
+      "notes": "335 inventoried programs, NOT the 103 survey responses or a national learner census. The survey-response enrollment total includes one Hong Kong response and is excluded from U.S. learner counts.",
+      "period_basis": "calendar",
+      "scope": "Nexus compiled U.S. immersion inventory, including public, charter and private schools",
+      "unit": "programs"
+    }
+  },
+  "sources": {
+    "ap_chinese_2023": {
+      "assets": [
+        {
+          "request_url": "https://apcentral.collegeboard.org/media/pdf/ap23-chinese-language-score-distributions.pdf",
+          "retrieved_at": "2026-10-22T14:39:14+00:00",
+          "sha256": "11f9e9459acd06dd1d1714b15cebe9781795fdbb3bc033c2163c360697a997bd",
+          "url": "https://apcentral.collegeboard.org/media/pdf/ap23-chinese-language-score-distributions.pdf"
+        }
+      ],
+      "locator": "Total Group and Standard Group; Number of Students",
+      "name": "College Board",
+      "notes": "Global report. Standard group is an exposure/training definition, NOT a U.S.-only or nonheritage demographic count. Subject-specific count takes priority over earlier program-summary vintages.",
+      "vintage": "AP Chinese score distributions, May 2023"
+    },
+    "ap_chinese_2024": {
+      "assets": [
+        {
+          "request_url": "https://apcentral.collegeboard.org/media/pdf/ap24-chinese-language-score-distributions.pdf",
+          "retrieved_at": "2026-10-22T14:39:14+00:00",
+          "sha256": "8e1ff624ee7634c8e24ffa55ddd68293a8abfb3bbc1a9fe31e52d55815488f63",
+          "url": "https://apcentral.collegeboard.org/media/pdf/ap24-chinese-language-score-distributions.pdf"
+        }
+      ],
+      "locator": "Total Group and Standard Group; Number of Students",
+      "name": "College Board",
+      "notes": "Global report. Standard group is an exposure/training definition, NOT a U.S.-only or nonheritage demographic count. Subject-specific count takes priority over earlier program-summary vintages.",
+      "vintage": "AP Chinese score distributions, May 2024"
+    },
+    "ap_chinese_2025": {
+      "assets": [
+        {
+          "request_url": "https://apcentral.collegeboard.org/media/pdf/ap25-chinese-language-score-distributions.pdf",
+          "retrieved_at": "2026-10-22T14:39:15+00:00",
+          "sha256": "01442f5f31dd8d01cd7108ad4bf1b4438e64678fc44ab2cdeb592d577008ec1a",
+          "url": "https://apcentral.collegeboard.org/media/pdf/ap25-chinese-language-score-distributions.pdf"
+        }
+      ],
+      "locator": "Total Group and Standard Group; Number of Students",
+      "name": "College Board",
+      "notes": "Global report. Standard group is an exposure/training definition, NOT a U.S.-only or nonheritage demographic count. Subject-specific count takes priority over earlier program-summary vintages.",
+      "vintage": "AP Chinese score distributions, May 2025"
+    },
+    "ap_cohort_2011": {
+      "assets": [
+        {
+          "request_url": "https://secure-media.collegeboard.org/digitalServices/public/pdf/ap/rtn/AP-Report-2011-Subject-Supplement.pdf",
+          "retrieved_at": "2026-10-22T14:58:44+00:00",
+          "sha256": "c41fdb47a75834ce8c6b08e00b2f77713eff8ec2aad1b891bce61059e009c3e6",
+          "url": "https://secure-media.collegeboard.org/digitalServices/public/pdf/ap/rtn/AP-Report-2011-Subject-Supplement.pdf"
+        }
+      ],
+      "locator": "Chinese Language and Culture; sum of five Total Group score counts",
+      "name": "College Board",
+      "notes": "Exams taken during high school by each graduating cohort, not an annual exam administration, all U.S. schools, unique learners or the global series. Later reviewed reports take priority for overlapping cohorts; the 2008 total was revised across publications.",
+      "vintage": "Report to the Nation 2011; U.S. public-school graduating cohorts"
+    },
+    "ap_cohort_2013": {
+      "assets": [
+        {
+          "request_url": "https://secure-media.collegeboard.org/digitalServices/pdf/ap/rtn/9th-annual/9th-annual-ap-report-subject-supplement-all-subjects.pdf",
+          "retrieved_at": "2026-10-22T14:57:20+00:00",
+          "sha256": "41141004519c905fa38f426845bda56dfc0de7fa1296b0888d8d8fae8323a7a2",
+          "url": "https://secure-media.collegeboard.org/digitalServices/pdf/ap/rtn/9th-annual/9th-annual-ap-report-subject-supplement-all-subjects.pdf"
+        }
+      ],
+      "locator": "Chinese Language and Culture; sum of five Total Group score counts",
+      "name": "College Board",
+      "notes": "Exams taken during high school by each graduating cohort, not an annual exam administration, all U.S. schools, unique learners or the global series. Later reviewed reports take priority for overlapping cohorts; the 2008 total was revised across publications.",
+      "vintage": "Report to the Nation 2013; U.S. public-school graduating cohorts"
+    },
+    "ap_cohort_2014": {
+      "assets": [
+        {
+          "request_url": "https://secure-media.collegeboard.org/digitalServices/pdf/ap/rtn/10th-annual/10th-annual-ap-report-subject-supplement-chinese-language-and-culture.pdf",
+          "retrieved_at": "2026-10-22T14:57:21+00:00",
+          "sha256": "d73582bb17a36c166749e00fbdb5e5dd0db5d65622f4e6bb5d45182747b30e67",
+          "url": "https://secure-media.collegeboard.org/digitalServices/pdf/ap/rtn/10th-annual/10th-annual-ap-report-subject-supplement-chinese-language-and-culture.pdf"
+        }
+      ],
+      "locator": "Chinese Language and Culture; sum of five Total Group score counts",
+      "name": "College Board",
+      "notes": "Exams taken during high school by each graduating cohort, not an annual exam administration, all U.S. schools, unique learners or the global series. Later reviewed reports take priority for overlapping cohorts; the 2008 total was revised across publications.",
+      "vintage": "Report to the Nation 2014; U.S. public-school graduating cohorts"
+    },
+    "ap_volume_2017": {
+      "assets": [
+        {
+          "request_url": "https://reports.collegeboard.org/media/xls/2017-Exam-Volume-Change_1.xls",
+          "retrieved_at": "2026-10-22T14:47:01+00:00",
+          "sha256": "a2c8672b78ae1b51d7a9a828688760f8bfcd7d2df9f089c001adb724eb5c8c33",
+          "url": "https://reports.collegeboard.org/media/xls/2017-Exam-Volume-Change_1.xls"
+        }
+      ],
+      "locator": "A; Chinese Language row",
+      "name": "College Board",
+      "notes": "Global administrations, not a U.S.-only learner count.",
+      "vintage": "AP exam-volume report 2007\u20132017"
+    },
+    "ap_volume_2023": {
+      "assets": [
+        {
+          "request_url": "https://reports.collegeboard.org/media/xlsx/ap-exam-volume-changes-2013-2023.xlsx",
+          "retrieved_at": "2026-10-22T14:47:01+00:00",
+          "sha256": "60daf0873f76efabb504cbf5bd33d186f4901b1040a916c424f96c934eab66b2",
+          "url": "https://reports.collegeboard.org/media/xlsx/ap-exam-volume-changes-2013-2023.xlsx"
+        }
+      ],
+      "locator": "Exam Volume Change History; Chinese Language row",
+      "name": "College Board",
+      "notes": "Global AP exam administrations, not a U.S.-only learner count.",
+      "vintage": "AP exam-volume report through 2023"
+    },
+    "ap_volume_2024": {
+      "assets": [
+        {
+          "request_url": "https://reports.collegeboard.org/media/xlsx/ap-exam-volume-changes-2014-2024.xlsx",
+          "retrieved_at": "2026-10-22T14:39:14+00:00",
+          "sha256": "26d9467d910262905c6f16dd8053864ee7170bce5b06e997712c7ad6a5502378",
+          "url": "https://reports.collegeboard.org/media/xlsx/ap-exam-volume-changes-2014-2024.xlsx"
+        }
+      ],
+      "locator": "Exam Volume Change History; Chinese Language row",
+      "name": "College Board",
+      "notes": "Global AP exam administrations, not a U.S.-only learner count.",
+      "vintage": "AP exam-volume report through 2024"
+    },
+    "arc_public": {
+      "assets": [
+        {
+          "request_url": "https://www.americancouncils.org/sites/default/files/documents/pages/2021-10/Canvass%20DLI%20-%20October%202021-2_ac.pdf",
+          "retrieved_at": "2026-10-22T14:42:05+00:00",
+          "sha256": "48764c84c14ca987de3ebe4b4ead344c4a1542011bea50acca849c30d68e6722",
+          "url": "https://www.americancouncils.org/sites/default/files/documents/pages/2021-10/Canvass%20DLI%20-%20October%202021-2_ac.pdf"
+        }
+      ],
+      "locator": "Language-of-instruction table, page 1",
+      "name": "American Councils Research Center",
+      "notes": "Program/school counts, not students. Scope differs across inventories.",
+      "vintage": "2021 program inventory"
+    },
+    "cal_directory": {
+      "assets": [
+        {
+          "request_url": "https://webapp.cal.org/Immersion/Doc/Language%20of%20Instruction%20in%20Immersion%20Programs.pdf",
+          "retrieved_at": "2026-10-22T14:42:06+00:00",
+          "sha256": "c3a9f6c891983b8a3050696e6eee318c56c142921eefb214c04703d04b75b0e7",
+          "url": "https://webapp.cal.org/Immersion/Doc/Language%20of%20Instruction%20in%20Immersion%20Programs.pdf"
+        }
+      ],
+      "locator": "Language-of-instruction table, page 1",
+      "name": "Center for Applied Linguistics",
+      "notes": "Program/school counts, not students. Scope differs across inventories.",
+      "vintage": "2011 program inventory"
+    },
+    "ipeds_2000": {
+      "assets": [
+        {
+          "request_url": "https://nces.ed.gov/ipeds/datacenter/data/fa2000hd.zip",
+          "retrieved_at": "2026-10-22T14:43:10+00:00",
+          "sha256": "a3c91094e8e2b953a54d322c0d6a298e909a55fe15ecdf7f8e14800eba1bbcb8",
+          "url": "https://nces.ed.gov/ipeds/datacenter/data/fa2000hd.zip"
+        },
+        {
+          "request_url": "https://nces.ed.gov/ipeds/datacenter/data/C2000_A.zip",
+          "retrieved_at": "2026-10-22T14:43:13+00:00",
+          "sha256": "4c5c8482d5d0c168967a31fc9025c5b7d6d22bae0ac67e5f60ff2a987f724e0a",
+          "url": "https://nces.ed.gov/ipeds/datacenter/data/C2000_A.zip"
+        }
+      ],
+      "locator": "fa2000hd.csv: geographic/Title IV/degree filters; c2000_a.csv: CIPCODE=16.0301; no MAJORNUM field in source; total=CRACE15+CRACE16",
+      "name": "National Center for Education Statistics, IPEDS",
+      "notes": "Only one data revision used; _RV preferred when present. Source flag cell counts: {\"CRACE15:R\": 42, \"CRACE15:Z\": 22, \"CRACE16:R\": 43, \"CRACE16:Z\": 21}",
+      "vintage": "Completions survey 2000"
+    },
+    "ipeds_2001": {
+      "assets": [
+        {
+          "request_url": "https://nces.ed.gov/ipeds/datacenter/data/fa2001hd.zip",
+          "retrieved_at": "2026-10-22T14:47:02+00:00",
+          "sha256": "b84854005d7e384991ce628a0110b856bca87085bc26b19cce9aad98583203f8",
+          "url": "https://nces.ed.gov/ipeds/datacenter/data/fa2001hd.zip"
+        },
+        {
+          "request_url": "https://nces.ed.gov/ipeds/datacenter/data/C2001_A.zip",
+          "retrieved_at": "2026-10-22T14:43:12+00:00",
+          "sha256": "d9cb8d21bf333a924c677d65844ee553669fc830a011d0c71b18c5323d1ef9af",
+          "url": "https://nces.ed.gov/ipeds/datacenter/data/C2001_A.zip"
+        }
+      ],
+      "locator": "fa2001hd.csv: geographic/Title IV/degree filters; c2001_a.csv: CIPCODE=16.0301; MAJORNUM=1; total=CRACE15+CRACE16",
+      "name": "National Center for Education Statistics, IPEDS",
+      "notes": "Only one data revision used; _RV preferred when present. Source flag cell counts: {\"CRACE15:R\": 64, \"CRACE15:Z\": 4, \"CRACE16:R\": 66, \"CRACE16:Z\": 2}",
+      "vintage": "Completions survey 2001"
+    },
+    "ipeds_2002": {
+      "assets": [
+        {
+          "request_url": "https://nces.ed.gov/ipeds/datacenter/data/HD2002.zip",
+          "retrieved_at": "2026-10-22T14:42:25+00:00",
+          "sha256": "92c59fbfc243f6afd1420f2fcb7ddac2b227f699672434da5f626f7736080c16",
+          "url": "https://nces.ed.gov/ipeds/datacenter/data/HD2002.zip"
+        },
+        {
+          "request_url": "https://nces.ed.gov/ipeds/datacenter/data/C2002_A.zip",
+          "retrieved_at": "2026-10-22T14:43:16+00:00",
+          "sha256": "f59b448e3f3762c67275d0179de5dd9c3e67e0670cbc22333fe2671507e09f46",
+          "url": "https://nces.ed.gov/ipeds/datacenter/data/C2002_A.zip"
+        }
+      ],
+      "locator": "hd2002.csv: geographic/Title IV/degree filters; c2002_a.csv: CIPCODE=16.0301; MAJORNUM=1; total=CRACE15+CRACE16",
+      "name": "National Center for Education Statistics, IPEDS",
+      "notes": "Only one data revision used; _RV preferred when present. Source flag cell counts: {\"CRACE15:R\": 66, \"CRACE16:R\": 66}",
+      "vintage": "Completions survey 2002"
+    },
+    "ipeds_2003": {
+      "assets": [
+        {
+          "request_url": "https://nces.ed.gov/ipeds/datacenter/data/HD2003.zip",
+          "retrieved_at": "2026-10-22T14:47:04+00:00",
+          "sha256": "1448f42f112f8127c1d003caec8d983317c433c0e98d636ae1b5f19c7880f349",
+          "url": "https://nces.ed.gov/ipeds/datacenter/data/HD2003.zip"
+        },
+        {
+          "request_url": "https://nces.ed.gov/ipeds/datacenter/data/C2003_A.zip",
+          "retrieved_at": "2026-10-22T14:47:08+00:00",
+          "sha256": "d88420dd95c9707bb1a0a69636865f3fec784d1f72f9096fb96d632d9014897b",
+          "url": "https://nces.ed.gov/ipeds/datacenter/data/C2003_A.zip"
+        }
+      ],
+      "locator": "hd2003.csv: geographic/Title IV/degree filters; c2003_a.csv: CIPCODE=16.0301; MAJORNUM=1; total=CRACE15+CRACE16",
+      "name": "National Center for Education Statistics, IPEDS",
+      "notes": "Only one data revision used; _RV preferred when present. Source flag cell counts: {\"CRACE15:R\": 68, \"CRACE15:Z\": 5, \"CRACE16:R\": 67, \"CRACE16:Z\": 6}",
+      "vintage": "Completions survey 2003"
+    },
+    "ipeds_2004": {
+      "assets": [
+        {
+          "request_url": "https://nces.ed.gov/ipeds/datacenter/data/HD2004.zip",
+          "retrieved_at": "2026-10-22T14:47:09+00:00",
+          "sha256": "92a3dc3079f3e7cd5dcd2693361ee8a84661c373851682a9d4a21a36fd95aa5f",
+          "url": "https://nces.ed.gov/ipeds/datacenter/data/HD2004.zip"
+        },
+        {
+          "request_url": "https://nces.ed.gov/ipeds/datacenter/data/C2004_A.zip",
+          "retrieved_at": "2026-10-22T14:47:16+00:00",
+          "sha256": "d943ec22ba3159a7406a69b6d45f52ede6e038a875a6f66f408e31532d1acdd8",
+          "url": "https://nces.ed.gov/ipeds/datacenter/data/C2004_A.zip"
+        }
+      ],
+      "locator": "hd2004.csv: geographic/Title IV/degree filters; c2004_a_rv.csv: CIPCODE=16.0301; MAJORNUM=1; total=CRACE15+CRACE16",
+      "name": "National Center for Education Statistics, IPEDS",
+      "notes": "Only one data revision used; _RV preferred when present. Source flag cell counts: {\"CRACE15:R\": 66, \"CRACE15:Z\": 5, \"CRACE16:R\": 64, \"CRACE16:Z\": 7}",
+      "vintage": "Completions survey 2004"
+    },
+    "ipeds_2005": {
+      "assets": [
+        {
+          "request_url": "https://nces.ed.gov/ipeds/datacenter/data/HD2005.zip",
+          "retrieved_at": "2026-10-22T14:47:17+00:00",
+          "sha256": "b6c9c0e4634f4404d0670c907e22964ea96932eb2cebbc2efb0759fe055ecbb7",
+          "url": "https://nces.ed.gov/ipeds/datacenter/data/HD2005.zip"
+        },
+        {
+          "request_url": "https://nces.ed.gov/ipeds/datacenter/data/C2005_A.zip",
+          "retrieved_at": "2026-10-22T14:47:24+00:00",
+          "sha256": "6c4b05a1b690df5ddd82999a6182af545048b090e39e72f34ebcf106d5a455da",
+          "url": "https://nces.ed.gov/ipeds/datacenter/data/C2005_A.zip"
+        }
+      ],
+      "locator": "hd2005.csv: geographic/Title IV/degree filters; c2005_a_rv.csv: CIPCODE=16.0301; MAJORNUM=1; total=CRACE15+CRACE16",
+      "name": "National Center for Education Statistics, IPEDS",
+      "notes": "Only one data revision used; _RV preferred when present. Source flag cell counts: {\"CRACE15:R\": 66, \"CRACE15:Z\": 4, \"CRACE16:R\": 66, \"CRACE16:Z\": 4}",
+      "vintage": "Completions survey 2005"
+    },
+    "ipeds_2006": {
+      "assets": [
+        {
+          "request_url": "https://nces.ed.gov/ipeds/datacenter/data/HD2006.zip",
+          "retrieved_at": "2026-10-22T14:47:27+00:00",
+          "sha256": "2fe089ae93b3df0085e31ee76471db2cedbc8d2d1d08a6497f460d5cec68cab6",
+          "url": "https://nces.ed.gov/ipeds/datacenter/data/HD2006.zip"
+        },
+        {
+          "request_url": "https://nces.ed.gov/ipeds/datacenter/data/C2006_A.zip",
+          "retrieved_at": "2026-10-22T14:47:34+00:00",
+          "sha256": "a1a22744392d71fa0da18d4105bc09ad6e8ec9870cedafeac6b3b49a2bc16296",
+          "url": "https://nces.ed.gov/ipeds/datacenter/data/C2006_A.zip"
+        }
+      ],
+      "locator": "hd2006.csv: geographic/Title IV/degree filters; c2006_a_rv.csv: CIPCODE=16.0301; MAJORNUM=1; total=CRACE15+CRACE16",
+      "name": "National Center for Education Statistics, IPEDS",
+      "notes": "Only one data revision used; _RV preferred when present. Source flag cell counts: {\"CRACE15:R\": 70, \"CRACE15:Z\": 10, \"CRACE16:R\": 76, \"CRACE16:Z\": 4}",
+      "vintage": "Completions survey 2006"
+    },
+    "ipeds_2007": {
+      "assets": [
+        {
+          "request_url": "https://nces.ed.gov/ipeds/datacenter/data/HD2007.zip",
+          "retrieved_at": "2026-10-22T14:47:35+00:00",
+          "sha256": "ee66cd0e6676b63dd051d4469d93ddf9492b1d6a2983105a061d2ddc0ac0717d",
+          "url": "https://nces.ed.gov/ipeds/datacenter/data/HD2007.zip"
+        },
+        {
+          "request_url": "https://nces.ed.gov/ipeds/datacenter/data/C2007_A.zip",
+          "retrieved_at": "2026-10-22T14:47:41+00:00",
+          "sha256": "b55b652bf1d2596098975f24f4263ff9b27c31697e4cbff2081d6f28748b7add",
+          "url": "https://nces.ed.gov/ipeds/datacenter/data/C2007_A.zip"
+        }
+      ],
+      "locator": "hd2007.csv: geographic/Title IV/degree filters; c2007_a_rv.csv: CIPCODE=16.0301; MAJORNUM=1; total=CRACE15+CRACE16",
+      "name": "National Center for Education Statistics, IPEDS",
+      "notes": "Only one data revision used; _RV preferred when present. Source flag cell counts: {\"CRACE15:R\": 71, \"CRACE15:Z\": 8, \"CRACE16:R\": 73, \"CRACE16:Z\": 6}",
+      "vintage": "Completions survey 2007"
+    },
+    "ipeds_2008": {
+      "assets": [
+        {
+          "request_url": "https://nces.ed.gov/ipeds/datacenter/data/HD2008.zip",
+          "retrieved_at": "2026-10-22T14:47:42+00:00",
+          "sha256": "eb760d8fd5fa8591e2e4149af1c1954e52ba9a8aacbb5327d066511ff8d7d25b",
+          "url": "https://nces.ed.gov/ipeds/datacenter/data/HD2008.zip"
+        },
+        {
+          "request_url": "https://nces.ed.gov/ipeds/datacenter/data/C2008_A.zip",
+          "retrieved_at": "2026-10-22T14:47:52+00:00",
+          "sha256": "89e07fc27d085b31788d8cab56efbff9d00e28b92cea4d6327b7cb28f7f1149a",
+          "url": "https://nces.ed.gov/ipeds/datacenter/data/C2008_A.zip"
+        }
+      ],
+      "locator": "hd2008.csv: geographic/Title IV/degree filters; c2008_a_rv.csv: CIPCODE=16.0301; MAJORNUM=1; total=CTOTALT",
+      "name": "National Center for Education Statistics, IPEDS",
+      "notes": "Only one data revision used; _RV preferred when present. Source flag cell counts: {\"CTOTALT:R\": 83}",
+      "vintage": "Completions survey 2008"
+    },
+    "ipeds_2009": {
+      "assets": [
+        {
+          "request_url": "https://nces.ed.gov/ipeds/datacenter/data/HD2009.zip",
+          "retrieved_at": "2026-10-22T14:47:55+00:00",
+          "sha256": "6639ed79d93a4313e0be5830d8250709924811f8dec3fb664a9dea56f7dc1774",
+          "url": "https://nces.ed.gov/ipeds/datacenter/data/HD2009.zip"
+        },
+        {
+          "request_url": "https://nces.ed.gov/ipeds/datacenter/data/C2009_A.zip",
+          "retrieved_at": "2026-10-22T14:43:22+00:00",
+          "sha256": "e7e101dc3e55fafce4a749cdc300b4aaa7cbee290c2615824d4e57c777345466",
+          "url": "https://nces.ed.gov/ipeds/datacenter/data/C2009_A.zip"
+        }
+      ],
+      "locator": "hd2009.csv: geographic/Title IV/degree filters; c2009_a_rv.csv: CIPCODE=16.0301; MAJORNUM=1; total=CTOTALT",
+      "name": "National Center for Education Statistics, IPEDS",
+      "notes": "Only one data revision used; _RV preferred when present. Source flag cell counts: {\"CTOTALT:R\": 90, \"CTOTALT:Z\": 1}",
+      "vintage": "Completions survey 2009"
+    },
+    "ipeds_2010": {
+      "assets": [
+        {
+          "request_url": "https://nces.ed.gov/ipeds/datacenter/data/HD2010.zip",
+          "retrieved_at": "2026-10-22T14:47:57+00:00",
+          "sha256": "72874b792f3c17c143002261af505340742f361645814f120216bda0ccaddb9c",
+          "url": "https://nces.ed.gov/ipeds/datacenter/data/HD2010.zip"
+        },
+        {
+          "request_url": "https://nces.ed.gov/ipeds/datacenter/data/C2010_A.zip",
+          "retrieved_at": "2026-10-22T14:43:34+00:00",
+          "sha256": "7e03b5d00481b1c6e5566ad8df4f4221349b83fca8a868939657616f21a6b9fd",
+          "url": "https://nces.ed.gov/ipeds/datacenter/data/C2010_A.zip"
+        }
+      ],
+      "locator": "hd2010.csv: geographic/Title IV/degree filters; c2010_a_rv.csv: CIPCODE=16.0301; MAJORNUM=1; total=CTOTALT",
+      "name": "National Center for Education Statistics, IPEDS",
+      "notes": "Only one data revision used; _RV preferred when present. Source flag cell counts: {\"CTOTALT:R\": 94, \"CTOTALT:Z\": 1}",
+      "vintage": "Completions survey 2010"
+    },
+    "ipeds_2011": {
+      "assets": [
+        {
+          "request_url": "https://nces.ed.gov/ipeds/datacenter/data/HD2011.zip",
+          "retrieved_at": "2026-10-22T14:47:59+00:00",
+          "sha256": "cc25e07c20380b1254f3a2d000d118cb1ec920d989a3071058c21ac8732548b6",
+          "url": "https://nces.ed.gov/ipeds/datacenter/data/HD2011.zip"
+        },
+        {
+          "request_url": "https://nces.ed.gov/ipeds/datacenter/data/C2011_A.zip",
+          "retrieved_at": "2026-10-22T14:48:03+00:00",
+          "sha256": "0c7b5d2140b0ee3b4df609aebc15350a74bf72cfd98b90b36a521ab6a284f9a4",
+          "url": "https://nces.ed.gov/ipeds/datacenter/data/C2011_A.zip"
+        }
+      ],
+      "locator": "hd2011.csv: geographic/Title IV/degree filters; c2011_a_rv.csv: CIPCODE=16.0301; MAJORNUM=1; total=CTOTALT",
+      "name": "National Center for Education Statistics, IPEDS",
+      "notes": "Only one data revision used; _RV preferred when present. Source flag cell counts: {\"CTOTALT:R\": 99}",
+      "vintage": "Completions survey 2011"
+    },
+    "ipeds_2012": {
+      "assets": [
+        {
+          "request_url": "https://nces.ed.gov/ipeds/datacenter/data/HD2012.zip",
+          "retrieved_at": "2026-10-22T14:48:05+00:00",
+          "sha256": "8d806d818194ccefdc594204025d4c17610338770a0ff130d28f251eec05691e",
+          "url": "https://nces.ed.gov/ipeds/datacenter/data/HD2012.zip"
+        },
+        {
+          "request_url": "https://nces.ed.gov/ipeds/datacenter/data/C2012_A.zip",
+          "retrieved_at": "2026-10-22T14:48:08+00:00",
+          "sha256": "55f061f3b781bc9511918330bdfa5314007eb85efb2c00de02c878f40552d550",
+          "url": "https://nces.ed.gov/ipeds/datacenter/data/C2012_A.zip"
+        }
+      ],
+      "locator": "hd2012.csv: geographic/Title IV/degree filters; c2012_a_rv.csv: CIPCODE=16.0301; MAJORNUM=1; total=CTOTALT",
+      "name": "National Center for Education Statistics, IPEDS",
+      "notes": "Only one data revision used; _RV preferred when present. Source flag cell counts: {\"CTOTALT:R\": 108}",
+      "vintage": "Completions survey 2012"
+    },
+    "ipeds_2013": {
+      "assets": [
+        {
+          "request_url": "https://nces.ed.gov/ipeds/datacenter/data/HD2013.zip",
+          "retrieved_at": "2026-10-22T14:48:10+00:00",
+          "sha256": "d9690d6c37c1616f5c7e9f5ea845a9a9a72ea06665db2626bfb07c5c5dff809f",
+          "url": "https://nces.ed.gov/ipeds/datacenter/data/HD2013.zip"
+        },
+        {
+          "request_url": "https://nces.ed.gov/ipeds/datacenter/data/C2013_A.zip",
+          "retrieved_at": "2026-10-22T14:48:14+00:00",
+          "sha256": "9ba4203df229dfd857cfad2efd91f47521f36e232a8bcfd10886dc35831a2294",
+          "url": "https://nces.ed.gov/ipeds/datacenter/data/C2013_A.zip"
+        }
+      ],
+      "locator": "hd2013.csv: geographic/Title IV/degree filters; c2013_a_rv.csv: CIPCODE=16.0301; MAJORNUM=1; total=CTOTALT",
+      "name": "National Center for Education Statistics, IPEDS",
+      "notes": "Only one data revision used; _RV preferred when present. Source flag cell counts: {\"CTOTALT:R\": 112}",
+      "vintage": "Completions survey 2013"
+    },
+    "ipeds_2014": {
+      "assets": [
+        {
+          "request_url": "https://nces.ed.gov/ipeds/datacenter/data/HD2014.zip",
+          "retrieved_at": "2026-10-22T14:48:15+00:00",
+          "sha256": "ff890e8305d3576c9ab9a0f3c6837ebce4fe5ce5c0d92374a0773f0a9f4150b8",
+          "url": "https://nces.ed.gov/ipeds/datacenter/data/HD2014.zip"
+        },
+        {
+          "request_url": "https://nces.ed.gov/ipeds/datacenter/data/C2014_A.zip",
+          "retrieved_at": "2026-10-22T14:48:23+00:00",
+          "sha256": "7e04c402ce870a9073e99aafc13eae1ae07d9d97eecf36689d9c42db1996d4c8",
+          "url": "https://nces.ed.gov/ipeds/datacenter/data/C2014_A.zip"
+        }
+      ],
+      "locator": "hd2014.csv: geographic/Title IV/degree filters; c2014_a_rv.csv: CIPCODE=16.0301; MAJORNUM=1; total=CTOTALT",
+      "name": "National Center for Education Statistics, IPEDS",
+      "notes": "Only one data revision used; _RV preferred when present. Source flag cell counts: {\"CTOTALT:R\": 115}",
+      "vintage": "Completions survey 2014"
+    },
+    "ipeds_2015": {
+      "assets": [
+        {
+          "request_url": "https://nces.ed.gov/ipeds/datacenter/data/HD2015.zip",
+          "retrieved_at": "2026-10-22T14:48:24+00:00",
+          "sha256": "17db8753dd1dc404899d8a40fbc4c1eb3d96dd07d06b4b21e6ad994c778351df",
+          "url": "https://nces.ed.gov/ipeds/datacenter/data/HD2015.zip"
+        },
+        {
+          "request_url": "https://nces.ed.gov/ipeds/datacenter/data/C2015_A.zip",
+          "retrieved_at": "2026-10-22T14:48:30+00:00",
+          "sha256": "c1d54e7b5896ca3db2a5fadca00c149f76f2d2189e57749e8f4db716a266b489",
+          "url": "https://nces.ed.gov/ipeds/datacenter/data/C2015_A.zip"
+        }
+      ],
+      "locator": "hd2015.csv: geographic/Title IV/degree filters; c2015_a_rv.csv: CIPCODE=16.0301; MAJORNUM=1; total=CTOTALT",
+      "name": "National Center for Education Statistics, IPEDS",
+      "notes": "Only one data revision used; _RV preferred when present. Source flag cell counts: {\"CTOTALT:R\": 121}",
+      "vintage": "Completions survey 2015"
+    },
+    "ipeds_2016": {
+      "assets": [
+        {
+          "request_url": "https://nces.ed.gov/ipeds/datacenter/data/HD2016.zip",
+          "retrieved_at": "2026-10-22T14:48:32+00:00",
+          "sha256": "a09e91d3e3b7ef63fb30b5372402f3805c5da1c74959925486036745f2fb664e",
+          "url": "https://nces.ed.gov/ipeds/datacenter/data/HD2016.zip"
+        },
+        {
+          "request_url": "https://nces.ed.gov/ipeds/datacenter/data/C2016_A.zip",
+          "retrieved_at": "2026-10-22T14:48:38+00:00",
+          "sha256": "7213f0b6521e9e1161acd6be867c4510b0256655c53c42f7f24fb4acdd3d4b4b",
+          "url": "https://nces.ed.gov/ipeds/datacenter/data/C2016_A.zip"
+        }
+      ],
+      "locator": "hd2016.csv: geographic/Title IV/degree filters; c2016_a_rv.csv: CIPCODE=16.0301; MAJORNUM=1; total=CTOTALT",
+      "name": "National Center for Education Statistics, IPEDS",
+      "notes": "Only one data revision used; _RV preferred when present. Source flag cell counts: {\"CTOTALT:R\": 117}",
+      "vintage": "Completions survey 2016"
+    },
+    "ipeds_2017": {
+      "assets": [
+        {
+          "request_url": "https://nces.ed.gov/ipeds/datacenter/data/HD2017.zip",
+          "retrieved_at": "2026-10-22T14:48:40+00:00",
+          "sha256": "4dbb7905c0436ed97920d4d876e4c598f5f18c2c742dab9972b804b6ee133e57",
+          "url": "https://nces.ed.gov/ipeds/datacenter/data/HD2017.zip"
+        },
+        {
+          "request_url": "https://nces.ed.gov/ipeds/datacenter/data/C2017_A.zip",
+          "retrieved_at": "2026-10-22T14:48:49+00:00",
+          "sha256": "616eabf28a7e94beaf975d35d5f3aa5a446cc26195e5c5dcd1e8de68c0a69df4",
+          "url": "https://nces.ed.gov/ipeds/datacenter/data/C2017_A.zip"
+        }
+      ],
+      "locator": "hd2017.csv: geographic/Title IV/degree filters; c2017_a_rv.csv: CIPCODE=16.0301; MAJORNUM=1; total=CTOTALT",
+      "name": "National Center for Education Statistics, IPEDS",
+      "notes": "Only one data revision used; _RV preferred when present. Source flag cell counts: {\"CTOTALT:R\": 121}",
+      "vintage": "Completions survey 2017"
+    },
+    "ipeds_2018": {
+      "assets": [
+        {
+          "request_url": "https://nces.ed.gov/ipeds/datacenter/data/HD2018.zip",
+          "retrieved_at": "2026-10-22T14:48:51+00:00",
+          "sha256": "4e632bc76441c12e8e42b4e66dd6af99aa332342c4879920c09d7d8317cf9b29",
+          "url": "https://nces.ed.gov/ipeds/datacenter/data/HD2018.zip"
+        },
+        {
+          "request_url": "https://nces.ed.gov/ipeds/datacenter/data/C2018_A.zip",
+          "retrieved_at": "2026-10-22T14:49:01+00:00",
+          "sha256": "24d100007bc3ff4a20aa43e447e8dac564db7118e81be264d803e694968cc9e3",
+          "url": "https://nces.ed.gov/ipeds/datacenter/data/C2018_A.zip"
+        }
+      ],
+      "locator": "hd2018.csv: geographic/Title IV/degree filters; c2018_a_rv.csv: CIPCODE=16.0301; MAJORNUM=1; total=CTOTALT",
+      "name": "National Center for Education Statistics, IPEDS",
+      "notes": "Only one data revision used; _RV preferred when present. Source flag cell counts: {\"CTOTALT:R\": 122}",
+      "vintage": "Completions survey 2018"
+    },
+    "ipeds_2019": {
+      "assets": [
+        {
+          "request_url": "https://nces.ed.gov/ipeds/datacenter/data/HD2019.zip",
+          "retrieved_at": "2026-10-22T14:49:02+00:00",
+          "sha256": "727cb3484666e5fea8669ce0fb2ad4606ed19531b47cf428d6748072d7e7ab26",
+          "url": "https://nces.ed.gov/ipeds/datacenter/data/HD2019.zip"
+        },
+        {
+          "request_url": "https://nces.ed.gov/ipeds/datacenter/data/C2019_A.zip",
+          "retrieved_at": "2026-10-22T14:49:07+00:00",
+          "sha256": "ee267e2204f9bc8e356eee2bfe9496d8f764ae95ca9f14b850d4699c3e8df77e",
+          "url": "https://nces.ed.gov/ipeds/datacenter/data/C2019_A.zip"
+        }
+      ],
+      "locator": "hd2019.csv: geographic/Title IV/degree filters; c2019_a_rv.csv: CIPCODE=16.0301; MAJORNUM=1; total=CTOTALT",
+      "name": "National Center for Education Statistics, IPEDS",
+      "notes": "Only one data revision used; _RV preferred when present. Source flag cell counts: {\"CTOTALT:R\": 125}",
+      "vintage": "Completions survey 2019"
+    },
+    "ipeds_2020": {
+      "assets": [
+        {
+          "request_url": "https://nces.ed.gov/ipeds/datacenter/data/HD2020.zip",
+          "retrieved_at": "2026-10-22T14:49:09+00:00",
+          "sha256": "cfbdf04201f4be4ae6f98b3800424b6fffd498ec2932f34d287b3d9f17aa3475",
+          "url": "https://nces.ed.gov/ipeds/datacenter/data/HD2020.zip"
+        },
+        {
+          "request_url": "https://nces.ed.gov/ipeds/datacenter/data/C2020_A.zip",
+          "retrieved_at": "2026-10-22T14:49:18+00:00",
+          "sha256": "f36abd6c3bc5b1bbd94bdc864d07fd60db3069522a58cfde4671b4280376ca05",
+          "url": "https://nces.ed.gov/ipeds/datacenter/data/C2020_A.zip"
+        }
+      ],
+      "locator": "hd2020.csv: geographic/Title IV/degree filters; c2020_a_rv.csv: CIPCODE=16.0301; MAJORNUM=1; total=CTOTALT",
+      "name": "National Center for Education Statistics, IPEDS",
+      "notes": "Only one data revision used; _RV preferred when present. Source flag cell counts: {\"CTOTALT:R\": 127}",
+      "vintage": "Completions survey 2020"
+    },
+    "ipeds_2021": {
+      "assets": [
+        {
+          "request_url": "https://nces.ed.gov/ipeds/datacenter/data/HD2021.zip",
+          "retrieved_at": "2026-10-22T14:49:19+00:00",
+          "sha256": "6ea1a974e2994cfcf066b4910bcdad7b0df6f927e6871f3d55532af94b965389",
+          "url": "https://nces.ed.gov/ipeds/datacenter/data/HD2021.zip"
+        },
+        {
+          "request_url": "https://nces.ed.gov/ipeds/datacenter/data/C2021_A.zip",
+          "retrieved_at": "2026-10-22T14:49:23+00:00",
+          "sha256": "69317e2afe7ad52f46bbf651f2408b8f5ae2ead5c74206b63554d6f0f1373244",
+          "url": "https://nces.ed.gov/ipeds/datacenter/data/C2021_A.zip"
+        }
+      ],
+      "locator": "hd2021.csv: geographic/Title IV/degree filters; c2021_a_rv.csv: CIPCODE=16.0301; MAJORNUM=1; total=CTOTALT",
+      "name": "National Center for Education Statistics, IPEDS",
+      "notes": "Only one data revision used; _RV preferred when present. Source flag cell counts: {\"CTOTALT:R\": 131}",
+      "vintage": "Completions survey 2021"
+    },
+    "ipeds_2022": {
+      "assets": [
+        {
+          "request_url": "https://nces.ed.gov/ipeds/datacenter/data/HD2022.zip",
+          "retrieved_at": "2026-10-22T14:49:25+00:00",
+          "sha256": "e36389b793741bf6886b8d85fa9b42614644162b0d0b1d024a663a9c1865c782",
+          "url": "https://nces.ed.gov/ipeds/datacenter/data/HD2022.zip"
+        },
+        {
+          "request_url": "https://nces.ed.gov/ipeds/datacenter/data/C2022_A.zip",
+          "retrieved_at": "2026-10-22T14:49:29+00:00",
+          "sha256": "f81b8390d1758ac710b85a1d5a7af51372770335a02c0d06802a46d3a068126c",
+          "url": "https://nces.ed.gov/ipeds/datacenter/data/C2022_A.zip"
+        }
+      ],
+      "locator": "hd2022.csv: geographic/Title IV/degree filters; c2022_a_rv.csv: CIPCODE=16.0301; MAJORNUM=1; total=CTOTALT",
+      "name": "National Center for Education Statistics, IPEDS",
+      "notes": "Only one data revision used; _RV preferred when present. Source flag cell counts: {\"CTOTALT:R\": 124}",
+      "vintage": "Completions survey 2022"
+    },
+    "ipeds_2023": {
+      "assets": [
+        {
+          "request_url": "https://nces.ed.gov/ipeds/datacenter/data/HD2023.zip",
+          "retrieved_at": "2026-10-22T14:49:31+00:00",
+          "sha256": "e11d35af6f50fbe2f51d8ddd5a9d4f49860abbab7d73beae1f8524f13ad8945b",
+          "url": "https://nces.ed.gov/ipeds/datacenter/data/HD2023.zip"
+        },
+        {
+          "request_url": "https://nces.ed.gov/ipeds/datacenter/data/C2023_A.zip",
+          "retrieved_at": "2026-10-22T14:52:03+00:00",
+          "sha256": "651d95b6405bb86c6c14884ed54225a27492199d21d8acd63cda2581aa60838a",
+          "url": "https://nces.ed.gov/ipeds/datacenter/data/C2023_A.zip"
+        }
+      ],
+      "locator": "HD2023.csv: geographic/Title IV/degree filters; C2023_a_RV.csv: CIPCODE=16.0301; MAJORNUM=1; total=CTOTALT",
+      "name": "National Center for Education Statistics, IPEDS",
+      "notes": "Only one data revision used; _RV preferred when present. Source flag cell counts: {\"CTOTALT:R\": 127}",
+      "vintage": "Completions survey 2023"
+    },
+    "ipeds_2024": {
+      "assets": [
+        {
+          "request_url": "https://nces.ed.gov/ipeds/datacenter/data/HD2024.zip",
+          "retrieved_at": "2026-10-22T14:50:10+00:00",
+          "sha256": "d98425c123d7c0e872aec6e83960dfb501884818bf17385c340790f3d1f28345",
+          "url": "https://nces.ed.gov/ipeds/datacenter/data/HD2024.zip"
+        },
+        {
+          "request_url": "https://nces.ed.gov/ipeds/datacenter/data/C2024_A.zip",
+          "retrieved_at": "2026-10-22T14:52:07+00:00",
+          "sha256": "03234cc27fe4e7eb835a66d4f37aaec11bdac8dfa278f971584e1b20d03e1159",
+          "url": "https://nces.ed.gov/ipeds/datacenter/data/C2024_A.zip"
+        }
+      ],
+      "locator": "HD2024.csv: geographic/Title IV/degree filters; C2024_a.csv: CIPCODE=16.0301; MAJORNUM=1; total=CTOTALT",
+      "name": "National Center for Education Statistics, IPEDS",
+      "notes": "Only one data revision used; _RV preferred when present. Source flag cell counts: {\"CTOTALT:R\": 125}",
+      "vintage": "Completions survey 2024"
+    },
+    "k12_2017": {
+      "assets": [
+        {
+          "request_url": "https://www.americancouncils.org/sites/default/files/FLE-report-June17.pdf",
+          "retrieved_at": "2026-10-22T14:39:35+00:00",
+          "sha256": "173ee353382bcdd2c9467792294e7419cc48b7cc6ffdc27bd32118488e61b993",
+          "url": "https://www.americancouncils.org/sites/default/files/FLE-report-June17.pdf"
+        }
+      ],
+      "locator": "Table 2, page 8; Chinese column national total",
+      "name": "American Councils and partner organizations",
+      "notes": "Reported and modeled state enrollment totals. Not an immersion-program count; never summed with later college/AP figures.",
+      "vintage": "June 2017 K-16 survey report"
+    },
+    "mla_matched_2021": {
+      "assets": [
+        {
+          "request_url": "https://www.mla.org/content/download/191323/file/Historical-language-enrollments-1958-2021.xlsx",
+          "retrieved_at": "2026-10-22T14:39:05+00:00",
+          "sha256": "df25b2f0a11b6b2dc9afa363924bc6b837082f9b755f291762f36f30d5ca5797",
+          "url": "https://www.mla.org/content/download/191323/file/Historical-language-enrollments-1958-2021.xlsx"
+        }
+      ],
+      "locator": "FL history; INST_ID, N_RESP, ZERO_ERL, LANGUAGE, ALL LEVEL TOTAL",
+      "name": "Modern Language Association",
+      "notes": "Matched complete-count respondents: 2257. 2013/2021 national sums reconcile with the report. 2016 workbook/report revisions are not spliced into national charts: {\"all_languages\": {\"report\": 1418584, \"workbook\": 1419699}, \"chinese\": {\"report\": 54248, \"workbook\": 54285}, \"japanese\": {\"report\": 68810, \"workbook\": 68517}, \"korean\": {\"report\": 13936, \"workbook\": 13912}, \"spanish\": {\"report\": 712962, \"workbook\": 714583}}",
+      "vintage": "Historical workbook retrieved for 2013/2021 matched panel"
+    },
+    "mla_report_2021": {
+      "assets": [
+        {
+          "request_url": "https://www.mla.org/content/download/191324/file/Enrollments-in-Languages-Other-Than-English-in-US-Institutions-of-Higher-Education-Fall-2021.pdf",
+          "retrieved_at": "2026-10-22T14:39:01+00:00",
+          "sha256": "f4876b4da8a8518a41ad1cbda8846d059547f1b2350a35bd1cc08103f5a6a170",
+          "url": "https://www.mla.org/content/download/191324/file/Enrollments-in-Languages-Other-Than-English-in-US-Institutions-of-Higher-Education-Fall-2021.pdf"
+        }
+      ],
+      "locator": "Table 5 (PDF page 63)",
+      "name": "Modern Language Association",
+      "notes": "National figures use one published report vintage, not later workbook revisions. Only selected numerical aggregates are republished; source report is not redistributed. MLA network terms limit ordinary use to personal noncommercial use; separate commercial reuse permission is unverified.",
+      "vintage": "Fall 2021 census; report published 2023"
+    },
+    "mla_snapshot_2020": {
+      "assets": [
+        {
+          "request_url": "https://www.mla.org/content/download/191129/file/Fall-2022-NL-snapshot.pdf",
+          "retrieved_at": "2026-10-22T14:52:10+00:00",
+          "sha256": "b46ba2baa5dfff828dc32fbc4aab51aa39c67db49a9e849137453ee4576b8263",
+          "url": "https://www.mla.org/content/download/191129/file/Fall-2022-NL-snapshot.pdf"
+        }
+      ],
+      "locator": "Snapshot methodology and language comparisons",
+      "name": "Modern Language Association",
+      "notes": "1,308 matched institutions; not the full 2021 census. Article's rounded 21% decline is context only, not a national census observation.",
+      "vintage": "Fall 2020 snapshot; fall 2022 newsletter"
+    },
+    "nexus_2025": {
+      "assets": [
+        {
+          "request_url": "https://nexusmandarin.org/publications-1",
+          "retrieved_at": "2026-10-22T14:39:34+00:00",
+          "sha256": "6a0aaa45407bb9d5107d1bd9bea5900063dbf9e0ce5f1dd21f35ad34b9e230b4",
+          "url": "https://nexusmandarin.org/publications-1"
+        },
+        {
+          "request_url": "https://img1.wsimg.com/blobby/go/5fdfef80-359a-4324-b79d-667c16a3001a/downloads/af71130f-ccd7-42b5-8662-c395ae3562a4/A.2025%20US%20PreK-12%20MIPs%20Survey%20Report.pdf?ver=1790000225596",
+          "retrieved_at": "2026-10-22T14:39:36+00:00",
+          "sha256": "7b09a660101f1db22bfa4ac9c44cecbc9062ac3b8cb227e3917bd1445fdf1e69",
+          "url": "https://img1.wsimg.com/blobby/go/5fdfef80-359a-4324-b79d-667c16a3001a/downloads/af71130f-ccd7-42b5-8662-c395ae3562a4/A.2025%20US%20PreK-12%20MIPs%20Survey%20Report.pdf?ver=1790000225596"
+        }
+      ],
+      "locator": "Executive summary page 3; state inventory appendix page 55",
+      "name": "Nexus Mandarin",
+      "notes": "103 responses include one in Hong Kong; 34,341 response-associated students are NOT published here as U.S. enrollment. All source-state inventory counts reconcile to 335.",
+      "vintage": "2025 survey and directory; published 2026"
+    }
+  },
+  "version": 1
+}

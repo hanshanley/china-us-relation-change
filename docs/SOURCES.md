@@ -16,6 +16,49 @@ and Taiwan separately, from 2000 where verified. Missing coverage is not zero.
 | Taiwan arrivals | [Government open-data catalog](https://data.gov.tw/dataset/45512), [official CSV](https://stat.taiwan.net.tw/data/opendata/6) | Public annual purpose-by-residence CSV starts 2012. U.S. residence rows provide total arrivals and a separate declared-sightseeing series. The interactive API rejected requests; the explicitly public CSV is accessible without bypassing that restriction. |
 | Mainland arrivals/enrollment | [NBS](https://www.stats.gov.cn/english/), [MOE](https://en.moe.gov.cn/) | Verify the bilateral breakdown for each publication; national totals do not establish U.S.-specific counts. |
 
+## Chinese-language learning sources
+
+The separate language-learning publication does not add domestic registrations,
+global exams, program inventories or degree awards to bilateral observations.
+Complete source asset identities and checksums are in
+`data/site/language_learning.json` and its downloadable copy.
+
+| Primary source | Contract |
+|---|---|
+| [MLA fall 2021 report](https://www.mla.org/content/download/191324/file/Enrollments-in-Languages-Other-Than-English-in-US-Institutions-of-Higher-Education-Fall-2021.pdf), Table 5, PDF page 63 | Consistent published-report history for Chinese/Mandarin, Japanese, Korean, Spanish and all languages. Course registrations, undergraduate and graduate, not unique students. All-language denominator includes ASL/classical languages. No fabricated annual observations. |
+| [MLA historical workbook](https://www.mla.org/content/download/191323/file/Historical-language-enrollments-1958-2021.xlsx), `FL history` | Match responding `INST_ID`s in 2013/2021, exclude `N_RESP=NR` even when a placeholder count is zero, and retain explicit `ZERO_ERL=Z`. Exclude institutions with any unreported language-count row in either endpoint; missing counts are not zeros. Chinese is exact CHINESE plus MANDARIN; do not deduplicate legitimate repeated language rows. National endpoint sums independently reconcile to the report. |
+| [MLA pandemic snapshot](https://www.mla.org/content/download/191129/file/Fall-2022-NL-snapshot.pdf) | Separate 2016/2020 matched-institution comparison underlying the Economist article, not a 2020 national census or part of the 2021 national series. |
+| [College Board AP archive](https://reports.collegeboard.org/ap-program-results/data-archive) and [Chinese 2025 subject report](https://apcentral.collegeboard.org/media/pdf/ap25-chinese-language-score-distributions.pdf) | Global annual administration history 2007-2025. Subject-specific reports supersede overlapping earlier program-volume vintages. Parse **Number of Students**, not the number scoring 3+. Standard group is a subset, not U.S. geography or a nonheritage/ancestry classification; never add it to total. |
+| [AP Report to the Nation 2011](https://secure-media.collegeboard.org/digitalServices/public/pdf/ap/rtn/AP-Report-2011-Subject-Supplement.pdf), [2013 supplement](https://secure-media.collegeboard.org/digitalServices/pdf/ap/rtn/9th-annual/9th-annual-ap-report-subject-supplement-all-subjects.pdf), [2014 Chinese supplement](https://secure-media.collegeboard.org/digitalServices/pdf/ap/rtn/10th-annual/10th-annual-ap-report-subject-supplement-chinese-language-and-culture.pdf) | U.S. public-school graduating cohorts 2007-2013. Sum five total-group score categories; year is the graduating class, with exams taken throughout high school. Later report vintages take priority for overlapping cohorts, including the revised 2008 total. Never splice into annual global administrations. |
+| [NCES IPEDS public files](https://nces.ed.gov/ipeds/datacenter/data/), `CYYYY_A.zip` plus annual institutional directory | Exact CIP 16.0301, 50 states/DC, degree-granting and Title IV eligibility; first-major `MAJORNUM=1` from 2001. Use revised `_RV` CSV only when present. Modern total `CTOTALT`; older `CRACE15+CRACE16` are male plus female totals. Preserve source-flag frequencies and selected revision. |
+| [NCES independent degree checkpoint](https://nces.ed.gov/programs/digest/d23/tables/xls/tabn318.30.xlsx) | Digest table 318.30 independently confirms 2022 Chinese bachelor's 364, master's 26 and doctorates 14. Awards are not unique people or all China expertise; the 2000 major-number and 2010 doctoral-classification breaks are explicit. |
+| [CAL 2011 language inventory](https://webapp.cal.org/Immersion/Doc/Language%20of%20Instruction%20in%20Immersion%20Programs.pdf), [ARC 2021 canvass](https://www.americancouncils.org/sites/default/files/documents/pages/2021-10/Canvass%20DLI%20-%20October%202021-2_ac.pdf), [Nexus publications](https://nexusmandarin.org/publications-1) | 71 Mandarin directory programs, 312 Chinese public-school DLI programs and 335 U.S. inventoried immersion programs, respectively. Definitions differ; these are disconnected inventory snapshots, not comparable growth or learner counts. Nexus's state appendix independently sums to 335. |
+| [American Councils June 2017 K-16 report](https://www.americancouncils.org/sites/default/files/FLE-report-June17.pdf), Table 2 | Chinese K-12 estimate 227,086 combines reported state data and model estimates, with a 2014-15-era reference period. The ending-year key 2015 is not an exact common measurement date or current census. |
+
+The MLA workbook's 2016 totals differ from the published report: Chinese 54,285
+versus 54,248 and all languages 1,419,699 versus 1,418,584. National charts retain
+the report vintage; the workbook supplies only the independently reconciled
+2013/2021 matched panel. This avoids a silent revision splice.
+
+The [Economist article, August 24, 2023](https://www.economist.com/china/2023/08/24/why-fewer-university-students-are-studying-mandarin)
+provides hypotheses, not causal estimates. Its rounded 21% decline belongs to
+the separate pandemic snapshot. The Nexus survey's 103 responses include
+102 U.S. programs plus one in Hong Kong; its 34,341 associated enrollments are
+not republished as a national U.S. total. Founding years of surviving programs
+are not reconstructed as past active-program inventories.
+
+Current subject-specific AP reports are global; national/state public-school
+participation workbooks aggregate subjects. No current U.S.-only annual Chinese
+administration series was verified from those files. Historical U.S. cohorts
+and standard-group subsets do not fill that gap. College Board's public files
+are downloaded with verified-TLS system `curl`; certificate verification is
+never disabled.
+
+Retrieval is an explicit reviewed-source command, not scheduled scraping.
+[MLA terms](https://www.mla.org/About-Us/About-the-MLA/Terms-of-Use-for-MLA-Network)
+and unverified commercial reuse remain disclosed. No raw source reports,
+institution-level workbook, report artwork or exam questions are redistributed.
+
 ## Interpretation
 
 Students are stocks or academic-year participation, not departures. UIS degree

@@ -166,6 +166,73 @@ aggregate input explicitly after new research; the workflow also checks pushes
 to this input and its builder. Existing Weibo collection/analysis code and the
 private database are not modified by the chart integration.
 
+### Chinese-language learning
+
+Open `site/language-learning.html`. Nine chart families address the college
+boom/reversal, comparison with other languages, school-age pipeline and narrow
+specialist-degree pipeline. They use the existing house typography, stable
+language colours and both publication backgrounds. PNGs are 3000 by 1800;
+PNG/SVG exports live in `outputs/figures/language_learning/<background>/`
+and the matching `site/figures/` directory.
+
+These indicators remain separate from canonical bilateral flows:
+
+| Indicator | Verified history and interpretation |
+|---|---|
+| MLA national college registrations | Fall 2002, 2006, 2009, 2013, 2016 and 2021, using the 2021 report's historical table. Levels, Chinese share of all language registrations, and Chinese/Japanese/Korean/all-language indexes with 2013=100. Registrations are not unique learners. |
+| Matched college institutions | Same complete-count responding institution IDs in 2013 and 2021. Nonresponse placeholders and institutions with any unreported language-count row are excluded; explicit zero-language respondents are retained. This selected cohort is not a national census or a causal estimate. |
+| AP annual administration | Global Chinese participation, 2007-2025; standard-group subset for 2023-2025. Neither is a verified U.S.-only count. Standard group describes reported language exposure/training, not ancestry or U.S. location. |
+| Historical U.S. AP cohorts | Public-school graduating classes 2007-2013; Chinese exams taken at any point during high school. Not the administration year, all U.S. schools or unique learners. Separate from global annual counts; current U.S.-only administration history remains a documented gap. |
+| IPEDS degree awards | Academic years ending 2000-2024, narrow CIP 16.0301, 50 states/DC, Title IV degree-granting institutions. Bachelor's, master's and doctoral awards are separate; second majors/certificates are excluded from 2001 onward. Reported or imputed awards are not unique people, proficiency measures or all China specialists. |
+| Immersion inventories | CAL 2011, ARC 2021 and Nexus 2025 snapshots use different universes. Categorical bars deliberately do not connect them into a growth trend. |
+
+Annual lines break on missing years and definition changes. MLA lines connect
+actual census rounds, without inventing intervening annual observations. IPEDS
+2000 lacks separate major numbering; doctoral classification changes in 2010,
+from the old doctoral category to research/scholarship doctorates. Both boundaries
+break chart lines. Original flags, revision members and filters are retained.
+
+The Economist's August 24, 2023 article is interpretive context, not the numeric
+source for the college census. Its rounded 2016-2020 decline uses the separate
+MLA pandemic snapshot of 1,308 matched institutions, not the full 2021 census.
+Proposed employment, geopolitical, cultural and technology explanations are not
+a demonstrated causal decomposition.
+
+The older K-12 estimate of 227,086 enrollments refers to a 2014-15-era mixed
+reported/modelled reference period, published in 2017; it is not a current
+learner census. Nexus's 335 U.S. inventoried programs are separate from its
+103 survey responses, including one Hong Kong response. The associated
+34,341 enrollments are therefore not published as a national U.S. learner count.
+There is no summed learner total across settings.
+
+`data/site/language_learning.json` freezes reviewed numerical aggregates,
+definitions, coverage and source URLs, retrieval dates and SHA-256 checksums.
+The page provides the entire JSON, every raw observation in
+`language-observations.csv`, and every derived index/share/chart point in
+`language-chart-values.csv`. Nothing depends on a private workbook or database
+when building offline.
+
+Source retrieval is deliberately manual, not part of daily exchange refreshes:
+
+```sh
+.venv/bin/python scripts/build_language_data.py --data-only
+.venv/bin/python scripts/build_site.py
+PYTHONPATH=src .venv/bin/python -m pytest tests/test_exchange_language.py -q
+```
+
+The first command uses checksummed local assets where available; `--refresh`
+explicitly fetches the reviewed public resources again. `--last-degree-year`
+selects the final IPEDS survey year, default 2024; a missing annual file fails
+the candidate rather than truncating history or inventing zeros. A complete
+validated candidate replaces the frozen input only after all sources succeed.
+The ordinary build performs no network calls. Removing the frozen input
+withdraws its known page/downloads/figures but preserves user-owned files.
+
+Only numerical aggregates and original visualizations are published, not
+source PDFs, workbooks, report artwork or exam questions. MLA ordinary-use
+restrictions and unverified commercial reuse permission remain disclosed in
+source notes and figure footnotes; publication backgrounds do not grant rights.
+
 ## Definitions and comparisons
 
 - History starts in 2000 **where verified**. The publication does not pretend
