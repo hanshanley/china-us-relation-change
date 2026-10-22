@@ -98,6 +98,26 @@ class AssessmentTest(unittest.TestCase):
                 publish(db, roster, screening, journal, root / "public")
             db.close()
 
+    def test_www_ranked_domain_keeps_identity_and_original_domain(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            data = registry()
+            data["outlets"][0]["source_url"] = "https://www.publisher.test/"
+            source = root / "registry.json"
+            source.write_text(json.dumps(data))
+            db = connect(root / "database.sqlite")
+            load(db, source)
+            roster = [{"domain": "www.publisher.test"}]
+            result = account_assessments(
+                db, roster, {"www.publisher.test": {"status": "screened_no_link"}},
+                {"www.publisher.test": {"candidate_links": []}},
+            )[0]
+            self.assertEqual(result["domain"], "www.publisher.test")
+            self.assertEqual(result["account_status"], "confirmed_current_evidence")
+            self.assertEqual(result["account_ids"], ["test-account"])
+            self.assertEqual(result["manual_review"][0]["outlet_id"], data["outlets"][0]["id"])
+            db.close()
+
     def test_complete_ranked_ledger_keeps_supplemental_verified_outlet_separate(self):
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
@@ -105,12 +125,15 @@ class AssessmentTest(unittest.TestCase):
             data = registry()
             data["outlets"].append(dict(data["outlets"][0], id="cnn", name="CNN",
                                         source_url="https://www.cnn.com/"))
+            data["outlets"].append(dict(data["outlets"][0], id="www-alias", name="WWW Alias",
+                                        source_url="https://www.alias.test/"))
             source.write_text(json.dumps(data))
             db = connect(root / "database.sqlite")
             load(db, source)
             rows = [{"domain": f"ranked-{n}.test", "name": f"Publisher {n}", "us_position": n}
                     for n in range(1, 1001)]
             rows[0].update(domain="edition.cnn.com", name="CNN")
+            rows[1].update(domain="www.alias.test", name="WWW Alias")
             roster, screening, journal = root / "roster.csv", root / "screen.csv", root / "checks.jsonl"
             write_csv(roster, rows, list(rows[0]))
             write_csv(screening, [{"domain": r["domain"], "status": "screened_no_link"}
@@ -121,6 +144,7 @@ class AssessmentTest(unittest.TestCase):
             }) + "\n" for r in rows))
             results = publish(db, roster, screening, journal, root / "public")
             self.assertEqual(len(results), 1000)
+            self.assertEqual([r["domain"] for r in results], [r["domain"] for r in rows])
             combined = [json.loads(line) for line in
                         (root / "public/outlet_account_assessments.jsonl").read_text().splitlines()]
             self.assertEqual(len(combined), 1001)
@@ -130,6 +154,9 @@ class AssessmentTest(unittest.TestCase):
             self.assertTrue(combined[-1]["has_ever_official_weibo"])
             self.assertEqual(combined[-1]["account_ids"], ["test-account"])
             self.assertEqual(combined[0]["manual_review"][0]["outlet_id"], "cnn")
+            self.assertEqual(combined[1]["domain"], "www.alias.test")
+            self.assertEqual(combined[1]["manual_review"][0]["outlet_id"], "www-alias")
+            self.assertNotIn("alias.test", [r["domain"] for r in combined])
             self.assertEqual(combined[-1]["post_collection"]["test-account"]["status"], "not_attempted")
             self.assertTrue(all(r["has_ever_official_weibo"] is None for r in combined[:1000]))
             db.close()

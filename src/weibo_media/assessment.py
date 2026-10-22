@@ -164,11 +164,12 @@ def account_assessments(db, roster, screening, checks):
         mapping.setdefault(main, []).append(account)
     results = []
     for row in roster:
-        matched = mapping.get(row["domain"], [])
+        domain = domain_key("https://" + row["domain"])
+        matched = mapping.get(domain, [])
         manual = [{
             "outlet_id": outlet["id"], "research_status": outlet["research_status"],
             "category": outlet["category"], "notes": outlet["notes"], "us_basis": outlet["us_basis"],
-        } for outlet in outlets.values() if outlet_domain(outlet) == row["domain"]]
+        } for outlet in outlets.values() if outlet_domain(outlet) == domain]
         confirmed = [a for a in matched if a["officialness"] == "confirmed"]
         candidates = checks[row["domain"]]["candidate_links"]
         existence = {a["existence"] for a in confirmed}
@@ -233,9 +234,10 @@ def publish(db, roster_path, screening_path, journal_path, output):
         "".join(json.dumps(row, ensure_ascii=False) + "\n" for row in results), encoding="utf-8")
     ranked = [dict(row, roster_scope="ranked_us_1000") for row in results]
     supplemental_roster = []
+    ranked_domains = {domain_key("https://" + domain) for domain in domains}
     for outlet in db.execute("SELECT * FROM outlets ORDER BY id"):
         domain = outlet_domain(outlet)
-        if domain in domains:
+        if domain in ranked_domains:
             continue
         record = dict.fromkeys(roster[0])
         record.update(name=outlet["name"], domain=domain)

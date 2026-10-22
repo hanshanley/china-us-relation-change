@@ -193,6 +193,8 @@ def report(db, path):
               "newspaper channel without inferring Seattle identity from a shared widget, "
               "[Phoenix Americas follow-up](discovery_iteration16.md) for a specifically labeled "
               "U.S.-based regional broadcaster, independently recovered posts and further publisher reviews, "
+              "[Las Vegas newspaper follow-up](discovery_iteration17.md) for a historically verified "
+              "account, explicit recovery limits and canonical-domain matching without changing cohort membership, "
               "and [access pilot](access_pilot.md) for source-level "
               "access checks and archive gaps.", ""]
     target = Path(path)

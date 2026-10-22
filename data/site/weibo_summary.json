@@ -477,6 +477,20 @@
       "relationship": "Publisher-linked Chinese-language channel of the U.S. LA18/KSCI television station, not a licensed Chinese magazine or an inferred sibling broadcaster"
     },
     {
+      "account_id": "las-vegas-chinese-news-historical",
+      "attribution_end": null,
+      "earliest_publication_utc": null,
+      "existence": "historical",
+      "latest_publication_utc": null,
+      "latest_run_source": "sina_syndication",
+      "latest_run_status": "blocked",
+      "outlet_id": "las-vegas-chinese-news",
+      "outlet_name": "Las Vegas Chinese News Network / \u62c9\u65af\u7ef4\u52a0\u65af\u65b0\u95fb\u62a5",
+      "profile_url": "https://weibo.com/lvcnn",
+      "recovered_posts": 0,
+      "relationship": "Publisher-designated historical account of a Las Vegas-based Chinese-language newspaper; not CNN, a travel advertiser or a currently verified active channel"
+    },
+    {
       "account_id": "mens-health-china",
       "attribution_end": null,
       "earliest_publication_utc": "2021-11-15T07:00:00+00:00",
@@ -1136,18 +1150,18 @@
     }
   ],
   "roster": {
-    "confirmed_accounts": 81,
-    "confirmed_outlets": 56,
-    "outlets": 155,
-    "reviewed_outlets": 155
+    "confirmed_accounts": 82,
+    "confirmed_outlets": 57,
+    "outlets": 161,
+    "reviewed_outlets": 161
   },
   "source": {
     "corpus_metadata_sha256": "73b20e35da447de40b7bc3d732f6aa43feac5b0b0d716bbdbf50b1f859bc2e3e",
     "excluded_attribution_posts": 0,
     "excluded_unconfirmed_posts": 0,
-    "latest_collection_at": "2026-10-22T08:32:12.006489+00:00",
+    "latest_collection_at": "2026-10-22T09:01:10.629815+00:00",
     "publication_timezone": "Asia/Shanghai",
-    "registry_sha256": "e59714ebba910a219443197b3dc0215dea4864cfbe9aa8abfb6819ce79583546",
+    "registry_sha256": "bcc7c34dd050197d276f46f45a42b69521f9452d295647bc895a93a9f32d20d5",
     "requested_windows": [
       {
         "end": "2026-10-21T16:00:00+00:00",

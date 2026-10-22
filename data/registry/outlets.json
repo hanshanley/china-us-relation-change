@@ -745,6 +745,48 @@
       "notes": "Actual masthead domain failed modern TLS protocol negotiation; verification/security was not weakened and no HTTP downgrade used. Exact2015 domain capture was only a framing wrapper pointing to acmediaonline.net, not an inspected newspaper site. That destination currently failed DNS; its sole retrieved2020 archived capture was gambling-branded, not publisher content, so no social identifier there was attributed to the newspaper and no hacking/ownership cause asserted. The printed masthead and publication-branded issue remain scope evidence only; no official Sina account was resolved. Unknown, not absent. Review date: 2026-10-22 UTC."
     },
     {
+      "id": "st-louis-post-dispatch", "name": "St. Louis Post-Dispatch", "category": "newspaper",
+      "aliases": ["St. Louis Post-Dispatch", "St Louis Post Dispatch"],
+      "us_basis": "U.S.-classified source position80; actual publisher root identifies St. Louis, Missouri reporting and its Contact identifies the newspaper. Present corporate/legal ownership is not independently audited.",
+      "source_url": "https://www.stltoday.com/", "research_status": "reviewed",
+      "notes": "Complete actual root and linked Contact were read without a qualifying Weibo profile. Unexpanded template placeholders and individual staff pages were not followed as publication-account evidence. Correct article-owned community item matches stltoday.com without a main Sina identifier. Other Post-Dispatch publications, Lee parent channels, reporters and regional sports organizations are not this paper's own account by inference. Unknown, not absent. Review date: 2026-10-22 UTC."
+    },
+    {
+      "id": "anchorage-daily-news", "name": "Anchorage Daily News", "category": "newspaper",
+      "aliases": ["Anchorage Daily News", "ADN"],
+      "us_basis": "U.S.-classified source position81; own complete root identifies Alaska news and actual Contact identifies the Anchorage publication. A separate current legal-control audit is not asserted.",
+      "source_url": "https://www.adn.com/", "research_status": "reviewed",
+      "notes": "Complete root and actual Contact were readable without a qualifying Weibo link; /contact redirects to /contact/ and is the same institutional page, not independent corroboration. Correct publication-specific community item matches adn.com without a main Sina identifier. The ADN acronym, other Daily News papers, travel businesses and individual journalists are not dedicated publisher-profile proof. Unknown, not absent. Review date: 2026-10-22 UTC."
+    },
+    {
+      "id": "bicycling", "name": "Bicycling", "category": "cycling_lifestyle_media",
+      "aliases": ["Bicycling", "Bicycling magazine"],
+      "us_basis": "United States-classified source position82; own root and actual editorial About identify the cycling publication in the Hearst portfolio. A generic activity or similarly named Chinese publication is not an independently established licensed edition.",
+      "source_url": "https://www.bicycling.com/", "research_status": "reviewed",
+      "notes": "Complete root and actual About/Community Guidelines were readable without a qualifying publisher Weibo link. Generic Bicycling article initially resolved to the cycling activity and was rejected; the actual magazine article's own community item matches bicycling.com and has no main Sina identifier. A self-described Sohu 单车志Bicycling官方 byline supplies neither a publisher-specific Sina UID nor an independently established U.S. Bicycling brand/license relationship. That name was not added as an alias or account; no affiliation denial or absence inference. Unknown, not absent. Review date: 2026-10-22 UTC."
+    },
+    {
+      "id": "toledo-blade", "name": "The Blade / Toledo", "category": "newspaper",
+      "aliases": ["The Blade", "Toledo Blade", "The Toledo Blade"],
+      "us_basis": "U.S.-classified source position83; publisher's actual root identifies the Toledo newspaper and local-news role. Present legal ownership and headquarters are not independently audited.",
+      "source_url": "https://www.toledoblade.com/", "research_status": "reviewed",
+      "notes": "Complete root was read without a qualifying Weibo profile. Actual Contact redirects to HTTP blademediakit.com/the-blade-contacts/; the cross-publisher/HTTPS guard refused it. Header-only metadata recorded the target without following/downgrading. The publisher-designated media kit's HTTPS counterpart was then independently robots checked and its actual The Blade Contacts page read, without a qualifying profile link. Generic The Blade community page was a disambiguation entity and rejected; the actual Toledo newspaper article's own item matches toledoblade.com without a main Sina identifier. Publishers, staff, other Blade titles and sports teams were not substituted. Unknown, not absent. Review date: 2026-10-22 UTC."
+    },
+    {
+      "id": "di-fm", "name": "DI.fm / Digitally Imported", "category": "internet_radio_platform",
+      "aliases": ["DI.fm", "Digitally Imported"],
+      "us_basis": "United States-classified source position84; exact2012 owned homepage identifies the electronic-music radio service, not an independent newspaper. The source cohort country label is not a standalone legal-domicile audit.",
+      "source_url": "https://www.di.fm/", "research_status": "reviewed",
+      "notes": "Actual live root returned403 and was not bypassed through another live hostname/path. Independently permitted exact January3,2012 homepage was readable under Digitally Imported with its actual timestamp and no qualifying Weibo profile link. Correct community item matches di.fm without a main Sina identifier. The cohort literally retains www.di.fm; registry matching uses canonical host keys while preserving all1000 original domain strings/order and avoids a duplicate di.fm supplement. DJs, hosted music channels, similarly abbreviated businesses and fans are not the platform's official account. Unknown, not absent. Review date: 2026-10-22 UTC."
+    },
+    {
+      "id": "las-vegas-chinese-news", "name": "Las Vegas Chinese News Network / 拉斯维加斯新闻报", "category": "us_chinese_language",
+      "aliases": ["维加斯新闻报", "維加斯新聞報", "拉斯维加斯新闻报", "拉斯維加斯新聞報", "Las Vegas Chinese News Network"],
+      "us_basis": "The newspaper's own actual Contact and explicitly linked company introduction identify its Las Vegas, Nevada operation and matching lvcnn.com publication. This is the publisher's own listing, not a nearby travel advertiser or a CNN account.",
+      "source_url": "https://www.lvcnn.com/", "research_status": "reviewed",
+      "notes": "Current owned root, Contact and company introduction directly link lvcnn. Exact January28,2015 publisher homepage independently carries that same social link, and exact February16,2015 platform owner oid/onick bind UID5079316821/拉斯维加斯新闻报. Current permitted numeric Sina feed redirects away from the supported route and is refused; current account identity/activity/availability remain unknown, not deletion or a license cutoff. Admit the historically official channel, not a currently active feed claim. Two distinct numeric-profile2020-2026 archive indexes were empty; no eligible posts were thereby established. Review date: 2026-10-22 UTC."
+    },
+    {
       "id": "press-democrat", "name": "The Press Democrat", "category": "newspaper",
       "aliases": ["The Press Democrat", "Santa Rosa Press Democrat"],
       "us_basis": "U.S.-classified source position75; own About identifies the Santa Rosa, California publication and its local newspaper history. Current legal control is not independently audited.",
@@ -982,6 +1024,14 @@
     }
   ],
   "accounts": [
+    {
+      "id": "las-vegas-chinese-news-historical", "outlet_id": "las-vegas-chinese-news", "uid": "5079316821", "handle": "lvcnn",
+      "display_name": "拉斯维加斯新闻报", "profile_url": "https://weibo.com/lvcnn", "language": "zh-Hans",
+      "operator": "Historical Las Vegas Chinese News Network publishing operation; current legal Weibo account control not independently reverified",
+      "relationship": "Publisher-designated historical account of a Las Vegas-based Chinese-language newspaper; not CNN, a travel advertiser or a currently verified active channel",
+      "officialness": "confirmed", "existence": "historical", "accessibility": "unknown",
+      "notes": "Contemporaneous2015 owned publisher root and current own footer directly link lvcnn; exact2015 platform owner binds5079316821 and the full newspaper name. Current Sina route redirects and no current platform-owner observation is available, so retained publisher link is not current activity or full-history proof. Empty numeric archive indexes are not account negatives. No unrelated similarly named alias, invented cessation date or pre2020 publication is imported into the fixed window."
+    },
     {
       "id": "phoenix-americas-weibo", "outlet_id": "phoenix-americas", "uid": "5036617549", "handle": null,
       "display_name": "凤凰卫视美洲台", "profile_url": "https://weibo.com/u/5036617549", "language": "zh-Hans",
@@ -1638,6 +1688,36 @@
     }
   ],
   "evidence": [
+    {
+      "id": "vegas-current-owned-social-link", "account_id": "las-vegas-chinese-news-historical",
+      "source_url": "https://www.lvcnn.com/", "source_type": "publisher_link",
+      "observed_at": "2026-10-22T08:51:55.181008+00:00", "claim_date": null, "supports": "identity",
+      "justification": "Actual newspaper homepage's owned footer directly links weibo.com/lvcnn through its Wei Bo logo, alongside the publication's own named social channels. Not a generic share action or byline; the retained current link does not independently establish current platform availability or unchanged account control."
+    },
+    {
+      "id": "vegas-2015-owned-social-link", "account_id": "las-vegas-chinese-news-historical",
+      "source_url": "https://web.archive.org/web/20150128072550id_/http://www.lvcnn.com:80/", "source_type": "publisher_link",
+      "observed_at": "2026-10-22T08:56:25.328371+00:00", "claim_date": "2015-01-28T07:25:50+00:00", "supports": "historical",
+      "justification": "Exact contemporaneous publisher homepage titled Las Vegas Chinese News Network/拉斯維加斯新聞報 directly links lvcnn. This separately dates publisher designation before the2015 platform-owner capture, rather than backdating today's footer or treating the2012 no-link homepage as an account negative."
+    },
+    {
+      "id": "vegas-2015-platform-owner", "account_id": "las-vegas-chinese-news-historical",
+      "source_url": "https://web.archive.org/web/20150216123507id_/http://www.weibo.com/lvcnn", "source_type": "platform_profile",
+      "observed_at": "2026-10-22T08:53:30.343663+00:00", "claim_date": "2015-02-16T12:35:07+00:00", "supports": "historical",
+      "justification": "Exact original profile title and owner-scoped oid5079316821/onick拉斯维加斯新闻报 independently bind the actual publisher-linked handle. Viewer/recommended/avatar identities were not substituted; historical officialness rests on contemporaneous owned publisher designation plus owner binding, not an assumed current blue badge."
+    },
+    {
+      "id": "vegas-owned-us-publication-scope", "account_id": "las-vegas-chinese-news-historical",
+      "source_url": "https://www.lvcnn.com/guest.php?id=1200", "source_type": "publisher_statement",
+      "observed_at": "2026-10-22T08:56:22.785061+00:00", "claim_date": null, "supports": "relationship",
+      "justification": "Actual homepage's 公司簡介 link leads to its own explicitly named newspaper/company introduction with matching lvcnn.com website and Las Vegas, Nevada address. Publication scope is not inferred from the site's separate travel-agent/advertiser entries, corporate-name abbreviation or a generic location field."
+    },
+    {
+      "id": "vegas-current-feed-access-limit", "account_id": "las-vegas-chinese-news-historical",
+      "source_url": "https://www.sina.cn/media/5079316821", "source_type": "platform_profile",
+      "observed_at": "2026-10-22T08:54:36.834818+00:00", "claim_date": null, "supports": "access",
+      "justification": "Permitted numeric feed redirects outside the supported same-host HTTPS route and is refused. No current owner/record was recovered; this records an access limitation, not proof of deletion, inactivity, current control, no eligible posts or a publication-attribution cutoff."
+    },
     {
       "id": "phoenix-americas-current-institution", "account_id": "phoenix-americas-weibo",
       "source_url": "https://www.sina.cn/media/5036617549", "source_type": "platform_certification",

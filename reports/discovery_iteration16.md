@@ -4,6 +4,9 @@ Research observed October 22, 2026 UTC/EDT, continuing checkpoint
 `7dd9edd`. The fixed publication interval remains January 1, 2020
 through October 21, 2026 inclusive, Asia/Shanghai.
 
+This is a historical checkpoint. [The Las Vegas newspaper follow-up](discovery_iteration17.md)
+adds a historically verified publisher account and corrects a domain-alias matching gap.
+
 **UID `5036617549`, 凤凰卫视美洲台, is verified as the Americas
 channel's account.** The addition is explicitly a **U.S.-based regional
 operation of the Hong Kong Phoenix group**, not a claim of U.S. brand

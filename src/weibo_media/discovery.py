@@ -397,7 +397,9 @@ def publish(roster_path, screening_directory, directory, report_path):
         "(discovery_iteration15.md) adds a second newspaper channel without conflating shared regional widgets, "
         "and resolves actual trade-publication redirects without borrowing sister accounts. [Phoenix Americas follow-up]"
         "(discovery_iteration16.md) verifies a specifically labeled U.S.-based international broadcaster, "
-        "separates its regional identity from the global parent and recovers an older post beyond the feed. Current status and legal operator "
+        "separates its regional identity from the global parent and recovers an older post beyond the feed. [Las Vegas newspaper follow-up]"
+        "(discovery_iteration17.md) resolves a historical publisher-linked account and corrects canonical-host "
+        "matching while preserving the selected 1,000 domains exactly. Current status and legal operator "
         "uncertainty remain explicit.", "",
         "## Complete machine-readable deliverables", "",
         "- [All 1,000 ranked U.S. domains](../data/discovery/us_top1000.csv)",
