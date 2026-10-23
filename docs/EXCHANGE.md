@@ -199,7 +199,10 @@ The first command is a private, non-promoting preview. The installed per-user
 LaunchAgent runs at 03:35, 09:35, 15:35 and 21:35 local time when the Mac is
 available; missed sleep-time events coalesce on wake. It uses the existing
 private SQLite corpus, not a fresh metadata-only database. The last completed
-Shanghai day becomes the live cutoff, while a consistent private baseline is
+Shanghai day becomes the rolling-measure cutoff. The partial current day is
+buffered privately with an exact request timestamp, so frequent polls do not
+discard today's posts before the day closes. Its incomplete 30-day estimate
+remains unavailable rather than being prorated. A consistent private baseline is
 preserved under `data/local/automation/baseline_2026-10-21/` and the original
 published baseline remains in Git history.
 

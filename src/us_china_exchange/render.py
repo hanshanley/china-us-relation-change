@@ -376,7 +376,8 @@ def build_weibo(root, summary, gallery):
                 body = ('<p class="chart-context">Recovered-sample lower bounds, not a census of activity. '
                         'Each point includes its date and previous 29 Shanghai days. '
                         'The daily running average is the 30-day total divided by 30; '
-                        'incomplete calendar windows are unavailable, not zero.' + window_note + '</p>' + body)
+                        'incomplete calendar windows are unavailable, not zero. '
+                        'The partial current day is not a completed-day estimate.' + window_note + '</p>' + body)
         else:
             for theme in CHART_THEMES:
                 remove_figure(root, Path("weibo") / theme / metric)

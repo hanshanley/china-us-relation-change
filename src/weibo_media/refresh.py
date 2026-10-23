@@ -187,7 +187,8 @@ def refresh(root, *, account_ids=None, limit=50, publish=False, push=False, clie
         (work / "last-check.json").write_text(json.dumps(status, indent=2) + "\n")
         raise ValueError(status["note"])
     end_date = datetime.now(SHANGHAI).date() - timedelta(days=1)
-    start, end = window("2020-01-01", end_date.isoformat())
+    start, _ = window("2020-01-01", end_date.isoformat())
+    end = now()
     base_validated = False
     with tempfile.TemporaryDirectory(prefix="refresh-", dir=work) as temporary:
         stage = Path(temporary)
@@ -279,6 +280,7 @@ def refresh(root, *, account_ids=None, limit=50, publish=False, push=False, clie
                           successful_collection_at=now(), through_date=end_date.isoformat(),
                           new_posts=len(posts) - len(old_posts),
                           note=f"{len(eligible)} eligible channels in this pass; access holds are not retried. "
+                               "The partial current Shanghai day is buffered but excluded from rolling estimates. "
                                "Bounded public feeds only; recovered-sample lower bounds, not full timelines or verified inactivity.")
             (stage / "data/site/weibo_refresh.json").write_text(json_text(status))
             assessment.publish(db, root / "data/discovery/us_top1000.csv",
