@@ -64,6 +64,8 @@
 .publication-page .partial p { margin: 6px 0; font-size: 14px; }
 .publication-page .partial strong { font-size: 20px; font-weight: 500; }
 .publication-page .chart-note { margin: 12px 0; max-width: 920px; color: var(--muted); font: 13px/1.5 var(--sans); }
+.publication-page .series-alternative { max-width: 100%; padding: 0; border: 0; background: none; color: inherit; font: inherit; text-align: left; text-decoration: underline; text-underline-offset: .18em; cursor: pointer; }
+.publication-page .series-alternative:focus-visible { outline: 2px solid var(--signal); outline-offset: 3px; }
 .publication-page details { border: 0; padding: 8px 0; }
 .publication-page summary { font: 14px/1.5 var(--sans); }
 .publication-page details p, .publication-page .definition, .publication-page .source-note { color: var(--muted); font-size: 14px; border: 0; padding: 0; margin: 12px 0; overflow-wrap: anywhere; }

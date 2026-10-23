@@ -43,6 +43,24 @@
   },
   {
     "available_years": [
+      2000,
+      2001,
+      2002,
+      2003,
+      2004,
+      2005,
+      2006,
+      2007,
+      2008,
+      2009,
+      2010,
+      2011,
+      2012,
+      2013,
+      2014,
+      2015,
+      2016,
+      2017,
       2018,
       2019,
       2020,
@@ -54,10 +72,10 @@
     ],
     "baseline_2020": true,
     "destination": "USA",
-    "first_year": 2018,
+    "first_year": 2000,
     "last_year": 2025,
     "measure": "international_students",
-    "observations": 8,
+    "observations": 26,
     "origin": "CHN",
     "reason": "",
     "source_ids": [
@@ -224,16 +242,24 @@
     ]
   },
   {
-    "available_years": [],
+    "available_years": [
+      2011,
+      2012,
+      2014,
+      2016,
+      2018
+    ],
     "baseline_2020": false,
     "destination": "CHN",
-    "first_year": null,
-    "last_year": null,
+    "first_year": 2011,
+    "last_year": 2018,
     "measure": "enrolled_students",
-    "observations": 0,
+    "observations": 5,
     "origin": "USA",
-    "reason": "Reviewed IIE academic-level breakdowns cover students hosted in the U.S. only; destination enrolled-only counts are unverified.",
-    "source_ids": []
+    "reason": "",
+    "source_ids": [
+      "moe"
+    ]
   },
   {
     "available_years": [],
@@ -328,7 +354,7 @@
     "first_year": 2019,
     "last_year": 2025,
     "measure": "air_visitors",
-    "observations": 6,
+    "observations": 7,
     "origin": "USA",
     "reason": "",
     "source_ids": [
@@ -473,6 +499,24 @@
   },
   {
     "available_years": [
+      2000,
+      2001,
+      2002,
+      2003,
+      2004,
+      2005,
+      2006,
+      2007,
+      2008,
+      2009,
+      2010,
+      2011,
+      2012,
+      2013,
+      2014,
+      2015,
+      2016,
+      2017,
       2018,
       2019,
       2020,
@@ -484,10 +528,10 @@
     ],
     "baseline_2020": true,
     "destination": "USA",
-    "first_year": 2018,
+    "first_year": 2000,
     "last_year": 2025,
     "measure": "international_students",
-    "observations": 8,
+    "observations": 26,
     "origin": "HKG",
     "reason": "",
     "source_ids": [
@@ -662,7 +706,7 @@
     "measure": "enrolled_students",
     "observations": 0,
     "origin": "USA",
-    "reason": "Reviewed IIE academic-level breakdowns cover students hosted in the U.S. only; destination enrolled-only counts are unverified.",
+    "reason": "IIE enrolled-only counts cover U.S. hosts. MOE historical degree/non-degree reporting snapshots cover the mainland destination only; equivalent enrollment counts for this route remain unverified.",
     "source_ids": []
   },
   {
@@ -739,16 +783,22 @@
     ]
   },
   {
-    "available_years": [],
+    "available_years": [
+      2023,
+      2024,
+      2025
+    ],
     "baseline_2020": false,
     "destination": "HKG",
-    "first_year": null,
-    "last_year": null,
+    "first_year": 2023,
+    "last_year": 2025,
     "measure": "visitors",
-    "observations": 0,
+    "observations": 3,
     "origin": "USA",
-    "reason": "HKTB country-specific downloads are access-blocked; reviewed Census and Statistics Department public tables contain regional aggregates, not a U.S.-specific count. SIAT air-travel estimates remain a separate measure.",
-    "source_ids": []
+    "reason": "",
+    "source_ids": [
+      "hktb"
+    ]
   },
   {
     "available_years": [
@@ -763,7 +813,7 @@
     "first_year": 2019,
     "last_year": 2025,
     "measure": "air_visitors",
-    "observations": 6,
+    "observations": 7,
     "origin": "USA",
     "reason": "",
     "source_ids": [
@@ -1068,7 +1118,7 @@
     "measure": "enrolled_students",
     "observations": 0,
     "origin": "USA",
-    "reason": "Reviewed IIE academic-level breakdowns cover students hosted in the U.S. only; destination enrolled-only counts are unverified.",
+    "reason": "IIE enrolled-only counts cover U.S. hosts. MOE historical degree/non-degree reporting snapshots cover the mainland destination only; equivalent enrollment counts for this route remain unverified.",
     "source_ids": []
   },
   {
@@ -1477,7 +1527,7 @@
     "measure": "enrolled_students",
     "observations": 0,
     "origin": "USA",
-    "reason": "Reviewed IIE academic-level breakdowns cover students hosted in the U.S. only; destination enrolled-only counts are unverified.",
+    "reason": "IIE enrolled-only counts cover U.S. hosts. MOE historical degree/non-degree reporting snapshots cover the mainland destination only; equivalent enrollment counts for this route remain unverified.",
     "source_ids": []
   },
   {

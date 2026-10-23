@@ -381,6 +381,35 @@ additional school observations without replacing the other language series.
 
 ### Travel and immigration
 
+The October 23, 2026 re-audit recovered 36 older student observations from
+NCES Digest tables and a U.S. Commerce country guide. Chinese and Hong Kong
+Open Doors totals now cover every academic ending year 2000-2025. The
+underlying statistical provider remains IIE, but these historical rows cite
+the government republication actually retrieved; direct IIE automated access
+remains paused, and no existing value was replaced.
+
+Five MOE U.S.-nationality student reporting snapshots (2011, 2012, 2014, 2016,
+2018) are separate from academic-credit study abroad, tertiary degree-only
+counts and enrolled-at-one-date stocks. Original or ministry-owned
+republications are retained; the 2016 table is reproduced in China National
+Radio's report of the education briefing.
+
+HKTDC's official U.S. profile republishes HKTB **nationality** arrivals for
+2023-2025. Its 2023 U.S. count is 596,958, not the 594,752 residence-based
+count in other releases. These are intentionally not spliced. Retained
+browser-visible report text is checksummed as such, not described as the
+original HTML or PDF. Review explicitly with
+`.venv/bin/python scripts/build_contact_backfill.py`; `--refresh` rechecks
+only the public republications, never IIE. All candidates are validated in
+a temporary staging tree before canonical files are updated.
+
+The public explorer disables unpopulated choices for each selected route,
+announces any necessary measure fallback, and offers separately labelled
+newer/broader series where appropriate. Incompatible indexes fall back to
+reported levels rather than blanking verified data. Complete coverage and
+unresolved gaps remain visible and downloadable. Sparse census/benchmark
+charts label actual observation years when they fit.
+
 The collective site has direct **Travel & tourism** and **Immigration** tabs.
 The travel view uses the same reviewed visitor-arrival observations, including
 2025 annual values and 2026 partial-year NTTO updates. All-purpose visits are
@@ -391,11 +420,13 @@ geographies.
 The manual travel review adds NBS country-attributed U.S. visitor arrivals to
 mainland China for 2000-2018. Separately, NTTO SIAT supplies U.S.-resident
 air-travel estimates to mainland China and Hong Kong for 2019 and 2022-2025.
-Its 2026 selection contains only imported Q1-Q2 data and is explicitly labelled
-January-June, not a full year. No unverified matched 2025 half-year or
-2020-2021 value is inferred. Survey estimates, all-mode border arrivals and
+The 2025 and 2026 Q1-Q2 selections now explicitly deselect Q3 and Q4 with
+ordinary checkbox clicks; modifier-click was opening a macOS context menu.
+Their January-June values are read directly, not inferred by subtracting rounded
+totals: China 442,000 in 2025 and 474,000 in 2026; Hong Kong 304,000 and 251,000.
+No unverified 2020-2021 value is inferred. Survey estimates, all-mode border arrivals and
 leisure-only tourists are not spliced together. Later all-mode mainland
-arrivals and the U.S.-specific Hong Kong arrivals series remain unverified.
+arrivals and pre-2023 U.S.-nationality Hong Kong arrivals remain unverified.
 
 `data/site/immigration.json` freezes 102 observations from five primary assets:
 four OHSS workbooks/archives and the UN DESA International Migrant Stock 2024

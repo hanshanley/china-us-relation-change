@@ -20,8 +20,10 @@ def test_siat_cards_guard_destination_annual_year_and_imported_partial_boundary(
     assert parse_monitor_card(text, "China, People's Republic of", 2025, "annual")[:2] == (842000, 1113)
     with pytest.raises(ValueError, match="filters"):
         parse_monitor_card(text, "Hong Kong", 2025, "annual")
-    with pytest.raises(ValueError, match="half-year"):
+    with pytest.raises(ValueError, match="filters"):
         parse_monitor_card(text, "China, People's Republic of", 2025, "ytd")
+    half = text.replace("2025 Q4", "2025 Q2").replace("842,000", "442,000").replace("1,113", "504")
+    assert parse_monitor_card(half, "China, People's Republic of", 2025, "ytd")[:2] == (442000, 504)
     partial = text.replace("2025", "2026").replace("842,000", "474,000").replace("1,113", "756")
     assert parse_monitor_card(partial, "China, People's Republic of", 2026, "ytd")[:2] == (474000, 756)
     with pytest.raises(ValueError, match="annual"):

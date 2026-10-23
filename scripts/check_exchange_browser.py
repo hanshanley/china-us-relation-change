@@ -149,7 +149,7 @@ def check():
         page.goto((ROOT / "site/comparisons.html").as_uri())
         assert page.locator(".series-panel").count() == 18
         images = page.locator('img[src$="-levels.png"]')
-        assert images.count() == 12
+        assert images.count() == 13
         for image in images.all():
             image.scroll_into_view_if_needed()
             expect(image).to_have_js_property("naturalWidth", PNG_WIDTH)

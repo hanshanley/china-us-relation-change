@@ -167,11 +167,18 @@ def decorate(site, name, labels, revision):
         short_labels = {"international_students": "Students + OPT", "enrolled_students": "Enrolled students",
                         "degree_students": "Degree students", "study_abroad": "Credit study abroad",
                         "visitors": "Visitor trips", "leisure_visitors": "Leisure trips",
-                        "air_visitors": "U.S. air-traveler estimates",
+                        "air_visitors": "U.S. air estimates",
                         "goods": "Goods trade", "services": "Services trade"}
         for option in soup.select("#measure option"):
             option.string = short_labels[option["value"]]
         payload = json.loads(soup.select_one("#exchange-data").string)
+        payload["restrict_to_available"] = True
+        for identifier in ["selection-note", "related-series"]:
+            note = soup.new_tag("p", attrs={"id": identifier, "class": "chart-note", "hidden": ""})
+            if identifier == "selection-note":
+                note["role"] = "status"
+                note["aria-live"] = "polite"
+            form.insert_after(note)
         if name == "travel.html":
             available = {r["measure"] for r in payload["observations"] if r["measure"] in {"visitors", "leisure_visitors", "air_visitors"}
                          and (r["origin"] in {"CHN", "HKG", "MAC"} or r["destination"] in {"CHN", "HKG", "MAC"})
@@ -180,7 +187,7 @@ def decorate(site, name, labels, revision):
                 if option["value"] not in available:
                     option.decompose()
                 elif option["value"] == "visitors":
-                    option.string = "Visitor trips (all purposes)"
+                    option.string = "All-purpose arrivals"
         for option in soup.select("#measure option"):
             option.attrs.pop("selected", None)
             if option["value"] == initial_measure:
@@ -208,7 +215,7 @@ def decorate(site, name, labels, revision):
         panel["class"].append("exchange-panel")
         if name == "travel.html":
             note = soup.new_tag("p", attrs={"class": "travel-definition chart-note"})
-            note.string = "Visitor arrivals include business and family travel, not just tourism. Destination definitions can include same-day trips. U.S. air-traveler estimates are a separate resident survey, not all-mode border arrivals. Select that measure and the U.S.-outbound direction for newer China and Hong Kong observations. Separate leisure-only counts are not available for every route."
+            note.string = "Visitor arrivals include business and family travel, not just tourism. Origin labels follow each source's residence, nationality or travel-document classification—not necessarily the last country of departure. U.S. air-traveler estimates are a separate resident survey, not all-mode border arrivals. Separate leisure-only counts are not verified for these routes."
             panel.find("h2").insert_after(note)
         chart = soup.select_one("#chart")
         stats = soup.select_one("#annual-headlines").extract()
@@ -252,6 +259,25 @@ def decorate(site, name, labels, revision):
             '<a href="downloads/immigration.json" download>Immigration</a> · '
             '<a href="downloads/weibo-summary.json" download>Weibo research aggregates</a>.</p>')
         soup.select_one("#downloads").append(families)
+        limits = soup.new_tag("details", attrs={"id": "coverage-limits", "open": ""})
+        limits.append(fragment(
+            '<summary>What remains incomplete—and what is simply a different reporting schedule</summary>'
+            '<p>Unavailable route/indicator choices are disabled in the public controls, not converted to zeros '
+            'or removed from the complete data. An incompatible index falls back to reported levels.</p>'
+            '<ul><li>Mainland all-mode U.S. visitor arrivals stop in 2018; newer resident-air estimates are separate. '
+            'Hong Kong nationality arrivals are verified for 2023–2025, not a continuous earlier residence-based history.</li>'
+            '<li>Mainland U.S.-nationality student reports are historical snapshots through 2018. '
+            'Academic-credit study-abroad participation is a different, newer series. Enrolled-only U.S.-host counts '
+            'remain much shorter than the broader student-plus-OPT histories.</li>'
+            '<li>Macau bilateral services trade is not separately verified. A blank is not zero trade.</li>'
+            '<li>MLA college enrollment is a census-round series through 2021; school estimates and availability '
+            'are 2014–15-era snapshots, not missing annual observations. No national Korean K–12 learner total is invented.</li>'
+            '<li>Resident stocks are published benchmark estimates through 2024, not annual immigration flows. '
+            'U.S.-to-mainland permanent-residency flows and the U.S.–Macau stock pair remain unverified.</li>'
+            '<li>EU27’s 2023 enterprise count is confidential, not a missed download; 2022 is the latest disclosed value. '
+            'Business histories have source-specific cutoffs. BEA’s verified U.S.-affiliate '
+            'release covers 2023; its next activity release is scheduled for November 20, 2026.</li></ul>'))
+        soup.select_one("#coverage").insert(1, limits)
         for footer in page.find_all("footer", recursive=False):
             footer.decompose()
     else:

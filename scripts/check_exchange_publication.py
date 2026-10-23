@@ -29,10 +29,14 @@ def check(site, url=None, screenshots=None):
                     page.select_option("#direction", direction)
                     origin, destination = (geo, "USA") if direction == "to_us" else ("USA", geo)
                     for measure in data["measures"]:
-                        page.select_option("#measure", measure)
                         annual = sorted((r for r in data["observations"] if r["origin"] == origin and r["destination"] == destination
                                          and r["measure"] == measure and r["frequency"] == "annual" and r["value"] is not None),
                                         key=lambda r: r["year"])
+                        option = page.locator(f'#measure option[value="{measure}"]')
+                        assert option.evaluate("(o)=>o.disabled") == (not annual), (geo, direction, measure)
+                        if not annual:
+                            continue
+                        page.select_option("#measure", measure)
                         actual = page.locator("#chart .screen-point").evaluate_all(
                             "nodes=>nodes.map(n=>[Number(n.dataset.year),Number(n.dataset.value)])")
                         assert actual == [[r["year"], r["value"]] for r in annual], (geo, direction, measure)
@@ -49,8 +53,12 @@ def check(site, url=None, screenshots=None):
             page.select_option("#chart-mode", "index")
             assert float(page.locator("#chart .screen-point[data-year='2020']").get_attribute("data-value")) == 100
             page.select_option("#measure", "international_students")
-            assert not page.locator("#chart svg").count()
-            expect(page.locator("#chart")).to_contain_text("Definitions differ")
+            expect(page.locator("#chart-mode")).to_have_value("levels")
+            expect(page.locator("#selection-note")).to_contain_text("Showing reported levels")
+            assert page.locator("#chart .screen-point").count() == 26
+            page.select_option("#measure", "enrolled_students")
+            page.locator("#related-series button").click()
+            expect(page.locator("#measure")).to_have_value("international_students")
             page.select_option("#chart-mode", "levels")
             page.select_option("#measure", "goods")
             if screenshots:
@@ -72,6 +80,12 @@ def check(site, url=None, screenshots=None):
                 page.select_option("#geography", geo)
                 expect(page.locator("#latest-period")).to_contain_text("2025")
                 expect(page.locator("#partial-panel")).to_contain_text("2026")
+                expect(page.locator("#partial-panel")).to_contain_text(
+                    "32,000 (+7.2%)" if geo == "CHN" else "53,000 (-17.4%)")
+            page.select_option("#direction", "to_us")
+            expect(page.locator("#measure")).to_have_value("visitors")
+            expect(page.locator("#selection-note")).to_contain_text("no verified annual series for this route")
+            assert page.locator("#chart .screen-point").count() == 26
             for name in ["immigration.html", "comparisons.html", "language-learning.html", "business-presence.html", "weibo.html"]:
                 page.goto(url.rsplit("/", 1)[0] + "/" + name)
                 page.evaluate("document.fonts.ready")
@@ -88,6 +102,8 @@ def check(site, url=None, screenshots=None):
                 if name == "language-learning.html":
                     expect(page.locator("#module-chart")).to_have_value("college-enrollments")
                     assert page.locator("#college-enrollments .screen-point").count() == 18
+                    if width == 390:
+                        assert page.locator("#college-enrollments .screen-year").all_text_contents() == ["2002", "2006", "2009", "2013", "2016", "2021"]
                     page.select_option("#module-chart", "school-language-enrollments")
                     assert page.locator("#school-language-enrollments .screen-bar").evaluate_all(
                         "nodes=>nodes.map(n=>Number(n.dataset.value))") == [227086, 67909]

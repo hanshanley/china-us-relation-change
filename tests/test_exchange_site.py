@@ -54,7 +54,7 @@ def test_offline_build_download_round_trip_and_reproducibility(tmp_path):
         target = node.get("href") or node["src"]
         if not target.startswith(("https://", "#")):
             assert (site / target).is_file()
-    assert result["comparisons"] == 12
+    assert result["comparisons"] == 13
     before = {p.relative_to(tmp_path): p.read_bytes() for p in tmp_path.rglob("*") if p.is_file()}
     build(tmp_path)
     assert before == {p.relative_to(tmp_path): p.read_bytes() for p in tmp_path.rglob("*") if p.is_file()}
@@ -116,7 +116,7 @@ def test_published_comparisons_match_geography_colors_and_annual_points(tmp_path
     build(tmp_path)
     rows = json.loads((ROOT / "data/site/observations.json").read_text())
     files = list((tmp_path / "outputs/figures").glob("*/comparisons/*/*.svg"))
-    assert len(files) == 48
+    assert len(files) == 52
     for path in files:
         direction, measure, scale = path.stem.removeprefix("chn-hkg-mac-").split("-", 2)
         groups = regional_series(rows, measure, direction)

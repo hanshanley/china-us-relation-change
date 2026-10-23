@@ -174,7 +174,7 @@ def gap_reason(geo, origin, measure):
             return "Taiwan is not separately listed in UIS bilateral tertiary-mobility indicators; IIE counts have a different scope."
         return "UIS bilateral origin/destination request returned no records; no compatible destination degree-enrollment series verified."
     if measure == "enrolled_students":
-        return "Reviewed IIE academic-level breakdowns cover students hosted in the U.S. only; destination enrolled-only counts are unverified."
+        return "IIE enrolled-only counts cover U.S. hosts. MOE historical degree/non-degree reporting snapshots cover the mainland destination only; equivalent enrollment counts for this route remain unverified."
     if measure == "international_students":
         return "OPT-inclusive IIE totals describe students hosted in the U.S.; not an outbound U.S. enrollment measure."
     if measure == "study_abroad":
@@ -185,7 +185,7 @@ def gap_reason(geo, origin, measure):
         return "BEA selected-country workbook does not separately report Macau; no current compatible bilateral services series verified."
     if measure == "visitors" and origin == "USA":
         if geo == "HKG":
-            return "HKTB country-specific downloads are access-blocked; reviewed Census and Statistics Department public tables contain regional aggregates, not a U.S.-specific count. SIAT air-travel estimates remain a separate measure."
+            return "Reviewed HKTB/HKTDC U.S.-nationality all-mode arrivals cover 2023-2025 only. Earlier residence-based counts and current partials are not silently substituted; NTTO resident-air estimates remain separate."
         if geo == "CHN":
             return "No current U.S.-origin all-mode visitor table verified in mainland official releases; historic arrivals are not spliced to air-passenger proxies."
     return "No verified compatible primary-source observations; missing values are never inferred as zero."

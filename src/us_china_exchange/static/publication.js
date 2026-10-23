@@ -52,12 +52,15 @@
         content += `<path d="M${margin.left} ${yy}H${width - margin.right}" stroke="#d6d3cc" stroke-width=".7"/>
           <text x="${margin.left - 9}" y="${yy + 4}" font-size="${font}" text-anchor="end" fill="#655f55">${escape(compact(value, model.unit))}</text>`;
       }
-      const step = mobile ? 10 : 5;
-      const years = [first];
+      const step = mobile && last - first > 20 ? 10 : 5;
+      let years = [first];
       for (let year = Math.ceil((first + 1) / step) * step; year < last; year += step) {
         if (last - year >= (mobile ? 4 : 2) && year - years.at(-1) >= (mobile ? 4 : 2)) years.push(year);
       }
       years.push(last);
+      const observedYears = [...new Set(points.map(p => p.year))].sort((a, b) => a - b);
+      if (observedYears.length <= 8 && observedYears.every((year, i) =>
+          !i || x(year) - x(observedYears[i - 1]) >= font * 3 + 2)) years = observedYears;
       for (const year of years) {
         content += `<text class="screen-year" x="${x(year)}" y="${height - 7}" font-size="${font}" text-anchor="middle" fill="#655f55">${year}</text>`;
       }

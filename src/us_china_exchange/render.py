@@ -28,6 +28,8 @@ SOURCE_NAMES = {
     "ntto": "U.S. National Travel and Tourism Office",
     "nbs_tourism": "China National Bureau of Statistics / Ministry of Culture and Tourism",
     "ntto_siat": "U.S. National Travel and Tourism Office / SIAT",
+    "hktb": "Hong Kong Tourism Board / HKTDC",
+    "moe": "China Ministry of Education / official report republications",
     "uis": "UNESCO Institute for Statistics",
     "iie": "IIE Open Doors",
     "taiwan_tourism": "Taiwan Tourism Administration",

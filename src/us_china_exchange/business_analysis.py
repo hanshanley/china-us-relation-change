@@ -32,7 +32,7 @@ CHARTS = {
         "title": "EU-reporting groups in China",
         "subtitle": "Annual observations | different memberships kept separate",
         "series": ["eurostat_historical_eu:china", "eurostat_affiliates:china"], "unit": "Enterprises", "mode": "levels",
-        "note": "Eurostat. Historical EU27 includes UK, excludes Croatia; current EU27 reverses those members. No connecting splice across membership, NACE or 2021 method changes. Gaps are not zero. Not matched to BEA coverage."},
+        "note": "Eurostat. EU27 2023 is confidential; 2022 is the latest disclosed value. Historical EU27 includes UK, excludes Croatia; current EU27 reverses those members. Membership, NACE and 2021 method breaks stay disconnected. Not matched to BEA coverage."},
     "uk-affiliates-china": {
         "title": "UK-controlled enterprises in China",
         "subtitle": "Annual observations, 2010-2019 | not UK investment flows",

@@ -23,10 +23,13 @@ def parse_monitor_card(text, country, year, frequency):
     title = " ".join(match[2].split())
     if frequency not in {"annual", "ytd"} or (frequency == "annual" and year not in ANNUAL_YEARS):
         raise ValueError("Unreviewed SIAT annual period")
-    if frequency == "ytd" and (year != PARTIAL_YEAR or not re.search(
+    if frequency == "ytd" and (year not in {2025, PARTIAL_YEAR} or not re.search(
             r"Last Quarter Imported:\s*2026\s*Q2(?:\s|$)", text)):
         raise ValueError("A historical half-year filter or imported-quarter boundary has not been verified")
-    if title != f"{year} Q1 - {year} Q4 United States Travelers to {country}":
+    expected = f"{year} Q1 - {year} Q{4 if frequency == 'annual' else 2} United States Travelers to {country}"
+    imported_only = frequency == "ytd" and year == PARTIAL_YEAR and title == (
+        f"{year} Q1 - {year} Q4 United States Travelers to {country}")
+    if title != expected and not imported_only:
         raise ValueError("SIAT country/year/quarter filters do not match the displayed result: " + title)
     update = re.search(r"Last Update:\s*([^\n]+)", text)
     if not update or "06-Oct-2026" not in update[1]:
@@ -61,7 +64,7 @@ def collect_siat(client):
             scroller = frame.locator('[role=treeitem][title="Asia"]').evaluate_handle(
                 "(e)=>{let p=e.parentElement;while(p&&p.scrollHeight<=p.clientHeight)p=p.parentElement;return p;}")
             expanded = None
-            periods = [(year, "annual") for year in ANNUAL_YEARS] + [(2026, "ytd")]
+            periods = [(year, "annual") for year in ANNUAL_YEARS] + [(2026, "ytd"), (2025, "ytd")]
             for geo, country in COUNTRIES.items():
                 selector = '[role=treeitem][title^="China,"]' if geo == "CHN" else '[role=treeitem][title="Hong Kong"]'
                 node = frame.locator(selector)
@@ -79,6 +82,12 @@ def collect_siat(client):
                     year_node = frame.locator(f'[role=treeitem][title="{year}"]')
                     year_node.locator(".slicerText").click()
                     expanded = year
+                    if frequency == "ytd":
+                        if year_node.get_attribute("aria-expanded") != "true":
+                            year_node.locator(".expandButton").click()
+                        # Child checkboxes toggle independently; modifier-click can open a macOS context menu.
+                        for quarter in ("Q3", "Q4"):
+                            frame.locator(f'[role=treeitem][aria-level="2"][title="{quarter}"] .slicerText').click()
                     page.wait_for_timeout(2000)
                     text = frame.locator("body").inner_text() + "\n" + re.search(
                         r"Last Quarter Imported:\s*2026\s*Q2", imported)[0]
@@ -94,8 +103,9 @@ def collect_siat(client):
                         "including multi-destination trips; not all-mode border arrivals, unique people or U.S. citizenship counts",
                         frequency=frequency, month=6 if frequency == "ytd" else None,
                         status="low_reliability" if sample < 100 else "estimated",
-                        notes=f"Public monitor, all U.S.A. source filters; {country}; calendar-year Q1-Q4 selection. "
-                              + ("For 2026 the source has imported only Q1-Q2; these are January–June observations, not a full-year total. " if frequency == "ytd" else "")
+                        notes=f"Public monitor, all U.S.A. source filters; {country}; "
+                              + ("explicit Q1-Q2 selection, January–June, not a full-year total. " if frequency == "ytd"
+                                 else "calendar-year Q1-Q4 selection. ")
                               + f"SIAT respondent count {sample:,}; published estimate rounded to 1,000. "
                               + ("Small respondent base (<100), interpret cautiously. " if sample < 100 else "")
                               + f"Monitor updated {update}; last imported quarter 2026 Q2. "
@@ -124,12 +134,12 @@ def siat(client, refresh=False):
         write_atomic(cache, json_text(rows))
     if {(r["destination"], r["year"], r["frequency"]) for r in rows} != {
             (geo, year, frequency) for geo in COUNTRIES for year, frequency in
-            [(y, "annual") for y in ANNUAL_YEARS] + [(2026, "ytd")]}:
+            [(y, "annual") for y in ANNUAL_YEARS] + [(2026, "ytd"), (2025, "ytd")]}:
         raise ValueError("Reviewed SIAT destination/year coverage incomplete")
     return rows, "NTTO SIAT public monitor, 6 October 2026; through 2026 Q2", (
         "U.S.-resident air-travel destination estimates, kept separate from all-mode visitor arrivals. "
-        "Annual 2019 and 2022–2025; 2026 contains only imported Q1-Q2 data and is labelled January–June, not annual. "
-        "No unverified 2025 half-year comparison is manufactured. "
+        "Annual 2019 and 2022–2025; separately selected Q1-Q2 observations in 2025 and 2026 support matched January–June comparisons. "
+        "Quarter checkboxes are selected directly, not inferred by subtracting rounded annual and half-year totals. "
         "Monitor total-traveler and respondent cards read from the public report with explicit year, quarter and destination filters; "
         "source checksums identify retained browser-visible report text, not API responses. "
         "Estimates are rounded to 1,000; respondent counts appear in each observation's notes. "

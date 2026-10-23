@@ -65,6 +65,9 @@ def svg_indicator_chart(config, groups, theme, description, point_class):
     else:
         ticks = [first] + [year for year in range((first // 5 + 1) * 5, last, 5)
                            if last - year >= 2 and year - first >= 2] + [last]
+        observed_years = sorted({r["year"] for r in points})
+        if len(observed_years) <= 8 and all(group["cadence"] != "annual" for group in groups):
+            ticks = observed_years
         for year in ticks:
             parts.append(f'<text class="year-tick" x="{x(year):.2f}" y="457" text-anchor="middle" font-size="18">{year}</text>')
         for group in groups:

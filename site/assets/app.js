@@ -26,11 +26,68 @@
     const geo = $("geography").value;
     const outgoing = $("direction").value === "from_us";
     const origin = outgoing ? "USA" : geo, destination = outgoing ? geo : "USA";
+    const selectionNotes = [];
+    if (data.restrict_to_available) {
+      const available = new Set(data.observations.filter(r => r.origin === origin &&
+        r.destination === destination && r.frequency === "annual" && r.value !== null).map(r => r.measure));
+      const selected = $("measure").value;
+      for (const option of $("measure").options) {
+        option.disabled = !available.has(option.value);
+      }
+      if (!available.has(selected)) {
+        const families = [["visitors", "air_visitors", "leisure_visitors"],
+          ["international_students", "enrolled_students", "study_abroad", "degree_students"],
+          ["goods", "services"]];
+        const family = families.find(values => values.includes(selected)) || [];
+        const replacement = [...family, ...[...$("measure").options].map(o => o.value)]
+          .find(value => available.has(value) && [...$("measure").options].some(o => o.value === value));
+        if (replacement) {
+          $("measure").value = replacement;
+          selectionNotes.push(`${data.measures[selected]} has no verified annual series for this route. Showing ${data.measures[replacement]} instead; its population is defined below.`);
+        }
+      }
+    }
     const measure = $("measure").value;
     const rows = data.observations.filter(r =>
       r.origin === origin && r.destination === destination && r.measure === measure);
     const annual = rows.filter(r => r.frequency === "annual").sort((a, b) => a.year - b.year);
     const current = annual.filter(r => r.value !== null).at(-1);
+    if (data.restrict_to_available) {
+      const indexOption = $("chart-mode").querySelector('option[value="index"]');
+      const canIndex = !!current && data.charts[current.series_id].index.trimStart().startsWith("<svg");
+      indexOption.disabled = !canIndex;
+      if (!canIndex && $("chart-mode").value === "index") {
+        $("chart-mode").value = "levels";
+        selectionNotes.push("A comparable 2020 index is unavailable for this series. Showing reported levels, without hiding the observations.");
+      }
+      $("selection-note").hidden = !selectionNotes.length;
+      $("selection-note").textContent = selectionNotes.join(" ");
+      const related = $("related-series");
+      related.hidden = true;
+      let alternative, explanation;
+      if (outgoing && measure === "visitors") {
+        alternative = "air_visitors";
+        explanation = "A separate U.S.-resident air-travel survey has newer observations. These are not the same population as all-mode visitor arrivals.";
+      } else if (outgoing && measure === "enrolled_students") {
+        alternative = "study_abroad";
+        explanation = "A separate academic-credit study-abroad series has newer observations. It is not a replacement for all U.S.-nationality enrollments.";
+      } else if (!outgoing && measure === "enrolled_students") {
+        alternative = "international_students";
+        explanation = "A broader student series has a longer history, but includes graduates on OPT as well as enrolled students.";
+      }
+      const other = rows.length && alternative && data.observations.filter(r => r.origin === origin &&
+        r.destination === destination && r.measure === alternative && r.frequency === "annual" && r.value !== null);
+      const latestOther = other?.length ? Math.max(...other.map(r => r.year)) : null;
+      if (other?.length && current && (latestOther > current.year || (
+          measure === "enrolled_students" && !outgoing && other.length > annual.length))) {
+        related.hidden = false;
+        related.innerHTML = `${escape(explanation)} <button type="button" class="series-alternative">View ${escape(data.measures[alternative])} (${Math.min(...other.map(r => r.year))}\u2013${latestOther})</button>`;
+        related.querySelector("button").addEventListener("click", () => {
+          $("measure").value = alternative;
+          $("measure").dispatchEvent(new Event("change", {bubbles: true}));
+        });
+      }
+    }
     $("series-title").textContent = `${data.geographies[origin]} \u2192 ${data.geographies[destination]}`;
     $("series-category").textContent = data.measures[measure];
     $("partial-panel").hidden = true;
