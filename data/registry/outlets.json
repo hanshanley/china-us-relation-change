@@ -850,6 +850,41 @@
       "notes": "Complete current root, About and Contact were read without a qualifying institutional Weibo link. The publisher's historical discussion and printing relationship with another newspaper were not treated as proof of a shared social account or continuing corporate control. Other Journal titles, staff and regional partners were not substituted. Unknown, not absent. Review date: 2026-10-23 UTC."
     },
     {
+      "id": "bangor-daily-news", "name": "Bangor Daily News", "category": "newspaper",
+      "aliases": ["Bangor Daily News", "BDN"],
+      "us_basis": "United States-classified source position131; actual publisher root and Contact identify the Bangor Daily News and its Maine reporting operation.",
+      "source_url": "https://www.bangordailynews.com/", "research_status": "reviewed",
+      "notes": "Complete current root and Contact were read without a qualifying institutional Weibo identifier. The actual About link points to readerresources.bangordailynews.com; its separate policy response was unusable, so no About body was requested. The previously rejected support redirect was not repeated. Staff, syndicated stories and references to other organizations' Weibo accounts were not substituted. Unknown, not absent. Review date: 2026-10-23 UTC."
+    },
+    {
+      "id": "diario-las-americas", "name": "Diario Las Américas", "category": "us_spanish_language",
+      "aliases": ["Diario Las Americas", "Diario Las Américas"],
+      "us_basis": "United States-classified source position132; actual publisher Contact identifies its Miami, Florida, United States publishing contact and Las Americas Multimedia Group LLC.",
+      "source_url": "https://www.diariolasamericas.com/", "research_status": "reviewed",
+      "notes": "Complete current root and the actual Spanish-language /contacto page were read. Neither supplied a qualifying institutional Sina account. Reporting about celebrities, athletes and their Weibo posts was not treated as evidence that this publisher owns those accounts. The Contact copyright year is not an account-launch or capture date. Unknown, not absent. Review date: 2026-10-23 UTC."
+    },
+    {
+      "id": "el-nuevo-heraldo-myrgv", "name": "El Nuevo Heraldo / ranked MyRGV domain", "category": "us_spanish_language",
+      "aliases": ["El Nuevo Heraldo", "MyRGV"],
+      "us_basis": "United States-classified source position133 labels myrgv.com as El Nuevo Heraldo. AIM Media Texas's actual publisher-owned root identifies its South Texas operation and links MyRGV as a shared regional hub; this is not an independent legal-ownership audit of the named Spanish publication.",
+      "source_url": "https://myrgv.com/", "research_status": "reviewed",
+      "notes": "Prior MyRGV Contact HTTP403 was respected; no new request to that restricted host or alternate path followed. The actual AIM Media Texas root was read under its own policy and links a shared MyRGV hub alongside multiple newspaper brands, but does not supply a qualifying El Nuevo Heraldo-specific Weibo binding. The English Brownsville Herald, parent-group or other hub titles were not silently substituted for the Spanish paper. Original ranked name/domain retained without treating the whole shared domain as one newspaper's account. Unknown, not absent. Review date: 2026-10-23 UTC."
+    },
+    {
+      "id": "albany-times-union", "name": "Times Union / Albany", "category": "newspaper",
+      "aliases": ["Albany Times Union", "Times Union"],
+      "us_basis": "United States-classified source position134; actual publisher root and Help identify the Times Union and its New York Capital Region coverage. Current corporate ownership and headquarters are not independently audited.",
+      "source_url": "https://www.timesunion.com/", "research_status": "reviewed",
+      "notes": "Complete current root and the actual /help/ About/Contact destination were read without a qualifying institutional Weibo locator. Client-rendered contact features were not executed or presented as inspected content. The Florida Times-Union, other Union newspapers, staff and parent-company magazine accounts were not substituted. Unknown, not absent. Review date: 2026-10-23 UTC."
+    },
+    {
+      "id": "coeur-d-alene-press", "name": "Coeur d'Alene Press", "category": "newspaper",
+      "aliases": ["Coeur d'Alene Press", "CDA Press"],
+      "us_basis": "United States-classified source position135; actual publisher Contact/About explicitly identifies the U.S. daily newspaper in Coeur d'Alene, Idaho, and its publishing group.",
+      "source_url": "https://cdapress.com/", "research_status": "reviewed",
+      "notes": "Complete current root and actual Contact were read without a qualifying institutional Sina identifier. The Contact page's public About text was inspected; universal login navigation was not misclassified as a content-access gate. No login or form submission was attempted. Other Press publications, group titles and reader accounts were not substituted. Raw ranked name and domain were preserved. Unknown, not absent. Review date: 2026-10-23 UTC."
+    },
+    {
       "id": "telemundo", "name": "Telemundo / Noticias Telemundo", "category": "broadcast_news",
       "aliases": ["Telemundo", "Noticias Telemundo", "Telemundo Noticias"],
       "us_basis": "United States-classified source position110; actual network root separately links its Noticias Telemundo newsroom section. Current corporate domicile/headquarters and legal account control are not independently audited.",
