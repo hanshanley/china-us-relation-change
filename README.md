@@ -8,9 +8,14 @@ see [exchange setup, definitions and operations](docs/EXCHANGE.md) and
 
 The [combined exchange charts](site/comparisons.html) compare mainland China,
 Hong Kong and Macau only. The [Weibo research charts](site/weibo.html) separately
-show a frozen, aggregate account/corpus-coverage snapshot, not total activity or
-popularity. See [graph generation and limits](docs/EXCHANGE.md#weibo-research-graphs)
-for the read-only summary builder and PNG/SVG exports.
+show automatically refreshed aggregate snapshots, not total activity or
+popularity. The private collector rebuilds the graphs and complete downloads,
+then commits and pushes them four times daily when the collection Mac is
+available. See [automatic refresh](docs/EXCHANGE.md#automatic-private-weibo-refresh)
+for the schedule and safeguards, and
+[graph generation and limits](docs/EXCHANGE.md#weibo-research-graphs)
+for the trailing-30-day measures and PNG/SVG exports. This updates the published
+files; it does not add hosting or live-refresh an already-open browser tab.
 
 The [Chinese-language learning section](site/language-learning.html) adds college
 registrations and their language-study share, matched-institution comparisons,
@@ -54,12 +59,15 @@ Alternatively, install with `python3 -m pip install -e .` and use `weibo-media`.
 `python3 -m weibo_media --help` lists commands. The global `--db PATH` option goes
 before the command; default: `data/local/weibo.sqlite`.
 
-The default publication interval is **January 1, 2020 through October 21, 2026**,
+The manual CLI's default publication interval is **January 1, 2020 through October 21, 2026**,
 inclusive in Asia/Shanghai. Internally it is half-open, ending at October 22,
 2026 00:00 Shanghai time. `collect`, `archive`, and `import` accept `--start` and
 `--end` overrides. Original timestamps and normalized UTC timestamps are stored
 separately. Sina's unzoned Chinese publication timestamps are interpreted in
 Asia/Shanghai; imports with explicit offsets retain their own interpretation.
+The automatic refresh advances the live collection window separately and
+recomputes rolling graphs through the last completed Shanghai day; it does not
+reset the live corpus to this original baseline.
 
 ```sh
 python3 -m weibo_media collect --account forbes-china --limit 25 --delay 2

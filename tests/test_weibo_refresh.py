@@ -9,7 +9,7 @@ import pytest
 
 from test_pipeline import UID, POST_ID, detail, feed, record, registry
 from us_china_exchange.model import json_text
-from us_china_exchange.weibo_analysis import create_summary
+from us_china_exchange.weibo_analysis import WEIBO_CHARTS, create_summary
 from weibo_media.collect import AccessBlocked, normalize, window
 from weibo_media.refresh import canonical, fingerprint, refresh
 from weibo_media.registry import load
@@ -151,9 +151,17 @@ def test_automatic_commit_never_includes_unrelated_staged_work(tmp_path, monkeyp
     unrelated.write_text("Preserve the other contributor's staged work.")
     subprocess.run(["git", "add", "unrelated.txt"], cwd=root, check=True)
     client = CapturedFixture(root, {f"https://www.sina.cn/media/{UID}": feed([record(POST_ID)])})
-    refresh(root, account_ids=["test-account"], publish=True, push=True, client=client)
+    result = refresh(root, account_ids=["test-account"], publish=True, push=True, client=client)
+    assert result["new_posts"] == 0
     committed = subprocess.check_output(["git", "diff-tree", "--no-commit-id", "--name-only", "-r", "HEAD"],
                                         cwd=root, text=True).splitlines()
+    figures = {f"{directory}/{theme}/{metric}.{suffix}"
+               for directory in ("outputs/figures/weibo", "site/figures/weibo")
+               for theme in ("substack", "themarginoferror")
+               for metric in WEIBO_CHARTS for suffix in ("svg", "png")}
+    assert figures <= set(committed)
+    assert subprocess.check_output(["git", "--git-dir", str(remote), "rev-parse", "main"], text=True) == (
+        subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=root, text=True))
     assert "unrelated.txt" not in committed
     assert subprocess.check_output(["git", "diff", "--cached", "--name-only"], cwd=root, text=True).strip() == "unrelated.txt"
     assert unrelated.read_text() == "Preserve the other contributor's staged work."

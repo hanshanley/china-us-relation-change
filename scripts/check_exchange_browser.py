@@ -9,7 +9,7 @@ from playwright.sync_api import expect, sync_playwright
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 from us_china_exchange.model import change
-from us_china_exchange.render import comparison, number
+from us_china_exchange.render import baseline as select_baseline, comparison, number
 from us_china_exchange.theme import CHART_THEMES, PNG_HEIGHT, PNG_WIDTH
 
 
@@ -39,8 +39,10 @@ def check():
             actual = page.locator("#latest-value").inner_text()
             expected = number(current["value"], current["unit"])
             assert actual == expected, (origin, destination, measure, actual, expected)
-            baseline = next((r for r in available if r["year"] == 2020), None)
-            assert page.locator("#baseline-change").inner_text() == comparison(change(current, baseline), current["unit"])
+            baseline = select_baseline(available)
+            actual = page.locator("#baseline-change").inner_text()
+            expected = comparison(change(current, baseline), current["unit"])
+            assert actual == expected, (origin, destination, measure, actual, expected)
             assert page.locator("#chart svg").count() == 1
             assert str(min(r["year"] for r in available)) in page.locator("#chart").inner_text()
             assert page.locator("#chart svg text").evaluate_all("""nodes => nodes.every(node => {

@@ -159,7 +159,7 @@ def svg_chart(rows, indexed=False, theme="themarginoferror"):
             parts.append(f'<rect class="snapshot-bar" x="{x(year) - 32:.2f}" y="{y(values[year]):.2f}" '
                          f'width="64" height="{435 - y(values[year]):.2f}" fill="{color}" aria-hidden="true"/>'
                          f'<text x="{x(year):.2f}" y="{y(values[year]) - 10:.2f}" text-anchor="middle" '
-                         f'font-size="18" fill="{TEXT}">{esc(value_label)}</text>')
+                         f'font-size="20" fill="{TEXT}">{esc(value_label)}</text>')
         radius = 4.5 if row is present[-1] else 2.8
         parts.append(f'<circle cx="{x(year):.2f}" cy="{y(values[year]):.2f}" r="{radius}" fill="{color}">'
                      f'<title>{esc(label)}</title></circle>')
@@ -168,7 +168,7 @@ def svg_chart(rows, indexed=False, theme="themarginoferror"):
         latest_value = values[latest["year"]]
         label = f"{latest_value:.0f}" if indexed else number(latest_value, unit, compact=True)
         parts.append(f'<text class="end-label" x="{x(latest["year"]) - 10:.2f}" '
-                     f'y="{y(latest_value) - 12:.2f}" text-anchor="end" font-size="18" '
+                     f'y="{y(latest_value) - 12:.2f}" text-anchor="end" font-size="20" '
                      f'font-weight="bold" fill="{color}" stroke="#FFFFFF" stroke-width="4" '
                      f'paint-order="stroke">{esc(label)}</text>')
     source = SOURCE_NAMES.get(sample["source_id"], sample["source_id"])
