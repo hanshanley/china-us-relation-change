@@ -1060,6 +1060,41 @@
       "notes": "Complete current root and actual Contact were read without a qualifying institutional Sina identifier. Contact slash variants and staff-directory placeholders are not independent sources or accounts. Other Tribune titles, parent-group and community-member profiles were not substituted; the redundant original ranked name remains preserved in the source ledger. Unknown, not absent. Review date: 2026-10-23 UTC."
     },
     {
+      "id": "newsday-long-island", "name": "Newsday / Long Island", "category": "newspaper",
+      "aliases": ["Newsday", "Long Island Newsday"],
+      "us_basis": "United States-classified source position161; actual publisher root, Contact and linked About describe Long Island reporting and a Melville media operation. This is not an independent current corporate-control audit.",
+      "source_url": "https://www.newsday.com/", "research_status": "reviewed",
+      "notes": "Earlier automated homepage was truncated at1.5MB; bounded4MB retrieval recovered2,374,614 bytes without truncation. Complete root, canonical Contact and actual linked About inspected without a qualifying institutional Sina identifier. A Newsday book-review quotation in another profile does not establish publisher account ownership. Other Newsday titles, including non-U.S. namesakes, and staff profiles were not substituted. Unknown, not absent. Review date: 2026-10-23 UTC."
+    },
+    {
+      "id": "willoughby-news-herald", "name": "The News-Herald / Willoughby, Ohio", "category": "newspaper",
+      "aliases": ["Willoughby News-Herald", "The News-Herald"],
+      "us_basis": "United States-classified source position162; factual observations of the actual publisher title and Contact identify the Ohio publication and Willoughby mailing location. Full source bodies are not retained.",
+      "source_url": "https://www.news-herald.com/", "research_status": "reviewed",
+      "notes": "Two transient primary responses produced no qualifying institutional Weibo designation. After inspecting an explicit AI/text-data-mining reservation, only factual audit metadata was retained and the two fresh HTML copies were removed conservatively. No further host requests were made. Discarded fingerprints are not available source captures. Other News-Herald titles, parent and staff profiles were not borrowed; this is not a current legal-ownership certificate. Unknown, not absent. Review date: 2026-10-23 UTC."
+    },
+    {
+      "id": "pasadena-star-news", "name": "Pasadena Star-News", "category": "newspaper",
+      "aliases": ["Pasadena Star-News", "Pasadena Star News"],
+      "us_basis": "United States-classified source position163; factual observations of actual publisher Contact identify Pasadena, California reporting and publishing correspondence. Full source bodies are not retained.",
+      "source_url": "https://www.pasadenastarnews.com/", "research_status": "reviewed",
+      "notes": "Two transient primary responses produced no qualifying publisher Weibo designation. An explicit AI/text-data-mining reservation led to conservative removal of both fresh HTML copies; factual metadata only, no further host requests and no available-body hash asserted. Reporting about municipal/police Weibo accounts, event sponsorship, stock widgets, sister papers and staff do not designate a publisher account. Unknown, not absent. Review date: 2026-10-23 UTC."
+    },
+    {
+      "id": "rtvi", "name": "RTVI / U.S.-classified international broadcaster", "category": "broadcast_news",
+      "aliases": ["RTVI"],
+      "us_basis": "United States-classified source position164; actual root identifies a Russian-language international news operation. The rendered contact phone and U.S. news coverage do not independently establish current U.S. headquarters, legal control or ownership; the static address fields are unpopulated.",
+      "source_url": "https://rtvi.com/", "research_status": "reviewed",
+      "notes": "Actual homepage and an actual first-party article mentioning Weibo were read. The latter discusses the platform, not an RTVI-owned account; quoted RTVI reports on other Sina profiles do not supply publisher designation. No profile UID assigned. Similar RT/Russia Today branding was not accepted as RTVI account proof. Static JSON data was read without executing scripts or requesting controlled APIs. Unknown, not absent. Review date: 2026-10-23 UTC."
+    },
+    {
+      "id": "berkshire-eagle", "name": "The Berkshire Eagle", "category": "newspaper",
+      "aliases": ["Berkshire Eagle", "The Berkshire Eagle"],
+      "us_basis": "United States-classified source position165; actual root identifies Berkshire County coverage and actual Contact gives a Pittsfield, Massachusetts publishing address.",
+      "source_url": "https://www.berkshireeagle.com/", "research_status": "reviewed",
+      "notes": "Complete root and actual Contact inspected without a qualifying institutional Sina identifier. The currently linked About returnedHTTP404 and was not treated as an inspected company description. Other Eagle papers, Berkshire-named businesses, group and staff accounts were not substituted. Missing links and the About failure are not account negatives; current legal control is not independently audited. Unknown, not absent. Review date: 2026-10-23 UTC."
+    },
+    {
       "id": "telemundo", "name": "Telemundo / Noticias Telemundo", "category": "broadcast_news",
       "aliases": ["Telemundo", "Noticias Telemundo", "Telemundo Noticias"],
       "us_basis": "United States-classified source position110; actual network root separately links its Noticias Telemundo newsroom section. Current corporate domicile/headquarters and legal account control are not independently audited.",
