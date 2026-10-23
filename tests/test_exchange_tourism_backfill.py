@@ -1,10 +1,12 @@
 import json
 from pathlib import Path
+from types import SimpleNamespace
 
 import pytest
 from bs4 import BeautifulSoup
 
 from us_china_exchange.model import change
+from us_china_exchange.pipeline import refresh
 from us_china_exchange.render import svg_chart
 from us_china_exchange import tourism_backfill
 from us_china_exchange.tourism_backfill import (
@@ -52,6 +54,29 @@ def test_archival_services_are_not_compared_with_a_newer_revision_vintage():
         assert "L" not in chart.select_one(".data-line")["d"]
         footer = " ".join(n.text for n in chart.select(".figure-source"))
         assert "Release-vintage" in footer and "Population-definition" not in footer
+
+
+def test_manual_services_review_is_stable_under_normal_daily_refresh(tmp_path, monkeypatch):
+    rows = [r for r in json.loads((ROOT / "data/site/observations.json").read_text()) if r["source_id"] == "ustr"]
+    current = [dict(r) for r in rows if r["year"] == 2025]
+    archive = [dict(r) for r in rows if r["year"] == 2024]
+    directory = tmp_path / "data/site"
+    directory.mkdir(parents=True)
+    (directory / "observations.json").write_text(json.dumps(rows))
+    (directory / "sources.json").write_text("{}")
+    normal = lambda client: (current, "Current USTR vintage", "Current source controls")
+    monkeypatch.setattr(tourism_backfill, "ustr_macau_services", normal)
+    monkeypatch.setattr(tourism_backfill, "parse_archived_macau_services", lambda content: [dict(r) for r in archive])
+    first = archive[0]
+    client = SimpleNamespace(now="2026-10-24T12:00:00+00:00", get=lambda url: (
+        b"reviewed", {"url": first["source_url"], "sha256": first["raw_sha256"],
+                      "retrieved_at": first["retrieved_at"]}))
+    refresh(tmp_path, adapters={"ustr": tourism_backfill.macau_services_history}, client=client)
+    before = (directory / "observations.json").read_bytes()
+    report = refresh(tmp_path, adapters={"ustr": normal}, client=client)
+    assert report["publication_changed"] is False
+    assert (directory / "observations.json").read_bytes() == before
+    assert json.loads(before) == rows
 
 
 def test_early_macau_uses_residence_totals_not_mode_counts_shares_or_nationality():

@@ -19,6 +19,7 @@ from us_china_exchange.contact_backfill import (
 from us_china_exchange.language_sources import ReviewClient
 from us_china_exchange.model import coverage, json_text
 from us_china_exchange.pipeline import refresh, write_atomic
+from us_china_exchange.sources import SOURCE_POLICIES
 
 
 if __name__ == "__main__":
@@ -35,12 +36,7 @@ if __name__ == "__main__":
     rows = government_mobility_history(client, rows)
     sources = json.loads((output / "sources.json").read_text())
     sources["iie"]["observations"] = sum(r["source_id"] == "iie" for r in rows)
-    sources["iie"]["notes"] = (
-        "IIE automatic retrieval is paused: its terms prohibit automated downloading and analysis. "
-        "Previously reviewed IIE-hosted observations are retained, not newly checked. Historical aggregates "
-        "are independently reviewed in government republications; exact retrieved URLs, checksums, vintages "
-        "and dates remain on those rows. Separate direct retrieval and reuse permission has not been "
-        "verified; public access is not commercial-use clearance.")
+    sources["iie"]["notes"] = SOURCE_POLICIES["iie"]["notice"]
     files = {"observations.json": rows, "sources.json": sources, "coverage.json": coverage(rows)}
     texts = {name: json_text(value) for name, value in files.items()}
     with TemporaryDirectory() as directory:

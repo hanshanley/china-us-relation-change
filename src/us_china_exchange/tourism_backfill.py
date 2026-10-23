@@ -73,9 +73,7 @@ def macau_services_history(client):
     body, asset = client.get(USTR_MACAU_ARCHIVE)
     rows.extend(attach(parse_archived_macau_services(body), asset,
                        "USTR 2024 estimates; original government page archived December 18, 2025"))
-    return rows, vintage + "; separately reviewed archival 2024 estimates", (
-        notes + " Archived 2024 directional figures are retained with explicit source aggregate-unit "
-        "error and independent controls; archival/current vintages are not used for a growth comparison.")
+    return rows, vintage, notes
 
 
 def parse_early_hong_kong(plain):

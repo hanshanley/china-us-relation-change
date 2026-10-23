@@ -35,8 +35,10 @@ SOURCE_POLICIES = {
         "terms_url": "https://www.iie.org/terms-and-conditions/",
         "notice": (
             "IIE automatic retrieval is paused: its terms prohibit automated downloading and analysis. "
-            "Previously reviewed observations are retained, not newly checked. Separate retrieval and "
-            "reuse permission has not been verified; public access is not commercial-use clearance."),
+            "Previously reviewed IIE-hosted observations are retained, not newly checked. Historical aggregates "
+            "are independently reviewed in government republications; exact retrieved URLs, checksums, vintages "
+            "and dates remain on those rows. Separate direct retrieval and reuse permission has not been "
+            "verified; public access is not commercial-use clearance."),
         "figure_notice": "IIE: automatic refresh paused; reuse permission unverified.",
     },
     "macau_tourism": {
