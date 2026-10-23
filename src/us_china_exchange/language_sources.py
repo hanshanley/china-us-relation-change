@@ -35,6 +35,7 @@ AP_GROUP_CONTEXT = {
     "korean": "College Board lists AP Chinese and AP Japanese, but no AP Korean exam. Korean benchmarks use MLA college enrollments separately.",
 }
 IPEDS = "https://nces.ed.gov/ipeds/datacenter/data/"
+IPEDS_CURRENT = "https://nces.ed.gov/ipeds/complete-data-files/"
 NEXUS = "https://nexusmandarin.org/publications-1"
 STATES = set("AL AK AZ AR CA CO CT DE DC FL GA HI ID IL IN IA KS KY LA ME MD MA MI MN MS MO MT NE NV NH NJ NM NY NC ND OH OK OR PA RI SC SD TN TX UT VT VA WA WV WI WY".split())
 
@@ -248,8 +249,9 @@ def ipeds(client, years):
     }
     observations, sources = [], {}
     for year in years:
+        base = IPEDS_CURRENT if year >= 2025 else IPEDS
         directory = f"fa{year}hd.zip" if year < 2002 else f"HD{year}.zip"
-        hd_content, hd_asset = client.get(IPEDS + directory)
+        hd_content, hd_asset = client.get(base + directory)
         hd_member, hd = zip_csv(hd_content)
         required = {"UNITID", "STABBR", "DEGGRANT", "PSET4FLG"}
         if not required.issubset(hd.fieldnames or []):
@@ -257,7 +259,7 @@ def ipeds(client, years):
         eligible = {r["UNITID"] for r in hd
                     if r["STABBR"] in STATES and r["DEGGRANT"].strip() == "1"
                     and r["PSET4FLG"].strip() == "1"}
-        content, asset = client.get(IPEDS + f"C{year}_A.zip")
+        content, asset = client.get(base + f"C{year}_A.zip")
         member, records = zip_csv(content)
         if not {"UNITID", "CIPCODE", "AWLEVEL"}.issubset(records.fieldnames or []):
             raise ValueError("IPEDS completions columns changed")
@@ -292,8 +294,11 @@ def ipeds(client, years):
         if not seen:
             raise ValueError("No verified Chinese degree-award records in " + str(year))
         sid = f"ipeds_{year}"
+        provisional = year == 2025 and "_rv" not in member.lower()
+        vintage = f"Completions survey {year}" + (
+            "; provisional 2024/25 release, July 28, 2026" if provisional else "")
         sources[sid] = source(
-            "National Center for Education Statistics, IPEDS", f"Completions survey {year}",
+            "National Center for Education Statistics, IPEDS", vintage,
             [hd_asset, asset], f"{hd_member}: geographic/Title IV/degree filters; {member}: CIPCODE=16.0301; " +
             ("no MAJORNUM field in source" if no_major_number else "MAJORNUM=1") +
             "; total=" + "+".join(total_fields),
@@ -303,7 +308,8 @@ def ipeds(client, years):
             value = totals[award] if cells[award] else None
             observations.append(row(
                 "ipeds:" + name, year, value, sid, "reported_or_imputed" if value is not None else "missing",
-                f"Academic year {year - 1}/{str(year)[-2:]}; AWLEVEL={award}; {cells[award]} eligible source cells.",
+                f"Academic year {year - 1}/{str(year)[-2:]}; AWLEVEL={award}; {cells[award]} eligible source cells." +
+                (" Provisional NCES 2024/25 release of July 28, 2026." if provisional else ""),
                 "ipeds:" + name + ":no_major_split" if no_major_number else
                 "ipeds:doctoral_pre2010" if name == "doctorates" and year < 2010 else "ipeds:" + name))
         print(f"IPEDS {year}: bachelor's {totals[5]}, master's {totals[7]}, doctoral {totals[9 if year < 2010 else 17]}", flush=True)

@@ -70,7 +70,7 @@ def test_reviewed_checkpoints_and_derived_values_are_not_new_learner_counts():
     assert next(r for r in data["observations"] if (r["series_id"], r["year"]) == (
         "ap_cohort:us_public", 2008))["source_id"] == "ap_cohort_2014"
     assert {r["year"] for r in data["observations"] if r["series_id"] == "ap:global_total"} == set(range(2007, 2026))
-    assert {r["year"] for r in data["observations"] if r["series_id"] == "ipeds:bachelors"} == set(range(2000, 2025))
+    assert {r["year"] for r in data["observations"] if r["series_id"] == "ipeds:bachelors"} == set(range(2000, 2026))
     shares = {r["year"]: r for r in chart_points(data, "college-share")[0]["points"]}
     assert shares[2013]["plotted_value"] == pytest.approx(61997 / 1561176 * 100)
     assert shares[2021]["plotted_value"] == pytest.approx(46492 / 1182562 * 100)
@@ -218,9 +218,9 @@ def zipped_csv(name, rows, bom=False, extra=None):
     return archive.getvalue()
 
 
-@pytest.mark.parametrize("legacy", [False, True])
-def test_ipeds_filters_geography_second_majors_revisions_and_legacy_totals(legacy):
-    year = 2000 if legacy else 2022
+@pytest.mark.parametrize("year", [2000, 2022, 2025])
+def test_ipeds_filters_geography_second_majors_revisions_and_legacy_totals(year):
+    legacy = year == 2000
     hd = [
         dict(unitid="1", stabbr="CA", deggrant="1", pset4flg="1"),
         dict(unitid="2", stabbr="PR", deggrant="1", pset4flg="1"),
@@ -241,6 +241,8 @@ def test_ipeds_filters_geography_second_majors_revisions_and_legacy_totals(legac
                              extra=None if legacy else "c_a.csv")
 
     def get(url):
+        if year == 2025:
+            assert url.startswith("https://nces.ed.gov/ipeds/complete-data-files/")
         body = directory if ("HD" in url or "hd.zip" in url) else completions
         return body, dict(url=url, request_url=url, sha256=digest(body), retrieved_at="2026-10-22T14:00:00+00:00")
 

@@ -219,7 +219,7 @@ These indicators remain separate from canonical bilateral flows:
 | Matched college institutions | Same complete-count responding institution IDs in 2013 and 2021. Nonresponse placeholders and institutions with any unreported language-count row are excluded; explicit zero-language respondents are retained. This selected cohort is not a national census or a causal estimate. |
 | AP annual administration | Total Chinese and Japanese global participation, 2007-2025. Not U.S.-only counts or a census of language learners. No AP Korean exam is listed; use the separate MLA college comparison for Korean. |
 | Historical U.S. AP cohorts | Public-school graduating classes 2007-2013; Chinese exams taken at any point during high school. Not the administration year, all U.S. schools or unique learners. Separate from global annual counts; current U.S.-only administration history remains a documented gap. |
-| IPEDS degree awards | Academic years ending 2000-2024, narrow CIP 16.0301, 50 states/DC, Title IV degree-granting institutions. Bachelor's, master's and doctoral awards are separate; second majors/certificates are excluded from 2001 onward. Reported or imputed awards are not unique people, proficiency measures or all China specialists. |
+| IPEDS degree awards | Academic years ending 2000-2025, narrow CIP 16.0301, 50 states/DC, Title IV degree-granting institutions. Bachelor's, master's and doctoral awards are separate; second majors/certificates are excluded from 2001 onward. Reported or imputed awards are not unique people, proficiency measures or all China specialists. |
 | Immersion inventories | CAL 2011, ARC 2021 and Nexus 2025 snapshots use different universes. Categorical bars deliberately do not connect them into a growth trend. |
 
 Annual lines break on missing years and definition changes. MLA lines connect
@@ -269,11 +269,22 @@ PYTHONPATH=src .venv/bin/python -m pytest tests/test_exchange_language.py -q
 
 The first command uses checksummed local assets where available; `--refresh`
 explicitly fetches the reviewed public resources again. `--last-degree-year`
-selects the final IPEDS survey year, default 2024; a missing annual file fails
+selects the final IPEDS survey year, default 2025; a missing annual file fails
 the candidate rather than truncating history or inventing zeros. A complete
 validated candidate replaces the frozen input only after all sources succeed.
 The ordinary build performs no network calls. Removing the frozen input
 withdraws its known page/downloads/figures but preserves user-owned files.
+
+The itemized October 23, 2026 review resolved the apparently missing 2025
+degree files by following NCES's actual **Complete Data Files** entry: new
+releases use `/ipeds/complete-data-files/`, not the legacy
+`/ipeds/datacenter/data/` location. `HD2025.zip` and `C2025_A.zip` supply
+**292 bachelor's, 28 master's and 11 research/scholarship doctoral Chinese
+language/literature awards** for July 1, 2024-June 30, 2025 under the same
+institution/major filters. The July 28, 2026 release is explicitly provisional;
+source checksums and reported/imputation flags are retained.
+`scripts/build_language_data.py --ipeds-only --last-degree-year 2025 --data-only`
+updates only that requested degree year and preserves every other observation.
 
 Only numerical aggregates and original visualizations are published, not
 source PDFs, workbooks, report artwork or exam questions. MLA ordinary-use
