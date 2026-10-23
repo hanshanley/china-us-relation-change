@@ -1382,6 +1382,41 @@
       "notes": "Complete root and actually linked About read without a qualifying Sina designation. The real heading is About our publications: its body explicitly lists Napa Valley Register and four sister titles, not a fabricated publication-specific heading. Sister publications were not counted as extra ranked domains or inherited accounts. Template placeholders, parent groups and staff profiles were not substituted. Unknown, not absent. Review date: 2026-10-23 UTC."
     },
     {
+      "id": "salisbury-post-north-carolina", "name": "Salisbury Post / North Carolina", "category": "newspaper",
+      "aliases": ["Salisbury Post", "Salisbury Salisbury Post", "The Salisbury Post"],
+      "us_basis": "United States-classified source position207; actual root and linked About identify the Salisbury, North Carolina newspaper. Historical address and ownership prose are not independent current-control certification.",
+      "source_url": "https://www.salisburypost.com/", "research_status": "reviewed",
+      "notes": "Complete root and actually linked /services/about-us/ read without an institutional Sina designation. Actual About includes publisher social links, not a qualifying Weibo identity. The source cohort's repeated Salisbury label is retained in its original row, not silently rewritten. UK/Salisbury namesakes, other Post titles, parent/sibling and staff accounts were not inherited. Unknown, not absent. Review date: 2026-10-23 UTC."
+    },
+    {
+      "id": "cedar-rapids-gazette", "name": "The Gazette / Cedar Rapids, Iowa", "category": "newspaper",
+      "aliases": ["Cedar Rapids Gazette", "The Cedar Rapids Gazette", "The Gazette"],
+      "us_basis": "United States-classified source position208; actual named About body identifies the newspaper in Cedar Rapids serving eastern Iowa. Its publisher-stated ownership and print-frequency descriptions are not independently audited current control or Weibo activity.",
+      "source_url": "https://www.thegazette.com/", "research_status": "reviewed",
+      "notes": "Complete root and actually linked /site/about.html read without an institutional Sina identifier. Iowa scope was checked in actual publisher prose, not inferred from a generic Gazette label or third-party employee directory. Other Gazette titles in Colorado, Canada or elsewhere, parent/sibling and staff accounts were not inherited. Unknown, not absent. Review date: 2026-10-23 UTC."
+    },
+    {
+      "id": "grand-island-independent", "name": "The Grand Island Independent", "category": "newspaper",
+      "aliases": ["Grand Island Independent", "The Grand Island Independent", "The Independent"],
+      "us_basis": "United States-classified source position209; actual root and publisher-owned Social Media Directory identify the Grand Island, Nebraska publication. This is separate from any current-control audit.",
+      "source_url": "https://theindependent.com/", "research_status": "reviewed",
+      "notes": "Complete root and actually linked /site/social_media_directory.html read without a Sina designation. Actual institutional and staff/beat social-link targets were distinguished from page-share buttons, not inferred from the directory title alone. Other-platform handles are not cross-platform Weibo bindings; the UK Independent and other namesakes were not substituted. Staff profiles and historical group affiliations were not inherited. Unknown, not absent. Review date: 2026-10-23 UTC."
+    },
+    {
+      "id": "baseball-america", "name": "Baseball America", "category": "sports_media",
+      "aliases": ["Baseball America", "BaseballAmerica"],
+      "us_basis": "United States-classified source position210; actual publisher Company Info describes Baseball America's editorial coverage of baseball and developing players. The cohort classification is not an independently audited headquarters or ownership claim.",
+      "source_url": "https://www.baseballamerica.com/", "research_status": "reviewed",
+      "notes": "Complete root and actually linked /company-info/ read without an institutional Sina identifier. Publisher mission statements and testimonial quotations were not Weibo certification. MLB, minor-league/college teams, players, scouts, fans and other sports-media accounts were not inherited, and an identically spelled handle on another platform was not a Sina binding. Unknown, not absent. Review date: 2026-10-23 UTC."
+    },
+    {
+      "id": "akron-beacon-journal", "name": "Akron Beacon Journal", "category": "newspaper",
+      "aliases": ["Akron Beacon Journal", "The Akron Beacon Journal", "Beacon Journal"],
+      "us_basis": "United States-classified source position211; genuine cached publisher directory places the named Akron Beacon Journal under Ohio. The directory is undated and does not independently establish current ownership or bind the ranked website hostname.",
+      "source_url": "https://www.beaconjournal.com/", "research_status": "reviewed",
+      "notes": "Recorded newspaper HTTP403 respected with zero new newspaper or alias-host requests. Genuine cached publisher PDF inspected offline: page12 names the Ohio publication; page19 supplies the different institutional contact domain thebeaconjournal.com, not the ranked beaconjournal.com hostname. No alias equivalence, redirect destination or exact-domain control was invented. Directory context is not a Sina designation; parent/sibling and staff accounts were not inherited. Unknown, not absent. Review date: 2026-10-23 UTC."
+    },
+    {
       "id": "telemundo", "name": "Telemundo / Noticias Telemundo", "category": "broadcast_news",
       "aliases": ["Telemundo", "Noticias Telemundo", "Telemundo Noticias"],
       "us_basis": "United States-classified source position110; actual network root separately links its Noticias Telemundo newsroom section. Current corporate domicile/headquarters and legal account control are not independently audited.",
