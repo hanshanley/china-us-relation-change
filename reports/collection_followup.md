@@ -35,23 +35,32 @@ The selected **1,000 SCImago U.S.-classified domains** are ranked by digital
 reputation, not traffic; their present ownership/nationality was not independently
 audited. **Five have current-profile evidence, seven historical-only evidence,
 988 remain unknown, and zero are verified negatives.** All underwent homepage
-screening, but only 211 have recorded manual review.
+screening, but only 216 have recorded manual review.
 
-The [latest scheduled pass](discovery_iteration43.md) adds five reviews with
-eight complete primary HTML responses and one genuine cached publisher PDF.
-Grand Island's actual social directory was inspected beyond its heading;
-share buttons, other-platform handles and staff links were not Sina bindings.
-The Iowa Gazette and North Carolina Salisbury Post were kept distinct from
-namesakes. Baseball America's coverage was not an MLB account designation.
-Akron's newspaper HTTP403 was not retried. Its cached directory contact domain
-is `thebeaconjournal.com`, not the ranked `beaconjournal.com`; no alias binding
-or redirect destination was invented.
-All eight existing no-further-publisher-body restrictions remain in force.
+The [latest scheduled pass](discovery_iteration44.md) adds five reviews with
+seven retained primary HTML responses and one genuine cached publisher PDF.
+The Island Packet's named corporate body and historical publisher rows do not
+substitute for its timed-out newspaper, certify a current combined Gazette
+newsroom, or turn one ranked domain into two reviews. Actual Bonner County,
+Bryan and Denton institutional bodies were inspected rather than generic titles.
+Greeley's fresh root was removed after an explicit AI/text-mining reservation;
+no further publisher-body requests followed. There are now nine recorded
+no-further-publisher-body restrictions, separate from NWA's retention condition.
 The live 6,570-post corpus, original archived baseline and all rolling data
 remain unchanged by discovery.
-Discovery is not exhausted: 789 selected domains still lack a recorded
+Discovery is not exhausted: 784 selected domains still lack a recorded
 manual review. A bounded recurring prompt is active every 30 minutes; later
 passes must advance the frontier rather than repeatedly probing exhausted leads.
+
+**Unattended collection is currently blocked:** the first OS-scheduled
+invocation on October 23 failed before Python initialized because the
+Documents-hosted virtual environment was not accessible to that process.
+No new scheduled collection occurred. The earlier bounded manual success and
+successful GitHub aggregate rebuild do not establish unattended collection.
+The [operations note](../docs/EXCHANGE.md#automatic-private-weibo-refresh)
+records the actual failure and user-approved-access requirement. Published
+refresh health now records the startup block and zero attempted feeds, retaining
+the last successful collection time, cutoff, corpus and all rolling data.
 
 **6,521 posts were partially recovered from 68 channels**: 5,760 available source
 bodies and 761 truncated previews. These are not complete timelines or independently

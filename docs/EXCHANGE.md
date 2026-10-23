@@ -233,8 +233,31 @@ PYTHONPATH=src .venv/bin/python scripts/refresh_weibo.py --publish --push
 .venv/bin/python scripts/install_weibo_refresh.py
 ```
 
+**Observed unattended-execution blocker, October 23, 2026:** the first scheduled
+invocation failed at approximately 19:35 UTC, before Python could initialize
+its `site` module. Its actual stderr reports `PermissionError: [Errno 1]`
+reading the repository's `.venv/pyvenv.cfg` under Documents; `launchctl` records
+one run and exit code 1. No collector code or network collection started.
+This is consistent with macOS Documents-folder access protection, not a Sina
+denial. Schedule registration, successful local tests and the earlier bounded
+manual collection do not prove unattended execution works.
+
+The job remains registered but collection is blocked pending user-approved
+access for the actual scheduled process. Apple documents
+[file and folder access controls](https://support.apple.com/guide/mac-help/mchld5a35146/mac)
+under System Settings, Privacy & Security, Files & Folders. No privacy
+settings were changed, permission database reset, alternate launcher tried
+or protected data relocated to evade the denial. Approval must be followed
+by a successful real scheduled-process run before this is marked operational.
+Private evidence is in `data/local/automation/scheduler-health.json` and
+`refresh.stderr.log`. Published refresh status now records this startup block
+with zero attempted feeds while retaining the last successful bounded manual
+collection time and cutoff. Its attempt timestamp comes from the actual stderr
+modification time, not an observed feed-request start. Zero new records for
+this failed invocation is not an inactivity finding or a fresh collection.
+
 The first command is a private, non-promoting preview. The installed per-user
-LaunchAgent runs at 03:35, 09:35, 15:35 and 21:35 local time when the Mac is
+LaunchAgent is configured for 03:35, 09:35, 15:35 and 21:35 local time when the Mac is
 available; missed sleep-time events coalesce on wake. It uses the existing
 private SQLite corpus, not a fresh metadata-only database. The last completed
 Shanghai day becomes the rolling-measure cutoff. The partial current day is

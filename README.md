@@ -8,10 +8,12 @@ see [exchange setup, definitions and operations](docs/EXCHANGE.md) and
 
 The [combined exchange charts](site/comparisons.html) compare mainland China,
 Hong Kong and Macau only. The [Weibo research charts](site/weibo.html) separately
-show automatically refreshed aggregate snapshots, not total activity or
-popularity. The private collector rebuilds the graphs and complete downloads,
-then commits and pushes them four times daily when the collection Mac is
-available. See [automatic refresh](docs/EXCHANGE.md#automatic-private-weibo-refresh)
+show timestamped aggregate snapshots, not total activity or popularity.
+The private collector is configured to rebuild the graphs and complete
+downloads, then commit and push them four times daily. Its first unattended
+attempt is currently blocked by macOS file-access permissions; a successful
+manual run does not establish that the scheduled job can run unattended.
+See [automatic refresh](docs/EXCHANGE.md#automatic-private-weibo-refresh)
 for the schedule and safeguards, and
 [graph generation and limits](docs/EXCHANGE.md#weibo-research-graphs)
 for the trailing-30-day measures and PNG/SVG exports. This updates the published

@@ -4837,11 +4837,11 @@
     }
   ],
   "cohort": {
-    "assessment_sha256": "38e3c17f3cbf58f6f9ccda668d5177c2978fbdea376a388325d2d943500473ff",
+    "assessment_sha256": "701162f2f773069012950448db1f4af886f5a923b150f322505ccec75b6dd3ed",
     "candidate_domains": 0,
     "current_identity_domains": 5,
     "historical_only_domains": 7,
-    "manually_reviewed_domains": 211,
+    "manually_reviewed_domains": 216,
     "ranking_basis": "SCImago U.S.-classified digital reputation, not website traffic",
     "ranking_source": "https://www.scimagomedia.com/rankings.php?country=United+States",
     "selected_domains": 1000,
@@ -24962,7 +24962,7 @@
         "uid": "1686203097"
       }
     ],
-    "audited_at": "2026-10-23T19:09:11.429555+00:00",
+    "audited_at": "2026-10-23T19:55:14.561955+00:00",
     "canonical_posts_sha256": "71200e519e64affcbb60235f21227df6a86a47b90ffe1f04359245530b015020",
     "corpus": {
       "archived_sources_checked": 46,
@@ -24976,24 +24976,24 @@
       "primary_text_matches": 6570
     },
     "post_manifest_sha256": "4e4ee506c35d73f523ae74ae0b4ede01675ae16503e64fb6d3b9bc04f597abe7",
-    "registry_sha256": "368b9a5020d9b484031df9677fc4c95782615a9635e2f96c07917475b0c836f7",
+    "registry_sha256": "d57b6d7c1a7dda6e53aeb390ddeb9cb38f8e30bb703eea77bfea3c8324daaa19",
     "scope": "Institutional profile/UID evidence and canonical text/date/source consistency; not current corporate control, continuing U.S. licensing, exhaustive account discovery or complete timelines.",
     "version": 1
   },
   "refresh": {
-    "accounts_attempted": 1,
-    "attempted_at": "2026-10-23T17:03:25.568901+00:00",
+    "accounts_attempted": 0,
+    "attempted_at": "2026-10-23T19:35:05.151364+00:00",
     "errors": [
       {
-        "account_id": "forbes-china",
-        "reason": "5 detail pages unavailable; previews retained. 0 source conflicts skipped. {\"5340922231390291\": \"Recorded source-URL access restriction; not retried\", \"5357126706004703\": \"Cross-host or non-HTTPS redirect; access not followed\", \"5357129223113089\": \"Cross-host or non-HTTPS redirect; access not follow"
+        "account_id": "local-scheduler",
+        "reason": "Scheduled Python startup was denied access to Documents-hosted .venv/pyvenv.cfg before site initialization. No collector code or feed requests ran; user-approved file access is required."
       }
     ],
     "mode": "daily_local",
-    "new_posts": 49,
-    "note": "1 eligible channels in this pass; access holds are not retried. The partial current Shanghai day is buffered but excluded from rolling estimates. Bounded public feeds only; recovered-sample lower bounds, not full timelines or verified inactivity.",
-    "readable_feeds": 1,
-    "status": "partial",
+    "new_posts": 0,
+    "note": "Unattended collection is blocked before Python startup by file-access permissions. Attempt time is the actual stderr modification time, not a feed-request start. No feeds were attempted and zero new records does not establish inactivity. Last successful bounded manual collection and its cutoff are retained. No privacy bypass or alternate launcher was attempted.",
+    "readable_feeds": 0,
+    "status": "blocked",
     "successful_collection_at": "2026-10-23T17:05:14.193645+00:00",
     "through_date": "2026-10-23"
   },
@@ -44914,9 +44914,9 @@
   "roster": {
     "confirmed_accounts": 87,
     "confirmed_outlets": 62,
-    "outlets": 293,
+    "outlets": 298,
     "resolved_numeric_accounts": 86,
-    "reviewed_outlets": 293,
+    "reviewed_outlets": 298,
     "unresolved_numeric_accounts": 1
   },
   "source": {
@@ -44924,9 +44924,9 @@
     "excluded_attribution_posts": 0,
     "excluded_unconfirmed_posts": 0,
     "latest_collection_at": "2026-10-23T17:05:13.766559+00:00",
-    "primary_audit_sha256": "43d467cd857c62729ae61f115afdf3c6cd86b2e4030a2df07b42ac7aa183c687",
+    "primary_audit_sha256": "e996eee011ddf7c6a3e94a8b3cf09f8cc8c2a07a9bd5def247b81531a0ec1436",
     "publication_timezone": "Asia/Shanghai",
-    "registry_sha256": "368b9a5020d9b484031df9677fc4c95782615a9635e2f96c07917475b0c836f7",
+    "registry_sha256": "d57b6d7c1a7dda6e53aeb390ddeb9cb38f8e30bb703eea77bfea3c8324daaa19",
     "requested_windows": [
       {
         "end": "2026-10-21T16:00:00+00:00",

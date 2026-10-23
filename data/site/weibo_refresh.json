@@ -1,17 +1,17 @@
 {
-  "accounts_attempted": 1,
-  "attempted_at": "2026-10-23T17:03:25.568901+00:00",
+  "accounts_attempted": 0,
+  "attempted_at": "2026-10-23T19:35:05.151364+00:00",
   "errors": [
     {
-      "account_id": "forbes-china",
-      "reason": "5 detail pages unavailable; previews retained. 0 source conflicts skipped. {\"5340922231390291\": \"Recorded source-URL access restriction; not retried\", \"5357126706004703\": \"Cross-host or non-HTTPS redirect; access not followed\", \"5357129223113089\": \"Cross-host or non-HTTPS redirect; access not follow"
+      "account_id": "local-scheduler",
+      "reason": "Scheduled Python startup was denied access to Documents-hosted .venv/pyvenv.cfg before site initialization. No collector code or feed requests ran; user-approved file access is required."
     }
   ],
   "mode": "daily_local",
-  "new_posts": 49,
-  "note": "1 eligible channels in this pass; access holds are not retried. The partial current Shanghai day is buffered but excluded from rolling estimates. Bounded public feeds only; recovered-sample lower bounds, not full timelines or verified inactivity.",
-  "readable_feeds": 1,
-  "status": "partial",
+  "new_posts": 0,
+  "note": "Unattended collection is blocked before Python startup by file-access permissions. Attempt time is the actual stderr modification time, not a feed-request start. No feeds were attempted and zero new records does not establish inactivity. Last successful bounded manual collection and its cutoff are retained. No privacy bypass or alternate launcher was attempted.",
+  "readable_feeds": 0,
+  "status": "blocked",
   "successful_collection_at": "2026-10-23T17:05:14.193645+00:00",
   "through_date": "2026-10-23"
 }
