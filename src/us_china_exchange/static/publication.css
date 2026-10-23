@@ -24,7 +24,7 @@
 .masthead nav a { text-decoration: none; white-space: nowrap; }
 .masthead nav .subscribe-link { padding: .5rem .7rem; background: var(--signal); color: var(--paper); }
 .publication-page .page { width: var(--page); max-width: none; margin: auto; padding: 30px 0 24px; }
-.publication-page main { max-width: 1040px; margin-inline: auto; }
+.publication-page main { max-width: 1000px; margin-inline: auto; }
 .publication-page .analysis-heading { max-width: none; padding: 0; }
 .kicker { margin: 0 0 10px; color: #7e1715; font: 700 10px var(--mono); letter-spacing: .13em; text-transform: uppercase; }
 .analysis-heading h1 { margin: 0; font-size: clamp(32px, 3.7vw, 48px); font-weight: 500; line-height: 1.05; letter-spacing: -.045em; }
@@ -44,7 +44,7 @@
 .publication-page .ap-scope-note { max-width: 900px; margin: 12px 0; font: 14px/1.5 var(--sans); color: var(--muted); }
 .publication-page .series-panel > .eyebrow { margin-bottom: 9px; color: var(--muted); font: 13px var(--sans); letter-spacing: .06em; }
 .publication-page .exchange-panel { position: relative; padding-top: 10px; }
-.publication-page .exchange-panel h2 { font-size: 32px; font-weight: 600; line-height: 1.15; margin-bottom: 0; }
+.publication-page .exchange-panel h2 { font-size: 28px; font-weight: 600; line-height: 1.15; margin-bottom: 0; }
 .publication-page .chart-heading { position: absolute; top: 0; right: 0; padding: 0; }
 .publication-page .chart-control select { max-width: 155px; min-height: 32px; font-size: 13px; padding: 6px 20px 6px 0; }
 .publication-page .chart-control label { display: none; }
@@ -52,8 +52,31 @@
 .publication-page #chart svg, .publication-page .comparison-chart svg { display: block; width: 100%; min-width: 0; height: auto; }
 .publication-page .chart-background { fill: var(--paper); }
 .publication-page .comparison-chart { margin: 12px 0; overflow: hidden; }
+html:not(.plot-js) .publication-page #chart,
+html:not(.plot-js) .publication-page .comparison-chart { overflow-x: auto; }
+html:not(.plot-js) .publication-page #chart svg,
+html:not(.plot-js) .publication-page .comparison-chart svg { min-width: 840px; }
 .publication-page .native-chart { margin-block: 20px 24px; }
-.publication-page .screen-chart { font-variant-numeric: tabular-nums lining-nums; }
+.publication-page .screen-chart { font-variant-numeric: tabular-nums lining-nums; cursor: crosshair; }
+.publication-page .screen-chart:focus-visible { outline: 1px solid var(--rule); outline-offset: 4px; }
+.publication-page .plot-hover-layer { pointer-events: none; }
+.publication-page .plot-hover-layer line { stroke: var(--muted); stroke-width: 1; stroke-dasharray: 3 4; opacity: .65; }
+.publication-page .screen-bar[data-hovered] { opacity: .75; }
+.publication-page .plot-interaction-hint { margin: 7px 0 0; color: var(--muted); font: 13px/1.5 var(--sans); }
+.publication-page .plot-tooltip {
+  position: fixed; z-index: 1000; pointer-events: none; width: max-content;
+  max-width: min(360px, calc(100vw - 24px)); padding: 12px 14px;
+  border: 1px solid var(--rule); background: var(--paper); color: var(--ink);
+  box-shadow: 0 3px 12px #17171318; font: 14px/1.45 var(--sans);
+}
+.publication-page .plot-tooltip-period { margin: 0 0 8px; font-weight: 600; }
+.publication-page .plot-tooltip-row { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2px 16px; margin: 7px 0; }
+.publication-page .plot-tooltip-label { min-width: 0; overflow-wrap: anywhere; }
+.publication-page .plot-tooltip-label i { display: inline-block; width: 8px; height: 8px; margin-right: 7px; }
+.publication-page .plot-tooltip-value { white-space: nowrap; font-variant-numeric: tabular-nums; font-weight: 600; }
+.publication-page .plot-tooltip-missing { color: var(--muted); }
+.publication-page .plot-tooltip-reported, .publication-page .plot-tooltip-qualifier { grid-column: 1 / -1; color: var(--muted); font-size: 12px; }
+.publication-page .plot-tooltip-unit, .publication-page .plot-tooltip-note { margin: 8px 0 0; color: var(--muted); font-size: 12px; }
 .publication-page .plot-legend { display: flex; flex-wrap: wrap; gap: 8px 24px; padding: 0 0 14px; color: var(--muted); font: 14px/1.4 var(--sans); }
 .publication-page .plot-legend span { display: inline-flex; align-items: baseline; gap: 7px; }
 .publication-page .plot-legend i { width: 18px; height: 2px; flex-shrink: 0; align-self: center; }
@@ -106,4 +129,4 @@
   .publication-page .series-panel { padding: 22px 0; }
   .publication-page .exchange-panel { padding-top: 6px; }
 }
-@media print { .analysis-tabs, .controls, .chart-heading { display: none; } }
+@media print { .analysis-tabs, .controls, .chart-heading, .plot-tooltip, .plot-interaction-hint { display: none !important; } }

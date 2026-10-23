@@ -214,7 +214,8 @@ def chart_points(data, chart_id):
         label = language.capitalize() if chart_id == "school-language-enrollments" else data["series"][sid]["label"]
         grouped.append({"id": sid, "label": label, "color": color,
                         "points": points, "scheduled_years": [r["year"] for r in selected],
-                        "cadence": data["series"][sid]["cadence"]})
+                        "cadence": data["series"][sid]["cadence"],
+                        "period_basis": data["series"][sid]["period_basis"]})
     return grouped
 
 

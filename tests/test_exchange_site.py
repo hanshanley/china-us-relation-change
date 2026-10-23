@@ -91,6 +91,17 @@ def test_charts_break_missing_years_and_definition_changes():
     assert "Definitions differ" in svg_chart(rows, indexed=True)
 
 
+def test_export_axes_preserve_fractional_thousands_instead_of_repeating_rounded_ticks():
+    rows = [observation("test", "USA", "HKG", "study_abroad", year, value, "Credit participation")
+            for year, value in [(2010, 1900), (2020, 1200), (2025, 2170)]]
+    doc = ElementTree.fromstring(svg_chart(rows))
+    labels = [node.text for node in doc.iter() if node.tag.endswith("text") and node.get("x") == "100"]
+    assert labels == ["0", "500", "1k", "1.5k", "2k", "2.5k"]
+    assert len(labels) == len(set(labels))
+    assert [(int(node.get("data-year")), float(node.get("data-value"))) for node in doc.iter()
+            if node.tag.endswith("circle")] == [(r["year"], r["value"]) for r in rows]
+
+
 def test_air_travel_uses_its_own_history_and_pre_pandemic_index():
     rows = [r for r in json.loads((ROOT / "data/site/observations.json").read_text())
             if r["series_id"] == "ntto_siat:USA:CHN:air_visitors" and r["frequency"] == "annual"]

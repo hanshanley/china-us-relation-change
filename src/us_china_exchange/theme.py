@@ -43,6 +43,14 @@ def linear_axis(peak):
     return count * step, [i * step for i in range(count + 1)]
 
 
+def axis_label(value, unit=""):
+    prefix = "$" if unit == "USD" else ""
+    for scale, suffix in ((1e12, "T"), (1e9, "B"), (1e6, "M"), (1e3, "k")):
+        if abs(value) >= scale:
+            return prefix + f"{value / scale:,.6f}".rstrip("0").rstrip(".") + suffix
+    return prefix + f"{value:,.6f}".rstrip("0").rstrip(".")
+
+
 def figure_category(measure):
     if measure in {"goods", "services"}:
         return measure + "_trade"

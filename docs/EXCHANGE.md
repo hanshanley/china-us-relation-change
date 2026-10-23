@@ -108,6 +108,41 @@ showing the most recent years; exact tables remain available underneath.
 Downloads explicitly contain reported values even when the interactive chart
 is showing an index.
 
+### Public edition and plot audit
+
+The collective publication uses responsive charts with 17px desktop and 14px
+phone axes. Desktop plot height is approximately half its width, capped at
+520px; phone plots are 310px tall. Static exports keep their publication
+dimensions and both backgrounds. Without JavaScript, charts scroll internally
+instead of shrinking their labels.
+
+Hover anywhere over a plot, tap, or focus it and use the arrow/Home/End keys
+to inspect actual observations. Tooltips preserve reference periods, exact
+counts, missing series, source reliability and reported values behind indexes.
+They never interpolate or substitute a neighbouring year's observation.
+Escape dismisses them. Changing indicators, resizing or hiding plots disposes
+their tooltip handlers.
+
+The public edition presents concise definitions and sources rather than the
+internal source-recovery worklist. Coverage is collapsed by default; complete
+coverage, observations and provenance remain in the downloads.
+
+```sh
+.venv/bin/python scripts/build_exchange_publication.py --output data/local/collective-publication
+.venv/bin/python scripts/check_exchange_publication.py --site data/local/collective-publication
+.venv/bin/python scripts/audit_exchange_plots.py \
+  --site data/local/collective-publication --exports outputs/figures \
+  --output data/local/plot-audit --screenshots
+```
+
+The audit reconciles source rows and transformations independently, verifies
+calendar positions, axis labels, line vertices and comparability breaks, and
+checks label overlap/clipping with browser and bundled raster-font metrics.
+It moves the pointer over every public chart at its first, middle and last
+observed periods, checks displayed tooltip values and markers, and exercises
+keyboard navigation at 1360px, 390px and 320px widths. The separate browser
+check covers touch, redraw cleanup and the no-JavaScript fallback.
+
 ### Combined regional comparisons
 
 Open `site/comparisons.html`, linked from the dashboard. These new comparisons

@@ -4,7 +4,7 @@ import html
 import math
 import textwrap
 
-from .theme import CHART_THEMES, FONT, GRID, MUTED, TEXT
+from .theme import CHART_THEMES, FONT, GRID, MUTED, TEXT, axis_label
 
 
 def svg_indicator_chart(config, groups, theme, description, point_class):
@@ -23,6 +23,17 @@ def svg_indicator_chart(config, groups, theme, description, point_class):
     last = max(first + 1, max(r["year"] for r in points), config.get("last_year", 0))
     x = lambda year: 115 + (year - first) / (last - first) * 835
     y = lambda value: 420 - (value - minimum) / (maximum - minimum) * 250
+
+    def metadata(group, row):
+        year, basis = row["year"], group.get("period_basis", "")
+        period = (f"1 July {year}" if "July" in basis else
+                  f"FY{year}" if "fiscal" in basis and point_class == "immigration-point" else
+                  f"Fiscal year ending {year}" if "fiscal" in basis else
+                  f"{year - 1}/{str(year)[-2:]}" if "academic" in basis else
+                  f"Class of {year}" if basis == "graduating class" else str(year))
+        return (f'data-period="{esc(period)}" data-reported-value="{row["value"]}" '
+                f'data-reported-unit="{esc(row.get("reported_unit", config["unit"]))}" '
+                f'data-status="{esc(row.get("status", ""))}"')
     parts = [
         '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 600" role="img" '
         f'aria-label="{esc(config["title"])}"><title>{esc(config["title"])}</title>',
@@ -40,7 +51,7 @@ def svg_indicator_chart(config, groups, theme, description, point_class):
                          f'<text class="legend-label" x="{pos + 33}" y="114" font-size="17" fill="{TEXT}">{esc(group["label"])}</text>')
     for fraction in (0, .5, 1):
         value = minimum + (maximum - minimum) * fraction
-        label = f"{value:.1f}%" if config["mode"] == "share" else f"{value:,.0f}"
+        label = axis_label(value) + ("%" if config["mode"] == "share" else "")
         parts.append(f'<path d="M115 {y(value):.2f}H950" stroke="{GRID}" stroke-opacity=".6" stroke-width=".5"/>'
                      f'<text x="100" y="{y(value) + 6:.2f}" text-anchor="end">{esc(label)}</text>')
     parts.append(f'<path d="M115 170V420H950" stroke="{GRID}" stroke-width=".8" fill="none"/>')
@@ -57,7 +68,7 @@ def svg_indicator_chart(config, groups, theme, description, point_class):
             height = 420 - y(r["plotted_value"])
             parts.append(
                 f'<rect class="{point_class}" data-series-id="{esc(group["id"])}" data-year="{r["year"]}" '
-                f'data-value="{r["plotted_value"]}" x="{pos - 65:.2f}" y="{y(r["plotted_value"]):.2f}" '
+                f'data-value="{r["plotted_value"]}" {metadata(group, r)} x="{pos - 65:.2f}" y="{y(r["plotted_value"]):.2f}" '
                 f'width="130" height="{height:.2f}" fill="{group["color"]}"/>'
                 f'<text x="{pos:.2f}" y="{y(r["plotted_value"]) - 12:.2f}" text-anchor="middle" fill="{TEXT}">{r["value"]:,}</text>'
                 f'<text x="{pos:.2f}" y="450" text-anchor="middle">{r["year"]}</text>'
@@ -85,6 +96,7 @@ def svg_indicator_chart(config, groups, theme, description, point_class):
             for r in group["points"]:
                 parts.append(f'<circle class="{point_class}" data-series-id="{esc(group["id"])}" '
                              f'data-year="{r["year"]}" data-value="{r["plotted_value"]}" '
+                             f'{metadata(group, r)} '
                              f'cx="{x(r["year"]):.2f}" cy="{y(r["plotted_value"]):.2f}" r="4" fill="{group["color"]}">'
                              f'<title>{esc(group["label"])} {r["year"]}: {r["plotted_value"]:,.4f} {esc(config["unit"])}</title></circle>')
     for i, text in enumerate(textwrap.wrap(config["note"], width=106)):

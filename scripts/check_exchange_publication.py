@@ -21,6 +21,8 @@ def check(site, url=None, screenshots=None):
             page.goto(url)
             page.evaluate("document.fonts.ready")
             expect(page.locator("form.controls")).to_be_visible()
+            assert page.locator("#coverage").evaluate("node=>node.tagName==='DETAILS'&&!node.open")
+            assert not page.locator("#coverage-limits").count()
             assert page.locator("#geography option").count() == 3
             assert page.locator("#chart").bounding_box()["y"] < 680
             assert page.locator("#chart").evaluate("node=>node.scrollWidth<=node.clientWidth")
@@ -106,7 +108,7 @@ def check(site, url=None, screenshots=None):
             assert float(page.locator("#chart .screen-point[data-year='2020']").get_attribute("data-value")) == 89000
             assert page.locator("#chart .screen-point[data-year='2021']").count() == 0
             expect(page.locator("#chart .screen-unit")).to_have_text("Trips (millions)")
-            expect(page.locator("#series-continuity")).to_contain_text("despite positive survey responses")
+            expect(page.locator("#series-continuity")).to_contain_text("2021 estimate is unavailable")
             chart_bounds = page.locator("#chart svg").bounding_box()
             assert chart_bounds["height"] >= chart_bounds["width"] * .5
             assert page.locator("#chart .screen-y-tick").evaluate_all(
@@ -157,7 +159,14 @@ def check(site, url=None, screenshots=None):
                     expect(page.locator("#module-chart")).to_have_value("college-enrollments")
                     assert page.locator("#college-enrollments .screen-point").count() == 18
                     if width == 390:
-                        assert page.locator("#college-enrollments .screen-year").all_text_contents() == ["2002", "2006", "2009", "2013", "2016", "2021"]
+                        years = page.locator("#college-enrollments .screen-year").all_text_contents()
+                        assert years[0] == "2002" and years[-1] == "2021"
+                        assert len(years) >= 4 and set(years) <= {"2002", "2006", "2009", "2013", "2016", "2021"}
+                        assert page.locator("#college-enrollments .screen-year").evaluate_all("""nodes=>nodes.every((n,i)=>{
+                          if(!i)return true;
+                          const previous=nodes[i-1].getBBox(),current=n.getBBox();
+                          return current.x-previous.x-previous.width>=7.9;
+                        })""")
                     page.select_option("#module-chart", "school-language-enrollments")
                     assert page.locator("#school-language-enrollments .screen-bar").evaluate_all(
                         "nodes=>nodes.map(n=>Number(n.dataset.value))") == [227086, 67909]
@@ -211,11 +220,45 @@ def check(site, url=None, screenshots=None):
             assert page.locator('#college-benchmarks .screen-line[data-series-id="mla:korean"]').count() == 1
             assert not errors, errors
             page.close()
+        touch = browser.new_context(has_touch=True, is_mobile=True, viewport={"width": 390, "height": 844})
+        page = touch.new_page()
+        page.goto(url.rsplit("/", 1)[0] + "/travel.html")
+        page.select_option("#direction", "from_us")
+        chart = page.locator("#chart")
+        chart.scroll_into_view_if_needed()
+        source = chart.locator('.screen-point[data-year="2020"]').bounding_box()
+        plot = chart.locator(".screen-chart").bounding_box()
+        page.touchscreen.tap(source["x"] + source["width"] / 2, plot["y"] + 55)
+        old_id = chart.get_attribute("data-tooltip-id")
+        tip = page.locator("#" + old_id)
+        expect(tip).to_be_visible()
+        expect(tip.locator(".plot-tooltip-value")).to_have_text("89,000")
+        expect(tip.locator(".plot-tooltip-period")).to_have_text("2020")
+        page.touchscreen.tap(8, 8)
+        expect(tip).to_be_hidden()
+        page.select_option("#geography", "HKG")
+        expect(page.locator("#" + old_id)).to_have_count(0)
+        expect(page.locator(".plot-tooltip")).to_have_count(1)
+        page.goto(url.rsplit("/", 1)[0] + "/comparisons.html")
+        page.select_option("#module-chart", "goods-to_us")
+        details = page.locator("#goods-to_us details").filter(has=page.locator(".native-chart"))
+        details.evaluate("node=>node.open=true")
+        native = details.locator(".native-chart")
+        expect(native).to_have_attribute("data-tooltip-id", re.compile("plot-tooltip-"))
+        details.evaluate("node=>node.open=false")
+        expect(native).not_to_have_attribute("data-tooltip-id", re.compile(".+"))
+        details.evaluate("node=>node.open=true")
+        expect(native).to_have_attribute("data-tooltip-id", re.compile("plot-tooltip-"))
+        native.locator(".screen-chart").press("Home")
+        expect(page.locator("#" + native.get_attribute("data-tooltip-id"))).to_be_visible()
+        touch.close()
         context = browser.new_context(java_script_enabled=False, viewport={"width": 390, "height": 844})
         page = context.new_page()
         page.goto(url)
         expect(page.locator("form.controls")).to_be_hidden()
         assert page.locator("#chart svg").count() == 1
+        assert page.locator("#chart svg").bounding_box()["width"] >= 840
+        assert page.locator("#chart").evaluate("node=>node.scrollWidth>node.clientWidth")
         assert page.locator("#all-values table").count() > 20
         assert not page.evaluate("document.documentElement.scrollWidth>innerWidth")
         browser.close()

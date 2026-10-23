@@ -104,7 +104,11 @@ def plot_model(svg, labels, observations):
             if year is None or value is None:
                 return None
             points.append({"year": int(year), "value": float(value), "connect": command == "L",
-                           "label": p.title.text if p.find("title") else ""})
+                           "label": p.title.text if p.find("title") else "",
+                           "period": p.get("data-period", str(year)),
+                           "reported_value": float(p.get("data-reported-value", value)),
+                           "reported_unit": p.get("data-reported-unit", model["unit"]),
+                           "status": p.get("data-status", "")})
         model["groups"].append({"label": GEOGRAPHIES[geo] if geo else labels.get(sid, legends[i] if i < len(legends) else ""),
                                 "color": color, "dash": path.get("stroke-dasharray", ""),
                                 "id": sid or "", "points": points})
@@ -121,7 +125,10 @@ def plot_model(svg, labels, observations):
             year = p.get("data-year")
             if year and year not in label:
                 label += f" ({year})"
-            model["bars"].append({"label": label, "value": float(p["data-value"]), "color": p["fill"]})
+            model["bars"].append({"label": label, "value": float(p["data-value"]), "color": p["fill"],
+                                  "id": p.get("data-series-id", label), "year": int(year) if year else None,
+                                  "period": p.get("data-period"), "status": p.get("data-status", ""),
+                                  "partial_window": label.endswith("*")})
         return model
     return None
 
@@ -196,6 +203,7 @@ def decorate(site, name, labels, revision):
         payload = json.loads(soup.select_one("#exchange-data").string)
         payload["restrict_to_available"] = True
         payload["prefer_current_travel"] = True
+        payload["public_display"] = True
         soup.select_one('#chart-mode option[value="index"]').string = "Baseline = 100"
         for identifier in ["selection-note", "related-series"]:
             note = soup.new_tag("p", attrs={"id": identifier, "class": "chart-note", "hidden": ""})
@@ -295,28 +303,14 @@ def decorate(site, name, labels, revision):
             '<a href="downloads/immigration.json" download>Immigration</a> · '
             '<a href="downloads/weibo-summary.json" download>Weibo research aggregates</a>.</p>')
         soup.select_one("#downloads").append(families)
-        limits = soup.new_tag("details", attrs={"id": "coverage-limits", "open": ""})
-        limits.append(fragment(
-            '<summary>What remains incomplete—and what is simply a different reporting schedule</summary>'
-            '<p>Unavailable route/indicator choices are disabled in the public controls, not converted to zeros '
-            'or removed from the complete data. An incompatible index falls back to reported levels.</p>'
-            '<ul><li>Mainland all-mode U.S. visitor arrivals stop in 2018; newer resident-air estimates are separate. '
-            'Hong Kong’s 2000–2022 residence history is separated from its 2023–2025 nationality counts by '
-            'a visible population break. Matched January–June 2025/2026 all-mode totals are available; '
-            'Macau monthly and cumulative counts extend through August 2026.</li>'
-            '<li>Mainland U.S.-nationality student reports are historical snapshots through 2018. '
-            'Academic-credit study-abroad participation is a different, newer series. Enrolled-only U.S.-host counts '
-            'remain much shorter than the broader student-plus-OPT histories.</li>'
-            '<li>USTR now supplies direct Macau services estimates for 2025 in both directions. '
-            'Older bilateral services history is still being sourced; no regional total is allocated.</li>'
-            '<li>MLA college enrollment is a census-round series through 2021; school estimates and availability '
-            'are 2014–15-era snapshots, not missing annual observations. No national Korean K–12 learner total is invented.</li>'
-            '<li>Resident stocks are published benchmark estimates through 2024, not annual immigration flows. '
-            'U.S.-to-mainland permanent-residency flows and the U.S.–Macau stock pair remain unverified.</li>'
-            '<li>EU27’s 2023 enterprise count is confidential, not a missed download; 2022 is the latest disclosed value. '
-            'Business histories have source-specific cutoffs. BEA’s verified U.S.-affiliate '
-            'release covers 2023; its next activity release is scheduled for November 20, 2026.</li></ul>'))
-        soup.select_one("#coverage").insert(1, limits)
+        coverage = soup.select_one("#coverage")
+        coverage.name = "details"
+        coverage.clear()
+        coverage.append(fragment(
+            '<summary>Data coverage</summary>'
+            '<p>Series differ in reference period, population and publication year. '
+            'The definitions and dates shown with each chart describe its coverage.</p>'
+            '<p><a href="downloads/coverage.json" download>Complete coverage information · JSON</a></p>'))
         for footer in page.find_all("footer", recursive=False):
             footer.decompose()
     else:
@@ -462,6 +456,10 @@ def decorate(site, name, labels, revision):
     page.append(footer)
     script = soup.new_tag("script", attrs={"src": f"assets/publication.js?v={revision[:12]}", "defer": ""})
     soup.body.append(script)
+    for node in soup.select('script[src^="assets/"],link[href^="assets/"]'):
+        attribute = "src" if node.name == "script" else "href"
+        if "?v=" not in node[attribute]:
+            node[attribute] += "?v=" + revision[:12]
     (site / name).write_text(str(soup), encoding="utf-8")
 
 

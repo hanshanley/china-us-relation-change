@@ -19,6 +19,127 @@
       {maximumSignificantDigits: 3} : {maximumFractionDigits: 2});
   };
   const models = new WeakMap();
+  const hoverCleanup = new WeakMap();
+  const visible = container => container.clientWidth && !container.closest("[hidden],details:not([open])");
+  let tooltipSerial = 0;
+  const periodLabel = point => {
+    if (point.period) return String(point.period);
+    if (point.date || point.month) {
+      return new Date((point.date || point.month + "-01") + "T00:00:00Z").toLocaleDateString("en-US",
+        {month: "short", ...(point.date ? {day: "numeric"} : {}), year: "numeric", timeZone: "UTC"});
+    }
+    return String(point.year ?? point.label ?? "");
+  };
+  const fullValue = (value, unit) => (/USD|US\$/i.test(unit) ? "$" : "") +
+    value.toLocaleString("en-US", {maximumFractionDigits: 2}) + (/percent|%/i.test(unit) ? "%" : "");
+  const sameUnit = (a, b) => (/USD|US\$/i.test(a) ? "usd" : a.toLowerCase()) ===
+    (/USD|US\$/i.test(b) ? "usd" : b.toLowerCase());
+  const enableHover = (container, model, selections, axis, guide) => {
+    if (!selections.length) return;
+    const svg = container.querySelector(".screen-chart");
+    const controller = new AbortController(), options = {signal: controller.signal};
+    const tooltip = document.createElement("div");
+    tooltip.id = `plot-tooltip-${++tooltipSerial}`;
+    tooltip.className = "plot-tooltip";
+    tooltip.setAttribute("role", "tooltip");
+    tooltip.hidden = true;
+    document.body.append(tooltip);
+    container.dataset.tooltipId = tooltip.id;
+    container.removeAttribute("tabindex");
+    svg.setAttribute("tabindex", "0");
+    svg.setAttribute("aria-describedby", tooltip.id);
+    svg.setAttribute("aria-keyshortcuts", "ArrowLeft ArrowRight Home End Escape");
+    const layer = document.createElementNS("http://www.w3.org/2000/svg", "g");
+    layer.setAttribute("class", "plot-hover-layer");
+    layer.setAttribute("aria-hidden", "true");
+    svg.append(layer);
+    let active = -1, pinned = false, keyboard = false;
+    const hide = () => {
+      tooltip.hidden = true;
+      layer.replaceChildren();
+      for (const bar of svg.querySelectorAll(".screen-bar")) bar.removeAttribute("data-hovered");
+    };
+    const show = (index, clientX, clientY) => {
+      active = Math.max(0, Math.min(selections.length - 1, index));
+      const selection = selections[active];
+      tooltip.setAttribute("aria-live", keyboard ? "polite" : "off");
+      tooltip.innerHTML = `<p class="plot-tooltip-period">${escape(selection.heading)}</p>` +
+        selection.rows.map(row => {
+          const point = row.point;
+          const value = point ? `<strong class="plot-tooltip-value" data-value="${point.value}">${escape(fullValue(point.value, model.unit))}</strong>` :
+            '<span class="plot-tooltip-missing">Not reported</span>';
+          const reported = point && point.reported_value !== undefined &&
+            (!sameUnit(point.reported_unit || model.unit, model.unit) || point.reported_value !== point.value) ?
+            `<small class="plot-tooltip-reported" data-value="${point.reported_value}">Reported: ${escape(fullValue(point.reported_value, point.reported_unit))}${/USD|US\$/i.test(point.reported_unit) ? "" : " " + escape(point.reported_unit)}</small>` : "";
+          const qualifier = point?.status === "low_reliability" ? "Small survey sample" :
+            point?.status === "rounded" ? "Rounded in source" : point?.status === "estimated" ? "Estimate" : "";
+          return `<div class="plot-tooltip-row" data-series-id="${escape(row.id)}">
+            <span class="plot-tooltip-label"><i style="background:${color(row.color)}"></i>${escape(row.label)}</span>
+            ${value}${reported}${qualifier ? `<small class="plot-tooltip-qualifier">${escape(qualifier)}</small>` : ""}</div>`;
+        }).join("") + (axis === "x" ? `<p class="plot-tooltip-unit">${escape(model.unit)}</p>` : "") +
+        (selection.rows.some(row => row.point?.partial_window) ?
+          '<p class="plot-tooltip-note">Partial reporting period</p>' : "");
+      tooltip.hidden = false;
+      const rect = svg.getBoundingClientRect();
+      const view = svg.viewBox.baseVal;
+      const anchorX = clientX ?? rect.left + (axis === "x" ? selection.position : view.width / 2) / view.width * rect.width;
+      const anchorY = clientY ?? rect.top + (axis === "y" ? selection.position : guide.top + 20) / view.height * rect.height;
+      const bounds = tooltip.getBoundingClientRect();
+      let left = anchorX + 16, top = anchorY + 16;
+      if (left + bounds.width > innerWidth - 12) left = anchorX - bounds.width - 16;
+      if (top + bounds.height > innerHeight - 12) top = anchorY - bounds.height - 16;
+      tooltip.style.left = `${Math.max(12, Math.min(left, innerWidth - bounds.width - 12))}px`;
+      tooltip.style.top = `${Math.max(12, Math.min(top, innerHeight - bounds.height - 12))}px`;
+      if (axis === "x") {
+        layer.innerHTML = `<line x1="${selection.position}" x2="${selection.position}" y1="${guide.top}" y2="${guide.bottom}"/>` +
+          selection.markers.map(p => `<circle class="plot-hover-dot" data-series-id="${escape(p.id)}" cx="${p.x}" cy="${p.y}" r="4.5" fill="#f2efe7"
+            stroke="${color(p.color)}" stroke-width="1.8"/>`).join("");
+      } else {
+        for (const [i, bar] of [...svg.querySelectorAll(".screen-bar")].entries()) {
+          bar.toggleAttribute("data-hovered", i === active);
+        }
+      }
+    };
+    const nearest = event => {
+      const rect = svg.getBoundingClientRect(), view = svg.viewBox.baseVal;
+      const position = axis === "x" ? (event.clientX - rect.left) / rect.width * view.width :
+        (event.clientY - rect.top) / rect.height * view.height;
+      return selections.reduce((best, item, i) =>
+        Math.abs(item.position - position) < Math.abs(selections[best].position - position) ? i : best, 0);
+    };
+    svg.addEventListener("pointermove", event => {
+      keyboard = false;
+      show(nearest(event), event.clientX, event.clientY);
+    }, options);
+    svg.addEventListener("pointerdown", event => {
+      keyboard = false;
+      pinned = event.pointerType === "touch";
+      show(nearest(event), event.clientX, event.clientY);
+    }, options);
+    svg.addEventListener("pointerleave", () => { if (!pinned && !keyboard) hide(); }, options);
+    svg.addEventListener("pointercancel", () => { pinned = false; hide(); }, options);
+    svg.addEventListener("focus", () => { keyboard = true; show(active < 0 ? selections.length - 1 : active); }, options);
+    svg.addEventListener("blur", () => { keyboard = false; pinned = false; hide(); }, options);
+    svg.addEventListener("keydown", event => {
+      if (!["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown", "Home", "End", "Escape"].includes(event.key)) return;
+      event.preventDefault();
+      keyboard = true;
+      if (event.key === "Escape") { hide(); return; }
+      const index = event.key === "Home" ? 0 : event.key === "End" ? selections.length - 1 :
+        active + (["ArrowLeft", "ArrowUp"].includes(event.key) ? -1 : 1);
+      show(index);
+    }, options);
+    document.addEventListener("pointerdown", event => {
+      if (!container.contains(event.target)) { pinned = false; hide(); }
+    }, options);
+    hoverCleanup.set(container, () => {
+      controller.abort();
+      hide();
+      tooltip.remove();
+      delete container.dataset.tooltipId;
+      svg.removeAttribute("aria-describedby");
+    });
+  };
   const linearAxis = peak => {
     const extent = peak * 1.08 || 1;
     const power = 10 ** Math.floor(Math.log10(extent / 4));
@@ -29,19 +150,26 @@
     return {maximum: count * step, ticks: Array.from({length: count + 1}, (_, i) => i * step)};
   };
   const draw = (container, model) => {
-    if (!container.clientWidth) return;
+    hoverCleanup.get(container)?.();
+    hoverCleanup.delete(container);
+    if (!visible(container)) {
+      delete container.dataset.plotWidth;
+      return;
+    }
     const width = Math.max(280, Math.floor(container.clientWidth));
     container.dataset.plotWidth = String(width);
     const mobile = width < 600;
     const font = mobile ? 14 : 17;
-    let content = "", height;
+    let content = "", height, selections = [], hoverAxis = "x", guide;
     if (model.kind === "bars") {
+      hoverAxis = "y";
       height = 8;
       const maximum = Math.max(...model.bars.map(p => p.value), 1);
       const context = document.createElement("canvas").getContext("2d");
       context.font = `${font}px Georgia, serif`;
       for (const point of model.bars) {
-        const valueLabel = compact(point.value, model.unit);
+        const valueLabel = /USD/.test(model.unit) ? compact(point.value, model.unit) :
+          point.value.toLocaleString("en-US", {maximumFractionDigits: 6});
         const available = width - context.measureText(valueLabel).width - 24;
         const lines = [""];
         for (const word of point.label.split(/\s+/)) {
@@ -53,14 +181,18 @@
         const length = point.value / maximum * (width - 10);
         content += `<text x="0" y="${y}" font-size="${font}">${lines.map((line, i) =>
           `<tspan x="0" dy="${i ? 19 : 0}">${escape(line)}</tspan>`).join("")}</text>
-          <text x="${width - 2}" y="${y}" text-anchor="end" font-size="${font}">${escape(valueLabel)}</text>
+          <text class="screen-bar-value" x="${width - 2}" y="${y}" text-anchor="end" font-size="${font}">${escape(valueLabel)}</text>
           <rect class="screen-bar" data-label="${escape(point.label)}" data-value="${point.value}"
-            x="0" y="${y + (lines.length - 1) * 19 + 12}" width="${length}" height="8" rx="1" fill="${color(point.color)}">
-            <title>${escape(point.label)}: ${escape(point.value.toLocaleString("en-US"))} ${escape(model.unit)}</title></rect>`;
+            x="0" y="${y + (lines.length - 1) * 19 + 12}" width="${length}" height="8" rx="1" fill="${color(point.color)}"
+            aria-label="${escape(point.label)}: ${escape(point.value.toLocaleString("en-US"))} ${escape(model.unit)}"></rect>`;
+        const heading = point.period && !point.label.includes(point.period) ?
+          `${point.label.replace(/\s\(\d{4}\)$/, "")} · ${point.period}` : point.label;
+        selections.push({position: y + (lines.length - 1) * 19 + 16, heading,
+          rows: [{id: point.id || point.label, label: model.unit, color: point.color, point}]});
         height = y + (lines.length - 1) * 19 + 39;
       }
     } else {
-      height = mobile ? 340 : Math.round(Math.max(420, Math.min(640, width * .58)));
+      height = mobile ? 310 : Math.round(Math.max(380, Math.min(520, width * .5)));
       const margin = {left: mobile ? 66 : 94, right: 30, top: 44, bottom: 46};
       const points = model.groups.flatMap(group => group.points);
       const monthly = model.frequency === "monthly";
@@ -83,7 +215,7 @@
       const step = (axis.ticks[1] || 1) / divisor;
       let decimals = 0;
       while (decimals < 6 && Math.abs(step * 10 ** decimals - Math.round(step * 10 ** decimals)) > 1e-7) decimals++;
-      const tickLabel = value => divisor === 1 ? compact(value, model.unit) :
+      const tickLabel = value => logarithmic ? compact(value, model.unit) :
         (value / divisor).toLocaleString("en-US", {minimumFractionDigits: decimals, maximumFractionDigits: decimals});
       const first = model.first, last = Math.max(first + 1, model.last);
       const snapshot = !dated && !logarithmic && model.groups.length === 1 &&
@@ -114,19 +246,32 @@
       if (dated) {
         const ordered = [...new Map(points.map(p => [position(p), p])).values()]
           .sort((a, b) => position(a) - position(b));
+        const periodLabel = (point, endpoint = false) => {
+          const value = periodValue(point);
+          const label = value.endsWith(daily ? "-01-01" : "-01") && !(daily && endpoint) ? value.slice(0, 4) :
+            new Date(value + (daily ? "T00:00:00Z" : "-01T00:00:00Z")).toLocaleDateString("en-US",
+              {month: "short", ...(daily ? {day: "numeric"} : {}), year: "numeric", timeZone: "UTC"});
+          return label + (point.partial_window ? "*" : "");
+        };
+        const finalWidth = measure.measureText(periodLabel(ordered.at(-1), true)).width;
+        const finalLeft = x(position(ordered.at(-1))) - finalWidth;
         const labels = [ordered[0]];
+        let previousRight = x(position(ordered[0])) + measure.measureText(periodLabel(ordered[0], true)).width;
         for (const point of ordered.slice(1, -1)) {
+          const textWidth = measure.measureText(periodLabel(point)).width;
+          const left = x(position(point)) - textWidth / 2, right = left + textWidth;
           if (periodValue(point).endsWith(daily ? "-01-01" : "-01") && model.last - position(point) >= (daily ? 365 : 12) &&
-              x(position(point)) - x(position(labels.at(-1))) >= (mobile ? 90 : 85)) labels.push(point);
+              left >= previousRight + 14 && right <= finalLeft - 14) {
+            labels.push(point);
+            previousRight = right;
+          }
         }
         if (ordered.length > 1) labels.push(ordered.at(-1));
         for (const [i, point] of labels.entries()) {
-          const label = periodValue(point).endsWith(daily ? "-01-01" : "-01") ? periodValue(point).slice(0, 4) :
-            new Date(periodValue(point) + (daily ? "T00:00:00Z" : "-01T00:00:00Z")).toLocaleDateString("en-US",
-              {month: "short", year: "numeric", timeZone: "UTC"});
+          const label = periodLabel(point, i === 0 || i === labels.length - 1);
           const anchor = i === 0 ? "start" : i === labels.length - 1 ? "end" : "middle";
-          content += `<text class="screen-month" x="${x(position(point))}" y="${height - 7}" font-size="${font}"
-            text-anchor="${anchor}" fill="#655f55">${escape(label)}${point.partial_window ? "*" : ""}</text>`;
+          content += `<text class="screen-month" data-period="${escape(periodValue(point))}" x="${x(position(point))}" y="${height - 7}" font-size="${font}"
+            text-anchor="${anchor}" fill="#655f55">${escape(label)}</text>`;
         }
       } else {
         const step = mobile && last - first > 20 ? 10 : 5;
@@ -138,7 +283,18 @@
         const observedYears = [...new Set(points.map(p => p.year))].sort((a, b) => a - b);
         if (observedYears.length <= 8 && observedYears.every((year, i) =>
             !i || x(year) - x(observedYears[i - 1]) >= font * 2.4 + 5)) years = observedYears;
-        for (const year of years) {
+        const retained = [years[0]];
+        let previousRight = x(years[0]) + measure.measureText(String(years[0])).width / 2;
+        const finalLeft = x(years.at(-1)) - measure.measureText(String(years.at(-1))).width / 2;
+        for (const year of years.slice(1, -1)) {
+          const half = measure.measureText(String(year)).width / 2;
+          if (x(year) - half >= previousRight + 8 && x(year) + half <= finalLeft - 8) {
+            retained.push(year);
+            previousRight = x(year) + half;
+          }
+        }
+        if (years.length > 1) retained.push(years.at(-1));
+        for (const year of retained) {
           content += `<text class="screen-year" x="${x(year)}" y="${height - 7}" font-size="${font}" text-anchor="middle" fill="#655f55">${year}</text>`;
         }
       }
@@ -174,7 +330,7 @@
           const radius = point === group.points.at(-1) ? 4 : daily ? 0 : monthly ? 1.8 : 2.4;
           content += `<circle class="screen-point" data-series-id="${escape(group.id)}" ${period} data-value="${point.value}"
             cx="${x(position(point))}" cy="${y(point.value)}" r="${radius}" fill="${fill}"${stroke}
-            tabindex="-1"><title>${escape(point.label || `${group.label} ${point.year}: ${point.value.toLocaleString("en-US")} ${model.unit}`)}</title></circle>`;
+            tabindex="-1" aria-label="${escape(point.label || `${group.label} ${point.year}: ${point.value.toLocaleString("en-US")} ${model.unit}`)}"></circle>`;
         }
         if (!snapshot && model.groups.length === 1) {
           const point = group.points.at(-1);
@@ -183,16 +339,33 @@
             stroke="#f2efe7" stroke-width="4" paint-order="stroke">${escape(compact(point.value, model.unit))}</text>`;
         }
       }
+      const indexedGroups = model.groups.map(group => ({group, points: new Map(group.points.map(point => [position(point), point]))}));
+      selections = [...new Set(points.map(position))].sort((a, b) => a - b).map(period => {
+        const rows = indexedGroups.map(({group, points}) => ({
+          id: group.id, label: group.label || model.title, color: group.color, point: points.get(period)}));
+        return {position: x(period), heading: periodLabel(rows.find(row => row.point).point), rows,
+          markers: rows.filter(row => row.point).map(row => ({
+            id: row.id, x: x(period), y: y(row.point.value), color: row.color}))};
+      });
+      guide = {top: margin.top, bottom: height - margin.bottom};
     }
     const keys = model.legend || model.groups;
     const legend = keys?.length > 1 ? '<div class="plot-legend">' + keys.map(group =>
       `<span><i style="${group.dash ? `border-top:2px dashed ${color(group.color)}` : `background:${color(group.color)}`}"></i>${escape(group.label)}</span>`).join("") + "</div>" : "";
     container.innerHTML = `${model.kind === "bars" ? `<p class="plot-unit">${escape(model.unit)}</p>` : ""}${legend}<svg class="screen-chart" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width} ${height}"
-      role="img" aria-label="${escape(model.title)}"><title>${escape(model.title)}</title><desc>${escape(model.description)}</desc>
-      <g font-family="Georgia,serif" fill="#171713">${content}</g></svg>`;
+      role="img" aria-label="${escape(model.title)}"><desc>${escape(model.description)} Use arrow keys to inspect observations; Escape closes the value tooltip.</desc>
+      <g font-family="Georgia,serif" fill="#171713">${content}</g></svg>
+      <p class="plot-interaction-hint">Hover, tap or use arrow keys for values.</p>`;
+    enableHover(container, model, selections, hoverAxis, guide);
   };
   const observe = new ResizeObserver(entries => {
     for (const {target} of entries) {
+      if (!visible(target)) {
+        hoverCleanup.get(target)?.();
+        hoverCleanup.delete(target);
+        delete target.dataset.plotWidth;
+        continue;
+      }
       const width = Math.max(280, Math.floor(target.clientWidth));
       if (String(width) !== target.dataset.plotWidth && models.has(target)) draw(target, models.get(target));
     }
@@ -203,6 +376,11 @@
     draw(container, model);
     observe.observe(container);
   }
+  for (const details of document.querySelectorAll("details")) {
+    if (details.querySelector(".native-chart")) details.addEventListener("toggle", () => {
+      for (const container of details.querySelectorAll(".native-chart")) draw(container, models.get(container));
+    });
+  }
   const moduleSelector = document.getElementById("module-chart");
   if (moduleSelector) {
     const requested = new URLSearchParams(location.search).get("indicator");
@@ -212,7 +390,7 @@
         section.hidden = section.dataset.moduleChart !== moduleSelector.value;
       }
       for (const container of document.querySelectorAll(".native-chart")) {
-        if (container.clientWidth) draw(container, models.get(container));
+        draw(container, models.get(container));
       }
     };
     moduleSelector.addEventListener("change", select);
@@ -236,9 +414,13 @@
         const reference = present.find(r => r.year === (present[0].measure === "air_visitors" ? 2019 : 2020));
         let previous;
         const points = present.map(row => {
-          const point = {year: row.year, value: indexed ? row.value / reference.value * 100 : row.value,
+          const value = indexed ? row.value / reference.value * 100 : row.value;
+          const reported = `${row.unit === "USD" ? "$" : ""}${row.value.toLocaleString("en-US")} ${row.unit === "USD" ? "" : row.unit}`;
+          const point = {year: row.year, value,
+            period: row.period, reported_value: row.value, reported_unit: row.unit, status: row.status,
             connect: !!previous && row.year === previous.year + 1 && row.comparability === previous.comparability,
-            label: `${row.period}: ${row.unit === "USD" ? "$" : ""}${row.value.toLocaleString("en-US")} ${row.unit === "USD" ? "" : row.unit}`};
+            label: indexed ? `${row.period}: index ${value.toLocaleString("en-US", {maximumFractionDigits: 2})} (${reference.year} = 100); reported ${reported}` :
+              `${row.period}: ${reported}`};
           previous = row;
           return point;
         });
@@ -259,6 +441,8 @@
         get("latest-value").textContent = compact(latest.value, latest.unit);
       } else {
         models.delete(chart);
+        hoverCleanup.get(chart)?.();
+        hoverCleanup.delete(chart);
       }
       for (const a of get("figure-link").querySelectorAll("a")) {
         a.dataset.originalChart = "";
@@ -292,4 +476,5 @@
     update();
     document.querySelector("form.controls").hidden = false;
   }
+  document.documentElement.classList.add("plot-js");
 })();

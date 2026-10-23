@@ -110,6 +110,7 @@ def chart_groups(data, chart_id):
         groups.append({"id": sid, "label": data["series"][sid]["label"],
                        "color": PARTNER_COLORS.get(geo, PARTNER_COLORS["CHN"]),
                        "cadence": definition["cadence"], "scheduled_years": [r["year"] for r in rows],
+                       "period_basis": definition["period_basis"],
                        "points": [dict(r, plotted_value=r["value"], reported_unit=definition["unit"], plotted_unit=CHARTS[chart_id]["unit"])
                                   for r in rows if r["value"] is not None]})
     return groups

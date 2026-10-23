@@ -129,7 +129,8 @@
     const continuity = $("series-continuity");
     if (continuity) {
       continuity.hidden = measure !== "air_visitors";
-      continuity.textContent = "2021 is not plotted: the monitor reports zero volume despite positive survey responses. That is not treated as zero actual travel.";
+      continuity.textContent = data.public_display ? "A comparable 2021 estimate is unavailable from this source." :
+        "2021 is not plotted: the monitor reports zero volume despite positive survey responses. That is not treated as zero actual travel.";
     }
     $("partial-panel").hidden = true;
     $("figure-link").hidden = !current;
@@ -171,9 +172,11 @@
       "</tbody></table></div>";
     const manifest = data.sources[current.source_id];
     $("series-source").innerHTML = `Source: <a href="${escape(current.source_url)}">${escape(data.source_names[current.source_id])}</a>` +
-      ` \u00b7 ${escape(current.source_vintage)} \u00b7 ${escape(manifest.status)}. ` +
-      `Published retrieval: ${escape(current.retrieved_at)}. ${escape(manifest.notes || "")}`;
-    $("series-notes").textContent = current.notes;
+      ` \u00b7 ${escape(current.source_vintage)}` + (data.public_display ? "." :
+        ` \u00b7 ${escape(manifest.status)}. Published retrieval: ${escape(current.retrieved_at)}. ${escape(manifest.notes || "")}`);
+    const breaks = annual.filter((row, i) => i && row.comparability !== annual[i - 1].comparability).map(row => row.period);
+    $("series-notes").textContent = data.public_display ?
+      (breaks.length ? `Coverage changes in ${breaks.join(", ")}. Separate line segments preserve these boundaries.` : "") : current.notes;
     $("figure-link").innerHTML = "<p>Download reported values as a high-resolution PNG or editable SVG:</p><ul>" +
       Object.entries(data.figures[current.series_id]).map(([theme, files]) =>
         `<li>${escape(data.chart_themes[theme].label)}: ` +

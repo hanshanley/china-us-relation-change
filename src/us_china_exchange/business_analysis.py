@@ -141,7 +141,8 @@ def chart_groups(data, chart_id):
             points.append(dict(r, plotted_value=r["value"], denominator=None,
                                reported_unit=definition["unit"], plotted_unit=config["unit"]))
         result.append({"id": sid, "label": definition["label"], "color": COLORS[sid],
-                       "cadence": definition["cadence"], "scheduled_years": [r["year"] for r in rows], "points": points})
+                       "cadence": definition["cadence"], "period_basis": definition["period_basis"],
+                       "scheduled_years": [r["year"] for r in rows], "points": points})
     return result
 
 

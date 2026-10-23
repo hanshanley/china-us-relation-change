@@ -117,6 +117,11 @@ def test_summary_respects_timezone_attribution_and_private_corpus(tmp_path):
     rolling_doc = ElementTree.fromstring(svg_weibo(summary, "rolling30-posts"))
     description = next(x.text for x in rolling_doc.iter() if x.tag.endswith("desc"))
     assert "30-day" in description and "Monthly" not in description
+    date_labels = [x for x in rolling_doc.iter() if x.get("class") == "date-tick"]
+    complete = [r for r in summary["rolling_30d"] if not r["partial_window"]]
+    assert [date_labels[0].get("data-period"), date_labels[-1].get("data-period")] == [
+        complete[0]["date"], complete[-1]["date"]]
+    assert len(date_labels[0].text.split()) == len(date_labels[-1].text.split()) == 3
     doc = ElementTree.fromstring(svg_weibo(summary, "publication-years"))
     bars = [x for x in doc.iter() if x.get("class") == "data-bar"]
     assert {x.get("data-label") for x in bars} == {"2020", "2022"}

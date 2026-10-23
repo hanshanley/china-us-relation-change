@@ -2,7 +2,6 @@
 
 import html
 import json
-import math
 import re
 import sqlite3
 import textwrap
@@ -14,7 +13,7 @@ from zoneinfo import ZoneInfo
 
 from .model import digest, json_text
 from .weibo_activity import ROLLING_CHARTS, daily_activity, rolling_activity, validate_activity
-from .theme import BLUE, CHART_HEIGHT, CHART_THEMES, CHART_WIDTH, FONT, GOLD, GREEN, GRID, MUTED, TEXT
+from .theme import BLUE, CHART_HEIGHT, CHART_THEMES, CHART_WIDTH, FONT, GOLD, GREEN, GRID, MUTED, TEXT, axis_label, linear_axis
 
 
 WEIBO_CHARTS = {
@@ -477,9 +476,7 @@ def svg_monthly(summary, metric, theme):
     field = ROLLING_CHARTS[metric][1] if rolling else "recovered_posts" if metric == "monthly-posts" else "observed_accounts"
     unit = ROLLING_CHARTS[metric][2] if rolling else "Recovered posts per month" if metric == "monthly-posts" else "Channels with recovered posts per month"
     period = "date" if rolling else "month"
-    maximum = max(row[field] for row in rows) * 1.12
-    magnitude = 10 ** math.floor(math.log10(maximum))
-    maximum = math.ceil(maximum / magnitude) * magnitude
+    maximum, axis_ticks = linear_axis(max(row[field] for row in rows))
     month_number = (lambda day: date.fromisoformat(day).toordinal()) if rolling else (
         lambda month: int(month[:4]) * 12 + int(month[5:]) - 1)
     first, last = month_number(rows[0][period]), month_number(rows[-1][period])
@@ -501,9 +498,8 @@ def svg_monthly(summary, metric, theme):
         f'<text x="80" y="82" font-size="18">{esc(subtitle)}</text>',
         f'<text class="axis-unit" x="115" y="125" font-size="18" fill="{TEXT}">{unit}</text>',
     ]
-    for fraction in (0, .5, 1):
-        value = maximum * fraction
-        label = f"{value:,.1f}" if metric == "rolling30-average" else f"{value:,.0f}"
+    for value in axis_ticks:
+        label = axis_label(value)
         parts.append(f'<path d="M115 {y(value):.2f}H950" stroke="{GRID}" stroke-opacity=".6" stroke-width=".5"/>'
                      f'<text x="100" y="{y(value) + 6:.2f}" text-anchor="end">{label}</text>')
     ticks = [0]
@@ -517,13 +513,29 @@ def svg_monthly(summary, metric, theme):
                 ticks.append(i)
     if len(rows) > 1:
         ticks.append(len(rows) - 1)
-    for i in ticks:
+    def tick_label(i):
         row = rows[i]
-        label = datetime.strptime(row[period], "%Y-%m-%d" if rolling else "%Y-%m").strftime(
-            "%b %Y" if (not rolling and last - first <= 18) or not row[period].endswith("-01-01" if rolling else "-01") else "%Y")
-        label += "*" if row["partial_window"] else ""
+        pattern = ("%d %b %Y" if rolling and i in {0, len(rows) - 1} else
+                   "%b %Y" if (not rolling and last - first <= 18) or
+                   not row[period].endswith("-01-01" if rolling else "-01") else "%Y")
+        return datetime.strptime(row[period], "%Y-%m-%d" if rolling else "%Y-%m").strftime(pattern) + (
+            "*" if row["partial_window"] else "")
+
+    retained = [ticks[0]]
+    previous_right = x(rows[0][period]) + len(tick_label(0)) * 18 * .65
+    final_left = x(rows[-1][period]) - len(tick_label(len(rows) - 1)) * 18 * .65
+    for i in ticks[1:-1]:
+        half_width = len(tick_label(i)) * 18 * .65 / 2
+        if x(rows[i][period]) - half_width >= previous_right + 14 and x(rows[i][period]) + half_width <= final_left - 14:
+            retained.append(i)
+            previous_right = x(rows[i][period]) + half_width
+    if len(rows) > 1:
+        retained.append(len(rows) - 1)
+    for i in retained:
+        row = rows[i]
+        label = tick_label(i)
         anchor = "start" if i == 0 else "end" if i == len(rows) - 1 else "middle"
-        parts.append(f'<text x="{x(row[period]):.2f}" y="457" text-anchor="{anchor}" font-size="18">{esc(label)}</text>')
+        parts.append(f'<text class="date-tick" data-period="{row[period]}" x="{x(row[period]):.2f}" y="457" text-anchor="{anchor}" font-size="18">{esc(label)}</text>')
     previous = None
     line = []
     for row in rows:
@@ -605,11 +617,15 @@ def svg_weibo(summary, metric, theme="themarginoferror"):
         values = [(str(year), counts.get(year), BLUE) for year in range(min(counts), max(counts) + 1)]
         note = ("Publication years use Asia/Shanghai. Coverage and collection effort vary; this is not a posting-activity "
                 "trend or a causal measure. Unobserved years are not zero activity.")
+        windows = summary["source"]["requested_windows"]
+        if windows:
+            cutoff = max(timestamp(w["end"]) for w in windows).astimezone(SHANGHAI) - timedelta(microseconds=1)
+            if cutoff.year == max(counts) and (cutoff.month, cutoff.day) != (12, 31):
+                values[-1] = (f"{cutoff.year}*", values[-1][1], BLUE)
+                note += f" *{cutoff.year}: requested dates through {cutoff:%d %b}; partial year."
     else:
         raise ValueError("Unknown Weibo figure")
-    maximum = max((v for _, v, _ in values if v is not None), default=0) * 1.12 or 1
-    magnitude = 10 ** math.floor(math.log10(maximum))
-    maximum = math.ceil(maximum / magnitude) * magnitude
+    maximum, axis_ticks = linear_axis(max((v for _, v, _ in values if v is not None), default=0))
     esc = lambda value: html.escape(str(value), quote=True)
     snapshot = summary["source"]["latest_collection_at"]
     subtitle = f"Latest recorded collection: {snapshot[:10] if snapshot else 'no collection attempts'}"
@@ -625,16 +641,16 @@ def svg_weibo(summary, metric, theme="themarginoferror"):
     unit = "Documented channels" if metric in {"identity-evidence", "recovery-coverage"} else "Recovered posts"
     parts.append(f'<text class="axis-unit" x="{115 if annual else 380}" y="{130 if annual else 116}" '
                  f'font-size="18" fill="{TEXT}">{unit}</text>')
-    for fraction in (0, .5, 1):
-        value = maximum * fraction
+    for value in axis_ticks:
+        fraction = value / maximum
         if annual:
             y = 420 - fraction * 260
             parts.append(f'<path d="M115 {y:.2f}H950" stroke="{GRID}" stroke-opacity=".6" stroke-width=".5"/>'
-                         f'<text x="100" y="{y + 6:.2f}" text-anchor="end">{value:,.0f}</text>')
+                         f'<text x="100" y="{y + 6:.2f}" text-anchor="end">{axis_label(value)}</text>')
         else:
             x = 380 + fraction * 540
             parts.append(f'<path d="M{x:.2f} 125V440" stroke="{GRID}" stroke-opacity=".6" stroke-width=".5"/>'
-                         f'<text x="{x:.2f}" y="470" text-anchor="middle">{value:,.0f}</text>')
+                         f'<text x="{x:.2f}" y="470" text-anchor="middle">{axis_label(value)}</text>')
     for i, (label, value, color) in enumerate(values):
         if annual:
             x = 115 + (i + .5) / len(values) * 835

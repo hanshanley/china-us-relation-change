@@ -76,6 +76,7 @@ jobs:
           python scripts/check_exchange_browser.py
           python scripts/build_exchange_publication.py --output data/local/collective-publication
           python scripts/check_exchange_publication.py --site data/local/collective-publication
+          python scripts/audit_exchange_plots.py --site data/local/collective-publication --exports outputs/figures --output data/local/plot-audit
           git diff --check
       - name: Record actual check status
         if: always()
@@ -93,6 +94,7 @@ jobs:
           name: exchange-publication-${{ github.run_id }}
           path: |
             data/local/exchange/check.json
+            data/local/plot-audit/audit.json
             site/
           retention-days: 30
           if-no-files-found: warn

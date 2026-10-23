@@ -23,7 +23,7 @@ from .weibo_analysis import AUDIT_LABELS, SHANGHAI, WEIBO_CHARTS, svg_weibo, tim
 from .weibo_activity import DAILY_FIELDS, ROLLING_FIELDS
 from .theme import (CHART_HEIGHT, CHART_THEMES, CHART_WIDTH, COMPARISON_GEOGRAPHIES, FIGURE_CATEGORIES, FONT,
                     FONT_FILES, GRID, MUTED, PARTNER_COLORS, PNG_HEIGHT, PNG_WIDTH,
-                    TEXT, figure_category, linear_axis)
+                    TEXT, axis_label, figure_category, linear_axis)
 
 
 SOURCE_NAMES = {
@@ -127,7 +127,7 @@ def svg_chart(rows, indexed=False, theme="themarginoferror"):
              f'<text x="115" y="45" font-size="28" font-weight="bold" fill="{TEXT}">{esc(heading)}</text>',
              f'<text x="115" y="80" font-size="22">{esc(direction)}</text>']
     for value in ticks:
-        label = f"{value:.0f}" if indexed else number(value, unit, compact=True)
+        label = axis_label(value, "" if indexed else unit)
         parts.append(f'<path d="M115 {y(value):.2f}H950" stroke="{GRID}" stroke-opacity="0.6" stroke-width="0.5"/>'
                      f'<text x="100" y="{y(value) + 6:.2f}" text-anchor="end">{esc(label)}</text>')
     years = (sorted(values) if snapshot else
@@ -150,10 +150,13 @@ def svg_chart(rows, indexed=False, theme="themarginoferror"):
         path.append(f"{'L' if connected else 'M'}{x(year):.2f},{y(value):.2f}")
         previous = year
         previous_definition = definition
-    parts.append(f'<path class="data-line" d="{" ".join(path)}" fill="none" stroke="{color}" stroke-width="3.2" stroke-linejoin="round"/>')
+    parts.append(f'<path class="data-line" data-series-id="{esc(sample["series_id"])}" d="{" ".join(path)}" fill="none" stroke="{color}" stroke-width="3.2" stroke-linejoin="round"/>')
     for row in present:
         year = row["year"]
         label = row["period"] + ": " + number(row["value"], unit)
+        if indexed:
+            label = (f'{row["period"]}: index {values[year]:.2f} ({ref["year"]} = 100); '
+                     f'reported {number(row["value"], unit)} {unit}')
         if snapshot:
             value_label = f"{values[year]:.0f}" if indexed else number(values[year], unit, compact=True)
             parts.append(f'<rect class="snapshot-bar" x="{x(year) - 32:.2f}" y="{y(values[year]):.2f}" '
@@ -161,7 +164,10 @@ def svg_chart(rows, indexed=False, theme="themarginoferror"):
                          f'<text x="{x(year):.2f}" y="{y(values[year]) - 10:.2f}" text-anchor="middle" '
                          f'font-size="20" fill="{TEXT}">{esc(value_label)}</text>')
         radius = 4.5 if row is present[-1] else 2.8
-        parts.append(f'<circle cx="{x(year):.2f}" cy="{y(values[year]):.2f}" r="{radius}" fill="{color}">'
+        parts.append(f'<circle data-series-id="{esc(row["series_id"])}" data-year="{year}" data-value="{values[year]}" '
+                     f'data-period="{esc(row["period"])}" data-reported-value="{row["value"]}" '
+                     f'data-reported-unit="{esc(unit)}" data-status="{esc(row["status"])}" '
+                     f'cx="{x(year):.2f}" cy="{y(values[year]):.2f}" r="{radius}" fill="{color}">'
                      f'<title>{esc(label)}</title></circle>')
     if not snapshot:
         latest = present[-1]
@@ -257,7 +263,7 @@ def svg_comparison(rows, measure, direction, theme="themarginoferror", logarithm
     parts.append(f'<text class="axis-unit" x="115" y="153">{esc(unit)}</text>')
     for value in ticks:
         parts.append(f'<path d="M115 {y(value):.2f}H950" stroke="{GRID}" stroke-opacity="0.6" stroke-width="0.5"/>'
-                     f'<text x="100" y="{y(value) + 6:.2f}" text-anchor="end">{esc(number(value, present[0]["unit"], compact=True))}</text>')
+                     f'<text x="100" y="{y(value) + 6:.2f}" text-anchor="end">{esc(axis_label(value, present[0]["unit"]))}</text>')
     for year in sorted({first, end} | {year for year in range((first // 5 + 1) * 5, end, 5) if year - first >= 2 and end - year >= 2}):
         parts.append(f'<text x="{x(year):.2f}" y="455" font-size="18" text-anchor="middle">{year}</text>')
     parts.append(f'<path d="M115 180V420H950" stroke="{GRID}" stroke-width="0.8" fill="none"/>')
@@ -279,7 +285,9 @@ def svg_comparison(rows, measure, direction, theme="themarginoferror", logarithm
                      f'd="{" ".join(path)}" fill="none" stroke="{PARTNER_COLORS[geo]}" stroke-width="3.2" stroke-linejoin="round"{dash}/>')
         for row in data:
             label = GEOGRAPHIES[geo] + " · " + row["period"] + ": " + number(row["value"], row["unit"])
-            parts.append(f'<circle data-geography="{geo}" data-period="{esc(row["period"])}" cx="{x(row["year"]):.2f}" '
+            parts.append(f'<circle data-geography="{geo}" data-series-id="{esc(row["series_id"])}" data-year="{row["year"]}" '
+                         f'data-value="{row["value"]}" data-period="{esc(row["period"])}" '
+                         f'data-status="{esc(row["status"])}" cx="{x(row["year"]):.2f}" '
                          f'cy="{y(row["value"]):.2f}" r="3" fill="{PARTNER_COLORS[geo]}"><title>{esc(label)}</title></circle>')
     note = "Sources: " + "; ".join(SOURCE_NAMES.get(s, s) for s in sorted({r["source_id"] for r in present})) + ". "
     if measure == "goods" and any(r["source_id"] == "comtrade" for r in present):

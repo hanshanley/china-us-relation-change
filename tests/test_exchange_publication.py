@@ -112,6 +112,13 @@ def test_collective_export_preserves_complete_inputs_and_native_plot_boundaries(
     assert page.select_one('#measure option[selected]')["value"] == "goods"
     assert "2025" in page.select_one("#annual-headlines").text
     assert page.select_one("form.controls").has_attr("hidden")
+    assert page.select_one("#coverage").name == "details"
+    assert not page.select_one("#coverage").has_attr("open")
+    assert not page.select("#coverage-limits")
+    assert "Coverage, including the gaps" not in page.get_text()
+    assert "still being sourced" not in page.get_text()
+    assert json.loads((tmp_path / "downloads/coverage.json").read_text()) == json.loads(
+        (ROOT / "data/site/coverage.json").read_text())
     travel = BeautifulSoup((tmp_path / "travel.html").read_text(), "html.parser")
     assert travel.select_one('#measure option[selected]')["value"] == "visitors"
     assert travel.select_one(".travel-definition")
@@ -120,6 +127,7 @@ def test_collective_export_preserves_complete_inputs_and_native_plot_boundaries(
         assert travel.select_one("#" + identifier).find_parent("details") is None
     payload = json.loads(travel.select_one("#exchange-data").string)
     assert payload["prefer_current_travel"]
+    assert payload["public_display"]
     assert {r["year"] for r in payload["observations"] if
             r["series_id"] == "ntto_siat:USA:CHN:air_visitors" and r["frequency"] == "annual"} == {
                 *range(2012, 2021), *range(2022, 2026)}
@@ -137,6 +145,7 @@ def test_collective_export_preserves_complete_inputs_and_native_plot_boundaries(
     assert [g["id"] for g in college["groups"]] == ["mla:chinese", "mla:japanese", "mla:korean"]
     school = json.loads(language.select_one("#school-language-enrollments .plot-data").string)
     assert [b["value"] for b in school["bars"]] == [227086, 67909]
+    assert [b["period"] for b in school["bars"]] == ["2015", "2015"]
     availability = json.loads(language.select_one("#school-language-availability .plot-data").string)
     assert [b["value"] for b in availability["bars"]] == [1144, 433, 43]
     ap_scope = language.select_one("#ap-chinese-global .ap-scope-note")
@@ -175,3 +184,34 @@ def test_collective_export_preserves_complete_inputs_and_native_plot_boundaries(
             assert [(p["date"], p["value"]) for p in model["groups"][0]["points"]] == [
                 (row["date"], row[field]) for row in rolling]
     assert not list(tmp_path.rglob("*.pdf")) and not list(tmp_path.rglob("*.db"))
+
+
+@pytest.mark.parametrize("coordinate,issue", [("x", "misplaced_calendar_year"), ("y", "misplaced_y_coordinate")])
+def test_plot_auditor_rejects_correct_metadata_at_wrong_coordinates(coordinate, issue):
+    spec = importlib.util.spec_from_file_location("plot_audit", ROOT / "scripts/audit_exchange_plots.py")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    audit = module.Audit.__new__(module.Audit)
+    audit.issues = []
+    point = {"year": "2020", "value": 50, "x": 50, "y": 50}
+    point[coordinate] = 25
+    geometry = {"clipped": [], "overlaps": [], "unit": "Students",
+                "ticks": [{"label": "0", "y": 100}, {"label": "100", "y": 0}],
+                "points": [point], "snapshots": [], "bars": [], "paths": [], "allPaths": [],
+                "years": [{"value": 2010, "x": 0}, {"value": 2030, "x": 100}]}
+    model = {"kind": "line", "groups": [{"id": "example", "points": [{"year": 2020, "value": 50}]}]}
+    audit.geometry("example", geometry, model)
+    assert [row["kind"] for row in audit.issues] == [issue]
+
+
+def test_plot_auditor_rejects_year_labels_that_nearly_touch():
+    spec = importlib.util.spec_from_file_location("plot_audit", ROOT / "scripts/audit_exchange_plots.py")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    audit = module.Audit.__new__(module.Audit)
+    audit.issues = []
+    geometry = {"clipped": [], "overlaps": [], "points": [], "bars": [], "ticks": [], "texts": [
+        {"kind": "screen-year", "text": "2020", "x": 100, "w": 32},
+        {"kind": "screen-year", "text": "2024", "x": 134, "w": 32}]}
+    audit.geometry("example", geometry, None)
+    assert [row["kind"] for row in audit.issues] == ["crowded_year_labels"]
