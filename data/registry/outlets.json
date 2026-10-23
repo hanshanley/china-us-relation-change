@@ -1270,6 +1270,41 @@
       "notes": "The prior bare-vindy.com certificate-hostname failure remains recorded and was not re-queried or bypassed. The actual publisher app supplies an HTTPS www.vindy.com privacy URI; that hostname was checked under normal certificate validation and its own robots policy before root/actual Contact were read. No TLS changes, HTTP downgrade or unverified mirror. Actual2019 transaction-participant announcement concerns named assets/masthead/domain, not automatic continuation of any old Sina account. Current and historical operators, sibling Tribune titles, namesakes and staff accounts were not inherited. Unknown, not absent. Review date: 2026-10-23 UTC."
     },
     {
+      "id": "waterloo-cedar-falls-courier", "name": "Waterloo-Cedar Falls Courier / Iowa", "category": "newspaper",
+      "aliases": ["Waterloo/Cedar Falls Courier", "Waterloo-Cedar Falls Courier", "The Courier"],
+      "us_basis": "United States-classified source position191; actual root identifies Iowa coverage and the real Contact page gives Cedar Falls, Iowa correspondence. Current office occupancy and legal control are not independently audited.",
+      "source_url": "https://wcfcourier.com/", "research_status": "reviewed",
+      "notes": "Complete root, actual Contact and its actually linked staff page were read without a qualifying Sina designation. The staff page contains real newsroom entries, not just a placeholder. Slash variants were counted once; literal template URLs were not fetched. Closed-hours widgets do not mean the newspaper closed. Staff, sibling papers, other Courier titles and publisher-group profiles were not inherited. Unknown, not absent. Review date: 2026-10-23 UTC."
+    },
+    {
+      "id": "centre-daily-times", "name": "Centre Daily Times / State College, Pennsylvania", "category": "newspaper",
+      "aliases": ["Centre Daily Times", "State College Centre Daily Times"],
+      "us_basis": "United States-classified source position192; a current publisher market-profile body supplies centredaily.com and Penn State/Centre County context. The already captured publisher2015 annual report page14 explicitly joins the title, domain and State College, Pennsylvania; that row is historical, not current-control certification.",
+      "source_url": "https://www.centredaily.com/", "research_status": "reviewed",
+      "notes": "One ordinary newspaper attempt timed out without usable content. The exact corporate route has a generic Markets title but genuine domain-specific body text; it does not spell out the newspaper name in that body. Its logo image has empty alt/title attributes, so a filename was not presented as an actual named heading. The cached2015 named row supplies separate historical context only. No blocked newspaper article was retrieved elsewhere, and parent/sibling Sina accounts were not assigned. Unknown, not absent. Review date: 2026-10-23 UTC."
+    },
+    {
+      "id": "chico-enterprise-record", "name": "Chico Enterprise-Record / California", "category": "newspaper",
+      "aliases": ["Chico Enterprise-Record", "Enterprise-Record", "ChicoER.com"],
+      "us_basis": "United States-classified source position193; transient publisher metadata identifies Chico Enterprise-Record and Butte County, California coverage. This factual metadata-only review does not independently verify a current office or controller.",
+      "source_url": "https://www.chicoer.com/", "research_status": "reviewed",
+      "notes": "An explicit AI/text-data-mining reservation led to conservative removal of exactly the new root capture. Only factual metadata remains; raw_file/sha256 are null, and no further publisher-body requests were made. A separately reported web-reader robots restriction was not retried. The linked Contact route was not subsequently fetched, and discarded fingerprints are not available primary captures. Staff, sister papers, other Enterprise/Record namesakes and parent accounts were not substituted. Unknown, not absent. Review date: 2026-10-23 UTC."
+    },
+    {
+      "id": "rochester-democrat-chronicle", "name": "Democrat and Chronicle / Rochester, New York", "category": "newspaper",
+      "aliases": ["Rochester Democrat And Chronicle", "Rochester Democrat and Chronicle", "Democrat and Chronicle"],
+      "us_basis": "United States-classified source position194; the genuine already captured publisher publication directory names Rochester Democrat and Chronicle under New York on page12, with its institutional domain in the corresponding page19 contact section. The undated directory is not a current legal-controller certificate.",
+      "source_url": "https://www.democratandchronicle.com/", "research_status": "reviewed",
+      "notes": "Recorded newspaper HTTP403 respected without new newspaper, alias-host or obituary requests. The publisher directory was re-read offline; its publication/state entry and institutional domain are scope evidence, not a Sina designation or a substitute newspaper body. No new PDF download occurred. Gannett/USA TODAY, sibling papers, personal staff accounts and other Democrat/Chronicle titles were not inherited. Unknown, not absent. Review date: 2026-10-23 UTC."
+    },
+    {
+      "id": "nashua-telegraph", "name": "The Telegraph / Nashua, New Hampshire", "category": "newspaper",
+      "aliases": ["Nashua Telegraph", "The Nashua Telegraph", "The Telegraph"],
+      "us_basis": "United States-classified source position195; actual masthead and Contact identify the Nashua publication and New Hampshire correspondence. This is not an independent present-day ownership or office-occupancy audit.",
+      "source_url": "https://www.nashuatelegraph.com/", "research_status": "reviewed",
+      "notes": "Complete root and the actually linked Contact were read without a qualifying institutional Sina identifier. News coverage of artificial intelligence was not mistaken for an AI-use reservation. Hours widgets, staff listings and generic navigation were not operating-status certificates. The different Macon Telegraph, British Telegraph, publisher group and staff profiles were not assigned to this Nashua paper. Unknown, not absent. Review date: 2026-10-23 UTC."
+    },
+    {
       "id": "telemundo", "name": "Telemundo / Noticias Telemundo", "category": "broadcast_news",
       "aliases": ["Telemundo", "Noticias Telemundo", "Telemundo Noticias"],
       "us_basis": "United States-classified source position110; actual network root separately links its Noticias Telemundo newsroom section. Current corporate domicile/headquarters and legal account control are not independently audited.",

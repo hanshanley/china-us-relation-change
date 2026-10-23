@@ -28,15 +28,17 @@ The selected **1,000 SCImago U.S.-classified domains** are ranked by digital
 reputation, not traffic; their present ownership/nationality was not independently
 audited. **Five have current-profile evidence, seven historical-only evidence,
 988 remain unknown, and zero are verified negatives.** All underwent homepage
-screening, but only 190 have recorded manual review.
+screening, but only 195 have recorded manual review.
 
-The [latest scheduled pass](discovery_iteration38.md) adds five further
-reviews with twelve retained HTML responses. Vindicator's publisher-linked
-secure www host works with ordinary TLS; its older bare-host failure stays
-recorded. El Diario's account mention refers to Sina, not the newspaper.
-El Nuevo Herald's named parent profile is scope evidence while its own
-route still times out; El Nuevo Heraldo/MyRGV is a different publication.
-Discovery is not exhausted: 810 selected domains still lack a recorded
+The [latest scheduled pass](discovery_iteration39.md) adds five further
+reviews with six retained HTML responses and two genuine cached publisher
+PDFs re-read offline. Rochester's recorded HTTP403 was not retried; Centre
+Daily Times' ordinary newspaper attempt timed out. Its corporate page has
+domain-specific body text, but a blank-alt logo is not a named heading.
+Chico's explicit AI/text-mining reservation led to removal of the fresh
+root copy and no further host requests. The monthly graphs and complete
+82-month download remain unchanged.
+Discovery is not exhausted: 805 selected domains still lack a recorded
 manual review. A bounded recurring prompt is active every 30 minutes; later
 passes must advance the frontier rather than repeatedly probing exhausted leads.
 

@@ -3,7 +3,7 @@
 Audit date: October 22, 2026. Publication window remains January 1, 2020
 through October 21, 2026, inclusive in Asia/Shanghai.
 
-The registry-bound manifest was refreshed October 23 after seventy additional
+The registry-bound manifest was refreshed October 23 after seventy-five additional
 ranked-domain reviews. Existing account-source captures and identity decisions
 were retained; this refresh does not imply another live numeric-profile sweep.
 
@@ -142,7 +142,7 @@ The complete machine-readable decisions are in
 NYT Chinese's historical numeric recheck and VOA's numeric binding remain unresolved.
 Current legal operation and continuing license terms are not uniformly audited.
 The ranked cohort still has **12 positive domains, 988 unknown domains and zero
-verified negatives**; only 190 have recorded manual review. It is a SCImago
+verified negatives**; only 195 have recorded manual review. It is a SCImago
 U.S.-classified digital-reputation cohort, not a traffic ranking or an
 independently audited ownership list. This work improves the reliability of
 the documented positives and recovered corpus; it does not complete that census.
