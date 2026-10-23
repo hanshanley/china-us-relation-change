@@ -101,7 +101,8 @@ def svg_chart(rows, indexed=False, theme="themarginoferror"):
     maximum = max(values.values()) * 1.13 or 1
     magnitude = 10 ** math.floor(math.log10(maximum))
     maximum = math.ceil(maximum / magnitude) * magnitude
-    x = lambda year: 115 + (year - first) / max(1, end - first) * 835
+    snapshot = len(present) == 1 and first == end
+    x = lambda year: 532.5 if snapshot else 115 + (year - first) / max(1, end - first) * 835
     y = lambda value: 435 - value / maximum * 285
     sample = present[0]
     partner = sample["destination"] if sample["origin"] == "USA" else sample["origin"]
@@ -109,9 +110,11 @@ def svg_chart(rows, indexed=False, theme="themarginoferror"):
     heading = MEASURES[sample["measure"]]
     direction = f"{GEOGRAPHIES[sample['origin']]} to {GEOGRAPHIES[sample['destination']]}"
     title = f"{heading}: {direction}"
+    description = (f"Single verified annual snapshot for {first}; no historical trend inferred."
+                   if snapshot else f"Annual history from {first} where available. Missing years and definition changes break the line. Exact values are in the complete data download.")
     parts = [f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {CHART_WIDTH} {CHART_HEIGHT}" role="img" aria-label="{esc(title)}">',
              f"<title>{esc(title)}</title>",
-             f"<desc>Annual history from {first} where available. Missing years and definition changes break the line. Exact values are in the complete data download.</desc>",
+             f"<desc>{esc(description)}</desc>",
              f'<rect class="chart-background" width="{CHART_WIDTH}" height="{CHART_HEIGHT}" fill="{background}"/>',
              f'<g font-family="{esc(FONT)}" font-size="20" fill="{MUTED}">',
              f'<text x="115" y="45" font-size="28" font-weight="bold" fill="{TEXT}">{esc(heading)}</text>',
@@ -142,12 +145,21 @@ def svg_chart(rows, indexed=False, theme="themarginoferror"):
     for row in present:
         year = row["year"]
         label = row["period"] + ": " + number(row["value"], unit)
+        if snapshot:
+            value_label = f"{values[year]:.0f}" if indexed else number(values[year], unit, compact=True)
+            parts.append(f'<rect class="snapshot-bar" x="{x(year) - 32:.2f}" y="{y(values[year]):.2f}" '
+                         f'width="64" height="{435 - y(values[year]):.2f}" fill="{color}" aria-hidden="true"/>'
+                         f'<text x="{x(year):.2f}" y="{y(values[year]) - 10:.2f}" text-anchor="middle" '
+                         f'font-size="18" fill="{TEXT}">{esc(value_label)}</text>')
         parts.append(f'<circle cx="{x(year):.2f}" cy="{y(values[year]):.2f}" r="4" fill="{color}">'
                      f'<title>{esc(label)}</title></circle>')
     source = SOURCE_NAMES.get(sample["source_id"], sample["source_id"])
     breaks = [current["period"] for previous, current in zip(annual, annual[1:])
               if current["comparability"] != previous["comparability"]]
     note = f"Source: {source}. Annual observations; missing years and definition changes are not connected."
+    if snapshot:
+        kind = "estimate" if sample["status"] == "estimated" else "observation"
+        note = f"Source: {source}. Single verified annual {kind}; no historical trend inferred."
     if breaks:
         note = (f"Source: {source}. Population-definition breaks: " + ", ".join(breaks) +
                 ". Missing years and definition changes are not connected.")

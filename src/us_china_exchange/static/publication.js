@@ -43,7 +43,9 @@
       const high = logarithmic ? Math.max(low + 1, Math.ceil(Math.log10(Math.max(...points.map(p => p.value))))) : 1;
       const maximum = Math.ceil(highest / magnitude) * magnitude;
       const first = model.first, last = Math.max(first + 1, model.last);
-      const x = year => margin.left + (year - first) / (last - first) * (width - margin.left - margin.right);
+      const snapshot = !logarithmic && model.groups.length === 1 && points.length === 1 && model.first === model.last;
+      const plotWidth = width - margin.left - margin.right;
+      const x = year => margin.left + (snapshot ? .5 : (year - first) / (last - first)) * plotWidth;
       const y = value => height - margin.bottom - (logarithmic ? (Math.log10(value) - low) / (high - low) : value / maximum) * (height - margin.top - margin.bottom);
       content += `<text x="${margin.left}" y="13" font-size="${font}" fill="#655f55">${escape(model.unit)}</text>`;
       const ticks = logarithmic ? Array.from({length: high - low + 1}, (_, i) => 10 ** (low + i)) : [0, maximum / 2, maximum];
@@ -69,6 +71,12 @@
         content += `<path class="screen-line" data-series-id="${escape(group.id)}" d="${path}" fill="none"
           stroke="${color(group.color)}" stroke-width="2.3" stroke-linejoin="round"${group.dash ? ` stroke-dasharray="${escape(group.dash)}"` : ""}/>`;
         for (const point of group.points) {
+          if (snapshot) {
+            const barWidth = Math.min(52, plotWidth / 8);
+            content += `<rect class="screen-snapshot" x="${x(point.year) - barWidth / 2}" y="${y(point.value)}"
+              width="${barWidth}" height="${y(0) - y(point.value)}" fill="${color(group.color)}" aria-hidden="true"/>
+              <text x="${x(point.year)}" y="${y(point.value) - 9}" font-size="${font}" text-anchor="middle">${escape(compact(point.value, model.unit))}</text>`;
+          }
           content += `<circle class="screen-point" data-series-id="${escape(group.id)}" data-year="${point.year}" data-value="${point.value}"
             cx="${x(point.year)}" cy="${y(point.value)}" r="${mobile ? 2.8 : 3.2}" fill="${color(group.color)}"
             tabindex="-1"><title>${escape(point.label || `${group.label} ${point.year}: ${point.value.toLocaleString("en-US")} ${model.unit}`)}</title></circle>`;

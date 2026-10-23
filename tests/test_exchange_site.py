@@ -64,6 +64,21 @@ def test_offline_build_download_round_trip_and_reproducibility(tmp_path):
     assert before == {p.relative_to(tmp_path): p.read_bytes() for p in tmp_path.rglob("*") if p.is_file()}
 
 
+@pytest.mark.parametrize("value,label", [(434_000_000, "$434.0M"), (0, "$0")])
+def test_single_verified_year_is_a_labelled_snapshot_not_a_left_edge_trend(value, label):
+    row = observation("ustr", "USA", "MAC", "services", 2025, value,
+                      "Estimated cross-border services", status="estimated")
+    doc = ElementTree.fromstring(svg_chart([row]))
+    bar = next(n for n in doc.iter() if n.get("class") == "snapshot-bar")
+    assert float(bar.get("x")) + float(bar.get("width")) / 2 == (115 + 950) / 2
+    assert (float(bar.get("height")) > 0) == (value > 0)
+    text = " ".join(doc.itertext())
+    assert label in text and "no historical trend inferred" in text
+    assert "2026" not in text
+    line = next(n for n in doc.iter() if n.get("class") == "data-line")
+    assert "L" not in line.get("d")
+
+
 def test_charts_break_missing_years_and_definition_changes():
     def row(year, comparability="original"):
         return observation("test", "CHN", "USA", "visitors", year, 100,

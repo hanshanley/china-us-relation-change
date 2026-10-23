@@ -3,6 +3,7 @@
 
 import argparse
 import json
+import re
 from pathlib import Path
 
 from playwright.sync_api import expect, sync_playwright
@@ -40,6 +41,17 @@ def check(site, url=None, screenshots=None):
                         actual = page.locator("#chart .screen-point").evaluate_all(
                             "nodes=>nodes.map(n=>[Number(n.dataset.year),Number(n.dataset.value)])")
                         assert actual == [[r["year"], r["value"]] for r in annual], (geo, direction, measure)
+                        if len(annual) == 1:
+                            snapshot = page.locator("#chart .screen-snapshot")
+                            expect(snapshot).to_have_count(1)
+                            point = page.locator("#chart .screen-point")
+                            centre = float(snapshot.get_attribute("x")) + float(snapshot.get_attribute("width")) / 2
+                            assert abs(float(point.get_attribute("cx")) - centre) < .01
+                            bounds = re.fullmatch(r"M([\d.]+) [\d.]+H([\d.]+)",
+                                                  page.locator("#chart .screen-chart path").first.get_attribute("d"))
+                            assert bounds and abs(centre - (float(bounds[1]) + float(bounds[2])) / 2) < .01
+                            assert page.locator("#chart .screen-year").all_text_contents() == [str(annual[0]["year"])]
+                            assert (float(snapshot.get_attribute("height")) > 0) == (annual[0]["value"] > 0)
                         assert not page.evaluate("document.documentElement.scrollWidth>innerWidth"), (geo, direction, measure)
             page.select_option("#geography", "CHN")
             page.select_option("#direction", "to_us")

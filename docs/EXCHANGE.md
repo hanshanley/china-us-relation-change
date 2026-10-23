@@ -500,6 +500,9 @@ affiliate sales, or an allocation from Other Asia/Pacific. Quoted rounded
 amounts are normalized to USD without implying dollar-level accuracy. Older
 values are not reverse-engineered from rounded percentage or dollar changes.
 The USTR adapter is included in normal revision-aware refreshes.
+Its standalone plots use a labelled single-year bar snapshot in both
+publication backgrounds and the interactive view. One verified year is not
+drawn as a historical trend or left as an almost-empty line chart.
 
 The original DSEC *Tourism Statistics 2002*, table 1 (physical pages 53-54),
 also supplies U.S.-**residence** arrivals for **2001: 73,607** and
