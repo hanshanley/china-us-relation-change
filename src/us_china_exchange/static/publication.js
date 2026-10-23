@@ -33,7 +33,7 @@
     const width = Math.max(280, Math.floor(container.clientWidth));
     container.dataset.plotWidth = String(width);
     const mobile = width < 600;
-    const font = mobile ? 13 : 14;
+    const font = mobile ? 14 : 17;
     let content = "", height;
     if (model.kind === "bars") {
       height = 8;
@@ -60,8 +60,8 @@
         height = y + (lines.length - 1) * 19 + 39;
       }
     } else {
-      height = mobile ? 300 : 370;
-      const margin = {left: mobile ? 60 : 78, right: 22, top: 34, bottom: 38};
+      height = mobile ? 340 : Math.round(Math.max(420, Math.min(640, width * .58)));
+      const margin = {left: mobile ? 66 : 94, right: 30, top: 44, bottom: 46};
       const points = model.groups.flatMap(group => group.points);
       const monthly = model.frequency === "monthly";
       const position = point => monthly ? point.month_index : point.year;
@@ -70,6 +70,18 @@
       const low = logarithmic ? Math.floor(Math.log10(Math.min(...points.map(p => p.value)))) : 0;
       const high = logarithmic ? Math.max(low + 1, Math.ceil(Math.log10(Math.max(...points.map(p => p.value))))) : 1;
       const maximum = axis.maximum;
+      const currency = /USD/.test(model.unit);
+      const scalable = !logarithmic && !/percent|%|=\s*100/i.test(model.unit);
+      const scale = scalable ? [[1e12, "trillions"], [1e9, "billions"], [1e6, "millions"], [1e4, "thousands"]]
+        .find(([threshold]) => maximum >= threshold) : null;
+      const divisor = scale ? (scale[0] === 1e4 ? 1e3 : scale[0]) : 1;
+      const caption = (currency ? "Nominal US$" : model.unit.replace(/^./, c => c.toUpperCase())) +
+        (scale ? ` (${scale[1]})` : logarithmic && !/log/i.test(model.unit) ? " (log scale)" : "");
+      const step = (axis.ticks[1] || 1) / divisor;
+      let decimals = 0;
+      while (decimals < 6 && Math.abs(step * 10 ** decimals - Math.round(step * 10 ** decimals)) > 1e-7) decimals++;
+      const tickLabel = value => divisor === 1 ? compact(value, model.unit) :
+        (value / divisor).toLocaleString("en-US", {minimumFractionDigits: decimals, maximumFractionDigits: decimals});
       const first = model.first, last = Math.max(first + 1, model.last);
       const snapshot = !monthly && !logarithmic && model.groups.length === 1 &&
         ((points.length === 1 && model.first === model.last) ||
@@ -79,12 +91,22 @@
         snapshot ? (period - first + .5) / (model.last - first + 1) :
         (period - first) / (last - first)) * plotWidth;
       const y = value => height - margin.bottom - (logarithmic ? (Math.log10(value) - low) / (high - low) : value / maximum) * (height - margin.top - margin.bottom);
-      content += `<text x="${margin.left}" y="13" font-size="${font}" fill="#655f55">${escape(model.unit)}</text>`;
+      const measure = document.createElement("canvas").getContext("2d");
+      measure.font = `${font}px Georgia, serif`;
+      const unitLines = [""];
+      for (const word of caption.split(/\s+/)) {
+        const candidate = `${unitLines.at(-1)} ${word}`.trim();
+        if (unitLines.at(-1) && measure.measureText(candidate).width > plotWidth) unitLines.push(word);
+        else unitLines[unitLines.length - 1] = candidate;
+      }
+      margin.top = Math.max(margin.top, 16 + unitLines.length * (font + 4));
+      content += `<text class="screen-unit" x="${margin.left}" y="${font + 3}" font-size="${font}" fill="#655f55">${unitLines.map((line, i) =>
+        `<tspan x="${margin.left}" dy="${i ? font + 4 : 0}">${escape(line)}</tspan>`).join("")}</text>`;
       const ticks = logarithmic ? Array.from({length: high - low + 1}, (_, i) => 10 ** (low + i)) : axis.ticks;
       for (const value of ticks) {
         const yy = y(value);
         content += `<path d="M${margin.left} ${yy}H${width - margin.right}" stroke="#d6d3cc" stroke-width="${value === 0 ? 1 : .6}"/>
-          <text class="screen-y-tick" x="${margin.left - 9}" y="${yy + 4}" font-size="${font}" text-anchor="end" fill="#655f55">${escape(compact(value, model.unit))}</text>`;
+          <text class="screen-y-tick" x="${margin.left - 9}" y="${yy + 5}" font-size="${font}" text-anchor="end" fill="#655f55">${escape(tickLabel(value))}</text>`;
       }
       if (monthly) {
         const ordered = [...new Map(points.map(p => [p.month_index, p])).values()]
@@ -112,7 +134,7 @@
         years.push(last);
         const observedYears = [...new Set(points.map(p => p.year))].sort((a, b) => a - b);
         if (observedYears.length <= 8 && observedYears.every((year, i) =>
-            !i || x(year) - x(observedYears[i - 1]) >= font * 3 + 2)) years = observedYears;
+            !i || x(year) - x(observedYears[i - 1]) >= font * 2.4 + 5)) years = observedYears;
         for (const year of years) {
           content += `<text class="screen-year" x="${x(year)}" y="${height - 7}" font-size="${font}" text-anchor="middle" fill="#655f55">${year}</text>`;
         }
@@ -126,7 +148,7 @@
           return `${command}${x(position(point)).toFixed(2)},${y(point.value).toFixed(2)}`;
         }).join(" ");
         content += `<path class="screen-line" data-series-id="${escape(group.id)}" d="${path}" fill="none"
-          stroke="${color(group.color)}" stroke-width="${mobile ? 2.2 : 2.6}" stroke-linecap="round" stroke-linejoin="round"${group.dash ? ` stroke-dasharray="${escape(group.dash)}"` : ""}/>`;
+          stroke="${color(group.color)}" stroke-width="${mobile ? 2.5 : 3}" stroke-linecap="round" stroke-linejoin="round"${group.dash ? ` stroke-dasharray="${escape(group.dash)}"` : ""}/>`;
         if (monthly) {
           for (let i = 1; i < group.points.length; i++) {
             const before = group.points[i - 1], point = group.points[i];

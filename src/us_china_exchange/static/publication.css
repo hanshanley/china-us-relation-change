@@ -24,6 +24,7 @@
 .masthead nav a { text-decoration: none; white-space: nowrap; }
 .masthead nav .subscribe-link { padding: .5rem .7rem; background: var(--signal); color: var(--paper); }
 .publication-page .page { width: var(--page); max-width: none; margin: auto; padding: 30px 0 24px; }
+.publication-page main { max-width: 1040px; margin-inline: auto; }
 .publication-page .analysis-heading { max-width: none; padding: 0; }
 .kicker { margin: 0 0 10px; color: #7e1715; font: 700 10px var(--mono); letter-spacing: .13em; text-transform: uppercase; }
 .analysis-heading h1 { margin: 0; font-size: clamp(32px, 3.7vw, 48px); font-weight: 500; line-height: 1.05; letter-spacing: -.045em; }
@@ -39,11 +40,11 @@
 .publication-page select, .publication-page input { width: 100%; min-height: 38px; margin: 6px 0 0; padding: 8px 30px 8px 0; border: 0; border-bottom: 1px solid var(--rule); border-radius: 0; color: var(--ink); background: transparent; font: 15px var(--sans); }
 .publication-page .series-panel { margin: 0; padding: 26px 0; border: 0; border-bottom: 1px solid var(--rule); border-radius: 0; background: transparent; }
 .publication-page .series-panel h2 { margin: 0 0 12px; font-size: 26px; font-weight: 500; letter-spacing: -.025em; }
-.publication-page .chart-context { margin: 4px 0 15px; max-width: 900px; color: var(--muted); font: 13px/1.6 var(--sans); }
+.publication-page .chart-context { margin: 8px 0 20px; max-width: 900px; color: var(--muted); font: 15px/1.6 var(--sans); }
 .publication-page .ap-scope-note { max-width: 900px; margin: 12px 0; font: 14px/1.5 var(--sans); color: var(--muted); }
-.publication-page .series-panel > .eyebrow { margin-bottom: 5px; color: var(--muted); font: 11px var(--sans); letter-spacing: .07em; }
+.publication-page .series-panel > .eyebrow { margin-bottom: 9px; color: var(--muted); font: 13px var(--sans); letter-spacing: .06em; }
 .publication-page .exchange-panel { position: relative; padding-top: 10px; }
-.publication-page .exchange-panel h2 { font-size: 26px; margin-bottom: 0; }
+.publication-page .exchange-panel h2 { font-size: 32px; font-weight: 600; line-height: 1.15; margin-bottom: 0; }
 .publication-page .chart-heading { position: absolute; top: 0; right: 0; padding: 0; }
 .publication-page .chart-control select { max-width: 155px; min-height: 32px; font-size: 13px; padding: 6px 20px 6px 0; }
 .publication-page .chart-control label { display: none; }
@@ -53,10 +54,10 @@
 .publication-page .comparison-chart { margin: 12px 0; overflow: hidden; }
 .publication-page .native-chart { margin-block: 20px 24px; }
 .publication-page .screen-chart { font-variant-numeric: tabular-nums lining-nums; }
-.publication-page .plot-legend { display: flex; flex-wrap: wrap; gap: 8px 24px; padding: 0 0 14px; color: var(--muted); font: 13px/1.4 var(--sans); }
+.publication-page .plot-legend { display: flex; flex-wrap: wrap; gap: 8px 24px; padding: 0 0 14px; color: var(--muted); font: 14px/1.4 var(--sans); }
 .publication-page .plot-legend span { display: inline-flex; align-items: baseline; gap: 7px; }
 .publication-page .plot-legend i { width: 18px; height: 2px; flex-shrink: 0; align-self: center; }
-.publication-page .plot-unit { margin: 0 0 12px; color: var(--muted); font: 12px var(--sans); }
+.publication-page .plot-unit { margin: 0 0 12px; color: var(--muted); font: 14px var(--sans); }
 .publication-page .headline-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; padding: 16px 0; border-top: 1px solid var(--rule); }
 .publication-page .label { color: var(--muted); font: 11px var(--sans); letter-spacing: .025em; }
 .publication-page .metric, .publication-page .delta { margin: 5px 0 !important; font-size: 22px; line-height: 1.25; letter-spacing: -.02em; overflow-wrap: anywhere; }
@@ -65,7 +66,7 @@
 .publication-page .partial h3 { font: 12px var(--sans); color: var(--muted); }
 .publication-page .partial p { margin: 6px 0; font-size: 14px; }
 .publication-page .partial strong { font-size: 20px; font-weight: 500; }
-.publication-page .chart-note { margin: 12px 0; max-width: 920px; color: var(--muted); font: 13px/1.5 var(--sans); }
+.publication-page .chart-note { margin: 16px 0; max-width: 920px; color: var(--muted); font: 14px/1.6 var(--sans); }
 .publication-page .series-alternative { max-width: 100%; padding: 0; border: 0; background: none; color: inherit; font: inherit; text-align: left; text-decoration: underline; text-underline-offset: .18em; cursor: pointer; }
 .publication-page .series-alternative:focus-visible { outline: 2px solid var(--signal); outline-offset: 3px; }
 .publication-page details { border: 0; padding: 8px 0; }

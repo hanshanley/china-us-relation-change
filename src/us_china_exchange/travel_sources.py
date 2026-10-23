@@ -11,7 +11,7 @@ from .sources import attach
 
 MONITOR = "https://powerbi.trade.gov/#/workspace/IA-NTTO-PUBLIC/report/SIAT_Res_Final_Monitor"
 COUNTRIES = {"CHN": "China, People's Republic of", "HKG": "Hong Kong"}
-ANNUAL_YEARS = (*range(2012, 2020), 2022, 2023, 2024, 2025)
+ANNUAL_YEARS = (*range(2012, 2021), 2022, 2023, 2024, 2025)
 PARTIAL_YEAR, PARTIAL_QUARTER = 2026, 2
 
 
@@ -37,6 +37,8 @@ def parse_monitor_card(text, country, year, frequency):
     value, sample = int(match[1].replace(",", "")), int(match[3].replace(",", ""))
     if not sample or value % 1000:
         raise ValueError("SIAT empty sample or published estimate precision changed")
+    if value == 0:
+        raise ValueError("SIAT zero volume with positive survey responses requires source clarification")
     return value, sample, update[1].strip()
 
 
@@ -126,7 +128,8 @@ def collect_siat(client):
                               + ("Small respondent base (<100), interpret cautiously. " if sample < 100 else "")
                               + f"Monitor updated {update}; last imported quarter 2026 Q2. "
                               "Source checksum identifies the browser-captured visible report text with the selected filters, not an API response. "
-                              "2020-2021 are not filled or treated as zero; survey and border-arrival populations are not spliced.")
+                              "2021 is excluded: the monitor displays zero volume despite positive survey responses; "
+                              "no literal zero is inferred. Survey and border-arrival populations are not spliced.")
                     rows.extend(attach([row], asset, "NTTO public SIAT outbound monitor; 6 October 2026"))
         finally:
             browser.close()
@@ -154,10 +157,11 @@ def siat(client, refresh=False):
         raise ValueError("Reviewed SIAT destination/year coverage incomplete")
     return rows, "NTTO SIAT public monitor, 6 October 2026; through 2026 Q2", (
         "U.S.-resident air-travel destination estimates, kept separate from all-mode visitor arrivals. "
-        "Annual 2012–2019 and 2022–2025; separately selected Q1-Q2 observations in 2025 and 2026 support matched January–June comparisons. "
+        "Annual 2012–2020 and 2022–2025; separately selected Q1-Q2 observations in 2025 and 2026 support matched January–June comparisons. "
         "Quarter checkboxes are selected directly, not inferred by subtracting rounded annual and half-year totals. "
         "Monitor total-traveler and respondent cards read from the public report with explicit year, quarter and destination filters; "
         "source checksums identify retained browser-visible report text, not API responses. "
         "Estimates are rounded to 1,000; respondent counts appear in each observation's notes. "
         "Under-100 respondent bases are conservatively flagged low reliability. "
-        "No 2020–2021 estimates or invented zeros; no aggregation across destinations.")
+        "The 2021 monitor cards show zero volume despite positive respondent counts (China 267; Hong Kong 44); "
+        "these contradictory volume outputs are not interpreted as zero actual travel. No aggregation across destinations.")

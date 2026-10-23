@@ -41,6 +41,11 @@ def test_siat_cards_guard_destination_annual_year_and_imported_partial_boundary(
     historical = text.replace("2025 Q1 - 2025 Q4", "2012 Q1 - 2012 Q4").replace(
         "842,000", "1,140,000")
     assert parse_monitor_card(historical, "China, People's Republic of", 2012, "annual")[:2] == (1140000, 1113)
+    pandemic = text.replace("2025 Q1 - 2025 Q4", "2020 Q1 - 2020 Q4").replace(
+        "842,000", "89,000").replace("1,113", "357")
+    assert parse_monitor_card(pandemic, "China, People's Republic of", 2020, "annual")[:2] == (89000, 357)
+    with pytest.raises(ValueError, match="source clarification"):
+        parse_monitor_card(pandemic.replace("89,000", "0"), "China, People's Republic of", 2020, "annual")
     with pytest.raises(ValueError, match="filters"):
         parse_monitor_card(historical, "China, People's Republic of", 2013, "annual")
     with pytest.raises(ValueError, match="filters"):

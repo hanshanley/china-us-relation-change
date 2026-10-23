@@ -591,7 +591,7 @@ geographies.
 
 The manual travel review adds NBS country-attributed U.S. visitor arrivals to
 mainland China for 2000-2018. Separately, NTTO SIAT supplies U.S.-resident
-air-travel estimates to mainland China and Hong Kong for 2012-2019 and 2022-2025.
+air-travel estimates to mainland China and Hong Kong for 2012-2020 and 2022-2025.
 The public monitor's year selector is virtualized: the initially visible
 years are not its full history. The collector now scrolls that selector and
 verifies every displayed calendar-year/country caption. Fourteen additional
@@ -605,7 +605,13 @@ The 2025 and 2026 Q1-Q2 selections now explicitly deselect Q3 and Q4 with
 ordinary checkbox clicks; modifier-click was opening a macOS context menu.
 Their January-June values are read directly, not inferred by subtracting rounded
 totals: China 442,000 in 2025 and 474,000 in 2026; Hong Kong 304,000 and 251,000.
-No unverified 2020-2021 value is inferred. Survey estimates, all-mode border arrivals and
+The 2020 selections directly report 89,000 trips to mainland China (357
+respondents) and 39,000 to Hong Kong (64 respondents, flagged low reliability).
+Their earlier omission was a collection error, not absence of source data.
+In 2021 the monitor displays zero estimated volume despite positive respondent
+counts (267 for mainland China and 44 for Hong Kong). These outputs do not
+establish zero actual travel and remain excluded pending source clarification.
+Survey estimates, all-mode border arrivals and
 leisure-only tourists are not spliced together. Later all-mode mainland
 arrivals and pre-2023 U.S.-nationality Hong Kong arrivals remain unverified.
 
@@ -615,6 +621,9 @@ rounded axis intervals, and a latest-value end label for single-series plots.
 Long bar labels wrap without dropping the reference year. SVG/PNG exports
 retain the reference project's serif palette and both publication backgrounds;
 changes in population and missing years still break the plotted lines.
+The interactive plotting area is proportional to its width rather than fixed
+at a shallow desktop height. Desktop axes use 17px type, phone axes 14px, and
+large-value ticks use one declared scale (for example, trips in millions).
 
 `data/site/immigration.json` freezes 102 observations from five primary assets:
 four OHSS workbooks/archives and the UN DESA International Migrant Stock 2024

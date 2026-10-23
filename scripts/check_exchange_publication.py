@@ -100,10 +100,17 @@ def check(site, url=None, screenshots=None):
             page.select_option("#direction", "from_us")
             expect(page.locator("#measure")).to_have_value("air_visitors")
             expect(page.locator("#selection-note")).to_contain_text("ends in 2018")
-            assert page.locator("#chart .screen-point").count() == 12
+            assert page.locator("#chart .screen-point").count() == 13
             expect(page.locator("#series-population")).to_contain_text("2012–2025")
             expect(page.locator("#partial-panel")).to_contain_text("2026")
-            assert page.locator("#chart .screen-point[data-year='2020']").count() == 0
+            assert float(page.locator("#chart .screen-point[data-year='2020']").get_attribute("data-value")) == 89000
+            assert page.locator("#chart .screen-point[data-year='2021']").count() == 0
+            expect(page.locator("#chart .screen-unit")).to_have_text("Trips (millions)")
+            expect(page.locator("#series-continuity")).to_contain_text("despite positive survey responses")
+            chart_bounds = page.locator("#chart svg").bounding_box()
+            assert chart_bounds["height"] >= chart_bounds["width"] * .5
+            assert page.locator("#chart .screen-y-tick").evaluate_all(
+                f"nodes=>nodes.every(n=>Number(n.getAttribute('font-size'))>={14 if width == 390 else 17})")
             expect(page.locator("#baseline-label")).to_contain_text("2019 (pre-pandemic)")
             page.select_option("#chart-mode", "index")
             assert float(page.locator("#chart .screen-point[data-year='2019']").get_attribute("data-value")) == 100
@@ -115,7 +122,7 @@ def check(site, url=None, screenshots=None):
             expect(page.locator("#related-series")).to_contain_text("ends in 2018")
             page.locator("#related-series button").click()
             expect(page.locator("#measure")).to_have_value("air_visitors")
-            assert page.locator("#chart .screen-point").count() == 12
+            assert page.locator("#chart .screen-point").count() == 13
             if screenshots:
                 page.locator(".exchange-panel").screenshot(path=str(screenshots / f"tourism-current-{width}.png"))
             for geo in ("CHN", "HKG"):
@@ -160,7 +167,8 @@ def check(site, url=None, screenshots=None):
                     assert page.locator('#module-chart option[value="ap-language-standard-group"]').count() == 0
                     assert page.locator("#ap-language-standard-group").count() == 0
                 if name == "weibo.html":
-                    monthly = json.loads((site / "downloads/weibo-summary.json").read_text()).get("monthly", [])
+                    weibo_summary = json.loads((site / "downloads/weibo-summary.json").read_text())
+                    monthly = weibo_summary.get("monthly", [])
                     if monthly:
                         for chart, field in (("monthly-posts", "recovered_posts"), ("monthly-accounts", "observed_accounts")):
                             page.select_option("#module-chart", chart)

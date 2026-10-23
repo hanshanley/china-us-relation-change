@@ -110,14 +110,16 @@
         related.innerHTML += ' <a href="#student-estimates">Separate dated estimates through 2026, including reported bounds</a>.';
       }
     }
-    $("series-title").textContent = `${data.geographies[origin]} \u2192 ${data.geographies[destination]}`;
-    $("series-category").textContent = data.measures[measure];
+    $("series-title").textContent = measure === "air_visitors" ?
+      `U.S. travel to ${geo === "CHN" ? "mainland China" : data.geographies[geo]}` :
+      `${data.geographies[origin]} \u2192 ${data.geographies[destination]}`;
+    $("series-category").textContent = measure === "air_visitors" ? "Air-travel estimates" : data.measures[measure];
     const population = $("series-population");
     if (population) {
       const travel = ["visitors", "air_visitors", "leisure_visitors"].includes(measure) && !!current;
       population.hidden = !travel;
       if (travel) {
-        const scope = measure === "air_visitors" ? "U.S.-resident air trips (survey estimates)" :
+        const scope = measure === "air_visitors" ? "U.S. residents; annual survey estimates" :
           current.source_id === "ntto" ? "Overnight visitor arrivals by country of residence" :
           current.source_id === "nbs_tourism" ? "Historical all-mode visitor arrivals" :
           "Visitor arrivals; source-specific country attribution";
@@ -127,7 +129,7 @@
     const continuity = $("series-continuity");
     if (continuity) {
       continuity.hidden = measure !== "air_visitors";
-      continuity.textContent = "No verified survey estimates are shown for 2020\u20132021. The line stops at the gap; missing does not mean zero.";
+      continuity.textContent = "2021 is not plotted: the monitor reports zero volume despite positive survey responses. That is not treated as zero actual travel.";
     }
     $("partial-panel").hidden = true;
     $("figure-link").hidden = !current;
