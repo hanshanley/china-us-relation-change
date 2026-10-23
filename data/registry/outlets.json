@@ -1347,6 +1347,41 @@
       "notes": "Ordinary newspaper attempt timed out without a usable body. The specific corporate profile was read beyond its generic Markets title; the2015 report was reused offline only. Neither source designates a Sina account or supplies unavailable newspaper content. Tri-City namesakes in other regions, other Heralds, parent/sibling and staff accounts were not inherited. No historical acquisition date was treated as a current legal-controller audit. Unknown, not absent. Review date: 2026-10-23 UTC."
     },
     {
+      "id": "bowling-green-daily-news", "name": "Bowling Green Daily News", "category": "newspaper",
+      "aliases": ["Bowling Green Daily News", "Daily News", "Park City Daily News"],
+      "us_basis": "United States-classified source position202; actual publisher About and Contact connect Bowling Green Daily News with its Bowling Green, Kentucky institutional address. This is publication context, not independently audited ownership.",
+      "source_url": "https://bgdailynews.com/", "research_status": "reviewed",
+      "notes": "Complete root and actually linked /services/about-us/ and /services/contact-us/ read without an institutional Sina designation. Historical names, acquisition prose and print-frequency statements were not treated as present-day control or Weibo activity. Other Daily News titles, parent/sibling and staff accounts were not inherited. Unknown, not absent. Review date: 2026-10-23 UTC."
+    },
+    {
+      "id": "bristol-herald-courier", "name": "Bristol Herald Courier", "category": "newspaper",
+      "aliases": ["Bristol Herald Courier", "The Bristol Herald Courier", "Herald Courier"],
+      "us_basis": "United States-classified source position203; actual newspaper root and Contact identify the Bristol, Virginia publication. Publisher footer affiliation is not an independent legal-control audit.",
+      "source_url": "https://heraldcourier.com/", "research_status": "reviewed",
+      "notes": "Complete root and actual linked Contact read without an institutional Sina identifier. Staff-email-like relative paths and template placeholders were not followed. Contact-hours and login widgets were not evidence of newspaper closure or Weibo inactivity. Other Bristol/Herald/Courier titles, parent/sibling and staff accounts were not inherited. Unknown, not absent. Review date: 2026-10-23 UTC."
+    },
+    {
+      "id": "oklahoma-journal-record", "name": "The Journal Record / Oklahoma", "category": "newspaper",
+      "aliases": ["Oklahoma City Journal Record", "The Journal Record", "Journal Record"],
+      "us_basis": "United States-classified source position204; actual About body identifies The Journal Record as a business/legal newspaper serving the Oklahoma business community. This does not independently certify current legal control.",
+      "source_url": "https://journalrecord.com/", "research_status": "reviewed",
+      "notes": "Complete root and actually linked About read without a qualifying Sina designation. Indexed fashion-brand name matches and third-party posts are not publisher-to-account evidence for this newspaper. An About-relative newsletter path containing whitespace was not followed. Parent/sibling publications, other Journal/Record titles and staff profiles were not inherited. Unknown, not absent. Review date: 2026-10-23 UTC."
+    },
+    {
+      "id": "juneau-empire", "name": "Juneau Empire", "category": "newspaper",
+      "aliases": ["Juneau Empire", "Alaska Daily Empire"],
+      "us_basis": "United States-classified source position205; actual root, About and Contact identify the Juneau publication and Alaska-capital community context. U.S. publication scope is separate from ownership nationality.",
+      "source_url": "https://www.juneauempire.com/", "research_status": "reviewed",
+      "notes": "Complete canonical root and actually linked /services/about/ and /services/contact/ read without an institutional Sina identifier. About-page historical publisher/parent prose was not promoted to independently verified current ownership or uniform U.S. operation. Other Empire titles, parent/sibling and staff accounts were not inherited. Unknown, not absent. Review date: 2026-10-23 UTC."
+    },
+    {
+      "id": "napa-valley-register", "name": "Napa Valley Register", "category": "newspaper",
+      "aliases": ["Napa Valley Register", "The Napa Valley Register"],
+      "us_basis": "United States-classified source position206; actual root and the About page's publication-specific body name Napa Valley Register within Napa County, California publications. Publisher-stated affiliation is not independently audited current control.",
+      "source_url": "https://napavalleyregister.com/", "research_status": "reviewed",
+      "notes": "Complete root and actually linked About read without a qualifying Sina designation. The real heading is About our publications: its body explicitly lists Napa Valley Register and four sister titles, not a fabricated publication-specific heading. Sister publications were not counted as extra ranked domains or inherited accounts. Template placeholders, parent groups and staff profiles were not substituted. Unknown, not absent. Review date: 2026-10-23 UTC."
+    },
+    {
       "id": "telemundo", "name": "Telemundo / Noticias Telemundo", "category": "broadcast_news",
       "aliases": ["Telemundo", "Noticias Telemundo", "Telemundo Noticias"],
       "us_basis": "United States-classified source position110; actual network root separately links its Noticias Telemundo newsroom section. Current corporate domicile/headquarters and legal account control are not independently audited.",
