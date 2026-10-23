@@ -408,11 +408,23 @@ underlying statistical provider remains IIE, but these historical rows cite
 the government republication actually retrieved; direct IIE automated access
 remains paused, and no existing value was replaced.
 
-Five MOE U.S.-nationality student reporting snapshots (2011, 2012, 2014, 2016,
-2018) are separate from academic-credit study abroad, tertiary degree-only
-counts and enrolled-at-one-date stocks. Original or ministry-owned
-republications are retained; the 2016 table is reproduced in China National
-Radio's report of the education briefing.
+MOE U.S.-nationality student reporting observations now cover **2006-2016
+and 2018**, separately from academic-credit study abroad, tertiary degree-only
+counts and enrolled-at-one-date stocks. Seven missing years were recovered
+from Zhang Hongwei and Li Chenying's China Agricultural University Library
+statistical report, table 3, which explicitly cites the China Education
+Yearbook and MOE; the three overlapping ministry years agree exactly.
+Original ministry records take precedence. The 2016 table is reproduced in
+China National Radio's education-briefing report. The actual MOE 2017 release
+lists leading origin countries without a numeric U.S. row: 2017 is not guessed.
+
+The original NCES *Condition of Education 2010*, table A-40-2, also adds
+**13,165** U.S. academic-credit study-abroad participants in mainland China
+in **2007/08**, plotted at academic ending year **2008**. Its country count
+is not the table's rank, percentage, or older 1997/98 count. This population
+excludes Americans taking entire degrees abroad and is never joined to MOE
+reporting totals. `scripts/build_contact_backfill.py --education-only`
+reviews the education additions without rechecking tourism.
 
 HKTDC's official U.S. profile republishes HKTB **nationality** arrivals for
 2023-2025. Its 2023 U.S. count is 596,958, not the 594,752 residence-based
@@ -450,6 +462,16 @@ May 2025 is absent from the monthly top ten; the complete U.S. first-half
 profile directly reports 11,241 arrivals (3,409 sea + 6,427 land + 1,405 air).
 That primary table fills the omission. Every other overlapping first-half
 monthly count reconciles with the top-ten publications.
+
+The separate USTR Macau country summary resolves both previously empty
+services directions in **2025**: U.S. exports **$434.0 million**, U.S. imports
+**$208.0 million**. Their sum agrees with the reported **$642.0 million**
+services total and their difference with the **$226 million** surplus.
+These are direct estimated country figures, not goods/services subtraction,
+affiliate sales, or an allocation from Other Asia/Pacific. Quoted rounded
+amounts are normalized to USD without implying dollar-level accuracy. Older
+values are not reverse-engineered from rounded percentage or dollar changes.
+The USTR adapter is included in normal revision-aware refreshes.
 
 The public explorer disables unpopulated choices for each selected route,
 announces any necessary measure fallback, and offers separately labelled
@@ -571,9 +593,12 @@ confidential cells stay distinct from zero; raw source files are not published.
   exchange score, or causal inference is used.
 
 [Source contracts and specific gaps](SOURCES.md) document primary links and
-rejected substitutes. In particular, U.S.-origin mainland/Hong Kong visitor
-coverage, several degree-enrollment directions and Macau services remain
-unverified or blocked. Selecting one shows its specific gap instead of a zero.
+rejected substitutes. Mainland U.S.-attributed all-mode visitor history after
+2018 and several degree-enrollment directions remain unverified or blocked.
+Hong Kong's full 2000-2025 arrival history is recovered with a documented
+population break. Macau services now have direct USTR 2025 estimates in both
+directions, not an invented continuous history. Missing observations show a
+specific gap instead of a zero.
 
 ## Scheduled operation
 

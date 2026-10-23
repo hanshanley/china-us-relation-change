@@ -243,18 +243,25 @@
   },
   {
     "available_years": [
+      2006,
+      2007,
+      2008,
+      2009,
+      2010,
       2011,
       2012,
+      2013,
       2014,
+      2015,
       2016,
       2018
     ],
     "baseline_2020": false,
     "destination": "CHN",
-    "first_year": 2011,
+    "first_year": 2006,
     "last_year": 2018,
     "measure": "enrolled_students",
-    "observations": 5,
+    "observations": 12,
     "origin": "USA",
     "reason": "",
     "source_ids": [
@@ -287,6 +294,7 @@
   },
   {
     "available_years": [
+      2008,
       2018,
       2019,
       2020,
@@ -297,10 +305,10 @@
     ],
     "baseline_2020": true,
     "destination": "CHN",
-    "first_year": 2018,
+    "first_year": 2008,
     "last_year": 2024,
     "measure": "study_abroad",
-    "observations": 7,
+    "observations": 8,
     "origin": "USA",
     "reason": "",
     "source_ids": [
@@ -1121,16 +1129,20 @@
     ]
   },
   {
-    "available_years": [],
+    "available_years": [
+      2025
+    ],
     "baseline_2020": false,
     "destination": "USA",
-    "first_year": null,
-    "last_year": null,
+    "first_year": 2025,
+    "last_year": 2025,
     "measure": "services",
-    "observations": 0,
+    "observations": 1,
     "origin": "MAC",
-    "reason": "BEA selected-country workbook does not separately report Macau; no current compatible bilateral services series verified.",
-    "source_ids": []
+    "reason": "",
+    "source_ids": [
+      "ustr"
+    ]
   },
   {
     "available_years": [],
@@ -1319,16 +1331,20 @@
     ]
   },
   {
-    "available_years": [],
+    "available_years": [
+      2025
+    ],
     "baseline_2020": false,
     "destination": "MAC",
-    "first_year": null,
-    "last_year": null,
+    "first_year": 2025,
+    "last_year": 2025,
     "measure": "services",
-    "observations": 0,
+    "observations": 1,
     "origin": "USA",
-    "reason": "BEA selected-country workbook does not separately report Macau; no current compatible bilateral services series verified.",
-    "source_ids": []
+    "reason": "",
+    "source_ids": [
+      "ustr"
+    ]
   },
   {
     "available_years": [

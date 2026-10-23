@@ -182,7 +182,7 @@ def gap_reason(geo, origin, measure):
     if measure == "leisure_visitors":
         return "Available arrival sources are all-purpose trips; no separately verified leisure-purpose series for this direction."
     if measure == "services":
-        return "BEA selected-country workbook does not separately report Macau; no current compatible bilateral services series verified."
+        return "Macau services are directly reported in the USTR country summary for 2025; older years remain unverified. A missing value is not zero or a regional allocation."
     if measure == "visitors" and origin == "USA":
         if geo == "HKG":
             return "HKTB all-mode history uses residence for 2000-2022 and nationality for 2023-2025, with a visible definition break; matched first-half 2025/2026 counts are separate. No cross-definition 2020 index is calculated."

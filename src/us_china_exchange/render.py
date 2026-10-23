@@ -36,6 +36,7 @@ SOURCE_NAMES = {
     "taiwan_tourism": "Taiwan Tourism Administration",
     "macau_tourism": "Macao Government Tourism Office / DSEC",
     "comtrade": "UN Comtrade (U.S. reporter)",
+    "ustr": "Office of the U.S. Trade Representative",
 }
 
 

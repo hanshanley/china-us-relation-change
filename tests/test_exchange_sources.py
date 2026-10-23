@@ -12,6 +12,26 @@ from us_china_exchange.model import change, validate
 from us_china_exchange.travel_sources import parse_monitor_card
 
 
+def test_ustr_services_are_direct_country_flows_not_goods_or_derived_prior_years():
+    content = b"""<h1>Macau Trade Summary</h1>
+    U.S. goods exports to Macau in 2025 were $208.6 million.
+    U.S. services trade (exports plus imports) with Macau totaled an estimated $642.0 million in 2025.
+    U.S. services exports to Macau in 2025 were $434.0 million, down 1.6 percent ($7.0 million) from 2024.
+    U.S. services imports from Macau in 2025 were $208.0 million, up 511.8 percent ($174.0 million) from 2024.
+    The U.S. services trade surplus with Macau was $226 million in 2025."""
+    rows, year = sources.parse_ustr_macau_services(content)
+    assert year == 2025 and len(rows) == 2
+    assert {(r["origin"], r["destination"]): r["value"] for r in rows} == {
+        ("USA", "MAC"): 434_000_000, ("MAC", "USA"): 208_000_000}
+    assert all(r["status"] == "estimated" and r["unit"] == "USD" for r in rows)
+    with pytest.raises(ValueError, match="different annual periods"):
+        sources.parse_ustr_macau_services(content.replace(b"Macau in 2025 were $208.0", b"Macau in 2024 were $208.0"))
+    with pytest.raises(ValueError, match="rounding precision"):
+        sources.parse_ustr_macau_services(content.replace(b"$642.0", b"$652.0"))
+    with pytest.raises(ValueError, match="identity"):
+        sources.parse_ustr_macau_services(content.replace(b"Macau Trade Summary", b"Hong Kong Trade Summary"))
+
+
 def test_siat_cards_guard_destination_annual_year_and_imported_partial_boundary():
     text = ("Total Traveler Estimate\nto Destination\n842,000\n"
             "2025 Q1 - 2025 Q4 United States Travelers to China, People's Republic of\n"

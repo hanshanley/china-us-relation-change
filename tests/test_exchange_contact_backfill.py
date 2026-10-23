@@ -3,7 +3,7 @@ from pathlib import Path
 
 import pytest
 
-from us_china_exchange.contact_backfill import parse_hktdc, parse_nces
+from us_china_exchange.contact_backfill import parse_cau_history, parse_hktdc, parse_nces, parse_nces_credit
 from us_china_exchange.sources import SOURCE_POLICIES
 
 
@@ -50,12 +50,35 @@ def test_frozen_backfills_have_full_inbound_histories_without_accessing_restrict
         assert all(r["period_basis"] == "academic" for r in selected)
     assert SOURCE_POLICIES["iie"]["automatic_retrieval"] is False
     moe = [r for r in rows if r["source_id"] == "moe"]
-    assert {r["year"] for r in moe} == {2011, 2012, 2014, 2016, 2018}
+    assert {r["year"] for r in moe} == set(range(2006, 2017)) | {2018}
     assert all(r["period_basis"] == "reporting" and r["period_start"] is None and r["period_end"] is None
                and "degree and non-degree" in r["definition"] for r in moe)
     hk = {r["year"]: r for r in rows if r["source_id"] == "hktb"}
     assert hk[2023]["value"] == 596958
     assert all("nationality" in r["definition"] and "residence" in r["definition"] for r in hk.values())
+
+
+def test_historical_country_rank_changes_do_not_shift_moe_years():
+    countries = ["Japan", "Japan"] + ["US"] * 8
+    country_names = {"Japan": "\u65e5\u672c", "US": "\u7f8e\u56fd"}
+    plain = " ".join(str(y) for y in range(2006, 2016)) + "\n2 " + " ".join(
+        country_names[c] + " " + str(100 + i) for i, c in enumerate(countries))
+    plain += "\n3 " + " ".join(country_names["US" if i < 2 else "Japan"] + " " + str(200 + i)
+                              for i in range(10)) + "\n4 "
+    assert parse_cau_history(plain) == dict(
+        [(2006, 200), (2007, 201)] + [(2006 + i, 100 + i) for i in range(2, 10)])
+    with pytest.raises(ValueError, match="year columns"):
+        parse_cau_history(plain.replace("2015", "2017"))
+    with pytest.raises(ValueError, match="ten annual cells"):
+        parse_cau_history(plain.replace("\u7f8e\u56fd 109", ""))
+
+
+def test_nces_credit_count_is_not_a_rank_share_or_out_of_scope_comparison():
+    plain = ("top 25 destinations\nAcademic years 1997\u201398 and 2007\u201308\n"
+             "China 11 2,116 1.9 5 13,165 5.0 522.2")
+    assert parse_nces_credit(plain) == 13165
+    with pytest.raises(ValueError, match="periods"):
+        parse_nces_credit(plain.replace("2007\u201308", "2008\u201309"))
 
 
 def test_air_half_years_use_direct_filters_not_subtraction_of_rounded_totals():

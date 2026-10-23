@@ -19,6 +19,7 @@ from .model import START_YEAR, digest, observation
 BEA = "https://www.bea.gov/data/intl-trade-investment/international-trade-goods-and-services"
 BEA_HISTORY = "https://www.bea.gov/sites/default/files/2024-12/trad-geo-time-series-1024.xlsx"
 NTTO = "https://www.trade.gov/i-94-arrivals-program"
+USTR_MACAU = "https://ustr.gov/countries-regions/china-mongolia-taiwan/macau"
 UIS = "https://api.uis.unesco.org/api/public/"
 TAIWAN = "https://stat.taiwan.net.tw/data/opendata/6"
 IIE_INDEX = "https://opendoorsdata.org/2025-country-and-area-fact-sheet-pdfs/"
@@ -564,6 +565,74 @@ def macau(client):
         SOURCE_POLICIES["macau_tourism"]["notice"])
 
 
+def parse_ustr_macau_services(content):
+    plain = " ".join(BeautifulSoup(content, "html.parser").get_text(" ", strip=True).split())
+    if "Macau Trade Summary" not in plain:
+        raise ValueError("USTR Macau country identity changed")
+    patterns = {
+        "exports": r"U\.S\. services exports to Macau in (20\d{2}) were \$([\d,.]+) (million|billion)",
+        "imports": r"U\.S\. services imports from Macau in (20\d{2}) were \$([\d,.]+) (million|billion)",
+        "total": r"U\.S\. services trade \(exports plus imports\) with Macau totaled an estimated \$([\d,.]+) (million|billion) in (20\d{2})",
+        "balance": r"U\.S\. services trade (surplus|deficit) with Macau was \$([\d,.]+) (million|billion) in (20\d{2})",
+    }
+    figures, years, quotes, precisions = {}, set(), {}, {}
+    for name, pattern in patterns.items():
+        matches = list(re.finditer(pattern, plain))
+        if len(matches) != 1:
+            raise ValueError("USTR services amount/identity missing or ambiguous: " + name)
+        match = matches[0]
+        if name in {"exports", "imports"}:
+            year, amount, unit = int(match[1]), match[2], match[3]
+        elif name == "total":
+            year, amount, unit = int(match[3]), match[1], match[2]
+        else:
+            year, amount, unit = int(match[4]), match[2], match[3]
+        scale = Decimal(1_000_000 if unit == "million" else 1_000_000_000)
+        number = Decimal(amount.replace(",", ""))
+        figures[name] = int(number * scale)
+        precisions[name] = scale * Decimal(10) ** number.as_tuple().exponent
+        if name == "balance" and match[1] == "deficit":
+            figures[name] *= -1
+        quotes[name] = "$" + amount + " " + unit
+        years.add(year)
+    if len(years) != 1:
+        raise ValueError("USTR services figures refer to different annual periods")
+    year = years.pop()
+    if year < START_YEAR or year >= datetime.now().year:
+        raise ValueError("USTR services must be a reviewed complete year, not a forecast")
+    for control, actual in [
+        ("total", figures["exports"] + figures["imports"]),
+        ("balance", figures["exports"] - figures["imports"]),
+    ]:
+        tolerance = (precisions["exports"] + precisions["imports"] + precisions[control]) / 2
+        if abs(Decimal(actual) - figures[control]) > tolerance:
+            raise ValueError("USTR service flows do not reconcile within quoted rounding precision")
+    rows = []
+    for flow, origin, destination in [("exports", "USA", "MAC"), ("imports", "MAC", "USA")]:
+        rows.append(observation(
+            "ustr", origin, destination, "services", year, figures[flow],
+            "USTR U.S.-reported estimated cross-border services trade with Macau; nominal USD; "
+            "annual exports/imports, not foreign-affiliate sales or investment",
+            status="estimated", comparability="ustr:macau:cross_border_services",
+            notes="Direct country services figure: " + quotes[flow] + ". Source estimated/rounded "
+            "amount converted to USD, not single-dollar precision. Services exports + imports "
+            "and the trade balance reconcile with the independently quoted controls within source "
+            "precision. No goods total or regional remainder is allocated to services. "
+            "Prior-year amounts are not inferred from percentages or rounded changes; older history "
+            "remains unverified until another directly published annual source is reviewed."))
+    return rows, year
+
+
+def ustr_macau_services(client):
+    content, asset = client.get(USTR_MACAU)
+    rows, year = parse_ustr_macau_services(content)
+    return attach(rows, asset, f"USTR Macau Trade Summary, {year}"), (
+        f"USTR Macau Trade Summary; directly reported {year} estimated services"), (
+        "Separate direct USTR country estimates fill Macau services missing from the selected BEA "
+        "workbook. Exports, imports, total services and surplus/deficit are checked together. "
+        "Rounded nominal USD; not regional allocations or affiliate sales. Longer history not imputed.")
+
+
 def comtrade(client):
     rows = []
     latest = datetime.now().year - 1
@@ -610,4 +679,5 @@ def comtrade(client):
 
 ADAPTERS = {"bea": bea, "ntto": ntto, "uis": uis,
             "taiwan_tourism": taiwan, "iie": iie,
-            "macau_tourism": macau, "comtrade": comtrade}
+            "macau_tourism": macau, "comtrade": comtrade,
+            "ustr": ustr_macau_services}

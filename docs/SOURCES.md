@@ -9,6 +9,7 @@ and Taiwan separately, from 2000 where verified. Missing coverage is not zero.
 | International student totals and credit study abroad | [IIE Open Doors country sheets](https://opendoorsdata.org/2025-country-and-area-fact-sheet-pdfs/) | Retained reviewed 2025 snapshot, not automatically refreshed: IIE's terms prohibit automated downloading/analysis and separate permission is not verified. All four geographies: 2017/18–2024/25 totals including OPT; credit participation through 2023/24. Enrolled-only counts for 2023/24 and 2024/25 sum undergraduate, graduate and non-degree counts, excluding OPT. New retrieval/reuse requires permission review as well as layout/definition review. |
 | Goods and services, China/Hong Kong/Taiwan | [BEA geographic history](https://www.bea.gov/data/intl-trade-investment/international-trade-goods-and-services) | Discover the `geo-time-series.xlsx` download. Tables 4/5: goods exports/imports; 7/8: services exports/imports. **Balance-of-payments basis**, not Census customs trade. Multiply million USD by 1,000,000. Annual history from 2000; matched YTD sums of complete seasonally adjusted quarters, separately defined from annual totals. The current workbook's repeated 2000 / missing 2001 annual labels require the independently labelled December 2024 archive for those two years; no row-position correction. Macau is not separately reported. |
 | Macau goods | [UN Comtrade public API](https://comtradeapi.un.org/) | U.S. reporter 842, Macao partner 446, aggregate HS TOTAL, annual flows X/M. Exports FOB; imports CIF. These are customs statistics, not BEA BOP; the differing import valuation is conspicuous. No uncertain Taiwan mapping is used. |
+| Macau services | [USTR Macau Trade Summary](https://ustr.gov/countries-regions/china-mongolia-taiwan/macau) | Direct estimated 2025 U.S. services exports $434.0m and imports $208.0m. Reconciled with $642.0m total and $226m surplus, retaining quoted rounding. Nominal cross-border services, not affiliate sales. Older years are not inferred from rounded year-on-year changes. |
 | Visitors to U.S. | [NTTO I-94](https://www.trade.gov/i-94-arrivals-program) | Official country-of-residence visitor trips, including non-leisure purposes; annual and monthly spreadsheets are public. |
 | Visitors from U.S. | [NTTO SIAT](https://www.trade.gov/survey-international-air-travelers-siat), destination authorities | Preserve residence/citizenship, overnight/same-day, and air/all-mode distinctions. Never use flight passengers as tourists. |
 | Hong Kong arrivals | [HKTB](https://www.discoverhongkong.com/eng/hktb/newsroom/tourism-statistics.html) | Check U.S. residence and overnight/all-visitor columns separately. |
@@ -159,9 +160,11 @@ The audit on October 21, 2026 also checked the following:
   the documented alternative, not a silently equivalent Census series.
 - The legacy BEA factsheet endpoint is frozen at December 2020. Modern iTable
   data requests returned empty tables. Neither is used.
-- Hong Kong's official data.gov.hk dataset `650-80001` links C&SD JSON/CSV/XLS
-  resources. Those resources and HKTB returned 403; the public archive returned
-  no matching snapshot. U.S.-to-Hong Kong visitor arrivals remain a gap.
+- Hong Kong's original data.gov.hk dataset `650-80001` linked resources that
+  returned 403. The subsequent itemized recovery obtained a complete 2000-2025
+  history from C&SD, MGTO and HKTDC official republications, preserving the
+  residence/nationality break at 2023, and matching first-half 2025/2026 counts.
+  The earlier failed resource requests no longer mean this route is empty.
 - No current U.S.-origin mainland all-mode arrival table was verified in the
   official yearbook/authority sources. SIAT air-travel or flight passengers are
   not substituted. A new adapter needs an actual country table and its definition.
@@ -172,9 +175,11 @@ The audit on October 21, 2026 also checked the following:
 - IIE OPT-inclusive totals, enrolled-only counts, UIS degree mobility and U.S.
   credit-study-abroad participation remain separate measures. IIE study-abroad
   2024/25 is explicitly null, not a newer available observation.
-- Macau bilateral services are not separately available in the selected-country
-  BEA workbook. Comtrade service-preview requests returned no records; no
-  regional allocation or mirror-series substitution is made.
+- Macau bilateral services are absent from the selected-country BEA workbook,
+  and Comtrade service-preview requests returned no records. **USTR separately
+  reports both directions for 2025**, now recovered by its own adapter. This
+  resolves the empty current services routes, not their older annual history.
+  No regional allocation or mirror-series substitution is made.
 
 The source-specific coverage download is generated for every geography,
 direction and measure. Some combinations are outside the source's population,

@@ -27,25 +27,25 @@
     "last_recorded_check": "2026-10-22T01:27:39+00:00",
     "last_successful_retrieval": "2026-10-21T17:01:48+00:00",
     "notes": "IIE automatic retrieval is paused: its terms prohibit automated downloading and analysis. Previously reviewed observations are retained, not newly checked. Separate retrieval and reuse permission has not been verified; public access is not commercial-use clearance.",
-    "observations": 108,
+    "observations": 109,
     "status": "permission_required",
     "vintage": "Open Doors 2025"
   },
   "macau_tourism": {
-    "last_recorded_check": "2026-10-23T07:02:21+00:00",
+    "last_recorded_check": "2026-10-23T06:48:25+00:00",
     "last_successful_retrieval": "2026-10-23T06:48:25+00:00",
-    "notes": "Selected-market PDFs; unlisted U.S. values are missing, never zero. Latest complete annual market profile fills selected-market omissions. Arrivals exclude non-resident workers/students from 2008. Residence classification changed to issuing place of travel document in April 2015; transition is not comparable. This adapter covers complete annual reports, not newer monthly highlights. MGTO site terms limit use to noncommercial purposes. Commercial reuse permission has not been verified; these exports do not grant publication rights.",
+    "notes": "Direct 2025/2026 monthly and cumulative source-market tables, supplemented by complete U.S. first-half profiles when a monthly top-ten row is absent; travel-document issuing place, not U.S. residence. Existing annual history retained.",
     "observations": 55,
     "status": "available",
-    "vintage": "MGTO annual highlights through 2025; Market Performance 2008, 2010, 2015, 2024"
+    "vintage": "MGTO/DSEC monthly and YTD U.S.-attributed arrivals through August 2026"
   },
   "moe": {
-    "last_recorded_check": "2026-10-23T05:26:45+00:00",
-    "last_successful_retrieval": "2026-10-23T05:26:45+00:00",
-    "notes": "Reported U.S.-nationality degree and non-degree students, not U.S. credit-program participants or tertiary degree-only counts. Historical snapshots do not establish later enrollment. Original statistical aggregates only; reports are not redistributed.",
-    "observations": 5,
+    "last_recorded_check": "2026-10-23T07:06:18+00:00",
+    "last_successful_retrieval": "2026-10-23T07:06:18+00:00",
+    "notes": "Reported U.S.-nationality degree and non-degree students, not U.S. credit-program participants or tertiary degree-only counts. Historical snapshots do not establish later enrollment. CAU's original yearbook/MOE research table restores seven earlier/intermediate years; 2011, 2012 and 2014 overlap exactly with retained ministry reports. The reviewed 2017 ministry briefing ranks source countries without a U.S. count, so no number is inferred. Original statistical aggregates only; reports are not redistributed.",
+    "observations": 12,
     "status": "available",
-    "vintage": "MOE reviewed historical reporting years 2011, 2012, 2014, 2016, 2018"
+    "vintage": "MOE reporting years 2006-2016 and 2018; original and explicitly attributed republications"
   },
   "nbs_tourism": {
     "last_recorded_check": "2026-10-22T21:13:18+00:00",
@@ -86,5 +86,13 @@
     "observations": 76,
     "status": "available",
     "vintage": "February 2026 Data Release"
+  },
+  "ustr": {
+    "last_recorded_check": "2026-10-23T07:50:26+00:00",
+    "last_successful_retrieval": "2026-10-23T07:50:26+00:00",
+    "notes": "Separate direct USTR country estimates fill Macau services missing from the selected BEA workbook. Exports, imports, total services and surplus/deficit are checked together. Rounded nominal USD; not regional allocations or affiliate sales. Longer history not imputed.",
+    "observations": 2,
+    "status": "available",
+    "vintage": "USTR Macau Trade Summary; directly reported 2025 estimated services"
   }
 }

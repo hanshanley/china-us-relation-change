@@ -1,10 +1,12 @@
-"""Manual review of government-republished education and visitor aggregates."""
+"""Manual review of education and visitor aggregate republications."""
 
+import io
 import re
 from urllib.parse import urljoin
 
 import xlrd
 from bs4 import BeautifulSoup
+from pypdf import PdfReader
 
 from .model import key, observation, validate
 from .sources import attach
@@ -28,6 +30,8 @@ MOE_HISTORY = [
     (2018, 20996, "https://www.moe.gov.cn/jyb_xwfb/gzdt_gzdt/s5987/201904/t20190412_377692.html"),
 ]
 HKTDC = "https://research.hktdc.com/en/article/MzIwNjY2NTgx"
+CAU_HISTORY = "https://libwx.cau.edu.cn/oldweb/gxyxkfz/gqyd/12_qw.pdf"
+NCES_CREDIT = "https://nces.ed.gov/pubs2010/2010028.pdf"
 
 
 def text(value):
@@ -137,6 +141,86 @@ def government_student_history(client, prior):
     return validate(list(existing.values()))
 
 
+def parse_cau_history(plain):
+    if " ".join(str(y) for y in range(2006, 2016)) not in " ".join(plain.split()):
+        raise ValueError("Reviewed MOE-republication year columns changed")
+    result = {}
+    for rank in (2, 3):
+        match = re.search(r"^\s*" + str(rank) + r"\s+(.*?)(?=^\s*" + str(rank + 1) + r"\s+)",
+                          plain, re.MULTILINE | re.DOTALL)
+        pairs = re.findall(r"([\u4e00-\u9fff]+)\s+(\d+)", match[1]) if match else []
+        if len(pairs) != 10:
+            raise ValueError("Reviewed country/rank table must have ten annual cells per row")
+        for year, (country, value) in zip(range(2006, 2016), pairs):
+            if country == "\u7f8e\u56fd":
+                if year in result:
+                    raise ValueError("Duplicate U.S. country count in a reporting year")
+                result[year] = int(value)
+    if set(result) != set(range(2006, 2016)):
+        raise ValueError("MOE historical U.S. country coverage is incomplete")
+    return result
+
+
+def mainland_history(client, reference):
+    body, asset = client.get(CAU_HISTORY)
+    if asset["sha256"] != "f3b962ef79a090a99a2ae129831b85fde7f9900c592e53ead2def90618a023e1":
+        raise ValueError("Reviewed CAU historical education report changed")
+    plain = PdfReader(io.BytesIO(body)).pages[36].extract_text()
+    existing = {r["year"]: r for r in reference}
+    values = parse_cau_history(plain)
+    if any(values[y] != existing[y]["value"] for y in (2011, 2012, 2014)):
+        raise ValueError("Academic republication does not reconcile with original MOE overlaps")
+    rows = []
+    for year, value in values.items():
+        if year in existing:
+            continue
+        base = reference[0]
+        row = observation(
+            "moe", "USA", "CHN", "enrolled_students", year, value, base["definition"],
+            period_basis="reporting", comparability=base["comparability"],
+            notes="MOE/China Education Yearbook aggregate republished in Zhang Hongwei and Li Chenying's "
+            "original China Agricultural University Library research report, table 3, PDF/printed page 37. "
+            "The study explicitly identifies the yearbook and MOE website as data sources. All three "
+            "retained overlapping MOE years (2011, 2012, 2014) reconcile exactly. "
+            "A university-authored statistical republication, not an original MOE web release; "
+            "degree and non-degree reporting-year participation, not a point-in-time physical stock.")
+        rows.extend(attach([row], asset, "CAU Library 2017 research report; MOE/China Education Yearbook 2006-2015"))
+    return rows
+
+
+def parse_nces_credit(plain):
+    compact = " ".join(plain.split())
+    if ("Academic years 1997\u201398 and 2007\u201308" not in compact
+            or "top 25 destinations" not in compact):
+        raise ValueError("NCES academic-credit destination table or periods changed")
+    match = re.search(r"^China\s+\d+\s+[\d,]+\s+[\d.]+\s+\d+\s+([\d,]+)\s+[\d.]+\s+[\d.]+\s*$",
+                      plain, re.MULTILINE)
+    if not match:
+        raise ValueError("NCES China credit-study count columns changed")
+    return int(match[1].replace(",", ""))
+
+
+def government_credit_history(client, prior):
+    body, asset = client.get(NCES_CREDIT)
+    plain = PdfReader(io.BytesIO(body)).pages[329].extract_text()
+    value = parse_nces_credit(plain)
+    base = next(r for r in prior if r["origin"] == "USA" and r["destination"] == "CHN"
+                and r["measure"] == "study_abroad" and r["year"] == 2018)
+    row = observation(
+        "iie", "USA", "CHN", "study_abroad", 2008, value, base["definition"],
+        period_basis="academic", comparability=base["comparability"],
+        notes="NCES Condition of Education 2010, table A-40-2, PDF page 330/printed page 294, "
+        "government republication of Open Doors. U.S. citizens and permanent residents enrolled in "
+        "U.S. degree programs receiving home-institution academic credit; not full degrees overseas. "
+        "The 1997/98 comparison column is outside scope. Direct IIE retrieval remains paused.")
+    row = attach([row], asset, "NCES Condition of Education 2010; academic-credit destination table A-40-2")[0]
+    existing = {key(r): r for r in prior}
+    if key(row) in existing and existing[key(row)]["value"] != value:
+        raise ValueError("NCES credit-history backfill conflicts with a retained observation")
+    existing.setdefault(key(row), row)
+    return validate(list(existing.values()))
+
+
 def mainland_students(client):
     rows = []
     for year, expected, url in MOE_HISTORY:
@@ -160,9 +244,13 @@ def mainland_students(client):
             reviewed["source_url"] = url
             reviewed["notes"] += f" Requested official locator: {url}; publisher-resolved retrieval URL: {asset['url']}."
         rows.append(reviewed)
-    return rows, "MOE reviewed historical reporting years 2011, 2012, 2014, 2016, 2018", (
+    rows.extend(mainland_history(client, rows))
+    return rows, "MOE reporting years 2006-2016 and 2018; original and explicitly attributed republications", (
         "Reported U.S.-nationality degree and non-degree students, not U.S. credit-program participants or "
         "tertiary degree-only counts. Historical snapshots do not establish later enrollment. "
+        "CAU's original yearbook/MOE research table restores seven earlier/intermediate years; "
+        "2011, 2012 and 2014 overlap exactly with retained ministry reports. "
+        "The reviewed 2017 ministry briefing ranks source countries without a U.S. count, so no number is inferred. "
         "Original statistical aggregates only; reports are not redistributed.")
 
 

@@ -14,6 +14,7 @@ sys.path.insert(0, str(ROOT / "src"))
 from us_china_exchange.contact_backfill import hong_kong_visitors
 from us_china_exchange.language_sources import ReviewClient
 from us_china_exchange.pipeline import refresh, write_atomic
+from us_china_exchange.sources import ustr_macau_services
 from us_china_exchange.tourism_backfill import macau_recent
 
 
@@ -27,7 +28,8 @@ if __name__ == "__main__":
         staging = Path(directory)
         shutil.copytree(ROOT / "data/site", staging / "data/site")
         report = refresh(staging, adapters={"hktb": hong_kong_visitors,
-                                           "macau_tourism": macau_recent}, client=client)
+                                           "macau_tourism": macau_recent,
+                                           "ustr": ustr_macau_services}, client=client)
         for name in ("observations.json", "sources.json", "coverage.json"):
             write_atomic(ROOT / "data/site" / name, (staging / "data/site" / name).read_text())
     print(report)
