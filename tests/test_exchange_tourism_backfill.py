@@ -7,11 +7,27 @@ from bs4 import BeautifulSoup
 from us_china_exchange.model import change
 from us_china_exchange.render import svg_chart
 from us_china_exchange.tourism_backfill import (
-    parse_early_hong_kong, parse_hong_kong_profile, parse_macau_months, parse_top_ten,
+    parse_early_hong_kong, parse_early_macau, parse_hong_kong_profile, parse_macau_months, parse_top_ten,
 )
 
 
 ROOT = Path(__file__).resolve().parents[1]
+
+
+def test_early_macau_uses_residence_totals_not_mode_counts_shares_or_nationality():
+    header = ("TABLE 1 : VISITOR ARRIVALS BY PLACE OF RESIDENCE\n"
+              "2001 2002 2001 2002 2001 2002 2001 2002")
+    row = ("US  51 379  50 170  16 998  20 850  5 230  5 884  73 607  0.72  76 904  0.67  4.48\n"
+           "Estados Unidos da America\nUnited States of America")
+    assert parse_early_macau(header, row) == {2001: 73607, 2002: 76904}
+    with pytest.raises(ValueError, match="residence table"):
+        parse_early_macau(header.replace("PLACE OF RESIDENCE", "NATIONALITY"), row)
+    with pytest.raises(ValueError, match="reconcile"):
+        parse_early_macau(header, row.replace("76 904", "86 648"))
+    with pytest.raises(ValueError, match="counts"):
+        parse_early_macau(header, row.replace("50 170", "50 17"))
+    with pytest.raises(ValueError, match="U.S. residence"):
+        parse_early_macau(header, row.replace("United States of America", "Canada"))
 
 
 def test_early_hong_kong_preserves_seven_digit_count_and_residence_columns():

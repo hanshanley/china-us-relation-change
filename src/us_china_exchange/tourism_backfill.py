@@ -12,6 +12,9 @@ from .sources import attach, macau_observation
 
 MGTO = "https://dataplus.macaotourism.gov.mo"
 HK_DIGEST = "https://www.statistics.gov.hk/pub/B10100032003AN03B0600.pdf"
+MACAU_2002 = (
+    "https://www.dsec.gov.mo/getAttachment/8c86dc19-36cc-4a05-8133-5470c143c09b/"
+    "P_TUR_PUB_2002_Y.aspx")
 HK_REPORTS = [
     (2008, "M12_MarketingPerformance_2008_1246941849.pdf",
      "9e2ac46cf301021f8c1b8862bf590c199792cc0b2b3cf9933085ddf61b8ead0e"),
@@ -175,8 +178,46 @@ def parse_macau_months(plain):
     return result
 
 
+def parse_early_macau(header, continuation):
+    compact = " ".join(header.split())
+    if ("TABLE 1 : VISITOR ARRIVALS BY PLACE OF RESIDENCE" not in compact
+            or "2001 2002 2001 2002 2001 2002 2001 2002" not in compact):
+        raise ValueError("DSEC residence table or paired year columns changed")
+    lines = continuation.splitlines()
+    matches = [i for i, line in enumerate(lines) if line.strip() == "United States of America"]
+    if len(matches) != 1 or matches[0] < 2:
+        raise ValueError("DSEC U.S. residence row missing or ambiguous")
+    fields = re.split(r"\s{2,}", lines[matches[0] - 2].strip())
+    columns = (1, 2, 3, 4, 5, 6, 7, 9)
+    if len(fields) != 12 or any(
+            not re.fullmatch(r"\d{1,3}(?: \d{3})*", fields[i]) for i in columns):
+        raise ValueError("DSEC country counts, shares or transport columns changed")
+    counts = [int(fields[i].replace(" ", "")) for i in columns]
+    for i in (0, 1):
+        if sum(counts[i:6:2]) != counts[6 + i]:
+            raise ValueError("DSEC sea, land and air arrivals do not reconcile with total")
+    return {2001: counts[6], 2002: counts[7]}
+
+
+def macau_history(client):
+    body, asset = client.get(MACAU_2002)
+    if asset["sha256"] != "e3ab0b4ae3b1e0a5283406f1e8609701e11bd4c6ba2f12650f5ea374168f2eef":
+        raise ValueError("Reviewed DSEC Tourism Statistics 2002 report changed")
+    pages = PdfReader(io.BytesIO(body)).pages
+    values = parse_early_macau(pages[52].extract_text(),
+                              pages[53].extract_text(extraction_mode="layout"))
+    rows = [macau_observation(
+        year, value,
+        "DSEC Tourism Statistics 2002, table 1, physical pages 53-54; directly published "
+        "all-mode residence totals. Sea + land + air reconciles in each year. Not table 12 "
+        "nationality counts, sea-only arrivals, package tours, or combined U.S./Canada hotel "
+        "guests. This pre-2008 population includes non-resident workers and students.")
+        for year, value in values.items()]
+    return attach(rows, asset, "DSEC Tourism Statistics 2002, table 1; 2001 and 2002")
+
+
 def macau_recent(client):
-    rows = []
+    rows = macau_history(client)
     for year in (2025, 2026):
         for month in range(1, 9):
             url = (f"{MGTO}/Publication/Report/TopTenVisitorSourceMarkets"
@@ -219,7 +260,8 @@ def macau_recent(client):
     if not all(any(r["year"] == y and r["frequency"] == "ytd" and r["period"].endswith("-08")
                    for r in rows) for y in (2025, 2026)):
         raise ValueError("Matching latest Macau cumulative periods are required")
-    return rows, "MGTO/DSEC monthly and YTD U.S.-attributed arrivals through August 2026", (
+    return rows, "DSEC 2001-2002 residence history; MGTO/DSEC monthly/YTD through August 2026", (
         "Direct 2025/2026 monthly and cumulative source-market tables, supplemented by complete U.S. "
         "first-half profiles when a monthly top-ten row is absent; travel-document issuing place, "
-        "not U.S. residence. Existing annual history retained.")
+        "not U.S. residence. Original DSEC 2002 table 1 restores 2001/2002 all-mode residence "
+        "arrivals before the 2008 worker/student exclusion. Other annual history retained.")

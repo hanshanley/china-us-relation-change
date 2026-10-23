@@ -473,6 +473,16 @@ amounts are normalized to USD without implying dollar-level accuracy. Older
 values are not reverse-engineered from rounded percentage or dollar changes.
 The USTR adapter is included in normal revision-aware refreshes.
 
+The original DSEC *Tourism Statistics 2002*, table 1 (physical pages 53-54),
+also supplies U.S.-**residence** arrivals for **2001: 73,607** and
+**2002: 76,904**. Each total reconciles with its separately reported sea,
+land and air counts. These are not the report's table 12 U.S.-nationality
+totals (80,740 and 86,648) or its combined U.S./Canada hotel-guest figures.
+The pre-2008 inclusion of non-resident workers/students matches the retained
+early series; its existing 2008 and 2015 population breaks are preserved.
+Macau annual history is now continuous from 2001, while 2000 remains under
+source review.
+
 The public explorer disables unpopulated choices for each selected route,
 announces any necessary measure fallback, and offers separately labelled
 newer/broader series where appropriate. Incompatible indexes fall back to

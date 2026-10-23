@@ -1230,6 +1230,8 @@
     },
     {
       "available_years": [
+        2001,
+        2002,
         2003,
         2004,
         2005,
@@ -1256,10 +1258,10 @@
       ],
       "baseline_2020": true,
       "destination": "MAC",
-      "first_year": 2003,
+      "first_year": 2001,
       "last_year": 2025,
       "measure": "visitors",
-      "observations": 55,
+      "observations": 57,
       "origin": "USA",
       "reason": "",
       "source_ids": [
@@ -20762,6 +20764,52 @@
       "unit": "students",
       "value": null,
       "year": 2025
+    },
+    {
+      "comparability": "macau:place of residence; includes non-resident workers and students",
+      "definition": "MGTO/DSEC U.S.-attributed arrivals by place of residence; includes non-resident workers and students; same-day and overnight trips, not unique people",
+      "destination": "MAC",
+      "frequency": "annual",
+      "measure": "visitors",
+      "notes": "DSEC Tourism Statistics 2002, table 1, physical pages 53-54; directly published all-mode residence totals. Sea + land + air reconciles in each year. Not table 12 nationality counts, sea-only arrivals, package tours, or combined U.S./Canada hotel guests. This pre-2008 population includes non-resident workers and students. From 2008, arrivals exclude non-resident workers and students. Classification changed in April 2015; 2015 mixes methods. Document-issue attribution is not U.S. residence or a departure from the U.S.",
+      "origin": "USA",
+      "period": "2001",
+      "period_basis": "calendar",
+      "period_end": "2001-12-31",
+      "period_start": "2001-01-01",
+      "raw_sha256": "e3ab0b4ae3b1e0a5283406f1e8609701e11bd4c6ba2f12650f5ea374168f2eef",
+      "retrieved_at": "2026-10-23T07:53:02+00:00",
+      "series_id": "macau_tourism:USA:MAC:visitors",
+      "source_id": "macau_tourism",
+      "source_url": "https://www.dsec.gov.mo/getAttachment/8c86dc19-36cc-4a05-8133-5470c143c09b/P_TUR_PUB_2002_Y.aspx",
+      "source_vintage": "DSEC Tourism Statistics 2002, table 1; 2001 and 2002",
+      "status": "observed",
+      "unit": "trips",
+      "value": 73607,
+      "year": 2001
+    },
+    {
+      "comparability": "macau:place of residence; includes non-resident workers and students",
+      "definition": "MGTO/DSEC U.S.-attributed arrivals by place of residence; includes non-resident workers and students; same-day and overnight trips, not unique people",
+      "destination": "MAC",
+      "frequency": "annual",
+      "measure": "visitors",
+      "notes": "DSEC Tourism Statistics 2002, table 1, physical pages 53-54; directly published all-mode residence totals. Sea + land + air reconciles in each year. Not table 12 nationality counts, sea-only arrivals, package tours, or combined U.S./Canada hotel guests. This pre-2008 population includes non-resident workers and students. From 2008, arrivals exclude non-resident workers and students. Classification changed in April 2015; 2015 mixes methods. Document-issue attribution is not U.S. residence or a departure from the U.S.",
+      "origin": "USA",
+      "period": "2002",
+      "period_basis": "calendar",
+      "period_end": "2002-12-31",
+      "period_start": "2002-01-01",
+      "raw_sha256": "e3ab0b4ae3b1e0a5283406f1e8609701e11bd4c6ba2f12650f5ea374168f2eef",
+      "retrieved_at": "2026-10-23T07:53:02+00:00",
+      "series_id": "macau_tourism:USA:MAC:visitors",
+      "source_id": "macau_tourism",
+      "source_url": "https://www.dsec.gov.mo/getAttachment/8c86dc19-36cc-4a05-8133-5470c143c09b/P_TUR_PUB_2002_Y.aspx",
+      "source_vintage": "DSEC Tourism Statistics 2002, table 1; 2001 and 2002",
+      "status": "observed",
+      "unit": "trips",
+      "value": 76904,
+      "year": 2002
     },
     {
       "comparability": "macau:place of residence; includes non-resident workers and students",
@@ -59972,12 +60020,12 @@
       "vintage": "Open Doors 2025"
     },
     "macau_tourism": {
-      "last_recorded_check": "2026-10-23T08:02:15+00:00",
-      "last_successful_retrieval": "2026-10-23T06:48:25+00:00",
-      "notes": "Selected-market PDFs; unlisted U.S. values are missing, never zero. Latest complete annual market profile fills selected-market omissions. Arrivals exclude non-resident workers/students from 2008. Residence classification changed to issuing place of travel document in April 2015; transition is not comparable. This adapter covers complete annual reports, not newer monthly highlights. MGTO site terms limit use to noncommercial purposes. Commercial reuse permission has not been verified; these exports do not grant publication rights.",
-      "observations": 55,
+      "last_recorded_check": "2026-10-23T08:07:15+00:00",
+      "last_successful_retrieval": "2026-10-23T08:07:15+00:00",
+      "notes": "Direct 2025/2026 monthly and cumulative source-market tables, supplemented by complete U.S. first-half profiles when a monthly top-ten row is absent; travel-document issuing place, not U.S. residence. Original DSEC 2002 table 1 restores 2001/2002 all-mode residence arrivals before the 2008 worker/student exclusion. Other annual history retained.",
+      "observations": 57,
       "status": "available",
-      "vintage": "MGTO annual highlights through 2025; Market Performance 2008, 2010, 2015, 2024"
+      "vintage": "DSEC 2001-2002 residence history; MGTO/DSEC monthly/YTD through August 2026"
     },
     "moe": {
       "last_recorded_check": "2026-10-23T07:06:18+00:00",
