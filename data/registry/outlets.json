@@ -1452,6 +1452,41 @@
       "notes": "Complete root and actually linked /site/contact.html inspected without a qualifying institutional Sina identifier. Actual publication name and geography were read in the Contact body, not inferred from a generic dentonrc.com title, search snippet or share widget. Other Record/Chronicle titles, archive services, parent/sibling and staff accounts were not inherited. Unknown, not absent. Review date: 2026-10-23 UTC."
     },
     {
+      "id": "dothan-eagle", "name": "Dothan Eagle", "category": "newspaper",
+      "aliases": ["Dothan Eagle", "The Dothan Eagle"],
+      "us_basis": "United States-classified source position217; actual newspaper root and named Contact identify Dothan, Alabama publication and correspondence context. Footer affiliations are not an independently audited current-control certificate.",
+      "source_url": "https://dothaneagle.com/", "research_status": "reviewed",
+      "notes": "Complete root and actually linked Contact inspected without an institutional Sina identifier. Machine-learning article coverage on the root was not misclassified as a publisher-wide source-use reservation. Office-hours and login widgets were not newspaper closure or Weibo inactivity findings. Other Eagle titles, parent/sibling and staff accounts were not inherited. Unknown, not absent. Review date: 2026-10-23 UTC."
+    },
+    {
+      "id": "butte-montana-standard", "name": "The Montana Standard / Butte", "category": "newspaper",
+      "aliases": ["Butte Montana Standard", "The Montana Standard", "Montana Standard"],
+      "us_basis": "United States-classified source position218; actual root and named Contact join The Montana Standard with Butte, Montana publishing correspondence. This does not independently certify office occupancy or current control.",
+      "source_url": "https://mtstandard.com/", "research_status": "reviewed",
+      "notes": "Complete root and actually linked Contact inspected without a Sina designation. Contact's statement that the office is not open to the public was not interpreted as newspaper closure or account inactivity. One actual Contact response was inspected rather than counting the earlier duplicated URL twice. Other Standard titles, parent/sibling and staff accounts were not inherited. Unknown, not absent. Review date: 2026-10-23 UTC."
+    },
+    {
+      "id": "opelika-auburn-news", "name": "Opelika-Auburn News / Alabama", "category": "newspaper",
+      "aliases": ["Opelika-Auburn News", "Opelika Auburn News", "O-A News"],
+      "us_basis": "United States-classified source position219; actual root and named Contact identify Opelika-Auburn News and Opelika, Alabama correspondence. This is separate from Auburn, New York's Citizen.",
+      "source_url": "https://oanow.com/", "research_status": "reviewed",
+      "notes": "Complete root and actually linked Contact inspected without a qualifying institutional Sina identifier. Third-party social aggregators, staff directories and other-platform statistics were not primary account evidence. Contact hours and template paths were not activity or closure findings. Auburn Citizen, university/team, parent/sibling and staff profiles were not inherited. Unknown, not absent. Review date: 2026-10-23 UTC."
+    },
+    {
+      "id": "asbury-park-press", "name": "Asbury Park Press", "category": "newspaper",
+      "aliases": ["Neptune Asbury Park Press", "Asbury Park Press", "APP.com"],
+      "us_basis": "United States-classified source position220; genuine cached publisher directory names Asbury Park Press under New Jersey. This undated directory does not independently bind the ranked app.com hostname or certify current ownership.",
+      "source_url": "https://www.app.com/", "research_status": "reviewed",
+      "notes": "Recorded newspaper HTTP403 respected with zero new newspaper, alias-host, static-content or obituary requests. Actual cached publisher PDF page10 inspected offline for named publication/state scope only. No current-domain or Sina binding was invented from a generic app term, secondary directory, social-network snippet or another app-store listing. Parent/sibling and staff accounts were not inherited. Unknown, not absent. Review date: 2026-10-23 UTC."
+    },
+    {
+      "id": "auburn-citizen-new-york", "name": "The Citizen / Auburn, New York", "category": "newspaper",
+      "aliases": ["Auburn Citizen", "The Citizen", "Auburnpub"],
+      "us_basis": "United States-classified source position221; actual root and named Contact identify The Citizen and Auburn, New York correspondence. This is not Alabama's Opelika-Auburn News or a generic Citizen namesake.",
+      "source_url": "https://auburnpub.com/", "research_status": "reviewed",
+      "notes": "Complete root and actually linked Contact inspected without an institutional Sina identifier. A malformed relative Twitter-looking route beneath /contact/ was not followed, corrected into another origin or treated as a Weibo identity. Appointment/closed-hours and template widgets were not newspaper or account closure evidence. Other Citizen titles, parent/sibling, university/team and staff accounts were not inherited. Unknown, not absent. Review date: 2026-10-23 UTC."
+    },
+    {
       "id": "telemundo", "name": "Telemundo / Noticias Telemundo", "category": "broadcast_news",
       "aliases": ["Telemundo", "Noticias Telemundo", "Telemundo Noticias"],
       "us_basis": "United States-classified source position110; actual network root separately links its Noticias Telemundo newsroom section. Current corporate domicile/headquarters and legal account control are not independently audited.",

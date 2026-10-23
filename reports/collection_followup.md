@@ -35,20 +35,20 @@ The selected **1,000 SCImago U.S.-classified domains** are ranked by digital
 reputation, not traffic; their present ownership/nationality was not independently
 audited. **Five have current-profile evidence, seven historical-only evidence,
 988 remain unknown, and zero are verified negatives.** All underwent homepage
-screening, but only 216 have recorded manual review.
+screening, but only 221 have recorded manual review.
 
-The [latest scheduled pass](discovery_iteration44.md) adds five reviews with
-seven retained primary HTML responses and one genuine cached publisher PDF.
-The Island Packet's named corporate body and historical publisher rows do not
-substitute for its timed-out newspaper, certify a current combined Gazette
-newsroom, or turn one ranked domain into two reviews. Actual Bonner County,
-Bryan and Denton institutional bodies were inspected rather than generic titles.
-Greeley's fresh root was removed after an explicit AI/text-mining reservation;
-no further publisher-body requests followed. There are now nine recorded
-no-further-publisher-body restrictions, separate from NWA's retention condition.
+The [latest scheduled pass](discovery_iteration45.md) adds five reviews with
+eight complete primary HTML responses and one genuine cached publisher PDF.
+Actual named Contact bodies distinguish Auburn, New York's Citizen from
+Alabama's Opelika-Auburn News and identify Dothan and Butte publication context.
+Asbury Park Press's recorded newspaper HTTP403 was not retried; the cached
+directory supplies New Jersey publication-name scope, not current app.com
+control or a Sina identity. Dothan's machine-learning article coverage was not
+misread as a publisher-wide source-use reservation. All nine existing
+no-further-publisher-body restrictions remain unchanged.
 The live 6,570-post corpus, original archived baseline and all rolling data
 remain unchanged by discovery.
-Discovery is not exhausted: 784 selected domains still lack a recorded
+Discovery is not exhausted: 779 selected domains still lack a recorded
 manual review. A bounded recurring prompt is active every 30 minutes; later
 passes must advance the frontier rather than repeatedly probing exhausted leads.
 
