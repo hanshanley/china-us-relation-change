@@ -1165,6 +1165,41 @@
       "notes": "Complete root and actually linked /site/about.html and /site/contact.html read without a qualifying institutional Sina identifier. Real main-body history/contact sections were inspected rather than inferring identity from shared navigation/weather text. Other News-Gazette titles, university accounts, radio affiliates, parent companies and staff profiles were not borrowed. No forms submitted or operating-status inference made. Unknown, not absent. Review date: 2026-10-23 UTC."
     },
     {
+      "id": "tyler-morning-telegraph", "name": "Tyler Morning Telegraph", "category": "newspaper",
+      "aliases": ["Tyler Tyler Morning Telegraph", "Tyler Morning Telegraph"],
+      "us_basis": "United States-classified source position176; actual About recounts the Tyler newspaper's history and Contact gives Tyler, Texas publishing correspondence. The historical narrative is not an independently verified current controller or office audit.",
+      "source_url": "https://tylerpaper.com/", "research_status": "reviewed",
+      "notes": "Complete root and actually linked /services/about-us/ and /services/contact-us/ read without a qualifying institutional Sina identifier. Generic route matching had missed those service paths. Original redundant ranked name preserved. Other Telegraph titles, sibling publications, parent and staff accounts were not borrowed; no operating-status inference. Unknown, not absent. Review date: 2026-10-23 UTC."
+    },
+    {
+      "id": "fredericksburg-free-lance-star", "name": "The Free Lance-Star / Fredericksburg, Virginia", "category": "newspaper",
+      "aliases": ["Fredericksburg Free Lance-Star", "The Free Lance-Star"],
+      "us_basis": "United States-classified source position177; actual root and Contact name the Free Lance-Star and give Fredericksburg, Virginia publishing correspondence. Current legal control is not independently audited.",
+      "source_url": "https://fredericksburg.com/", "research_status": "reviewed",
+      "notes": "Complete root and actual Contact inspected without a qualifying institutional Sina identifier. The readable contact section was not mistaken for an inaccessible page because of a generic noscript warning; staff placeholders and forms were not followed or submitted. Other Fredericksburg publications, Star titles, parent and staff accounts were not substituted. Unknown, not absent. Review date: 2026-10-23 UTC."
+    },
+    {
+      "id": "green-bay-press-gazette", "name": "Green Bay Press-Gazette", "category": "newspaper",
+      "aliases": ["Green Bay Press-Gazette", "Green Bay Press Gazette"],
+      "us_basis": "United States-classified source position178; actual saved publisher directory page17 places Green Bay Press Gazette under Wisconsin. This is undated publication-directory scope, not current ownership, headquarters or Sina-identity certification.",
+      "source_url": "https://www.greenbaypressgazette.com/", "research_status": "reviewed",
+      "notes": "Recorded newspaper HTTP403 respected with zero new host requests. Existing genuine publisher PDF reused offline and hash-checked; exact named Wisconsin entry read. No blocked newspaper content retrieved from an alternate host. Directory, publisher-group, Green Bay sports-team and staff accounts were not assigned to this paper; no Weibo absence inferred. Unknown, not absent. Review date: 2026-10-23 UTC."
+    },
+    {
+      "id": "lewiston-morning-tribune", "name": "Lewiston Tribune / Morning Tribune", "category": "newspaper",
+      "aliases": ["Lewiston Morning Tribune", "Lewiston Tribune"],
+      "us_basis": "United States-classified source position179; actual publisher-maintained App Store metadata names Lewiston Tribune, its Idaho seller and Idaho/Washington coverage, with a static developer link to lmtribune.com. A self-described sibling-company page supplies additional regional context, not independent current ownership certification.",
+      "source_url": "https://lmtribune.com/", "research_status": "reviewed",
+      "notes": "Recorded newspaper HTTP403 respected with zero new host requests. Actual independent Gander Digital page and publisher-maintained app listing inspected as scope/identity context only; developer/privacy links to denied newspaper hosts were not followed. An exact government-held declaration PDF lead returnedHTTP404 and is not an available source proof. Other Tribune entities, sibling publications, commercial-division and staff accounts were not borrowed. Unknown, not absent. Review date: 2026-10-23 UTC."
+    },
+    {
+      "id": "macomb-daily", "name": "The Macomb Daily / Michigan", "category": "newspaper",
+      "aliases": ["Mount Clemens Macomb Daily", "The Macomb Daily"],
+      "us_basis": "United States-classified source position180; actual root-title metadata identifies Macomb County, Michigan reporting. This metadata-only review does not independently verify a current office or controller.",
+      "source_url": "https://www.macombdaily.com/", "research_status": "reviewed",
+      "notes": "One transient root yielded no qualifying institutional Sina designation. An explicit AI/text-data-mining reservation led to conservative removal of the fresh full copy; factual metadata only, raw_file/sha256 null and no further host requests. Contact links were not subsequently fetched. Discarded fingerprints are not available source captures. Other county, parent, sister-paper and staff accounts were not substituted. Unknown, not absent. Review date: 2026-10-23 UTC."
+    },
+    {
       "id": "telemundo", "name": "Telemundo / Noticias Telemundo", "category": "broadcast_news",
       "aliases": ["Telemundo", "Noticias Telemundo", "Telemundo Noticias"],
       "us_basis": "United States-classified source position110; actual network root separately links its Noticias Telemundo newsroom section. Current corporate domicile/headquarters and legal account control are not independently audited.",
