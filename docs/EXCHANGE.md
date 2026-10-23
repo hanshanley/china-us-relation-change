@@ -286,6 +286,16 @@ source checksums and reported/imputation flags are retained.
 `scripts/build_language_data.py --ipeds-only --last-degree-year 2025 --data-only`
 updates only that requested degree year and preserves every other observation.
 
+The dated itemized source review is frozen in `data/site/gap_review.csv`,
+exported intact as `downloads/gap-review.csv`, and included in the complete
+exchange JSON. Each case records the exact route/population, reviewed period,
+recovered figures or qualified bounds, remaining limitation and primary links.
+Recovered, partial, confidential, not-reported, unverified and outside-source-
+population cases are deliberately distinct. This is an October 23, 2026
+investigation snapshot, not an automatically advancing claim that every
+source has released current data. The dynamic coverage matrix and complete
+observation CSV/JSON remain available alongside it.
+
 Only numerical aggregates and original visualizations are published, not
 source PDFs, workbooks, report artwork or exam questions. MLA ordinary-use
 restrictions and unverified commercial reuse permission remain disclosed in

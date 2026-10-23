@@ -28,6 +28,7 @@ on:
       - "data/site/business_presence.json"
       - "data/site/immigration.json"
       - "data/site/student_estimates.json"
+      - "data/site/gap_review.csv"
       - "tests/test_exchange*"
       - "tests/fixtures/exchange*"
       - "requirements-exchange*"

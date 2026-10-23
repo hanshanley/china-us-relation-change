@@ -26,6 +26,9 @@ def test_offline_build_download_round_trip_and_reproducibility(tmp_path):
     assert bundle["observations"] == canonical
     assert "iie" in bundle["source_policies"] and "macau_tourism" in bundle["source_policies"]
     assert len(bundle["coverage"]) == 72
+    review_text = (ROOT / "data/site/gap_review.csv").read_text()
+    assert (site / "downloads/gap-review.csv").read_text() == review_text
+    assert bundle["gap_review"] == list(csv.DictReader(io.StringIO(review_text)))
     downloaded = list(csv.DictReader(io.StringIO((site / "downloads/observations.csv").read_text())))
     assert len(downloaded) == len(canonical) == result["observations"]
     for actual, expected in zip(downloaded, canonical):
@@ -41,6 +44,7 @@ def test_offline_build_download_round_trip_and_reproducibility(tmp_path):
     assert len(page.select("#all-values details")) == result["series"]
     assert page.select_one("noscript")
     assert page.select_one("#all-values table")
+    assert page.select_one('#coverage a[href="downloads/gap-review.csv"]')
     for a in page.select('a[href]'):
         href = a["href"]
         if not href.startswith(("https://", "#")):

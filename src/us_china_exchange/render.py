@@ -655,6 +655,15 @@ def build(root):
     student_estimate_data = load(root / "data/site/student_estimates.json", None)
     if student_estimate_data is not None:
         student_estimates.validate(student_estimate_data)
+    review_path = root / "data/site/gap_review.csv"
+    review_text = review_path.read_text(encoding="utf-8") if review_path.is_file() else None
+    review_rows = list(csv.DictReader(io.StringIO(review_text))) if review_text is not None else []
+    if review_text is not None:
+        required = {"gap_id", "checked_at", "area", "route", "measure", "period", "disposition",
+                    "verified_recovery", "unresolved_or_scope_limit", "primary_sources"}
+        if (not review_rows or len({r.get("gap_id") for r in review_rows}) != len(review_rows)
+                or any(set(r) != required or any(not value for value in r.values()) for r in review_rows)):
+            raise ValueError("Itemized gap review must contain complete uniquely identified cases")
     matrix = coverage(rows)
     groups = defaultdict(list)
     for row in rows:
@@ -823,6 +832,11 @@ def build(root):
     else:
         for name in ["student-estimates.json", "student-estimates.csv"]:
             (site / "downloads" / name).unlink(missing_ok=True)
+    if review_text is not None:
+        write_atomic(site / "downloads/gap-review.csv", review_text)
+        payload["gap_review"] = review_rows
+    else:
+        (site / "downloads/gap-review.csv").unlink(missing_ok=True)
     download = {k: v for k, v in payload.items() if k not in {"charts", "chart_themes", "figures"}}
     write_atomic(site / "downloads/exchange.json", json_text(download))
     write_atomic(site / "downloads/observations.json", json_text(rows))
@@ -944,6 +958,9 @@ Four separate geographies. Both directions. History since {START_YEAR}; change s
 <p><a href="figures/index.html">Browse all charts by category</a>: students, visitors, goods trade and services trade.</p></section>
 <section id="coverage"><h2>Coverage, including the gaps.</h2>
 <p>Missing does not mean zero. No interpolation, regional allocation, or passenger/visa proxy fills an unavailable bilateral series.</p>
+{('<p><a href="downloads/gap-review.csv" download>Itemized source-recovery review &#183; CSV</a> '
+  '&#8212; dated case-by-case findings; recovered values, outstanding years, confidentiality and source-population limits. '
+  'This review accompanies rather than replaces the complete observation downloads.</p>') if review_text is not None else ""}
 <details><summary>View all four geographies, both directions and every measure</summary>
 <div class="table-scroll"><table><caption>Verified annual coverage by geography and measure</caption>
 <thead><tr><th>Direction</th><th>Measure</th><th>Available ending years / specific gap</th><th>2020 baseline</th></tr></thead>
