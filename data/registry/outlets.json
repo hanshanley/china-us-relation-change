@@ -885,6 +885,41 @@
       "notes": "Complete current root and actual Contact were read without a qualifying institutional Sina identifier. The Contact page's public About text was inspected; universal login navigation was not misclassified as a content-access gate. No login or form submission was attempted. Other Press publications, group titles and reader accounts were not substituted. Raw ranked name and domain were preserved. Unknown, not absent. Review date: 2026-10-23 UTC."
     },
     {
+      "id": "newport-news-daily-press", "name": "Daily Press / Newport News", "category": "newspaper",
+      "aliases": ["Newport News Daily Press", "Daily Press"],
+      "us_basis": "United States-classified source position136; Tribune Publishing's actual property/contact table separately names Daily Press and links dailypress.com. Current corporate legal control is not independently audited.",
+      "source_url": "https://www.dailypress.com/", "research_status": "reviewed",
+      "notes": "Current web retrieval reported a robots restriction for the newspaper host; no alternate client, path or archive request followed. A separate permitted publisher-owned property/contact listing was read and matches the selected domain, but supplies no qualifying Daily Press Weibo identifier. Subscription provisions were not interpreted as social-account ownership or a license. Other Daily Press titles, parent-company and staff accounts were not substituted. Unknown, not absent. Review date: 2026-10-23 UTC."
+    },
+    {
+      "id": "des-moines-register", "name": "Des Moines Register", "category": "newspaper",
+      "aliases": ["The Des Moines Register", "Des Moines Register"],
+      "us_basis": "United States-classified source position137; the actual newspaper-branded LOCALiQ marketing page identifies Des Moines, Iowa and the Register audience. This is a marketing locator, not a current newsroom-control audit.",
+      "source_url": "https://www.desmoinesregister.com/", "research_status": "reviewed",
+      "notes": "Recorded newspaper HTTP403 was respected without another request to that host. A separate newspaper-branded publisher marketing landing page was read under its own policy; it provides no qualifying institutional Weibo profile. Advertising reach, generic marketing accounts, parent-company channels and the newspaper's own account were not conflated. No inquiry form was submitted. Unknown, not absent. Review date: 2026-10-23 UTC."
+    },
+    {
+      "id": "idaho-statesman", "name": "Idaho Statesman / Boise", "category": "newspaper",
+      "aliases": ["Boise Idaho Statesman", "The Idaho Statesman", "Idaho Statesman"],
+      "us_basis": "United States-classified source position138; McClatchy's actual newspaper-specific market profile describes Boise and explicitly names the Idaho Statesman, with an outbound idahostatesman.com link.",
+      "source_url": "https://www.idahostatesman.com/", "research_status": "reviewed",
+      "notes": "One bounded repeat of the unchanged newspaper route timed out. The generic McClatchy markets shell was not mistaken for an Idaho-specific description, nor was fuller search-index text treated as a fresh primary body. A guessed the-idaho-statesman slug returned404; the ordinary canonical idaho-statesman market route then supplied an actual named primary profile. It links the newspaper's Facebook/Twitter but no qualifying Weibo account. No newsroom body, complete timeline or current legal control was inferred. Unknown, not absent. Review date: 2026-10-23 UTC."
+    },
+    {
+      "id": "jefferson-city-news-tribune", "name": "News Tribune / Jefferson City", "category": "newspaper",
+      "aliases": ["Jefferson City News-Tribune", "Jefferson City News Tribune", "News Tribune"],
+      "us_basis": "Included at position139 in the unchanged SCImago United States-classified cohort. No newly readable publisher or association body was recovered, so no independent current corporate-control audit is claimed.",
+      "source_url": "https://newstribune.com/", "research_status": "reviewed",
+      "notes": "The unchanged publisher probe stopped at the same cross-publisher/non-HTTPS redirect guard. WEHCO web retrieval reported a robots restriction, and the identified Missouri Press Association2021 awards PDF returned403; no alternate host, path or client was used afterward. Search-index excerpts were not promoted to inspected primary material. No readable newspaper About/Contact or official Sina identity is invented. Tacoma's News Tribune and other Tribune titles were not substituted. Unknown, not absent. Review date: 2026-10-23 UTC."
+    },
+    {
+      "id": "times-northwest-indiana", "name": "The Times of Northwest Indiana", "category": "newspaper",
+      "aliases": ["Munster Times Of Northwest Indiana", "The Times Media Co.", "Northwest Indiana Times"],
+      "us_basis": "United States-classified source position140; actual publisher About and Contact identify Northwest Indiana reporting and the Munster, Indiana main office.",
+      "source_url": "https://nwitimes.com/", "research_status": "reviewed",
+      "notes": "Complete current root, About and actual Contact were read without a qualifying institutional Weibo locator. Contact slash variants are one source. The About page's nwi.com branding, staff, parent-group accounts and unrelated Times newspapers were not counted as additional publishers or publisher-owned Sina profiles. Current legal control and continuing ownership are not independently audited. Unknown, not absent. Review date: 2026-10-23 UTC."
+    },
+    {
       "id": "telemundo", "name": "Telemundo / Noticias Telemundo", "category": "broadcast_news",
       "aliases": ["Telemundo", "Noticias Telemundo", "Telemundo Noticias"],
       "us_basis": "United States-classified source position110; actual network root separately links its Noticias Telemundo newsroom section. Current corporate domicile/headquarters and legal account control are not independently audited.",

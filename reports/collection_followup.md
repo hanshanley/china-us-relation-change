@@ -28,13 +28,13 @@ The selected **1,000 SCImago U.S.-classified domains** are ranked by digital
 reputation, not traffic; their present ownership/nationality was not independently
 audited. **Five have current-profile evidence, seven historical-only evidence,
 988 remain unknown, and zero are verified negatives.** All underwent homepage
-screening, but only 135 have recorded manual review.
+screening, but only 140 have recorded manual review.
 
-The [latest scheduled pass](discovery_iteration27.md) adds five further
-publisher reviews using nine actual primary captures, while respecting
-MyRGV's restriction and an unusable Bangor About-subdomain policy response.
-Shared-hub and similarly named newspaper accounts were not substituted.
-Discovery is not exhausted: 865 selected domains still lack a recorded
+The [latest scheduled pass](discovery_iteration28.md) adds five further
+reviews using seven actual primary captures, distinguishing newspaper
+pages from publisher property/marketing locators and a generic directory
+shell. Access-limited findings remain unknown, not account negatives.
+Discovery is not exhausted: 860 selected domains still lack a recorded
 manual review. A bounded recurring prompt is active every 30 minutes; later
 passes must advance the frontier rather than repeatedly probing exhausted leads.
 
