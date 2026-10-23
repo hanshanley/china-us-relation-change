@@ -1130,6 +1130,41 @@
       "notes": "A fresh ordinary robots-aware publisher attempt timed out before a usable body, consistent with the earlier availability failure. The exact first-party annual-report PDF was independently policy-checked, downloaded, hash-checked and its named row read. It is not account evidence or a substitute copy of unavailable newspaper content. Australian Sun-Herald, other Sun/Herald papers, parent and staff accounts were not substituted. Unknown, not absent. Review date: 2026-10-23 UTC."
     },
     {
+      "id": "voa-spanish", "name": "Voz de América / Spanish-language property", "category": "broadcaster_property",
+      "aliases": ["Voz De América", "Voz de América", "VOA Español"],
+      "us_basis": "United States-classified source position171; actual Who and Contact identify the broader VOA news organization and Washington, D.C. correspondence. These published descriptions do not independently certify present funding, staffing, editorial independence or broadcast activity.",
+      "source_url": "https://www.vozdeamerica.com/", "research_status": "reviewed",
+      "notes": "Complete Spanish root, actual linked Who/Contact and an actual2012 Weibo-coverage article read. Coverage of the platform is not a channel designation. The broader VOA institution already has a separately curated historical Chinese legalwindow programme record with UID unresolved; it is related, not a newly discovered or automatically assigned Spanish-property account. No old numeric candidate was re-queried and no candidate post imported. The domain remains unknown, not a claim that VOA never had a Sina presence. Review date: 2026-10-23 UTC."
+    },
+    {
+      "id": "citizens-voice-wilkes-barre", "name": "The Citizens' Voice / Wilkes-Barre", "category": "newspaper",
+      "aliases": ["Wilkes-Barre Citizens Voice", "The Citizens' Voice"],
+      "us_basis": "United States-classified source position172; actual root-title metadata identifies the Wilkes-Barre newspaper. This metadata-only review does not independently verify a current office or corporate controller.",
+      "source_url": "https://www.citizensvoice.com/", "research_status": "reviewed",
+      "notes": "One transient root yielded no qualifying institutional Sina designation. An explicit AI/text-data-mining reservation led to conservative removal of the fresh full copy; factual metadata only, raw_file/sha256 null and no further host requests. About/Contact links were not subsequently fetched. Discarded fingerprints are not available source captures; other Citizen/Voice titles, parent and staff accounts were not borrowed. Unknown, not absent. Review date: 2026-10-23 UTC."
+    },
+    {
+      "id": "dayton-daily-news", "name": "Dayton Daily News / Ohio", "category": "newspaper",
+      "aliases": ["Dayton Daily News", "The Dayton Daily News"],
+      "us_basis": "United States-classified source position173; actual root identifies Ohio coverage and actual Contact identifies the Dayton Daily News and its subscriber/newsroom functions. No independent current ownership or physical-office audit is claimed.",
+      "source_url": "https://www.daytondailynews.com/", "research_status": "reviewed",
+      "notes": "Complete root and actually linked /site/about.html and /site/contact.html inspected without a qualifying Sina profile. The About link returned a Newsroom heading, a dot and generic story rail, not a usable company description or staff directory; that semantic limitation is explicit despite untruncated HTML. Actual Contact has named publisher support/newsroom content. Other Cox properties, sister papers and personal profiles were not substituted. Unknown, not absent. Review date: 2026-10-23 UTC."
+    },
+    {
+      "id": "helena-independent-record", "name": "Independent Record / Helena, Montana", "category": "newspaper",
+      "aliases": ["Helena Independent Record", "Independent Record"],
+      "us_basis": "United States-classified source position174; actual root identifies Helena, Montana coverage and Contact provides an Independent Record publishing address in Helena, Montana.",
+      "source_url": "https://helenair.com/", "research_status": "reviewed",
+      "notes": "Complete root and actual Contact inspected without a qualifying institutional Sina identifier. A noscript warning coexists with readable contact content and was not mistaken for an access barrier; an all-closed hours widget was not evidence of newspaper closure. Slash variants counted once and staff placeholders not followed. Music-label uses of independent record, other Record titles and parent profiles were not substituted; current legal control not independently audited. Unknown, not absent. Review date: 2026-10-23 UTC."
+    },
+    {
+      "id": "champaign-news-gazette", "name": "The News-Gazette / Champaign, Illinois", "category": "newspaper",
+      "aliases": ["Champaign News-Gazette", "The News-Gazette"],
+      "us_basis": "United States-classified source position175; actual About recounts the Champaign-Urbana newspaper's history and Contact provides Champaign, Illinois publishing correspondence. The historical narrative is not a current corporate-control certificate.",
+      "source_url": "https://www.news-gazette.com/", "research_status": "reviewed",
+      "notes": "Complete root and actually linked /site/about.html and /site/contact.html read without a qualifying institutional Sina identifier. Real main-body history/contact sections were inspected rather than inferring identity from shared navigation/weather text. Other News-Gazette titles, university accounts, radio affiliates, parent companies and staff profiles were not borrowed. No forms submitted or operating-status inference made. Unknown, not absent. Review date: 2026-10-23 UTC."
+    },
+    {
       "id": "telemundo", "name": "Telemundo / Noticias Telemundo", "category": "broadcast_news",
       "aliases": ["Telemundo", "Noticias Telemundo", "Telemundo Noticias"],
       "us_basis": "United States-classified source position110; actual network root separately links its Noticias Telemundo newsroom section. Current corporate domicile/headquarters and legal account control are not independently audited.",
