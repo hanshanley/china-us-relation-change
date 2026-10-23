@@ -106,6 +106,12 @@ def test_summary_respects_timezone_attribution_and_private_corpus(tmp_path):
     assert summary["source"]["excluded_unconfirmed_posts"] == 1
     assert summary["roster"]["confirmed_accounts"] == 2
     assert sum(a["recovered_posts"] for a in summary["accounts"]) == 3
+    monthly = {r["month"]: r for r in summary["monthly"]}
+    assert len(monthly) == 82
+    assert monthly["2020-12"] == dict(month="2020-12", recovered_posts=1, observed_accounts=1, partial_window=False)
+    assert monthly["2022-01"] == dict(month="2022-01", recovered_posts=2, observed_accounts=1, partial_window=False)
+    assert monthly["2021-01"] == dict(month="2021-01", recovered_posts=0, observed_accounts=0, partial_window=False)
+    assert monthly["2026-10"]["partial_window"] is True
     assert "PRIVATE_BODY" not in json.dumps(summary)
     doc = ElementTree.fromstring(svg_weibo(summary, "publication-years"))
     bars = [x for x in doc.iter() if x.get("class") == "data-bar"]
@@ -115,6 +121,102 @@ def test_summary_respects_timezone_attribution_and_private_corpus(tmp_path):
         figure = ElementTree.fromstring(svg_weibo(summary, metric))
         assert sum(int(x.get("data-value")) for x in figure.iter() if x.get("class") == "data-bar") == total
         assert next(x.text for x in figure.iter() if x.get("class") == "axis-unit") == unit
+
+
+def test_monthly_figures_and_download_keep_all_bins_and_partial_months(tmp_path, monkeypatch):
+    database, registry = snapshot_inputs(tmp_path)
+    summary = create_summary(database, registry)
+    for metric, field in (("monthly-posts", "recovered_posts"), ("monthly-accounts", "observed_accounts")):
+        doc = ElementTree.fromstring(svg_weibo(summary, metric))
+        points = [x for x in doc.iter() if x.get("class") == "data-point"]
+        assert [(p.get("data-month"), int(p.get("data-value"))) for p in points] == [
+            (row["month"], row[field]) for row in summary["monthly"]]
+        assert "partial requested month" in "".join(points[-1].itertext())
+        assert any(x.get("stroke-dasharray") for x in doc.iter() if x.get("class") == "data-line")
+        assert "not a posting-activity trend" in "".join(doc.itertext())
+        assert "21 Oct 2026" in "".join(doc.itertext())
+    monkeypatch.setattr("us_china_exchange.render.png_chart", lambda svg: b"fixture")
+    build_weibo(tmp_path, summary, {"weibo": []})
+    with (tmp_path / "site/downloads/weibo-months.csv").open(newline="") as stream:
+        rows = list(csv.DictReader(stream))
+    assert len(rows) == 82
+    assert rows[0] == dict(month="2020-01", recovered_posts="0", observed_accounts="0", partial_window="False")
+    assert rows[-1]["partial_window"] == "True"
+    assert sum(int(row["recovered_posts"]) for row in rows) == 3
+    page = (tmp_path / "site/weibo.html").read_text()
+    assert "downloads/weibo-months.csv" in page and "not a census of active accounts" in page
+    summary["version"] = 2
+    del summary["monthly"]
+    build_weibo(tmp_path, summary, {"weibo": []})
+    assert not (tmp_path / "site/downloads/weibo-months.csv").exists()
+    assert not list((tmp_path / "site/figures/weibo").glob("*/monthly-*.*"))
+
+
+def test_monthly_windows_merge_adjacent_intervals_and_break_unrequested_gaps(tmp_path):
+    database, registry = snapshot_inputs(tmp_path)
+    db = connect(database)
+    with db:
+        db.execute("UPDATE runs SET window_start=?,window_end=? WHERE account_id='account1'",
+                   ("2020-11-30T16:00:00+00:00", "2020-12-31T16:00:00+00:00"))
+        db.execute("UPDATE runs SET window_start=?,window_end=? WHERE account_id='account2'",
+                   ("2021-12-31T16:00:00+00:00", "2022-01-31T16:00:00+00:00"))
+    summary = create_summary(database, registry)
+    assert summary["monthly"] == [
+        dict(month="2020-12", recovered_posts=1, observed_accounts=1, partial_window=False),
+        dict(month="2022-01", recovered_posts=2, observed_accounts=1, partial_window=False)]
+    doc = ElementTree.fromstring(svg_weibo(summary, "monthly-posts"))
+    assert not any(x.get("class") == "data-line" for x in doc.iter())
+    with db:
+        db.execute("DELETE FROM posts WHERE id IN ('p1','p5')")
+        db.execute("UPDATE runs SET window_start=?,window_end=? WHERE account_id='account1'",
+                   ("2020-11-30T16:00:00+00:00", "2020-12-15T16:00:00+00:00"))
+        db.execute("UPDATE runs SET window_start=?,window_end=? WHERE account_id='account2'",
+                   ("2020-12-15T16:00:00+00:00", "2020-12-31T16:00:00+00:00"))
+    db.close()
+    summary = create_summary(database, registry)
+    assert summary["monthly"] == [
+        dict(month="2020-12", recovered_posts=1, observed_accounts=1, partial_window=False)]
+
+
+def test_monthly_windows_keep_exact_half_open_boundaries(tmp_path):
+    database, registry = snapshot_inputs(tmp_path)
+    db = connect(database)
+    with db:
+        db.execute("UPDATE runs SET window_start=?,window_end=?",
+                   ("2020-12-31T15:59:00+00:00", "2022-01-01T00:00:00+00:00"))
+    with pytest.raises(ValueError, match="outside requested collection windows"):
+        create_summary(database, registry)
+    with db:
+        db.execute("UPDATE runs SET window_end=?", ("2022-01-01T00:00:00.000001+00:00",))
+    db.close()
+    summary = create_summary(database, registry)
+    assert len(summary["monthly"]) == 14
+    assert summary["monthly"][0] == dict(
+        month="2020-12", recovered_posts=1, observed_accounts=1, partial_window=True)
+    assert summary["monthly"][-1] == dict(
+        month="2022-01", recovered_posts=2, observed_accounts=1, partial_window=True)
+
+
+@pytest.mark.parametrize("mutation", ["missing_month", "duplicate_month", "post_count", "channel_count",
+                                     "partial_month", "private_field"])
+def test_monthly_snapshot_rejects_incomplete_or_unreconciled_aggregates(tmp_path, mutation):
+    database, registry = snapshot_inputs(tmp_path)
+    summary = create_summary(database, registry)
+    monthly = summary["monthly"]
+    if mutation == "missing_month":
+        monthly.pop(0)
+    elif mutation == "duplicate_month":
+        monthly[1] = monthly[0].copy()
+    elif mutation == "post_count":
+        monthly[24]["recovered_posts"] += 1
+    elif mutation == "channel_count":
+        monthly[24]["observed_accounts"] = 2
+    elif mutation == "partial_month":
+        monthly[-1]["partial_window"] = False
+    else:
+        monthly[0]["text"] = "PRIVATE_BODY"
+    with pytest.raises(ValueError, match="[Mm]onthly"):
+        validate_summary(summary)
 
 
 def test_summary_rejects_unreconciled_counts_and_extra_private_fields(tmp_path):
@@ -138,7 +240,7 @@ def test_weibo_csv_bytes_are_stable_after_json_roundtrip(tmp_path, monkeypatch):
     summary = create_summary(database, registry)
     monkeypatch.setattr("us_china_exchange.render.png_chart", lambda svg: b"fixture")
     build_weibo(tmp_path, summary, {"weibo": []})
-    names = ("accounts", "years", "text-completeness")
+    names = ("accounts", "months", "years", "text-completeness")
     before = {name: (tmp_path / f"site/downloads/weibo-{name}.csv").read_bytes() for name in names}
     build_weibo(tmp_path, json.loads(json.dumps(summary, sort_keys=True)), {"weibo": []})
     assert before == {name: (tmp_path / f"site/downloads/weibo-{name}.csv").read_bytes() for name in names}
@@ -212,6 +314,7 @@ def test_legacy_snapshot_does_not_invent_uid_resolution(tmp_path, monkeypatch):
     summary = create_summary(database, registry)
     summary["version"] = 1
     del summary["cohort"]
+    del summary["monthly"]
     for key in ("resolved_numeric_accounts", "unresolved_numeric_accounts"):
         del summary["roster"][key]
     for account in summary["accounts"]:
@@ -225,6 +328,8 @@ def test_legacy_snapshot_does_not_invent_uid_resolution(tmp_path, monkeypatch):
     assert "Numeric UID resolution was not recorded in this legacy snapshot" in page
     assert "channels have resolved numeric UIDs" not in page
     assert "UID resolution, evidence" not in page
+    assert "Monthly publication dates are not available" in page
+    assert not (tmp_path / "site/downloads/weibo-months.csv").exists()
 
 
 def test_primary_audit_exposes_pending_bindings_and_rejects_stale_text(tmp_path, monkeypatch):
@@ -240,7 +345,7 @@ def test_primary_audit_exposes_pending_bindings_and_rejects_stale_text(tmp_path,
                                 method="prior_archive_not_reread", source_sha256=None)
     path.write_text(json.dumps(audit))
     summary = create_summary(database, registry, audit_path=path)
-    assert summary["version"] == 3
+    assert summary["version"] == 4
     assert summary["roster"]["resolved_numeric_accounts"] == 2
     assert summary["accounts"][1]["uid"] == "2"
     assert summary["accounts"][1]["primary_audit_status"] == "numeric_binding_recheck_pending"
@@ -257,6 +362,12 @@ def test_primary_audit_exposes_pending_bindings_and_rejects_stale_text(tmp_path,
     before = (tmp_path / "site/downloads/weibo-accounts.csv").read_bytes()
     build_weibo(tmp_path, json.loads(json.dumps(summary, sort_keys=True)), {"weibo": []})
     assert before == (tmp_path / "site/downloads/weibo-accounts.csv").read_bytes()
+    legacy = json.loads(json.dumps(summary))
+    legacy["version"] = 3
+    del legacy["monthly"]
+    build_weibo(tmp_path, legacy, {"weibo": []})
+    assert "Primary-source recheck" in (tmp_path / "site/weibo.html").read_text()
+    assert not (tmp_path / "site/downloads/weibo-months.csv").exists()
     db = connect(database)
     with db:
         db.execute("UPDATE posts SET text='CHANGED_PRIVATE_BODY' WHERE id='p1'")
@@ -305,7 +416,9 @@ def test_weibo_outputs_publish_only_complete_aggregates_and_both_backgrounds(tmp
     published = json.loads((tmp_path / "site/downloads/weibo-summary.json").read_text())
     assert published == summary
     assert "PRIVATE_BODY" not in (tmp_path / "site/weibo.html").read_text()
-    assert len(list((tmp_path / "outputs/figures/weibo").glob("*/*.png"))) == 8
+    assert len(list((tmp_path / "outputs/figures/weibo").glob("*/*.png"))) == 12
+    catalog = (tmp_path / "site/figures/index.html").read_text()
+    assert "monthly-posts.png" in catalog and "monthly-accounts.png" in catalog
     for path in (tmp_path / "outputs/figures/weibo").glob("*/*.png"):
         assert path.read_bytes() == (tmp_path / "site/figures/weibo" /
                                     path.relative_to(tmp_path / "outputs/figures/weibo")).read_bytes()
@@ -316,10 +429,13 @@ def test_weibo_outputs_publish_only_complete_aggregates_and_both_backgrounds(tmp
         account.update(recovered_posts=0, earliest_publication_utc=None, latest_publication_utc=None)
     for status in summary["text_completeness"]:
         status["recovered_posts"] = 0
+    for month in summary["monthly"]:
+        month.update(recovered_posts=0, observed_accounts=0)
     (tmp_path / "data/site/weibo_summary.json").write_text(json.dumps(summary))
     build(tmp_path)
     assert len(list((tmp_path / "outputs/figures/weibo").glob("*/*.png"))) == 6
     assert not list((tmp_path / "site/figures/weibo").glob("*/publication-years.*"))
+    assert not list((tmp_path / "site/figures/weibo").glob("*/monthly-*.*"))
     (tmp_path / "data/site/weibo_summary.json").unlink()
     build(tmp_path)
     assert not list((tmp_path / "outputs/figures/weibo").glob("*/*.png"))

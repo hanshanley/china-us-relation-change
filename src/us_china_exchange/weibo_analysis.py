@@ -6,8 +6,8 @@ import math
 import re
 import sqlite3
 import textwrap
-from collections import Counter
-from datetime import date, datetime, timezone
+from collections import Counter, defaultdict
+from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 from urllib.parse import urlsplit
 from zoneinfo import ZoneInfo
@@ -17,11 +17,14 @@ from .theme import BLUE, CHART_HEIGHT, CHART_THEMES, CHART_WIDTH, FONT, GOLD, GR
 
 
 WEIBO_CHARTS = {
+    "monthly-posts": "Recovered posts over time",
+    "monthly-accounts": "Channels represented over time",
     "identity-evidence": "Account identity evidence",
     "recovery-coverage": "Recovered corpus coverage",
     "publication-years": "Recovered posts by publication year",
     "text-completeness": "Text completeness of recovered posts",
 }
+SHANGHAI = ZoneInfo("Asia/Shanghai")
 TEXT_LABELS = {
     "source_full": "Available source body",
     "truncated": "Truncated preview",
@@ -46,6 +49,37 @@ def timestamp(value):
     if parsed.tzinfo is None:
         raise ValueError("Weibo timestamps require a timezone")
     return parsed
+
+
+def publication_months(source, accounts):
+    intervals = sorted((timestamp(w["start"]).astimezone(SHANGHAI),
+                        timestamp(w["end"]).astimezone(SHANGHAI))
+                       for w in source["requested_windows"])
+    if not intervals:
+        dates = [timestamp(a[key]).astimezone(SHANGHAI) for a in accounts
+                 for key in ("earliest_publication_utc", "latest_publication_utc") if a[key]]
+        if not dates:
+            return []
+        intervals = [(min(dates), max(dates) + timedelta(microseconds=1))]
+    merged = []
+    for start, end in intervals:
+        if start >= end:
+            raise ValueError("Invalid Weibo collection window")
+        if merged and start <= merged[-1][1]:
+            merged[-1] = (merged[-1][0], max(end, merged[-1][1]))
+        else:
+            merged.append((start, end))
+    months = {}
+    for start, end in merged:
+        current = start.replace(day=1, hour=0, minute=0, second=0, microsecond=0)
+        while current < end:
+            following = current.replace(year=current.year + current.month // 12,
+                                        month=current.month % 12 + 1)
+            month = current.strftime("%Y-%m")
+            partial = start > current or end < following
+            months[month] = months.get(month, True) and partial
+            current = following
+    return [{"month": month, "partial_window": months[month]} for month in sorted(months)]
 
 
 def cohort_summary(path, accounts):
@@ -124,7 +158,9 @@ def create_summary(database, registry_path, assessment_path=None, audit_path=Non
         raise ValueError("Weibo registry changed during the snapshot; retry")
     confirmed = {a["id"]: a for a in registry["accounts"] if a["officialness"] == "confirmed"}
     outlets = {o["id"]: o for o in registry["outlets"]}
-    counts, years, statuses, dates = Counter(), Counter(), Counter(), {}
+    counts, years, months, statuses, dates = Counter(), Counter(), Counter(), Counter(), {}
+    month_accounts = defaultdict(set)
+    windows = {(timestamp(r["window_start"]), timestamp(r["window_end"])) for r in runs}
     excluded_unconfirmed = excluded_attribution = 0
     for post in posts:
         account = confirmed.get(post["account_id"])
@@ -134,14 +170,19 @@ def create_summary(database, registry_path, assessment_path=None, audit_path=Non
         if account["uid"] is None or post["uid"] != account["uid"]:
             raise ValueError("Weibo post UID does not match its registered account")
         published = timestamp(post["published_utc"])
-        local = published.astimezone(ZoneInfo("Asia/Shanghai"))
+        local = published.astimezone(SHANGHAI)
         if account["attribution_end"] and local.date() >= date.fromisoformat(account["attribution_end"]):
             excluded_attribution += 1
             continue
         if post["text_status"] not in TEXT_LABELS:
             raise ValueError("Unknown Weibo text-completeness status")
+        if windows and not any(start <= published < end for start, end in windows):
+            raise ValueError("Weibo post publication falls outside requested collection windows")
         counts[account["id"]] += 1
         years[local.year] += 1
+        month = local.strftime("%Y-%m")
+        months[month] += 1
+        month_accounts[month].add(account["id"])
         statuses[post["text_status"]] += 1
         dates.setdefault(account["id"], []).append(published.astimezone(timezone.utc).isoformat())
     latest_runs = {r["account_id"]: r for r in runs}
@@ -168,7 +209,7 @@ def create_summary(database, registry_path, assessment_path=None, audit_path=Non
             "latest_run_status": run.get("status"), "latest_run_source": run.get("source_type"),
         })
     summary = {
-        "version": 2,
+        "version": 4,
         "source": {
             "registry_sha256": digest(registry_bytes),
             "corpus_metadata_sha256": digest(json_text(posts).encode()),
@@ -194,6 +235,11 @@ def create_summary(database, registry_path, assessment_path=None, audit_path=Non
         "yearly": [{"year": year, "recovered_posts": count} for year, count in sorted(years.items())],
         "text_completeness": [{"status": status, "recovered_posts": statuses[status]} for status in TEXT_LABELS],
     }
+    summary["monthly"] = [
+        dict(period, recovered_posts=months[period["month"]],
+             observed_accounts=len(month_accounts[period["month"]]))
+        for period in publication_months(summary["source"], accounts)
+    ]
     latest = summary["source"]["latest_collection_at"]
     summary["source"]["latest_collection_at"] = latest.isoformat() if latest else None
     explicit_assessment = assessment_path is not None
@@ -215,7 +261,6 @@ def create_summary(database, registry_path, assessment_path=None, audit_path=Non
                 or audit.get("registry_sha256") != digest(registry_bytes)
                 or audit.get("canonical_posts_sha256") != digest(json_text(canonical).encode())):
             raise ValueError("Primary source audit is stale; re-audit changed registry or post contents before publication")
-        summary["version"] = 3
         summary["primary_source_audit"] = audit
         summary["source"]["primary_audit_sha256"] = digest(json_text(audit).encode())
         by_id = {row["account_id"]: row for row in audit["accounts"]}
@@ -230,24 +275,27 @@ def create_summary(database, registry_path, assessment_path=None, audit_path=Non
 
 def validate_summary(summary):
     version = summary.get("version")
+    has_audit = version == 3 or (version == 4 and "primary_source_audit" in summary)
     fields = {"version", "source", "roster", "accounts", "yearly", "text_completeness"}
-    if version in (2, 3):
+    if version in (2, 3, 4):
         fields.add("cohort")
-    if version == 3:
+    if version == 4:
+        fields.add("monthly")
+    if has_audit:
         fields.add("primary_source_audit")
     if set(summary) != fields:
         raise ValueError("Unexpected Weibo aggregate fields; post text must not be published")
-    if version not in (1, 2, 3) or summary["source"]["publication_timezone"] != "Asia/Shanghai":
+    if version not in (1, 2, 3, 4) or summary["source"]["publication_timezone"] != "Asia/Shanghai":
         raise ValueError("Unsupported Weibo aggregate snapshot")
     source_fields = {"registry_sha256", "corpus_metadata_sha256", "latest_collection_at",
                      "publication_timezone", "requested_windows",
                      "excluded_unconfirmed_posts", "excluded_attribution_posts"}
-    if version == 3:
+    if has_audit:
         source_fields.add("primary_audit_sha256")
     if set(summary["source"]) != source_fields:
         raise ValueError("Unexpected Weibo source fields")
     roster_fields = {"outlets", "reviewed_outlets", "confirmed_accounts", "confirmed_outlets"}
-    if version in (2, 3):
+    if version in (2, 3, 4):
         roster_fields |= {"resolved_numeric_accounts", "unresolved_numeric_accounts"}
     if set(summary["roster"]) != roster_fields:
         raise ValueError("Unexpected Weibo roster fields")
@@ -267,10 +315,10 @@ def validate_summary(summary):
     account_fields = {"account_id", "outlet_id", "outlet_name", "profile_url", "relationship", "existence",
                       "attribution_end", "recovered_posts", "earliest_publication_utc",
                       "latest_publication_utc", "latest_run_status", "latest_run_source"}
-    if version in (2, 3):
+    if version in (2, 3, 4):
         account_fields |= {"uid", "handle", "display_name", "uid_resolution", "category", "us_basis",
                            "operator", "notes", "evidence"}
-    if version == 3:
+    if has_audit:
         account_fields |= {"primary_audit_" + k for k in ("status", "method", "note", "source_url", "source_sha256")}
     if any(set(a) != account_fields for a in accounts):
         raise ValueError("Unexpected Weibo account aggregate fields")
@@ -297,7 +345,32 @@ def validate_summary(summary):
         raise ValueError("Weibo aggregate totals do not reconcile")
     if summary["roster"]["confirmed_outlets"] != len({a["outlet_id"] for a in accounts}):
         raise ValueError("Weibo confirmed-outlet count does not reconcile")
-    if version in (2, 3):
+    if version == 4:
+        monthly = summary["monthly"]
+        month_fields = {"month", "recovered_posts", "observed_accounts", "partial_window"}
+        if any(set(row) != month_fields for row in monthly):
+            raise ValueError("Unexpected Weibo monthly fields")
+        if ([{"month": r["month"], "partial_window": r["partial_window"]} for r in monthly]
+                != publication_months(summary["source"], accounts)
+                or any(type(r["partial_window"]) is not bool for r in monthly)):
+            raise ValueError("Weibo monthly periods do not match collection windows")
+        represented = [
+            (timestamp(a["earliest_publication_utc"]).astimezone(SHANGHAI).strftime("%Y-%m"),
+             timestamp(a["latest_publication_utc"]).astimezone(SHANGHAI).strftime("%Y-%m"))
+            for a in accounts if a["recovered_posts"] > 0]
+        if any(type(r["recovered_posts"]) is not int or r["recovered_posts"] < 0
+               or type(r["observed_accounts"]) is not int
+               or not 0 <= r["observed_accounts"] <= min(
+                   sum(start <= r["month"] <= end for start, end in represented), r["recovered_posts"])
+               or (r["observed_accounts"] == 0) != (r["recovered_posts"] == 0) for r in monthly):
+            raise ValueError("Invalid Weibo monthly recovered-post or channel counts")
+        monthly_years = Counter()
+        for row in monthly:
+            if row["recovered_posts"]:
+                monthly_years[int(row["month"][:4])] += row["recovered_posts"]
+        if dict(monthly_years) != {r["year"]: r["recovered_posts"] for r in yearly}:
+            raise ValueError("Weibo monthly and annual totals do not reconcile")
+    if version in (2, 3, 4):
         uids = [a["uid"] for a in accounts if a["uid"] is not None]
         if (any(not isinstance(uid, str) or not uid.isascii() or not uid.isdigit() for uid in uids)
                 or len(set(uids)) != len(uids)
@@ -324,7 +397,7 @@ def validate_summary(summary):
                                                "unknown_domains", "candidate_domains",
                                                "verified_negative_domains")) != cohort["selected_domains"]):
                 raise ValueError("Weibo cohort totals do not reconcile")
-    if version == 3:
+    if has_audit:
         audit = summary["primary_source_audit"]
         audit_fields = {"version", "audited_at", "registry_sha256", "canonical_posts_sha256",
                         "post_manifest_sha256", "scope", "accounts", "corpus"}
@@ -367,8 +440,88 @@ def validate_summary(summary):
     return summary
 
 
+def svg_monthly(summary, metric, theme):
+    rows = summary.get("monthly", [])
+    if not rows or not any(row["recovered_posts"] for row in rows):
+        return '<p class="gap">Monthly publication dates are not available in this snapshot.</p>'
+    field = "recovered_posts" if metric == "monthly-posts" else "observed_accounts"
+    unit = "Recovered posts per month" if metric == "monthly-posts" else "Channels with recovered posts per month"
+    maximum = max(row[field] for row in rows) * 1.12
+    magnitude = 10 ** math.floor(math.log10(maximum))
+    maximum = math.ceil(maximum / magnitude) * magnitude
+    month_number = lambda month: int(month[:4]) * 12 + int(month[5:]) - 1
+    first, last = month_number(rows[0]["month"]), month_number(rows[-1]["month"])
+    x = lambda month: 115 + ((month_number(month) - first) / (last - first) if last != first else .5) * 835
+    y = lambda value: 420 - value / maximum * 270
+    esc = lambda value: html.escape(str(value), quote=True)
+    subtitle = f'Monthly publication dates, Asia/Shanghai | {rows[0]["month"]} to {rows[-1]["month"]}'
+    parts = [
+        f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {CHART_WIDTH} {CHART_HEIGHT}" role="img" data-metric="{metric}" aria-label="{esc(WEIBO_CHARTS[metric])}">',
+        f'<title>{esc(WEIBO_CHARTS[metric])}</title>',
+        '<desc>Monthly counts in the recovered sample only, not total posting activity. '
+        'Unrequested months break the line. Hollow markers identify partial requested months.</desc>',
+        f'<rect class="chart-background" width="{CHART_WIDTH}" height="{CHART_HEIGHT}" fill="{CHART_THEMES[theme]["background"]}"/>',
+        f'<g font-family="{esc(FONT)}" font-size="20" fill="{MUTED}">',
+        f'<text x="80" y="45" font-size="28" font-weight="bold" fill="{TEXT}">{esc(WEIBO_CHARTS[metric])}</text>',
+        f'<text x="80" y="82" font-size="18">{esc(subtitle)}</text>',
+        f'<text class="axis-unit" x="115" y="125" font-size="18" fill="{TEXT}">{unit}</text>',
+    ]
+    for fraction in (0, .5, 1):
+        value = maximum * fraction
+        parts.append(f'<path d="M115 {y(value):.2f}H950" stroke="{GRID}" stroke-opacity=".6" stroke-width=".5"/>'
+                     f'<text x="100" y="{y(value) + 6:.2f}" text-anchor="end">{value:,.0f}</text>')
+    ticks = [0]
+    for i, row in enumerate(rows[1:-1], 1):
+        distance = month_number(row["month"]) - first
+        remaining = last - month_number(row["month"])
+        if ((last - first <= 18 and distance % 4 == 0 and remaining >= 4)
+                or (last - first > 18 and row["month"].endswith("-01")
+                    and distance >= 6 and remaining >= 12)):
+            if len(ticks) == 1 or x(row["month"]) - x(rows[ticks[-1]]["month"]) >= 85:
+                ticks.append(i)
+    if len(rows) > 1:
+        ticks.append(len(rows) - 1)
+    for i in ticks:
+        row = rows[i]
+        label = datetime.strptime(row["month"], "%Y-%m").strftime(
+            "%b %Y" if last - first <= 18 or not row["month"].endswith("-01") else "%Y")
+        label += "*" if row["partial_window"] else ""
+        anchor = "start" if i == 0 else "end" if i == len(rows) - 1 else "middle"
+        parts.append(f'<text x="{x(row["month"]):.2f}" y="457" text-anchor="{anchor}" font-size="18">{esc(label)}</text>')
+    previous = None
+    for row in rows:
+        if previous and month_number(row["month"]) == month_number(previous["month"]) + 1:
+            partial = row["partial_window"] or previous["partial_window"]
+            dash = ' stroke-dasharray="5 4"' if partial else ""
+            parts.append(f'<path class="data-line" d="M{x(previous["month"]):.2f},{y(previous[field]):.2f} '
+                         f'L{x(row["month"]):.2f},{y(row[field]):.2f}" fill="none" stroke="{BLUE}" '
+                         f'stroke-width="2.5"{dash}/>')
+        previous = row
+    for row in rows:
+        fill = CHART_THEMES[theme]["background"] if row["partial_window"] else BLUE
+        detail = f'{row["month"]}: {row[field]:,}' + ("; partial requested month" if row["partial_window"] else "")
+        parts.append(f'<circle class="data-point" data-month="{row["month"]}" data-value="{row[field]}" '
+                     f'data-partial-window="{str(row["partial_window"]).lower()}" '
+                     f'cx="{x(row["month"]):.2f}" cy="{y(row[field]):.2f}" r="3" '
+                     f'fill="{fill}" stroke="{BLUE}" stroke-width="1.3"><title>{esc(detail)}</title></circle>')
+    note = ("Source: recovered-corpus metadata. Uneven recovery is not a posting-activity trend. "
+            "Zero means no recovered posts, not inactivity. Channels are distinct accounts, not publishers. "
+            "* Hollow markers and dashed segments: partial requested months; no extrapolation.")
+    if summary["source"]["requested_windows"]:
+        end = max(timestamp(w["end"]) for w in summary["source"]["requested_windows"])
+        note += f' Requested window ends {(end.astimezone(SHANGHAI) - timedelta(microseconds=1)):%d %b %Y}.'
+    else:
+        note += " No requested window recorded; range spans recovered publication dates only."
+    for line, text in enumerate(textwrap.wrap(note, width=103)):
+        parts.append(f'<text class="figure-source" x="80" y="{505 + line * 21}" font-size="15" font-style="italic">{esc(text)}</text>')
+    parts.append("</g></svg>")
+    return "".join(parts)
+
+
 def svg_weibo(summary, metric, theme="themarginoferror"):
     validate_summary(summary)
+    if metric in {"monthly-posts", "monthly-accounts"}:
+        return svg_monthly(summary, metric, theme)
     accounts = summary["accounts"]
     if metric == "identity-evidence":
         counts = Counter(a["existence"] for a in accounts)

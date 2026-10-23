@@ -7,6 +7,7 @@ import json
 import math
 import textwrap
 from collections import defaultdict
+from datetime import timedelta
 from pathlib import Path
 
 import resvg_py
@@ -18,7 +19,7 @@ from .language_analysis import CHARTS as LANGUAGE_CHARTS, RETIRED_CHARTS as LANG
 from .pipeline import load, write_atomic
 from . import student_estimates
 from .sources import SOURCE_POLICIES
-from .weibo_analysis import AUDIT_LABELS, WEIBO_CHARTS, svg_weibo, validate_summary
+from .weibo_analysis import AUDIT_LABELS, SHANGHAI, WEIBO_CHARTS, svg_weibo, timestamp, validate_summary
 from .theme import (CHART_HEIGHT, CHART_THEMES, CHART_WIDTH, COMPARISON_GEOGRAPHIES, FIGURE_CATEGORIES, FONT,
                     FONT_FILES, GRID, MUTED, PARTNER_COLORS, PNG_HEIGHT, PNG_WIDTH,
                     TEXT, figure_category)
@@ -344,6 +345,9 @@ def remove_figure(root, relative):
 
 def build_weibo(root, summary, gallery):
     validate_summary(summary)
+    windows = summary["source"]["requested_windows"]
+    cutoff = (max(timestamp(w["end"]) for w in windows) - timedelta(microseconds=1)).astimezone(SHANGHAI) if windows else None
+    window_note = f' Requested window ends {cutoff:%B %d, %Y} (Asia/Shanghai).' if cutoff else ""
     cards = []
     for metric, title in WEIBO_CHARTS.items():
         paths = {}
@@ -358,16 +362,30 @@ def build_weibo(root, summary, gallery):
             relative = {theme: {kind: path.removeprefix("figures/") for kind, path in files.items()}
                         for theme, files in paths.items()}
             gallery["weibo"].append(f'<article><h3>{esc(title)}</h3>{figure_links(relative)}</article>')
+            if metric.startswith("monthly-"):
+                body = ('<p class="chart-context">Monthly recovered sample, not total posting activity. '
+                        'Hollow markers and dashed segments mark partial requested months; '
+                        'no full-month estimate is made.' + window_note + '</p>' + body)
         else:
             for theme in CHART_THEMES:
                 remove_figure(root, Path("weibo") / theme / metric)
-            body = '<p class="gap">No recovered publication dates in this frozen snapshot.</p>'
-        cards.append(f'<section class="series-panel"><h2>{esc(title)}</h2>{body}</section>')
+            body = ('<p class="gap">Monthly publication dates are not available in this frozen snapshot.</p>'
+                    if metric.startswith("monthly-") else
+                    '<p class="gap">No recovered publication dates in this frozen snapshot.</p>')
+        cards.append(f'<section class="series-panel" id="{esc(metric)}"><h2>{esc(title)}</h2>{body}</section>')
     write_atomic(root / "site/downloads/weibo-summary.json", json_text(summary))
-    for name, records in (("accounts", summary["accounts"]), ("years", summary["yearly"]),
-                          ("text-completeness", summary["text_completeness"])):
+    downloads = [("accounts", summary["accounts"]), ("years", summary["yearly"]),
+                 ("text-completeness", summary["text_completeness"])]
+    monthly_path = root / "site/downloads/weibo-months.csv"
+    if "monthly" in summary:
+        downloads.append(("months", summary["monthly"]))
+    elif monthly_path.is_file():
+        monthly_path.unlink()
+    for name, records in downloads:
         stream = io.StringIO(newline="")
         columns = sorted(records[0]) if records else (["year", "recovered_posts"] if name == "years" else ["account_id"])
+        if name == "months":
+            columns = ["month", "observed_accounts", "partial_window", "recovered_posts"]
         writer = csv.DictWriter(stream, fieldnames=columns, lineterminator="\n")
         writer.writeheader()
         writer.writerows({key: json.dumps(value, ensure_ascii=False, sort_keys=True) if isinstance(value, (dict, list))
@@ -425,6 +443,14 @@ def build_weibo(root, summary, gallery):
     metadata_note = ('per-account relationships, UID resolution, evidence and attribution exclusions are retained '
                      'in the complete JSON and account CSV.' if summary["version"] >= 2 else
                      'per-account relationships and attribution exclusions are retained in the aggregate JSON.')
+    monthly_note = (
+        '<p><strong>Over-time graphs describe the recovered sample, not total posting activity.</strong> '
+        'Each month uses publication dates in Asia/Shanghai. Channel counts are distinct accounts with at least '
+        'one recovered post in that month, not independent publishers. This is not a census of active accounts. '
+        'Unrequested months break the line; zero recovered posts does not establish inactivity. '
+        'Hollow markers, dashed segments and an asterisk identify partial requested months, without extrapolation. '
+        '<a href="downloads/weibo-months.csv" download>Complete monthly counts and partial-window flags · CSV</a>.</p>'
+        if "monthly" in summary else '')
     table = "".join(f'<tr><th scope="row">{esc(a["outlet_name"])}</th>'
                     f'<td>{esc(a.get("display_name", "not recorded"))}<br>'
                     f'{esc(a.get("uid") or ("UID unresolved" if summary["version"] >= 2 else "UID not recorded"))}</td>'
@@ -472,7 +498,7 @@ def build_weibo(root, summary, gallery):
                 '<a href="downloads/weibo-accounts.csv" download>All account aggregates · CSV</a> · '
                 '<a href="downloads/weibo-years.csv" download>All publication-year aggregates · CSV</a> · '
                 '<a href="downloads/weibo-text-completeness.csv" download>All text-completeness aggregates · CSV</a></p>'
-                '</header><main>' + "".join(cards) +
+                + monthly_note + '</header><main>' + "".join(cards) +
                 '<section class="series-panel"><h2>Account coverage details</h2><div class="table-scroll"><table>'
                 '<thead><tr><th>Outlet / edition</th><th>Channel / numeric UID</th><th>Evidence period / relationship</th>'
                 '<th>Primary recheck</th><th>Recovered posts</th>'
@@ -816,7 +842,8 @@ def build(root):
             for metric in WEIBO_CHARTS:
                 remove_figure(root, Path("weibo") / theme / metric)
         for relative in ["weibo.html", "downloads/weibo-summary.json", "downloads/weibo-accounts.csv",
-                         "downloads/weibo-years.csv", "downloads/weibo-text-completeness.csv"]:
+                         "downloads/weibo-years.csv", "downloads/weibo-text-completeness.csv",
+                         "downloads/weibo-months.csv"]:
             path = site / relative
             if path.is_file():
                 path.unlink()

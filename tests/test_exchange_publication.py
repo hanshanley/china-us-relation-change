@@ -143,4 +143,17 @@ def test_collective_export_preserves_complete_inputs_and_native_plot_boundaries(
     model = json.loads(comparisons.select_one("#goods-to_us .plot-data").string)
     assert len(model["groups"]) == 3
     assert next(g for g in model["groups"] if g["label"] == "Macau")["dash"] == "7 4"
+    weibo = BeautifulSoup((tmp_path / "weibo.html").read_text(), "html.parser")
+    monthly = json.loads((ROOT / "data/site/weibo_summary.json").read_text())["monthly"]
+    for chart, field in (("monthly-posts", "recovered_posts"), ("monthly-accounts", "observed_accounts")):
+        model = json.loads(weibo.select_one(f"#{chart} .plot-data").string)
+        assert model["frequency"] == "monthly"
+        assert [(p["month"], p["value"], p["partial_window"]) for p in model["groups"][0]["points"]] == [
+            (row["month"], row[field], row["partial_window"]) for row in monthly]
+        assert not model["groups"][0]["points"][0]["connect"]
+        assert model["groups"][0]["points"][-1]["connect"]
+    with (tmp_path / "downloads/weibo-months.csv").open(newline="") as stream:
+        rows = list(csv.DictReader(stream))
+    assert len(rows) == len(monthly)
+    assert sum(int(row["recovered_posts"]) for row in rows) == sum(row["recovered_posts"] for row in monthly)
     assert not list(tmp_path.rglob("*.pdf")) and not list(tmp_path.rglob("*.db"))

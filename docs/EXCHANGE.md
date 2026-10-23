@@ -131,9 +131,10 @@ treating them as identical to the other geographies' BEA accounting.
 
 ### Weibo research graphs
 
-`site/weibo.html` adds a separate initial set of Weibo analysis figures:
-documented-channel identity evidence, recovered-corpus coverage, recovered posts
-by publication year, and text completeness. They use the same house typography
+`site/weibo.html` includes monthly recovered-post counts and monthly counts of
+distinct channels represented in the recovered sample, alongside documented-channel
+identity evidence, recovered-corpus coverage, publication years, and text completeness.
+They use the same house typography
 and both publication backgrounds, under `outputs/figures/weibo/<background>/`
 and `site/figures/weibo/<background>/`. The figure catalog links all of them.
 
@@ -155,10 +156,23 @@ The command reads the database in a read-only transaction, checks registry
 alignment, excludes unconfirmed accounts and publications on/after historical
 attribution cutoffs, and freezes `data/site/weibo_summary.json`. Publication
 years use Asia/Shanghai, not UTC. Raw post text is never published.
-The committed snapshot contains complete per-account, year and completeness
+The committed snapshot contains complete per-account, month, year and completeness
 aggregates, source hashes, latest collection time, exclusion counts and
 requested windows; the site supplies JSON and CSV downloads of those aggregates.
 The raw private corpus retains its separate rights and redistribution limits.
+
+Version 4 adds the complete `monthly` series and `site/downloads/weibo-months.csv`.
+Monthly bins use Asia/Shanghai publication dates and the requested collection
+windows, including months with zero recovered posts. Unrequested months are not
+connected. `observed_accounts` counts distinct channels with recovered posts, not
+publishers or all active accounts. `partial_window` identifies months not fully
+covered by the requested window, independently of source recovery completeness;
+the plots mark these months without extrapolating them to a full-month estimate.
+For the current fixed window, October 2026 ends on October 21. Monthly totals
+reconcile to annual and account totals; private post text is not included.
+Older snapshots remain readable but do not invent missing monthly data.
+The collective publication's interactive selector preserves the same monthly
+calendar positions, distinct-channel counts and partial-month markers on mobile.
 
 Version 2 snapshots distinguish documented historical/current channels from
 resolved numeric UIDs, including historical vanity-only URLs without inventing

@@ -36,6 +36,8 @@
       height = mobile ? 270 : 355;
       const margin = {left: mobile ? 52 : 74, right: 14, top: 30, bottom: 34};
       const points = model.groups.flatMap(group => group.points);
+      const monthly = model.frequency === "monthly";
+      const position = point => monthly ? point.month_index : point.year;
       const highest = Math.max(...points.map(p => p.value), 0) * 1.12 || 1;
       const magnitude = 10 ** Math.floor(Math.log10(highest));
       const logarithmic = model.scale === "log";
@@ -43,12 +45,13 @@
       const high = logarithmic ? Math.max(low + 1, Math.ceil(Math.log10(Math.max(...points.map(p => p.value))))) : 1;
       const maximum = Math.ceil(highest / magnitude) * magnitude;
       const first = model.first, last = Math.max(first + 1, model.last);
-      const snapshot = !logarithmic && model.groups.length === 1 &&
+      const snapshot = !monthly && !logarithmic && model.groups.length === 1 &&
         ((points.length === 1 && model.first === model.last) ||
          (model.snapshots && points.length === 2 && points.every(p => !p.connect)));
       const plotWidth = width - margin.left - margin.right;
-      const x = year => margin.left + (snapshot ? (year - first + .5) / (model.last - first + 1) :
-        (year - first) / (last - first)) * plotWidth;
+      const x = period => margin.left + (monthly && model.first === model.last ? .5 :
+        snapshot ? (period - first + .5) / (model.last - first + 1) :
+        (period - first) / (last - first)) * plotWidth;
       const y = value => height - margin.bottom - (logarithmic ? (Math.log10(value) - low) / (high - low) : value / maximum) * (height - margin.top - margin.bottom);
       content += `<text x="${margin.left}" y="13" font-size="${font}" fill="#655f55">${escape(model.unit)}</text>`;
       const ticks = logarithmic ? Array.from({length: high - low + 1}, (_, i) => 10 ** (low + i)) : [0, maximum / 2, maximum];
@@ -57,22 +60,56 @@
         content += `<path d="M${margin.left} ${yy}H${width - margin.right}" stroke="#d6d3cc" stroke-width=".7"/>
           <text x="${margin.left - 9}" y="${yy + 4}" font-size="${font}" text-anchor="end" fill="#655f55">${escape(compact(value, model.unit))}</text>`;
       }
-      const step = mobile && last - first > 20 ? 10 : 5;
-      let years = [first];
-      for (let year = Math.ceil((first + 1) / step) * step; year < last; year += step) {
-        if (last - year >= (mobile ? 4 : 2) && year - years.at(-1) >= (mobile ? 4 : 2)) years.push(year);
-      }
-      years.push(last);
-      const observedYears = [...new Set(points.map(p => p.year))].sort((a, b) => a - b);
-      if (observedYears.length <= 8 && observedYears.every((year, i) =>
-          !i || x(year) - x(observedYears[i - 1]) >= font * 3 + 2)) years = observedYears;
-      for (const year of years) {
-        content += `<text class="screen-year" x="${x(year)}" y="${height - 7}" font-size="${font}" text-anchor="middle" fill="#655f55">${year}</text>`;
+      if (monthly) {
+        const ordered = [...new Map(points.map(p => [p.month_index, p])).values()]
+          .sort((a, b) => a.month_index - b.month_index);
+        const labels = [ordered[0]];
+        for (const point of ordered.slice(1, -1)) {
+          if (point.month.endsWith("-01") && model.last - point.month_index >= 12 &&
+              x(position(point)) - x(position(labels.at(-1))) >= (mobile ? 90 : 85)) labels.push(point);
+        }
+        if (ordered.length > 1) labels.push(ordered.at(-1));
+        for (const [i, point] of labels.entries()) {
+          const label = point.month.endsWith("-01") ? point.month.slice(0, 4) :
+            new Date(point.month + "-01T00:00:00Z").toLocaleDateString("en-US",
+              {month: "short", year: "numeric", timeZone: "UTC"});
+          const anchor = i === 0 ? "start" : i === labels.length - 1 ? "end" : "middle";
+          content += `<text class="screen-month" x="${x(position(point))}" y="${height - 7}" font-size="${font}"
+            text-anchor="${anchor}" fill="#655f55">${escape(label)}${point.partial_window ? "*" : ""}</text>`;
+        }
+      } else {
+        const step = mobile && last - first > 20 ? 10 : 5;
+        let years = [first];
+        for (let year = Math.ceil((first + 1) / step) * step; year < last; year += step) {
+          if (last - year >= (mobile ? 4 : 2) && year - years.at(-1) >= (mobile ? 4 : 2)) years.push(year);
+        }
+        years.push(last);
+        const observedYears = [...new Set(points.map(p => p.year))].sort((a, b) => a - b);
+        if (observedYears.length <= 8 && observedYears.every((year, i) =>
+            !i || x(year) - x(observedYears[i - 1]) >= font * 3 + 2)) years = observedYears;
+        for (const year of years) {
+          content += `<text class="screen-year" x="${x(year)}" y="${height - 7}" font-size="${font}" text-anchor="middle" fill="#655f55">${year}</text>`;
+        }
       }
       for (const group of model.groups) {
-        const path = group.points.map(p => `${p.connect ? "L" : "M"}${x(p.year).toFixed(2)},${y(p.value).toFixed(2)}`).join(" ");
+        let previous;
+        const path = group.points.map(point => {
+          const partial = monthly && previous && (point.partial_window || previous.partial_window);
+          const command = point.connect && !partial ? "L" : "M";
+          previous = point;
+          return `${command}${x(position(point)).toFixed(2)},${y(point.value).toFixed(2)}`;
+        }).join(" ");
         content += `<path class="screen-line" data-series-id="${escape(group.id)}" d="${path}" fill="none"
           stroke="${color(group.color)}" stroke-width="2.3" stroke-linejoin="round"${group.dash ? ` stroke-dasharray="${escape(group.dash)}"` : ""}/>`;
+        if (monthly) {
+          for (let i = 1; i < group.points.length; i++) {
+            const before = group.points[i - 1], point = group.points[i];
+            if (point.connect && (before.partial_window || point.partial_window)) {
+              content += `<path class="screen-partial-line" d="M${x(position(before))},${y(before.value)} L${x(position(point))},${y(point.value)}"
+                fill="none" stroke="${color(group.color)}" stroke-width="2.3" stroke-dasharray="5 4"/>`;
+            }
+          }
+        }
         for (const point of group.points) {
           if (snapshot) {
             const barWidth = Math.min(52, plotWidth / 8);
@@ -80,8 +117,11 @@
               width="${barWidth}" height="${y(0) - y(point.value)}" fill="${color(group.color)}" aria-hidden="true"/>
               <text x="${x(point.year)}" y="${y(point.value) - 9}" font-size="${font}" text-anchor="middle">${escape(compact(point.value, model.unit))}</text>`;
           }
-          content += `<circle class="screen-point" data-series-id="${escape(group.id)}" data-year="${point.year}" data-value="${point.value}"
-            cx="${x(point.year)}" cy="${y(point.value)}" r="${mobile ? 2.8 : 3.2}" fill="${color(group.color)}"
+          const period = monthly ? `data-month="${escape(point.month)}" data-partial-window="${point.partial_window}"` : `data-year="${point.year}"`;
+          const fill = monthly && point.partial_window ? "#f7f5f0" : color(group.color);
+          const stroke = monthly ? ` stroke="${color(group.color)}" stroke-width="1.3"` : "";
+          content += `<circle class="screen-point" data-series-id="${escape(group.id)}" ${period} data-value="${point.value}"
+            cx="${x(position(point))}" cy="${y(point.value)}" r="${mobile ? 2.8 : 3.2}" fill="${fill}"${stroke}
             tabindex="-1"><title>${escape(point.label || `${group.label} ${point.year}: ${point.value.toLocaleString("en-US")} ${model.unit}`)}</title></circle>`;
         }
       }

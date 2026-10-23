@@ -4848,6 +4848,500 @@
     "unknown_domains": 988,
     "verified_negative_domains": 0
   },
+  "monthly": [
+    {
+      "month": "2020-01",
+      "observed_accounts": 2,
+      "partial_window": false,
+      "recovered_posts": 22
+    },
+    {
+      "month": "2020-02",
+      "observed_accounts": 3,
+      "partial_window": false,
+      "recovered_posts": 23
+    },
+    {
+      "month": "2020-03",
+      "observed_accounts": 6,
+      "partial_window": false,
+      "recovered_posts": 61
+    },
+    {
+      "month": "2020-04",
+      "observed_accounts": 5,
+      "partial_window": false,
+      "recovered_posts": 79
+    },
+    {
+      "month": "2020-05",
+      "observed_accounts": 6,
+      "partial_window": false,
+      "recovered_posts": 76
+    },
+    {
+      "month": "2020-06",
+      "observed_accounts": 3,
+      "partial_window": false,
+      "recovered_posts": 25
+    },
+    {
+      "month": "2020-07",
+      "observed_accounts": 3,
+      "partial_window": false,
+      "recovered_posts": 15
+    },
+    {
+      "month": "2020-08",
+      "observed_accounts": 3,
+      "partial_window": false,
+      "recovered_posts": 131
+    },
+    {
+      "month": "2020-09",
+      "observed_accounts": 5,
+      "partial_window": false,
+      "recovered_posts": 24
+    },
+    {
+      "month": "2020-10",
+      "observed_accounts": 3,
+      "partial_window": false,
+      "recovered_posts": 14
+    },
+    {
+      "month": "2020-11",
+      "observed_accounts": 3,
+      "partial_window": false,
+      "recovered_posts": 26
+    },
+    {
+      "month": "2020-12",
+      "observed_accounts": 1,
+      "partial_window": false,
+      "recovered_posts": 26
+    },
+    {
+      "month": "2021-01",
+      "observed_accounts": 2,
+      "partial_window": false,
+      "recovered_posts": 2
+    },
+    {
+      "month": "2021-02",
+      "observed_accounts": 1,
+      "partial_window": false,
+      "recovered_posts": 1
+    },
+    {
+      "month": "2021-03",
+      "observed_accounts": 4,
+      "partial_window": false,
+      "recovered_posts": 13
+    },
+    {
+      "month": "2021-04",
+      "observed_accounts": 4,
+      "partial_window": false,
+      "recovered_posts": 23
+    },
+    {
+      "month": "2021-05",
+      "observed_accounts": 5,
+      "partial_window": false,
+      "recovered_posts": 23
+    },
+    {
+      "month": "2021-06",
+      "observed_accounts": 3,
+      "partial_window": false,
+      "recovered_posts": 23
+    },
+    {
+      "month": "2021-07",
+      "observed_accounts": 4,
+      "partial_window": false,
+      "recovered_posts": 30
+    },
+    {
+      "month": "2021-08",
+      "observed_accounts": 3,
+      "partial_window": false,
+      "recovered_posts": 26
+    },
+    {
+      "month": "2021-09",
+      "observed_accounts": 3,
+      "partial_window": false,
+      "recovered_posts": 15
+    },
+    {
+      "month": "2021-10",
+      "observed_accounts": 4,
+      "partial_window": false,
+      "recovered_posts": 38
+    },
+    {
+      "month": "2021-11",
+      "observed_accounts": 8,
+      "partial_window": false,
+      "recovered_posts": 114
+    },
+    {
+      "month": "2021-12",
+      "observed_accounts": 7,
+      "partial_window": false,
+      "recovered_posts": 91
+    },
+    {
+      "month": "2022-01",
+      "observed_accounts": 4,
+      "partial_window": false,
+      "recovered_posts": 37
+    },
+    {
+      "month": "2022-02",
+      "observed_accounts": 2,
+      "partial_window": false,
+      "recovered_posts": 3
+    },
+    {
+      "month": "2022-03",
+      "observed_accounts": 4,
+      "partial_window": false,
+      "recovered_posts": 40
+    },
+    {
+      "month": "2022-04",
+      "observed_accounts": 4,
+      "partial_window": false,
+      "recovered_posts": 15
+    },
+    {
+      "month": "2022-05",
+      "observed_accounts": 4,
+      "partial_window": false,
+      "recovered_posts": 63
+    },
+    {
+      "month": "2022-06",
+      "observed_accounts": 3,
+      "partial_window": false,
+      "recovered_posts": 81
+    },
+    {
+      "month": "2022-07",
+      "observed_accounts": 1,
+      "partial_window": false,
+      "recovered_posts": 29
+    },
+    {
+      "month": "2022-08",
+      "observed_accounts": 2,
+      "partial_window": false,
+      "recovered_posts": 9
+    },
+    {
+      "month": "2022-09",
+      "observed_accounts": 3,
+      "partial_window": false,
+      "recovered_posts": 30
+    },
+    {
+      "month": "2022-10",
+      "observed_accounts": 3,
+      "partial_window": false,
+      "recovered_posts": 51
+    },
+    {
+      "month": "2022-11",
+      "observed_accounts": 3,
+      "partial_window": false,
+      "recovered_posts": 38
+    },
+    {
+      "month": "2022-12",
+      "observed_accounts": 4,
+      "partial_window": false,
+      "recovered_posts": 18
+    },
+    {
+      "month": "2023-01",
+      "observed_accounts": 4,
+      "partial_window": false,
+      "recovered_posts": 30
+    },
+    {
+      "month": "2023-02",
+      "observed_accounts": 3,
+      "partial_window": false,
+      "recovered_posts": 19
+    },
+    {
+      "month": "2023-03",
+      "observed_accounts": 2,
+      "partial_window": false,
+      "recovered_posts": 23
+    },
+    {
+      "month": "2023-04",
+      "observed_accounts": 4,
+      "partial_window": false,
+      "recovered_posts": 31
+    },
+    {
+      "month": "2023-05",
+      "observed_accounts": 1,
+      "partial_window": false,
+      "recovered_posts": 1
+    },
+    {
+      "month": "2023-06",
+      "observed_accounts": 2,
+      "partial_window": false,
+      "recovered_posts": 36
+    },
+    {
+      "month": "2023-07",
+      "observed_accounts": 4,
+      "partial_window": false,
+      "recovered_posts": 12
+    },
+    {
+      "month": "2023-08",
+      "observed_accounts": 3,
+      "partial_window": false,
+      "recovered_posts": 25
+    },
+    {
+      "month": "2023-09",
+      "observed_accounts": 3,
+      "partial_window": false,
+      "recovered_posts": 21
+    },
+    {
+      "month": "2023-10",
+      "observed_accounts": 2,
+      "partial_window": false,
+      "recovered_posts": 14
+    },
+    {
+      "month": "2023-11",
+      "observed_accounts": 4,
+      "partial_window": false,
+      "recovered_posts": 33
+    },
+    {
+      "month": "2023-12",
+      "observed_accounts": 4,
+      "partial_window": false,
+      "recovered_posts": 30
+    },
+    {
+      "month": "2024-01",
+      "observed_accounts": 8,
+      "partial_window": false,
+      "recovered_posts": 48
+    },
+    {
+      "month": "2024-02",
+      "observed_accounts": 4,
+      "partial_window": false,
+      "recovered_posts": 22
+    },
+    {
+      "month": "2024-03",
+      "observed_accounts": 4,
+      "partial_window": false,
+      "recovered_posts": 20
+    },
+    {
+      "month": "2024-04",
+      "observed_accounts": 5,
+      "partial_window": false,
+      "recovered_posts": 22
+    },
+    {
+      "month": "2024-05",
+      "observed_accounts": 6,
+      "partial_window": false,
+      "recovered_posts": 23
+    },
+    {
+      "month": "2024-06",
+      "observed_accounts": 4,
+      "partial_window": false,
+      "recovered_posts": 16
+    },
+    {
+      "month": "2024-07",
+      "observed_accounts": 3,
+      "partial_window": false,
+      "recovered_posts": 4
+    },
+    {
+      "month": "2024-08",
+      "observed_accounts": 3,
+      "partial_window": false,
+      "recovered_posts": 14
+    },
+    {
+      "month": "2024-09",
+      "observed_accounts": 2,
+      "partial_window": false,
+      "recovered_posts": 6
+    },
+    {
+      "month": "2024-10",
+      "observed_accounts": 3,
+      "partial_window": false,
+      "recovered_posts": 8
+    },
+    {
+      "month": "2024-11",
+      "observed_accounts": 2,
+      "partial_window": false,
+      "recovered_posts": 5
+    },
+    {
+      "month": "2024-12",
+      "observed_accounts": 2,
+      "partial_window": false,
+      "recovered_posts": 4
+    },
+    {
+      "month": "2025-01",
+      "observed_accounts": 2,
+      "partial_window": false,
+      "recovered_posts": 4
+    },
+    {
+      "month": "2025-02",
+      "observed_accounts": 2,
+      "partial_window": false,
+      "recovered_posts": 5
+    },
+    {
+      "month": "2025-03",
+      "observed_accounts": 4,
+      "partial_window": false,
+      "recovered_posts": 19
+    },
+    {
+      "month": "2025-04",
+      "observed_accounts": 1,
+      "partial_window": false,
+      "recovered_posts": 1
+    },
+    {
+      "month": "2025-05",
+      "observed_accounts": 3,
+      "partial_window": false,
+      "recovered_posts": 14
+    },
+    {
+      "month": "2025-06",
+      "observed_accounts": 7,
+      "partial_window": false,
+      "recovered_posts": 54
+    },
+    {
+      "month": "2025-07",
+      "observed_accounts": 7,
+      "partial_window": false,
+      "recovered_posts": 74
+    },
+    {
+      "month": "2025-08",
+      "observed_accounts": 5,
+      "partial_window": false,
+      "recovered_posts": 34
+    },
+    {
+      "month": "2025-09",
+      "observed_accounts": 6,
+      "partial_window": false,
+      "recovered_posts": 14
+    },
+    {
+      "month": "2025-10",
+      "observed_accounts": 4,
+      "partial_window": false,
+      "recovered_posts": 16
+    },
+    {
+      "month": "2025-11",
+      "observed_accounts": 4,
+      "partial_window": false,
+      "recovered_posts": 25
+    },
+    {
+      "month": "2025-12",
+      "observed_accounts": 5,
+      "partial_window": false,
+      "recovered_posts": 44
+    },
+    {
+      "month": "2026-01",
+      "observed_accounts": 7,
+      "partial_window": false,
+      "recovered_posts": 85
+    },
+    {
+      "month": "2026-02",
+      "observed_accounts": 9,
+      "partial_window": false,
+      "recovered_posts": 43
+    },
+    {
+      "month": "2026-03",
+      "observed_accounts": 8,
+      "partial_window": false,
+      "recovered_posts": 93
+    },
+    {
+      "month": "2026-04",
+      "observed_accounts": 7,
+      "partial_window": false,
+      "recovered_posts": 57
+    },
+    {
+      "month": "2026-05",
+      "observed_accounts": 10,
+      "partial_window": false,
+      "recovered_posts": 127
+    },
+    {
+      "month": "2026-06",
+      "observed_accounts": 12,
+      "partial_window": false,
+      "recovered_posts": 129
+    },
+    {
+      "month": "2026-07",
+      "observed_accounts": 14,
+      "partial_window": false,
+      "recovered_posts": 225
+    },
+    {
+      "month": "2026-08",
+      "observed_accounts": 19,
+      "partial_window": false,
+      "recovered_posts": 346
+    },
+    {
+      "month": "2026-09",
+      "observed_accounts": 33,
+      "partial_window": false,
+      "recovered_posts": 1006
+    },
+    {
+      "month": "2026-10",
+      "observed_accounts": 47,
+      "partial_window": true,
+      "recovered_posts": 2304
+    }
+  ],
   "primary_source_audit": {
     "accounts": [
       {
@@ -5867,7 +6361,7 @@
       "status": "unknown"
     }
   ],
-  "version": 3,
+  "version": 4,
   "yearly": [
     {
       "recovered_posts": 522,

@@ -183,7 +183,8 @@ def check():
             page.goto((ROOT / "site/weibo.html").as_uri())
             images = page.locator("img")
             summary = json.loads((ROOT / "data/site/weibo_summary.json").read_text())
-            assert images.count() == (4 if summary["yearly"] else 3)
+            monthly = any(r["recovered_posts"] for r in summary.get("monthly", []))
+            assert images.count() == (4 if summary["yearly"] else 3) + (2 if monthly else 0)
             for image in images.all():
                 image.scroll_into_view_if_needed()
                 expect(image).to_have_js_property("naturalWidth", PNG_WIDTH)

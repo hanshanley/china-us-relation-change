@@ -144,6 +144,18 @@ def check(site, url=None, screenshots=None):
                     expect(page.locator("#ap-chinese-global .ap-scope-note")).to_contain_text("not U.S.-only")
                     assert page.locator('#module-chart option[value="ap-language-standard-group"]').count() == 0
                     assert page.locator("#ap-language-standard-group").count() == 0
+                if name == "weibo.html":
+                    monthly = json.loads((site / "downloads/weibo-summary.json").read_text()).get("monthly", [])
+                    if monthly:
+                        for chart, field in (("monthly-posts", "recovered_posts"), ("monthly-accounts", "observed_accounts")):
+                            page.select_option("#module-chart", chart)
+                            actual = page.locator(f"#{chart} .screen-point").evaluate_all(
+                                "nodes=>nodes.map(n=>[n.dataset.month,Number(n.dataset.value),n.dataset.partialWindow==='true'])")
+                            assert actual == [[row["month"], row[field], row["partial_window"]] for row in monthly]
+                            assert page.locator(f"#{chart} .screen-partial-line").count()
+                            expect(page.locator(f"#{chart} .chart-context")).to_contain_text("not total posting activity")
+                            if monthly[-1]["month"] == "2026-10":
+                                expect(page.locator(f"#{chart} .chart-context")).to_contain_text("October 21, 2026")
                 for option in page.locator("#module-chart option").all():
                     page.select_option("#module-chart", option.get_attribute("value"))
                     assert page.locator("[data-module-chart]:visible").count() == 1
