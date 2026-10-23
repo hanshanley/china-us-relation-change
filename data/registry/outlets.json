@@ -1025,6 +1025,41 @@
       "notes": "Recorded newspaper HTTP403 was respected without a new request. The publisher PDF's word-internal extraction space was checked against the actual entry rather than interpreted as absence. The reused directory is scope evidence only; no obituary link was followed and neither a generic Democrat organization, another newspaper nor a parent-network account was substituted. Unknown, not absent. Review date: 2026-10-23 UTC."
     },
     {
+      "id": "oakland-press-michigan", "name": "The Oakland Press / Michigan", "category": "newspaper",
+      "aliases": ["Pontiac Oakland Press", "The Oakland Press"],
+      "us_basis": "United States-classified source position156; actual publisher root identifies Oakland County, Michigan coverage and Contact identifies The Oakland Press and its Michigan news operation.",
+      "source_url": "https://www.theoaklandpress.com/", "research_status": "reviewed",
+      "notes": "Complete current root and actual Contact were read without a qualifying institutional Weibo identifier. Contact slash variants are one source. Oakland, California publications, other Press titles, parent-group channels and staff social profiles were not substituted. No current corporate-control audit is claimed. Unknown, not absent. Review date: 2026-10-23 UTC."
+    },
+    {
+      "id": "the-ringer", "name": "The Ringer", "category": "sports_culture_media",
+      "aliases": ["The Ringer"],
+      "us_basis": "United States-classified source position157; actual publisher root/Contact identify The Ringer, while Spotify's dated first-party statements acknowledge its acquisition and describe Ringer programming at a Los Angeles studio. This establishes limited U.S. production context, not an independently verified current headquarters or legal-control certificate.",
+      "source_url": "https://www.theringer.com/", "research_status": "reviewed",
+      "notes": "Earlier automated homepage capture was truncated at1.5MB; a bounded4MB request recovered the actual1,930,287-byte HTML without truncation. Full root and actual Contact were inspected with no qualifying Sina identifier, and two actual Spotify statements were read as affiliation/production context only. Sports reports quoting Ringer journalists and another organization's verified Weibo account are not a publisher designation. Spotify, hosts, athletes and programme accounts were not silently substituted for The Ringer. Unknown, not absent. Review date: 2026-10-23 UTC."
+    },
+    {
+      "id": "waco-tribune-herald", "name": "Waco Tribune-Herald", "category": "newspaper",
+      "aliases": ["Waco Tribune-Herald", "Waco Tribune Herald"],
+      "us_basis": "United States-classified source position158; actual publisher root describes its Central Texas reporting operation and Contact names the Waco Tribune-Herald and its publishing contact.",
+      "source_url": "https://wacotrib.com/", "research_status": "reviewed",
+      "notes": "Complete current root and actual Contact were read without a qualifying institutional Sina profile. Other Tribune, Herald and Texas publications, publisher-group profiles and staff were not accounts of this newspaper. Mailing and street address fields were not conflated with corporate legal ownership. Unknown, not absent. Review date: 2026-10-23 UTC."
+    },
+    {
+      "id": "colorado-springs-gazette", "name": "The Gazette / Colorado Springs", "category": "newspaper",
+      "aliases": ["Colorado Springs Gazette", "The Gazette"],
+      "us_basis": "United States-classified source position159; actual publisher About and Contact identify Colorado Springs, Colorado reporting and its publishing office.",
+      "source_url": "https://gazette.com/", "research_status": "reviewed",
+      "notes": "Complete root, actual About and Contact were read without a qualifying institutional Weibo locator. Own About names both Colorado Springs and Denver Gazette titles under a common publishing entity; that does not establish a shared Sina account, attribution transfer or separately counted confirmed channel. Unrelated Gazette papers, staff and parent-company profiles were not substituted. Current legal control is not independently audited. Unknown, not absent. Review date: 2026-10-23 UTC."
+    },
+    {
+      "id": "la-crosse-tribune", "name": "La Crosse Tribune", "category": "newspaper",
+      "aliases": ["La Crosse La Crosse Tribune", "La Crosse Tribune"],
+      "us_basis": "United States-classified source position160; actual publisher root and Contact identify La Crosse, Wisconsin reporting and its publishing contact.",
+      "source_url": "https://lacrossetribune.com/", "research_status": "reviewed",
+      "notes": "Complete current root and actual Contact were read without a qualifying institutional Sina identifier. Contact slash variants and staff-directory placeholders are not independent sources or accounts. Other Tribune titles, parent-group and community-member profiles were not substituted; the redundant original ranked name remains preserved in the source ledger. Unknown, not absent. Review date: 2026-10-23 UTC."
+    },
+    {
       "id": "telemundo", "name": "Telemundo / Noticias Telemundo", "category": "broadcast_news",
       "aliases": ["Telemundo", "Noticias Telemundo", "Telemundo Noticias"],
       "us_basis": "United States-classified source position110; actual network root separately links its Noticias Telemundo newsroom section. Current corporate domicile/headquarters and legal account control are not independently audited.",

@@ -28,13 +28,13 @@ The selected **1,000 SCImago U.S.-classified domains** are ranked by digital
 reputation, not traffic; their present ownership/nationality was not independently
 audited. **Five have current-profile evidence, seven historical-only evidence,
 988 remain unknown, and zero are verified negatives.** All underwent homepage
-screening, but only 155 have recorded manual review.
+screening, but only 160 have recorded manual review.
 
-The [latest scheduled pass](discovery_iteration31.md) adds five further
-reviews using two new saved HTML pages, a reused verified publisher PDF and
-three metadata-only SBJ responses. Sports coverage about Weibo was not
-treated as SBJ account ownership, and caching/access limits remain explicit.
-Discovery is not exhausted: 845 selected domains still lack a recorded
+The [latest scheduled pass](discovery_iteration32.md) adds five further
+reviews using thirteen actual primary HTML captures. The Ringer's earlier
+homepage truncation was resolved with a measured complete capture; reporter
+citations, parent-company and sister-paper accounts were not substituted.
+Discovery is not exhausted: 840 selected domains still lack a recorded
 manual review. A bounded recurring prompt is active every 30 minutes; later
 passes must advance the frontier rather than repeatedly probing exhausted leads.
 
