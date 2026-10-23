@@ -109,3 +109,11 @@ def test_macau_latest_month_and_matching_cumulative_counts_are_not_confused():
         (2025, "monthly"): 11755, (2025, "ytd"): 104008,
         (2026, "monthly"): 11713, (2026, "ytd"): 109693}
     assert change(selected[2026, "ytd"], selected[2025, "ytd"])["absolute"] == 5685
+    monthly = {r["period"]: r["value"] for r in rows if r["source_id"] == "macau_tourism"
+               and r["year"] == 2025 and r["frequency"] == "monthly"}
+    assert set(monthly) == {f"2025-{month:02d}" for month in range(1, 13)}
+    december = next(r["value"] for r in rows if r["source_id"] == "macau_tourism"
+                    and r["period"] == "2025-12" and r["frequency"] == "ytd")
+    annual = next(r["value"] for r in rows if r["source_id"] == "macau_tourism"
+                  and r["year"] == 2025 and r["frequency"] == "annual")
+    assert sum(monthly.values()) == december == annual

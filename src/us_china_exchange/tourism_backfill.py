@@ -218,8 +218,8 @@ def macau_history(client):
 
 def macau_recent(client):
     rows = macau_history(client)
-    for year in (2025, 2026):
-        for month in range(1, 9):
+    for year, last_month in ((2025, 12), (2026, 8)):
+        for month in range(1, last_month + 1):
             url = (f"{MGTO}/Publication/Report/TopTenVisitorSourceMarkets"
                    f"?year={year}&month={month}&lang=E")
             body, asset = client.get(url)
@@ -260,8 +260,15 @@ def macau_recent(client):
     if not all(any(r["year"] == y and r["frequency"] == "ytd" and r["period"].endswith("-08")
                    for r in rows) for y in (2025, 2026)):
         raise ValueError("Matching latest Macau cumulative periods are required")
-    return rows, "DSEC 2001-2002 residence history; MGTO/DSEC monthly/YTD through August 2026", (
+    complete = {r["period"]: r["value"] for r in rows
+                if r["year"] == 2025 and r["frequency"] == "monthly"}
+    december = next((r["value"] for r in rows if r["period"] == "2025-12" and r["frequency"] == "ytd"), None)
+    if len(complete) != 12 or sum(complete.values()) != december:
+        raise ValueError("Complete 2025 Macau monthly counts must reconcile with December cumulative total")
+    return rows, "DSEC 2001-2002; full monthly 2025 and monthly/YTD through August 2026", (
         "Direct 2025/2026 monthly and cumulative source-market tables, supplemented by complete U.S. "
         "first-half profiles when a monthly top-ten row is absent; travel-document issuing place, "
-        "not U.S. residence. Original DSEC 2002 table 1 restores 2001/2002 all-mode residence "
+        "not U.S. residence. All twelve 2025 monthly counts reconcile with the December cumulative total. "
+        "A requested September 2026 report still displays August captions and is not mislabelled. "
+        "Original DSEC 2002 table 1 restores 2001/2002 all-mode residence "
         "arrivals before the 2008 worker/student exclusion. Other annual history retained.")

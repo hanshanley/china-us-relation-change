@@ -477,6 +477,13 @@ copies and rejects changed pinned historical documents pending review. All
 updates are validated in staging before publication. Macau's latest reviewed
 period is **August 2026**, with **11,713** arrivals in the month and **109,693**
 in January-August; matching 2025 counts are **11,755** and **104,008**.
+The reviewed 2025 monthly history is now complete through December: September
+**8,322**, October **15,467**, November **17,502**, and December **17,161**.
+All twelve monthly counts sum to **162,460**, matching both the direct
+December cumulative report and the independently retained annual value.
+The September 2026 endpoint currently returns an **August-labelled** PDF;
+strict period-caption checks prevent importing those August figures as
+September or inventing a zero for the missing month.
 The two PDF columns are read independently, because a country's monthly and
 cumulative market ranks can differ. An omitted top-ten row is not zero.
 May 2025 is absent from the monthly top ten; the complete U.S. first-half
