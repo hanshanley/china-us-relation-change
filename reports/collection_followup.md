@@ -35,21 +35,21 @@ The selected **1,000 SCImago U.S.-classified domains** are ranked by digital
 reputation, not traffic; their present ownership/nationality was not independently
 audited. **Five have current-profile evidence, seven historical-only evidence,
 988 remain unknown, and zero are verified negatives.** All underwent homepage
-screening, but only 236 have recorded manual review.
+screening, but only 241 have recorded manual review.
 
-The [latest scheduled pass](discovery_iteration48.md) adds five reviews with
-six complete newspaper HTML responses and one genuine cached publisher PDF.
-Actual bodies distinguish Longview, Texas from Washington; qconline's named
-Contact supplies Davenport, Iowa correspondence despite Illinois coverage.
-Vail's Avon street and Vail mailing addresses were kept distinct. Lehigh
-and North Jersey newspaper HTTP403 holds were not retried. The independent
-Lehigh corporate lead failed TLS and was not converted into an available
-capture or retried with weaker TLS or another client. North Jersey's cached
-regional publication names were not silently bound to the ranked hostname.
-All ten no-further-body restrictions and NWA's separate condition remain.
+The [latest scheduled pass](discovery_iteration49.md) adds five reviews with
+six complete newspaper pages, one actual named corporate profile and one
+genuine cached2015 publisher PDF. Cheyenne, Lake Charles and North Andover
+source bodies were read beyond generic titles or weather widgets. Austin's
+newspaper HTTP403 was not retried; the independent corporate profile identifies
+Minnesota, not Texas, without certifying its old schedules or current control.
+Belleville's ordinary route timed out and its cached2015 row remains historical
+context only. No staff layoffs, mirrored body or historical traffic figure
+was converted into a Sina or activity finding. All ten no-further-body
+restrictions and NWA's separate retention condition remain unchanged.
 The live 6,570-post corpus, original archived baseline and all rolling data
 remain unchanged by discovery.
-Discovery is not exhausted: 764 selected domains still lack a recorded
+Discovery is not exhausted: 759 selected domains still lack a recorded
 manual review. A bounded recurring prompt is active every 30 minutes; later
 passes must advance the frontier rather than repeatedly probing exhausted leads.
 

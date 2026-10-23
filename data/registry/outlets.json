@@ -1592,6 +1592,41 @@
       "notes": "Complete root and actually linked Contact inspected without an institutional Sina identifier. Avon street and Vail mailing locations were kept distinct; other-platform handles were not cross-platform Sina bindings. A source-use reservation was not inherited merely from another publisher or presumed from group affiliation. Third-party employee directories, mirrored newspaper PDFs, parent/sibling and staff accounts were not substituted. Unknown, not absent. Review date: 2026-10-23 UTC."
     },
     {
+      "id": "cheyenne-wyoming-tribune-eagle", "name": "Wyoming Tribune Eagle / Cheyenne", "category": "newspaper",
+      "aliases": ["Cheyenne Wyoming Tribune Eagle", "Wyoming Tribune Eagle", "Wyoming Tribune-Eagle"],
+      "us_basis": "United States-classified source position237; actual root and linked About body identify the Wyoming Tribune Eagle and Cheyenne/southeast Wyoming publication context. Publisher-stated ownership, circulation and history are not an independent current-control or audience audit.",
+      "source_url": "https://www.wyomingnews.com/", "research_status": "reviewed",
+      "notes": "Complete root and actually linked /wte/about_us/ read without a qualifying institutional Sina identifier. The named About body was inspected beyond the generic wyomingnews.com title; shared portal navigation did not turn Laramie Boomerang, Rawlins Times or other siblings into inherited accounts or extra ranked reviews. Weather widgets, old print schedules and publisher marketing claims were not posting activity. Unknown, not absent. Review date: 2026-10-23 UTC."
+    },
+    {
+      "id": "lake-charles-american-press", "name": "American Press / Lake Charles, Louisiana", "category": "newspaper",
+      "aliases": ["Lake Charles American Press", "American Press", "The American Press"],
+      "us_basis": "United States-classified source position238; actual root and linked About Location section identify the named American Press and Lake Charles, Louisiana correspondence. This is not independent headquarters, occupancy or current-control certification.",
+      "source_url": "https://americanpress.com/", "research_status": "reviewed",
+      "notes": "Complete root and actually linked /services/about-us/ read without an institutional Sina designation. A conflicting third-party profile's Jennings location was not substituted for the actual publisher Location body. Historical title variants, office hours and publication schedules were not current Weibo activity; the Associated Press news agency, other American Press titles, parent/sibling and staff accounts were not inherited. Unknown, not absent. Review date: 2026-10-23 UTC."
+    },
+    {
+      "id": "austin-daily-herald-minnesota", "name": "Austin Daily Herald / Minnesota", "category": "newspaper",
+      "aliases": ["Austin Daily Herald", "The Austin Daily Herald"],
+      "us_basis": "United States-classified source position239; actual independently retrieved named corporate profile joins The Austin Daily Herald, austindailyherald.com and Austin/southeast Minnesota. The undated profile's history, schedules and office descriptions are not independently audited current control or occupancy.",
+      "source_url": "https://www.austindailyherald.com/", "research_status": "reviewed",
+      "notes": "Recorded newspaper HTTP403 respected with no new newspaper, alias, static-content or obituary requests. Actual Boone corporate /community/austin/ body inspected for scope only, not as a newspaper-content replacement or Sina designation. Historical six-day/edition and circulation claims were not treated as present-day posting activity or current verified ownership. Austin, Texas and the different Austin American-Statesman, other Daily Heralds, parent/sibling and staff accounts were not inherited. Unknown, not absent. Review date: 2026-10-23 UTC."
+    },
+    {
+      "id": "belleville-news-democrat", "name": "Belleville News-Democrat / Illinois", "category": "newspaper",
+      "aliases": ["Belleville News-Democrat", "Belleville News Democrat", "BND"],
+      "us_basis": "United States-classified source position240; genuine cached2015 publisher annual report page14 joins Belleville News-Democrat, bnd.com and Belleville, Illinois. This dated row does not independently establish current ownership or office occupancy.",
+      "source_url": "https://www.bnd.com/", "research_status": "reviewed",
+      "notes": "One ordinary publisher attempt timed out with no body. Genuine cached2015 publisher row was inspected offline as historical publication/domain/geography context only; historical traffic figures were not activity or current-control evidence. Indexed layoffs, staff claims, third-party mirrors, classifieds and unrelated News-Democrat/BND entities were not account designations or substitute newspaper bodies. Parent/sibling and staff accounts were not inherited. Unknown, not absent. Review date: 2026-10-23 UTC."
+    },
+    {
+      "id": "north-andover-eagle-tribune", "name": "The Eagle-Tribune / North Andover, Massachusetts", "category": "newspaper",
+      "aliases": ["North Andover Eagle-Tribune", "The Eagle-Tribune", "Eagle-Tribune", "Eagle Tribune"],
+      "us_basis": "United States-classified source position241; actual root and linked Contact supply named Eagle-Tribune correspondence in North Andover, Massachusetts. The actual letter-mailing instruction, not just a weather widget, establishes the source context.",
+      "source_url": "https://www.eagletribune.com/", "research_status": "reviewed",
+      "notes": "Complete root and actually linked /contact_us/ read without a qualifying institutional Sina identifier. The prior duplicate Contact URL was not counted as two independent sources. A malformed relative jobs route was not followed or silently repaired. Other Eagle/Tribune titles, parent/sibling papers and staff accounts were not inherited; subscriber and office widgets were not closure or inactivity evidence. Unknown, not absent. Review date: 2026-10-23 UTC."
+    },
+    {
       "id": "telemundo", "name": "Telemundo / Noticias Telemundo", "category": "broadcast_news",
       "aliases": ["Telemundo", "Noticias Telemundo", "Telemundo Noticias"],
       "us_basis": "United States-classified source position110; actual network root separately links its Noticias Telemundo newsroom section. Current corporate domicile/headquarters and legal account control are not independently audited.",
