@@ -416,12 +416,40 @@ Radio's report of the education briefing.
 
 HKTDC's official U.S. profile republishes HKTB **nationality** arrivals for
 2023-2025. Its 2023 U.S. count is 596,958, not the 594,752 residence-based
-count in other releases. These are intentionally not spliced. Retained
+count in other releases. These populations are intentionally not treated as
+continuous. Retained
 browser-visible report text is checksummed as such, not described as the
 original HTML or PDF. Review explicitly with
 `.venv/bin/python scripts/build_contact_backfill.py`; `--refresh` rechecks
 only the public republications, never IIE. All candidates are validated in
 a temporary staging tree before canonical files are updated.
+
+The itemized tourism recovery restores **every annual Hong Kong arrival year
+from 2000 through 2025**. C&SD's 2003 Annual Digest (table 9.20, printed page
+200) supplies 2000-2002; MGTO's original 2008, 2013, 2018 and 2023 reports
+republish the overlapping HKTB residence histories. Through 2022 the population
+is **U.S. residence**; from 2023 the retained observations use **U.S.
+nationality**. The line breaks at this boundary, and a 2020-based index/change
+across it is unavailable. C&SD table 650-80001 documents the October 16, 2024
+arrival-card abolition and change of classification.
+
+MGTO's U.S. market profiles separately supply directly reported **January-June
+2025: 489,417** and **January-June 2026: 552,528** Hong Kong arrivals. Its older
+2024 vintage differs by one arrival from the retained HKTDC figure; it does not
+overwrite that observation. No partial value is inferred from a percentage.
+
+Run `.venv/bin/python scripts/build_tourism_backfill.py` for the reviewed
+Hong Kong history and Macau 2025/2026 monthly recovery; `--refresh` fetches new
+copies and rejects changed pinned historical documents pending review. All
+updates are validated in staging before publication. Macau's latest reviewed
+period is **August 2026**, with **11,713** arrivals in the month and **109,693**
+in January-August; matching 2025 counts are **11,755** and **104,008**.
+The two PDF columns are read independently, because a country's monthly and
+cumulative market ranks can differ. An omitted top-ten row is not zero.
+May 2025 is absent from the monthly top ten; the complete U.S. first-half
+profile directly reports 11,241 arrivals (3,409 sea + 6,427 land + 1,405 air).
+That primary table fills the omission. Every other overlapping first-half
+monthly count reconciles with the top-ten publications.
 
 The public explorer disables unpopulated choices for each selected route,
 announces any necessary measure fallback, and offers separately labelled

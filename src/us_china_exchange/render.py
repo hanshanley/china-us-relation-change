@@ -29,7 +29,7 @@ SOURCE_NAMES = {
     "ntto": "U.S. National Travel and Tourism Office",
     "nbs_tourism": "China National Bureau of Statistics / Ministry of Culture and Tourism",
     "ntto_siat": "U.S. National Travel and Tourism Office / SIAT",
-    "hktb": "Hong Kong Tourism Board / HKTDC",
+    "hktb": "Hong Kong Tourism Board",
     "moe": "China Ministry of Education / official report republications",
     "uis": "UNESCO Institute for Statistics",
     "iie": "IIE Open Doors",
@@ -254,7 +254,8 @@ def svg_comparison(rows, measure, direction, theme="themarginoferror", logarithm
     if measure == "goods" and any(r["source_id"] == "comtrade" for r in present):
         note += "Macau dashed: customs exports FOB/imports CIF; others: BEA balance-of-payments. Accounting differs. "
     if measure == "visitors" and direction == "from_us":
-        note += "Macau: travel-document issuing place (residence before April 2015). Trips, not people. "
+        note += ("Hong Kong: residence through 2022, nationality from 2023. "
+                 "Macau: travel-document issuing place (residence before April 2015). Trips, not people. ")
     if measure == "international_students":
         note += "IIE population expands in 2020/21–2022/23. "
     if present[0]["period_basis"] == "academic":

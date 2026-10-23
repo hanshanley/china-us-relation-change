@@ -181,6 +181,8 @@ def parse_hktdc(plain):
 
 
 def hong_kong_visitors(client):
+    from .tourism_backfill import hong_kong_history
+
     try:
         body, asset = client.get(HKTDC)
         values = parse_hktdc(body.decode())
@@ -207,9 +209,13 @@ def hong_kong_visitors(client):
             notes="HKTDC section 8.2 explicitly reports U.S. nationals; the 2023 count is 596,958, not the "
             "594,752 U.S.-residence figure found in other releases. Do not splice these populations. "
             "Source checksum identifies retained browser-visible report text, not original HTML or a PDF. "
-            "Pre-2023 nationality counts and 2026 all-mode partials remain unverified.")
+            "Historical residence-based arrivals are a separate comparison segment, not a continuous "
+            "nationality series. Matched January-June 2025/2026 all-mode counts are separately labelled.")
         rows.extend(attach([row], asset, "HKTDC U.S. Market Profile, 2026; HKTB nationality counts 2023-2025"))
-    return rows, "HKTDC U.S. Market Profile; HKTB 2023-2025 nationality arrivals", (
+    rows.extend(hong_kong_history(client))
+    return rows, "HKTB residence arrivals 2000-2022; nationality 2023-2025 and January-June 2025/2026", (
         "Official HKTDC republication of HKTB arrivals. Nationality, not residence, all purposes and modes. "
         "Browser-rendered public report text retained with checksum; no challenge bypass. "
-        "Not spliced into older residence-based figures or NTTO resident-air estimates.")
+        "C&SD/MGTO republications restore 2000-2022 residence history as a separate comparability segment; "
+        "charts break at 2023 and cross-definition changes/indices are unavailable. MGTO provides "
+        "direct matched first-half 2025/2026 nationality totals. NTTO air estimates remain separate.")

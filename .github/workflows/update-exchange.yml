@@ -17,6 +17,7 @@ on:
       - "scripts/build_immigration_data.py"
       - "scripts/build_travel_data.py"
       - "scripts/build_contact_backfill.py"
+      - "scripts/build_tourism_backfill.py"
       - "scripts/build_student_estimates.py"
       - "scripts/build_business_publication.py"
       - "scripts/check_business_publication.py"

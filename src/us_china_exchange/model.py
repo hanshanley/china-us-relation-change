@@ -185,7 +185,7 @@ def gap_reason(geo, origin, measure):
         return "BEA selected-country workbook does not separately report Macau; no current compatible bilateral services series verified."
     if measure == "visitors" and origin == "USA":
         if geo == "HKG":
-            return "Reviewed HKTB/HKTDC U.S.-nationality all-mode arrivals cover 2023-2025 only. Earlier residence-based counts and current partials are not silently substituted; NTTO resident-air estimates remain separate."
+            return "HKTB all-mode history uses residence for 2000-2022 and nationality for 2023-2025, with a visible definition break; matched first-half 2025/2026 counts are separate. No cross-definition 2020 index is calculated."
         if geo == "CHN":
             return "No current U.S.-origin all-mode visitor table verified in mainland official releases; historic arrivals are not spliced to air-passenger proxies."
     return "No verified compatible primary-source observations; missing values are never inferred as zero."

@@ -16,12 +16,12 @@
     "vintage": "Comtrade annual records through 2025"
   },
   "hktb": {
-    "last_recorded_check": "2026-10-23T05:05:59+00:00",
-    "last_successful_retrieval": "2026-10-23T05:05:59+00:00",
-    "notes": "Official HKTDC republication of HKTB arrivals. Nationality, not residence, all purposes and modes. Browser-rendered public report text retained with checksum; no challenge bypass. Not spliced into older residence-based figures or NTTO resident-air estimates.",
-    "observations": 3,
+    "last_recorded_check": "2026-10-23T06:39:14+00:00",
+    "last_successful_retrieval": "2026-10-23T06:39:14+00:00",
+    "notes": "Official HKTDC republication of HKTB arrivals. Nationality, not residence, all purposes and modes. Browser-rendered public report text retained with checksum; no challenge bypass. C&SD/MGTO republications restore 2000-2022 residence history as a separate comparability segment; charts break at 2023 and cross-definition changes/indices are unavailable. MGTO provides direct matched first-half 2025/2026 nationality totals. NTTO air estimates remain separate.",
+    "observations": 28,
     "status": "available",
-    "vintage": "HKTDC U.S. Market Profile; HKTB 2023-2025 nationality arrivals"
+    "vintage": "HKTB residence arrivals 2000-2022; nationality 2023-2025 and January-June 2025/2026"
   },
   "iie": {
     "last_recorded_check": "2026-10-22T01:27:39+00:00",
@@ -32,12 +32,12 @@
     "vintage": "Open Doors 2025"
   },
   "macau_tourism": {
-    "last_recorded_check": "2026-10-22T01:27:39+00:00",
-    "last_successful_retrieval": "2026-10-21T15:37:28+00:00",
-    "notes": "Selected-market PDFs; unlisted U.S. values are missing, never zero. Latest complete annual market profile fills selected-market omissions. Arrivals exclude non-resident workers/students from 2008. Residence classification changed to issuing place of travel document in April 2015; transition is not comparable. This adapter covers complete annual reports, not newer monthly highlights. MGTO site terms limit use to noncommercial purposes. Commercial reuse permission has not been verified; these exports do not grant publication rights.",
-    "observations": 23,
+    "last_recorded_check": "2026-10-23T06:48:25+00:00",
+    "last_successful_retrieval": "2026-10-23T06:48:25+00:00",
+    "notes": "Direct 2025/2026 monthly and cumulative source-market tables, supplemented by complete U.S. first-half profiles when a monthly top-ten row is absent; travel-document issuing place, not U.S. residence. Existing annual history retained.",
+    "observations": 55,
     "status": "available",
-    "vintage": "MGTO annual highlights through 2025; Market Performance 2008, 2010, 2015, 2024"
+    "vintage": "MGTO/DSEC monthly and YTD U.S.-attributed arrivals through August 2026"
   },
   "moe": {
     "last_recorded_check": "2026-10-23T05:26:45+00:00",
