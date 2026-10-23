@@ -139,6 +139,11 @@ def check(site, url=None, screenshots=None):
                 page.goto(url.rsplit("/", 1)[0] + "/" + name)
                 page.evaluate("document.fonts.ready")
                 expect(page.locator(".module-controls")).to_be_visible()
+                if name == "comparisons.html":
+                    page.select_option("#module-chart", "goods-to_us")
+                    logarithmic = page.locator("#goods-to_us details").filter(has=page.locator(".native-chart"))
+                    logarithmic.evaluate("node=>node.open=true")
+                    expect(logarithmic.locator(".screen-unit")).to_have_text("Nominal US$ (log scale)")
                 if name == "immigration.html":
                     page.select_option("#module-chart", "migrant-stock-from-us")
                     assert page.locator("#migrant-stock-from-us .screen-point").count() == 12
