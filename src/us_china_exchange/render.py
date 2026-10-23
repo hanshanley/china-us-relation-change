@@ -269,7 +269,8 @@ def svg_comparison(rows, measure, direction, theme="themarginoferror", logarithm
     if measure == "visitors" and direction == "from_us":
         note += ("Hong Kong: residence through 2022, nationality from 2023. "
                  "Macau: travel-document issuing place (residence before April 2015). Trips, not people. ")
-    if measure == "international_students":
+    if measure in {"international_students", "enrolled_students"} and any(
+            r["source_id"] == "iie" and 2021 <= r["year"] <= 2023 for r in present):
         note += "IIE population expands in 2020/21–2022/23. "
     if present[0]["period_basis"] == "academic":
         note += "Academic years use ending years. "

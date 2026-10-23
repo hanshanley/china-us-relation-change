@@ -1,15 +1,16 @@
 [
   {
     "available_years": [
+      2021,
       2024,
       2025
     ],
     "baseline_2020": false,
     "destination": "USA",
-    "first_year": 2024,
+    "first_year": 2021,
     "last_year": 2025,
     "measure": "enrolled_students",
-    "observations": 2,
+    "observations": 3,
     "origin": "CHN",
     "reason": "",
     "source_ids": [
@@ -295,6 +296,10 @@
   {
     "available_years": [
       2008,
+      2014,
+      2015,
+      2016,
+      2017,
       2018,
       2019,
       2020,
@@ -308,7 +313,7 @@
     "first_year": 2008,
     "last_year": 2024,
     "measure": "study_abroad",
-    "observations": 8,
+    "observations": 12,
     "origin": "USA",
     "reason": "",
     "source_ids": [
@@ -465,15 +470,16 @@
   },
   {
     "available_years": [
+      2021,
       2024,
       2025
     ],
     "baseline_2020": false,
     "destination": "USA",
-    "first_year": 2024,
+    "first_year": 2021,
     "last_year": 2025,
     "measure": "enrolled_students",
-    "observations": 2,
+    "observations": 3,
     "origin": "HKG",
     "reason": "",
     "source_ids": [
@@ -770,6 +776,10 @@
   },
   {
     "available_years": [
+      2014,
+      2015,
+      2016,
+      2017,
       2018,
       2019,
       2020,
@@ -780,10 +790,10 @@
     ],
     "baseline_2020": true,
     "destination": "HKG",
-    "first_year": 2018,
+    "first_year": 2014,
     "last_year": 2024,
     "measure": "study_abroad",
-    "observations": 7,
+    "observations": 11,
     "origin": "USA",
     "reason": "",
     "source_ids": [
@@ -947,15 +957,16 @@
   },
   {
     "available_years": [
+      2021,
       2024,
       2025
     ],
     "baseline_2020": false,
     "destination": "USA",
-    "first_year": 2024,
+    "first_year": 2021,
     "last_year": 2025,
     "measure": "enrolled_students",
-    "observations": 2,
+    "observations": 3,
     "origin": "MAC",
     "reason": "",
     "source_ids": [
@@ -989,6 +1000,9 @@
   },
   {
     "available_years": [
+      2015,
+      2016,
+      2017,
       2018,
       2019,
       2020,
@@ -1000,10 +1014,10 @@
     ],
     "baseline_2020": true,
     "destination": "USA",
-    "first_year": 2018,
+    "first_year": 2015,
     "last_year": 2025,
     "measure": "international_students",
-    "observations": 8,
+    "observations": 11,
     "origin": "MAC",
     "reason": "",
     "source_ids": [
@@ -1207,6 +1221,10 @@
   },
   {
     "available_years": [
+      2014,
+      2015,
+      2016,
+      2017,
       2018,
       2019,
       2020,
@@ -1217,10 +1235,10 @@
     ],
     "baseline_2020": true,
     "destination": "MAC",
-    "first_year": 2018,
+    "first_year": 2014,
     "last_year": 2024,
     "measure": "study_abroad",
-    "observations": 7,
+    "observations": 11,
     "origin": "USA",
     "reason": "",
     "source_ids": [
@@ -1350,15 +1368,16 @@
   },
   {
     "available_years": [
+      2021,
       2024,
       2025
     ],
     "baseline_2020": false,
     "destination": "USA",
-    "first_year": 2024,
+    "first_year": 2021,
     "last_year": 2025,
     "measure": "enrolled_students",
-    "observations": 2,
+    "observations": 3,
     "origin": "TWN",
     "reason": "",
     "source_ids": [
@@ -1379,6 +1398,24 @@
   },
   {
     "available_years": [
+      2000,
+      2001,
+      2002,
+      2003,
+      2004,
+      2005,
+      2006,
+      2007,
+      2008,
+      2009,
+      2010,
+      2011,
+      2012,
+      2013,
+      2014,
+      2015,
+      2016,
+      2017,
       2018,
       2019,
       2020,
@@ -1390,10 +1427,10 @@
     ],
     "baseline_2020": true,
     "destination": "USA",
-    "first_year": 2018,
+    "first_year": 2000,
     "last_year": 2025,
     "measure": "international_students",
-    "observations": 8,
+    "observations": 26,
     "origin": "TWN",
     "reason": "",
     "source_ids": [
@@ -1597,6 +1634,10 @@
   },
   {
     "available_years": [
+      2014,
+      2015,
+      2016,
+      2017,
       2018,
       2019,
       2020,
@@ -1607,10 +1648,10 @@
     ],
     "baseline_2020": true,
     "destination": "TWN",
-    "first_year": 2018,
+    "first_year": 2014,
     "last_year": 2024,
     "measure": "study_abroad",
-    "observations": 7,
+    "observations": 11,
     "origin": "USA",
     "reason": "",
     "source_ids": [

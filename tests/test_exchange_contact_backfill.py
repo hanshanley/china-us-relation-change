@@ -3,8 +3,11 @@ from pathlib import Path
 
 import pytest
 
-from us_china_exchange.contact_backfill import parse_cau_history, parse_hktdc, parse_nces, parse_nces_credit
+from us_china_exchange.contact_backfill import (
+    parse_cau_history, parse_educationusa_levels, parse_hktdc, parse_nces, parse_nces_credit,
+)
 from us_china_exchange.sources import SOURCE_POLICIES
+from us_china_exchange.model import change
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -27,6 +30,56 @@ def test_government_student_columns_are_counts_and_academic_ending_years():
         parse_nces(records)
 
 
+def test_government_student_country_selection_preserves_separate_taiwan_counts():
+    records = [
+        ["Place", "1999-2000", "", "2000-01", "", "2016-17", ""],
+        ["China", 54466, 10.6, 59939, 10.9, 350755, 32.5],
+        ["Hong Kong", 7545, 1.5, 7627, 1.4, 7547, .7],
+        ["Taiwan", 29234, 5.7, 28566, 5.2, 21516, 2.0],
+    ]
+    assert parse_nces(records, (("Taiwan", "TWN"),)) == {
+        ("TWN", 2000): 29234, ("TWN", 2001): 28566, ("TWN", 2017): 21516}
+    with pytest.raises(ValueError, match="country row"):
+        parse_nces(records, (("Macau", "MAC"),))
+
+
+def test_educationusa_uses_exact_level_counts_not_percentages_visa_totals_or_opt():
+    plain = ("Macau Source: 2021 Open Doors Students in U.S. by Academic Level % Number "
+             "% Change (2020 to 2021) Undergraduate 61.4% 259 -19.1% Graduate 21.1% 89 3.5% "
+             "Non -Degree 0.7% 3 -81.3% OPT 16.8% 71 -12.3% F -80.88%")
+    assert parse_educationusa_levels(plain, "Macau") == [259, 89, 3, 71]
+    for incorrect in (plain.replace("Macau", "Hong Kong"), plain.replace("2021", "2022"),
+                      plain.replace("3 -81.3%", "--- -81.3%"), plain + " OPT 16.8% 71 -12.3%"):
+        with pytest.raises(ValueError):
+            parse_educationusa_levels(incorrect, "Macau")
+    assert parse_educationusa_levels(plain.replace("0.7% 3", "0% 0"), "Macau")[2] == 0
+
+
+def test_government_mobility_backfill_keeps_credit_enrollment_and_opt_populations_separate():
+    rows = json.loads((ROOT / "data/site/observations.json").read_text())
+    for geo, value in (("CHN", 251933), ("HKG", 4841), ("MAC", 351), ("TWN", 14642)):
+        enrolled = next(r for r in rows if r["source_id"] == "iie" and r["origin"] == geo
+                        and r["destination"] == "USA" and r["measure"] == "enrolled_students"
+                        and r["year"] == 2021)
+        assert enrolled["value"] == value and enrolled["period"] == "2020/21"
+        standard = next(r for r in rows if r["source_id"] == "iie" and r["origin"] == geo
+                        and r["destination"] == "USA" and r["measure"] == "enrolled_students"
+                        and r["year"] == 2024)
+        assert change(standard, enrolled) == {
+            "absolute": None, "percent": None, "reason": "Definitions or periods differ"}
+        assert "regardless of visa status" in enrolled["definition"]
+        credits = [r for r in rows if r["source_id"] == "iie" and r["origin"] == "USA"
+                   and r["destination"] == geo and r["measure"] == "study_abroad"]
+        assert set(range(2014, 2025)) <= {r["year"] for r in credits}
+        assert all(r["source_url"].startswith("https://educationusa.state.gov/")
+                   and r["period_basis"] == "academic" for r in credits if 2014 <= r["year"] <= 2017)
+    assert next(r["value"] for r in rows if r["source_id"] == "iie" and r["origin"] == "HKG"
+                and r["measure"] == "international_students" and r["year"] == 2017) == 7547
+    macau = [r for r in rows if r["source_id"] == "iie" and r["origin"] == "MAC"
+             and r["measure"] == "international_students"]
+    assert {r["year"] for r in macau} == set(range(2015, 2026))
+
+
 def test_hong_kong_parser_does_not_substitute_continental_totals_or_residence_counts():
     plain = ("8.2 Tourism Statistics\n2023\n2024\n2025\n"
              "Number of US natioanls visiting Hong Kong\n596,958\n884,262\n1,026,030\n"
@@ -41,7 +94,7 @@ def test_hong_kong_parser_does_not_substitute_continental_totals_or_residence_co
 
 def test_frozen_backfills_have_full_inbound_histories_without_accessing_restricted_iie():
     rows = json.loads((ROOT / "data/site/observations.json").read_text())
-    for geo in ("CHN", "HKG"):
+    for geo in ("CHN", "HKG", "TWN"):
         selected = [r for r in rows if r["origin"] == geo and r["destination"] == "USA"
                     and r["measure"] == "international_students" and r["frequency"] == "annual"]
         assert {r["year"] for r in selected} == set(range(2000, 2026))

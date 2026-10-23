@@ -422,8 +422,8 @@ mobility request for China from 2019 onward returns an empty `records`
 array. Neither an all-nationality total nor cumulative youth exchange-program
 visits is substituted for U.S.-nationality enrollment.
 
-The October 23, 2026 re-audit recovered 36 older student observations from
-NCES Digest tables and a U.S. Commerce country guide. Chinese and Hong Kong
+The October 23, 2026 re-audit recovered 54 older student observations from
+NCES Digest tables and a U.S. Commerce country guide. Chinese, Hong Kong and Taiwanese
 Open Doors totals now cover every academic ending year 2000-2025. The
 underlying statistical provider remains IIE, but these historical rows cite
 the government republication actually retrieved; direct IIE automated access
@@ -446,6 +446,30 @@ is not the table's rank, percentage, or older 1997/98 count. This population
 excludes Americans taking entire degrees abroad and is never joined to MOE
 reporting totals. `scripts/build_contact_backfill.py --education-only`
 reviews the education additions without rechecking tourism.
+
+The State Department's original **EducationUSA 2021 Student Mobility Facts
+and Figures**, East Asia and Pacific compilation, restores another **23
+observations** without accessing IIE: 16 missing credit-study-abroad counts
+(academic ending years **2014-2017**, all four geographies), Macau's
+**2015-2017** OPT-inclusive totals (**573, 586, 605**), and enrolled-only
+counts for **2020/21** (**251,933** mainland Chinese; **4,841** Hong Kong;
+**351** Macau; **14,642** Taiwan). The latter add the three exact published
+academic-level counts, excluding OPT, rather than applying rounded shares.
+Pandemic-expanded enrolled counts have a separate comparison identity from
+2023/24 onward; they cannot supply a like-for-like growth rate.
+
+The four relevant country pages are physical PDF pages **12, 19, 29 and
+56**. Raster-chart value labels are manually reviewed against a pinned
+checksum, never read from approximate line coordinates. All **12** retained
+credit-chart overlaps (2018-2020 across four geographies), all four Macau
+2018-2021 totals and all four 2021 sums reconcile before the merge. A conflicting
+**7,923** label in the Hong Kong 2017 inbound chart is not imported:
+the retained NCES country count **7,547** takes precedence. No other historical
+Hong Kong stock-chart cells are imported from that report. The current
+EducationUSA catalogue directs 2022 onward to IIE; this is not treated as
+permission to resume automated IIE retrieval. Together with the additional
+18 Taiwan NCES rows, this pass adds **41** education observations and preserves
+every field of all **2,537** previously retained observations.
 
 HKTDC's official U.S. profile republishes HKTB **nationality** arrivals for
 2023-2025. Its 2023 U.S. count is 596,958, not the 594,752 residence-based

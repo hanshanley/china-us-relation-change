@@ -13,7 +13,8 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
 from us_china_exchange.contact_backfill import (
-    government_credit_history, government_student_history, hong_kong_visitors, mainland_students,
+    government_credit_history, government_mobility_history, government_student_history,
+    hong_kong_visitors, mainland_students,
 )
 from us_china_exchange.language_sources import ReviewClient
 from us_china_exchange.model import coverage, json_text
@@ -31,8 +32,15 @@ if __name__ == "__main__":
     prior = json.loads((output / "observations.json").read_text())
     rows = government_student_history(client, prior)
     rows = government_credit_history(client, rows)
+    rows = government_mobility_history(client, rows)
     sources = json.loads((output / "sources.json").read_text())
     sources["iie"]["observations"] = sum(r["source_id"] == "iie" for r in rows)
+    sources["iie"]["notes"] = (
+        "IIE automatic retrieval is paused: its terms prohibit automated downloading and analysis. "
+        "Previously reviewed IIE-hosted observations are retained, not newly checked. Historical aggregates "
+        "are independently reviewed in government republications; exact retrieved URLs, checksums, vintages "
+        "and dates remain on those rows. Separate direct retrieval and reuse permission has not been "
+        "verified; public access is not commercial-use clearance.")
     files = {"observations.json": rows, "sources.json": sources, "coverage.json": coverage(rows)}
     texts = {name: json_text(value) for name, value in files.items()}
     with TemporaryDirectory() as directory:

@@ -32,13 +32,14 @@ MOE_HISTORY = [
 HKTDC = "https://research.hktdc.com/en/article/MzIwNjY2NTgx"
 CAU_HISTORY = "https://libwx.cau.edu.cn/oldweb/gxyxkfz/gqyd/12_qw.pdf"
 NCES_CREDIT = "https://nces.ed.gov/pubs2010/2010028.pdf"
+EDUCATIONUSA_2021 = "https://educationusa.state.gov/sites/default/files/educationusa/2021_EAP_COMBINED_SMFF.pdf"
 
 
 def text(value):
     return " ".join(str(value).replace("\xa0", " ").split())
 
 
-def parse_nces(records):
+def parse_nces(records, countries=(("China", "CHN"), ("Hong Kong", "HKG"))):
     headers = []
     for row in records:
         columns = {}
@@ -55,7 +56,7 @@ def parse_nces(records):
         raise ValueError("NCES academic-year header missing or ambiguous")
     columns = headers[0]
     result = {}
-    for label, geo in [("China", "CHN"), ("Hong Kong", "HKG")]:
+    for label, geo in countries:
         selected = [r for r in records if r and text(r[0]).rstrip(". ").strip() == label]
         if len(selected) != 1:
             raise ValueError("NCES country row missing or ambiguous: " + label)
@@ -74,7 +75,7 @@ def government_student_history(client, prior):
     existing = {key(r): r for r in prior}
     reference = {geo: next(r for r in prior if r["origin"] == geo and r["destination"] == "USA"
                            and r["measure"] == "international_students" and r["year"] == 2018)
-                 for geo in ("CHN", "HKG")}
+                 for geo in ("CHN", "HKG", "TWN")}
     reviewed = {}
     for url in NCES_HISTORY:
         body, asset = client.get(url)
@@ -95,7 +96,8 @@ def government_student_history(client, prior):
             body, asset = client.get(downloads[0])
             sheet = xlrd.open_workbook(file_contents=body).sheet_by_index(0)
             records = [sheet.row_values(i) for i in range(sheet.nrows)]
-        for (geo, year), value in parse_nces(records).items():
+        for (geo, year), value in parse_nces(
+                records, (("China", "CHN"), ("Hong Kong", "HKG"), ("Taiwan", "TWN"))).items():
             old = reviewed.get((geo, year))
             if old and old["value"] != value:
                 raise ValueError("NCES country-count vintages disagree; review before merging")
@@ -132,7 +134,7 @@ def government_student_history(client, prior):
                           "China Education and Training guide, 2019. Only the government republication was "
                           "retrieved; direct IIE automatic retrieval remains paused. Includes OPT, not enrolled-only.")
         reviewed["CHN", year] = attach([row], asset, "U.S. Commerce 2019 guide; government republication of Open Doors")[0]
-    if set(reviewed) != {(geo, year) for geo in ("CHN", "HKG") for year in range(2000, 2018)}:
+    if set(reviewed) != {(geo, year) for geo in ("CHN", "HKG", "TWN") for year in range(2000, 2018)}:
         raise ValueError("Government student history is not complete for 2000-2017")
     for row in reviewed.values():
         if key(row) in existing and existing[key(row)]["value"] != row["value"]:
@@ -218,6 +220,94 @@ def government_credit_history(client, prior):
     if key(row) in existing and existing[key(row)]["value"] != value:
         raise ValueError("NCES credit-history backfill conflicts with a retained observation")
     existing.setdefault(key(row), row)
+    return validate(list(existing.values()))
+
+
+def parse_educationusa_levels(plain, country):
+    compact = " ".join(plain.split())
+    compact = re.sub(r"Non\s*-\s*Degree", "Non-Degree", compact)
+    if (not compact.startswith(country + " ") or "Source: 2021 Open Doors" not in compact
+            or "Students in U.S. by Academic Level % Number" not in compact
+            or "Change (2020 to 2021)" not in compact):
+        raise ValueError("EducationUSA country, academic-level table or reporting year changed")
+    counts = []
+    for label in ("Undergraduate", "Graduate", "Non-Degree", "OPT"):
+        matches = re.findall(
+            r"\b" + label + r"\s+\d+(?:\.\d+)?%\s+(\d{1,3}(?:,\d{3})*|\d+)\s+[+-]?\d+(?:\.\d+)?%",
+            compact)
+        if len(matches) != 1:
+            raise ValueError("EducationUSA academic-level count missing or ambiguous: " + label)
+        counts.append(int(matches[0].replace(",", "")))
+    return counts
+
+
+def government_mobility_history(client, prior):
+    body, asset = client.get(EDUCATIONUSA_2021)
+    if asset["sha256"] != "cc3d1155da82fbb60eda18751c780657f44ee8de500412cef2280362bde4296c":
+        raise ValueError("Reviewed EducationUSA mobility report changed")
+    report = PdfReader(io.BytesIO(body))
+    existing = {key(r): r for r in prior}
+    countries = {
+        "CHN": ("China", 11, [13763, 12790, 11688, 11910, 11613, 11639, 2481]),
+        "HKG": ("Hong Kong", 18, [1596, 1508, 1612, 1641, 1859, 2314, 543]),
+        "MAC": ("Macau", 28, [18, 3, 4, 33, 4, 23, 7]),
+        "TWN": ("Taiwan", 55, [801, 880, 980, 1002, 857, 1270, 451]),
+    }
+    candidates = []
+    for geo, (country, page, credits) in countries.items():
+        counts = parse_educationusa_levels(report.pages[page].extract_text(), country)
+        total = next(r for r in prior if r["source_id"] == "iie" and r["origin"] == geo
+                     and r["destination"] == "USA" and r["measure"] == "international_students"
+                     and r["year"] == 2021)
+        if sum(counts) != total["value"]:
+            raise ValueError("EducationUSA academic levels do not reconcile with the retained country total")
+        base = next(r for r in prior if r["source_id"] == "iie" and r["origin"] == geo
+                    and r["destination"] == "USA" and r["measure"] == "enrolled_students")
+        row = observation(
+            "iie", geo, "USA", "enrolled_students", 2021, sum(counts[:3]),
+            base["definition"] + "; expanded pandemic census includes coursework from outside the U.S. "
+            "regardless of visa status",
+            period_basis="academic", comparability="iie:enrolled_students:pandemic-expanded",
+            notes="EducationUSA 2021 Student Mobility Facts and Figures, government republication, "
+            f"PDF page {page + 1}. Adds the published undergraduate, graduate and non-degree counts; "
+            f"excludes the separately published OPT count {counts[3]}. All four level counts reconcile "
+            "exactly with the retained 2020/21 country total. No rounded percentages are used. "
+            "Pandemic reporting can include enrolled students outside the United States; not a physical "
+            "border-crossing count. Direct IIE retrieval remains paused.")
+        candidates.extend(attach([row], asset, f"EducationUSA 2021 government republication; PDF page {page + 1}"))
+        base = next(r for r in prior if r["source_id"] == "iie" and r["origin"] == "USA"
+                    and r["destination"] == geo and r["measure"] == "study_abroad" and r["year"] == 2018)
+        for year, value in enumerate(credits, 2014):
+            row = observation(
+                "iie", "USA", geo, "study_abroad", year, value, base["definition"],
+                period_basis="academic", comparability=base["comparability"],
+                notes="EducationUSA 2021 Student Mobility Facts and Figures, government republication, "
+                f"PDF page {page + 1}, separately labelled U.S. study-abroad chart. Exact value labels "
+                "manually reviewed in the checksum-pinned raster chart; not inferred from line coordinates, "
+                "shares or visa totals. Academic ending years, following Open Doors: all three retained "
+                "overlaps (2018, 2019, 2020) reconcile exactly. Academic-credit participation, not "
+                "whole-degree enrollment or all U.S. nationals. Direct IIE retrieval remains paused.")
+            if year >= 2018 and (key(row) not in existing or existing[key(row)]["value"] != value):
+                raise ValueError("EducationUSA credit-chart overlaps disagree with retained observations")
+            candidates.extend(attach([row], asset, f"EducationUSA 2021 government republication; PDF page {page + 1}"))
+    base = next(r for r in prior if r["source_id"] == "iie" and r["origin"] == "MAC"
+                and r["destination"] == "USA" and r["measure"] == "international_students" and r["year"] == 2018)
+    for year, value in enumerate([573, 586, 605, 555, 558, 503, 422], 2015):
+        row = observation(
+            "iie", "MAC", "USA", "international_students", year, value, base["definition"],
+            period_basis="academic", comparability=base["comparability"],
+            notes="EducationUSA 2021 Student Mobility Facts and Figures, government republication, "
+            "PDF page 29, Macau-only inbound chart. Exact printed raster-chart labels manually reviewed "
+            "against the checksum-pinned report; 2018-2021 overlap exactly with all four retained "
+            "country totals. Includes OPT, not enrolled-only; Macau is not allocated from a combined "
+            "Hong Kong/Macau figure. Direct IIE retrieval remains paused.")
+        if year >= 2018 and (key(row) not in existing or existing[key(row)]["value"] != value):
+            raise ValueError("EducationUSA Macau inbound-chart overlaps disagree with retained observations")
+        candidates.extend(attach([row], asset, "EducationUSA 2021 government republication; PDF page 29"))
+    for row in candidates:
+        if key(row) in existing and existing[key(row)]["value"] != row["value"]:
+            raise ValueError("EducationUSA backfill conflicts with a retained observation")
+        existing.setdefault(key(row), row)
     return validate(list(existing.values()))
 
 
