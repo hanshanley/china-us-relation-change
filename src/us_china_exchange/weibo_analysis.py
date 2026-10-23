@@ -487,11 +487,14 @@ def svg_monthly(summary, metric, theme):
     y = lambda value: 420 - value / maximum * 270
     esc = lambda value: html.escape(str(value), quote=True)
     subtitle = f'{"Trailing 30 days" if rolling else "Monthly publication dates"}, Asia/Shanghai | {rows[0][period]} to {rows[-1][period]}'
+    description = ("Trailing 30-day recovered-sample measures, not total posting activity. "
+                   "Incomplete calendar windows are unavailable, not zero." if rolling else
+                   "Monthly counts in the recovered sample only, not total posting activity. "
+                   "Unrequested months break the line. Hollow markers identify partial requested months.")
     parts = [
         f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {CHART_WIDTH} {CHART_HEIGHT}" role="img" data-metric="{metric}" aria-label="{esc(WEIBO_CHARTS[metric])}">',
         f'<title>{esc(WEIBO_CHARTS[metric])}</title>',
-        '<desc>Monthly counts in the recovered sample only, not total posting activity. '
-        'Unrequested months break the line. Hollow markers identify partial requested months.</desc>',
+        f'<desc>{esc(description)}</desc>',
         f'<rect class="chart-background" width="{CHART_WIDTH}" height="{CHART_HEIGHT}" fill="{CHART_THEMES[theme]["background"]}"/>',
         f'<g font-family="{esc(FONT)}" font-size="20" fill="{MUTED}">',
         f'<text x="80" y="45" font-size="28" font-weight="bold" fill="{TEXT}">{esc(WEIBO_CHARTS[metric])}</text>',

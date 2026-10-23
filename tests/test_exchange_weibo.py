@@ -114,6 +114,9 @@ def test_summary_respects_timezone_attribution_and_private_corpus(tmp_path):
     assert monthly["2021-01"] == dict(month="2021-01", recovered_posts=0, observed_accounts=0, partial_window=False)
     assert monthly["2026-10"]["partial_window"] is True
     assert "PRIVATE_BODY" not in json.dumps(summary)
+    rolling_doc = ElementTree.fromstring(svg_weibo(summary, "rolling30-posts"))
+    description = next(x.text for x in rolling_doc.iter() if x.tag.endswith("desc"))
+    assert "30-day" in description and "Monthly" not in description
     doc = ElementTree.fromstring(svg_weibo(summary, "publication-years"))
     bars = [x for x in doc.iter() if x.get("class") == "data-bar"]
     assert {x.get("data-label") for x in bars} == {"2020", "2022"}
