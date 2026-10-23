@@ -780,6 +780,41 @@
       "notes": "Complete root and actual Contact were read without a qualifying Sina locator. Contact staff links and template placeholders are not institutional-account evidence. Correct newspaper community main website matches without a main Sina identifier. Other Progress titles, generic progress organizations and corporate siblings were not borrowed. Unknown, not absent. Review date: 2026-10-22 UTC."
     },
     {
+      "id": "press-of-atlantic-city", "name": "The Press of Atlantic City", "category": "newspaper",
+      "aliases": ["Press of Atlantic City", "Pleasantville Press Of Atlantic City"],
+      "us_basis": "United States-classified source position120; publisher root and Contact identify Atlantic City and Atlantic County, New Jersey news and a New Jersey publishing address. Current legal ownership is not independently audited.",
+      "source_url": "https://pressofatlanticcity.com/", "research_status": "reviewed",
+      "notes": "Actual saved root and Contact captures from October22 were hash-checked and read on October23 after discovery resumed. No qualifying publisher-owned Weibo profile was present in those pages; staff, advertising contacts and generic Press names were not account owners. No new request was needed to reread these captures. Original source name, domain and rank retained. Unknown, not absent. Review date: 2026-10-23 UTC."
+    },
+    {
+      "id": "arizona-republic", "name": "The Arizona Republic / azcentral", "category": "newspaper",
+      "aliases": ["The Arizona Republic", "Arizona Republic", "azcentral"],
+      "us_basis": "Included at position121 in the unchanged SCImago United States-classified cohort. Publisher access was blocked, so no independent current corporate ownership audit is claimed.",
+      "source_url": "https://www.azcentral.com/", "research_status": "reviewed",
+      "notes": "Saved October22 publisher probe stopped at HTTP403 before any publisher page was captured. October23 web retrieval also identified a robots restriction. No alternate host, path, client or archive request was used to evade it; no readable About/Contact or empty profile is invented. Other Arizona publications, parent companies and journalists were not substituted. Account existence remains unknown, not absent. Review date: 2026-10-23 UTC."
+    },
+    {
+      "id": "lowell-sun", "name": "Lowell Sun", "category": "newspaper",
+      "aliases": ["The Sun of Lowell", "Lowell Sun"],
+      "us_basis": "United States-classified source position123; actual publisher root identifies Lowell-area coverage and Contact identifies its Massachusetts publishing address.",
+      "source_url": "https://www.lowellsun.com/", "research_status": "reviewed",
+      "notes": "Actual saved root and Contact captures from October22 were hash-checked and read on October23. Neither supplied a qualifying institutional Weibo link; staff social profiles, subscription contacts and parent-group accounts were not substituted. Contact slash variants are one source. Current web retrieval reported a robots restriction; no new request or bypass was made after that restriction. Unknown, not absent. Review date: 2026-10-23 UTC."
+    },
+    {
+      "id": "missoulian", "name": "Missoulian / Missoula", "category": "newspaper",
+      "aliases": ["Missoulian", "Missoula Missoulian"],
+      "us_basis": "United States-classified source position124; actual publisher root and Contact identify Missoula, Montana reporting and a Missoula publishing address.",
+      "source_url": "https://missoulian.com/", "research_status": "reviewed",
+      "notes": "Actual saved root and Contact captures from October22 were hash-checked and read on October23. No qualifying institutional Sina link was present. Contact slash variants and template placeholders are not additional sources or accounts; other Montana papers and parent-company channels were not borrowed. No additional network retrieval was needed for these saved pages. Unknown, not absent. Review date: 2026-10-23 UTC."
+    },
+    {
+      "id": "tacoma-news-tribune", "name": "The News Tribune / Tacoma", "category": "newspaper",
+      "aliases": ["The News Tribune", "Tacoma News Tribune"],
+      "us_basis": "United States-classified source position125; McClatchy's actual publisher-owned market page identifies The News Tribune's Tacoma and Pierce County, Washington news operation.",
+      "source_url": "https://www.thenewstribune.com/", "research_status": "reviewed",
+      "notes": "Saved October22 direct publisher probe timed out before a newspaper body was captured. A new October23 robots-aware capture of https://www.mcclatchy.com/our-impact/markets/the-news-tribune confirms the correct publication locator, not a Sina identity; it supplies no qualifying Weibo profile. Parent-company, staff and other Tribune titles were not promoted. No readable newspaper About/Contact is invented. Unknown, not absent. Review date: 2026-10-23 UTC."
+    },
+    {
       "id": "telemundo", "name": "Telemundo / Noticias Telemundo", "category": "broadcast_news",
       "aliases": ["Telemundo", "Noticias Telemundo", "Telemundo Noticias"],
       "us_basis": "United States-classified source position110; actual network root separately links its Noticias Telemundo newsroom section. Current corporate domicile/headquarters and legal account control are not independently audited.",

@@ -1,10 +1,10 @@
 # Account verification and post-collection follow-up
 
-Snapshot updated October 22, 2026. The [generated inventory](weibo_media_inventory.md)
+Snapshot updated October 23, 2026. The [generated inventory](weibo_media_inventory.md)
 contains the authoritative per-account post totals. A verified identity is not
 a guarantee of current ownership, current posting, or complete historical recovery.
 
-## Published snapshot: October 22, 2026
+## Published snapshot: October 23, 2026
 
 The [primary-source recheck](weibo_primary_source_audit.md) now reports
 **85 numeric bindings rechecked, one historical numeric recheck pending,
@@ -28,7 +28,13 @@ The selected **1,000 SCImago U.S.-classified domains** are ranked by digital
 reputation, not traffic; their present ownership/nationality was not independently
 audited. **Five have current-profile evidence, seven historical-only evidence,
 988 remain unknown, and zero are verified negatives.** All underwent homepage
-screening, but only 120 have recorded manual review.
+screening, but only 125 have recorded manual review.
+
+The [resumed discovery pass](discovery_iteration25.md) completes five previously
+unfinished publisher reviews without inventing an account or retrying restricted
+routes. Discovery is not exhausted: 875 selected domains still lack a recorded
+manual review. A bounded recurring prompt is active every 30 minutes; later
+passes must advance the frontier rather than repeatedly probing exhausted leads.
 
 **6,521 posts were partially recovered from 68 channels**: 5,760 available source
 bodies and 761 truncated previews. These are not complete timelines or independently
