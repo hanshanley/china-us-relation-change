@@ -35,16 +35,18 @@ The selected **1,000 SCImago U.S.-classified domains** are ranked by digital
 reputation, not traffic; their present ownership/nationality was not independently
 audited. **Five have current-profile evidence, seven historical-only evidence,
 988 remain unknown, and zero are verified negatives.** All underwent homepage
-screening, but only 196 have recorded manual review.
+screening, but only 201 have recorded manual review.
 
-The [latest scheduled pass](discovery_iteration40.md) adds one bounded
-Jamestown Post-Journal review with two retained primary HTML responses.
-The actually linked Contact was read; a staff-email-like relative route
-was not followed or treated as a second institutional page. No account
-was promoted. The separately verified automatic live refresh added 49
-source-checked records; the original 6,521-post October 21 baseline stays
-archived, while the live inventory and rolling graphs expose current totals.
-Discovery is not exhausted: 804 selected domains still lack a recorded
+The [latest scheduled pass](discovery_iteration41.md) adds five reviews with
+three retained primary HTML responses and two genuine publisher PDFs
+re-read offline. The Athletic app supplies a publisher URL, but its original
+redirect target was not guessed and NYT's historical account was not inherited.
+Worcester's recorded HTTP403 was not retried; both McClatchy newspaper
+attempts timed out. Eureka's fresh root was removed under an explicit
+AI/text-mining reservation, with no subsequent publisher-body requests.
+The live 6,570-post corpus, original archived baseline and all rolling data
+remain unchanged by discovery.
+Discovery is not exhausted: 799 selected domains still lack a recorded
 manual review. A bounded recurring prompt is active every 30 minutes; later
 passes must advance the frontier rather than repeatedly probing exhausted leads.
 

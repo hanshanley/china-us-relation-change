@@ -1312,6 +1312,41 @@
       "notes": "Complete root and the actually linked Contact read without a qualifying institutional Sina identifier. A staff-email-like relative route was not treated as another institutional page or followed. Masthead/edition dates were not posting-activity or closure evidence. Search-result co-mentions and third-party aggregation tags were not publisher designations; staff, parent, sibling and other Post/Journal accounts were not inherited. Unknown, not absent. Review date: 2026-10-23 UTC."
     },
     {
+      "id": "san-luis-obispo-tribune", "name": "The Tribune / San Luis Obispo, California", "category": "newspaper",
+      "aliases": ["San Luis Obispo Tribune", "The Tribune", "San Luis Obispo County Tribune"],
+      "us_basis": "United States-classified source position197; actual corporate profile body names The Tribune, sanluisobispo.com and San Luis Obispo/California coverage. A genuine cached2015 publisher row supplies separately dated title/domain/location context, not current-control certification.",
+      "source_url": "https://www.sanluisobispo.com/", "research_status": "reviewed",
+      "notes": "Ordinary newspaper attempt timed out with no usable body. The exact corporate market route was inspected beyond its generic Markets title and contains actual publication-specific text. The old annual report was re-read offline only; neither source substitutes for a newspaper body or Sina designation. Other Tribune titles, parent/sibling and staff accounts were not inherited. Unknown, not absent. Review date: 2026-10-23 UTC."
+    },
+    {
+      "id": "worcester-telegram-gazette", "name": "Telegram & Gazette / Worcester, Massachusetts", "category": "newspaper",
+      "aliases": ["Worcester Telegram & Gazette", "Telegram & Gazette", "Worcester Telegram and Gazette"],
+      "us_basis": "United States-classified source position198; genuine cached publisher directory page8 names Worcester Telegram & Gazette under Massachusetts, while page19 supplies the institutional telegram.com domain in that state section. The undated directory is not a present-day ownership audit.",
+      "source_url": "https://www.telegram.com/", "research_status": "reviewed",
+      "notes": "Recorded newspaper HTTP403 respected without new newspaper, alias-host or obituary requests. The actual cached publisher PDF was read offline, not newly downloaded or used as a copy of denied newspaper content. Telegram messaging, other Telegram/Gazette titles, parent and staff accounts were not treated as this newspaper's Sina account. Directory context establishes no profile designation. Unknown, not absent. Review date: 2026-10-23 UTC."
+    },
+    {
+      "id": "the-athletic", "name": "The Athletic / sports publication", "category": "sports_news",
+      "aliases": ["The Athletic", "The Athletic Media Company"],
+      "us_basis": "United States-classified source position199; actual publisher-maintained App Store listing names The Athletic and The New York Times Company as seller/developer, and supplies a nytimes.com/athletic developer URI. This is affiliation context, not an independent headquarters, current legal-control or uniform U.S.-newsroom audit.",
+      "source_url": "https://theathletic.com/", "research_status": "reviewed",
+      "notes": "Original-domain unchecked redirect remained held; its actual target was not observed or guessed from parent affiliation. The actual app's static Developer Website link was read, but neither that new origin nor privacy/support links were fetched. The separately documented NYT Chinese historical account was not assigned to The Athletic. Sina sports aggregators, fan clubs and individual reporters quoting The Athletic are not publisher designations, and their use of the word official was not inherited. No reporter's current employment was inferred from search snippets. Unknown, not absent. Review date: 2026-10-23 UTC."
+    },
+    {
+      "id": "eureka-times-standard", "name": "Times-Standard / Eureka and Humboldt County, California", "category": "newspaper",
+      "aliases": ["Eureka Times-Standard", "Times-Standard", "Times Standard"],
+      "us_basis": "United States-classified source position200; transient publisher metadata identifies Times-Standard and Humboldt County, California coverage. This factual metadata-only review does not independently verify a current office or controller.",
+      "source_url": "https://www.times-standard.com/", "research_status": "reviewed",
+      "notes": "An explicit AI/text-data-mining reservation led to conservative removal of exactly the fresh root copy. Available-body path/hash are null; the discarded fingerprint is unavailable as a retained primary capture. No subsequent About, Contact or other publisher-body request was made. Existing older captures were not altered. Other Times/Standard titles, publisher groups, sister papers and staff profiles were not substituted. Unknown, not absent. Review date: 2026-10-23 UTC."
+    },
+    {
+      "id": "tri-city-herald-kennewick", "name": "Tri-City Herald / Kennewick, Washington", "category": "newspaper",
+      "aliases": ["Kennewick Tri-City Herald", "Tri-City Herald", "Tri City Herald"],
+      "us_basis": "United States-classified source position201; actual named corporate profile body joins Tri-City Herald, tri-cityherald.com, Kennewick/Pasco/Richland and southeast Washington coverage. A genuine cached2015 publisher row provides separate historical context, not current-control certification.",
+      "source_url": "https://www.tri-cityherald.com/", "research_status": "reviewed",
+      "notes": "Ordinary newspaper attempt timed out without a usable body. The specific corporate profile was read beyond its generic Markets title; the2015 report was reused offline only. Neither source designates a Sina account or supplies unavailable newspaper content. Tri-City namesakes in other regions, other Heralds, parent/sibling and staff accounts were not inherited. No historical acquisition date was treated as a current legal-controller audit. Unknown, not absent. Review date: 2026-10-23 UTC."
+    },
+    {
       "id": "telemundo", "name": "Telemundo / Noticias Telemundo", "category": "broadcast_news",
       "aliases": ["Telemundo", "Noticias Telemundo", "Telemundo Noticias"],
       "us_basis": "United States-classified source position110; actual network root separately links its Noticias Telemundo newsroom section. Current corporate domicile/headquarters and legal account control are not independently audited.",
