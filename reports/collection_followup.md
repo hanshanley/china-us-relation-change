@@ -28,11 +28,12 @@ The selected **1,000 SCImago U.S.-classified domains** are ranked by digital
 reputation, not traffic; their present ownership/nationality was not independently
 audited. **Five have current-profile evidence, seven historical-only evidence,
 988 remain unknown, and zero are verified negatives.** All underwent homepage
-screening, but only 125 have recorded manual review.
+screening, but only 130 have recorded manual review.
 
-The [resumed discovery pass](discovery_iteration25.md) completes five previously
-unfinished publisher reviews without inventing an account or retrying restricted
-routes. Discovery is not exhausted: 875 selected domains still lack a recorded
+The [latest scheduled pass](discovery_iteration26.md) adds five further
+publisher reviews, retaining two access-limited findings as unknown and
+reading eight actual primary pages for the other three publications.
+Discovery is not exhausted: 870 selected domains still lack a recorded
 manual review. A bounded recurring prompt is active every 30 minutes; later
 passes must advance the frontier rather than repeatedly probing exhausted leads.
 

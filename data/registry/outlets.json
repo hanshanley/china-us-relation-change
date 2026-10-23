@@ -815,6 +815,41 @@
       "notes": "Saved October22 direct publisher probe timed out before a newspaper body was captured. A new October23 robots-aware capture of https://www.mcclatchy.com/our-impact/markets/the-news-tribune confirms the correct publication locator, not a Sina identity; it supplies no qualifying Weibo profile. Parent-company, staff and other Tribune titles were not promoted. No readable newspaper About/Contact is invented. Unknown, not absent. Review date: 2026-10-23 UTC."
     },
     {
+      "id": "bend-bulletin", "name": "The Bulletin / Bend", "category": "newspaper",
+      "aliases": ["Bend Bulletin", "The Bulletin"],
+      "us_basis": "United States-classified source position126; actual publisher About identifies Bend, Oregon and its Central Oregon coverage, and Contact supplies its Bend publishing address.",
+      "source_url": "https://bendbulletin.com/", "research_status": "reviewed",
+      "notes": "Complete current root and the actual linked /services/about-us/ and /services/contact-us/ were read. The nested services paths were found in publisher navigation, not guessed from a generic About route. None supplied a qualifying institutional Weibo profile. Other Bulletin titles, Manila publications, staff and advertisers were not substituted. No ownership continuity or account-negative inference. Unknown, not absent. Review date: 2026-10-23 UTC."
+    },
+    {
+      "id": "journal-news-lohud", "name": "The Journal News / lohud", "category": "newspaper",
+      "aliases": ["White Plains Journal News", "The Journal News", "lohud"],
+      "us_basis": "Included at position127 in the unchanged SCImago United States-classified cohort. Restricted newspaper access does not establish an independently audited current ownership or headquarters claim.",
+      "source_url": "https://www.lohud.com/", "research_status": "reviewed",
+      "notes": "The recorded direct-publisher HTTP403 was respected and the restricted host was not requested again. A separately permitted publisher-corporate locator probe stopped at a cross-publisher/non-HTTPS redirect before reading any corporate page; no unchecked destination was followed. No readable newspaper About/Contact or corporate ownership statement is invented. Other Journal News titles, parent or staff accounts were not borrowed. Unknown, not absent. Review date: 2026-10-23 UTC."
+    },
+    {
+      "id": "sioux-city-journal", "name": "Sioux City Journal", "category": "newspaper",
+      "aliases": ["Sioux City Journal", "Sioux City Journal News"],
+      "us_basis": "United States-classified source position128; actual publisher root and Contact identify Sioux City, Iowa reporting and a Sioux City publishing address.",
+      "source_url": "https://siouxcityjournal.com/", "research_status": "reviewed",
+      "notes": "Complete current root and actual Contact were read without a qualifying institutional Sina locator. Contact slash redirect is one source, not two independent pages. Staff directories, template placeholders, other Journal publications and parent-company channels were not promoted. Unknown, not absent. Review date: 2026-10-23 UTC."
+    },
+    {
+      "id": "new-london-day", "name": "The Day / New London", "category": "newspaper",
+      "aliases": ["New London Day", "The Day"],
+      "us_basis": "Included at position129 in the unchanged SCImago United States-classified cohort under New London Day. Current publisher content and corporate ownership were not independently verified because web retrieval reported a robots restriction.",
+      "source_url": "https://theday.com/", "research_status": "reviewed",
+      "notes": "Current web retrieval explicitly reported a non-retryable robots restriction. No new direct client, alternate path, host or archive request was used after that result. Prior screening metadata is not recast as a saved primary body; no readable About/Contact or source-specific Sina account is invented. Generic Day names and unrelated London publishers were not substituted. Unknown, not absent. Review date: 2026-10-23 UTC."
+    },
+    {
+      "id": "albuquerque-journal", "name": "Albuquerque Journal", "category": "newspaper",
+      "aliases": ["Albuquerque Journal", "ABQ Journal"],
+      "us_basis": "United States-classified source position130; actual publisher About and Contact identify the Albuquerque, New Mexico newspaper and its publishing operation.",
+      "source_url": "https://www.abqjournal.com/", "research_status": "reviewed",
+      "notes": "Complete current root, About and Contact were read without a qualifying institutional Weibo link. The publisher's historical discussion and printing relationship with another newspaper were not treated as proof of a shared social account or continuing corporate control. Other Journal titles, staff and regional partners were not substituted. Unknown, not absent. Review date: 2026-10-23 UTC."
+    },
+    {
       "id": "telemundo", "name": "Telemundo / Noticias Telemundo", "category": "broadcast_news",
       "aliases": ["Telemundo", "Noticias Telemundo", "Telemundo Noticias"],
       "us_basis": "United States-classified source position110; actual network root separately links its Noticias Telemundo newsroom section. Current corporate domicile/headquarters and legal account control are not independently audited.",
