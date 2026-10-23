@@ -28,21 +28,21 @@ CHARTS = {
         "unit": "Reported programs", "mode": "bars",
         "note": "American Councils Table 4. Chinese 1,144; Japanese 433; Korean 43. Reported high-school language programs, not a census of unique schools, student enrollment or unmet demand. Schools may offer more than one language."},
     "college-share": {
-        "title": "Chinese/Mandarin's share of language study",
+        "title": "Each language's share of college language study",
         "subtitle": "Share of all non-English language course registrations",
-        "series": ["mla:chinese"], "denominator": "mla:all_languages", "unit": "Percent", "mode": "share",
+        "series": ["mla:chinese", "mla:japanese", "mla:korean"], "denominator": "mla:all_languages", "unit": "Percent", "mode": "share",
         "note": "Calculated from the same MLA report vintage and census rounds; denominator includes ASL and classical languages. Not a share of all college students."},
     "college-benchmarks": {
         "title": "Language study in context",
         "subtitle": "U.S. college course enrollments | 2013 = 100",
-        "series": ["mla:chinese", "mla:japanese", "mla:korean", "mla:all_languages"],
+        "series": ["mla:chinese", "mla:japanese", "mla:korean"],
         "unit": "2013 = 100", "mode": "index", "baseline": 2013,
         "note": "Each language uses its own 2013 baseline. MLA 2021-report vintage, not annual estimates. Population totals vary across census rounds; this is not a causal estimate."},
     "matched-college-benchmarks": {
         "title": "The same responding institutions",
         "subtitle": "Matched 2013/2021 respondents | 2013 = 100",
-        "series": ["mla_matched:chinese", "mla_matched:japanese", "mla_matched:korean",
-                   "mla_matched:all_languages"], "unit": "2013 = 100", "mode": "index", "baseline": 2013,
+        "series": ["mla_matched:chinese", "mla_matched:japanese", "mla_matched:korean"],
+        "unit": "2013 = 100", "mode": "index", "baseline": 2013,
         "note": "Same institution IDs with complete reported language-count rows in both rounds; nonresponse excluded, explicit zero-language respondents retained. Selected cohort, not a national total or a causal estimate."},
     "ap-chinese-global": {
         "title": "AP Chinese and Japanese participation",
@@ -55,15 +55,29 @@ CHARTS = {
         "series": ["ap_cohort:us_public"], "unit": "Exams", "mode": "levels",
         "note": "College Board Report to the Nation. Year is graduating class, not exam administration. Public schools only; not all U.S. schools or unique learners. Historical cohorts are not spliced into global annual totals."},
     "chinese-bachelors": {
-        "title": "Chinese-language bachelor's awards",
-        "subtitle": "IPEDS | first major CIP 16.0301 | academic year ending",
-        "series": ["ipeds:bachelors"], "unit": "Awards", "mode": "levels",
-        "note": "NCES IPEDS; 50 states and DC, Title IV degree-granting institutions. From 2001, first-major only; 2000 lacks a separate major-number field. Awards are not unique people or all China specialists."},
+        "title": "Bachelor's awards by language",
+        "subtitle": "Nationwide IPEDS | Chinese, Japanese and Korean | academic year ending",
+        "series": ["ipeds:bachelors", "ipeds_japanese:bachelors", "ipeds_korean:bachelors"],
+        "unit": "Awards", "mode": "levels",
+        "note": "NCES IPEDS; 50 states/DC, Title IV degree-granting institutions. Chinese 16.0301, Japanese 16.0302, "
+        "Korean 16.0303; language/literature first-major awards from 2001. Not enrollment or unique people. "
+        "2025 is provisional. The 2000 major-coding boundary breaks the lines."},
     "chinese-graduate-awards": {
-        "title": "Chinese-language graduate awards",
-        "subtitle": "IPEDS | first major CIP 16.0301 | academic year ending",
-        "series": ["ipeds:masters", "ipeds:doctorates"], "unit": "Awards", "mode": "levels",
-        "note": "NCES IPEDS; reported/imputed awards, not unique people. Major coding changes in 2001; doctoral definition changes in 2010 from old category to research/scholarship doctorates. Lines break at those boundaries."},
+        "title": "Master's awards by language",
+        "subtitle": "Nationwide IPEDS | Chinese, Japanese and Korean | academic year ending",
+        "series": ["ipeds:masters", "ipeds_japanese:masters", "ipeds_korean:masters"],
+        "unit": "Awards", "mode": "levels",
+        "note": "NCES IPEDS; 50 states/DC, Title IV degree-granting institutions. Separate Chinese, Japanese and "
+        "Korean language/literature codes; first-major awards from 2001. Not enrollment or unique people. "
+        "2025 is provisional; the 2000 major-coding boundary breaks the lines."},
+    "language-doctorates": {
+        "title": "Doctoral awards by language",
+        "subtitle": "Nationwide IPEDS | Chinese, Japanese and Korean | academic year ending",
+        "series": ["ipeds:doctorates", "ipeds_japanese:doctorates", "ipeds_korean:doctorates"],
+        "unit": "Awards", "mode": "levels",
+        "note": "NCES IPEDS; 50 states/DC, Title IV degree-granting institutions. First-major language/literature "
+        "awards, not enrollment. 2025 is provisional. Lines break at major coding in 2001 and at the switch "
+        "from the old doctoral category to research/scholarship doctorates in 2010."},
     "school-program-inventories": {
         "title": "Mandarin immersion program inventories",
         "subtitle": "Different coverage definitions - not a comparable growth series",
@@ -210,8 +224,11 @@ def chart_points(data, chart_id):
                                reported_unit=data["series"][sid]["unit"], plotted_unit=config["unit"]))
         language = ("japanese" if "japanese" in sid else "chinese") if (
             sid.startswith("ap:") or chart_id == "school-language-enrollments") else sid.split(":")[-1]
+        degrees = chart_id in {"chinese-bachelors", "chinese-graduate-awards", "language-doctorates"}
+        if degrees:
+            language = "japanese" if sid.startswith("ipeds_japanese:") else "korean" if sid.startswith("ipeds_korean:") else "chinese"
         color = LANGUAGE_COLORS.get(language, ["#7B2D26", "#3D6F8C", "#C2993E"][index % 3])
-        label = language.capitalize() if chart_id == "school-language-enrollments" else data["series"][sid]["label"]
+        label = language.capitalize() if degrees or chart_id == "school-language-enrollments" else data["series"][sid]["label"]
         grouped.append({"id": sid, "label": label, "color": color,
                         "points": points, "scheduled_years": [r["year"] for r in selected],
                         "cadence": data["series"][sid]["cadence"],

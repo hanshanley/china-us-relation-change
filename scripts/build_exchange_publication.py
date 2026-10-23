@@ -31,7 +31,7 @@ PAGES = {
                          "Resident-stock benchmarks: 2000–2024 · U.S. green-card grants through FY2025"),
     "comparisons.html": ("China, Hong Kong & Macau", "The same measure, three separately reported geographies.",
                          "Fixed regional colours · No combined regional total"),
-    "language-learning.html": ("Language learning", "Chinese, Japanese and Korean course enrollments, with school availability and exam participation kept separate.",
+    "language-learning.html": ("Language learning", "Chinese, Japanese and Korean compared through course enrollments, degree awards and school programs.",
                               "AP exams through 2025 · Degree awards through 2024 · College census through 2021"),
     "business-presence.html": ("Businesses in China", "U.S. and European business presence, with different counting rules kept separate.",
                              "Annual affiliate histories · Latest available year varies by origin"),
@@ -110,7 +110,7 @@ def plot_model(svg, labels, observations):
                            "reported_value": float(p.get("data-reported-value", value)),
                            "reported_unit": p.get("data-reported-unit", model["unit"]),
                            "status": p.get("data-status", "")})
-        model["groups"].append({"label": GEOGRAPHIES[geo] if geo else labels.get(sid, legends[i] if i < len(legends) else ""),
+        model["groups"].append({"label": GEOGRAPHIES[geo] if geo else legends[i] if i < len(legends) else labels.get(sid, ""),
                                 "color": color, "dash": path.get("stroke-dasharray", ""),
                                 "id": sid or "", "points": points})
     if paths:
@@ -341,6 +341,11 @@ def decorate(site, name, labels, revision):
     observations = {(r["series_id"], r["period"]): r for r in
                     json.loads((site / "downloads/observations.json").read_text()) if r["frequency"] == "annual"}
     if name == "language-learning.html":
+        history = soup.select_one("#college-enrollments")
+        if history is not None:
+            history.append(fragment('<p class="chart-note">For a newer nationwide comparison, '
+                                    '<a href="language-learning.html?indicator=chinese-bachelors">see degree awards by language</a>. '
+                                    'Degrees and course enrollments are separate measures.</p>'))
         group_notes = {"ap-chinese-global": "Global AP exam participation counts, not U.S.-only counts or a census of all language learners. Korean is not shown because no AP Korean exam is offered; this is not zero participation."}
         for chart_id, text in group_notes.items():
             section = soup.select_one("#" + chart_id)

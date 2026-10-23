@@ -58,7 +58,7 @@
       "status": "not_verified"
     },
     {
-      "description": "Annual IPEDS awards from academic year ending 2000 through 2025; first major from 2001, 50 states/DC and Title IV degree-granting institutions.",
+      "description": "Annual Chinese, Japanese and Korean IPEDS awards from academic year ending 2000 through 2025; first major from 2001, 50 states/DC and Title IV degree-granting institutions.",
       "id": "degree_awards",
       "status": "available"
     },
@@ -1539,6 +1539,1410 @@
       "year": 2025
     },
     {
+      "comparability": "ipeds_japanese:bachelors:no_major_split",
+      "notes": "Academic year 1999/00; AWLEVEL=5; 58 eligible source cells.",
+      "series_id": "ipeds_japanese:bachelors",
+      "source_id": "ipeds_2000",
+      "status": "reported_or_imputed",
+      "value": 321,
+      "year": 2000
+    },
+    {
+      "comparability": "ipeds_japanese:bachelors",
+      "notes": "Academic year 2000/01; AWLEVEL=5; 65 eligible source cells.",
+      "series_id": "ipeds_japanese:bachelors",
+      "source_id": "ipeds_2001",
+      "status": "reported_or_imputed",
+      "value": 328,
+      "year": 2001
+    },
+    {
+      "comparability": "ipeds_japanese:bachelors",
+      "notes": "Academic year 2001/02; AWLEVEL=5; 65 eligible source cells.",
+      "series_id": "ipeds_japanese:bachelors",
+      "source_id": "ipeds_2002",
+      "status": "reported_or_imputed",
+      "value": 390,
+      "year": 2002
+    },
+    {
+      "comparability": "ipeds_japanese:bachelors",
+      "notes": "Academic year 2002/03; AWLEVEL=5; 61 eligible source cells.",
+      "series_id": "ipeds_japanese:bachelors",
+      "source_id": "ipeds_2003",
+      "status": "reported_or_imputed",
+      "value": 434,
+      "year": 2003
+    },
+    {
+      "comparability": "ipeds_japanese:bachelors",
+      "notes": "Academic year 2003/04; AWLEVEL=5; 64 eligible source cells.",
+      "series_id": "ipeds_japanese:bachelors",
+      "source_id": "ipeds_2004",
+      "status": "reported_or_imputed",
+      "value": 381,
+      "year": 2004
+    },
+    {
+      "comparability": "ipeds_japanese:bachelors",
+      "notes": "Academic year 2004/05; AWLEVEL=5; 66 eligible source cells.",
+      "series_id": "ipeds_japanese:bachelors",
+      "source_id": "ipeds_2005",
+      "status": "reported_or_imputed",
+      "value": 429,
+      "year": 2005
+    },
+    {
+      "comparability": "ipeds_japanese:bachelors",
+      "notes": "Academic year 2005/06; AWLEVEL=5; 69 eligible source cells.",
+      "series_id": "ipeds_japanese:bachelors",
+      "source_id": "ipeds_2006",
+      "status": "reported_or_imputed",
+      "value": 487,
+      "year": 2006
+    },
+    {
+      "comparability": "ipeds_japanese:bachelors",
+      "notes": "Academic year 2006/07; AWLEVEL=5; 72 eligible source cells.",
+      "series_id": "ipeds_japanese:bachelors",
+      "source_id": "ipeds_2007",
+      "status": "reported_or_imputed",
+      "value": 545,
+      "year": 2007
+    },
+    {
+      "comparability": "ipeds_japanese:bachelors",
+      "notes": "Academic year 2007/08; AWLEVEL=5; 73 eligible source cells.",
+      "series_id": "ipeds_japanese:bachelors",
+      "source_id": "ipeds_2008",
+      "status": "reported_or_imputed",
+      "value": 547,
+      "year": 2008
+    },
+    {
+      "comparability": "ipeds_japanese:bachelors",
+      "notes": "Academic year 2008/09; AWLEVEL=5; 75 eligible source cells.",
+      "series_id": "ipeds_japanese:bachelors",
+      "source_id": "ipeds_2009",
+      "status": "reported_or_imputed",
+      "value": 571,
+      "year": 2009
+    },
+    {
+      "comparability": "ipeds_japanese:bachelors",
+      "notes": "Academic year 2009/10; AWLEVEL=5; 77 eligible source cells.",
+      "series_id": "ipeds_japanese:bachelors",
+      "source_id": "ipeds_2010",
+      "status": "reported_or_imputed",
+      "value": 631,
+      "year": 2010
+    },
+    {
+      "comparability": "ipeds_japanese:bachelors",
+      "notes": "Academic year 2010/11; AWLEVEL=5; 82 eligible source cells.",
+      "series_id": "ipeds_japanese:bachelors",
+      "source_id": "ipeds_2011",
+      "status": "reported_or_imputed",
+      "value": 774,
+      "year": 2011
+    },
+    {
+      "comparability": "ipeds_japanese:bachelors",
+      "notes": "Academic year 2011/12; AWLEVEL=5; 85 eligible source cells.",
+      "series_id": "ipeds_japanese:bachelors",
+      "source_id": "ipeds_2012",
+      "status": "reported_or_imputed",
+      "value": 668,
+      "year": 2012
+    },
+    {
+      "comparability": "ipeds_japanese:bachelors",
+      "notes": "Academic year 2012/13; AWLEVEL=5; 87 eligible source cells.",
+      "series_id": "ipeds_japanese:bachelors",
+      "source_id": "ipeds_2013",
+      "status": "reported_or_imputed",
+      "value": 717,
+      "year": 2013
+    },
+    {
+      "comparability": "ipeds_japanese:bachelors",
+      "notes": "Academic year 2013/14; AWLEVEL=5; 84 eligible source cells.",
+      "series_id": "ipeds_japanese:bachelors",
+      "source_id": "ipeds_2014",
+      "status": "reported_or_imputed",
+      "value": 625,
+      "year": 2014
+    },
+    {
+      "comparability": "ipeds_japanese:bachelors",
+      "notes": "Academic year 2014/15; AWLEVEL=5; 91 eligible source cells.",
+      "series_id": "ipeds_japanese:bachelors",
+      "source_id": "ipeds_2015",
+      "status": "reported_or_imputed",
+      "value": 587,
+      "year": 2015
+    },
+    {
+      "comparability": "ipeds_japanese:bachelors",
+      "notes": "Academic year 2015/16; AWLEVEL=5; 90 eligible source cells.",
+      "series_id": "ipeds_japanese:bachelors",
+      "source_id": "ipeds_2016",
+      "status": "reported_or_imputed",
+      "value": 605,
+      "year": 2016
+    },
+    {
+      "comparability": "ipeds_japanese:bachelors",
+      "notes": "Academic year 2016/17; AWLEVEL=5; 94 eligible source cells.",
+      "series_id": "ipeds_japanese:bachelors",
+      "source_id": "ipeds_2017",
+      "status": "reported_or_imputed",
+      "value": 540,
+      "year": 2017
+    },
+    {
+      "comparability": "ipeds_japanese:bachelors",
+      "notes": "Academic year 2017/18; AWLEVEL=5; 93 eligible source cells.",
+      "series_id": "ipeds_japanese:bachelors",
+      "source_id": "ipeds_2018",
+      "status": "reported_or_imputed",
+      "value": 560,
+      "year": 2018
+    },
+    {
+      "comparability": "ipeds_japanese:bachelors",
+      "notes": "Academic year 2018/19; AWLEVEL=5; 94 eligible source cells.",
+      "series_id": "ipeds_japanese:bachelors",
+      "source_id": "ipeds_2019",
+      "status": "reported_or_imputed",
+      "value": 569,
+      "year": 2019
+    },
+    {
+      "comparability": "ipeds_japanese:bachelors",
+      "notes": "Academic year 2019/20; AWLEVEL=5; 97 eligible source cells.",
+      "series_id": "ipeds_japanese:bachelors",
+      "source_id": "ipeds_2020",
+      "status": "reported_or_imputed",
+      "value": 565,
+      "year": 2020
+    },
+    {
+      "comparability": "ipeds_japanese:bachelors",
+      "notes": "Academic year 2020/21; AWLEVEL=5; 98 eligible source cells.",
+      "series_id": "ipeds_japanese:bachelors",
+      "source_id": "ipeds_2021",
+      "status": "reported_or_imputed",
+      "value": 567,
+      "year": 2021
+    },
+    {
+      "comparability": "ipeds_japanese:bachelors",
+      "notes": "Academic year 2021/22; AWLEVEL=5; 97 eligible source cells.",
+      "series_id": "ipeds_japanese:bachelors",
+      "source_id": "ipeds_2022",
+      "status": "reported_or_imputed",
+      "value": 561,
+      "year": 2022
+    },
+    {
+      "comparability": "ipeds_japanese:bachelors",
+      "notes": "Academic year 2022/23; AWLEVEL=5; 99 eligible source cells.",
+      "series_id": "ipeds_japanese:bachelors",
+      "source_id": "ipeds_2023",
+      "status": "reported_or_imputed",
+      "value": 411,
+      "year": 2023
+    },
+    {
+      "comparability": "ipeds_japanese:bachelors",
+      "notes": "Academic year 2023/24; AWLEVEL=5; 98 eligible source cells.",
+      "series_id": "ipeds_japanese:bachelors",
+      "source_id": "ipeds_2024",
+      "status": "reported_or_imputed",
+      "value": 447,
+      "year": 2024
+    },
+    {
+      "comparability": "ipeds_japanese:bachelors",
+      "notes": "Academic year 2024/25; AWLEVEL=5; 98 eligible source cells. Provisional NCES 2024/25 release of July 28, 2026.",
+      "series_id": "ipeds_japanese:bachelors",
+      "source_id": "ipeds_2025",
+      "status": "reported_or_imputed",
+      "value": 464,
+      "year": 2025
+    },
+    {
+      "comparability": "ipeds_japanese:doctorates:no_major_split",
+      "notes": "Academic year 1999/00; AWLEVEL=9; 7 eligible source cells.",
+      "series_id": "ipeds_japanese:doctorates",
+      "source_id": "ipeds_2000",
+      "status": "reported_or_imputed",
+      "value": 7,
+      "year": 2000
+    },
+    {
+      "comparability": "ipeds_japanese:doctoral_pre2010",
+      "notes": "Academic year 2000/01; AWLEVEL=9; 7 eligible source cells.",
+      "series_id": "ipeds_japanese:doctorates",
+      "source_id": "ipeds_2001",
+      "status": "reported_or_imputed",
+      "value": 5,
+      "year": 2001
+    },
+    {
+      "comparability": "ipeds_japanese:doctoral_pre2010",
+      "notes": "Academic year 2001/02; AWLEVEL=9; 7 eligible source cells.",
+      "series_id": "ipeds_japanese:doctorates",
+      "source_id": "ipeds_2002",
+      "status": "reported_or_imputed",
+      "value": 8,
+      "year": 2002
+    },
+    {
+      "comparability": "ipeds_japanese:doctoral_pre2010",
+      "notes": "Academic year 2002/03; AWLEVEL=9; 6 eligible source cells.",
+      "series_id": "ipeds_japanese:doctorates",
+      "source_id": "ipeds_2003",
+      "status": "reported_or_imputed",
+      "value": 9,
+      "year": 2003
+    },
+    {
+      "comparability": "ipeds_japanese:doctoral_pre2010",
+      "notes": "Academic year 2003/04; AWLEVEL=9; 7 eligible source cells.",
+      "series_id": "ipeds_japanese:doctorates",
+      "source_id": "ipeds_2004",
+      "status": "reported_or_imputed",
+      "value": 8,
+      "year": 2004
+    },
+    {
+      "comparability": "ipeds_japanese:doctoral_pre2010",
+      "notes": "Academic year 2004/05; AWLEVEL=9; 6 eligible source cells.",
+      "series_id": "ipeds_japanese:doctorates",
+      "source_id": "ipeds_2005",
+      "status": "reported_or_imputed",
+      "value": 8,
+      "year": 2005
+    },
+    {
+      "comparability": "ipeds_japanese:doctoral_pre2010",
+      "notes": "Academic year 2005/06; AWLEVEL=9; 6 eligible source cells.",
+      "series_id": "ipeds_japanese:doctorates",
+      "source_id": "ipeds_2006",
+      "status": "reported_or_imputed",
+      "value": 10,
+      "year": 2006
+    },
+    {
+      "comparability": "ipeds_japanese:doctoral_pre2010",
+      "notes": "Academic year 2006/07; AWLEVEL=9; 6 eligible source cells.",
+      "series_id": "ipeds_japanese:doctorates",
+      "source_id": "ipeds_2007",
+      "status": "reported_or_imputed",
+      "value": 9,
+      "year": 2007
+    },
+    {
+      "comparability": "ipeds_japanese:doctoral_pre2010",
+      "notes": "Academic year 2007/08; AWLEVEL=9; 3 eligible source cells.",
+      "series_id": "ipeds_japanese:doctorates",
+      "source_id": "ipeds_2008",
+      "status": "reported_or_imputed",
+      "value": 2,
+      "year": 2008
+    },
+    {
+      "comparability": "ipeds_japanese:doctoral_pre2010",
+      "notes": "Academic year 2008/09; AWLEVEL=9; 4 eligible source cells.",
+      "series_id": "ipeds_japanese:doctorates",
+      "source_id": "ipeds_2009",
+      "status": "reported_or_imputed",
+      "value": 6,
+      "year": 2009
+    },
+    {
+      "comparability": "ipeds_japanese:doctorates",
+      "notes": "Academic year 2009/10; AWLEVEL=17; 7 eligible source cells.",
+      "series_id": "ipeds_japanese:doctorates",
+      "source_id": "ipeds_2010",
+      "status": "reported_or_imputed",
+      "value": 12,
+      "year": 2010
+    },
+    {
+      "comparability": "ipeds_japanese:doctorates",
+      "notes": "Academic year 2010/11; AWLEVEL=17; 5 eligible source cells.",
+      "series_id": "ipeds_japanese:doctorates",
+      "source_id": "ipeds_2011",
+      "status": "reported_or_imputed",
+      "value": 3,
+      "year": 2011
+    },
+    {
+      "comparability": "ipeds_japanese:doctorates",
+      "notes": "Academic year 2011/12; AWLEVEL=17; 6 eligible source cells.",
+      "series_id": "ipeds_japanese:doctorates",
+      "source_id": "ipeds_2012",
+      "status": "reported_or_imputed",
+      "value": 9,
+      "year": 2012
+    },
+    {
+      "comparability": "ipeds_japanese:doctorates",
+      "notes": "Academic year 2012/13; AWLEVEL=17; 6 eligible source cells.",
+      "series_id": "ipeds_japanese:doctorates",
+      "source_id": "ipeds_2013",
+      "status": "reported_or_imputed",
+      "value": 4,
+      "year": 2013
+    },
+    {
+      "comparability": "ipeds_japanese:doctorates",
+      "notes": "Academic year 2013/14; AWLEVEL=17; 6 eligible source cells.",
+      "series_id": "ipeds_japanese:doctorates",
+      "source_id": "ipeds_2014",
+      "status": "reported_or_imputed",
+      "value": 4,
+      "year": 2014
+    },
+    {
+      "comparability": "ipeds_japanese:doctorates",
+      "notes": "Academic year 2014/15; AWLEVEL=17; 6 eligible source cells.",
+      "series_id": "ipeds_japanese:doctorates",
+      "source_id": "ipeds_2015",
+      "status": "reported_or_imputed",
+      "value": 8,
+      "year": 2015
+    },
+    {
+      "comparability": "ipeds_japanese:doctorates",
+      "notes": "Academic year 2015/16; AWLEVEL=17; 6 eligible source cells.",
+      "series_id": "ipeds_japanese:doctorates",
+      "source_id": "ipeds_2016",
+      "status": "reported_or_imputed",
+      "value": 8,
+      "year": 2016
+    },
+    {
+      "comparability": "ipeds_japanese:doctorates",
+      "notes": "Academic year 2016/17; AWLEVEL=17; 5 eligible source cells.",
+      "series_id": "ipeds_japanese:doctorates",
+      "source_id": "ipeds_2017",
+      "status": "reported_or_imputed",
+      "value": 5,
+      "year": 2017
+    },
+    {
+      "comparability": "ipeds_japanese:doctorates",
+      "notes": "Academic year 2017/18; AWLEVEL=17; 5 eligible source cells.",
+      "series_id": "ipeds_japanese:doctorates",
+      "source_id": "ipeds_2018",
+      "status": "reported_or_imputed",
+      "value": 6,
+      "year": 2018
+    },
+    {
+      "comparability": "ipeds_japanese:doctorates",
+      "notes": "Academic year 2018/19; AWLEVEL=17; 5 eligible source cells.",
+      "series_id": "ipeds_japanese:doctorates",
+      "source_id": "ipeds_2019",
+      "status": "reported_or_imputed",
+      "value": 10,
+      "year": 2019
+    },
+    {
+      "comparability": "ipeds_japanese:doctorates",
+      "notes": "Academic year 2019/20; AWLEVEL=17; 5 eligible source cells.",
+      "series_id": "ipeds_japanese:doctorates",
+      "source_id": "ipeds_2020",
+      "status": "reported_or_imputed",
+      "value": 7,
+      "year": 2020
+    },
+    {
+      "comparability": "ipeds_japanese:doctorates",
+      "notes": "Academic year 2020/21; AWLEVEL=17; 5 eligible source cells.",
+      "series_id": "ipeds_japanese:doctorates",
+      "source_id": "ipeds_2021",
+      "status": "reported_or_imputed",
+      "value": 3,
+      "year": 2021
+    },
+    {
+      "comparability": "ipeds_japanese:doctorates",
+      "notes": "Academic year 2021/22; AWLEVEL=17; 5 eligible source cells.",
+      "series_id": "ipeds_japanese:doctorates",
+      "source_id": "ipeds_2022",
+      "status": "reported_or_imputed",
+      "value": 8,
+      "year": 2022
+    },
+    {
+      "comparability": "ipeds_japanese:doctorates",
+      "notes": "Academic year 2022/23; AWLEVEL=17; 5 eligible source cells.",
+      "series_id": "ipeds_japanese:doctorates",
+      "source_id": "ipeds_2023",
+      "status": "reported_or_imputed",
+      "value": 7,
+      "year": 2023
+    },
+    {
+      "comparability": "ipeds_japanese:doctorates",
+      "notes": "Academic year 2023/24; AWLEVEL=17; 5 eligible source cells.",
+      "series_id": "ipeds_japanese:doctorates",
+      "source_id": "ipeds_2024",
+      "status": "reported_or_imputed",
+      "value": 5,
+      "year": 2024
+    },
+    {
+      "comparability": "ipeds_japanese:doctorates",
+      "notes": "Academic year 2024/25; AWLEVEL=17; 5 eligible source cells. Provisional NCES 2024/25 release of July 28, 2026.",
+      "series_id": "ipeds_japanese:doctorates",
+      "source_id": "ipeds_2025",
+      "status": "reported_or_imputed",
+      "value": 6,
+      "year": 2025
+    },
+    {
+      "comparability": "ipeds_japanese:masters:no_major_split",
+      "notes": "Academic year 1999/00; AWLEVEL=7; 7 eligible source cells.",
+      "series_id": "ipeds_japanese:masters",
+      "source_id": "ipeds_2000",
+      "status": "reported_or_imputed",
+      "value": 36,
+      "year": 2000
+    },
+    {
+      "comparability": "ipeds_japanese:masters",
+      "notes": "Academic year 2000/01; AWLEVEL=7; 9 eligible source cells.",
+      "series_id": "ipeds_japanese:masters",
+      "source_id": "ipeds_2001",
+      "status": "reported_or_imputed",
+      "value": 34,
+      "year": 2001
+    },
+    {
+      "comparability": "ipeds_japanese:masters",
+      "notes": "Academic year 2001/02; AWLEVEL=7; 12 eligible source cells.",
+      "series_id": "ipeds_japanese:masters",
+      "source_id": "ipeds_2002",
+      "status": "reported_or_imputed",
+      "value": 33,
+      "year": 2002
+    },
+    {
+      "comparability": "ipeds_japanese:masters",
+      "notes": "Academic year 2002/03; AWLEVEL=7; 10 eligible source cells.",
+      "series_id": "ipeds_japanese:masters",
+      "source_id": "ipeds_2003",
+      "status": "reported_or_imputed",
+      "value": 40,
+      "year": 2003
+    },
+    {
+      "comparability": "ipeds_japanese:masters",
+      "notes": "Academic year 2003/04; AWLEVEL=7; 11 eligible source cells.",
+      "series_id": "ipeds_japanese:masters",
+      "source_id": "ipeds_2004",
+      "status": "reported_or_imputed",
+      "value": 24,
+      "year": 2004
+    },
+    {
+      "comparability": "ipeds_japanese:masters",
+      "notes": "Academic year 2004/05; AWLEVEL=7; 11 eligible source cells.",
+      "series_id": "ipeds_japanese:masters",
+      "source_id": "ipeds_2005",
+      "status": "reported_or_imputed",
+      "value": 24,
+      "year": 2005
+    },
+    {
+      "comparability": "ipeds_japanese:masters",
+      "notes": "Academic year 2005/06; AWLEVEL=7; 10 eligible source cells.",
+      "series_id": "ipeds_japanese:masters",
+      "source_id": "ipeds_2006",
+      "status": "reported_or_imputed",
+      "value": 29,
+      "year": 2006
+    },
+    {
+      "comparability": "ipeds_japanese:masters",
+      "notes": "Academic year 2006/07; AWLEVEL=7; 11 eligible source cells.",
+      "series_id": "ipeds_japanese:masters",
+      "source_id": "ipeds_2007",
+      "status": "reported_or_imputed",
+      "value": 31,
+      "year": 2007
+    },
+    {
+      "comparability": "ipeds_japanese:masters",
+      "notes": "Academic year 2007/08; AWLEVEL=7; 11 eligible source cells.",
+      "series_id": "ipeds_japanese:masters",
+      "source_id": "ipeds_2008",
+      "status": "reported_or_imputed",
+      "value": 30,
+      "year": 2008
+    },
+    {
+      "comparability": "ipeds_japanese:masters",
+      "notes": "Academic year 2008/09; AWLEVEL=7; 10 eligible source cells.",
+      "series_id": "ipeds_japanese:masters",
+      "source_id": "ipeds_2009",
+      "status": "reported_or_imputed",
+      "value": 23,
+      "year": 2009
+    },
+    {
+      "comparability": "ipeds_japanese:masters",
+      "notes": "Academic year 2009/10; AWLEVEL=7; 11 eligible source cells.",
+      "series_id": "ipeds_japanese:masters",
+      "source_id": "ipeds_2010",
+      "status": "reported_or_imputed",
+      "value": 37,
+      "year": 2010
+    },
+    {
+      "comparability": "ipeds_japanese:masters",
+      "notes": "Academic year 2010/11; AWLEVEL=7; 11 eligible source cells.",
+      "series_id": "ipeds_japanese:masters",
+      "source_id": "ipeds_2011",
+      "status": "reported_or_imputed",
+      "value": 33,
+      "year": 2011
+    },
+    {
+      "comparability": "ipeds_japanese:masters",
+      "notes": "Academic year 2011/12; AWLEVEL=7; 12 eligible source cells.",
+      "series_id": "ipeds_japanese:masters",
+      "source_id": "ipeds_2012",
+      "status": "reported_or_imputed",
+      "value": 36,
+      "year": 2012
+    },
+    {
+      "comparability": "ipeds_japanese:masters",
+      "notes": "Academic year 2012/13; AWLEVEL=7; 12 eligible source cells.",
+      "series_id": "ipeds_japanese:masters",
+      "source_id": "ipeds_2013",
+      "status": "reported_or_imputed",
+      "value": 23,
+      "year": 2013
+    },
+    {
+      "comparability": "ipeds_japanese:masters",
+      "notes": "Academic year 2013/14; AWLEVEL=7; 11 eligible source cells.",
+      "series_id": "ipeds_japanese:masters",
+      "source_id": "ipeds_2014",
+      "status": "reported_or_imputed",
+      "value": 25,
+      "year": 2014
+    },
+    {
+      "comparability": "ipeds_japanese:masters",
+      "notes": "Academic year 2014/15; AWLEVEL=7; 11 eligible source cells.",
+      "series_id": "ipeds_japanese:masters",
+      "source_id": "ipeds_2015",
+      "status": "reported_or_imputed",
+      "value": 36,
+      "year": 2015
+    },
+    {
+      "comparability": "ipeds_japanese:masters",
+      "notes": "Academic year 2015/16; AWLEVEL=7; 10 eligible source cells.",
+      "series_id": "ipeds_japanese:masters",
+      "source_id": "ipeds_2016",
+      "status": "reported_or_imputed",
+      "value": 24,
+      "year": 2016
+    },
+    {
+      "comparability": "ipeds_japanese:masters",
+      "notes": "Academic year 2016/17; AWLEVEL=7; 11 eligible source cells.",
+      "series_id": "ipeds_japanese:masters",
+      "source_id": "ipeds_2017",
+      "status": "reported_or_imputed",
+      "value": 23,
+      "year": 2017
+    },
+    {
+      "comparability": "ipeds_japanese:masters",
+      "notes": "Academic year 2017/18; AWLEVEL=7; 11 eligible source cells.",
+      "series_id": "ipeds_japanese:masters",
+      "source_id": "ipeds_2018",
+      "status": "reported_or_imputed",
+      "value": 20,
+      "year": 2018
+    },
+    {
+      "comparability": "ipeds_japanese:masters",
+      "notes": "Academic year 2018/19; AWLEVEL=7; 11 eligible source cells.",
+      "series_id": "ipeds_japanese:masters",
+      "source_id": "ipeds_2019",
+      "status": "reported_or_imputed",
+      "value": 18,
+      "year": 2019
+    },
+    {
+      "comparability": "ipeds_japanese:masters",
+      "notes": "Academic year 2019/20; AWLEVEL=7; 11 eligible source cells.",
+      "series_id": "ipeds_japanese:masters",
+      "source_id": "ipeds_2020",
+      "status": "reported_or_imputed",
+      "value": 13,
+      "year": 2020
+    },
+    {
+      "comparability": "ipeds_japanese:masters",
+      "notes": "Academic year 2020/21; AWLEVEL=7; 11 eligible source cells.",
+      "series_id": "ipeds_japanese:masters",
+      "source_id": "ipeds_2021",
+      "status": "reported_or_imputed",
+      "value": 19,
+      "year": 2021
+    },
+    {
+      "comparability": "ipeds_japanese:masters",
+      "notes": "Academic year 2021/22; AWLEVEL=7; 10 eligible source cells.",
+      "series_id": "ipeds_japanese:masters",
+      "source_id": "ipeds_2022",
+      "status": "reported_or_imputed",
+      "value": 12,
+      "year": 2022
+    },
+    {
+      "comparability": "ipeds_japanese:masters",
+      "notes": "Academic year 2022/23; AWLEVEL=7; 10 eligible source cells.",
+      "series_id": "ipeds_japanese:masters",
+      "source_id": "ipeds_2023",
+      "status": "reported_or_imputed",
+      "value": 18,
+      "year": 2023
+    },
+    {
+      "comparability": "ipeds_japanese:masters",
+      "notes": "Academic year 2023/24; AWLEVEL=7; 10 eligible source cells.",
+      "series_id": "ipeds_japanese:masters",
+      "source_id": "ipeds_2024",
+      "status": "reported_or_imputed",
+      "value": 14,
+      "year": 2024
+    },
+    {
+      "comparability": "ipeds_japanese:masters",
+      "notes": "Academic year 2024/25; AWLEVEL=7; 10 eligible source cells. Provisional NCES 2024/25 release of July 28, 2026.",
+      "series_id": "ipeds_japanese:masters",
+      "source_id": "ipeds_2025",
+      "status": "reported_or_imputed",
+      "value": 21,
+      "year": 2025
+    },
+    {
+      "comparability": "ipeds_korean:bachelors:no_major_split",
+      "notes": "Academic year 1999/00; AWLEVEL=5; 0 eligible source cells.",
+      "series_id": "ipeds_korean:bachelors",
+      "source_id": "ipeds_2000",
+      "status": "missing",
+      "value": null,
+      "year": 2000
+    },
+    {
+      "comparability": "ipeds_korean:bachelors",
+      "notes": "Academic year 2000/01; AWLEVEL=5; 0 eligible source cells.",
+      "series_id": "ipeds_korean:bachelors",
+      "source_id": "ipeds_2001",
+      "status": "missing",
+      "value": null,
+      "year": 2001
+    },
+    {
+      "comparability": "ipeds_korean:bachelors",
+      "notes": "Academic year 2001/02; AWLEVEL=5; 0 eligible source cells.",
+      "series_id": "ipeds_korean:bachelors",
+      "source_id": "ipeds_2002",
+      "status": "missing",
+      "value": null,
+      "year": 2002
+    },
+    {
+      "comparability": "ipeds_korean:bachelors",
+      "notes": "Academic year 2002/03; AWLEVEL=5; 2 eligible source cells.",
+      "series_id": "ipeds_korean:bachelors",
+      "source_id": "ipeds_2003",
+      "status": "reported_or_imputed",
+      "value": 5,
+      "year": 2003
+    },
+    {
+      "comparability": "ipeds_korean:bachelors",
+      "notes": "Academic year 2003/04; AWLEVEL=5; 4 eligible source cells.",
+      "series_id": "ipeds_korean:bachelors",
+      "source_id": "ipeds_2004",
+      "status": "reported_or_imputed",
+      "value": 9,
+      "year": 2004
+    },
+    {
+      "comparability": "ipeds_korean:bachelors",
+      "notes": "Academic year 2004/05; AWLEVEL=5; 4 eligible source cells.",
+      "series_id": "ipeds_korean:bachelors",
+      "source_id": "ipeds_2005",
+      "status": "reported_or_imputed",
+      "value": 8,
+      "year": 2005
+    },
+    {
+      "comparability": "ipeds_korean:bachelors",
+      "notes": "Academic year 2005/06; AWLEVEL=5; 5 eligible source cells.",
+      "series_id": "ipeds_korean:bachelors",
+      "source_id": "ipeds_2006",
+      "status": "reported_or_imputed",
+      "value": 17,
+      "year": 2006
+    },
+    {
+      "comparability": "ipeds_korean:bachelors",
+      "notes": "Academic year 2006/07; AWLEVEL=5; 4 eligible source cells.",
+      "series_id": "ipeds_korean:bachelors",
+      "source_id": "ipeds_2007",
+      "status": "reported_or_imputed",
+      "value": 13,
+      "year": 2007
+    },
+    {
+      "comparability": "ipeds_korean:bachelors",
+      "notes": "Academic year 2007/08; AWLEVEL=5; 5 eligible source cells.",
+      "series_id": "ipeds_korean:bachelors",
+      "source_id": "ipeds_2008",
+      "status": "reported_or_imputed",
+      "value": 15,
+      "year": 2008
+    },
+    {
+      "comparability": "ipeds_korean:bachelors",
+      "notes": "Academic year 2008/09; AWLEVEL=5; 5 eligible source cells.",
+      "series_id": "ipeds_korean:bachelors",
+      "source_id": "ipeds_2009",
+      "status": "reported_or_imputed",
+      "value": 24,
+      "year": 2009
+    },
+    {
+      "comparability": "ipeds_korean:bachelors",
+      "notes": "Academic year 2009/10; AWLEVEL=5; 6 eligible source cells.",
+      "series_id": "ipeds_korean:bachelors",
+      "source_id": "ipeds_2010",
+      "status": "reported_or_imputed",
+      "value": 27,
+      "year": 2010
+    },
+    {
+      "comparability": "ipeds_korean:bachelors",
+      "notes": "Academic year 2010/11; AWLEVEL=5; 5 eligible source cells.",
+      "series_id": "ipeds_korean:bachelors",
+      "source_id": "ipeds_2011",
+      "status": "reported_or_imputed",
+      "value": 28,
+      "year": 2011
+    },
+    {
+      "comparability": "ipeds_korean:bachelors",
+      "notes": "Academic year 2011/12; AWLEVEL=5; 6 eligible source cells.",
+      "series_id": "ipeds_korean:bachelors",
+      "source_id": "ipeds_2012",
+      "status": "reported_or_imputed",
+      "value": 38,
+      "year": 2012
+    },
+    {
+      "comparability": "ipeds_korean:bachelors",
+      "notes": "Academic year 2012/13; AWLEVEL=5; 6 eligible source cells.",
+      "series_id": "ipeds_korean:bachelors",
+      "source_id": "ipeds_2013",
+      "status": "reported_or_imputed",
+      "value": 43,
+      "year": 2013
+    },
+    {
+      "comparability": "ipeds_korean:bachelors",
+      "notes": "Academic year 2013/14; AWLEVEL=5; 6 eligible source cells.",
+      "series_id": "ipeds_korean:bachelors",
+      "source_id": "ipeds_2014",
+      "status": "reported_or_imputed",
+      "value": 32,
+      "year": 2014
+    },
+    {
+      "comparability": "ipeds_korean:bachelors",
+      "notes": "Academic year 2014/15; AWLEVEL=5; 6 eligible source cells.",
+      "series_id": "ipeds_korean:bachelors",
+      "source_id": "ipeds_2015",
+      "status": "reported_or_imputed",
+      "value": 43,
+      "year": 2015
+    },
+    {
+      "comparability": "ipeds_korean:bachelors",
+      "notes": "Academic year 2015/16; AWLEVEL=5; 7 eligible source cells.",
+      "series_id": "ipeds_korean:bachelors",
+      "source_id": "ipeds_2016",
+      "status": "reported_or_imputed",
+      "value": 54,
+      "year": 2016
+    },
+    {
+      "comparability": "ipeds_korean:bachelors",
+      "notes": "Academic year 2016/17; AWLEVEL=5; 9 eligible source cells.",
+      "series_id": "ipeds_korean:bachelors",
+      "source_id": "ipeds_2017",
+      "status": "reported_or_imputed",
+      "value": 67,
+      "year": 2017
+    },
+    {
+      "comparability": "ipeds_korean:bachelors",
+      "notes": "Academic year 2017/18; AWLEVEL=5; 8 eligible source cells.",
+      "series_id": "ipeds_korean:bachelors",
+      "source_id": "ipeds_2018",
+      "status": "reported_or_imputed",
+      "value": 55,
+      "year": 2018
+    },
+    {
+      "comparability": "ipeds_korean:bachelors",
+      "notes": "Academic year 2018/19; AWLEVEL=5; 8 eligible source cells.",
+      "series_id": "ipeds_korean:bachelors",
+      "source_id": "ipeds_2019",
+      "status": "reported_or_imputed",
+      "value": 61,
+      "year": 2019
+    },
+    {
+      "comparability": "ipeds_korean:bachelors",
+      "notes": "Academic year 2019/20; AWLEVEL=5; 10 eligible source cells.",
+      "series_id": "ipeds_korean:bachelors",
+      "source_id": "ipeds_2020",
+      "status": "reported_or_imputed",
+      "value": 43,
+      "year": 2020
+    },
+    {
+      "comparability": "ipeds_korean:bachelors",
+      "notes": "Academic year 2020/21; AWLEVEL=5; 10 eligible source cells.",
+      "series_id": "ipeds_korean:bachelors",
+      "source_id": "ipeds_2021",
+      "status": "reported_or_imputed",
+      "value": 58,
+      "year": 2021
+    },
+    {
+      "comparability": "ipeds_korean:bachelors",
+      "notes": "Academic year 2021/22; AWLEVEL=5; 12 eligible source cells.",
+      "series_id": "ipeds_korean:bachelors",
+      "source_id": "ipeds_2022",
+      "status": "reported_or_imputed",
+      "value": 58,
+      "year": 2022
+    },
+    {
+      "comparability": "ipeds_korean:bachelors",
+      "notes": "Academic year 2022/23; AWLEVEL=5; 12 eligible source cells.",
+      "series_id": "ipeds_korean:bachelors",
+      "source_id": "ipeds_2023",
+      "status": "reported_or_imputed",
+      "value": 61,
+      "year": 2023
+    },
+    {
+      "comparability": "ipeds_korean:bachelors",
+      "notes": "Academic year 2023/24; AWLEVEL=5; 13 eligible source cells.",
+      "series_id": "ipeds_korean:bachelors",
+      "source_id": "ipeds_2024",
+      "status": "reported_or_imputed",
+      "value": 52,
+      "year": 2024
+    },
+    {
+      "comparability": "ipeds_korean:bachelors",
+      "notes": "Academic year 2024/25; AWLEVEL=5; 13 eligible source cells. Provisional NCES 2024/25 release of July 28, 2026.",
+      "series_id": "ipeds_korean:bachelors",
+      "source_id": "ipeds_2025",
+      "status": "reported_or_imputed",
+      "value": 44,
+      "year": 2025
+    },
+    {
+      "comparability": "ipeds_korean:doctorates:no_major_split",
+      "notes": "Academic year 1999/00; AWLEVEL=9; 0 eligible source cells.",
+      "series_id": "ipeds_korean:doctorates",
+      "source_id": "ipeds_2000",
+      "status": "missing",
+      "value": null,
+      "year": 2000
+    },
+    {
+      "comparability": "ipeds_korean:doctoral_pre2010",
+      "notes": "Academic year 2000/01; AWLEVEL=9; 0 eligible source cells.",
+      "series_id": "ipeds_korean:doctorates",
+      "source_id": "ipeds_2001",
+      "status": "missing",
+      "value": null,
+      "year": 2001
+    },
+    {
+      "comparability": "ipeds_korean:doctoral_pre2010",
+      "notes": "Academic year 2001/02; AWLEVEL=9; 0 eligible source cells.",
+      "series_id": "ipeds_korean:doctorates",
+      "source_id": "ipeds_2002",
+      "status": "missing",
+      "value": null,
+      "year": 2002
+    },
+    {
+      "comparability": "ipeds_korean:doctoral_pre2010",
+      "notes": "Academic year 2002/03; AWLEVEL=9; 0 eligible source cells.",
+      "series_id": "ipeds_korean:doctorates",
+      "source_id": "ipeds_2003",
+      "status": "missing",
+      "value": null,
+      "year": 2003
+    },
+    {
+      "comparability": "ipeds_korean:doctoral_pre2010",
+      "notes": "Academic year 2003/04; AWLEVEL=9; 1 eligible source cells.",
+      "series_id": "ipeds_korean:doctorates",
+      "source_id": "ipeds_2004",
+      "status": "reported_or_imputed",
+      "value": 1,
+      "year": 2004
+    },
+    {
+      "comparability": "ipeds_korean:doctoral_pre2010",
+      "notes": "Academic year 2004/05; AWLEVEL=9; 1 eligible source cells.",
+      "series_id": "ipeds_korean:doctorates",
+      "source_id": "ipeds_2005",
+      "status": "reported_or_imputed",
+      "value": 0,
+      "year": 2005
+    },
+    {
+      "comparability": "ipeds_korean:doctoral_pre2010",
+      "notes": "Academic year 2005/06; AWLEVEL=9; 1 eligible source cells.",
+      "series_id": "ipeds_korean:doctorates",
+      "source_id": "ipeds_2006",
+      "status": "reported_or_imputed",
+      "value": 3,
+      "year": 2006
+    },
+    {
+      "comparability": "ipeds_korean:doctoral_pre2010",
+      "notes": "Academic year 2006/07; AWLEVEL=9; 1 eligible source cells.",
+      "series_id": "ipeds_korean:doctorates",
+      "source_id": "ipeds_2007",
+      "status": "reported_or_imputed",
+      "value": 0,
+      "year": 2007
+    },
+    {
+      "comparability": "ipeds_korean:doctoral_pre2010",
+      "notes": "Academic year 2007/08; AWLEVEL=9; 1 eligible source cells.",
+      "series_id": "ipeds_korean:doctorates",
+      "source_id": "ipeds_2008",
+      "status": "reported_or_imputed",
+      "value": 1,
+      "year": 2008
+    },
+    {
+      "comparability": "ipeds_korean:doctoral_pre2010",
+      "notes": "Academic year 2008/09; AWLEVEL=9; 1 eligible source cells.",
+      "series_id": "ipeds_korean:doctorates",
+      "source_id": "ipeds_2009",
+      "status": "reported_or_imputed",
+      "value": 1,
+      "year": 2009
+    },
+    {
+      "comparability": "ipeds_korean:doctorates",
+      "notes": "Academic year 2009/10; AWLEVEL=17; 1 eligible source cells.",
+      "series_id": "ipeds_korean:doctorates",
+      "source_id": "ipeds_2010",
+      "status": "reported_or_imputed",
+      "value": 1,
+      "year": 2010
+    },
+    {
+      "comparability": "ipeds_korean:doctorates",
+      "notes": "Academic year 2010/11; AWLEVEL=17; 1 eligible source cells.",
+      "series_id": "ipeds_korean:doctorates",
+      "source_id": "ipeds_2011",
+      "status": "reported_or_imputed",
+      "value": 3,
+      "year": 2011
+    },
+    {
+      "comparability": "ipeds_korean:doctorates",
+      "notes": "Academic year 2011/12; AWLEVEL=17; 1 eligible source cells.",
+      "series_id": "ipeds_korean:doctorates",
+      "source_id": "ipeds_2012",
+      "status": "reported_or_imputed",
+      "value": 3,
+      "year": 2012
+    },
+    {
+      "comparability": "ipeds_korean:doctorates",
+      "notes": "Academic year 2012/13; AWLEVEL=17; 1 eligible source cells.",
+      "series_id": "ipeds_korean:doctorates",
+      "source_id": "ipeds_2013",
+      "status": "reported_or_imputed",
+      "value": 0,
+      "year": 2013
+    },
+    {
+      "comparability": "ipeds_korean:doctorates",
+      "notes": "Academic year 2013/14; AWLEVEL=17; 1 eligible source cells.",
+      "series_id": "ipeds_korean:doctorates",
+      "source_id": "ipeds_2014",
+      "status": "reported_or_imputed",
+      "value": 8,
+      "year": 2014
+    },
+    {
+      "comparability": "ipeds_korean:doctorates",
+      "notes": "Academic year 2014/15; AWLEVEL=17; 1 eligible source cells.",
+      "series_id": "ipeds_korean:doctorates",
+      "source_id": "ipeds_2015",
+      "status": "reported_or_imputed",
+      "value": 2,
+      "year": 2015
+    },
+    {
+      "comparability": "ipeds_korean:doctorates",
+      "notes": "Academic year 2015/16; AWLEVEL=17; 1 eligible source cells.",
+      "series_id": "ipeds_korean:doctorates",
+      "source_id": "ipeds_2016",
+      "status": "reported_or_imputed",
+      "value": 2,
+      "year": 2016
+    },
+    {
+      "comparability": "ipeds_korean:doctorates",
+      "notes": "Academic year 2016/17; AWLEVEL=17; 1 eligible source cells.",
+      "series_id": "ipeds_korean:doctorates",
+      "source_id": "ipeds_2017",
+      "status": "reported_or_imputed",
+      "value": 2,
+      "year": 2017
+    },
+    {
+      "comparability": "ipeds_korean:doctorates",
+      "notes": "Academic year 2017/18; AWLEVEL=17; 1 eligible source cells.",
+      "series_id": "ipeds_korean:doctorates",
+      "source_id": "ipeds_2018",
+      "status": "reported_or_imputed",
+      "value": 2,
+      "year": 2018
+    },
+    {
+      "comparability": "ipeds_korean:doctorates",
+      "notes": "Academic year 2018/19; AWLEVEL=17; 1 eligible source cells.",
+      "series_id": "ipeds_korean:doctorates",
+      "source_id": "ipeds_2019",
+      "status": "reported_or_imputed",
+      "value": 4,
+      "year": 2019
+    },
+    {
+      "comparability": "ipeds_korean:doctorates",
+      "notes": "Academic year 2019/20; AWLEVEL=17; 1 eligible source cells.",
+      "series_id": "ipeds_korean:doctorates",
+      "source_id": "ipeds_2020",
+      "status": "reported_or_imputed",
+      "value": 2,
+      "year": 2020
+    },
+    {
+      "comparability": "ipeds_korean:doctorates",
+      "notes": "Academic year 2020/21; AWLEVEL=17; 1 eligible source cells.",
+      "series_id": "ipeds_korean:doctorates",
+      "source_id": "ipeds_2021",
+      "status": "reported_or_imputed",
+      "value": 1,
+      "year": 2021
+    },
+    {
+      "comparability": "ipeds_korean:doctorates",
+      "notes": "Academic year 2021/22; AWLEVEL=17; 1 eligible source cells.",
+      "series_id": "ipeds_korean:doctorates",
+      "source_id": "ipeds_2022",
+      "status": "reported_or_imputed",
+      "value": 1,
+      "year": 2022
+    },
+    {
+      "comparability": "ipeds_korean:doctorates",
+      "notes": "Academic year 2022/23; AWLEVEL=17; 0 eligible source cells.",
+      "series_id": "ipeds_korean:doctorates",
+      "source_id": "ipeds_2023",
+      "status": "missing",
+      "value": null,
+      "year": 2023
+    },
+    {
+      "comparability": "ipeds_korean:doctorates",
+      "notes": "Academic year 2023/24; AWLEVEL=17; 1 eligible source cells.",
+      "series_id": "ipeds_korean:doctorates",
+      "source_id": "ipeds_2024",
+      "status": "reported_or_imputed",
+      "value": 2,
+      "year": 2024
+    },
+    {
+      "comparability": "ipeds_korean:doctorates",
+      "notes": "Academic year 2024/25; AWLEVEL=17; 1 eligible source cells. Provisional NCES 2024/25 release of July 28, 2026.",
+      "series_id": "ipeds_korean:doctorates",
+      "source_id": "ipeds_2025",
+      "status": "reported_or_imputed",
+      "value": 1,
+      "year": 2025
+    },
+    {
+      "comparability": "ipeds_korean:masters:no_major_split",
+      "notes": "Academic year 1999/00; AWLEVEL=7; 0 eligible source cells.",
+      "series_id": "ipeds_korean:masters",
+      "source_id": "ipeds_2000",
+      "status": "missing",
+      "value": null,
+      "year": 2000
+    },
+    {
+      "comparability": "ipeds_korean:masters",
+      "notes": "Academic year 2000/01; AWLEVEL=7; 0 eligible source cells.",
+      "series_id": "ipeds_korean:masters",
+      "source_id": "ipeds_2001",
+      "status": "missing",
+      "value": null,
+      "year": 2001
+    },
+    {
+      "comparability": "ipeds_korean:masters",
+      "notes": "Academic year 2001/02; AWLEVEL=7; 0 eligible source cells.",
+      "series_id": "ipeds_korean:masters",
+      "source_id": "ipeds_2002",
+      "status": "missing",
+      "value": null,
+      "year": 2002
+    },
+    {
+      "comparability": "ipeds_korean:masters",
+      "notes": "Academic year 2002/03; AWLEVEL=7; 0 eligible source cells.",
+      "series_id": "ipeds_korean:masters",
+      "source_id": "ipeds_2003",
+      "status": "missing",
+      "value": null,
+      "year": 2003
+    },
+    {
+      "comparability": "ipeds_korean:masters",
+      "notes": "Academic year 2003/04; AWLEVEL=7; 1 eligible source cells.",
+      "series_id": "ipeds_korean:masters",
+      "source_id": "ipeds_2004",
+      "status": "reported_or_imputed",
+      "value": 2,
+      "year": 2004
+    },
+    {
+      "comparability": "ipeds_korean:masters",
+      "notes": "Academic year 2004/05; AWLEVEL=7; 1 eligible source cells.",
+      "series_id": "ipeds_korean:masters",
+      "source_id": "ipeds_2005",
+      "status": "reported_or_imputed",
+      "value": 0,
+      "year": 2005
+    },
+    {
+      "comparability": "ipeds_korean:masters",
+      "notes": "Academic year 2005/06; AWLEVEL=7; 1 eligible source cells.",
+      "series_id": "ipeds_korean:masters",
+      "source_id": "ipeds_2006",
+      "status": "reported_or_imputed",
+      "value": 4,
+      "year": 2006
+    },
+    {
+      "comparability": "ipeds_korean:masters",
+      "notes": "Academic year 2006/07; AWLEVEL=7; 1 eligible source cells.",
+      "series_id": "ipeds_korean:masters",
+      "source_id": "ipeds_2007",
+      "status": "reported_or_imputed",
+      "value": 0,
+      "year": 2007
+    },
+    {
+      "comparability": "ipeds_korean:masters",
+      "notes": "Academic year 2007/08; AWLEVEL=7; 1 eligible source cells.",
+      "series_id": "ipeds_korean:masters",
+      "source_id": "ipeds_2008",
+      "status": "reported_or_imputed",
+      "value": 4,
+      "year": 2008
+    },
+    {
+      "comparability": "ipeds_korean:masters",
+      "notes": "Academic year 2008/09; AWLEVEL=7; 1 eligible source cells.",
+      "series_id": "ipeds_korean:masters",
+      "source_id": "ipeds_2009",
+      "status": "reported_or_imputed",
+      "value": 2,
+      "year": 2009
+    },
+    {
+      "comparability": "ipeds_korean:masters",
+      "notes": "Academic year 2009/10; AWLEVEL=7; 1 eligible source cells.",
+      "series_id": "ipeds_korean:masters",
+      "source_id": "ipeds_2010",
+      "status": "reported_or_imputed",
+      "value": 19,
+      "year": 2010
+    },
+    {
+      "comparability": "ipeds_korean:masters",
+      "notes": "Academic year 2010/11; AWLEVEL=7; 1 eligible source cells.",
+      "series_id": "ipeds_korean:masters",
+      "source_id": "ipeds_2011",
+      "status": "reported_or_imputed",
+      "value": 10,
+      "year": 2011
+    },
+    {
+      "comparability": "ipeds_korean:masters",
+      "notes": "Academic year 2011/12; AWLEVEL=7; 1 eligible source cells.",
+      "series_id": "ipeds_korean:masters",
+      "source_id": "ipeds_2012",
+      "status": "reported_or_imputed",
+      "value": 8,
+      "year": 2012
+    },
+    {
+      "comparability": "ipeds_korean:masters",
+      "notes": "Academic year 2012/13; AWLEVEL=7; 1 eligible source cells.",
+      "series_id": "ipeds_korean:masters",
+      "source_id": "ipeds_2013",
+      "status": "reported_or_imputed",
+      "value": 14,
+      "year": 2013
+    },
+    {
+      "comparability": "ipeds_korean:masters",
+      "notes": "Academic year 2013/14; AWLEVEL=7; 1 eligible source cells.",
+      "series_id": "ipeds_korean:masters",
+      "source_id": "ipeds_2014",
+      "status": "reported_or_imputed",
+      "value": 10,
+      "year": 2014
+    },
+    {
+      "comparability": "ipeds_korean:masters",
+      "notes": "Academic year 2014/15; AWLEVEL=7; 1 eligible source cells.",
+      "series_id": "ipeds_korean:masters",
+      "source_id": "ipeds_2015",
+      "status": "reported_or_imputed",
+      "value": 8,
+      "year": 2015
+    },
+    {
+      "comparability": "ipeds_korean:masters",
+      "notes": "Academic year 2015/16; AWLEVEL=7; 1 eligible source cells.",
+      "series_id": "ipeds_korean:masters",
+      "source_id": "ipeds_2016",
+      "status": "reported_or_imputed",
+      "value": 6,
+      "year": 2016
+    },
+    {
+      "comparability": "ipeds_korean:masters",
+      "notes": "Academic year 2016/17; AWLEVEL=7; 1 eligible source cells.",
+      "series_id": "ipeds_korean:masters",
+      "source_id": "ipeds_2017",
+      "status": "reported_or_imputed",
+      "value": 5,
+      "year": 2017
+    },
+    {
+      "comparability": "ipeds_korean:masters",
+      "notes": "Academic year 2017/18; AWLEVEL=7; 1 eligible source cells.",
+      "series_id": "ipeds_korean:masters",
+      "source_id": "ipeds_2018",
+      "status": "reported_or_imputed",
+      "value": 6,
+      "year": 2018
+    },
+    {
+      "comparability": "ipeds_korean:masters",
+      "notes": "Academic year 2018/19; AWLEVEL=7; 1 eligible source cells.",
+      "series_id": "ipeds_korean:masters",
+      "source_id": "ipeds_2019",
+      "status": "reported_or_imputed",
+      "value": 5,
+      "year": 2019
+    },
+    {
+      "comparability": "ipeds_korean:masters",
+      "notes": "Academic year 2019/20; AWLEVEL=7; 1 eligible source cells.",
+      "series_id": "ipeds_korean:masters",
+      "source_id": "ipeds_2020",
+      "status": "reported_or_imputed",
+      "value": 4,
+      "year": 2020
+    },
+    {
+      "comparability": "ipeds_korean:masters",
+      "notes": "Academic year 2020/21; AWLEVEL=7; 2 eligible source cells.",
+      "series_id": "ipeds_korean:masters",
+      "source_id": "ipeds_2021",
+      "status": "reported_or_imputed",
+      "value": 2,
+      "year": 2021
+    },
+    {
+      "comparability": "ipeds_korean:masters",
+      "notes": "Academic year 2021/22; AWLEVEL=7; 1 eligible source cells.",
+      "series_id": "ipeds_korean:masters",
+      "source_id": "ipeds_2022",
+      "status": "reported_or_imputed",
+      "value": 1,
+      "year": 2022
+    },
+    {
+      "comparability": "ipeds_korean:masters",
+      "notes": "Academic year 2022/23; AWLEVEL=7; 0 eligible source cells.",
+      "series_id": "ipeds_korean:masters",
+      "source_id": "ipeds_2023",
+      "status": "missing",
+      "value": null,
+      "year": 2023
+    },
+    {
+      "comparability": "ipeds_korean:masters",
+      "notes": "Academic year 2023/24; AWLEVEL=7; 1 eligible source cells.",
+      "series_id": "ipeds_korean:masters",
+      "source_id": "ipeds_2024",
+      "status": "reported_or_imputed",
+      "value": 2,
+      "year": 2024
+    },
+    {
+      "comparability": "ipeds_korean:masters",
+      "notes": "Academic year 2024/25; AWLEVEL=7; 1 eligible source cells. Provisional NCES 2024/25 release of July 28, 2026.",
+      "series_id": "ipeds_korean:masters",
+      "source_id": "ipeds_2025",
+      "status": "reported_or_imputed",
+      "value": 1,
+      "year": 2025
+    },
+    {
       "comparability": "mla:all_languages",
       "notes": "",
       "series_id": "mla:all_languages",
@@ -2053,6 +3457,60 @@
       "scope": "50 states and DC; Title IV degree-granting institutions; CIP 16.0301; first major from 2001",
       "unit": "awards"
     },
+    "ipeds_japanese:bachelors": {
+      "cadence": "annual",
+      "label": "Japanese \u00b7 Bachelor's",
+      "measure": "degree_awards",
+      "notes": "Awards, not unique people or all language specialists. NCES reported/imputed counts; certificates excluded. First-major restriction from 2001; 2000 has no separate major-number field.",
+      "period_basis": "academic ending year",
+      "scope": "50 states and DC; Title IV degree-granting institutions; CIP 16.0302; first major from 2001",
+      "unit": "awards"
+    },
+    "ipeds_japanese:doctorates": {
+      "cadence": "annual",
+      "label": "Japanese \u00b7 Doctoral",
+      "measure": "degree_awards",
+      "notes": "2000 has no separate major-number field; first-major restriction from 2001. Pre-2010: old doctoral category (9); from 2010: research/scholarship doctorates (17). Definition break is not connected.",
+      "period_basis": "academic ending year",
+      "scope": "50 states and DC; Title IV degree-granting institutions; CIP 16.0302; first major from 2001",
+      "unit": "awards"
+    },
+    "ipeds_japanese:masters": {
+      "cadence": "annual",
+      "label": "Japanese \u00b7 Master's",
+      "measure": "degree_awards",
+      "notes": "First-major restriction from 2001; 2000 has no separate major-number field.",
+      "period_basis": "academic ending year",
+      "scope": "50 states and DC; Title IV degree-granting institutions; CIP 16.0302; first major from 2001",
+      "unit": "awards"
+    },
+    "ipeds_korean:bachelors": {
+      "cadence": "annual",
+      "label": "Korean \u00b7 Bachelor's",
+      "measure": "degree_awards",
+      "notes": "Awards, not unique people or all language specialists. NCES reported/imputed counts; certificates excluded. First-major restriction from 2001; 2000 has no separate major-number field.",
+      "period_basis": "academic ending year",
+      "scope": "50 states and DC; Title IV degree-granting institutions; CIP 16.0303; first major from 2001",
+      "unit": "awards"
+    },
+    "ipeds_korean:doctorates": {
+      "cadence": "annual",
+      "label": "Korean \u00b7 Doctoral",
+      "measure": "degree_awards",
+      "notes": "2000 has no separate major-number field; first-major restriction from 2001. Pre-2010: old doctoral category (9); from 2010: research/scholarship doctorates (17). Definition break is not connected.",
+      "period_basis": "academic ending year",
+      "scope": "50 states and DC; Title IV degree-granting institutions; CIP 16.0303; first major from 2001",
+      "unit": "awards"
+    },
+    "ipeds_korean:masters": {
+      "cadence": "annual",
+      "label": "Korean \u00b7 Master's",
+      "measure": "degree_awards",
+      "notes": "First-major restriction from 2001; 2000 has no separate major-number field.",
+      "period_basis": "academic ending year",
+      "scope": "50 states and DC; Title IV degree-granting institutions; CIP 16.0303; first major from 2001",
+      "unit": "awards"
+    },
     "mla:all_languages": {
       "cadence": "census",
       "label": "All languages",
@@ -2479,9 +3937,9 @@
           "url": "https://nces.ed.gov/ipeds/datacenter/data/C2000_A.zip"
         }
       ],
-      "locator": "fa2000hd.csv: geographic/Title IV/degree filters; c2000_a.csv: CIPCODE=16.0301; no MAJORNUM field in source; total=CRACE15+CRACE16",
+      "locator": "fa2000hd.csv: geographic/Title IV/degree filters; c2000_a.csv: CIPCODE=16.0301 (Chinese), 16.0302 (Japanese), 16.0303 (Korean); no MAJORNUM field in source; total=CRACE15+CRACE16",
       "name": "National Center for Education Statistics, IPEDS",
-      "notes": "Only one data revision used; _RV preferred when present. Source flag cell counts: {\"CRACE15:R\": 42, \"CRACE15:Z\": 22, \"CRACE16:R\": 43, \"CRACE16:Z\": 21}",
+      "notes": "Only one data revision used; _RV preferred when present. Source flag cell counts: {\"ipeds:CRACE15:R\": 42, \"ipeds:CRACE15:Z\": 22, \"ipeds:CRACE16:R\": 43, \"ipeds:CRACE16:Z\": 21, \"ipeds_japanese:CRACE15:R\": 56, \"ipeds_japanese:CRACE15:Z\": 16, \"ipeds_japanese:CRACE16:R\": 52, \"ipeds_japanese:CRACE16:Z\": 20}",
       "vintage": "Completions survey 2000"
     },
     "ipeds_2001": {
@@ -2499,9 +3957,9 @@
           "url": "https://nces.ed.gov/ipeds/datacenter/data/C2001_A.zip"
         }
       ],
-      "locator": "fa2001hd.csv: geographic/Title IV/degree filters; c2001_a.csv: CIPCODE=16.0301; MAJORNUM=1; total=CRACE15+CRACE16",
+      "locator": "fa2001hd.csv: geographic/Title IV/degree filters; c2001_a.csv: CIPCODE=16.0301 (Chinese), 16.0302 (Japanese), 16.0303 (Korean); MAJORNUM=1; total=CRACE15+CRACE16",
       "name": "National Center for Education Statistics, IPEDS",
-      "notes": "Only one data revision used; _RV preferred when present. Source flag cell counts: {\"CRACE15:R\": 64, \"CRACE15:Z\": 4, \"CRACE16:R\": 66, \"CRACE16:Z\": 2}",
+      "notes": "Only one data revision used; _RV preferred when present. Source flag cell counts: {\"ipeds:CRACE15:R\": 64, \"ipeds:CRACE15:Z\": 4, \"ipeds:CRACE16:R\": 66, \"ipeds:CRACE16:Z\": 2, \"ipeds_japanese:CRACE15:R\": 77, \"ipeds_japanese:CRACE15:Z\": 4, \"ipeds_japanese:CRACE16:R\": 75, \"ipeds_japanese:CRACE16:Z\": 6}",
       "vintage": "Completions survey 2001"
     },
     "ipeds_2002": {
@@ -2519,9 +3977,9 @@
           "url": "https://nces.ed.gov/ipeds/datacenter/data/C2002_A.zip"
         }
       ],
-      "locator": "hd2002.csv: geographic/Title IV/degree filters; c2002_a.csv: CIPCODE=16.0301; MAJORNUM=1; total=CRACE15+CRACE16",
+      "locator": "hd2002.csv: geographic/Title IV/degree filters; c2002_a.csv: CIPCODE=16.0301 (Chinese), 16.0302 (Japanese), 16.0303 (Korean); MAJORNUM=1; total=CRACE15+CRACE16",
       "name": "National Center for Education Statistics, IPEDS",
-      "notes": "Only one data revision used; _RV preferred when present. Source flag cell counts: {\"CRACE15:R\": 66, \"CRACE16:R\": 66}",
+      "notes": "Only one data revision used; _RV preferred when present. Source flag cell counts: {\"ipeds:CRACE15:R\": 66, \"ipeds:CRACE16:R\": 66, \"ipeds_japanese:CRACE15:R\": 84, \"ipeds_japanese:CRACE16:R\": 84}",
       "vintage": "Completions survey 2002"
     },
     "ipeds_2003": {
@@ -2539,9 +3997,9 @@
           "url": "https://nces.ed.gov/ipeds/datacenter/data/C2003_A.zip"
         }
       ],
-      "locator": "hd2003.csv: geographic/Title IV/degree filters; c2003_a.csv: CIPCODE=16.0301; MAJORNUM=1; total=CRACE15+CRACE16",
+      "locator": "hd2003.csv: geographic/Title IV/degree filters; c2003_a.csv: CIPCODE=16.0301 (Chinese), 16.0302 (Japanese), 16.0303 (Korean); MAJORNUM=1; total=CRACE15+CRACE16",
       "name": "National Center for Education Statistics, IPEDS",
-      "notes": "Only one data revision used; _RV preferred when present. Source flag cell counts: {\"CRACE15:R\": 68, \"CRACE15:Z\": 5, \"CRACE16:R\": 67, \"CRACE16:Z\": 6}",
+      "notes": "Only one data revision used; _RV preferred when present. Source flag cell counts: {\"ipeds:CRACE15:R\": 68, \"ipeds:CRACE15:Z\": 5, \"ipeds:CRACE16:R\": 67, \"ipeds:CRACE16:Z\": 6, \"ipeds_japanese:CRACE15:R\": 74, \"ipeds_japanese:CRACE15:Z\": 3, \"ipeds_japanese:CRACE16:R\": 71, \"ipeds_japanese:CRACE16:Z\": 6, \"ipeds_korean:CRACE15:R\": 2, \"ipeds_korean:CRACE16:R\": 2}",
       "vintage": "Completions survey 2003"
     },
     "ipeds_2004": {
@@ -2559,9 +4017,9 @@
           "url": "https://nces.ed.gov/ipeds/datacenter/data/C2004_A.zip"
         }
       ],
-      "locator": "hd2004.csv: geographic/Title IV/degree filters; c2004_a_rv.csv: CIPCODE=16.0301; MAJORNUM=1; total=CRACE15+CRACE16",
+      "locator": "hd2004.csv: geographic/Title IV/degree filters; c2004_a_rv.csv: CIPCODE=16.0301 (Chinese), 16.0302 (Japanese), 16.0303 (Korean); MAJORNUM=1; total=CRACE15+CRACE16",
       "name": "National Center for Education Statistics, IPEDS",
-      "notes": "Only one data revision used; _RV preferred when present. Source flag cell counts: {\"CRACE15:R\": 66, \"CRACE15:Z\": 5, \"CRACE16:R\": 64, \"CRACE16:Z\": 7}",
+      "notes": "Only one data revision used; _RV preferred when present. Source flag cell counts: {\"ipeds:CRACE15:R\": 66, \"ipeds:CRACE15:Z\": 5, \"ipeds:CRACE16:R\": 64, \"ipeds:CRACE16:Z\": 7, \"ipeds_japanese:CRACE15:R\": 74, \"ipeds_japanese:CRACE15:Z\": 8, \"ipeds_japanese:CRACE16:R\": 75, \"ipeds_japanese:CRACE16:Z\": 7, \"ipeds_korean:CRACE15:R\": 6, \"ipeds_korean:CRACE16:R\": 5, \"ipeds_korean:CRACE16:Z\": 1}",
       "vintage": "Completions survey 2004"
     },
     "ipeds_2005": {
@@ -2579,9 +4037,9 @@
           "url": "https://nces.ed.gov/ipeds/datacenter/data/C2005_A.zip"
         }
       ],
-      "locator": "hd2005.csv: geographic/Title IV/degree filters; c2005_a_rv.csv: CIPCODE=16.0301; MAJORNUM=1; total=CRACE15+CRACE16",
+      "locator": "hd2005.csv: geographic/Title IV/degree filters; c2005_a_rv.csv: CIPCODE=16.0301 (Chinese), 16.0302 (Japanese), 16.0303 (Korean); MAJORNUM=1; total=CRACE15+CRACE16",
       "name": "National Center for Education Statistics, IPEDS",
-      "notes": "Only one data revision used; _RV preferred when present. Source flag cell counts: {\"CRACE15:R\": 66, \"CRACE15:Z\": 4, \"CRACE16:R\": 66, \"CRACE16:Z\": 4}",
+      "notes": "Only one data revision used; _RV preferred when present. Source flag cell counts: {\"ipeds:CRACE15:R\": 66, \"ipeds:CRACE15:Z\": 4, \"ipeds:CRACE16:R\": 66, \"ipeds:CRACE16:Z\": 4, \"ipeds_japanese:CRACE15:P\": 1, \"ipeds_japanese:CRACE15:R\": 79, \"ipeds_japanese:CRACE15:Z\": 3, \"ipeds_japanese:CRACE16:P\": 1, \"ipeds_japanese:CRACE16:R\": 74, \"ipeds_japanese:CRACE16:Z\": 8, \"ipeds_korean:CRACE15:R\": 6, \"ipeds_korean:CRACE16:R\": 5, \"ipeds_korean:CRACE16:Z\": 1}",
       "vintage": "Completions survey 2005"
     },
     "ipeds_2006": {
@@ -2599,9 +4057,9 @@
           "url": "https://nces.ed.gov/ipeds/datacenter/data/C2006_A.zip"
         }
       ],
-      "locator": "hd2006.csv: geographic/Title IV/degree filters; c2006_a_rv.csv: CIPCODE=16.0301; MAJORNUM=1; total=CRACE15+CRACE16",
+      "locator": "hd2006.csv: geographic/Title IV/degree filters; c2006_a_rv.csv: CIPCODE=16.0301 (Chinese), 16.0302 (Japanese), 16.0303 (Korean); MAJORNUM=1; total=CRACE15+CRACE16",
       "name": "National Center for Education Statistics, IPEDS",
-      "notes": "Only one data revision used; _RV preferred when present. Source flag cell counts: {\"CRACE15:R\": 70, \"CRACE15:Z\": 10, \"CRACE16:R\": 76, \"CRACE16:Z\": 4}",
+      "notes": "Only one data revision used; _RV preferred when present. Source flag cell counts: {\"ipeds:CRACE15:R\": 70, \"ipeds:CRACE15:Z\": 10, \"ipeds:CRACE16:R\": 76, \"ipeds:CRACE16:Z\": 4, \"ipeds_japanese:CRACE15:R\": 79, \"ipeds_japanese:CRACE15:Z\": 6, \"ipeds_japanese:CRACE16:R\": 76, \"ipeds_japanese:CRACE16:Z\": 9, \"ipeds_korean:CRACE15:R\": 6, \"ipeds_korean:CRACE15:Z\": 1, \"ipeds_korean:CRACE16:R\": 6, \"ipeds_korean:CRACE16:Z\": 1}",
       "vintage": "Completions survey 2006"
     },
     "ipeds_2007": {
@@ -2619,9 +4077,9 @@
           "url": "https://nces.ed.gov/ipeds/datacenter/data/C2007_A.zip"
         }
       ],
-      "locator": "hd2007.csv: geographic/Title IV/degree filters; c2007_a_rv.csv: CIPCODE=16.0301; MAJORNUM=1; total=CRACE15+CRACE16",
+      "locator": "hd2007.csv: geographic/Title IV/degree filters; c2007_a_rv.csv: CIPCODE=16.0301 (Chinese), 16.0302 (Japanese), 16.0303 (Korean); MAJORNUM=1; total=CRACE15+CRACE16",
       "name": "National Center for Education Statistics, IPEDS",
-      "notes": "Only one data revision used; _RV preferred when present. Source flag cell counts: {\"CRACE15:R\": 71, \"CRACE15:Z\": 8, \"CRACE16:R\": 73, \"CRACE16:Z\": 6}",
+      "notes": "Only one data revision used; _RV preferred when present. Source flag cell counts: {\"ipeds:CRACE15:R\": 71, \"ipeds:CRACE15:Z\": 8, \"ipeds:CRACE16:R\": 73, \"ipeds:CRACE16:Z\": 6, \"ipeds_japanese:CRACE15:R\": 78, \"ipeds_japanese:CRACE15:Z\": 11, \"ipeds_japanese:CRACE16:R\": 85, \"ipeds_japanese:CRACE16:Z\": 4, \"ipeds_korean:CRACE15:R\": 5, \"ipeds_korean:CRACE15:Z\": 1, \"ipeds_korean:CRACE16:R\": 4, \"ipeds_korean:CRACE16:Z\": 2}",
       "vintage": "Completions survey 2007"
     },
     "ipeds_2008": {
@@ -2639,9 +4097,9 @@
           "url": "https://nces.ed.gov/ipeds/datacenter/data/C2008_A.zip"
         }
       ],
-      "locator": "hd2008.csv: geographic/Title IV/degree filters; c2008_a_rv.csv: CIPCODE=16.0301; MAJORNUM=1; total=CTOTALT",
+      "locator": "hd2008.csv: geographic/Title IV/degree filters; c2008_a_rv.csv: CIPCODE=16.0301 (Chinese), 16.0302 (Japanese), 16.0303 (Korean); MAJORNUM=1; total=CTOTALT",
       "name": "National Center for Education Statistics, IPEDS",
-      "notes": "Only one data revision used; _RV preferred when present. Source flag cell counts: {\"CTOTALT:R\": 83}",
+      "notes": "Only one data revision used; _RV preferred when present. Source flag cell counts: {\"ipeds:CTOTALT:R\": 83, \"ipeds_japanese:CTOTALT:R\": 87, \"ipeds_korean:CTOTALT:R\": 7}",
       "vintage": "Completions survey 2008"
     },
     "ipeds_2009": {
@@ -2659,9 +4117,9 @@
           "url": "https://nces.ed.gov/ipeds/datacenter/data/C2009_A.zip"
         }
       ],
-      "locator": "hd2009.csv: geographic/Title IV/degree filters; c2009_a_rv.csv: CIPCODE=16.0301; MAJORNUM=1; total=CTOTALT",
+      "locator": "hd2009.csv: geographic/Title IV/degree filters; c2009_a_rv.csv: CIPCODE=16.0301 (Chinese), 16.0302 (Japanese), 16.0303 (Korean); MAJORNUM=1; total=CTOTALT",
       "name": "National Center for Education Statistics, IPEDS",
-      "notes": "Only one data revision used; _RV preferred when present. Source flag cell counts: {\"CTOTALT:R\": 90, \"CTOTALT:Z\": 1}",
+      "notes": "Only one data revision used; _RV preferred when present. Source flag cell counts: {\"ipeds:CTOTALT:R\": 90, \"ipeds:CTOTALT:Z\": 1, \"ipeds_japanese:CTOTALT:R\": 91, \"ipeds_korean:CTOTALT:R\": 7}",
       "vintage": "Completions survey 2009"
     },
     "ipeds_2010": {
@@ -2679,9 +4137,9 @@
           "url": "https://nces.ed.gov/ipeds/datacenter/data/C2010_A.zip"
         }
       ],
-      "locator": "hd2010.csv: geographic/Title IV/degree filters; c2010_a_rv.csv: CIPCODE=16.0301; MAJORNUM=1; total=CTOTALT",
+      "locator": "hd2010.csv: geographic/Title IV/degree filters; c2010_a_rv.csv: CIPCODE=16.0301 (Chinese), 16.0302 (Japanese), 16.0303 (Korean); MAJORNUM=1; total=CTOTALT",
       "name": "National Center for Education Statistics, IPEDS",
-      "notes": "Only one data revision used; _RV preferred when present. Source flag cell counts: {\"CTOTALT:R\": 94, \"CTOTALT:Z\": 1}",
+      "notes": "Only one data revision used; _RV preferred when present. Source flag cell counts: {\"ipeds:CTOTALT:R\": 94, \"ipeds:CTOTALT:Z\": 1, \"ipeds_japanese:CTOTALT:R\": 95, \"ipeds_korean:CTOTALT:R\": 8}",
       "vintage": "Completions survey 2010"
     },
     "ipeds_2011": {
@@ -2699,9 +4157,9 @@
           "url": "https://nces.ed.gov/ipeds/datacenter/data/C2011_A.zip"
         }
       ],
-      "locator": "hd2011.csv: geographic/Title IV/degree filters; c2011_a_rv.csv: CIPCODE=16.0301; MAJORNUM=1; total=CTOTALT",
+      "locator": "hd2011.csv: geographic/Title IV/degree filters; c2011_a_rv.csv: CIPCODE=16.0301 (Chinese), 16.0302 (Japanese), 16.0303 (Korean); MAJORNUM=1; total=CTOTALT",
       "name": "National Center for Education Statistics, IPEDS",
-      "notes": "Only one data revision used; _RV preferred when present. Source flag cell counts: {\"CTOTALT:R\": 99}",
+      "notes": "Only one data revision used; _RV preferred when present. Source flag cell counts: {\"ipeds:CTOTALT:R\": 99, \"ipeds_japanese:CTOTALT:R\": 98, \"ipeds_korean:CTOTALT:R\": 7}",
       "vintage": "Completions survey 2011"
     },
     "ipeds_2012": {
@@ -2719,9 +4177,9 @@
           "url": "https://nces.ed.gov/ipeds/datacenter/data/C2012_A.zip"
         }
       ],
-      "locator": "hd2012.csv: geographic/Title IV/degree filters; c2012_a_rv.csv: CIPCODE=16.0301; MAJORNUM=1; total=CTOTALT",
+      "locator": "hd2012.csv: geographic/Title IV/degree filters; c2012_a_rv.csv: CIPCODE=16.0301 (Chinese), 16.0302 (Japanese), 16.0303 (Korean); MAJORNUM=1; total=CTOTALT",
       "name": "National Center for Education Statistics, IPEDS",
-      "notes": "Only one data revision used; _RV preferred when present. Source flag cell counts: {\"CTOTALT:R\": 108}",
+      "notes": "Only one data revision used; _RV preferred when present. Source flag cell counts: {\"ipeds:CTOTALT:R\": 108, \"ipeds_japanese:CTOTALT:R\": 103, \"ipeds_korean:CTOTALT:R\": 8}",
       "vintage": "Completions survey 2012"
     },
     "ipeds_2013": {
@@ -2739,9 +4197,9 @@
           "url": "https://nces.ed.gov/ipeds/datacenter/data/C2013_A.zip"
         }
       ],
-      "locator": "hd2013.csv: geographic/Title IV/degree filters; c2013_a_rv.csv: CIPCODE=16.0301; MAJORNUM=1; total=CTOTALT",
+      "locator": "hd2013.csv: geographic/Title IV/degree filters; c2013_a_rv.csv: CIPCODE=16.0301 (Chinese), 16.0302 (Japanese), 16.0303 (Korean); MAJORNUM=1; total=CTOTALT",
       "name": "National Center for Education Statistics, IPEDS",
-      "notes": "Only one data revision used; _RV preferred when present. Source flag cell counts: {\"CTOTALT:R\": 112}",
+      "notes": "Only one data revision used; _RV preferred when present. Source flag cell counts: {\"ipeds:CTOTALT:R\": 112, \"ipeds_japanese:CTOTALT:R\": 105, \"ipeds_korean:CTOTALT:R\": 8}",
       "vintage": "Completions survey 2013"
     },
     "ipeds_2014": {
@@ -2759,9 +4217,9 @@
           "url": "https://nces.ed.gov/ipeds/datacenter/data/C2014_A.zip"
         }
       ],
-      "locator": "hd2014.csv: geographic/Title IV/degree filters; c2014_a_rv.csv: CIPCODE=16.0301; MAJORNUM=1; total=CTOTALT",
+      "locator": "hd2014.csv: geographic/Title IV/degree filters; c2014_a_rv.csv: CIPCODE=16.0301 (Chinese), 16.0302 (Japanese), 16.0303 (Korean); MAJORNUM=1; total=CTOTALT",
       "name": "National Center for Education Statistics, IPEDS",
-      "notes": "Only one data revision used; _RV preferred when present. Source flag cell counts: {\"CTOTALT:R\": 115}",
+      "notes": "Only one data revision used; _RV preferred when present. Source flag cell counts: {\"ipeds:CTOTALT:R\": 115, \"ipeds_japanese:CTOTALT:R\": 101, \"ipeds_korean:CTOTALT:R\": 8}",
       "vintage": "Completions survey 2014"
     },
     "ipeds_2015": {
@@ -2779,9 +4237,9 @@
           "url": "https://nces.ed.gov/ipeds/datacenter/data/C2015_A.zip"
         }
       ],
-      "locator": "hd2015.csv: geographic/Title IV/degree filters; c2015_a_rv.csv: CIPCODE=16.0301; MAJORNUM=1; total=CTOTALT",
+      "locator": "hd2015.csv: geographic/Title IV/degree filters; c2015_a_rv.csv: CIPCODE=16.0301 (Chinese), 16.0302 (Japanese), 16.0303 (Korean); MAJORNUM=1; total=CTOTALT",
       "name": "National Center for Education Statistics, IPEDS",
-      "notes": "Only one data revision used; _RV preferred when present. Source flag cell counts: {\"CTOTALT:R\": 121}",
+      "notes": "Only one data revision used; _RV preferred when present. Source flag cell counts: {\"ipeds:CTOTALT:R\": 121, \"ipeds_japanese:CTOTALT:R\": 108, \"ipeds_korean:CTOTALT:R\": 8}",
       "vintage": "Completions survey 2015"
     },
     "ipeds_2016": {
@@ -2799,9 +4257,9 @@
           "url": "https://nces.ed.gov/ipeds/datacenter/data/C2016_A.zip"
         }
       ],
-      "locator": "hd2016.csv: geographic/Title IV/degree filters; c2016_a_rv.csv: CIPCODE=16.0301; MAJORNUM=1; total=CTOTALT",
+      "locator": "hd2016.csv: geographic/Title IV/degree filters; c2016_a_rv.csv: CIPCODE=16.0301 (Chinese), 16.0302 (Japanese), 16.0303 (Korean); MAJORNUM=1; total=CTOTALT",
       "name": "National Center for Education Statistics, IPEDS",
-      "notes": "Only one data revision used; _RV preferred when present. Source flag cell counts: {\"CTOTALT:R\": 117}",
+      "notes": "Only one data revision used; _RV preferred when present. Source flag cell counts: {\"ipeds:CTOTALT:R\": 117, \"ipeds_japanese:CTOTALT:R\": 106, \"ipeds_korean:CTOTALT:R\": 9}",
       "vintage": "Completions survey 2016"
     },
     "ipeds_2017": {
@@ -2819,9 +4277,9 @@
           "url": "https://nces.ed.gov/ipeds/datacenter/data/C2017_A.zip"
         }
       ],
-      "locator": "hd2017.csv: geographic/Title IV/degree filters; c2017_a_rv.csv: CIPCODE=16.0301; MAJORNUM=1; total=CTOTALT",
+      "locator": "hd2017.csv: geographic/Title IV/degree filters; c2017_a_rv.csv: CIPCODE=16.0301 (Chinese), 16.0302 (Japanese), 16.0303 (Korean); MAJORNUM=1; total=CTOTALT",
       "name": "National Center for Education Statistics, IPEDS",
-      "notes": "Only one data revision used; _RV preferred when present. Source flag cell counts: {\"CTOTALT:R\": 121}",
+      "notes": "Only one data revision used; _RV preferred when present. Source flag cell counts: {\"ipeds:CTOTALT:R\": 121, \"ipeds_japanese:CTOTALT:R\": 110, \"ipeds_korean:CTOTALT:R\": 11}",
       "vintage": "Completions survey 2017"
     },
     "ipeds_2018": {
@@ -2839,9 +4297,9 @@
           "url": "https://nces.ed.gov/ipeds/datacenter/data/C2018_A.zip"
         }
       ],
-      "locator": "hd2018.csv: geographic/Title IV/degree filters; c2018_a_rv.csv: CIPCODE=16.0301; MAJORNUM=1; total=CTOTALT",
+      "locator": "hd2018.csv: geographic/Title IV/degree filters; c2018_a_rv.csv: CIPCODE=16.0301 (Chinese), 16.0302 (Japanese), 16.0303 (Korean); MAJORNUM=1; total=CTOTALT",
       "name": "National Center for Education Statistics, IPEDS",
-      "notes": "Only one data revision used; _RV preferred when present. Source flag cell counts: {\"CTOTALT:R\": 122}",
+      "notes": "Only one data revision used; _RV preferred when present. Source flag cell counts: {\"ipeds:CTOTALT:R\": 122, \"ipeds_japanese:CTOTALT:R\": 109, \"ipeds_korean:CTOTALT:R\": 10}",
       "vintage": "Completions survey 2018"
     },
     "ipeds_2019": {
@@ -2859,9 +4317,9 @@
           "url": "https://nces.ed.gov/ipeds/datacenter/data/C2019_A.zip"
         }
       ],
-      "locator": "hd2019.csv: geographic/Title IV/degree filters; c2019_a_rv.csv: CIPCODE=16.0301; MAJORNUM=1; total=CTOTALT",
+      "locator": "hd2019.csv: geographic/Title IV/degree filters; c2019_a_rv.csv: CIPCODE=16.0301 (Chinese), 16.0302 (Japanese), 16.0303 (Korean); MAJORNUM=1; total=CTOTALT",
       "name": "National Center for Education Statistics, IPEDS",
-      "notes": "Only one data revision used; _RV preferred when present. Source flag cell counts: {\"CTOTALT:R\": 125}",
+      "notes": "Only one data revision used; _RV preferred when present. Source flag cell counts: {\"ipeds:CTOTALT:R\": 125, \"ipeds_japanese:CTOTALT:R\": 110, \"ipeds_korean:CTOTALT:R\": 10}",
       "vintage": "Completions survey 2019"
     },
     "ipeds_2020": {
@@ -2879,9 +4337,9 @@
           "url": "https://nces.ed.gov/ipeds/datacenter/data/C2020_A.zip"
         }
       ],
-      "locator": "hd2020.csv: geographic/Title IV/degree filters; c2020_a_rv.csv: CIPCODE=16.0301; MAJORNUM=1; total=CTOTALT",
+      "locator": "hd2020.csv: geographic/Title IV/degree filters; c2020_a_rv.csv: CIPCODE=16.0301 (Chinese), 16.0302 (Japanese), 16.0303 (Korean); MAJORNUM=1; total=CTOTALT",
       "name": "National Center for Education Statistics, IPEDS",
-      "notes": "Only one data revision used; _RV preferred when present. Source flag cell counts: {\"CTOTALT:R\": 127}",
+      "notes": "Only one data revision used; _RV preferred when present. Source flag cell counts: {\"ipeds:CTOTALT:R\": 127, \"ipeds_japanese:CTOTALT:R\": 113, \"ipeds_korean:CTOTALT:R\": 12}",
       "vintage": "Completions survey 2020"
     },
     "ipeds_2021": {
@@ -2899,9 +4357,9 @@
           "url": "https://nces.ed.gov/ipeds/datacenter/data/C2021_A.zip"
         }
       ],
-      "locator": "hd2021.csv: geographic/Title IV/degree filters; c2021_a_rv.csv: CIPCODE=16.0301; MAJORNUM=1; total=CTOTALT",
+      "locator": "hd2021.csv: geographic/Title IV/degree filters; c2021_a_rv.csv: CIPCODE=16.0301 (Chinese), 16.0302 (Japanese), 16.0303 (Korean); MAJORNUM=1; total=CTOTALT",
       "name": "National Center for Education Statistics, IPEDS",
-      "notes": "Only one data revision used; _RV preferred when present. Source flag cell counts: {\"CTOTALT:R\": 131}",
+      "notes": "Only one data revision used; _RV preferred when present. Source flag cell counts: {\"ipeds:CTOTALT:R\": 131, \"ipeds_japanese:CTOTALT:R\": 114, \"ipeds_korean:CTOTALT:R\": 13}",
       "vintage": "Completions survey 2021"
     },
     "ipeds_2022": {
@@ -2919,9 +4377,9 @@
           "url": "https://nces.ed.gov/ipeds/datacenter/data/C2022_A.zip"
         }
       ],
-      "locator": "hd2022.csv: geographic/Title IV/degree filters; c2022_a_rv.csv: CIPCODE=16.0301; MAJORNUM=1; total=CTOTALT",
+      "locator": "hd2022.csv: geographic/Title IV/degree filters; c2022_a_rv.csv: CIPCODE=16.0301 (Chinese), 16.0302 (Japanese), 16.0303 (Korean); MAJORNUM=1; total=CTOTALT",
       "name": "National Center for Education Statistics, IPEDS",
-      "notes": "Only one data revision used; _RV preferred when present. Source flag cell counts: {\"CTOTALT:R\": 124}",
+      "notes": "Only one data revision used; _RV preferred when present. Source flag cell counts: {\"ipeds:CTOTALT:R\": 124, \"ipeds_japanese:CTOTALT:R\": 112, \"ipeds_korean:CTOTALT:R\": 14}",
       "vintage": "Completions survey 2022"
     },
     "ipeds_2023": {
@@ -2939,9 +4397,9 @@
           "url": "https://nces.ed.gov/ipeds/datacenter/data/C2023_A.zip"
         }
       ],
-      "locator": "HD2023.csv: geographic/Title IV/degree filters; C2023_a_RV.csv: CIPCODE=16.0301; MAJORNUM=1; total=CTOTALT",
+      "locator": "HD2023.csv: geographic/Title IV/degree filters; C2023_a_RV.csv: CIPCODE=16.0301 (Chinese), 16.0302 (Japanese), 16.0303 (Korean); MAJORNUM=1; total=CTOTALT",
       "name": "National Center for Education Statistics, IPEDS",
-      "notes": "Only one data revision used; _RV preferred when present. Source flag cell counts: {\"CTOTALT:R\": 127}",
+      "notes": "Only one data revision used; _RV preferred when present. Source flag cell counts: {\"ipeds:CTOTALT:R\": 127, \"ipeds_japanese:CTOTALT:R\": 114, \"ipeds_korean:CTOTALT:R\": 12}",
       "vintage": "Completions survey 2023"
     },
     "ipeds_2024": {
@@ -2959,9 +4417,9 @@
           "url": "https://nces.ed.gov/ipeds/datacenter/data/C2024_A.zip"
         }
       ],
-      "locator": "HD2024.csv: geographic/Title IV/degree filters; C2024_a.csv: CIPCODE=16.0301; MAJORNUM=1; total=CTOTALT",
+      "locator": "HD2024.csv: geographic/Title IV/degree filters; C2024_a.csv: CIPCODE=16.0301 (Chinese), 16.0302 (Japanese), 16.0303 (Korean); MAJORNUM=1; total=CTOTALT",
       "name": "National Center for Education Statistics, IPEDS",
-      "notes": "Only one data revision used; _RV preferred when present. Source flag cell counts: {\"CTOTALT:R\": 125}",
+      "notes": "Only one data revision used; _RV preferred when present. Source flag cell counts: {\"ipeds:CTOTALT:R\": 125, \"ipeds_japanese:CTOTALT:R\": 113, \"ipeds_korean:CTOTALT:R\": 15}",
       "vintage": "Completions survey 2024"
     },
     "ipeds_2025": {
@@ -2979,9 +4437,9 @@
           "url": "https://nces.ed.gov/ipeds/complete-data-files/C2025_A.zip"
         }
       ],
-      "locator": "hd2025.csv: geographic/Title IV/degree filters; c2025_a.csv: CIPCODE=16.0301; MAJORNUM=1; total=CTOTALT",
+      "locator": "hd2025.csv: geographic/Title IV/degree filters; c2025_a.csv: CIPCODE=16.0301 (Chinese), 16.0302 (Japanese), 16.0303 (Korean); MAJORNUM=1; total=CTOTALT",
       "name": "National Center for Education Statistics, IPEDS",
-      "notes": "Only one data revision used; _RV preferred when present. Source flag cell counts: {\"CTOTALT:R\": 126}",
+      "notes": "Only one data revision used; _RV preferred when present. Source flag cell counts: {\"ipeds:CTOTALT:R\": 126, \"ipeds_japanese:CTOTALT:R\": 113, \"ipeds_korean:CTOTALT:R\": 15}",
       "vintage": "Completions survey 2025; provisional 2024/25 release, July 28, 2026"
     },
     "k12_2017": {

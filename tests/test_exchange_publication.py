@@ -148,6 +148,11 @@ def test_collective_export_preserves_complete_inputs_and_native_plot_boundaries(
     assert language.select_one("#module-chart option[selected]")["value"] == "college-enrollments"
     college = json.loads(language.select_one("#college-enrollments .plot-data").string)
     assert [g["id"] for g in college["groups"]] == ["mla:chinese", "mla:japanese", "mla:korean"]
+    for chart in ["chinese-bachelors", "chinese-graduate-awards", "language-doctorates"]:
+        model = json.loads(language.select_one(f"#{chart} .plot-data").string)
+        assert [group["label"] for group in model["groups"]] == ["Chinese", "Japanese", "Korean"]
+        assert model["unit"] == "Awards"
+        assert [max(p["year"] for p in group["points"]) for group in model["groups"]] == [2025, 2025, 2025]
     school = json.loads(language.select_one("#school-language-enrollments .plot-data").string)
     assert [b["value"] for b in school["bars"]] == [227086, 67909]
     assert [b["period"] for b in school["bars"]] == ["2015", "2015"]

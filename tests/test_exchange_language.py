@@ -121,6 +121,25 @@ def test_reviewed_checkpoints_and_derived_values_are_not_new_learner_counts():
     assert not any(r["value"] == 34341 for r in data["observations"])
 
 
+def test_nationwide_comparisons_keep_chinese_japanese_and_korean_separate():
+    data = published()
+    charts = ["college-enrollments", "college-share", "college-benchmarks", "matched-college-benchmarks",
+              "chinese-bachelors", "chinese-graduate-awards", "language-doctorates"]
+    for chart in charts:
+        groups = chart_points(data, chart)
+        assert len(groups) == 3
+        assert [group["color"] for group in groups] == ["#7B2D26", "#3D6F8C", "#4A7C59"]
+        assert not any("all_languages" in group["id"] for group in groups)
+    for chart, expected in [("chinese-bachelors", [292, 464, 44]),
+                            ("chinese-graduate-awards", [28, 21, 1]),
+                            ("language-doctorates", [11, 6, 1])]:
+        groups = chart_points(data, chart)
+        assert [g["label"] for g in groups] == ["Chinese", "Japanese", "Korean"]
+        assert [next(p["value"] for p in g["points"] if p["year"] == 2025) for g in groups] == expected
+        assert all(g["period_basis"] == "academic ending year" for g in groups)
+    assert not any(sid.startswith("nsc_program:") for sid in data["series"])
+
+
 def test_language_population_validation_rejects_global_to_us_relabelling_and_bad_subsets():
     data = published()
     data["series"]["ap:global_total"]["scope"] = "U.S.-only learners"
@@ -155,7 +174,7 @@ def test_zero_baselines_missing_rounds_and_doctoral_breaks_are_not_silently_conn
     doc = ElementTree.fromstring(svg_language_chart(data, "college-enrollments"))
     path = next(n for n in doc.iter() if n.get("class") == "data-line")
     assert path.get("d").count("M") == 2
-    doc = ElementTree.fromstring(svg_language_chart(published(), "chinese-graduate-awards"))
+    doc = ElementTree.fromstring(svg_language_chart(published(), "language-doctorates"))
     path = next(n for n in doc.iter() if n.get("data-series-id") == "ipeds:doctorates" and n.get("class") == "data-line")
     assert path.get("d").count("M") == 3
 
@@ -277,6 +296,13 @@ def test_ipeds_filters_geography_second_majors_revisions_and_legacy_totals(year)
         else:
             r.update(majornum=major, ctotalt=value, xctotalt="R")
         records.append(r)
+    for cip, value in [("16.0302", 7), ("16.0303", 11), ("16.0300", 999)]:
+        r = dict(unitid="1", cipcode=cip, awlevel="05")
+        if legacy:
+            r.update(crace15=str(value), crace16="0")
+        else:
+            r.update(majornum="1", ctotalt=str(value), xctotalt="R")
+        records.append(r)
     directory = zipped_csv("hd.csv", hd, bom=True)
     completions = zipped_csv("c_a.csv" if legacy else "c_a_rv.csv", records,
                              extra=None if legacy else "c_a.csv")
@@ -290,6 +316,9 @@ def test_ipeds_filters_geography_second_majors_revisions_and_legacy_totals(year)
     _, observations, sources = language_sources.ipeds(SimpleNamespace(get=get), [year])
     bachelor = next(r for r in observations if r["series_id"] == "ipeds:bachelors")
     assert bachelor["value"] == 5
+    assert next(r for r in observations if r["series_id"] == "ipeds_japanese:bachelors")["value"] == 7
+    assert next(r for r in observations if r["series_id"] == "ipeds_korean:bachelors")["value"] == 11
+    assert all(r["value"] != 999 for r in observations)
     assert "no_major_split" in bachelor["comparability"] if legacy else True
     assert next(r for r in observations if r["series_id"] == "ipeds:masters")["value"] is None
     assert "CRACE15+CRACE16" in sources[f"ipeds_{year}"]["locator"] if legacy else "_rv.csv" in sources[f"ipeds_{year}"]["locator"]

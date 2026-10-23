@@ -247,6 +247,17 @@ def ipeds(client, years):
                                   "2000 has no separate major-number field; first-major restriction from 2001. "
                                   "Pre-2010: old doctoral category (9); from 2010: research/scholarship doctorates (17). Definition break is not connected."),
     }
+    codes = {"16.0301": "ipeds", "16.0302": "ipeds_japanese", "16.0303": "ipeds_korean"}
+    for cip, prefix in codes.items():
+        if prefix == "ipeds":
+            continue
+        language = prefix.removeprefix("ipeds_")
+        for name in ("bachelors", "masters", "doctorates"):
+            definition = dict(definitions["ipeds:" + name])
+            definition["label"] = language.capitalize() + " · " + definition["label"]
+            definition["scope"] = definition["scope"].replace("16.0301", cip)
+            definition["notes"] = definition["notes"].replace("China specialists", "language specialists")
+            definitions[prefix + ":" + name] = definition
     observations, sources = [], {}
     for year in years:
         base = IPEDS_CURRENT if year >= 2025 else IPEDS
@@ -273,25 +284,26 @@ def ipeds(client, years):
         totals, cells, flags = Counter(), Counter(), Counter()
         seen = set()
         for r in records:
-            if r["UNITID"] not in eligible or r["CIPCODE"].strip() != "16.0301":
+            prefix = codes.get(r["CIPCODE"].strip())
+            if r["UNITID"] not in eligible or prefix is None:
                 continue
             if r.get("MAJORNUM", "1").strip() != "1":
                 continue
             award = int(r["AWLEVEL"])
             if award not in {5, 7, 9, 17}:
                 continue
-            key = r["UNITID"], award
+            key = r["UNITID"], prefix, award
             if key in seen:
                 raise ValueError("Duplicate IPEDS first-major award cell")
             seen.add(key)
             value = sum(int(r[field]) for field in total_fields)
             if value < 0:
                 raise ValueError("IPEDS blank/suppressed or invalid award count")
-            totals[award] += value
-            cells[award] += 1
+            totals[(prefix, award)] += value
+            cells[(prefix, award)] += 1
             for field in total_fields:
-                flags[field + ":" + r.get("X" + field, "not supplied")] += 1
-        if not seen:
+                flags[prefix + ":" + field + ":" + r.get("X" + field, "not supplied")] += 1
+        if not any(prefix == "ipeds" for _, prefix, _ in seen):
             raise ValueError("No verified Chinese degree-award records in " + str(year))
         sid = f"ipeds_{year}"
         provisional = year == 2025 and "_rv" not in member.lower()
@@ -299,20 +311,25 @@ def ipeds(client, years):
             "; provisional 2024/25 release, July 28, 2026" if provisional else "")
         sources[sid] = source(
             "National Center for Education Statistics, IPEDS", vintage,
-            [hd_asset, asset], f"{hd_member}: geographic/Title IV/degree filters; {member}: CIPCODE=16.0301; " +
+            [hd_asset, asset], f"{hd_member}: geographic/Title IV/degree filters; {member}: "
+            "CIPCODE=16.0301 (Chinese), 16.0302 (Japanese), 16.0303 (Korean); " +
             ("no MAJORNUM field in source" if no_major_number else "MAJORNUM=1") +
             "; total=" + "+".join(total_fields),
             "Only one data revision used; _RV preferred when present. Source flag cell counts: " +
             json.dumps(dict(flags), sort_keys=True))
-        for name, award in (("bachelors", 5), ("masters", 7), ("doctorates", 9 if year < 2010 else 17)):
-            value = totals[award] if cells[award] else None
-            observations.append(row(
-                "ipeds:" + name, year, value, sid, "reported_or_imputed" if value is not None else "missing",
-                f"Academic year {year - 1}/{str(year)[-2:]}; AWLEVEL={award}; {cells[award]} eligible source cells." +
-                (" Provisional NCES 2024/25 release of July 28, 2026." if provisional else ""),
-                "ipeds:" + name + ":no_major_split" if no_major_number else
-                "ipeds:doctoral_pre2010" if name == "doctorates" and year < 2010 else "ipeds:" + name))
-        print(f"IPEDS {year}: bachelor's {totals[5]}, master's {totals[7]}, doctoral {totals[9 if year < 2010 else 17]}", flush=True)
+        for prefix in codes.values():
+            for name, award in (("bachelors", 5), ("masters", 7), ("doctorates", 9 if year < 2010 else 17)):
+                value = totals[(prefix, award)] if cells[(prefix, award)] else None
+                observations.append(row(
+                    prefix + ":" + name, year, value, sid, "reported_or_imputed" if value is not None else "missing",
+                    f"Academic year {year - 1}/{str(year)[-2:]}; AWLEVEL={award}; "
+                    f"{cells[(prefix, award)]} eligible source cells." +
+                    (" Provisional NCES 2024/25 release of July 28, 2026." if provisional else ""),
+                    prefix + ":" + name + ":no_major_split" if no_major_number else
+                    prefix + ":doctoral_pre2010" if name == "doctorates" and year < 2010 else prefix + ":" + name))
+        counts = {language: totals[(prefix, 5)] if cells[(prefix, 5)] else None for language, prefix in
+                  [("Chinese", "ipeds"), ("Japanese", "ipeds_japanese"), ("Korean", "ipeds_korean")]}
+        print(f"IPEDS {year} bachelor's: {json.dumps(counts)}", flush=True)
     return definitions, observations, sources
 
 

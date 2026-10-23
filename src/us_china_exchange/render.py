@@ -633,8 +633,9 @@ def build_languages(root, data, gallery):
     census_note = ""
     if latest and reference and reference["value"] is not None:
         census_note = (f'<p>The national census shows Chinese/Mandarin moving from {reference["value"]:,} registrations '
-                       f'in 2013 to {latest["value"]:,} in {latest["year"]}. The benchmark and share panels compare '
-                       'this with all-language totals; neither establishes what caused the changes.</p>')
+                       f'in 2013 to {latest["value"]:,} in {latest["year"]}. The benchmark compares Chinese, Japanese '
+                       'and Korean; the share panel uses all-language totals as its denominator. '
+                       'Neither establishes what caused the changes.</p>')
         earlier_total = census.get(("mla:all_languages", 2013))
         latest_total = census.get(("mla:all_languages", latest["year"]))
         if reference["value"] and earlier_total and earlier_total["value"] and latest_total and latest_total["value"]:

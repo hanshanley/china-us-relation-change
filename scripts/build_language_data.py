@@ -123,11 +123,11 @@ def collect_ap(client, prior):
     return validate_language_data(result)
 
 
-def collect_ipeds(client, prior, year):
+def collect_ipeds(client, prior, year, full_history=False):
     if not 2000 <= year <= datetime.now(timezone.utc).year:
         raise ValueError("The degree year must be between 2000 and the current year")
     result = copy.deepcopy(prior)
-    definitions, observations, sources = ipeds(client, [year])
+    definitions, observations, sources = ipeds(client, range(2000, year + 1) if full_history else [year])
     result["series"].update(definitions)
     result["sources"].update(sources)
     records = {(r["series_id"], r["year"]): r for r in result["observations"]}
@@ -137,7 +137,7 @@ def collect_ipeds(client, prior, year):
     for item in result["coverage"]:
         if item["id"] == "degree_awards":
             item["description"] = (
-                f"Annual IPEDS awards from academic year ending 2000 through {last}; "
+                f"Annual Chinese, Japanese and Korean IPEDS awards from academic year ending 2000 through {last}; "
                 "first major from 2001, 50 states/DC and Title IV degree-granting institutions.")
     return validate_language_data(result)
 
@@ -151,11 +151,12 @@ if __name__ == "__main__":
     selection.add_argument("--ap-only", action="store_true", help="Review only AP sources; preserve all non-AP observations and definitions")
     selection.add_argument("--schools-only", action="store_true", help="Add reviewed school language comparisons; preserve all other observations")
     selection.add_argument("--ipeds-only", action="store_true", help="Review the selected final IPEDS year; preserve every other year and non-degree observation")
+    selection.add_argument("--ipeds-history", action="store_true", help="Review Chinese, Japanese and Korean degree histories from 2000; preserve non-degree observations")
     args = parser.parse_args()
     client = ReviewClient(ROOT / "data/local/language-learning/raw", args.refresh)
-    if args.ipeds_only:
+    if args.ipeds_only or args.ipeds_history:
         prior = json.loads((ROOT / "data/site/language_learning.json").read_text())
-        data = collect_ipeds(client, prior, args.last_degree_year)
+        data = collect_ipeds(client, prior, args.last_degree_year, args.ipeds_history)
     elif args.ap_only or args.schools_only:
         prior = json.loads((ROOT / "data/site/language_learning.json").read_text())
         data = (collect_ap if args.ap_only else collect_school_comparisons)(client, prior)
