@@ -261,17 +261,25 @@ class PublicClient:
                 parsed.query or parsed.fragment):
             raise ValueError("Only pilot-verified public Sina feed/detail routes are supported")
         if self.robots is None:
+            policy = self.request("https://www.sina.cn/robots.txt")
+            if "<html" in policy.lower() or not re.search(r"(?im)^user-agent\s*:", policy):
+                self.blocked = "Unusable source robots policy; retrieval not attempted"
+                raise AccessBlocked(self.blocked)
             self.robots = RobotFileParser()
-            self.robots.parse(self.request("https://www.sina.cn/robots.txt").splitlines())
+            self.robots.parse(policy.splitlines())
             crawl_delay = self.robots.crawl_delay(USER_AGENT)
             if crawl_delay:
                 self.delay = max(self.delay, crawl_delay)
+            rate = self.robots.request_rate(USER_AGENT)
+            if rate and rate.requests:
+                self.delay = max(self.delay, rate.seconds / rate.requests)
         if not self.robots.can_fetch(USER_AGENT, url):
             raise AccessBlocked("Source robots policy does not permit retrieval")
         html = self.request(url)
         if any(marker in html.lower() for marker in
                ("sina visitor system", "<title>captcha", "passport.weibo.com/visitor")):
-            raise AccessBlocked("Visitor or challenge page; no bypass attempted")
+            self.blocked = "Visitor or challenge page; no bypass attempted"
+            raise AccessBlocked(self.blocked)
         if self.raw_dir:
             self.raw_dir.mkdir(parents=True, exist_ok=True)
             name = parsed.path.strip("/").replace("/", "_") + "_" + str(time.time_ns()) + ".html"
@@ -338,7 +346,7 @@ def normalize(record, account, start, end):
     return record
 
 
-def collect_account(db, account_id, start, end, client, limit=50):
+def collect_account(db, account_id, start, end, client, limit=50, reuse_verified=None):
     if limit < 1:
         raise ValueError("Post limit must be positive")
     account = db.execute("SELECT * FROM accounts WHERE id=?", (account_id,)).fetchone()
@@ -382,7 +390,8 @@ def collect_account(db, account_id, start, end, client, limit=50):
                                retrieved_at=checkpoint["retrieved_at"])
             post = None
             detail_error = None
-            if normalize(preliminary, account, start, end) is not None:
+            preview = normalize(preliminary, account, start, end)
+            if preview is not None and not (reuse_verified and reuse_verified(preview)):
                 with db:
                     db.execute("UPDATE runs SET pages_attempted=pages_attempted+1 WHERE id=?", (run_id,))
                 try:

@@ -1,0 +1,2487 @@
+account_ids,date,partial_day,recovered_posts
+[],2020-01-01,False,0
+"[""si-china-historical""]",2020-01-02,False,1
+"[""si-china-historical""]",2020-01-03,False,1
+[],2020-01-04,False,0
+[],2020-01-05,False,0
+"[""si-china-historical""]",2020-01-06,False,2
+[],2020-01-07,False,0
+"[""variety-china""]",2020-01-08,False,1
+[],2020-01-09,False,0
+"[""si-china-historical""]",2020-01-10,False,4
+[],2020-01-11,False,0
+[],2020-01-12,False,0
+"[""si-china-historical""]",2020-01-13,False,1
+"[""si-china-historical""]",2020-01-14,False,5
+"[""si-china-historical""]",2020-01-15,False,3
+[],2020-01-16,False,0
+[],2020-01-17,False,0
+[],2020-01-18,False,0
+"[""si-china-historical""]",2020-01-19,False,1
+[],2020-01-20,False,0
+[],2020-01-21,False,0
+[],2020-01-22,False,0
+[],2020-01-23,False,0
+"[""si-china-historical""]",2020-01-24,False,1
+[],2020-01-25,False,0
+[],2020-01-26,False,0
+"[""si-china-historical""]",2020-01-27,False,2
+[],2020-01-28,False,0
+[],2020-01-29,False,0
+[],2020-01-30,False,0
+[],2020-01-31,False,0
+[],2020-02-01,False,0
+[],2020-02-02,False,0
+[],2020-02-03,False,0
+[],2020-02-04,False,0
+[],2020-02-05,False,0
+[],2020-02-06,False,0
+[],2020-02-07,False,0
+[],2020-02-08,False,0
+[],2020-02-09,False,0
+[],2020-02-10,False,0
+[],2020-02-11,False,0
+"[""china-press-weibo""]",2020-02-12,False,3
+"[""china-press-weibo""]",2020-02-13,False,6
+"[""china-press-weibo""]",2020-02-14,False,5
+"[""china-press-weibo""]",2020-02-15,False,1
+"[""eurekalert-chinese""]",2020-02-16,False,1
+[],2020-02-17,False,0
+[],2020-02-18,False,0
+[],2020-02-19,False,0
+[],2020-02-20,False,0
+[],2020-02-21,False,0
+[],2020-02-22,False,0
+[],2020-02-23,False,0
+[],2020-02-24,False,0
+"[""si-china-historical""]",2020-02-25,False,2
+[],2020-02-26,False,0
+[],2020-02-27,False,0
+"[""si-china-historical""]",2020-02-28,False,5
+[],2020-02-29,False,0
+[],2020-03-01,False,0
+"[""si-china-historical""]",2020-03-02,False,1
+[],2020-03-03,False,0
+"[""engadget-china-historical""]",2020-03-04,False,1
+"[""edn-china"", ""engadget-china-historical"", ""si-china-historical""]",2020-03-05,False,6
+"[""engadget-china-historical"", ""fortune-china"", ""si-china-historical""]",2020-03-06,False,6
+"[""engadget-china-historical""]",2020-03-07,False,1
+"[""engadget-china-historical"", ""si-china-historical""]",2020-03-08,False,3
+"[""fortune-china""]",2020-03-09,False,1
+"[""fortune-china""]",2020-03-10,False,4
+"[""fortune-china""]",2020-03-11,False,3
+"[""fortune-china"", ""si-china-historical""]",2020-03-12,False,4
+"[""fortune-china""]",2020-03-13,False,2
+"[""engadget-china-historical"", ""npr-china-historical""]",2020-03-14,False,3
+[],2020-03-15,False,0
+"[""engadget-china-historical""]",2020-03-16,False,1
+"[""engadget-china-historical"", ""si-china-historical""]",2020-03-17,False,4
+"[""npr-china-historical""]",2020-03-18,False,1
+"[""engadget-china-historical""]",2020-03-19,False,1
+"[""engadget-china-historical"", ""npr-china-historical""]",2020-03-20,False,4
+"[""engadget-china-historical"", ""npr-china-historical""]",2020-03-21,False,2
+"[""npr-china-historical""]",2020-03-22,False,1
+[],2020-03-23,False,0
+[],2020-03-24,False,0
+"[""si-china-historical""]",2020-03-25,False,2
+[],2020-03-26,False,0
+"[""edn-china""]",2020-03-27,False,3
+[],2020-03-28,False,0
+"[""artforum-china""]",2020-03-29,False,2
+"[""artforum-china"", ""si-china-historical""]",2020-03-30,False,2
+"[""artforum-china"", ""edn-china""]",2020-03-31,False,3
+[],2020-04-01,False,0
+"[""artforum-china""]",2020-04-02,False,1
+"[""artforum-china""]",2020-04-03,False,1
+[],2020-04-04,False,0
+"[""artforum-china""]",2020-04-05,False,8
+"[""artforum-china"", ""si-china-historical""]",2020-04-06,False,2
+[],2020-04-07,False,0
+[],2020-04-08,False,0
+[],2020-04-09,False,0
+[],2020-04-10,False,0
+[],2020-04-11,False,0
+[],2020-04-12,False,0
+[],2020-04-13,False,0
+"[""chineseinla-weibo""]",2020-04-14,False,12
+"[""chineseinla-weibo""]",2020-04-15,False,3
+"[""si-china-historical""]",2020-04-16,False,2
+[],2020-04-17,False,0
+"[""eurekalert-chinese""]",2020-04-18,False,1
+[],2020-04-19,False,0
+[],2020-04-20,False,0
+"[""world-journal-los-angeles""]",2020-04-21,False,3
+"[""world-journal-los-angeles""]",2020-04-22,False,7
+"[""world-journal-los-angeles""]",2020-04-23,False,10
+"[""world-journal-los-angeles""]",2020-04-24,False,8
+"[""world-journal-los-angeles""]",2020-04-25,False,8
+[],2020-04-26,False,0
+[],2020-04-27,False,0
+"[""si-china-historical"", ""world-journal-los-angeles""]",2020-04-28,False,4
+"[""world-journal-los-angeles""]",2020-04-29,False,9
+[],2020-04-30,False,0
+"[""world-journal-los-angeles""]",2020-05-01,False,12
+"[""world-journal-los-angeles""]",2020-05-02,False,8
+[],2020-05-03,False,0
+[],2020-05-04,False,0
+"[""world-journal-los-angeles""]",2020-05-05,False,6
+"[""world-journal-los-angeles""]",2020-05-06,False,8
+"[""world-journal-los-angeles""]",2020-05-07,False,7
+"[""si-china-historical"", ""world-journal-los-angeles""]",2020-05-08,False,7
+[],2020-05-09,False,0
+[],2020-05-10,False,0
+"[""cosmopolitan-china-historical""]",2020-05-11,False,1
+"[""world-journal-los-angeles""]",2020-05-12,False,1
+[],2020-05-13,False,0
+[],2020-05-14,False,0
+"[""world-journal-los-angeles""]",2020-05-15,False,1
+[],2020-05-16,False,0
+[],2020-05-17,False,0
+[],2020-05-18,False,0
+"[""world-journal-los-angeles""]",2020-05-19,False,1
+"[""cosmopolitan-china-historical""]",2020-05-20,False,6
+"[""cosmopolitan-china-historical"", ""edn-china""]",2020-05-21,False,5
+"[""cosmopolitan-china-historical"", ""edn-china""]",2020-05-22,False,6
+"[""cosmopolitan-china-historical"", ""eurekalert-chinese""]",2020-05-23,False,3
+[],2020-05-24,False,0
+[],2020-05-25,False,0
+[],2020-05-26,False,0
+[],2020-05-27,False,0
+"[""edn-china""]",2020-05-28,False,3
+"[""npr-china-historical""]",2020-05-29,False,1
+[],2020-05-30,False,0
+[],2020-05-31,False,0
+[],2020-06-01,False,0
+"[""edn-china""]",2020-06-02,False,3
+[],2020-06-03,False,0
+"[""si-china-historical""]",2020-06-04,False,1
+[],2020-06-05,False,0
+[],2020-06-06,False,0
+[],2020-06-07,False,0
+[],2020-06-08,False,0
+"[""si-china-historical""]",2020-06-09,False,1
+"[""si-china-historical""]",2020-06-10,False,1
+"[""si-china-historical""]",2020-06-11,False,4
+"[""si-china-historical""]",2020-06-12,False,3
+[],2020-06-13,False,0
+[],2020-06-14,False,0
+[],2020-06-15,False,0
+"[""ee-times-china""]",2020-06-16,False,1
+"[""ee-times-china""]",2020-06-17,False,7
+"[""ee-times-china""]",2020-06-18,False,4
+[],2020-06-19,False,0
+[],2020-06-20,False,0
+[],2020-06-21,False,0
+[],2020-06-22,False,0
+[],2020-06-23,False,0
+[],2020-06-24,False,0
+[],2020-06-25,False,0
+[],2020-06-26,False,0
+[],2020-06-27,False,0
+[],2020-06-28,False,0
+[],2020-06-29,False,0
+[],2020-06-30,False,0
+[],2020-07-01,False,0
+[],2020-07-02,False,0
+[],2020-07-03,False,0
+[],2020-07-04,False,0
+[],2020-07-05,False,0
+[],2020-07-06,False,0
+[],2020-07-07,False,0
+[],2020-07-08,False,0
+[],2020-07-09,False,0
+"[""edn-china""]",2020-07-10,False,5
+[],2020-07-11,False,0
+[],2020-07-12,False,0
+[],2020-07-13,False,0
+"[""edn-china"", ""eurekalert-chinese""]",2020-07-14,False,2
+[],2020-07-15,False,0
+[],2020-07-16,False,0
+[],2020-07-17,False,0
+[],2020-07-18,False,0
+[],2020-07-19,False,0
+[],2020-07-20,False,0
+[],2020-07-21,False,0
+[],2020-07-22,False,0
+[],2020-07-23,False,0
+[],2020-07-24,False,0
+[],2020-07-25,False,0
+[],2020-07-26,False,0
+[],2020-07-27,False,0
+"[""si-china-historical""]",2020-07-28,False,1
+"[""si-china-historical""]",2020-07-29,False,2
+"[""si-china-historical""]",2020-07-30,False,2
+"[""si-china-historical""]",2020-07-31,False,3
+"[""fast-company-china-historical"", ""ktsf-weibo""]",2020-08-01,False,12
+"[""fast-company-china-historical""]",2020-08-02,False,1
+"[""fast-company-china-historical"", ""ktsf-weibo""]",2020-08-03,False,7
+"[""fast-company-china-historical"", ""ktsf-weibo"", ""si-china-historical""]",2020-08-04,False,16
+"[""fast-company-china-historical"", ""ktsf-weibo""]",2020-08-05,False,21
+"[""fast-company-china-historical"", ""ktsf-weibo""]",2020-08-06,False,16
+"[""fast-company-china-historical"", ""ktsf-weibo""]",2020-08-07,False,22
+"[""ktsf-weibo""]",2020-08-08,False,16
+[],2020-08-09,False,0
+"[""fast-company-china-historical""]",2020-08-10,False,2
+[],2020-08-11,False,0
+"[""fast-company-china-historical""]",2020-08-12,False,2
+"[""fast-company-china-historical""]",2020-08-13,False,1
+"[""fast-company-china-historical""]",2020-08-14,False,1
+[],2020-08-15,False,0
+[],2020-08-16,False,0
+"[""fast-company-china-historical""]",2020-08-17,False,2
+[],2020-08-18,False,0
+"[""fast-company-china-historical""]",2020-08-19,False,2
+"[""fast-company-china-historical""]",2020-08-20,False,1
+"[""si-china-historical""]",2020-08-21,False,1
+[],2020-08-22,False,0
+[],2020-08-23,False,0
+"[""si-china-historical""]",2020-08-24,False,1
+"[""si-china-historical""]",2020-08-25,False,1
+[],2020-08-26,False,0
+"[""fast-company-china-historical""]",2020-08-27,False,1
+"[""fast-company-china-historical"", ""si-china-historical""]",2020-08-28,False,3
+"[""fast-company-china-historical""]",2020-08-29,False,1
+[],2020-08-30,False,0
+"[""fast-company-china-historical""]",2020-08-31,False,1
+[],2020-09-01,False,0
+[],2020-09-02,False,0
+[],2020-09-03,False,0
+"[""si-china-historical""]",2020-09-04,False,1
+[],2020-09-05,False,0
+[],2020-09-06,False,0
+"[""fast-company-china-historical""]",2020-09-07,False,1
+"[""eurekalert-chinese""]",2020-09-08,False,1
+[],2020-09-09,False,0
+[],2020-09-10,False,0
+[],2020-09-11,False,0
+[],2020-09-12,False,0
+[],2020-09-13,False,0
+"[""fast-company-china-historical""]",2020-09-14,False,1
+[],2020-09-15,False,0
+"[""fast-company-china-historical""]",2020-09-16,False,1
+[],2020-09-17,False,0
+[],2020-09-18,False,0
+"[""npr-china-historical""]",2020-09-19,False,2
+"[""fast-company-china-historical""]",2020-09-20,False,1
+[],2020-09-21,False,0
+[],2020-09-22,False,0
+"[""fast-company-china-historical"", ""npr-china-historical""]",2020-09-23,False,2
+[],2020-09-24,False,0
+"[""fast-company-china-historical""]",2020-09-25,False,1
+[],2020-09-26,False,0
+[],2020-09-27,False,0
+"[""fast-company-china-historical"", ""nyt-t-china""]",2020-09-28,False,7
+"[""nyt-t-china""]",2020-09-29,False,4
+"[""nyt-t-china""]",2020-09-30,False,2
+[],2020-10-01,False,0
+"[""nyt-t-china""]",2020-10-02,False,1
+"[""nyt-t-china""]",2020-10-03,False,2
+[],2020-10-04,False,0
+[],2020-10-05,False,0
+[],2020-10-06,False,0
+[],2020-10-07,False,0
+[],2020-10-08,False,0
+[],2020-10-09,False,0
+"[""fast-company-china-historical""]",2020-10-10,False,1
+[],2020-10-11,False,0
+"[""si-china-historical""]",2020-10-12,False,1
+[],2020-10-13,False,0
+[],2020-10-14,False,0
+[],2020-10-15,False,0
+[],2020-10-16,False,0
+[],2020-10-17,False,0
+[],2020-10-18,False,0
+[],2020-10-19,False,0
+[],2020-10-20,False,0
+[],2020-10-21,False,0
+"[""fast-company-china-historical""]",2020-10-22,False,2
+"[""fast-company-china-historical""]",2020-10-23,False,1
+[],2020-10-24,False,0
+[],2020-10-25,False,0
+"[""fast-company-china-historical""]",2020-10-26,False,1
+"[""fast-company-china-historical""]",2020-10-27,False,1
+"[""fast-company-china-historical""]",2020-10-28,False,1
+"[""fast-company-china-historical""]",2020-10-29,False,1
+"[""fast-company-china-historical""]",2020-10-30,False,2
+[],2020-10-31,False,0
+[],2020-11-01,False,0
+[],2020-11-02,False,0
+"[""fast-company-china-historical""]",2020-11-03,False,1
+"[""fast-company-china-historical""]",2020-11-04,False,1
+[],2020-11-05,False,0
+"[""fast-company-china-historical""]",2020-11-06,False,2
+[],2020-11-07,False,0
+"[""npr-china-historical""]",2020-11-08,False,1
+"[""fast-company-china-historical""]",2020-11-09,False,1
+"[""fast-company-china-historical""]",2020-11-10,False,1
+"[""fast-company-china-historical""]",2020-11-11,False,2
+"[""fast-company-china-historical""]",2020-11-12,False,1
+[],2020-11-13,False,0
+[],2020-11-14,False,0
+[],2020-11-15,False,0
+"[""fast-company-china-historical""]",2020-11-16,False,1
+"[""fast-company-china-historical""]",2020-11-17,False,1
+"[""fast-company-china-historical""]",2020-11-18,False,3
+"[""fast-company-china-historical""]",2020-11-19,False,3
+[],2020-11-20,False,0
+[],2020-11-21,False,0
+[],2020-11-22,False,0
+"[""fast-company-china-historical""]",2020-11-23,False,1
+"[""fast-company-china-historical""]",2020-11-24,False,1
+"[""fast-company-china-historical""]",2020-11-25,False,1
+"[""fast-company-china-historical""]",2020-11-26,False,2
+"[""fast-company-china-historical""]",2020-11-27,False,2
+[],2020-11-28,False,0
+[],2020-11-29,False,0
+"[""si-china-historical""]",2020-11-30,False,1
+"[""fast-company-china-historical""]",2020-12-01,False,2
+[],2020-12-02,False,0
+[],2020-12-03,False,0
+"[""fast-company-china-historical""]",2020-12-04,False,1
+[],2020-12-05,False,0
+[],2020-12-06,False,0
+[],2020-12-07,False,0
+[],2020-12-08,False,0
+[],2020-12-09,False,0
+[],2020-12-10,False,0
+[],2020-12-11,False,0
+[],2020-12-12,False,0
+"[""fast-company-china-historical""]",2020-12-13,False,1
+"[""fast-company-china-historical""]",2020-12-14,False,1
+[],2020-12-15,False,0
+[],2020-12-16,False,0
+[],2020-12-17,False,0
+[],2020-12-18,False,0
+[],2020-12-19,False,0
+[],2020-12-20,False,0
+"[""fast-company-china-historical""]",2020-12-21,False,1
+"[""fast-company-china-historical""]",2020-12-22,False,1
+[],2020-12-23,False,0
+"[""fast-company-china-historical""]",2020-12-24,False,1
+[],2020-12-25,False,0
+[],2020-12-26,False,0
+[],2020-12-27,False,0
+"[""fast-company-china-historical""]",2020-12-28,False,2
+"[""fast-company-china-historical""]",2020-12-29,False,4
+"[""fast-company-china-historical""]",2020-12-30,False,2
+"[""fast-company-china-historical""]",2020-12-31,False,10
+[],2021-01-01,False,0
+[],2021-01-02,False,0
+[],2021-01-03,False,0
+"[""fast-company-china-historical""]",2021-01-04,False,1
+[],2021-01-05,False,0
+[],2021-01-06,False,0
+[],2021-01-07,False,0
+"[""rolling-stone-china""]",2021-01-08,False,1
+[],2021-01-09,False,0
+[],2021-01-10,False,0
+[],2021-01-11,False,0
+[],2021-01-12,False,0
+[],2021-01-13,False,0
+[],2021-01-14,False,0
+[],2021-01-15,False,0
+[],2021-01-16,False,0
+[],2021-01-17,False,0
+[],2021-01-18,False,0
+[],2021-01-19,False,0
+[],2021-01-20,False,0
+[],2021-01-21,False,0
+[],2021-01-22,False,0
+[],2021-01-23,False,0
+[],2021-01-24,False,0
+[],2021-01-25,False,0
+[],2021-01-26,False,0
+[],2021-01-27,False,0
+[],2021-01-28,False,0
+[],2021-01-29,False,0
+[],2021-01-30,False,0
+[],2021-01-31,False,0
+[],2021-02-01,False,0
+[],2021-02-02,False,0
+[],2021-02-03,False,0
+"[""eurekalert-chinese""]",2021-02-04,False,1
+[],2021-02-05,False,0
+[],2021-02-06,False,0
+[],2021-02-07,False,0
+[],2021-02-08,False,0
+[],2021-02-09,False,0
+[],2021-02-10,False,0
+[],2021-02-11,False,0
+[],2021-02-12,False,0
+[],2021-02-13,False,0
+[],2021-02-14,False,0
+[],2021-02-15,False,0
+[],2021-02-16,False,0
+[],2021-02-17,False,0
+[],2021-02-18,False,0
+[],2021-02-19,False,0
+[],2021-02-20,False,0
+[],2021-02-21,False,0
+[],2021-02-22,False,0
+[],2021-02-23,False,0
+[],2021-02-24,False,0
+[],2021-02-25,False,0
+[],2021-02-26,False,0
+[],2021-02-27,False,0
+[],2021-02-28,False,0
+[],2021-03-01,False,0
+[],2021-03-02,False,0
+[],2021-03-03,False,0
+[],2021-03-04,False,0
+[],2021-03-05,False,0
+[],2021-03-06,False,0
+[],2021-03-07,False,0
+[],2021-03-08,False,0
+[],2021-03-09,False,0
+[],2021-03-10,False,0
+"[""eurekalert-chinese""]",2021-03-11,False,1
+[],2021-03-12,False,0
+[],2021-03-13,False,0
+[],2021-03-14,False,0
+[],2021-03-15,False,0
+"[""edn-china""]",2021-03-16,False,4
+[],2021-03-17,False,0
+"[""edn-china""]",2021-03-18,False,1
+[],2021-03-19,False,0
+[],2021-03-20,False,0
+[],2021-03-21,False,0
+[],2021-03-22,False,0
+"[""eurekalert-chinese""]",2021-03-23,False,1
+"[""eurekalert-chinese""]",2021-03-24,False,1
+[],2021-03-25,False,0
+[],2021-03-26,False,0
+"[""prnewswire-communications""]",2021-03-27,False,1
+[],2021-03-28,False,0
+[],2021-03-29,False,0
+"[""china-press-bay-area"", ""prnewswire-communications""]",2021-03-30,False,3
+"[""prnewswire-communications""]",2021-03-31,False,1
+"[""eurekalert-chinese""]",2021-04-01,False,3
+"[""china-press-bay-area"", ""prnewswire-communications""]",2021-04-02,False,2
+[],2021-04-03,False,0
+[],2021-04-04,False,0
+[],2021-04-05,False,0
+"[""china-press-bay-area""]",2021-04-06,False,1
+"[""prnewswire-communications""]",2021-04-07,False,1
+[],2021-04-08,False,0
+"[""prnewswire-communications""]",2021-04-09,False,1
+[],2021-04-10,False,0
+[],2021-04-11,False,0
+[],2021-04-12,False,0
+[],2021-04-13,False,0
+"[""prnewswire-communications""]",2021-04-14,False,1
+"[""prnewswire-communications""]",2021-04-15,False,2
+"[""edn-china""]",2021-04-16,False,1
+"[""prnewswire-communications""]",2021-04-17,False,1
+[],2021-04-18,False,0
+[],2021-04-19,False,0
+"[""china-press-bay-area""]",2021-04-20,False,1
+"[""china-press-bay-area""]",2021-04-21,False,1
+"[""china-press-bay-area""]",2021-04-22,False,1
+[],2021-04-23,False,0
+"[""prnewswire-communications""]",2021-04-24,False,3
+[],2021-04-25,False,0
+[],2021-04-26,False,0
+[],2021-04-27,False,0
+"[""china-press-bay-area""]",2021-04-28,False,2
+"[""prnewswire-communications""]",2021-04-29,False,1
+"[""prnewswire-communications""]",2021-04-30,False,1
+"[""china-press-bay-area""]",2021-05-01,False,1
+[],2021-05-02,False,0
+[],2021-05-03,False,0
+"[""npr-china-historical""]",2021-05-04,False,1
+"[""china-press-bay-area""]",2021-05-05,False,1
+[],2021-05-06,False,0
+"[""prnewswire-communications""]",2021-05-07,False,1
+"[""eurekalert-chinese""]",2021-05-08,False,1
+[],2021-05-09,False,0
+[],2021-05-10,False,0
+"[""china-press-bay-area""]",2021-05-11,False,2
+[],2021-05-12,False,0
+"[""prnewswire-communications""]",2021-05-13,False,1
+"[""eurekalert-chinese"", ""prnewswire-communications""]",2021-05-14,False,2
+"[""china-press-bay-area""]",2021-05-15,False,2
+[],2021-05-16,False,0
+[],2021-05-17,False,0
+[],2021-05-18,False,0
+"[""eurekalert-chinese""]",2021-05-19,False,1
+"[""china-press-bay-area"", ""prnewswire-communications""]",2021-05-20,False,3
+"[""prnewswire-communications""]",2021-05-21,False,1
+[],2021-05-22,False,0
+[],2021-05-23,False,0
+"[""fast-company-china-historical""]",2021-05-24,False,1
+[],2021-05-25,False,0
+"[""china-press-bay-area""]",2021-05-26,False,2
+"[""china-press-bay-area"", ""prnewswire-communications""]",2021-05-27,False,2
+"[""prnewswire-communications""]",2021-05-28,False,1
+[],2021-05-29,False,0
+[],2021-05-30,False,0
+[],2021-05-31,False,0
+[],2021-06-01,False,0
+"[""china-press-bay-area""]",2021-06-02,False,1
+"[""prnewswire-communications""]",2021-06-03,False,1
+"[""china-press-bay-area"", ""prnewswire-communications""]",2021-06-04,False,4
+"[""china-press-bay-area""]",2021-06-05,False,2
+[],2021-06-06,False,0
+"[""prnewswire-communications""]",2021-06-07,False,1
+"[""china-press-bay-area"", ""edn-china""]",2021-06-08,False,4
+[],2021-06-09,False,0
+[],2021-06-10,False,0
+[],2021-06-11,False,0
+"[""prnewswire-communications""]",2021-06-12,False,3
+[],2021-06-13,False,0
+[],2021-06-14,False,0
+"[""china-press-bay-area""]",2021-06-15,False,1
+[],2021-06-16,False,0
+"[""prnewswire-communications""]",2021-06-17,False,1
+"[""china-press-bay-area"", ""prnewswire-communications""]",2021-06-18,False,2
+[],2021-06-19,False,0
+[],2021-06-20,False,0
+"[""prnewswire-communications""]",2021-06-21,False,1
+[],2021-06-22,False,0
+"[""prnewswire-communications""]",2021-06-23,False,1
+[],2021-06-24,False,0
+[],2021-06-25,False,0
+[],2021-06-26,False,0
+[],2021-06-27,False,0
+"[""prnewswire-communications""]",2021-06-28,False,1
+[],2021-06-29,False,0
+[],2021-06-30,False,0
+"[""prnewswire-communications""]",2021-07-01,False,1
+[],2021-07-02,False,0
+[],2021-07-03,False,0
+[],2021-07-04,False,0
+"[""prnewswire-communications""]",2021-07-05,False,2
+[],2021-07-06,False,0
+[],2021-07-07,False,0
+[],2021-07-08,False,0
+[],2021-07-09,False,0
+"[""prnewswire-communications""]",2021-07-10,False,1
+[],2021-07-11,False,0
+[],2021-07-12,False,0
+"[""prnewswire-communications""]",2021-07-13,False,1
+[],2021-07-14,False,0
+"[""engadget-china-historical""]",2021-07-15,False,9
+"[""engadget-china-historical"", ""prnewswire-communications""]",2021-07-16,False,7
+[],2021-07-17,False,0
+[],2021-07-18,False,0
+[],2021-07-19,False,0
+[],2021-07-20,False,0
+[],2021-07-21,False,0
+"[""fast-company-china-historical"", ""prnewswire-communications""]",2021-07-22,False,2
+"[""eurekalert-chinese"", ""fast-company-china-historical""]",2021-07-23,False,2
+[],2021-07-24,False,0
+[],2021-07-25,False,0
+"[""fast-company-china-historical"", ""prnewswire-communications""]",2021-07-26,False,2
+"[""fast-company-china-historical"", ""prnewswire-communications""]",2021-07-27,False,2
+[],2021-07-28,False,0
+"[""prnewswire-communications""]",2021-07-29,False,1
+[],2021-07-30,False,0
+[],2021-07-31,False,0
+[],2021-08-01,False,0
+"[""fortune-china""]",2021-08-02,False,1
+[],2021-08-03,False,0
+[],2021-08-04,False,0
+[],2021-08-05,False,0
+"[""prnewswire-communications""]",2021-08-06,False,1
+"[""prnewswire-communications""]",2021-08-07,False,1
+[],2021-08-08,False,0
+[],2021-08-09,False,0
+"[""prnewswire-communications""]",2021-08-10,False,1
+"[""eurekalert-chinese""]",2021-08-11,False,2
+[],2021-08-12,False,0
+[],2021-08-13,False,0
+"[""fortune-china"", ""prnewswire-communications""]",2021-08-14,False,9
+"[""fortune-china""]",2021-08-15,False,7
+"[""prnewswire-communications""]",2021-08-16,False,1
+[],2021-08-17,False,0
+[],2021-08-18,False,0
+[],2021-08-19,False,0
+[],2021-08-20,False,0
+"[""prnewswire-communications""]",2021-08-21,False,1
+[],2021-08-22,False,0
+[],2021-08-23,False,0
+[],2021-08-24,False,0
+[],2021-08-25,False,0
+[],2021-08-26,False,0
+"[""prnewswire-communications""]",2021-08-27,False,1
+[],2021-08-28,False,0
+[],2021-08-29,False,0
+"[""prnewswire-communications""]",2021-08-30,False,1
+[],2021-08-31,False,0
+"[""prnewswire-communications""]",2021-09-01,False,1
+[],2021-09-02,False,0
+[],2021-09-03,False,0
+[],2021-09-04,False,0
+[],2021-09-05,False,0
+"[""prnewswire-communications""]",2021-09-06,False,1
+"[""prnewswire-communications""]",2021-09-07,False,1
+[],2021-09-08,False,0
+[],2021-09-09,False,0
+"[""prnewswire-communications""]",2021-09-10,False,1
+"[""prnewswire-communications""]",2021-09-11,False,1
+[],2021-09-12,False,0
+[],2021-09-13,False,0
+[],2021-09-14,False,0
+[],2021-09-15,False,0
+[],2021-09-16,False,0
+"[""prnewswire-communications""]",2021-09-17,False,4
+[],2021-09-18,False,0
+[],2021-09-19,False,0
+[],2021-09-20,False,0
+[],2021-09-21,False,0
+"[""prnewswire-communications""]",2021-09-22,False,1
+"[""prnewswire-communications""]",2021-09-23,False,1
+"[""npr-china-historical"", ""prnewswire-communications""]",2021-09-24,False,2
+[],2021-09-25,False,0
+[],2021-09-26,False,0
+[],2021-09-27,False,0
+"[""prnewswire-communications""]",2021-09-28,False,1
+[],2021-09-29,False,0
+"[""fast-company-china-historical""]",2021-09-30,False,1
+[],2021-10-01,False,0
+[],2021-10-02,False,0
+[],2021-10-03,False,0
+[],2021-10-04,False,0
+[],2021-10-05,False,0
+[],2021-10-06,False,0
+[],2021-10-07,False,0
+[],2021-10-08,False,0
+"[""ee-times-china"", ""prnewswire-communications""]",2021-10-09,False,5
+[],2021-10-10,False,0
+"[""ee-times-china""]",2021-10-11,False,11
+[],2021-10-12,False,0
+[],2021-10-13,False,0
+[],2021-10-14,False,0
+[],2021-10-15,False,0
+[],2021-10-16,False,0
+[],2021-10-17,False,0
+"[""prnewswire-communications""]",2021-10-18,False,1
+[],2021-10-19,False,0
+[],2021-10-20,False,0
+[],2021-10-21,False,0
+[],2021-10-22,False,0
+[],2021-10-23,False,0
+[],2021-10-24,False,0
+"[""prnewswire-communications""]",2021-10-25,False,2
+"[""china-press-weibo""]",2021-10-26,False,15
+[],2021-10-27,False,0
+[],2021-10-28,False,0
+[],2021-10-29,False,0
+"[""prnewswire-communications""]",2021-10-30,False,1
+"[""golf-digest-china""]",2021-10-31,False,3
+"[""golf-digest-china""]",2021-11-01,False,2
+[],2021-11-02,False,0
+"[""golf-digest-china"", ""prnewswire-communications""]",2021-11-03,False,3
+[],2021-11-04,False,0
+"[""esquire-china-historical"", ""eurekalert-chinese""]",2021-11-05,False,2
+[],2021-11-06,False,0
+"[""golf-digest-china""]",2021-11-07,False,3
+"[""golf-digest-china""]",2021-11-08,False,2
+"[""prnewswire-communications""]",2021-11-09,False,1
+"[""prnewswire-communications""]",2021-11-10,False,1
+"[""eurekalert-chinese""]",2021-11-11,False,1
+"[""prnewswire-communications""]",2021-11-12,False,1
+[],2021-11-13,False,0
+[],2021-11-14,False,0
+"[""mens-health-china"", ""prnewswire-communications""]",2021-11-15,False,3
+"[""golf-digest-china"", ""mens-health-china""]",2021-11-16,False,6
+"[""mens-health-china""]",2021-11-17,False,3
+"[""mens-health-china""]",2021-11-18,False,3
+"[""mens-health-china"", ""prnewswire-communications""]",2021-11-19,False,4
+"[""mens-health-china""]",2021-11-20,False,2
+"[""mens-health-china""]",2021-11-21,False,2
+"[""mens-health-china""]",2021-11-22,False,2
+"[""architectural-digest-china"", ""mens-health-china"", ""prnewswire-communications""]",2021-11-23,False,7
+"[""architectural-digest-china"", ""artforum-china"", ""mens-health-china""]",2021-11-24,False,6
+"[""architectural-digest-china"", ""mens-health-china""]",2021-11-25,False,6
+"[""architectural-digest-china"", ""golf-digest-china"", ""mens-health-china""]",2021-11-26,False,6
+"[""architectural-digest-china"", ""mens-health-china""]",2021-11-27,False,3
+"[""artforum-china"", ""mens-health-china""]",2021-11-28,False,3
+"[""architectural-digest-china"", ""artforum-china"", ""cosmopolitan-china-historical"", ""esquire-china-historical"", ""golf-digest-china"", ""mens-health-china"", ""prnewswire-communications""]",2021-11-29,False,23
+"[""cosmopolitan-china-historical"", ""esquire-china-historical"", ""mens-health-china""]",2021-11-30,False,19
+"[""artforum-china"", ""cosmopolitan-china-historical"", ""esquire-china-historical"", ""mens-health-china""]",2021-12-01,False,9
+"[""chinese-radio-seattle-historical"", ""mens-health-china"", ""prnewswire-communications""]",2021-12-02,False,7
+"[""chinese-radio-seattle-historical"", ""mens-health-china""]",2021-12-03,False,10
+"[""artforum-china"", ""chinese-radio-seattle-historical"", ""mens-health-china""]",2021-12-04,False,9
+"[""artforum-china"", ""mens-health-china""]",2021-12-05,False,3
+"[""artforum-china"", ""mens-health-china"", ""prnewswire-communications""]",2021-12-06,False,8
+[],2021-12-07,False,0
+"[""mens-health-china""]",2021-12-08,False,3
+"[""mens-health-china""]",2021-12-09,False,3
+"[""mens-health-china""]",2021-12-10,False,5
+"[""mens-health-china""]",2021-12-11,False,2
+"[""mens-health-china""]",2021-12-12,False,2
+"[""mens-health-china"", ""prnewswire-communications""]",2021-12-13,False,4
+"[""mens-health-china""]",2021-12-14,False,3
+"[""mens-health-china""]",2021-12-15,False,2
+"[""mens-health-china"", ""prnewswire-communications""]",2021-12-16,False,3
+"[""mens-health-china""]",2021-12-17,False,2
+"[""mens-health-china""]",2021-12-18,False,3
+"[""mens-health-china""]",2021-12-19,False,2
+"[""mens-health-china"", ""travel-leisure-china""]",2021-12-20,False,5
+[],2021-12-21,False,0
+[],2021-12-22,False,0
+[],2021-12-23,False,0
+"[""mens-health-china""]",2021-12-24,False,1
+[],2021-12-25,False,0
+[],2021-12-26,False,0
+"[""mens-health-china"", ""prnewswire-communications""]",2021-12-27,False,3
+[],2021-12-28,False,0
+"[""mens-health-china""]",2021-12-29,False,1
+[],2021-12-30,False,0
+"[""mens-health-china""]",2021-12-31,False,1
+[],2022-01-01,False,0
+[],2022-01-02,False,0
+[],2022-01-03,False,0
+[],2022-01-04,False,0
+[],2022-01-05,False,0
+[],2022-01-06,False,0
+"[""golf-digest-china""]",2022-01-07,False,1
+[],2022-01-08,False,0
+"[""golf-digest-china""]",2022-01-09,False,1
+"[""golf-digest-china""]",2022-01-10,False,1
+[],2022-01-11,False,0
+"[""golf-digest-china""]",2022-01-12,False,1
+[],2022-01-13,False,0
+"[""prnewswire-communications""]",2022-01-14,False,1
+[],2022-01-15,False,0
+[],2022-01-16,False,0
+[],2022-01-17,False,0
+"[""fortune-china""]",2022-01-18,False,8
+"[""fortune-china""]",2022-01-19,False,7
+"[""golf-digest-china""]",2022-01-20,False,1
+[],2022-01-21,False,0
+"[""prnewswire-communications""]",2022-01-22,False,1
+[],2022-01-23,False,0
+[],2022-01-24,False,0
+[],2022-01-25,False,0
+[],2022-01-26,False,0
+"[""golf-digest-china"", ""prnewswire-communications""]",2022-01-27,False,3
+"[""conde-nast-traveler-china""]",2022-01-28,False,3
+"[""conde-nast-traveler-china"", ""prnewswire-communications""]",2022-01-29,False,3
+"[""conde-nast-traveler-china""]",2022-01-30,False,6
+[],2022-01-31,False,0
+[],2022-02-01,False,0
+[],2022-02-02,False,0
+[],2022-02-03,False,0
+[],2022-02-04,False,0
+[],2022-02-05,False,0
+[],2022-02-06,False,0
+[],2022-02-07,False,0
+[],2022-02-08,False,0
+"[""prnewswire-communications""]",2022-02-09,False,1
+[],2022-02-10,False,0
+[],2022-02-11,False,0
+[],2022-02-12,False,0
+[],2022-02-13,False,0
+"[""golf-digest-china""]",2022-02-14,False,1
+"[""prnewswire-communications""]",2022-02-15,False,1
+[],2022-02-16,False,0
+[],2022-02-17,False,0
+[],2022-02-18,False,0
+[],2022-02-19,False,0
+[],2022-02-20,False,0
+[],2022-02-21,False,0
+[],2022-02-22,False,0
+[],2022-02-23,False,0
+[],2022-02-24,False,0
+[],2022-02-25,False,0
+[],2022-02-26,False,0
+[],2022-02-27,False,0
+[],2022-02-28,False,0
+[],2022-03-01,False,0
+[],2022-03-02,False,0
+[],2022-03-03,False,0
+"[""prnewswire-communications""]",2022-03-04,False,1
+[],2022-03-05,False,0
+[],2022-03-06,False,0
+[],2022-03-07,False,0
+[],2022-03-08,False,0
+"[""prnewswire-communications""]",2022-03-09,False,1
+"[""china-press-weibo""]",2022-03-10,False,10
+"[""china-press-weibo""]",2022-03-11,False,5
+[],2022-03-12,False,0
+[],2022-03-13,False,0
+"[""artforum-china""]",2022-03-14,False,3
+"[""artforum-china""]",2022-03-15,False,2
+[],2022-03-16,False,0
+"[""artforum-china""]",2022-03-17,False,1
+[],2022-03-18,False,0
+[],2022-03-19,False,0
+"[""artforum-china""]",2022-03-20,False,9
+[],2022-03-21,False,0
+[],2022-03-22,False,0
+[],2022-03-23,False,0
+[],2022-03-24,False,0
+[],2022-03-25,False,0
+[],2022-03-26,False,0
+[],2022-03-27,False,0
+[],2022-03-28,False,0
+[],2022-03-29,False,0
+"[""ee-times-china""]",2022-03-30,False,1
+"[""ee-times-china""]",2022-03-31,False,7
+"[""ee-times-china""]",2022-04-01,False,5
+[],2022-04-02,False,0
+[],2022-04-03,False,0
+[],2022-04-04,False,0
+[],2022-04-05,False,0
+[],2022-04-06,False,0
+[],2022-04-07,False,0
+"[""prnewswire-communications""]",2022-04-08,False,1
+[],2022-04-09,False,0
+[],2022-04-10,False,0
+[],2022-04-11,False,0
+"[""prnewswire-communications""]",2022-04-12,False,1
+[],2022-04-13,False,0
+[],2022-04-14,False,0
+[],2022-04-15,False,0
+[],2022-04-16,False,0
+[],2022-04-17,False,0
+[],2022-04-18,False,0
+[],2022-04-19,False,0
+[],2022-04-20,False,0
+[],2022-04-21,False,0
+[],2022-04-22,False,0
+[],2022-04-23,False,0
+"[""prnewswire-communications""]",2022-04-24,False,4
+[],2022-04-25,False,0
+[],2022-04-26,False,0
+[],2022-04-27,False,0
+[],2022-04-28,False,0
+[],2022-04-29,False,0
+"[""eurekalert-chinese"", ""golf-digest-china""]",2022-04-30,False,4
+[],2022-05-01,False,0
+[],2022-05-02,False,0
+[],2022-05-03,False,0
+"[""prnewswire-communications""]",2022-05-04,False,2
+[],2022-05-05,False,0
+[],2022-05-06,False,0
+[],2022-05-07,False,0
+[],2022-05-08,False,0
+"[""variety-china""]",2022-05-09,False,1
+[],2022-05-10,False,0
+"[""wsj-magazine-china-historical""]",2022-05-11,False,1
+"[""wsj-magazine-china-historical""]",2022-05-12,False,1
+"[""wsj-magazine-china-historical""]",2022-05-13,False,1
+"[""wsj-magazine-china-historical""]",2022-05-14,False,2
+[],2022-05-15,False,0
+"[""wsj-magazine-china-historical""]",2022-05-16,False,2
+"[""wsj-magazine-china-historical""]",2022-05-17,False,4
+"[""wsj-magazine-china-historical""]",2022-05-18,False,4
+"[""eurekalert-chinese""]",2022-05-19,False,3
+"[""eurekalert-chinese""]",2022-05-20,False,2
+"[""eurekalert-chinese""]",2022-05-21,False,2
+"[""variety-china""]",2022-05-22,False,1
+"[""variety-china""]",2022-05-23,False,2
+"[""eurekalert-chinese"", ""variety-china""]",2022-05-24,False,7
+"[""variety-china""]",2022-05-25,False,3
+"[""variety-china""]",2022-05-26,False,4
+"[""variety-china""]",2022-05-27,False,2
+"[""variety-china""]",2022-05-28,False,3
+"[""variety-china""]",2022-05-29,False,7
+"[""variety-china""]",2022-05-30,False,3
+"[""variety-china""]",2022-05-31,False,6
+[],2022-06-01,False,0
+"[""variety-china""]",2022-06-02,False,4
+[],2022-06-03,False,0
+"[""variety-china""]",2022-06-04,False,3
+"[""variety-china""]",2022-06-05,False,2
+"[""variety-china""]",2022-06-06,False,5
+"[""variety-china""]",2022-06-07,False,5
+"[""variety-china""]",2022-06-08,False,6
+"[""eurekalert-chinese"", ""variety-china""]",2022-06-09,False,5
+"[""eurekalert-chinese"", ""variety-china""]",2022-06-10,False,9
+"[""variety-china""]",2022-06-11,False,1
+"[""variety-china""]",2022-06-12,False,2
+"[""variety-china""]",2022-06-13,False,6
+"[""eurekalert-chinese"", ""variety-china""]",2022-06-14,False,7
+"[""variety-china""]",2022-06-15,False,5
+"[""variety-china""]",2022-06-16,False,1
+"[""variety-china""]",2022-06-17,False,1
+[],2022-06-18,False,0
+[],2022-06-19,False,0
+[],2022-06-20,False,0
+"[""bloomberg-china""]",2022-06-21,False,1
+"[""bloomberg-china"", ""variety-china""]",2022-06-22,False,4
+"[""bloomberg-china""]",2022-06-23,False,2
+"[""bloomberg-china""]",2022-06-24,False,2
+[],2022-06-25,False,0
+[],2022-06-26,False,0
+"[""bloomberg-china"", ""variety-china""]",2022-06-27,False,4
+"[""bloomberg-china""]",2022-06-28,False,2
+"[""bloomberg-china""]",2022-06-29,False,3
+"[""variety-china""]",2022-06-30,False,1
+[],2022-07-01,False,0
+[],2022-07-02,False,0
+[],2022-07-03,False,0
+[],2022-07-04,False,0
+"[""world-journal-north-america""]",2022-07-05,False,1
+"[""world-journal-north-america""]",2022-07-06,False,3
+[],2022-07-07,False,0
+[],2022-07-08,False,0
+[],2022-07-09,False,0
+"[""world-journal-north-america""]",2022-07-10,False,2
+[],2022-07-11,False,0
+[],2022-07-12,False,0
+"[""world-journal-north-america""]",2022-07-13,False,2
+[],2022-07-14,False,0
+[],2022-07-15,False,0
+"[""world-journal-north-america""]",2022-07-16,False,3
+[],2022-07-17,False,0
+"[""world-journal-north-america""]",2022-07-18,False,1
+"[""world-journal-north-america""]",2022-07-19,False,2
+[],2022-07-20,False,0
+"[""world-journal-north-america""]",2022-07-21,False,1
+"[""world-journal-north-america""]",2022-07-22,False,4
+"[""world-journal-north-america""]",2022-07-23,False,3
+[],2022-07-24,False,0
+"[""world-journal-north-america""]",2022-07-25,False,3
+"[""world-journal-north-america""]",2022-07-26,False,2
+"[""world-journal-north-america""]",2022-07-27,False,1
+[],2022-07-28,False,0
+[],2022-07-29,False,0
+"[""world-journal-north-america""]",2022-07-30,False,1
+[],2022-07-31,False,0
+[],2022-08-01,False,0
+[],2022-08-02,False,0
+[],2022-08-03,False,0
+"[""world-journal-north-america""]",2022-08-04,False,1
+[],2022-08-05,False,0
+[],2022-08-06,False,0
+[],2022-08-07,False,0
+[],2022-08-08,False,0
+[],2022-08-09,False,0
+"[""world-journal-north-america""]",2022-08-10,False,2
+"[""world-journal-north-america""]",2022-08-11,False,2
+[],2022-08-12,False,0
+[],2022-08-13,False,0
+[],2022-08-14,False,0
+[],2022-08-15,False,0
+[],2022-08-16,False,0
+[],2022-08-17,False,0
+[],2022-08-18,False,0
+[],2022-08-19,False,0
+[],2022-08-20,False,0
+[],2022-08-21,False,0
+[],2022-08-22,False,0
+[],2022-08-23,False,0
+"[""world-journal-north-america""]",2022-08-24,False,1
+[],2022-08-25,False,0
+[],2022-08-26,False,0
+[],2022-08-27,False,0
+[],2022-08-28,False,0
+"[""eurekalert-chinese""]",2022-08-29,False,1
+"[""world-journal-north-america""]",2022-08-30,False,2
+[],2022-08-31,False,0
+[],2022-09-01,False,0
+"[""world-journal-north-america""]",2022-09-02,False,1
+"[""eurekalert-chinese""]",2022-09-03,False,1
+[],2022-09-04,False,0
+[],2022-09-05,False,0
+[],2022-09-06,False,0
+"[""eurekalert-chinese""]",2022-09-07,False,1
+"[""world-journal-north-america""]",2022-09-08,False,1
+[],2022-09-09,False,0
+[],2022-09-10,False,0
+"[""world-journal-north-america""]",2022-09-11,False,1
+[],2022-09-12,False,0
+[],2022-09-13,False,0
+[],2022-09-14,False,0
+[],2022-09-15,False,0
+"[""world-journal-north-america""]",2022-09-16,False,2
+"[""rolling-stone-china""]",2022-09-17,False,1
+[],2022-09-18,False,0
+[],2022-09-19,False,0
+"[""rolling-stone-china""]",2022-09-20,False,3
+"[""rolling-stone-china""]",2022-09-21,False,2
+"[""world-journal-north-america""]",2022-09-22,False,1
+"[""rolling-stone-china""]",2022-09-23,False,2
+[],2022-09-24,False,0
+[],2022-09-25,False,0
+"[""rolling-stone-china""]",2022-09-26,False,3
+"[""rolling-stone-china""]",2022-09-27,False,2
+"[""rolling-stone-china""]",2022-09-28,False,2
+"[""rolling-stone-china"", ""world-journal-north-america""]",2022-09-29,False,6
+"[""rolling-stone-china""]",2022-09-30,False,1
+"[""chineseinla-weibo"", ""rolling-stone-china""]",2022-10-01,False,3
+"[""rolling-stone-china""]",2022-10-02,False,1
+[],2022-10-03,False,0
+"[""chineseinla-weibo""]",2022-10-04,False,12
+"[""world-journal-north-america""]",2022-10-05,False,1
+"[""world-journal-north-america""]",2022-10-06,False,1
+"[""rolling-stone-china""]",2022-10-07,False,3
+[],2022-10-08,False,0
+"[""rolling-stone-china""]",2022-10-09,False,1
+"[""rolling-stone-china"", ""world-journal-north-america""]",2022-10-10,False,3
+"[""rolling-stone-china""]",2022-10-11,False,1
+"[""rolling-stone-china"", ""world-journal-north-america""]",2022-10-12,False,4
+"[""rolling-stone-china""]",2022-10-13,False,2
+[],2022-10-14,False,0
+[],2022-10-15,False,0
+[],2022-10-16,False,0
+"[""rolling-stone-china""]",2022-10-17,False,1
+"[""rolling-stone-china""]",2022-10-18,False,2
+[],2022-10-19,False,0
+[],2022-10-20,False,0
+"[""rolling-stone-china""]",2022-10-21,False,2
+[],2022-10-22,False,0
+[],2022-10-23,False,0
+[],2022-10-24,False,0
+"[""rolling-stone-china""]",2022-10-25,False,1
+[],2022-10-26,False,0
+"[""rolling-stone-china""]",2022-10-27,False,4
+"[""rolling-stone-china""]",2022-10-28,False,2
+"[""rolling-stone-china""]",2022-10-29,False,2
+[],2022-10-30,False,0
+"[""rolling-stone-china""]",2022-10-31,False,5
+[],2022-11-01,False,0
+"[""rolling-stone-china""]",2022-11-02,False,2
+"[""rolling-stone-china""]",2022-11-03,False,2
+"[""rolling-stone-china""]",2022-11-04,False,1
+"[""rolling-stone-china""]",2022-11-05,False,2
+[],2022-11-06,False,0
+"[""rolling-stone-china""]",2022-11-07,False,1
+"[""rolling-stone-china""]",2022-11-08,False,3
+"[""rolling-stone-china"", ""world-journal-north-america""]",2022-11-09,False,5
+"[""rolling-stone-china""]",2022-11-10,False,4
+"[""rolling-stone-china""]",2022-11-11,False,1
+[],2022-11-12,False,0
+[],2022-11-13,False,0
+[],2022-11-14,False,0
+"[""rolling-stone-china""]",2022-11-15,False,4
+"[""world-journal-north-america""]",2022-11-16,False,1
+"[""rolling-stone-china"", ""world-journal-north-america""]",2022-11-17,False,4
+"[""rolling-stone-china""]",2022-11-18,False,1
+[],2022-11-19,False,0
+[],2022-11-20,False,0
+"[""rolling-stone-china""]",2022-11-21,False,1
+[],2022-11-22,False,0
+"[""rolling-stone-china""]",2022-11-23,False,1
+"[""rolling-stone-china""]",2022-11-24,False,1
+"[""rolling-stone-china""]",2022-11-25,False,1
+[],2022-11-26,False,0
+[],2022-11-27,False,0
+"[""rolling-stone-china""]",2022-11-28,False,1
+"[""architectural-digest-china""]",2022-11-29,False,1
+"[""rolling-stone-china""]",2022-11-30,False,1
+[],2022-12-01,False,0
+"[""rolling-stone-china""]",2022-12-02,False,2
+[],2022-12-03,False,0
+[],2022-12-04,False,0
+[],2022-12-05,False,0
+[],2022-12-06,False,0
+"[""mens-health-china""]",2022-12-07,False,1
+[],2022-12-08,False,0
+"[""rolling-stone-china"", ""world-journal-north-america""]",2022-12-09,False,3
+[],2022-12-10,False,0
+[],2022-12-11,False,0
+"[""rolling-stone-china""]",2022-12-12,False,2
+[],2022-12-13,False,0
+[],2022-12-14,False,0
+"[""rolling-stone-china""]",2022-12-15,False,2
+"[""rolling-stone-china""]",2022-12-16,False,1
+"[""rolling-stone-china"", ""world-journal-north-america""]",2022-12-17,False,4
+[],2022-12-18,False,0
+[],2022-12-19,False,0
+[],2022-12-20,False,0
+"[""world-journal-north-america""]",2022-12-21,False,1
+[],2022-12-22,False,0
+[],2022-12-23,False,0
+[],2022-12-24,False,0
+[],2022-12-25,False,0
+"[""travel-leisure-china""]",2022-12-26,False,1
+[],2022-12-27,False,0
+[],2022-12-28,False,0
+[],2022-12-29,False,0
+[],2022-12-30,False,0
+"[""world-journal-north-america""]",2022-12-31,False,1
+"[""world-journal-north-america""]",2023-01-01,False,2
+[],2023-01-02,False,0
+[],2023-01-03,False,0
+[],2023-01-04,False,0
+[],2023-01-05,False,0
+[],2023-01-06,False,0
+[],2023-01-07,False,0
+[],2023-01-08,False,0
+[],2023-01-09,False,0
+[],2023-01-10,False,0
+[],2023-01-11,False,0
+[],2023-01-12,False,0
+"[""world-journal-north-america""]",2023-01-13,False,1
+[],2023-01-14,False,0
+[],2023-01-15,False,0
+[],2023-01-16,False,0
+[],2023-01-17,False,0
+"[""world-journal-north-america""]",2023-01-18,False,1
+"[""world-journal-north-america""]",2023-01-19,False,1
+[],2023-01-20,False,0
+"[""architectural-digest-china"", ""world-journal-north-america""]",2023-01-21,False,3
+"[""architectural-digest-china""]",2023-01-22,False,2
+"[""world-journal-north-america""]",2023-01-23,False,1
+"[""world-journal-north-america""]",2023-01-24,False,2
+"[""eurekalert-chinese""]",2023-01-25,False,1
+"[""eurekalert-chinese""]",2023-01-26,False,6
+[],2023-01-27,False,0
+[],2023-01-28,False,0
+[],2023-01-29,False,0
+"[""architectural-digest-china"", ""artforum-china""]",2023-01-30,False,8
+"[""architectural-digest-china""]",2023-01-31,False,2
+"[""architectural-digest-china""]",2023-02-01,False,2
+"[""architectural-digest-china"", ""artforum-china""]",2023-02-02,False,4
+"[""world-journal-north-america""]",2023-02-03,False,1
+[],2023-02-04,False,0
+[],2023-02-05,False,0
+"[""artforum-china""]",2023-02-06,False,6
+"[""artforum-china""]",2023-02-07,False,3
+[],2023-02-08,False,0
+[],2023-02-09,False,0
+[],2023-02-10,False,0
+[],2023-02-11,False,0
+[],2023-02-12,False,0
+[],2023-02-13,False,0
+[],2023-02-14,False,0
+[],2023-02-15,False,0
+"[""world-journal-north-america""]",2023-02-16,False,1
+"[""world-journal-north-america""]",2023-02-17,False,1
+[],2023-02-18,False,0
+[],2023-02-19,False,0
+[],2023-02-20,False,0
+[],2023-02-21,False,0
+[],2023-02-22,False,0
+[],2023-02-23,False,0
+[],2023-02-24,False,0
+"[""world-journal-north-america""]",2023-02-25,False,1
+[],2023-02-26,False,0
+[],2023-02-27,False,0
+[],2023-02-28,False,0
+[],2023-03-01,False,0
+[],2023-03-02,False,0
+[],2023-03-03,False,0
+[],2023-03-04,False,0
+[],2023-03-05,False,0
+[],2023-03-06,False,0
+"[""esquire-china-historical""]",2023-03-07,False,2
+[],2023-03-08,False,0
+[],2023-03-09,False,0
+[],2023-03-10,False,0
+[],2023-03-11,False,0
+[],2023-03-12,False,0
+"[""world-journal-north-america""]",2023-03-13,False,1
+"[""world-journal-north-america""]",2023-03-14,False,1
+[],2023-03-15,False,0
+"[""world-journal-north-america""]",2023-03-16,False,1
+"[""world-journal-north-america""]",2023-03-17,False,1
+[],2023-03-18,False,0
+[],2023-03-19,False,0
+[],2023-03-20,False,0
+[],2023-03-21,False,0
+"[""esquire-china-historical"", ""world-journal-north-america""]",2023-03-22,False,3
+"[""esquire-china-historical""]",2023-03-23,False,2
+"[""esquire-china-historical""]",2023-03-24,False,2
+"[""esquire-china-historical""]",2023-03-25,False,3
+"[""esquire-china-historical""]",2023-03-26,False,4
+"[""esquire-china-historical""]",2023-03-27,False,2
+[],2023-03-28,False,0
+[],2023-03-29,False,0
+[],2023-03-30,False,0
+"[""world-journal-north-america""]",2023-03-31,False,1
+[],2023-04-01,False,0
+[],2023-04-02,False,0
+[],2023-04-03,False,0
+"[""nyt-t-china""]",2023-04-04,False,1
+[],2023-04-05,False,0
+"[""nyt-t-china""]",2023-04-06,False,3
+"[""nyt-t-china""]",2023-04-07,False,2
+[],2023-04-08,False,0
+[],2023-04-09,False,0
+"[""nyt-t-china""]",2023-04-10,False,1
+"[""nyt-t-china"", ""vogue-china-film""]",2023-04-11,False,6
+"[""nyt-t-china"", ""vogue-china-film""]",2023-04-12,False,8
+"[""vogue-china-film""]",2023-04-13,False,1
+"[""vogue-china-film"", ""world-journal-north-america""]",2023-04-14,False,6
+[],2023-04-15,False,0
+"[""vogue-china-film""]",2023-04-16,False,1
+"[""npr-china-historical""]",2023-04-17,False,1
+[],2023-04-18,False,0
+[],2023-04-19,False,0
+[],2023-04-20,False,0
+[],2023-04-21,False,0
+[],2023-04-22,False,0
+[],2023-04-23,False,0
+[],2023-04-24,False,0
+[],2023-04-25,False,0
+[],2023-04-26,False,0
+[],2023-04-27,False,0
+[],2023-04-28,False,0
+"[""world-journal-north-america""]",2023-04-29,False,1
+[],2023-04-30,False,0
+[],2023-05-01,False,0
+[],2023-05-02,False,0
+[],2023-05-03,False,0
+[],2023-05-04,False,0
+[],2023-05-05,False,0
+[],2023-05-06,False,0
+[],2023-05-07,False,0
+[],2023-05-08,False,0
+[],2023-05-09,False,0
+"[""world-journal-north-america""]",2023-05-10,False,1
+[],2023-05-11,False,0
+[],2023-05-12,False,0
+[],2023-05-13,False,0
+[],2023-05-14,False,0
+[],2023-05-15,False,0
+[],2023-05-16,False,0
+[],2023-05-17,False,0
+[],2023-05-18,False,0
+[],2023-05-19,False,0
+[],2023-05-20,False,0
+[],2023-05-21,False,0
+[],2023-05-22,False,0
+[],2023-05-23,False,0
+[],2023-05-24,False,0
+[],2023-05-25,False,0
+[],2023-05-26,False,0
+[],2023-05-27,False,0
+[],2023-05-28,False,0
+[],2023-05-29,False,0
+[],2023-05-30,False,0
+[],2023-05-31,False,0
+[],2023-06-01,False,0
+[],2023-06-02,False,0
+[],2023-06-03,False,0
+[],2023-06-04,False,0
+[],2023-06-05,False,0
+[],2023-06-06,False,0
+[],2023-06-07,False,0
+[],2023-06-08,False,0
+[],2023-06-09,False,0
+[],2023-06-10,False,0
+[],2023-06-11,False,0
+"[""vogue-china-film""]",2023-06-12,False,5
+"[""vogue-china-film""]",2023-06-13,False,4
+"[""vogue-china-film""]",2023-06-14,False,3
+"[""vogue-china-film""]",2023-06-15,False,8
+"[""vogue-china-film""]",2023-06-16,False,2
+[],2023-06-17,False,0
+"[""world-journal-north-america""]",2023-06-18,False,1
+[],2023-06-19,False,0
+[],2023-06-20,False,0
+[],2023-06-21,False,0
+[],2023-06-22,False,0
+[],2023-06-23,False,0
+[],2023-06-24,False,0
+"[""vogue-china-film""]",2023-06-25,False,1
+"[""vogue-china-film""]",2023-06-26,False,1
+"[""vogue-china-film""]",2023-06-27,False,1
+"[""vogue-china-film""]",2023-06-28,False,1
+"[""vogue-china-film""]",2023-06-29,False,8
+"[""vogue-china-film""]",2023-06-30,False,1
+"[""entrepreneur-china-historical""]",2023-07-01,False,1
+"[""vogue-china-film""]",2023-07-02,False,3
+[],2023-07-03,False,0
+[],2023-07-04,False,0
+"[""world-journal-north-america""]",2023-07-05,False,1
+[],2023-07-06,False,0
+[],2023-07-07,False,0
+[],2023-07-08,False,0
+[],2023-07-09,False,0
+[],2023-07-10,False,0
+[],2023-07-11,False,0
+"[""world-journal-north-america""]",2023-07-12,False,1
+"[""knowledge-wharton-china""]",2023-07-13,False,1
+[],2023-07-14,False,0
+[],2023-07-15,False,0
+[],2023-07-16,False,0
+[],2023-07-17,False,0
+[],2023-07-18,False,0
+[],2023-07-19,False,0
+"[""knowledge-wharton-china""]",2023-07-20,False,2
+[],2023-07-21,False,0
+"[""world-journal-north-america""]",2023-07-22,False,1
+[],2023-07-23,False,0
+"[""vogue-china-film""]",2023-07-24,False,1
+[],2023-07-25,False,0
+[],2023-07-26,False,0
+"[""knowledge-wharton-china""]",2023-07-27,False,1
+[],2023-07-28,False,0
+[],2023-07-29,False,0
+[],2023-07-30,False,0
+[],2023-07-31,False,0
+[],2023-08-01,False,0
+[],2023-08-02,False,0
+"[""knowledge-wharton-china"", ""vogue-china-film""]",2023-08-03,False,3
+"[""vogue-china-film""]",2023-08-04,False,7
+[],2023-08-05,False,0
+[],2023-08-06,False,0
+[],2023-08-07,False,0
+[],2023-08-08,False,0
+[],2023-08-09,False,0
+"[""knowledge-wharton-china""]",2023-08-10,False,2
+[],2023-08-11,False,0
+[],2023-08-12,False,0
+[],2023-08-13,False,0
+[],2023-08-14,False,0
+[],2023-08-15,False,0
+[],2023-08-16,False,0
+"[""knowledge-wharton-china""]",2023-08-17,False,2
+"[""bloomberg-china""]",2023-08-18,False,1
+[],2023-08-19,False,0
+[],2023-08-20,False,0
+[],2023-08-21,False,0
+[],2023-08-22,False,0
+"[""bloomberg-china""]",2023-08-23,False,1
+"[""bloomberg-china"", ""knowledge-wharton-china""]",2023-08-24,False,3
+"[""bloomberg-china""]",2023-08-25,False,1
+[],2023-08-26,False,0
+[],2023-08-27,False,0
+[],2023-08-28,False,0
+[],2023-08-29,False,0
+"[""bloomberg-china""]",2023-08-30,False,1
+"[""bloomberg-china"", ""knowledge-wharton-china""]",2023-08-31,False,4
+"[""bloomberg-china""]",2023-09-01,False,2
+"[""vogue-china-film""]",2023-09-02,False,1
+[],2023-09-03,False,0
+"[""bloomberg-china""]",2023-09-04,False,1
+[],2023-09-05,False,0
+[],2023-09-06,False,0
+"[""bloomberg-china"", ""knowledge-wharton-china""]",2023-09-07,False,3
+"[""bloomberg-china""]",2023-09-08,False,1
+[],2023-09-09,False,0
+[],2023-09-10,False,0
+[],2023-09-11,False,0
+"[""bloomberg-china""]",2023-09-12,False,1
+[],2023-09-13,False,0
+"[""knowledge-wharton-china""]",2023-09-14,False,2
+[],2023-09-15,False,0
+[],2023-09-16,False,0
+[],2023-09-17,False,0
+[],2023-09-18,False,0
+[],2023-09-19,False,0
+"[""bloomberg-china""]",2023-09-20,False,1
+"[""knowledge-wharton-china""]",2023-09-21,False,2
+[],2023-09-22,False,0
+[],2023-09-23,False,0
+[],2023-09-24,False,0
+"[""bloomberg-china""]",2023-09-25,False,1
+"[""bloomberg-china""]",2023-09-26,False,1
+[],2023-09-27,False,0
+"[""bloomberg-china"", ""knowledge-wharton-china""]",2023-09-28,False,4
+"[""bloomberg-china""]",2023-09-29,False,1
+[],2023-09-30,False,0
+[],2023-10-01,False,0
+[],2023-10-02,False,0
+[],2023-10-03,False,0
+[],2023-10-04,False,0
+"[""knowledge-wharton-china""]",2023-10-05,False,2
+[],2023-10-06,False,0
+[],2023-10-07,False,0
+[],2023-10-08,False,0
+[],2023-10-09,False,0
+[],2023-10-10,False,0
+"[""bloomberg-china""]",2023-10-11,False,1
+"[""knowledge-wharton-china""]",2023-10-12,False,2
+[],2023-10-13,False,0
+[],2023-10-14,False,0
+[],2023-10-15,False,0
+[],2023-10-16,False,0
+[],2023-10-17,False,0
+"[""bloomberg-china""]",2023-10-18,False,1
+"[""knowledge-wharton-china""]",2023-10-19,False,2
+"[""bloomberg-china""]",2023-10-20,False,1
+[],2023-10-21,False,0
+[],2023-10-22,False,0
+[],2023-10-23,False,0
+[],2023-10-24,False,0
+"[""bloomberg-china""]",2023-10-25,False,1
+"[""bloomberg-china"", ""knowledge-wharton-china""]",2023-10-26,False,3
+"[""bloomberg-china""]",2023-10-27,False,1
+[],2023-10-28,False,0
+[],2023-10-29,False,0
+[],2023-10-30,False,0
+[],2023-10-31,False,0
+"[""world-journal-north-america""]",2023-11-01,False,2
+"[""knowledge-wharton-china""]",2023-11-02,False,2
+"[""bloomberg-china""]",2023-11-03,False,2
+[],2023-11-04,False,0
+[],2023-11-05,False,0
+[],2023-11-06,False,0
+[],2023-11-07,False,0
+"[""bloomberg-china""]",2023-11-08,False,3
+"[""knowledge-wharton-china""]",2023-11-09,False,2
+"[""bloomberg-china""]",2023-11-10,False,1
+[],2023-11-11,False,0
+[],2023-11-12,False,0
+[],2023-11-13,False,0
+"[""vogue-china-film""]",2023-11-14,False,5
+"[""vogue-china-film""]",2023-11-15,False,7
+"[""knowledge-wharton-china"", ""vogue-china-film""]",2023-11-16,False,3
+[],2023-11-17,False,0
+[],2023-11-18,False,0
+[],2023-11-19,False,0
+[],2023-11-20,False,0
+[],2023-11-21,False,0
+"[""world-journal-north-america""]",2023-11-22,False,1
+"[""knowledge-wharton-china""]",2023-11-23,False,2
+[],2023-11-24,False,0
+[],2023-11-25,False,0
+[],2023-11-26,False,0
+[],2023-11-27,False,0
+[],2023-11-28,False,0
+[],2023-11-29,False,0
+"[""bloomberg-china"", ""knowledge-wharton-china""]",2023-11-30,False,3
+"[""phoenix-americas-weibo""]",2023-12-01,False,2
+"[""phoenix-americas-weibo""]",2023-12-02,False,2
+[],2023-12-03,False,0
+[],2023-12-04,False,0
+"[""phoenix-americas-weibo""]",2023-12-05,False,1
+"[""phoenix-americas-weibo""]",2023-12-06,False,1
+"[""knowledge-wharton-china"", ""phoenix-americas-weibo""]",2023-12-07,False,3
+"[""phoenix-americas-weibo"", ""world-journal-north-america""]",2023-12-08,False,2
+[],2023-12-09,False,0
+[],2023-12-10,False,0
+[],2023-12-11,False,0
+"[""phoenix-americas-weibo""]",2023-12-12,False,1
+"[""bloomberg-china"", ""phoenix-americas-weibo""]",2023-12-13,False,2
+"[""knowledge-wharton-china""]",2023-12-14,False,2
+[],2023-12-15,False,0
+"[""phoenix-americas-weibo""]",2023-12-16,False,1
+[],2023-12-17,False,0
+[],2023-12-18,False,0
+[],2023-12-19,False,0
+[],2023-12-20,False,0
+"[""knowledge-wharton-china""]",2023-12-21,False,2
+"[""bloomberg-china""]",2023-12-22,False,1
+"[""phoenix-americas-weibo""]",2023-12-23,False,2
+[],2023-12-24,False,0
+"[""bloomberg-china""]",2023-12-25,False,1
+[],2023-12-26,False,0
+"[""phoenix-americas-weibo""]",2023-12-27,False,1
+"[""knowledge-wharton-china"", ""phoenix-americas-weibo""]",2023-12-28,False,3
+"[""phoenix-americas-weibo""]",2023-12-29,False,1
+"[""phoenix-americas-weibo""]",2023-12-30,False,1
+"[""bloomberg-china""]",2023-12-31,False,1
+[],2024-01-01,False,0
+[],2024-01-02,False,0
+"[""phoenix-americas-weibo"", ""world-journal-north-america""]",2024-01-03,False,3
+"[""knowledge-wharton-china"", ""phoenix-americas-weibo""]",2024-01-04,False,3
+"[""bloomberg-china"", ""phoenix-americas-weibo""]",2024-01-05,False,2
+[],2024-01-06,False,0
+[],2024-01-07,False,0
+"[""vogue-china-film""]",2024-01-08,False,1
+[],2024-01-09,False,0
+"[""phoenix-americas-weibo""]",2024-01-10,False,1
+"[""bloomberg-china"", ""knowledge-wharton-china"", ""phoenix-americas-weibo"", ""world-journal-north-america""]",2024-01-11,False,5
+"[""fortune-china"", ""world-journal-north-america""]",2024-01-12,False,12
+"[""fortune-china"", ""phoenix-americas-weibo""]",2024-01-13,False,5
+[],2024-01-14,False,0
+[],2024-01-15,False,0
+[],2024-01-16,False,0
+[],2024-01-17,False,0
+"[""knowledge-wharton-china"", ""phoenix-americas-weibo""]",2024-01-18,False,3
+"[""phoenix-americas-weibo""]",2024-01-19,False,1
+"[""world-journal-north-america""]",2024-01-20,False,1
+[],2024-01-21,False,0
+"[""visionaire-china""]",2024-01-22,False,1
+"[""artnews-china"", ""bloomberg-china""]",2024-01-23,False,2
+"[""world-journal-north-america""]",2024-01-24,False,2
+"[""knowledge-wharton-china"", ""phoenix-americas-weibo"", ""world-journal-north-america""]",2024-01-25,False,4
+"[""bloomberg-china""]",2024-01-26,False,1
+[],2024-01-27,False,0
+[],2024-01-28,False,0
+"[""bloomberg-china""]",2024-01-29,False,1
+[],2024-01-30,False,0
+[],2024-01-31,False,0
+"[""knowledge-wharton-china""]",2024-02-01,False,2
+"[""phoenix-americas-weibo""]",2024-02-02,False,1
+[],2024-02-03,False,0
+[],2024-02-04,False,0
+[],2024-02-05,False,0
+[],2024-02-06,False,0
+"[""bloomberg-china"", ""knowledge-wharton-china""]",2024-02-07,False,3
+[],2024-02-08,False,0
+[],2024-02-09,False,0
+"[""bloomberg-china"", ""world-journal-north-america""]",2024-02-10,False,3
+[],2024-02-11,False,0
+[],2024-02-12,False,0
+"[""phoenix-americas-weibo"", ""world-journal-north-america""]",2024-02-13,False,2
+[],2024-02-14,False,0
+"[""phoenix-americas-weibo""]",2024-02-15,False,2
+[],2024-02-16,False,0
+"[""knowledge-wharton-china""]",2024-02-17,False,2
+[],2024-02-18,False,0
+[],2024-02-19,False,0
+"[""bloomberg-china""]",2024-02-20,False,1
+[],2024-02-21,False,0
+"[""knowledge-wharton-china""]",2024-02-22,False,2
+"[""bloomberg-china""]",2024-02-23,False,1
+[],2024-02-24,False,0
+[],2024-02-25,False,0
+[],2024-02-26,False,0
+"[""phoenix-americas-weibo""]",2024-02-27,False,1
+"[""bloomberg-china"", ""phoenix-americas-weibo""]",2024-02-28,False,2
+[],2024-02-29,False,0
+"[""knowledge-wharton-china"", ""phoenix-americas-weibo""]",2024-03-01,False,3
+"[""world-journal-north-america""]",2024-03-02,False,1
+[],2024-03-03,False,0
+[],2024-03-04,False,0
+[],2024-03-05,False,0
+[],2024-03-06,False,0
+"[""bloomberg-china""]",2024-03-07,False,1
+"[""bloomberg-china"", ""knowledge-wharton-china""]",2024-03-08,False,3
+[],2024-03-09,False,0
+[],2024-03-10,False,0
+"[""bloomberg-china""]",2024-03-11,False,1
+[],2024-03-12,False,0
+[],2024-03-13,False,0
+"[""bloomberg-china"", ""knowledge-wharton-china""]",2024-03-14,False,3
+"[""phoenix-americas-weibo""]",2024-03-15,False,1
+[],2024-03-16,False,0
+[],2024-03-17,False,0
+[],2024-03-18,False,0
+[],2024-03-19,False,0
+[],2024-03-20,False,0
+"[""bloomberg-china"", ""knowledge-wharton-china""]",2024-03-21,False,3
+[],2024-03-22,False,0
+[],2024-03-23,False,0
+[],2024-03-24,False,0
+[],2024-03-25,False,0
+[],2024-03-26,False,0
+"[""bloomberg-china""]",2024-03-27,False,1
+"[""knowledge-wharton-china""]",2024-03-28,False,2
+[],2024-03-29,False,0
+"[""phoenix-americas-weibo""]",2024-03-30,False,1
+[],2024-03-31,False,0
+[],2024-04-01,False,0
+[],2024-04-02,False,0
+[],2024-04-03,False,0
+"[""knowledge-wharton-china""]",2024-04-04,False,1
+[],2024-04-05,False,0
+[],2024-04-06,False,0
+[],2024-04-07,False,0
+"[""vogue-china-film""]",2024-04-08,False,1
+"[""bloomberg-china""]",2024-04-09,False,1
+"[""world-journal-north-america""]",2024-04-10,False,1
+"[""bloomberg-china"", ""knowledge-wharton-china"", ""phoenix-americas-weibo""]",2024-04-11,False,4
+"[""vogue-china-film""]",2024-04-12,False,1
+[],2024-04-13,False,0
+[],2024-04-14,False,0
+[],2024-04-15,False,0
+"[""bloomberg-china""]",2024-04-16,False,1
+"[""bloomberg-china""]",2024-04-17,False,1
+"[""bloomberg-china"", ""knowledge-wharton-china""]",2024-04-18,False,3
+"[""bloomberg-china""]",2024-04-19,False,1
+[],2024-04-20,False,0
+[],2024-04-21,False,0
+"[""bloomberg-china""]",2024-04-22,False,1
+[],2024-04-23,False,0
+"[""bloomberg-china""]",2024-04-24,False,1
+"[""knowledge-wharton-china"", ""phoenix-americas-weibo""]",2024-04-25,False,3
+"[""bloomberg-china""]",2024-04-26,False,1
+[],2024-04-27,False,0
+[],2024-04-28,False,0
+[],2024-04-29,False,0
+"[""bloomberg-china""]",2024-04-30,False,1
+[],2024-05-01,False,0
+"[""knowledge-wharton-china""]",2024-05-02,False,2
+[],2024-05-03,False,0
+[],2024-05-04,False,0
+[],2024-05-05,False,0
+"[""bloomberg-china""]",2024-05-06,False,1
+[],2024-05-07,False,0
+[],2024-05-08,False,0
+"[""knowledge-wharton-china""]",2024-05-09,False,2
+"[""phoenix-americas-weibo""]",2024-05-10,False,1
+"[""vogue-china-film""]",2024-05-11,False,1
+[],2024-05-12,False,0
+[],2024-05-13,False,0
+"[""bloomberg-china""]",2024-05-14,False,1
+"[""vogue-china-film""]",2024-05-15,False,1
+"[""knowledge-wharton-china""]",2024-05-16,False,2
+[],2024-05-17,False,0
+[],2024-05-18,False,0
+[],2024-05-19,False,0
+[],2024-05-20,False,0
+"[""artforum-china"", ""vogue-china-film""]",2024-05-21,False,2
+"[""phoenix-americas-weibo""]",2024-05-22,False,1
+"[""bloomberg-china"", ""knowledge-wharton-china""]",2024-05-23,False,3
+"[""phoenix-americas-weibo""]",2024-05-24,False,1
+[],2024-05-25,False,0
+[],2024-05-26,False,0
+"[""vogue-china-film""]",2024-05-27,False,1
+[],2024-05-28,False,0
+"[""phoenix-americas-weibo""]",2024-05-29,False,1
+[],2024-05-30,False,0
+"[""knowledge-wharton-china"", ""world-journal-north-america""]",2024-05-31,False,3
+[],2024-06-01,False,0
+[],2024-06-02,False,0
+[],2024-06-03,False,0
+[],2024-06-04,False,0
+[],2024-06-05,False,0
+"[""knowledge-wharton-china""]",2024-06-06,False,2
+"[""bloomberg-china""]",2024-06-07,False,1
+"[""phoenix-americas-weibo""]",2024-06-08,False,1
+[],2024-06-09,False,0
+"[""bloomberg-china""]",2024-06-10,False,1
+[],2024-06-11,False,0
+"[""bloomberg-china""]",2024-06-12,False,1
+"[""knowledge-wharton-china""]",2024-06-13,False,2
+[],2024-06-14,False,0
+[],2024-06-15,False,0
+[],2024-06-16,False,0
+[],2024-06-17,False,0
+"[""bloomberg-china"", ""world-journal-north-america""]",2024-06-18,False,2
+[],2024-06-19,False,0
+"[""bloomberg-china"", ""knowledge-wharton-china""]",2024-06-20,False,3
+[],2024-06-21,False,0
+[],2024-06-22,False,0
+[],2024-06-23,False,0
+[],2024-06-24,False,0
+[],2024-06-25,False,0
+[],2024-06-26,False,0
+[],2024-06-27,False,0
+"[""knowledge-wharton-china"", ""phoenix-americas-weibo""]",2024-06-28,False,3
+[],2024-06-29,False,0
+[],2024-06-30,False,0
+[],2024-07-01,False,0
+[],2024-07-02,False,0
+[],2024-07-03,False,0
+[],2024-07-04,False,0
+[],2024-07-05,False,0
+[],2024-07-06,False,0
+[],2024-07-07,False,0
+[],2024-07-08,False,0
+[],2024-07-09,False,0
+"[""travel-leisure-china""]",2024-07-10,False,1
+[],2024-07-11,False,0
+[],2024-07-12,False,0
+[],2024-07-13,False,0
+[],2024-07-14,False,0
+[],2024-07-15,False,0
+[],2024-07-16,False,0
+[],2024-07-17,False,0
+[],2024-07-18,False,0
+[],2024-07-19,False,0
+[],2024-07-20,False,0
+[],2024-07-21,False,0
+[],2024-07-22,False,0
+[],2024-07-23,False,0
+"[""bloomberg-china""]",2024-07-24,False,1
+[],2024-07-25,False,0
+"[""bloomberg-china"", ""phoenix-americas-weibo""]",2024-07-26,False,2
+[],2024-07-27,False,0
+[],2024-07-28,False,0
+[],2024-07-29,False,0
+[],2024-07-30,False,0
+[],2024-07-31,False,0
+[],2024-08-01,False,0
+"[""vogue-china-film""]",2024-08-02,False,9
+[],2024-08-03,False,0
+[],2024-08-04,False,0
+[],2024-08-05,False,0
+"[""bloomberg-china""]",2024-08-06,False,1
+[],2024-08-07,False,0
+[],2024-08-08,False,0
+"[""phoenix-americas-weibo""]",2024-08-09,False,1
+[],2024-08-10,False,0
+[],2024-08-11,False,0
+"[""bloomberg-china""]",2024-08-12,False,1
+[],2024-08-13,False,0
+[],2024-08-14,False,0
+[],2024-08-15,False,0
+[],2024-08-16,False,0
+[],2024-08-17,False,0
+[],2024-08-18,False,0
+[],2024-08-19,False,0
+[],2024-08-20,False,0
+[],2024-08-21,False,0
+"[""bloomberg-china""]",2024-08-22,False,1
+"[""bloomberg-china""]",2024-08-23,False,1
+[],2024-08-24,False,0
+[],2024-08-25,False,0
+[],2024-08-26,False,0
+[],2024-08-27,False,0
+[],2024-08-28,False,0
+[],2024-08-29,False,0
+[],2024-08-30,False,0
+[],2024-08-31,False,0
+[],2024-09-01,False,0
+[],2024-09-02,False,0
+[],2024-09-03,False,0
+[],2024-09-04,False,0
+"[""bloomberg-china""]",2024-09-05,False,1
+[],2024-09-06,False,0
+[],2024-09-07,False,0
+[],2024-09-08,False,0
+[],2024-09-09,False,0
+[],2024-09-10,False,0
+"[""phoenix-americas-weibo""]",2024-09-11,False,1
+"[""bloomberg-china""]",2024-09-12,False,1
+[],2024-09-13,False,0
+[],2024-09-14,False,0
+[],2024-09-15,False,0
+[],2024-09-16,False,0
+"[""bloomberg-china""]",2024-09-17,False,1
+[],2024-09-18,False,0
+[],2024-09-19,False,0
+[],2024-09-20,False,0
+[],2024-09-21,False,0
+[],2024-09-22,False,0
+"[""bloomberg-china""]",2024-09-23,False,1
+[],2024-09-24,False,0
+[],2024-09-25,False,0
+"[""phoenix-americas-weibo""]",2024-09-26,False,1
+[],2024-09-27,False,0
+[],2024-09-28,False,0
+[],2024-09-29,False,0
+[],2024-09-30,False,0
+[],2024-10-01,False,0
+[],2024-10-02,False,0
+[],2024-10-03,False,0
+[],2024-10-04,False,0
+[],2024-10-05,False,0
+[],2024-10-06,False,0
+[],2024-10-07,False,0
+[],2024-10-08,False,0
+"[""bloomberg-china""]",2024-10-09,False,1
+"[""bloomberg-china""]",2024-10-10,False,1
+[],2024-10-11,False,0
+[],2024-10-12,False,0
+[],2024-10-13,False,0
+[],2024-10-14,False,0
+[],2024-10-15,False,0
+[],2024-10-16,False,0
+"[""bloomberg-china""]",2024-10-17,False,1
+"[""bloomberg-china""]",2024-10-18,False,1
+[],2024-10-19,False,0
+[],2024-10-20,False,0
+[],2024-10-21,False,0
+[],2024-10-22,False,0
+"[""bloomberg-china""]",2024-10-23,False,1
+"[""phoenix-americas-weibo""]",2024-10-24,False,1
+[],2024-10-25,False,0
+[],2024-10-26,False,0
+[],2024-10-27,False,0
+[],2024-10-28,False,0
+[],2024-10-29,False,0
+"[""bloomberg-china"", ""vogue-china-film""]",2024-10-30,False,2
+[],2024-10-31,False,0
+[],2024-11-01,False,0
+[],2024-11-02,False,0
+[],2024-11-03,False,0
+[],2024-11-04,False,0
+[],2024-11-05,False,0
+[],2024-11-06,False,0
+[],2024-11-07,False,0
+[],2024-11-08,False,0
+"[""phoenix-americas-weibo""]",2024-11-09,False,3
+[],2024-11-10,False,0
+[],2024-11-11,False,0
+[],2024-11-12,False,0
+[],2024-11-13,False,0
+[],2024-11-14,False,0
+"[""phoenix-americas-weibo""]",2024-11-15,False,1
+[],2024-11-16,False,0
+[],2024-11-17,False,0
+[],2024-11-18,False,0
+[],2024-11-19,False,0
+[],2024-11-20,False,0
+[],2024-11-21,False,0
+[],2024-11-22,False,0
+[],2024-11-23,False,0
+[],2024-11-24,False,0
+[],2024-11-25,False,0
+[],2024-11-26,False,0
+"[""bloomberg-china""]",2024-11-27,False,1
+[],2024-11-28,False,0
+[],2024-11-29,False,0
+[],2024-11-30,False,0
+[],2024-12-01,False,0
+[],2024-12-02,False,0
+[],2024-12-03,False,0
+[],2024-12-04,False,0
+[],2024-12-05,False,0
+[],2024-12-06,False,0
+[],2024-12-07,False,0
+[],2024-12-08,False,0
+"[""bloomberg-china""]",2024-12-09,False,1
+[],2024-12-10,False,0
+[],2024-12-11,False,0
+[],2024-12-12,False,0
+"[""phoenix-americas-weibo""]",2024-12-13,False,1
+[],2024-12-14,False,0
+[],2024-12-15,False,0
+"[""bloomberg-china""]",2024-12-16,False,1
+[],2024-12-17,False,0
+[],2024-12-18,False,0
+[],2024-12-19,False,0
+[],2024-12-20,False,0
+[],2024-12-21,False,0
+[],2024-12-22,False,0
+[],2024-12-23,False,0
+[],2024-12-24,False,0
+[],2024-12-25,False,0
+"[""phoenix-americas-weibo""]",2024-12-26,False,1
+[],2024-12-27,False,0
+[],2024-12-28,False,0
+[],2024-12-29,False,0
+[],2024-12-30,False,0
+[],2024-12-31,False,0
+[],2025-01-01,False,0
+[],2025-01-02,False,0
+[],2025-01-03,False,0
+[],2025-01-04,False,0
+[],2025-01-05,False,0
+[],2025-01-06,False,0
+[],2025-01-07,False,0
+[],2025-01-08,False,0
+[],2025-01-09,False,0
+"[""artnews-china""]",2025-01-10,False,1
+[],2025-01-11,False,0
+[],2025-01-12,False,0
+[],2025-01-13,False,0
+[],2025-01-14,False,0
+[],2025-01-15,False,0
+[],2025-01-16,False,0
+[],2025-01-17,False,0
+[],2025-01-18,False,0
+[],2025-01-19,False,0
+[],2025-01-20,False,0
+"[""bloomberg-china""]",2025-01-21,False,1
+[],2025-01-22,False,0
+[],2025-01-23,False,0
+"[""bloomberg-china""]",2025-01-24,False,1
+[],2025-01-25,False,0
+[],2025-01-26,False,0
+[],2025-01-27,False,0
+[],2025-01-28,False,0
+"[""bloomberg-china""]",2025-01-29,False,1
+[],2025-01-30,False,0
+[],2025-01-31,False,0
+[],2025-02-01,False,0
+[],2025-02-02,False,0
+[],2025-02-03,False,0
+[],2025-02-04,False,0
+[],2025-02-05,False,0
+[],2025-02-06,False,0
+"[""bloomberg-china""]",2025-02-07,False,1
+[],2025-02-08,False,0
+[],2025-02-09,False,0
+"[""bloomberg-china""]",2025-02-10,False,1
+[],2025-02-11,False,0
+"[""bloomberg-china""]",2025-02-12,False,1
+[],2025-02-13,False,0
+[],2025-02-14,False,0
+[],2025-02-15,False,0
+[],2025-02-16,False,0
+[],2025-02-17,False,0
+[],2025-02-18,False,0
+[],2025-02-19,False,0
+[],2025-02-20,False,0
+"[""bloomberg-china""]",2025-02-21,False,1
+[],2025-02-22,False,0
+[],2025-02-23,False,0
+[],2025-02-24,False,0
+[],2025-02-25,False,0
+[],2025-02-26,False,0
+[],2025-02-27,False,0
+"[""phoenix-americas-weibo""]",2025-02-28,False,1
+[],2025-03-01,False,0
+[],2025-03-02,False,0
+[],2025-03-03,False,0
+[],2025-03-04,False,0
+[],2025-03-05,False,0
+[],2025-03-06,False,0
+[],2025-03-07,False,0
+[],2025-03-08,False,0
+[],2025-03-09,False,0
+[],2025-03-10,False,0
+[],2025-03-11,False,0
+"[""sinovision-weibo""]",2025-03-12,False,1
+[],2025-03-13,False,0
+"[""phoenix-americas-weibo""]",2025-03-14,False,1
+[],2025-03-15,False,0
+[],2025-03-16,False,0
+[],2025-03-17,False,0
+[],2025-03-18,False,0
+[],2025-03-19,False,0
+[],2025-03-20,False,0
+"[""bloomberg-china""]",2025-03-21,False,1
+"[""chineseinla-weibo""]",2025-03-22,False,15
+[],2025-03-23,False,0
+[],2025-03-24,False,0
+[],2025-03-25,False,0
+[],2025-03-26,False,0
+[],2025-03-27,False,0
+"[""phoenix-americas-weibo""]",2025-03-28,False,1
+[],2025-03-29,False,0
+[],2025-03-30,False,0
+[],2025-03-31,False,0
+[],2025-04-01,False,0
+[],2025-04-02,False,0
+[],2025-04-03,False,0
+[],2025-04-04,False,0
+[],2025-04-05,False,0
+[],2025-04-06,False,0
+[],2025-04-07,False,0
+[],2025-04-08,False,0
+[],2025-04-09,False,0
+[],2025-04-10,False,0
+[],2025-04-11,False,0
+[],2025-04-12,False,0
+[],2025-04-13,False,0
+[],2025-04-14,False,0
+[],2025-04-15,False,0
+[],2025-04-16,False,0
+[],2025-04-17,False,0
+"[""phoenix-americas-weibo""]",2025-04-18,False,1
+[],2025-04-19,False,0
+[],2025-04-20,False,0
+[],2025-04-21,False,0
+[],2025-04-22,False,0
+[],2025-04-23,False,0
+[],2025-04-24,False,0
+[],2025-04-25,False,0
+[],2025-04-26,False,0
+[],2025-04-27,False,0
+[],2025-04-28,False,0
+[],2025-04-29,False,0
+[],2025-04-30,False,0
+[],2025-05-01,False,0
+"[""phoenix-americas-weibo""]",2025-05-02,False,1
+"[""golf-china-historical""]",2025-05-03,False,1
+"[""golf-china-historical""]",2025-05-04,False,1
+[],2025-05-05,False,0
+"[""golf-china-historical""]",2025-05-06,False,2
+[],2025-05-07,False,0
+[],2025-05-08,False,0
+[],2025-05-09,False,0
+[],2025-05-10,False,0
+[],2025-05-11,False,0
+"[""golf-china-historical""]",2025-05-12,False,2
+[],2025-05-13,False,0
+[],2025-05-14,False,0
+[],2025-05-15,False,0
+"[""golf-china-historical""]",2025-05-16,False,2
+[],2025-05-17,False,0
+[],2025-05-18,False,0
+"[""golf-china-historical""]",2025-05-19,False,1
+[],2025-05-20,False,0
+[],2025-05-21,False,0
+"[""phoenix-americas-weibo""]",2025-05-22,False,1
+[],2025-05-23,False,0
+[],2025-05-24,False,0
+[],2025-05-25,False,0
+"[""bloomberg-china""]",2025-05-26,False,1
+[],2025-05-27,False,0
+"[""golf-china-historical""]",2025-05-28,False,1
+[],2025-05-29,False,0
+[],2025-05-30,False,0
+"[""bloomberg-china""]",2025-05-31,False,1
+[],2025-06-01,False,0
+[],2025-06-02,False,0
+"[""travel-leisure-china""]",2025-06-03,False,1
+"[""travel-leisure-china""]",2025-06-04,False,2
+[],2025-06-05,False,0
+"[""scientific-american-china""]",2025-06-06,False,1
+[],2025-06-07,False,0
+[],2025-06-08,False,0
+"[""scientific-american-china""]",2025-06-09,False,1
+"[""golf-digest-china"", ""scientific-american-china""]",2025-06-10,False,3
+"[""scientific-american-china"", ""travel-leisure-china""]",2025-06-11,False,2
+"[""golf-digest-china""]",2025-06-12,False,6
+"[""golf-china-historical"", ""travel-leisure-china""]",2025-06-13,False,4
+"[""phoenix-americas-weibo""]",2025-06-14,False,1
+[],2025-06-15,False,0
+"[""golf-digest-china"", ""scientific-american-china""]",2025-06-16,False,3
+"[""golf-digest-china"", ""scientific-american-china""]",2025-06-17,False,4
+"[""scientific-american-china""]",2025-06-18,False,1
+"[""scientific-american-china""]",2025-06-19,False,1
+"[""bloomberg-china"", ""scientific-american-china""]",2025-06-20,False,2
+"[""phoenix-americas-weibo""]",2025-06-21,False,2
+[],2025-06-22,False,0
+"[""golf-china-historical""]",2025-06-23,False,2
+"[""phoenix-americas-weibo"", ""scientific-american-china""]",2025-06-24,False,2
+"[""phoenix-americas-weibo"", ""scientific-american-china"", ""vogue-china-film""]",2025-06-25,False,3
+"[""scientific-american-china""]",2025-06-26,False,1
+"[""golf-digest-china"", ""phoenix-americas-weibo""]",2025-06-27,False,5
+"[""phoenix-americas-weibo"", ""vogue-china-film""]",2025-06-28,False,2
+"[""vogue-china-film""]",2025-06-29,False,2
+"[""bloomberg-china"", ""golf-china-historical"", ""golf-digest-china""]",2025-06-30,False,3
+"[""golf-digest-china"", ""phoenix-americas-weibo"", ""scientific-american-china""]",2025-07-01,False,17
+[],2025-07-02,False,0
+"[""golf-digest-china"", ""phoenix-americas-weibo"", ""scientific-american-china""]",2025-07-03,False,5
+"[""golf-digest-china"", ""scientific-american-china""]",2025-07-04,False,4
+"[""phoenix-americas-weibo""]",2025-07-05,False,1
+"[""golf-digest-china""]",2025-07-06,False,2
+"[""phoenix-americas-weibo""]",2025-07-07,False,1
+"[""artnews-china""]",2025-07-08,False,1
+[],2025-07-09,False,0
+"[""scientific-american-china""]",2025-07-10,False,1
+"[""phoenix-americas-weibo"", ""scientific-american-china""]",2025-07-11,False,2
+[],2025-07-12,False,0
+[],2025-07-13,False,0
+"[""vogue-china-film""]",2025-07-14,False,3
+"[""golf-china-historical"", ""scientific-american-china""]",2025-07-15,False,2
+"[""scientific-american-china""]",2025-07-16,False,1
+[],2025-07-17,False,0
+"[""golf-china-historical"", ""golf-digest-china""]",2025-07-18,False,5
+"[""golf-china-historical""]",2025-07-19,False,3
+"[""golf-china-historical""]",2025-07-20,False,1
+"[""golf-china-historical"", ""golf-digest-china""]",2025-07-21,False,4
+"[""scientific-american-china"", ""vogue-china-film""]",2025-07-22,False,3
+[],2025-07-23,False,0
+"[""golf-digest-china"", ""phoenix-americas-weibo"", ""scientific-american-china"", ""travel-leisure-china""]",2025-07-24,False,6
+"[""scientific-american-china""]",2025-07-25,False,1
+[],2025-07-26,False,0
+[],2025-07-27,False,0
+"[""scientific-american-china""]",2025-07-28,False,1
+"[""phoenix-americas-weibo"", ""scientific-american-china""]",2025-07-29,False,5
+[],2025-07-30,False,0
+"[""phoenix-americas-weibo"", ""scientific-american-china"", ""travel-leisure-china""]",2025-07-31,False,5
+"[""phoenix-americas-weibo"", ""scientific-american-china""]",2025-08-01,False,3
+[],2025-08-02,False,0
+[],2025-08-03,False,0
+[],2025-08-04,False,0
+"[""golf-digest-china"", ""scientific-american-china""]",2025-08-05,False,2
+"[""scientific-american-china""]",2025-08-06,False,1
+"[""phoenix-americas-weibo""]",2025-08-07,False,2
+"[""scientific-american-china""]",2025-08-08,False,1
+[],2025-08-09,False,0
+[],2025-08-10,False,0
+"[""travel-leisure-china""]",2025-08-11,False,2
+"[""scientific-american-china""]",2025-08-12,False,1
+"[""scientific-american-china"", ""travel-leisure-china""]",2025-08-13,False,3
+[],2025-08-14,False,0
+"[""phoenix-americas-weibo""]",2025-08-15,False,1
+[],2025-08-16,False,0
+[],2025-08-17,False,0
+"[""golf-china-historical""]",2025-08-18,False,2
+"[""scientific-american-china"", ""travel-leisure-china""]",2025-08-19,False,3
+"[""scientific-american-china""]",2025-08-20,False,1
+"[""golf-china-historical"", ""golf-digest-china""]",2025-08-21,False,2
+"[""golf-china-historical""]",2025-08-22,False,1
+"[""golf-china-historical"", ""golf-digest-china""]",2025-08-23,False,2
+[],2025-08-24,False,0
+"[""golf-china-historical"", ""scientific-american-china""]",2025-08-25,False,2
+[],2025-08-26,False,0
+"[""travel-leisure-china""]",2025-08-27,False,2
+"[""phoenix-americas-weibo"", ""scientific-american-china""]",2025-08-28,False,2
+[],2025-08-29,False,0
+[],2025-08-30,False,0
+"[""golf-digest-china""]",2025-08-31,False,1
+"[""golf-digest-china""]",2025-09-01,False,1
+[],2025-09-02,False,0
+[],2025-09-03,False,0
+[],2025-09-04,False,0
+"[""travel-leisure-china""]",2025-09-05,False,1
+[],2025-09-06,False,0
+[],2025-09-07,False,0
+"[""scientific-american-china""]",2025-09-08,False,1
+"[""scientific-american-china""]",2025-09-09,False,1
+[],2025-09-10,False,0
+"[""golf-china-historical""]",2025-09-11,False,1
+"[""phoenix-americas-weibo"", ""scientific-american-china""]",2025-09-12,False,2
+[],2025-09-13,False,0
+[],2025-09-14,False,0
+[],2025-09-15,False,0
+[],2025-09-16,False,0
+[],2025-09-17,False,0
+[],2025-09-18,False,0
+[],2025-09-19,False,0
+[],2025-09-20,False,0
+[],2025-09-21,False,0
+[],2025-09-22,False,0
+[],2025-09-23,False,0
+[],2025-09-24,False,0
+"[""phoenix-americas-weibo""]",2025-09-25,False,1
+"[""travel-leisure-china""]",2025-09-26,False,1
+"[""golf-china-historical""]",2025-09-27,False,1
+"[""golf-china-historical"", ""visionaire-china""]",2025-09-28,False,2
+[],2025-09-29,False,0
+"[""phoenix-americas-weibo"", ""scientific-american-china""]",2025-09-30,False,2
+"[""phoenix-americas-weibo""]",2025-10-01,False,2
+[],2025-10-02,False,0
+[],2025-10-03,False,0
+[],2025-10-04,False,0
+[],2025-10-05,False,0
+[],2025-10-06,False,0
+[],2025-10-07,False,0
+[],2025-10-08,False,0
+[],2025-10-09,False,0
+"[""golf-digest-china"", ""scientific-american-china""]",2025-10-10,False,2
+[],2025-10-11,False,0
+[],2025-10-12,False,0
+[],2025-10-13,False,0
+[],2025-10-14,False,0
+"[""travel-leisure-china""]",2025-10-15,False,2
+[],2025-10-16,False,0
+"[""scientific-american-china""]",2025-10-17,False,1
+[],2025-10-18,False,0
+[],2025-10-19,False,0
+[],2025-10-20,False,0
+"[""travel-leisure-china""]",2025-10-21,False,1
+[],2025-10-22,False,0
+[],2025-10-23,False,0
+"[""phoenix-americas-weibo"", ""travel-leisure-china""]",2025-10-24,False,3
+"[""golf-digest-china""]",2025-10-25,False,1
+"[""golf-digest-china""]",2025-10-26,False,1
+"[""travel-leisure-china""]",2025-10-27,False,2
+[],2025-10-28,False,0
+"[""travel-leisure-china""]",2025-10-29,False,1
+[],2025-10-30,False,0
+[],2025-10-31,False,0
+[],2025-11-01,False,0
+[],2025-11-02,False,0
+[],2025-11-03,False,0
+[],2025-11-04,False,0
+[],2025-11-05,False,0
+[],2025-11-06,False,0
+[],2025-11-07,False,0
+[],2025-11-08,False,0
+[],2025-11-09,False,0
+"[""scientific-american-china""]",2025-11-10,False,1
+[],2025-11-11,False,0
+"[""travel-leisure-china""]",2025-11-12,False,1
+"[""phoenix-americas-weibo"", ""scientific-american-china""]",2025-11-13,False,2
+"[""travel-leisure-china""]",2025-11-14,False,2
+[],2025-11-15,False,0
+"[""golf-digest-china""]",2025-11-16,False,1
+"[""golf-digest-china""]",2025-11-17,False,1
+"[""golf-digest-china""]",2025-11-18,False,1
+[],2025-11-19,False,0
+"[""golf-digest-china"", ""phoenix-americas-weibo"", ""travel-leisure-china""]",2025-11-20,False,6
+"[""golf-digest-china""]",2025-11-21,False,1
+"[""golf-digest-china""]",2025-11-22,False,1
+"[""golf-digest-china""]",2025-11-23,False,1
+"[""scientific-american-china""]",2025-11-24,False,1
+"[""golf-digest-china""]",2025-11-25,False,1
+"[""phoenix-americas-weibo""]",2025-11-26,False,1
+"[""golf-digest-china"", ""scientific-american-china""]",2025-11-27,False,2
+"[""scientific-american-china"", ""travel-leisure-china""]",2025-11-28,False,2
+[],2025-11-29,False,0
+[],2025-11-30,False,0
+"[""national-geographic-china""]",2025-12-01,False,1
+"[""national-geographic-china""]",2025-12-02,False,1
+"[""national-geographic-china"", ""scientific-american-china""]",2025-12-03,False,2
+"[""golf-digest-china""]",2025-12-04,False,4
+"[""national-geographic-china"", ""travel-leisure-china""]",2025-12-05,False,2
+"[""national-geographic-china""]",2025-12-06,False,1
+"[""national-geographic-china""]",2025-12-07,False,1
+"[""national-geographic-china"", ""travel-leisure-china""]",2025-12-08,False,2
+"[""national-geographic-china"", ""scientific-american-china""]",2025-12-09,False,2
+"[""national-geographic-china""]",2025-12-10,False,1
+"[""national-geographic-china"", ""phoenix-americas-weibo""]",2025-12-11,False,2
+"[""national-geographic-china""]",2025-12-12,False,1
+"[""golf-digest-china"", ""national-geographic-china""]",2025-12-13,False,2
+[],2025-12-14,False,0
+"[""travel-leisure-china""]",2025-12-15,False,1
+"[""national-geographic-china""]",2025-12-16,False,1
+"[""national-geographic-china"", ""travel-leisure-china""]",2025-12-17,False,3
+"[""national-geographic-china""]",2025-12-18,False,1
+"[""national-geographic-china""]",2025-12-19,False,1
+"[""national-geographic-china""]",2025-12-20,False,1
+"[""national-geographic-china""]",2025-12-21,False,2
+"[""national-geographic-china"", ""travel-leisure-china""]",2025-12-22,False,2
+[],2025-12-23,False,0
+"[""national-geographic-china"", ""phoenix-americas-weibo"", ""scientific-american-china""]",2025-12-24,False,3
+"[""national-geographic-china""]",2025-12-25,False,1
+"[""national-geographic-china""]",2025-12-26,False,1
+"[""national-geographic-china""]",2025-12-27,False,1
+[],2025-12-28,False,0
+[],2025-12-29,False,0
+"[""golf-digest-china"", ""scientific-american-china""]",2025-12-30,False,2
+"[""scientific-american-china"", ""travel-leisure-china""]",2025-12-31,False,2
+[],2026-01-01,False,0
+[],2026-01-02,False,0
+[],2026-01-03,False,0
+"[""national-geographic-china""]",2026-01-04,False,1
+"[""national-geographic-china""]",2026-01-05,False,2
+"[""national-geographic-china""]",2026-01-06,False,2
+"[""national-geographic-china""]",2026-01-07,False,2
+"[""national-geographic-china"", ""phoenix-americas-weibo"", ""travel-leisure-china""]",2026-01-08,False,5
+"[""national-geographic-china""]",2026-01-09,False,2
+"[""national-geographic-china""]",2026-01-10,False,2
+[],2026-01-11,False,0
+"[""national-geographic-china""]",2026-01-12,False,1
+"[""national-geographic-china"", ""travel-leisure-china""]",2026-01-13,False,2
+"[""national-geographic-china""]",2026-01-14,False,1
+"[""golf-china-historical"", ""golf-digest-china"", ""national-geographic-china""]",2026-01-15,False,3
+"[""golf-china-historical"", ""national-geographic-china""]",2026-01-16,False,2
+"[""golf-china-historical"", ""golf-digest-china"", ""national-geographic-china""]",2026-01-17,False,4
+[],2026-01-18,False,0
+"[""golf-china-historical"", ""national-geographic-china"", ""scientific-american-china""]",2026-01-19,False,4
+"[""golf-china-historical"", ""national-geographic-china""]",2026-01-20,False,2
+"[""golf-china-historical""]",2026-01-21,False,1
+"[""golf-china-historical"", ""golf-digest-china"", ""national-geographic-china"", ""travel-leisure-china""]",2026-01-22,False,6
+"[""golf-china-historical"", ""national-geographic-china"", ""phoenix-americas-weibo"", ""scientific-american-china""]",2026-01-23,False,6
+"[""national-geographic-china""]",2026-01-24,False,1
+"[""golf-china-historical"", ""national-geographic-china""]",2026-01-25,False,3
+"[""golf-china-historical"", ""golf-digest-china"", ""travel-leisure-china""]",2026-01-26,False,5
+"[""golf-china-historical"", ""golf-digest-china"", ""national-geographic-china"", ""travel-leisure-china""]",2026-01-27,False,5
+"[""golf-china-historical"", ""golf-digest-china""]",2026-01-28,False,2
+"[""golf-china-historical"", ""golf-digest-china"", ""national-geographic-china"", ""scientific-american-china""]",2026-01-29,False,5
+"[""national-geographic-china"", ""travel-leisure-china"", ""vogue-china""]",2026-01-30,False,14
+"[""national-geographic-china"", ""vogue-china""]",2026-01-31,False,2
+"[""chineseinla-weibo"", ""vogue-china""]",2026-02-01,False,10
+"[""chineseinla-weibo"", ""golf-china-historical"", ""national-geographic-china"", ""scientific-american-china""]",2026-02-02,False,10
+"[""national-geographic-china""]",2026-02-03,False,1
+"[""golf-china-historical"", ""national-geographic-china""]",2026-02-04,False,2
+"[""national-geographic-china"", ""robb-report-china""]",2026-02-05,False,2
+"[""golf-china-historical"", ""golf-digest-china"", ""national-geographic-china"", ""travel-leisure-china""]",2026-02-06,False,4
+[],2026-02-07,False,0
+"[""national-geographic-china""]",2026-02-08,False,1
+"[""national-geographic-china"", ""travel-leisure-china""]",2026-02-09,False,2
+"[""national-geographic-china"", ""visionaire-china""]",2026-02-10,False,2
+"[""golf-china-historical"", ""golf-digest-china"", ""national-geographic-china"", ""travel-leisure-china""]",2026-02-11,False,5
+"[""travel-leisure-china""]",2026-02-12,False,1
+[],2026-02-13,False,0
+"[""scientific-american-china""]",2026-02-14,False,2
+"[""golf-china-historical""]",2026-02-15,False,1
+[],2026-02-16,False,0
+[],2026-02-17,False,0
+[],2026-02-18,False,0
+[],2026-02-19,False,0
+[],2026-02-20,False,0
+[],2026-02-21,False,0
+[],2026-02-22,False,0
+[],2026-02-23,False,0
+[],2026-02-24,False,0
+[],2026-02-25,False,0
+[],2026-02-26,False,0
+[],2026-02-27,False,0
+[],2026-02-28,False,0
+"[""national-geographic-china""]",2026-03-01,False,1
+"[""scientific-american-china""]",2026-03-02,False,1
+"[""china-press-bay-area"", ""golf-digest-china""]",2026-03-03,False,2
+"[""china-press-bay-area"", ""national-geographic-china""]",2026-03-04,False,7
+"[""china-press-bay-area"", ""golf-china-historical"", ""golf-digest-china"", ""national-geographic-china""]",2026-03-05,False,6
+"[""china-press-bay-area"", ""golf-china-historical"", ""golf-digest-china""]",2026-03-06,False,3
+"[""china-press-bay-area"", ""fortune-china"", ""national-geographic-china""]",2026-03-07,False,3
+"[""china-press-bay-area"", ""fortune-china"", ""golf-digest-china"", ""national-geographic-china""]",2026-03-08,False,4
+"[""fortune-china"", ""golf-digest-china""]",2026-03-09,False,16
+"[""china-press-bay-area"", ""fortune-china"", ""golf-china-historical"", ""national-geographic-china""]",2026-03-10,False,6
+"[""china-press-bay-area"", ""national-geographic-china"", ""travel-leisure-china""]",2026-03-11,False,6
+[],2026-03-12,False,0
+"[""china-press-bay-area""]",2026-03-13,False,1
+"[""china-press-bay-area"", ""travel-leisure-china""]",2026-03-14,False,5
+"[""china-press-bay-area"", ""national-geographic-china""]",2026-03-15,False,2
+"[""china-press-bay-area"", ""national-geographic-china"", ""scientific-american-china""]",2026-03-16,False,3
+"[""national-geographic-china""]",2026-03-17,False,1
+[],2026-03-18,False,0
+"[""china-press-bay-area""]",2026-03-19,False,1
+"[""china-press-bay-area"", ""national-geographic-china""]",2026-03-20,False,2
+"[""china-press-bay-area""]",2026-03-21,False,1
+"[""china-press-bay-area""]",2026-03-22,False,1
+"[""china-press-bay-area"", ""visionaire-china""]",2026-03-23,False,2
+"[""china-press-bay-area""]",2026-03-24,False,2
+"[""china-press-bay-area"", ""national-geographic-china""]",2026-03-25,False,2
+"[""china-press-bay-area"", ""national-geographic-china""]",2026-03-26,False,2
+"[""china-press-bay-area"", ""scientific-american-china""]",2026-03-27,False,2
+"[""china-press-bay-area"", ""golf-china-historical""]",2026-03-28,False,2
+"[""china-press-bay-area""]",2026-03-29,False,1
+"[""china-press-bay-area"", ""golf-china-historical"", ""national-geographic-china""]",2026-03-30,False,4
+"[""china-press-bay-area"", ""golf-digest-china"", ""national-geographic-china""]",2026-03-31,False,4
+"[""china-press-bay-area""]",2026-04-01,False,1
+"[""china-press-bay-area"", ""national-geographic-china""]",2026-04-02,False,2
+"[""china-press-bay-area"", ""golf-china-historical"", ""national-geographic-china"", ""travel-leisure-china""]",2026-04-03,False,4
+"[""china-press-bay-area""]",2026-04-04,False,1
+"[""china-press-bay-area""]",2026-04-05,False,1
+"[""china-press-bay-area"", ""national-geographic-china""]",2026-04-06,False,2
+"[""national-geographic-china""]",2026-04-07,False,1
+"[""scientific-american-china""]",2026-04-08,False,1
+"[""china-press-bay-area"", ""national-geographic-china""]",2026-04-09,False,4
+"[""china-press-bay-area"", ""national-geographic-china"", ""scientific-american-china""]",2026-04-10,False,3
+"[""china-press-bay-area""]",2026-04-11,False,1
+"[""china-press-bay-area""]",2026-04-12,False,1
+"[""china-press-bay-area"", ""golf-china-historical"", ""golf-digest-china"", ""national-geographic-china""]",2026-04-13,False,5
+"[""china-press-bay-area"", ""national-geographic-china""]",2026-04-14,False,6
+"[""china-press-bay-area"", ""national-geographic-china""]",2026-04-15,False,2
+"[""china-press-bay-area"", ""golf-digest-china""]",2026-04-16,False,2
+"[""china-press-bay-area"", ""national-geographic-china"", ""scientific-american-china""]",2026-04-17,False,3
+"[""china-press-bay-area"", ""national-geographic-china""]",2026-04-18,False,2
+"[""china-press-bay-area""]",2026-04-19,False,1
+"[""china-press-bay-area"", ""national-geographic-china""]",2026-04-20,False,2
+"[""china-press-bay-area"", ""national-geographic-china""]",2026-04-21,False,2
+"[""national-geographic-china""]",2026-04-22,False,1
+"[""national-geographic-china""]",2026-04-23,False,1
+[],2026-04-24,False,0
+[],2026-04-25,False,0
+[],2026-04-26,False,0
+"[""artforum-china""]",2026-04-27,False,3
+"[""travel-leisure-china""]",2026-04-28,False,1
+"[""artforum-china""]",2026-04-29,False,2
+"[""golf-china-historical"", ""travel-leisure-china""]",2026-04-30,False,2
+"[""artforum-china""]",2026-05-01,False,1
+"[""golf-china-historical""]",2026-05-02,False,1
+"[""golf-china-historical""]",2026-05-03,False,1
+[],2026-05-04,False,0
+"[""artforum-china""]",2026-05-05,False,1
+[],2026-05-06,False,0
+"[""artforum-china"", ""scientific-american-china""]",2026-05-07,False,2
+"[""discovery-china"", ""travel-leisure-china""]",2026-05-08,False,7
+"[""discovery-china""]",2026-05-09,False,3
+"[""artforum-china"", ""discovery-china"", ""golf-china-historical""]",2026-05-10,False,3
+"[""artforum-china"", ""discovery-china""]",2026-05-11,False,4
+"[""china-press-bay-area""]",2026-05-12,False,1
+"[""artforum-china"", ""china-press-bay-area"", ""discovery-china""]",2026-05-13,False,4
+"[""artforum-china"", ""china-press-bay-area"", ""discovery-china"", ""national-geographic-china"", ""scientific-american-china""]",2026-05-14,False,7
+"[""china-press-bay-area"", ""discovery-china""]",2026-05-15,False,3
+"[""china-press-bay-area"", ""discovery-china""]",2026-05-16,False,3
+"[""china-press-bay-area""]",2026-05-17,False,1
+"[""artforum-china"", ""china-press-bay-area"", ""discovery-china"", ""travel-leisure-china""]",2026-05-18,False,8
+"[""china-press-bay-area""]",2026-05-19,False,1
+"[""discovery-china"", ""ee-times-china""]",2026-05-20,False,8
+"[""artforum-china"", ""discovery-china""]",2026-05-21,False,3
+"[""artforum-china"", ""artnews-china"", ""discovery-china"", ""ee-times-china""]",2026-05-22,False,24
+"[""discovery-china""]",2026-05-23,False,1
+"[""discovery-china""]",2026-05-24,False,1
+"[""artforum-china"", ""artnews-china""]",2026-05-25,False,3
+"[""artnews-china"", ""ee-times-china"", ""golf-china-historical"", ""golf-digest-china""]",2026-05-26,False,23
+"[""artnews-china"", ""golf-china-historical""]",2026-05-27,False,6
+"[""artforum-china"", ""scientific-american-china""]",2026-05-28,False,2
+"[""artforum-china"", ""artnews-china"", ""discovery-china"", ""scientific-american-china""]",2026-05-29,False,4
+"[""artforum-china""]",2026-05-30,False,1
+[],2026-05-31,False,0
+"[""artforum-china"", ""artnews-china"", ""discovery-china""]",2026-06-01,False,3
+"[""artforum-china"", ""artnews-china"", ""scientific-american-china""]",2026-06-02,False,4
+"[""artforum-china"", ""discovery-china"", ""interior-design-china"", ""travel-leisure-china""]",2026-06-03,False,5
+"[""artforum-china"", ""interior-design-china""]",2026-06-04,False,3
+"[""artnews-china"", ""discovery-china""]",2026-06-05,False,2
+"[""artforum-china"", ""golf-china-historical""]",2026-06-06,False,2
+"[""artforum-china"", ""artnews-china"", ""golf-china-historical""]",2026-06-07,False,3
+"[""artforum-china"", ""artnews-china"", ""discovery-china"", ""golf-china-historical""]",2026-06-08,False,5
+"[""artforum-china"", ""artnews-china"", ""interior-design-china"", ""scientific-american-china""]",2026-06-09,False,10
+"[""artforum-china"", ""artnews-china"", ""interior-design-china"", ""popular-science-china-historical"", ""visionaire-china""]",2026-06-10,False,5
+"[""golf-china-historical"", ""travel-leisure-china""]",2026-06-11,False,3
+"[""artnews-china"", ""discovery-china"", ""interior-design-china""]",2026-06-12,False,4
+"[""artforum-china""]",2026-06-13,False,1
+[],2026-06-14,False,0
+"[""interior-design-china"", ""travel-leisure-china""]",2026-06-15,False,2
+"[""artforum-china"", ""artnews-china"", ""interior-design-china"", ""travel-leisure-china""]",2026-06-16,False,6
+"[""interior-design-china"", ""scientific-american-china""]",2026-06-17,False,3
+"[""artforum-china"", ""artnews-china"", ""discovery-china""]",2026-06-18,False,7
+"[""artforum-china"", ""discovery-china"", ""golf-china-historical""]",2026-06-19,False,3
+"[""artforum-china""]",2026-06-20,False,1
+"[""artforum-china"", ""discovery-china""]",2026-06-21,False,2
+"[""travel-leisure-china""]",2026-06-22,False,1
+"[""artnews-china"", ""interior-design-china"", ""travel-leisure-china""]",2026-06-23,False,4
+"[""artforum-china"", ""conde-nast-traveler-china"", ""scientific-american-china""]",2026-06-24,False,4
+"[""artforum-china"", ""conde-nast-traveler-china"", ""ee-times-china"", ""interior-design-china""]",2026-06-25,False,21
+"[""artnews-china"", ""discovery-china"", ""interior-design-china""]",2026-06-26,False,5
+"[""artforum-china"", ""artnews-china""]",2026-06-27,False,2
+"[""artforum-china""]",2026-06-28,False,1
+"[""artnews-china"", ""conde-nast-traveler-china"", ""prnewswire-china-news""]",2026-06-29,False,5
+"[""artnews-china"", ""conde-nast-traveler-china"", ""interior-design-china""]",2026-06-30,False,12
+"[""artnews-china""]",2026-07-01,False,1
+"[""artforum-china"", ""discovery-china"", ""ee-times-china"", ""interior-design-china""]",2026-07-02,False,44
+"[""artforum-china"", ""discovery-china"", ""interior-design-china""]",2026-07-03,False,3
+"[""artforum-china""]",2026-07-04,False,1
+"[""artforum-china"", ""gq-china""]",2026-07-05,False,3
+"[""artforum-china"", ""discovery-china"", ""golf-china-historical"", ""gq-china""]",2026-07-06,False,15
+"[""artforum-china"", ""scientific-american-china""]",2026-07-07,False,2
+"[""artforum-china"", ""discovery-china"", ""interior-design-china"", ""scientific-american-china""]",2026-07-08,False,4
+"[""gq-china""]",2026-07-09,False,1
+"[""conde-nast-traveler-china"", ""gq-china"", ""scientific-american-china""]",2026-07-10,False,12
+[],2026-07-11,False,0
+"[""artforum-china""]",2026-07-12,False,1
+"[""artforum-china"", ""conde-nast-traveler-china"", ""discovery-china"", ""golf-china-historical"", ""interior-design-china""]",2026-07-13,False,6
+"[""artforum-china"", ""artnews-china"", ""golf-china-historical"", ""golf-digest-china"", ""gq-china"", ""interior-design-china"", ""scientific-american-china""]",2026-07-14,False,8
+"[""artforum-china"", ""artnews-china"", ""conde-nast-traveler-china"", ""interior-design-china""]",2026-07-15,False,11
+"[""conde-nast-traveler-china"", ""gq-china"", ""interior-design-china"", ""scientific-american-china""]",2026-07-16,False,7
+"[""artnews-china"", ""conde-nast-traveler-china"", ""discovery-china"", ""gq-china"", ""instyle-china"", ""travel-leisure-china""]",2026-07-17,False,11
+"[""conde-nast-traveler-china""]",2026-07-18,False,1
+"[""conde-nast-traveler-china""]",2026-07-19,False,2
+"[""artforum-china"", ""golf-china-historical"", ""instyle-china"", ""interior-design-china"", ""scientific-american-china""]",2026-07-20,False,8
+"[""artforum-china"", ""artnews-china"", ""conde-nast-traveler-china"", ""discovery-china"", ""golf-digest-china"", ""instyle-china"", ""interior-design-china"", ""prnewswire-real-estate""]",2026-07-21,False,12
+"[""prnewswire-real-estate"", ""scientific-american-china""]",2026-07-22,False,3
+"[""artnews-china"", ""conde-nast-traveler-china"", ""gq-china"", ""instyle-china"", ""prnewswire-real-estate""]",2026-07-23,False,5
+"[""artforum-china"", ""conde-nast-traveler-china"", ""discovery-china"", ""scientific-american-china""]",2026-07-24,False,7
+"[""artforum-china""]",2026-07-25,False,1
+[],2026-07-26,False,0
+"[""artnews-china"", ""conde-nast-traveler-china"", ""discovery-china"", ""golf-china-historical"", ""instyle-china"", ""interior-design-china"", ""prnewswire-real-estate""]",2026-07-27,False,15
+"[""artforum-china"", ""conde-nast-traveler-china"", ""discovery-china"", ""instyle-china"", ""interior-design-china"", ""prnewswire-education"", ""scientific-american-china""]",2026-07-28,False,10
+"[""artforum-china"", ""artnews-china"", ""conde-nast-traveler-china"", ""discovery-china"", ""instyle-china"", ""interior-design-china"", ""prnewswire-education"", ""prnewswire-real-estate""]",2026-07-29,False,16
+"[""artforum-china"", ""artnews-china"", ""discovery-china"", ""interior-design-china"", ""prnewswire-education"", ""prnewswire-real-estate""]",2026-07-30,False,7
+"[""artnews-china"", ""interior-design-china"", ""prnewswire-education"", ""prnewswire-real-estate"", ""scientific-american-china"", ""travel-leisure-china""]",2026-07-31,False,8
+"[""artnews-china"", ""prnewswire-real-estate""]",2026-08-01,False,2
+"[""discovery-china""]",2026-08-02,False,1
+"[""artforum-china"", ""discovery-china"", ""golf-china-historical"", ""instyle-china"", ""interior-design-china"", ""prnewswire-education"", ""prnewswire-real-estate""]",2026-08-03,False,10
+"[""instyle-china"", ""scientific-american-china"", ""travel-leisure-china""]",2026-08-04,False,4
+"[""artforum-china"", ""artnews-china"", ""instyle-china"", ""interior-design-china"", ""travel-leisure-china""]",2026-08-05,False,8
+"[""artforum-china"", ""conde-nast-traveler-china"", ""instyle-china"", ""interior-design-china"", ""prnewswire-education"", ""prnewswire-real-estate""]",2026-08-06,False,7
+"[""artnews-china"", ""conde-nast-traveler-china"", ""interior-design-china"", ""prnewswire-education"", ""prnewswire-real-estate"", ""travel-leisure-china""]",2026-08-07,False,11
+"[""artforum-china"", ""conde-nast-traveler-china"", ""instyle-china""]",2026-08-08,False,6
+"[""artforum-china"", ""travel-leisure-china""]",2026-08-09,False,4
+"[""artnews-china"", ""conde-nast-traveler-china"", ""golf-china-historical"", ""instyle-china"", ""interior-design-china"", ""prnewswire-education"", ""prnewswire-real-estate""]",2026-08-10,False,12
+"[""artforum-china"", ""conde-nast-traveler-china"", ""discovery-china"", ""golf-china-historical"", ""instyle-china"", ""interior-design-china"", ""prnewswire-real-estate"", ""travel-leisure-china""]",2026-08-11,False,9
+"[""hbr-china"", ""interior-design-china"", ""prnewswire-education"", ""prnewswire-real-estate"", ""robb-report-china""]",2026-08-12,False,7
+"[""hbr-china"", ""robb-report-china""]",2026-08-13,False,4
+"[""artforum-china"", ""artnews-china"", ""discovery-china"", ""gq-china"", ""hbr-china"", ""instyle-china"", ""interior-design-china"", ""prnewswire-education"", ""prnewswire-real-estate""]",2026-08-14,False,18
+"[""artforum-china"", ""golf-china-historical"", ""prnewswire-real-estate"", ""robb-report-china""]",2026-08-15,False,5
+"[""artforum-china"", ""gq-china"", ""instyle-china"", ""prnewswire-education""]",2026-08-16,False,5
+"[""artforum-china"", ""discovery-china"", ""golf-china-historical"", ""gq-china"", ""hbr-china"", ""instyle-china"", ""interior-design-china"", ""prnewswire-education"", ""prnewswire-finance"", ""robb-report-china""]",2026-08-17,False,20
+"[""architectural-digest-china"", ""artforum-china"", ""artnews-china"", ""hbr-china"", ""instyle-china"", ""interior-design-china"", ""prnewswire-automotive"", ""prnewswire-finance"", ""prnewswire-real-estate"", ""scientific-american-china""]",2026-08-18,False,13
+"[""architectural-digest-china"", ""artnews-china"", ""discovery-china"", ""gq-china"", ""hbr-china"", ""interior-design-china"", ""prnewswire-automotive"", ""prnewswire-education"", ""prnewswire-finance"", ""prnewswire-real-estate"", ""robb-report-china""]",2026-08-19,False,18
+"[""architectural-digest-china"", ""conde-nast-traveler-china"", ""discovery-china"", ""hbr-china"", ""prnewswire-automotive"", ""prnewswire-education"", ""prnewswire-finance"", ""prnewswire-real-estate"", ""robb-report-china""]",2026-08-20,False,13
+"[""architectural-digest-china"", ""artforum-china"", ""artnews-china"", ""conde-nast-traveler-china"", ""hbr-china"", ""instyle-china"", ""prnewswire-automotive"", ""prnewswire-finance"", ""robb-report-china"", ""scientific-american-china""]",2026-08-21,False,22
+"[""architectural-digest-china"", ""gq-china"", ""prnewswire-automotive"", ""prnewswire-finance""]",2026-08-22,False,6
+"[""architectural-digest-china""]",2026-08-23,False,2
+"[""architectural-digest-china"", ""artnews-china"", ""discovery-china"", ""golf-china-historical"", ""hbr-china"", ""prnewswire-education"", ""prnewswire-finance"", ""prnewswire-real-estate"", ""robb-report-china""]",2026-08-24,False,15
+"[""architectural-digest-china"", ""artnews-china"", ""discovery-china"", ""gq-china"", ""hbr-china"", ""prnewswire-automotive"", ""prnewswire-finance""]",2026-08-25,False,14
+"[""architectural-digest-china"", ""artforum-china"", ""artnews-china"", ""discovery-china"", ""gq-china"", ""hbr-china"", ""phoenix-americas-weibo"", ""prnewswire-automotive"", ""prnewswire-education"", ""prnewswire-finance"", ""prnewswire-real-estate"", ""robb-report-china"", ""scientific-american-china""]",2026-08-26,False,25
+"[""architectural-digest-china"", ""artnews-china"", ""conde-nast-traveler-china"", ""gq-china"", ""hbr-china"", ""instyle-china"", ""popular-science-china-historical"", ""prnewswire-automotive"", ""prnewswire-education"", ""prnewswire-finance"", ""prnewswire-real-estate""]",2026-08-27,False,28
+"[""architectural-digest-china"", ""artforum-china"", ""artnews-china"", ""conde-nast-traveler-china"", ""discovery-china"", ""golf-china-historical"", ""hbr-china"", ""instyle-china"", ""popular-science-china-historical"", ""prnewswire-automotive"", ""prnewswire-finance"", ""prnewswire-real-estate"", ""robb-report-china""]",2026-08-28,False,24
+"[""artnews-china"", ""popular-science-china-historical"", ""robb-report-china""]",2026-08-29,False,3
+"[""golf-china-historical"", ""robb-report-china"", ""travel-leisure-china""]",2026-08-30,False,4
+"[""architectural-digest-china"", ""conde-nast-traveler-china"", ""golf-china-historical"", ""hbr-china"", ""instyle-china"", ""interior-design-china"", ""popular-science-china-historical"", ""prnewswire-automotive"", ""prnewswire-finance"", ""prnewswire-real-estate"", ""robb-report-china""]",2026-08-31,False,26
+"[""architectural-digest-china"", ""conde-nast-traveler-china"", ""discovery-china"", ""golf-digest-china"", ""hbr-china"", ""interior-design-china"", ""popular-science-china-historical"", ""prnewswire-automotive"", ""prnewswire-education"", ""prnewswire-finance"", ""prnewswire-real-estate"", ""robb-report-china"", ""scientific-american-china""]",2026-09-01,False,31
+"[""architectural-digest-china"", ""hbr-china"", ""instyle-china"", ""interior-design-china"", ""popular-science-china-historical"", ""prnewswire-automotive"", ""prnewswire-finance""]",2026-09-02,False,14
+"[""architectural-digest-china"", ""artforum-china"", ""conde-nast-traveler-china"", ""discovery-china"", ""hbr-china"", ""instyle-china"", ""interior-design-china"", ""popular-science-china-historical"", ""prnewswire-automotive"", ""prnewswire-finance"", ""prnewswire-real-estate"", ""robb-report-china"", ""visionaire-china""]",2026-09-03,False,21
+"[""architectural-digest-china"", ""car-and-driver-china-magazine"", ""conde-nast-traveler-china"", ""hbr-china"", ""interior-design-china"", ""prnewswire-automotive"", ""prnewswire-education"", ""prnewswire-finance"", ""prnewswire-real-estate"", ""robb-report-china"", ""visionaire-china""]",2026-09-04,False,20
+"[""popular-science-china-historical"", ""prnewswire-finance"", ""robb-report-china""]",2026-09-05,False,4
+"[""hbr-china"", ""robb-report-china""]",2026-09-06,False,3
+"[""architectural-digest-china"", ""artnews-china"", ""barrons-china"", ""car-and-driver-china-magazine"", ""discovery-china"", ""golf-china-historical"", ""hbr-china"", ""instyle-china"", ""interior-design-china"", ""popular-science-china-historical"", ""prnewswire-automotive"", ""prnewswire-education"", ""prnewswire-finance"", ""prnewswire-real-estate"", ""robb-report-china"", ""visionaire-china""]",2026-09-07,False,33
+"[""architectural-digest-china"", ""barrons-china"", ""car-and-driver-china-magazine"", ""forbes-china"", ""hbr-china"", ""instyle-china"", ""interior-design-china"", ""popular-science-china-historical"", ""prnewswire-automotive"", ""prnewswire-education"", ""prnewswire-finance"", ""visionaire-china""]",2026-09-08,False,24
+"[""architectural-digest-china"", ""artforum-china"", ""barrons-china"", ""car-and-driver-china-magazine"", ""discovery-china"", ""gq-china"", ""hbr-china"", ""instyle-china"", ""interior-design-china"", ""prnewswire-automotive"", ""prnewswire-education"", ""prnewswire-finance"", ""prnewswire-real-estate"", ""robb-report-china"", ""visionaire-china""]",2026-09-09,False,30
+"[""architectural-digest-china"", ""barrons-china"", ""car-and-driver-china-magazine"", ""conde-nast-traveler-china"", ""gq-china"", ""hbr-china"", ""instyle-china"", ""interior-design-china"", ""popular-science-china-historical"", ""prnewswire-automotive"", ""prnewswire-education"", ""prnewswire-finance"", ""prnewswire-real-estate"", ""robb-report-china"", ""visionaire-china""]",2026-09-10,False,40
+"[""architectural-digest-china"", ""barrons-china"", ""car-and-driver-china-magazine"", ""conde-nast-traveler-china"", ""golf-china-historical"", ""hbr-china"", ""instyle-china"", ""interior-design-china"", ""popular-science-china-historical"", ""prnewswire-automotive"", ""prnewswire-finance"", ""robb-report-china"", ""visionaire-china""]",2026-09-11,False,40
+"[""artnews-china"", ""barrons-china"", ""hbr-china"", ""popular-science-china-historical"", ""prnewswire-education"", ""prnewswire-finance"", ""prnewswire-real-estate"", ""robb-report-china""]",2026-09-12,False,10
+"[""barrons-china"", ""instyle-china"", ""popular-science-china-historical"", ""prnewswire-automotive""]",2026-09-13,False,7
+"[""architectural-digest-china"", ""artnews-china"", ""barrons-china"", ""car-and-driver-china-magazine"", ""conde-nast-traveler-china"", ""golf-china-historical"", ""hbr-china"", ""instyle-china"", ""interior-design-china"", ""popular-science-china-historical"", ""prnewswire-automotive"", ""prnewswire-education"", ""prnewswire-finance"", ""robb-report-china"", ""scientific-american-china"", ""visionaire-china""]",2026-09-14,False,31
+"[""architectural-digest-china"", ""artnews-china"", ""barrons-china"", ""car-and-driver-china-magazine"", ""conde-nast-traveler-china"", ""hbr-china"", ""instyle-china"", ""interior-design-china"", ""popular-science-china-historical"", ""prnewswire-automotive"", ""prnewswire-education"", ""prnewswire-finance"", ""prnewswire-real-estate"", ""robb-report-china"", ""visionaire-china""]",2026-09-15,False,40
+"[""architectural-digest-china"", ""barrons-china"", ""car-and-driver-china-magazine"", ""conde-nast-traveler-china"", ""gq-china"", ""hbr-china"", ""interior-design-china"", ""popular-science-china-historical"", ""prnewswire-education"", ""prnewswire-finance"", ""prnewswire-real-estate"", ""visionaire-china""]",2026-09-16,False,37
+"[""architectural-digest-china"", ""artnews-china"", ""barrons-china"", ""car-and-driver-china-magazine"", ""conde-nast-traveler-china"", ""discovery-china"", ""hbr-china"", ""instyle-china"", ""interior-design-china"", ""popular-science-china-historical"", ""prnewswire-automotive"", ""prnewswire-education"", ""prnewswire-real-estate"", ""robb-report-china""]",2026-09-17,False,21
+"[""architectural-digest-china"", ""artnews-china"", ""barrons-china"", ""car-and-driver-china-magazine"", ""hbr-china"", ""interior-design-china"", ""popular-science-china-historical"", ""prnewswire-automotive"", ""prnewswire-education"", ""prnewswire-energy"", ""prnewswire-finance"", ""robb-report-china"", ""scientific-american-china"", ""visionaire-china""]",2026-09-18,False,25
+"[""barrons-china"", ""popular-science-china-historical"", ""prnewswire-automotive"", ""prnewswire-energy"", ""prnewswire-finance"", ""prnewswire-real-estate"", ""robb-report-china""]",2026-09-19,False,14
+"[""architectural-digest-china"", ""artnews-china"", ""barrons-china"", ""conde-nast-traveler-china"", ""entrepreneur-china-historical"", ""hbr-china"", ""instyle-china"", ""interior-design-china"", ""popular-science-china-historical"", ""prnewswire-automotive"", ""prnewswire-education"", ""prnewswire-energy"", ""prnewswire-finance"", ""prnewswire-real-estate"", ""robb-report-china"", ""scientific-american-china"", ""visionaire-china""]",2026-09-20,False,35
+"[""architectural-digest-china"", ""artnews-china"", ""conde-nast-traveler-china"", ""entrepreneur-china-historical"", ""hbr-china"", ""instyle-china"", ""interior-design-china"", ""popular-science-china-historical"", ""prnewswire-automotive"", ""prnewswire-education"", ""prnewswire-energy"", ""prnewswire-entertainment"", ""prnewswire-finance"", ""prnewswire-travel"", ""robb-report-china"", ""visionaire-china""]",2026-09-21,False,38
+"[""artnews-china"", ""barrons-china"", ""car-and-driver-china-magazine"", ""discovery-china"", ""entrepreneur-china-historical"", ""golf-china-historical"", ""gq-china"", ""hbr-china"", ""instyle-china"", ""interior-design-china"", ""popular-science-china-historical"", ""prnewswire-automotive"", ""prnewswire-education"", ""prnewswire-energy"", ""prnewswire-entertainment"", ""prnewswire-finance"", ""prnewswire-real-estate"", ""prnewswire-travel"", ""robb-report-china"", ""scientific-american-china""]",2026-09-22,False,54
+"[""architectural-digest-china"", ""artnews-china"", ""barrons-china"", ""car-and-driver-china-magazine"", ""entrepreneur-china-historical"", ""gq-china"", ""hbr-china"", ""instyle-china"", ""interior-design-china"", ""popular-science-china-historical"", ""prnewswire-automotive"", ""prnewswire-education"", ""prnewswire-energy"", ""prnewswire-entertainment"", ""prnewswire-finance"", ""prnewswire-real-estate"", ""prnewswire-travel"", ""robb-report-china"", ""scientific-american-china"", ""travel-leisure-china"", ""visionaire-china""]",2026-09-23,False,74
+"[""architectural-digest-china"", ""barrons-china"", ""car-and-driver-china-magazine"", ""china-press-weibo"", ""conde-nast-traveler-china"", ""discovery-china"", ""entrepreneur-china-historical"", ""gq-china"", ""hbr-china"", ""interior-design-china"", ""popular-science-china-historical"", ""prnewswire-automotive"", ""prnewswire-consumer"", ""prnewswire-education"", ""prnewswire-energy"", ""prnewswire-entertainment"", ""prnewswire-finance"", ""prnewswire-real-estate"", ""prnewswire-travel"", ""robb-report-china"", ""visionaire-china""]",2026-09-24,False,66
+"[""architectural-digest-china"", ""car-and-driver-china-magazine"", ""discovery-china"", ""gq-china"", ""hbr-china"", ""instyle-china"", ""popular-science-china-historical"", ""prnewswire-automotive"", ""prnewswire-consumer"", ""prnewswire-education"", ""prnewswire-energy"", ""prnewswire-entertainment"", ""prnewswire-real-estate"", ""prnewswire-travel"", ""robb-report-china"", ""visionaire-china""]",2026-09-25,False,26
+"[""barrons-china"", ""china-press-weibo"", ""discovery-china"", ""entrepreneur-china-historical"", ""gq-china"", ""prnewswire-consumer"", ""prnewswire-entertainment"", ""prnewswire-travel"", ""robb-report-china""]",2026-09-26,False,16
+"[""barrons-china"", ""china-press-weibo"", ""discovery-china"", ""entrepreneur-china-historical"", ""popular-science-china-historical"", ""prnewswire-automotive"", ""prnewswire-education"", ""prnewswire-energy"", ""robb-report-china""]",2026-09-27,False,17
+"[""architectural-digest-china"", ""barrons-china"", ""car-and-driver-china-magazine"", ""china-press-weibo"", ""discovery-china"", ""entrepreneur-china-historical"", ""golf-china-historical"", ""gq-china"", ""hbr-china"", ""instyle-china"", ""interior-design-china"", ""popular-science-china-historical"", ""prnewswire-consumer"", ""prnewswire-education"", ""prnewswire-energy"", ""prnewswire-entertainment"", ""prnewswire-finance"", ""prnewswire-real-estate"", ""prnewswire-travel"", ""robb-report-china"", ""visionaire-china""]",2026-09-28,False,67
+"[""architectural-digest-china"", ""barrons-china"", ""business-wire-china-partner"", ""car-and-driver-china-magazine"", ""china-press-weibo"", ""discovery-china"", ""entrepreneur-china-historical"", ""gq-china"", ""hbr-china"", ""instyle-china"", ""interior-design-china"", ""mit-technology-review-china"", ""prnewswire-consumer"", ""prnewswire-education"", ""prnewswire-energy"", ""prnewswire-entertainment"", ""prnewswire-real-estate"", ""prnewswire-travel"", ""robb-report-china""]",2026-09-29,False,80
+"[""architectural-digest-china"", ""artnews-china"", ""barrons-china"", ""business-wire-china-partner"", ""car-and-driver-china-magazine"", ""china-press-weibo"", ""discovery-china"", ""entrepreneur-china-historical"", ""hbr-china"", ""instyle-china"", ""mit-technology-review-china"", ""nyt-t-china"", ""prnewswire-consumer"", ""prnewswire-education"", ""prnewswire-energy"", ""prnewswire-entertainment"", ""prnewswire-real-estate"", ""prnewswire-travel"", ""robb-report-china"", ""scientific-american-china"", ""visionaire-china"", ""vogue-china""]",2026-09-30,False,88
+"[""barrons-china"", ""business-wire-china-partner"", ""china-press-weibo"", ""conde-nast-traveler-china"", ""discovery-china"", ""entrepreneur-china-historical"", ""mit-technology-review-china"", ""nyt-t-china"", ""prnewswire-consumer"", ""prnewswire-entertainment"", ""prnewswire-finance"", ""prnewswire-travel"", ""robb-report-china"", ""vogue-china""]",2026-10-01,False,51
+"[""architectural-digest-china"", ""barrons-china"", ""china-press-weibo"", ""entrepreneur-china-historical"", ""instyle-china"", ""mit-technology-review-china"", ""nyt-t-china"", ""popular-science-china-historical"", ""prnewswire-consumer"", ""prnewswire-education"", ""prnewswire-entertainment"", ""prnewswire-health"", ""vogue-china""]",2026-10-02,False,43
+"[""barrons-china"", ""china-press-weibo"", ""discovery-china"", ""instyle-china"", ""mit-technology-review-china"", ""nyt-t-china"", ""prnewswire-health"", ""robb-report-china"", ""vogue-china""]",2026-10-03,False,41
+"[""barrons-china"", ""china-press-weibo"", ""golf-china-historical"", ""gq-china"", ""mit-technology-review-china"", ""nyt-t-china"", ""popular-science-china-historical"", ""prnewswire-consumer"", ""prnewswire-entertainment"", ""prnewswire-travel"", ""vogue-china""]",2026-10-04,False,30
+"[""barrons-china"", ""discovery-china"", ""instyle-china"", ""mit-technology-review-china"", ""nylon-china"", ""nyt-t-china"", ""popular-science-china-historical"", ""prnewswire-automotive"", ""prnewswire-consumer"", ""prnewswire-energy"", ""prnewswire-entertainment"", ""prnewswire-health"", ""prnewswire-travel"", ""robb-report-china"", ""vogue-china""]",2026-10-05,False,39
+"[""architectural-digest-china"", ""barrons-china"", ""entrepreneur-china-historical"", ""instyle-china"", ""mit-technology-review-china"", ""nylon-china"", ""nyt-t-china"", ""popular-science-china-historical"", ""prnewswire-education"", ""vogue-china""]",2026-10-06,False,26
+"[""barrons-china"", ""china-press-weibo"", ""entrepreneur-china-historical"", ""mit-technology-review-china"", ""nylon-china"", ""nyt-t-china"", ""popular-science-china-historical"", ""prnewswire-automotive"", ""prnewswire-health"", ""robb-report-china"", ""travel-leisure-china"", ""vogue-china""]",2026-10-07,False,29
+"[""architectural-digest-china"", ""billboard-chinese-institution"", ""business-wire-china-partner"", ""car-and-driver-china-magazine"", ""china-press-weibo"", ""entrepreneur-china-historical"", ""gq-china"", ""hbr-china"", ""instyle-china"", ""interior-design-china"", ""mit-technology-review-china"", ""nylon-china"", ""nyt-t-china"", ""popular-science-china-historical"", ""prnewswire-automotive"", ""prnewswire-consumer"", ""prnewswire-education"", ""prnewswire-energy"", ""prnewswire-entertainment"", ""prnewswire-finance"", ""prnewswire-health"", ""robb-report-china"", ""vogue-china""]",2026-10-08,False,67
+"[""architectural-digest-china"", ""artforum-china"", ""barrons-china"", ""billboard-chinese-institution"", ""business-wire-china-partner"", ""car-and-driver-china-magazine"", ""china-press-weibo"", ""ee-times-china"", ""entrepreneur-china-historical"", ""gq-china"", ""harpers-bazaar-china"", ""hbr-china"", ""instyle-china"", ""interior-design-china"", ""mit-technology-review-china"", ""nylon-china"", ""nyt-t-china"", ""popular-science-china-historical"", ""prnewswire-automotive"", ""prnewswire-consumer"", ""prnewswire-education"", ""prnewswire-energy"", ""prnewswire-entertainment"", ""prnewswire-events"", ""prnewswire-finance"", ""prnewswire-health"", ""prnewswire-real-estate"", ""prnewswire-travel"", ""robb-report-china"", ""sinovision-weibo"", ""travel-leisure-china"", ""visionaire-china"", ""vogue-china""]",2026-10-09,False,116
+"[""architectural-digest-china"", ""artforum-china"", ""barrons-china"", ""billboard-chinese-institution"", ""business-wire-china-partner"", ""car-and-driver-china-magazine"", ""china-press-weibo"", ""discovery-china"", ""entrepreneur-china-historical"", ""fortune-china"", ""gq-china"", ""harpers-bazaar-china"", ""hbr-china"", ""instyle-china"", ""interior-design-china"", ""mit-technology-review-china"", ""nylon-china"", ""nyt-t-china"", ""popular-science-china-historical"", ""prnewswire-automotive"", ""prnewswire-education"", ""prnewswire-energy"", ""prnewswire-entertainment"", ""prnewswire-events"", ""prnewswire-health"", ""prnewswire-real-estate"", ""prnewswire-travel"", ""scientific-american-china"", ""sinovision-weibo"", ""travel-leisure-china"", ""vogue-china""]",2026-10-10,False,107
+"[""artforum-china"", ""barrons-china"", ""billboard-chinese-institution"", ""discovery-china"", ""entrepreneur-china-historical"", ""golf-china-historical"", ""mit-technology-review-china"", ""nylon-china"", ""nyt-t-china"", ""popular-science-china-historical"", ""prnewswire-automotive"", ""prnewswire-energy"", ""prnewswire-events"", ""robb-report-china"", ""sinovision-weibo"", ""travel-leisure-china"", ""vogue-china""]",2026-10-11,False,33
+"[""architectural-digest-china"", ""artforum-china"", ""barrons-china"", ""billboard-chinese-institution"", ""car-and-driver-china-magazine"", ""conde-nast-traveler-china"", ""discovery-china"", ""entrepreneur-china-historical"", ""fortune-china"", ""golf-digest-china"", ""harpers-bazaar-china"", ""hbr-china"", ""instyle-china"", ""interior-design-china"", ""mit-technology-review-china"", ""nylon-china"", ""nyt-t-china"", ""popular-science-china-historical"", ""prnewswire-automotive"", ""prnewswire-consumer"", ""prnewswire-education"", ""prnewswire-energy"", ""prnewswire-entertainment"", ""prnewswire-events"", ""prnewswire-finance"", ""prnewswire-health"", ""prnewswire-real-estate"", ""prnewswire-travel"", ""sinovision-weibo"", ""travel-leisure-china"", ""visionaire-china"", ""vogue-china""]",2026-10-12,False,125
+"[""architectural-digest-china"", ""artforum-china"", ""artnews-china"", ""barrons-china"", ""billboard-chinese-institution"", ""business-wire-china-partner"", ""car-and-driver-china-magazine"", ""entrepreneur-china-historical"", ""fortune-china"", ""hbr-china"", ""mit-technology-review-china"", ""nylon-china"", ""nyt-t-china"", ""popular-science-china-historical"", ""prnewswire-automotive"", ""prnewswire-consumer"", ""prnewswire-education"", ""prnewswire-energy"", ""prnewswire-entertainment"", ""prnewswire-events"", ""prnewswire-finance"", ""prnewswire-health"", ""prnewswire-it"", ""prnewswire-real-estate"", ""prnewswire-travel"", ""robb-report-china"", ""scientific-american-china"", ""sinovision-weibo"", ""visionaire-china"", ""vogue-china""]",2026-10-13,False,153
+"[""architectural-digest-china"", ""artforum-china"", ""barrons-china"", ""billboard-chinese-institution"", ""car-and-driver-china-magazine"", ""china-press-weibo"", ""conde-nast-traveler-china"", ""entrepreneur-china-historical"", ""fortune-china"", ""harpers-bazaar-china"", ""hbr-china"", ""mit-technology-review-china"", ""national-geographic-china"", ""nylon-china"", ""nyt-t-china"", ""phoenix-americas-weibo"", ""popular-science-china-historical"", ""prnewswire-automotive"", ""prnewswire-consumer"", ""prnewswire-education"", ""prnewswire-energy"", ""prnewswire-entertainment"", ""prnewswire-events"", ""prnewswire-finance"", ""prnewswire-health"", ""prnewswire-it"", ""prnewswire-real-estate"", ""prnewswire-travel"", ""robb-report-china"", ""sinovision-weibo"", ""visionaire-china"", ""vogue-china""]",2026-10-14,False,132
+"[""architectural-digest-china"", ""artforum-china"", ""barrons-china"", ""billboard-chinese-institution"", ""business-wire-china-partner"", ""car-and-driver-china-magazine"", ""china-press-weibo"", ""chineseinla-weibo"", ""entrepreneur-china-historical"", ""fortune-china"", ""golf-china-historical"", ""gq-china"", ""harpers-bazaar-china"", ""hbr-china"", ""instyle-china"", ""interior-design-china"", ""mit-technology-review-china"", ""national-geographic-china"", ""nylon-china"", ""nyt-t-china"", ""popular-science-china-historical"", ""prnewswire-consumer"", ""prnewswire-education"", ""prnewswire-energy"", ""prnewswire-entertainment"", ""prnewswire-events"", ""prnewswire-finance"", ""prnewswire-health"", ""prnewswire-it"", ""prnewswire-travel"", ""robb-report-china"", ""sinovision-weibo"", ""visionaire-china"", ""vogue-china"", ""wwd-china""]",2026-10-15,False,203
+"[""architectural-digest-china"", ""billboard-chinese-institution"", ""car-and-driver-china-magazine"", ""china-press-weibo"", ""chineseinla-weibo"", ""discovery-china"", ""entrepreneur-china-historical"", ""forbes-china"", ""fortune-china"", ""harpers-bazaar-china"", ""hbr-china"", ""instyle-china"", ""mit-technology-review-china"", ""nylon-china"", ""nyt-t-china"", ""popular-science-china-historical"", ""prnewswire-automotive"", ""prnewswire-consumer"", ""prnewswire-education"", ""prnewswire-energy"", ""prnewswire-entertainment"", ""prnewswire-events"", ""prnewswire-finance"", ""prnewswire-health"", ""prnewswire-it"", ""prnewswire-real-estate"", ""prnewswire-travel"", ""robb-report-china"", ""scientific-american-china"", ""sinovision-weibo"", ""visionaire-china"", ""vogue-china"", ""wwd-china""]",2026-10-16,False,216
+"[""barrons-china"", ""billboard-chinese-institution"", ""china-press-weibo"", ""chineseinla-weibo"", ""discovery-china"", ""entrepreneur-china-historical"", ""forbes-china"", ""fortune-china"", ""gq-china"", ""harpers-bazaar-china"", ""mit-technology-review-china"", ""popular-science-china-historical"", ""prnewswire-automotive"", ""prnewswire-consumer"", ""prnewswire-education"", ""prnewswire-energy"", ""prnewswire-entertainment"", ""prnewswire-events"", ""prnewswire-it"", ""prnewswire-travel"", ""robb-report-china"", ""sinovision-weibo"", ""visionaire-china""]",2026-10-17,False,79
+"[""artforum-china"", ""barrons-china"", ""billboard-chinese-institution"", ""china-press-weibo"", ""chineseinla-weibo"", ""entrepreneur-china-historical"", ""forbes-china"", ""golf-china-historical"", ""harpers-bazaar-china"", ""mit-technology-review-china"", ""popular-science-china-historical"", ""prnewswire-education"", ""prnewswire-events"", ""prnewswire-health"", ""prnewswire-it"", ""sinovision-weibo"", ""visionaire-china""]",2026-10-18,False,64
+"[""architectural-digest-china"", ""barrons-china"", ""billboard-chinese-institution"", ""car-and-driver-china-magazine"", ""china-press-weibo"", ""chineseinla-weibo"", ""discovery-china"", ""entrepreneur-china-historical"", ""forbes-china"", ""fortune-china"", ""gq-china"", ""harpers-bazaar-china"", ""hbr-china"", ""instyle-china"", ""interior-design-china"", ""mit-technology-review-china"", ""nylon-china"", ""nyt-t-china"", ""popular-science-china-historical"", ""prnewswire-automotive"", ""prnewswire-consumer"", ""prnewswire-education"", ""prnewswire-energy"", ""prnewswire-entertainment"", ""prnewswire-events"", ""prnewswire-finance"", ""prnewswire-health"", ""prnewswire-it"", ""prnewswire-travel"", ""robb-report-china"", ""sinovision-weibo"", ""visionaire-china"", ""vogue-china"", ""wwd-china""]",2026-10-19,False,203
+"[""architectural-digest-china"", ""barrons-china"", ""billboard-chinese-institution"", ""car-and-driver-china-magazine"", ""china-press-weibo"", ""chineseinla-weibo"", ""entrepreneur-china-historical"", ""forbes-china"", ""fortune-china"", ""gq-china"", ""harpers-bazaar-china"", ""hbr-china"", ""interior-design-china"", ""mit-technology-review-china"", ""nylon-china"", ""nyt-t-china"", ""popular-science-china-historical"", ""prnewswire-automotive"", ""prnewswire-china-news"", ""prnewswire-consumer"", ""prnewswire-education"", ""prnewswire-energy"", ""prnewswire-entertainment"", ""prnewswire-events"", ""prnewswire-finance"", ""prnewswire-health"", ""prnewswire-it"", ""prnewswire-real-estate"", ""prnewswire-travel"", ""robb-report-china"", ""sinovision-weibo"", ""vogue-china"", ""wwd-china""]",2026-10-20,False,236
+"[""architectural-digest-china"", ""artnews-china"", ""barrons-china"", ""billboard-chinese-institution"", ""business-wire-china-partner"", ""car-and-driver-china-magazine"", ""china-press-weibo"", ""chineseinla-weibo"", ""entrepreneur-china-historical"", ""forbes-china"", ""fortune-china"", ""harpers-bazaar-china"", ""hbr-china"", ""instyle-china"", ""interior-design-china"", ""mit-technology-review-china"", ""national-geographic-china"", ""nylon-china"", ""nyt-t-china"", ""popular-science-china-historical"", ""prnewswire-automotive"", ""prnewswire-china-news"", ""prnewswire-consumer"", ""prnewswire-education"", ""prnewswire-energy"", ""prnewswire-entertainment"", ""prnewswire-events"", ""prnewswire-finance"", ""prnewswire-health"", ""prnewswire-it"", ""prnewswire-travel"", ""robb-report-china"", ""scientific-american-china"", ""sinovision-weibo"", ""visionaire-china"", ""vogue-china"", ""wwd-china""]",2026-10-21,False,311

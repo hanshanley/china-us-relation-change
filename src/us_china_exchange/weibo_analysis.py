@@ -13,10 +13,12 @@ from urllib.parse import urlsplit
 from zoneinfo import ZoneInfo
 
 from .model import digest, json_text
+from .weibo_activity import ROLLING_CHARTS, daily_activity, rolling_activity, validate_activity
 from .theme import BLUE, CHART_HEIGHT, CHART_THEMES, CHART_WIDTH, FONT, GOLD, GREEN, GRID, MUTED, TEXT
 
 
 WEIBO_CHARTS = {
+    **{key: config[0] for key, config in ROLLING_CHARTS.items()},
     "monthly-posts": "Recovered posts over time",
     "monthly-accounts": "Channels represented over time",
     "identity-evidence": "Account identity evidence",
@@ -162,6 +164,7 @@ def create_summary(database, registry_path, assessment_path=None, audit_path=Non
     month_accounts = defaultdict(set)
     windows = {(timestamp(r["window_start"]), timestamp(r["window_end"])) for r in runs}
     excluded_unconfirmed = excluded_attribution = 0
+    included = []
     for post in posts:
         account = confirmed.get(post["account_id"])
         if account is None:
@@ -185,6 +188,7 @@ def create_summary(database, registry_path, assessment_path=None, audit_path=Non
         month_accounts[month].add(account["id"])
         statuses[post["text_status"]] += 1
         dates.setdefault(account["id"], []).append(published.astimezone(timezone.utc).isoformat())
+        included.append(post)
     latest_runs = {r["account_id"]: r for r in runs}
     accounts = []
     for account_id, account in sorted(confirmed.items()):
@@ -209,7 +213,7 @@ def create_summary(database, registry_path, assessment_path=None, audit_path=Non
             "latest_run_status": run.get("status"), "latest_run_source": run.get("source_type"),
         })
     summary = {
-        "version": 4,
+        "version": 5,
         "source": {
             "registry_sha256": digest(registry_bytes),
             "corpus_metadata_sha256": digest(json_text(posts).encode()),
@@ -240,6 +244,10 @@ def create_summary(database, registry_path, assessment_path=None, audit_path=Non
              observed_accounts=len(month_accounts[period["month"]]))
         for period in publication_months(summary["source"], accounts)
     ]
+    summary["daily"] = daily_activity(included, accounts, summary["source"]["requested_windows"])
+    summary["rolling_30d"] = rolling_activity(summary["daily"], accounts)
+    refresh_path = registry_path.parent.parent / "site/weibo_refresh.json"
+    summary["refresh"] = json.loads(refresh_path.read_text()) if refresh_path.is_file() else None
     latest = summary["source"]["latest_collection_at"]
     summary["source"]["latest_collection_at"] = latest.isoformat() if latest else None
     explicit_assessment = assessment_path is not None
@@ -275,17 +283,19 @@ def create_summary(database, registry_path, assessment_path=None, audit_path=Non
 
 def validate_summary(summary):
     version = summary.get("version")
-    has_audit = version == 3 or (version == 4 and "primary_source_audit" in summary)
+    has_audit = version == 3 or (version in (4, 5) and "primary_source_audit" in summary)
     fields = {"version", "source", "roster", "accounts", "yearly", "text_completeness"}
-    if version in (2, 3, 4):
+    if version in (2, 3, 4, 5):
         fields.add("cohort")
-    if version == 4:
+    if version in (4, 5):
         fields.add("monthly")
+    if version == 5:
+        fields |= {"daily", "rolling_30d", "refresh"}
     if has_audit:
         fields.add("primary_source_audit")
     if set(summary) != fields:
         raise ValueError("Unexpected Weibo aggregate fields; post text must not be published")
-    if version not in (1, 2, 3, 4) or summary["source"]["publication_timezone"] != "Asia/Shanghai":
+    if version not in (1, 2, 3, 4, 5) or summary["source"]["publication_timezone"] != "Asia/Shanghai":
         raise ValueError("Unsupported Weibo aggregate snapshot")
     source_fields = {"registry_sha256", "corpus_metadata_sha256", "latest_collection_at",
                      "publication_timezone", "requested_windows",
@@ -295,7 +305,7 @@ def validate_summary(summary):
     if set(summary["source"]) != source_fields:
         raise ValueError("Unexpected Weibo source fields")
     roster_fields = {"outlets", "reviewed_outlets", "confirmed_accounts", "confirmed_outlets"}
-    if version in (2, 3, 4):
+    if version in (2, 3, 4, 5):
         roster_fields |= {"resolved_numeric_accounts", "unresolved_numeric_accounts"}
     if set(summary["roster"]) != roster_fields:
         raise ValueError("Unexpected Weibo roster fields")
@@ -315,7 +325,7 @@ def validate_summary(summary):
     account_fields = {"account_id", "outlet_id", "outlet_name", "profile_url", "relationship", "existence",
                       "attribution_end", "recovered_posts", "earliest_publication_utc",
                       "latest_publication_utc", "latest_run_status", "latest_run_source"}
-    if version in (2, 3, 4):
+    if version in (2, 3, 4, 5):
         account_fields |= {"uid", "handle", "display_name", "uid_resolution", "category", "us_basis",
                            "operator", "notes", "evidence"}
     if has_audit:
@@ -345,7 +355,7 @@ def validate_summary(summary):
         raise ValueError("Weibo aggregate totals do not reconcile")
     if summary["roster"]["confirmed_outlets"] != len({a["outlet_id"] for a in accounts}):
         raise ValueError("Weibo confirmed-outlet count does not reconcile")
-    if version == 4:
+    if version in (4, 5):
         monthly = summary["monthly"]
         month_fields = {"month", "recovered_posts", "observed_accounts", "partial_window"}
         if any(set(row) != month_fields for row in monthly):
@@ -370,7 +380,26 @@ def validate_summary(summary):
                 monthly_years[int(row["month"][:4])] += row["recovered_posts"]
         if dict(monthly_years) != {r["year"]: r["recovered_posts"] for r in yearly}:
             raise ValueError("Weibo monthly and annual totals do not reconcile")
-    if version in (2, 3, 4):
+    if version == 5:
+        validate_activity(summary)
+        refresh = summary["refresh"]
+        if refresh is not None:
+            refresh_fields = {"mode", "status", "attempted_at", "successful_collection_at", "through_date",
+                              "accounts_attempted", "readable_feeds", "new_posts", "errors", "note"}
+            if (set(refresh) != refresh_fields or refresh["mode"] != "daily_local"
+                    or refresh["status"] not in {"current", "partial", "blocked", "failed", "deferred"}
+                    or any(type(refresh[k]) is not int or refresh[k] < 0 for k in (
+                        "accounts_attempted", "readable_feeds", "new_posts"))
+                    or refresh["readable_feeds"] > refresh["accounts_attempted"]
+                    or not isinstance(refresh["errors"], list)
+                    or any(set(e) != {"account_id", "reason"} for e in refresh["errors"])):
+                raise ValueError("Invalid Weibo automatic-refresh status")
+            timestamp(refresh["attempted_at"])
+            if refresh["successful_collection_at"]:
+                timestamp(refresh["successful_collection_at"])
+            if refresh["through_date"]:
+                date.fromisoformat(refresh["through_date"])
+    if version in (2, 3, 4, 5):
         uids = [a["uid"] for a in accounts if a["uid"] is not None]
         if (any(not isinstance(uid, str) or not uid.isascii() or not uid.isdigit() for uid in uids)
                 or len(set(uids)) != len(uids)
@@ -441,20 +470,23 @@ def validate_summary(summary):
 
 
 def svg_monthly(summary, metric, theme):
-    rows = summary.get("monthly", [])
+    rolling = metric in ROLLING_CHARTS
+    rows = [r for r in summary.get("rolling_30d", []) if not r["partial_window"]] if rolling else summary.get("monthly", [])
     if not rows or not any(row["recovered_posts"] for row in rows):
-        return '<p class="gap">Monthly publication dates are not available in this snapshot.</p>'
-    field = "recovered_posts" if metric == "monthly-posts" else "observed_accounts"
-    unit = "Recovered posts per month" if metric == "monthly-posts" else "Channels with recovered posts per month"
+        return '<p class="gap">Publication-date aggregates are not available in this snapshot.</p>'
+    field = ROLLING_CHARTS[metric][1] if rolling else "recovered_posts" if metric == "monthly-posts" else "observed_accounts"
+    unit = ROLLING_CHARTS[metric][2] if rolling else "Recovered posts per month" if metric == "monthly-posts" else "Channels with recovered posts per month"
+    period = "date" if rolling else "month"
     maximum = max(row[field] for row in rows) * 1.12
     magnitude = 10 ** math.floor(math.log10(maximum))
     maximum = math.ceil(maximum / magnitude) * magnitude
-    month_number = lambda month: int(month[:4]) * 12 + int(month[5:]) - 1
-    first, last = month_number(rows[0]["month"]), month_number(rows[-1]["month"])
+    month_number = (lambda day: date.fromisoformat(day).toordinal()) if rolling else (
+        lambda month: int(month[:4]) * 12 + int(month[5:]) - 1)
+    first, last = month_number(rows[0][period]), month_number(rows[-1][period])
     x = lambda month: 115 + ((month_number(month) - first) / (last - first) if last != first else .5) * 835
     y = lambda value: 420 - value / maximum * 270
     esc = lambda value: html.escape(str(value), quote=True)
-    subtitle = f'Monthly publication dates, Asia/Shanghai | {rows[0]["month"]} to {rows[-1]["month"]}'
+    subtitle = f'{"Trailing 30 days" if rolling else "Monthly publication dates"}, Asia/Shanghai | {rows[0][period]} to {rows[-1][period]}'
     parts = [
         f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {CHART_WIDTH} {CHART_HEIGHT}" role="img" data-metric="{metric}" aria-label="{esc(WEIBO_CHARTS[metric])}">',
         f'<title>{esc(WEIBO_CHARTS[metric])}</title>',
@@ -468,45 +500,58 @@ def svg_monthly(summary, metric, theme):
     ]
     for fraction in (0, .5, 1):
         value = maximum * fraction
+        label = f"{value:,.1f}" if metric == "rolling30-average" else f"{value:,.0f}"
         parts.append(f'<path d="M115 {y(value):.2f}H950" stroke="{GRID}" stroke-opacity=".6" stroke-width=".5"/>'
-                     f'<text x="100" y="{y(value) + 6:.2f}" text-anchor="end">{value:,.0f}</text>')
+                     f'<text x="100" y="{y(value) + 6:.2f}" text-anchor="end">{label}</text>')
     ticks = [0]
     for i, row in enumerate(rows[1:-1], 1):
-        distance = month_number(row["month"]) - first
-        remaining = last - month_number(row["month"])
-        if ((last - first <= 18 and distance % 4 == 0 and remaining >= 4)
-                or (last - first > 18 and row["month"].endswith("-01")
-                    and distance >= 6 and remaining >= 12)):
-            if len(ticks) == 1 or x(row["month"]) - x(rows[ticks[-1]]["month"]) >= 85:
+        distance = month_number(row[period]) - first
+        remaining = last - month_number(row[period])
+        if ((not rolling and last - first <= 18 and distance % 4 == 0 and remaining >= 4)
+                or (row[period].endswith("-01-01" if rolling else "-01")
+                    and distance >= (180 if rolling else 6) and remaining >= (365 if rolling else 12))):
+            if len(ticks) == 1 or x(row[period]) - x(rows[ticks[-1]][period]) >= 85:
                 ticks.append(i)
     if len(rows) > 1:
         ticks.append(len(rows) - 1)
     for i in ticks:
         row = rows[i]
-        label = datetime.strptime(row["month"], "%Y-%m").strftime(
-            "%b %Y" if last - first <= 18 or not row["month"].endswith("-01") else "%Y")
+        label = datetime.strptime(row[period], "%Y-%m-%d" if rolling else "%Y-%m").strftime(
+            "%b %Y" if (not rolling and last - first <= 18) or not row[period].endswith("-01-01" if rolling else "-01") else "%Y")
         label += "*" if row["partial_window"] else ""
         anchor = "start" if i == 0 else "end" if i == len(rows) - 1 else "middle"
-        parts.append(f'<text x="{x(row["month"]):.2f}" y="457" text-anchor="{anchor}" font-size="18">{esc(label)}</text>')
+        parts.append(f'<text x="{x(row[period]):.2f}" y="457" text-anchor="{anchor}" font-size="18">{esc(label)}</text>')
     previous = None
+    line = []
     for row in rows:
-        if previous and month_number(row["month"]) == month_number(previous["month"]) + 1:
+        if rolling:
+            connected = previous and month_number(row[period]) == month_number(previous[period]) + 1
+            line.append(f'{"L" if connected else "M"}{x(row[period]):.2f},{y(row[field]):.2f}')
+        elif previous and month_number(row["month"]) == month_number(previous["month"]) + 1:
             partial = row["partial_window"] or previous["partial_window"]
             dash = ' stroke-dasharray="5 4"' if partial else ""
             parts.append(f'<path class="data-line" d="M{x(previous["month"]):.2f},{y(previous[field]):.2f} '
                          f'L{x(row["month"]):.2f},{y(row[field]):.2f}" fill="none" stroke="{BLUE}" '
                          f'stroke-width="2.5"{dash}/>')
         previous = row
+    if rolling:
+        parts.append(f'<path class="data-line" d="{" ".join(line)}" fill="none" stroke="{BLUE}" stroke-width="2.5"/>')
     for row in rows:
         fill = CHART_THEMES[theme]["background"] if row["partial_window"] else BLUE
-        detail = f'{row["month"]}: {row[field]:,}' + ("; partial requested month" if row["partial_window"] else "")
-        parts.append(f'<circle class="data-point" data-month="{row["month"]}" data-value="{row[field]}" '
+        detail = f'{row[period]}: {row[field]:,}' + ("; partial requested month" if row["partial_window"] else "")
+        radius = 3 if not rolling or row is rows[-1] else 0
+        parts.append(f'<circle class="data-point" data-{period}="{row[period]}" data-value="{row[field]}" '
                      f'data-partial-window="{str(row["partial_window"]).lower()}" '
-                     f'cx="{x(row["month"]):.2f}" cy="{y(row[field]):.2f}" r="3" '
+                     f'cx="{x(row[period]):.2f}" cy="{y(row[field]):.2f}" r="{radius}" '
                      f'fill="{fill}" stroke="{BLUE}" stroke-width="1.3"><title>{esc(detail)}</title></circle>')
     note = ("Source: recovered-corpus metadata. Uneven recovery is not a posting-activity trend. "
             "Zero means no recovered posts, not inactivity. Channels are distinct accounts, not publishers. "
             "* Hollow markers and dashed segments: partial requested months; no extrapolation.")
+    if rolling:
+        note = ("Source: recovered-corpus metadata; lower bounds, not total activity. Each window includes "
+                "the shown date and previous 29 Shanghai days. Daily mean = recovered posts / 30. "
+                "First 29 days and windows crossing unrequested/partial days are unavailable, not zero. "
+                "Distinct publisher/brand groups are not necessarily independent U.S. newsrooms.")
     if summary["source"]["requested_windows"]:
         end = max(timestamp(w["end"]) for w in summary["source"]["requested_windows"])
         note += f' Requested window ends {(end.astimezone(SHANGHAI) - timedelta(microseconds=1)):%d %b %Y}.'
@@ -520,7 +565,7 @@ def svg_monthly(summary, metric, theme):
 
 def svg_weibo(summary, metric, theme="themarginoferror"):
     validate_summary(summary)
-    if metric in {"monthly-posts", "monthly-accounts"}:
+    if metric in {"monthly-posts", "monthly-accounts"} or metric in ROLLING_CHARTS:
         return svg_monthly(summary, metric, theme)
     accounts = summary["accounts"]
     if metric == "identity-evidence":

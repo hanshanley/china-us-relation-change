@@ -55,19 +55,23 @@ def plot_model(svg, labels, observations):
         unit = svg.find("text", attrs={"x": "115", "y": "125"})
     model = {"title": svg.get("aria-label", ""), "description": svg.find("desc").text if svg.find("desc") else "",
              "unit": unit.text if unit else "Count", "groups": [], "kind": "line"}
-    monthly = svg.select("circle.data-point[data-month]")
+    dated = svg.select("circle.data-point[data-date]")
+    monthly = dated or svg.select("circle.data-point[data-month]")
     if monthly:
+        from datetime import date
+        period = "date" if dated else "month"
         points = []
         previous = None
         for point in monthly:
-            month = point["data-month"]
-            index = int(month[:4]) * 12 + int(month[5:]) - 1
-            points.append({"month": month, "month_index": index, "value": int(point["data-value"]),
+            month = point["data-" + period]
+            index = date.fromisoformat(month).toordinal() if dated else int(month[:4]) * 12 + int(month[5:]) - 1
+            value = float(point["data-value"])
+            points.append({period: month, period + "_index": index, "value": value,
                            "partial_window": point["data-partial-window"] == "true",
                            "connect": previous is not None and index == previous + 1,
                            "label": point.title.text})
             previous = index
-        model.update(frequency="monthly", first=points[0]["month_index"], last=points[-1]["month_index"],
+        model.update(frequency="daily" if dated else "monthly", first=points[0][period + "_index"], last=points[-1][period + "_index"],
                      groups=[{"label": model["title"], "id": svg["data-metric"],
                               "color": monthly[0]["stroke"], "points": points}])
         return model

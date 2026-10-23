@@ -10,6 +10,7 @@ from PIL import Image
 from us_china_exchange.render import build, build_weibo
 from us_china_exchange.model import digest, json_text
 from us_china_exchange.weibo_analysis import create_summary, svg_weibo, validate_summary
+from us_china_exchange.weibo_activity import rolling_activity
 from weibo_media.registry import load
 from weibo_media.storage import connect
 
@@ -147,6 +148,8 @@ def test_monthly_figures_and_download_keep_all_bins_and_partial_months(tmp_path,
     assert "downloads/weibo-months.csv" in page and "not a census of active accounts" in page
     summary["version"] = 2
     del summary["monthly"]
+    for key in ("daily", "rolling_30d", "refresh"):
+        del summary[key]
     build_weibo(tmp_path, summary, {"weibo": []})
     assert not (tmp_path / "site/downloads/weibo-months.csv").exists()
     assert not list((tmp_path / "site/figures/weibo").glob("*/monthly-*.*"))
@@ -240,7 +243,7 @@ def test_weibo_csv_bytes_are_stable_after_json_roundtrip(tmp_path, monkeypatch):
     summary = create_summary(database, registry)
     monkeypatch.setattr("us_china_exchange.render.png_chart", lambda svg: b"fixture")
     build_weibo(tmp_path, summary, {"weibo": []})
-    names = ("accounts", "months", "years", "text-completeness")
+    names = ("accounts", "months", "days", "rolling30", "years", "text-completeness")
     before = {name: (tmp_path / f"site/downloads/weibo-{name}.csv").read_bytes() for name in names}
     build_weibo(tmp_path, json.loads(json.dumps(summary, sort_keys=True)), {"weibo": []})
     assert before == {name: (tmp_path / f"site/downloads/weibo-{name}.csv").read_bytes() for name in names}
@@ -315,6 +318,8 @@ def test_legacy_snapshot_does_not_invent_uid_resolution(tmp_path, monkeypatch):
     summary["version"] = 1
     del summary["cohort"]
     del summary["monthly"]
+    for key in ("daily", "rolling_30d", "refresh"):
+        del summary[key]
     for key in ("resolved_numeric_accounts", "unresolved_numeric_accounts"):
         del summary["roster"][key]
     for account in summary["accounts"]:
@@ -345,7 +350,7 @@ def test_primary_audit_exposes_pending_bindings_and_rejects_stale_text(tmp_path,
                                 method="prior_archive_not_reread", source_sha256=None)
     path.write_text(json.dumps(audit))
     summary = create_summary(database, registry, audit_path=path)
-    assert summary["version"] == 4
+    assert summary["version"] == 5
     assert summary["roster"]["resolved_numeric_accounts"] == 2
     assert summary["accounts"][1]["uid"] == "2"
     assert summary["accounts"][1]["primary_audit_status"] == "numeric_binding_recheck_pending"
@@ -365,6 +370,8 @@ def test_primary_audit_exposes_pending_bindings_and_rejects_stale_text(tmp_path,
     legacy = json.loads(json.dumps(summary))
     legacy["version"] = 3
     del legacy["monthly"]
+    for key in ("daily", "rolling_30d", "refresh"):
+        del legacy[key]
     build_weibo(tmp_path, legacy, {"weibo": []})
     assert "Primary-source recheck" in (tmp_path / "site/weibo.html").read_text()
     assert not (tmp_path / "site/downloads/weibo-months.csv").exists()
@@ -416,7 +423,7 @@ def test_weibo_outputs_publish_only_complete_aggregates_and_both_backgrounds(tmp
     published = json.loads((tmp_path / "site/downloads/weibo-summary.json").read_text())
     assert published == summary
     assert "PRIVATE_BODY" not in (tmp_path / "site/weibo.html").read_text()
-    assert len(list((tmp_path / "outputs/figures/weibo").glob("*/*.png"))) == 12
+    assert len(list((tmp_path / "outputs/figures/weibo").glob("*/*.png"))) == 20
     catalog = (tmp_path / "site/figures/index.html").read_text()
     assert "monthly-posts.png" in catalog and "monthly-accounts.png" in catalog
     for path in (tmp_path / "outputs/figures/weibo").glob("*/*.png"):
@@ -431,6 +438,9 @@ def test_weibo_outputs_publish_only_complete_aggregates_and_both_backgrounds(tmp
         status["recovered_posts"] = 0
     for month in summary["monthly"]:
         month.update(recovered_posts=0, observed_accounts=0)
+    for day in summary["daily"]:
+        day.update(recovered_posts=0, account_ids=[])
+    summary["rolling_30d"] = rolling_activity(summary["daily"], summary["accounts"])
     (tmp_path / "data/site/weibo_summary.json").write_text(json.dumps(summary))
     build(tmp_path)
     assert len(list((tmp_path / "outputs/figures/weibo").glob("*/*.png"))) == 6

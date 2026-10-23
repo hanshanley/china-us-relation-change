@@ -165,4 +165,13 @@ def test_collective_export_preserves_complete_inputs_and_native_plot_boundaries(
         rows = list(csv.DictReader(stream))
     assert len(rows) == len(monthly)
     assert sum(int(row["recovered_posts"]) for row in rows) == sum(row["recovered_posts"] for row in monthly)
+    source_weibo = json.loads((ROOT / "data/site/weibo_summary.json").read_text())
+    rolling = [r for r in source_weibo.get("rolling_30d", []) if not r["partial_window"]]
+    if rolling:
+        for chart, field in (("rolling30-accounts", "observed_accounts"), ("rolling30-outlets", "observed_outlets"),
+                             ("rolling30-posts", "recovered_posts"), ("rolling30-average", "posts_per_day")):
+            model = json.loads(weibo.select_one(f"#{chart} .plot-data").string)
+            assert model["frequency"] == "daily"
+            assert [(p["date"], p["value"]) for p in model["groups"][0]["points"]] == [
+                (row["date"], row[field]) for row in rolling]
     assert not list(tmp_path.rglob("*.pdf")) and not list(tmp_path.rglob("*.db"))

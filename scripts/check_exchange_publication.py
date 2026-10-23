@@ -178,7 +178,18 @@ def check(site, url=None, screenshots=None):
                             assert page.locator(f"#{chart} .screen-partial-line").count()
                             expect(page.locator(f"#{chart} .chart-context")).to_contain_text("not total posting activity")
                             if monthly[-1]["month"] == "2026-10":
-                                expect(page.locator(f"#{chart} .chart-context")).to_contain_text("October 21, 2026")
+                                expect(page.locator(f"#{chart} .chart-context")).to_contain_text("2026")
+                    rolling = [r for r in weibo_summary.get("rolling_30d", []) if not r["partial_window"]]
+                    if rolling:
+                        for chart, field in (("rolling30-accounts", "observed_accounts"),
+                                             ("rolling30-outlets", "observed_outlets"),
+                                             ("rolling30-posts", "recovered_posts"),
+                                             ("rolling30-average", "posts_per_day")):
+                            page.select_option("#module-chart", chart)
+                            actual = page.locator(f"#{chart} .screen-point").evaluate_all(
+                                "nodes=>nodes.map(n=>[n.dataset.date,Number(n.dataset.value)])")
+                            assert actual == [[row["date"], row[field]] for row in rolling]
+                            expect(page.locator(f"#{chart} .chart-context")).to_contain_text("not a census")
                 for option in page.locator("#module-chart option").all():
                     page.select_option("#module-chart", option.get_attribute("value"))
                     assert page.locator("[data-module-chart]:visible").count() == 1

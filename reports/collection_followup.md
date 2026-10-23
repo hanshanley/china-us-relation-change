@@ -4,6 +4,13 @@ Snapshot updated October 23, 2026. The [generated inventory](weibo_media_invento
 contains the authoritative per-account post totals. A verified identity is not
 a guarantee of current ownership, current posting, or complete historical recovery.
 
+**Live-update distinction:** the October 21, 2026 collection cutoff below is
+the preserved historical baseline, not a permanent live-data cutoff. Automatic
+private refreshes advance the activity dataset through the last completed
+Asia/Shanghai day. The generated inventory, frozen aggregate JSON and refresh
+status report the latest live totals; historical checkpoint counts below are
+not rewritten as though they were the latest collection.
+
 ## Published snapshot: October 23, 2026
 
 The [primary-source recheck](weibo_primary_source_audit.md) now reports

@@ -20,6 +20,7 @@ from .pipeline import load, write_atomic
 from . import student_estimates
 from .sources import SOURCE_POLICIES
 from .weibo_analysis import AUDIT_LABELS, SHANGHAI, WEIBO_CHARTS, svg_weibo, timestamp, validate_summary
+from .weibo_activity import DAILY_FIELDS, ROLLING_FIELDS
 from .theme import (CHART_HEIGHT, CHART_THEMES, CHART_WIDTH, COMPARISON_GEOGRAPHIES, FIGURE_CATEGORIES, FONT,
                     FONT_FILES, GRID, MUTED, PARTNER_COLORS, PNG_HEIGHT, PNG_WIDTH,
                     TEXT, figure_category, linear_axis)
@@ -371,6 +372,11 @@ def build_weibo(root, summary, gallery):
                 body = ('<p class="chart-context">Monthly recovered sample, not total posting activity. '
                         'Hollow markers and dashed segments mark partial requested months; '
                         'no full-month estimate is made.' + window_note + '</p>' + body)
+            elif metric.startswith("rolling30-"):
+                body = ('<p class="chart-context">Recovered-sample lower bounds, not a census of activity. '
+                        'Each point includes its date and previous 29 Shanghai days. '
+                        'The daily running average is the 30-day total divided by 30; '
+                        'incomplete calendar windows are unavailable, not zero.' + window_note + '</p>' + body)
         else:
             for theme in CHART_THEMES:
                 remove_figure(root, Path("weibo") / theme / metric)
@@ -386,11 +392,21 @@ def build_weibo(root, summary, gallery):
         downloads.append(("months", summary["monthly"]))
     elif monthly_path.is_file():
         monthly_path.unlink()
+    for name, key in (("days", "daily"), ("rolling30", "rolling_30d")):
+        path = root / f"site/downloads/weibo-{name}.csv"
+        if key in summary:
+            downloads.append((name, summary[key]))
+        elif path.is_file():
+            path.unlink()
     for name, records in downloads:
         stream = io.StringIO(newline="")
         columns = sorted(records[0]) if records else (["year", "recovered_posts"] if name == "years" else ["account_id"])
         if name == "months":
             columns = ["month", "observed_accounts", "partial_window", "recovered_posts"]
+        elif name == "days":
+            columns = sorted(DAILY_FIELDS)
+        elif name == "rolling30":
+            columns = sorted(ROLLING_FIELDS)
         writer = csv.DictWriter(stream, fieldnames=columns, lineterminator="\n")
         writer.writeheader()
         writer.writerows({key: json.dumps(value, ensure_ascii=False, sort_keys=True) if isinstance(value, (dict, list))
@@ -456,6 +472,22 @@ def build_weibo(root, summary, gallery):
         'Hollow markers, dashed segments and an asterisk identify partial requested months, without extrapolation. '
         '<a href="downloads/weibo-months.csv" download>Complete monthly counts and partial-window flags · CSV</a>.</p>'
         if "monthly" in summary else '')
+    rolling_note = (
+        '<p><a href="downloads/weibo-rolling30.csv" download>Complete daily trailing-30-day measures · CSV</a> · '
+        '<a href="downloads/weibo-days.csv" download>Complete daily counts and institutional account IDs · CSV</a>. '
+        'Publisher counts deduplicate multiple channels of the same publisher/brand group. '
+        'The first 29 requested days and windows crossing coverage-calendar gaps have no 30-day estimate.</p>'
+        if "rolling_30d" in summary else '')
+    refresh = summary.get("refresh")
+    refresh_note = (
+        f'<p class="refresh-status"><strong>Automatic refresh: {esc(refresh["status"])}.</strong> '
+        f'Last attempt: {esc(refresh["attempted_at"])}. '
+        f'Last readable collection: {esc(refresh["successful_collection_at"] or "none recorded")}. '
+        f'Through: {esc(refresh["through_date"] or "not advanced")}; '
+        f'{refresh["readable_feeds"]:,}/{refresh["accounts_attempted"]:,} attempted feeds readable. '
+        f'{esc(refresh["note"])} Runs locally when the collection Mac is available.</p>' if refresh else
+        '<p class="refresh-status">No automatic collection status is recorded for this frozen snapshot. '
+        'Rebuilding this page alone does not collect new Weibo posts.</p>' if summary["version"] >= 5 else '')
     table = "".join(f'<tr><th scope="row">{esc(a["outlet_name"])}</th>'
                     f'<td>{esc(a.get("display_name", "not recorded"))}<br>'
                     f'{esc(a.get("uid") or ("UID unresolved" if summary["version"] >= 2 else "UID not recorded"))}</td>'
@@ -503,7 +535,7 @@ def build_weibo(root, summary, gallery):
                 '<a href="downloads/weibo-accounts.csv" download>All account aggregates · CSV</a> · '
                 '<a href="downloads/weibo-years.csv" download>All publication-year aggregates · CSV</a> · '
                 '<a href="downloads/weibo-text-completeness.csv" download>All text-completeness aggregates · CSV</a></p>'
-                + monthly_note + '</header><main>' + "".join(cards) +
+                + monthly_note + rolling_note + refresh_note + '</header><main>' + "".join(cards) +
                 '<section class="series-panel"><h2>Account coverage details</h2><div class="table-scroll"><table>'
                 '<thead><tr><th>Outlet / edition</th><th>Channel / numeric UID</th><th>Evidence period / relationship</th>'
                 '<th>Primary recheck</th><th>Recovered posts</th>'
@@ -848,7 +880,7 @@ def build(root):
                 remove_figure(root, Path("weibo") / theme / metric)
         for relative in ["weibo.html", "downloads/weibo-summary.json", "downloads/weibo-accounts.csv",
                          "downloads/weibo-years.csv", "downloads/weibo-text-completeness.csv",
-                         "downloads/weibo-months.csv"]:
+                         "downloads/weibo-months.csv", "downloads/weibo-days.csv", "downloads/weibo-rolling30.csv"]:
             path = site / relative
             if path.is_file():
                 path.unlink()

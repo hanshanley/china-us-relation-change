@@ -3,6 +3,13 @@
 Audit date: October 22, 2026. Publication window remains January 1, 2020
 through October 21, 2026, inclusive in Asia/Shanghai.
 
+This document describes the original audit baseline. Subsequent automatic live
+refreshes carry unchanged bound source proofs forward and verify new or changed
+canonical records against newly saved primary captures. Their complete current
+proof manifest and aggregate JSON expose the updated corpus counts. These
+incremental checks do not imply another live account-identity sweep, and do not
+replace the archived October 21 baseline.
+
 The registry-bound manifest was refreshed October 23 after seventy-five additional
 ranked-domain reviews. Existing account-source captures and identity decisions
 were retained; this refresh does not imply another live numeric-profile sweep.

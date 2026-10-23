@@ -174,6 +174,55 @@ Older snapshots remain readable but do not invent missing monthly data.
 The collective publication's interactive selector preserves the same monthly
 calendar positions, distinct-channel counts and partial-month markers on mobile.
 
+Version 5 adds complete daily counts and trailing-30-day measures:
+`site/downloads/weibo-days.csv` and `site/downloads/weibo-rolling30.csv`.
+Each point includes its date and the preceding 29 Asia/Shanghai calendar days.
+Channel counts deduplicate account IDs across the entire window; publisher
+counts additionally deduplicate publisher/brand groups. The daily running
+average is the recovered-post total divided by exactly 30, not a monthly total
+or an average over posting days. The first 29 requested days and windows
+crossing unrequested or partial days are unavailable, not zero. All measures
+remain recovered-sample lower bounds, never a census of active/inactive accounts.
+
+### Automatic private Weibo refresh
+
+The GitHub exchange workflow rebuilds frozen Weibo aggregates; hosted runners
+do not have the private corpus. Actual collection runs on the collection Mac:
+
+```sh
+PYTHONPATH=src .venv/bin/python scripts/refresh_weibo.py
+PYTHONPATH=src .venv/bin/python scripts/refresh_weibo.py --publish --push
+.venv/bin/python scripts/install_weibo_refresh.py
+```
+
+The first command is a private, non-promoting preview. The installed per-user
+LaunchAgent runs at 03:35, 09:35, 15:35 and 21:35 local time when the Mac is
+available; missed sleep-time events coalesce on wake. It uses the existing
+private SQLite corpus, not a fresh metadata-only database. The last completed
+Shanghai day becomes the live cutoff, while a consistent private baseline is
+preserved under `data/local/automation/baseline_2026-10-21/` and the original
+published baseline remains in Git history.
+
+Only currently attributed, confirmed numeric channels are polled, sequentially
+and with source spacing/robots restrictions. Existing audited complete bodies
+are reused without pretending they were freshly retrieved. New/changed records
+must match newly saved primary text, UID and publication date. Full private
+exports, source proofs, domain ledgers, inventory, charts and complete downloads
+advance together. No raw post bodies, private database or source HTML is pushed.
+
+Access/identity holds persist in `data/local/automation/access-holds.json` and
+are not automatically retried through other routes. Source conflicts, stale
+audits, concurrent corpus changes or relevant dirty files stop promotion.
+Unrelated changes and staged work are not committed. Automatic commits use
+Hans Hanley's identity without agent attribution. Failed collection does not
+advance the corpus/cutoff; refresh status distinguishes attempts from readable
+collections. Inspect `data/site/weibo_refresh.json`, the page's refresh-status
+note and private `data/local/automation/last-check.json`/logs. A Mac that is off
+cannot provide an always-on collection service.
+
+Remove only this agent with
+`.venv/bin/python scripts/install_weibo_refresh.py --remove`.
+
 Version 2 snapshots distinguish documented historical/current channels from
 resolved numeric UIDs, including historical vanity-only URLs without inventing
 an account binding. Complete account downloads include UIDs, handles, display
