@@ -32,12 +32,12 @@
     "vintage": "Open Doors 2025"
   },
   "macau_tourism": {
-    "last_recorded_check": "2026-10-23T08:07:15+00:00",
+    "last_recorded_check": "2026-10-23T08:47:37+00:00",
     "last_successful_retrieval": "2026-10-23T08:07:15+00:00",
-    "notes": "Direct 2025/2026 monthly and cumulative source-market tables, supplemented by complete U.S. first-half profiles when a monthly top-ten row is absent; travel-document issuing place, not U.S. residence. Original DSEC 2002 table 1 restores 2001/2002 all-mode residence arrivals before the 2008 worker/student exclusion. Other annual history retained.",
+    "notes": "Selected-market PDFs; unlisted U.S. values are missing, never zero. Latest complete annual market profile fills selected-market omissions. Arrivals exclude non-resident workers/students from 2008. Residence classification changed to issuing place of travel document in April 2015; transition is not comparable. This adapter covers complete annual reports, not newer monthly highlights. MGTO site terms limit use to noncommercial purposes. Commercial reuse permission has not been verified; these exports do not grant publication rights.",
     "observations": 57,
     "status": "available",
-    "vintage": "DSEC 2001-2002 residence history; MGTO/DSEC monthly/YTD through August 2026"
+    "vintage": "MGTO annual highlights through 2025; Market Performance 2008, 2010, 2015, 2024"
   },
   "moe": {
     "last_recorded_check": "2026-10-23T07:06:18+00:00",
