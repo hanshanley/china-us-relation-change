@@ -28,13 +28,13 @@ The selected **1,000 SCImago U.S.-classified domains** are ranked by digital
 reputation, not traffic; their present ownership/nationality was not independently
 audited. **Five have current-profile evidence, seven historical-only evidence,
 988 remain unknown, and zero are verified negatives.** All underwent homepage
-screening, but only 145 have recorded manual review.
+screening, but only 150 have recorded manual review.
 
-The [latest scheduled pass](discovery_iteration29.md) adds five further
-reviews using ten actual primary captures, separating contributing newspapers,
-financial-commentary affiliates and publisher locators from account ownership.
-Marin's restriction and Modesto's timeout remain explicit, not negatives.
-Discovery is not exhausted: 855 selected domains still lack a recorded
+The [latest scheduled pass](discovery_iteration30.md) adds five further
+reviews using six saved HTML pages, one verified publisher PDF and a
+metadata-only primary-reader observation. Newspaper access restrictions and
+the parent page's caching limit remain explicit; no account was promoted.
+Discovery is not exhausted: 850 selected domains still lack a recorded
 manual review. A bounded recurring prompt is active every 30 minutes; later
 passes must advance the frontier rather than repeatedly probing exhausted leads.
 

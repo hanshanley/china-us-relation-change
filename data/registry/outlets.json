@@ -955,6 +955,41 @@
       "notes": "Complete current root and actual Contact were read without a qualifying institutional Sina locator. The Contact slash redirect is one source; staff directories, URL placeholders, parent-group channels and similarly named businesses were not accounts of the newspaper. Missing profile links remain limited source findings, not proof the publication never used Weibo. Unknown, not absent. Review date: 2026-10-23 UTC."
     },
     {
+      "id": "quad-city-times", "name": "Quad-City Times / Davenport", "category": "newspaper",
+      "aliases": ["Davenport Quad-City Times", "The Quad-City Times", "Quad-City Times"],
+      "us_basis": "United States-classified source position146; actual publisher root and Contact identify Quad Cities reporting and a Davenport, Iowa publishing address.",
+      "source_url": "https://qctimes.com/", "research_status": "reviewed",
+      "notes": "Complete current root and actual Contact were read without a qualifying institutional Sina identifier. Contact slash variants are one source, and staff-directory placeholders are not accounts. Other Quad Cities publications, parent-group channels and individual reporters were not substituted. Unknown, not absent. Review date: 2026-10-23 UTC."
+    },
+    {
+      "id": "staten-island-advance", "name": "Staten Island Advance / SILive", "category": "newspaper",
+      "aliases": ["Staten Island Advance", "SILive", "SILive.com"],
+      "us_basis": "United States-classified source position147; Advance Local's named brand page explicitly connects Staten Island Media Group, silive.com and The Staten Island Advance.",
+      "source_url": "https://www.silive.com/", "research_status": "reviewed",
+      "notes": "Recorded newspaper HTTP403 was respected. The local HTTPS client had a TLS protocol mismatch on the parent locator; security settings were not weakened and no HTTP downgrade used. The actual named publisher page was inspected in the primary reader, whose cache age was retained rather than called a new origin capture. Factual metadata only was retained because the page explicitly limits caching; no full-HTML hash is invented. Generic social-channel wording and other Advance or magazine brands are not Sina designations. Unknown, not absent. Review date: 2026-10-23 UTC."
+    },
+    {
+      "id": "casper-star-tribune", "name": "Casper Star-Tribune", "category": "newspaper",
+      "aliases": ["Casper Star Tribune", "Casper Star-Tribune"],
+      "us_basis": "United States-classified source position148; actual publisher root and Contact identify the Casper, Wyoming newspaper and its publishing contact.",
+      "source_url": "https://trib.com/", "research_status": "reviewed",
+      "notes": "Complete current root and actual Contact were read without a qualifying institutional Weibo locator. Contact slash variants are one source. Minnesota's Star Tribune, other Tribune titles, parent companies and staff accounts were not substituted. Current corporate legal control is not independently audited. Unknown, not absent. Review date: 2026-10-23 UTC."
+    },
+    {
+      "id": "santa-fe-new-mexican", "name": "The Santa Fe New Mexican", "category": "newspaper",
+      "aliases": ["Santa Fe New Mexican", "The New Mexican"],
+      "us_basis": "United States-classified source position149; actual publisher root and Contact identify Santa Fe, New Mexico reporting and a Santa Fe mailing address.",
+      "source_url": "https://www.santafenewmexican.com/", "research_status": "reviewed",
+      "notes": "Complete current root and the actual nested /site/contact/ route were read without a qualifying institutional Sina identifier. The initial generic path parser was not treated as exhaustive. Department controls and forms were not submitted or executed. A printing relationship with another newspaper, staff, regional partners and generic New Mexican names were not account ownership or continuity evidence. Unknown, not absent. Review date: 2026-10-23 UTC."
+    },
+    {
+      "id": "tcpalm", "name": "TCPalm / Treasure Coast", "category": "regional_news",
+      "aliases": ["Tc Palm", "TCPalm", "Treasure Coast/TCPalm"],
+      "us_basis": "United States-classified source position150; the actual publisher-hosted USA TODAY Network directory lists Treasure Coast/TCPalm under Florida on page4, separately from Palm Beach Post and Palm Beach Daily News.",
+      "source_url": "https://www.tcpalm.com/", "research_status": "reviewed",
+      "notes": "Recorded newspaper HTTP403 was respected without a new request. The actual publisher PDF was saved privately, hash-checked and inspected on page4 both visually and through text extraction. It is a publication-directory scope source, not a current ownership certificate or Weibo-account designation. No obituary link or submission form was followed. Other Palm Beach publications and generic network accounts were not substituted. Unknown, not absent. Review date: 2026-10-23 UTC."
+    },
+    {
       "id": "telemundo", "name": "Telemundo / Noticias Telemundo", "category": "broadcast_news",
       "aliases": ["Telemundo", "Noticias Telemundo", "Telemundo Noticias"],
       "us_basis": "United States-classified source position110; actual network root separately links its Noticias Telemundo newsroom section. Current corporate domicile/headquarters and legal account control are not independently audited.",
