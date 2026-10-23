@@ -1305,6 +1305,13 @@
       "notes": "Complete root and the actually linked Contact were read without a qualifying institutional Sina identifier. News coverage of artificial intelligence was not mistaken for an AI-use reservation. Hours widgets, staff listings and generic navigation were not operating-status certificates. The different Macon Telegraph, British Telegraph, publisher group and staff profiles were not assigned to this Nashua paper. Unknown, not absent. Review date: 2026-10-23 UTC."
     },
     {
+      "id": "jamestown-post-journal", "name": "The Post-Journal / Jamestown, New York", "category": "newspaper",
+      "aliases": ["Jamestown Post-Journal", "The Post-Journal", "Post Journal"],
+      "us_basis": "United States-classified source position196; actual root title and Contact identify the Jamestown, New York publication and publishing correspondence. This does not independently certify office occupancy or current legal control.",
+      "source_url": "https://www.post-journal.com/", "research_status": "reviewed",
+      "notes": "Complete root and the actually linked Contact read without a qualifying institutional Sina identifier. A staff-email-like relative route was not treated as another institutional page or followed. Masthead/edition dates were not posting-activity or closure evidence. Search-result co-mentions and third-party aggregation tags were not publisher designations; staff, parent, sibling and other Post/Journal accounts were not inherited. Unknown, not absent. Review date: 2026-10-23 UTC."
+    },
+    {
       "id": "telemundo", "name": "Telemundo / Noticias Telemundo", "category": "broadcast_news",
       "aliases": ["Telemundo", "Noticias Telemundo", "Telemundo Noticias"],
       "us_basis": "United States-classified source position110; actual network root separately links its Noticias Telemundo newsroom section. Current corporate domicile/headquarters and legal account control are not independently audited.",

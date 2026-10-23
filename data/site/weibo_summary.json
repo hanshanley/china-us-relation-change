@@ -4837,11 +4837,11 @@
     }
   ],
   "cohort": {
-    "assessment_sha256": "389bad806b6496e993a5dc3d72f3d20906adbcbd5fbe596ddaacc7b2506ddf85",
+    "assessment_sha256": "5e7d4ae763971800004b0e09364f62109470cac637574c9370594242feb01bbe",
     "candidate_domains": 0,
     "current_identity_domains": 5,
     "historical_only_domains": 7,
-    "manually_reviewed_domains": 195,
+    "manually_reviewed_domains": 196,
     "ranking_basis": "SCImago U.S.-classified digital reputation, not website traffic",
     "ranking_source": "https://www.scimagomedia.com/rankings.php?country=United+States",
     "selected_domains": 1000,
@@ -24962,7 +24962,7 @@
         "uid": "1686203097"
       }
     ],
-    "audited_at": "2026-10-23T17:05:14.168099+00:00",
+    "audited_at": "2026-10-23T17:13:54.540691+00:00",
     "canonical_posts_sha256": "71200e519e64affcbb60235f21227df6a86a47b90ffe1f04359245530b015020",
     "corpus": {
       "archived_sources_checked": 46,
@@ -24976,8 +24976,8 @@
       "primary_text_matches": 6570
     },
     "post_manifest_sha256": "4e4ee506c35d73f523ae74ae0b4ede01675ae16503e64fb6d3b9bc04f597abe7",
-    "registry_sha256": "87d14446c9bb3347388eb51f73d60735a46f44d8335381cf0d3260d12dc88ce3",
-    "scope": "Incremental primary-source consistency audit: unchanged bound proofs carried forward; new/changed canonical texts, author IDs and dates checked against fresh saved sources. Identity decisions retain their prior sources; not a new identity sweep or complete timelines.",
+    "registry_sha256": "1ea6d9c6eca01a0cbee4c0bf6d0d66443423bbf48393e4d6ff00b0a519168c30",
+    "scope": "Institutional profile/UID evidence and canonical text/date/source consistency; not current corporate control, continuing U.S. licensing, exhaustive account discovery or complete timelines.",
     "version": 1
   },
   "refresh": {
@@ -44914,9 +44914,9 @@
   "roster": {
     "confirmed_accounts": 87,
     "confirmed_outlets": 62,
-    "outlets": 277,
+    "outlets": 278,
     "resolved_numeric_accounts": 86,
-    "reviewed_outlets": 277,
+    "reviewed_outlets": 278,
     "unresolved_numeric_accounts": 1
   },
   "source": {
@@ -44924,9 +44924,9 @@
     "excluded_attribution_posts": 0,
     "excluded_unconfirmed_posts": 0,
     "latest_collection_at": "2026-10-23T17:05:13.766559+00:00",
-    "primary_audit_sha256": "54aefab21d66ceecffdeddaa094d0e21d05c470d05a44db172a57153c3e432a0",
+    "primary_audit_sha256": "0d3ca725a4481d90c4a5facecac08bbbcb5114dcab201e43412073123eca46ae",
     "publication_timezone": "Asia/Shanghai",
-    "registry_sha256": "87d14446c9bb3347388eb51f73d60735a46f44d8335381cf0d3260d12dc88ce3",
+    "registry_sha256": "1ea6d9c6eca01a0cbee4c0bf6d0d66443423bbf48393e4d6ff00b0a519168c30",
     "requested_windows": [
       {
         "end": "2026-10-21T16:00:00+00:00",
