@@ -990,6 +990,41 @@
       "notes": "Recorded newspaper HTTP403 was respected without a new request. The actual publisher PDF was saved privately, hash-checked and inspected on page4 both visually and through text extraction. It is a publication-directory scope source, not a current ownership certificate or Weibo-account designation. No obituary link or submission form was followed. Other Palm Beach publications and generic network accounts were not substituted. Unknown, not absent. Review date: 2026-10-23 UTC."
     },
     {
+      "id": "augusta-chronicle", "name": "The Augusta Chronicle", "category": "newspaper",
+      "aliases": ["Augusta Chronicle", "The Augusta Chronicle"],
+      "us_basis": "United States-classified source position151; the actual publisher-hosted USA TODAY Network directory lists Augusta Chronicle under Georgia on page4. This is publication-scope evidence, not a current legal-ownership audit.",
+      "source_url": "https://www.augustachronicle.com/", "research_status": "reviewed",
+      "notes": "Recorded newspaper HTTP403 was respected without another request. The already saved publisher PDF was hash-checked and its actual Georgia entry read; no new PDF download or obituary-link request was needed. A publisher directory does not identify an official Weibo account, and parent-network or other Augusta publications were not substituted. Unknown, not absent. Review date: 2026-10-23 UTC."
+    },
+    {
+      "id": "delaware-county-daily-times", "name": "Delaware County Daily Times / Delco Times", "category": "newspaper",
+      "aliases": ["Delco Times", "The Delaware County Daily Times", "Delaware County Daily Times"],
+      "us_basis": "United States-classified source position152; actual publisher root identifies Delco, Pennsylvania and Contact names The Delaware County Daily Times and its Pennsylvania publishing contact.",
+      "source_url": "https://www.delcotimes.com/", "research_status": "reviewed",
+      "notes": "Complete current root and actual Contact were read without a qualifying institutional Sina identifier. Contact slash variants are one source. Delaware-state publications, other Daily Times titles, parent-company channels and staff were not substituted. A current office/contact statement is not an independent corporate-control audit. Unknown, not absent. Review date: 2026-10-23 UTC."
+    },
+    {
+      "id": "knoxville-news-sentinel", "name": "Knoxville News Sentinel / Knox News", "category": "newspaper",
+      "aliases": ["Knoxville News-Sentinel", "Knoxville News Sentinel", "Knox News"],
+      "us_basis": "United States-classified source position153; the actual saved publisher directory lists Knoxville News Sentinel under Tennessee on page15, verified by text extraction and the primary PDF page.",
+      "source_url": "https://www.knoxnews.com/", "research_status": "reviewed",
+      "notes": "Recorded newspaper HTTP403 was respected. PDF kerning split the word Knoxville in extracted text; the actual page was checked rather than treating a failed literal search as missing evidence. This is a reused publisher-directory scope record, not a fresh newspaper body, current ownership certificate or Weibo designation. Other Sentinel titles, parent-network and staff accounts were not borrowed. Unknown, not absent. Review date: 2026-10-23 UTC."
+    },
+    {
+      "id": "sports-business-journal", "name": "Sports Business Journal / SBJ", "category": "sports_business_news",
+      "aliases": ["SBJ", "Sports Business Journal"],
+      "us_basis": "United States-classified source position154; the actual root response names Sports Business Journal. No independently verified current headquarters or legal-ownership claim is inferred from a third-party contact directory.",
+      "source_url": "https://www.sportsbusinessjournal.com/", "research_status": "reviewed",
+      "notes": "Root and its actual Corporate/About-Us and Corporate/Contact-Us responses were inspected for account identifiers; factual metadata only was retained after the explicit caching notice. The transient root HTML copy was removed and no available full-body hash is invented. Linked corporate responses are not treated as independently verified company descriptions from their generic titles alone. Subsequent web retrieval reported a robots restriction and no further host requests followed. English/Chinese SBJ and Sports Business Daily searches yielded team/athlete-account reporting and citations, not a publisher designation or verified Chinese licensee. Unknown, not absent. Review date: 2026-10-23 UTC."
+    },
+    {
+      "id": "tallahassee-democrat", "name": "Tallahassee Democrat", "category": "newspaper",
+      "aliases": ["Tallahassee Democrat"],
+      "us_basis": "United States-classified source position155; the actual saved publisher directory lists Tallahassee Democrat under Florida on page4, separately from other Florida newspapers.",
+      "source_url": "https://www.tallahassee.com/", "research_status": "reviewed",
+      "notes": "Recorded newspaper HTTP403 was respected without a new request. The publisher PDF's word-internal extraction space was checked against the actual entry rather than interpreted as absence. The reused directory is scope evidence only; no obituary link was followed and neither a generic Democrat organization, another newspaper nor a parent-network account was substituted. Unknown, not absent. Review date: 2026-10-23 UTC."
+    },
+    {
       "id": "telemundo", "name": "Telemundo / Noticias Telemundo", "category": "broadcast_news",
       "aliases": ["Telemundo", "Noticias Telemundo", "Telemundo Noticias"],
       "us_basis": "United States-classified source position110; actual network root separately links its Noticias Telemundo newsroom section. Current corporate domicile/headquarters and legal account control are not independently audited.",
