@@ -1,6 +1,6 @@
 # U.S. news-media accounts on Sina Weibo
 
-Generated: 2026-10-23T15:54:08.864095+00:00. Registry claims retain their own observation dates.
+Generated: 2026-10-23T17:05:15.486480+00:00. Registry claims retain their own observation dates.
 
 Candidate roster: **277 outlets; 277 reviewed; 0 pending**. This is an expandable research roster, not a census.
 Officialness, historical existence, operator relationship, and current access are distinct.
@@ -39,7 +39,7 @@ The [primary-source recheck](weibo_primary_source_audit.md) records source-level
 | Esquire / historical China edition | [时尚先生Esquire](https://weibo.com/esquire) | 1195397063 | Historical Esquire China licensed edition; publisher-announced November2023 termination means later same-named local posts are not treated as authorized U.S.-brand output | historical | unknown | 2023-11-01 | 33 | partial |
 | EurekAlert! / AAAS Chinese news-release service | [EurekAlert_中文版](https://weibo.com/eurekalertchinese) | 2949617444 | Chinese-language channel of a U.S.-based science-news release service; not the Science research journal or an independent-newsroom feed | current_evidence | unknown | not established | 44 | partial |
 | Fast Company / historical China edition | [快公司FastCompany](https://weibo.com/fcchinese) | 3181199897 | Historical Fast Company Chinese-edition publisher account; not conflated with a later Chinese-edition relaunch | historical | unknown | not established | 100 | partial |
-| Forbes / Forbes China | [福布斯中文网](https://weibo.com/u/1765373140) | 1765373140 | Chinese edition / local branded publisher; not asserted to be the U.S. newsroom account | current_evidence | login_required | not established | 101 | partial |
+| Forbes / Forbes China | [福布斯中文网](https://weibo.com/u/1765373140) | 1765373140 | Chinese edition / local branded publisher; not asserted to be the U.S. newsroom account | current_evidence | login_required | not established | 150 | partial |
 | Fortune / Fortune China | [财富中文网](https://www.weibo.com/fortunechina) | 1657987915 | Authorized Chinese edition; account is for Fortune China, not assumed to be the U.S. newsroom | current_evidence | login_required | not established | 177 | partial |
 | GOLF Magazine / historical China edition | [高尔夫杂志](https://weibo.com/u/1869615717) | 1869615717 | Historically identified GOLF Magazine China Edition; current post-2018 U.S. license renewal/editorial control not established | historical | unknown | not established | 100 | partial |
 | GQ / China | [GQofficial](https://weibo.com/u/9150715932) | 9150715932 | Chinese fashion/culture edition of a U.S.-origin media brand; not the U.S. GQ newsroom account | current_evidence | unknown | not established | 100 | partial |
@@ -970,7 +970,7 @@ All counts below are recovered/observed posts, not total output. No zero-activit
 | esquire-china-historical | 33 | 2021-11-05T04:00:00+00:00 | 2023-03-27T12:30:00+00:00 | sina_syndication: partial | Public Sina syndication feed only; no historical pagination is exposed. Feed exhaustion is not historical completeness. Detail text is source_full, not independently verified against Weibo. Repost classification may be unknown. Engagement counts are source snapshots and may be stale. |
 | eurekalert-chinese | 44 | 2020-02-15T17:51:00+00:00 | 2023-01-26T04:24:00+00:00 | sina_syndication: partial | 5 detail pages unavailable; previews retained. {"4661948153856132": "Cross-host or non-HTTPS redirect; access not followed", "4771350236105059": "Cross-host or non-HTTPS redirect; access not followed", "4778675671400743": "Cross-host or non-HTTPS redirect; access not followed", "4780117069398034": "Cross-host or non-HTTPS redirect; access not followed", "4861941045002460": "Cross-host or non-HTTPS redirect; access not followed"} |
 | fast-company-china-historical | 100 | 2020-08-01T10:31:00+00:00 | 2021-09-29T16:13:00+00:00 | sina_syndication: partial | 3 detail pages unavailable; previews retained. {"4533780259805561": "Cross-host or non-HTTPS redirect; access not followed", "4534506491743461": "Cross-host or non-HTTPS redirect; access not followed", "4570505723777901": "Cross-host or non-HTTPS redirect; access not followed"} |
-| forbes-china | 101 | 2026-09-08T09:09:00+00:00 | 2026-10-21T09:18:00+00:00 | archive: partial | Archived profile owner UID mismatch or missing |
+| forbes-china | 150 | 2026-09-08T09:09:00+00:00 | 2026-10-23T09:12:00+00:00 | sina_syndication: partial | 5 detail pages unavailable; previews retained. 0 source conflicts skipped. {"5340922231390291": "Recorded source-URL access restriction; not retried", "5357126706004703": "Cross-host or non-HTTPS redirect; access not followed", "5357129223113089": "Cross-host or non-HTTPS redirect; access not followed", "5357139289440583": "Cross-host or non-HTTPS redirect; access not followed", "5357151872094704": "Cross-host or non-HTTPS redirect; access not followed"} |
 | fortune-china | 177 | 2020-03-06T08:29:00+00:00 | 2026-10-21T13:50:00+00:00 | archive: partial | Single archived profile snapshot; no full timeline backfill. Unexpanded posts are truncated. Engagement belongs to capture time, not retrieval/publication time. Snapshots can contain cached data and omit deleted posts. |
 | golf-china-historical | 100 | 2025-05-03T03:06:00+00:00 | 2026-10-18T07:25:00+00:00 | sina_syndication: partial | 18 detail pages unavailable; previews retained. {"5171202860516590": "Cross-host or non-HTTPS redirect; access not followed", "5202836540883824": "Cross-host or non-HTTPS redirect; access not followed", "5203487237083810": "Cross-host or non-HTTPS redirect; access not followed", "5260422845303121": "Cross-host or non-HTTPS redirect; access not followed", "5266679728969073": "Cross-host or non-HTTPS redirect; access not followed", "5273180811825326": "Cross-host or non-HTTPS redirect; access not followed", "5273483974282681": "Cross-host or non-HTTPS redirect; access not followed", "5282102242443883": "Cross-host or non-HTTPS redirect; access not followed", "5283575563290081": "Cross-host or non-HTTPS redirect; access not followed", "5287139887548783": "Cross-host or non-HTTPS redirect; access not followed", "5294584126768556": "Cross-host or non-HTTPS redirect; access not followed", "5297042579523604": "Cross-host or non-HTTPS redirect; access not followed", "5306757599726630": "Cross-host or non-HTTPS redirect; access not followed", "5327808354063758": "Cross-host or non-HTTPS redirect; access not followed", "5330796686611043": "Cross-host or non-HTTPS redirect; access not followed", "5340580676372202": "Cross-host or non-HTTPS redirect; access not followed", "5354360587420606": "Cross-host or non-HTTPS redirect; access not followed", "5355391567266096": "Cross-host or non-HTTPS redirect; access not followed"} |
 | golf-digest-china | 125 | 2021-10-31T04:50:00+00:00 | 2026-10-12T10:17:00+00:00 | archive: partial | Single archived profile snapshot; no full timeline backfill. Unexpanded posts are truncated. Engagement belongs to capture time, not retrieval/publication time. Snapshots can contain cached data and omit deleted posts. |
@@ -1079,8 +1079,8 @@ All counts below are recovered/observed posts, not total output. No zero-activit
 | eurekalert-chinese | truncated | 5 |
 | fast-company-china-historical | source_full | 97 |
 | fast-company-china-historical | truncated | 3 |
-| forbes-china | source_full | 91 |
-| forbes-china | truncated | 10 |
+| forbes-china | source_full | 136 |
+| forbes-china | truncated | 14 |
 | fortune-china | source_full | 107 |
 | fortune-china | truncated | 70 |
 | golf-china-historical | source_full | 82 |
@@ -1326,7 +1326,7 @@ Counts use publication months in Asia/Shanghai. Unknown post kinds are retained,
 | fast-company-china-historical | 2021-07 | unknown | 4 |
 | fast-company-china-historical | 2021-09 | unknown | 1 |
 | forbes-china | 2026-09 | unknown | 1 |
-| forbes-china | 2026-10 | unknown | 100 |
+| forbes-china | 2026-10 | unknown | 149 |
 | fortune-china | 2020-03 | original | 15 |
 | fortune-china | 2021-08 | original | 16 |
 | fortune-china | 2022-01 | original | 15 |
@@ -1669,6 +1669,7 @@ Grouped by source and observation day, not by publication date. Each group uses 
 | eurekalert-chinese | sina_syndication | 2026-10-21 | 44 | 2.32 (44) | 0.43 (44) | 1.59 (44) |
 | fast-company-china-historical | sina_syndication | 2026-10-21 | 100 | 13.18 (100) | 0.04 (100) | 19.37 (100) |
 | forbes-china | sina_syndication | 2026-10-21 | 101 | 2.02 (101) | 0.36 (101) | 1.31 (101) |
+| forbes-china | sina_syndication | 2026-10-23 | 50 | 1.42 (50) | 0.28 (50) | 1.46 (50) |
 | fortune-china | archive | 2020-03-15 | 15 | 41.13 (15) | 12.86 (14) | 35.53 (15) |
 | fortune-china | archive | 2021-08-15 | 16 | 136.81 (16) | 12.00 (15) | 55.15 (13) |
 | fortune-china | archive | 2022-01-19 | 15 | 7.87 (15) | 6.88 (8) | 7.75 (8) |

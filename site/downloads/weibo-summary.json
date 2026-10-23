@@ -1487,8 +1487,8 @@
       ],
       "existence": "current_evidence",
       "handle": null,
-      "latest_publication_utc": "2026-10-21T09:18:00+00:00",
-      "latest_run_source": "archive",
+      "latest_publication_utc": "2026-10-23T09:12:00+00:00",
+      "latest_run_source": "sina_syndication",
       "latest_run_status": "partial",
       "notes": "Direct Weibo requests reached a visitor gate. A separate public Sina syndication profile exposes posts and organization-naming certification.",
       "operator": "Forbes China / \u798f\u5e03\u65af\u4e2d\u6587\u7f51; exact operating legal entity not established",
@@ -1500,7 +1500,7 @@
       "primary_audit_source_url": "https://www.sina.cn/media/1765373140",
       "primary_audit_status": "numeric_binding_rechecked",
       "profile_url": "https://weibo.com/u/1765373140",
-      "recovered_posts": 101,
+      "recovered_posts": 150,
       "relationship": "Chinese edition / local branded publisher; not asserted to be the U.S. newsroom account",
       "uid": "1765373140",
       "uid_resolution": "resolved_numeric_uid",
@@ -4837,7 +4837,7 @@
     }
   ],
   "cohort": {
-    "assessment_sha256": "2c008004643cc4f622b3552aa30f4c80b4fbf32f6de3fb76ceadee0c642a9bfc",
+    "assessment_sha256": "389bad806b6496e993a5dc3d72f3d20906adbcbd5fbe596ddaacc7b2506ddf85",
     "candidate_domains": 0,
     "current_identity_domains": 5,
     "historical_only_domains": 7,
@@ -23484,6 +23484,28 @@
       "date": "2026-10-21",
       "partial_day": false,
       "recovered_posts": 311
+    },
+    {
+      "account_ids": [
+        "forbes-china"
+      ],
+      "date": "2026-10-22",
+      "partial_day": false,
+      "recovered_posts": 24
+    },
+    {
+      "account_ids": [
+        "forbes-china"
+      ],
+      "date": "2026-10-23",
+      "partial_day": false,
+      "recovered_posts": 25
+    },
+    {
+      "account_ids": [],
+      "date": "2026-10-24",
+      "partial_day": true,
+      "recovered_posts": 0
     }
   ],
   "monthly": [
@@ -23977,7 +23999,7 @@
       "month": "2026-10",
       "observed_accounts": 47,
       "partial_window": true,
-      "recovered_posts": 2304
+      "recovered_posts": 2353
     }
   ],
   "primary_source_audit": {
@@ -24940,8 +24962,8 @@
         "uid": "1686203097"
       }
     ],
-    "audited_at": "2026-10-23T15:54:26.843794+00:00",
-    "canonical_posts_sha256": "242c8aa8adc3dda09fd4b9427491475dbd90b86be82e26d2496bc28ecfa52130",
+    "audited_at": "2026-10-23T17:05:14.168099+00:00",
+    "canonical_posts_sha256": "71200e519e64affcbb60235f21227df6a86a47b90ffe1f04359245530b015020",
     "corpus": {
       "archived_sources_checked": 46,
       "canonical_text_corrections": 21,
@@ -24949,16 +24971,32 @@
       "explicit_prior_detail_conflicts_found": 0,
       "live_registered_profiles_attempted": 86,
       "live_registered_profiles_readable": 81,
-      "native_detail_sources_checked": 5500,
-      "posts_checked": 6521,
-      "primary_text_matches": 6521
+      "native_detail_sources_checked": 5545,
+      "posts_checked": 6570,
+      "primary_text_matches": 6570
     },
-    "post_manifest_sha256": "daf0eda80d3c75aa73e63dd022c919eeab589f60548cff4a2df3473a8f05d492",
+    "post_manifest_sha256": "4e4ee506c35d73f523ae74ae0b4ede01675ae16503e64fb6d3b9bc04f597abe7",
     "registry_sha256": "87d14446c9bb3347388eb51f73d60735a46f44d8335381cf0d3260d12dc88ce3",
-    "scope": "Institutional profile/UID evidence and canonical text/date/source consistency; not current corporate control, continuing U.S. licensing, exhaustive account discovery or complete timelines.",
+    "scope": "Incremental primary-source consistency audit: unchanged bound proofs carried forward; new/changed canonical texts, author IDs and dates checked against fresh saved sources. Identity decisions retain their prior sources; not a new identity sweep or complete timelines.",
     "version": 1
   },
-  "refresh": null,
+  "refresh": {
+    "accounts_attempted": 1,
+    "attempted_at": "2026-10-23T17:03:25.568901+00:00",
+    "errors": [
+      {
+        "account_id": "forbes-china",
+        "reason": "5 detail pages unavailable; previews retained. 0 source conflicts skipped. {\"5340922231390291\": \"Recorded source-URL access restriction; not retried\", \"5357126706004703\": \"Cross-host or non-HTTPS redirect; access not followed\", \"5357129223113089\": \"Cross-host or non-HTTPS redirect; access not follow"
+      }
+    ],
+    "mode": "daily_local",
+    "new_posts": 49,
+    "note": "1 eligible channels in this pass; access holds are not retried. The partial current Shanghai day is buffered but excluded from rolling estimates. Bounded public feeds only; recovered-sample lower bounds, not full timelines or verified inactivity.",
+    "readable_feeds": 1,
+    "status": "partial",
+    "successful_collection_at": "2026-10-23T17:05:14.193645+00:00",
+    "through_date": "2026-10-23"
+  },
   "rolling_30d": [
     {
       "date": "2020-01-01",
@@ -44847,6 +44885,30 @@
       "partial_window": false,
       "posts_per_day": 93.06666666666666,
       "recovered_posts": 2792
+    },
+    {
+      "date": "2026-10-22",
+      "observed_accounts": 47,
+      "observed_outlets": 36,
+      "partial_window": false,
+      "posts_per_day": 92.06666666666666,
+      "recovered_posts": 2762
+    },
+    {
+      "date": "2026-10-23",
+      "observed_accounts": 47,
+      "observed_outlets": 36,
+      "partial_window": false,
+      "posts_per_day": 90.43333333333334,
+      "recovered_posts": 2713
+    },
+    {
+      "date": "2026-10-24",
+      "observed_accounts": null,
+      "observed_outlets": null,
+      "partial_window": true,
+      "posts_per_day": null,
+      "recovered_posts": null
     }
   ],
   "roster": {
@@ -44858,27 +44920,31 @@
     "unresolved_numeric_accounts": 1
   },
   "source": {
-    "corpus_metadata_sha256": "e902fa08b7531e8e69c6b32003109f767bdbf2f139d02494843a2034f3cc801c",
+    "corpus_metadata_sha256": "b73f7af91a841a4a67a89e87e94447774fdfbaf7222474cb5451cf86a042653f",
     "excluded_attribution_posts": 0,
     "excluded_unconfirmed_posts": 0,
-    "latest_collection_at": "2026-10-22T12:21:30.503751+00:00",
-    "primary_audit_sha256": "60885bf1571308dc367b4de1147c0109cac46b701a4595b1ce24c0e59535008c",
+    "latest_collection_at": "2026-10-23T17:05:13.766559+00:00",
+    "primary_audit_sha256": "54aefab21d66ceecffdeddaa094d0e21d05c470d05a44db172a57153c3e432a0",
     "publication_timezone": "Asia/Shanghai",
     "registry_sha256": "87d14446c9bb3347388eb51f73d60735a46f44d8335381cf0d3260d12dc88ce3",
     "requested_windows": [
       {
         "end": "2026-10-21T16:00:00+00:00",
         "start": "2019-12-31T16:00:00+00:00"
+      },
+      {
+        "end": "2026-10-23T17:03:25.611389+00:00",
+        "start": "2019-12-31T16:00:00+00:00"
       }
     ]
   },
   "text_completeness": [
     {
-      "recovered_posts": 5760,
+      "recovered_posts": 5805,
       "status": "source_full"
     },
     {
-      "recovered_posts": 761,
+      "recovered_posts": 765,
       "status": "truncated"
     },
     {
@@ -44917,7 +44983,7 @@
       "year": 2025
     },
     {
-      "recovered_posts": 4415,
+      "recovered_posts": 4464,
       "year": 2026
     }
   ]

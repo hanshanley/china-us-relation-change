@@ -958,8 +958,8 @@
       "uid": "1686203097"
     }
   ],
-  "audited_at": "2026-10-23T15:54:26.843794+00:00",
-  "canonical_posts_sha256": "242c8aa8adc3dda09fd4b9427491475dbd90b86be82e26d2496bc28ecfa52130",
+  "audited_at": "2026-10-23T17:05:14.168099+00:00",
+  "canonical_posts_sha256": "71200e519e64affcbb60235f21227df6a86a47b90ffe1f04359245530b015020",
   "corpus": {
     "archived_sources_checked": 46,
     "canonical_text_corrections": 21,
@@ -967,12 +967,12 @@
     "explicit_prior_detail_conflicts_found": 0,
     "live_registered_profiles_attempted": 86,
     "live_registered_profiles_readable": 81,
-    "native_detail_sources_checked": 5500,
-    "posts_checked": 6521,
-    "primary_text_matches": 6521
+    "native_detail_sources_checked": 5545,
+    "posts_checked": 6570,
+    "primary_text_matches": 6570
   },
-  "post_manifest_sha256": "daf0eda80d3c75aa73e63dd022c919eeab589f60548cff4a2df3473a8f05d492",
+  "post_manifest_sha256": "4e4ee506c35d73f523ae74ae0b4ede01675ae16503e64fb6d3b9bc04f597abe7",
   "registry_sha256": "87d14446c9bb3347388eb51f73d60735a46f44d8335381cf0d3260d12dc88ce3",
-  "scope": "Institutional profile/UID evidence and canonical text/date/source consistency; not current corporate control, continuing U.S. licensing, exhaustive account discovery or complete timelines.",
+  "scope": "Incremental primary-source consistency audit: unchanged bound proofs carried forward; new/changed canonical texts, author IDs and dates checked against fresh saved sources. Identity decisions retain their prior sources; not a new identity sweep or complete timelines.",
   "version": 1
 }
