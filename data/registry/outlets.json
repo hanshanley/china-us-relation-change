@@ -1095,6 +1095,41 @@
       "notes": "Complete root and actual Contact inspected without a qualifying institutional Sina identifier. The currently linked About returnedHTTP404 and was not treated as an inspected company description. Other Eagle papers, Berkshire-named businesses, group and staff accounts were not substituted. Missing links and the About failure are not account negatives; current legal control is not independently audited. Unknown, not absent. Review date: 2026-10-23 UTC."
     },
     {
+      "id": "killeen-daily-herald", "name": "Killeen Daily Herald", "category": "newspaper",
+      "aliases": ["Killeen Daily Herald", "KDH News"],
+      "us_basis": "United States-classified source position166; actual publisher About and Contact identify Killeen, Texas news coverage and publishing correspondence. The historical company narrative is not an independent current ownership audit.",
+      "source_url": "https://kdhnews.com/", "research_status": "reviewed",
+      "notes": "Complete root and actual linked /site/about.html and /site/contact.html read without a qualifying institutional Sina identifier. Generic route matching had missed these information pages. Other Herald titles, sister papers, staff and article-share buttons were not substituted for this newspaper. Unknown, not absent. Review date: 2026-10-23 UTC."
+    },
+    {
+      "id": "rapid-city-journal", "name": "Rapid City Journal", "category": "newspaper",
+      "aliases": ["Rapid City Journal"],
+      "us_basis": "United States-classified source position167; actual root describes South Dakota coverage and Contact identifies a Rapid City, South Dakota publishing address.",
+      "source_url": "https://rapidcityjournal.com/", "research_status": "reviewed",
+      "notes": "Complete root and actual Contact inspected without a qualifying institutional Weibo identifier. Slash variants were counted once; unexpanded staff-directory placeholders were not followed. Other Journal titles, publisher-group and staff accounts were not borrowed, and current legal control was not independently audited. Unknown, not absent. Review date: 2026-10-23 UTC."
+    },
+    {
+      "id": "santa-cruz-sentinel", "name": "Santa Cruz Sentinel / California", "category": "newspaper",
+      "aliases": ["Scotts Valley Santa Cruz Sentinel", "Santa Cruz Sentinel"],
+      "us_basis": "United States-classified source position168; actual root-title metadata identifies Santa Cruz County, California coverage. This metadata-only review does not independently verify a current office or corporate controller.",
+      "source_url": "https://www.santacruzsentinel.com/", "research_status": "reviewed",
+      "notes": "One transient root response yielded no qualifying institutional Sina designation. After an explicit AI/text-data-mining reservation was observed, only factual metadata was retained and the one fresh full copy removed conservatively; raw_file/sha256 are null and no further host requests were made. Contact links were not subsequently fetched. Discarded fingerprints are not available source captures. Unknown, not absent. Review date: 2026-10-23 UTC."
+    },
+    {
+      "id": "slam-magazine", "name": "SLAM / Chinese-edition leads unconfirmed", "category": "sports",
+      "aliases": ["Slam Magazine", "SLAM", "SLAMonline"],
+      "us_basis": "United States-classified source position169; selected U.S. sports-media identity retained. The U.S. site's recorded HTTP403 was respected; Chinese-edition licensing and current operator remain independently unverified in this pass.",
+      "source_url": "https://slamonline.com/", "research_status": "reviewed",
+      "notes": "Actual platform-owned NBA directory identifies SLAM蔡巍/caiweislam as the magazine's editor, not an institution; its legacy GB2312 source was re-fetched and decoded correctly, preserving encoded and UTF8 variants. An actual TTPlus article covers SLAM's other social-platform handles and contains a generic navigation link to ttplussports with a mismatched follow label. Neither assigns a Sina account to SLAM. Retailer/app-mirror descriptions and WeChat/Tencent-Weibo references were not current license or Sina-account proof. No UID assigned; no request to blocked U.S. or Weibo hosts. Unknown, not absent. Review date: 2026-10-23 UTC."
+    },
+    {
+      "id": "sun-herald-biloxi", "name": "Sun Herald / Biloxi, Mississippi", "category": "newspaper",
+      "aliases": ["Sun Herald", "The Sun Herald"],
+      "us_basis": "United States-classified source position170; actual page14 of the publisher's2015 annual report explicitly joins Sun Herald, www.sunherald.com and Biloxi, Mississippi. This is historical publication scope, not a current ownership or headquarters certificate.",
+      "source_url": "https://www.sunherald.com/", "research_status": "reviewed",
+      "notes": "A fresh ordinary robots-aware publisher attempt timed out before a usable body, consistent with the earlier availability failure. The exact first-party annual-report PDF was independently policy-checked, downloaded, hash-checked and its named row read. It is not account evidence or a substitute copy of unavailable newspaper content. Australian Sun-Herald, other Sun/Herald papers, parent and staff accounts were not substituted. Unknown, not absent. Review date: 2026-10-23 UTC."
+    },
+    {
       "id": "telemundo", "name": "Telemundo / Noticias Telemundo", "category": "broadcast_news",
       "aliases": ["Telemundo", "Noticias Telemundo", "Telemundo Noticias"],
       "us_basis": "United States-classified source position110; actual network root separately links its Noticias Telemundo newsroom section. Current corporate domicile/headquarters and legal account control are not independently audited.",

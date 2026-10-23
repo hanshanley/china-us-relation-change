@@ -28,15 +28,15 @@ The selected **1,000 SCImago U.S.-classified domains** are ranked by digital
 reputation, not traffic; their present ownership/nationality was not independently
 audited. **Five have current-profile evidence, seven historical-only evidence,
 988 remain unknown, and zero are verified negatives.** All underwent homepage
-screening, but only 165 have recorded manual review.
+screening, but only 170 have recorded manual review.
 
-The [latest scheduled pass](discovery_iteration33.md) adds five further
-reviews with seven retained primary HTML captures and four metadata-only
-responses. Newsday's homepage truncation was resolved; RTVI's own Weibo
-coverage was not account proof. Two publishers' explicit AI/text-mining
-reservations were respected by discarding fresh full copies and stopping
-further requests to those hosts.
-Discovery is not exhausted: 835 selected domains still lack a recorded
+The [latest scheduled pass](discovery_iteration34.md) adds five further
+reviews with seven retained HTML resources, a publisher PDF and one
+metadata-only Sentinel response. Actual Killeen information routes were
+followed; SLAM's editor and TTPlus's generic navigation link were not
+promoted to publisher accounts. A legacy source-encoding error was repaired.
+The Sentinel's usage reservation and SLAM's prior HTTP403 were respected.
+Discovery is not exhausted: 830 selected domains still lack a recorded
 manual review. A bounded recurring prompt is active every 30 minutes; later
 passes must advance the frontier rather than repeatedly probing exhausted leads.
 
