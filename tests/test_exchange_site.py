@@ -25,7 +25,7 @@ def test_offline_build_download_round_trip_and_reproducibility(tmp_path):
     bundle = json.loads((site / "downloads/exchange.json").read_text())
     assert bundle["observations"] == canonical
     assert "iie" in bundle["source_policies"] and "macau_tourism" in bundle["source_policies"]
-    assert len(bundle["coverage"]) == 64
+    assert len(bundle["coverage"]) == 72
     downloaded = list(csv.DictReader(io.StringIO((site / "downloads/observations.csv").read_text())))
     assert len(downloaded) == len(canonical) == result["observations"]
     for actual, expected in zip(downloaded, canonical):
@@ -54,7 +54,7 @@ def test_offline_build_download_round_trip_and_reproducibility(tmp_path):
         target = node.get("href") or node["src"]
         if not target.startswith(("https://", "#")):
             assert (site / target).is_file()
-    assert result["comparisons"] == 11
+    assert result["comparisons"] == 12
     before = {p.relative_to(tmp_path): p.read_bytes() for p in tmp_path.rglob("*") if p.is_file()}
     build(tmp_path)
     assert before == {p.relative_to(tmp_path): p.read_bytes() for p in tmp_path.rglob("*") if p.is_file()}
@@ -116,7 +116,7 @@ def test_published_comparisons_match_geography_colors_and_annual_points(tmp_path
     build(tmp_path)
     rows = json.loads((ROOT / "data/site/observations.json").read_text())
     files = list((tmp_path / "outputs/figures").glob("*/comparisons/*/*.svg"))
-    assert len(files) == 44
+    assert len(files) == 48
     for path in files:
         direction, measure, scale = path.stem.removeprefix("chn-hkg-mac-").split("-", 2)
         groups = regional_series(rows, measure, direction)
@@ -161,15 +161,18 @@ def test_figure_background_variants_preserve_data_and_foreground(tmp_path):
     build(tmp_path)
     figures = tmp_path / "outputs/figures"
     assert {p.name for p in figures.iterdir() if p.is_dir()} == {
-        "students", "visitors", "goods_trade", "services_trade", "weibo", "language_learning", "business_presence"}
+        "students", "visitors", "goods_trade", "services_trade", "weibo", "language_learning", "business_presence", "immigration"}
     assert not list(figures.glob("*.svg"))
     originals = list(figures.glob("*/themarginoferror/*-USA-*.svg"))
-    assert len(originals) == 38
+    data = json.loads((ROOT / "data/site/observations.json").read_text())
+    assert len(originals) == len({r["series_id"] for r in data if r["frequency"] == "annual" and r["value"] is not None})
     for original in originals:
         doc = ElementTree.fromstring(original.read_text())
         assert "serif" in original.read_text()
         assert any(x.get("class") == "figure-source" for x in doc.iter())
-        assert any(x.text == "2000" for x in doc.iter())
+        sid = next(r["series_id"] for r in data if r["series_id"].replace(":", "-") == original.stem)
+        first = min(r["year"] for r in data if r["series_id"] == sid and r["frequency"] == "annual" and r["value"] is not None)
+        assert any(x.text == str(first) for x in doc.iter())
         line_color = next(x.get("stroke") for x in doc.iter() if x.get("class") == "data-line")
         for theme, spec in CHART_THEMES.items():
             path = original.parent.parent / theme / original.name

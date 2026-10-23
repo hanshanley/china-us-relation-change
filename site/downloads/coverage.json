@@ -123,6 +123,18 @@
     "destination": "USA",
     "first_year": null,
     "last_year": null,
+    "measure": "air_visitors",
+    "observations": 0,
+    "origin": "CHN",
+    "reason": "Reviewed SIAT estimates cover U.S.-resident air travel to mainland China and Hong Kong only. Other directions are unverified; missing estimates are not zero or all-mode arrivals.",
+    "source_ids": []
+  },
+  {
+    "available_years": [],
+    "baseline_2020": false,
+    "destination": "USA",
+    "first_year": null,
+    "last_year": null,
     "measure": "leisure_visitors",
     "observations": 0,
     "origin": "CHN",
@@ -270,16 +282,58 @@
     ]
   },
   {
-    "available_years": [],
+    "available_years": [
+      2000,
+      2001,
+      2002,
+      2003,
+      2004,
+      2005,
+      2006,
+      2007,
+      2008,
+      2009,
+      2010,
+      2011,
+      2012,
+      2013,
+      2014,
+      2015,
+      2016,
+      2017,
+      2018
+    ],
     "baseline_2020": false,
     "destination": "CHN",
-    "first_year": null,
-    "last_year": null,
+    "first_year": 2000,
+    "last_year": 2018,
     "measure": "visitors",
-    "observations": 0,
+    "observations": 19,
     "origin": "USA",
-    "reason": "No current U.S.-origin all-mode visitor table verified in mainland official releases; historic arrivals are not spliced to air-passenger proxies.",
-    "source_ids": []
+    "reason": "",
+    "source_ids": [
+      "nbs_tourism"
+    ]
+  },
+  {
+    "available_years": [
+      2019,
+      2022,
+      2023,
+      2024,
+      2025
+    ],
+    "baseline_2020": false,
+    "destination": "CHN",
+    "first_year": 2019,
+    "last_year": 2025,
+    "measure": "air_visitors",
+    "observations": 6,
+    "origin": "USA",
+    "reason": "",
+    "source_ids": [
+      "ntto_siat"
+    ]
   },
   {
     "available_years": [],
@@ -492,6 +546,18 @@
     "source_ids": [
       "ntto"
     ]
+  },
+  {
+    "available_years": [],
+    "baseline_2020": false,
+    "destination": "USA",
+    "first_year": null,
+    "last_year": null,
+    "measure": "air_visitors",
+    "observations": 0,
+    "origin": "HKG",
+    "reason": "Reviewed SIAT estimates cover U.S.-resident air travel to mainland China and Hong Kong only. Other directions are unverified; missing estimates are not zero or all-mode arrivals.",
+    "source_ids": []
   },
   {
     "available_years": [],
@@ -681,8 +747,28 @@
     "measure": "visitors",
     "observations": 0,
     "origin": "USA",
-    "reason": "HKTB and Census and Statistics Department visitor-table downloads returned HTTP 403; official data.gov.hk archive had no matching snapshot.",
+    "reason": "HKTB country-specific downloads are access-blocked; reviewed Census and Statistics Department public tables contain regional aggregates, not a U.S.-specific count. SIAT air-travel estimates remain a separate measure.",
     "source_ids": []
+  },
+  {
+    "available_years": [
+      2019,
+      2022,
+      2023,
+      2024,
+      2025
+    ],
+    "baseline_2020": false,
+    "destination": "HKG",
+    "first_year": 2019,
+    "last_year": 2025,
+    "measure": "air_visitors",
+    "observations": 6,
+    "origin": "USA",
+    "reason": "",
+    "source_ids": [
+      "ntto_siat"
+    ]
   },
   {
     "available_years": [],
@@ -895,6 +981,18 @@
     "source_ids": [
       "ntto"
     ]
+  },
+  {
+    "available_years": [],
+    "baseline_2020": false,
+    "destination": "USA",
+    "first_year": null,
+    "last_year": null,
+    "measure": "air_visitors",
+    "observations": 0,
+    "origin": "MAC",
+    "reason": "Reviewed SIAT estimates cover U.S.-resident air travel to mainland China and Hong Kong only. Other directions are unverified; missing estimates are not zero or all-mode arrivals.",
+    "source_ids": []
   },
   {
     "available_years": [],
@@ -1088,6 +1186,18 @@
     "destination": "MAC",
     "first_year": null,
     "last_year": null,
+    "measure": "air_visitors",
+    "observations": 0,
+    "origin": "USA",
+    "reason": "Reviewed SIAT estimates cover U.S.-resident air travel to mainland China and Hong Kong only. Other directions are unverified; missing estimates are not zero or all-mode arrivals.",
+    "source_ids": []
+  },
+  {
+    "available_years": [],
+    "baseline_2020": false,
+    "destination": "MAC",
+    "first_year": null,
+    "last_year": null,
     "measure": "leisure_visitors",
     "observations": 0,
     "origin": "USA",
@@ -1251,6 +1361,18 @@
     "source_ids": [
       "ntto"
     ]
+  },
+  {
+    "available_years": [],
+    "baseline_2020": false,
+    "destination": "USA",
+    "first_year": null,
+    "last_year": null,
+    "measure": "air_visitors",
+    "observations": 0,
+    "origin": "TWN",
+    "reason": "Reviewed SIAT estimates cover U.S.-resident air travel to mainland China and Hong Kong only. Other directions are unverified; missing estimates are not zero or all-mode arrivals.",
+    "source_ids": []
   },
   {
     "available_years": [],
@@ -1432,6 +1554,18 @@
     "source_ids": [
       "taiwan_tourism"
     ]
+  },
+  {
+    "available_years": [],
+    "baseline_2020": false,
+    "destination": "TWN",
+    "first_year": null,
+    "last_year": null,
+    "measure": "air_visitors",
+    "observations": 0,
+    "origin": "USA",
+    "reason": "Reviewed SIAT estimates cover U.S.-resident air travel to mainland China and Hong Kong only. Other directions are unverified; missing estimates are not zero or all-mode arrivals.",
+    "source_ids": []
   },
   {
     "available_years": [

@@ -5,13 +5,15 @@ import io
 import re
 import time
 from datetime import datetime
+from decimal import Decimal
 from urllib.parse import urljoin
 
+import xlrd
 from bs4 import BeautifulSoup
 from openpyxl import load_workbook
 from pypdf import PdfReader
 
-from .model import START_YEAR, observation
+from .model import START_YEAR, digest, observation
 
 
 BEA = "https://www.bea.gov/data/intl-trade-investment/international-trade-goods-and-services"
@@ -389,6 +391,77 @@ def iie(client):
 
 
 MACAU_INDEX = "https://dataplus.macaotourism.gov.mo/Publication/StatisticalTables?lang=E"
+
+NBS_VISITOR_BOOKS = [
+    (2007, "https://www.stats.gov.cn/sj/ndsj/2007/html/S1904e.xls", 2000, 2006),
+    (2010, "https://www.stats.gov.cn/sj/ndsj/2010/html/Q1823e.xls", 2007, 2009),
+    (2013, "https://www.stats.gov.cn/sj/ndsj/2013/html/Z1813E.xls", 2010, 2012),
+    (2014, "https://www.stats.gov.cn/sj/ndsj/2014/zk/html/Z1713E.xls", 2013, 2013),
+]
+NBS_VISITOR_IMAGES = [
+    (2015, "https://www.stats.gov.cn/sj/ndsj/2015/html/EN1713.jpg",
+     "b8746ca462e96a2bc9c6529fd64d7b590a0bab453be1b6b69f4c900279960c4b", {2014: "209.32"}),
+    (2018, "https://www.stats.gov.cn/sj/ndsj/2018/html/EN1713.jpg",
+     "0d62746af9611e8c9718d57777a7d6d05da1c570b29b36157d016bbe9af00642",
+     {2015: "208.58", 2016: "224.96", 2017: "231.29"}),
+    (2019, "https://www.stats.gov.cn/sj/ndsj/2019/html/C1713.jpg",
+     "9158f19cee30f78d45d6b24fa5cd6c960a341a163734251a2cfb2096f17bca54", {2018: "248.46"}),
+]
+
+
+def parse_nbs_visitor_records(records, first, last):
+    if not any("10 000 person-times" in str(v) for r in records[:6] for v in r):
+        raise ValueError("NBS visitor units changed")
+    header = next(r for r in records if str(r[0]).strip() == "Region")
+    columns = {int(value): i for i, value in enumerate(header) if isinstance(value, (int, float)) and 2000 <= value <= 2100}
+    if not set(range(first, last + 1)) <= columns.keys():
+        raise ValueError("NBS visitor year coverage incomplete")
+    matches = [r for r in records if str(r[0]).strip() == "United States"]
+    if len(matches) != 1:
+        raise ValueError("NBS United States visitor row missing or ambiguous")
+    values = {}
+    for year in range(first, last + 1):
+        value = matches[0][columns[year]]
+        if isinstance(value, bool) or not isinstance(value, (int, float)):
+            raise ValueError("NBS visitor missingness must not become zero")
+        count = Decimal(str(value)) * 10000
+        if count < 0 or count != int(count):
+            raise ValueError("NBS person-time count does not reconcile")
+        values[year] = int(count)
+    return values
+
+
+def nbs_tourism(client):
+    result = []
+
+    def add(values, asset, edition, method):
+        for year, value in values.items():
+            result.extend(attach([observation(
+                "nbs_tourism", "USA", "CHN", "visitors", year, value,
+                "NBS/MCT overseas visitor arrivals attributed to the United States; all-purpose trips, not unique people or leisure-only tourists",
+                notes=f"{method}; source unit 10,000 person-times, converted to trips. Published precision retained. "
+                      "Country attribution is not a count of U.S. residents departing from the U.S. "
+                      "This historical all-mode series is not extended using air-only survey estimates."
+            )], asset, f"China Statistical Yearbook {edition}; overseas visitor arrivals by country/region"))
+
+    for edition, url, first, last in NBS_VISITOR_BOOKS:
+        body, asset = client.get(url)
+        sheet = xlrd.open_workbook(file_contents=body).sheet_by_index(0)
+        values = parse_nbs_visitor_records([sheet.row_values(i) for i in range(sheet.nrows)], first, last)
+        add(values, asset, edition, "Machine-read official Excel United States row")
+    for edition, url, checksum, cells in NBS_VISITOR_IMAGES:
+        body, asset = client.get(url)
+        if digest(body) != checksum:
+            raise ValueError("Reviewed NBS visitor image changed; recheck the country row before publication")
+        add({year: int(Decimal(value) * 10000) for year, value in cells.items()}, asset, edition,
+            "Visually reviewed official table, United States row; image checksum pinned; cells rounded to 0.01 source units")
+    if {r["year"] for r in result} != set(range(2000, 2019)):
+        raise ValueError("Reviewed mainland visitor history incomplete")
+    return result, "NBS/MCT historical visitor tables, 2000–2018", (
+        "Official China Statistical Yearbooks 2007, 2010, 2013, 2014, 2015, 2018 and 2019. "
+        "Selected historical source vintages; source units converted from 10,000 person-times. "
+        "Later bilateral all-mode counts are not verified here. Not leisure-only visitors, unique people, "
+        "U.S. departures, or a series spliced to U.S. resident air-travel estimates.")
 
 
 def parse_macau(content, year):

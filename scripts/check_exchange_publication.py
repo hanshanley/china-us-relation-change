@@ -55,11 +55,46 @@ def check(site, url=None, screenshots=None):
             page.select_option("#measure", "goods")
             if screenshots:
                 page.screenshot(path=str(screenshots / f"collective-exchanges-{width}.png"))
-            for name in ["comparisons.html", "language-learning.html", "business-presence.html", "weibo.html"]:
+            page.goto(url.rsplit("/", 1)[0] + "/travel.html")
+            expect(page.locator("h1")).to_have_text("Travel & tourism")
+            expect(page.locator("#measure")).to_have_value("visitors")
+            expect(page.locator(".travel-definition")).to_contain_text("not just tourism")
+            expect(page.locator("#latest-period")).to_contain_text("2025")
+            expect(page.locator("#partial-panel")).to_contain_text("2026")
+            assert page.locator("#chart .screen-point").count() == 26
+            page.select_option("#direction", "from_us")
+            assert page.locator("#chart .screen-point").count() == 19
+            page.select_option("#measure", "air_visitors")
+            assert page.locator("#chart .screen-point").count() == 5
+            expect(page.locator("#partial-panel")).to_contain_text("2026")
+            assert page.locator("#chart .screen-point[data-year='2020']").count() == 0
+            for geo in ("CHN", "HKG"):
+                page.select_option("#geography", geo)
+                expect(page.locator("#latest-period")).to_contain_text("2025")
+                expect(page.locator("#partial-panel")).to_contain_text("2026")
+            for name in ["immigration.html", "comparisons.html", "language-learning.html", "business-presence.html", "weibo.html"]:
                 page.goto(url.rsplit("/", 1)[0] + "/" + name)
                 page.evaluate("document.fonts.ready")
                 expect(page.locator(".module-controls")).to_be_visible()
+                if name == "immigration.html":
+                    page.select_option("#module-chart", "migrant-stock-from-us")
+                    assert page.locator("#migrant-stock-from-us .screen-point").count() == 12
+                    expect(page.locator("#migrant-stock-from-us")).to_contain_text("citizenship")
+                    page.select_option("#module-chart", "green-card-grants")
+                    assert page.locator("#green-card-grants .screen-point").count() == 75
+                    page.select_option("#module-chart", "latest-admissions")
+                    assert page.locator("#latest-admissions .screen-bar").evaluate_all(
+                        "nodes=>nodes.map(n=>Number(n.dataset.value))") == [27020, 38650]
                 if name == "language-learning.html":
+                    expect(page.locator("#module-chart")).to_have_value("college-enrollments")
+                    assert page.locator("#college-enrollments .screen-point").count() == 18
+                    page.select_option("#module-chart", "school-language-enrollments")
+                    assert page.locator("#school-language-enrollments .screen-bar").evaluate_all(
+                        "nodes=>nodes.map(n=>Number(n.dataset.value))") == [227086, 67909]
+                    page.select_option("#module-chart", "school-language-availability")
+                    assert page.locator("#school-language-availability .screen-bar").evaluate_all(
+                        "nodes=>nodes.map(n=>Number(n.dataset.value))") == [1144, 433, 43]
+                    page.select_option("#module-chart", "ap-chinese-global")
                     assert page.locator("#ap-chinese-global .screen-point").count() == 38
                     years = page.locator("#ap-chinese-global .screen-year").all_text_contents()
                     assert years[0] == "2007" and years[-1] == "2025"

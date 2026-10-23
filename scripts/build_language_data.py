@@ -12,7 +12,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
 from us_china_exchange.language_analysis import validate_language_data
-from us_china_exchange.language_sources import AP_GROUP_CONTEXT, MLA_SNAPSHOT, ReviewClient, ap_global, ap_us_cohorts, ipeds, mla, schools, source
+from us_china_exchange.language_sources import AP_GROUP_CONTEXT, MLA_SNAPSHOT, ReviewClient, ap_global, ap_us_cohorts, ipeds, mla, schools, school_comparisons, source
 from us_china_exchange.model import json_text
 from us_china_exchange.pipeline import write_atomic
 
@@ -23,7 +23,7 @@ def collect(client, last_degree_year=2024):
     result = {"version": 1, "series": {}, "observations": [], "sources": {}, "coverage": [], "context": {}}
     for name, fetch in [("MLA", mla), ("AP", ap_global), ("AP U.S. cohorts", ap_us_cohorts),
                         ("IPEDS", lambda c: ipeds(c, range(2000, last_degree_year + 1))),
-                        ("Schools", schools)]:
+                        ("Schools", schools), ("School language comparisons", school_comparisons)]:
         print("Reviewing " + name + " sources...", flush=True)
         definitions, observations, sources = fetch(client)
         if set(definitions) & result["series"].keys() or set(sources) & result["sources"].keys():
@@ -81,7 +81,30 @@ def collect(client, last_degree_year=2024):
     }
     result["context"]["ap_groups"] = AP_GROUP_CONTEXT
     result["observations"].sort(key=lambda r: (r["series_id"], r["year"]))
+    return update_school_context(result)
+
+
+def update_school_context(result):
+    for item in result["coverage"]:
+        if item["id"] == "k12_learners":
+            item["description"] = ("2014-15-era Chinese/Japanese national enrollment estimates, published 2017. "
+                                   "No comparable national Korean total or continuous K-12 census is verified.")
+    result["coverage"] = [r for r in result["coverage"] if r["id"] not in {"hs_language_availability", "language_demand"}] + [
+        {"id": "hs_language_availability", "status": "snapshot_only",
+         "description": "2014-15 reported high-school programs: Chinese 1,144, Japanese 433 and Korean 43. Not unique schools or a national availability census."},
+        {"id": "language_demand", "status": "not_measured",
+         "description": "Enrollments, program availability and exam participation do not directly measure unmet demand. No composite national learner total is calculated."}]
     return validate_language_data(result)
+
+
+def collect_school_comparisons(client, prior):
+    result = copy.deepcopy(prior)
+    definitions, observations, sources = school_comparisons(client)
+    result["series"].update(definitions)
+    result["sources"].update(sources)
+    result["observations"] = [r for r in result["observations"] if r["series_id"] not in definitions] + observations
+    result["observations"].sort(key=lambda r: (r["series_id"], r["year"]))
+    return update_school_context(result)
 
 
 def collect_ap(client, prior):
@@ -105,11 +128,16 @@ if __name__ == "__main__":
     parser.add_argument("--refresh", action="store_true", help="Explicitly re-fetch reviewed public source files instead of their checksummed local cache")
     parser.add_argument("--last-degree-year", type=int, default=2024)
     parser.add_argument("--data-only", action="store_true")
-    parser.add_argument("--ap-only", action="store_true", help="Review only AP sources; preserve all non-AP observations and definitions")
+    selection = parser.add_mutually_exclusive_group()
+    selection.add_argument("--ap-only", action="store_true", help="Review only AP sources; preserve all non-AP observations and definitions")
+    selection.add_argument("--schools-only", action="store_true", help="Add reviewed school language comparisons; preserve all other observations")
     args = parser.parse_args()
     client = ReviewClient(ROOT / "data/local/language-learning/raw", args.refresh)
-    data = (collect_ap(client, json.loads((ROOT / "data/site/language_learning.json").read_text()))
-            if args.ap_only else collect(client, args.last_degree_year))
+    if args.ap_only or args.schools_only:
+        prior = json.loads((ROOT / "data/site/language_learning.json").read_text())
+        data = (collect_ap if args.ap_only else collect_school_comparisons)(client, prior)
+    else:
+        data = collect(client, args.last_degree_year)
     write_atomic(ROOT / "data/site/language_learning.json", json_text(data))
     if not args.data_only:
         from us_china_exchange.render import build

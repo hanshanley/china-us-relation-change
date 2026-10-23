@@ -1,0 +1,1133 @@
+{
+  "context": {
+    "definition": "The OHSS series count grants of U.S. permanent-resident status; the UN series count resident stocks. Neither is a measure of net migration. Grants include adjustments by people already in the United States, not only new physical arrivals. Birthplace is not a departure country.",
+    "periods": "U.S. fiscal years end September 30, not December 31. Birthplace and nationality series remain separate.",
+    "resident_stocks": "UN stocks refer to 1 July in actual published benchmark years. China destination estimates use foreign citizenship; Hong Kong and U.S. destination estimates use foreign birth. Refugee adjustments are included where flagged R. These are not new immigration or net migration. No annual observations are invented between benchmarks.",
+    "rights": "Selected statistical aggregates and original figures only; no source workbooks are redistributed. UN estimates: United Nations DESA, Population Division, International Migrant Stock 2024, adapted under CC BY 3.0 IGO.",
+    "rounding": "FY2015\u20132024 birthplace counts and FY2025 nationality counts are rounded to the nearest ten. Earlier figures use older, exact-count vintages."
+  },
+  "coverage": [
+    {
+      "description": "China, Hong Kong and Macau birthplace series, FY2000\u2013FY2024; all permanent-resident status grants.",
+      "id": "to_us_birthplace",
+      "status": "available"
+    },
+    {
+      "description": "China nationality category, FY2025 reported annual totals. Hong Kong and Macau are not separately identified in this table.",
+      "id": "to_us_nationality",
+      "status": "available"
+    },
+    {
+      "description": "A comparable annual U.S.-to-mainland-China permanent-residency series has not been verified. All-foreigner visas, residence permits and border crossings are not substitutes.",
+      "id": "from_us",
+      "status": "not_verified"
+    },
+    {
+      "description": "UN bilateral resident estimates in both directions for mainland China and Hong Kong: 2000, 2005, 2010, 2015, 2020 and 2024. Mainland destination uses U.S. citizenship, not U.S. birthplace. These stocks are not immigration flows.",
+      "id": "bilateral_resident_stocks",
+      "status": "available"
+    },
+    {
+      "description": "The reviewed UN bilateral table does not separately report the U.S.\u2013Macau pair. No zero or allocation from mainland China is inferred.",
+      "id": "macau_resident_stock",
+      "status": "not_verified"
+    }
+  ],
+  "observations": [
+    {
+      "comparability": "ohss_birth:CHN",
+      "notes": "Fiscal year ending September 30. ",
+      "series_id": "ohss_birth:CHN",
+      "source_id": "ohss_birth_2004",
+      "status": "observed",
+      "value": 45652,
+      "year": 2000
+    },
+    {
+      "comparability": "ohss_birth:CHN",
+      "notes": "Fiscal year ending September 30. ",
+      "series_id": "ohss_birth:CHN",
+      "source_id": "ohss_birth_2004",
+      "status": "observed",
+      "value": 56426,
+      "year": 2001
+    },
+    {
+      "comparability": "ohss_birth:CHN",
+      "notes": "Fiscal year ending September 30. ",
+      "series_id": "ohss_birth:CHN",
+      "source_id": "ohss_birth_2004",
+      "status": "observed",
+      "value": 61282,
+      "year": 2002
+    },
+    {
+      "comparability": "ohss_birth:CHN",
+      "notes": "Fiscal year ending September 30. ",
+      "series_id": "ohss_birth:CHN",
+      "source_id": "ohss_birth_2004",
+      "status": "observed",
+      "value": 40659,
+      "year": 2003
+    },
+    {
+      "comparability": "ohss_birth:CHN",
+      "notes": "Fiscal year ending September 30. ",
+      "series_id": "ohss_birth:CHN",
+      "source_id": "ohss_birth_2004",
+      "status": "observed",
+      "value": 51156,
+      "year": 2004
+    },
+    {
+      "comparability": "ohss_birth:CHN",
+      "notes": "Fiscal year ending September 30. ",
+      "series_id": "ohss_birth:CHN",
+      "source_id": "ohss_birth_2014",
+      "status": "observed",
+      "value": 69933,
+      "year": 2005
+    },
+    {
+      "comparability": "ohss_birth:CHN",
+      "notes": "Fiscal year ending September 30. ",
+      "series_id": "ohss_birth:CHN",
+      "source_id": "ohss_birth_2014",
+      "status": "observed",
+      "value": 87307,
+      "year": 2006
+    },
+    {
+      "comparability": "ohss_birth:CHN",
+      "notes": "Fiscal year ending September 30. ",
+      "series_id": "ohss_birth:CHN",
+      "source_id": "ohss_birth_2014",
+      "status": "observed",
+      "value": 76655,
+      "year": 2007
+    },
+    {
+      "comparability": "ohss_birth:CHN",
+      "notes": "Fiscal year ending September 30. ",
+      "series_id": "ohss_birth:CHN",
+      "source_id": "ohss_birth_2014",
+      "status": "observed",
+      "value": 80271,
+      "year": 2008
+    },
+    {
+      "comparability": "ohss_birth:CHN",
+      "notes": "Fiscal year ending September 30. ",
+      "series_id": "ohss_birth:CHN",
+      "source_id": "ohss_birth_2014",
+      "status": "observed",
+      "value": 64238,
+      "year": 2009
+    },
+    {
+      "comparability": "ohss_birth:CHN",
+      "notes": "Fiscal year ending September 30. ",
+      "series_id": "ohss_birth:CHN",
+      "source_id": "ohss_birth_2014",
+      "status": "observed",
+      "value": 70863,
+      "year": 2010
+    },
+    {
+      "comparability": "ohss_birth:CHN",
+      "notes": "Fiscal year ending September 30. ",
+      "series_id": "ohss_birth:CHN",
+      "source_id": "ohss_birth_2014",
+      "status": "observed",
+      "value": 87016,
+      "year": 2011
+    },
+    {
+      "comparability": "ohss_birth:CHN",
+      "notes": "Fiscal year ending September 30. ",
+      "series_id": "ohss_birth:CHN",
+      "source_id": "ohss_birth_2014",
+      "status": "observed",
+      "value": 81784,
+      "year": 2012
+    },
+    {
+      "comparability": "ohss_birth:CHN",
+      "notes": "Fiscal year ending September 30. ",
+      "series_id": "ohss_birth:CHN",
+      "source_id": "ohss_birth_2014",
+      "status": "observed",
+      "value": 71798,
+      "year": 2013
+    },
+    {
+      "comparability": "ohss_birth:CHN",
+      "notes": "Fiscal year ending September 30. ",
+      "series_id": "ohss_birth:CHN",
+      "source_id": "ohss_birth_2014",
+      "status": "observed",
+      "value": 76089,
+      "year": 2014
+    },
+    {
+      "comparability": "ohss_birth:CHN",
+      "notes": "Fiscal year ending September 30. Rounded to nearest ten.",
+      "series_id": "ohss_birth:CHN",
+      "source_id": "ohss_birth_2024",
+      "status": "rounded",
+      "value": 74560,
+      "year": 2015
+    },
+    {
+      "comparability": "ohss_birth:CHN",
+      "notes": "Fiscal year ending September 30. Rounded to nearest ten.",
+      "series_id": "ohss_birth:CHN",
+      "source_id": "ohss_birth_2024",
+      "status": "rounded",
+      "value": 81770,
+      "year": 2016
+    },
+    {
+      "comparability": "ohss_birth:CHN",
+      "notes": "Fiscal year ending September 30. Rounded to nearest ten.",
+      "series_id": "ohss_birth:CHN",
+      "source_id": "ohss_birth_2024",
+      "status": "rounded",
+      "value": 71570,
+      "year": 2017
+    },
+    {
+      "comparability": "ohss_birth:CHN",
+      "notes": "Fiscal year ending September 30. Rounded to nearest ten.",
+      "series_id": "ohss_birth:CHN",
+      "source_id": "ohss_birth_2024",
+      "status": "rounded",
+      "value": 65210,
+      "year": 2018
+    },
+    {
+      "comparability": "ohss_birth:CHN",
+      "notes": "Fiscal year ending September 30. Rounded to nearest ten.",
+      "series_id": "ohss_birth:CHN",
+      "source_id": "ohss_birth_2024",
+      "status": "rounded",
+      "value": 62250,
+      "year": 2019
+    },
+    {
+      "comparability": "ohss_birth:CHN",
+      "notes": "Fiscal year ending September 30. Rounded to nearest ten.",
+      "series_id": "ohss_birth:CHN",
+      "source_id": "ohss_birth_2024",
+      "status": "rounded",
+      "value": 41480,
+      "year": 2020
+    },
+    {
+      "comparability": "ohss_birth:CHN",
+      "notes": "Fiscal year ending September 30. Rounded to nearest ten.",
+      "series_id": "ohss_birth:CHN",
+      "source_id": "ohss_birth_2024",
+      "status": "rounded",
+      "value": 49850,
+      "year": 2021
+    },
+    {
+      "comparability": "ohss_birth:CHN",
+      "notes": "Fiscal year ending September 30. Rounded to nearest ten.",
+      "series_id": "ohss_birth:CHN",
+      "source_id": "ohss_birth_2024",
+      "status": "rounded",
+      "value": 67950,
+      "year": 2022
+    },
+    {
+      "comparability": "ohss_birth:CHN",
+      "notes": "Fiscal year ending September 30. Rounded to nearest ten.",
+      "series_id": "ohss_birth:CHN",
+      "source_id": "ohss_birth_2024",
+      "status": "rounded",
+      "value": 59260,
+      "year": 2023
+    },
+    {
+      "comparability": "ohss_birth:CHN",
+      "notes": "Fiscal year ending September 30. Rounded to nearest ten.",
+      "series_id": "ohss_birth:CHN",
+      "source_id": "ohss_birth_2024",
+      "status": "rounded",
+      "value": 71470,
+      "year": 2024
+    },
+    {
+      "comparability": "ohss_birth:HKG",
+      "notes": "Fiscal year ending September 30. ",
+      "series_id": "ohss_birth:HKG",
+      "source_id": "ohss_birth_2004",
+      "status": "observed",
+      "value": 5419,
+      "year": 2000
+    },
+    {
+      "comparability": "ohss_birth:HKG",
+      "notes": "Fiscal year ending September 30. ",
+      "series_id": "ohss_birth:HKG",
+      "source_id": "ohss_birth_2004",
+      "status": "observed",
+      "value": 8321,
+      "year": 2001
+    },
+    {
+      "comparability": "ohss_birth:HKG",
+      "notes": "Fiscal year ending September 30. ",
+      "series_id": "ohss_birth:HKG",
+      "source_id": "ohss_birth_2004",
+      "status": "observed",
+      "value": 6090,
+      "year": 2002
+    },
+    {
+      "comparability": "ohss_birth:HKG",
+      "notes": "Fiscal year ending September 30. ",
+      "series_id": "ohss_birth:HKG",
+      "source_id": "ohss_birth_2004",
+      "status": "observed",
+      "value": 3582,
+      "year": 2003
+    },
+    {
+      "comparability": "ohss_birth:HKG",
+      "notes": "Fiscal year ending September 30. ",
+      "series_id": "ohss_birth:HKG",
+      "source_id": "ohss_birth_2004",
+      "status": "observed",
+      "value": 3951,
+      "year": 2004
+    },
+    {
+      "comparability": "ohss_birth:HKG",
+      "notes": "Fiscal year ending September 30. ",
+      "series_id": "ohss_birth:HKG",
+      "source_id": "ohss_birth_2014",
+      "status": "observed",
+      "value": 3705,
+      "year": 2005
+    },
+    {
+      "comparability": "ohss_birth:HKG",
+      "notes": "Fiscal year ending September 30. ",
+      "series_id": "ohss_birth:HKG",
+      "source_id": "ohss_birth_2014",
+      "status": "observed",
+      "value": 3256,
+      "year": 2006
+    },
+    {
+      "comparability": "ohss_birth:HKG",
+      "notes": "Fiscal year ending September 30. ",
+      "series_id": "ohss_birth:HKG",
+      "source_id": "ohss_birth_2014",
+      "status": "observed",
+      "value": 3527,
+      "year": 2007
+    },
+    {
+      "comparability": "ohss_birth:HKG",
+      "notes": "Fiscal year ending September 30. ",
+      "series_id": "ohss_birth:HKG",
+      "source_id": "ohss_birth_2014",
+      "status": "observed",
+      "value": 3373,
+      "year": 2008
+    },
+    {
+      "comparability": "ohss_birth:HKG",
+      "notes": "Fiscal year ending September 30. ",
+      "series_id": "ohss_birth:HKG",
+      "source_id": "ohss_birth_2014",
+      "status": "observed",
+      "value": 2651,
+      "year": 2009
+    },
+    {
+      "comparability": "ohss_birth:HKG",
+      "notes": "Fiscal year ending September 30. ",
+      "series_id": "ohss_birth:HKG",
+      "source_id": "ohss_birth_2014",
+      "status": "observed",
+      "value": 2432,
+      "year": 2010
+    },
+    {
+      "comparability": "ohss_birth:HKG",
+      "notes": "Fiscal year ending September 30. ",
+      "series_id": "ohss_birth:HKG",
+      "source_id": "ohss_birth_2014",
+      "status": "observed",
+      "value": 2306,
+      "year": 2011
+    },
+    {
+      "comparability": "ohss_birth:HKG",
+      "notes": "Fiscal year ending September 30. ",
+      "series_id": "ohss_birth:HKG",
+      "source_id": "ohss_birth_2014",
+      "status": "observed",
+      "value": 2104,
+      "year": 2012
+    },
+    {
+      "comparability": "ohss_birth:HKG",
+      "notes": "Fiscal year ending September 30. ",
+      "series_id": "ohss_birth:HKG",
+      "source_id": "ohss_birth_2014",
+      "status": "observed",
+      "value": 2226,
+      "year": 2013
+    },
+    {
+      "comparability": "ohss_birth:HKG",
+      "notes": "Fiscal year ending September 30. ",
+      "series_id": "ohss_birth:HKG",
+      "source_id": "ohss_birth_2014",
+      "status": "observed",
+      "value": 2278,
+      "year": 2014
+    },
+    {
+      "comparability": "ohss_birth:HKG",
+      "notes": "Fiscal year ending September 30. Rounded to nearest ten.",
+      "series_id": "ohss_birth:HKG",
+      "source_id": "ohss_birth_2024",
+      "status": "rounded",
+      "value": 2090,
+      "year": 2015
+    },
+    {
+      "comparability": "ohss_birth:HKG",
+      "notes": "Fiscal year ending September 30. Rounded to nearest ten.",
+      "series_id": "ohss_birth:HKG",
+      "source_id": "ohss_birth_2024",
+      "status": "rounded",
+      "value": 2510,
+      "year": 2016
+    },
+    {
+      "comparability": "ohss_birth:HKG",
+      "notes": "Fiscal year ending September 30. Rounded to nearest ten.",
+      "series_id": "ohss_birth:HKG",
+      "source_id": "ohss_birth_2024",
+      "status": "rounded",
+      "value": 2420,
+      "year": 2017
+    },
+    {
+      "comparability": "ohss_birth:HKG",
+      "notes": "Fiscal year ending September 30. Rounded to nearest ten.",
+      "series_id": "ohss_birth:HKG",
+      "source_id": "ohss_birth_2024",
+      "status": "rounded",
+      "value": 2080,
+      "year": 2018
+    },
+    {
+      "comparability": "ohss_birth:HKG",
+      "notes": "Fiscal year ending September 30. Rounded to nearest ten.",
+      "series_id": "ohss_birth:HKG",
+      "source_id": "ohss_birth_2024",
+      "status": "rounded",
+      "value": 2020,
+      "year": 2019
+    },
+    {
+      "comparability": "ohss_birth:HKG",
+      "notes": "Fiscal year ending September 30. Rounded to nearest ten.",
+      "series_id": "ohss_birth:HKG",
+      "source_id": "ohss_birth_2024",
+      "status": "rounded",
+      "value": 1780,
+      "year": 2020
+    },
+    {
+      "comparability": "ohss_birth:HKG",
+      "notes": "Fiscal year ending September 30. Rounded to nearest ten.",
+      "series_id": "ohss_birth:HKG",
+      "source_id": "ohss_birth_2024",
+      "status": "rounded",
+      "value": 1330,
+      "year": 2021
+    },
+    {
+      "comparability": "ohss_birth:HKG",
+      "notes": "Fiscal year ending September 30. Rounded to nearest ten.",
+      "series_id": "ohss_birth:HKG",
+      "source_id": "ohss_birth_2024",
+      "status": "rounded",
+      "value": 2300,
+      "year": 2022
+    },
+    {
+      "comparability": "ohss_birth:HKG",
+      "notes": "Fiscal year ending September 30. Rounded to nearest ten.",
+      "series_id": "ohss_birth:HKG",
+      "source_id": "ohss_birth_2024",
+      "status": "rounded",
+      "value": 2290,
+      "year": 2023
+    },
+    {
+      "comparability": "ohss_birth:HKG",
+      "notes": "Fiscal year ending September 30. Rounded to nearest ten.",
+      "series_id": "ohss_birth:HKG",
+      "source_id": "ohss_birth_2024",
+      "status": "rounded",
+      "value": 1950,
+      "year": 2024
+    },
+    {
+      "comparability": "ohss_birth:MAC",
+      "notes": "Fiscal year ending September 30. ",
+      "series_id": "ohss_birth:MAC",
+      "source_id": "ohss_birth_2004",
+      "status": "observed",
+      "value": 270,
+      "year": 2000
+    },
+    {
+      "comparability": "ohss_birth:MAC",
+      "notes": "Fiscal year ending September 30. ",
+      "series_id": "ohss_birth:MAC",
+      "source_id": "ohss_birth_2004",
+      "status": "observed",
+      "value": 342,
+      "year": 2001
+    },
+    {
+      "comparability": "ohss_birth:MAC",
+      "notes": "Fiscal year ending September 30. ",
+      "series_id": "ohss_birth:MAC",
+      "source_id": "ohss_birth_2004",
+      "status": "observed",
+      "value": 284,
+      "year": 2002
+    },
+    {
+      "comparability": "ohss_birth:MAC",
+      "notes": "Fiscal year ending September 30. ",
+      "series_id": "ohss_birth:MAC",
+      "source_id": "ohss_birth_2004",
+      "status": "observed",
+      "value": 246,
+      "year": 2003
+    },
+    {
+      "comparability": "ohss_birth:MAC",
+      "notes": "Fiscal year ending September 30. ",
+      "series_id": "ohss_birth:MAC",
+      "source_id": "ohss_birth_2004",
+      "status": "observed",
+      "value": 192,
+      "year": 2004
+    },
+    {
+      "comparability": "ohss_birth:MAC",
+      "notes": "Fiscal year ending September 30. ",
+      "series_id": "ohss_birth:MAC",
+      "source_id": "ohss_birth_2014",
+      "status": "observed",
+      "value": 133,
+      "year": 2005
+    },
+    {
+      "comparability": "ohss_birth:MAC",
+      "notes": "Fiscal year ending September 30. ",
+      "series_id": "ohss_birth:MAC",
+      "source_id": "ohss_birth_2014",
+      "status": "observed",
+      "value": 189,
+      "year": 2006
+    },
+    {
+      "comparability": "ohss_birth:MAC",
+      "notes": "Fiscal year ending September 30. ",
+      "series_id": "ohss_birth:MAC",
+      "source_id": "ohss_birth_2014",
+      "status": "observed",
+      "value": 178,
+      "year": 2007
+    },
+    {
+      "comparability": "ohss_birth:MAC",
+      "notes": "Fiscal year ending September 30. ",
+      "series_id": "ohss_birth:MAC",
+      "source_id": "ohss_birth_2014",
+      "status": "observed",
+      "value": 205,
+      "year": 2008
+    },
+    {
+      "comparability": "ohss_birth:MAC",
+      "notes": "Fiscal year ending September 30. ",
+      "series_id": "ohss_birth:MAC",
+      "source_id": "ohss_birth_2014",
+      "status": "observed",
+      "value": 158,
+      "year": 2009
+    },
+    {
+      "comparability": "ohss_birth:MAC",
+      "notes": "Fiscal year ending September 30. ",
+      "series_id": "ohss_birth:MAC",
+      "source_id": "ohss_birth_2014",
+      "status": "observed",
+      "value": 143,
+      "year": 2010
+    },
+    {
+      "comparability": "ohss_birth:MAC",
+      "notes": "Fiscal year ending September 30. ",
+      "series_id": "ohss_birth:MAC",
+      "source_id": "ohss_birth_2014",
+      "status": "observed",
+      "value": 130,
+      "year": 2011
+    },
+    {
+      "comparability": "ohss_birth:MAC",
+      "notes": "Fiscal year ending September 30. ",
+      "series_id": "ohss_birth:MAC",
+      "source_id": "ohss_birth_2014",
+      "status": "observed",
+      "value": 120,
+      "year": 2012
+    },
+    {
+      "comparability": "ohss_birth:MAC",
+      "notes": "Fiscal year ending September 30. ",
+      "series_id": "ohss_birth:MAC",
+      "source_id": "ohss_birth_2014",
+      "status": "observed",
+      "value": 106,
+      "year": 2013
+    },
+    {
+      "comparability": "ohss_birth:MAC",
+      "notes": "Fiscal year ending September 30. ",
+      "series_id": "ohss_birth:MAC",
+      "source_id": "ohss_birth_2014",
+      "status": "observed",
+      "value": 105,
+      "year": 2014
+    },
+    {
+      "comparability": "ohss_birth:MAC",
+      "notes": "Fiscal year ending September 30. Rounded to nearest ten.",
+      "series_id": "ohss_birth:MAC",
+      "source_id": "ohss_birth_2024",
+      "status": "rounded",
+      "value": 100,
+      "year": 2015
+    },
+    {
+      "comparability": "ohss_birth:MAC",
+      "notes": "Fiscal year ending September 30. Rounded to nearest ten.",
+      "series_id": "ohss_birth:MAC",
+      "source_id": "ohss_birth_2024",
+      "status": "rounded",
+      "value": 110,
+      "year": 2016
+    },
+    {
+      "comparability": "ohss_birth:MAC",
+      "notes": "Fiscal year ending September 30. Rounded to nearest ten.",
+      "series_id": "ohss_birth:MAC",
+      "source_id": "ohss_birth_2024",
+      "status": "rounded",
+      "value": 110,
+      "year": 2017
+    },
+    {
+      "comparability": "ohss_birth:MAC",
+      "notes": "Fiscal year ending September 30. Rounded to nearest ten.",
+      "series_id": "ohss_birth:MAC",
+      "source_id": "ohss_birth_2024",
+      "status": "rounded",
+      "value": 90,
+      "year": 2018
+    },
+    {
+      "comparability": "ohss_birth:MAC",
+      "notes": "Fiscal year ending September 30. Rounded to nearest ten.",
+      "series_id": "ohss_birth:MAC",
+      "source_id": "ohss_birth_2024",
+      "status": "rounded",
+      "value": 100,
+      "year": 2019
+    },
+    {
+      "comparability": "ohss_birth:MAC",
+      "notes": "Fiscal year ending September 30. Rounded to nearest ten.",
+      "series_id": "ohss_birth:MAC",
+      "source_id": "ohss_birth_2024",
+      "status": "rounded",
+      "value": 60,
+      "year": 2020
+    },
+    {
+      "comparability": "ohss_birth:MAC",
+      "notes": "Fiscal year ending September 30. Rounded to nearest ten.",
+      "series_id": "ohss_birth:MAC",
+      "source_id": "ohss_birth_2024",
+      "status": "rounded",
+      "value": 50,
+      "year": 2021
+    },
+    {
+      "comparability": "ohss_birth:MAC",
+      "notes": "Fiscal year ending September 30. Rounded to nearest ten.",
+      "series_id": "ohss_birth:MAC",
+      "source_id": "ohss_birth_2024",
+      "status": "rounded",
+      "value": 60,
+      "year": 2022
+    },
+    {
+      "comparability": "ohss_birth:MAC",
+      "notes": "Fiscal year ending September 30. Rounded to nearest ten.",
+      "series_id": "ohss_birth:MAC",
+      "source_id": "ohss_birth_2024",
+      "status": "rounded",
+      "value": 90,
+      "year": 2023
+    },
+    {
+      "comparability": "ohss_birth:MAC",
+      "notes": "Fiscal year ending September 30. Rounded to nearest ten.",
+      "series_id": "ohss_birth:MAC",
+      "source_id": "ohss_birth_2024",
+      "status": "rounded",
+      "value": 80,
+      "year": 2024
+    },
+    {
+      "comparability": "ohss_nationality:adjustments",
+      "notes": "Fiscal year October 1, 2024\u2013September 30, 2025; rounded to nearest ten.",
+      "series_id": "ohss_nationality:adjustments",
+      "source_id": "ohss_nationality_2025",
+      "status": "rounded",
+      "value": 38650,
+      "year": 2025
+    },
+    {
+      "comparability": "ohss_nationality:new_arrivals",
+      "notes": "Fiscal year October 1, 2024\u2013September 30, 2025; rounded to nearest ten.",
+      "series_id": "ohss_nationality:new_arrivals",
+      "source_id": "ohss_nationality_2025",
+      "status": "rounded",
+      "value": 27020,
+      "year": 2025
+    },
+    {
+      "comparability": "ohss_nationality:total",
+      "notes": "Fiscal year October 1, 2024\u2013September 30, 2025; rounded to nearest ten.",
+      "series_id": "ohss_nationality:total",
+      "source_id": "ohss_nationality_2025",
+      "status": "rounded",
+      "value": 65670,
+      "year": 2025
+    },
+    {
+      "comparability": "un_stock:CHN:USA",
+      "notes": "UN 2024 revision; 1 July benchmark. Not an annual flow.",
+      "series_id": "un_stock:CHN:USA",
+      "source_id": "un_stock_2024",
+      "status": "estimated",
+      "value": 1022890,
+      "year": 2000
+    },
+    {
+      "comparability": "un_stock:CHN:USA",
+      "notes": "UN 2024 revision; 1 July benchmark. Not an annual flow.",
+      "series_id": "un_stock:CHN:USA",
+      "source_id": "un_stock_2024",
+      "status": "estimated",
+      "value": 1208274,
+      "year": 2005
+    },
+    {
+      "comparability": "un_stock:CHN:USA",
+      "notes": "UN 2024 revision; 1 July benchmark. Not an annual flow.",
+      "series_id": "un_stock:CHN:USA",
+      "source_id": "un_stock_2024",
+      "status": "estimated",
+      "value": 1608501,
+      "year": 2010
+    },
+    {
+      "comparability": "un_stock:CHN:USA",
+      "notes": "UN 2024 revision; 1 July benchmark. Not an annual flow.",
+      "series_id": "un_stock:CHN:USA",
+      "source_id": "un_stock_2024",
+      "status": "estimated",
+      "value": 2101592,
+      "year": 2015
+    },
+    {
+      "comparability": "un_stock:CHN:USA",
+      "notes": "UN 2024 revision; 1 July benchmark. Not an annual flow.",
+      "series_id": "un_stock:CHN:USA",
+      "source_id": "un_stock_2024",
+      "status": "estimated",
+      "value": 2255170,
+      "year": 2020
+    },
+    {
+      "comparability": "un_stock:CHN:USA",
+      "notes": "UN 2024 revision; 1 July benchmark. Not an annual flow.",
+      "series_id": "un_stock:CHN:USA",
+      "source_id": "un_stock_2024",
+      "status": "estimated",
+      "value": 2488775,
+      "year": 2024
+    },
+    {
+      "comparability": "un_stock:HKG:USA",
+      "notes": "UN 2024 revision; 1 July benchmark. Not an annual flow.",
+      "series_id": "un_stock:HKG:USA",
+      "source_id": "un_stock_2024",
+      "status": "estimated",
+      "value": 210485,
+      "year": 2000
+    },
+    {
+      "comparability": "un_stock:HKG:USA",
+      "notes": "UN 2024 revision; 1 July benchmark. Not an annual flow.",
+      "series_id": "un_stock:HKG:USA",
+      "source_id": "un_stock_2024",
+      "status": "estimated",
+      "value": 214124,
+      "year": 2005
+    },
+    {
+      "comparability": "un_stock:HKG:USA",
+      "notes": "UN 2024 revision; 1 July benchmark. Not an annual flow.",
+      "series_id": "un_stock:HKG:USA",
+      "source_id": "un_stock_2024",
+      "status": "estimated",
+      "value": 215677,
+      "year": 2010
+    },
+    {
+      "comparability": "un_stock:HKG:USA",
+      "notes": "UN 2024 revision; 1 July benchmark. Not an annual flow.",
+      "series_id": "un_stock:HKG:USA",
+      "source_id": "un_stock_2024",
+      "status": "estimated",
+      "value": 244595,
+      "year": 2015
+    },
+    {
+      "comparability": "un_stock:HKG:USA",
+      "notes": "UN 2024 revision; 1 July benchmark. Not an annual flow.",
+      "series_id": "un_stock:HKG:USA",
+      "source_id": "un_stock_2024",
+      "status": "estimated",
+      "value": 258439,
+      "year": 2020
+    },
+    {
+      "comparability": "un_stock:HKG:USA",
+      "notes": "UN 2024 revision; 1 July benchmark. Not an annual flow.",
+      "series_id": "un_stock:HKG:USA",
+      "source_id": "un_stock_2024",
+      "status": "estimated",
+      "value": 268915,
+      "year": 2024
+    },
+    {
+      "comparability": "un_stock:USA:CHN",
+      "notes": "UN 2024 revision; 1 July benchmark. Not an annual flow.",
+      "series_id": "un_stock:USA:CHN",
+      "source_id": "un_stock_2024",
+      "status": "estimated",
+      "value": 49655,
+      "year": 2000
+    },
+    {
+      "comparability": "un_stock:USA:CHN",
+      "notes": "UN 2024 revision; 1 July benchmark. Not an annual flow.",
+      "series_id": "un_stock:USA:CHN",
+      "source_id": "un_stock_2024",
+      "status": "estimated",
+      "value": 59103,
+      "year": 2005
+    },
+    {
+      "comparability": "un_stock:USA:CHN",
+      "notes": "UN 2024 revision; 1 July benchmark. Not an annual flow.",
+      "series_id": "un_stock:USA:CHN",
+      "source_id": "un_stock_2024",
+      "status": "estimated",
+      "value": 69836,
+      "year": 2010
+    },
+    {
+      "comparability": "un_stock:USA:CHN",
+      "notes": "UN 2024 revision; 1 July benchmark. Not an annual flow.",
+      "series_id": "un_stock:USA:CHN",
+      "source_id": "un_stock_2024",
+      "status": "estimated",
+      "value": 63341,
+      "year": 2015
+    },
+    {
+      "comparability": "un_stock:USA:CHN",
+      "notes": "UN 2024 revision; 1 July benchmark. Not an annual flow.",
+      "series_id": "un_stock:USA:CHN",
+      "source_id": "un_stock_2024",
+      "status": "estimated",
+      "value": 55280,
+      "year": 2020
+    },
+    {
+      "comparability": "un_stock:USA:CHN",
+      "notes": "UN 2024 revision; 1 July benchmark. Not an annual flow.",
+      "series_id": "un_stock:USA:CHN",
+      "source_id": "un_stock_2024",
+      "status": "estimated",
+      "value": 60434,
+      "year": 2024
+    },
+    {
+      "comparability": "un_stock:USA:HKG",
+      "notes": "UN 2024 revision; 1 July benchmark. Not an annual flow.",
+      "series_id": "un_stock:USA:HKG",
+      "source_id": "un_stock_2024",
+      "status": "estimated",
+      "value": 13796,
+      "year": 2000
+    },
+    {
+      "comparability": "un_stock:USA:HKG",
+      "notes": "UN 2024 revision; 1 July benchmark. Not an annual flow.",
+      "series_id": "un_stock:USA:HKG",
+      "source_id": "un_stock_2024",
+      "status": "estimated",
+      "value": 13370,
+      "year": 2005
+    },
+    {
+      "comparability": "un_stock:USA:HKG",
+      "notes": "UN 2024 revision; 1 July benchmark. Not an annual flow.",
+      "series_id": "un_stock:USA:HKG",
+      "source_id": "un_stock_2024",
+      "status": "estimated",
+      "value": 12976,
+      "year": 2010
+    },
+    {
+      "comparability": "un_stock:USA:HKG",
+      "notes": "UN 2024 revision; 1 July benchmark. Not an annual flow.",
+      "series_id": "un_stock:USA:HKG",
+      "source_id": "un_stock_2024",
+      "status": "estimated",
+      "value": 13261,
+      "year": 2015
+    },
+    {
+      "comparability": "un_stock:USA:HKG",
+      "notes": "UN 2024 revision; 1 July benchmark. Not an annual flow.",
+      "series_id": "un_stock:USA:HKG",
+      "source_id": "un_stock_2024",
+      "status": "estimated",
+      "value": 13827,
+      "year": 2020
+    },
+    {
+      "comparability": "un_stock:USA:HKG",
+      "notes": "UN 2024 revision; 1 July benchmark. Not an annual flow.",
+      "series_id": "un_stock:USA:HKG",
+      "source_id": "un_stock_2024",
+      "status": "estimated",
+      "value": 14298,
+      "year": 2024
+    }
+  ],
+  "series": {
+    "ohss_birth:CHN": {
+      "cadence": "annual",
+      "label": "Mainland China-born",
+      "measure": "permanent_resident_grants",
+      "notes": "Includes arrivals and adjustments of status; not nationality, ethnicity or a count of new border crossings.",
+      "period_basis": "fiscal ending year",
+      "scope": "U.S. lawful permanent-resident grants; country of birth: China, People's Republic",
+      "unit": "status grants"
+    },
+    "ohss_birth:HKG": {
+      "cadence": "annual",
+      "label": "Hong Kong-born",
+      "measure": "permanent_resident_grants",
+      "notes": "Includes arrivals and adjustments of status; not nationality, ethnicity or a count of new border crossings.",
+      "period_basis": "fiscal ending year",
+      "scope": "U.S. lawful permanent-resident grants; country of birth: Hong Kong",
+      "unit": "status grants"
+    },
+    "ohss_birth:MAC": {
+      "cadence": "annual",
+      "label": "Macau-born",
+      "measure": "permanent_resident_grants",
+      "notes": "Includes arrivals and adjustments of status; not nationality, ethnicity or a count of new border crossings.",
+      "period_basis": "fiscal ending year",
+      "scope": "U.S. lawful permanent-resident grants; country of birth: Macau",
+      "unit": "status grants"
+    },
+    "ohss_nationality:adjustments": {
+      "cadence": "annual",
+      "label": "Adjustments within the U.S.",
+      "measure": "permanent_resident_grants",
+      "notes": "Different population from the birthplace history. Not a visa issuance count.",
+      "period_basis": "fiscal ending year",
+      "scope": "DHS China, People's Republic nationality category; U.S. permanent-resident grants",
+      "unit": "status grants"
+    },
+    "ohss_nationality:new_arrivals": {
+      "cadence": "annual",
+      "label": "New arrivals",
+      "measure": "permanent_resident_grants",
+      "notes": "Different population from the birthplace history. Not a visa issuance count.",
+      "period_basis": "fiscal ending year",
+      "scope": "DHS China, People's Republic nationality category; U.S. permanent-resident grants",
+      "unit": "status grants"
+    },
+    "ohss_nationality:total": {
+      "cadence": "annual",
+      "label": "Total grants",
+      "measure": "permanent_resident_grants",
+      "notes": "Different population from the birthplace history. Not a visa issuance count.",
+      "period_basis": "fiscal ending year",
+      "scope": "DHS China, People's Republic nationality category; U.S. permanent-resident grants",
+      "unit": "status grants"
+    },
+    "un_stock:CHN:USA": {
+      "cadence": "benchmark",
+      "data_type": "B",
+      "destination": "USA",
+      "label": "China-born in the U.S.",
+      "measure": "migrant_stock",
+      "notes": "Estimated resident stock, not annual immigration or permanent-residency grants. UN type C uses foreign citizenship; B uses foreign birth; R includes refugee adjustments. The U.S. destination population includes the territories specified in UN coverage note 36.",
+      "origin": "CHN",
+      "period_basis": "mid-year July 1",
+      "scope": "China-born in the U.S.; UN destination-specific population definition",
+      "unit": "estimated residents"
+    },
+    "un_stock:HKG:USA": {
+      "cadence": "benchmark",
+      "data_type": "B",
+      "destination": "USA",
+      "label": "Hong Kong-born in the U.S.",
+      "measure": "migrant_stock",
+      "notes": "Estimated resident stock, not annual immigration or permanent-residency grants. UN type C uses foreign citizenship; B uses foreign birth; R includes refugee adjustments. The U.S. destination population includes the territories specified in UN coverage note 36.",
+      "origin": "HKG",
+      "period_basis": "mid-year July 1",
+      "scope": "Hong Kong-born in the U.S.; UN destination-specific population definition",
+      "unit": "estimated residents"
+    },
+    "un_stock:USA:CHN": {
+      "cadence": "benchmark",
+      "data_type": "C R",
+      "destination": "CHN",
+      "label": "U.S. citizens in mainland China",
+      "measure": "migrant_stock",
+      "notes": "Estimated resident stock, not annual immigration or permanent-residency grants. UN type C uses foreign citizenship; B uses foreign birth; R includes refugee adjustments. The U.S. destination population includes the territories specified in UN coverage note 36.",
+      "origin": "USA",
+      "period_basis": "mid-year July 1",
+      "scope": "U.S. citizens in mainland China; UN destination-specific population definition",
+      "unit": "estimated residents"
+    },
+    "un_stock:USA:HKG": {
+      "cadence": "benchmark",
+      "data_type": "B R",
+      "destination": "HKG",
+      "label": "U.S.-born in Hong Kong",
+      "measure": "migrant_stock",
+      "notes": "Estimated resident stock, not annual immigration or permanent-residency grants. UN type C uses foreign citizenship; B uses foreign birth; R includes refugee adjustments. The U.S. destination population includes the territories specified in UN coverage note 36.",
+      "origin": "USA",
+      "period_basis": "mid-year July 1",
+      "scope": "U.S.-born in Hong Kong; UN destination-specific population definition",
+      "unit": "estimated residents"
+    }
+  },
+  "sources": {
+    "ohss_birth_2004": {
+      "assets": [
+        {
+          "request_url": "https://ohss.dhs.gov/sites/default/files/2023-12/LPR2004_2.zip",
+          "retrieved_at": "2026-10-22T20:27:57+00:00",
+          "sha256": "aeb1d7f31fe97dc2e01b75df874bfe5d456c0957de61bd1f3c799da407411e70",
+          "url": "https://ohss.dhs.gov/sites/default/files/2023-12/LPR2004_2.zip"
+        }
+      ],
+      "locator": "Table 3; country of birth; fiscal years 2000-2004",
+      "name": "U.S. Department of Homeland Security / OHSS",
+      "notes": "Lawful permanent-resident status grants, including new arrivals and adjustments within the U.S. Historical reported counts; older source vintage.",
+      "vintage": "2004 Yearbook of Immigration Statistics"
+    },
+    "ohss_birth_2014": {
+      "assets": [
+        {
+          "request_url": "https://ohss.dhs.gov/sites/default/files/2023-12/YRBK%25202014%2520LPR%2520Excel%2520Final_0.zip",
+          "retrieved_at": "2026-10-22T20:27:57+00:00",
+          "sha256": "1917b8e132cdc3c7a4510566ba36266a6013c6b38dfaebb6b2b4eb81ba268a07",
+          "url": "https://ohss.dhs.gov/sites/default/files/2023-12/YRBK%25202014%2520LPR%2520Excel%2520Final_0.zip"
+        }
+      ],
+      "locator": "Table 3; country of birth; fiscal years 2005-2014",
+      "name": "U.S. Department of Homeland Security / OHSS",
+      "notes": "Lawful permanent-resident status grants, including new arrivals and adjustments within the U.S. Historical reported counts; older source vintage.",
+      "vintage": "2014 Yearbook of Immigration Statistics"
+    },
+    "ohss_birth_2024": {
+      "assets": [
+        {
+          "request_url": "https://ohss.dhs.gov/system/files/2026-06/2026_0604_ohss_yearbook_lawful_permanent_residents_fy2024.xlsx",
+          "retrieved_at": "2026-10-22T20:27:09+00:00",
+          "sha256": "19c500a6e6445e73c0a39c5bc382585e2a13fc8f52f6e4d9a3cf6a84bf9bab6a",
+          "url": "https://ohss.dhs.gov/system/files/2026-06/2026_0604_ohss_yearbook_lawful_permanent_residents_fy2024.xlsx"
+        }
+      ],
+      "locator": "Table 3; country of birth; fiscal years 2015-2024",
+      "name": "U.S. Department of Homeland Security / OHSS",
+      "notes": "Lawful permanent-resident status grants, including new arrivals and adjustments within the U.S. Published cells rounded to nearest ten.",
+      "vintage": "2024 Yearbook of Immigration Statistics"
+    },
+    "ohss_nationality_2025": {
+      "assets": [
+        {
+          "request_url": "https://ohss.dhs.gov/system/files/2026-06/2026_0604_ohss_legal-immigration-adjustment-of-status-fy-2025q4.xlsx",
+          "retrieved_at": "2026-10-22T20:27:58+00:00",
+          "sha256": "7660a03f72bcbee2cf3ff14ab6b8c5fd759faf89e96659b83c6e894f070f58cc",
+          "url": "https://ohss.dhs.gov/system/files/2026-06/2026_0604_ohss_legal-immigration-adjustment-of-status-fy-2025q4.xlsx"
+        }
+      ],
+      "locator": "Table 1A; China, People's Republic; annual Total columns 2, 7 and 12",
+      "name": "U.S. Department of Homeland Security / OHSS",
+      "notes": "Country of nationality, not country of birth. Cells rounded to nearest ten; totals may differ due to rounding. Do not splice into the birthplace history.",
+      "vintage": "Legal Immigration and Adjustment of Status Report, FY2025 Q4"
+    },
+    "un_stock_2024": {
+      "assets": [
+        {
+          "request_url": "https://www.un.org/development/desa/pd/sites/www.un.org.development.desa.pd/files/undesa_pd_2024_ims_stock_by_sex_destination_and_origin.xlsx",
+          "retrieved_at": "2026-10-22T21:03:13+00:00",
+          "sha256": "0e10179d05186041a65cf5c6200943b2231701f9c1fd33cbbe21d23b8ea47316",
+          "url": "https://www.un.org/development/desa/pd/sites/www.un.org.development.desa.pd/files/undesa_pd_2024_ims_stock_by_sex_destination_and_origin.xlsx"
+        }
+      ],
+      "locator": "Table 1; both sexes combined; destination/origin codes 156, 344 and 840; mid-year 2000\u20132024",
+      "name": "United Nations DESA, Population Division",
+      "notes": "CC BY 3.0 IGO. Adapted selected numerical aggregates; UN country codes and population definitions retained. Mainland China uses foreign-citizenship estimates (C R), Hong Kong foreign-born estimates (B R), and the U.S. foreign-born estimates (B). Benchmark stocks include UN estimates, not new yearly arrivals.",
+      "vintage": "International Migrant Stock 2024"
+    }
+  },
+  "version": 1
+}

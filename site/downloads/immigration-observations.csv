@@ -1,0 +1,919 @@
+cadence,comparability,data_type,definition_notes,destination,fiscal_period_end,fiscal_period_start,label,measure,notes,observation_date,origin,period_basis,scope,series_id,source_assets,source_id,source_locator,source_name,source_vintage,status,unit,value,year
+annual,ohss_birth:CHN,,"Includes arrivals and adjustments of status; not nationality, ethnicity or a count of new border crossings.",,2000-09-30,1999-10-01,Mainland China-born,permanent_resident_grants,Fiscal year ending September 30. ,,,fiscal ending year,"U.S. lawful permanent-resident grants; country of birth: China, People's Republic",ohss_birth:CHN,"[
+  {
+    ""request_url"": ""https://ohss.dhs.gov/sites/default/files/2023-12/LPR2004_2.zip"",
+    ""retrieved_at"": ""2026-10-22T20:27:57+00:00"",
+    ""sha256"": ""aeb1d7f31fe97dc2e01b75df874bfe5d456c0957de61bd1f3c799da407411e70"",
+    ""url"": ""https://ohss.dhs.gov/sites/default/files/2023-12/LPR2004_2.zip""
+  }
+]
+",ohss_birth_2004,Table 3; country of birth; fiscal years 2000-2004,U.S. Department of Homeland Security / OHSS,2004 Yearbook of Immigration Statistics,observed,status grants,45652,2000
+annual,ohss_birth:CHN,,"Includes arrivals and adjustments of status; not nationality, ethnicity or a count of new border crossings.",,2001-09-30,2000-10-01,Mainland China-born,permanent_resident_grants,Fiscal year ending September 30. ,,,fiscal ending year,"U.S. lawful permanent-resident grants; country of birth: China, People's Republic",ohss_birth:CHN,"[
+  {
+    ""request_url"": ""https://ohss.dhs.gov/sites/default/files/2023-12/LPR2004_2.zip"",
+    ""retrieved_at"": ""2026-10-22T20:27:57+00:00"",
+    ""sha256"": ""aeb1d7f31fe97dc2e01b75df874bfe5d456c0957de61bd1f3c799da407411e70"",
+    ""url"": ""https://ohss.dhs.gov/sites/default/files/2023-12/LPR2004_2.zip""
+  }
+]
+",ohss_birth_2004,Table 3; country of birth; fiscal years 2000-2004,U.S. Department of Homeland Security / OHSS,2004 Yearbook of Immigration Statistics,observed,status grants,56426,2001
+annual,ohss_birth:CHN,,"Includes arrivals and adjustments of status; not nationality, ethnicity or a count of new border crossings.",,2002-09-30,2001-10-01,Mainland China-born,permanent_resident_grants,Fiscal year ending September 30. ,,,fiscal ending year,"U.S. lawful permanent-resident grants; country of birth: China, People's Republic",ohss_birth:CHN,"[
+  {
+    ""request_url"": ""https://ohss.dhs.gov/sites/default/files/2023-12/LPR2004_2.zip"",
+    ""retrieved_at"": ""2026-10-22T20:27:57+00:00"",
+    ""sha256"": ""aeb1d7f31fe97dc2e01b75df874bfe5d456c0957de61bd1f3c799da407411e70"",
+    ""url"": ""https://ohss.dhs.gov/sites/default/files/2023-12/LPR2004_2.zip""
+  }
+]
+",ohss_birth_2004,Table 3; country of birth; fiscal years 2000-2004,U.S. Department of Homeland Security / OHSS,2004 Yearbook of Immigration Statistics,observed,status grants,61282,2002
+annual,ohss_birth:CHN,,"Includes arrivals and adjustments of status; not nationality, ethnicity or a count of new border crossings.",,2003-09-30,2002-10-01,Mainland China-born,permanent_resident_grants,Fiscal year ending September 30. ,,,fiscal ending year,"U.S. lawful permanent-resident grants; country of birth: China, People's Republic",ohss_birth:CHN,"[
+  {
+    ""request_url"": ""https://ohss.dhs.gov/sites/default/files/2023-12/LPR2004_2.zip"",
+    ""retrieved_at"": ""2026-10-22T20:27:57+00:00"",
+    ""sha256"": ""aeb1d7f31fe97dc2e01b75df874bfe5d456c0957de61bd1f3c799da407411e70"",
+    ""url"": ""https://ohss.dhs.gov/sites/default/files/2023-12/LPR2004_2.zip""
+  }
+]
+",ohss_birth_2004,Table 3; country of birth; fiscal years 2000-2004,U.S. Department of Homeland Security / OHSS,2004 Yearbook of Immigration Statistics,observed,status grants,40659,2003
+annual,ohss_birth:CHN,,"Includes arrivals and adjustments of status; not nationality, ethnicity or a count of new border crossings.",,2004-09-30,2003-10-01,Mainland China-born,permanent_resident_grants,Fiscal year ending September 30. ,,,fiscal ending year,"U.S. lawful permanent-resident grants; country of birth: China, People's Republic",ohss_birth:CHN,"[
+  {
+    ""request_url"": ""https://ohss.dhs.gov/sites/default/files/2023-12/LPR2004_2.zip"",
+    ""retrieved_at"": ""2026-10-22T20:27:57+00:00"",
+    ""sha256"": ""aeb1d7f31fe97dc2e01b75df874bfe5d456c0957de61bd1f3c799da407411e70"",
+    ""url"": ""https://ohss.dhs.gov/sites/default/files/2023-12/LPR2004_2.zip""
+  }
+]
+",ohss_birth_2004,Table 3; country of birth; fiscal years 2000-2004,U.S. Department of Homeland Security / OHSS,2004 Yearbook of Immigration Statistics,observed,status grants,51156,2004
+annual,ohss_birth:CHN,,"Includes arrivals and adjustments of status; not nationality, ethnicity or a count of new border crossings.",,2005-09-30,2004-10-01,Mainland China-born,permanent_resident_grants,Fiscal year ending September 30. ,,,fiscal ending year,"U.S. lawful permanent-resident grants; country of birth: China, People's Republic",ohss_birth:CHN,"[
+  {
+    ""request_url"": ""https://ohss.dhs.gov/sites/default/files/2023-12/YRBK%25202014%2520LPR%2520Excel%2520Final_0.zip"",
+    ""retrieved_at"": ""2026-10-22T20:27:57+00:00"",
+    ""sha256"": ""1917b8e132cdc3c7a4510566ba36266a6013c6b38dfaebb6b2b4eb81ba268a07"",
+    ""url"": ""https://ohss.dhs.gov/sites/default/files/2023-12/YRBK%25202014%2520LPR%2520Excel%2520Final_0.zip""
+  }
+]
+",ohss_birth_2014,Table 3; country of birth; fiscal years 2005-2014,U.S. Department of Homeland Security / OHSS,2014 Yearbook of Immigration Statistics,observed,status grants,69933,2005
+annual,ohss_birth:CHN,,"Includes arrivals and adjustments of status; not nationality, ethnicity or a count of new border crossings.",,2006-09-30,2005-10-01,Mainland China-born,permanent_resident_grants,Fiscal year ending September 30. ,,,fiscal ending year,"U.S. lawful permanent-resident grants; country of birth: China, People's Republic",ohss_birth:CHN,"[
+  {
+    ""request_url"": ""https://ohss.dhs.gov/sites/default/files/2023-12/YRBK%25202014%2520LPR%2520Excel%2520Final_0.zip"",
+    ""retrieved_at"": ""2026-10-22T20:27:57+00:00"",
+    ""sha256"": ""1917b8e132cdc3c7a4510566ba36266a6013c6b38dfaebb6b2b4eb81ba268a07"",
+    ""url"": ""https://ohss.dhs.gov/sites/default/files/2023-12/YRBK%25202014%2520LPR%2520Excel%2520Final_0.zip""
+  }
+]
+",ohss_birth_2014,Table 3; country of birth; fiscal years 2005-2014,U.S. Department of Homeland Security / OHSS,2014 Yearbook of Immigration Statistics,observed,status grants,87307,2006
+annual,ohss_birth:CHN,,"Includes arrivals and adjustments of status; not nationality, ethnicity or a count of new border crossings.",,2007-09-30,2006-10-01,Mainland China-born,permanent_resident_grants,Fiscal year ending September 30. ,,,fiscal ending year,"U.S. lawful permanent-resident grants; country of birth: China, People's Republic",ohss_birth:CHN,"[
+  {
+    ""request_url"": ""https://ohss.dhs.gov/sites/default/files/2023-12/YRBK%25202014%2520LPR%2520Excel%2520Final_0.zip"",
+    ""retrieved_at"": ""2026-10-22T20:27:57+00:00"",
+    ""sha256"": ""1917b8e132cdc3c7a4510566ba36266a6013c6b38dfaebb6b2b4eb81ba268a07"",
+    ""url"": ""https://ohss.dhs.gov/sites/default/files/2023-12/YRBK%25202014%2520LPR%2520Excel%2520Final_0.zip""
+  }
+]
+",ohss_birth_2014,Table 3; country of birth; fiscal years 2005-2014,U.S. Department of Homeland Security / OHSS,2014 Yearbook of Immigration Statistics,observed,status grants,76655,2007
+annual,ohss_birth:CHN,,"Includes arrivals and adjustments of status; not nationality, ethnicity or a count of new border crossings.",,2008-09-30,2007-10-01,Mainland China-born,permanent_resident_grants,Fiscal year ending September 30. ,,,fiscal ending year,"U.S. lawful permanent-resident grants; country of birth: China, People's Republic",ohss_birth:CHN,"[
+  {
+    ""request_url"": ""https://ohss.dhs.gov/sites/default/files/2023-12/YRBK%25202014%2520LPR%2520Excel%2520Final_0.zip"",
+    ""retrieved_at"": ""2026-10-22T20:27:57+00:00"",
+    ""sha256"": ""1917b8e132cdc3c7a4510566ba36266a6013c6b38dfaebb6b2b4eb81ba268a07"",
+    ""url"": ""https://ohss.dhs.gov/sites/default/files/2023-12/YRBK%25202014%2520LPR%2520Excel%2520Final_0.zip""
+  }
+]
+",ohss_birth_2014,Table 3; country of birth; fiscal years 2005-2014,U.S. Department of Homeland Security / OHSS,2014 Yearbook of Immigration Statistics,observed,status grants,80271,2008
+annual,ohss_birth:CHN,,"Includes arrivals and adjustments of status; not nationality, ethnicity or a count of new border crossings.",,2009-09-30,2008-10-01,Mainland China-born,permanent_resident_grants,Fiscal year ending September 30. ,,,fiscal ending year,"U.S. lawful permanent-resident grants; country of birth: China, People's Republic",ohss_birth:CHN,"[
+  {
+    ""request_url"": ""https://ohss.dhs.gov/sites/default/files/2023-12/YRBK%25202014%2520LPR%2520Excel%2520Final_0.zip"",
+    ""retrieved_at"": ""2026-10-22T20:27:57+00:00"",
+    ""sha256"": ""1917b8e132cdc3c7a4510566ba36266a6013c6b38dfaebb6b2b4eb81ba268a07"",
+    ""url"": ""https://ohss.dhs.gov/sites/default/files/2023-12/YRBK%25202014%2520LPR%2520Excel%2520Final_0.zip""
+  }
+]
+",ohss_birth_2014,Table 3; country of birth; fiscal years 2005-2014,U.S. Department of Homeland Security / OHSS,2014 Yearbook of Immigration Statistics,observed,status grants,64238,2009
+annual,ohss_birth:CHN,,"Includes arrivals and adjustments of status; not nationality, ethnicity or a count of new border crossings.",,2010-09-30,2009-10-01,Mainland China-born,permanent_resident_grants,Fiscal year ending September 30. ,,,fiscal ending year,"U.S. lawful permanent-resident grants; country of birth: China, People's Republic",ohss_birth:CHN,"[
+  {
+    ""request_url"": ""https://ohss.dhs.gov/sites/default/files/2023-12/YRBK%25202014%2520LPR%2520Excel%2520Final_0.zip"",
+    ""retrieved_at"": ""2026-10-22T20:27:57+00:00"",
+    ""sha256"": ""1917b8e132cdc3c7a4510566ba36266a6013c6b38dfaebb6b2b4eb81ba268a07"",
+    ""url"": ""https://ohss.dhs.gov/sites/default/files/2023-12/YRBK%25202014%2520LPR%2520Excel%2520Final_0.zip""
+  }
+]
+",ohss_birth_2014,Table 3; country of birth; fiscal years 2005-2014,U.S. Department of Homeland Security / OHSS,2014 Yearbook of Immigration Statistics,observed,status grants,70863,2010
+annual,ohss_birth:CHN,,"Includes arrivals and adjustments of status; not nationality, ethnicity or a count of new border crossings.",,2011-09-30,2010-10-01,Mainland China-born,permanent_resident_grants,Fiscal year ending September 30. ,,,fiscal ending year,"U.S. lawful permanent-resident grants; country of birth: China, People's Republic",ohss_birth:CHN,"[
+  {
+    ""request_url"": ""https://ohss.dhs.gov/sites/default/files/2023-12/YRBK%25202014%2520LPR%2520Excel%2520Final_0.zip"",
+    ""retrieved_at"": ""2026-10-22T20:27:57+00:00"",
+    ""sha256"": ""1917b8e132cdc3c7a4510566ba36266a6013c6b38dfaebb6b2b4eb81ba268a07"",
+    ""url"": ""https://ohss.dhs.gov/sites/default/files/2023-12/YRBK%25202014%2520LPR%2520Excel%2520Final_0.zip""
+  }
+]
+",ohss_birth_2014,Table 3; country of birth; fiscal years 2005-2014,U.S. Department of Homeland Security / OHSS,2014 Yearbook of Immigration Statistics,observed,status grants,87016,2011
+annual,ohss_birth:CHN,,"Includes arrivals and adjustments of status; not nationality, ethnicity or a count of new border crossings.",,2012-09-30,2011-10-01,Mainland China-born,permanent_resident_grants,Fiscal year ending September 30. ,,,fiscal ending year,"U.S. lawful permanent-resident grants; country of birth: China, People's Republic",ohss_birth:CHN,"[
+  {
+    ""request_url"": ""https://ohss.dhs.gov/sites/default/files/2023-12/YRBK%25202014%2520LPR%2520Excel%2520Final_0.zip"",
+    ""retrieved_at"": ""2026-10-22T20:27:57+00:00"",
+    ""sha256"": ""1917b8e132cdc3c7a4510566ba36266a6013c6b38dfaebb6b2b4eb81ba268a07"",
+    ""url"": ""https://ohss.dhs.gov/sites/default/files/2023-12/YRBK%25202014%2520LPR%2520Excel%2520Final_0.zip""
+  }
+]
+",ohss_birth_2014,Table 3; country of birth; fiscal years 2005-2014,U.S. Department of Homeland Security / OHSS,2014 Yearbook of Immigration Statistics,observed,status grants,81784,2012
+annual,ohss_birth:CHN,,"Includes arrivals and adjustments of status; not nationality, ethnicity or a count of new border crossings.",,2013-09-30,2012-10-01,Mainland China-born,permanent_resident_grants,Fiscal year ending September 30. ,,,fiscal ending year,"U.S. lawful permanent-resident grants; country of birth: China, People's Republic",ohss_birth:CHN,"[
+  {
+    ""request_url"": ""https://ohss.dhs.gov/sites/default/files/2023-12/YRBK%25202014%2520LPR%2520Excel%2520Final_0.zip"",
+    ""retrieved_at"": ""2026-10-22T20:27:57+00:00"",
+    ""sha256"": ""1917b8e132cdc3c7a4510566ba36266a6013c6b38dfaebb6b2b4eb81ba268a07"",
+    ""url"": ""https://ohss.dhs.gov/sites/default/files/2023-12/YRBK%25202014%2520LPR%2520Excel%2520Final_0.zip""
+  }
+]
+",ohss_birth_2014,Table 3; country of birth; fiscal years 2005-2014,U.S. Department of Homeland Security / OHSS,2014 Yearbook of Immigration Statistics,observed,status grants,71798,2013
+annual,ohss_birth:CHN,,"Includes arrivals and adjustments of status; not nationality, ethnicity or a count of new border crossings.",,2014-09-30,2013-10-01,Mainland China-born,permanent_resident_grants,Fiscal year ending September 30. ,,,fiscal ending year,"U.S. lawful permanent-resident grants; country of birth: China, People's Republic",ohss_birth:CHN,"[
+  {
+    ""request_url"": ""https://ohss.dhs.gov/sites/default/files/2023-12/YRBK%25202014%2520LPR%2520Excel%2520Final_0.zip"",
+    ""retrieved_at"": ""2026-10-22T20:27:57+00:00"",
+    ""sha256"": ""1917b8e132cdc3c7a4510566ba36266a6013c6b38dfaebb6b2b4eb81ba268a07"",
+    ""url"": ""https://ohss.dhs.gov/sites/default/files/2023-12/YRBK%25202014%2520LPR%2520Excel%2520Final_0.zip""
+  }
+]
+",ohss_birth_2014,Table 3; country of birth; fiscal years 2005-2014,U.S. Department of Homeland Security / OHSS,2014 Yearbook of Immigration Statistics,observed,status grants,76089,2014
+annual,ohss_birth:CHN,,"Includes arrivals and adjustments of status; not nationality, ethnicity or a count of new border crossings.",,2015-09-30,2014-10-01,Mainland China-born,permanent_resident_grants,Fiscal year ending September 30. Rounded to nearest ten.,,,fiscal ending year,"U.S. lawful permanent-resident grants; country of birth: China, People's Republic",ohss_birth:CHN,"[
+  {
+    ""request_url"": ""https://ohss.dhs.gov/system/files/2026-06/2026_0604_ohss_yearbook_lawful_permanent_residents_fy2024.xlsx"",
+    ""retrieved_at"": ""2026-10-22T20:27:09+00:00"",
+    ""sha256"": ""19c500a6e6445e73c0a39c5bc382585e2a13fc8f52f6e4d9a3cf6a84bf9bab6a"",
+    ""url"": ""https://ohss.dhs.gov/system/files/2026-06/2026_0604_ohss_yearbook_lawful_permanent_residents_fy2024.xlsx""
+  }
+]
+",ohss_birth_2024,Table 3; country of birth; fiscal years 2015-2024,U.S. Department of Homeland Security / OHSS,2024 Yearbook of Immigration Statistics,rounded,status grants,74560,2015
+annual,ohss_birth:CHN,,"Includes arrivals and adjustments of status; not nationality, ethnicity or a count of new border crossings.",,2016-09-30,2015-10-01,Mainland China-born,permanent_resident_grants,Fiscal year ending September 30. Rounded to nearest ten.,,,fiscal ending year,"U.S. lawful permanent-resident grants; country of birth: China, People's Republic",ohss_birth:CHN,"[
+  {
+    ""request_url"": ""https://ohss.dhs.gov/system/files/2026-06/2026_0604_ohss_yearbook_lawful_permanent_residents_fy2024.xlsx"",
+    ""retrieved_at"": ""2026-10-22T20:27:09+00:00"",
+    ""sha256"": ""19c500a6e6445e73c0a39c5bc382585e2a13fc8f52f6e4d9a3cf6a84bf9bab6a"",
+    ""url"": ""https://ohss.dhs.gov/system/files/2026-06/2026_0604_ohss_yearbook_lawful_permanent_residents_fy2024.xlsx""
+  }
+]
+",ohss_birth_2024,Table 3; country of birth; fiscal years 2015-2024,U.S. Department of Homeland Security / OHSS,2024 Yearbook of Immigration Statistics,rounded,status grants,81770,2016
+annual,ohss_birth:CHN,,"Includes arrivals and adjustments of status; not nationality, ethnicity or a count of new border crossings.",,2017-09-30,2016-10-01,Mainland China-born,permanent_resident_grants,Fiscal year ending September 30. Rounded to nearest ten.,,,fiscal ending year,"U.S. lawful permanent-resident grants; country of birth: China, People's Republic",ohss_birth:CHN,"[
+  {
+    ""request_url"": ""https://ohss.dhs.gov/system/files/2026-06/2026_0604_ohss_yearbook_lawful_permanent_residents_fy2024.xlsx"",
+    ""retrieved_at"": ""2026-10-22T20:27:09+00:00"",
+    ""sha256"": ""19c500a6e6445e73c0a39c5bc382585e2a13fc8f52f6e4d9a3cf6a84bf9bab6a"",
+    ""url"": ""https://ohss.dhs.gov/system/files/2026-06/2026_0604_ohss_yearbook_lawful_permanent_residents_fy2024.xlsx""
+  }
+]
+",ohss_birth_2024,Table 3; country of birth; fiscal years 2015-2024,U.S. Department of Homeland Security / OHSS,2024 Yearbook of Immigration Statistics,rounded,status grants,71570,2017
+annual,ohss_birth:CHN,,"Includes arrivals and adjustments of status; not nationality, ethnicity or a count of new border crossings.",,2018-09-30,2017-10-01,Mainland China-born,permanent_resident_grants,Fiscal year ending September 30. Rounded to nearest ten.,,,fiscal ending year,"U.S. lawful permanent-resident grants; country of birth: China, People's Republic",ohss_birth:CHN,"[
+  {
+    ""request_url"": ""https://ohss.dhs.gov/system/files/2026-06/2026_0604_ohss_yearbook_lawful_permanent_residents_fy2024.xlsx"",
+    ""retrieved_at"": ""2026-10-22T20:27:09+00:00"",
+    ""sha256"": ""19c500a6e6445e73c0a39c5bc382585e2a13fc8f52f6e4d9a3cf6a84bf9bab6a"",
+    ""url"": ""https://ohss.dhs.gov/system/files/2026-06/2026_0604_ohss_yearbook_lawful_permanent_residents_fy2024.xlsx""
+  }
+]
+",ohss_birth_2024,Table 3; country of birth; fiscal years 2015-2024,U.S. Department of Homeland Security / OHSS,2024 Yearbook of Immigration Statistics,rounded,status grants,65210,2018
+annual,ohss_birth:CHN,,"Includes arrivals and adjustments of status; not nationality, ethnicity or a count of new border crossings.",,2019-09-30,2018-10-01,Mainland China-born,permanent_resident_grants,Fiscal year ending September 30. Rounded to nearest ten.,,,fiscal ending year,"U.S. lawful permanent-resident grants; country of birth: China, People's Republic",ohss_birth:CHN,"[
+  {
+    ""request_url"": ""https://ohss.dhs.gov/system/files/2026-06/2026_0604_ohss_yearbook_lawful_permanent_residents_fy2024.xlsx"",
+    ""retrieved_at"": ""2026-10-22T20:27:09+00:00"",
+    ""sha256"": ""19c500a6e6445e73c0a39c5bc382585e2a13fc8f52f6e4d9a3cf6a84bf9bab6a"",
+    ""url"": ""https://ohss.dhs.gov/system/files/2026-06/2026_0604_ohss_yearbook_lawful_permanent_residents_fy2024.xlsx""
+  }
+]
+",ohss_birth_2024,Table 3; country of birth; fiscal years 2015-2024,U.S. Department of Homeland Security / OHSS,2024 Yearbook of Immigration Statistics,rounded,status grants,62250,2019
+annual,ohss_birth:CHN,,"Includes arrivals and adjustments of status; not nationality, ethnicity or a count of new border crossings.",,2020-09-30,2019-10-01,Mainland China-born,permanent_resident_grants,Fiscal year ending September 30. Rounded to nearest ten.,,,fiscal ending year,"U.S. lawful permanent-resident grants; country of birth: China, People's Republic",ohss_birth:CHN,"[
+  {
+    ""request_url"": ""https://ohss.dhs.gov/system/files/2026-06/2026_0604_ohss_yearbook_lawful_permanent_residents_fy2024.xlsx"",
+    ""retrieved_at"": ""2026-10-22T20:27:09+00:00"",
+    ""sha256"": ""19c500a6e6445e73c0a39c5bc382585e2a13fc8f52f6e4d9a3cf6a84bf9bab6a"",
+    ""url"": ""https://ohss.dhs.gov/system/files/2026-06/2026_0604_ohss_yearbook_lawful_permanent_residents_fy2024.xlsx""
+  }
+]
+",ohss_birth_2024,Table 3; country of birth; fiscal years 2015-2024,U.S. Department of Homeland Security / OHSS,2024 Yearbook of Immigration Statistics,rounded,status grants,41480,2020
+annual,ohss_birth:CHN,,"Includes arrivals and adjustments of status; not nationality, ethnicity or a count of new border crossings.",,2021-09-30,2020-10-01,Mainland China-born,permanent_resident_grants,Fiscal year ending September 30. Rounded to nearest ten.,,,fiscal ending year,"U.S. lawful permanent-resident grants; country of birth: China, People's Republic",ohss_birth:CHN,"[
+  {
+    ""request_url"": ""https://ohss.dhs.gov/system/files/2026-06/2026_0604_ohss_yearbook_lawful_permanent_residents_fy2024.xlsx"",
+    ""retrieved_at"": ""2026-10-22T20:27:09+00:00"",
+    ""sha256"": ""19c500a6e6445e73c0a39c5bc382585e2a13fc8f52f6e4d9a3cf6a84bf9bab6a"",
+    ""url"": ""https://ohss.dhs.gov/system/files/2026-06/2026_0604_ohss_yearbook_lawful_permanent_residents_fy2024.xlsx""
+  }
+]
+",ohss_birth_2024,Table 3; country of birth; fiscal years 2015-2024,U.S. Department of Homeland Security / OHSS,2024 Yearbook of Immigration Statistics,rounded,status grants,49850,2021
+annual,ohss_birth:CHN,,"Includes arrivals and adjustments of status; not nationality, ethnicity or a count of new border crossings.",,2022-09-30,2021-10-01,Mainland China-born,permanent_resident_grants,Fiscal year ending September 30. Rounded to nearest ten.,,,fiscal ending year,"U.S. lawful permanent-resident grants; country of birth: China, People's Republic",ohss_birth:CHN,"[
+  {
+    ""request_url"": ""https://ohss.dhs.gov/system/files/2026-06/2026_0604_ohss_yearbook_lawful_permanent_residents_fy2024.xlsx"",
+    ""retrieved_at"": ""2026-10-22T20:27:09+00:00"",
+    ""sha256"": ""19c500a6e6445e73c0a39c5bc382585e2a13fc8f52f6e4d9a3cf6a84bf9bab6a"",
+    ""url"": ""https://ohss.dhs.gov/system/files/2026-06/2026_0604_ohss_yearbook_lawful_permanent_residents_fy2024.xlsx""
+  }
+]
+",ohss_birth_2024,Table 3; country of birth; fiscal years 2015-2024,U.S. Department of Homeland Security / OHSS,2024 Yearbook of Immigration Statistics,rounded,status grants,67950,2022
+annual,ohss_birth:CHN,,"Includes arrivals and adjustments of status; not nationality, ethnicity or a count of new border crossings.",,2023-09-30,2022-10-01,Mainland China-born,permanent_resident_grants,Fiscal year ending September 30. Rounded to nearest ten.,,,fiscal ending year,"U.S. lawful permanent-resident grants; country of birth: China, People's Republic",ohss_birth:CHN,"[
+  {
+    ""request_url"": ""https://ohss.dhs.gov/system/files/2026-06/2026_0604_ohss_yearbook_lawful_permanent_residents_fy2024.xlsx"",
+    ""retrieved_at"": ""2026-10-22T20:27:09+00:00"",
+    ""sha256"": ""19c500a6e6445e73c0a39c5bc382585e2a13fc8f52f6e4d9a3cf6a84bf9bab6a"",
+    ""url"": ""https://ohss.dhs.gov/system/files/2026-06/2026_0604_ohss_yearbook_lawful_permanent_residents_fy2024.xlsx""
+  }
+]
+",ohss_birth_2024,Table 3; country of birth; fiscal years 2015-2024,U.S. Department of Homeland Security / OHSS,2024 Yearbook of Immigration Statistics,rounded,status grants,59260,2023
+annual,ohss_birth:CHN,,"Includes arrivals and adjustments of status; not nationality, ethnicity or a count of new border crossings.",,2024-09-30,2023-10-01,Mainland China-born,permanent_resident_grants,Fiscal year ending September 30. Rounded to nearest ten.,,,fiscal ending year,"U.S. lawful permanent-resident grants; country of birth: China, People's Republic",ohss_birth:CHN,"[
+  {
+    ""request_url"": ""https://ohss.dhs.gov/system/files/2026-06/2026_0604_ohss_yearbook_lawful_permanent_residents_fy2024.xlsx"",
+    ""retrieved_at"": ""2026-10-22T20:27:09+00:00"",
+    ""sha256"": ""19c500a6e6445e73c0a39c5bc382585e2a13fc8f52f6e4d9a3cf6a84bf9bab6a"",
+    ""url"": ""https://ohss.dhs.gov/system/files/2026-06/2026_0604_ohss_yearbook_lawful_permanent_residents_fy2024.xlsx""
+  }
+]
+",ohss_birth_2024,Table 3; country of birth; fiscal years 2015-2024,U.S. Department of Homeland Security / OHSS,2024 Yearbook of Immigration Statistics,rounded,status grants,71470,2024
+annual,ohss_birth:HKG,,"Includes arrivals and adjustments of status; not nationality, ethnicity or a count of new border crossings.",,2000-09-30,1999-10-01,Hong Kong-born,permanent_resident_grants,Fiscal year ending September 30. ,,,fiscal ending year,U.S. lawful permanent-resident grants; country of birth: Hong Kong,ohss_birth:HKG,"[
+  {
+    ""request_url"": ""https://ohss.dhs.gov/sites/default/files/2023-12/LPR2004_2.zip"",
+    ""retrieved_at"": ""2026-10-22T20:27:57+00:00"",
+    ""sha256"": ""aeb1d7f31fe97dc2e01b75df874bfe5d456c0957de61bd1f3c799da407411e70"",
+    ""url"": ""https://ohss.dhs.gov/sites/default/files/2023-12/LPR2004_2.zip""
+  }
+]
+",ohss_birth_2004,Table 3; country of birth; fiscal years 2000-2004,U.S. Department of Homeland Security / OHSS,2004 Yearbook of Immigration Statistics,observed,status grants,5419,2000
+annual,ohss_birth:HKG,,"Includes arrivals and adjustments of status; not nationality, ethnicity or a count of new border crossings.",,2001-09-30,2000-10-01,Hong Kong-born,permanent_resident_grants,Fiscal year ending September 30. ,,,fiscal ending year,U.S. lawful permanent-resident grants; country of birth: Hong Kong,ohss_birth:HKG,"[
+  {
+    ""request_url"": ""https://ohss.dhs.gov/sites/default/files/2023-12/LPR2004_2.zip"",
+    ""retrieved_at"": ""2026-10-22T20:27:57+00:00"",
+    ""sha256"": ""aeb1d7f31fe97dc2e01b75df874bfe5d456c0957de61bd1f3c799da407411e70"",
+    ""url"": ""https://ohss.dhs.gov/sites/default/files/2023-12/LPR2004_2.zip""
+  }
+]
+",ohss_birth_2004,Table 3; country of birth; fiscal years 2000-2004,U.S. Department of Homeland Security / OHSS,2004 Yearbook of Immigration Statistics,observed,status grants,8321,2001
+annual,ohss_birth:HKG,,"Includes arrivals and adjustments of status; not nationality, ethnicity or a count of new border crossings.",,2002-09-30,2001-10-01,Hong Kong-born,permanent_resident_grants,Fiscal year ending September 30. ,,,fiscal ending year,U.S. lawful permanent-resident grants; country of birth: Hong Kong,ohss_birth:HKG,"[
+  {
+    ""request_url"": ""https://ohss.dhs.gov/sites/default/files/2023-12/LPR2004_2.zip"",
+    ""retrieved_at"": ""2026-10-22T20:27:57+00:00"",
+    ""sha256"": ""aeb1d7f31fe97dc2e01b75df874bfe5d456c0957de61bd1f3c799da407411e70"",
+    ""url"": ""https://ohss.dhs.gov/sites/default/files/2023-12/LPR2004_2.zip""
+  }
+]
+",ohss_birth_2004,Table 3; country of birth; fiscal years 2000-2004,U.S. Department of Homeland Security / OHSS,2004 Yearbook of Immigration Statistics,observed,status grants,6090,2002
+annual,ohss_birth:HKG,,"Includes arrivals and adjustments of status; not nationality, ethnicity or a count of new border crossings.",,2003-09-30,2002-10-01,Hong Kong-born,permanent_resident_grants,Fiscal year ending September 30. ,,,fiscal ending year,U.S. lawful permanent-resident grants; country of birth: Hong Kong,ohss_birth:HKG,"[
+  {
+    ""request_url"": ""https://ohss.dhs.gov/sites/default/files/2023-12/LPR2004_2.zip"",
+    ""retrieved_at"": ""2026-10-22T20:27:57+00:00"",
+    ""sha256"": ""aeb1d7f31fe97dc2e01b75df874bfe5d456c0957de61bd1f3c799da407411e70"",
+    ""url"": ""https://ohss.dhs.gov/sites/default/files/2023-12/LPR2004_2.zip""
+  }
+]
+",ohss_birth_2004,Table 3; country of birth; fiscal years 2000-2004,U.S. Department of Homeland Security / OHSS,2004 Yearbook of Immigration Statistics,observed,status grants,3582,2003
+annual,ohss_birth:HKG,,"Includes arrivals and adjustments of status; not nationality, ethnicity or a count of new border crossings.",,2004-09-30,2003-10-01,Hong Kong-born,permanent_resident_grants,Fiscal year ending September 30. ,,,fiscal ending year,U.S. lawful permanent-resident grants; country of birth: Hong Kong,ohss_birth:HKG,"[
+  {
+    ""request_url"": ""https://ohss.dhs.gov/sites/default/files/2023-12/LPR2004_2.zip"",
+    ""retrieved_at"": ""2026-10-22T20:27:57+00:00"",
+    ""sha256"": ""aeb1d7f31fe97dc2e01b75df874bfe5d456c0957de61bd1f3c799da407411e70"",
+    ""url"": ""https://ohss.dhs.gov/sites/default/files/2023-12/LPR2004_2.zip""
+  }
+]
+",ohss_birth_2004,Table 3; country of birth; fiscal years 2000-2004,U.S. Department of Homeland Security / OHSS,2004 Yearbook of Immigration Statistics,observed,status grants,3951,2004
+annual,ohss_birth:HKG,,"Includes arrivals and adjustments of status; not nationality, ethnicity or a count of new border crossings.",,2005-09-30,2004-10-01,Hong Kong-born,permanent_resident_grants,Fiscal year ending September 30. ,,,fiscal ending year,U.S. lawful permanent-resident grants; country of birth: Hong Kong,ohss_birth:HKG,"[
+  {
+    ""request_url"": ""https://ohss.dhs.gov/sites/default/files/2023-12/YRBK%25202014%2520LPR%2520Excel%2520Final_0.zip"",
+    ""retrieved_at"": ""2026-10-22T20:27:57+00:00"",
+    ""sha256"": ""1917b8e132cdc3c7a4510566ba36266a6013c6b38dfaebb6b2b4eb81ba268a07"",
+    ""url"": ""https://ohss.dhs.gov/sites/default/files/2023-12/YRBK%25202014%2520LPR%2520Excel%2520Final_0.zip""
+  }
+]
+",ohss_birth_2014,Table 3; country of birth; fiscal years 2005-2014,U.S. Department of Homeland Security / OHSS,2014 Yearbook of Immigration Statistics,observed,status grants,3705,2005
+annual,ohss_birth:HKG,,"Includes arrivals and adjustments of status; not nationality, ethnicity or a count of new border crossings.",,2006-09-30,2005-10-01,Hong Kong-born,permanent_resident_grants,Fiscal year ending September 30. ,,,fiscal ending year,U.S. lawful permanent-resident grants; country of birth: Hong Kong,ohss_birth:HKG,"[
+  {
+    ""request_url"": ""https://ohss.dhs.gov/sites/default/files/2023-12/YRBK%25202014%2520LPR%2520Excel%2520Final_0.zip"",
+    ""retrieved_at"": ""2026-10-22T20:27:57+00:00"",
+    ""sha256"": ""1917b8e132cdc3c7a4510566ba36266a6013c6b38dfaebb6b2b4eb81ba268a07"",
+    ""url"": ""https://ohss.dhs.gov/sites/default/files/2023-12/YRBK%25202014%2520LPR%2520Excel%2520Final_0.zip""
+  }
+]
+",ohss_birth_2014,Table 3; country of birth; fiscal years 2005-2014,U.S. Department of Homeland Security / OHSS,2014 Yearbook of Immigration Statistics,observed,status grants,3256,2006
+annual,ohss_birth:HKG,,"Includes arrivals and adjustments of status; not nationality, ethnicity or a count of new border crossings.",,2007-09-30,2006-10-01,Hong Kong-born,permanent_resident_grants,Fiscal year ending September 30. ,,,fiscal ending year,U.S. lawful permanent-resident grants; country of birth: Hong Kong,ohss_birth:HKG,"[
+  {
+    ""request_url"": ""https://ohss.dhs.gov/sites/default/files/2023-12/YRBK%25202014%2520LPR%2520Excel%2520Final_0.zip"",
+    ""retrieved_at"": ""2026-10-22T20:27:57+00:00"",
+    ""sha256"": ""1917b8e132cdc3c7a4510566ba36266a6013c6b38dfaebb6b2b4eb81ba268a07"",
+    ""url"": ""https://ohss.dhs.gov/sites/default/files/2023-12/YRBK%25202014%2520LPR%2520Excel%2520Final_0.zip""
+  }
+]
+",ohss_birth_2014,Table 3; country of birth; fiscal years 2005-2014,U.S. Department of Homeland Security / OHSS,2014 Yearbook of Immigration Statistics,observed,status grants,3527,2007
+annual,ohss_birth:HKG,,"Includes arrivals and adjustments of status; not nationality, ethnicity or a count of new border crossings.",,2008-09-30,2007-10-01,Hong Kong-born,permanent_resident_grants,Fiscal year ending September 30. ,,,fiscal ending year,U.S. lawful permanent-resident grants; country of birth: Hong Kong,ohss_birth:HKG,"[
+  {
+    ""request_url"": ""https://ohss.dhs.gov/sites/default/files/2023-12/YRBK%25202014%2520LPR%2520Excel%2520Final_0.zip"",
+    ""retrieved_at"": ""2026-10-22T20:27:57+00:00"",
+    ""sha256"": ""1917b8e132cdc3c7a4510566ba36266a6013c6b38dfaebb6b2b4eb81ba268a07"",
+    ""url"": ""https://ohss.dhs.gov/sites/default/files/2023-12/YRBK%25202014%2520LPR%2520Excel%2520Final_0.zip""
+  }
+]
+",ohss_birth_2014,Table 3; country of birth; fiscal years 2005-2014,U.S. Department of Homeland Security / OHSS,2014 Yearbook of Immigration Statistics,observed,status grants,3373,2008
+annual,ohss_birth:HKG,,"Includes arrivals and adjustments of status; not nationality, ethnicity or a count of new border crossings.",,2009-09-30,2008-10-01,Hong Kong-born,permanent_resident_grants,Fiscal year ending September 30. ,,,fiscal ending year,U.S. lawful permanent-resident grants; country of birth: Hong Kong,ohss_birth:HKG,"[
+  {
+    ""request_url"": ""https://ohss.dhs.gov/sites/default/files/2023-12/YRBK%25202014%2520LPR%2520Excel%2520Final_0.zip"",
+    ""retrieved_at"": ""2026-10-22T20:27:57+00:00"",
+    ""sha256"": ""1917b8e132cdc3c7a4510566ba36266a6013c6b38dfaebb6b2b4eb81ba268a07"",
+    ""url"": ""https://ohss.dhs.gov/sites/default/files/2023-12/YRBK%25202014%2520LPR%2520Excel%2520Final_0.zip""
+  }
+]
+",ohss_birth_2014,Table 3; country of birth; fiscal years 2005-2014,U.S. Department of Homeland Security / OHSS,2014 Yearbook of Immigration Statistics,observed,status grants,2651,2009
+annual,ohss_birth:HKG,,"Includes arrivals and adjustments of status; not nationality, ethnicity or a count of new border crossings.",,2010-09-30,2009-10-01,Hong Kong-born,permanent_resident_grants,Fiscal year ending September 30. ,,,fiscal ending year,U.S. lawful permanent-resident grants; country of birth: Hong Kong,ohss_birth:HKG,"[
+  {
+    ""request_url"": ""https://ohss.dhs.gov/sites/default/files/2023-12/YRBK%25202014%2520LPR%2520Excel%2520Final_0.zip"",
+    ""retrieved_at"": ""2026-10-22T20:27:57+00:00"",
+    ""sha256"": ""1917b8e132cdc3c7a4510566ba36266a6013c6b38dfaebb6b2b4eb81ba268a07"",
+    ""url"": ""https://ohss.dhs.gov/sites/default/files/2023-12/YRBK%25202014%2520LPR%2520Excel%2520Final_0.zip""
+  }
+]
+",ohss_birth_2014,Table 3; country of birth; fiscal years 2005-2014,U.S. Department of Homeland Security / OHSS,2014 Yearbook of Immigration Statistics,observed,status grants,2432,2010
+annual,ohss_birth:HKG,,"Includes arrivals and adjustments of status; not nationality, ethnicity or a count of new border crossings.",,2011-09-30,2010-10-01,Hong Kong-born,permanent_resident_grants,Fiscal year ending September 30. ,,,fiscal ending year,U.S. lawful permanent-resident grants; country of birth: Hong Kong,ohss_birth:HKG,"[
+  {
+    ""request_url"": ""https://ohss.dhs.gov/sites/default/files/2023-12/YRBK%25202014%2520LPR%2520Excel%2520Final_0.zip"",
+    ""retrieved_at"": ""2026-10-22T20:27:57+00:00"",
+    ""sha256"": ""1917b8e132cdc3c7a4510566ba36266a6013c6b38dfaebb6b2b4eb81ba268a07"",
+    ""url"": ""https://ohss.dhs.gov/sites/default/files/2023-12/YRBK%25202014%2520LPR%2520Excel%2520Final_0.zip""
+  }
+]
+",ohss_birth_2014,Table 3; country of birth; fiscal years 2005-2014,U.S. Department of Homeland Security / OHSS,2014 Yearbook of Immigration Statistics,observed,status grants,2306,2011
+annual,ohss_birth:HKG,,"Includes arrivals and adjustments of status; not nationality, ethnicity or a count of new border crossings.",,2012-09-30,2011-10-01,Hong Kong-born,permanent_resident_grants,Fiscal year ending September 30. ,,,fiscal ending year,U.S. lawful permanent-resident grants; country of birth: Hong Kong,ohss_birth:HKG,"[
+  {
+    ""request_url"": ""https://ohss.dhs.gov/sites/default/files/2023-12/YRBK%25202014%2520LPR%2520Excel%2520Final_0.zip"",
+    ""retrieved_at"": ""2026-10-22T20:27:57+00:00"",
+    ""sha256"": ""1917b8e132cdc3c7a4510566ba36266a6013c6b38dfaebb6b2b4eb81ba268a07"",
+    ""url"": ""https://ohss.dhs.gov/sites/default/files/2023-12/YRBK%25202014%2520LPR%2520Excel%2520Final_0.zip""
+  }
+]
+",ohss_birth_2014,Table 3; country of birth; fiscal years 2005-2014,U.S. Department of Homeland Security / OHSS,2014 Yearbook of Immigration Statistics,observed,status grants,2104,2012
+annual,ohss_birth:HKG,,"Includes arrivals and adjustments of status; not nationality, ethnicity or a count of new border crossings.",,2013-09-30,2012-10-01,Hong Kong-born,permanent_resident_grants,Fiscal year ending September 30. ,,,fiscal ending year,U.S. lawful permanent-resident grants; country of birth: Hong Kong,ohss_birth:HKG,"[
+  {
+    ""request_url"": ""https://ohss.dhs.gov/sites/default/files/2023-12/YRBK%25202014%2520LPR%2520Excel%2520Final_0.zip"",
+    ""retrieved_at"": ""2026-10-22T20:27:57+00:00"",
+    ""sha256"": ""1917b8e132cdc3c7a4510566ba36266a6013c6b38dfaebb6b2b4eb81ba268a07"",
+    ""url"": ""https://ohss.dhs.gov/sites/default/files/2023-12/YRBK%25202014%2520LPR%2520Excel%2520Final_0.zip""
+  }
+]
+",ohss_birth_2014,Table 3; country of birth; fiscal years 2005-2014,U.S. Department of Homeland Security / OHSS,2014 Yearbook of Immigration Statistics,observed,status grants,2226,2013
+annual,ohss_birth:HKG,,"Includes arrivals and adjustments of status; not nationality, ethnicity or a count of new border crossings.",,2014-09-30,2013-10-01,Hong Kong-born,permanent_resident_grants,Fiscal year ending September 30. ,,,fiscal ending year,U.S. lawful permanent-resident grants; country of birth: Hong Kong,ohss_birth:HKG,"[
+  {
+    ""request_url"": ""https://ohss.dhs.gov/sites/default/files/2023-12/YRBK%25202014%2520LPR%2520Excel%2520Final_0.zip"",
+    ""retrieved_at"": ""2026-10-22T20:27:57+00:00"",
+    ""sha256"": ""1917b8e132cdc3c7a4510566ba36266a6013c6b38dfaebb6b2b4eb81ba268a07"",
+    ""url"": ""https://ohss.dhs.gov/sites/default/files/2023-12/YRBK%25202014%2520LPR%2520Excel%2520Final_0.zip""
+  }
+]
+",ohss_birth_2014,Table 3; country of birth; fiscal years 2005-2014,U.S. Department of Homeland Security / OHSS,2014 Yearbook of Immigration Statistics,observed,status grants,2278,2014
+annual,ohss_birth:HKG,,"Includes arrivals and adjustments of status; not nationality, ethnicity or a count of new border crossings.",,2015-09-30,2014-10-01,Hong Kong-born,permanent_resident_grants,Fiscal year ending September 30. Rounded to nearest ten.,,,fiscal ending year,U.S. lawful permanent-resident grants; country of birth: Hong Kong,ohss_birth:HKG,"[
+  {
+    ""request_url"": ""https://ohss.dhs.gov/system/files/2026-06/2026_0604_ohss_yearbook_lawful_permanent_residents_fy2024.xlsx"",
+    ""retrieved_at"": ""2026-10-22T20:27:09+00:00"",
+    ""sha256"": ""19c500a6e6445e73c0a39c5bc382585e2a13fc8f52f6e4d9a3cf6a84bf9bab6a"",
+    ""url"": ""https://ohss.dhs.gov/system/files/2026-06/2026_0604_ohss_yearbook_lawful_permanent_residents_fy2024.xlsx""
+  }
+]
+",ohss_birth_2024,Table 3; country of birth; fiscal years 2015-2024,U.S. Department of Homeland Security / OHSS,2024 Yearbook of Immigration Statistics,rounded,status grants,2090,2015
+annual,ohss_birth:HKG,,"Includes arrivals and adjustments of status; not nationality, ethnicity or a count of new border crossings.",,2016-09-30,2015-10-01,Hong Kong-born,permanent_resident_grants,Fiscal year ending September 30. Rounded to nearest ten.,,,fiscal ending year,U.S. lawful permanent-resident grants; country of birth: Hong Kong,ohss_birth:HKG,"[
+  {
+    ""request_url"": ""https://ohss.dhs.gov/system/files/2026-06/2026_0604_ohss_yearbook_lawful_permanent_residents_fy2024.xlsx"",
+    ""retrieved_at"": ""2026-10-22T20:27:09+00:00"",
+    ""sha256"": ""19c500a6e6445e73c0a39c5bc382585e2a13fc8f52f6e4d9a3cf6a84bf9bab6a"",
+    ""url"": ""https://ohss.dhs.gov/system/files/2026-06/2026_0604_ohss_yearbook_lawful_permanent_residents_fy2024.xlsx""
+  }
+]
+",ohss_birth_2024,Table 3; country of birth; fiscal years 2015-2024,U.S. Department of Homeland Security / OHSS,2024 Yearbook of Immigration Statistics,rounded,status grants,2510,2016
+annual,ohss_birth:HKG,,"Includes arrivals and adjustments of status; not nationality, ethnicity or a count of new border crossings.",,2017-09-30,2016-10-01,Hong Kong-born,permanent_resident_grants,Fiscal year ending September 30. Rounded to nearest ten.,,,fiscal ending year,U.S. lawful permanent-resident grants; country of birth: Hong Kong,ohss_birth:HKG,"[
+  {
+    ""request_url"": ""https://ohss.dhs.gov/system/files/2026-06/2026_0604_ohss_yearbook_lawful_permanent_residents_fy2024.xlsx"",
+    ""retrieved_at"": ""2026-10-22T20:27:09+00:00"",
+    ""sha256"": ""19c500a6e6445e73c0a39c5bc382585e2a13fc8f52f6e4d9a3cf6a84bf9bab6a"",
+    ""url"": ""https://ohss.dhs.gov/system/files/2026-06/2026_0604_ohss_yearbook_lawful_permanent_residents_fy2024.xlsx""
+  }
+]
+",ohss_birth_2024,Table 3; country of birth; fiscal years 2015-2024,U.S. Department of Homeland Security / OHSS,2024 Yearbook of Immigration Statistics,rounded,status grants,2420,2017
+annual,ohss_birth:HKG,,"Includes arrivals and adjustments of status; not nationality, ethnicity or a count of new border crossings.",,2018-09-30,2017-10-01,Hong Kong-born,permanent_resident_grants,Fiscal year ending September 30. Rounded to nearest ten.,,,fiscal ending year,U.S. lawful permanent-resident grants; country of birth: Hong Kong,ohss_birth:HKG,"[
+  {
+    ""request_url"": ""https://ohss.dhs.gov/system/files/2026-06/2026_0604_ohss_yearbook_lawful_permanent_residents_fy2024.xlsx"",
+    ""retrieved_at"": ""2026-10-22T20:27:09+00:00"",
+    ""sha256"": ""19c500a6e6445e73c0a39c5bc382585e2a13fc8f52f6e4d9a3cf6a84bf9bab6a"",
+    ""url"": ""https://ohss.dhs.gov/system/files/2026-06/2026_0604_ohss_yearbook_lawful_permanent_residents_fy2024.xlsx""
+  }
+]
+",ohss_birth_2024,Table 3; country of birth; fiscal years 2015-2024,U.S. Department of Homeland Security / OHSS,2024 Yearbook of Immigration Statistics,rounded,status grants,2080,2018
+annual,ohss_birth:HKG,,"Includes arrivals and adjustments of status; not nationality, ethnicity or a count of new border crossings.",,2019-09-30,2018-10-01,Hong Kong-born,permanent_resident_grants,Fiscal year ending September 30. Rounded to nearest ten.,,,fiscal ending year,U.S. lawful permanent-resident grants; country of birth: Hong Kong,ohss_birth:HKG,"[
+  {
+    ""request_url"": ""https://ohss.dhs.gov/system/files/2026-06/2026_0604_ohss_yearbook_lawful_permanent_residents_fy2024.xlsx"",
+    ""retrieved_at"": ""2026-10-22T20:27:09+00:00"",
+    ""sha256"": ""19c500a6e6445e73c0a39c5bc382585e2a13fc8f52f6e4d9a3cf6a84bf9bab6a"",
+    ""url"": ""https://ohss.dhs.gov/system/files/2026-06/2026_0604_ohss_yearbook_lawful_permanent_residents_fy2024.xlsx""
+  }
+]
+",ohss_birth_2024,Table 3; country of birth; fiscal years 2015-2024,U.S. Department of Homeland Security / OHSS,2024 Yearbook of Immigration Statistics,rounded,status grants,2020,2019
+annual,ohss_birth:HKG,,"Includes arrivals and adjustments of status; not nationality, ethnicity or a count of new border crossings.",,2020-09-30,2019-10-01,Hong Kong-born,permanent_resident_grants,Fiscal year ending September 30. Rounded to nearest ten.,,,fiscal ending year,U.S. lawful permanent-resident grants; country of birth: Hong Kong,ohss_birth:HKG,"[
+  {
+    ""request_url"": ""https://ohss.dhs.gov/system/files/2026-06/2026_0604_ohss_yearbook_lawful_permanent_residents_fy2024.xlsx"",
+    ""retrieved_at"": ""2026-10-22T20:27:09+00:00"",
+    ""sha256"": ""19c500a6e6445e73c0a39c5bc382585e2a13fc8f52f6e4d9a3cf6a84bf9bab6a"",
+    ""url"": ""https://ohss.dhs.gov/system/files/2026-06/2026_0604_ohss_yearbook_lawful_permanent_residents_fy2024.xlsx""
+  }
+]
+",ohss_birth_2024,Table 3; country of birth; fiscal years 2015-2024,U.S. Department of Homeland Security / OHSS,2024 Yearbook of Immigration Statistics,rounded,status grants,1780,2020
+annual,ohss_birth:HKG,,"Includes arrivals and adjustments of status; not nationality, ethnicity or a count of new border crossings.",,2021-09-30,2020-10-01,Hong Kong-born,permanent_resident_grants,Fiscal year ending September 30. Rounded to nearest ten.,,,fiscal ending year,U.S. lawful permanent-resident grants; country of birth: Hong Kong,ohss_birth:HKG,"[
+  {
+    ""request_url"": ""https://ohss.dhs.gov/system/files/2026-06/2026_0604_ohss_yearbook_lawful_permanent_residents_fy2024.xlsx"",
+    ""retrieved_at"": ""2026-10-22T20:27:09+00:00"",
+    ""sha256"": ""19c500a6e6445e73c0a39c5bc382585e2a13fc8f52f6e4d9a3cf6a84bf9bab6a"",
+    ""url"": ""https://ohss.dhs.gov/system/files/2026-06/2026_0604_ohss_yearbook_lawful_permanent_residents_fy2024.xlsx""
+  }
+]
+",ohss_birth_2024,Table 3; country of birth; fiscal years 2015-2024,U.S. Department of Homeland Security / OHSS,2024 Yearbook of Immigration Statistics,rounded,status grants,1330,2021
+annual,ohss_birth:HKG,,"Includes arrivals and adjustments of status; not nationality, ethnicity or a count of new border crossings.",,2022-09-30,2021-10-01,Hong Kong-born,permanent_resident_grants,Fiscal year ending September 30. Rounded to nearest ten.,,,fiscal ending year,U.S. lawful permanent-resident grants; country of birth: Hong Kong,ohss_birth:HKG,"[
+  {
+    ""request_url"": ""https://ohss.dhs.gov/system/files/2026-06/2026_0604_ohss_yearbook_lawful_permanent_residents_fy2024.xlsx"",
+    ""retrieved_at"": ""2026-10-22T20:27:09+00:00"",
+    ""sha256"": ""19c500a6e6445e73c0a39c5bc382585e2a13fc8f52f6e4d9a3cf6a84bf9bab6a"",
+    ""url"": ""https://ohss.dhs.gov/system/files/2026-06/2026_0604_ohss_yearbook_lawful_permanent_residents_fy2024.xlsx""
+  }
+]
+",ohss_birth_2024,Table 3; country of birth; fiscal years 2015-2024,U.S. Department of Homeland Security / OHSS,2024 Yearbook of Immigration Statistics,rounded,status grants,2300,2022
+annual,ohss_birth:HKG,,"Includes arrivals and adjustments of status; not nationality, ethnicity or a count of new border crossings.",,2023-09-30,2022-10-01,Hong Kong-born,permanent_resident_grants,Fiscal year ending September 30. Rounded to nearest ten.,,,fiscal ending year,U.S. lawful permanent-resident grants; country of birth: Hong Kong,ohss_birth:HKG,"[
+  {
+    ""request_url"": ""https://ohss.dhs.gov/system/files/2026-06/2026_0604_ohss_yearbook_lawful_permanent_residents_fy2024.xlsx"",
+    ""retrieved_at"": ""2026-10-22T20:27:09+00:00"",
+    ""sha256"": ""19c500a6e6445e73c0a39c5bc382585e2a13fc8f52f6e4d9a3cf6a84bf9bab6a"",
+    ""url"": ""https://ohss.dhs.gov/system/files/2026-06/2026_0604_ohss_yearbook_lawful_permanent_residents_fy2024.xlsx""
+  }
+]
+",ohss_birth_2024,Table 3; country of birth; fiscal years 2015-2024,U.S. Department of Homeland Security / OHSS,2024 Yearbook of Immigration Statistics,rounded,status grants,2290,2023
+annual,ohss_birth:HKG,,"Includes arrivals and adjustments of status; not nationality, ethnicity or a count of new border crossings.",,2024-09-30,2023-10-01,Hong Kong-born,permanent_resident_grants,Fiscal year ending September 30. Rounded to nearest ten.,,,fiscal ending year,U.S. lawful permanent-resident grants; country of birth: Hong Kong,ohss_birth:HKG,"[
+  {
+    ""request_url"": ""https://ohss.dhs.gov/system/files/2026-06/2026_0604_ohss_yearbook_lawful_permanent_residents_fy2024.xlsx"",
+    ""retrieved_at"": ""2026-10-22T20:27:09+00:00"",
+    ""sha256"": ""19c500a6e6445e73c0a39c5bc382585e2a13fc8f52f6e4d9a3cf6a84bf9bab6a"",
+    ""url"": ""https://ohss.dhs.gov/system/files/2026-06/2026_0604_ohss_yearbook_lawful_permanent_residents_fy2024.xlsx""
+  }
+]
+",ohss_birth_2024,Table 3; country of birth; fiscal years 2015-2024,U.S. Department of Homeland Security / OHSS,2024 Yearbook of Immigration Statistics,rounded,status grants,1950,2024
+annual,ohss_birth:MAC,,"Includes arrivals and adjustments of status; not nationality, ethnicity or a count of new border crossings.",,2000-09-30,1999-10-01,Macau-born,permanent_resident_grants,Fiscal year ending September 30. ,,,fiscal ending year,U.S. lawful permanent-resident grants; country of birth: Macau,ohss_birth:MAC,"[
+  {
+    ""request_url"": ""https://ohss.dhs.gov/sites/default/files/2023-12/LPR2004_2.zip"",
+    ""retrieved_at"": ""2026-10-22T20:27:57+00:00"",
+    ""sha256"": ""aeb1d7f31fe97dc2e01b75df874bfe5d456c0957de61bd1f3c799da407411e70"",
+    ""url"": ""https://ohss.dhs.gov/sites/default/files/2023-12/LPR2004_2.zip""
+  }
+]
+",ohss_birth_2004,Table 3; country of birth; fiscal years 2000-2004,U.S. Department of Homeland Security / OHSS,2004 Yearbook of Immigration Statistics,observed,status grants,270,2000
+annual,ohss_birth:MAC,,"Includes arrivals and adjustments of status; not nationality, ethnicity or a count of new border crossings.",,2001-09-30,2000-10-01,Macau-born,permanent_resident_grants,Fiscal year ending September 30. ,,,fiscal ending year,U.S. lawful permanent-resident grants; country of birth: Macau,ohss_birth:MAC,"[
+  {
+    ""request_url"": ""https://ohss.dhs.gov/sites/default/files/2023-12/LPR2004_2.zip"",
+    ""retrieved_at"": ""2026-10-22T20:27:57+00:00"",
+    ""sha256"": ""aeb1d7f31fe97dc2e01b75df874bfe5d456c0957de61bd1f3c799da407411e70"",
+    ""url"": ""https://ohss.dhs.gov/sites/default/files/2023-12/LPR2004_2.zip""
+  }
+]
+",ohss_birth_2004,Table 3; country of birth; fiscal years 2000-2004,U.S. Department of Homeland Security / OHSS,2004 Yearbook of Immigration Statistics,observed,status grants,342,2001
+annual,ohss_birth:MAC,,"Includes arrivals and adjustments of status; not nationality, ethnicity or a count of new border crossings.",,2002-09-30,2001-10-01,Macau-born,permanent_resident_grants,Fiscal year ending September 30. ,,,fiscal ending year,U.S. lawful permanent-resident grants; country of birth: Macau,ohss_birth:MAC,"[
+  {
+    ""request_url"": ""https://ohss.dhs.gov/sites/default/files/2023-12/LPR2004_2.zip"",
+    ""retrieved_at"": ""2026-10-22T20:27:57+00:00"",
+    ""sha256"": ""aeb1d7f31fe97dc2e01b75df874bfe5d456c0957de61bd1f3c799da407411e70"",
+    ""url"": ""https://ohss.dhs.gov/sites/default/files/2023-12/LPR2004_2.zip""
+  }
+]
+",ohss_birth_2004,Table 3; country of birth; fiscal years 2000-2004,U.S. Department of Homeland Security / OHSS,2004 Yearbook of Immigration Statistics,observed,status grants,284,2002
+annual,ohss_birth:MAC,,"Includes arrivals and adjustments of status; not nationality, ethnicity or a count of new border crossings.",,2003-09-30,2002-10-01,Macau-born,permanent_resident_grants,Fiscal year ending September 30. ,,,fiscal ending year,U.S. lawful permanent-resident grants; country of birth: Macau,ohss_birth:MAC,"[
+  {
+    ""request_url"": ""https://ohss.dhs.gov/sites/default/files/2023-12/LPR2004_2.zip"",
+    ""retrieved_at"": ""2026-10-22T20:27:57+00:00"",
+    ""sha256"": ""aeb1d7f31fe97dc2e01b75df874bfe5d456c0957de61bd1f3c799da407411e70"",
+    ""url"": ""https://ohss.dhs.gov/sites/default/files/2023-12/LPR2004_2.zip""
+  }
+]
+",ohss_birth_2004,Table 3; country of birth; fiscal years 2000-2004,U.S. Department of Homeland Security / OHSS,2004 Yearbook of Immigration Statistics,observed,status grants,246,2003
+annual,ohss_birth:MAC,,"Includes arrivals and adjustments of status; not nationality, ethnicity or a count of new border crossings.",,2004-09-30,2003-10-01,Macau-born,permanent_resident_grants,Fiscal year ending September 30. ,,,fiscal ending year,U.S. lawful permanent-resident grants; country of birth: Macau,ohss_birth:MAC,"[
+  {
+    ""request_url"": ""https://ohss.dhs.gov/sites/default/files/2023-12/LPR2004_2.zip"",
+    ""retrieved_at"": ""2026-10-22T20:27:57+00:00"",
+    ""sha256"": ""aeb1d7f31fe97dc2e01b75df874bfe5d456c0957de61bd1f3c799da407411e70"",
+    ""url"": ""https://ohss.dhs.gov/sites/default/files/2023-12/LPR2004_2.zip""
+  }
+]
+",ohss_birth_2004,Table 3; country of birth; fiscal years 2000-2004,U.S. Department of Homeland Security / OHSS,2004 Yearbook of Immigration Statistics,observed,status grants,192,2004
+annual,ohss_birth:MAC,,"Includes arrivals and adjustments of status; not nationality, ethnicity or a count of new border crossings.",,2005-09-30,2004-10-01,Macau-born,permanent_resident_grants,Fiscal year ending September 30. ,,,fiscal ending year,U.S. lawful permanent-resident grants; country of birth: Macau,ohss_birth:MAC,"[
+  {
+    ""request_url"": ""https://ohss.dhs.gov/sites/default/files/2023-12/YRBK%25202014%2520LPR%2520Excel%2520Final_0.zip"",
+    ""retrieved_at"": ""2026-10-22T20:27:57+00:00"",
+    ""sha256"": ""1917b8e132cdc3c7a4510566ba36266a6013c6b38dfaebb6b2b4eb81ba268a07"",
+    ""url"": ""https://ohss.dhs.gov/sites/default/files/2023-12/YRBK%25202014%2520LPR%2520Excel%2520Final_0.zip""
+  }
+]
+",ohss_birth_2014,Table 3; country of birth; fiscal years 2005-2014,U.S. Department of Homeland Security / OHSS,2014 Yearbook of Immigration Statistics,observed,status grants,133,2005
+annual,ohss_birth:MAC,,"Includes arrivals and adjustments of status; not nationality, ethnicity or a count of new border crossings.",,2006-09-30,2005-10-01,Macau-born,permanent_resident_grants,Fiscal year ending September 30. ,,,fiscal ending year,U.S. lawful permanent-resident grants; country of birth: Macau,ohss_birth:MAC,"[
+  {
+    ""request_url"": ""https://ohss.dhs.gov/sites/default/files/2023-12/YRBK%25202014%2520LPR%2520Excel%2520Final_0.zip"",
+    ""retrieved_at"": ""2026-10-22T20:27:57+00:00"",
+    ""sha256"": ""1917b8e132cdc3c7a4510566ba36266a6013c6b38dfaebb6b2b4eb81ba268a07"",
+    ""url"": ""https://ohss.dhs.gov/sites/default/files/2023-12/YRBK%25202014%2520LPR%2520Excel%2520Final_0.zip""
+  }
+]
+",ohss_birth_2014,Table 3; country of birth; fiscal years 2005-2014,U.S. Department of Homeland Security / OHSS,2014 Yearbook of Immigration Statistics,observed,status grants,189,2006
+annual,ohss_birth:MAC,,"Includes arrivals and adjustments of status; not nationality, ethnicity or a count of new border crossings.",,2007-09-30,2006-10-01,Macau-born,permanent_resident_grants,Fiscal year ending September 30. ,,,fiscal ending year,U.S. lawful permanent-resident grants; country of birth: Macau,ohss_birth:MAC,"[
+  {
+    ""request_url"": ""https://ohss.dhs.gov/sites/default/files/2023-12/YRBK%25202014%2520LPR%2520Excel%2520Final_0.zip"",
+    ""retrieved_at"": ""2026-10-22T20:27:57+00:00"",
+    ""sha256"": ""1917b8e132cdc3c7a4510566ba36266a6013c6b38dfaebb6b2b4eb81ba268a07"",
+    ""url"": ""https://ohss.dhs.gov/sites/default/files/2023-12/YRBK%25202014%2520LPR%2520Excel%2520Final_0.zip""
+  }
+]
+",ohss_birth_2014,Table 3; country of birth; fiscal years 2005-2014,U.S. Department of Homeland Security / OHSS,2014 Yearbook of Immigration Statistics,observed,status grants,178,2007
+annual,ohss_birth:MAC,,"Includes arrivals and adjustments of status; not nationality, ethnicity or a count of new border crossings.",,2008-09-30,2007-10-01,Macau-born,permanent_resident_grants,Fiscal year ending September 30. ,,,fiscal ending year,U.S. lawful permanent-resident grants; country of birth: Macau,ohss_birth:MAC,"[
+  {
+    ""request_url"": ""https://ohss.dhs.gov/sites/default/files/2023-12/YRBK%25202014%2520LPR%2520Excel%2520Final_0.zip"",
+    ""retrieved_at"": ""2026-10-22T20:27:57+00:00"",
+    ""sha256"": ""1917b8e132cdc3c7a4510566ba36266a6013c6b38dfaebb6b2b4eb81ba268a07"",
+    ""url"": ""https://ohss.dhs.gov/sites/default/files/2023-12/YRBK%25202014%2520LPR%2520Excel%2520Final_0.zip""
+  }
+]
+",ohss_birth_2014,Table 3; country of birth; fiscal years 2005-2014,U.S. Department of Homeland Security / OHSS,2014 Yearbook of Immigration Statistics,observed,status grants,205,2008
+annual,ohss_birth:MAC,,"Includes arrivals and adjustments of status; not nationality, ethnicity or a count of new border crossings.",,2009-09-30,2008-10-01,Macau-born,permanent_resident_grants,Fiscal year ending September 30. ,,,fiscal ending year,U.S. lawful permanent-resident grants; country of birth: Macau,ohss_birth:MAC,"[
+  {
+    ""request_url"": ""https://ohss.dhs.gov/sites/default/files/2023-12/YRBK%25202014%2520LPR%2520Excel%2520Final_0.zip"",
+    ""retrieved_at"": ""2026-10-22T20:27:57+00:00"",
+    ""sha256"": ""1917b8e132cdc3c7a4510566ba36266a6013c6b38dfaebb6b2b4eb81ba268a07"",
+    ""url"": ""https://ohss.dhs.gov/sites/default/files/2023-12/YRBK%25202014%2520LPR%2520Excel%2520Final_0.zip""
+  }
+]
+",ohss_birth_2014,Table 3; country of birth; fiscal years 2005-2014,U.S. Department of Homeland Security / OHSS,2014 Yearbook of Immigration Statistics,observed,status grants,158,2009
+annual,ohss_birth:MAC,,"Includes arrivals and adjustments of status; not nationality, ethnicity or a count of new border crossings.",,2010-09-30,2009-10-01,Macau-born,permanent_resident_grants,Fiscal year ending September 30. ,,,fiscal ending year,U.S. lawful permanent-resident grants; country of birth: Macau,ohss_birth:MAC,"[
+  {
+    ""request_url"": ""https://ohss.dhs.gov/sites/default/files/2023-12/YRBK%25202014%2520LPR%2520Excel%2520Final_0.zip"",
+    ""retrieved_at"": ""2026-10-22T20:27:57+00:00"",
+    ""sha256"": ""1917b8e132cdc3c7a4510566ba36266a6013c6b38dfaebb6b2b4eb81ba268a07"",
+    ""url"": ""https://ohss.dhs.gov/sites/default/files/2023-12/YRBK%25202014%2520LPR%2520Excel%2520Final_0.zip""
+  }
+]
+",ohss_birth_2014,Table 3; country of birth; fiscal years 2005-2014,U.S. Department of Homeland Security / OHSS,2014 Yearbook of Immigration Statistics,observed,status grants,143,2010
+annual,ohss_birth:MAC,,"Includes arrivals and adjustments of status; not nationality, ethnicity or a count of new border crossings.",,2011-09-30,2010-10-01,Macau-born,permanent_resident_grants,Fiscal year ending September 30. ,,,fiscal ending year,U.S. lawful permanent-resident grants; country of birth: Macau,ohss_birth:MAC,"[
+  {
+    ""request_url"": ""https://ohss.dhs.gov/sites/default/files/2023-12/YRBK%25202014%2520LPR%2520Excel%2520Final_0.zip"",
+    ""retrieved_at"": ""2026-10-22T20:27:57+00:00"",
+    ""sha256"": ""1917b8e132cdc3c7a4510566ba36266a6013c6b38dfaebb6b2b4eb81ba268a07"",
+    ""url"": ""https://ohss.dhs.gov/sites/default/files/2023-12/YRBK%25202014%2520LPR%2520Excel%2520Final_0.zip""
+  }
+]
+",ohss_birth_2014,Table 3; country of birth; fiscal years 2005-2014,U.S. Department of Homeland Security / OHSS,2014 Yearbook of Immigration Statistics,observed,status grants,130,2011
+annual,ohss_birth:MAC,,"Includes arrivals and adjustments of status; not nationality, ethnicity or a count of new border crossings.",,2012-09-30,2011-10-01,Macau-born,permanent_resident_grants,Fiscal year ending September 30. ,,,fiscal ending year,U.S. lawful permanent-resident grants; country of birth: Macau,ohss_birth:MAC,"[
+  {
+    ""request_url"": ""https://ohss.dhs.gov/sites/default/files/2023-12/YRBK%25202014%2520LPR%2520Excel%2520Final_0.zip"",
+    ""retrieved_at"": ""2026-10-22T20:27:57+00:00"",
+    ""sha256"": ""1917b8e132cdc3c7a4510566ba36266a6013c6b38dfaebb6b2b4eb81ba268a07"",
+    ""url"": ""https://ohss.dhs.gov/sites/default/files/2023-12/YRBK%25202014%2520LPR%2520Excel%2520Final_0.zip""
+  }
+]
+",ohss_birth_2014,Table 3; country of birth; fiscal years 2005-2014,U.S. Department of Homeland Security / OHSS,2014 Yearbook of Immigration Statistics,observed,status grants,120,2012
+annual,ohss_birth:MAC,,"Includes arrivals and adjustments of status; not nationality, ethnicity or a count of new border crossings.",,2013-09-30,2012-10-01,Macau-born,permanent_resident_grants,Fiscal year ending September 30. ,,,fiscal ending year,U.S. lawful permanent-resident grants; country of birth: Macau,ohss_birth:MAC,"[
+  {
+    ""request_url"": ""https://ohss.dhs.gov/sites/default/files/2023-12/YRBK%25202014%2520LPR%2520Excel%2520Final_0.zip"",
+    ""retrieved_at"": ""2026-10-22T20:27:57+00:00"",
+    ""sha256"": ""1917b8e132cdc3c7a4510566ba36266a6013c6b38dfaebb6b2b4eb81ba268a07"",
+    ""url"": ""https://ohss.dhs.gov/sites/default/files/2023-12/YRBK%25202014%2520LPR%2520Excel%2520Final_0.zip""
+  }
+]
+",ohss_birth_2014,Table 3; country of birth; fiscal years 2005-2014,U.S. Department of Homeland Security / OHSS,2014 Yearbook of Immigration Statistics,observed,status grants,106,2013
+annual,ohss_birth:MAC,,"Includes arrivals and adjustments of status; not nationality, ethnicity or a count of new border crossings.",,2014-09-30,2013-10-01,Macau-born,permanent_resident_grants,Fiscal year ending September 30. ,,,fiscal ending year,U.S. lawful permanent-resident grants; country of birth: Macau,ohss_birth:MAC,"[
+  {
+    ""request_url"": ""https://ohss.dhs.gov/sites/default/files/2023-12/YRBK%25202014%2520LPR%2520Excel%2520Final_0.zip"",
+    ""retrieved_at"": ""2026-10-22T20:27:57+00:00"",
+    ""sha256"": ""1917b8e132cdc3c7a4510566ba36266a6013c6b38dfaebb6b2b4eb81ba268a07"",
+    ""url"": ""https://ohss.dhs.gov/sites/default/files/2023-12/YRBK%25202014%2520LPR%2520Excel%2520Final_0.zip""
+  }
+]
+",ohss_birth_2014,Table 3; country of birth; fiscal years 2005-2014,U.S. Department of Homeland Security / OHSS,2014 Yearbook of Immigration Statistics,observed,status grants,105,2014
+annual,ohss_birth:MAC,,"Includes arrivals and adjustments of status; not nationality, ethnicity or a count of new border crossings.",,2015-09-30,2014-10-01,Macau-born,permanent_resident_grants,Fiscal year ending September 30. Rounded to nearest ten.,,,fiscal ending year,U.S. lawful permanent-resident grants; country of birth: Macau,ohss_birth:MAC,"[
+  {
+    ""request_url"": ""https://ohss.dhs.gov/system/files/2026-06/2026_0604_ohss_yearbook_lawful_permanent_residents_fy2024.xlsx"",
+    ""retrieved_at"": ""2026-10-22T20:27:09+00:00"",
+    ""sha256"": ""19c500a6e6445e73c0a39c5bc382585e2a13fc8f52f6e4d9a3cf6a84bf9bab6a"",
+    ""url"": ""https://ohss.dhs.gov/system/files/2026-06/2026_0604_ohss_yearbook_lawful_permanent_residents_fy2024.xlsx""
+  }
+]
+",ohss_birth_2024,Table 3; country of birth; fiscal years 2015-2024,U.S. Department of Homeland Security / OHSS,2024 Yearbook of Immigration Statistics,rounded,status grants,100,2015
+annual,ohss_birth:MAC,,"Includes arrivals and adjustments of status; not nationality, ethnicity or a count of new border crossings.",,2016-09-30,2015-10-01,Macau-born,permanent_resident_grants,Fiscal year ending September 30. Rounded to nearest ten.,,,fiscal ending year,U.S. lawful permanent-resident grants; country of birth: Macau,ohss_birth:MAC,"[
+  {
+    ""request_url"": ""https://ohss.dhs.gov/system/files/2026-06/2026_0604_ohss_yearbook_lawful_permanent_residents_fy2024.xlsx"",
+    ""retrieved_at"": ""2026-10-22T20:27:09+00:00"",
+    ""sha256"": ""19c500a6e6445e73c0a39c5bc382585e2a13fc8f52f6e4d9a3cf6a84bf9bab6a"",
+    ""url"": ""https://ohss.dhs.gov/system/files/2026-06/2026_0604_ohss_yearbook_lawful_permanent_residents_fy2024.xlsx""
+  }
+]
+",ohss_birth_2024,Table 3; country of birth; fiscal years 2015-2024,U.S. Department of Homeland Security / OHSS,2024 Yearbook of Immigration Statistics,rounded,status grants,110,2016
+annual,ohss_birth:MAC,,"Includes arrivals and adjustments of status; not nationality, ethnicity or a count of new border crossings.",,2017-09-30,2016-10-01,Macau-born,permanent_resident_grants,Fiscal year ending September 30. Rounded to nearest ten.,,,fiscal ending year,U.S. lawful permanent-resident grants; country of birth: Macau,ohss_birth:MAC,"[
+  {
+    ""request_url"": ""https://ohss.dhs.gov/system/files/2026-06/2026_0604_ohss_yearbook_lawful_permanent_residents_fy2024.xlsx"",
+    ""retrieved_at"": ""2026-10-22T20:27:09+00:00"",
+    ""sha256"": ""19c500a6e6445e73c0a39c5bc382585e2a13fc8f52f6e4d9a3cf6a84bf9bab6a"",
+    ""url"": ""https://ohss.dhs.gov/system/files/2026-06/2026_0604_ohss_yearbook_lawful_permanent_residents_fy2024.xlsx""
+  }
+]
+",ohss_birth_2024,Table 3; country of birth; fiscal years 2015-2024,U.S. Department of Homeland Security / OHSS,2024 Yearbook of Immigration Statistics,rounded,status grants,110,2017
+annual,ohss_birth:MAC,,"Includes arrivals and adjustments of status; not nationality, ethnicity or a count of new border crossings.",,2018-09-30,2017-10-01,Macau-born,permanent_resident_grants,Fiscal year ending September 30. Rounded to nearest ten.,,,fiscal ending year,U.S. lawful permanent-resident grants; country of birth: Macau,ohss_birth:MAC,"[
+  {
+    ""request_url"": ""https://ohss.dhs.gov/system/files/2026-06/2026_0604_ohss_yearbook_lawful_permanent_residents_fy2024.xlsx"",
+    ""retrieved_at"": ""2026-10-22T20:27:09+00:00"",
+    ""sha256"": ""19c500a6e6445e73c0a39c5bc382585e2a13fc8f52f6e4d9a3cf6a84bf9bab6a"",
+    ""url"": ""https://ohss.dhs.gov/system/files/2026-06/2026_0604_ohss_yearbook_lawful_permanent_residents_fy2024.xlsx""
+  }
+]
+",ohss_birth_2024,Table 3; country of birth; fiscal years 2015-2024,U.S. Department of Homeland Security / OHSS,2024 Yearbook of Immigration Statistics,rounded,status grants,90,2018
+annual,ohss_birth:MAC,,"Includes arrivals and adjustments of status; not nationality, ethnicity or a count of new border crossings.",,2019-09-30,2018-10-01,Macau-born,permanent_resident_grants,Fiscal year ending September 30. Rounded to nearest ten.,,,fiscal ending year,U.S. lawful permanent-resident grants; country of birth: Macau,ohss_birth:MAC,"[
+  {
+    ""request_url"": ""https://ohss.dhs.gov/system/files/2026-06/2026_0604_ohss_yearbook_lawful_permanent_residents_fy2024.xlsx"",
+    ""retrieved_at"": ""2026-10-22T20:27:09+00:00"",
+    ""sha256"": ""19c500a6e6445e73c0a39c5bc382585e2a13fc8f52f6e4d9a3cf6a84bf9bab6a"",
+    ""url"": ""https://ohss.dhs.gov/system/files/2026-06/2026_0604_ohss_yearbook_lawful_permanent_residents_fy2024.xlsx""
+  }
+]
+",ohss_birth_2024,Table 3; country of birth; fiscal years 2015-2024,U.S. Department of Homeland Security / OHSS,2024 Yearbook of Immigration Statistics,rounded,status grants,100,2019
+annual,ohss_birth:MAC,,"Includes arrivals and adjustments of status; not nationality, ethnicity or a count of new border crossings.",,2020-09-30,2019-10-01,Macau-born,permanent_resident_grants,Fiscal year ending September 30. Rounded to nearest ten.,,,fiscal ending year,U.S. lawful permanent-resident grants; country of birth: Macau,ohss_birth:MAC,"[
+  {
+    ""request_url"": ""https://ohss.dhs.gov/system/files/2026-06/2026_0604_ohss_yearbook_lawful_permanent_residents_fy2024.xlsx"",
+    ""retrieved_at"": ""2026-10-22T20:27:09+00:00"",
+    ""sha256"": ""19c500a6e6445e73c0a39c5bc382585e2a13fc8f52f6e4d9a3cf6a84bf9bab6a"",
+    ""url"": ""https://ohss.dhs.gov/system/files/2026-06/2026_0604_ohss_yearbook_lawful_permanent_residents_fy2024.xlsx""
+  }
+]
+",ohss_birth_2024,Table 3; country of birth; fiscal years 2015-2024,U.S. Department of Homeland Security / OHSS,2024 Yearbook of Immigration Statistics,rounded,status grants,60,2020
+annual,ohss_birth:MAC,,"Includes arrivals and adjustments of status; not nationality, ethnicity or a count of new border crossings.",,2021-09-30,2020-10-01,Macau-born,permanent_resident_grants,Fiscal year ending September 30. Rounded to nearest ten.,,,fiscal ending year,U.S. lawful permanent-resident grants; country of birth: Macau,ohss_birth:MAC,"[
+  {
+    ""request_url"": ""https://ohss.dhs.gov/system/files/2026-06/2026_0604_ohss_yearbook_lawful_permanent_residents_fy2024.xlsx"",
+    ""retrieved_at"": ""2026-10-22T20:27:09+00:00"",
+    ""sha256"": ""19c500a6e6445e73c0a39c5bc382585e2a13fc8f52f6e4d9a3cf6a84bf9bab6a"",
+    ""url"": ""https://ohss.dhs.gov/system/files/2026-06/2026_0604_ohss_yearbook_lawful_permanent_residents_fy2024.xlsx""
+  }
+]
+",ohss_birth_2024,Table 3; country of birth; fiscal years 2015-2024,U.S. Department of Homeland Security / OHSS,2024 Yearbook of Immigration Statistics,rounded,status grants,50,2021
+annual,ohss_birth:MAC,,"Includes arrivals and adjustments of status; not nationality, ethnicity or a count of new border crossings.",,2022-09-30,2021-10-01,Macau-born,permanent_resident_grants,Fiscal year ending September 30. Rounded to nearest ten.,,,fiscal ending year,U.S. lawful permanent-resident grants; country of birth: Macau,ohss_birth:MAC,"[
+  {
+    ""request_url"": ""https://ohss.dhs.gov/system/files/2026-06/2026_0604_ohss_yearbook_lawful_permanent_residents_fy2024.xlsx"",
+    ""retrieved_at"": ""2026-10-22T20:27:09+00:00"",
+    ""sha256"": ""19c500a6e6445e73c0a39c5bc382585e2a13fc8f52f6e4d9a3cf6a84bf9bab6a"",
+    ""url"": ""https://ohss.dhs.gov/system/files/2026-06/2026_0604_ohss_yearbook_lawful_permanent_residents_fy2024.xlsx""
+  }
+]
+",ohss_birth_2024,Table 3; country of birth; fiscal years 2015-2024,U.S. Department of Homeland Security / OHSS,2024 Yearbook of Immigration Statistics,rounded,status grants,60,2022
+annual,ohss_birth:MAC,,"Includes arrivals and adjustments of status; not nationality, ethnicity or a count of new border crossings.",,2023-09-30,2022-10-01,Macau-born,permanent_resident_grants,Fiscal year ending September 30. Rounded to nearest ten.,,,fiscal ending year,U.S. lawful permanent-resident grants; country of birth: Macau,ohss_birth:MAC,"[
+  {
+    ""request_url"": ""https://ohss.dhs.gov/system/files/2026-06/2026_0604_ohss_yearbook_lawful_permanent_residents_fy2024.xlsx"",
+    ""retrieved_at"": ""2026-10-22T20:27:09+00:00"",
+    ""sha256"": ""19c500a6e6445e73c0a39c5bc382585e2a13fc8f52f6e4d9a3cf6a84bf9bab6a"",
+    ""url"": ""https://ohss.dhs.gov/system/files/2026-06/2026_0604_ohss_yearbook_lawful_permanent_residents_fy2024.xlsx""
+  }
+]
+",ohss_birth_2024,Table 3; country of birth; fiscal years 2015-2024,U.S. Department of Homeland Security / OHSS,2024 Yearbook of Immigration Statistics,rounded,status grants,90,2023
+annual,ohss_birth:MAC,,"Includes arrivals and adjustments of status; not nationality, ethnicity or a count of new border crossings.",,2024-09-30,2023-10-01,Macau-born,permanent_resident_grants,Fiscal year ending September 30. Rounded to nearest ten.,,,fiscal ending year,U.S. lawful permanent-resident grants; country of birth: Macau,ohss_birth:MAC,"[
+  {
+    ""request_url"": ""https://ohss.dhs.gov/system/files/2026-06/2026_0604_ohss_yearbook_lawful_permanent_residents_fy2024.xlsx"",
+    ""retrieved_at"": ""2026-10-22T20:27:09+00:00"",
+    ""sha256"": ""19c500a6e6445e73c0a39c5bc382585e2a13fc8f52f6e4d9a3cf6a84bf9bab6a"",
+    ""url"": ""https://ohss.dhs.gov/system/files/2026-06/2026_0604_ohss_yearbook_lawful_permanent_residents_fy2024.xlsx""
+  }
+]
+",ohss_birth_2024,Table 3; country of birth; fiscal years 2015-2024,U.S. Department of Homeland Security / OHSS,2024 Yearbook of Immigration Statistics,rounded,status grants,80,2024
+annual,ohss_nationality:adjustments,,Different population from the birthplace history. Not a visa issuance count.,,2025-09-30,2024-10-01,Adjustments within the U.S.,permanent_resident_grants,"Fiscal year October 1, 2024–September 30, 2025; rounded to nearest ten.",,,fiscal ending year,"DHS China, People's Republic nationality category; U.S. permanent-resident grants",ohss_nationality:adjustments,"[
+  {
+    ""request_url"": ""https://ohss.dhs.gov/system/files/2026-06/2026_0604_ohss_legal-immigration-adjustment-of-status-fy-2025q4.xlsx"",
+    ""retrieved_at"": ""2026-10-22T20:27:58+00:00"",
+    ""sha256"": ""7660a03f72bcbee2cf3ff14ab6b8c5fd759faf89e96659b83c6e894f070f58cc"",
+    ""url"": ""https://ohss.dhs.gov/system/files/2026-06/2026_0604_ohss_legal-immigration-adjustment-of-status-fy-2025q4.xlsx""
+  }
+]
+",ohss_nationality_2025,"Table 1A; China, People's Republic; annual Total columns 2, 7 and 12",U.S. Department of Homeland Security / OHSS,"Legal Immigration and Adjustment of Status Report, FY2025 Q4",rounded,status grants,38650,2025
+annual,ohss_nationality:new_arrivals,,Different population from the birthplace history. Not a visa issuance count.,,2025-09-30,2024-10-01,New arrivals,permanent_resident_grants,"Fiscal year October 1, 2024–September 30, 2025; rounded to nearest ten.",,,fiscal ending year,"DHS China, People's Republic nationality category; U.S. permanent-resident grants",ohss_nationality:new_arrivals,"[
+  {
+    ""request_url"": ""https://ohss.dhs.gov/system/files/2026-06/2026_0604_ohss_legal-immigration-adjustment-of-status-fy-2025q4.xlsx"",
+    ""retrieved_at"": ""2026-10-22T20:27:58+00:00"",
+    ""sha256"": ""7660a03f72bcbee2cf3ff14ab6b8c5fd759faf89e96659b83c6e894f070f58cc"",
+    ""url"": ""https://ohss.dhs.gov/system/files/2026-06/2026_0604_ohss_legal-immigration-adjustment-of-status-fy-2025q4.xlsx""
+  }
+]
+",ohss_nationality_2025,"Table 1A; China, People's Republic; annual Total columns 2, 7 and 12",U.S. Department of Homeland Security / OHSS,"Legal Immigration and Adjustment of Status Report, FY2025 Q4",rounded,status grants,27020,2025
+annual,ohss_nationality:total,,Different population from the birthplace history. Not a visa issuance count.,,2025-09-30,2024-10-01,Total grants,permanent_resident_grants,"Fiscal year October 1, 2024–September 30, 2025; rounded to nearest ten.",,,fiscal ending year,"DHS China, People's Republic nationality category; U.S. permanent-resident grants",ohss_nationality:total,"[
+  {
+    ""request_url"": ""https://ohss.dhs.gov/system/files/2026-06/2026_0604_ohss_legal-immigration-adjustment-of-status-fy-2025q4.xlsx"",
+    ""retrieved_at"": ""2026-10-22T20:27:58+00:00"",
+    ""sha256"": ""7660a03f72bcbee2cf3ff14ab6b8c5fd759faf89e96659b83c6e894f070f58cc"",
+    ""url"": ""https://ohss.dhs.gov/system/files/2026-06/2026_0604_ohss_legal-immigration-adjustment-of-status-fy-2025q4.xlsx""
+  }
+]
+",ohss_nationality_2025,"Table 1A; China, People's Republic; annual Total columns 2, 7 and 12",U.S. Department of Homeland Security / OHSS,"Legal Immigration and Adjustment of Status Report, FY2025 Q4",rounded,status grants,65670,2025
+benchmark,un_stock:CHN:USA,B,"Estimated resident stock, not annual immigration or permanent-residency grants. UN type C uses foreign citizenship; B uses foreign birth; R includes refugee adjustments. The U.S. destination population includes the territories specified in UN coverage note 36.",USA,,,China-born in the U.S.,migrant_stock,UN 2024 revision; 1 July benchmark. Not an annual flow.,2000-07-01,CHN,mid-year July 1,China-born in the U.S.; UN destination-specific population definition,un_stock:CHN:USA,"[
+  {
+    ""request_url"": ""https://www.un.org/development/desa/pd/sites/www.un.org.development.desa.pd/files/undesa_pd_2024_ims_stock_by_sex_destination_and_origin.xlsx"",
+    ""retrieved_at"": ""2026-10-22T21:03:13+00:00"",
+    ""sha256"": ""0e10179d05186041a65cf5c6200943b2231701f9c1fd33cbbe21d23b8ea47316"",
+    ""url"": ""https://www.un.org/development/desa/pd/sites/www.un.org.development.desa.pd/files/undesa_pd_2024_ims_stock_by_sex_destination_and_origin.xlsx""
+  }
+]
+",un_stock_2024,"Table 1; both sexes combined; destination/origin codes 156, 344 and 840; mid-year 2000–2024","United Nations DESA, Population Division",International Migrant Stock 2024,estimated,estimated residents,1022890,2000
+benchmark,un_stock:CHN:USA,B,"Estimated resident stock, not annual immigration or permanent-residency grants. UN type C uses foreign citizenship; B uses foreign birth; R includes refugee adjustments. The U.S. destination population includes the territories specified in UN coverage note 36.",USA,,,China-born in the U.S.,migrant_stock,UN 2024 revision; 1 July benchmark. Not an annual flow.,2005-07-01,CHN,mid-year July 1,China-born in the U.S.; UN destination-specific population definition,un_stock:CHN:USA,"[
+  {
+    ""request_url"": ""https://www.un.org/development/desa/pd/sites/www.un.org.development.desa.pd/files/undesa_pd_2024_ims_stock_by_sex_destination_and_origin.xlsx"",
+    ""retrieved_at"": ""2026-10-22T21:03:13+00:00"",
+    ""sha256"": ""0e10179d05186041a65cf5c6200943b2231701f9c1fd33cbbe21d23b8ea47316"",
+    ""url"": ""https://www.un.org/development/desa/pd/sites/www.un.org.development.desa.pd/files/undesa_pd_2024_ims_stock_by_sex_destination_and_origin.xlsx""
+  }
+]
+",un_stock_2024,"Table 1; both sexes combined; destination/origin codes 156, 344 and 840; mid-year 2000–2024","United Nations DESA, Population Division",International Migrant Stock 2024,estimated,estimated residents,1208274,2005
+benchmark,un_stock:CHN:USA,B,"Estimated resident stock, not annual immigration or permanent-residency grants. UN type C uses foreign citizenship; B uses foreign birth; R includes refugee adjustments. The U.S. destination population includes the territories specified in UN coverage note 36.",USA,,,China-born in the U.S.,migrant_stock,UN 2024 revision; 1 July benchmark. Not an annual flow.,2010-07-01,CHN,mid-year July 1,China-born in the U.S.; UN destination-specific population definition,un_stock:CHN:USA,"[
+  {
+    ""request_url"": ""https://www.un.org/development/desa/pd/sites/www.un.org.development.desa.pd/files/undesa_pd_2024_ims_stock_by_sex_destination_and_origin.xlsx"",
+    ""retrieved_at"": ""2026-10-22T21:03:13+00:00"",
+    ""sha256"": ""0e10179d05186041a65cf5c6200943b2231701f9c1fd33cbbe21d23b8ea47316"",
+    ""url"": ""https://www.un.org/development/desa/pd/sites/www.un.org.development.desa.pd/files/undesa_pd_2024_ims_stock_by_sex_destination_and_origin.xlsx""
+  }
+]
+",un_stock_2024,"Table 1; both sexes combined; destination/origin codes 156, 344 and 840; mid-year 2000–2024","United Nations DESA, Population Division",International Migrant Stock 2024,estimated,estimated residents,1608501,2010
+benchmark,un_stock:CHN:USA,B,"Estimated resident stock, not annual immigration or permanent-residency grants. UN type C uses foreign citizenship; B uses foreign birth; R includes refugee adjustments. The U.S. destination population includes the territories specified in UN coverage note 36.",USA,,,China-born in the U.S.,migrant_stock,UN 2024 revision; 1 July benchmark. Not an annual flow.,2015-07-01,CHN,mid-year July 1,China-born in the U.S.; UN destination-specific population definition,un_stock:CHN:USA,"[
+  {
+    ""request_url"": ""https://www.un.org/development/desa/pd/sites/www.un.org.development.desa.pd/files/undesa_pd_2024_ims_stock_by_sex_destination_and_origin.xlsx"",
+    ""retrieved_at"": ""2026-10-22T21:03:13+00:00"",
+    ""sha256"": ""0e10179d05186041a65cf5c6200943b2231701f9c1fd33cbbe21d23b8ea47316"",
+    ""url"": ""https://www.un.org/development/desa/pd/sites/www.un.org.development.desa.pd/files/undesa_pd_2024_ims_stock_by_sex_destination_and_origin.xlsx""
+  }
+]
+",un_stock_2024,"Table 1; both sexes combined; destination/origin codes 156, 344 and 840; mid-year 2000–2024","United Nations DESA, Population Division",International Migrant Stock 2024,estimated,estimated residents,2101592,2015
+benchmark,un_stock:CHN:USA,B,"Estimated resident stock, not annual immigration or permanent-residency grants. UN type C uses foreign citizenship; B uses foreign birth; R includes refugee adjustments. The U.S. destination population includes the territories specified in UN coverage note 36.",USA,,,China-born in the U.S.,migrant_stock,UN 2024 revision; 1 July benchmark. Not an annual flow.,2020-07-01,CHN,mid-year July 1,China-born in the U.S.; UN destination-specific population definition,un_stock:CHN:USA,"[
+  {
+    ""request_url"": ""https://www.un.org/development/desa/pd/sites/www.un.org.development.desa.pd/files/undesa_pd_2024_ims_stock_by_sex_destination_and_origin.xlsx"",
+    ""retrieved_at"": ""2026-10-22T21:03:13+00:00"",
+    ""sha256"": ""0e10179d05186041a65cf5c6200943b2231701f9c1fd33cbbe21d23b8ea47316"",
+    ""url"": ""https://www.un.org/development/desa/pd/sites/www.un.org.development.desa.pd/files/undesa_pd_2024_ims_stock_by_sex_destination_and_origin.xlsx""
+  }
+]
+",un_stock_2024,"Table 1; both sexes combined; destination/origin codes 156, 344 and 840; mid-year 2000–2024","United Nations DESA, Population Division",International Migrant Stock 2024,estimated,estimated residents,2255170,2020
+benchmark,un_stock:CHN:USA,B,"Estimated resident stock, not annual immigration or permanent-residency grants. UN type C uses foreign citizenship; B uses foreign birth; R includes refugee adjustments. The U.S. destination population includes the territories specified in UN coverage note 36.",USA,,,China-born in the U.S.,migrant_stock,UN 2024 revision; 1 July benchmark. Not an annual flow.,2024-07-01,CHN,mid-year July 1,China-born in the U.S.; UN destination-specific population definition,un_stock:CHN:USA,"[
+  {
+    ""request_url"": ""https://www.un.org/development/desa/pd/sites/www.un.org.development.desa.pd/files/undesa_pd_2024_ims_stock_by_sex_destination_and_origin.xlsx"",
+    ""retrieved_at"": ""2026-10-22T21:03:13+00:00"",
+    ""sha256"": ""0e10179d05186041a65cf5c6200943b2231701f9c1fd33cbbe21d23b8ea47316"",
+    ""url"": ""https://www.un.org/development/desa/pd/sites/www.un.org.development.desa.pd/files/undesa_pd_2024_ims_stock_by_sex_destination_and_origin.xlsx""
+  }
+]
+",un_stock_2024,"Table 1; both sexes combined; destination/origin codes 156, 344 and 840; mid-year 2000–2024","United Nations DESA, Population Division",International Migrant Stock 2024,estimated,estimated residents,2488775,2024
+benchmark,un_stock:HKG:USA,B,"Estimated resident stock, not annual immigration or permanent-residency grants. UN type C uses foreign citizenship; B uses foreign birth; R includes refugee adjustments. The U.S. destination population includes the territories specified in UN coverage note 36.",USA,,,Hong Kong-born in the U.S.,migrant_stock,UN 2024 revision; 1 July benchmark. Not an annual flow.,2000-07-01,HKG,mid-year July 1,Hong Kong-born in the U.S.; UN destination-specific population definition,un_stock:HKG:USA,"[
+  {
+    ""request_url"": ""https://www.un.org/development/desa/pd/sites/www.un.org.development.desa.pd/files/undesa_pd_2024_ims_stock_by_sex_destination_and_origin.xlsx"",
+    ""retrieved_at"": ""2026-10-22T21:03:13+00:00"",
+    ""sha256"": ""0e10179d05186041a65cf5c6200943b2231701f9c1fd33cbbe21d23b8ea47316"",
+    ""url"": ""https://www.un.org/development/desa/pd/sites/www.un.org.development.desa.pd/files/undesa_pd_2024_ims_stock_by_sex_destination_and_origin.xlsx""
+  }
+]
+",un_stock_2024,"Table 1; both sexes combined; destination/origin codes 156, 344 and 840; mid-year 2000–2024","United Nations DESA, Population Division",International Migrant Stock 2024,estimated,estimated residents,210485,2000
+benchmark,un_stock:HKG:USA,B,"Estimated resident stock, not annual immigration or permanent-residency grants. UN type C uses foreign citizenship; B uses foreign birth; R includes refugee adjustments. The U.S. destination population includes the territories specified in UN coverage note 36.",USA,,,Hong Kong-born in the U.S.,migrant_stock,UN 2024 revision; 1 July benchmark. Not an annual flow.,2005-07-01,HKG,mid-year July 1,Hong Kong-born in the U.S.; UN destination-specific population definition,un_stock:HKG:USA,"[
+  {
+    ""request_url"": ""https://www.un.org/development/desa/pd/sites/www.un.org.development.desa.pd/files/undesa_pd_2024_ims_stock_by_sex_destination_and_origin.xlsx"",
+    ""retrieved_at"": ""2026-10-22T21:03:13+00:00"",
+    ""sha256"": ""0e10179d05186041a65cf5c6200943b2231701f9c1fd33cbbe21d23b8ea47316"",
+    ""url"": ""https://www.un.org/development/desa/pd/sites/www.un.org.development.desa.pd/files/undesa_pd_2024_ims_stock_by_sex_destination_and_origin.xlsx""
+  }
+]
+",un_stock_2024,"Table 1; both sexes combined; destination/origin codes 156, 344 and 840; mid-year 2000–2024","United Nations DESA, Population Division",International Migrant Stock 2024,estimated,estimated residents,214124,2005
+benchmark,un_stock:HKG:USA,B,"Estimated resident stock, not annual immigration or permanent-residency grants. UN type C uses foreign citizenship; B uses foreign birth; R includes refugee adjustments. The U.S. destination population includes the territories specified in UN coverage note 36.",USA,,,Hong Kong-born in the U.S.,migrant_stock,UN 2024 revision; 1 July benchmark. Not an annual flow.,2010-07-01,HKG,mid-year July 1,Hong Kong-born in the U.S.; UN destination-specific population definition,un_stock:HKG:USA,"[
+  {
+    ""request_url"": ""https://www.un.org/development/desa/pd/sites/www.un.org.development.desa.pd/files/undesa_pd_2024_ims_stock_by_sex_destination_and_origin.xlsx"",
+    ""retrieved_at"": ""2026-10-22T21:03:13+00:00"",
+    ""sha256"": ""0e10179d05186041a65cf5c6200943b2231701f9c1fd33cbbe21d23b8ea47316"",
+    ""url"": ""https://www.un.org/development/desa/pd/sites/www.un.org.development.desa.pd/files/undesa_pd_2024_ims_stock_by_sex_destination_and_origin.xlsx""
+  }
+]
+",un_stock_2024,"Table 1; both sexes combined; destination/origin codes 156, 344 and 840; mid-year 2000–2024","United Nations DESA, Population Division",International Migrant Stock 2024,estimated,estimated residents,215677,2010
+benchmark,un_stock:HKG:USA,B,"Estimated resident stock, not annual immigration or permanent-residency grants. UN type C uses foreign citizenship; B uses foreign birth; R includes refugee adjustments. The U.S. destination population includes the territories specified in UN coverage note 36.",USA,,,Hong Kong-born in the U.S.,migrant_stock,UN 2024 revision; 1 July benchmark. Not an annual flow.,2015-07-01,HKG,mid-year July 1,Hong Kong-born in the U.S.; UN destination-specific population definition,un_stock:HKG:USA,"[
+  {
+    ""request_url"": ""https://www.un.org/development/desa/pd/sites/www.un.org.development.desa.pd/files/undesa_pd_2024_ims_stock_by_sex_destination_and_origin.xlsx"",
+    ""retrieved_at"": ""2026-10-22T21:03:13+00:00"",
+    ""sha256"": ""0e10179d05186041a65cf5c6200943b2231701f9c1fd33cbbe21d23b8ea47316"",
+    ""url"": ""https://www.un.org/development/desa/pd/sites/www.un.org.development.desa.pd/files/undesa_pd_2024_ims_stock_by_sex_destination_and_origin.xlsx""
+  }
+]
+",un_stock_2024,"Table 1; both sexes combined; destination/origin codes 156, 344 and 840; mid-year 2000–2024","United Nations DESA, Population Division",International Migrant Stock 2024,estimated,estimated residents,244595,2015
+benchmark,un_stock:HKG:USA,B,"Estimated resident stock, not annual immigration or permanent-residency grants. UN type C uses foreign citizenship; B uses foreign birth; R includes refugee adjustments. The U.S. destination population includes the territories specified in UN coverage note 36.",USA,,,Hong Kong-born in the U.S.,migrant_stock,UN 2024 revision; 1 July benchmark. Not an annual flow.,2020-07-01,HKG,mid-year July 1,Hong Kong-born in the U.S.; UN destination-specific population definition,un_stock:HKG:USA,"[
+  {
+    ""request_url"": ""https://www.un.org/development/desa/pd/sites/www.un.org.development.desa.pd/files/undesa_pd_2024_ims_stock_by_sex_destination_and_origin.xlsx"",
+    ""retrieved_at"": ""2026-10-22T21:03:13+00:00"",
+    ""sha256"": ""0e10179d05186041a65cf5c6200943b2231701f9c1fd33cbbe21d23b8ea47316"",
+    ""url"": ""https://www.un.org/development/desa/pd/sites/www.un.org.development.desa.pd/files/undesa_pd_2024_ims_stock_by_sex_destination_and_origin.xlsx""
+  }
+]
+",un_stock_2024,"Table 1; both sexes combined; destination/origin codes 156, 344 and 840; mid-year 2000–2024","United Nations DESA, Population Division",International Migrant Stock 2024,estimated,estimated residents,258439,2020
+benchmark,un_stock:HKG:USA,B,"Estimated resident stock, not annual immigration or permanent-residency grants. UN type C uses foreign citizenship; B uses foreign birth; R includes refugee adjustments. The U.S. destination population includes the territories specified in UN coverage note 36.",USA,,,Hong Kong-born in the U.S.,migrant_stock,UN 2024 revision; 1 July benchmark. Not an annual flow.,2024-07-01,HKG,mid-year July 1,Hong Kong-born in the U.S.; UN destination-specific population definition,un_stock:HKG:USA,"[
+  {
+    ""request_url"": ""https://www.un.org/development/desa/pd/sites/www.un.org.development.desa.pd/files/undesa_pd_2024_ims_stock_by_sex_destination_and_origin.xlsx"",
+    ""retrieved_at"": ""2026-10-22T21:03:13+00:00"",
+    ""sha256"": ""0e10179d05186041a65cf5c6200943b2231701f9c1fd33cbbe21d23b8ea47316"",
+    ""url"": ""https://www.un.org/development/desa/pd/sites/www.un.org.development.desa.pd/files/undesa_pd_2024_ims_stock_by_sex_destination_and_origin.xlsx""
+  }
+]
+",un_stock_2024,"Table 1; both sexes combined; destination/origin codes 156, 344 and 840; mid-year 2000–2024","United Nations DESA, Population Division",International Migrant Stock 2024,estimated,estimated residents,268915,2024
+benchmark,un_stock:USA:CHN,C R,"Estimated resident stock, not annual immigration or permanent-residency grants. UN type C uses foreign citizenship; B uses foreign birth; R includes refugee adjustments. The U.S. destination population includes the territories specified in UN coverage note 36.",CHN,,,U.S. citizens in mainland China,migrant_stock,UN 2024 revision; 1 July benchmark. Not an annual flow.,2000-07-01,USA,mid-year July 1,U.S. citizens in mainland China; UN destination-specific population definition,un_stock:USA:CHN,"[
+  {
+    ""request_url"": ""https://www.un.org/development/desa/pd/sites/www.un.org.development.desa.pd/files/undesa_pd_2024_ims_stock_by_sex_destination_and_origin.xlsx"",
+    ""retrieved_at"": ""2026-10-22T21:03:13+00:00"",
+    ""sha256"": ""0e10179d05186041a65cf5c6200943b2231701f9c1fd33cbbe21d23b8ea47316"",
+    ""url"": ""https://www.un.org/development/desa/pd/sites/www.un.org.development.desa.pd/files/undesa_pd_2024_ims_stock_by_sex_destination_and_origin.xlsx""
+  }
+]
+",un_stock_2024,"Table 1; both sexes combined; destination/origin codes 156, 344 and 840; mid-year 2000–2024","United Nations DESA, Population Division",International Migrant Stock 2024,estimated,estimated residents,49655,2000
+benchmark,un_stock:USA:CHN,C R,"Estimated resident stock, not annual immigration or permanent-residency grants. UN type C uses foreign citizenship; B uses foreign birth; R includes refugee adjustments. The U.S. destination population includes the territories specified in UN coverage note 36.",CHN,,,U.S. citizens in mainland China,migrant_stock,UN 2024 revision; 1 July benchmark. Not an annual flow.,2005-07-01,USA,mid-year July 1,U.S. citizens in mainland China; UN destination-specific population definition,un_stock:USA:CHN,"[
+  {
+    ""request_url"": ""https://www.un.org/development/desa/pd/sites/www.un.org.development.desa.pd/files/undesa_pd_2024_ims_stock_by_sex_destination_and_origin.xlsx"",
+    ""retrieved_at"": ""2026-10-22T21:03:13+00:00"",
+    ""sha256"": ""0e10179d05186041a65cf5c6200943b2231701f9c1fd33cbbe21d23b8ea47316"",
+    ""url"": ""https://www.un.org/development/desa/pd/sites/www.un.org.development.desa.pd/files/undesa_pd_2024_ims_stock_by_sex_destination_and_origin.xlsx""
+  }
+]
+",un_stock_2024,"Table 1; both sexes combined; destination/origin codes 156, 344 and 840; mid-year 2000–2024","United Nations DESA, Population Division",International Migrant Stock 2024,estimated,estimated residents,59103,2005
+benchmark,un_stock:USA:CHN,C R,"Estimated resident stock, not annual immigration or permanent-residency grants. UN type C uses foreign citizenship; B uses foreign birth; R includes refugee adjustments. The U.S. destination population includes the territories specified in UN coverage note 36.",CHN,,,U.S. citizens in mainland China,migrant_stock,UN 2024 revision; 1 July benchmark. Not an annual flow.,2010-07-01,USA,mid-year July 1,U.S. citizens in mainland China; UN destination-specific population definition,un_stock:USA:CHN,"[
+  {
+    ""request_url"": ""https://www.un.org/development/desa/pd/sites/www.un.org.development.desa.pd/files/undesa_pd_2024_ims_stock_by_sex_destination_and_origin.xlsx"",
+    ""retrieved_at"": ""2026-10-22T21:03:13+00:00"",
+    ""sha256"": ""0e10179d05186041a65cf5c6200943b2231701f9c1fd33cbbe21d23b8ea47316"",
+    ""url"": ""https://www.un.org/development/desa/pd/sites/www.un.org.development.desa.pd/files/undesa_pd_2024_ims_stock_by_sex_destination_and_origin.xlsx""
+  }
+]
+",un_stock_2024,"Table 1; both sexes combined; destination/origin codes 156, 344 and 840; mid-year 2000–2024","United Nations DESA, Population Division",International Migrant Stock 2024,estimated,estimated residents,69836,2010
+benchmark,un_stock:USA:CHN,C R,"Estimated resident stock, not annual immigration or permanent-residency grants. UN type C uses foreign citizenship; B uses foreign birth; R includes refugee adjustments. The U.S. destination population includes the territories specified in UN coverage note 36.",CHN,,,U.S. citizens in mainland China,migrant_stock,UN 2024 revision; 1 July benchmark. Not an annual flow.,2015-07-01,USA,mid-year July 1,U.S. citizens in mainland China; UN destination-specific population definition,un_stock:USA:CHN,"[
+  {
+    ""request_url"": ""https://www.un.org/development/desa/pd/sites/www.un.org.development.desa.pd/files/undesa_pd_2024_ims_stock_by_sex_destination_and_origin.xlsx"",
+    ""retrieved_at"": ""2026-10-22T21:03:13+00:00"",
+    ""sha256"": ""0e10179d05186041a65cf5c6200943b2231701f9c1fd33cbbe21d23b8ea47316"",
+    ""url"": ""https://www.un.org/development/desa/pd/sites/www.un.org.development.desa.pd/files/undesa_pd_2024_ims_stock_by_sex_destination_and_origin.xlsx""
+  }
+]
+",un_stock_2024,"Table 1; both sexes combined; destination/origin codes 156, 344 and 840; mid-year 2000–2024","United Nations DESA, Population Division",International Migrant Stock 2024,estimated,estimated residents,63341,2015
+benchmark,un_stock:USA:CHN,C R,"Estimated resident stock, not annual immigration or permanent-residency grants. UN type C uses foreign citizenship; B uses foreign birth; R includes refugee adjustments. The U.S. destination population includes the territories specified in UN coverage note 36.",CHN,,,U.S. citizens in mainland China,migrant_stock,UN 2024 revision; 1 July benchmark. Not an annual flow.,2020-07-01,USA,mid-year July 1,U.S. citizens in mainland China; UN destination-specific population definition,un_stock:USA:CHN,"[
+  {
+    ""request_url"": ""https://www.un.org/development/desa/pd/sites/www.un.org.development.desa.pd/files/undesa_pd_2024_ims_stock_by_sex_destination_and_origin.xlsx"",
+    ""retrieved_at"": ""2026-10-22T21:03:13+00:00"",
+    ""sha256"": ""0e10179d05186041a65cf5c6200943b2231701f9c1fd33cbbe21d23b8ea47316"",
+    ""url"": ""https://www.un.org/development/desa/pd/sites/www.un.org.development.desa.pd/files/undesa_pd_2024_ims_stock_by_sex_destination_and_origin.xlsx""
+  }
+]
+",un_stock_2024,"Table 1; both sexes combined; destination/origin codes 156, 344 and 840; mid-year 2000–2024","United Nations DESA, Population Division",International Migrant Stock 2024,estimated,estimated residents,55280,2020
+benchmark,un_stock:USA:CHN,C R,"Estimated resident stock, not annual immigration or permanent-residency grants. UN type C uses foreign citizenship; B uses foreign birth; R includes refugee adjustments. The U.S. destination population includes the territories specified in UN coverage note 36.",CHN,,,U.S. citizens in mainland China,migrant_stock,UN 2024 revision; 1 July benchmark. Not an annual flow.,2024-07-01,USA,mid-year July 1,U.S. citizens in mainland China; UN destination-specific population definition,un_stock:USA:CHN,"[
+  {
+    ""request_url"": ""https://www.un.org/development/desa/pd/sites/www.un.org.development.desa.pd/files/undesa_pd_2024_ims_stock_by_sex_destination_and_origin.xlsx"",
+    ""retrieved_at"": ""2026-10-22T21:03:13+00:00"",
+    ""sha256"": ""0e10179d05186041a65cf5c6200943b2231701f9c1fd33cbbe21d23b8ea47316"",
+    ""url"": ""https://www.un.org/development/desa/pd/sites/www.un.org.development.desa.pd/files/undesa_pd_2024_ims_stock_by_sex_destination_and_origin.xlsx""
+  }
+]
+",un_stock_2024,"Table 1; both sexes combined; destination/origin codes 156, 344 and 840; mid-year 2000–2024","United Nations DESA, Population Division",International Migrant Stock 2024,estimated,estimated residents,60434,2024
+benchmark,un_stock:USA:HKG,B R,"Estimated resident stock, not annual immigration or permanent-residency grants. UN type C uses foreign citizenship; B uses foreign birth; R includes refugee adjustments. The U.S. destination population includes the territories specified in UN coverage note 36.",HKG,,,U.S.-born in Hong Kong,migrant_stock,UN 2024 revision; 1 July benchmark. Not an annual flow.,2000-07-01,USA,mid-year July 1,U.S.-born in Hong Kong; UN destination-specific population definition,un_stock:USA:HKG,"[
+  {
+    ""request_url"": ""https://www.un.org/development/desa/pd/sites/www.un.org.development.desa.pd/files/undesa_pd_2024_ims_stock_by_sex_destination_and_origin.xlsx"",
+    ""retrieved_at"": ""2026-10-22T21:03:13+00:00"",
+    ""sha256"": ""0e10179d05186041a65cf5c6200943b2231701f9c1fd33cbbe21d23b8ea47316"",
+    ""url"": ""https://www.un.org/development/desa/pd/sites/www.un.org.development.desa.pd/files/undesa_pd_2024_ims_stock_by_sex_destination_and_origin.xlsx""
+  }
+]
+",un_stock_2024,"Table 1; both sexes combined; destination/origin codes 156, 344 and 840; mid-year 2000–2024","United Nations DESA, Population Division",International Migrant Stock 2024,estimated,estimated residents,13796,2000
+benchmark,un_stock:USA:HKG,B R,"Estimated resident stock, not annual immigration or permanent-residency grants. UN type C uses foreign citizenship; B uses foreign birth; R includes refugee adjustments. The U.S. destination population includes the territories specified in UN coverage note 36.",HKG,,,U.S.-born in Hong Kong,migrant_stock,UN 2024 revision; 1 July benchmark. Not an annual flow.,2005-07-01,USA,mid-year July 1,U.S.-born in Hong Kong; UN destination-specific population definition,un_stock:USA:HKG,"[
+  {
+    ""request_url"": ""https://www.un.org/development/desa/pd/sites/www.un.org.development.desa.pd/files/undesa_pd_2024_ims_stock_by_sex_destination_and_origin.xlsx"",
+    ""retrieved_at"": ""2026-10-22T21:03:13+00:00"",
+    ""sha256"": ""0e10179d05186041a65cf5c6200943b2231701f9c1fd33cbbe21d23b8ea47316"",
+    ""url"": ""https://www.un.org/development/desa/pd/sites/www.un.org.development.desa.pd/files/undesa_pd_2024_ims_stock_by_sex_destination_and_origin.xlsx""
+  }
+]
+",un_stock_2024,"Table 1; both sexes combined; destination/origin codes 156, 344 and 840; mid-year 2000–2024","United Nations DESA, Population Division",International Migrant Stock 2024,estimated,estimated residents,13370,2005
+benchmark,un_stock:USA:HKG,B R,"Estimated resident stock, not annual immigration or permanent-residency grants. UN type C uses foreign citizenship; B uses foreign birth; R includes refugee adjustments. The U.S. destination population includes the territories specified in UN coverage note 36.",HKG,,,U.S.-born in Hong Kong,migrant_stock,UN 2024 revision; 1 July benchmark. Not an annual flow.,2010-07-01,USA,mid-year July 1,U.S.-born in Hong Kong; UN destination-specific population definition,un_stock:USA:HKG,"[
+  {
+    ""request_url"": ""https://www.un.org/development/desa/pd/sites/www.un.org.development.desa.pd/files/undesa_pd_2024_ims_stock_by_sex_destination_and_origin.xlsx"",
+    ""retrieved_at"": ""2026-10-22T21:03:13+00:00"",
+    ""sha256"": ""0e10179d05186041a65cf5c6200943b2231701f9c1fd33cbbe21d23b8ea47316"",
+    ""url"": ""https://www.un.org/development/desa/pd/sites/www.un.org.development.desa.pd/files/undesa_pd_2024_ims_stock_by_sex_destination_and_origin.xlsx""
+  }
+]
+",un_stock_2024,"Table 1; both sexes combined; destination/origin codes 156, 344 and 840; mid-year 2000–2024","United Nations DESA, Population Division",International Migrant Stock 2024,estimated,estimated residents,12976,2010
+benchmark,un_stock:USA:HKG,B R,"Estimated resident stock, not annual immigration or permanent-residency grants. UN type C uses foreign citizenship; B uses foreign birth; R includes refugee adjustments. The U.S. destination population includes the territories specified in UN coverage note 36.",HKG,,,U.S.-born in Hong Kong,migrant_stock,UN 2024 revision; 1 July benchmark. Not an annual flow.,2015-07-01,USA,mid-year July 1,U.S.-born in Hong Kong; UN destination-specific population definition,un_stock:USA:HKG,"[
+  {
+    ""request_url"": ""https://www.un.org/development/desa/pd/sites/www.un.org.development.desa.pd/files/undesa_pd_2024_ims_stock_by_sex_destination_and_origin.xlsx"",
+    ""retrieved_at"": ""2026-10-22T21:03:13+00:00"",
+    ""sha256"": ""0e10179d05186041a65cf5c6200943b2231701f9c1fd33cbbe21d23b8ea47316"",
+    ""url"": ""https://www.un.org/development/desa/pd/sites/www.un.org.development.desa.pd/files/undesa_pd_2024_ims_stock_by_sex_destination_and_origin.xlsx""
+  }
+]
+",un_stock_2024,"Table 1; both sexes combined; destination/origin codes 156, 344 and 840; mid-year 2000–2024","United Nations DESA, Population Division",International Migrant Stock 2024,estimated,estimated residents,13261,2015
+benchmark,un_stock:USA:HKG,B R,"Estimated resident stock, not annual immigration or permanent-residency grants. UN type C uses foreign citizenship; B uses foreign birth; R includes refugee adjustments. The U.S. destination population includes the territories specified in UN coverage note 36.",HKG,,,U.S.-born in Hong Kong,migrant_stock,UN 2024 revision; 1 July benchmark. Not an annual flow.,2020-07-01,USA,mid-year July 1,U.S.-born in Hong Kong; UN destination-specific population definition,un_stock:USA:HKG,"[
+  {
+    ""request_url"": ""https://www.un.org/development/desa/pd/sites/www.un.org.development.desa.pd/files/undesa_pd_2024_ims_stock_by_sex_destination_and_origin.xlsx"",
+    ""retrieved_at"": ""2026-10-22T21:03:13+00:00"",
+    ""sha256"": ""0e10179d05186041a65cf5c6200943b2231701f9c1fd33cbbe21d23b8ea47316"",
+    ""url"": ""https://www.un.org/development/desa/pd/sites/www.un.org.development.desa.pd/files/undesa_pd_2024_ims_stock_by_sex_destination_and_origin.xlsx""
+  }
+]
+",un_stock_2024,"Table 1; both sexes combined; destination/origin codes 156, 344 and 840; mid-year 2000–2024","United Nations DESA, Population Division",International Migrant Stock 2024,estimated,estimated residents,13827,2020
+benchmark,un_stock:USA:HKG,B R,"Estimated resident stock, not annual immigration or permanent-residency grants. UN type C uses foreign citizenship; B uses foreign birth; R includes refugee adjustments. The U.S. destination population includes the territories specified in UN coverage note 36.",HKG,,,U.S.-born in Hong Kong,migrant_stock,UN 2024 revision; 1 July benchmark. Not an annual flow.,2024-07-01,USA,mid-year July 1,U.S.-born in Hong Kong; UN destination-specific population definition,un_stock:USA:HKG,"[
+  {
+    ""request_url"": ""https://www.un.org/development/desa/pd/sites/www.un.org.development.desa.pd/files/undesa_pd_2024_ims_stock_by_sex_destination_and_origin.xlsx"",
+    ""retrieved_at"": ""2026-10-22T21:03:13+00:00"",
+    ""sha256"": ""0e10179d05186041a65cf5c6200943b2231701f9c1fd33cbbe21d23b8ea47316"",
+    ""url"": ""https://www.un.org/development/desa/pd/sites/www.un.org.development.desa.pd/files/undesa_pd_2024_ims_stock_by_sex_destination_and_origin.xlsx""
+  }
+]
+",un_stock_2024,"Table 1; both sexes combined; destination/origin codes 156, 344 and 840; mid-year 2000–2024","United Nations DESA, Population Division",International Migrant Stock 2024,estimated,estimated residents,14298,2024

@@ -31,6 +31,14 @@
     "status": "available",
     "vintage": "MGTO annual highlights through 2025; Market Performance 2008, 2010, 2015, 2024"
   },
+  "nbs_tourism": {
+    "last_recorded_check": "2026-10-22T21:13:18+00:00",
+    "last_successful_retrieval": "2026-10-22T21:13:18+00:00",
+    "notes": "Official China Statistical Yearbooks 2007, 2010, 2013, 2014, 2015, 2018 and 2019. Selected historical source vintages; source units converted from 10,000 person-times. Later bilateral all-mode counts are not verified here. Not leisure-only visitors, unique people, U.S. departures, or a series spliced to U.S. resident air-travel estimates.",
+    "observations": 19,
+    "status": "available",
+    "vintage": "NBS/MCT historical visitor tables, 2000\u20132018"
+  },
   "ntto": {
     "last_recorded_check": "2026-10-21T15:37:28+00:00",
     "last_successful_retrieval": "2026-10-21T15:37:28+00:00",
@@ -38,6 +46,14 @@
     "observations": 1496,
     "status": "available",
     "vintage": "Workbook modified 2026-03-24 14:05:25; Workbook modified 2026-10-20 13:51:14"
+  },
+  "ntto_siat": {
+    "last_recorded_check": "2026-10-23T03:05:02+00:00",
+    "last_successful_retrieval": "2026-10-23T03:05:02+00:00",
+    "notes": "U.S.-resident air-travel destination estimates, kept separate from all-mode visitor arrivals. Annual 2019 and 2022\u20132025; 2026 contains only imported Q1-Q2 data and is labelled January\u2013June, not annual. No unverified 2025 half-year comparison is manufactured. Monitor total-traveler and respondent cards read from the public report with explicit year, quarter and destination filters; source checksums identify retained browser-visible report text, not API responses. Estimates are rounded to 1,000; respondent counts appear in each observation's notes. Under-100 respondent bases are conservatively flagged low reliability. No 2020\u20132021 estimates or invented zeros; no aggregation across destinations.",
+    "observations": 12,
+    "status": "available",
+    "vintage": "NTTO SIAT public monitor, 6 October 2026; through 2026 Q2"
   },
   "taiwan_tourism": {
     "last_recorded_check": "2026-10-21T14:43:03+00:00",

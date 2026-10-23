@@ -14,6 +14,7 @@ MEASURES = {
     "international_students": "International students, including OPT",
     "study_abroad": "Academic-credit study abroad",
     "visitors": "Visitor trips",
+    "air_visitors": "U.S.-resident air-travel destination estimates",
     "leisure_visitors": "Leisure visitor trips",
     "goods": "Goods trade",
     "services": "Services trade",
@@ -166,6 +167,8 @@ def coverage(rows):
 
 
 def gap_reason(geo, origin, measure):
+    if measure == "air_visitors":
+        return "Reviewed SIAT estimates cover U.S.-resident air travel to mainland China and Hong Kong only. Other directions are unverified; missing estimates are not zero or all-mode arrivals."
     if measure == "degree_students":
         if geo == "TWN":
             return "Taiwan is not separately listed in UIS bilateral tertiary-mobility indicators; IIE counts have a different scope."
@@ -182,7 +185,7 @@ def gap_reason(geo, origin, measure):
         return "BEA selected-country workbook does not separately report Macau; no current compatible bilateral services series verified."
     if measure == "visitors" and origin == "USA":
         if geo == "HKG":
-            return "HKTB and Census and Statistics Department visitor-table downloads returned HTTP 403; official data.gov.hk archive had no matching snapshot."
+            return "HKTB country-specific downloads are access-blocked; reviewed Census and Statistics Department public tables contain regional aggregates, not a U.S.-specific count. SIAT air-travel estimates remain a separate measure."
         if geo == "CHN":
             return "No current U.S.-origin all-mode visitor table verified in mainland official releases; historic arrivals are not spliced to air-passenger proxies."
     return "No verified compatible primary-source observations; missing values are never inferred as zero."

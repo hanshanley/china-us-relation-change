@@ -58,7 +58,34 @@ class ReviewClient:
              "--max-time", "180", "--write-out", "\n%{url_effective}", url],
             capture_output=True, check=True)
         content, effective = result.stdout.rsplit(b"\n", 1)
-        asset = {"url": effective.decode(), "request_url": url, "sha256": digest(content),
+        return self.remember(url, content, effective.decode())
+
+    def get_public_download(self, url):
+        try:
+            return self.get(url)
+        except subprocess.CalledProcessError:
+            from tempfile import TemporaryDirectory
+            from playwright.sync_api import Error, sync_playwright
+
+            with TemporaryDirectory() as directory, sync_playwright() as playwright:
+                browser = playwright.chromium.launch()
+                try:
+                    page = browser.new_page()
+                    with page.expect_download(timeout=120000) as pending:
+                        try:
+                            page.goto(url, timeout=120000)
+                        except Error as exc:
+                            if "Download" not in str(exc):
+                                raise
+                    download = pending.value
+                    path = Path(directory) / "public-download"
+                    download.save_as(path)
+                    return self.remember(url, path.read_bytes(), download.url)
+                finally:
+                    browser.close()
+
+    def remember(self, url, content, effective):
+        asset = {"url": effective, "request_url": url, "sha256": digest(content),
                  "retrieved_at": datetime.now(timezone.utc).isoformat(timespec="seconds")}
         write_atomic(self.cache / asset["sha256"], content)
         self.assets[url] = asset
@@ -603,4 +630,53 @@ def schools(client):
         "American Councils and partner organizations", "June 2017 K-16 survey report",
         [asset], "Table 2, page 8; Chinese column national total",
         "Reported and modeled state enrollment totals. Not an immersion-program count; never summed with later college/AP figures.")
+    return definitions, observations, sources
+
+
+def school_comparisons(client):
+    url = "https://www.americancouncils.org/sites/default/files/FLE-report-June17.pdf"
+    content, asset = client.get(url)
+    pages = pdf_text(content)
+    total = next(text for text in pages if "Enrollment for Major Languages by State" in text and "227,086" in text)
+    if not re.search(r"Total\s+26,045\s+130,411\s+227,086\s+1,289,004\s+330,898\s+67,909", total):
+        raise ValueError("American Councils national enrollment estimate columns changed")
+    availability = next(text for text in pages if "Distribution of Foreign Language Programs" in text and "Number of HS programs" in text)
+    counts = {}
+    for language, expected in [("Chinese", 1144), ("Japanese", 433), ("Korean", 43)]:
+        match = re.search(r"^\s*" + language + r"\s+(\d+)\s+[\d.]+", availability, re.MULTILINE)
+        if not match or int(match[1]) != expected:
+            raise ValueError("Reviewed high-school availability count changed")
+        counts[language.lower()] = int(match[1])
+    korean = next(text for text in pages if "In 43 schools across 22 states" in text)
+    if "936 students" not in korean:
+        raise ValueError("Reviewed Korean respondent enrollment changed")
+    definitions = {
+        "schools:k12_japanese_estimate": series(
+            "K-12 Japanese estimate", "estimated_enrollments", "enrollments",
+            "U.S. formal K-12 schools; reported state counts plus model-based estimates for missing state data",
+            "snapshot", "2014-15-era reference period",
+            "2017 report Table 2. Not unique people or U.S. citizens; not comparable with the Korean high-school respondent count."),
+        "schools:korean_respondent_enrollment": series(
+            "Korean high-school respondents", "reported_enrollments", "enrollments",
+            "936 Korean-class enrollments reported by 43 schools across 22 states; respondent subset, not a national K-12 estimate",
+            "snapshot", "2014-15-era reference period",
+            "2017 report page 22. Deliberately not plotted alongside national Chinese/Japanese K-12 estimates."),
+    }
+    observations = [row("schools:k12_japanese_estimate", 2015, 67909, "k12_comparisons_2017", "estimated",
+                        "School-year 2014-15-era data; 2015 is an ending-year plot key, not a 2017 measurement."),
+                    row("schools:korean_respondent_enrollment", 2015, 936, "k12_comparisons_2017",
+                        notes="Reported respondent enrollments, not all Korean learners or a national total.")]
+    for language, count in counts.items():
+        key = "school_availability:" + language
+        definitions[key] = series(language.capitalize(), "reported_programs", "reported programs",
+                                  "High-school language programs reported in the American Councils survey; schools/districts may contribute multiple language offerings",
+                                  "snapshot", "2014-15 survey",
+                                  "Table 4, page 11. Availability, not student enrollment, latent demand or a census of unique U.S. schools.")
+        observations.append(row(key, 2015, count, "k12_comparisons_2017"))
+    sources = {"k12_comparisons_2017": source(
+        "American Councils and partner organizations", "National K-12 Foreign Language Enrollment Survey, June 2017",
+        [asset], "Table 2 p8 (national estimates); Table 4 p11 (reported high-school programs); p22 (Korean respondent enrollments)",
+        "2014-15-era reference period. Chinese/Japanese national totals combine reported data and modeling; "
+        "the Korean 936 is a respondent-only count and cannot be substituted for a national estimate. "
+        "Availability counts measure reported language programs, not unique people, unique schools or demand.")}
     return definitions, observations, sources

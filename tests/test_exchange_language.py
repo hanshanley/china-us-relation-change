@@ -27,6 +27,38 @@ def published():
     return json.loads((ROOT / "data/site/language_learning.json").read_text())
 
 
+def test_school_parser_skips_contents_and_keeps_enrollment_and_availability_populations_separate(monkeypatch):
+    pages = ["Contents: Enrollment for Major Languages by State",
+             "Enrollment for Major Languages by State\nTotal 26,045 130,411 227,086 1,289,004 330,898 67,909",
+             "Distribution of Foreign Language Programs\nNumber of HS programs\nChinese 1144 6.43\nJapanese 433 2.44\nKorean 43 0.24",
+             "In 43 schools across 22 states, 936 students are enrolled in Korean language classes."]
+    monkeypatch.setattr(language_sources, "pdf_text", lambda body: pages)
+    asset = published()["sources"]["k12_2017"]["assets"][0]
+    client = SimpleNamespace(get=lambda url: (b"fixture", asset))
+    definitions, observations, _ = language_sources.school_comparisons(client)
+    assert {r["series_id"]: r["value"] for r in observations} == {
+        "schools:k12_japanese_estimate": 67909, "schools:korean_respondent_enrollment": 936,
+        "school_availability:chinese": 1144, "school_availability:japanese": 433, "school_availability:korean": 43}
+    assert "respondent subset" in definitions["schools:korean_respondent_enrollment"]["scope"]
+    pages[2] = pages[2].replace("Korean 43", "Korean 44")
+    with pytest.raises(ValueError, match="availability"):
+        language_sources.school_comparisons(client)
+
+
+def test_enrollment_charts_use_all_college_languages_but_do_not_treat_korean_respondents_as_national():
+    data = published()
+    groups = chart_points(data, "college-enrollments")
+    assert [next(p["value"] for p in g["points"] if p["year"] == 2021) for g in groups] == [46492, 65661, 19270]
+    schools = chart_points(data, "school-language-enrollments")
+    assert [g["points"][0]["value"] for g in schools] == [227086, 67909]
+    assert all(g["points"][0]["year"] == 2015 and g["points"][0]["status"] == "estimated" for g in schools)
+    assert not any(g["id"] == "schools:korean_respondent_enrollment" for cid in CHARTS for g in chart_points(data, cid))
+    next(r for r in data["observations"] if r["series_id"] == "schools:k12_estimate").update(value=None, status="missing")
+    doc = ElementTree.fromstring(svg_language_chart(data, "school-language-enrollments"))
+    assert "Unavailable" in "".join(doc.itertext())
+    assert [n.get("data-value") for n in doc.iter() if n.get("class") == "language-point"] == ["67909"]
+
+
 def test_reviewed_checkpoints_and_derived_values_are_not_new_learner_counts():
     data = validate_language_data(published())
     values = {(r["series_id"], r["year"]): r["value"] for r in data["observations"]}

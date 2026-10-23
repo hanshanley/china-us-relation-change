@@ -42,7 +42,7 @@ def check():
             baseline = next((r for r in available if r["year"] == 2020), None)
             assert page.locator("#baseline-change").inner_text() == comparison(change(current, baseline), current["unit"])
             assert page.locator("#chart svg").count() == 1
-            assert "2000" in page.locator("#chart").inner_text()
+            assert str(min(r["year"] for r in available)) in page.locator("#chart").inner_text()
             assert page.locator("#chart svg text").evaluate_all("""nodes => nodes.every(node => {
               const box = node.getBBox();
               const bounds = node.ownerSVGElement.viewBox.baseVal;
@@ -147,9 +147,9 @@ def check():
                            a.y + a.height <= b.y || b.y + b.height <= a.y;
                   }))"""), (str(path), "overlapping indicator legend or year labels")
         page.goto((ROOT / "site/comparisons.html").as_uri())
-        assert page.locator(".series-panel").count() == 16
+        assert page.locator(".series-panel").count() == 18
         images = page.locator('img[src$="-levels.png"]')
-        assert images.count() == 11
+        assert images.count() == 12
         for image in images.all():
             image.scroll_into_view_if_needed()
             expect(image).to_have_js_property("naturalWidth", PNG_WIDTH)
@@ -191,7 +191,7 @@ def check():
             assert not page.evaluate("document.documentElement.scrollWidth > innerWidth")
         assert not errors, errors
         browser.close()
-    print("Browser acceptance passed: all 64 combinations, exact changes, YTD, keyboard, mobile, no JavaScript.")
+    print(f"Browser acceptance passed: all {len(matrix)} combinations, exact changes, YTD, keyboard, mobile, no JavaScript.")
 
 
 if __name__ == "__main__":

@@ -46,10 +46,14 @@ def svg_indicator_chart(config, groups, theme, description, point_class):
     parts.append(f'<path d="M115 170V420H950" stroke="{GRID}" stroke-width=".8" fill="none"/>')
     if bars:
         for i, group in enumerate(groups):
+            pos = 115 + (i + .5) / len(groups) * 835
+            if not group["points"]:
+                parts.append(f'<text x="{pos:.2f}" y="450" text-anchor="middle">Unavailable</text>'
+                             f'<text x="{pos:.2f}" y="478" text-anchor="middle" font-size="18">{esc(group["label"])}</text>')
+                continue
             if len(group["points"]) != 1:
                 raise ValueError("Program inventory bars require separate single-snapshot series")
             r = group["points"][0]
-            pos = 115 + (i + .5) / len(groups) * 835
             height = 420 - y(r["plotted_value"])
             parts.append(
                 f'<rect class="{point_class}" data-series-id="{esc(group["id"])}" data-year="{r["year"]}" '

@@ -14,10 +14,19 @@ LANGUAGE_COLORS = {"chinese": PARTNER_COLORS["CHN"], "japanese": "#3D6F8C",
 RETIRED_CHARTS = {"ap-language-standard-group"}
 CHARTS = {
     "college-enrollments": {
-        "title": "Chinese/Mandarin course enrollments",
+        "title": "College language-course enrollments",
         "subtitle": "U.S. colleges and universities | fall census rounds",
-        "series": ["mla:chinese"], "unit": "Course registrations", "mode": "levels",
-        "note": "MLA 2021-report vintage. Registrations, not unique learners. Lines join census rounds, not annual estimates. Commercial reuse permission unverified."},
+        "series": ["mla:chinese", "mla:japanese", "mla:korean"], "unit": "Course registrations", "mode": "levels",
+        "note": "MLA 2021-report vintage, U.S. institutions. Course registrations, not unique learners or U.S. citizenship counts. Dots are observed census rounds; no annual observations are invented. Commercial reuse permission unverified."},
+    "school-language-enrollments": {
+        "title": "K-12 language-enrollment estimates", "subtitle": "2014–15-era reference period | published in 2017",
+        "series": ["schools:k12_estimate", "schools:k12_japanese_estimate"], "unit": "Enrollments", "mode": "bars",
+        "note": "American Councils Table 2. Chinese/Japanese state reports plus modeled estimates for missing data; not unique people. No comparable national Korean total is supplied. Its 936 respondent enrollments are not mixed into these national estimates."},
+    "school-language-availability": {
+        "title": "Reported high-school language availability", "subtitle": "2014–15 survey | programs, not learner counts",
+        "series": ["school_availability:chinese", "school_availability:japanese", "school_availability:korean"],
+        "unit": "Reported programs", "mode": "bars",
+        "note": "American Councils Table 4. Chinese 1,144; Japanese 433; Korean 43. Reported high-school language programs, not a census of unique schools, student enrollment or unmet demand. Schools may offer more than one language."},
     "college-share": {
         "title": "Chinese/Mandarin's share of language study",
         "subtitle": "Share of all non-English language course registrations",
@@ -199,9 +208,11 @@ def chart_points(data, chart_id):
                 raise ValueError("Nonfinite plotted language value")
             points.append(dict(r, plotted_value=value, denominator=denominator,
                                reported_unit=data["series"][sid]["unit"], plotted_unit=config["unit"]))
-        language = ("japanese" if "japanese" in sid else "chinese") if sid.startswith("ap:") else sid.split(":")[-1]
+        language = ("japanese" if "japanese" in sid else "chinese") if (
+            sid.startswith("ap:") or chart_id == "school-language-enrollments") else sid.split(":")[-1]
         color = LANGUAGE_COLORS.get(language, ["#7B2D26", "#3D6F8C", "#C2993E"][index % 3])
-        grouped.append({"id": sid, "label": data["series"][sid]["label"], "color": color,
+        label = language.capitalize() if chart_id == "school-language-enrollments" else data["series"][sid]["label"]
+        grouped.append({"id": sid, "label": label, "color": color,
                         "points": points, "scheduled_years": [r["year"] for r in selected],
                         "cadence": data["series"][sid]["cadence"]})
     return grouped

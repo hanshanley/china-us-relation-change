@@ -98,12 +98,12 @@ def test_collective_export_preserves_complete_inputs_and_native_plot_boundaries(
     for path, checksum in manifest["files"].items():
         assert hashlib.sha256((tmp_path / path).read_bytes()).hexdigest() == checksum
     for input_name, output_name in [("language_learning", "language-learning"), ("business_presence", "business-presence"),
-                                    ("weibo_summary", "weibo-summary")]:
+                                    ("weibo_summary", "weibo-summary"), ("immigration", "immigration")]:
         assert json.loads((tmp_path / f"downloads/{output_name}.json").read_text()) == json.loads(
             (ROOT / f"data/site/{input_name}.json").read_text())
     for name in module.PAGES:
         page = BeautifulSoup((tmp_path / name).read_text(), "html.parser")
-        assert len(page.select("h1")) == 1 and len(page.select(".analysis-tabs a")) == 6
+        assert len(page.select("h1")) == 1 and len(page.select(".analysis-tabs a")) == 8
         assert not page.select("iframe")
         for a in page.select('a[href^="figures/"]'):
             assert a.has_attr("data-original-chart") and (tmp_path / urlsplit(a["href"]).path).is_file()
@@ -112,12 +112,30 @@ def test_collective_export_preserves_complete_inputs_and_native_plot_boundaries(
     assert page.select_one('#measure option[selected]')["value"] == "goods"
     assert "2025" in page.select_one("#annual-headlines").text
     assert page.select_one("form.controls").has_attr("hidden")
+    travel = BeautifulSoup((tmp_path / "travel.html").read_text(), "html.parser")
+    assert travel.select_one('#measure option[selected]')["value"] == "visitors"
+    assert travel.select_one(".travel-definition")
+    assert {o["value"] for o in travel.select("#measure option")} <= {"visitors", "leisure_visitors", "air_visitors"}
+    immigration = BeautifulSoup((tmp_path / "immigration.html").read_text(), "html.parser")
+    assert immigration.select_one("#green-card-grants .plot-data")
+    assert immigration.select_one("#latest-admissions .plot-data")
     business = BeautifulSoup((tmp_path / "business-presence.html").read_text(), "html.parser")
     model = json.loads(business.select_one("#us-affiliates-china .plot-data").string)
     assert len(model["groups"][0]["points"]) == 24
     assert [p["year"] for p in model["groups"][0]["points"] if not p["connect"]] == [2000, 2004, 2009, 2014, 2019]
     language = BeautifulSoup((tmp_path / "language-learning.html").read_text(), "html.parser")
-    assert language.select_one("#module-chart option[selected]")["value"] == "ap-chinese-global"
+    assert language.select_one("#module-chart option[selected]")["value"] == "college-enrollments"
+    college = json.loads(language.select_one("#college-enrollments .plot-data").string)
+    assert [g["id"] for g in college["groups"]] == ["mla:chinese", "mla:japanese", "mla:korean"]
+    school = json.loads(language.select_one("#school-language-enrollments .plot-data").string)
+    assert [b["value"] for b in school["bars"]] == [227086, 67909]
+    availability = json.loads(language.select_one("#school-language-availability .plot-data").string)
+    assert [b["value"] for b in availability["bars"]] == [1144, 433, 43]
+    ap_scope = language.select_one("#ap-chinese-global .ap-scope-note")
+    assert "no AP Korean exam is offered" in ap_scope.text
+    assert "not zero participation" in ap_scope.text
+    assert ap_scope.find_parent("details") is None
+    assert ap_scope.find_next(class_="comparison-chart") is not None
     assert language.select_one("main > section").select_one(".native-chart")
     inventories = json.loads(language.select_one("#school-program-inventories .plot-data").string)
     assert all(str(year) in row["label"] for year, row in zip([2011, 2021, 2025], inventories["bars"]))

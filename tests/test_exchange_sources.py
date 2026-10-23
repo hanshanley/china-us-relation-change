@@ -9,6 +9,45 @@ from openpyxl import Workbook
 from us_china_exchange.sources import COUNTRIES, parse_bea, parse_ntto, parse_taiwan
 from us_china_exchange import sources
 from us_china_exchange.model import change, validate
+from us_china_exchange.travel_sources import parse_monitor_card
+
+
+def test_siat_cards_guard_destination_annual_year_and_imported_partial_boundary():
+    text = ("Total Traveler Estimate\nto Destination\n842,000\n"
+            "2025 Q1 - 2025 Q4 United States Travelers to China, People's Republic of\n"
+            "SIAT Respondent Count\nto Destination\n1,113\nLast Update:06-Oct-2026 11:40\n"
+            "Last Quarter Imported:2026 Q2")
+    assert parse_monitor_card(text, "China, People's Republic of", 2025, "annual")[:2] == (842000, 1113)
+    with pytest.raises(ValueError, match="filters"):
+        parse_monitor_card(text, "Hong Kong", 2025, "annual")
+    with pytest.raises(ValueError, match="half-year"):
+        parse_monitor_card(text, "China, People's Republic of", 2025, "ytd")
+    partial = text.replace("2025", "2026").replace("842,000", "474,000").replace("1,113", "756")
+    assert parse_monitor_card(partial, "China, People's Republic of", 2026, "ytd")[:2] == (474000, 756)
+    with pytest.raises(ValueError, match="annual"):
+        parse_monitor_card(partial, "China, People's Republic of", 2026, "annual")
+    with pytest.raises(ValueError, match="imported-quarter"):
+        parse_monitor_card(partial.replace("Imported:2026 Q2", "Imported:2026 Q3"),
+                           "China, People's Republic of", 2026, "ytd")
+    with pytest.raises(ValueError, match="vintage"):
+        parse_monitor_card(partial.replace("06-Oct-2026", "07-Oct-2026"),
+                           "China, People's Republic of", 2026, "ytd")
+
+
+def test_nbs_arrivals_preserve_country_identity_units_and_excel_precision():
+    records = [
+        ["Number of Oversea Visitor Arrivals by Country/Region"],
+        ["(10 000 person-times)"], ["Region", 2003, 2004],
+        ["United States", 82.2511, 130.8627],
+        ["Canada", 21, 22],
+    ]
+    assert sources.parse_nbs_visitor_records(records, 2003, 2004) == {2003: 822511, 2004: 1308627}
+    records[3][1] = ""
+    with pytest.raises(ValueError, match="missingness"):
+        sources.parse_nbs_visitor_records(records, 2003, 2004)
+    records[1][0] = "(persons)"
+    with pytest.raises(ValueError, match="units"):
+        sources.parse_nbs_visitor_records(records, 2003, 2004)
 
 
 def xlsx(book):

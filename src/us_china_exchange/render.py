@@ -13,6 +13,7 @@ import resvg_py
 
 from .model import START_YEAR, GEOGRAPHIES, MEASURES, change, coverage, gap_reason, json_text, validate
 from .business_analysis import CHARTS as BUSINESS_CHARTS, RETIRED_CHARTS as BUSINESS_RETIRED_CHARTS, build_business, validate_business_data
+from .immigration_analysis import CHARTS as IMMIGRATION_CHARTS, build_immigration, validate_immigration_data
 from .language_analysis import CHARTS as LANGUAGE_CHARTS, RETIRED_CHARTS as LANGUAGE_RETIRED_CHARTS, chart_points, svg_language_chart, validate_language_data
 from .pipeline import load, write_atomic
 from .sources import SOURCE_POLICIES
@@ -25,6 +26,8 @@ from .theme import (CHART_HEIGHT, CHART_THEMES, CHART_WIDTH, COMPARISON_GEOGRAPH
 SOURCE_NAMES = {
     "bea": "U.S. Bureau of Economic Analysis",
     "ntto": "U.S. National Travel and Tourism Office",
+    "nbs_tourism": "China National Bureau of Statistics / Ministry of Culture and Tourism",
+    "ntto_siat": "U.S. National Travel and Tourism Office / SIAT",
     "uis": "UNESCO Institute for Statistics",
     "iie": "IIE Open Doors",
     "taiwan_tourism": "Taiwan Tourism Administration",
@@ -87,14 +90,14 @@ def svg_chart(rows, indexed=False, theme="themarginoferror"):
     if indexed and any(change(r, ref)["absolute"] is None for r in present):
         return '<p class="gap">Definitions differ from the 2020 baseline; an index would not be comparable.</p>'
     unit = present[0]["unit"]
+    first = min(r["year"] for r in present)
     end = max(r["year"] for r in annual)
-    end = max(2021, end)
     values = {r["year"]: (r["value"] / ref["value"] * 100 if indexed else r["value"])
               for r in present}
     maximum = max(values.values()) * 1.13 or 1
     magnitude = 10 ** math.floor(math.log10(maximum))
     maximum = math.ceil(maximum / magnitude) * magnitude
-    x = lambda year: 115 + (year - START_YEAR) / (end - START_YEAR) * 835
+    x = lambda year: 115 + (year - first) / max(1, end - first) * 835
     y = lambda value: 435 - value / maximum * 285
     sample = present[0]
     partner = sample["destination"] if sample["origin"] == "USA" else sample["origin"]
@@ -104,7 +107,7 @@ def svg_chart(rows, indexed=False, theme="themarginoferror"):
     title = f"{heading}: {direction}"
     parts = [f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {CHART_WIDTH} {CHART_HEIGHT}" role="img" aria-label="{esc(title)}">',
              f"<title>{esc(title)}</title>",
-             f"<desc>Annual history from {START_YEAR} where available. Missing years and definition changes break the line. Exact values are in the complete data download.</desc>",
+             f"<desc>Annual history from {first} where available. Missing years and definition changes break the line. Exact values are in the complete data download.</desc>",
              f'<rect class="chart-background" width="{CHART_WIDTH}" height="{CHART_HEIGHT}" fill="{background}"/>',
              f'<g font-family="{esc(FONT)}" font-size="20" fill="{MUTED}">',
              f'<text x="115" y="45" font-size="28" font-weight="bold" fill="{TEXT}">{esc(heading)}</text>',
@@ -114,11 +117,12 @@ def svg_chart(rows, indexed=False, theme="themarginoferror"):
         label = f"{value:.0f}" if indexed else number(value, unit, compact=True)
         parts.append(f'<path d="M115 {y(value):.2f}H950" stroke="{GRID}" stroke-opacity="0.6" stroke-width="0.5"/>'
                      f'<text x="100" y="{y(value) + 6:.2f}" text-anchor="end">{esc(label)}</text>')
-    for year in sorted(set(range(START_YEAR, end - 1, 5)) | {end}):
+    for year in sorted({first, end} | {year for year in range((first // 5 + 1) * 5, end, 5) if year - first >= 2 and end - year >= 2}):
         parts.append(f'<text x="{x(year):.2f}" y="472" text-anchor="middle">{year}</text>')
     parts.append(f'<path d="M115 150V435H950" stroke="{GRID}" stroke-width="0.8" fill="none"/>')
-    parts.append(f'<path d="M{x(2020):.2f} 150V435" stroke="{MUTED}" stroke-width="0.8" stroke-dasharray="4 5"/>')
-    parts.append(f'<text x="{x(2020) - 8:.2f}" y="125" text-anchor="end">2020 baseline</text>')
+    if ref is not None:
+        parts.append(f'<path d="M{x(2020):.2f} 150V435" stroke="{MUTED}" stroke-width="0.8" stroke-dasharray="4 5"/>')
+        parts.append(f'<text x="{x(2020) - 8:.2f}" y="125" text-anchor="end">2020 baseline</text>')
     if indexed:
         parts.append(f'<text x="115" y="125" fill="{TEXT}">2020 = 100</text>')
     else:
@@ -180,8 +184,8 @@ def svg_comparison(rows, measure, direction, theme="themarginoferror", logarithm
     plotted = [r for r in present if not logarithmic or r["value"] > 0]
     if not plotted:
         return '<p class="gap">No positive observations are available for a logarithmic view.</p>'
-    end = max(2021, max(r["year"] for annual in groups.values() for r in annual))
-    x = lambda year: 115 + (year - START_YEAR) / (end - START_YEAR) * 835
+    first, end = min(r["year"] for r in present), max(r["year"] for annual in groups.values() for r in annual)
+    x = lambda year: 115 + (year - first) / max(1, end - first) * 835
     if logarithmic:
         low = math.floor(math.log10(min(r["value"] for r in plotted)))
         high = max(low + 1, math.ceil(math.log10(max(r["value"] for r in plotted))))
@@ -220,11 +224,12 @@ def svg_comparison(rows, measure, direction, theme="themarginoferror", logarithm
     for value in ticks:
         parts.append(f'<path d="M115 {y(value):.2f}H950" stroke="{GRID}" stroke-opacity="0.6" stroke-width="0.5"/>'
                      f'<text x="100" y="{y(value) + 6:.2f}" text-anchor="end">{esc(number(value, present[0]["unit"], compact=True))}</text>')
-    for year in sorted(set(range(START_YEAR, end - 1, 5)) | {end}):
+    for year in sorted({first, end} | {year for year in range((first // 5 + 1) * 5, end, 5) if year - first >= 2 and end - year >= 2}):
         parts.append(f'<text x="{x(year):.2f}" y="455" font-size="18" text-anchor="middle">{year}</text>')
-    parts.append(f'<path d="M115 180V420H950" stroke="{GRID}" stroke-width="0.8" fill="none"/>'
-                 f'<path d="M{x(2020):.2f} 180V420" stroke="{MUTED}" stroke-width="0.8" stroke-dasharray="4 5"/>'
-                 f'<text x="{x(2020) - 8:.2f}" y="153" text-anchor="end">2020 baseline</text>')
+    parts.append(f'<path d="M115 180V420H950" stroke="{GRID}" stroke-width="0.8" fill="none"/>')
+    if any(r["year"] == 2020 for r in present):
+        parts.append(f'<path d="M{x(2020):.2f} 180V420" stroke="{MUTED}" stroke-width="0.8" stroke-dasharray="4 5"/>'
+                     f'<text x="{x(2020) - 8:.2f}" y="153" text-anchor="end">2020 baseline</text>')
     for geo, annual in groups.items():
         data = [r for r in annual if r["value"] is not None and (not logarithmic or r["value"] > 0)]
         if not data:
@@ -542,13 +547,23 @@ def build_languages(root, data, gallery):
     school_note = (f'<p>The separate 2014-15-era K-12 survey estimated <strong>{estimate["value"]:,} Chinese '
                    'enrollments</strong>, combining reported and modeled state data. It is not a current census '
                    'and excludes substantial community/heritage and summer-school coverage.</p>') if estimate and estimate["value"] is not None else ""
+    japanese = census.get(("schools:k12_japanese_estimate", 2015))
+    korean = census.get(("schools:korean_respondent_enrollment", 2015))
+    if japanese and japanese["value"] is not None:
+        school_note += (f'<p>The same national-estimate table reports {japanese["value"]:,} Japanese enrollments '
+                        'but no comparable Korean total. Its separate reported high-school program counts measure '
+                        'availability, not the number of learners or unmet demand.</p>')
+    if korean and korean["value"] is not None:
+        school_note += (f'<p>The report identifies {korean["value"]:,} Korean-class enrollments among 43 reporting '
+                        'schools across 22 states. This respondent-only count is retained in the complete download, '
+                        'not plotted as a national estimate alongside Chinese and Japanese.</p>')
     document = ('<!doctype html><html lang="en"><head><meta charset="utf-8">'
                 '<meta name="viewport" content="width=device-width,initial-scale=1">'
-                '<title>Learning Chinese | U.S. language-learning indicators</title>'
+                '<title>Language learning | U.S. language-learning indicators</title>'
                 '<link rel="stylesheet" href="assets/style.css"></head><body><div class="page">'
                 '<header><p><a href="index.html">Exchange dashboard</a> · '
                 '<a href="comparisons.html">Three-geography comparisons</a></p>'
-                '<h1>Learning Chinese.</h1>'
+                '<h1>Language learning.</h1>'
                 f'<p class="lead">{esc(context["question"])}</p>'
                 '<p>College registrations, exam participation, immersion programs and degree awards are different '
                 'populations. They are never added into a learner total or interpreted as border crossings.</p>'
@@ -629,6 +644,9 @@ def build(root):
     business_data = load(root / "data/site/business_presence.json", None)
     if business_data is not None:
         validate_business_data(business_data)
+    immigration_data = load(root / "data/site/immigration.json", None)
+    if immigration_data is not None:
+        validate_immigration_data(immigration_data)
     matrix = coverage(rows)
     groups = defaultdict(list)
     for row in rows:
@@ -770,6 +788,13 @@ def build(root):
             if path.is_file():
                 path.unlink()
     business_count = build_business(root, business_data, gallery) if business_data is not None else 0
+    immigration_count = build_immigration(root, immigration_data, gallery) if immigration_data is not None else 0
+    if immigration_data is None:
+        for chart_id in IMMIGRATION_CHARTS:
+            for theme in CHART_THEMES:
+                remove_figure(root, Path("immigration") / theme / chart_id)
+        for name in ["immigration.html", "downloads/immigration.json", "downloads/immigration-observations.csv", "downloads/immigration-chart-values.csv"]:
+            (site / name).unlink(missing_ok=True)
     if business_data is None:
         for chart_id in set(BUSINESS_CHARTS) | BUSINESS_RETIRED_CHARTS:
             for theme in CHART_THEMES:
@@ -869,6 +894,7 @@ Four separate geographies. Both directions. History since {START_YEAR}; change s
 <p><a href="comparisons.html">Compare mainland China, Hong Kong and Macau on the same charts</a></p>
 {"<p><a href='language-learning.html'>Chinese-language learning: college, AP, school programs and degree awards</a> — separate educational indicators, not bilateral flows.</p>" if language_data is not None else ""}
 {"<p><a href='business-presence.html'>U.S. and European businesses in China over time: annual affiliate and enterprise histories</a>.</p>" if business_data is not None else ""}
+{"<p><a href='immigration.html'>Immigration: permanent-resident grants, not visitor trips or visas</a>.</p>" if immigration_data is not None else ""}
 {"<p><a href='weibo.html'>Weibo account evidence and recovered-corpus graphs</a> — separate research coverage, not an exchange-flow measure.</p>" if weibo_summary is not None else ""}
 <form class="controls" aria-label="Explore bilateral series" onsubmit="return false">
 <label for="geography">Geography<select id="geography">{options}</select></label>
@@ -920,4 +946,5 @@ Four separate geographies. Both directions. History since {START_YEAR}; change s
 """
     write_atomic(site / "index.html", document)
     return {"observations": len(rows), "series": len(groups), "coverage_cells": len(matrix),
-            "comparisons": comparison_count, "language_charts": language_count, "business_charts": business_count}
+            "comparisons": comparison_count, "language_charts": language_count, "business_charts": business_count,
+            "immigration_charts": immigration_count}

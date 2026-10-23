@@ -204,7 +204,7 @@ private database are not modified by the chart integration.
 
 ### Chinese-language learning
 
-Open `site/language-learning.html`. Nine chart families address the college
+Open `site/language-learning.html`. Eleven chart families address the college
 boom/reversal, comparison with other languages, school-age pipeline and narrow
 specialist-degree pipeline. They use the existing house typography, stable
 language colours and both publication backgrounds. PNGs are 3000 by 1800;
@@ -350,7 +350,7 @@ The collective publication at
 ```
 
 This offline export covers the collective analysis: student exchanges, visitor
-trips, goods/services trade, language learning, business presence and public
+trips, immigration, goods/services trade, language learning, business presence and public
 Weibo research aggregates. It never publishes raw posts or source reports.
 The masthead, topic navigation, responsive charts and indicator selectors share
 one publication layout. Screen-sized charts preserve reported values, gaps,
@@ -366,6 +366,74 @@ Source permission warnings and complete datasets are retained. Without
 JavaScript, the initial chart, all topic charts and full tables remain readable.
 The provenance manifest records the source revision and public-asset checksums.
 The website deployment rebuilds committed snapshots without collecting data.
+
+### Language-enrollment comparisons
+
+Language now defaults to actual Chinese/Japanese/Korean college registrations
+at the six observed MLA fall-census rounds, 2002-2021. The separate 2014-15-era
+school snapshots show national Chinese/Japanese enrollment estimates (227,086
+and 67,909) and reported high-school language programs (1,144 Chinese, 433
+Japanese, 43 Korean). The 936 Korean respondent enrollments are retained in the
+complete download and explanatory text, not compared with national estimates.
+Availability is not unmet demand; no combined national learner total is
+calculated. `scripts/build_language_data.py --schools-only` reviews those
+additional school observations without replacing the other language series.
+
+### Travel and immigration
+
+The collective site has direct **Travel & tourism** and **Immigration** tabs.
+The travel view uses the same reviewed visitor-arrival observations, including
+2025 annual values and 2026 partial-year NTTO updates. All-purpose visits are
+not relabelled leisure tourists, and trips are not unique people. The selector
+does not offer a leisure-only series without verified values for the displayed
+geographies.
+
+The manual travel review adds NBS country-attributed U.S. visitor arrivals to
+mainland China for 2000-2018. Separately, NTTO SIAT supplies U.S.-resident
+air-travel estimates to mainland China and Hong Kong for 2019 and 2022-2025.
+Its 2026 selection contains only imported Q1-Q2 data and is explicitly labelled
+January-June, not a full year. No unverified matched 2025 half-year or
+2020-2021 value is inferred. Survey estimates, all-mode border arrivals and
+leisure-only tourists are not spliced together. Later all-mode mainland
+arrivals and the U.S.-specific Hong Kong arrivals series remain unverified.
+
+`data/site/immigration.json` freezes 102 observations from five primary assets:
+four OHSS workbooks/archives and the UN DESA International Migrant Stock 2024
+workbook. UN stocks cover six published 1 July benchmarks (2000, 2005, 2010,
+2015, 2020 and 2024), in both directions for mainland China/Hong Kong.
+Mainland-China destination uses U.S. citizenship; the other reviewed routes
+use birthplace. They are resident stocks, not annual arrivals or grants.
+No separate reviewed U.S.-Macau stock is reported; absence is not zero.
+Attribution and CC BY 3.0 IGO terms accompany the selected UN aggregates.
+
+OHSS country-of-birth histories cover fiscal years 2000-2024 for
+mainland China, Hong Kong and Macau. These are grants of lawful permanent
+residency, including both new arrivals and adjustments by people already in
+the U.S.; birthplace is not nationality or a departure country. Historical
+source vintages remain explicit; FY2015-2024 cells are rounded to the nearest
+ten rather than presented as exact counts.
+
+A separate FY2025 nationality snapshot reports the DHS China category:
+65,670 total grants, 27,020 new arrivals and 38,650 adjustments. These are the
+report's annual Total columns, not sums of quarterly values. Nationality is
+not birthplace, so the snapshot is not joined to the historical lines or used
+to infer a year-over-year change. U.S. fiscal years end September 30.
+No comparable annual U.S.-to-mainland-China permanent-residency series has been
+verified here. China-wide totals for foreign permits or border crossings do
+not fill that bilateral gap.
+
+```sh
+.venv/bin/python scripts/build_immigration_data.py
+.venv/bin/python scripts/build_travel_data.py
+.venv/bin/python scripts/build_site.py
+PYTHONPATH=src .venv/bin/python -m pytest tests/test_exchange_immigration.py -q
+```
+
+Retrieval is explicit/manual; `--refresh` rechecks the five immigration source
+assets. The ordinary build is offline. JSON, all source observations as CSV,
+and every plotted value as CSV are complete downloads. Both publication
+backgrounds have matching PNG/SVG figures under `immigration/`. Missing or
+confidential cells stay distinct from zero; raw source files are not published.
 
 ## Definitions and comparisons
 

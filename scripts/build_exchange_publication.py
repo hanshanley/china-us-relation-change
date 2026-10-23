@@ -24,16 +24,21 @@ CANONICAL = "https://www.themarginoferror.com/china-us-relations/"
 PAGES = {
     "index.html": ("U.S.–China connections", "Students, travel, trade and the ties between two countries.",
                    "2025 annual data · 2026 partial-year updates"),
+    "travel.html": ("Travel & tourism", "Visitor trips between the U.S., mainland China, Hong Kong and Macau.",
+                    "Arrivals are trips, not unique people or necessarily leisure tourists"),
+    "immigration.html": ("Immigration", "Bilateral resident stocks and U.S. permanent-resident grants—not visitor trips or visa issuances.",
+                         "Resident-stock benchmarks: 2000–2024 · U.S. green-card grants through FY2025"),
     "comparisons.html": ("China, Hong Kong & Macau", "The same measure, three separately reported geographies.",
                          "Fixed regional colours · No combined regional total"),
-    "language-learning.html": ("Learning Chinese", "College courses, AP exams, degree awards and the school-age pipeline.",
+    "language-learning.html": ("Language learning", "Chinese, Japanese and Korean course enrollments, with school availability and exam participation kept separate.",
                               "AP exams through 2025 · Degree awards through 2024 · College census through 2021"),
     "business-presence.html": ("Businesses in China", "U.S. and European business presence, with different counting rules kept separate.",
                              "Annual affiliate histories · Latest available year varies by origin"),
     "weibo.html": ("U.S. media on Weibo", "What the documented accounts and recovered corpus can tell us—and what they cannot.",
                    "Research coverage, not total posting activity or popularity"),
 }
-TABS = [("index.html", "Exchanges"), ("comparisons.html", "Regional comparison"),
+TABS = [("index.html", "Students & trade"), ("travel.html", "Travel & tourism"), ("immigration.html", "Immigration"),
+        ("comparisons.html", "Regional comparison"),
         ("language-learning.html", "Language"), ("business-presence.html", "Business"), ("weibo.html", "Weibo")]
 
 
@@ -85,7 +90,7 @@ def plot_model(svg, labels, observations):
         all_years = [p["year"] for g in model["groups"] for p in g["points"]]
         model.update(first=min(all_years), last=max(years + all_years))
         return model
-    bars = svg.select("rect.data-bar, rect.language-point, rect.business-point")
+    bars = svg.select("rect.data-bar, rect.language-point, rect.business-point, rect.immigration-point")
     if bars:
         model["kind"] = "bars"
         model["bars"] = []
@@ -102,8 +107,10 @@ def plot_model(svg, labels, observations):
 def decorate(site, name, labels, revision):
     soup = BeautifulSoup((site / name).read_text(), "html.parser")
     title, lead, scope = PAGES[name]
-    if name == "index.html":
+    if name in {"index.html", "travel.html"}:
         rows = json.loads((site / "downloads/observations.json").read_text())
+        if name == "travel.html":
+            rows = [r for r in rows if r["measure"] in {"visitors", "leisure_visitors"}]
         annual = max(r["year"] for r in rows if r["frequency"] == "annual" and r["value"] is not None)
         partial = max((r["year"] for r in rows if r["frequency"] == "ytd" and r["value"] is not None), default=annual)
         scope = f"{annual} annual data" + (f" · {partial} partial-year updates" if partial > annual else "")
@@ -145,7 +152,8 @@ def decorate(site, name, labels, revision):
     page.insert(0, tabs)
     for node in reversed(list(intro.contents)):
         page.insert(0, node)
-    if name == "index.html":
+    if name in {"index.html", "travel.html"}:
+        initial_measure = "visitors" if name == "travel.html" else "goods"
         for p in list(main.find_all("p", recursive=False)):
             p.decompose()
         for option in soup.select('#geography option[value="TWN"]'):
@@ -159,17 +167,27 @@ def decorate(site, name, labels, revision):
         short_labels = {"international_students": "Students + OPT", "enrolled_students": "Enrolled students",
                         "degree_students": "Degree students", "study_abroad": "Credit study abroad",
                         "visitors": "Visitor trips", "leisure_visitors": "Leisure trips",
+                        "air_visitors": "U.S. air-traveler estimates",
                         "goods": "Goods trade", "services": "Services trade"}
         for option in soup.select("#measure option"):
             option.string = short_labels[option["value"]]
         payload = json.loads(soup.select_one("#exchange-data").string)
+        if name == "travel.html":
+            available = {r["measure"] for r in payload["observations"] if r["measure"] in {"visitors", "leisure_visitors", "air_visitors"}
+                         and (r["origin"] in {"CHN", "HKG", "MAC"} or r["destination"] in {"CHN", "HKG", "MAC"})
+                         and r["value"] is not None}
+            for option in list(soup.select("#measure option")):
+                if option["value"] not in available:
+                    option.decompose()
+                elif option["value"] == "visitors":
+                    option.string = "Visitor trips (all purposes)"
         for option in soup.select("#measure option"):
             option.attrs.pop("selected", None)
-            if option["value"] == "goods":
+            if option["value"] == initial_measure:
                 option["selected"] = ""
-        selected = [r for r in payload["observations"] if r["origin"] == "CHN" and r["destination"] == "USA" and r["measure"] == "goods"]
+        selected = [r for r in payload["observations"] if r["origin"] == "CHN" and r["destination"] == "USA" and r["measure"] == initial_measure]
         current = max((r for r in selected if r["frequency"] == "annual" and r["value"] is not None), key=lambda r: r["year"])
-        soup.select_one("#series-category").string = "Goods trade"
+        soup.select_one("#series-category").string = payload["measures"][initial_measure]
         soup.select_one("#series-title").string = "Mainland China → United States"
         for target, markup in [("#annual-headlines", initial_panel(selected)), ("#series-table", annual_table(selected)),
                                ("#chart", svg_chart(selected))]:
@@ -188,6 +206,10 @@ def decorate(site, name, labels, revision):
         soup.select_one("#exchange-data").string = json_text(payload).replace("<", "\\u003c")
         panel = soup.select_one(".series-panel")
         panel["class"].append("exchange-panel")
+        if name == "travel.html":
+            note = soup.new_tag("p", attrs={"class": "travel-definition chart-note"})
+            note.string = "Visitor arrivals include business and family travel, not just tourism. Destination definitions can include same-day trips. U.S. air-traveler estimates are a separate resident survey, not all-mode border arrivals. Select that measure and the U.S.-outbound direction for newer China and Hong Kong observations. Separate leisure-only counts are not available for every route."
+            panel.find("h2").insert_after(note)
         chart = soup.select_one("#chart")
         stats = soup.select_one("#annual-headlines").extract()
         chart.insert_after(stats)
@@ -201,7 +223,7 @@ def decorate(site, name, labels, revision):
         for note in soup.select(".chart-scroll-hint"):
             note.decompose()
         for note in list(panel.select(":scope > .chart-note")):
-            if note.get("id") != "series-notes":
+            if note.get("id") != "series-notes" and "travel-definition" not in note.get("class", []):
                 soup.select_one("#selected-table").append(note.extract())
         definition = soup.new_tag("details", attrs={"class": "definition-details"})
         summary = soup.new_tag("summary")
@@ -227,6 +249,7 @@ def decorate(site, name, labels, revision):
             '<p class="dataset-links">Additional complete datasets: '
             '<a href="downloads/language-learning.json" download>Language learning</a> · '
             '<a href="downloads/business-presence.json" download>Business presence</a> · '
+            '<a href="downloads/immigration.json" download>Immigration</a> · '
             '<a href="downloads/weibo-summary.json" download>Weibo research aggregates</a>.</p>')
         soup.select_one("#downloads").append(families)
         for footer in page.find_all("footer", recursive=False):
@@ -267,7 +290,7 @@ def decorate(site, name, labels, revision):
             label = soup.new_tag("label", attrs={"for": "module-chart"})
             label.string = "Indicator"
             select = soup.new_tag("select", attrs={"id": "module-chart"})
-            preferred = {"language-learning.html": "ap-chinese-global", "comparisons.html": "goods-to_us"}.get(name)
+            preferred = {"language-learning.html": "college-enrollments", "comparisons.html": "goods-to_us"}.get(name)
             for i, section in enumerate(charts):
                 section["data-module-chart"] = section.get("id", f"indicator-{i}")
                 option = soup.new_tag("option", attrs={"value": section["data-module-chart"]})
@@ -281,7 +304,7 @@ def decorate(site, name, labels, revision):
     observations = {(r["series_id"], r["period"]): r for r in
                     json.loads((site / "downloads/observations.json").read_text()) if r["frequency"] == "annual"}
     if name == "language-learning.html":
-        group_notes = {"ap-chinese-global": "Global AP exam participation counts, not U.S.-only counts or a census of all language learners."}
+        group_notes = {"ap-chinese-global": "Global AP exam participation counts, not U.S.-only counts or a census of all language learners. Korean is not shown because no AP Korean exam is offered; this is not zero participation."}
         for chart_id, text in group_notes.items():
             section = soup.select_one("#" + chart_id)
             if section:
@@ -303,6 +326,13 @@ def decorate(site, name, labels, revision):
         model = plot_model(svg, labels, observations)
         if model:
             model["scale"] = "log" if "-log." in path.name else "linear"
+            if name == "immigration.html":
+                for group in model["groups"]:
+                    for point in group["points"]:
+                        if group["id"].startswith("un_stock:"):
+                            point["label"] = f'{group["label"]} · 1 July {point["year"]}: {point["value"]:,.0f} estimated residents'
+                        else:
+                            point["label"] = f'{group["label"]} · FY{point["year"]}: {point["value"]:,.0f} status grants (reported)'
         image.replace_with(fragment(str(svg)))
         if model:
             block["class"].append("native-chart")
@@ -376,8 +406,9 @@ def build_publication(source, output, revision):
         shutil.copytree(source / "data/site", root / "data/site")
         result = build(root)
         site = root / "site"
+        shutil.copyfile(site / "index.html", site / "travel.html")
         definitions = {}
-        for name in ["language_learning", "business_presence"]:
+        for name in ["language_learning", "business_presence", "immigration"]:
             data = json.loads((root / f"data/site/{name}.json").read_text())
             definitions.update({sid: d["label"] for sid, d in data["series"].items()})
         for name in PAGES:
@@ -393,10 +424,10 @@ def build_publication(source, output, revision):
                  for p in site.rglob("*") if p.is_file() and p.suffix != ".html"}
         manifest = {"version": 2, "source_repository": "hanshanley/china-us-relation-change",
                     "source_revision": revision, "canonical_url": CANONICAL,
-                    "scope": "Collective exchanges, language, business and public Weibo research aggregates; no raw posts or source reports",
+                    "scope": "Collective exchanges, immigration, language, business and public Weibo research aggregates; no raw posts or source reports",
                     "observations": result["observations"], "files": files,
                     "datasets": {name: files[f"downloads/{name}.json"] for name in
-                                 ["exchange", "language-learning", "business-presence", "weibo-summary"]}}
+                                 ["exchange", "language-learning", "business-presence", "weibo-summary", "immigration"]}}
         (site / "publication-manifest.json").write_text(json_text(manifest), encoding="utf-8")
         output.mkdir(parents=True, exist_ok=True)
         shutil.copytree(site, output, dirs_exist_ok=True)

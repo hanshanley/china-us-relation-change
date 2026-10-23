@@ -28,6 +28,7 @@ FIGURE_CATEGORIES = {
     "weibo": "Weibo research coverage",
     "language_learning": "Language learning",
     "business_presence": "Business presence",
+    "immigration": "Immigration",
 }
 
 

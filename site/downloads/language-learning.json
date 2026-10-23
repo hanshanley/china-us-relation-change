@@ -68,7 +68,7 @@
       "status": "snapshots_only"
     },
     {
-      "description": "2014-15-era Chinese enrollment estimate, published 2017. No continuous national learner census verified; do not combine with immersion-program counts.",
+      "description": "2014-15-era Chinese/Japanese national enrollment estimates, published 2017. No comparable national Korean total or continuous K-12 census is verified.",
       "id": "k12_learners",
       "status": "estimate_only"
     },
@@ -76,6 +76,16 @@
       "description": "College Board lists AP Chinese and AP Japanese, but no AP Korean exam. Korean benchmarks use MLA college enrollments separately.",
       "id": "ap_korean",
       "status": "not_offered"
+    },
+    {
+      "description": "2014-15 reported high-school programs: Chinese 1,144, Japanese 433 and Korean 43. Not unique schools or a national availability census.",
+      "id": "hs_language_availability",
+      "status": "snapshot_only"
+    },
+    {
+      "description": "Enrollments, program availability and exam participation do not directly measure unmet demand. No composite national learner total is calculated.",
+      "id": "language_demand",
+      "status": "not_measured"
     }
   ],
   "observations": [
@@ -1862,6 +1872,33 @@
       "year": 2021
     },
     {
+      "comparability": "school_availability:chinese",
+      "notes": "",
+      "series_id": "school_availability:chinese",
+      "source_id": "k12_comparisons_2017",
+      "status": "observed",
+      "value": 1144,
+      "year": 2015
+    },
+    {
+      "comparability": "school_availability:japanese",
+      "notes": "",
+      "series_id": "school_availability:japanese",
+      "source_id": "k12_comparisons_2017",
+      "status": "observed",
+      "value": 433,
+      "year": 2015
+    },
+    {
+      "comparability": "school_availability:korean",
+      "notes": "",
+      "series_id": "school_availability:korean",
+      "source_id": "k12_comparisons_2017",
+      "status": "observed",
+      "value": 43,
+      "year": 2015
+    },
+    {
       "comparability": "schools:arc_public",
       "notes": "",
       "series_id": "schools:arc_public",
@@ -1886,6 +1923,24 @@
       "source_id": "k12_2017",
       "status": "estimated",
       "value": 227086,
+      "year": 2015
+    },
+    {
+      "comparability": "schools:k12_japanese_estimate",
+      "notes": "School-year 2014-15-era data; 2015 is an ending-year plot key, not a 2017 measurement.",
+      "series_id": "schools:k12_japanese_estimate",
+      "source_id": "k12_comparisons_2017",
+      "status": "estimated",
+      "value": 67909,
+      "year": 2015
+    },
+    {
+      "comparability": "schools:korean_respondent_enrollment",
+      "notes": "Reported respondent enrollments, not all Korean learners or a national total.",
+      "series_id": "schools:korean_respondent_enrollment",
+      "source_id": "k12_comparisons_2017",
+      "status": "observed",
+      "value": 936,
       "year": 2015
     },
     {
@@ -2061,6 +2116,33 @@
       "scope": "Matched set of 2257 MLA institution IDs responding in both fall 2013 and fall 2021",
       "unit": "course registrations"
     },
+    "school_availability:chinese": {
+      "cadence": "snapshot",
+      "label": "Chinese",
+      "measure": "reported_programs",
+      "notes": "Table 4, page 11. Availability, not student enrollment, latent demand or a census of unique U.S. schools.",
+      "period_basis": "2014-15 survey",
+      "scope": "High-school language programs reported in the American Councils survey; schools/districts may contribute multiple language offerings",
+      "unit": "reported programs"
+    },
+    "school_availability:japanese": {
+      "cadence": "snapshot",
+      "label": "Japanese",
+      "measure": "reported_programs",
+      "notes": "Table 4, page 11. Availability, not student enrollment, latent demand or a census of unique U.S. schools.",
+      "period_basis": "2014-15 survey",
+      "scope": "High-school language programs reported in the American Councils survey; schools/districts may contribute multiple language offerings",
+      "unit": "reported programs"
+    },
+    "school_availability:korean": {
+      "cadence": "snapshot",
+      "label": "Korean",
+      "measure": "reported_programs",
+      "notes": "Table 4, page 11. Availability, not student enrollment, latent demand or a census of unique U.S. schools.",
+      "period_basis": "2014-15 survey",
+      "scope": "High-school language programs reported in the American Councils survey; schools/districts may contribute multiple language offerings",
+      "unit": "reported programs"
+    },
     "schools:arc_public": {
       "cadence": "snapshot",
       "label": "Public-school DLI",
@@ -2086,6 +2168,24 @@
       "notes": "Published June 2017. A mixed-data/model estimate, not an enumerated census; excludes substantial community/heritage and summer networks.",
       "period_basis": "2014-15-era reference period",
       "scope": "U.S. formal K-12 schools; reported state counts plus model-based estimates for missing state data",
+      "unit": "enrollments"
+    },
+    "schools:k12_japanese_estimate": {
+      "cadence": "snapshot",
+      "label": "K-12 Japanese estimate",
+      "measure": "estimated_enrollments",
+      "notes": "2017 report Table 2. Not unique people or U.S. citizens; not comparable with the Korean high-school respondent count.",
+      "period_basis": "2014-15-era reference period",
+      "scope": "U.S. formal K-12 schools; reported state counts plus model-based estimates for missing state data",
+      "unit": "enrollments"
+    },
+    "schools:korean_respondent_enrollment": {
+      "cadence": "snapshot",
+      "label": "Korean high-school respondents",
+      "measure": "reported_enrollments",
+      "notes": "2017 report page 22. Deliberately not plotted alongside national Chinese/Japanese K-12 estimates.",
+      "period_basis": "2014-15-era reference period",
+      "scope": "936 Korean-class enrollments reported by 43 schools across 22 states; respondent subset, not a national K-12 estimate",
       "unit": "enrollments"
     },
     "schools:nexus_all": {
@@ -2850,6 +2950,20 @@
       "name": "American Councils and partner organizations",
       "notes": "Reported and modeled state enrollment totals. Not an immersion-program count; never summed with later college/AP figures.",
       "vintage": "June 2017 K-16 survey report"
+    },
+    "k12_comparisons_2017": {
+      "assets": [
+        {
+          "request_url": "https://www.americancouncils.org/sites/default/files/FLE-report-June17.pdf",
+          "retrieved_at": "2026-10-22T14:39:35+00:00",
+          "sha256": "173ee353382bcdd2c9467792294e7419cc48b7cc6ffdc27bd32118488e61b993",
+          "url": "https://www.americancouncils.org/sites/default/files/FLE-report-June17.pdf"
+        }
+      ],
+      "locator": "Table 2 p8 (national estimates); Table 4 p11 (reported high-school programs); p22 (Korean respondent enrollments)",
+      "name": "American Councils and partner organizations",
+      "notes": "2014-15-era reference period. Chinese/Japanese national totals combine reported data and modeling; the Korean 936 is a respondent-only count and cannot be substituted for a national estimate. Availability counts measure reported language programs, not unique people, unique schools or demand.",
+      "vintage": "National K-12 Foreign Language Enrollment Survey, June 2017"
     },
     "mla_matched_2021": {
       "assets": [
