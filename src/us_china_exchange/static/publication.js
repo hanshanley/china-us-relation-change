@@ -1,6 +1,11 @@
 "use strict";
 (() => {
   const revision = new URL(document.currentScript.src).searchParams.get("v");
+  const tabs = document.querySelector(".analysis-tabs");
+  const currentTab = tabs?.querySelector("[aria-current]");
+  if (currentTab && tabs.scrollWidth > tabs.clientWidth) {
+    tabs.scrollLeft = currentTab.offsetLeft - tabs.offsetLeft - (tabs.clientWidth - currentTab.clientWidth) / 2;
+  }
   const escape = value => String(value).replace(/[&<>"']/g, c =>
     ({"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"}[c]));
   const color = value => /^#[0-9a-f]{6}$/i.test(value) ? value : "#655f55";
@@ -10,40 +15,61 @@
     for (const [scale, suffix] of [[1e12, "tn"], [1e9, "bn"], [1e6, "m"], [1e3, "k"]]) {
       if (magnitude >= scale) return currency + (value / scale).toLocaleString("en-US", {maximumFractionDigits: 1}) + suffix;
     }
-    return currency + value.toLocaleString("en-US", {maximumFractionDigits: 1});
+    return currency + value.toLocaleString("en-US", magnitude > 0 && magnitude < 1 ?
+      {maximumSignificantDigits: 3} : {maximumFractionDigits: 2});
   };
   const models = new WeakMap();
+  const linearAxis = peak => {
+    const extent = peak * 1.08 || 1;
+    const power = 10 ** Math.floor(Math.log10(extent / 4));
+    const ratio = extent / (4 * power);
+    const multiple = [1, 2, 2.5, 5, 10].reduce((best, value) =>
+      Math.abs(Math.log(value / ratio)) < Math.abs(Math.log(best / ratio)) ? value : best);
+    const step = multiple * power, count = Math.ceil(extent / step);
+    return {maximum: count * step, ticks: Array.from({length: count + 1}, (_, i) => i * step)};
+  };
   const draw = (container, model) => {
     if (!container.clientWidth) return;
     const width = Math.max(280, Math.floor(container.clientWidth));
     container.dataset.plotWidth = String(width);
     const mobile = width < 600;
-    const font = mobile ? 12 : 13;
+    const font = mobile ? 13 : 14;
     let content = "", height;
     if (model.kind === "bars") {
-      height = model.bars.length * 52 + 8;
+      height = 8;
       const maximum = Math.max(...model.bars.map(p => p.value), 1);
-      for (const [i, point] of model.bars.entries()) {
-        const y = i * 52 + 17;
+      const context = document.createElement("canvas").getContext("2d");
+      context.font = `${font}px Georgia, serif`;
+      for (const point of model.bars) {
+        const valueLabel = compact(point.value, model.unit);
+        const available = width - context.measureText(valueLabel).width - 24;
+        const lines = [""];
+        for (const word of point.label.split(/\s+/)) {
+          const candidate = `${lines.at(-1)} ${word}`.trim();
+          if (lines.at(-1) && context.measureText(candidate).width > available) lines.push(word);
+          else lines[lines.length - 1] = candidate;
+        }
+        const y = height + font;
         const length = point.value / maximum * (width - 10);
-        content += `<text x="0" y="${y}" font-size="${font}">${escape(point.label)}</text>
-          <text x="${width - 2}" y="${y}" text-anchor="end" font-size="${font}">${escape(compact(point.value, model.unit))}</text>
+        content += `<text x="0" y="${y}" font-size="${font}">${lines.map((line, i) =>
+          `<tspan x="0" dy="${i ? 19 : 0}">${escape(line)}</tspan>`).join("")}</text>
+          <text x="${width - 2}" y="${y}" text-anchor="end" font-size="${font}">${escape(valueLabel)}</text>
           <rect class="screen-bar" data-label="${escape(point.label)}" data-value="${point.value}"
-            x="0" y="${y + 10}" width="${length}" height="7" fill="${color(point.color)}">
+            x="0" y="${y + (lines.length - 1) * 19 + 12}" width="${length}" height="8" rx="1" fill="${color(point.color)}">
             <title>${escape(point.label)}: ${escape(point.value.toLocaleString("en-US"))} ${escape(model.unit)}</title></rect>`;
+        height = y + (lines.length - 1) * 19 + 39;
       }
     } else {
-      height = mobile ? 270 : 355;
-      const margin = {left: mobile ? 52 : 74, right: 14, top: 30, bottom: 34};
+      height = mobile ? 300 : 370;
+      const margin = {left: mobile ? 60 : 78, right: 22, top: 34, bottom: 38};
       const points = model.groups.flatMap(group => group.points);
       const monthly = model.frequency === "monthly";
       const position = point => monthly ? point.month_index : point.year;
-      const highest = Math.max(...points.map(p => p.value), 0) * 1.12 || 1;
-      const magnitude = 10 ** Math.floor(Math.log10(highest));
+      const axis = linearAxis(Math.max(...points.map(p => p.value), 0));
       const logarithmic = model.scale === "log";
       const low = logarithmic ? Math.floor(Math.log10(Math.min(...points.map(p => p.value)))) : 0;
       const high = logarithmic ? Math.max(low + 1, Math.ceil(Math.log10(Math.max(...points.map(p => p.value))))) : 1;
-      const maximum = Math.ceil(highest / magnitude) * magnitude;
+      const maximum = axis.maximum;
       const first = model.first, last = Math.max(first + 1, model.last);
       const snapshot = !monthly && !logarithmic && model.groups.length === 1 &&
         ((points.length === 1 && model.first === model.last) ||
@@ -54,11 +80,11 @@
         (period - first) / (last - first)) * plotWidth;
       const y = value => height - margin.bottom - (logarithmic ? (Math.log10(value) - low) / (high - low) : value / maximum) * (height - margin.top - margin.bottom);
       content += `<text x="${margin.left}" y="13" font-size="${font}" fill="#655f55">${escape(model.unit)}</text>`;
-      const ticks = logarithmic ? Array.from({length: high - low + 1}, (_, i) => 10 ** (low + i)) : [0, maximum / 2, maximum];
+      const ticks = logarithmic ? Array.from({length: high - low + 1}, (_, i) => 10 ** (low + i)) : axis.ticks;
       for (const value of ticks) {
         const yy = y(value);
-        content += `<path d="M${margin.left} ${yy}H${width - margin.right}" stroke="#d6d3cc" stroke-width=".7"/>
-          <text x="${margin.left - 9}" y="${yy + 4}" font-size="${font}" text-anchor="end" fill="#655f55">${escape(compact(value, model.unit))}</text>`;
+        content += `<path d="M${margin.left} ${yy}H${width - margin.right}" stroke="#d6d3cc" stroke-width="${value === 0 ? 1 : .6}"/>
+          <text class="screen-y-tick" x="${margin.left - 9}" y="${yy + 4}" font-size="${font}" text-anchor="end" fill="#655f55">${escape(compact(value, model.unit))}</text>`;
       }
       if (monthly) {
         const ordered = [...new Map(points.map(p => [p.month_index, p])).values()]
@@ -100,7 +126,7 @@
           return `${command}${x(position(point)).toFixed(2)},${y(point.value).toFixed(2)}`;
         }).join(" ");
         content += `<path class="screen-line" data-series-id="${escape(group.id)}" d="${path}" fill="none"
-          stroke="${color(group.color)}" stroke-width="2.3" stroke-linejoin="round"${group.dash ? ` stroke-dasharray="${escape(group.dash)}"` : ""}/>`;
+          stroke="${color(group.color)}" stroke-width="${mobile ? 2.2 : 2.6}" stroke-linecap="round" stroke-linejoin="round"${group.dash ? ` stroke-dasharray="${escape(group.dash)}"` : ""}/>`;
         if (monthly) {
           for (let i = 1; i < group.points.length; i++) {
             const before = group.points[i - 1], point = group.points[i];
@@ -120,9 +146,16 @@
           const period = monthly ? `data-month="${escape(point.month)}" data-partial-window="${point.partial_window}"` : `data-year="${point.year}"`;
           const fill = monthly && point.partial_window ? "#f7f5f0" : color(group.color);
           const stroke = monthly ? ` stroke="${color(group.color)}" stroke-width="1.3"` : "";
+          const radius = point === group.points.at(-1) ? 4 : monthly ? 1.8 : 2.4;
           content += `<circle class="screen-point" data-series-id="${escape(group.id)}" ${period} data-value="${point.value}"
-            cx="${x(position(point))}" cy="${y(point.value)}" r="${mobile ? 2.8 : 3.2}" fill="${fill}"${stroke}
+            cx="${x(position(point))}" cy="${y(point.value)}" r="${radius}" fill="${fill}"${stroke}
             tabindex="-1"><title>${escape(point.label || `${group.label} ${point.year}: ${point.value.toLocaleString("en-US")} ${model.unit}`)}</title></circle>`;
+        }
+        if (!snapshot && model.groups.length === 1) {
+          const point = group.points.at(-1);
+          content += `<text class="screen-end-label" x="${x(position(point)) - 9}" y="${y(point.value) - 12}"
+            text-anchor="end" font-size="${font}" font-weight="bold" fill="${color(group.color)}"
+            stroke="#f2efe7" stroke-width="4" paint-order="stroke">${escape(compact(point.value, model.unit))}</text>`;
         }
       }
     }
@@ -175,7 +208,7 @@
       const chart = get("chart");
       if (chart.querySelector("svg") && present.length) {
         const indexed = get("chart-mode").value === "index";
-        const reference = present.find(r => r.year === 2020);
+        const reference = present.find(r => r.year === (present[0].measure === "air_visitors" ? 2019 : 2020));
         let previous;
         const points = present.map(row => {
           const point = {year: row.year, value: indexed ? row.value / reference.value * 100 : row.value,
@@ -191,7 +224,7 @@
           description: snapshots ? "Separate annual snapshots; release vintages are not connected or used for growth." :
             "Reported observations only. Missing years and changes in definition break the line. Exact values and complete downloads follow.",
           snapshots,
-          unit: indexed ? "2020 = 100" : present[0].unit === "USD" ? "Nominal USD" : present[0].unit,
+          unit: indexed ? `${reference.year} = 100` : present[0].unit === "USD" ? "Nominal USD" : present[0].unit,
           first: Math.min(...rows.map(r => r.year)), last: Math.max(...rows.map(r => r.year)),
           groups: [{id: present[0].series_id, label: data.geographies[geo], color: colors[geo], points}]};
         models.set(chart, model);

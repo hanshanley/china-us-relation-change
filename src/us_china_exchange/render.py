@@ -22,7 +22,7 @@ from .sources import SOURCE_POLICIES
 from .weibo_analysis import AUDIT_LABELS, SHANGHAI, WEIBO_CHARTS, svg_weibo, timestamp, validate_summary
 from .theme import (CHART_HEIGHT, CHART_THEMES, CHART_WIDTH, COMPARISON_GEOGRAPHIES, FIGURE_CATEGORIES, FONT,
                     FONT_FILES, GRID, MUTED, PARTNER_COLORS, PNG_HEIGHT, PNG_WIDTH,
-                    TEXT, figure_category)
+                    TEXT, figure_category, linear_axis)
 
 
 SOURCE_NAMES = {
@@ -68,7 +68,9 @@ def number(value, unit="", compact=False):
         f"{value:,.0f}" if value == int(value) else f"{value:,}")
 
 
-def baseline(rows, year=2020):
+def baseline(rows, year=None):
+    if year is None:
+        year = 2019 if rows and rows[0]["measure"] == "air_visitors" else 2020
     return next((r for r in rows if r["year"] == year and r["value"] is not None), None)
 
 
@@ -91,17 +93,15 @@ def svg_chart(rows, indexed=False, theme="themarginoferror"):
         return '<p class="gap">No verified annual observations for this series.</p>'
     ref = baseline(annual)
     if indexed and (ref is None or not ref["value"]):
-        return '<p class="gap">A comparable, nonzero 2020 baseline is not available.</p>'
+        return '<p class="gap">A comparable, nonzero baseline is not available.</p>'
     if indexed and any(change(r, ref)["absolute"] is None for r in present):
-        return '<p class="gap">Definitions differ from the 2020 baseline; an index would not be comparable.</p>'
+        return '<p class="gap">Definitions differ from the baseline; an index would not be comparable.</p>'
     unit = present[0]["unit"]
     first = min(r["year"] for r in present)
     end = max(r["year"] for r in annual)
     values = {r["year"]: (r["value"] / ref["value"] * 100 if indexed else r["value"])
               for r in present}
-    maximum = max(values.values()) * 1.13 or 1
-    magnitude = 10 ** math.floor(math.log10(maximum))
-    maximum = math.ceil(maximum / magnitude) * magnitude
+    maximum, ticks = linear_axis(max(values.values()))
     snapshot = ((len(present) == 1 and first == end) or
                 (len(present) == 2 and present[0]["source_id"] == "ustr"
                  and len({r["comparability"] for r in present}) == 2))
@@ -125,8 +125,7 @@ def svg_chart(rows, indexed=False, theme="themarginoferror"):
              f'<g font-family="{esc(FONT)}" font-size="20" fill="{MUTED}">',
              f'<text x="115" y="45" font-size="28" font-weight="bold" fill="{TEXT}">{esc(heading)}</text>',
              f'<text x="115" y="80" font-size="22">{esc(direction)}</text>']
-    for fraction in [0, 0.5, 1]:
-        value = maximum * fraction
+    for value in ticks:
         label = f"{value:.0f}" if indexed else number(value, unit, compact=True)
         parts.append(f'<path d="M115 {y(value):.2f}H950" stroke="{GRID}" stroke-opacity="0.6" stroke-width="0.5"/>'
                      f'<text x="100" y="{y(value) + 6:.2f}" text-anchor="end">{esc(label)}</text>')
@@ -137,10 +136,10 @@ def svg_chart(rows, indexed=False, theme="themarginoferror"):
         parts.append(f'<text x="{x(year):.2f}" y="472" text-anchor="middle">{year}</text>')
     parts.append(f'<path d="M115 150V435H950" stroke="{GRID}" stroke-width="0.8" fill="none"/>')
     if ref is not None:
-        parts.append(f'<path d="M{x(2020):.2f} 150V435" stroke="{MUTED}" stroke-width="0.8" stroke-dasharray="4 5"/>')
-        parts.append(f'<text x="{x(2020) - 8:.2f}" y="125" text-anchor="end">2020 baseline</text>')
+        parts.append(f'<path d="M{x(ref["year"]):.2f} 150V435" stroke="{MUTED}" stroke-width="0.8" stroke-dasharray="4 5"/>')
+        parts.append(f'<text x="{x(ref["year"]) - 8:.2f}" y="125" text-anchor="end">{ref["year"]} baseline</text>')
     if indexed:
-        parts.append(f'<text x="115" y="125" fill="{TEXT}">2020 = 100</text>')
+        parts.append(f'<text x="115" y="125" fill="{TEXT}">{ref["year"]} = 100</text>')
     else:
         parts.append(f'<text x="115" y="125" fill="{TEXT}">{esc("Nominal USD" if unit == "USD" else unit.capitalize())}</text>')
     path, previous, previous_definition = [], None, None
@@ -160,8 +159,17 @@ def svg_chart(rows, indexed=False, theme="themarginoferror"):
                          f'width="64" height="{435 - y(values[year]):.2f}" fill="{color}" aria-hidden="true"/>'
                          f'<text x="{x(year):.2f}" y="{y(values[year]) - 10:.2f}" text-anchor="middle" '
                          f'font-size="18" fill="{TEXT}">{esc(value_label)}</text>')
-        parts.append(f'<circle cx="{x(year):.2f}" cy="{y(values[year]):.2f}" r="4" fill="{color}">'
+        radius = 4.5 if row is present[-1] else 2.8
+        parts.append(f'<circle cx="{x(year):.2f}" cy="{y(values[year]):.2f}" r="{radius}" fill="{color}">'
                      f'<title>{esc(label)}</title></circle>')
+    if not snapshot:
+        latest = present[-1]
+        latest_value = values[latest["year"]]
+        label = f"{latest_value:.0f}" if indexed else number(latest_value, unit, compact=True)
+        parts.append(f'<text class="end-label" x="{x(latest["year"]) - 10:.2f}" '
+                     f'y="{y(latest_value) - 12:.2f}" text-anchor="end" font-size="18" '
+                     f'font-weight="bold" fill="{color}" stroke="#FFFFFF" stroke-width="4" '
+                     f'paint-order="stroke">{esc(label)}</text>')
     source = SOURCE_NAMES.get(sample["source_id"], sample["source_id"])
     breaks = [current["period"] for previous, current in zip(annual, annual[1:])
               if current["comparability"] != previous["comparability"]]
@@ -181,8 +189,8 @@ def svg_chart(rows, indexed=False, theme="themarginoferror"):
         note += " Reporting years, not physical-presence counts."
     if sample["source_id"] in SOURCE_POLICIES:
         note += " " + SOURCE_POLICIES[sample["source_id"]]["figure_notice"]
-    for line, text in enumerate(textwrap.wrap(note, width=90)):
-        parts.append(f'<text class="figure-source" x="115" y="{520 + line * 23}" font-size="16" font-style="italic">{esc(text)}</text>')
+    for line, text in enumerate(textwrap.wrap(note, width=110)):
+        parts.append(f'<text class="figure-source" x="115" y="{510 + line * 18}" font-size="13" font-style="italic">{esc(text)}</text>')
     parts.append("</g></svg>")
     return "".join(parts)
 
@@ -220,10 +228,7 @@ def svg_comparison(rows, measure, direction, theme="themarginoferror", logarithm
         ticks = [10 ** power for power in range(low, high + 1)]
         y = lambda value: 420 - (math.log10(value) - low) / (high - low) * 240
     else:
-        maximum = max(r["value"] for r in plotted) * 1.13 or 1
-        magnitude = 10 ** math.floor(math.log10(maximum))
-        maximum = math.ceil(maximum / magnitude) * magnitude
-        ticks = [0, maximum / 2, maximum]
+        maximum, ticks = linear_axis(max(r["value"] for r in plotted))
         y = lambda value: 420 - value / maximum * 240
     direction_label = "To the United States" if direction == "to_us" else "From the United States"
     title = MEASURES[measure] + ": " + direction_label
@@ -248,7 +253,7 @@ def svg_comparison(rows, measure, direction, theme="themarginoferror", logarithm
         dash = ' stroke-dasharray="7 4"' if any(r["source_id"] == "comtrade" for r in groups[geo]) else ""
         parts.append(f'<path class="legend-swatch" data-geography="{geo}" d="M{pos} 108h28" stroke="{color}" stroke-width="3.2"{dash}/>'
                      f'<text x="{pos + 36}" y="114" fill="{TEXT}">{esc(GEOGRAPHIES[geo])}{"*" if not available else ""}</text>')
-    parts.append(f'<text x="115" y="153">{esc(unit)}</text>')
+    parts.append(f'<text class="axis-unit" x="115" y="153">{esc(unit)}</text>')
     for value in ticks:
         parts.append(f'<path d="M115 {y(value):.2f}H950" stroke="{GRID}" stroke-opacity="0.6" stroke-width="0.5"/>'
                      f'<text x="100" y="{y(value) + 6:.2f}" text-anchor="end">{esc(number(value, present[0]["unit"], compact=True))}</text>')
@@ -876,6 +881,7 @@ def build(root):
                 path.unlink()
     payload = {"observations": rows, "sources": sources, "coverage": matrix,
                "geographies": GEOGRAPHIES, "measures": MEASURES,
+               "prefer_current_travel": True,
                "source_policies": SOURCE_POLICIES,
                "source_names": SOURCE_NAMES, "charts": charts, "chart_themes": CHART_THEMES,
                "figures": figure_paths}
@@ -988,7 +994,7 @@ Four separate geographies. Both directions. History since {START_YEAR}; change s
 <div id="annual-headlines" aria-live="polite">{initial_panel(selected)}</div>
 <p class="definition" id="definition">{esc(current["definition"])}</p>
 <div class="chart-heading"><h3>Annual history</h3><div class="chart-control"><label for="chart-mode">Display</label>
-<select id="chart-mode"><option value="levels">Reported values</option><option value="index">2020 = 100</option></select></div>
+<select id="chart-mode"><option value="levels">Reported values</option><option value="index">Baseline = 100</option></select></div>
 <div class="chart-control"><label for="chart-theme">Background</label><select id="chart-theme">{theme_options}</select></div></div>
 <div id="chart" tabindex="0" role="region" aria-label="Annual chart; scroll horizontally on narrow screens">{charts[selected_id]["levels"]}</div>
 <p class="chart-note chart-scroll-hint">On a narrow screen, scroll the chart sideways to keep its labels readable.</p>

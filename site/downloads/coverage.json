@@ -356,6 +356,13 @@
   },
   {
     "available_years": [
+      2012,
+      2013,
+      2014,
+      2015,
+      2016,
+      2017,
+      2018,
       2019,
       2022,
       2023,
@@ -364,10 +371,10 @@
     ],
     "baseline_2020": false,
     "destination": "CHN",
-    "first_year": 2019,
+    "first_year": 2012,
     "last_year": 2025,
     "measure": "air_visitors",
-    "observations": 7,
+    "observations": 14,
     "origin": "USA",
     "reason": "",
     "source_ids": [
@@ -843,6 +850,13 @@
   },
   {
     "available_years": [
+      2012,
+      2013,
+      2014,
+      2015,
+      2016,
+      2017,
+      2018,
       2019,
       2022,
       2023,
@@ -851,10 +865,10 @@
     ],
     "baseline_2020": false,
     "destination": "HKG",
-    "first_year": 2019,
+    "first_year": 2012,
     "last_year": 2025,
     "measure": "air_visitors",
-    "observations": 7,
+    "observations": 14,
     "origin": "USA",
     "reason": "",
     "source_ids": [

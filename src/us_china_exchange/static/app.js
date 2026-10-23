@@ -22,11 +22,22 @@
       (percent === null ? " \u00b7 Zero baseline; percentage undefined" :
         ` (${percent > 0 ? "+" : ""}${percent.toFixed(1)}%)`);
   }
-  function render() {
+  function render(event) {
     const geo = $("geography").value;
     const outgoing = $("direction").value === "from_us";
     const origin = outgoing ? "USA" : geo, destination = outgoing ? geo : "USA";
     const selectionNotes = [];
+    if (data.prefer_current_travel && outgoing && geo === "CHN" &&
+        $("measure").value === "visitors" && ["geography", "direction"].includes(event?.target.id)) {
+      $("measure").value = "air_visitors";
+      selectionNotes.push("Showing current U.S.-resident air-travel estimates. The separate all-mode arrival history ends in 2018 and remains available in the indicator menu.");
+    }
+    const arrivalOption = $("measure").querySelector('option[value="visitors"]');
+    if (arrivalOption) {
+      arrivalOption.dataset.defaultLabel ||= arrivalOption.textContent;
+      arrivalOption.textContent = outgoing && geo === "CHN" ?
+        "All-mode arrivals (through 2018)" : arrivalOption.dataset.defaultLabel;
+    }
     if (data.restrict_to_available) {
       const available = new Set(data.observations.filter(r => r.origin === origin &&
         r.destination === destination && r.frequency === "annual" && r.value !== null).map(r => r.measure));
@@ -62,7 +73,7 @@
       indexOption.disabled = !canIndex;
       if (!canIndex && $("chart-mode").value === "index") {
         $("chart-mode").value = "levels";
-        selectionNotes.push("A comparable 2020 index is unavailable for this series. Showing reported levels, without hiding the observations.");
+        selectionNotes.push("A comparable baseline index is unavailable for this series. Showing reported levels, without hiding the observations.");
       }
       $("selection-note").hidden = !selectionNotes.length;
       $("selection-note").textContent = selectionNotes.join(" ");
@@ -71,7 +82,10 @@
       let alternative, explanation;
       if (outgoing && measure === "visitors") {
         alternative = "air_visitors";
-        explanation = "A separate U.S.-resident air-travel survey has newer observations. These are not the same population as all-mode visitor arrivals.";
+        explanation = `This all-mode history ends in ${current?.year}. A separate U.S.-resident air-travel survey has newer observations. These populations are not combined.`;
+      } else if (outgoing && measure === "air_visitors") {
+        alternative = "visitors";
+        explanation = "Historical all-mode arrivals are also available, under a different definition. They are not spliced into this air-travel survey.";
       } else if (outgoing && measure === "enrolled_students") {
         alternative = "study_abroad";
         explanation = "A separate academic-credit study-abroad series has newer observations. It is not a replacement for all U.S.-nationality enrollments.";
@@ -82,7 +96,7 @@
       const other = rows.length && alternative && data.observations.filter(r => r.origin === origin &&
         r.destination === destination && r.measure === alternative && r.frequency === "annual" && r.value !== null);
       const latestOther = other?.length ? Math.max(...other.map(r => r.year)) : null;
-      if (other?.length && current && (latestOther > current.year || (
+      if (other?.length && current && (measure === "air_visitors" || latestOther > current.year || (
           measure === "enrolled_students" && !outgoing && other.length > annual.length))) {
         related.hidden = false;
         related.innerHTML = `${escape(explanation)} <button type="button" class="series-alternative">View ${escape(data.measures[alternative])} (${Math.min(...other.map(r => r.year))}\u2013${latestOther})</button>`;
@@ -98,6 +112,23 @@
     }
     $("series-title").textContent = `${data.geographies[origin]} \u2192 ${data.geographies[destination]}`;
     $("series-category").textContent = data.measures[measure];
+    const population = $("series-population");
+    if (population) {
+      const travel = ["visitors", "air_visitors", "leisure_visitors"].includes(measure) && !!current;
+      population.hidden = !travel;
+      if (travel) {
+        const scope = measure === "air_visitors" ? "U.S.-resident air trips (survey estimates)" :
+          current.source_id === "ntto" ? "Overnight visitor arrivals by country of residence" :
+          current.source_id === "nbs_tourism" ? "Historical all-mode visitor arrivals" :
+          "Visitor arrivals; source-specific country attribution";
+        population.textContent = `${scope} \u00b7 ${annual[0].year}\u2013${current.year}`;
+      }
+    }
+    const continuity = $("series-continuity");
+    if (continuity) {
+      continuity.hidden = measure !== "air_visitors";
+      continuity.textContent = "No verified survey estimates are shown for 2020\u20132021. The line stops at the gap; missing does not mean zero.";
+    }
     $("partial-panel").hidden = true;
     $("figure-link").hidden = !current;
     if (!current) {
@@ -113,12 +144,13 @@
       return;
     }
     $("chart-mode").disabled = false;
-    const reference = find(annual, 2020), previous = find(annual, current.year - 1);
+    const referenceYear = measure === "air_visitors" ? 2019 : 2020;
+    const reference = find(annual, referenceYear), previous = find(annual, current.year - 1);
     $("annual-headlines").innerHTML = `<div class="headline-grid"><div>
       <p class="label">Latest complete annual observation</p>
       <p class="metric" id="latest-value">${escape(format(current.value, current.unit))}</p>
       <p id="latest-period">${escape(current.period)} \u00b7 ${escape(data.measures[measure])}</p></div>
-      <div><p class="label" id="baseline-label">Change since ${escape(reference ? reference.period : "2020")}</p>
+      <div><p class="label" id="baseline-label">Change since ${escape(reference ? reference.period : String(referenceYear))}${measure === "air_visitors" ? " (pre-pandemic)" : ""}</p>
       <p class="delta" id="baseline-change">${escape(difference(current, reference))}</p>
       <p id="yoy-change">Prior year: ${escape(difference(current, previous))}</p></div></div>`;
     $("definition").textContent = current.definition;

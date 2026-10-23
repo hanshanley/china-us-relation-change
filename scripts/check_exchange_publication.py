@@ -98,11 +98,26 @@ def check(site, url=None, screenshots=None):
             expect(page.locator("#partial-panel")).to_contain_text("2026")
             assert page.locator("#chart .screen-point").count() == 26
             page.select_option("#direction", "from_us")
-            assert page.locator("#chart .screen-point").count() == 19
-            page.select_option("#measure", "air_visitors")
-            assert page.locator("#chart .screen-point").count() == 5
+            expect(page.locator("#measure")).to_have_value("air_visitors")
+            expect(page.locator("#selection-note")).to_contain_text("ends in 2018")
+            assert page.locator("#chart .screen-point").count() == 12
+            expect(page.locator("#series-population")).to_contain_text("2012–2025")
             expect(page.locator("#partial-panel")).to_contain_text("2026")
             assert page.locator("#chart .screen-point[data-year='2020']").count() == 0
+            expect(page.locator("#baseline-label")).to_contain_text("2019 (pre-pandemic)")
+            page.select_option("#chart-mode", "index")
+            assert float(page.locator("#chart .screen-point[data-year='2019']").get_attribute("data-value")) == 100
+            page.select_option("#chart-mode", "levels")
+            page.locator("#related-series button").click()
+            expect(page.locator("#measure")).to_have_value("visitors")
+            expect(page.locator("#latest-period")).to_contain_text("2018")
+            assert page.locator("#chart .screen-point").count() == 19
+            expect(page.locator("#related-series")).to_contain_text("ends in 2018")
+            page.locator("#related-series button").click()
+            expect(page.locator("#measure")).to_have_value("air_visitors")
+            assert page.locator("#chart .screen-point").count() == 12
+            if screenshots:
+                page.locator(".exchange-panel").screenshot(path=str(screenshots / f"tourism-current-{width}.png"))
             for geo in ("CHN", "HKG"):
                 page.select_option("#geography", geo)
                 expect(page.locator("#latest-period")).to_contain_text("2025")

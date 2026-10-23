@@ -115,6 +115,14 @@ def test_collective_export_preserves_complete_inputs_and_native_plot_boundaries(
     travel = BeautifulSoup((tmp_path / "travel.html").read_text(), "html.parser")
     assert travel.select_one('#measure option[selected]')["value"] == "visitors"
     assert travel.select_one(".travel-definition")
+    assert travel.select_one("#series-population")
+    for identifier in ["selection-note", "related-series", "series-continuity"]:
+        assert travel.select_one("#" + identifier).find_parent("details") is None
+    payload = json.loads(travel.select_one("#exchange-data").string)
+    assert payload["prefer_current_travel"]
+    assert {r["year"] for r in payload["observations"] if
+            r["series_id"] == "ntto_siat:USA:CHN:air_visitors" and r["frequency"] == "annual"} == {
+                *range(2012, 2020), *range(2022, 2026)}
     assert {o["value"] for o in travel.select("#measure option")} <= {"visitors", "leisure_visitors", "air_visitors"}
     immigration = BeautifulSoup((tmp_path / "immigration.html").read_text(), "html.parser")
     assert immigration.select_one("#green-card-grants .plot-data")
@@ -142,6 +150,7 @@ def test_collective_export_preserves_complete_inputs_and_native_plot_boundaries(
     comparisons = BeautifulSoup((tmp_path / "comparisons.html").read_text(), "html.parser")
     model = json.loads(comparisons.select_one("#goods-to_us .plot-data").string)
     assert len(model["groups"]) == 3
+    assert model["unit"] == "Nominal USD"
     assert next(g for g in model["groups"] if g["label"] == "Macau")["dash"] == "7 4"
     weibo = BeautifulSoup((tmp_path / "weibo.html").read_text(), "html.parser")
     monthly = json.loads((ROOT / "data/site/weibo_summary.json").read_text())["monthly"]

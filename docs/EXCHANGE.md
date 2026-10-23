@@ -591,7 +591,16 @@ geographies.
 
 The manual travel review adds NBS country-attributed U.S. visitor arrivals to
 mainland China for 2000-2018. Separately, NTTO SIAT supplies U.S.-resident
-air-travel estimates to mainland China and Hong Kong for 2019 and 2022-2025.
+air-travel estimates to mainland China and Hong Kong for 2012-2019 and 2022-2025.
+The public monitor's year selector is virtualized: the initially visible
+years are not its full history. The collector now scrolls that selector and
+verifies every displayed calendar-year/country caption. Fourteen additional
+annual observations extend these two consistent survey histories back to 2012.
+On switching to U.S.-to-mainland travel, the public controls default to this
+current series, not the all-mode series ending in 2018. The indicator menu and
+visible population caption identify the old series as historical; either
+population remains available in the complete downloads. The air-travel index
+and change headline explicitly use **2019**, not an invented 2020 baseline.
 The 2025 and 2026 Q1-Q2 selections now explicitly deselect Q3 and Q4 with
 ordinary checkbox clicks; modifier-click was opening a macOS context menu.
 Their January-June values are read directly, not inferred by subtracting rounded
@@ -599,6 +608,13 @@ totals: China 442,000 in 2025 and 474,000 in 2026; Hong Kong 304,000 and 251,000
 No unverified 2020-2021 value is inferred. Survey estimates, all-mode border arrivals and
 leisure-only tourists are not spliced together. Later all-mode mainland
 arrivals and pre-2023 U.S.-nationality Hong Kong arrivals remain unverified.
+
+Historical comparisons take priority over isolated snapshots. Interactive
+charts use legible native-size typography, restrained grid lines and markers,
+rounded axis intervals, and a latest-value end label for single-series plots.
+Long bar labels wrap without dropping the reference year. SVG/PNG exports
+retain the reference project's serif palette and both publication backgrounds;
+changes in population and missing years still break the plotted lines.
 
 `data/site/immigration.json` freezes 102 observations from five primary assets:
 four OHSS workbooks/archives and the UN DESA International Migrant Stock 2024

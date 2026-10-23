@@ -91,6 +91,20 @@ def test_charts_break_missing_years_and_definition_changes():
     assert "Definitions differ" in svg_chart(rows, indexed=True)
 
 
+def test_air_travel_uses_its_own_history_and_pre_pandemic_index():
+    rows = [r for r in json.loads((ROOT / "data/site/observations.json").read_text())
+            if r["series_id"] == "ntto_siat:USA:CHN:air_visitors" and r["frequency"] == "annual"]
+    assert {r["year"] for r in rows} == {*range(2012, 2020), *range(2022, 2026)}
+    assert next(r for r in rows if r["year"] == 2018)["value"] == 1_587_000
+    doc = ElementTree.fromstring(svg_chart(rows, indexed=True))
+    text = " ".join(doc.itertext())
+    assert "2019 = 100" in text and "2020 baseline" not in text
+    path = next(n for n in doc.iter() if n.get("class") == "data-line")
+    assert path.get("d").count("M") == 2
+    label = next(n for n in doc.iter() if n.get("class") == "end-label")
+    assert label.text == "54"
+
+
 def test_comparison_colors_gaps_and_taiwan_exclusion():
     rows = [observation("test", geo, "USA", "visitors", year, 100 + year - 2018,
                         "Trips", comparability="new" if year == 2021 else "old")

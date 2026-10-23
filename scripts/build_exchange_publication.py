@@ -191,6 +191,8 @@ def decorate(site, name, labels, revision):
             option.string = short_labels[option["value"]]
         payload = json.loads(soup.select_one("#exchange-data").string)
         payload["restrict_to_available"] = True
+        payload["prefer_current_travel"] = True
+        soup.select_one('#chart-mode option[value="index"]').string = "Baseline = 100"
         for identifier in ["selection-note", "related-series"]:
             note = soup.new_tag("p", attrs={"id": identifier, "class": "chart-note", "hidden": ""})
             if identifier == "selection-note":
@@ -231,15 +233,24 @@ def decorate(site, name, labels, revision):
         soup.select_one("#exchange-data").string = json_text(payload).replace("<", "\\u003c")
         panel = soup.select_one(".series-panel")
         panel["class"].append("exchange-panel")
+        population = soup.new_tag("p", attrs={"id": "series-population", "class": "chart-context", "hidden": ""})
+        panel.find("h2").insert_after(population)
         if name == "travel.html":
             note = soup.new_tag("p", attrs={"class": "travel-definition chart-note"})
-            note.string = "Visitor arrivals include business and family travel, not just tourism. Origin labels follow each source's residence, nationality or travel-document classification—not necessarily the last country of departure. U.S. air-traveler estimates are a separate resident survey, not all-mode border arrivals. Separate leisure-only counts are not verified for these routes."
+            note.string = "Arrivals include business and family travel, not just tourism. U.S. travel to mainland China defaults to current air-travel estimates; historical all-mode arrivals remain separately available. Country attribution follows each source, not necessarily the last departure point."
             panel.find("h2").insert_after(note)
         chart = soup.select_one("#chart")
         stats = soup.select_one("#annual-headlines").extract()
         chart.insert_after(stats)
         partial = soup.select_one("#partial-panel").extract()
         stats.insert_after(partial)
+        continuity = soup.new_tag("p", attrs={"id": "series-continuity", "class": "chart-note", "hidden": ""})
+        chart.insert_after(continuity)
+        anchor = partial
+        for identifier in ["selection-note", "related-series"]:
+            note = soup.select_one("#" + identifier).extract()
+            anchor.insert_after(note)
+            anchor = note
         heading = soup.select_one(".chart-heading")
         heading.h3.decompose()
         heading["hidden"] = ""
@@ -248,12 +259,15 @@ def decorate(site, name, labels, revision):
         for note in soup.select(".chart-scroll-hint"):
             note.decompose()
         for note in list(panel.select(":scope > .chart-note")):
-            if note.get("id") != "series-notes" and "travel-definition" not in note.get("class", []):
+            if (note.get("id") not in {"series-notes", "selection-note", "related-series", "series-continuity"}
+                    and "travel-definition" not in note.get("class", [])):
                 soup.select_one("#selected-table").append(note.extract())
         definition = soup.new_tag("details", attrs={"class": "definition-details"})
         summary = soup.new_tag("summary")
         summary.string = "Sources, definitions & limits"
         definition.append(summary)
+        if name == "travel.html":
+            definition.append(panel.select_one(".travel-definition").extract())
         for selector in ["#definition", "#series-source", "#series-notes"]:
             definition.append(soup.select_one(selector).extract())
         panel.append(definition)

@@ -11,7 +11,7 @@ from .sources import attach
 
 MONITOR = "https://powerbi.trade.gov/#/workspace/IA-NTTO-PUBLIC/report/SIAT_Res_Final_Monitor"
 COUNTRIES = {"CHN": "China, People's Republic of", "HKG": "Hong Kong"}
-ANNUAL_YEARS = (2019, 2022, 2023, 2024, 2025)
+ANNUAL_YEARS = (*range(2012, 2020), 2022, 2023, 2024, 2025)
 PARTIAL_YEAR, PARTIAL_QUARTER = 2026, 2
 
 
@@ -59,6 +59,22 @@ def collect_siat(client):
                 node = frame.locator(f'[role=treeitem][title="{year}"]')
                 if node.get_attribute("aria-expanded") == "true":
                     node.locator(".expandButton").click()
+            year_scroller = frame.locator('[role=treeitem][title="2025"]').evaluate_handle(
+                "(e)=>{let p=e.parentElement;while(p&&p.scrollHeight<=p.clientHeight)p=p.parentElement;return p;}")
+
+            def year_node(year):
+                node = frame.locator(f'[role=treeitem][title="{year}"]')
+                if not node.count():
+                    year_scroller.evaluate("(e)=>e.scrollTop=0")
+                    for _ in range(12):
+                        page.wait_for_timeout(150)
+                        if node.count():
+                            break
+                        year_scroller.evaluate("(e)=>e.scrollTop+=180")
+                if not node.count():
+                    raise ValueError(f"SIAT year {year} is not available in the public year selector")
+                return node
+
             frame.locator('[role=treeitem][title="OS"] .expandButton').click()
             frame.locator('[role=treeitem][title="Asia"] .expandButton').click()
             scroller = frame.locator('[role=treeitem][title="Asia"]').evaluate_handle(
@@ -76,15 +92,15 @@ def collect_siat(client):
                 node.locator(".slicerText").click()
                 for year, frequency in periods:
                     if expanded is not None:
-                        previous = frame.locator(f'[role=treeitem][title="{expanded}"]')
+                        previous = year_node(expanded)
                         if previous.get_attribute("aria-expanded") == "true":
                             previous.locator(".expandButton").click()
-                    year_node = frame.locator(f'[role=treeitem][title="{year}"]')
-                    year_node.locator(".slicerText").click()
+                    selected_year = year_node(year)
+                    selected_year.locator(".slicerText").click()
                     expanded = year
                     if frequency == "ytd":
-                        if year_node.get_attribute("aria-expanded") != "true":
-                            year_node.locator(".expandButton").click()
+                        if selected_year.get_attribute("aria-expanded") != "true":
+                            selected_year.locator(".expandButton").click()
                         # Child checkboxes toggle independently; modifier-click can open a macOS context menu.
                         for quarter in ("Q3", "Q4"):
                             frame.locator(f'[role=treeitem][aria-level="2"][title="{quarter}"] .slicerText').click()
@@ -138,7 +154,7 @@ def siat(client, refresh=False):
         raise ValueError("Reviewed SIAT destination/year coverage incomplete")
     return rows, "NTTO SIAT public monitor, 6 October 2026; through 2026 Q2", (
         "U.S.-resident air-travel destination estimates, kept separate from all-mode visitor arrivals. "
-        "Annual 2019 and 2022–2025; separately selected Q1-Q2 observations in 2025 and 2026 support matched January–June comparisons. "
+        "Annual 2012–2019 and 2022–2025; separately selected Q1-Q2 observations in 2025 and 2026 support matched January–June comparisons. "
         "Quarter checkboxes are selected directly, not inferred by subtracting rounded annual and half-year totals. "
         "Monitor total-traveler and respondent cards read from the public report with explicit year, quarter and destination filters; "
         "source checksums identify retained browser-visible report text, not API responses. "

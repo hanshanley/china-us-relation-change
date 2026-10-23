@@ -1,5 +1,7 @@
 """SVG equivalents of uk_decline's vizstyle house style, without a runtime dependency."""
 
+import math
+
 BG = "#F7F5F0"
 TEXT = "#1A1A1A"
 MUTED = "#6B6B6B"
@@ -30,6 +32,15 @@ FIGURE_CATEGORIES = {
     "business_presence": "Business presence",
     "immigration": "Immigration",
 }
+
+
+def linear_axis(peak):
+    extent = peak * 1.08 or 1
+    power = 10 ** math.floor(math.log10(extent / 4))
+    ratio = extent / (4 * power)
+    step = min((1, 2, 2.5, 5, 10), key=lambda v: abs(math.log(v / ratio))) * power
+    count = math.ceil(extent / step)
+    return count * step, [i * step for i in range(count + 1)]
 
 
 def figure_category(measure):
