@@ -1200,6 +1200,41 @@
       "notes": "One transient root yielded no qualifying institutional Sina designation. An explicit AI/text-data-mining reservation led to conservative removal of the fresh full copy; factual metadata only, raw_file/sha256 null and no further host requests. Contact links were not subsequently fetched. Discarded fingerprints are not available source captures. Other county, parent, sister-paper and staff accounts were not substituted. Unknown, not absent. Review date: 2026-10-23 UTC."
     },
     {
+      "id": "msnbc-ms-now", "name": "MSNBC / MS NOW", "category": "broadcaster",
+      "aliases": ["MSNBC", "MS NOW", "MS NOW (formerly MSNBC)"],
+      "us_basis": "United States-classified source position181; the issuer filing states the MSNBC rebrand became effective in November2025. Actual corporate static brand data, the original robots301 and current MS NOW root/contact corroborate the canonical identity. Current legal control and any Chinese license are not independently certified.",
+      "source_url": "https://www.msnbc.com/", "research_status": "reviewed",
+      "notes": "Original ranked MSNBC/msnbc.com bytes preserved. The original301 to www.ms.now/robots.txt was inspected without following it; corporate embedded JSON independently supplied the same new host before its own robots policy and actual root/About-linked Digital Contacts were checked. No qualifying Sina designation observed. Rebranding is not account deletion or transfer proof. NBC News, CNBC, NBC Sports, parent entertainment, staff and fan accounts were not inherited. Static JSON decoded without script execution; issuer reader facts have no invented capture hash. Unknown, not absent. Review date: 2026-10-23 UTC."
+    },
+    {
+      "id": "lynchburg-news-advance", "name": "The News & Advance / Lynchburg, Virginia", "category": "newspaper",
+      "aliases": ["Lynchburg News & Advance", "The News & Advance", "Lynchburg News and Advance"],
+      "us_basis": "United States-classified source position182; actual root and Contact name the News & Advance and give Lynchburg, Virginia publishing correspondence. Current legal control is not independently audited.",
+      "source_url": "https://newsadvance.com/", "research_status": "reviewed",
+      "notes": "Complete root and actual Contact read without a qualifying institutional Sina identifier. Generic noscript/navigation warnings were not evidence that the readable contact body was blocked. Staff placeholders and forms were not followed; other News/Advance titles, parent and sister-paper accounts were not substituted. Unknown, not absent. Review date: 2026-10-23 UTC."
+    },
+    {
+      "id": "northwest-arkansas-democrat-gazette", "name": "Northwest Arkansas Democrat-Gazette", "category": "newspaper",
+      "aliases": ["Fayetteville Northwest Arkansas Democrat-Gazette", "Northwest Arkansas Democrat-Gazette", "NWAOnline"],
+      "us_basis": "United States-classified source position183; actual press-association directory names the paper/domain across four Arkansas edition locations, and current publisher root/staff-contact facts were inspected. This does not independently certify current offices or corporate control.",
+      "source_url": "https://www.nwaonline.com/", "research_status": "reviewed",
+      "notes": "Prior unchecked redirect was not treated as absence. The exact directory-listed hostname was independently checked over HTTPS and returned200 without following a cross-host or insecure hop. Root and actual /staff/ Contact yielded no qualifying institutional Sina designation. Full shared-template HTML copies were removed conservatively after AP syndicated-material use/storage conditions; factual metadata only, no broader reuse eligibility asserted. This is not a blanket publisher access/copying prohibition. Four directory locations are not four accounts; WEHCO's recorded restriction was not retried and parent/sibling/staff profiles were not inherited. Unknown, not absent. Review date: 2026-10-23 UTC."
+    },
+    {
+      "id": "glens-falls-post-star", "name": "The Post-Star / Glens Falls, New York", "category": "newspaper",
+      "aliases": ["Glens Falls Post-Star", "The Post-Star"],
+      "us_basis": "United States-classified source position184; actual root identifies Glens Falls/New York coverage and Contact provides named publishing correspondence in Glens Falls, New York.",
+      "source_url": "https://poststar.com/", "research_status": "reviewed",
+      "notes": "Complete root and actual Contact inspected without a qualifying institutional Sina identifier. Slash variants counted once, staff placeholders/forms not followed, and generic warnings not mistaken for complete content gates. Other Post/Star titles, parent and staff profiles were not assigned to this paper. Current legal control not independently audited. Unknown, not absent. Review date: 2026-10-23 UTC."
+    },
+    {
+      "id": "san-gabriel-valley-tribune", "name": "San Gabriel Valley Tribune", "category": "newspaper",
+      "aliases": ["Monrovia West Covina San Gabriel Valley Tribune", "San Gabriel Valley Tribune", "SGV Tribune"],
+      "us_basis": "United States-classified source position185; actual root-title metadata identifies the San Gabriel Valley Tribune. This metadata-only review does not independently verify a current office or controller.",
+      "source_url": "https://www.sgvtribune.com/", "research_status": "reviewed",
+      "notes": "One transient root yielded no qualifying institutional Sina designation. An explicit AI/text-data-mining reservation led to conservative removal of the fresh full copy; factual metadata only, raw_file/sha256 null and no further host requests. Contact links were not subsequently fetched. Discarded fingerprints are not available source captures. Other Tribune titles, police/municipal accounts, publisher groups, sister papers and staff were not substituted. Unknown, not absent. Review date: 2026-10-23 UTC."
+    },
+    {
       "id": "telemundo", "name": "Telemundo / Noticias Telemundo", "category": "broadcast_news",
       "aliases": ["Telemundo", "Noticias Telemundo", "Telemundo Noticias"],
       "us_basis": "United States-classified source position110; actual network root separately links its Noticias Telemundo newsroom section. Current corporate domicile/headquarters and legal account control are not independently audited.",

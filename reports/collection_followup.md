@@ -28,15 +28,15 @@ The selected **1,000 SCImago U.S.-classified domains** are ranked by digital
 reputation, not traffic; their present ownership/nationality was not independently
 audited. **Five have current-profile evidence, seven historical-only evidence,
 988 remain unknown, and zero are verified negatives.** All underwent homepage
-screening, but only 180 have recorded manual review.
+screening, but only 185 have recorded manual review.
 
-The [latest scheduled pass](discovery_iteration36.md) adds five further
-reviews with seven retained HTML responses, a reused publisher PDF and one
-metadata-only Macomb root. Green Bay and Lewiston's newspaper403 barriers
-were respected. Lewiston's developer listing and sibling-company context,
-and Green Bay's directory entry, are scope evidence rather than account
-proof. An unavailable government PDF was not treated as a source capture.
-Discovery is not exhausted: 820 selected domains still lack a recorded
+The [latest scheduled pass](discovery_iteration37.md) adds five further
+reviews with eight retained HTML responses and separately labeled metadata
+observations. MSNBC's MS NOW identity was checked before canonical-host
+inspection; the original roster is unchanged. NWA's directory-listed secure
+origin is readable, with institutional facts retained as metadata only.
+San Gabriel Valley Tribune's explicit usage reservation was respected.
+Discovery is not exhausted: 815 selected domains still lack a recorded
 manual review. A bounded recurring prompt is active every 30 minutes; later
 passes must advance the frontier rather than repeatedly probing exhausted leads.
 
