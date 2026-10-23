@@ -105,6 +105,13 @@ def test_collective_export_preserves_complete_inputs_and_native_plot_boundaries(
         page = BeautifulSoup((tmp_path / name).read_text(), "html.parser")
         assert len(page.select("h1")) == 1 and len(page.select(".analysis-tabs a")) == 8
         assert not page.select("iframe")
+        github = page.select(".analysis-tabs a")[-1]
+        assert github.text == "GitHub" and github["href"] == module.REPOSITORY
+        assert not page.select("#downloads, #coverage, #sources, #all-values, .intro-notes")
+        assert not page.select('.publication-footer a[href^="publication-manifest"]')
+        assert "Automatic refresh:" not in page.get_text()
+        assert "Sources and recorded checks" not in page.get_text()
+        assert page.select_one(".publication-footer a")["href"] == module.REPOSITORY
         for a in page.select('a[href^="figures/"]'):
             assert a.has_attr("data-original-chart") and (tmp_path / urlsplit(a["href"]).path).is_file()
     page = BeautifulSoup((tmp_path / "index.html").read_text(), "html.parser")
@@ -112,8 +119,6 @@ def test_collective_export_preserves_complete_inputs_and_native_plot_boundaries(
     assert page.select_one('#measure option[selected]')["value"] == "goods"
     assert "2025" in page.select_one("#annual-headlines").text
     assert page.select_one("form.controls").has_attr("hidden")
-    assert page.select_one("#coverage").name == "details"
-    assert not page.select_one("#coverage").has_attr("open")
     assert not page.select("#coverage-limits")
     assert "Coverage, including the gaps" not in page.get_text()
     assert "still being sourced" not in page.get_text()

@@ -123,9 +123,12 @@ They never interpolate or substitute a neighbouring year's observation.
 Escape dismisses them. Changing indicators, resizing or hiding plots disposes
 their tooltip handlers.
 
-The public edition presents concise definitions and sources rather than the
-internal source-recovery worklist. Coverage is collapsed by default; complete
-coverage, observations and provenance remain in the downloads.
+The public edition keeps chart-specific definitions, source notes and downloads.
+Navigation and the footer link to GitHub for full datasets, methodology and
+research documentation instead of displaying source-health inventories,
+collection logs, audit manifests or exhaustive research tables. Complete
+coverage, observations and provenance remain in the published download files;
+the research edition retains its full tables and source documentation.
 
 ```sh
 .venv/bin/python scripts/build_exchange_publication.py --output data/local/collective-publication

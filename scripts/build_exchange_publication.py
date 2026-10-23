@@ -21,6 +21,7 @@ from us_china_exchange.render import annual_table, build, figure_links, initial_
 
 
 CANONICAL = "https://www.themarginoferror.com/china-us-relations/"
+REPOSITORY = "https://github.com/hanshanley/china-us-relation-change"
 PAGES = {
     "index.html": ("U.S.–China connections", "Students, travel, trade and the ties between two countries.",
                    "2025 annual data · 2026 partial-year updates"),
@@ -175,8 +176,8 @@ def decorate(site, name, labels, revision):
         if target == name:
             a["aria-current"] = "page"
         tabs.append(a)
-    a = soup.new_tag("a", attrs={"href": "index.html#downloads"})
-    a.string = "Data & sources"
+    a = soup.new_tag("a", attrs={"href": REPOSITORY})
+    a.string = "GitHub"
     tabs.append(a)
     page.insert(0, tabs)
     for node in reversed(list(intro.contents)):
@@ -289,39 +290,19 @@ def decorate(site, name, labels, revision):
         export.append(summary)
         export.append(soup.select_one("#figure-link").extract())
         panel.append(export)
-        for section in list(main.select(":scope > .reading-note, :scope > #sources, :scope > #all-values")):
+        for section in list(main.select(":scope > .reading-note")):
             section.name = "details"
             h = section.find("h2")
             summary = soup.new_tag("summary")
             summary.string = h.text
             h.replace_with(summary)
-        soup.select_one("#downloads h2").string = "Data & sources"
-        families = fragment(
-            '<p class="dataset-links">Additional complete datasets: '
-            '<a href="downloads/language-learning.json" download>Language learning</a> · '
-            '<a href="downloads/business-presence.json" download>Business presence</a> · '
-            '<a href="downloads/immigration.json" download>Immigration</a> · '
-            '<a href="downloads/weibo-summary.json" download>Weibo research aggregates</a>.</p>')
-        soup.select_one("#downloads").append(families)
-        coverage = soup.select_one("#coverage")
-        coverage.name = "details"
-        coverage.clear()
-        coverage.append(fragment(
-            '<summary>Data coverage</summary>'
-            '<p>Series differ in reference period, population and publication year. '
-            'The definitions and dates shown with each chart describe its coverage.</p>'
-            '<p><a href="downloads/coverage.json" download>Complete coverage information · JSON</a></p>'))
+        for section in soup.select("#downloads, #coverage, #sources, #all-values"):
+            section.decompose()
         for footer in page.find_all("footer", recursive=False):
             footer.decompose()
     else:
-        notes = soup.new_tag("details", attrs={"class": "intro-notes"})
-        summary = soup.new_tag("summary")
-        summary.string = "Definitions, coverage & source notes"
-        notes.append(summary)
         for node in old_intro:
-            notes.append(node)
-        if len(notes.contents) > 1:
-            main.append(notes)
+            node.decompose()
         sections = list(main.find_all("section", recursive=False))
         charts = [n for n in sections if n.select_one(".comparison-chart")]
         if name == "business-presence.html":
@@ -337,13 +318,7 @@ def decorate(site, name, labels, revision):
                 details.append(norway)
         for section in sections:
             if section not in charts:
-                h = section.find("h2")
-                if h:
-                    section.name = "details"
-                    summary = soup.new_tag("summary")
-                    summary.string = h.text
-                    h.replace_with(summary)
-                main.append(section.extract())
+                section.decompose()
         if charts:
             controls = soup.new_tag("div", attrs={"class": "controls module-controls", "hidden": ""})
             label = soup.new_tag("label", attrs={"for": "module-chart"})
@@ -360,6 +335,9 @@ def decorate(site, name, labels, revision):
             label.append(select)
             controls.append(label)
             main.insert(0, controls)
+        for details in main.find_all("details", recursive=False):
+            if not details.select_one(".comparison-chart"):
+                details.decompose()
     observations = {(r["series_id"], r["period"]): r for r in
                     json.loads((site / "downloads/observations.json").read_text()) if r["frequency"] == "annual"}
     if name == "language-learning.html":
@@ -451,8 +429,7 @@ def decorate(site, name, labels, revision):
         skip.string = "Skip to analysis"
     soup.body.insert(0, skip.extract())
     footer = fragment('<footer class="publication-footer"><span>The Margin of Error · Hans W. A. Hanley</span>'
-                      '<span><a href="https://github.com/hanshanley/china-us-relation-change">Code + data</a> · '
-                      f'<a href="publication-manifest.json?v={revision[:12]}">Publication provenance</a></span></footer>')
+                      f'<span><a href="{REPOSITORY}">Data & methods on GitHub</a></span></footer>')
     page.append(footer)
     script = soup.new_tag("script", attrs={"src": f"assets/publication.js?v={revision[:12]}", "defer": ""})
     soup.body.append(script)

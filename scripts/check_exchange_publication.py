@@ -21,8 +21,10 @@ def check(site, url=None, screenshots=None):
             page.goto(url)
             page.evaluate("document.fonts.ready")
             expect(page.locator("form.controls")).to_be_visible()
-            assert page.locator("#coverage").evaluate("node=>node.tagName==='DETAILS'&&!node.open")
-            assert not page.locator("#coverage-limits").count()
+            assert not page.locator("#coverage, #coverage-limits, #downloads, #sources, #all-values").count()
+            expect(page.locator(".analysis-tabs a").last).to_have_text("GitHub")
+            expect(page.locator(".analysis-tabs a").last).to_have_attribute(
+                "href", "https://github.com/hanshanley/china-us-relation-change")
             assert page.locator("#geography option").count() == 3
             assert page.locator("#chart").bounding_box()["y"] < 680
             assert page.locator("#chart").evaluate("node=>node.scrollWidth<=node.clientWidth")
@@ -259,7 +261,9 @@ def check(site, url=None, screenshots=None):
         assert page.locator("#chart svg").count() == 1
         assert page.locator("#chart svg").bounding_box()["width"] >= 840
         assert page.locator("#chart").evaluate("node=>node.scrollWidth>node.clientWidth")
-        assert page.locator("#all-values table").count() > 20
+        assert page.locator("#selected-table #series-table tbody tr").count() == len([
+            row for row in data["observations"] if row["origin"] == "CHN" and row["destination"] == "USA"
+            and row["measure"] == "goods" and row["frequency"] == "annual"])
         assert not page.evaluate("document.documentElement.scrollWidth>innerWidth")
         browser.close()
     print("Collective coverage, exact values, 2025/2026 periods, filters and mobile/no-JS checks passed.")
