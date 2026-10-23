@@ -35,19 +35,22 @@ The selected **1,000 SCImago U.S.-classified domains** are ranked by digital
 reputation, not traffic; their present ownership/nationality was not independently
 audited. **Five have current-profile evidence, seven historical-only evidence,
 988 remain unknown, and zero are verified negatives.** All underwent homepage
-screening, but only 226 have recorded manual review.
+screening, but only 231 have recorded manual review.
 
-The [latest scheduled pass](discovery_iteration46.md) adds five reviews with
-eight complete primary HTML responses and one genuine cached publisher PDF.
-Actual Flagstaff, Tupelo, Durango and Grand Junction institutional bodies
-were inspected beyond generic titles. The Delaware newspaper's recorded
-HTTP403 was not retried; the cached publisher directory's actual Delaware
-section was used without substituting the different Wilmington, Ohio paper.
-No current host, account or historical-coverage certainty was invented.
-All nine existing no-further-publisher-body restrictions remain unchanged.
+The [latest scheduled pass](discovery_iteration47.md) adds five reviews with
+four complete newspaper pages, one actually inspected but rejected app lead,
+and one genuine cached publisher PDF. Longview's actual Contact identifies
+Washington, not Texas; Connecticut Post's names its Norwalk business
+correspondence without inventing a Bridgeport office. Providence's HTTP403
+was not retried. Rivals timed out; the saved On3 app body contains no Rivals
+reference, so an older indexed branding snippet was not promoted to primary
+evidence or a current account/ownership binding. Morning Journal's fresh
+body was removed under its explicit AI/text-mining reservation, with no
+further publisher-body requests. There are now ten no-further-body
+restrictions, separate from NWA's retention condition.
 The live 6,570-post corpus, original archived baseline and all rolling data
 remain unchanged by discovery.
-Discovery is not exhausted: 774 selected domains still lack a recorded
+Discovery is not exhausted: 769 selected domains still lack a recorded
 manual review. A bounded recurring prompt is active every 30 minutes; later
 passes must advance the frontier rather than repeatedly probing exhausted leads.
 

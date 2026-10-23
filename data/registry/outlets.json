@@ -1522,6 +1522,41 @@
       "notes": "Complete root and actually linked /site/about.html inspected without a qualifying Sina identifier. Actual publication-specific body was read beyond the generic About Us title; a headline quiz was not identity evidence. Other Sentinel titles, historic family relationships, parent/sibling and staff accounts were not inherited. Unknown, not absent. Review date: 2026-10-23 UTC."
     },
     {
+      "id": "lorain-morning-journal", "name": "The Morning Journal / Lorain, Ohio", "category": "newspaper",
+      "aliases": ["Lorain Morning Journal", "The Morning Journal", "Morning Journal"],
+      "us_basis": "United States-classified source position227; transient root metadata identifies Morning Journal and Ohio, while Lorain is the original selected cohort label. Factual metadata is not independent current-control or office-location certification.",
+      "source_url": "https://www.morningjournal.com/", "research_status": "reviewed",
+      "notes": "Explicit AI/text-data-mining reservation triggered removal of exactly the fresh root copy. Available-body path/hash are null and the discarded fingerprint is not available primary-source proof. No Contact or other publisher-body requests followed; older captures were untouched. Chamber/employee directories, library-card newspaper access, other Morning Journal titles, parent/sibling and staff profiles were not substituted. Unknown, not absent. Review date: 2026-10-23 UTC."
+    },
+    {
+      "id": "providence-journal", "name": "The Providence Journal", "category": "newspaper",
+      "aliases": ["Providence Journal (Projo)", "The Providence Journal", "Providence Journal", "Projo"],
+      "us_basis": "United States-classified source position228; genuine cached publisher directory names Providence Journal and supplies its exact providencejournal.com institutional contact domain. State-heading extraction variants are retained, not silently recast as a new jurisdiction or current-control certificate.",
+      "source_url": "https://www.providencejournal.com/", "research_status": "reviewed",
+      "notes": "Recorded newspaper HTTP403 respected with zero new newspaper, alias, static-content or obituary requests. Actual cached PDF pages14/20 read offline; extracted section strings Rho de Island and Rhone Island were preserved alongside the Rhode Island contents label. A publisher-supplied contact domain is not independently verified current control, a redirect destination or Sina designation. Parent/sibling and staff accounts were not inherited. Unknown, not absent. Review date: 2026-10-23 UTC."
+    },
+    {
+      "id": "rivals", "name": "Rivals", "category": "sports_media",
+      "aliases": ["Rivals", "Rivals.com"],
+      "us_basis": "United States-classified sports-media source position229. Ordinary publisher attempt timed out, so this pass did not independently reverify current publisher identity, headquarters or control beyond the original cohort classification.",
+      "source_url": "https://rivals.com/", "research_status": "reviewed",
+      "notes": "Ordinary publisher timeout supplied no body or observed redirect destination. An independently found On3 app listing was actually inspected: it names On3 and ON 3 MEDIA, LLP but its saved response contains no Rivals reference. An older indexed branding snippet was not promoted to evidence absent from the actual capture. The supplied developer URI was not followed. This insufficient lead does not prove the brands unrelated, but cannot establish current Rivals ownership or a Sina account. On3, Yahoo, teams, fans, parent/sibling and staff accounts were not inherited. Unknown, not absent. Review date: 2026-10-23 UTC."
+    },
+    {
+      "id": "longview-daily-news-washington", "name": "The Daily News / Longview, Washington", "category": "newspaper",
+      "aliases": ["Longview News", "The Daily News", "Longview Daily News", "TDN"],
+      "us_basis": "United States-classified source position230; actual root and named Contact identify Longview, Washington publication and correspondence context. This is distinct from Longview, Texas newspapers and is not an independent current-control audit.",
+      "source_url": "https://tdn.com/", "research_status": "reviewed",
+      "notes": "Complete root and actually linked Contact inspected without a qualifying institutional Sina designation. Only one Contact response was counted rather than duplicating the earlier screening URL. Closed-office hours, subscriber archive access and another platform's profile were not newspaper/account closure or Weibo bindings. Other Daily News titles, parent/sibling and staff accounts were not inherited. Unknown, not absent. Review date: 2026-10-23 UTC."
+    },
+    {
+      "id": "connecticut-post", "name": "Connecticut Post", "category": "newspaper",
+      "aliases": ["Bridgeport Connecticut Post", "Connecticut Post", "CT Post", "CTPost"],
+      "us_basis": "United States-classified source position231; actual root and named Contact identify Connecticut Post and its published Norwalk, Connecticut business correspondence. The source cohort's Bridgeport label is preserved without inventing a current Bridgeport office.",
+      "source_url": "https://www.ctpost.com/", "research_status": "reviewed",
+      "notes": "Complete root and actually linked Contact read without an institutional Sina identifier. The generic Contact Us browser title was not used alone; the actual body explicitly names Connecticut Post and Norwalk business correspondence. Shared corporate links, CT Insider membership, unrelated Post titles, parent Hearst, licensed Chinese editions, sibling publications and staff profiles were not inherited accounts. Correspondence is not independent certification of headquarters or office occupancy. Unknown, not absent. Review date: 2026-10-23 UTC."
+    },
+    {
       "id": "telemundo", "name": "Telemundo / Noticias Telemundo", "category": "broadcast_news",
       "aliases": ["Telemundo", "Noticias Telemundo", "Telemundo Noticias"],
       "us_basis": "United States-classified source position110; actual network root separately links its Noticias Telemundo newsroom section. Current corporate domicile/headquarters and legal account control are not independently audited.",

@@ -10,7 +10,7 @@ proof manifest and aggregate JSON expose the updated corpus counts. These
 incremental checks do not imply another live account-identity sweep, and do not
 replace the archived October 21 baseline.
 
-The registry-bound manifest was refreshed October 23 after 106 additional
+The registry-bound manifest was refreshed October 23 after 111 additional
 ranked-domain reviews. Existing account-source captures and identity decisions
 were retained; this refresh does not imply another live numeric-profile sweep.
 
