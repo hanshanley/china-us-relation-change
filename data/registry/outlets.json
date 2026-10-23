@@ -1487,6 +1487,41 @@
       "notes": "Complete root and actually linked Contact inspected without an institutional Sina identifier. A malformed relative Twitter-looking route beneath /contact/ was not followed, corrected into another origin or treated as a Weibo identity. Appointment/closed-hours and template widgets were not newspaper or account closure evidence. Other Citizen titles, parent/sibling, university/team and staff accounts were not inherited. Unknown, not absent. Review date: 2026-10-23 UTC."
     },
     {
+      "id": "flagstaff-arizona-daily-sun", "name": "Arizona Daily Sun / Flagstaff", "category": "newspaper",
+      "aliases": ["Flagstaff Arizona Daily Sun", "Arizona Daily Sun", "The Arizona Daily Sun"],
+      "us_basis": "United States-classified source position222; actual root and linked institutional Contact body identify Flagstaff and northern Arizona publication context. Publisher history and marketing claims are not an independent current-control or audience audit.",
+      "source_url": "https://azdailysun.com/", "research_status": "reviewed",
+      "notes": "Complete root and actually linked Contact inspected without a qualifying Sina designation. Real publication-specific body was read beyond the generic Contact title. Other Daily Sun titles, sports teams, parent/sibling and staff accounts were not inherited. Office hours and subscription widgets were not Weibo activity or closure evidence. Unknown, not absent. Review date: 2026-10-23 UTC."
+    },
+    {
+      "id": "wilmington-delaware-news-journal", "name": "The News Journal / Wilmington, Delaware", "category": "newspaper",
+      "aliases": ["Wilmington News Journal", "The News Journal", "Delaware Online", "Delawareonline"],
+      "us_basis": "United States-classified source position223; genuine cached publisher directory names Wilmington News Journal within its Delaware section. This bounded undated context does not independently establish current delawareonline.com control or office occupancy.",
+      "source_url": "https://www.delawareonline.com/", "research_status": "reviewed",
+      "notes": "Recorded newspaper HTTP403 respected with zero new newspaper, alias, recruitment, static-content or obituary requests. Genuine cached publisher PDF page3 inspected offline for actual state-heading/publication-name context. The separate Wilmington, Ohio News Journal and wnewsj.com were not substituted; no unobserved redirect, exact current-host binding or Sina identity was inferred. Parent/sibling and staff accounts were not inherited. Unknown, not absent. Review date: 2026-10-23 UTC."
+    },
+    {
+      "id": "tupelo-northeast-mississippi-daily-journal", "name": "Northeast Mississippi Daily Journal / Tupelo", "category": "newspaper",
+      "aliases": ["Tupelo Ne Mississippi Daily Journal", "Northeast Mississippi Daily Journal", "Daily Journal", "Tupelo Daily Journal"],
+      "us_basis": "United States-classified source position224; actual newspaper root and linked About identify the Daily Journal, Tupelo and Northeast Mississippi community context. Historical title changes and company mission statements are not independently audited current control.",
+      "source_url": "https://www.djournal.com/", "research_status": "reviewed",
+      "notes": "Complete root and actually linked About inspected without a qualifying institutional Sina identifier. The original source's abbreviated name remains in the cohort; generic Daily Journal titles, other states' papers, historical library catalog records, parent/sibling and staff accounts were not substituted. Publisher history and publication schedules were not current Weibo activity evidence. Unknown, not absent. Review date: 2026-10-23 UTC."
+    },
+    {
+      "id": "durango-herald-colorado", "name": "The Durango Herald / Colorado", "category": "newspaper",
+      "aliases": ["Durango Herald", "The Durango Herald"],
+      "us_basis": "United States-classified source position225; actual root and named Contact identify the Durango, Colorado publication and correspondence. This is publication scope, not independent certification of current legal control.",
+      "source_url": "https://www.durangoherald.com/", "research_status": "reviewed",
+      "notes": "Complete root and actually linked Contact inspected without an institutional Sina designation. A historical print-schedule announcement and sibling-site FAQs were not current posting evidence or newspaper-body substitutes. Durango/Mexico namesakes, parent/sibling and staff accounts were not inherited. Login, office-hour and subscriber widgets were not closure or Weibo-inactivity findings. Unknown, not absent. Review date: 2026-10-23 UTC."
+    },
+    {
+      "id": "grand-junction-daily-sentinel", "name": "The Daily Sentinel / Grand Junction, Colorado", "category": "newspaper",
+      "aliases": ["Grand Junction Sentinel", "The Daily Sentinel", "Grand Junction Daily Sentinel"],
+      "us_basis": "United States-classified source position226; actual root and linked About body identify The Daily Sentinel and Grand Junction, Colorado context. Historical owners and founding prose are not independently verified current control.",
+      "source_url": "https://www.gjsentinel.com/", "research_status": "reviewed",
+      "notes": "Complete root and actually linked /site/about.html inspected without a qualifying Sina identifier. Actual publication-specific body was read beyond the generic About Us title; a headline quiz was not identity evidence. Other Sentinel titles, historic family relationships, parent/sibling and staff accounts were not inherited. Unknown, not absent. Review date: 2026-10-23 UTC."
+    },
+    {
       "id": "telemundo", "name": "Telemundo / Noticias Telemundo", "category": "broadcast_news",
       "aliases": ["Telemundo", "Noticias Telemundo", "Telemundo Noticias"],
       "us_basis": "United States-classified source position110; actual network root separately links its Noticias Telemundo newsroom section. Current corporate domicile/headquarters and legal account control are not independently audited.",

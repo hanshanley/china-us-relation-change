@@ -35,20 +35,19 @@ The selected **1,000 SCImago U.S.-classified domains** are ranked by digital
 reputation, not traffic; their present ownership/nationality was not independently
 audited. **Five have current-profile evidence, seven historical-only evidence,
 988 remain unknown, and zero are verified negatives.** All underwent homepage
-screening, but only 221 have recorded manual review.
+screening, but only 226 have recorded manual review.
 
-The [latest scheduled pass](discovery_iteration45.md) adds five reviews with
+The [latest scheduled pass](discovery_iteration46.md) adds five reviews with
 eight complete primary HTML responses and one genuine cached publisher PDF.
-Actual named Contact bodies distinguish Auburn, New York's Citizen from
-Alabama's Opelika-Auburn News and identify Dothan and Butte publication context.
-Asbury Park Press's recorded newspaper HTTP403 was not retried; the cached
-directory supplies New Jersey publication-name scope, not current app.com
-control or a Sina identity. Dothan's machine-learning article coverage was not
-misread as a publisher-wide source-use reservation. All nine existing
-no-further-publisher-body restrictions remain unchanged.
+Actual Flagstaff, Tupelo, Durango and Grand Junction institutional bodies
+were inspected beyond generic titles. The Delaware newspaper's recorded
+HTTP403 was not retried; the cached publisher directory's actual Delaware
+section was used without substituting the different Wilmington, Ohio paper.
+No current host, account or historical-coverage certainty was invented.
+All nine existing no-further-publisher-body restrictions remain unchanged.
 The live 6,570-post corpus, original archived baseline and all rolling data
 remain unchanged by discovery.
-Discovery is not exhausted: 779 selected domains still lack a recorded
+Discovery is not exhausted: 774 selected domains still lack a recorded
 manual review. A bounded recurring prompt is active every 30 minutes; later
 passes must advance the frontier rather than repeatedly probing exhausted leads.
 
@@ -61,6 +60,16 @@ The [operations note](../docs/EXCHANGE.md#automatic-private-weibo-refresh)
 records the actual failure and user-approved-access requirement. Published
 refresh health now records the startup block and zero attempted feeds, retaining
 the last successful collection time, cutoff, corpus and all rolling data.
+
+**Historical activity comparisons remain recovery-biased:** in the current
+6,570-post snapshot, 4,464 records (67.9%) are dated 2026 and 3,359 (51.1%)
+September-October 2026. Recovered posts represent 16 channels in 2020 versus
+48 in 2026, not comparable observation panels. `partial_window=false` checks
+requested calendar coverage, not complete retrieval. Rising recovered-post
+or channel curves are not evidence of growing actual posting activity.
+These additional account-discovery reviews do not fix historical coverage.
+Comparable-period analysis requires independently supported coverage and
+historical backfill, not smoothing or arbitrary reweighting of these records.
 
 **6,521 posts were partially recovered from 68 channels**: 5,760 available source
 bodies and 761 truncated previews. These are not complete timelines or independently
