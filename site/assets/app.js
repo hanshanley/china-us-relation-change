@@ -50,6 +50,10 @@
     const measure = $("measure").value;
     const rows = data.observations.filter(r =>
       r.origin === origin && r.destination === destination && r.measure === measure);
+    const estimatePanel = $("student-estimates");
+    const showEstimates = !!estimatePanel && outgoing && geo === "CHN" &&
+      ["international_students", "enrolled_students", "degree_students", "study_abroad"].includes(measure);
+    if (estimatePanel) estimatePanel.hidden = !showEstimates;
     const annual = rows.filter(r => r.frequency === "annual").sort((a, b) => a.year - b.year);
     const current = annual.filter(r => r.value !== null).at(-1);
     if (data.restrict_to_available) {
@@ -86,6 +90,10 @@
           $("measure").value = alternative;
           $("measure").dispatchEvent(new Event("change", {bubbles: true}));
         });
+      }
+      if (showEstimates) {
+        related.hidden = false;
+        related.innerHTML += ' <a href="#student-estimates">Separate dated estimates through 2026, including reported bounds</a>.';
       }
     }
     $("series-title").textContent = `${data.geographies[origin]} \u2192 ${data.geographies[destination]}`;

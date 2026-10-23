@@ -58446,5 +58446,109 @@
       "status": "available",
       "vintage": "February 2026 Data Release"
     }
+  },
+  "student_estimates": {
+    "comparability": "Dated statements and one annual-participation estimate, not a harmonized enrollment census. Do not join them to the MOE annual degree/non-degree counts or academic-credit study-abroad line. Statement dates are not invented measurement dates. Bounds remain bounds, not exact point estimates.",
+    "observations": [
+      {
+        "bound": null,
+        "id": "burns_oct2023",
+        "measurement": "point_in_time_statement",
+        "qualifier": "about",
+        "reference_period": "Contemporaneous estimate; precise measurement date not supplied",
+        "source_id": "ncuscr_2023",
+        "statement_date": "2023-10-11",
+        "value": 350
+      },
+      {
+        "bound": null,
+        "id": "burns_dec2023",
+        "measurement": "point_in_time_statement",
+        "qualifier": "as_stated",
+        "reference_period": "Contemporaneous estimate; precise measurement date not supplied",
+        "source_id": "brookings_2023",
+        "statement_date": "2023-12-15",
+        "value": 700
+      },
+      {
+        "bound": null,
+        "id": "burns_may2024",
+        "measurement": "point_in_time_statement",
+        "qualifier": "as_stated",
+        "reference_period": "Current figure in official post; archived reproduction",
+        "source_id": "official_post_2024",
+        "statement_date": "2024-05-13",
+        "value": 880
+      },
+      {
+        "bound": 1100,
+        "id": "burns_apr2025",
+        "measurement": "point_in_time_statement",
+        "qualifier": "greater_than",
+        "reference_period": "Figure described as current in the dated republication; exact measurement date unspecified",
+        "source_id": "burns_2025",
+        "statement_date": "2025-04-15",
+        "value": null
+      },
+      {
+        "bound": 2000,
+        "id": "uscet_mar2026",
+        "measurement": "annual_participation_estimate",
+        "qualifier": "less_than",
+        "reference_period": "Current annual participation estimate reported March 2026, not a measured calendar-2026 total",
+        "source_id": "uscet_2026",
+        "statement_date": "2026-03-23",
+        "value": null
+      }
+    ],
+    "scope": "Americans studying in China as described by each source. Formal eligibility and counting methods are not supplied consistently.",
+    "sources": {
+      "brookings_2023": {
+        "asset": {
+          "request_url": "https://www.brookings.edu/wp-content/uploads/2023/12/fp_20231215_burns_china_transcript.pdf",
+          "retrieved_at": "2026-10-23T06:00:30+00:00",
+          "sha256": "9fada3ab4de6ed416f50e7864a5d52d5888ff25f76d106a14d0e3e62407efbd0",
+          "url": "https://www.brookings.edu/wp-content/uploads/2023/12/fp_20231215_burns_china_transcript.pdf"
+        },
+        "name": "Brookings, December 15, 2023 ambassador event transcript"
+      },
+      "burns_2025": {
+        "asset": {
+          "request_url": "https://www.livemint.com/global/us-china-relations-future-competition-us-china-xi-jinping-adversary-china-military-build-up-us-china-tech-war-11744717772424.html",
+          "retrieved_at": "2026-10-23T06:00:33+00:00",
+          "sha256": "0b264ddff1f2354a31f62f4e0974d81fb848958e20c061369b2ac8e816bdfa1c",
+          "url": "https://www.livemint.com/global/us-china-relations-future-competition-us-china-xi-jinping-adversary-china-military-build-up-us-china-tech-war-11744717772424.html"
+        },
+        "name": "Nicholas Burns, firsthand commentary, licensed Economist republication in Mint"
+      },
+      "ncuscr_2023": {
+        "asset": {
+          "request_url": "https://www.ncuscr.org/podcast/cth-2023-nicholas-burns/",
+          "retrieved_at": "2026-10-23T06:00:30+00:00",
+          "sha256": "7418a1041579c5dfe90e7bf7060aef956e94f8a6e9fe63c2ccc51450cce7d3e9",
+          "url": "https://www.ncuscr.org/podcast/cth-2023-nicholas-burns/"
+        },
+        "name": "National Committee on U.S.\u2013China Relations, original ambassador transcript"
+      },
+      "official_post_2024": {
+        "asset": {
+          "request_url": "https://commons.wikimedia.org/wiki/File:Ambassador_Burns_walking_with_Yunnan_University_faculty_outside_university_building.jpg",
+          "retrieved_at": "2026-10-23T06:02:11+00:00",
+          "sha256": "28d41ba43ab0c7b92b84b89cdc244e40a7d0f402da2d19a106b083b44e592ec5",
+          "url": "https://commons.wikimedia.org/wiki/File:Ambassador_Burns_walking_with_Yunnan_University_faculty_outside_university_building.jpg"
+        },
+        "name": "Official ambassador post, reproduced in its public-domain Wikimedia Commons record"
+      },
+      "uscet_2026": {
+        "asset": {
+          "request_url": "https://uscet.org/wp-content/uploads/2026/03/USCET-Working-Group-Report.pdf",
+          "retrieved_at": "2026-10-23T06:00:32+00:00",
+          "sha256": "3b4736082702a47a75585c560f958498f97d7ad6fc9777a223ef77faa54084c3",
+          "url": "https://uscet.org/wp-content/uploads/2026/03/USCET-Working-Group-Report.pdf"
+        },
+        "name": "US\u2013China Education Trust, original Working Group Report, March 2026"
+      }
+    },
+    "version": 1
   }
 }

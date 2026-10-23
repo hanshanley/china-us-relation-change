@@ -381,6 +381,26 @@ additional school observations without replacing the other language series.
 
 ### Travel and immigration
 
+The item-by-item follow-up adds a separate `student_estimates.json` evidence
+table for recent American study in China. The original NCUSCR and Brookings
+transcripts, an archived official ambassador post, the ambassador's own
+licensed commentary, and USCET's March 2026 working-group report support five
+dated statements/estimates from 2023-2026. These are not a replacement for the
+MOE annual enrollment population. USCET's **fewer than 2,000 per year** is an
+annual-participation upper bound, not 2,000 currently enrolled students.
+The 2025 **just over 1,100** statement remains a lower bound. No annual line
+joins these figures, and publication/statement dates are not invented census
+dates. Both JSON and CSV contain the actual values, bounds and source assets.
+Review with `.venv/bin/python scripts/build_student_estimates.py`.
+
+For that first missing item, the current MOE 2024 national catalogue was
+checked beyond its first page: all 60 national tables, including the actual
+higher-education student table. It reports 271,064 international students of
+all nationalities but no U.S.-specific row. The exact UIS U.S.-origin degree
+mobility request for China from 2019 onward returns an empty `records`
+array. Neither an all-nationality total nor cumulative youth exchange-program
+visits is substituted for U.S.-nationality enrollment.
+
 The October 23, 2026 re-audit recovered 36 older student observations from
 NCES Digest tables and a U.S. Commerce country guide. Chinese and Hong Kong
 Open Doors totals now cover every academic ending year 2000-2025. The

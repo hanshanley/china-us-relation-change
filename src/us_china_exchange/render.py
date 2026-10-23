@@ -16,6 +16,7 @@ from .business_analysis import CHARTS as BUSINESS_CHARTS, RETIRED_CHARTS as BUSI
 from .immigration_analysis import CHARTS as IMMIGRATION_CHARTS, build_immigration, validate_immigration_data
 from .language_analysis import CHARTS as LANGUAGE_CHARTS, RETIRED_CHARTS as LANGUAGE_RETIRED_CHARTS, chart_points, svg_language_chart, validate_language_data
 from .pipeline import load, write_atomic
+from . import student_estimates
 from .sources import SOURCE_POLICIES
 from .weibo_analysis import AUDIT_LABELS, WEIBO_CHARTS, svg_weibo, validate_summary
 from .theme import (CHART_HEIGHT, CHART_THEMES, CHART_WIDTH, COMPARISON_GEOGRAPHIES, FIGURE_CATEGORIES, FONT,
@@ -649,6 +650,9 @@ def build(root):
     immigration_data = load(root / "data/site/immigration.json", None)
     if immigration_data is not None:
         validate_immigration_data(immigration_data)
+    student_estimate_data = load(root / "data/site/student_estimates.json", None)
+    if student_estimate_data is not None:
+        student_estimates.validate(student_estimate_data)
     matrix = coverage(rows)
     groups = defaultdict(list)
     for row in rows:
@@ -811,6 +815,12 @@ def build(root):
                "source_policies": SOURCE_POLICIES,
                "source_names": SOURCE_NAMES, "charts": charts, "chart_themes": CHART_THEMES,
                "figures": figure_paths}
+    if student_estimate_data is not None:
+        student_estimates.export(root, student_estimate_data)
+        payload["student_estimates"] = student_estimate_data
+    else:
+        for name in ["student-estimates.json", "student-estimates.csv"]:
+            (site / "downloads" / name).unlink(missing_ok=True)
     download = {k: v for k, v in payload.items() if k not in {"charts", "chart_themes", "figures"}}
     write_atomic(site / "downloads/exchange.json", json_text(download))
     write_atomic(site / "downloads/observations.json", json_text(rows))
@@ -919,6 +929,7 @@ Four separate geographies. Both directions. History since {START_YEAR}; change s
 <div class="source-note" id="series-source">Source: <a href="{esc(current["source_url"])}">{esc(SOURCE_NAMES[current["source_id"]])}</a> \u00b7 {esc(current["source_vintage"])}. {esc(selected_source.get("notes", ""))}</div>
 <p id="series-notes" class="chart-note">{esc(current["notes"])}</p>
 </section>
+{student_estimates.panel(student_estimate_data) if student_estimate_data is not None else ""}
 <section class="reading-note"><h2>What the numbers mean</h2><div class="notes-grid">
 <p><strong>Students are not departures.</strong> Enrolled-only counts, enrollment including OPT, degree mobility, and credit study abroad are separate populations. None is a border-crossing count.</p>
 <p><strong>Trips are not unique tourists.</strong> NTTO covers overnight visits and all purposes. Destination arrival series can include same-day visits. Leisure-only data are shown only when explicitly reported.</p>

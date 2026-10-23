@@ -35,6 +35,7 @@ Four separate geographies. Both directions. History since 2000; change since 202
 <div class="source-note" id="series-source">Source: <a href="https://opendoorsdata.org/wp-content/uploads/2026/01/OD_China_Fact-Sheet-2025.pdf">IIE Open Doors</a> · Open Doors 2025. IIE automatic retrieval is paused: its terms prohibit automated downloading and analysis. Previously reviewed observations are retained, not newly checked. Separate retrieval and reuse permission has not been verified; public access is not commercial-use clearance.</div>
 <p id="series-notes" class="chart-note">Academic year ending shown. Counts are not departures. Open Doors 2021-2023 (2020/21-2022/23) expanded the population to coursework from outside the U.S. regardless of visa status; Open Doors 2024 returned to the pre-pandemic definition. These populations are not directly comparable.</p>
 </section>
+<section class="series-panel" id="student-estimates"><h2>Recent reported student estimates</h2><p>Separate evidence for Americans studying in China—not an extension of the annual enrollment line. Dates identify the statement or publication, not a verified census date. “&lt;” and “&gt;” remain bounds.</p><p>Dated statements and one annual-participation estimate, not a harmonized enrollment census. Do not join them to the MOE annual degree/non-degree counts or academic-credit study-abroad line. Statement dates are not invented measurement dates. Bounds remain bounds, not exact point estimates.</p><div class="table-scroll"><table><thead><tr><th>Reported on</th><th>Reported figure</th><th>Reference period</th><th>Primary statement</th></tr></thead><tbody><tr><th scope="row">2023-10-11</th><td>About 350</td><td>Contemporaneous estimate; precise measurement date not supplied</td><td><a href="https://www.ncuscr.org/podcast/cth-2023-nicholas-burns/">National Committee on U.S.–China Relations, original ambassador transcript</a></td></tr><tr><th scope="row">2023-12-15</th><td>700</td><td>Contemporaneous estimate; precise measurement date not supplied</td><td><a href="https://www.brookings.edu/wp-content/uploads/2023/12/fp_20231215_burns_china_transcript.pdf">Brookings, December 15, 2023 ambassador event transcript</a></td></tr><tr><th scope="row">2024-05-13</th><td>880</td><td>Current figure in official post; archived reproduction</td><td><a href="https://commons.wikimedia.org/wiki/File:Ambassador_Burns_walking_with_Yunnan_University_faculty_outside_university_building.jpg">Official ambassador post, reproduced in its public-domain Wikimedia Commons record</a></td></tr><tr><th scope="row">2025-04-15</th><td>&gt;1,100</td><td>Figure described as current in the dated republication; exact measurement date unspecified</td><td><a href="https://www.livemint.com/global/us-china-relations-future-competition-us-china-xi-jinping-adversary-china-military-build-up-us-china-tech-war-11744717772424.html">Nicholas Burns, firsthand commentary, licensed Economist republication in Mint</a></td></tr><tr><th scope="row">2026-03-23</th><td>&lt;2,000 per year</td><td>Current annual participation estimate reported March 2026, not a measured calendar-2026 total</td><td><a href="https://uscet.org/wp-content/uploads/2026/03/USCET-Working-Group-Report.pdf">US–China Education Trust, original Working Group Report, March 2026</a></td></tr></tbody></table></div><p><a href="downloads/student-estimates.json" download>All estimates, bounds and sources · JSON</a> · <a href="downloads/student-estimates.csv" download>All estimates and bounds · CSV</a></p></section>
 <section class="reading-note"><h2>What the numbers mean</h2><div class="notes-grid">
 <p><strong>Students are not departures.</strong> Enrolled-only counts, enrollment including OPT, degree mobility, and credit study abroad are separate populations. None is a border-crossing count.</p>
 <p><strong>Trips are not unique tourists.</strong> NTTO covers overnight visits and all purposes. Destination arrival series can include same-day visits. Leisure-only data are shown only when explicitly reported.</p>
@@ -59124,6 +59125,110 @@ Four separate geographies. Both directions. History since 2000; change since 202
       "status": "available",
       "vintage": "February 2026 Data Release"
     }
+  },
+  "student_estimates": {
+    "comparability": "Dated statements and one annual-participation estimate, not a harmonized enrollment census. Do not join them to the MOE annual degree/non-degree counts or academic-credit study-abroad line. Statement dates are not invented measurement dates. Bounds remain bounds, not exact point estimates.",
+    "observations": [
+      {
+        "bound": null,
+        "id": "burns_oct2023",
+        "measurement": "point_in_time_statement",
+        "qualifier": "about",
+        "reference_period": "Contemporaneous estimate; precise measurement date not supplied",
+        "source_id": "ncuscr_2023",
+        "statement_date": "2023-10-11",
+        "value": 350
+      },
+      {
+        "bound": null,
+        "id": "burns_dec2023",
+        "measurement": "point_in_time_statement",
+        "qualifier": "as_stated",
+        "reference_period": "Contemporaneous estimate; precise measurement date not supplied",
+        "source_id": "brookings_2023",
+        "statement_date": "2023-12-15",
+        "value": 700
+      },
+      {
+        "bound": null,
+        "id": "burns_may2024",
+        "measurement": "point_in_time_statement",
+        "qualifier": "as_stated",
+        "reference_period": "Current figure in official post; archived reproduction",
+        "source_id": "official_post_2024",
+        "statement_date": "2024-05-13",
+        "value": 880
+      },
+      {
+        "bound": 1100,
+        "id": "burns_apr2025",
+        "measurement": "point_in_time_statement",
+        "qualifier": "greater_than",
+        "reference_period": "Figure described as current in the dated republication; exact measurement date unspecified",
+        "source_id": "burns_2025",
+        "statement_date": "2025-04-15",
+        "value": null
+      },
+      {
+        "bound": 2000,
+        "id": "uscet_mar2026",
+        "measurement": "annual_participation_estimate",
+        "qualifier": "less_than",
+        "reference_period": "Current annual participation estimate reported March 2026, not a measured calendar-2026 total",
+        "source_id": "uscet_2026",
+        "statement_date": "2026-03-23",
+        "value": null
+      }
+    ],
+    "scope": "Americans studying in China as described by each source. Formal eligibility and counting methods are not supplied consistently.",
+    "sources": {
+      "brookings_2023": {
+        "asset": {
+          "request_url": "https://www.brookings.edu/wp-content/uploads/2023/12/fp_20231215_burns_china_transcript.pdf",
+          "retrieved_at": "2026-10-23T06:00:30+00:00",
+          "sha256": "9fada3ab4de6ed416f50e7864a5d52d5888ff25f76d106a14d0e3e62407efbd0",
+          "url": "https://www.brookings.edu/wp-content/uploads/2023/12/fp_20231215_burns_china_transcript.pdf"
+        },
+        "name": "Brookings, December 15, 2023 ambassador event transcript"
+      },
+      "burns_2025": {
+        "asset": {
+          "request_url": "https://www.livemint.com/global/us-china-relations-future-competition-us-china-xi-jinping-adversary-china-military-build-up-us-china-tech-war-11744717772424.html",
+          "retrieved_at": "2026-10-23T06:00:33+00:00",
+          "sha256": "0b264ddff1f2354a31f62f4e0974d81fb848958e20c061369b2ac8e816bdfa1c",
+          "url": "https://www.livemint.com/global/us-china-relations-future-competition-us-china-xi-jinping-adversary-china-military-build-up-us-china-tech-war-11744717772424.html"
+        },
+        "name": "Nicholas Burns, firsthand commentary, licensed Economist republication in Mint"
+      },
+      "ncuscr_2023": {
+        "asset": {
+          "request_url": "https://www.ncuscr.org/podcast/cth-2023-nicholas-burns/",
+          "retrieved_at": "2026-10-23T06:00:30+00:00",
+          "sha256": "7418a1041579c5dfe90e7bf7060aef956e94f8a6e9fe63c2ccc51450cce7d3e9",
+          "url": "https://www.ncuscr.org/podcast/cth-2023-nicholas-burns/"
+        },
+        "name": "National Committee on U.S.\u2013China Relations, original ambassador transcript"
+      },
+      "official_post_2024": {
+        "asset": {
+          "request_url": "https://commons.wikimedia.org/wiki/File:Ambassador_Burns_walking_with_Yunnan_University_faculty_outside_university_building.jpg",
+          "retrieved_at": "2026-10-23T06:02:11+00:00",
+          "sha256": "28d41ba43ab0c7b92b84b89cdc244e40a7d0f402da2d19a106b083b44e592ec5",
+          "url": "https://commons.wikimedia.org/wiki/File:Ambassador_Burns_walking_with_Yunnan_University_faculty_outside_university_building.jpg"
+        },
+        "name": "Official ambassador post, reproduced in its public-domain Wikimedia Commons record"
+      },
+      "uscet_2026": {
+        "asset": {
+          "request_url": "https://uscet.org/wp-content/uploads/2026/03/USCET-Working-Group-Report.pdf",
+          "retrieved_at": "2026-10-23T06:00:32+00:00",
+          "sha256": "3b4736082702a47a75585c560f958498f97d7ad6fc9777a223ef77faa54084c3",
+          "url": "https://uscet.org/wp-content/uploads/2026/03/USCET-Working-Group-Report.pdf"
+        },
+        "name": "US\u2013China Education Trust, original Working Group Report, March 2026"
+      }
+    },
+    "version": 1
   }
 }
 </script></body></html>

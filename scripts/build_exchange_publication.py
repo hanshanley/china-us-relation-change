@@ -453,7 +453,8 @@ def build_publication(source, output, revision):
                     "scope": "Collective exchanges, immigration, language, business and public Weibo research aggregates; no raw posts or source reports",
                     "observations": result["observations"], "files": files,
                     "datasets": {name: files[f"downloads/{name}.json"] for name in
-                                 ["exchange", "language-learning", "business-presence", "weibo-summary", "immigration"]}}
+                                 ["exchange", "language-learning", "business-presence", "weibo-summary", "immigration", "student-estimates"]
+                                 if f"downloads/{name}.json" in files}}
         (site / "publication-manifest.json").write_text(json_text(manifest), encoding="utf-8")
         output.mkdir(parents=True, exist_ok=True)
         shutil.copytree(site, output, dirs_exist_ok=True)

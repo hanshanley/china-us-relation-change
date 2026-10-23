@@ -59,6 +59,15 @@ def check(site, url=None, screenshots=None):
             page.select_option("#measure", "enrolled_students")
             page.locator("#related-series button").click()
             expect(page.locator("#measure")).to_have_value("international_students")
+            if data.get("student_estimates"):
+                page.select_option("#direction", "from_us")
+                expect(page.locator("#student-estimates")).to_be_visible()
+                assert page.locator("#student-estimates tbody tr").count() == 5
+                expect(page.locator("#student-estimates")).to_contain_text("<2,000 per year")
+                page.select_option("#geography", "HKG")
+                expect(page.locator("#student-estimates")).to_be_hidden()
+                page.select_option("#geography", "CHN")
+                page.select_option("#direction", "to_us")
             page.select_option("#chart-mode", "levels")
             page.select_option("#measure", "goods")
             if screenshots:
