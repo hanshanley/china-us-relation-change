@@ -11,6 +11,7 @@ and Taiwan separately, from 2000 where verified. Missing coverage is not zero.
 | Goods and services, China/Hong Kong/Taiwan | [BEA geographic history](https://www.bea.gov/data/intl-trade-investment/international-trade-goods-and-services) | Discover the `geo-time-series.xlsx` download. Tables 4/5: goods exports/imports; 7/8: services exports/imports. **Balance-of-payments basis**, not Census customs trade. Multiply million USD by 1,000,000. Annual history from 2000; matched YTD sums of complete seasonally adjusted quarters, separately defined from annual totals. The current workbook's repeated 2000 / missing 2001 annual labels require the independently labelled December 2024 archive for those two years; no row-position correction. Macau is not separately reported. |
 | Macau goods | [UN Comtrade public API](https://comtradeapi.un.org/) | U.S. reporter 842, Macao partner 446, aggregate HS TOTAL, annual flows X/M. Exports FOB; imports CIF. These are customs statistics, not BEA BOP; the differing import valuation is conspicuous. No uncertain Taiwan mapping is used. |
 | Macau services | [USTR Macau Trade Summary](https://ustr.gov/countries-regions/china-mongolia-taiwan/macau) | Direct estimated 2025 U.S. services exports $434.0m and imports $208.0m. Reconciled with $642.0m total and $226m surplus, retaining quoted rounding. Nominal cross-border services, not affiliate sales. Older years are not inferred from rounded year-on-year changes. |
+| Archival Macau services | [Original USTR page, December 18, 2025 capture](https://web.archive.org/web/20251218202809/https://ustr.gov/countries-regions/china-mongolia-taiwan/macau) | Direct 2024 exports $440m and imports $34m. The original aggregate-unit typo ($474 billion) is explicitly corrected only for validation; $406m surplus and same-year $864m combined trade less $390m goods independently reconcile the component sum. Checksum-pinned statistical passage; raw response checksum/capture URL retained. Not used for growth against the newer 2025 vintage. |
 | Visitors to U.S. | [NTTO I-94](https://www.trade.gov/i-94-arrivals-program) | Official country-of-residence visitor trips, including non-leisure purposes; annual and monthly spreadsheets are public. |
 | Visitors from U.S. | [NTTO SIAT](https://www.trade.gov/survey-international-air-travelers-siat), destination authorities | Preserve residence/citizenship, overnight/same-day, and air/all-mode distinctions. Never use flight passengers as tourists. |
 | Hong Kong arrivals | [HKTB](https://www.discoverhongkong.com/eng/hktb/newsroom/tourism-statistics.html) | Check U.S. residence and overnight/all-visitor columns separately. |
@@ -179,7 +180,10 @@ The audit on October 21, 2026 also checked the following:
 - Macau bilateral services are absent from the selected-country BEA workbook,
   and Comtrade service-preview requests returned no records. **USTR separately
   reports both directions for 2025**, now recovered by its own adapter. This
-  resolves the empty current services routes, not their older annual history.
+  resolves the empty current services routes. A separately reviewed December
+  2025 original-page archive also restores both 2024 figures, with its aggregate
+  unit error and independent controls explicitly documented; earlier history
+  remains unverified and the two vintages are not used for a growth rate.
   No regional allocation or mirror-series substitution is made.
 
 The source-specific coverage download is generated for every geography,

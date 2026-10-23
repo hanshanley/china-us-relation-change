@@ -161,8 +161,11 @@ def svg_chart(rows, indexed=False, theme="themarginoferror"):
         kind = "estimate" if sample["status"] == "estimated" else "observation"
         note = f"Source: {source}. Single verified annual {kind}; no historical trend inferred."
     if breaks:
-        note = (f"Source: {source}. Population-definition breaks: " + ", ".join(breaks) +
+        kind = "Release-vintage" if sample["source_id"] == "ustr" else "Population-definition"
+        note = (f"Source: {source}. {kind} breaks: " + ", ".join(breaks) +
                 ". Missing years and definition changes are not connected.")
+        if sample["source_id"] == "ustr":
+            note += " Archival 2024 estimates are not used for growth against the newer 2025 vintage."
     if sample["period_basis"] == "academic":
         note += " Academic years use ending years."
     if sample["period_basis"] == "reporting":
@@ -266,6 +269,8 @@ def svg_comparison(rows, measure, direction, theme="themarginoferror", logarithm
     note = "Sources: " + "; ".join(SOURCE_NAMES.get(s, s) for s in sorted({r["source_id"] for r in present})) + ". "
     if measure == "goods" and any(r["source_id"] == "comtrade" for r in present):
         note += "Macau dashed: customs exports FOB/imports CIF; others: BEA balance-of-payments. Accounting differs. "
+    if measure == "services" and any(r["source_id"] == "ustr" and r["year"] == 2024 for r in present):
+        note += "Macau 2024 archival vintage is not compared with 2025. "
     if measure == "visitors" and direction == "from_us":
         note += ("Hong Kong: residence through 2022, nationality from 2023. "
                  "Macau: travel-document issuing place (residence before April 2015). Trips, not people. ")

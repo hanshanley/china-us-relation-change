@@ -2,15 +2,20 @@
 
 import io
 import re
+from decimal import Decimal
 
+from bs4 import BeautifulSoup
 from pypdf import PdfReader
 
 from .language_sources import pdf_text
-from .model import key, observation, validate
-from .sources import attach, macau_observation
+from .model import digest, key, observation, validate
+from .sources import attach, macau_observation, parse_ustr_macau_services, ustr_macau_services
 
 
 MGTO = "https://dataplus.macaotourism.gov.mo"
+USTR_MACAU_ARCHIVE = (
+    "https://web.archive.org/web/20251218202809/"
+    "https://ustr.gov/countries-regions/china-mongolia-taiwan/macau")
 HK_DIGEST = "https://www.statistics.gov.hk/pub/B10100032003AN03B0600.pdf"
 MACAU_2002 = (
     "https://www.dsec.gov.mo/getAttachment/8c86dc19-36cc-4a05-8133-5470c143c09b/"
@@ -31,6 +36,46 @@ HK_HALVES = [
     (2026, "Market%20Performance%20Jan-Jun%202026.pdf",
      "9a0ab73bf4495f2f17c063ba349df6cf9bdf9861143fda2a2eac9f8f245c95d4"),
 ]
+
+
+def parse_archived_macau_services(content):
+    plain = " ".join(BeautifulSoup(content, "html.parser").get_text(" ", strip=True).split())
+    match = re.search(r"Macau Trade Summary.*?(?=Stay in the Know)", plain)
+    if not match or digest(match[0].encode()) != "ada54d78f1505dec3823d6f1e8fb35b7ee9b7ce7ea8a4942899ab10e7e2ba642":
+        raise ValueError("Reviewed archived USTR statistical passage changed")
+    profile = match[0]
+    corrected = profile.replace("U.S. total services trade", "U.S. services trade", 1).replace(
+        "$474 billion in 2024", "$474 million in 2024", 1)
+    rows, year = parse_ustr_macau_services(corrected)
+    overall = re.search(r"goods and services trade with Macau totaled an estimated \$([\d.]+) million in 2024", profile)
+    goods = re.search(r"total goods trade \(exports plus imports\) with Macau was an estimated \$([\d.]+) million in 2024", profile)
+    if (year != 2024 or not overall or not goods or sum(r["value"] for r in rows)
+            != (Decimal(overall[1]) - Decimal(goods[1])) * 1_000_000):
+        raise ValueError("Archived services do not reconcile with same-year USTR goods/combined totals")
+    for row in rows:
+        row["comparability"] = "ustr:macau:archived_2024_estimate"
+        row["notes"] = (
+            "Direct 2024 services amount from the original USTR page archived December 18, 2025; "
+            "rounded estimated USD. Directional figures are unchanged: exports $440 million and imports "
+            "$34 million. Source aggregate incorrectly says '$474 billion'; only that aggregate unit "
+            "is corrected for validation, explicitly rather than silently. Independently quoted surplus "
+            "$406 million and same-year $864.0 million combined trade less $390 million goods both "
+            "reconcile exactly with the directional figures. No services amount is allocated from goods "
+            "or derived from rounded prior-year growth. The original statistical passage is checksum-pinned "
+            "separately from Wayback's dynamic wrapper; raw response checksum and actual capture URL are retained. "
+            "This archival vintage is deliberately not used for growth against the current 2025 estimate, "
+            "whose implied 2024 export base has been revised. It is not automatically rechecked daily.")
+    return rows
+
+
+def macau_services_history(client):
+    rows, vintage, notes = ustr_macau_services(client)
+    body, asset = client.get(USTR_MACAU_ARCHIVE)
+    rows.extend(attach(parse_archived_macau_services(body), asset,
+                       "USTR 2024 estimates; original government page archived December 18, 2025"))
+    return rows, vintage + "; separately reviewed archival 2024 estimates", (
+        notes + " Archived 2024 directional figures are retained with explicit source aggregate-unit "
+        "error and independent controls; archival/current vintages are not used for a growth comparison.")
 
 
 def parse_early_hong_kong(plain):

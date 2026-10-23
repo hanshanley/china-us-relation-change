@@ -524,9 +524,30 @@ affiliate sales, or an allocation from Other Asia/Pacific. Quoted rounded
 amounts are normalized to USD without implying dollar-level accuracy. Older
 values are not reverse-engineered from rounded percentage or dollar changes.
 The USTR adapter is included in normal revision-aware refreshes.
-Its standalone plots use a labelled single-year bar snapshot in both
+Genuinely single-year plots use a labelled bar snapshot in both
 publication backgrounds and the interactive view. One verified year is not
 drawn as a historical trend or left as an almost-empty line chart.
+
+An actual **December 18, 2025 archive of USTR's original government page**
+also supplies **2024** services exports **$440 million** and imports
+**$34 million**. These are directly printed figures, not reconstructed
+from the newer page's growth rates. The archived aggregate incorrectly
+says **$474 billion**. The manual adapter corrects only that known aggregate
+unit for validation, after pinning the original statistical passage:
+the separately quoted **$406 million** surplus and same-year **$864.0
+million** combined trade less **$390 million** goods independently confirm
+the **$474 million** component sum. No directional value is changed or
+allocated. The original raw checksum and capture URL remain on both rows;
+the semantic checksum excludes Wayback's variable toolbar.
+
+The archived 2024 estimates and current 2025 release have separate
+comparison identities: no line segment or growth rate implies identical
+revision vintages. Captions call this a **release-vintage**, not a population,
+break. Earlier services years remain unverified. Review just these sources
+with `.venv/bin/python scripts/build_tourism_backfill.py --services-only`.
+Normal daily refreshes retain the reviewed archive rows without pretending
+to retrieve them again. A fresh requested September 2026 tourism report on
+October 23 still returned August captions, so no September count is added.
 
 The original DSEC *Tourism Statistics 2002*, table 1 (physical pages 53-54),
 also supplies U.S.-**residence** arrivals for **2001: 73,607** and
@@ -661,8 +682,9 @@ confidential cells stay distinct from zero; raw source files are not published.
 rejected substitutes. Mainland U.S.-attributed all-mode visitor history after
 2018 and several degree-enrollment directions remain unverified or blocked.
 Hong Kong's full 2000-2025 arrival history is recovered with a documented
-population break. Macau services now have direct USTR 2025 estimates in both
-directions, not an invented continuous history. Missing observations show a
+population break. Macau services now have direct current USTR 2025 estimates
+and separately qualified archival 2024 estimates in both directions, not an
+invented continuous history. Missing observations show a
 specific gap instead of a zero.
 
 ## Scheduled operation

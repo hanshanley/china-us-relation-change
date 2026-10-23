@@ -1144,14 +1144,15 @@
   },
   {
     "available_years": [
+      2024,
       2025
     ],
     "baseline_2020": false,
     "destination": "USA",
-    "first_year": 2025,
+    "first_year": 2024,
     "last_year": 2025,
     "measure": "services",
-    "observations": 1,
+    "observations": 2,
     "origin": "MAC",
     "reason": "",
     "source_ids": [
@@ -1352,14 +1353,15 @@
   },
   {
     "available_years": [
+      2024,
       2025
     ],
     "baseline_2020": false,
     "destination": "MAC",
-    "first_year": 2025,
+    "first_year": 2024,
     "last_year": 2025,
     "measure": "services",
-    "observations": 1,
+    "observations": 2,
     "origin": "USA",
     "reason": "",
     "source_ids": [

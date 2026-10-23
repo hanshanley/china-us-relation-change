@@ -89,11 +89,11 @@
     "vintage": "February 2026 Data Release"
   },
   "ustr": {
-    "last_recorded_check": "2026-10-23T07:50:26+00:00",
-    "last_successful_retrieval": "2026-10-23T07:50:26+00:00",
-    "notes": "Separate direct USTR country estimates fill Macau services missing from the selected BEA workbook. Exports, imports, total services and surplus/deficit are checked together. Rounded nominal USD; not regional allocations or affiliate sales. Longer history not imputed.",
-    "observations": 2,
+    "last_recorded_check": "2026-10-23T11:13:40+00:00",
+    "last_successful_retrieval": "2026-10-23T11:13:40+00:00",
+    "notes": "Separate direct USTR country estimates fill Macau services missing from the selected BEA workbook. Exports, imports, total services and surplus/deficit are checked together. Rounded nominal USD; not regional allocations or affiliate sales. Longer history not imputed. Archived 2024 directional figures are retained with explicit source aggregate-unit error and independent controls; archival/current vintages are not used for a growth comparison.",
+    "observations": 4,
     "status": "available",
-    "vintage": "USTR Macau Trade Summary; directly reported 2025 estimated services"
+    "vintage": "USTR Macau Trade Summary; directly reported 2025 estimated services; separately reviewed archival 2024 estimates"
   }
 }

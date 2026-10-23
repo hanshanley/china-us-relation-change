@@ -6,12 +6,52 @@ from bs4 import BeautifulSoup
 
 from us_china_exchange.model import change
 from us_china_exchange.render import svg_chart
+from us_china_exchange import tourism_backfill
 from us_china_exchange.tourism_backfill import (
-    parse_early_hong_kong, parse_early_macau, parse_hong_kong_profile, parse_macau_months, parse_top_ten,
+    parse_archived_macau_services, parse_early_hong_kong, parse_early_macau, parse_hong_kong_profile,
+    parse_macau_months, parse_top_ten,
 )
 
 
 ROOT = Path(__file__).resolve().parents[1]
+
+
+def test_archived_services_require_reviewed_source_and_two_independent_controls(monkeypatch):
+    profile = (
+        "Macau Trade Summary "
+        "U.S. goods and services trade with Macau totaled an estimated $864.0 million in 2024. "
+        "U.S. total goods trade (exports plus imports) with Macau was an estimated $390 million in 2024. "
+        "U.S. total services trade (exports plus imports) with Macau totaled an estimated $474 billion in 2024. "
+        "U.S. services exports to Macau in 2024 were $440 million. "
+        "U.S. services imports from Macau in 2024 were $34 million. "
+        "U.S. services trade surplus with Macau was $406 million in 2024. Stay in the Know")
+    with pytest.raises(ValueError, match="statistical passage"):
+        parse_archived_macau_services(profile)
+    monkeypatch.setattr(tourism_backfill, "digest", lambda content: (
+        "ada54d78f1505dec3823d6f1e8fb35b7ee9b7ce7ea8a4942899ab10e7e2ba642"))
+    rows = parse_archived_macau_services(profile)
+    assert {(r["origin"], r["destination"], r["year"]): r["value"] for r in rows} == {
+        ("USA", "MAC", 2024): 440000000, ("MAC", "USA", 2024): 34000000}
+    assert all(r["status"] == "estimated" and "$474 billion" in r["notes"] for r in rows)
+    for invalid in (profile.replace("$390 million", "$391 million"),
+                    profile.replace("$406 million", "$500 million"),
+                    profile.replace("$474 billion", "$475 billion")):
+        with pytest.raises(ValueError):
+            parse_archived_macau_services(invalid)
+
+
+def test_archival_services_are_not_compared_with_a_newer_revision_vintage():
+    rows = json.loads((ROOT / "data/site/observations.json").read_text())
+    for origin in ("USA", "MAC"):
+        selected = {r["year"]: r for r in rows if r["source_id"] == "ustr" and r["origin"] == origin}
+        assert set(selected) == {2024, 2025}
+        assert change(selected[2025], selected[2024])["percent"] is None
+        assert "/20251218202809/" in selected[2024]["source_url"]
+        chart = BeautifulSoup(svg_chart(list(selected.values())), "html.parser")
+        assert chart.select_one(".data-line")["d"].count("M") == 2
+        assert "L" not in chart.select_one(".data-line")["d"]
+        footer = " ".join(n.text for n in chart.select(".figure-source"))
+        assert "Release-vintage" in footer and "Population-definition" not in footer
 
 
 def test_early_macau_uses_residence_totals_not_mode_counts_shares_or_nationality():

@@ -1145,14 +1145,15 @@
     },
     {
       "available_years": [
+        2024,
         2025
       ],
       "baseline_2020": false,
       "destination": "USA",
-      "first_year": 2025,
+      "first_year": 2024,
       "last_year": 2025,
       "measure": "services",
-      "observations": 1,
+      "observations": 2,
       "origin": "MAC",
       "reason": "",
       "source_ids": [
@@ -1353,14 +1354,15 @@
     },
     {
       "available_years": [
+        2024,
         2025
       ],
       "baseline_2020": false,
       "destination": "MAC",
-      "first_year": 2025,
+      "first_year": 2024,
       "last_year": 2025,
       "measure": "services",
-      "observations": 1,
+      "observations": 2,
       "origin": "USA",
       "reason": "",
       "source_ids": [
@@ -2104,14 +2106,14 @@
     {
       "area": "Trade",
       "checked_at": "2026-10-23",
-      "disposition": "unverified",
+      "disposition": "partial",
       "gap_id": "macau-services-history",
       "measure": "Cross-border services",
-      "period": "Before 2025",
-      "primary_sources": "https://ustr.gov/countries-regions/china-mongolia-taiwan/macau;https://www.bea.gov/data/intl-trade-investment/international-trade-goods-and-services",
+      "period": "Before2025",
+      "primary_sources": "https://web.archive.org/web/20251218202809/https://ustr.gov/countries-regions/china-mongolia-taiwan/macau;https://ustr.gov/countries-regions/china-mongolia-taiwan/macau",
       "route": "Both directions for MAC",
-      "unresolved_or_scope_limit": "Selected BEA workbook omits Macau; no older directly published values verified; rounded year-on-year changes are not manufactured into precise 2024 observations",
-      "verified_recovery": "Current 2025 direction-specific source is recovered"
+      "unresolved_or_scope_limit": "Known source aggregate says474billion instead of million and is explicitly annotated; original passage pinned independently of archive toolbar;2024 archival and2025 current vintages not used for growth; before2024 remains unverified; no backward inference from rounded changes",
+      "verified_recovery": "Original USTR December18 2025 archive directly supplies2024 exportsUSD440m and importsUSD34m; independently quoted406m surplus and864m combined trade less390m goods reconcile474m; directional values unchanged"
     },
     {
       "area": "Immigration",
@@ -61682,6 +61684,29 @@
       "year": 2024
     },
     {
+      "comparability": "ustr:macau:archived_2024_estimate",
+      "definition": "USTR U.S.-reported estimated cross-border services trade with Macau; nominal USD; annual exports/imports, not foreign-affiliate sales or investment",
+      "destination": "USA",
+      "frequency": "annual",
+      "measure": "services",
+      "notes": "Direct 2024 services amount from the original USTR page archived December 18, 2025; rounded estimated USD. Directional figures are unchanged: exports $440 million and imports $34 million. Source aggregate incorrectly says '$474 billion'; only that aggregate unit is corrected for validation, explicitly rather than silently. Independently quoted surplus $406 million and same-year $864.0 million combined trade less $390 million goods both reconcile exactly with the directional figures. No services amount is allocated from goods or derived from rounded prior-year growth. The original statistical passage is checksum-pinned separately from Wayback's dynamic wrapper; raw response checksum and actual capture URL are retained. This archival vintage is deliberately not used for growth against the current 2025 estimate, whose implied 2024 export base has been revised. It is not automatically rechecked daily.",
+      "origin": "MAC",
+      "period": "2024",
+      "period_basis": "calendar",
+      "period_end": "2024-12-31",
+      "period_start": "2024-01-01",
+      "raw_sha256": "b216a2f9d1e76a6b9580a39aa61df0399267e845dfeb3b84829b0fe82b92609d",
+      "retrieved_at": "2026-10-23T11:10:32+00:00",
+      "series_id": "ustr:MAC:USA:services",
+      "source_id": "ustr",
+      "source_url": "https://web.archive.org/web/20251218202809/https://ustr.gov/countries-regions/china-mongolia-taiwan/macau",
+      "source_vintage": "USTR 2024 estimates; original government page archived December 18, 2025",
+      "status": "estimated",
+      "unit": "USD",
+      "value": 34000000,
+      "year": 2024
+    },
+    {
       "comparability": "ustr:macau:cross_border_services",
       "definition": "USTR U.S.-reported estimated cross-border services trade with Macau; nominal USD; annual exports/imports, not foreign-affiliate sales or investment",
       "destination": "USA",
@@ -61703,6 +61728,29 @@
       "unit": "USD",
       "value": 208000000,
       "year": 2025
+    },
+    {
+      "comparability": "ustr:macau:archived_2024_estimate",
+      "definition": "USTR U.S.-reported estimated cross-border services trade with Macau; nominal USD; annual exports/imports, not foreign-affiliate sales or investment",
+      "destination": "MAC",
+      "frequency": "annual",
+      "measure": "services",
+      "notes": "Direct 2024 services amount from the original USTR page archived December 18, 2025; rounded estimated USD. Directional figures are unchanged: exports $440 million and imports $34 million. Source aggregate incorrectly says '$474 billion'; only that aggregate unit is corrected for validation, explicitly rather than silently. Independently quoted surplus $406 million and same-year $864.0 million combined trade less $390 million goods both reconcile exactly with the directional figures. No services amount is allocated from goods or derived from rounded prior-year growth. The original statistical passage is checksum-pinned separately from Wayback's dynamic wrapper; raw response checksum and actual capture URL are retained. This archival vintage is deliberately not used for growth against the current 2025 estimate, whose implied 2024 export base has been revised. It is not automatically rechecked daily.",
+      "origin": "USA",
+      "period": "2024",
+      "period_basis": "calendar",
+      "period_end": "2024-12-31",
+      "period_start": "2024-01-01",
+      "raw_sha256": "b216a2f9d1e76a6b9580a39aa61df0399267e845dfeb3b84829b0fe82b92609d",
+      "retrieved_at": "2026-10-23T11:10:32+00:00",
+      "series_id": "ustr:USA:MAC:services",
+      "source_id": "ustr",
+      "source_url": "https://web.archive.org/web/20251218202809/https://ustr.gov/countries-regions/china-mongolia-taiwan/macau",
+      "source_vintage": "USTR 2024 estimates; original government page archived December 18, 2025",
+      "status": "estimated",
+      "unit": "USD",
+      "value": 440000000,
+      "year": 2024
     },
     {
       "comparability": "ustr:macau:cross_border_services",
@@ -61847,12 +61895,12 @@
       "vintage": "February 2026 Data Release"
     },
     "ustr": {
-      "last_recorded_check": "2026-10-23T07:50:26+00:00",
-      "last_successful_retrieval": "2026-10-23T07:50:26+00:00",
-      "notes": "Separate direct USTR country estimates fill Macau services missing from the selected BEA workbook. Exports, imports, total services and surplus/deficit are checked together. Rounded nominal USD; not regional allocations or affiliate sales. Longer history not imputed.",
-      "observations": 2,
+      "last_recorded_check": "2026-10-23T11:13:40+00:00",
+      "last_successful_retrieval": "2026-10-23T11:13:40+00:00",
+      "notes": "Separate direct USTR country estimates fill Macau services missing from the selected BEA workbook. Exports, imports, total services and surplus/deficit are checked together. Rounded nominal USD; not regional allocations or affiliate sales. Longer history not imputed. Archived 2024 directional figures are retained with explicit source aggregate-unit error and independent controls; archival/current vintages are not used for a growth comparison.",
+      "observations": 4,
       "status": "available",
-      "vintage": "USTR Macau Trade Summary; directly reported 2025 estimated services"
+      "vintage": "USTR Macau Trade Summary; directly reported 2025 estimated services; separately reviewed archival 2024 estimates"
     }
   },
   "student_estimates": {
