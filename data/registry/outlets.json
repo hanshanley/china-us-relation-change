@@ -1235,6 +1235,41 @@
       "notes": "One transient root yielded no qualifying institutional Sina designation. An explicit AI/text-data-mining reservation led to conservative removal of the fresh full copy; factual metadata only, raw_file/sha256 null and no further host requests. Contact links were not subsequently fetched. Discarded fingerprints are not available source captures. Other Tribune titles, police/municipal accounts, publisher groups, sister papers and staff were not substituted. Unknown, not absent. Review date: 2026-10-23 UTC."
     },
     {
+      "id": "bismarck-tribune", "name": "The Bismarck Tribune / North Dakota", "category": "newspaper",
+      "aliases": ["Bismarck Tribune", "The Bismarck Tribune"],
+      "us_basis": "United States-classified source position186; actual root identifies Bismarck/North Dakota coverage and Contact provides named publisher correspondence in Bismarck, North Dakota. Current legal control and office occupancy are not independently audited.",
+      "source_url": "https://bismarcktribune.com/", "research_status": "reviewed",
+      "notes": "Complete root and actual Contact read without a qualifying institutional Sina designation. Article text about artificial intelligence was not mistaken for a source-use reservation. Slash variants counted once; other Tribune titles, parent and staff accounts were not inherited. Generic noscript warnings or directory hours were not operating-status proof. Unknown, not absent. Review date: 2026-10-23 UTC."
+    },
+    {
+      "id": "el-diario-ny", "name": "El Diario / New York", "category": "us_spanish_language",
+      "aliases": ["El Diario", "El Diario NY", "El Diario / La Prensa"],
+      "us_basis": "United States-classified source position187; actual publisher About identifies its New York/Lower Manhattan history and historical El Diario/La Prensa name. This does not independently certify current offices or corporate control.",
+      "source_url": "https://eldiariony.com/", "research_status": "reviewed",
+      "notes": "Complete NY root, actual Spanish About and a concrete2018 account-mention article read. The article's official-account phrase refers to Sina's news channel, not El Diario; coverage/quotations are not a publisher designation. Non-U.S. El Diario namesakes, sister publications, other social platforms and staff profiles were not substituted. Historical merger/name statements were not present-day control certificates. Unknown, not absent. Review date: 2026-10-23 UTC."
+    },
+    {
+      "id": "el-nuevo-herald-miami", "name": "El Nuevo Herald / South Florida", "category": "us_spanish_language",
+      "aliases": ["El Nuevo Herald", "el Nuevo Herald"],
+      "us_basis": "United States-classified source position188; actual named publisher market-profile body joins El Nuevo Herald, elnuevoherald.com and South Florida/Miami-area coverage. This is publication scope, not an independent current ownership or Sina-identity audit.",
+      "source_url": "https://www.elnuevoherald.com/", "research_status": "reviewed",
+      "notes": "An ordinary robots-aware newspaper attempt timed out; no usable newspaper body or deletion inference. The exact McClatchy named profile was inspected beyond its generic Markets title and really contains publication-specific text. It is not a copy of unavailable newspaper articles or account proof. El Nuevo Heraldo/MyRGV in Texas, other Herald titles, the English Miami Herald, parent and staff accounts were not assigned to this Spanish paper. Unknown, not absent. Review date: 2026-10-23 UTC."
+    },
+    {
+      "id": "decatur-herald-review", "name": "Herald & Review / Decatur, Illinois", "category": "newspaper",
+      "aliases": ["Decatur Herald & Review", "Herald & Review"],
+      "us_basis": "United States-classified source position189; actual root and secure Contact name the paper and give Decatur, Illinois publishing correspondence. Current legal control is not independently audited.",
+      "source_url": "https://herald-review.com/", "research_status": "reviewed",
+      "notes": "Complete root and independently checked secure /contact/ read without a qualifying Sina identifier. The actually linked /contactus/ produced a guard-held redirect with no retained body; it was not followed or represented as content proof. The separately published secure Contact route was used without HTTP downgrade. Other Herald/Review titles, sibling and parent publications, placeholders and staff were not substituted. Unknown, not absent. Review date: 2026-10-23 UTC."
+    },
+    {
+      "id": "youngstown-vindicator", "name": "The Vindicator / Youngstown coverage", "category": "newspaper",
+      "aliases": ["Youngstown Vindicator", "The Vindicator", "Vindy.com"],
+      "us_basis": "United States-classified source position190; actual publisher-maintained app names The Vindicator and Youngstown/Ohio coverage. Current secure root/Contact use the Vindicator masthead with Warren, Ohio correspondence; coverage city and mailing location were not conflated.",
+      "source_url": "https://www.vindy.com/", "research_status": "reviewed",
+      "notes": "The prior bare-vindy.com certificate-hostname failure remains recorded and was not re-queried or bypassed. The actual publisher app supplies an HTTPS www.vindy.com privacy URI; that hostname was checked under normal certificate validation and its own robots policy before root/actual Contact were read. No TLS changes, HTTP downgrade or unverified mirror. Actual2019 transaction-participant announcement concerns named assets/masthead/domain, not automatic continuation of any old Sina account. Current and historical operators, sibling Tribune titles, namesakes and staff accounts were not inherited. Unknown, not absent. Review date: 2026-10-23 UTC."
+    },
+    {
       "id": "telemundo", "name": "Telemundo / Noticias Telemundo", "category": "broadcast_news",
       "aliases": ["Telemundo", "Noticias Telemundo", "Telemundo Noticias"],
       "us_basis": "United States-classified source position110; actual network root separately links its Noticias Telemundo newsroom section. Current corporate domicile/headquarters and legal account control are not independently audited.",

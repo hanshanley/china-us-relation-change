@@ -28,15 +28,15 @@ The selected **1,000 SCImago U.S.-classified domains** are ranked by digital
 reputation, not traffic; their present ownership/nationality was not independently
 audited. **Five have current-profile evidence, seven historical-only evidence,
 988 remain unknown, and zero are verified negatives.** All underwent homepage
-screening, but only 185 have recorded manual review.
+screening, but only 190 have recorded manual review.
 
-The [latest scheduled pass](discovery_iteration37.md) adds five further
-reviews with eight retained HTML responses and separately labeled metadata
-observations. MSNBC's MS NOW identity was checked before canonical-host
-inspection; the original roster is unchanged. NWA's directory-listed secure
-origin is readable, with institutional facts retained as metadata only.
-San Gabriel Valley Tribune's explicit usage reservation was respected.
-Discovery is not exhausted: 815 selected domains still lack a recorded
+The [latest scheduled pass](discovery_iteration38.md) adds five further
+reviews with twelve retained HTML responses. Vindicator's publisher-linked
+secure www host works with ordinary TLS; its older bare-host failure stays
+recorded. El Diario's account mention refers to Sina, not the newspaper.
+El Nuevo Herald's named parent profile is scope evidence while its own
+route still times out; El Nuevo Heraldo/MyRGV is a different publication.
+Discovery is not exhausted: 810 selected domains still lack a recorded
 manual review. A bounded recurring prompt is active every 30 minutes; later
 passes must advance the frontier rather than repeatedly probing exhausted leads.
 
