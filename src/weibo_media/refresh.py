@@ -5,6 +5,7 @@ import hashlib
 import io
 import json
 import os
+import re
 import shutil
 import sqlite3
 import subprocess
@@ -59,8 +60,11 @@ class CaptureClient(PublicClient):
         super().__init__(delay=delay)
         self.capture_dir = Path(raw_dir)
         self.captures = []
+        self.blocked_urls = set()
 
     def get(self, url):
+        if url in self.blocked_urls:
+            raise AccessBlocked("Recorded source-URL access restriction; not retried")
         body = super().get(url)
         self.capture_dir.mkdir(parents=True, exist_ok=True)
         path = self.capture_dir / (urlsplit(url).path.strip("/").replace("/", "_") + f"_{time.time_ns()}.html")
@@ -174,6 +178,7 @@ def refresh(root, *, account_ids=None, limit=50, publish=False, push=False, clie
     }
     state_path = work / "access-holds.json"
     holds = json.loads(state_path.read_text()) if state_path.exists() else {"host": None, "accounts": {}}
+    holds.setdefault("urls", {})
     database = root / "data/local/weibo.sqlite"
     before_db = sha(database.read_bytes())
     head = git(root, "rev-parse", "HEAD")
@@ -218,7 +223,20 @@ def refresh(root, *, account_ids=None, limit=50, publish=False, push=False, clie
                 if set(account_ids) - {a["id"] for a in eligible}:
                     raise ValueError("Refresh accepts only currently attributed, confirmed numeric channels")
                 eligible = [a for a in eligible if a["id"] in account_ids]
+            for old_run in db.execute("SELECT account_id,status,error,checkpoint FROM runs WHERE source_type='sina_syndication'"):
+                checkpoint = json.loads(old_run["checkpoint"] or "{}")
+                for post_id, reason in checkpoint.get("detail_errors", {}).items():
+                    if re.search(r"HTTP\s*(?:401|403|406|418|429|432)|robots|captcha|visitor|challenge|redirect", reason, re.I):
+                        holds["urls"][f"https://www.sina.cn/news/detail/{post_id}.html"] = reason[:300]
+            latest = {r["account_id"]: r for r in db.execute(
+                "SELECT account_id,status,error FROM runs WHERE source_type='sina_syndication' ORDER BY id")}
+            for account in eligible:
+                old_run = latest.get(account["id"])
+                if old_run and old_run["status"] == "blocked":
+                    holds["accounts"][account["id"]] = account["uid"] + ":" + account["display_name"]
             client = client or CaptureClient(root / "data/local/raw/refresh" / attempted.replace(":", "_"))
+            if isinstance(client, CaptureClient):
+                client.blocked_urls = set(holds["urls"])
             runs = []
             for account in eligible:
                 identity = account["uid"] + ":" + account["display_name"]
@@ -233,6 +251,12 @@ def refresh(root, *, account_ids=None, limit=50, publish=False, push=False, clie
                 run = collect_account(db, account["id"], start, end, client, limit, reuse_verified=reusable)
                 runs.append(run)
                 checkpoint = json.loads(run["checkpoint"]) if run["checkpoint"] else {}
+                for post_id, reason in checkpoint.get("detail_errors", {}).items():
+                    if re.search(r"HTTP\s*(?:401|403|406|418|429|432)|robots|captcha|visitor|challenge|redirect", reason, re.I):
+                        url = f"https://www.sina.cn/news/detail/{post_id}.html"
+                        holds["urls"][url] = reason[:300]
+                        if isinstance(client, CaptureClient):
+                            client.blocked_urls.add(url)
                 if checkpoint.get("items"):
                     status["readable_feeds"] += 1
                 if run["error"]:

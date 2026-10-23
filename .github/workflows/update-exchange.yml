@@ -8,10 +8,13 @@ on:
     branches: [main]
     paths:
       - "src/us_china_exchange/**"
+      - "src/weibo_media/**"
       - "scripts/*exchange*"
       - "scripts/update.py"
       - "scripts/build_site.py"
       - "scripts/build_weibo_summary.py"
+      - "scripts/refresh_weibo.py"
+      - "scripts/install_weibo_refresh.py"
       - "scripts/build_language_data.py"
       - "scripts/build_business_data.py"
       - "scripts/build_immigration_data.py"
@@ -30,6 +33,8 @@ on:
       - "data/site/student_estimates.json"
       - "data/site/gap_review.csv"
       - "tests/test_exchange*"
+      - "tests/test_weibo*"
+      - "tests/test_pipeline.py"
       - "tests/fixtures/exchange*"
       - "requirements-exchange*"
       - ".github/workflows/update-exchange.yml"
@@ -60,14 +65,14 @@ jobs:
           python -m playwright install --with-deps chromium
       - name: Check existing publication and parsers
         run: |
-          PYTHONPATH=src python -m pytest tests/test_exchange_*.py -q
+          PYTHONPATH=src python -m pytest tests/test_exchange_*.py tests/test_weibo_activity.py tests/test_weibo_refresh.py tests/test_pipeline.py -q
           python scripts/check_exchange_browser.py
       - name: Reconcile all available source history
         run: python scripts/update.py
       - name: Build and check candidate publication
         run: |
           python scripts/build_site.py
-          PYTHONPATH=src python -m pytest tests/test_exchange_*.py -q
+          PYTHONPATH=src python -m pytest tests/test_exchange_*.py tests/test_weibo_activity.py tests/test_weibo_refresh.py tests/test_pipeline.py -q
           python scripts/check_exchange_browser.py
           python scripts/build_exchange_publication.py --output data/local/collective-publication
           python scripts/check_exchange_publication.py --site data/local/collective-publication
