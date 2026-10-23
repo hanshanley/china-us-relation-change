@@ -55,6 +55,8 @@ def plot_model(svg, labels, observations):
         unit = svg.find("text", attrs={"x": "115", "y": "125"})
     model = {"title": svg.get("aria-label", ""), "description": svg.find("desc").text if svg.find("desc") else "",
              "unit": unit.text if unit else "Count", "groups": [], "kind": "line"}
+    if svg.select_one("rect.snapshot-bar"):
+        model["snapshots"] = True
     legends = [n.text for n in svg.select(".legend-label")]
     swatches = svg.select(".legend-swatch")
     if swatches:

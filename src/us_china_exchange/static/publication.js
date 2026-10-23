@@ -43,9 +43,12 @@
       const high = logarithmic ? Math.max(low + 1, Math.ceil(Math.log10(Math.max(...points.map(p => p.value))))) : 1;
       const maximum = Math.ceil(highest / magnitude) * magnitude;
       const first = model.first, last = Math.max(first + 1, model.last);
-      const snapshot = !logarithmic && model.groups.length === 1 && points.length === 1 && model.first === model.last;
+      const snapshot = !logarithmic && model.groups.length === 1 &&
+        ((points.length === 1 && model.first === model.last) ||
+         (model.snapshots && points.length === 2 && points.every(p => !p.connect)));
       const plotWidth = width - margin.left - margin.right;
-      const x = year => margin.left + (snapshot ? .5 : (year - first) / (last - first)) * plotWidth;
+      const x = year => margin.left + (snapshot ? (year - first + .5) / (model.last - first + 1) :
+        (year - first) / (last - first)) * plotWidth;
       const y = value => height - margin.bottom - (logarithmic ? (Math.log10(value) - low) / (high - low) : value / maximum) * (height - margin.top - margin.bottom);
       content += `<text x="${margin.left}" y="13" font-size="${font}" fill="#655f55">${escape(model.unit)}</text>`;
       const ticks = logarithmic ? Array.from({length: high - low + 1}, (_, i) => 10 ** (low + i)) : [0, maximum / 2, maximum];
@@ -142,8 +145,12 @@
           return point;
         });
         const colors = {CHN: "#7B2D26", HKG: "#3D6F8C", MAC: "#C2993E"};
+        const snapshots = present.length === 2 && present[0].source_id === "ustr" &&
+          new Set(present.map(row => row.comparability)).size === 2;
         const model = {kind: "line", title: `${data.measures[get("measure").value]}: ${data.geographies[origin]} to ${data.geographies[destination]}`,
-          description: "Reported observations only. Missing years and changes in definition break the line. Exact values and complete downloads follow.",
+          description: snapshots ? "Separate annual snapshots; release vintages are not connected or used for growth." :
+            "Reported observations only. Missing years and changes in definition break the line. Exact values and complete downloads follow.",
+          snapshots,
           unit: indexed ? "2020 = 100" : present[0].unit === "USD" ? "Nominal USD" : present[0].unit,
           first: Math.min(...rows.map(r => r.year)), last: Math.max(...rows.map(r => r.year)),
           groups: [{id: present[0].series_id, label: data.geographies[geo], color: colors[geo], points}]};

@@ -101,8 +101,11 @@ def svg_chart(rows, indexed=False, theme="themarginoferror"):
     maximum = max(values.values()) * 1.13 or 1
     magnitude = 10 ** math.floor(math.log10(maximum))
     maximum = math.ceil(maximum / magnitude) * magnitude
-    snapshot = len(present) == 1 and first == end
-    x = lambda year: 532.5 if snapshot else 115 + (year - first) / max(1, end - first) * 835
+    snapshot = ((len(present) == 1 and first == end) or
+                (len(present) == 2 and present[0]["source_id"] == "ustr"
+                 and len({r["comparability"] for r in present}) == 2))
+    x = lambda year: 115 + ((year - first + .5) / (end - first + 1) if snapshot
+                            else (year - first) / max(1, end - first)) * 835
     y = lambda value: 435 - value / maximum * 285
     sample = present[0]
     partner = sample["destination"] if sample["origin"] == "USA" else sample["origin"]
@@ -111,6 +114,8 @@ def svg_chart(rows, indexed=False, theme="themarginoferror"):
     direction = f"{GEOGRAPHIES[sample['origin']]} to {GEOGRAPHIES[sample['destination']]}"
     title = f"{heading}: {direction}"
     description = (f"Single verified annual snapshot for {first}; no historical trend inferred."
+                   if snapshot and len(present) == 1 else
+                   f"Separate annual snapshots for {first} and {end}; release vintages are not connected or used for growth."
                    if snapshot else f"Annual history from {first} where available. Missing years and definition changes break the line. Exact values are in the complete data download.")
     parts = [f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {CHART_WIDTH} {CHART_HEIGHT}" role="img" aria-label="{esc(title)}">',
              f"<title>{esc(title)}</title>",
@@ -124,7 +129,10 @@ def svg_chart(rows, indexed=False, theme="themarginoferror"):
         label = f"{value:.0f}" if indexed else number(value, unit, compact=True)
         parts.append(f'<path d="M115 {y(value):.2f}H950" stroke="{GRID}" stroke-opacity="0.6" stroke-width="0.5"/>'
                      f'<text x="100" y="{y(value) + 6:.2f}" text-anchor="end">{esc(label)}</text>')
-    for year in sorted({first, end} | {year for year in range((first // 5 + 1) * 5, end, 5) if year - first >= 2 and end - year >= 2}):
+    years = (sorted(values) if snapshot else
+             sorted({first, end} | {year for year in range((first // 5 + 1) * 5, end, 5)
+                                   if year - first >= 2 and end - year >= 2}))
+    for year in years:
         parts.append(f'<text x="{x(year):.2f}" y="472" text-anchor="middle">{year}</text>')
     parts.append(f'<path d="M115 150V435H950" stroke="{GRID}" stroke-width="0.8" fill="none"/>')
     if ref is not None:
@@ -157,7 +165,7 @@ def svg_chart(rows, indexed=False, theme="themarginoferror"):
     breaks = [current["period"] for previous, current in zip(annual, annual[1:])
               if current["comparability"] != previous["comparability"]]
     note = f"Source: {source}. Annual observations; missing years and definition changes are not connected."
-    if snapshot:
+    if snapshot and len(present) == 1:
         kind = "estimate" if sample["status"] == "estimated" else "observation"
         note = f"Source: {source}. Single verified annual {kind}; no historical trend inferred."
     if breaks:

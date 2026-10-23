@@ -52,6 +52,9 @@ def test_archival_services_are_not_compared_with_a_newer_revision_vintage():
         chart = BeautifulSoup(svg_chart(list(selected.values())), "html.parser")
         assert chart.select_one(".data-line")["d"].count("M") == 2
         assert "L" not in chart.select_one(".data-line")["d"]
+        bars = chart.select(".snapshot-bar")
+        assert len(bars) == 2
+        assert all(115 < float(bar["x"]) < 950 - float(bar["width"]) for bar in bars)
         footer = " ".join(n.text for n in chart.select(".figure-source"))
         assert "Release-vintage" in footer and "Population-definition" not in footer
 

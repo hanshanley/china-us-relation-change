@@ -543,7 +543,9 @@ the semantic checksum excludes Wayback's variable toolbar.
 The archived 2024 estimates and current 2025 release have separate
 comparison identities: no line segment or growth rate implies identical
 revision vintages. Captions call this a **release-vintage**, not a population,
-break. Earlier services years remain unverified. Review just these sources
+break. The two independent annual estimates render as restrained labelled
+bar snapshots in both static backgrounds and responsive charts, with exactly
+the two observed years, not nearly empty disconnected-dot plots. Earlier services years remain unverified. Review just these sources
 with `.venv/bin/python scripts/build_tourism_backfill.py --services-only`.
 Normal daily refreshes retain the reviewed archive rows without pretending
 to retrieve them again. A fresh requested September 2026 tourism report on
