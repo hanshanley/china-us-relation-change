@@ -1,6 +1,7 @@
 import copy
 import csv
 import io
+import importlib.util
 import json
 import zipfile
 from collections import defaultdict
@@ -21,6 +22,46 @@ from us_china_exchange.render import build
 
 
 ROOT = Path(__file__).resolve().parents[1]
+
+
+@pytest.mark.parametrize("report_year,fall_year,expected,chinese_year", [
+    (2021, 2021, "latest_released_data", 2021),
+    (2024, 2021, "update_available", 2021),
+    (2021, 2024, "update_available", 2021),
+    (2024, 2024, "update_available", 2024),
+])
+def test_national_release_check_detects_new_data_without_using_summer_or_regional_years(
+        report_year, fall_year, expected, chinese_year):
+    spec = importlib.util.spec_from_file_location("language_releases", ROOT / "scripts/check_language_releases.py")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    book = Workbook()
+    book.active.title = "FL history"
+    book.active.append(["SRVY_YEAR", "TERM"])
+    book.active.append([fall_year, "Fall"])
+    book.active.append([2026, "Summer"])
+    stream = io.BytesIO()
+    book.save(stream)
+    url = "https://www.mla.org/Historical-language-enrollments-1958-2024.xlsx"
+    assets = {
+        module.MLA_REPORTS: f'<p>Next data gathering: 2026</p><a href="report.pdf">{report_year} Report</a>',
+        module.MLA_DATABASE: f'<a href="{url}">Complete data set</a>',
+        url: stream.getvalue(),
+    }
+    client = SimpleNamespace(get=lambda address: (assets[address], {"request_url": address}))
+    data = {"observations": [
+        {"series_id": "mla:chinese", "year": chinese_year, "value": 46492},
+        {"series_id": "mla:japanese", "year": 2021, "value": 65661},
+        {"series_id": "mla:korean", "year": 2021, "value": 19270},
+        {"series_id": "ccc:chinese", "year": 2026, "value": 2936},
+        {"series_id": "mla_matched:chinese", "year": 2024, "value": 100},
+    ]}
+    report = module.check_mla(client, data)
+    assert report["status"] == expected
+    assert report["published_latest_year"] == 2021
+    assert report["published_years_by_language"]["chinese"] == chinese_year
+    assert report["available_latest_year"] == max(report_year, fall_year)
+    assert report["workbook_fall_years"] == [fall_year]
 
 
 def published():

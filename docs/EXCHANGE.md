@@ -338,6 +338,27 @@ language colours and both publication backgrounds. PNGs are 3000 by 1800;
 PNG/SVG exports live in `outputs/figures/language_learning/<background>/`
 and the matching `site/figures/` directory.
 
+National course enrollments must not be replaced by a single state's counts,
+individual university reports, degree awards or a newer survey with a different
+population. On October 23, 2026, the MLA release page, live national query tool
+and freshly downloaded institution-level workbook all still ended in fall 2021.
+The workbook contained a 2020 sample and summer rounds as well; neither is a
+newer nationwide fall census.
+
+`scripts/check_language_releases.py` now checks the release page, discovers the
+workbook linked by the live database, and reads its actual fall survey years.
+The daily workflow retains its dated, checksummed result and warns when newer
+national data become available. A failed check is not reported as confirmation
+that the old release is current. Review and reconcile a new release before
+changing the published national series.
+
+The separate 2024 CLTA study, published September 21, 2026
+(DOI `10.1075/csl.25019.li`), reports 191 U.S. and 11 Canadian respondents, not
+the MLA national census. Its abstract is verified, but its numerical enrollment
+tables have not been retrieved; no numbers are inferred from its conclusions.
+California's official 2010–2026 course exports and Ohio's recent institutional
+reports are supplementary recovery leads, not a solution to the national gap.
+
 These indicators remain separate from canonical bilateral flows:
 
 | Indicator | Verified history and interpretation |

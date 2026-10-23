@@ -26,6 +26,7 @@ on:
       - "scripts/check_business_publication.py"
       - "scripts/build_exchange_publication.py"
       - "scripts/check_exchange_publication.py"
+      - "scripts/check_language_releases.py"
       - "data/site/weibo_summary.json"
       - "data/site/language_learning.json"
       - "data/site/business_presence.json"
@@ -67,6 +68,11 @@ jobs:
         run: |
           PYTHONPATH=src python -m pytest tests/test_exchange_*.py tests/test_weibo_activity.py tests/test_weibo_refresh.py tests/test_pipeline.py -q
           python scripts/check_exchange_browser.py
+      - name: Check for newer nationwide language-enrollment releases
+        if: always()
+        continue-on-error: true
+        timeout-minutes: 3
+        run: python scripts/check_language_releases.py
       - name: Reconcile all available source history
         run: python scripts/update.py
       - name: Build and check candidate publication
@@ -87,6 +93,12 @@ jobs:
             cat data/local/exchange/check.json >> "$GITHUB_STEP_SUMMARY"
             echo '```' >> "$GITHUB_STEP_SUMMARY"
           fi
+          if test -f data/local/language-release-check.json; then
+            echo '### National language-enrollment release check' >> "$GITHUB_STEP_SUMMARY"
+            echo '```json' >> "$GITHUB_STEP_SUMMARY"
+            cat data/local/language-release-check.json >> "$GITHUB_STEP_SUMMARY"
+            echo '```' >> "$GITHUB_STEP_SUMMARY"
+          fi
       - name: Retain check log and candidate site
         if: always()
         uses: actions/upload-artifact@v4
@@ -94,6 +106,7 @@ jobs:
           name: exchange-publication-${{ github.run_id }}
           path: |
             data/local/exchange/check.json
+            data/local/language-release-check.json
             data/local/plot-audit/audit.json
             site/
           retention-days: 30
