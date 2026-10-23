@@ -61782,21 +61782,20 @@
       "vintage": "HKTB residence arrivals 2000-2022; nationality 2023-2025 and January-June 2025/2026"
     },
     "iie": {
-      "last_recorded_check": "2026-10-22T01:27:39+00:00",
+      "last_recorded_check": "2026-10-23T11:15:26+00:00",
       "last_successful_retrieval": "2026-10-21T17:01:48+00:00",
-      "notes": "IIE automatic retrieval is paused: its terms prohibit automated downloading and analysis. Previously reviewed IIE-hosted observations are retained, not newly checked. Historical aggregates are independently reviewed in government republications; exact retrieved URLs, checksums, vintages and dates remain on those rows. Separate direct retrieval and reuse permission has not been verified; public access is not commercial-use clearance.",
+      "notes": "IIE automatic retrieval is paused: its terms prohibit automated downloading and analysis. Previously reviewed observations are retained, not newly checked. Separate retrieval and reuse permission has not been verified; public access is not commercial-use clearance.",
       "observations": 150,
       "status": "permission_required",
       "vintage": "Open Doors 2025"
     },
     "macau_tourism": {
-      "error": "('Connection broken: IncompleteRead(4839776 bytes read, 2283340 more expected)', IncompleteRead(4839776 bytes read, 2283340 more expected))",
-      "last_recorded_check": "2026-10-23T09:46:00+00:00",
+      "last_recorded_check": "2026-10-23T11:15:26+00:00",
       "last_successful_retrieval": "2026-10-23T09:34:44+00:00",
-      "notes": "Direct 2025/2026 monthly and cumulative source-market tables, supplemented by complete U.S. first-half profiles when a monthly top-ten row is absent; travel-document issuing place, not U.S. residence. All twelve 2025 monthly counts reconcile with the December cumulative total. A requested September 2026 report still displays August captions and is not mislabelled. Original DSEC 2002 table 1 restores 2001/2002 all-mode residence arrivals before the 2008 worker/student exclusion. Other annual history retained.",
+      "notes": "Selected-market PDFs; unlisted U.S. values are missing, never zero. Latest complete annual market profile fills selected-market omissions. Arrivals exclude non-resident workers/students from 2008. Residence classification changed to issuing place of travel document in April 2015; transition is not comparable. This adapter covers complete annual reports, not newer monthly highlights. MGTO site terms limit use to noncommercial purposes. Commercial reuse permission has not been verified; these exports do not grant publication rights.",
       "observations": 65,
-      "status": "degraded",
-      "vintage": "DSEC 2001-2002; full monthly 2025 and monthly/YTD through August 2026"
+      "status": "available",
+      "vintage": "MGTO annual highlights through 2025; Market Performance 2008, 2010, 2015, 2024"
     },
     "moe": {
       "last_recorded_check": "2026-10-23T07:06:18+00:00",
