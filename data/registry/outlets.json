@@ -2472,6 +2472,56 @@
       "notes": "Complete root and literal /site/about.html inspected without an institutional Sina designation. Actual named About, not weather, sponsored ads, generic Star-Herald titles or another Nebraska publication, supplies scope. The1912 lineage claim is not Weibo age or continuous account control. Sites & Partners separately lists Gering Courier and Hemingford Ledger, not inherited accounts. Reporting mentioning a1990 Star-Herald article alongside other people's Weibo posts is not the newspaper's official account. No account absence inferred from listed social platforms or AI-search UI. Unknown, not absent. Review date: 2026-10-24 UTC."
     },
     {
+      "id": "aberdeen-daily-world",
+      "name": "The Daily World / selected Aberdeen World domain",
+      "category": "newspaper",
+      "aliases": ["Aberdeen World", "The Daily World", "Aberdeen Daily World"],
+      "us_basis": "United States-classified source position327; actual root-linked About names The Daily World and its Grays Harbor/northern Pacific County coverage in Washington. Its historical and Sound Publishing statements are publisher self-descriptions, not independently audited current legal control.",
+      "source_url": "https://www.thedailyworld.com/",
+      "research_status": "reviewed",
+      "notes": "Complete root and actual /services/about-us/ inspected without an institutional Sina designation. The bounded automatic information-link parser omitted this nested path, but the actual root anchor was verified directly. Original Aberdeen World cohort label retained; name history, print frequency and the1889-era narrative are not account age, activity or continuous control. The development-style hostname in the historical website paragraph was not followed, repaired or certified as an original1998 public domain. Scottish Aberdeen, other Daily World publications, AP, magazine, parent/sibling and staff accounts were not inherited. Unknown, not absent. Review date: 2026-10-24 UTC."
+    },
+    {
+      "id": "warren-times-observer",
+      "name": "Warren Times Observer",
+      "category": "newspaper",
+      "aliases": ["Warren Times Observer", "Times Observer"],
+      "us_basis": "United States-classified source position328; actual root and linked Contact identify Times Observer in Warren, Pennsylvania. The PO box is mailing information, not independently verified street occupancy or a current ownership/staff census.",
+      "source_url": "https://www.timesobserver.com/",
+      "research_status": "reviewed",
+      "notes": "Complete root and actual /contact-us/ inspected without a qualifying institutional Sina designation. Actual Mail section supplies Warren context; regional staff addresses on post-journal.com or observertoday.com and affiliated-site links do not transfer those publications' identities or accounts. Shared advertising/circulation/editorial roles are not current joint legal control or a publisher Weibo designation. Other Times/Observer papers, messaging profiles and staff/personal channels not substituted. No forms submitted or newspaper issue mirrors retrieved. Unknown, not absent. Review date: 2026-10-24 UTC."
+    },
+    {
+      "id": "annapolis-capital-gazette",
+      "name": "Capital Gazette / selected Annapolis Gazette domain",
+      "category": "newspaper",
+      "aliases": ["Annapolis Gazette", "Capital Gazette"],
+      "us_basis": "United States-classified source position329; original Annapolis Gazette label/domain retained. Factual root metadata identifies Capital Gazette and Maryland context, but the fresh body was removed after this publication's own source-use reservation; it is not an available primary ownership/profile capture.",
+      "source_url": "https://www.capitalgazette.com/",
+      "research_status": "reviewed",
+      "notes": "Own root explicitly reserves AI training, machine learning and text/data-mining use without written consent. Further publisher-body requests stopped and only the exact fresh root was removed; older captures untouched. Available raw file/source hash are null, with discarded fingerprint separately labeled as unavailable proof. No linked About/Contact, alias, mirror or alternate client was used afterward. Footer company names, Tribune/Sun associations, reporting about Weibo users, victims or staff profiles were not current-control or account evidence. Unknown, not absent. Review date: 2026-10-24 UTC."
+    },
+    {
+      "id": "chippewa-herald",
+      "name": "Chippewa Herald / selected Chippewa Falls domain",
+      "category": "newspaper",
+      "aliases": ["Chippewa Falls Chippewa Herald", "Chippewa Herald"],
+      "us_basis": "United States-classified source position330; actual root and linked Contact name Chippewa Herald and its Wisconsin context. Contact/footer text contains both La Crosse and Chippewa Falls location strings; no unverified newsroom move, current occupancy or ownership claim is inferred.",
+      "source_url": "https://chippewa.com/",
+      "research_status": "reviewed",
+      "notes": "Complete root and literal /contact/ inspected without an institutional Sina designation. The mixed footer locations were preserved rather than merged into one physical address or called a closure. Subscription/ad forms and the literal {{url}} placeholder were not submitted, repaired or followed. Listed River Valley/La Crosse/Winona/Dunn partner publications, generic Herald titles, sponsored ads, staff/personal channels and Lee corporate accounts were not inherited. Omission from the social matrix is not account absence. Unknown, not absent. Review date: 2026-10-24 UTC."
+    },
+    {
+      "id": "citrus-county-chronicle",
+      "name": "Citrus County Chronicle",
+      "category": "newspaper",
+      "aliases": ["Citrus County Chronicle", "Chronicle Online"],
+      "us_basis": "United States-classified source position331; observed root/policy factual metadata names Citrus County Chronicle and Inverness, Florida. Both exact fresh copies were removed conservatively after staff AI/company-IP guidance; they are not available primary control/account proofs.",
+      "source_url": "https://www.chronicleonline.com/",
+      "research_status": "reviewed",
+      "notes": "Actual root supplied /site/artificial_intelligence_usage.html, whose printed9/26/2024 policy addresses staff/editorial AI use and company IP. Consistent with the separate Southern choice, retained factual metadata only and removed just the fresh root and policy copies; older captures untouched. This is not a blanket external-access/text-mining ban or a redistribution license. Available raw files/source hashes are null and discarded fingerprints explicitly unavailable as proof. No further About/Contact, form, login, licensed issue, mirror or alternate client used. Generic Chronicle names, obituary/photo credits, government accounts and personal-profile aggregators are not Sina identities. Unknown, not absent. Review date: 2026-10-24 UTC."
+    },
+    {
       "id": "telemundo", "name": "Telemundo / Noticias Telemundo", "category": "broadcast_news",
       "aliases": ["Telemundo", "Noticias Telemundo", "Telemundo Noticias"],
       "us_basis": "United States-classified source position110; actual network root separately links its Noticias Telemundo newsroom section. Current corporate domicile/headquarters and legal account control are not independently audited.",

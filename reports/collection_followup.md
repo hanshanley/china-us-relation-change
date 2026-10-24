@@ -35,27 +35,28 @@ The selected **1,000 SCImago U.S.-classified domains** are ranked by digital
 reputation, not traffic; their present ownership/nationality was not independently
 audited. **Five have current-profile evidence, seven historical-only evidence,
 988 remain unknown, and zero are verified negatives.** All underwent homepage
-screening, but only 326 have recorded manual review.
+screening, but only 331 have recorded manual review.
 
-The [latest scheduled pass](discovery_iteration66.md) adds five reviews.
-Four fresh publisher responses, three fresh corporate responses, one
-genuinely reused corporate HTML capture and two existing PDFs support
-limited context. LaGrange and Lubbock newspaper HTTP403 restrictions were
-held; cached menu/directory context was not called fresh newspaper access.
-Fort Dodge's actual Contact supplies named Iowa context, not a generic
-Messenger identity or a posting date inferred from a stale page header.
-Myrtle Beach's single ordinary retry timed out before a page body was
-recorded. Independent corporate Markets HTML supplies the actual ranked
-hostname; the separate brand page and historical2015 PDF do not.
-The original selected "Myrtle Beach Onliine" label remains unchanged.
-Scottsbluff's actual named About supplies Nebraska coverage, not an
-inherited partner account or an account inferred from reporting about Weibo.
-All eighteen publisher-body holds, Southern/NWA and institutional/corporate
-conditions remain distinct. No parent/sibling handle was inherited.
+The [latest scheduled pass](discovery_iteration67.md) adds five reviews.
+Six complete publisher responses remain available for limited context.
+The Daily World's actual nested About supplies Washington coverage; a
+development-style hostname in its historical narrative was not followed
+or treated as proof of an original public website.
+Warren's PO box and regional staff/affiliate links do not transfer accounts.
+Chippewa's mixed La Crosse/Chippewa Falls footer was not converted into an
+unverified newsroom move, office address or closure.
+Capital Gazette's own explicit AI/text-data-mining reservation caused an
+immediate stop and removal of only its exact fresh root copy.
+Citrus County Chronicle's staff AI/company-IP policy prompted a separate
+conservative removal of its two exact fresh root/policy copies, not a
+blanket external-access ban. All older captures remain untouched.
+The nineteen publisher-body holds, distinct Southern/Citrus/NWA retention
+conditions and institutional/corporate restrictions remain separate.
+No parent/sibling handle was inherited.
 Shared catalogs are not edited.
 The live 6,570-post corpus, original archived baseline and all rolling data
 remain unchanged by discovery.
-Discovery is not exhausted: 674 selected domains still lack a recorded
+Discovery is not exhausted: 669 selected domains still lack a recorded
 manual review. A bounded recurring prompt is active every 30 minutes; later
 passes must advance the frontier rather than repeatedly probing exhausted leads.
 
