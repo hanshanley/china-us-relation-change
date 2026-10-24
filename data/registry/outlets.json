@@ -1837,6 +1837,41 @@
       "notes": "Complete root and exact linked /about-us/ inspected without a qualifying institutional Sina identifier. Actual named Kentucky body was used beyond the generic root title and article/sidebar topics. Historic awards, print schedules and subscription widgets did not become Weibo activity. The Wall Street Journal, Wisconsin State Journal, other similarly named publications and parent/sibling/staff accounts were not inherited. Unknown, not absent. Review date: 2026-10-24 UTC."
     },
     {
+      "id": "the-hustle", "name": "The Hustle", "category": "news_website",
+      "aliases": ["The Hustle", "The Hustle newsletter"],
+      "us_basis": "United States-classified source position272; actual root identifies The Hustle newsletter and carries HubSpot branding. Brand/footer and audience claims are not independent current-control, nationality or account-identity certification.",
+      "source_url": "https://thehustle.co/", "research_status": "reviewed",
+      "notes": "Complete branded root inspected without a qualifying institutional Sina link. An indexed Weibo phrase The Hustle was checked through exactly one permitted paced public Sina detail route under the refresh lock. Actual saved title explicitly describes a film clip, not a newsletter designation; no author/UID was assigned, no shortened link/media fetched and nothing imported. This rejects a keyword lead, not the possible existence of a newsletter account. HubSpot/parent/sibling channels and daily newsletter frequency were not inherited as Weibo identity/activity. Unknown, not absent. Review date: 2026-10-24 UTC."
+    },
+    {
+      "id": "manhattan-mercury", "name": "The Manhattan Mercury / Kansas", "category": "newspaper",
+      "aliases": ["Manhattan Mercury", "The Manhattan Mercury", "The Mercury"],
+      "us_basis": "United States-classified source position273; actual root and linked About identify the daily newspaper in Manhattan, Kansas and its regional coverage. Publisher-stated history/ownership and correspondence are not independently audited current control or occupancy.",
+      "source_url": "https://themercury.com/", "research_status": "reviewed",
+      "notes": "Complete root and actually linked /site/about.html inspected beyond the generic domain title and weather widget without an institutional Sina identifier. Manhattan means the named Kansas publication, not an invented New York office. Other Mercury titles, third-party staff/directory lists, newspaper mirrors and parent/sibling channels were not substituted or inherited. Print frequency and history were not Weibo activity. Unknown, not absent. Review date: 2026-10-24 UTC."
+    },
+    {
+      "id": "olympian-washington", "name": "The Olympian / Washington", "category": "newspaper",
+      "aliases": ["Olympian", "The Olympian", "The Daily Olympian"],
+      "us_basis": "United States-classified source position274; genuine cached2015 publisher annual report page14 joins The Olympian and theolympian.com with a Washington location row. Extracted city string is split as Olympi a; the dated row is not current-control, occupancy or audience certification.",
+      "source_url": "https://www.theolympian.com/", "research_status": "reviewed",
+      "notes": "One ordinary publisher attempt timed out without a usable body. Genuine cached2015 row inspected offline for historical publication/domain/state scope only. No alternate client/host, library proxy, microfilm copy or mirrored newspaper body was requested. Athletes, Olympic organizations, a student paper and other Olympian titles were not Sina identity proof. Historical circulation/traffic and parent/sibling/staff channels were not current posting activity or inherited accounts. Unknown, not absent. Review date: 2026-10-24 UTC."
+    },
+    {
+      "id": "wvnews-exponent-telegram-domain", "name": "WV News / selected Exponent Telegram domain", "category": "newspaper",
+      "aliases": ["Clarksburg Exponent Telegram", "The Exponent Telegram", "WV News ranked domain"],
+      "us_basis": "United States-classified source position275 retains its original Clarksburg Exponent Telegram label for wvnews.com. Actual root and About identify a West Virginia network that explicitly includes The Exponent Telegram; the domain is not assumed to be a single-paper-only operation.",
+      "source_url": "https://www.wvnews.com/", "research_status": "reviewed",
+      "notes": "Complete root and actually linked /site/about.html inspected without an institutional Sina designation. The named statewide network/brand list and publisher-stated history were distinguished from the ranked paper; network accounts would not automatically certify every listed title. Other State Journal titles, staff profiles, old2003 sites, job/print-frequency directories and externally mirrored WVU newspaper PDFs were not substituted. No extra ranked reviews or inherited sibling channels were added; marketing/history were not independently audited control or Weibo activity. Unknown, not absent. Review date: 2026-10-24 UTC."
+    },
+    {
+      "id": "anniston-star", "name": "The Anniston Star / Alabama", "category": "newspaper",
+      "aliases": ["Anniston Star", "The Anniston Star"],
+      "us_basis": "United States-classified source position276; actual root and named Contact identify The Anniston Star and Anniston, Alabama correspondence. Publisher-stated contact details are not independently verified office occupancy or current legal control.",
+      "source_url": "https://www.annistonstar.com/", "research_status": "reviewed",
+      "notes": "Complete root and actually linked /site/contact/ inspected beyond the generic title without a qualifying institutional Sina identifier. Actual named Anniston body was not replaced by a third-party directory mixing Cleburne News/Heflin and a magazine classification, nor by older staff-directory addresses. Parent/sibling publications, social handles and personal accounts were not inherited. A shared host/parent is not an account designation; service/history claims were not posting activity. Unknown, not absent. Review date: 2026-10-24 UTC."
+    },
+    {
       "id": "telemundo", "name": "Telemundo / Noticias Telemundo", "category": "broadcast_news",
       "aliases": ["Telemundo", "Noticias Telemundo", "Telemundo Noticias"],
       "us_basis": "United States-classified source position110; actual network root separately links its Noticias Telemundo newsroom section. Current corporate domicile/headquarters and legal account control are not independently audited.",

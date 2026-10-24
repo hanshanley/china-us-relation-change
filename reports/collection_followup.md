@@ -35,22 +35,21 @@ The selected **1,000 SCImago U.S.-classified domains** are ranked by digital
 reputation, not traffic; their present ownership/nationality was not independently
 audited. **Five have current-profile evidence, seven historical-only evidence,
 988 remain unknown, and zero are verified negatives.** All underwent homepage
-screening, but only 271 have recorded manual review.
+screening, but only 276 have recorded manual review.
 
-The [latest scheduled pass](discovery_iteration55.md) adds five reviews.
-Seven complete HTML captures remain: six newspaper root/institutional
-responses and one named Natchez corporate profile. Natchez and Southeast
-Missourian newspaper HTTP403 holds were not retried. Rust's corporate
-search-provider robots restriction supplied no primary capture; inconsistent
-third-party app-mirror claims were not promoted as platform proof or closure.
-Actual Albany lobby-service wording, Marquette's named Contact and
-Frankfort's Kentucky About were read without namesake or sibling inheritance.
-All twelve publisher-body holds and the separate Southern/NWA retention
-conditions remain intact. Shared exchange work and catalogs are outside
-this research publication.
+The [latest scheduled pass](discovery_iteration56.md) adds five reviews.
+Seven publisher HTML captures and one separate permitted native Sina
+disambiguation capture remain. An indexed The Hustle phrase was a film-clip
+title, not an institutional newsletter designation; one locked, paced detail
+probe added no account, author assignment or post. Manhattan's actual About
+identifies Kansas, WV News's About identifies a multi-brand network including
+The Exponent Telegram, and Anniston's actual Contact was not replaced by a
+mixed third-party Cleburne listing. The Olympian route timed out; its genuine
+cached2015 row remains historical scope. All twelve publisher-body holds and
+separate Southern/NWA conditions remain intact. Shared catalogs are not edited.
 The live 6,570-post corpus, original archived baseline and all rolling data
 remain unchanged by discovery.
-Discovery is not exhausted: 729 selected domains still lack a recorded
+Discovery is not exhausted: 724 selected domains still lack a recorded
 manual review. A bounded recurring prompt is active every 30 minutes; later
 passes must advance the frontier rather than repeatedly probing exhausted leads.
 
