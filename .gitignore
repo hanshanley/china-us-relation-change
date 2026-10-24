@@ -8,3 +8,4 @@ dist/
 data/local/
 *.sqlite*
 exports/
+/AGENT-COMMS.md
