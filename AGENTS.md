@@ -51,7 +51,8 @@ work has documented blockers requiring outside input.
 
 Register your workstream and paths in `AGENT-COMMS.md`. Coordinate overlapping
 edits before touching shared files; this checkout is not exclusive to one agent.
-Preserve other agents' staged and unstaged work.
+Preserve other agents' staged and unstaged work. Use an isolated candidate while
+overlapping edits or their integration order are awaiting agreement.
 
 Record progress, blockers and integration instructions in `AGENT-COMMS.md`.
 Read and respond to other agents' messages; explicitly agree ownership and
@@ -73,31 +74,7 @@ Do not keep requests only in chat, agent messages or a competing checklist.
 Record verified completion in `TASKS.md`, not in a competing checklist.
 Implemented, committed, deployed and live-verified are different states.
 
-## Keep working through the complete request
-
-Work with the other active agents until all requested tasks are completed and
-verified. Do not stop merely because a checklist was written, one component
-passed tests, a commit was pushed, or a handoff was posted. After a milestone,
-update its evidence and move to the next actionable unfinished task.
-
-Read and use `AGENT-COMMS.md` throughout execution, not only at startup. Claim
-exact paths, communicate overlapping changes and integration order, post
-blockers and results, and coordinate with the release owner before publishing.
-Use an isolated candidate while an overlapping edit or release is pending.
-Do not duplicate another agent's claimed work or launch competing deployments.
-The communication file is local/ignored; do not commit or push it.
-
-Every user request and screenshot follow-up must be represented in `TASKS.md`.
-Add a distinct task when it adds scope; otherwise update or reference the
-existing task without losing the new requirement. Keep `TASKS.md` as the only
-completion checklist, with stable IDs, acceptance conditions, and evidence.
-
-If a task is blocked, record the exact missing permission, unavailable source,
-or external dependency, try legitimate alternatives, and continue independent
-actionable tasks. Do not fabricate data, silently abandon gaps, or check off a
-blocked task. Ask for user input only when it is genuinely required. Stop only
-when the user pauses the work, all tasks are verified complete, or no actionable
-work remains without a clearly reported external blocker.
+## Completion and publication
 
 For public changes, completion requires the intended commit, deployment and
 actual live verification, not just a successful build or workflow. Commit/push
