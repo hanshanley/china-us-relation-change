@@ -186,29 +186,45 @@ the article or its artwork.
 - [x] **LANG-01: Identify the source article.** The supplied excerpt matches
   Mint's licensed Economist republication. Retain the exact title, publication
   date and clean source URL; do not copy the article into the project.
-- [ ] **LANG-02: Integrate the actual MLA pandemic snapshot.** Verified Figure 1
+- [x] **LANG-02: Integrate the actual MLA pandemic snapshot.** Verified Figure 1
   of the [fall-2022 newsletter snapshot](https://www.mla.org/content/download/191129/file/Fall-2022-NL-snapshot.pdf)
   gives 2016/2020 course registrations at the same 1,308 institutions:
   Chinese 33,561/26,528; Japanese 46,936/43,268; Korean 9,033/11,323.
   The roughly 21% Chinese decline is real, but this is not the national census.
-  The source is already retained; its six selected count observations still
-  need reproducible integration, validation and full-data exports.
-- [ ] **LANG-03: Preserve the distinct national MLA history and seek a newer
+  The six observations are committed in `1cad87d`; deterministic collection,
+  validation and full JSON/CSV exports passed 25 focused tests. Live release
+  `b168790`, deployment `40139669213`, retained all 384 language rows, including
+  these six counts; all 496 served asset hashes matched.
+- [x] **LANG-03: Preserve the distinct national MLA history and seek a newer
   actual release.** Existing 2021-report-vintage Chinese counts are 54,248 in
   2016 and 46,492 in 2021, a different comparison. A 2024 collection announcement
   does not supply 2024 observations. Keep Chinese, Japanese and Korean separate.
+  Live source check on October 24, 2026 confirmed that the report catalogue and
+  actual fall workbook still end in 2021. Receipt:
+  `data/local/language-article-recovery/national-release-check.json`.
 - [ ] **LANG-04: Recover the HESA evidence with its real units and periods.**
   [BACS's primary 2021-22 report](https://bacsuk.org.uk/wp-content/uploads/2015/05/BACS-State-of-the-Field-2021-22-Report.pdf),
   Table 7, supplies the HESA-derived Chinese-studies history and quotes 1,535
   in 2012/13 versus 1,055 in 2021/22. These are subject-apportioned enrollments,
   not admissions, unique learners, or all people taking Mandarin. Preserve the
   JACS/HECoS classification boundary and do not join them to U.S. course counts.
+  **Correction ready, not yet verified live:** `74ba244` retains eight Table 7
+  totals and gives the early quote its own series/comparability group. The
+  original 2016 BACS report labels the matching 1,535 as full-time and gives
+  part-time separately. Equivalence with the later total is unverified; do not
+  import the article's 31% as a like-for-like decline. Corrected full exports
+  contain 384 rows, preserve all 369 original observations, and pass 25 tests.
+  Handoff to the combined release owner is recorded locally; keep this item
+  open until the corrected dataset is served and checked.
 - [ ] **LANG-05: Pursue newer, comparable U.K. data.** HESA publishes through
   2024/25, but direct Table 52 and its CSV returned 403 on October 24, 2026.
   The official data.gov.uk catalogue points to that same CSV, not a recovered
   alternate file. Check legitimate publisher reports and open data alternatives.
   Do not bypass restrictions, silently substitute broad Asian studies, or claim
   Japanese/Korean comparisons without those actual subject observations.
+  Additional source review: the BACS archive's nominal 2022-23 report link
+  opens a funding report, not newer enrollments. The earlier 2016 report
+  identifies a study-mode mismatch; it is not a harmonized newer history.
 - [ ] **LANG-06: Respect the newer public freshness rule.** Retain useful older
   evidence in the complete data/research exports. A 2016/2020 snapshot or
   2021/22 U.K. endpoint does not by itself qualify as a current public chart.
@@ -370,3 +386,40 @@ already verified. Preserve the separate population and access restrictions.
 5. Commit/push coherent progress as Hans Hanley, then update the checkboxes here.
    Do not create another competing checklist or declare the whole project done
    while these data, publication or automation items remain unresolved.
+
+## 8. Latest screenshot regressions: October 24, 6:54-6:55 p.m.
+
+Prioritize these concrete examples in the current chart/source repair. Earlier
+release checks do not establish that these newly reported cases are fixed.
+
+The 6:55:30 p.m. screenshot repeats **UI-11**: remove the large extra
+"View United States -> Mainland China" / opposite-direction button, not the
+existing direction dropdown. Check every public topic, desktop and phone;
+do not restore the rejected button merely to satisfy an old regression test.
+
+- [ ] **UI-12: Fix and explain the study-abroad screenshot.** Reproduce
+  `Screenshot 2026-10-24 at 6.54.29 PM.png`: Students, mainland China,
+  United States -> mainland China, academic-credit study abroad, reported levels.
+  The 2007/08 observation (13,165, shown at ending year 2008) is isolated from
+  the 2014-onward bars by a large 2009-2013 gap. Investigate the original
+  source/extraction, not just the appearance; DATA-04 owns recovery of those
+  early periods. Preserve the valid early point and calendar spacing, do not
+  interpolate or insert zeros, and explain genuinely unresolved gaps concisely.
+  Make the latest actual academic year clear; an axis tick at 2025 is not proof
+  of a released 2024/25 observation. Check the selected blue title/axis text
+  and tooltip behavior without confusing ordinary browser selection with
+  incorrect chart state. Verify this exact route after repeated toggles,
+  on desktop/phone and in the deployed page.
+- [ ] **UI-13: Audit China-to-U.S. graphs for intuitive meaning and full data.**
+  The user reports that these graphs are confusing and omit substantial data.
+  Review every enabled inbound measure separately, not only the outbound
+  screenshot. Make route, unit, population and period readable: enrolled
+  students versus students + OPT, visitor trips, goods/services and annual
+  immigration are not interchangeable or all literal new arrivals.
+  Reconcile every available canonical year with the visible bars and exact
+  tooltips, then recover genuine source gaps under DATA-01/DATA-03 and the
+  relevant route tasks. Do not drop existing years at definition boundaries,
+  silently switch populations, mistake unreported years for zero, or describe
+  a broader substitute as the missing series. Exercise both directions and
+  repeated dropdown switches in final live checks. Coordinate chart behavior
+  with `chart-repair` and historical student recovery with `history-recovery`.
