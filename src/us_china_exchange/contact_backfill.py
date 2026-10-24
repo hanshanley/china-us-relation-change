@@ -33,6 +33,21 @@ HKTDC = "https://research.hktdc.com/en/article/MzIwNjY2NTgx"
 CAU_HISTORY = "https://libwx.cau.edu.cn/oldweb/gxyxkfz/gqyd/12_qw.pdf"
 NCES_CREDIT = "https://nces.ed.gov/pubs2010/2010028.pdf"
 EDUCATIONUSA_2021 = "https://educationusa.state.gov/sites/default/files/educationusa/2021_EAP_COMBINED_SMFF.pdf"
+ERIC_HISTORY_REPORTS = {
+    2001: ("ED661491", "a4200bb40b8eae452c60c32a2ed93e0c8b7634edfb8fca8e880834aaf989d569"),
+    2003: ("ED661496", "46e102a1dbcbc72363033d90afa9a1707518358013b4906a698c4aeef902a3c3"),
+    2005: ("ED661409", "68e1ec145148d32056873535588a821802dced446d8eb5ca00c8c6f423750dfc"),
+    2007: ("ED661501", "9ce0578e6d466e904fdcab2507bfa883ca60543a813aac4dab0652dadf2dd1b7"),
+    2008: ("ED661502", "4540056dde529aef8006141691420bb415bf8fa813d221810cea9becd04c98cb"),
+    2009: ("ED661503", "6ebf24f4054a9b4aa3dafb48f081f8790eeac4b4bdd56e1a36479b40ea96de0b"),
+    2010: ("ED661505", "afb1edb24dd65d8f98b79372e569f763c6cb0797788192ad66668c2a72920738"),
+    2011: ("ED661506", "14a8c03ddbd5644354358d4caa2d3fc921b84b84af8ab29a5cc19e492cdd196c"),
+    2012: ("ED661507", "ecb889b93e008fb8bd65f8b7c3e71cf4c2777f17c45a796991a3fb9764649570"),
+    2013: ("ED661508", "fd4786fc5a346b02120040bd3d27568dcff28614232085705f009e22a9ff5506"),
+    2015: ("ED661386", "65a2ed6a022ea2cf72021b8f0f6a3171aff64c973b80fad4b253a3f8952e5f6a"),
+    2017: ("ED661395", "d78d633fd67ce3007920d867b59a0613583f49e04883980258eb0c05a09f953e"),
+    2019: ("ED661414", "35c4720b750caf57b9680bb6f2111e136341cfa8eb33e338095ae832b06b730c"),
+}
 
 
 def text(value):
@@ -247,8 +262,8 @@ def parse_eric_academic_levels(plain, country, year):
             or f"{year - 2}/{str(year - 1)[-2:]}" not in compact
             or f"{year - 1}/{str(year)[-2:]}" not in compact):
         raise ValueError("ERIC academic-level header or years changed")
-    matches = {tuple(line[len(country) + 1:].split()) for line in plain.splitlines()
-               if line.startswith(country + " ")}
+    matches = {tuple(line.strip()[len(country) + 1:].split()) for line in plain.splitlines()
+               if line.strip().startswith(country + " ")}
     if len(matches) != 1:
         raise ValueError("ERIC country academic-level row missing or conflicting")
     fields = list(matches.pop())
@@ -263,6 +278,163 @@ def parse_eric_academic_levels(plain, country, year):
     if sum(current) != numeric[0]:
         raise ValueError("ERIC academic-level counts do not reconcile with the printed total")
     return previous, current
+
+
+def parse_eric_legacy_levels(plain, country, year):
+    compact = "".join(plain.split()).upper()
+    opt_first = "OPTOPTOTHEROTHERTOTAL" in compact
+    if (not (opt_first or "OPTOPTTOTAL" in compact) or "GRADUATE" not in compact
+            or f"{year - 1}/{str(year)[-2:]}" not in compact):
+        raise ValueError("ERIC legacy academic-level header or year changed")
+    matches = {tuple(line.strip()[len(country) + 1:].split()) for line in plain.splitlines()
+               if line.strip().startswith(country + " ")}
+    if len(matches) != 1:
+        raise ValueError("ERIC legacy country row missing or conflicting")
+    fields = list(matches.pop())
+    if len(fields) != 9:
+        raise ValueError("ERIC legacy academic-level columns changed")
+    if any(not re.fullmatch(r"\d+(?:,\d{3})*", fields[i]) for i in (0, 2, 4, 6, 8)):
+        raise ValueError("ERIC legacy exact academic-level count missing")
+    counts = [int(fields[i].replace(",", "")) for i in (0, 2, 4, 6)]
+    if sum(counts) != int(fields[8].replace(",", "")):
+        raise ValueError("ERIC legacy academic levels do not reconcile with the printed total")
+    if opt_first:
+        counts[2], counts[3] = counts[3], counts[2]
+    return counts
+
+
+def parse_eric_country_history(plain, country, years, *, destinations=False):
+    compact = "".join(plain.split()).upper()
+    header = "DESTINATION" if destinations else "PLACEOFORIGIN"
+    if header not in compact or any(
+            f"{year - 1}/{str(year)[-2:]}" not in compact for year in years):
+        raise ValueError("ERIC country-history header or academic years changed")
+    matches = {tuple(line.strip()[len(country) + 1:].split()) for line in plain.splitlines()
+               if line.strip().startswith(country + " ")}
+    if len(matches) != 1:
+        raise ValueError("ERIC country-history row missing or conflicting")
+    fields = list(matches.pop())
+    if len(fields) not in {len(years) + 1, len(years) + 2}:
+        raise ValueError("ERIC country-history columns changed")
+    if any(not re.fullmatch(r"\d+(?:,\d{3})*", value) for value in fields[:len(years)]):
+        raise ValueError("ERIC country-history exact count missing")
+    return {year: int(value.replace(",", "")) for year, value in zip(years, fields)}
+
+
+def government_eric_history(client, prior):
+    """Recover exact historical facts from checksum-pinned federal deposits."""
+    existing = {key(r): r for r in prior}
+    documents = {}
+    countries = {"CHN": "China", "HKG": "Hong Kong", "MAC": "Macau", "TWN": "Taiwan"}
+
+    def report(year):
+        if year not in documents:
+            document, checksum = ERIC_HISTORY_REPORTS[year]
+            body, asset = client.get("https://files.eric.ed.gov/fulltext/" + document + ".pdf")
+            if asset["sha256"] != checksum:
+                raise ValueError("Reviewed ERIC historical report changed")
+            documents[year] = PdfReader(io.BytesIO(body)), asset
+        return documents[year]
+
+    def retain(edition, pages, geo, measure, year, value, detail):
+        reader, asset = report(edition)
+        origin, destination = ("USA", geo) if measure == "study_abroad" else (geo, "USA")
+        base = next(r for r in prior if r["source_id"] == "iie" and r["origin"] == origin
+                    and r["destination"] == destination and r["measure"] == measure
+                    and r["year"] == (2024 if measure == "study_abroad" else 2025))
+        document = ERIC_HISTORY_REPORTS[edition][0]
+        locator = (f"IIE Open Doors {edition}; original federal ERIC deposit {document}; PDF pages "
+                   + ", ".join(map(str, pages)))
+        row = observation(
+            "iie", origin, destination, measure, year, value, base["definition"],
+            period_basis="academic", comparability=base["comparability"],
+            notes=locator + ". " + detail + " Exact published counts, not rounded-share estimates. "
+            "Selected numerical facts only; the original book is not redistributed. "
+            "Direct IIE-hosted retrieval remains paused.")
+        row = attach([row], asset, locator)[0]
+        if key(row) in existing and existing[key(row)]["value"] != value:
+            raise ValueError("ERIC historical fact conflicts with a retained observation")
+        existing.setdefault(key(row), row)
+
+    total_tables = [
+        (2001, 26, "Macao"), (2003, 26, "Macao"), (2005, 27, "Macau"),
+        (2007, 38, "Macau, China"), (2008, 37, "Macau"), (2010, 55, "Macau"),
+        (2011, 55, "Macau"), (2013, 45, "Macau"), (2015, 52, "Macau"),
+    ]
+    for edition, page, label in total_tables:
+        reader, asset = report(edition)
+        values = parse_eric_country_history(reader.pages[page - 1].extract_text(), label,
+                                           [edition - 1, edition])
+        for year, value in values.items():
+            retain(edition, [page], "MAC", "international_students", year, value,
+                   "Country-origin total includes OPT; the printed Macao/Macau row is kept "
+                   "separate from mainland China and Hong Kong.")
+
+    totals = {(r["origin"], r["year"]): r["value"] for r in existing.values()
+              if r["source_id"] == "iie" and r["destination"] == "USA"
+              and r["measure"] == "international_students"}
+    level_tables = [(2007, 42), (2008, 41), (2009, 68), (2010, 59),
+                    (2011, 59), (2012, 51), (2013, 49)]
+    for edition, page in level_tables:
+        reader, asset = report(edition)
+        plain = reader.pages[page - 1].extract_text(
+            **({"extraction_mode": "layout"} if edition == 2007 else {}))
+        for geo, label in countries.items():
+            if edition == 2007 and geo != "TWN":
+                label = {"CHN": "China, PRC", "HKG": "Hong Kong, China", "MAC": "Macau, China"}[geo]
+            counts = parse_eric_legacy_levels(plain, label, edition)
+            control = totals.get((geo, edition))
+            provenance, pages = "", [page]
+            if (edition, geo) == (2013, "TWN"):
+                original = parse_eric_country_history(
+                    reader.pages[44].extract_text(), label, [2012, 2013])[2013]
+                provenance = (f"The original country-total table on PDF page 45 reports {original}; "
+                              f"the retained NCES republication reports {control}. This source-vintage "
+                              "difference is disclosed, not silently overwritten or allocated to OPT. ")
+                control, pages = original, [45, page]
+            if sum(counts) != control:
+                raise ValueError("ERIC legacy levels disagree with the independent country total")
+            retain(edition, pages, geo, "enrolled_students", edition, sum(counts[:3]),
+                   f"Undergraduate {counts[0]} + graduate {counts[1]} + non-degree/Other "
+                   f"{counts[2]}; separately reported OPT {counts[3]} excluded. "
+                   "Other means intensive English and other non-degree students, not OPT. "
+                   "The 2007 table prints OPT before Other; subsequent tables reverse those columns. "
+                   + provenance + "All four levels reconcile with the independent country-total table.")
+
+    for edition, first_page in [(2015, 56), (2017, 56), (2019, 48)]:
+        reader, asset = report(edition)
+        for geo, label in countries.items():
+            page = first_page + (geo != "CHN")
+            if geo == "TWN":
+                label = "T aiwan"
+            levels = parse_eric_academic_levels(reader.pages[page - 1].extract_text(), label, edition)
+            for year, counts in zip((edition - 1, edition), levels):
+                if sum(counts) != totals.get((geo, year)):
+                    raise ValueError("ERIC historical levels disagree with the independent country total")
+                retain(edition, [page], geo, "enrolled_students", year, sum(counts[:3]),
+                       f"Exact undergraduate {counts[0]}, graduate {counts[1]} and non-degree "
+                       f"{counts[2]} counts summed; OPT {counts[3]} excluded. "
+                       "All four levels reconcile with the separately retained country total.")
+
+    credit_tables = [
+        (2009, [92, 93], list(range(1999, 2009))),
+        (2011, [84], [2009, 2010]), (2013, [73, 74], [2011, 2012]),
+        (2015, [91, 92], [2013, 2014]),
+    ]
+    for edition, pages, years in credit_tables:
+        reader, asset = report(edition)
+        plain = "\n".join(reader.pages[p - 1].extract_text() for p in pages)
+        for geo, label in countries.items():
+            if edition == 2015 and geo == "TWN":
+                label = "T aiwan"
+            values = parse_eric_country_history(plain, label, years, destinations=True)
+            for year, value in values.items():
+                if year >= 2000:
+                    retain(edition, pages, geo, "study_abroad", year, value,
+                           "U.S. home-institution academic-credit participation by destination; "
+                           "not whole degrees abroad or non-credit visits. Academic ending year shown. "
+                           "A printed zero is retained; no unlisted country is inferred to have zero.")
+    return validate(list(existing.values()))
 
 
 def government_enrollment_history(client, prior):

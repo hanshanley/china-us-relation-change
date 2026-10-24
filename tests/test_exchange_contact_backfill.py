@@ -4,7 +4,8 @@ from pathlib import Path
 import pytest
 
 from us_china_exchange.contact_backfill import (
-    parse_cau_history, parse_educationusa_levels, parse_eric_academic_levels, parse_hktdc, parse_nces, parse_nces_credit,
+    parse_cau_history, parse_educationusa_levels, parse_eric_academic_levels,
+    parse_eric_country_history, parse_eric_legacy_levels, parse_hktdc, parse_nces, parse_nces_credit,
 )
 from us_china_exchange.sources import SOURCE_POLICIES
 from us_china_exchange.model import change
@@ -77,7 +78,7 @@ def test_government_mobility_backfill_keeps_credit_enrollment_and_opt_population
                 and r["measure"] == "international_students" and r["year"] == 2017) == 7547
     macau = [r for r in rows if r["source_id"] == "iie" and r["origin"] == "MAC"
              and r["measure"] == "international_students"]
-    assert {r["year"] for r in macau} == set(range(2015, 2026))
+    assert {r["year"] for r in macau} == set(range(2000, 2026))
 
 
 def test_eric_country_levels_preserve_columns_exclude_opt_and_restore_comparable_history():
@@ -98,7 +99,7 @@ def test_eric_country_levels_preserve_columns_exclude_opt_and_restore_comparable
     for geo in ("CHN", "HKG", "MAC", "TWN"):
         history = {r["year"]: r for r in rows if r["origin"] == geo and r["destination"] == "USA"
                    and r["measure"] == "enrolled_students"}
-        assert set(history) == set(range(2019, 2026))
+        assert set(history) == set(range(2007, 2026))
         assert change(history[2025], history[2020])["percent"] is not None
         assert change(history[2024], history[2023])["percent"] is None
         assert all(history[y]["source_url"].startswith("https://files.eric.ed.gov/")
@@ -115,6 +116,62 @@ def test_hong_kong_parser_does_not_substitute_continental_totals_or_residence_co
         parse_hktdc(plain.replace("US natioanls", "US residents"))
     with pytest.raises(ValueError, match="years"):
         parse_hktdc(plain.replace("2025", "2026"))
+
+
+def test_legacy_exact_levels_exclude_opt_but_never_treat_unsplit_other_as_enrollment():
+    header = "Undergraduate Graduate OPT OPT Other Other Total\n2006/07\n"
+    line = "  China, PRC 9,988 14.7 47,968 70.8 7,171 10.6 2,596 3.8 67,723"
+    counts = parse_eric_legacy_levels(header + line, "China, PRC", 2007)
+    assert counts == [9988, 47968, 2596, 7171]
+    assert sum(counts[:3]) == 60552
+    later_header = "Undergraduate Graduate Non-Degree OPT OPT Total\n2007/08\n"
+    assert parse_eric_legacy_levels(
+        later_header + "China 16,450 20.3 53,047 65.4 3,912 4.8 7,718 9.5 81,127",
+        "China", 2008) == [16450, 53047, 3912, 7718]
+    for invalid in (header.replace("2006/07", "2005/06") + line,
+                    header + line.replace("67,723", "67,724"),
+                    header + line.replace("2,596", "\u2014"),
+                    header + "China, PRC 9,988 14.7 47,968 70.8 9,767 14.4 67,723"):
+        with pytest.raises(ValueError):
+            parse_eric_legacy_levels(invalid, "China, PRC", 2007)
+
+
+def test_eric_credit_decade_keeps_reported_zeros_years_and_direction_exact():
+    years = list(range(1999, 2009))
+    header = "Destination " + " ".join(f"{y-1}/{str(y)[-2:]}" for y in years) + " % Change\n"
+    line = "Macau 0 0 5 2 0 0 0 0 3 4 33.3"
+    assert parse_eric_country_history(header + line, "Macau", years, destinations=True) == {
+        1999: 0, 2000: 0, 2001: 5, 2002: 2, 2003: 0,
+        2004: 0, 2005: 0, 2006: 0, 2007: 3, 2008: 4}
+    for invalid in (header.replace("2007/08", "2008/09") + line,
+                    header + line.replace("5", "\u2014", 1),
+                    header + line.replace(" 4 33.3", " 4 999 999 33.3"),
+                    header + line + "\n" + line.replace(" 5 ", " 6 ")):
+        with pytest.raises(ValueError):
+            parse_eric_country_history(invalid, "Macau", years, destinations=True)
+    with pytest.raises(ValueError, match="header"):
+        parse_eric_country_history(header + line, "Macau", years)
+
+
+def test_frozen_eric_history_is_complete_without_rewriting_a_conflicting_source_vintage():
+    rows = json.loads((ROOT / "data/site/observations.json").read_text())
+    values = {(r["origin"], r["destination"], r["measure"], r["year"]): r
+              for r in rows if r["source_id"] == "iie"}
+    for geo in ("CHN", "HKG", "MAC", "TWN"):
+        credits = [values["USA", geo, "study_abroad", year] for year in range(2000, 2025)]
+        assert all(r["value"] is not None and r["period_basis"] == "academic" for r in credits)
+        assert all(r["source_url"].startswith("https://files.eric.ed.gov/")
+                   for r in credits if r["year"] < 2014 and not (geo == "CHN" and r["year"] == 2008))
+        assert values["USA", geo, "study_abroad", 2025]["value"] is None
+    assert values["MAC", "USA", "international_students", 2000]["value"] == 297
+    assert values["USA", "MAC", "study_abroad", 2000]["value"] == 0
+    assert values["USA", "MAC", "study_abroad", 2001]["value"] == 5
+    assert values["CHN", "USA", "enrolled_students", 2007]["value"] == 60552
+    assert values["MAC", "USA", "enrolled_students", 2007]["value"] == 359
+    original = values["TWN", "USA", "enrolled_students", 2013]
+    assert original["value"] == 18450
+    assert "21867" in original["notes"] and "21897" in original["notes"]
+    assert values["TWN", "USA", "international_students", 2013]["value"] == 21897
 
 
 def test_frozen_backfills_have_full_inbound_histories_without_accessing_restricted_iie():
