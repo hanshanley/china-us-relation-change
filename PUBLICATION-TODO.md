@@ -11,7 +11,7 @@ claims. The active items, including Business replacement, the header line,
 Weibo discovery and unattended collection, are consolidated in `TASKS.md`.
 **Implemented, committed, deployed and verified are different milestones.**
 
-## Current work: finish in this order
+## Earlier release plan (historical context only)
 
 - [ ] **Replace the rejected Business tab with different, newer evidence.**
   Remove the old affiliate/enterprise-count charts from the primary view and
@@ -187,8 +187,8 @@ Weibo discovery and unattended collection, are consolidated in `TASKS.md`.
 
 Source-recovery logs, immutable test candidates, browser checks, plot audits and
 screenshots for the current work are under `data/local/freshness/` (not public).
-The final commit, deployment run, live source revision and validation results
-will be recorded here after verification.
+Record new completion evidence, deployment runs and live verification results
+in `TASKS.md`, not in this archived plan.
 
 Completed regional layout/topic work: `3daec63`, deployment `40134431131`.
 Completed requested student bars: `bf629ff`, deployment `40135647570`.

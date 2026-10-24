@@ -10,6 +10,12 @@ Previously verified milestones are recorded separately from the remaining work.
 This is the **single authoritative request ledger**. `PUBLICATION-TODO.md`
 contains archived planning context, not a second set of completion statuses.
 
+**Current release handoff:** official annual Chinese-nationality U.S. admissions
+for FY2020-FY2025 are committed and pushed in `0c8cf49`. The freshness gate and
+annual-immigration default still require integrated publication and live
+verification. A recovered forward series does not complete the reverse-flow
+request. Keep DATA-10, DATA-11 and UI-07 open until their own conditions are met.
+
 ## 1. Finish the current graph corrections
 
 Work through these in order; complete and verify a coherent release before
@@ -46,6 +52,11 @@ claiming that the website is fixed.
   must be from 2024-2026. Hide ineligible public plots and their controls/links,
   without deleting historical observations from complete downloads. A newer,
   differently defined statistic does not refresh an old series.
+  Use measurement dates, not publication/retrieval dates, and check each series
+  or snapshot separately. Preserve earlier points in qualifying histories.
+  Explicitly test the U.S.-to-mainland enrolled series ending in 2018 through
+  route controls, old deep links, cached selections and downloadable graphics;
+  newer credit study abroad must not be relabeled as current enrollment.
 - [ ] **UI-08: Recheck size and appearance.** Compact, legible desktop and phone
   charts; no overflowing labels, empty-looking line fragments, oversized panels,
   clipped annotations, random points, overlapping legends or illegible axes.
@@ -101,10 +112,16 @@ government republications and compatible source tables.
   immigration, keeping birthplace, nationality, new arrivals and adjustments
   distinct. Newly committed annual-admissions work still needs public-release
   and live-chart verification.
+  Open the page on the annual view, not the resident map; keep the map and stocks
+  as separate measures. Preserve published exact/rounded precision and totals
+  rather than forcing independently rounded components to sum exactly.
 - [ ] **DATA-11: Annual immigration in the reverse direction.** Seek original
   U.S.-specific annual mainland admission/residence grants. Keep Hong Kong and
   Macau separate; do not substitute resident-stock benchmarks, visas or trips.
   Extend Macau approvals before 2010 if original evidence permits.
+  Check U.S.-specific Hong Kong permanent admissions separately. NIA/OECD
+  alternatives have not yet supplied a verified comparable mainland series;
+  this remains an open gap, not zero immigration or proof that none exists.
 - [ ] **DATA-12: Bilateral immigrant resident stocks.** Continue investigating
   the unverified U.S.-Macau pairs without allocating grouped birthplace totals.
   Stock counts are not annual immigration flows.
@@ -126,6 +143,21 @@ government republications and compatible source tables.
 - [ ] **DATA-17: Close the loop on each unresolved item.** Record the actual
   alternative sources tried, what they contain, and the remaining precise gap.
   Do not mark a data gap recovered merely because a substitute chart exists.
+- [ ] **DATA-18: Current AP counts and the U.S.-only population.** Seek actual
+  newer Chinese/Japanese participant counts and a nationwide U.S.-only series.
+  Global annual administrations, graduating cohorts and the standard group
+  are different populations. Preserve the documented absence of an AP Korean
+  exam without inventing zero Korean learners or an equivalent exam series.
+- [ ] **DATA-19: School availability and immersion inventories.** Preserve the
+  national January 2024 school-availability estimates, including the unreportable
+  Korean result, and review newer evidence. Keep the 2025 immersion inventory
+  separate from older incompatible directories and respondent enrollment
+  totals. Neither indicator resolves the national learner-count gap.
+- [ ] **DATA-20: Current opinion histories and age comparisons.** Maintain
+  both directions using actual fieldwork periods and original age groups.
+  Keep favorable percentages, warmth means, survey modes and sample populations
+  distinct. Remove stale-only historical alternatives under UI-07; do not
+  treat the year of a new article as the year of its underlying survey.
 
 ### Article source work: DATA-14
 
@@ -221,6 +253,13 @@ These checks describe the named releases, not a claim that the new queue is done
   observations; the detailed source attempts are retained in the gap ledger.
 - [x] Published the 50-state/DC count/share map using consistent 2020-2024 ACS
   five-year estimates (`8f11bac`).
+- [x] Published both directions of public opinion and age comparisons
+  (`2176776`), with complete observations in `data/site/opinions.json`.
+  The new freshness rule still requires retiring the obsolete alternatives.
+- [x] Recovered and pushed six annual Chinese-nationality U.S. admission totals,
+  new-arrival counts and adjustment counts for FY2020-FY2025 (`0c8cf49`).
+  The immigration dataset has 133 observations with prior values preserved;
+  publishing the new default and finding the reverse series remain DATA-10/11.
 - [x] Published the dedicated Confucius program page and complete supporting
   data (`9715c95`).
 - [x] Redesigned and live-verified the Weibo page (`6966b45`): all 87 documented
@@ -232,8 +271,12 @@ These checks describe the named releases, not a claim that the new queue is done
 
 - [ ] **VERIFY-01:** Run focused regressions for the new behavior, then the
   relevant integrated suite; resolve introduced failures.
+  Wire `scripts/check_public_freshness.py` into the refresh workflow and verify
+  actual enabled choices, measurement dates, nulls, zeros and snapshot cutoffs.
 - [ ] **VERIFY-02:** Independently reconcile all plotted years/values/units,
   bar and COVID-band geometry, direction colours and chart download links.
+  Audit the filtered public figure directory, not the deliberately complete
+  historical research archive.
 - [ ] **VERIFY-03:** Exercise repeated direction/geography/measure/index toggles,
   hover, touch, keyboard, resizing and no-JavaScript fallback at desktop, 390px
   and 320px widths. Inspect actual screenshots.
@@ -244,6 +287,8 @@ These checks describe the named releases, not a claim that the new queue is done
 - [ ] **VERIFY-06:** Deploy the intended revision; verify the website's actual
   served manifest, relevant asset hashes and live toggle sequences. A local
   success or green deployment alone is insufficient.
+  Confirm retired stale graphic URLs are no longer published and the complete
+  downloadable datasets still retain their historical observations.
 - [ ] **VERIFY-07:** Update this file with the completion evidence and remaining
   gaps. Report only verified results; leave unfinished work unchecked.
 
@@ -274,3 +319,20 @@ already verified. Preserve the separate population and access restrictions.
 - [ ] **AUTO-03: Preserve truthful freshness after failures.** Keep the last
   successful data; distinguish build dates, source periods, successful retrievals
   and failed attempts. Do not convert collection failures to zero posting.
+
+## 7. Resume and update protocol
+
+1. Read this file and inspect Git status before resuming. Identify the active
+   task by its stable ID; preserve other contributors' pending changes.
+2. Work through actionable items in queue order. Record blocked attempts and
+   concrete alternatives instead of repeating an unchanged request or marking
+   the task complete. A source gap stays open until suitable data are verified.
+3. Update `data/site/gap_review.csv` and the source/method documentation when
+   evidence changes. The public website should link to research detail rather
+   than display this internal checklist.
+4. Separate recovery, implementation and publication milestones. For each
+   completed item, record its evidence: source/data location, commit, and, when
+   public-facing, the deployment and actual live checks.
+5. Commit/push coherent progress as Hans Hanley, then update the checkboxes here.
+   Do not create another competing checklist or declare the whole project done
+   while these data, publication or automation items remain unresolved.

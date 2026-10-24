@@ -1,6 +1,6 @@
 # U.S. news media on Weibo
 
-**Project checklist:** [`PUBLICATION-TODO.md`](PUBLICATION-TODO.md) tracks the
+**Project checklist:** [`TASKS.md`](TASKS.md) tracks the
 requested work, verified completions, remaining data gaps and blocked automation.
 Read it before resuming work; a local implementation is not a verified deployment.
 
