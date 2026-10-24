@@ -1662,6 +1662,41 @@
       "notes": "Complete root and actually linked /services/about/ inspected without a qualifying institutional Sina designation. A dated2011 acquisition paragraph did not become a current legal-control or account certificate, and named sibling titles were not extra ranked reviews or inherited channels. Other Peninsula and Daily News titles and staff accounts were not substituted. Sponsored article topics were not source-use reservations or account evidence; no account/post was assigned from search co-occurrence. Unknown, not absent. Review date: 2026-10-24 UTC."
     },
     {
+      "id": "poughkeepsie-journal", "name": "Poughkeepsie Journal", "category": "newspaper",
+      "aliases": ["Poughkeepsie Journal", "The Poughkeepsie Journal"],
+      "us_basis": "United States-classified source position247; genuine cached publisher directory page12 names Poughkeepsie Journal under New York. The undated regional entry does not independently bind the exact ranked hostname or certify current control.",
+      "source_url": "https://www.poughkeepsiejournal.com/", "research_status": "reviewed",
+      "notes": "Recorded newspaper HTTP403 respected: zero new newspaper, alias-host, static About, help, obituary or alternate-client requests. Actual cached publisher directory read offline for regional publication context only, not current host/control or a Sina designation. Indexed static/help leads were not fetched as substitute bodies. Parent/sibling and staff accounts were not inherited. Unknown, not absent. Review date: 2026-10-24 UTC."
+    },
+    {
+      "id": "fitchburg-sentinel-enterprise", "name": "Sentinel & Enterprise / Fitchburg", "category": "newspaper",
+      "aliases": ["Fitchburg Sentinel & Enterprise", "Sentinel & Enterprise", "Sentinel and Enterprise"],
+      "us_basis": "United States-classified source position248; factual root metadata names Sentinel & Enterprise and Fitchburg-area coverage. The fresh copy was removed after an explicit source-use reservation and is not available primary-body proof.",
+      "source_url": "https://www.sentinelandenterprise.com/", "research_status": "reviewed",
+      "notes": "Explicit AI-training, machine-learning and text/data-mining reservation observed in the actual root footer. One exact fresh root copy was removed; factual metadata only, no further publisher-body requests and no linked Contact request. Discarded fingerprint is not an available capture. Older captures were not modified. Other Sentinel/Enterprise titles, parent/sibling and staff accounts were not inherited. Unknown, not absent. Review date: 2026-10-24 UTC."
+    },
+    {
+      "id": "dubuque-telegraph-herald", "name": "Telegraph Herald / Dubuque, Iowa", "category": "newspaper",
+      "aliases": ["Dubuque Telegraph Herald", "Telegraph Herald", "The Telegraph Herald"],
+      "us_basis": "United States-classified source position249; actual root and linked Contact identify the named Telegraph Herald and Dubuque, Iowa correspondence. The generic TH Media title and weather widget were not used alone, and correspondence is not an independent control/occupancy audit.",
+      "source_url": "https://www.telegraphherald.com/", "research_status": "reviewed",
+      "notes": "Complete root and actually linked Contact base inspected; /contactus resolved to /contactus/. Department fragments on the same Contact body were not counted as independent sources. No qualifying institutional Sina designation found. Indexed third-party job/employee profiles and conflicting print-frequency claims were not current-control or posting-activity evidence. British Telegraph, Macon Telegraph, other Herald titles, parent/sibling and staff accounts were not inherited. Unknown, not absent. Review date: 2026-10-24 UTC."
+    },
+    {
+      "id": "texarkana-gazette", "name": "Texarkana Gazette", "category": "newspaper",
+      "aliases": ["Texarkana Texarkana Gazette", "Texarkana Gazette", "The Texarkana Gazette"],
+      "us_basis": "United States-classified source position250; an independently retrieved named community-journalism-project root describes Texarkana Gazette and its regional context. Fund-partner correspondence is not the newspaper office, current ownership proof or a verified newspaper-to-project identity chain.",
+      "source_url": "https://www.texarkanagazette.com/", "research_status": "reviewed",
+      "notes": "Recorded cross-publisher/non-HTTPS redirect hold respected with zero new newspaper or alternate-host/client requests. Independent named project body supplies limited project/publication context only, not unavailable newspaper content or a Sina designation. A WEHCO search-provider robots restriction yielded no primary capture and was not retried through another client or host. Fundraising claims, other-platform handles, third-party archives and mirrored newspaper PDFs were not account or activity proof. Unknown, not absent. Review date: 2026-10-24 UTC."
+    },
+    {
+      "id": "southern-illinoisan", "name": "The Southern Illinoisan", "category": "newspaper",
+      "aliases": ["Carbondale Southern Illinoisan", "Southern Illinoisan", "The Southern Illinoisan", "The Southern"],
+      "us_basis": "United States-classified source position251; factual root metadata identifies Southern Illinoisan and Carbondale/Illinois coverage, not independently verified present-day headquarters. Fresh root and linked staff AI-policy copies were removed conservatively.",
+      "source_url": "https://thesouthern.com/", "research_status": "reviewed",
+      "notes": "Root-linked /site/aipolicy.html was read before more institutional pages. The policy governs staff AI workflows, including a company-IP clause; it was not relabeled as a blanket external-access/text-mining ban. Conservative factual-metadata-only retention: two exact fresh root/policy copies removed, older captures untouched, no Contact/About request this pass. This distinct choice is separate from explicit no-further-body reservations. Other Southern titles, parent/sibling and staff accounts were not inherited. Unknown, not absent. Review date: 2026-10-24 UTC."
+    },
+    {
       "id": "telemundo", "name": "Telemundo / Noticias Telemundo", "category": "broadcast_news",
       "aliases": ["Telemundo", "Noticias Telemundo", "Telemundo Noticias"],
       "us_basis": "United States-classified source position110; actual network root separately links its Noticias Telemundo newsroom section. Current corporate domicile/headquarters and legal account control are not independently audited.",

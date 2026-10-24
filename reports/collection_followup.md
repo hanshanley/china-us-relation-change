@@ -35,20 +35,21 @@ The selected **1,000 SCImago U.S.-classified domains** are ranked by digital
 reputation, not traffic; their present ownership/nationality was not independently
 audited. **Five have current-profile evidence, seven historical-only evidence,
 988 remain unknown, and zero are verified negatives.** All underwent homepage
-screening, but only 246 have recorded manual review.
+screening, but only 251 have recorded manual review.
 
-The [latest scheduled pass](discovery_iteration50.md) adds five reviews with
-six complete newspaper root/institutional pages and two publication rows
-in one genuine cached2015 publisher PDF. Times-News's Contact, Norfolk's
-About and Peninsula Daily News's About were read as actual named bodies.
-Times-News's lobby-service closure notice was not a newspaper-closure or
-inactivity finding. Macon and Merced ordinary routes timed out; their2015
-publisher rows remain historical context, not present-day activity or control.
-No parent, sibling or namesake account was inherited. All ten no-further-body
-restrictions and NWA's separate retention condition remain unchanged.
+The [latest scheduled pass](discovery_iteration51.md) adds five reviews.
+Two complete Dubuque newspaper pages and one independent named Texarkana
+project root were retained, plus a genuine cached publisher directory.
+Poughkeepsie's HTTP403 and Texarkana's redirect hold were not retried.
+Sentinel & Enterprise's fresh root was removed after an explicit AI/text-mining
+reservation; there are now eleven no-further-publisher-body restrictions.
+Southern's two fresh root/staff-policy copies were removed under a separate
+conservative factual-metadata retention choice, not an asserted blanket
+external-access ban. No parent, sibling or namesake account was inherited.
+NWA's distinct retention condition remains separate.
 The live 6,570-post corpus, original archived baseline and all rolling data
 remain unchanged by discovery.
-Discovery is not exhausted: 754 selected domains still lack a recorded
+Discovery is not exhausted: 749 selected domains still lack a recorded
 manual review. A bounded recurring prompt is active every 30 minutes; later
 passes must advance the frontier rather than repeatedly probing exhausted leads.
 
