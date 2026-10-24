@@ -35,21 +35,22 @@ The selected **1,000 SCImago U.S.-classified domains** are ranked by digital
 reputation, not traffic; their present ownership/nationality was not independently
 audited. **Five have current-profile evidence, seven historical-only evidence,
 988 remain unknown, and zero are verified negatives.** All underwent homepage
-screening, but only 276 have recorded manual review.
+screening, but only 281 have recorded manual review.
 
-The [latest scheduled pass](discovery_iteration56.md) adds five reviews.
-Seven publisher HTML captures and one separate permitted native Sina
-disambiguation capture remain. An indexed The Hustle phrase was a film-clip
-title, not an institutional newsletter designation; one locked, paced detail
-probe added no account, author assignment or post. Manhattan's actual About
-identifies Kansas, WV News's About identifies a multi-brand network including
-The Exponent Telegram, and Anniston's actual Contact was not replaced by a
-mixed third-party Cleburne listing. The Olympian route timed out; its genuine
-cached2015 row remains historical scope. All twelve publisher-body holds and
-separate Southern/NWA conditions remain intact. Shared catalogs are not edited.
+The [latest scheduled pass](discovery_iteration57.md) adds five reviews.
+Nine fresh publisher HTML captures and one genuine reused corporate Contact
+support limited institutional context. Johnson City's original corporate
+capture time is preserved; it was not downloaded again. The Astorian's stated
+title history did not become Weibo account continuity, and La Noticia's actual
+About identifies North Carolina rather than a namesake in another country.
+Beaumont's branded customer-care page was read, but its separate corporate
+profile was not obtained after a robots-policy HTTP403. The failure is recorded
+separately from readable newspaper access. All twelve publisher-body holds and
+distinct Southern/NWA conditions remain intact; no parent/sibling handle was
+inherited. Shared catalogs are not edited.
 The live 6,570-post corpus, original archived baseline and all rolling data
 remain unchanged by discovery.
-Discovery is not exhausted: 724 selected domains still lack a recorded
+Discovery is not exhausted: 719 selected domains still lack a recorded
 manual review. A bounded recurring prompt is active every 30 minutes; later
 passes must advance the frontier rather than repeatedly probing exhausted leads.
 

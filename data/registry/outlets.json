@@ -1872,6 +1872,41 @@
       "notes": "Complete root and actually linked /site/contact/ inspected beyond the generic title without a qualifying institutional Sina identifier. Actual named Anniston body was not replaced by a third-party directory mixing Cleburne News/Heflin and a magazine classification, nor by older staff-directory addresses. Parent/sibling publications, social handles and personal accounts were not inherited. A shared host/parent is not an account designation; service/history claims were not posting activity. Unknown, not absent. Review date: 2026-10-24 UTC."
     },
     {
+      "id": "beaumont-enterprise", "name": "Beaumont Enterprise", "category": "newspaper",
+      "aliases": ["Beaumont Enterprise", "The Beaumont Enterprise"],
+      "us_basis": "United States-classified source position277; actual root and linked branded customer-care Contact identify Beaumont Enterprise. A separate corporate profile was not obtained after its robots-policy probe failed HTTP403; current legal control, nationality and office occupancy are not independently audited.",
+      "source_url": "https://www.beaumontenterprise.com/", "research_status": "reviewed",
+      "notes": "Complete root and actual /services/contact/ captured without an institutional Sina identifier. Contact contains subscriber/customer-care context, not a verified physical newsroom address. Root-supplied Hearst /newspapers/beaumont-enterprise profile was not fetched because the corporate robots-policy stage returnedHTTP403; no corporate alias/alternate-client retry. That restriction was not inherited by the readable newspaper domain. Hearst/Chinese-edition/sibling and staff channels, subscriber counts and game/service widgets were not Sina identity/activity proof. Unknown, not absent. Review date: 2026-10-24 UTC."
+    },
+    {
+      "id": "astorian-dailyastorian-domain", "name": "The Astorian / selected Daily Astorian domain", "category": "newspaper",
+      "aliases": ["Astoria Daily Astorian", "The Daily Astorian", "The Astorian"],
+      "us_basis": "United States-classified source position278; actual dailyastorian.com root and linked About use The Astorian and supply Oregon regional/history context. The original cohort label/domain are retained; publisher-stated history is not independently audited current control.",
+      "source_url": "https://dailyastorian.com/", "research_status": "reviewed",
+      "notes": "Complete root and actual /services/about-us/ read without an institutional Sina designation. The About timeline explicitly describes the2019 title change, but it did not rename or assign any Weibo account or establish historical account continuity. The Houston wedding-venue namesake, third-party chamber/employee directories, partner PDFs and sister titles were not substituted or inherited. Historical schedules, ownership and audience claims were not current posting activity or occupancy proof. Unknown, not absent. Review date: 2026-10-24 UTC."
+    },
+    {
+      "id": "huntington-herald-dispatch", "name": "The Herald-Dispatch / Huntington, West Virginia", "category": "newspaper",
+      "aliases": ["Huntington Herald-Dispatch", "The Herald-Dispatch", "Herald-Dispatch"],
+      "us_basis": "United States-classified source position279; actual root and linked Contact have a named Herald-Dispatch department section and Huntington, West Virginia correspondence. Published office details are not independently verified current occupancy or legal control.",
+      "source_url": "https://www.herald-dispatch.com/", "research_status": "reviewed",
+      "notes": "Complete root and exact /site/contact.html read beyond a generic title/weather widget without an institutional Sina designation. Multiple Contact links/routes were not independent evidence. Third-party old addresses, server/WHOIS locations, staff lists, the Sleepy Eye Herald-Dispatch namesake and externally mirrored newspaper pages were not substituted. Shared HD Media departments/other papers did not become inherited Sina accounts or extra ranked reviews. Print schedules and service hours were not posting activity. Unknown, not absent. Review date: 2026-10-24 UTC."
+    },
+    {
+      "id": "johnson-city-press", "name": "Johnson City Press / Tennessee", "category": "newspaper",
+      "aliases": ["Johnson City Press", "The Johnson City Press"],
+      "us_basis": "United States-classified source position280; actual root supplies a Six Rivers corporate Contact, whose genuine previously captured named section identifies Johnson City Press and Johnson City, Tennessee correspondence. Reused source time is preserved, not represented as a new corporate retrieval.",
+      "source_url": "https://johnsoncitypress.com/", "research_status": "reviewed",
+      "notes": "Complete root read without a Sina designation. Its supplied corporate Contact was inspected offline in the original saved capture; no duplicate corporate body request. The supplied fragment ID was not confirmed in saved HTML, so the actual named body supplied scope. Literal-space About URI was not repaired/followed. Corporate self-description is not independently audited control/occupancy; Kingsport and other network/sibling/staff channels were not inherited, and print frequency was not Weibo activity. Unknown, not absent. Review date: 2026-10-24 UTC."
+    },
+    {
+      "id": "la-noticia-north-carolina", "name": "La Noticia / North Carolina", "category": "newspaper",
+      "aliases": ["La Noticia", "La Noticia North Carolina"],
+      "us_basis": "United States-classified source position281; actual root and linked About explicitly identify Spanish-language journalism for the Latino community in Charlotte and North Carolina. Publisher-stated independence, ownership, age and audience are not independently audited current control.",
+      "source_url": "https://lanoticia.com/", "research_status": "reviewed",
+      "notes": "Complete root and exact /about/ inspected for English and Spanish source-use context without an institutional Sina identifier. Actual North Carolina named body, not generic Spanish title or article co-occurrence, supplied publication context. Undated elapsed-age, awards, ownership, distribution and print descriptions were not certified as current or used as Weibo activity. Other La Noticia titles/countries, parent/sibling and staff accounts and other-platform handles were not inherited. Unknown, not absent. Review date: 2026-10-24 UTC."
+    },
+    {
       "id": "telemundo", "name": "Telemundo / Noticias Telemundo", "category": "broadcast_news",
       "aliases": ["Telemundo", "Noticias Telemundo", "Telemundo Noticias"],
       "us_basis": "United States-classified source position110; actual network root separately links its Noticias Telemundo newsroom section. Current corporate domicile/headquarters and legal account control are not independently audited.",
