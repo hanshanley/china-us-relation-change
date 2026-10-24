@@ -2522,6 +2522,56 @@
       "notes": "Actual root supplied /site/artificial_intelligence_usage.html, whose printed9/26/2024 policy addresses staff/editorial AI use and company IP. Consistent with the separate Southern choice, retained factual metadata only and removed just the fresh root and policy copies; older captures untouched. This is not a blanket external-access/text-mining ban or a redistribution license. Available raw files/source hashes are null and discarded fingerprints explicitly unavailable as proof. No further About/Contact, form, login, licensed issue, mirror or alternate client used. Generic Chronicle names, obituary/photo credits, government accounts and personal-profile aggregators are not Sina identities. Unknown, not absent. Review date: 2026-10-24 UTC."
     },
     {
+      "id": "fairfield-daily-republic",
+      "name": "Daily Republic / selected Fairfield Republic domain",
+      "category": "newspaper",
+      "aliases": ["Fairfield Republic", "Daily Republic"],
+      "us_basis": "United States-classified source position332; actual root-linked history describes the California newspaper in Fairfield/Suisun and its Solano County lineage. The family/ownership and present-day role descriptions are publisher statements, not an independently audited current legal-control census.",
+      "source_url": "https://www.dailyrepublic.com/",
+      "research_status": "reviewed",
+      "notes": "Complete root and actual /site/about.html inspected without an institutional Sina designation. The nested About/History anchor was checked directly despite the bounded information-link parser omission. Original Fairfield Republic label retained; actual California body was not replaced by the different Mitchell/South Dakota Daily Republic. Historical Solano titles, a self-described publication frequency and executive/family continuity do not establish Weibo age, activity, account transfer or current control. Other family papers, staff profiles, ads and finance/energy aggregation results not inherited. Unknown, not absent. Review date: 2026-10-24 UTC."
+    },
+    {
+      "id": "hickory-daily-record",
+      "name": "Hickory Daily Record",
+      "category": "newspaper",
+      "aliases": ["Hickory Daily Record", "Hickory News"],
+      "us_basis": "United States-classified source position333; actual root and linked Contact name Hickory Daily Record in North Carolina. The footer PO box is mailing information, not independently verified newsroom occupancy or current legal control.",
+      "source_url": "https://hickoryrecord.com/",
+      "research_status": "reviewed",
+      "notes": "Complete root and literal /contact/ inspected without a qualifying institutional Sina designation. Real newsroom/ad/customer-service roles were distinguished from mailing information and holiday/weekend service hours, which do not establish paper closure or Weibo inactivity. The {{url}} placeholder was not repaired or requested, and forms were not submitted. Alternate bhmginc.com/lee.net service emails, Lee/shareholder footer claims, Apple/solar-farm reporting, generic Daily Record titles and parent/staff accounts were not account or current-control proof. Unknown, not absent. Review date: 2026-10-24 UTC."
+    },
+    {
+      "id": "nampa-idaho-press",
+      "name": "Idaho Press / selected Nampa Press-Tribune domain",
+      "category": "newspaper",
+      "aliases": ["Nampa Idaho Press-Tribune", "Idaho Press", "Idaho Press-Tribune"],
+      "us_basis": "United States-classified source position334 retains its original Nampa Idaho Press-Tribune label. Current actual About describes Idaho Press roots in Caldwell and Treasure Valley scope, while the root/footer supplies Nampa correspondence. These roles do not independently audit current ownership or account continuity.",
+      "source_url": "https://www.idahopress.com/",
+      "research_status": "reviewed",
+      "notes": "Complete root and actual /site/about/ inspected without an institutional Sina designation. The real nested About anchor was checked directly despite the bounded link-parser omission. Current Idaho Press display, original Press-Tribune label, historical Caldwell roots and Nampa city dates were not turned into a Weibo rename, founding or continuous-control claim. Claimed competitive reach/sibling totals are not independent audience or Weibo metrics. Boise Weekly, Kuna Melba News, Meridian Press, Messenger-Index, APG state content, article aggregators and staff/personal accounts not inherited. Unknown, not absent. Review date: 2026-10-24 UTC."
+    },
+    {
+      "id": "iron-mountain-daily-news",
+      "name": "Iron Mountain Daily News",
+      "category": "newspaper",
+      "aliases": ["Iron Mountain Daily News", "The Daily News"],
+      "us_basis": "United States-classified source position335; actual root and linked Contact identify The Daily News in Iron Mountain, Michigan. The Contact's PO-box mailing section and street footer have distinct roles, not independently audited occupancy or corporate control.",
+      "source_url": "https://www.ironmountaindailynews.com/",
+      "research_status": "reviewed",
+      "notes": "Complete root and actual /contact-us/ inspected without a qualifying Sina designation. Actual Mail POBox460 is distinct from the street footer; neither was called a verified current office. Regional printing/management labels and affiliated Escanaba/Alpena/Mining publications do not establish shared legal control or transfer their accounts. Generic Daily News titles, staff identities, quoted social posts and unrelated Asian media accounts not substituted. No form, newspaper-issue mirror, login or licensed content requested. Unknown, not absent. Review date: 2026-10-24 UTC."
+    },
+    {
+      "id": "bremerton-kitsap-sun",
+      "name": "Kitsap Sun / selected Bremerton domain",
+      "category": "newspaper",
+      "aliases": ["Bremerton Kitsap Sun", "Kitsap Sun"],
+      "us_basis": "United States-classified source position336; the existing undated LocaliQ directory names Kitsap Sun under Washington State on PDF page16. That entry and the shared Gannett email on page20 do not independently verify Bremerton location, the ranked website or current ownership.",
+      "source_url": "https://kitsapsun.com/",
+      "research_status": "reviewed",
+      "notes": "Recorded newspaper HTTP403 held with zero newspaper/alias/static/help/obituary/mirror/client requests. Actual cached PDF16/20 inspected offline with original observation/hash retained. Page16 URI actions are shared obituary portals, including a bks path, not a direct kitsapsun.com website or Sina UID; no portal followed. Page20 uses a Gannett email domain, not the ranked newspaper hostname. Photo credits and separate Weibo references in search results are not publisher account proof; no issue PDF/reprint body retrieved. Parent/sibling/staff identities not inherited. Unknown, not absent. Review date: 2026-10-24 UTC."
+    },
+    {
       "id": "telemundo", "name": "Telemundo / Noticias Telemundo", "category": "broadcast_news",
       "aliases": ["Telemundo", "Noticias Telemundo", "Telemundo Noticias"],
       "us_basis": "United States-classified source position110; actual network root separately links its Noticias Telemundo newsroom section. Current corporate domicile/headquarters and legal account control are not independently audited.",

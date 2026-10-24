@@ -35,28 +35,28 @@ The selected **1,000 SCImago U.S.-classified domains** are ranked by digital
 reputation, not traffic; their present ownership/nationality was not independently
 audited. **Five have current-profile evidence, seven historical-only evidence,
 988 remain unknown, and zero are verified negatives.** All underwent homepage
-screening, but only 331 have recorded manual review.
+screening, but only 336 have recorded manual review.
 
-The [latest scheduled pass](discovery_iteration67.md) adds five reviews.
-Six complete publisher responses remain available for limited context.
-The Daily World's actual nested About supplies Washington coverage; a
-development-style hostname in its historical narrative was not followed
-or treated as proof of an original public website.
-Warren's PO box and regional staff/affiliate links do not transfer accounts.
-Chippewa's mixed La Crosse/Chippewa Falls footer was not converted into an
-unverified newsroom move, office address or closure.
-Capital Gazette's own explicit AI/text-data-mining reservation caused an
-immediate stop and removal of only its exact fresh root copy.
-Citrus County Chronicle's staff AI/company-IP policy prompted a separate
-conservative removal of its two exact fresh root/policy copies, not a
-blanket external-access ban. All older captures remain untouched.
+The [latest scheduled pass](discovery_iteration68.md) adds five reviews.
+Eight complete fresh publisher responses and one genuinely reused PDF
+support limited context. Fairfield's actual California history was not
+conflated with the different South Dakota Daily Republic.
+Hickory's mailing/service-hour roles are not office occupancy, closure or
+Weibo inactivity. Idaho Press's actual Caldwell roots and Nampa correspondence
+were distinguished without changing the original Press-Tribune cohort label
+or asserting account continuity. Iron Mountain's actual Michigan Contact
+separates PO-box mailing from a street footer and other affiliated papers.
+Kitsap Sun's newspaper HTTP403 was held; the real cached directory names
+the Washington paper but supplies shared obituary portals and a Gannett
+email, not a direct ranked-website or Sina designation.
+No new retention disposal or publisher-body hold was added.
 The nineteen publisher-body holds, distinct Southern/Citrus/NWA retention
 conditions and institutional/corporate restrictions remain separate.
 No parent/sibling handle was inherited.
 Shared catalogs are not edited.
 The live 6,570-post corpus, original archived baseline and all rolling data
 remain unchanged by discovery.
-Discovery is not exhausted: 669 selected domains still lack a recorded
+Discovery is not exhausted: 664 selected domains still lack a recorded
 manual review. A bounded recurring prompt is active every 30 minutes; later
 passes must advance the frontier rather than repeatedly probing exhausted leads.
 
