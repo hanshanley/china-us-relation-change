@@ -35,28 +35,29 @@ The selected **1,000 SCImago U.S.-classified domains** are ranked by digital
 reputation, not traffic; their present ownership/nationality was not independently
 audited. **Five have current-profile evidence, seven historical-only evidence,
 988 remain unknown, and zero are verified negatives.** All underwent homepage
-screening, but only 346 have recorded manual review.
+screening, but only 351 have recorded manual review.
 
-The [latest scheduled pass](discovery_iteration70.md) adds five reviews.
-Ten complete fresh publisher responses remain available for limited context.
-Davis's actual About separates office and PO-box mailing roles; a later
-search-provider robots restriction is recorded separately, with no subsequent
-publisher-domain/alias/client retry or invented origin denial.
-The original repeated-word Fremont cohort label remains intact.
-Corvallis's Albany mailing/service context is not a verified newsroom move
-or an inherited Albany Democrat-Herald account.
-La Raza's real Chicago/operator/family statements are distinguished from
-generic namesakes, combined-family audience claims and sibling handles.
-Rutland's Vermont history/ownership narrative, award references and weather
-widget do not establish current legal control or Weibo activity.
-No new source-use reservation or retention disposal was added.
-The twenty source-use publisher-body holds, distinct Southern/Citrus/NWA retention
+The [latest scheduled pass](discovery_iteration71.md) adds five reviews.
+Eight fresh publisher responses, one genuine cached corporate HTML capture
+and one existing PDF remain available for limited context.
+Savannah's newspaper HTTP403 was held; directory email/portal context is
+not independently verified website control.
+Florence's real South Carolina Contact was not conflated with namesakes.
+Sonoma's own reservation caused a stop and removal of only its fresh root;
+the actual cached corporate URI has empty anchor text/image-alt, not a
+silently supplied brand label or a followed redirect.
+SouthernMinn's root/Contact/Owatonna section remain one multi-publication
+domain; title-specific mailing roles do not transfer accounts.
+Edwardsville's actual Illinois Contact and editorial AI guidance were read
+without retrying the held Hearst corporate host or using account/gift links.
+The twenty-one source-use publisher-body holds, separate Davis provider
+restriction and distinct Southern/Citrus/NWA retention
 conditions and institutional/corporate restrictions remain separate.
 No parent/sibling handle was inherited.
 Shared catalogs are not edited.
 The live 6,570-post corpus, original archived baseline and all rolling data
 remain unchanged by discovery.
-Discovery is not exhausted: 654 selected domains still lack a recorded
+Discovery is not exhausted: 649 selected domains still lack a recorded
 manual review. A bounded recurring prompt is active every 30 minutes; later
 passes must advance the frontier rather than repeatedly probing exhausted leads.
 
@@ -70,7 +71,7 @@ The [operations note](../docs/EXCHANGE.md#automatic-private-weibo-refresh)
 records the actual failure and user-approved-access requirement. Published
 refresh health now records the fourth startup block and zero attempted feeds, retaining
 the last successful collection time, cutoff, corpus and all rolling data.
-The fourth failure was observed just after discovery publication; actual
+The fourth failure was observed just after iteration69's discovery publication; actual
 stderr modification time is `2026-10-24T13:35:04.868037+00:00`, not a feed-request
 start. No restart, permission change or alternate launcher was attempted.
 

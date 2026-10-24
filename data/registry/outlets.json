@@ -2672,6 +2672,56 @@
       "notes": "Complete root and actual /site/about.html inspected without an institutional Sina designation. Claimed1794 lineage/continuous publication, Pulitzer references and2016/2018 ownership changes do not establish account age, current control or uninterrupted Weibo activity. Weather-widget update time is not an About revision or posting date. Sister Times Argus, other Heralds, Brunswick geographic namesakes, staff/personal accounts, share widgets, voting-service/aggregator pages and related Weibo stories not publisher identity proof. Held Pulitzer host not requested. Unknown, not absent. Review date: 2026-10-24 UTC."
     },
     {
+      "id": "savannah-morning-news",
+      "name": "Savannah Morning News",
+      "category": "newspaper",
+      "aliases": ["Savannah Morning News"],
+      "us_basis": "United States-classified source position347; the existing undated LocaliQ directory names Savannah Morning News under Georgia on PDF page4 and supplies a matching email domain on page18. This is directory context, not independently verified current website control or ownership.",
+      "source_url": "https://savannahnow.com/",
+      "research_status": "reviewed",
+      "notes": "Recorded newspaper HTTP403 held with zero newspaper/alias/static/help/obituary/mirror/client requests. Actual cached PDF4/18 inspected offline with original observation/hash retained. Page4 URI actions are shared obituary portals, not a direct savannahnow.com website; an email domain is not a verified current website. No portal, issue PDF, reprint or photo mirror was followed. Parent/sibling/staff accounts, generic Morning News titles and separate Weibo references not publisher identity proof. Unknown, not absent. Review date: 2026-10-24 UTC."
+    },
+    {
+      "id": "florence-morning-news",
+      "name": "Florence Morning News / SCNOW",
+      "category": "newspaper",
+      "aliases": ["Florence Morning News", "Morning News", "SCNOW"],
+      "us_basis": "United States-classified source position348; actual root and linked Contact name Morning News in Florence, South Carolina. Footer correspondence and service roles are not independently audited office occupancy or current legal control.",
+      "source_url": "https://scnow.com/",
+      "research_status": "reviewed",
+      "notes": "Complete root and literal /contact/ inspected without an institutional Sina designation. Actual FlorenceSC context was not replaced by Alabama/Italian Florence namesakes or generic Morning News titles. Alternate florencenews.com service emails, Hartsville/Marion partner links, Lee/shareholder footer labels and staff/parent channels do not transfer accounts or establish current control. The {{url}} placeholder was not repaired/followed and forms were not submitted. Finance/ticker search matches not identity evidence. Unknown, not absent. Review date: 2026-10-24 UTC."
+    },
+    {
+      "id": "sonoma-index-tribune",
+      "name": "Sonoma Index-Tribune",
+      "category": "newspaper",
+      "aliases": ["Sonoma Index-Tribune"],
+      "us_basis": "United States-classified source position349; own root factual metadata names Sonoma Index-Tribune, but its fresh body was removed after this publication's explicit source-use reservation. A genuine cached corporate directory supplies the ranked-host URI with empty anchor text/image-alt, not independently verified local/current control.",
+      "source_url": "https://www.sonomanews.com/",
+      "research_status": "reviewed",
+      "notes": "Own root explicitly reserves AI training, machine learning and text/data-mining use without written consent. Further publisher-body requests stopped and only the exact fresh root was removed; older captures untouched. Available raw file/source hash null, discarded fingerprint explicitly unavailable proof. Existing corporate Communities capture reused offline with original time/hash: literal https://sonomanews.com/ has no www and an empty label/alt, not a supplied named paragraph or downloaded logo. Not followed, repaired or called an observed redirect. No parent/sibling/staff account inherited. Unknown, not absent. Review date: 2026-10-24 UTC."
+    },
+    {
+      "id": "owatonna-peoples-press-southernminn",
+      "name": "Owatonna People's Press / selected SouthernMinn domain",
+      "category": "newspaper",
+      "aliases": ["Owatonna People'S Press", "Owatonna People's Press", "Southernminn.com"],
+      "us_basis": "United States-classified source position350 retains the original Owatonna People'S Press/southernminn.com pair. Actual root/Contact/named Owatonna section identify a multi-publication Minnesota host; its Mailing Addresses list distinguishes Owatonna from Faribault and other titles, not verified office occupancy or current legal control.",
+      "source_url": "https://www.southernminn.com/",
+      "research_status": "reviewed",
+      "notes": "Complete root, actual /contact_us/ and literal /owatonna_peoples_press/ inspected without an institutional Sina designation. One ranked domain, not a separately ranked record/account for each section or sibling paper. Original People'S capitalization preserved in source fields. Faribault host correspondence versus Owatonna's listed mailing role were not conflated or relabeled as verified physical newsrooms. APG service-email domains, other Minnesota titles and parent/staff accounts not inherited. No forms, eEdition issues or submission requests made. Unknown, not absent. Review date: 2026-10-24 UTC."
+    },
+    {
+      "id": "edwardsville-intelligencer",
+      "name": "Edwardsville Intelligencer",
+      "category": "newspaper",
+      "aliases": ["Edwardsville Intelligencer", "The Edwardsville Intelligencer"],
+      "us_basis": "United States-classified source position351; actual root and linked Contact explicitly identify The Edwardsville Intelligencer in Illinois and state theintelligencer.com's relationship to that paper. Contact/footer operator statements are not independently audited occupancy or current legal control.",
+      "source_url": "https://www.theintelligencer.com/",
+      "research_status": "reviewed",
+      "notes": "Complete root, actual linked /ai_use/ and /contact/ inspected without an institutional Sina designation. Own AI page describes editorial assistance/oversight, not a blanket external-access/TDM ban or redistribution license. Corporate www.hearst.com robots-policy403 hold was not retried or transferred to this readable newspaper host. Alternate edwpub.net/hearst service emails, Pennsylvania/Wheeling Intelligencer namesakes, photographic client lists, parent/staff accounts and misspelled logo text not account proof. Contact eEdition/gift-link allowances were not Weibo activity or a paywall bypass; no login, gift link, form, issue or archive service used. Unknown, not absent. Review date: 2026-10-24 UTC."
+    },
+    {
       "id": "telemundo", "name": "Telemundo / Noticias Telemundo", "category": "broadcast_news",
       "aliases": ["Telemundo", "Noticias Telemundo", "Telemundo Noticias"],
       "us_basis": "United States-classified source position110; actual network root separately links its Noticias Telemundo newsroom section. Current corporate domicile/headquarters and legal account control are not independently audited.",
