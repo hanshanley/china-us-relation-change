@@ -151,6 +151,19 @@ def validate_language_data(data):
             raise ValueError("Missing language comparability definition")
         if not isinstance(r["notes"], str):
             raise ValueError("Language observation notes must be text")
+        if r["series_id"].startswith("mla_snapshot:") and (
+                r["source_id"] != "mla_snapshot_2020" or r["year"] not in {2016, 2020}
+                or definitions[r["series_id"]]["cadence"] != "paired census"
+                or "1,308" not in definitions[r["series_id"]]["scope"]
+                or "not the national census" not in definitions[r["series_id"]]["scope"]):
+            raise ValueError("MLA snapshot must retain its matched population and 2016/2020 endpoints")
+        if r["series_id"].startswith("hesa_chinese_studies:") and (
+                r["source_id"] != "hesa_bacs_2021_22"
+                or definitions[r["series_id"]]["period_basis"] != "academic ending year"
+                or definitions[r["series_id"]]["unit"] != "subject-apportioned enrollments"
+                or "UK higher education" not in definitions[r["series_id"]]["scope"]
+                or r["comparability"] != "hesa_chinese_studies:" + ("jacs" if r["year"] < 2020 else "hecos")):
+            raise ValueError("HESA must retain UK subject allocations, academic years and the coding boundary")
         if r["series_id"].startswith("ap:") and "global" not in definitions[r["series_id"]]["scope"].lower():
             raise ValueError("Global AP data must not be relabelled U.S.-only")
         if r["series_id"].startswith("ap_cohort:") and (

@@ -11,10 +11,20 @@
       "date": "2023-08-24",
       "interpretation": "Employment incentives, geopolitical tensions, competing cultural attractions and translation technology are proposed explanations, not a demonstrated causal decomposition.",
       "reported_snapshot_change_percent": -21,
+      "republication": {
+        "date": "2023-10-27",
+        "publisher": "Mint",
+        "url": "https://www.livemint.com/specials/why-fewer-university-students-are-studying-mandarin-11698412205247.html"
+      },
       "role": "Context, not the numeric source for the census series.",
       "snapshot_comparison_years": [
         2016,
         2020
+      ],
+      "snapshot_series": [
+        "mla_snapshot:chinese",
+        "mla_snapshot:japanese",
+        "mla_snapshot:korean"
       ],
       "snapshot_source_id": "mla_snapshot_2020",
       "title": "Why fewer university students are studying Mandarin",
@@ -29,7 +39,16 @@
       "year": 2025
     },
     "question": "Is the United States losing its capacity to develop Chinese-language expertise, or is learning shifting between educational settings?",
-    "rights": "Only selected numerical aggregates and our original figures are published, not source reports, artwork, institution-level workbooks or exam questions. Source terms still apply; commercial reuse permission is not established by these exports."
+    "rights": "Only selected numerical aggregates and our original figures are published, not source reports, artwork, institution-level workbooks or exam questions. Source terms still apply; commercial reuse permission is not established by these exports.",
+    "uk_chinese_studies": {
+      "note": "Subject-apportioned enrollments, not admissions or all Mandarin learners. Historical source data are kept in complete downloads; they do not qualify as a current public plot. JACS and HECoS observations are separate comparison groups; no U.S./UK learner total is calculated.",
+      "reference_periods": [
+        "2012/13",
+        "2021/22"
+      ],
+      "series_id": "hesa_chinese_studies:total",
+      "source_id": "hesa_bacs_2021_22"
+    }
   },
   "coverage": [
     {
@@ -840,6 +859,87 @@
       "status": "observed",
       "value": 5684,
       "year": 2013
+    },
+    {
+      "comparability": "hesa_chinese_studies:jacs",
+      "notes": "2012/13; reported subject-apportioned total, rounded to nearest five. 2012/13 quoted in the discussion following Table 7.",
+      "series_id": "hesa_chinese_studies:total",
+      "source_id": "hesa_bacs_2021_22",
+      "status": "observed",
+      "value": 1535,
+      "year": 2013
+    },
+    {
+      "comparability": "hesa_chinese_studies:jacs",
+      "notes": "2014/15; reported subject-apportioned total, rounded to nearest five. Table 7 total column.",
+      "series_id": "hesa_chinese_studies:total",
+      "source_id": "hesa_bacs_2021_22",
+      "status": "observed",
+      "value": 1440,
+      "year": 2015
+    },
+    {
+      "comparability": "hesa_chinese_studies:jacs",
+      "notes": "2015/16; reported subject-apportioned total, rounded to nearest five. Table 7 total column.",
+      "series_id": "hesa_chinese_studies:total",
+      "source_id": "hesa_bacs_2021_22",
+      "status": "observed",
+      "value": 1385,
+      "year": 2016
+    },
+    {
+      "comparability": "hesa_chinese_studies:jacs",
+      "notes": "2016/17; reported subject-apportioned total, rounded to nearest five. Table 7 total column.",
+      "series_id": "hesa_chinese_studies:total",
+      "source_id": "hesa_bacs_2021_22",
+      "status": "observed",
+      "value": 1420,
+      "year": 2017
+    },
+    {
+      "comparability": "hesa_chinese_studies:jacs",
+      "notes": "2017/18; reported subject-apportioned total, rounded to nearest five. Table 7 total column.",
+      "series_id": "hesa_chinese_studies:total",
+      "source_id": "hesa_bacs_2021_22",
+      "status": "observed",
+      "value": 1325,
+      "year": 2018
+    },
+    {
+      "comparability": "hesa_chinese_studies:jacs",
+      "notes": "2018/19; reported subject-apportioned total, rounded to nearest five. Table 7 total column.",
+      "series_id": "hesa_chinese_studies:total",
+      "source_id": "hesa_bacs_2021_22",
+      "status": "observed",
+      "value": 1225,
+      "year": 2019
+    },
+    {
+      "comparability": "hesa_chinese_studies:hecos",
+      "notes": "2019/20; reported subject-apportioned total, rounded to nearest five. Table 7 total column.",
+      "series_id": "hesa_chinese_studies:total",
+      "source_id": "hesa_bacs_2021_22",
+      "status": "observed",
+      "value": 1150,
+      "year": 2020
+    },
+    {
+      "comparability": "hesa_chinese_studies:hecos",
+      "notes": "2020/21; reported subject-apportioned total, rounded to nearest five. Table 7 total column.",
+      "series_id": "hesa_chinese_studies:total",
+      "source_id": "hesa_bacs_2021_22",
+      "status": "observed",
+      "value": 1115,
+      "year": 2021
+    },
+    {
+      "comparability": "hesa_chinese_studies:hecos",
+      "notes": "2021/22; reported subject-apportioned total, rounded to nearest five. Table 7 total column.",
+      "series_id": "hesa_chinese_studies:total",
+      "source_id": "hesa_bacs_2021_22",
+      "status": "observed",
+      "value": 1055,
+      "year": 2022
     },
     {
       "comparability": "ipeds:bachelors:no_major_split",
@@ -3308,6 +3408,60 @@
       "year": 2021
     },
     {
+      "comparability": "mla_snapshot:chinese",
+      "notes": "",
+      "series_id": "mla_snapshot:chinese",
+      "source_id": "mla_snapshot_2020",
+      "status": "observed",
+      "value": 33561,
+      "year": 2016
+    },
+    {
+      "comparability": "mla_snapshot:chinese",
+      "notes": "",
+      "series_id": "mla_snapshot:chinese",
+      "source_id": "mla_snapshot_2020",
+      "status": "observed",
+      "value": 26528,
+      "year": 2020
+    },
+    {
+      "comparability": "mla_snapshot:japanese",
+      "notes": "",
+      "series_id": "mla_snapshot:japanese",
+      "source_id": "mla_snapshot_2020",
+      "status": "observed",
+      "value": 46936,
+      "year": 2016
+    },
+    {
+      "comparability": "mla_snapshot:japanese",
+      "notes": "",
+      "series_id": "mla_snapshot:japanese",
+      "source_id": "mla_snapshot_2020",
+      "status": "observed",
+      "value": 43268,
+      "year": 2020
+    },
+    {
+      "comparability": "mla_snapshot:korean",
+      "notes": "",
+      "series_id": "mla_snapshot:korean",
+      "source_id": "mla_snapshot_2020",
+      "status": "observed",
+      "value": 9033,
+      "year": 2016
+    },
+    {
+      "comparability": "mla_snapshot:korean",
+      "notes": "",
+      "series_id": "mla_snapshot:korean",
+      "source_id": "mla_snapshot_2020",
+      "status": "observed",
+      "value": 11323,
+      "year": 2020
+    },
+    {
       "comparability": "school_availability:chinese",
       "notes": "",
       "series_id": "school_availability:chinese",
@@ -3461,6 +3615,15 @@
       "period_basis": "graduating class",
       "scope": "U.S. public-school graduating classes; Chinese AP exams taken during high school; not private-school or global totals",
       "unit": "exams"
+    },
+    "hesa_chinese_studies:total": {
+      "cadence": "annual",
+      "label": "Chinese studies (UK)",
+      "measure": "degree_subject_enrollments",
+      "notes": "Subject-apportioned, rounded totals, not unique students, admissions or all Mandarin learners. HECoS 101164/101165/101166/101167 from 2019/20; earlier JACS classification is separate. No Japanese/Korean figures inferred and no missing 2013/14 value interpolated.",
+      "period_basis": "academic ending year",
+      "scope": "UK higher education; HESA Chinese-studies subject allocations as reported by BACS, all study levels",
+      "unit": "subject-apportioned enrollments"
     },
     "ipeds:bachelors": {
       "cadence": "annual",
@@ -3631,6 +3794,33 @@
       "notes": "Nonrespondents excluded; explicit zero-language respondents retained. Institutions with any unreported language-count row in either endpoint are excluded, so missing benchmark or other-language counts are not treated as zero. An absent language at a responding institution means no reported registrations, not proof of no language activity. This is not the national census total and excludes institutions outside the matched cohort.",
       "period_basis": "calendar",
       "scope": "Matched set of 2257 MLA institution IDs responding in both fall 2013 and fall 2021",
+      "unit": "course registrations"
+    },
+    "mla_snapshot:chinese": {
+      "cadence": "paired census",
+      "label": "Chinese/Mandarin",
+      "measure": "course_enrollments",
+      "notes": "The same snapshot institutions at both endpoints. Course registrations, not unique students. Do not splice into national MLA totals or the separate 2013/2021 matched panel.",
+      "period_basis": "calendar",
+      "scope": "Matched set of 1,308 U.S. colleges and universities with fall 2016 and fall 2020 counts; undergraduate and graduate courses, not the national census",
+      "unit": "course registrations"
+    },
+    "mla_snapshot:japanese": {
+      "cadence": "paired census",
+      "label": "Japanese",
+      "measure": "course_enrollments",
+      "notes": "The same snapshot institutions at both endpoints. Course registrations, not unique students. Do not splice into national MLA totals or the separate 2013/2021 matched panel.",
+      "period_basis": "calendar",
+      "scope": "Matched set of 1,308 U.S. colleges and universities with fall 2016 and fall 2020 counts; undergraduate and graduate courses, not the national census",
+      "unit": "course registrations"
+    },
+    "mla_snapshot:korean": {
+      "cadence": "paired census",
+      "label": "Korean",
+      "measure": "course_enrollments",
+      "notes": "The same snapshot institutions at both endpoints. Course registrations, not unique students. Do not splice into national MLA totals or the separate 2013/2021 matched panel.",
+      "period_basis": "calendar",
+      "scope": "Matched set of 1,308 U.S. colleges and universities with fall 2016 and fall 2020 counts; undergraduate and graduate courses, not the national census",
       "unit": "course registrations"
     },
     "school_availability:chinese": {
@@ -3980,6 +4170,20 @@
       "name": "Center for Applied Linguistics",
       "notes": "Program/school counts, not students. Scope differs across inventories.",
       "vintage": "2011 program inventory"
+    },
+    "hesa_bacs_2021_22": {
+      "assets": [
+        {
+          "request_url": "https://bacsuk.org.uk/wp-content/uploads/2015/05/BACS-State-of-the-Field-2021-22-Report.pdf",
+          "retrieved_at": "2026-10-24T22:28:44+00:00",
+          "sha256": "854fca1cf1b7975771e21bb2462503b3d4446c9db9739a3783ca9181b7e8bb54",
+          "url": "https://bacsuk.org.uk/wp-content/uploads/2015/05/BACS-State-of-the-Field-2021-22-Report.pdf"
+        }
+      ],
+      "locator": "PDF page 18, Table 7 and following historical-endpoint discussion; PDF page 16, definitions",
+      "name": "British Association for Chinese Studies, reporting HESA",
+      "notes": "Public HESA-derived national totals, not the report's separate bespoke institution table. The article's 31% describes 2012/13 to 2021/22, not admissions in calendar 2012/2021. Preserve the JACS/HECoS boundary. Rounded domicile components need not sum to the rounded total. Selected factual totals only; no report text or artwork redistributed.",
+      "vintage": "State of the Field 2021-22 report; academic data through 2021/22"
     },
     "ipeds_2000": {
       "assets": [
@@ -4566,10 +4770,10 @@
           "url": "https://www.mla.org/content/download/191129/file/Fall-2022-NL-snapshot.pdf"
         }
       ],
-      "locator": "Snapshot methodology and language comparisons",
+      "locator": "PDF page 1, Figure 1; selected counts transcribed from the table image",
       "name": "Modern Language Association",
-      "notes": "1,308 matched institutions; not the full 2021 census. Article's rounded 21% decline is context only, not a national census observation.",
-      "vintage": "Fall 2020 snapshot; fall 2022 newsletter"
+      "notes": "Selected Figure 1 counts manually reviewed from the table image; publisher PDF checksum is in assets. Our selected-fact transcription is data/reviewed/language-snapshot-2020.json, SHA-256 5e6741dad27ccccc2c71f9750d5ded2faa6284c9f5bb38deedb991c24eb6c9de; this is not a publisher-response checksum. 1,308 matched institutions, not a national census. The article's rounded Chinese decline is 21%. Only selected facts are republished; source artwork and the report are not redistributed.",
+      "vintage": "Fall 2020 matched snapshot; fall 2022 newsletter"
     },
     "nces_spp_languages_2024": {
       "assets": [

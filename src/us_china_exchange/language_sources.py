@@ -25,6 +25,7 @@ from .pipeline import write_atomic
 MLA_REPORT = "https://www.mla.org/content/download/191324/file/Enrollments-in-Languages-Other-Than-English-in-US-Institutions-of-Higher-Education-Fall-2021.pdf"
 MLA_DATA = "https://www.mla.org/content/download/191323/file/Historical-language-enrollments-1958-2021.xlsx"
 MLA_SNAPSHOT = "https://www.mla.org/content/download/191129/file/Fall-2022-NL-snapshot.pdf"
+BACS_REPORT = "https://bacsuk.org.uk/wp-content/uploads/2015/05/BACS-State-of-the-Field-2021-22-Report.pdf"
 AP_ARCHIVE = "https://reports.collegeboard.org/ap-program-results/data-archive"
 AP_COURSES = "https://apstudents.collegeboard.org/courses"
 AP_GROUP_CONTEXT = {
@@ -289,6 +290,101 @@ def mla(client):
         f"Matched complete-count respondents: {len(cohort)}. 2013/2021 national sums reconcile with the report. "
         "2016 workbook/report revisions are not spliced into national charts: " + json.dumps(differences, sort_keys=True))
     return definitions, data, sources
+
+
+def parse_mla_snapshot(content, selected):
+    if (selected.get("version") != 1 or selected.get("source_url") != MLA_SNAPSHOT
+            or selected.get("years") != [2016, 2020] or selected.get("cohort_institutions") != 1308
+            or set(selected.get("counts", {})) != {"chinese", "japanese", "korean"}):
+        raise ValueError("MLA snapshot reviewed scope changed")
+    if digest(content) != selected.get("source_sha256"):
+        raise ValueError("MLA snapshot PDF changed; review the table image before importing counts")
+    text = " ".join(pdf_text(content))
+    if "1,308" not in text or "2016" not in text or "2020" not in text or "course enrollments" not in text:
+        raise ValueError("MLA snapshot matched-institution methodology changed")
+    rows = []
+    for language, counts in selected["counts"].items():
+        if len(counts) != 2 or any(isinstance(v, bool) or not isinstance(v, int) or v < 0 for v in counts):
+            raise ValueError("Invalid reviewed MLA snapshot count")
+        rows.extend((language, year, value) for year, value in zip(selected["years"], counts))
+    return rows
+
+
+def mla_snapshot(client):
+    content, asset = client.get(MLA_SNAPSHOT)
+    review = Path(__file__).resolve().parents[2] / "data/reviewed/language-snapshot-2020.json"
+    selected_content = review.read_bytes()
+    selected = json.loads(selected_content)
+    definitions, observations = {}, []
+    for language, year, value in parse_mla_snapshot(content, selected):
+        sid = "mla_snapshot:" + language
+        definitions[sid] = series(
+            "Chinese/Mandarin" if language == "chinese" else language.capitalize(),
+            "course_enrollments", "course registrations",
+            "Matched set of 1,308 U.S. colleges and universities with fall 2016 and fall 2020 counts; "
+            "undergraduate and graduate courses, not the national census",
+            "paired census", notes="The same snapshot institutions at both endpoints. Course registrations, "
+            "not unique students. Do not splice into national MLA totals or the separate 2013/2021 matched panel.")
+        observations.append(row(sid, year, value, "mla_snapshot_2020"))
+    sources = {"mla_snapshot_2020": source(
+        "Modern Language Association", "Fall 2020 matched snapshot; fall 2022 newsletter",
+        [asset], selected["locator"],
+        "Selected Figure 1 counts manually reviewed from the table image; publisher PDF checksum is in assets. "
+        "Our selected-fact transcription is data/reviewed/language-snapshot-2020.json, SHA-256 "
+        + digest(selected_content) + "; this is not a publisher-response checksum. "
+        "1,308 matched institutions, not a national census. The article's rounded Chinese decline is 21%. "
+        "Only selected facts are republished; source artwork and the report are not redistributed.")}
+    return definitions, observations, sources
+
+
+def parse_hesa_bacs(content):
+    pages = pdf_text(content)
+    text = " ".join(pages)
+    if not all(code in text for code in ("101164", "101165", "101166", "101167")):
+        raise ValueError("BACS/HESA Chinese-studies subject coverage changed")
+    table = next((page for page in pages if "Table 7: HESA total" in page), None)
+    if table is None or "apportioned" not in text or "nearest 5" not in text:
+        raise ValueError("BACS/HESA table or apportioned-count definition changed")
+    body = table.split("Table 7: HESA total", 1)[1].split("According to these figures", 1)[0]
+    matches = re.findall(r"(\d{4})/(\d{2})\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)", body)
+    if [int(m[0]) for m in matches] != list(range(2014, 2022)):
+        raise ValueError("BACS/HESA academic periods changed")
+    values = []
+    for start, end, total, *_ in matches:
+        if int(end) != (int(start) + 1) % 100:
+            raise ValueError("BACS/HESA academic-year boundary changed")
+        values.append((int(start) + 1, int(total)))
+    baseline = re.search(r"fallen from\s+(\d+)\s+in\s+2012\s+to\s+(\d+)\s+in\s+2021/22", table)
+    if not baseline or int(baseline[2]) != values[-1][1] or "2012/13" not in table:
+        raise ValueError("BACS/HESA quoted historical endpoint does not reconcile")
+    return [(2013, int(baseline[1]))] + values
+
+
+def hesa_bacs(client):
+    content, asset = client.get(BACS_REPORT)
+    sid = "hesa_chinese_studies:total"
+    definitions = {sid: series(
+        "Chinese studies (UK)", "degree_subject_enrollments", "subject-apportioned enrollments",
+        "UK higher education; HESA Chinese-studies subject allocations as reported by BACS, all study levels",
+        "annual", "academic ending year",
+        "Subject-apportioned, rounded totals, not unique students, admissions or all Mandarin learners. "
+        "HECoS 101164/101165/101166/101167 from 2019/20; earlier JACS classification is separate. "
+        "No Japanese/Korean figures inferred and no missing 2013/14 value interpolated.")}
+    observations = [row(
+        sid, year, value, "hesa_bacs_2021_22",
+        notes=f"{year - 1}/{str(year)[-2:]}; reported subject-apportioned total, rounded to nearest five. "
+        + ("2012/13 quoted in the discussion following Table 7." if year == 2013 else "Table 7 total column."),
+        comparability="hesa_chinese_studies:" + ("jacs" if year < 2020 else "hecos"))
+        for year, value in parse_hesa_bacs(content)]
+    sources = {"hesa_bacs_2021_22": source(
+        "British Association for Chinese Studies, reporting HESA",
+        "State of the Field 2021-22 report; academic data through 2021/22",
+        [asset], "PDF page 18, Table 7 and following historical-endpoint discussion; PDF page 16, definitions",
+        "Public HESA-derived national totals, not the report's separate bespoke institution table. "
+        "The article's 31% describes 2012/13 to 2021/22, not admissions in calendar 2012/2021. "
+        "Preserve the JACS/HECoS boundary. Rounded domicile components need not sum to the rounded total. "
+        "Selected factual totals only; no report text or artwork redistributed.")}
+    return definitions, observations, sources
 
 
 def zip_csv(content, prefer_revised=True):

@@ -39,6 +39,7 @@ on:
       - "data/site/language_learning.json"
       - "data/site/confucius_programs.json"
       - "data/reviewed/confucius-snapshots.json"
+      - "data/reviewed/language-snapshot-2020.json"
       - "data/site/business_presence.json"
       - "data/site/immigration.json"
       - "data/site/state_immigration.json"

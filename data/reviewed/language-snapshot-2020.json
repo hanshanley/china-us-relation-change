@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "source_url": "https://www.mla.org/content/download/191129/file/Fall-2022-NL-snapshot.pdf",
+  "source_sha256": "b46ba2baa5dfff828dc32fbc4aab51aa39c67db49a9e849137453ee4576b8263",
+  "locator": "PDF page 1, Figure 1; selected counts transcribed from the table image",
+  "cohort_institutions": 1308,
+  "years": [2016, 2020],
+  "counts": {
+    "chinese": [33561, 26528],
+    "japanese": [46936, 43268],
+    "korean": [9033, 11323]
+  }
+}

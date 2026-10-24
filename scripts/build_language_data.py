@@ -12,7 +12,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
 from us_china_exchange.language_analysis import validate_language_data
-from us_china_exchange.language_sources import AP_GROUP_CONTEXT, MLA_SNAPSHOT, ReviewClient, ap_global, ap_us_cohorts, ipeds, mla, schools, school_comparisons, school_pulse, source
+from us_china_exchange.language_sources import AP_GROUP_CONTEXT, ReviewClient, ap_global, ap_us_cohorts, hesa_bacs, ipeds, mla, mla_snapshot, schools, school_comparisons, school_pulse
 from us_china_exchange.model import json_text
 from us_china_exchange.pipeline import write_atomic
 
@@ -21,7 +21,8 @@ def collect(client, last_degree_year=2025):
     if not 2000 <= last_degree_year <= datetime.now(timezone.utc).year:
         raise ValueError("The final degree year must be between 2000 and the current year")
     result = {"version": 1, "series": {}, "observations": [], "sources": {}, "coverage": [], "context": {}}
-    for name, fetch in [("MLA", mla), ("AP", ap_global), ("AP U.S. cohorts", ap_us_cohorts),
+    for name, fetch in [("MLA", mla), ("MLA pandemic snapshot", mla_snapshot), ("HESA/BACS", hesa_bacs),
+                        ("AP", ap_global), ("AP U.S. cohorts", ap_us_cohorts),
                         ("IPEDS", lambda c: ipeds(c, range(2000, last_degree_year + 1))),
                         ("Schools", schools), ("School language comparisons", school_comparisons),
                         ("National School Pulse Panel", school_pulse)]:
@@ -32,15 +33,6 @@ def collect(client, last_degree_year=2025):
         result["series"].update(definitions)
         result["observations"].extend(observations)
         result["sources"].update(sources)
-    content, asset = client.get(MLA_SNAPSHOT)
-    from us_china_exchange.language_sources import pdf_text
-    snapshot = "\n".join(pdf_text(content))
-    if "1,308" not in snapshot or "15.4%" not in snapshot:
-        raise ValueError("Reviewed MLA 2020 snapshot scope changed")
-    result["sources"]["mla_snapshot_2020"] = source(
-        "Modern Language Association", "Fall 2020 snapshot; fall 2022 newsletter",
-        [asset], "Snapshot methodology and language comparisons",
-        "1,308 matched institutions; not the full 2021 census. Article's rounded 21% decline is context only, not a national census observation.")
     result["coverage"] = [
         {"id": "college_census", "status": "available",
          "description": "Fall census rounds 2002, 2006, 2009, 2013, 2016 and 2021; one report vintage, no annual interpolation."},
@@ -82,7 +74,34 @@ def collect(client, last_degree_year=2025):
     }
     result["context"]["ap_groups"] = AP_GROUP_CONTEXT
     result["observations"].sort(key=lambda r: (r["series_id"], r["year"]))
-    return update_school_context(result)
+    return update_school_context(update_article_context(result))
+
+
+def update_article_context(result):
+    result["context"]["economist"]["republication"] = {
+        "publisher": "Mint", "date": "2023-10-27",
+        "url": "https://www.livemint.com/specials/why-fewer-university-students-are-studying-mandarin-11698412205247.html"}
+    result["context"]["economist"]["snapshot_series"] = [
+        "mla_snapshot:chinese", "mla_snapshot:japanese", "mla_snapshot:korean"]
+    result["context"]["uk_chinese_studies"] = {
+        "series_id": "hesa_chinese_studies:total", "source_id": "hesa_bacs_2021_22",
+        "reference_periods": ["2012/13", "2021/22"],
+        "note": "Subject-apportioned enrollments, not admissions or all Mandarin learners. "
+        "Historical source data are kept in complete downloads; they do not qualify as a current public plot. "
+        "JACS and HECoS observations are separate comparison groups; no U.S./UK learner total is calculated."}
+    return result
+
+
+def collect_article_sources(client, prior):
+    result = copy.deepcopy(prior)
+    for fetch in (mla_snapshot, hesa_bacs):
+        definitions, observations, sources = fetch(client)
+        result["series"].update(definitions)
+        result["sources"].update(sources)
+        result["observations"] = [
+            r for r in result["observations"] if r["series_id"] not in definitions] + observations
+    result["observations"].sort(key=lambda r: (r["series_id"], r["year"]))
+    return validate_language_data(update_article_context(result))
 
 
 def update_school_context(result):
@@ -169,6 +188,7 @@ if __name__ == "__main__":
     selection.add_argument("--ap-only", action="store_true", help="Review only AP sources; preserve all non-AP observations and definitions")
     selection.add_argument("--schools-only", action="store_true", help="Add reviewed school language comparisons; preserve all other observations")
     selection.add_argument("--school-pulse-only", action="store_true", help="Review national January 2024 availability estimates; preserve historical observations")
+    selection.add_argument("--article-sources-only", action="store_true", help="Review the distinct MLA pandemic snapshot and HESA/BACS history; preserve all other data")
     selection.add_argument("--ipeds-only", action="store_true", help="Review the selected final IPEDS year; preserve every other year and non-degree observation")
     selection.add_argument("--ipeds-history", action="store_true", help="Review Chinese, Japanese and Korean degree histories from 2000; preserve non-degree observations")
     args = parser.parse_args()
@@ -176,6 +196,9 @@ if __name__ == "__main__":
     if args.ipeds_only or args.ipeds_history:
         prior = json.loads((ROOT / "data/site/language_learning.json").read_text())
         data = collect_ipeds(client, prior, args.last_degree_year, args.ipeds_history)
+    elif args.article_sources_only:
+        prior = json.loads((ROOT / "data/site/language_learning.json").read_text())
+        data = collect_article_sources(client, prior)
     elif args.ap_only or args.schools_only or args.school_pulse_only:
         prior = json.loads((ROOT / "data/site/language_learning.json").read_text())
         fetch = collect_ap if args.ap_only else collect_school_pulse if args.school_pulse_only else collect_school_comparisons

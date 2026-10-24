@@ -69,6 +69,64 @@ def published():
     return json.loads((ROOT / "data/site/language_learning.json").read_text())
 
 
+def test_article_snapshot_preserves_the_matched_sample_and_requires_rechecking_changed_pdf(monkeypatch):
+    selected = json.loads((ROOT / "data/reviewed/language-snapshot-2020.json").read_text())
+    content = b"snapshot fixture"
+    selected["source_sha256"] = digest(content)
+    monkeypatch.setattr(language_sources, "pdf_text", lambda body: [
+        "1,308 matched institutions; 2016 and 2020 course enrollments, not students."])
+    rows = language_sources.parse_mla_snapshot(content, selected)
+    assert rows == [
+        ("chinese", 2016, 33561), ("chinese", 2020, 26528),
+        ("japanese", 2016, 46936), ("japanese", 2020, 43268),
+        ("korean", 2016, 9033), ("korean", 2020, 11323)]
+    with pytest.raises(ValueError, match="review the table image"):
+        language_sources.parse_mla_snapshot(b"changed publisher PDF", selected)
+    selected["cohort_institutions"] = 2547
+    with pytest.raises(ValueError, match="scope"):
+        language_sources.parse_mla_snapshot(content, selected)
+
+
+def test_hesa_article_table_keeps_academic_years_and_rounded_total_not_component_sum(monkeypatch):
+    pages = ["Chinese subjects 101164 101165 101166 101167; apportioned; nearest 5",
+             "Table 7: HESA total\n"
+             "2014/15 1440 850 190 395\n2015/16 1385 895 175 315\n"
+             "2016/17 1420 925 180 315\n2017/18 1325 885 170 270\n"
+             "2018/19 1225 805 160 260\n2019/20 1150 785 160 205\n"
+             "2020/21 1115 760 145 205\n2021/22 1055 735 115 215\n"
+             "According to these figures, 2012/13 and 2013/14 were recorded before; "
+             "fallen from 1535 in 2012 to 1055 in 2021/22."]
+    monkeypatch.setattr(language_sources, "pdf_text", lambda body: pages)
+    values = language_sources.parse_hesa_bacs(b"fixture")
+    assert values == [(2013, 1535), (2015, 1440), (2016, 1385), (2017, 1420),
+                      (2018, 1325), (2019, 1225), (2020, 1150), (2021, 1115), (2022, 1055)]
+    assert 2014 not in dict(values)
+    pages[1] = pages[1].replace("2021/22 1055", "2021/23 1055")
+    with pytest.raises(ValueError, match="academic-year"):
+        language_sources.parse_hesa_bacs(b"fixture")
+
+
+def test_article_observations_remain_separate_from_the_national_and_us_populations():
+    data = validate_language_data(published())
+    values = {(r["series_id"], r["year"]): r["value"] for r in data["observations"]}
+    assert values["mla_snapshot:chinese", 2016] == 33561
+    assert values["mla_snapshot:chinese", 2020] == 26528
+    assert values["mla:chinese", 2016] == 54248
+    assert values["mla:chinese", 2021] == 46492
+    assert values["hesa_chinese_studies:total", 2022] == 1055
+    hesa = [r for r in data["observations"] if r["series_id"] == "hesa_chinese_studies:total"]
+    assert len(hesa) == 9
+    assert {r["comparability"] for r in hesa} == {
+        "hesa_chinese_studies:jacs", "hesa_chinese_studies:hecos"}
+    data["series"]["mla_snapshot:chinese"]["scope"] = "U.S. national census"
+    with pytest.raises(ValueError, match="matched population"):
+        validate_language_data(data)
+    data = published()
+    data["series"]["hesa_chinese_studies:total"]["unit"] = "unique Mandarin learners"
+    with pytest.raises(ValueError, match="subject allocations"):
+        validate_language_data(data)
+
+
 def test_school_pulse_requires_national_denominator_and_keeps_unreportable_korean_null():
     book = Workbook()
     book.active.title = "About"

@@ -88,7 +88,8 @@ Complete source asset identities and checksums are in
 |---|---|
 | [MLA fall 2021 report](https://www.mla.org/content/download/191324/file/Enrollments-in-Languages-Other-Than-English-in-US-Institutions-of-Higher-Education-Fall-2021.pdf), Table 5, PDF page 63 | Consistent published-report history for Chinese/Mandarin, Japanese, Korean, Spanish and all languages. Course registrations, undergraduate and graduate, not unique students. All-language denominator includes ASL/classical languages. No fabricated annual observations. |
 | [MLA historical workbook](https://www.mla.org/content/download/191323/file/Historical-language-enrollments-1958-2021.xlsx), `FL history` | Match responding `INST_ID`s in 2013/2021, exclude `N_RESP=NR` even when a placeholder count is zero, and retain explicit `ZERO_ERL=Z`. Exclude institutions with any unreported language-count row in either endpoint; missing counts are not zeros. Chinese is exact CHINESE plus MANDARIN; do not deduplicate legitimate repeated language rows. National endpoint sums independently reconcile to the report. |
-| [MLA pandemic snapshot](https://www.mla.org/content/download/191129/file/Fall-2022-NL-snapshot.pdf) | Separate 2016/2020 matched-institution comparison underlying the Economist article, not a 2020 national census or part of the 2021 national series. |
+| [MLA pandemic snapshot](https://www.mla.org/content/download/191129/file/Fall-2022-NL-snapshot.pdf) | Separate 2016/2020 comparison at 1,308 matched institutions: Chinese 33,561/26,528; Japanese 46,936/43,268; Korean 9,033/11,323. `data/reviewed/language-snapshot-2020.json` holds selected facts checked against Figure 1's table image and locked to the publisher PDF checksum. The review JSON hash is identified separately, not presented as a publisher response. Not a national 2020 census or an extension of the national 2021 series. |
+| [BACS 2021-22 report, HESA Table 7](https://bacsuk.org.uk/wp-content/uploads/2015/05/BACS-State-of-the-Field-2021-22-Report.pdf) | Nine selected UK Chinese-studies totals: quoted 2012/13 endpoint and 2014/15-2021/22 table rows. Academic ending years, subject-apportioned enrollments rounded to five, not admissions, unique learners or U.S. course registrations. Preserve the JACS/HECoS boundary at 2019/20. Do not add independently rounded domicile cells to reconstruct totals or interpolate the absent 2013/14 count. Historical data remain in complete downloads; no current Japanese/Korean comparison is inferred. |
 | [College Board AP archive](https://reports.collegeboard.org/ap-program-results/data-archive) and [Chinese 2025 subject report](https://apcentral.collegeboard.org/media/pdf/ap25-chinese-language-score-distributions.pdf) | Global annual administration history 2007-2025. Subject-specific reports supersede overlapping earlier program-volume vintages. Parse **Number of Students**, not the number scoring 3+. Standard group is a subset, not U.S. geography or a nonheritage/ancestry classification; never add it to total. |
 | [AP Report to the Nation 2011](https://secure-media.collegeboard.org/digitalServices/public/pdf/ap/rtn/AP-Report-2011-Subject-Supplement.pdf), [2013 supplement](https://secure-media.collegeboard.org/digitalServices/pdf/ap/rtn/9th-annual/9th-annual-ap-report-subject-supplement-all-subjects.pdf), [2014 Chinese supplement](https://secure-media.collegeboard.org/digitalServices/pdf/ap/rtn/10th-annual/10th-annual-ap-report-subject-supplement-chinese-language-and-culture.pdf) | U.S. public-school graduating cohorts 2007-2013. Sum five total-group score categories; year is the graduating class, with exams taken throughout high school. Later report vintages take priority for overlapping cohorts, including the revised 2008 total. Never splice into annual global administrations. |
 | [NCES IPEDS public files](https://nces.ed.gov/ipeds/datacenter/data/), `CYYYY_A.zip` plus annual institutional directory | Exact CIP 16.0301, 50 states/DC, degree-granting and Title IV eligibility; first-major `MAJORNUM=1` from 2001. Use revised `_RV` CSV only when present. Modern total `CTOTALT`; older `CRACE15+CRACE16` are male plus female totals. Preserve source-flag frequencies and selected revision. |
@@ -174,28 +175,6 @@ or the default chart, plus source fingerprints, actual or explicitly unknown
 field dates, original age bands and question-specific sample bases. Reviewed
 transcription checksums are distinguished from publisher download checksums.
 Only aggregate numerical facts and original visualizations are redistributed.
-
-## COVID travel-restriction annotations
-
-The shaded 2020–2022 interval denotes the main period of pandemic restrictions,
-not a prohibition on all travel. It is calendar context, not an estimate of
-how much any series was affected. Original notices are linked in the public
-`covid-context.json` download:
-
-- U.S. Proclamation 10294 and its Federal Register publication: the country-based
-  entry suspensions were replaced effective November 8, 2021.
-- China MFA/NIA announcement: suspension affecting existing foreign-national
-  visas/residence permits began March 28, 2020, with exceptions and subsequent
-  changes. The December 2022 notice introduced revised measures January 8, 2023.
-- Hong Kong's April 22, 2022 notice identifies the overseas nonresident
-  restriction beginning March 25, 2020 and its relaxation May 1, 2022.
-- Macau DSEC's published statistical footnote identifies March 18, 2020–August
-  31, 2022 restrictions on foreign visitors, excluding specified groups and
-  exemptions; conditional entry followed before January 8, 2023.
-
-Neither chart shading nor publication year makes an older observation current.
-The public recency rule uses the reference/measurement period and preserves all
-historical records in complete archival downloads.
 
 ## Interpretation
 
