@@ -231,12 +231,19 @@ def test_published_comparisons_match_geography_colors_and_annual_points(tmp_path
             assert macau.get("stroke-dasharray") and "Accounting differs" in "".join(doc.itertext())
 
 
-def test_iie_publication_breaks_pandemic_history_without_losing_valid_headline():
+def test_iie_student_columns_preserve_values_periods_and_definition_breaks():
     rows = [r for r in json.loads((ROOT / "data/site/observations.json").read_text())
             if r["series_id"] == "iie:CHN:USA:international_students"]
     doc = ElementTree.fromstring(svg_chart(rows))
-    path = next(x for x in doc.iter() if x.get("class") == "data-line")
-    assert path.get("d").count("M") == 3
+    assert doc.get("data-plot-style") == "columns"
+    bars = [x for x in doc.iter() if x.get("class") == "annual-column"]
+    annual_rows = sorted((r for r in rows if r["frequency"] == "annual" and r["value"] is not None),
+                         key=lambda r: r["year"])
+    assert [(int(b.get("data-year")), float(b.get("data-value"))) for b in bars] == [
+        (r["year"], r["value"]) for r in annual_rows]
+    assert [next(x.iter("{http://www.w3.org/2000/svg}title")).text for x in bars] == [
+        r["period"] + ": " + f'{r["value"]:,}' for r in annual_rows]
+    assert not any(x.get("class") == "data-line" for x in doc.iter())
     note = " ".join(x.text or "" for x in doc.iter() if x.get("class") == "figure-source")
     assert "2020/21" in note and "2023/24" in note
     assert "Definitions differ" in svg_chart(rows, indexed=True)

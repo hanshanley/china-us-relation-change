@@ -114,7 +114,9 @@ def svg_chart(rows, indexed=False, theme="themarginoferror"):
     snapshot = ((len(present) == 1 and first == end) or
                 (len(present) == 2 and present[0]["source_id"] == "ustr"
                  and len({r["comparability"] for r in present}) == 2))
-    columns = not indexed and not snapshot and present[0]["measure"] in {"goods", "services"}
+    columns = not indexed and not snapshot and (
+        present[0]["measure"] in {"goods", "services"}
+        or present[0]["series_id"] == "iie:CHN:USA:international_students")
     x = lambda year: 115 + ((year - first + .5) / (end - first + 1) if snapshot or columns
                             else (year - first) / max(1, end - first)) * 835
     y = lambda value: 435 - value / maximum * 285
@@ -130,6 +132,9 @@ def svg_chart(rows, indexed=False, theme="themarginoferror"):
                    if snapshot else
                    "Annual reported totals shown as columns. Missing years are left blank. Exact values are in the complete data download."
                    if columns else f"Annual history from {first} where available. Missing years and definition changes break the line. Exact values are in the complete data download.")
+    if columns and sample["source_id"] == "iie":
+        description = ("Reported student counts shown as columns, with academic years labeled by ending year. "
+                       "Population definitions vary; exact periods, values and definitions accompany the chart.")
     style_attribute = ' data-plot-style="columns"' if columns else ""
     parts = [f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {CHART_WIDTH} {CHART_HEIGHT}" role="img" aria-label="{esc(title)}"{style_attribute}>',
              f"<title>{esc(title)}</title>",
