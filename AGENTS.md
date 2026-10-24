@@ -3,6 +3,30 @@
 Read `TASKS.md` for the authoritative user-request checklist and
 `AGENT-COMMS.md` for active file claims, messages and handoffs before editing.
 
+## Project purpose: change from at least 2000 to the present
+
+The point of this project is to show **how interactions between China and the
+United States have changed from at least 2000 to the present**. Use that
+question to organize data recovery, graph design, comparisons and analysis.
+The target is the actual historical evidence, not just a 2000-2026 axis.
+
+For each relevant measure, direction and geography, pursue the full compatible
+history and latest released observations. Explain interpretable changes over
+time rather than offering disconnected snapshots, two selected endpoints or
+an unexplained short recent window as a complete answer. A recent observation
+can satisfy public freshness without satisfying historical completeness.
+Earlier/current endpoint gaps remain active tasks, not a reason to stop after
+finding a shorter series.
+
+Preserve actual periods, missing years, source/population definitions and
+comparability breaks. Never manufacture 2000 or 2026 observations, interpolate
+unreported years, annualize unmatched partial-year data, or splice incompatible
+series to create an apparently complete trend. Clearly qualify genuinely
+shorter supplementary indicators while continuing legitimate recovery.
+Honor later specific presentation corrections; biased recovery does not become
+a valid historical trend merely because a time-series chart can be drawn.
+Apply the long-run graph-acceptance requirements in `TASKS.md` SCOPE-10.
+
 ## Keep working through the full checklist
 
 Work with the other agents toward **all outstanding user requests**, not just
