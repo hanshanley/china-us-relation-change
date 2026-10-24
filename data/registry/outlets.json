@@ -2622,6 +2622,56 @@
       "notes": "Recorded newspaper HTTP403 held with zero newspaper/alias/static/help/obituary/mirror/client requests. Actual cached PDF12/19 inspected offline, preserving original observation/hash. Page12 URI actions are shared obituary portals, not a direct citizen-times.com website; page19 uses a Gannett email domain. No portal, reprint issue or photo mirror followed; newspaper credits and separate Weibo mentions are not an account designation. Parent/sibling/staff and unrelated Citizen/Times identities not inherited. Unknown, not absent. Review date: 2026-10-24 UTC."
     },
     {
+      "id": "davis-enterprise",
+      "name": "The Davis Enterprise",
+      "category": "newspaper",
+      "aliases": ["Davis Enterprise", "The Davis Enterprise"],
+      "us_basis": "United States-classified source position342; actual root-linked About identifies Davis, California and distinct office/mailing roles. Family/corporate staff-email domains and role labels are publisher statements, not independently audited current legal control or account transfer.",
+      "source_url": "https://www.davisenterprise.com/",
+      "research_status": "reviewed",
+      "notes": "Complete root and actual /site/about.html captured through the permitted publisher client before a later search-provider robots restriction for davisenterprise.com. That distinct provider hold is respected with no subsequent publisher-domain/alias/client retry; no origin HTTP403 or local robots rule invented. Existing captures retained. The About separates street offices from PO-box mailing and qualifies service hours; next-door wording does not independently verify a move date or occupancy. Alternate .net/McNaughton/Daily Republic staff domains, UC Davis channels and Ziff Davis finance results not Sina proof. Unknown, not absent. Review date: 2026-10-24 UTC."
+    },
+    {
+      "id": "fremont-tribune",
+      "name": "Fremont Tribune",
+      "category": "newspaper",
+      "aliases": ["Fremont Fremont Tribune", "Fremont Tribune"],
+      "us_basis": "United States-classified source position343 retains the original repeated-word cohort name. Actual root/Contact identify Fremont Tribune in Nebraska; service/street-footer context is not independently audited office occupancy or current ownership.",
+      "source_url": "https://fremonttribune.com/",
+      "research_status": "reviewed",
+      "notes": "Complete root and literal /contact/ inspected without an institutional Sina designation. Repeated nested service blocks are one Contact capture, not independent confirmations or extra channels. The {{url}} placeholder was not repaired/followed and forms were not submitted. Partner Nebraska papers, corporate/shareholder footer labels, California Fremont, generic Tribune titles, toy-forum references and staff/personal channels not inherited. Original Fremont Fremont Tribune source label unchanged. Unknown, not absent. Review date: 2026-10-24 UTC."
+    },
+    {
+      "id": "corvallis-gazette-times",
+      "name": "Corvallis Gazette-Times",
+      "category": "newspaper",
+      "aliases": ["Corvallis Gazette-Times", "Gazette-Times"],
+      "us_basis": "United States-classified source position344; actual root and linked Contact name Corvallis Gazette-Times in Oregon. An Albany PO box and regional service contacts have mailing/service roles, not independent proof of a Corvallis newsroom move, occupancy, closure or current legal control.",
+      "source_url": "https://gazettetimes.com/",
+      "research_status": "reviewed",
+      "notes": "Complete root and actual /contact/ inspected without a qualifying Sina designation. Corvallis title and Albany mailing footer retained distinctly; ADH/Lee service-email labels and Albany Democrat-Herald/Lebanon Express partner links do not transfer identities or accounts. The {{url}} placeholder was not repaired/requested and forms were not submitted. Sponsored ads, generic Gazette/Times names, personal-profile aggregators and parent/staff accounts not institutional proof. Unknown, not absent. Review date: 2026-10-24 UTC."
+    },
+    {
+      "id": "la-raza-chicago",
+      "name": "La Raza / Chicago",
+      "category": "newspaper",
+      "aliases": ["La Raza", "La Raza Chicago"],
+      "us_basis": "United States-classified Spanish-language source position345; actual publisher About explicitly describes Chicago and names La Raza Chicago, Inc/Impremedia Operating Company, LLC with H-Code Media/MyCode context. Those operator/family statements are not independently audited current legal control or an institutional account transfer.",
+      "source_url": "https://laraza.com/",
+      "research_status": "reviewed",
+      "notes": "Complete Spanish root and actual English /about-us/ inspected without a qualifying Sina designation. Chicago institutional body, not a generic La Raza label, radio/advocacy identity or Latin-American namesake, supplies scope. Claimed1970 founding, awards, memberships, grants and combined Impremedia-family reach are not independent Weibo activity or La Raza-only audience metrics. Listed Facebook/Twitter/Google News omission is not a negative account finding; duplicate page blocks are one source. La Opinion, El Diario NY, other family publications, parent and staff handles not inherited. Unknown, not absent. Review date: 2026-10-24 UTC."
+    },
+    {
+      "id": "rutland-herald",
+      "name": "Rutland Herald",
+      "category": "newspaper",
+      "aliases": ["Rutland Herald"],
+      "us_basis": "United States-classified source position346; actual root/About name Rutland Herald and its Vermont mission/history. Sample/Brunswick Publishing and2016/2018 ownership narrative are publisher statements, not independently audited current legal control.",
+      "source_url": "https://www.rutlandherald.com/",
+      "research_status": "reviewed",
+      "notes": "Complete root and actual /site/about.html inspected without an institutional Sina designation. Claimed1794 lineage/continuous publication, Pulitzer references and2016/2018 ownership changes do not establish account age, current control or uninterrupted Weibo activity. Weather-widget update time is not an About revision or posting date. Sister Times Argus, other Heralds, Brunswick geographic namesakes, staff/personal accounts, share widgets, voting-service/aggregator pages and related Weibo stories not publisher identity proof. Held Pulitzer host not requested. Unknown, not absent. Review date: 2026-10-24 UTC."
+    },
+    {
       "id": "telemundo", "name": "Telemundo / Noticias Telemundo", "category": "broadcast_news",
       "aliases": ["Telemundo", "Noticias Telemundo", "Telemundo Noticias"],
       "us_basis": "United States-classified source position110; actual network root separately links its Noticias Telemundo newsroom section. Current corporate domicile/headquarters and legal account control are not independently audited.",

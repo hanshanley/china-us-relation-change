@@ -35,28 +35,28 @@ The selected **1,000 SCImago U.S.-classified domains** are ranked by digital
 reputation, not traffic; their present ownership/nationality was not independently
 audited. **Five have current-profile evidence, seven historical-only evidence,
 988 remain unknown, and zero are verified negatives.** All underwent homepage
-screening, but only 341 have recorded manual review.
+screening, but only 346 have recorded manual review.
 
-The [latest scheduled pass](discovery_iteration69.md) adds five reviews.
-Seven fresh publisher responses, one genuinely reused corporate HTML capture
-and one existing PDF remain available for limited context.
-Williamsport's Contact/footer ZIP variants were not silently resolved.
-Warren Tribune Chronicle's actual Ohio context is distinct from Warren's
-Pennsylvania Times Observer. APG Wisconsin's real root/About/Ashland section
-were read as one selected multi-publication host, not a silently narrowed
-single-paper domain or inherited corporate account.
-Canon City's own explicit reservation caused a stop and removal of only
-its fresh root. The actual cached corporate target matches the ranked
-hostname, but its image-alt says Carson, not Canon; that mismatch was retained.
-Asheville's newspaper HTTP403 was held and its real directory context is not
-a direct ranked-host or Sina binding.
-The twenty publisher-body holds, distinct Southern/Citrus/NWA retention
+The [latest scheduled pass](discovery_iteration70.md) adds five reviews.
+Ten complete fresh publisher responses remain available for limited context.
+Davis's actual About separates office and PO-box mailing roles; a later
+search-provider robots restriction is recorded separately, with no subsequent
+publisher-domain/alias/client retry or invented origin denial.
+The original repeated-word Fremont cohort label remains intact.
+Corvallis's Albany mailing/service context is not a verified newsroom move
+or an inherited Albany Democrat-Herald account.
+La Raza's real Chicago/operator/family statements are distinguished from
+generic namesakes, combined-family audience claims and sibling handles.
+Rutland's Vermont history/ownership narrative, award references and weather
+widget do not establish current legal control or Weibo activity.
+No new source-use reservation or retention disposal was added.
+The twenty source-use publisher-body holds, distinct Southern/Citrus/NWA retention
 conditions and institutional/corporate restrictions remain separate.
 No parent/sibling handle was inherited.
 Shared catalogs are not edited.
 The live 6,570-post corpus, original archived baseline and all rolling data
 remain unchanged by discovery.
-Discovery is not exhausted: 659 selected domains still lack a recorded
+Discovery is not exhausted: 654 selected domains still lack a recorded
 manual review. A bounded recurring prompt is active every 30 minutes; later
 passes must advance the frontier rather than repeatedly probing exhausted leads.
 
