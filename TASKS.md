@@ -3,10 +3,14 @@
 Updated: October 24, 2026. This is the durable checklist for the user's requests.
 Read this before starting or resuming work, and update it as each item is resolved.
 Repeated requests are consolidated below, not silently discarded.
+This is the master request ledger. `PUBLICATION-TODO.md` is the narrower
+current-release checklist; keep its statuses consistent with this file.
 
 **An unchecked item is not finished.** Work in an isolated candidate, a passing
 unit test, or a successful deployment alone does not establish completion.
 Previously verified milestones are recorded separately from the remaining work.
+This is the **single authoritative request ledger**. `PUBLICATION-TODO.md`
+contains archived planning context, not a second set of completion statuses.
 
 ## 1. Finish the current graph corrections
 
@@ -47,6 +51,14 @@ claiming that the website is fixed.
 - [ ] **UI-08: Recheck size and appearance.** Compact, legible desktop and phone
   charts; no overflowing labels, empty-looking line fragments, oversized panels,
   clipped annotations, random points, overlapping legends or illegible axes.
+- [ ] **UI-09: Replace the rejected Business view with current evidence.**
+  Reconcile the existing `data/local/business-refresh-work/` candidate with the
+  shared source. Keep AmCham Shanghai and German Chamber survey populations,
+  fieldwork/performance years and investment positions separate. A survey
+  percentage is not an enterprise count or a combined European sample.
+- [ ] **UI-10: Recheck the reported faint header line.** Inspect the actual
+  desktop/phone result and distinguish the unwanted line from intentional
+  masthead and axis rules. Do not claim this fixed from source inspection alone.
 
 **Current evidence, not completion:** the live enrolled-student screenshot was
 reproduced. Its 2019-2025 values are present; the old line renderer splits at
@@ -116,6 +128,47 @@ government republications and compatible source tables.
 - [ ] **DATA-17: Close the loop on each unresolved item.** Record the actual
   alternative sources tried, what they contain, and the remaining precise gap.
   Do not mark a data gap recovered merely because a substitute chart exists.
+
+### Article source work: DATA-14
+
+User-supplied lead: [The Economist article republished by Mint on October 27,
+2023](https://www.livemint.com/specials/why-fewer-university-students-are-studying-mandarin-11698412205247.html).
+It is a research lead, not a new 2026 data release or permission to reproduce
+the article or its artwork.
+
+- [x] **LANG-01: Identify the source article.** The supplied excerpt matches
+  Mint's licensed Economist republication. Retain the exact title, publication
+  date and clean source URL; do not copy the article into the project.
+- [ ] **LANG-02: Integrate the actual MLA pandemic snapshot.** Verified Figure 1
+  of the [fall-2022 newsletter snapshot](https://www.mla.org/content/download/191129/file/Fall-2022-NL-snapshot.pdf)
+  gives 2016/2020 course registrations at the same 1,308 institutions:
+  Chinese 33,561/26,528; Japanese 46,936/43,268; Korean 9,033/11,323.
+  The roughly 21% Chinese decline is real, but this is not the national census.
+  The source is already retained; its six selected count observations still
+  need reproducible integration, validation and full-data exports.
+- [ ] **LANG-03: Preserve the distinct national MLA history and seek a newer
+  actual release.** Existing 2021-report-vintage Chinese counts are 54,248 in
+  2016 and 46,492 in 2021, a different comparison. A 2024 collection announcement
+  does not supply 2024 observations. Keep Chinese, Japanese and Korean separate.
+- [ ] **LANG-04: Recover the HESA evidence with its real units and periods.**
+  [BACS's primary 2021-22 report](https://bacsuk.org.uk/wp-content/uploads/2015/05/BACS-State-of-the-Field-2021-22-Report.pdf),
+  Table 7, supplies the HESA-derived Chinese-studies history and quotes 1,535
+  in 2012/13 versus 1,055 in 2021/22. These are subject-apportioned enrollments,
+  not admissions, unique learners, or all people taking Mandarin. Preserve the
+  JACS/HECoS classification boundary and do not join them to U.S. course counts.
+- [ ] **LANG-05: Pursue newer, comparable U.K. data.** HESA publishes through
+  2024/25, but direct Table 52 and its CSV returned 403 on October 24, 2026.
+  The official data.gov.uk catalogue points to that same CSV, not a recovered
+  alternate file. Check legitimate publisher reports and open data alternatives.
+  Do not bypass restrictions, silently substitute broad Asian studies, or claim
+  Japanese/Korean comparisons without those actual subject observations.
+- [ ] **LANG-06: Respect the newer public freshness rule.** Retain useful older
+  evidence in the complete data/research exports. A 2016/2020 snapshot or
+  2021/22 U.K. endpoint does not by itself qualify as a current public chart.
+- [ ] **LANG-07: Verify integration, not just source discovery.** Reconcile
+  selected facts, source checksums and locators, definitions, CSV/JSON records,
+  public eligibility and any plotted comparisons. Update DATA-14 only after
+  the integration is actually verified; otherwise record the precise remainder.
 
 ## 3. Preserve the requested analysis and presentation
 
@@ -195,3 +248,31 @@ These checks describe the named releases, not a claim that the new queue is done
   success or green deployment alone is insufficient.
 - [ ] **VERIFY-07:** Update this file with the completion evidence and remaining
   gaps. Report only verified results; leave unfinished work unchecked.
+
+## 6. Weibo research and unattended updates
+
+These remain part of the project, even though the public directory redesign is
+already verified. Preserve the separate population and access restrictions.
+
+- [ ] **WEIBO-01: Finish permitted discovery or document source exhaustion.**
+  The published cohort has 373/1,000 manually reviewed domains, not 373 confirmed
+  accounts. Track the remaining frontier, do not repeat exhausted routes, and
+  keep unknowns distinct from verified negatives.
+- [ ] **WEIBO-02: Integrate the already captured pass 78 once.** Review the
+  retained Lewiston Sun Journal evidence before adding it; do not repeat the
+  blocked newspaper request or count the same pass twice. Verify the actual
+  published review count afterward.
+- [ ] **WEIBO-03: Resolve recoverable account/post bindings.** The historical
+  NYT Chinese numeric recheck and VOA `legalwindow` binding remain unresolved.
+  Candidate posts are not confirmed evidence and recovery is not total output.
+- [ ] **AUTO-01: Make private daily collection operational.** The recorded
+  scheduled-process access failure remains a blocker until authorization and
+  a genuinely unattended collection run are verified. Do not change filesystem
+  permissions, relocate the project or bypass the block without approval.
+- [ ] **AUTO-02: Verify the entire unattended chain.** Confirm collection,
+  cutoff advancement, deduplication, aggregates, complete exports, commit/push
+  and actual website deployment. A successful aggregate build is not proof
+  that private collection worked.
+- [ ] **AUTO-03: Preserve truthful freshness after failures.** Keep the last
+  successful data; distinguish build dates, source periods, successful retrievals
+  and failed attempts. Do not convert collection failures to zero posting.

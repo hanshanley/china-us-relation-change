@@ -1,20 +1,15 @@
-# Public dashboard completion checklist
+# Archived public dashboard planning notes
 
 Updated: October 24, 2026.
 
-The complete, numbered request ledger is [`TASKS.md`](TASKS.md). This file tracks
-the current publication release; keep completion evidence consistent between them.
+The complete, numbered and authoritative request ledger is
+[`TASKS.md`](TASKS.md). Update completion statuses there, not here.
 
-This is the working checklist for the user's requests. Keep it current as work
-progresses. A task is not finished just because code was written or a local graph
-looks plausible. Check the deployed website, its actual data and its downloads
-before checking off a publication task.
-
-Read this file before starting or resuming work. Use it as the single project
-checklist, including the Weibo research and automation below, rather than
-creating competing task lists. Update the status and verification evidence when
-an item changes. **Implemented, committed, deployed and verified are different
-milestones.** A blocked item stays open.
+These notes preserve the earlier publication candidate, source-recovery and
+automation context. Their historical checkboxes are not current completion
+claims. The active items, including Business replacement, the header line,
+Weibo discovery and unattended collection, are consolidated in `TASKS.md`.
+**Implemented, committed, deployed and verified are different milestones.**
 
 ## Current work: finish in this order
 
