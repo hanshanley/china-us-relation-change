@@ -2822,6 +2822,56 @@
       "notes": "Complete root and actually linked /site/about.html saved before a later non-retryable search-provider robots restriction for herald-zeitung.com; no subsequent publisher/alias/path/client request, earlier captures retained. About distinguishes1957merger from full1967consolidation and recounts later office/production changes; no single invented merger date or account-age inference. The malformed visible site label and weather freshness were not repaired into a URI/redirect or About revision date. Generic Herald/German Zeitung namesakes, sister papers, historical owners and staff accounts not substituted. No issue, mirror, submission form or service requested. Unknown, not absent. Review date: 2026-10-24 UTC."
     },
     {
+      "id": "ironton-tribune",
+      "name": "The Ironton Tribune",
+      "category": "newspaper",
+      "aliases": ["Ironton Tribune", "The Ironton Tribune", "The Tribune"],
+      "us_basis": "United States-classified source position362; actual root/About identify Ironton and Lawrence County, Ohio, with neighboring Kentucky/West Virginia coverage. Publisher self-descriptions and historical mergers/moves are not independently audited current legal control or office occupancy.",
+      "source_url": "https://irontontribune.com/",
+      "research_status": "reviewed",
+      "notes": "Complete root and actual /about-us/ inspected without an institutional Sina designation.1928merger,1974/2021moves, claimed household reach and publication frequency not Weibo age/activity or account transfer. Tri-State Living and staff/parent/sibling accounts not inherited. Root-supplied corporate terms URI rejected before body retrieval by an origin-consistency guard; no corporate body/hash, terminal host, observed redirect, origin403 or prohibitory rule invented, and no alternate route/client retry. No form, issue, print service or customer transaction used. Unknown, not absent. Review date: 2026-10-24 UTC."
+    },
+    {
+      "id": "kenosha-news",
+      "name": "Kenosha News",
+      "category": "newspaper",
+      "aliases": ["Kenosha Kenosha News", "Kenosha News"],
+      "us_basis": "United States-classified source position363; actual root/Contact identify Kenosha, Wisconsin. Contact address and footer address are distinct source roles, not a resolved relocation/current-occupancy audit; footer ownership statements are not independently audited legal control.",
+      "source_url": "https://kenoshanews.com/",
+      "research_status": "reviewed",
+      "notes": "Complete root and actual /contact/ inspected without an institutional Sina designation. Original doubled cohort name retained. Contact lists6535GreenBayRoad while footer lists60052ndStreetSuite140; no silently corrected address or inferred closure/move. Weekday dashes remain unspecified, weekend closed entries and appointment-only notice do not establish newsroom/Weibo inactivity. AI Answers search product, staff/Lee sibling accounts, commercial client listings and shared departmental emails not publisher Sina proof. Literal {{url}} link not repaired or followed. No account, form, issue, cookie/privacy setting or service used. Unknown, not absent. Review date: 2026-10-24 UTC."
+    },
+    {
+      "id": "goldsboro-news-argus",
+      "name": "Goldsboro News-Argus",
+      "category": "newspaper",
+      "aliases": ["Goldsboro News-Argus", "The Goldsboro News-Argus", "News-Argus"],
+      "us_basis": "United States-classified source position364; observed root factual metadata names Goldsboro, North Carolina. The two exact fresh root/policy copies were removed conservatively, so available raw/hash are null; source-country classification is not an independently audited current-control finding.",
+      "source_url": "https://www.newsargus.com/",
+      "research_status": "reviewed",
+      "notes": "Actual root-linked /site/aipolicy.html contains the same staff AI/company-IP guidance dated9/26/2024 seen in prior separate retention choices. Conservatively retained factual metadata only, removed exactly the fresh root and policy copies, older captures untouched, and stopped further publisher bodies. This is not classified as a blanket external-access/TDM ban or redistribution license; discarded fingerprints are not available primary proof. Linked About/Contact were not fetched afterward. Generic News-Argus titles, Wright Times, staff/parent and people-search handles not publisher Sina designations. No widget, form, login or issue used. Unknown, not absent. Review date: 2026-10-24 UTC."
+    },
+    {
+      "id": "fort-myers-news-press",
+      "name": "News-Press / Fort Myers directory context",
+      "category": "newspaper",
+      "aliases": ["News-Press", "Fort Myers News Press", "The News-Press"],
+      "us_basis": "United States-classified source position365; existing undated LocaliQ directory lists Fort Myers News Press under Florida. Its shared service email/obituary-portal context does not independently bind the exact ranked news-press.com hostname or certify present control.",
+      "source_url": "https://news-press.com/",
+      "research_status": "reviewed",
+      "notes": "Recorded newspaperHTTP403 held with zero newspaper/alias/static/help/obituary/mirror/client requests. Existing publisher PDF pages3/18 read offline at originalOctober23capture time; no exact news-press.com hostname in extracted directory text, and email/portal context not upgraded to website control/Sina identity. No obituary portal action followed. Santa Barbara/other News-Press titles, Fort Myers-area sister titles and parent/staff accounts not substituted. Undated directory not called a current ownership census or Weibo record. Unknown, not absent. Review date: 2026-10-24 UTC."
+    },
+    {
+      "id": "reno-gazette-journal",
+      "name": "Reno Gazette-Journal",
+      "category": "newspaper",
+      "aliases": ["Reno Reno Gazette-Journal", "Reno Gazette-Journal", "Reno Gazette Journal"],
+      "us_basis": "United States-classified source position366; existing undated LocaliQ directory lists Reno Gazette Journal under Nevada. Shared Gannett contact and obituary-portal context does not independently bind the exact ranked rgj.com hostname or certify present legal control.",
+      "source_url": "https://rgj.com/",
+      "research_status": "reviewed",
+      "notes": "Recorded newspaperHTTP403 held with zero newspaper/alias/static/help/obituary/mirror/client requests. Existing publisher PDF pages9/19 read offline with originalcapture time; directory email uses a different corporate subdomain, not rgj.com, a proven alias/redirect or Sina UID. Original doubled Reno cohort name retained. Shared portal actions were not followed or reinterpreted as newspaper homepage anchors. Lyon County News Leader, generic Gazette/Journal, parent and staff accounts not inherited. Unknown, not absent. Review date: 2026-10-24 UTC."
+    },
+    {
       "id": "telemundo", "name": "Telemundo / Noticias Telemundo", "category": "broadcast_news",
       "aliases": ["Telemundo", "Noticias Telemundo", "Telemundo Noticias"],
       "us_basis": "United States-classified source position110; actual network root separately links its Noticias Telemundo newsroom section. Current corporate domicile/headquarters and legal account control are not independently audited.",

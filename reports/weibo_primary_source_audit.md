@@ -10,7 +10,7 @@ proof manifest and aggregate JSON expose the updated corpus counts. These
 incremental checks do not imply another live account-identity sweep, and do not
 replace the archived October 21 baseline.
 
-The registry-bound manifest was refreshed October 24 UTC after 241 additional
+The registry-bound manifest was refreshed October 24 UTC after 246 additional
 ranked-domain reviews. Existing account-source captures and identity decisions
 were retained; this refresh does not imply another live numeric-profile sweep.
 
@@ -149,7 +149,7 @@ The complete machine-readable decisions are in
 NYT Chinese's historical numeric recheck and VOA's numeric binding remain unresolved.
 Current legal operation and continuing license terms are not uniformly audited.
 The ranked cohort still has **12 positive domains, 988 unknown domains and zero
-verified negatives**; 361 have recorded manual review, including the 241
+verified negatives**; 366 have recorded manual review, including the 246
 additional reviews above. It is a SCImago
 U.S.-classified digital-reputation cohort, not a traffic ranking or an
 independently audited ownership list. This work improves the reliability of

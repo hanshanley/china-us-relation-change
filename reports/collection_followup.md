@@ -35,27 +35,28 @@ The selected **1,000 SCImago U.S.-classified domains** are ranked by digital
 reputation, not traffic; their present ownership/nationality was not independently
 audited. **Five have current-profile evidence, seven historical-only evidence,
 988 remain unknown, and zero are verified negatives.** All underwent homepage
-screening, but only 361 have recorded manual review.
+screening, but only 366 have recorded manual review.
 
-The [latest scheduled pass](discovery_iteration73.md) adds five reviews.
-Seven fresh complete publisher responses remain privately available.
-Harrisonburg, Emporia and Frederick roots were saved before later
-non-retryable search-provider restrictions; no later publisher/alias/client
-requests were made. Their About/Contact links were not fetched afterward.
-Elko's literal Contact fragment and closed service-hour wording were
-preserved, not converted into newsroom closure or Weibo inactivity.
-New Braunfels's root/About were saved before its later provider restriction;
-the historical1957merger and1967consolidation remain distinct.
-Frederick's school-policy headline is not a publisher AI/TDM reservation.
-No new retention disposal, source-use hold or permission change was made.
+The [latest scheduled pass](discovery_iteration74.md) adds five reviews.
+Four fresh complete publisher responses and one existing publisher PDF
+remain available for bounded context.
+Ironton's real Ohio About was not conflated with sister/staff accounts.
+Its supplied corporate terms route failed a pre-body origin guard; no
+corporate body, redirect, origin403 or permission inference was invented.
+Kenosha's two address roles, weekday dashes and appointment-only notice
+were retained without declaring a move, closure or Weibo inactivity.
+Goldsboro's staff AI/company-IP policy prompted removal of only two fresh
+copies and a separate factual-only retention choice, not an external-use ban.
+News-Press and Reno newspaper403 holds were honored with zero requests;
+cached directory names/contact/portal context do not bind the ranked hosts.
 The twenty-one source-use publisher-body holds, five distinct publisher
-search-provider restrictions (including the four new notices), and Southern/Citrus/NWA retention
+search-provider restrictions, and Southern/Citrus/NWA/Goldsboro retention
 conditions and institutional/corporate restrictions remain separate.
 No parent/sibling handle was inherited.
 Shared catalogs are not edited.
 The live 6,570-post corpus, original archived baseline and all rolling data
 remain unchanged by discovery.
-Discovery is not exhausted: 639 selected domains still lack a recorded
+Discovery is not exhausted: 634 selected domains still lack a recorded
 manual review. A bounded recurring prompt is active every 30 minutes; later
 passes must advance the frontier rather than repeatedly probing exhausted leads.
 
