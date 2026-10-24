@@ -9,7 +9,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
-from us_china_exchange.business_sources import collect_business, norwegian_affiliates
+from us_china_exchange.business_sources import collect_business, german_affiliates, norwegian_affiliates
 from us_china_exchange.language_sources import ReviewClient
 from us_china_exchange.model import json_text
 from us_china_exchange.pipeline import write_atomic
@@ -29,15 +29,37 @@ def collect_norway(client, prior):
     return data
 
 
+def collect_germany(client, prior):
+    data = copy.deepcopy(prior)
+    definitions, observations, sources = german_affiliates(client)
+    data["series"].update(definitions)
+    data["sources"].update(sources)
+    data["observations"] = sorted(
+        [r for r in data["observations"] if r["series_id"] not in definitions] + observations,
+        key=lambda r: (r["series_id"], r["year"]))
+    data["coverage"] = [r for r in data["coverage"] if r["id"] not in definitions] + [
+        {"id": sid, "status": "annual",
+         "description": "German-controlled China enterprises; Eurostat and Bundesbank source histories stay "
+         "separate because overlapping counts differ. Not added to EU27 or relabelled parent companies."}
+        for sid in definitions]
+    data["context"]["geography"] = (
+        "China is the host in every chart. Germany is shown separately from the overlapping EU27 aggregate. "
+        "Historical EU membership, UK and Norwegian populations remain distinct; no all-Europe total is calculated.")
+    return data
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--refresh", action="store_true", help="Refetch reviewed public assets instead of the local checksummed cache")
     parser.add_argument("--data-only", action="store_true")
-    parser.add_argument("--norway-only", action="store_true", help="Review Statistics Norway; preserve all other observations")
+    selection = parser.add_mutually_exclusive_group()
+    selection.add_argument("--norway-only", action="store_true", help="Review Statistics Norway; preserve all other observations")
+    selection.add_argument("--germany-only", action="store_true", help="Review Bundesbank; preserve all other observations")
     args = parser.parse_args()
     client = ReviewClient(ROOT / "data/local/business-presence/raw", args.refresh)
-    data = (collect_norway(client, json.loads((ROOT / "data/site/business_presence.json").read_text()))
-            if args.norway_only else collect_business(client))
+    data = ((collect_norway if args.norway_only else collect_germany)(
+        client, json.loads((ROOT / "data/site/business_presence.json").read_text()))
+        if args.norway_only or args.germany_only else collect_business(client))
     from us_china_exchange.business_analysis import validate_business_data
     validate_business_data(data)
     write_atomic(ROOT / "data/site/business_presence.json", json_text(data))

@@ -1,7 +1,8 @@
 {
   "context": {
     "definition": "The OHSS series count grants of U.S. permanent-resident status; the UN series count resident stocks. Neither is a measure of net migration. Grants include adjustments by people already in the United States, not only new physical arrivals. Birthplace is not a departure country.",
-    "periods": "U.S. fiscal years end September 30, not December 31. Birthplace and nationality series remain separate.",
+    "macau_approvals": "DSEC's Macau series counts newly approved people in its U.S. country category, not verified U.S. citizens, U.S. departures or permanent-resident grants.",
+    "periods": "U.S. grant series use fiscal years ending September 30. Macau approvals use January-December calendar years. UN resident stocks use 1 July benchmarks. Birthplace, citizenship and source-country categories remain separate.",
     "resident_stocks": "UN stocks refer to 1 July in actual published benchmark years. China destination estimates use foreign citizenship; Hong Kong and U.S. destination estimates use foreign birth. Refugee adjustments are included where flagged R. These are not new immigration or net migration. No annual observations are invented between benchmarks.",
     "rights": "Selected statistical aggregates and original figures only; no source workbooks are redistributed. UN estimates: United Nations DESA, Population Division, International Migrant Stock 2024, adapted under CC BY 3.0 IGO.",
     "rounding": "FY2015\u20132024 birthplace counts and FY2025 nationality counts are rounded to the nearest ten. Earlier figures use older, exact-count vintages."
@@ -31,9 +32,158 @@
       "description": "The reviewed UN bilateral table does not separately report the U.S.\u2013Macau pair. No zero or allocation from mainland China is inferred.",
       "id": "macau_resident_stock",
       "status": "not_verified"
+    },
+    {
+      "description": "DSEC U.S.-category residence approvals for every calendar year 2010-2025; not resident stocks, physical U.S. departures or a permanent-resident classification.",
+      "id": "macau_residence_approvals",
+      "status": "available"
     }
   ],
   "observations": [
+    {
+      "comparability": "dsec_abode:USA:MAC",
+      "notes": "Calendar-year people approved; source U.S. country/territory category, not verified U.S. departures or a permanent-residence classification.",
+      "series_id": "dsec_abode:USA:MAC",
+      "source_id": "dsec_abode_2020",
+      "status": "observed",
+      "value": 91,
+      "year": 2010
+    },
+    {
+      "comparability": "dsec_abode:USA:MAC",
+      "notes": "Calendar-year people approved; source U.S. country/territory category, not verified U.S. departures or a permanent-residence classification.",
+      "series_id": "dsec_abode:USA:MAC",
+      "source_id": "dsec_abode_2021",
+      "status": "observed",
+      "value": 116,
+      "year": 2011
+    },
+    {
+      "comparability": "dsec_abode:USA:MAC",
+      "notes": "Calendar-year people approved; source U.S. country/territory category, not verified U.S. departures or a permanent-residence classification.",
+      "series_id": "dsec_abode:USA:MAC",
+      "source_id": "dsec_abode_2022",
+      "status": "observed",
+      "value": 66,
+      "year": 2012
+    },
+    {
+      "comparability": "dsec_abode:USA:MAC",
+      "notes": "Calendar-year people approved; source U.S. country/territory category, not verified U.S. departures or a permanent-residence classification.",
+      "series_id": "dsec_abode:USA:MAC",
+      "source_id": "dsec_abode_2023",
+      "status": "observed",
+      "value": 84,
+      "year": 2013
+    },
+    {
+      "comparability": "dsec_abode:USA:MAC",
+      "notes": "Calendar-year people approved; source U.S. country/territory category, not verified U.S. departures or a permanent-residence classification.",
+      "series_id": "dsec_abode:USA:MAC",
+      "source_id": "dsec_abode_2024",
+      "status": "observed",
+      "value": 53,
+      "year": 2014
+    },
+    {
+      "comparability": "dsec_abode:USA:MAC",
+      "notes": "Calendar-year people approved; source U.S. country/territory category, not verified U.S. departures or a permanent-residence classification.",
+      "series_id": "dsec_abode:USA:MAC",
+      "source_id": "dsec_abode_2025",
+      "status": "observed",
+      "value": 67,
+      "year": 2015
+    },
+    {
+      "comparability": "dsec_abode:USA:MAC",
+      "notes": "Calendar-year people approved; source U.S. country/territory category, not verified U.S. departures or a permanent-residence classification.",
+      "series_id": "dsec_abode:USA:MAC",
+      "source_id": "dsec_abode_2021",
+      "status": "observed",
+      "value": 46,
+      "year": 2016
+    },
+    {
+      "comparability": "dsec_abode:USA:MAC",
+      "notes": "Calendar-year people approved; source U.S. country/territory category, not verified U.S. departures or a permanent-residence classification.",
+      "series_id": "dsec_abode:USA:MAC",
+      "source_id": "dsec_abode_2022",
+      "status": "observed",
+      "value": 58,
+      "year": 2017
+    },
+    {
+      "comparability": "dsec_abode:USA:MAC",
+      "notes": "Calendar-year people approved; source U.S. country/territory category, not verified U.S. departures or a permanent-residence classification.",
+      "series_id": "dsec_abode:USA:MAC",
+      "source_id": "dsec_abode_2023",
+      "status": "observed",
+      "value": 33,
+      "year": 2018
+    },
+    {
+      "comparability": "dsec_abode:USA:MAC",
+      "notes": "Calendar-year people approved; source U.S. country/territory category, not verified U.S. departures or a permanent-residence classification.",
+      "series_id": "dsec_abode:USA:MAC",
+      "source_id": "dsec_abode_2024",
+      "status": "observed",
+      "value": 15,
+      "year": 2019
+    },
+    {
+      "comparability": "dsec_abode:USA:MAC",
+      "notes": "Calendar-year people approved; source U.S. country/territory category, not verified U.S. departures or a permanent-residence classification.",
+      "series_id": "dsec_abode:USA:MAC",
+      "source_id": "dsec_abode_2025",
+      "status": "observed",
+      "value": 13,
+      "year": 2020
+    },
+    {
+      "comparability": "dsec_abode:USA:MAC",
+      "notes": "Calendar-year people approved; source U.S. country/territory category, not verified U.S. departures or a permanent-residence classification.",
+      "series_id": "dsec_abode:USA:MAC",
+      "source_id": "dsec_abode_2023",
+      "status": "observed",
+      "value": 7,
+      "year": 2021
+    },
+    {
+      "comparability": "dsec_abode:USA:MAC",
+      "notes": "Calendar-year people approved; source U.S. country/territory category, not verified U.S. departures or a permanent-residence classification.",
+      "series_id": "dsec_abode:USA:MAC",
+      "source_id": "dsec_abode_2024",
+      "status": "observed",
+      "value": 6,
+      "year": 2022
+    },
+    {
+      "comparability": "dsec_abode:USA:MAC",
+      "notes": "Calendar-year people approved; source U.S. country/territory category, not verified U.S. departures or a permanent-residence classification.",
+      "series_id": "dsec_abode:USA:MAC",
+      "source_id": "dsec_abode_2025",
+      "status": "observed",
+      "value": 24,
+      "year": 2023
+    },
+    {
+      "comparability": "dsec_abode:USA:MAC",
+      "notes": "Calendar-year people approved; source U.S. country/territory category, not verified U.S. departures or a permanent-residence classification.",
+      "series_id": "dsec_abode:USA:MAC",
+      "source_id": "dsec_abode_2025",
+      "status": "observed",
+      "value": 25,
+      "year": 2024
+    },
+    {
+      "comparability": "dsec_abode:USA:MAC",
+      "notes": "Calendar-year people approved; source U.S. country/territory category, not verified U.S. departures or a permanent-residence classification.",
+      "series_id": "dsec_abode:USA:MAC",
+      "source_id": "dsec_abode_2025",
+      "status": "observed",
+      "value": 34,
+      "year": 2025
+    },
     {
       "comparability": "ohss_birth:CHN",
       "notes": "Fiscal year ending September 30. ",
@@ -954,6 +1104,15 @@
     }
   ],
   "series": {
+    "dsec_abode:USA:MAC": {
+      "cadence": "annual",
+      "label": "U.S. country category",
+      "measure": "residence_authorizations",
+      "notes": "Annual approvals, not the stock of U.S. residents, physical U.S. departures or visa issuances. Not labelled permanent-resident grants; the source country category does not establish citizenship or birthplace.",
+      "period_basis": "calendar",
+      "scope": "Macau individuals newly granted residence in DSEC's United States of America country/territory category",
+      "unit": "people approved"
+    },
     "ohss_birth:CHN": {
       "cadence": "annual",
       "label": "Mainland China-born",
@@ -1058,6 +1217,90 @@
     }
   },
   "sources": {
+    "dsec_abode_2020": {
+      "assets": [
+        {
+          "request_url": "https://www.dsec.gov.mo/getAttachment/62e4aa0e-e90b-4090-8680-1bec819c66fc/E_AE_PUB_2020_Y_01.aspx",
+          "retrieved_at": "2026-10-24T15:59:33+00:00",
+          "sha256": "f7dbd616ff5083b549382a8623bb506bf2745a1c48f979424d14483e118863dd",
+          "url": "https://www.dsec.gov.mo/getAttachment/62e4aa0e-e90b-4090-8680-1bec819c66fc/E_AE_PUB_2020_Y_01.aspx"
+        }
+      ],
+      "locator": "Table 2.10; United States of America country/territory category; all genders",
+      "name": "Macao Statistics and Census Service",
+      "notes": "Individuals newly granted residence, not resident stocks, visa issuances or physical arrivals. The English title uses 'right of abode'; no permanent-resident legal classification or U.S. citizenship/birthplace population is inferred. Overlapping annual tables are reconciled.",
+      "vintage": "Yearbook of Statistics 2020"
+    },
+    "dsec_abode_2021": {
+      "assets": [
+        {
+          "request_url": "https://www.dsec.gov.mo/getAttachment/7306d4c8-60a4-4dcd-947b-419e0646dd7e/CPE_AE_PUB_2021_Y_01.aspx",
+          "retrieved_at": "2026-10-24T15:55:22+00:00",
+          "sha256": "9e08ff9dd0473190eeca7da5335be6a1be3dddc6a3d5d7c712ad11e556edfb4a",
+          "url": "https://www.dsec.gov.mo/getAttachment/7306d4c8-60a4-4dcd-947b-419e0646dd7e/CPE_AE_PUB_2021_Y_01.aspx"
+        }
+      ],
+      "locator": "Table 2.10; United States of America country/territory category; all genders",
+      "name": "Macao Statistics and Census Service",
+      "notes": "Individuals newly granted residence, not resident stocks, visa issuances or physical arrivals. The English title uses 'right of abode'; no permanent-resident legal classification or U.S. citizenship/birthplace population is inferred. Overlapping annual tables are reconciled.",
+      "vintage": "Yearbook of Statistics 2021"
+    },
+    "dsec_abode_2022": {
+      "assets": [
+        {
+          "request_url": "https://www.dsec.gov.mo/getAttachment/d963172d-0e1a-482c-937c-edc475a8db4a/CPE_AE_PUB_2022_Y_01.aspx",
+          "retrieved_at": "2026-10-24T15:55:09+00:00",
+          "sha256": "2ce6941994f9c131cdbdb07815eb920c031b43118b78316e4c516a59025a7dd4",
+          "url": "https://www.dsec.gov.mo/getAttachment/d963172d-0e1a-482c-937c-edc475a8db4a/CPE_AE_PUB_2022_Y_01.aspx"
+        }
+      ],
+      "locator": "Table 2.10; United States of America country/territory category; all genders",
+      "name": "Macao Statistics and Census Service",
+      "notes": "Individuals newly granted residence, not resident stocks, visa issuances or physical arrivals. The English title uses 'right of abode'; no permanent-resident legal classification or U.S. citizenship/birthplace population is inferred. Overlapping annual tables are reconciled.",
+      "vintage": "Yearbook of Statistics 2022"
+    },
+    "dsec_abode_2023": {
+      "assets": [
+        {
+          "request_url": "https://www.dsec.gov.mo/getAttachment/80ccfdfc-63cf-4ab5-9ff0-9bc8720108cd/E_AE_PUB_2023_Y_01.aspx",
+          "retrieved_at": "2026-10-24T15:54:59+00:00",
+          "sha256": "d21ff593cdbb6df721a5d7efcd41b329163971536251c7e2b385b8db7107c65f",
+          "url": "https://www.dsec.gov.mo/getAttachment/80ccfdfc-63cf-4ab5-9ff0-9bc8720108cd/E_AE_PUB_2023_Y_01.aspx"
+        }
+      ],
+      "locator": "Table 2.10; United States of America country/territory category; all genders",
+      "name": "Macao Statistics and Census Service",
+      "notes": "Individuals newly granted residence, not resident stocks, visa issuances or physical arrivals. The English title uses 'right of abode'; no permanent-resident legal classification or U.S. citizenship/birthplace population is inferred. Overlapping annual tables are reconciled.",
+      "vintage": "Yearbook of Statistics 2023"
+    },
+    "dsec_abode_2024": {
+      "assets": [
+        {
+          "request_url": "https://www.dsec.gov.mo/getAttachment/a2001922-8baa-48ea-99c3-f13d56e0a09d/E_AE_PUB_2024_Y_01.aspx",
+          "retrieved_at": "2026-10-24T15:54:49+00:00",
+          "sha256": "78cbd3d78ba2b3922693f3b3cce1db808794d0506c9d0c48b1c38e68ce0744fe",
+          "url": "https://www.dsec.gov.mo/getAttachment/a2001922-8baa-48ea-99c3-f13d56e0a09d/E_AE_PUB_2024_Y_01.aspx"
+        }
+      ],
+      "locator": "Table 2.10; United States of America country/territory category; all genders",
+      "name": "Macao Statistics and Census Service",
+      "notes": "Individuals newly granted residence, not resident stocks, visa issuances or physical arrivals. The English title uses 'right of abode'; no permanent-resident legal classification or U.S. citizenship/birthplace population is inferred. Overlapping annual tables are reconciled.",
+      "vintage": "Yearbook of Statistics 2024"
+    },
+    "dsec_abode_2025": {
+      "assets": [
+        {
+          "request_url": "https://www.dsec.gov.mo/getAttachment/685546d5-479d-4e01-b6b0-4fc24032ff19/CPE_AE_PUB_2025_Y_01.aspx",
+          "retrieved_at": "2026-10-24T15:49:02+00:00",
+          "sha256": "af83eee498ce6dfc91dc26613ec5eb739ea0591890786c75c4dc7428067daf4e",
+          "url": "https://www.dsec.gov.mo/getAttachment/685546d5-479d-4e01-b6b0-4fc24032ff19/CPE_AE_PUB_2025_Y_01.aspx"
+        }
+      ],
+      "locator": "Table 2.10; United States of America country/territory category; all genders",
+      "name": "Macao Statistics and Census Service",
+      "notes": "Individuals newly granted residence, not resident stocks, visa issuances or physical arrivals. The English title uses 'right of abode'; no permanent-resident legal classification or U.S. citizenship/birthplace population is inferred. Overlapping annual tables are reconciled.",
+      "vintage": "Yearbook of Statistics 2025"
+    },
     "ohss_birth_2004": {
       "assets": [
         {

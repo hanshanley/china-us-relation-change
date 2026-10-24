@@ -1,6 +1,6 @@
 {
   "context": {
-    "geography": "China is the host in every chart. European coverage includes current EU27, a separately labelled historical EU membership group, the United Kingdom and Norway. These are not summed into an all-Europe total; Switzerland and other European origins remain outside verified coverage.",
+    "geography": "China is the host in every chart. Germany is shown separately from the overlapping EU27 aggregate. Historical EU membership, UK and Norwegian populations remain distinct; no all-Europe total is calculated.",
     "interpretation": "Company counts, affiliate entities and branch locations are distinct. U.S. parents and ultimately EU-controlled enterprises are not matched ownership populations; BEA and Eurostat levels must not be used to rank otherwise comparable business presence.",
     "question": "How has U.S. and European business presence in China changed over time?",
     "release_timing": "As checked October 22, 2026, BEA's latest activity release covers 2023. The published schedule puts the 2024 activity release on November 20, 2026; no 2024 value is inferred.",
@@ -40,6 +40,16 @@
     {
       "description": "Statistics Norway all-industry country history; the narrower Eurostat history remains separate.",
       "id": "ssb_norway:china",
+      "status": "annual"
+    },
+    {
+      "description": "German-controlled China enterprises; Eurostat and Bundesbank source histories stay separate because overlapping counts differ. Not added to EU27 or relabelled parent companies.",
+      "id": "bundesbank_germany:china",
+      "status": "annual"
+    },
+    {
+      "description": "German-controlled China enterprises; Eurostat and Bundesbank source histories stay separate because overlapping counts differ. Not added to EU27 or relabelled parent companies.",
+      "id": "eurostat_germany:china",
       "status": "annual"
     }
   ],
@@ -297,6 +307,42 @@
       "year": 2019
     },
     {
+      "comparability": "bundesbank:BTSXO:CN:EUR3m",
+      "notes": "Above EUR 3 million in assets; German ultimate control. Latest year provisional.",
+      "series_id": "bundesbank_germany:china",
+      "source_id": "bundesbank_outward_fats",
+      "status": "observed",
+      "value": 1839,
+      "year": 2021
+    },
+    {
+      "comparability": "bundesbank:BTSXO:CN:EUR3m",
+      "notes": "Above EUR 3 million in assets; German ultimate control. Latest year provisional.",
+      "series_id": "bundesbank_germany:china",
+      "source_id": "bundesbank_outward_fats",
+      "status": "observed",
+      "value": 1944,
+      "year": 2022
+    },
+    {
+      "comparability": "bundesbank:BTSXO:CN:EUR3m",
+      "notes": "Above EUR 3 million in assets; German ultimate control. Latest year provisional.",
+      "series_id": "bundesbank_germany:china",
+      "source_id": "bundesbank_outward_fats",
+      "status": "observed",
+      "value": 1929,
+      "year": 2023
+    },
+    {
+      "comparability": "bundesbank:BTSXO:CN:EUR3m",
+      "notes": "Above EUR 3 million in assets; German ultimate control. Latest year provisional.",
+      "series_id": "bundesbank_germany:china",
+      "source_id": "bundesbank_outward_fats",
+      "status": "provisional",
+      "value": 1911,
+      "year": 2024
+    },
+    {
       "comparability": "fats_out2_r2:EU27_2020:0",
       "notes": "Eurostat source flags: none",
       "series_id": "eurostat_affiliates:china",
@@ -420,6 +466,132 @@
       "source_id": "fats_out_part",
       "status": "suppressed",
       "value": null,
+      "year": 2023
+    },
+    {
+      "comparability": "fats_out2_r2:DE:0",
+      "notes": "Eurostat German reporting population; source flags: ",
+      "series_id": "eurostat_germany:china",
+      "source_id": "fats_out2_r2_DE",
+      "status": "observed",
+      "value": 1137,
+      "year": 2010
+    },
+    {
+      "comparability": "fats_out2_r2:DE:0",
+      "notes": "Eurostat German reporting population; source flags: ",
+      "series_id": "eurostat_germany:china",
+      "source_id": "fats_out2_r2_DE",
+      "status": "observed",
+      "value": 1275,
+      "year": 2011
+    },
+    {
+      "comparability": "fats_out2_r2:DE:0",
+      "notes": "Eurostat German reporting population; source flags: ",
+      "series_id": "eurostat_germany:china",
+      "source_id": "fats_out2_r2_DE",
+      "status": "observed",
+      "value": 1363,
+      "year": 2012
+    },
+    {
+      "comparability": "fats_out2_r2:DE:0",
+      "notes": "Eurostat German reporting population; source flags: ",
+      "series_id": "eurostat_germany:china",
+      "source_id": "fats_out2_r2_DE",
+      "status": "observed",
+      "value": 1437,
+      "year": 2013
+    },
+    {
+      "comparability": "fats_out2_r2:DE:0",
+      "notes": "Eurostat German reporting population; source flags: ",
+      "series_id": "eurostat_germany:china",
+      "source_id": "fats_out2_r2_DE",
+      "status": "observed",
+      "value": 1547,
+      "year": 2014
+    },
+    {
+      "comparability": "fats_out2_r2:DE:0",
+      "notes": "Eurostat German reporting population; source flags: ",
+      "series_id": "eurostat_germany:china",
+      "source_id": "fats_out2_r2_DE",
+      "status": "observed",
+      "value": 1646,
+      "year": 2015
+    },
+    {
+      "comparability": "fats_out2_r2:DE:0",
+      "notes": "Eurostat German reporting population; source flags: ",
+      "series_id": "eurostat_germany:china",
+      "source_id": "fats_out2_r2_DE",
+      "status": "observed",
+      "value": 1688,
+      "year": 2016
+    },
+    {
+      "comparability": "fats_out2_r2:DE:0",
+      "notes": "Eurostat German reporting population; source flags: ",
+      "series_id": "eurostat_germany:china",
+      "source_id": "fats_out2_r2_DE",
+      "status": "observed",
+      "value": 1735,
+      "year": 2017
+    },
+    {
+      "comparability": "fats_out2_r2:DE:0",
+      "notes": "Eurostat German reporting population; source flags: ",
+      "series_id": "eurostat_germany:china",
+      "source_id": "fats_out2_r2_DE",
+      "status": "observed",
+      "value": 1743,
+      "year": 2018
+    },
+    {
+      "comparability": "fats_out2_r2:DE:0",
+      "notes": "Eurostat German reporting population; source flags: ",
+      "series_id": "eurostat_germany:china",
+      "source_id": "fats_out2_r2_DE",
+      "status": "observed",
+      "value": 1807,
+      "year": 2019
+    },
+    {
+      "comparability": "fats_out2_r2:DE:0",
+      "notes": "Eurostat German reporting population; source flags: ",
+      "series_id": "eurostat_germany:china",
+      "source_id": "fats_out2_r2_DE",
+      "status": "observed",
+      "value": 1793,
+      "year": 2020
+    },
+    {
+      "comparability": "fats_out_part:DE:0",
+      "notes": "Eurostat German reporting population; source flags: ",
+      "series_id": "eurostat_germany:china",
+      "source_id": "fats_out_part_DE",
+      "status": "observed",
+      "value": 1850,
+      "year": 2021
+    },
+    {
+      "comparability": "fats_out_part:DE:0",
+      "notes": "Eurostat German reporting population; source flags: ",
+      "series_id": "eurostat_germany:china",
+      "source_id": "fats_out_part_DE",
+      "status": "observed",
+      "value": 1951,
+      "year": 2022
+    },
+    {
+      "comparability": "fats_out_part:DE:0",
+      "notes": "Eurostat German reporting population; source flags: ",
+      "series_id": "eurostat_germany:china",
+      "source_id": "fats_out_part_DE",
+      "status": "observed",
+      "value": 1921,
       "year": 2023
     },
     {
@@ -883,6 +1055,15 @@
       "scope": "Distinct U.S.-resident parent companies with affiliates in China; at least 10% foreign-affiliate ownership; BEA reporting exclusions apply",
       "unit": "U.S. parents"
     },
+    "bundesbank_germany:china": {
+      "cadence": "annual",
+      "label": "Germany (Bundesbank)",
+      "measure": "controlled_enterprises",
+      "notes": "Direct or indirect control above 50%; affiliates with total assets above EUR 3 million, including branches and permanent establishments. Excludes agriculture, public administration and private households. Not distinct German parent companies, all European businesses or a reconstruction of confidential EU totals.",
+      "period_basis": "reference year",
+      "scope": "Foreign affiliates in China, excluding separately coded Hong Kong and Macao, ultimately controlled by German investors; NACE Rev. 2 BTSXO",
+      "unit": "enterprises"
+    },
     "eurostat_affiliates:china": {
       "cadence": "annual",
       "label": "EU27 (current members)",
@@ -890,6 +1071,15 @@
       "notes": "Eurostat enterprise units, not unique European parents or all Europe. Macao is a separate partner. Not matched to BEA's size cutoff, U.S.-resident parent basis or consolidation. EBS methodology changes from 2021; do not join across that boundary or treat confidential cells as zero.",
       "period_basis": "reference year",
       "scope": "China except Hong Kong; ultimately controlled from fixed EU27_2020 membership, excluding the UK; market producers NACE B-S except O",
+      "unit": "enterprises"
+    },
+    "eurostat_germany:china": {
+      "cadence": "annual",
+      "label": "Germany (Eurostat)",
+      "measure": "controlled_enterprises",
+      "notes": "Eurostat's reported history is retained separately from Bundesbank's current workbook. Overlapping 2021-2023 counts differ; they are not spliced, averaged or treated as a matched revision. The 2021 EBS methodology boundary is disconnected. Germany overlaps the EU27 aggregate.",
+      "period_basis": "reference year",
+      "scope": "German-controlled enterprises in China except Hong Kong; Eurostat NACE B-S except O",
       "unit": "enterprises"
     },
     "eurostat_historical_eu:china": {
@@ -1364,6 +1554,26 @@
       "notes": "",
       "vintage": "Reviewed source definitions"
     },
+    "bundesbank_outward_fats": {
+      "assets": [
+        {
+          "request_url": "https://www.bundesbank.de/en/statistics/external-sector/direct-investments/foreign-affiliates-statistics-fats--795240",
+          "retrieved_at": "2026-10-24T15:46:33+00:00",
+          "sha256": "e8fafb922ffce02430adc3fcc7de7e6cc858a6149aaa1930201545bbbc64ba5b",
+          "url": "https://www.bundesbank.de/en/statistics/external-sector/direct-investments/foreign-affiliates-statistics-fats--795240"
+        },
+        {
+          "request_url": "https://www.bundesbank.de/resource/blob/768898/6819a42c5dbdc34181493b5847b31ac4/472B63F073F071307366337C94F8C870/statistik-outward-fats-data.xlsx",
+          "retrieved_at": "2026-10-24T15:46:34+00:00",
+          "sha256": "78cf71cfb93ad2a27b0d095f8e804dc732b246ae124b65e93d65f3ed1b25048e",
+          "url": "https://www.bundesbank.de/resource/blob/768898/6819a42c5dbdc34181493b5847b31ac4/472B63F073F071307366337C94F8C870/statistik-outward-fats-data.xlsx"
+        }
+      ],
+      "locator": "DATA; BBFOFATS.A.DE.ENT.BTSXO.CN; Methodology and Economic activity",
+      "name": "Deutsche Bundesbank",
+      "notes": "Only the China enterprise-count series is used; employment and turnover columns are not company counts. Latest year provisional. Germany is an overlapping EU member, not an extra component to add to EU27.",
+      "vintage": "Outward FATS workbook; reference years 2021-2024"
+    },
     "eurostat_methods": {
       "assets": [
         {
@@ -1405,6 +1615,20 @@
       "name": "Eurostat",
       "notes": "Keep each control geography, membership and activity classification explicit. Preserve estimated, break and confidential flags; methodology boundaries remain disconnected. No reconstruction of confidential totals from member-country values.",
       "vintage": "Outward FATS, main variables - NACE Rev. 2 activity (2010-2020); updated 2024-04-25T11:00:00+0200"
+    },
+    "fats_out2_r2_DE": {
+      "assets": [
+        {
+          "request_url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out2_r2?lang=EN&freq=A&nace_r2=B-S_X_O&indic_bp=ENT&partner=CN_X_HK&geo=DE",
+          "retrieved_at": "2026-10-24T16:05:46+00:00",
+          "sha256": "3d42e551657605663a10fcbabc600a7fcd81f03a76a74bb4eb2a34a3ba413cb5",
+          "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out2_r2?lang=EN&freq=A&nace_r2=B-S_X_O&indic_bp=ENT&partner=CN_X_HK&geo=DE"
+        }
+      ],
+      "locator": "geo=DE; partner=CN_X_HK; NACE B-S except O; enterprise counts",
+      "name": "Eurostat",
+      "notes": "Separate source population/vintage from the Bundesbank workbook; overlapping counts are not forced to agree.",
+      "vintage": "fats_out2_r2; Germany reporting country"
     },
     "fats_out2_r2_EU27_2007": {
       "assets": [
@@ -1461,6 +1685,20 @@
       "name": "Eurostat",
       "notes": "Keep each control geography, membership and activity classification explicit. Preserve estimated, break and confidential flags; methodology boundaries remain disconnected. No reconstruction of confidential totals from member-country values.",
       "vintage": "Foreign affiliates of the EU enterprises by detailed breakdown of country of the affiliates (from 2021 onwards); updated 2026-03-31T23:00:00+0200"
+    },
+    "fats_out_part_DE": {
+      "assets": [
+        {
+          "request_url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out_part?lang=EN&freq=A&nace_r2=B-S_X_O&indic_sbs=ENT_NR&partner=CN_X_HK&geo=DE",
+          "retrieved_at": "2026-10-24T16:05:47+00:00",
+          "sha256": "9fc7ea7c6926f1ea8b0af3f5a0df638b24ca975abe9949315ff6dce73f5f77b5",
+          "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out_part?lang=EN&freq=A&nace_r2=B-S_X_O&indic_sbs=ENT_NR&partner=CN_X_HK&geo=DE"
+        }
+      ],
+      "locator": "geo=DE; partner=CN_X_HK; NACE B-S except O; enterprise counts",
+      "name": "Eurostat",
+      "notes": "Separate source population/vintage from the Bundesbank workbook; overlapping counts are not forced to agree.",
+      "vintage": "fats_out_part; Germany reporting country"
     },
     "fats_out_part_NO": {
       "assets": [

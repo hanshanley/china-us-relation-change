@@ -1,4 +1,5 @@
 import io
+import copy
 import json
 from datetime import datetime
 from pathlib import Path
@@ -19,6 +20,32 @@ from us_china_exchange.tourism_backfill import (
 
 
 ROOT = Path(__file__).resolve().parents[1]
+
+
+def test_reviewed_hktb_months_reconcile_stay_types_and_successive_cumulative_totals():
+    content = (ROOT / "data/reviewed/hktb-monthly-2026-08.json").read_bytes()
+    prior = json.loads((ROOT / "data/site/observations.json").read_text())
+    rows, _, notes = tourism_backfill.reviewed_hktb_months(content, prior, "2026-10-24T16:00:00+00:00")
+    assert len(rows) == 8
+    latest = next(r for r in rows if r["frequency"] == "ytd" and r["period"] == "2026-08")
+    assert latest["value"] == 737530 and latest["comparability"] == "hktb:us_nationality:all_mode"
+    assert latest["raw_sha256"] == tourism_backfill.digest(content)
+    assert latest["source_url"] == tourism_backfill.HK_REVIEWED_INPUT
+    assert "transcription, not publisher PDFs" in notes
+    data = json.loads(content)
+    data["reports"][0]["overnight"][0] += 1
+    with pytest.raises(ValueError, match="overnight"):
+        tourism_backfill.reviewed_hktb_months(json.dumps(data).encode(), prior, latest["retrieved_at"])
+    data = json.loads(content)
+    data["reports"][0]["total"][0] += 1
+    data["reports"][0]["overnight"][0] += 1
+    with pytest.raises(ValueError, match="preceding"):
+        tourism_backfill.reviewed_hktb_months(json.dumps(data).encode(), prior, latest["retrieved_at"])
+    changed = copy.deepcopy(prior)
+    next(r for r in changed if r["series_id"] == latest["series_id"]
+         and r["frequency"] == "ytd" and r["period"] == "2026-06")["value"] += 1
+    with pytest.raises(ValueError, match="preceding"):
+        tourism_backfill.reviewed_hktb_months(content, changed, latest["retrieved_at"])
 
 
 def test_archived_services_require_reviewed_source_and_two_independent_controls(monkeypatch):
@@ -202,9 +229,12 @@ def test_hong_kong_recovery_keeps_population_break_and_matched_halves():
     assert "Population-definition breaks: 2023" in chart.get_text(" ", strip=True)
     assert chart.select_one(".data-line")["d"].count("M") == 2
     assert "Definitions differ" in svg_chart(hk, indexed=True)
-    partial = {r["year"]: r for r in hk if r["frequency"] == "ytd"}
+    partial = {r["year"]: r for r in hk if r["frequency"] == "ytd" and r["period"].endswith("-06")}
     assert {y: r["value"] for y, r in partial.items()} == {2025: 489417, 2026: 552528}
     assert change(partial[2026], partial[2025])["absolute"] == 63111
+    latest = {r["year"]: r for r in hk if r["frequency"] == "ytd" and r["period"].endswith("-08")}
+    assert {y: r["value"] for y, r in latest.items()} == {2025: 659003, 2026: 737530}
+    assert change(latest[2026], latest[2025])["absolute"] == 78527
 
 
 def test_complete_macau_profile_fills_a_top_ten_omission_without_subtraction():

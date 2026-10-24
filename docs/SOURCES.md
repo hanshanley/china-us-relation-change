@@ -39,6 +39,7 @@ Complete source asset identities and checksums are in
 | [NCES independent degree checkpoint](https://nces.ed.gov/programs/digest/d23/tables/xls/tabn318.30.xlsx) | Digest table 318.30 independently confirms 2022 Chinese bachelor's 364, master's 26 and doctorates 14. Awards are not unique people or all China expertise; the 2000 major-number and 2010 doctoral-classification breaks are explicit. |
 | [CAL 2011 language inventory](https://webapp.cal.org/Immersion/Doc/Language%20of%20Instruction%20in%20Immersion%20Programs.pdf), [ARC 2021 canvass](https://www.americancouncils.org/sites/default/files/documents/pages/2021-10/Canvass%20DLI%20-%20October%202021-2_ac.pdf), [Nexus publications](https://nexusmandarin.org/publications-1) | 71 Mandarin directory programs, 312 Chinese public-school DLI programs and 335 U.S. inventoried immersion programs, respectively. Definitions differ; these are disconnected inventory snapshots, not comparable growth or learner counts. Nexus's state appendix independently sums to 335. |
 | [American Councils June 2017 K-16 report](https://www.americancouncils.org/sites/default/files/FLE-report-June17.pdf), Table 2 | Chinese K-12 estimate 227,086 combines reported state data and model estimates, with a 2014-15-era reference period. The ending-year key 2015 is not an exact common measurement date or current census. |
+| [NCES School Pulse Panel national workbook](https://nces.ed.gov/surveys/spp/docs/release/Language.xlsx) | January 2024 experimental national public-school sample; `All Schools`, `Lang1_3`, `Lang1_9`, `Lang1_10`, `Jan24 Pct / SE`. Chinese 3% (SE 0.4 percentage points), Japanese 1% (SE 0.3), Korean unreportable. Denominator is all public schools. The outlying-area workbook is not national; program counts, learners and published complements of suppressed estimates are not substituted. |
 
 The MLA workbook's 2016 totals differ from the published report: Chinese 54,285
 versus 54,248 and all languages 1,419,699 versus 1,418,584. National charts retain
@@ -66,7 +67,7 @@ institution-level workbook, report artwork or exam questions are redistributed.
 
 ## Business-presence sources
 
-`data/site/business_presence.json` retains all 74 China-hosted observations, including
+`data/site/business_presence.json` retains all 109 China-hosted observations, including
 explicit confidential/unavailable cells, series definitions, source URLs,
 selected table members, retrieval timestamps and SHA-256 checksums.
 
@@ -83,6 +84,8 @@ selected table members, retrieval timestamps and SHA-256 checksums.
 | [ONS coverage disclosure](https://www.ons.gov.uk/aboutus/transparencyandgovernance/freedomofinformationfoi/ukoutwardforeignaffiliatestatisticsofats2015to2025) | Latest outward-affiliate estimates remain 2018/2019; no OFATS data from 2020 onward. Newer inward-affiliate statistics concern businesses **in the UK**, the wrong direction, and are not substituted. |
 | [Norway historical API](https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out2_r2?lang=EN&geo=NO&partner=CN_X_HK&indic_bp=ENT&nace_r2=B-S_X_O), [current API](https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out_part?lang=EN&geo=NO&partner=CN_X_HK&indic_sbs=ENT_NR&nace_r2=B-S_X_O) | All fourteen annual Norwegian-controlled enterprise counts in China, 2010-2023. Preserve the 2021 EBS method boundary. Norway is shown separately, never silently added to an EU/all-Europe total. |
 | [Statistics Norway Table 09827](https://www.ssb.no/en/statbank/table/09827/) | All seventeen 2008-2024 country observations under direct/indirect Norwegian control, all industries; 2024=80 enterprises. Public API POST selects `Land=CN`, `ContentsCode=Foretak`, all `Tid` values. Hong Kong and Macao remain separate countries. The entire SSB history replaces the narrower Eurostat chart, not just its last point; original Eurostat observations remain in complete downloads. |
+| [Bundesbank outward FATS](https://www.bundesbank.de/en/statistics/external-sector/direct-investments/foreign-affiliates-statistics-fats--795240) | Discover the linked workbook; `DATA`, `BBFOFATS.A.DE.ENT.BTSXO.CN`, 2021-2024. German ultimate control above 50%; assets above EUR 3m; branches included, agriculture/public administration/private households excluded. Country CN, not HK/MO; entity counts, not employment/turnover. Latest year 1,911 provisional. |
+| Eurostat German country history, `fats_out2_r2` / `fats_out_part`, `geo=DE` | Every 2010-2023 count, with the 2021 EBS boundary disconnected. Overlapping 2023 is 1,921 versus Bundesbank's 1,929: separate series, not a joined or averaged revision. Germany overlaps the EU aggregate; no addition or confidential-total reconstruction. |
 
 Raw source archives, workbooks, publication text and artwork remain local.
 Only numerical aggregates, original definitions and our figures are published.
@@ -218,7 +221,11 @@ The September 3, 2026 BEA release currently supplies annual 2025 and quarterly
 September 2026 preliminary figures. Workbook modification timestamps are
 explicitly **not publication dates**. UIS indicator metadata identifies its
 February 2026 release. Every observation retains its exact request URL, source
-vintage, retrieval time and SHA-256 of its local raw response.
+vintage, retrieval time and SHA-256 of its local raw response. For the manually
+reviewed HKTB July/August 2026 supplement, the exact asset is instead the
+versioned selected-facts JSON transcription, explicitly identified as such.
+The original PDF URLs remain in every observation's notes; no publisher-PDF
+checksum is invented.
 
 YTD rows are derived only when all January-to-cutoff months or Q1-to-cutoff
 quarters exist. The same cutoff is used for the current, prior and 2020 years.

@@ -59,8 +59,11 @@ def svg_indicator_chart(config, groups, theme, description, point_class):
         for i, group in enumerate(groups):
             pos = 115 + (i + .5) / len(groups) * 835
             if not group["points"]:
-                parts.append(f'<text x="{pos:.2f}" y="450" text-anchor="middle">Unavailable</text>'
-                             f'<text x="{pos:.2f}" y="478" text-anchor="middle" font-size="18">{esc(group["label"])}</text>')
+                label = group.get("unavailable_label", "Unavailable")
+                parts.append(f'<g class="unavailable-bar" data-series-id="{esc(group["id"])}" '
+                             f'data-label="{esc(group["label"])}" data-reason="{esc(label)}">'
+                             f'<text x="{pos:.2f}" y="450" text-anchor="middle">{esc(label)}</text>'
+                             f'<text x="{pos:.2f}" y="478" text-anchor="middle" font-size="18">{esc(group["label"])}</text></g>')
                 continue
             if len(group["points"]) != 1:
                 raise ValueError("Program inventory bars require separate single-snapshot series")

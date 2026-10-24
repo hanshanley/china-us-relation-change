@@ -101,6 +101,49 @@ all-nationality Chinese immigration/tourism totals likewise remain distinct
 from missing national Chinese/Japanese/Korean course counts or U.S.-specific
 mainland enrollment/all-mode arrival histories.
 
+### Further alternative-source recovery: October 24, 2026
+
+This pass adds **45 records** without changing any earlier numerical observation:
+eight bilateral visitor observations, eighteen German business observations,
+sixteen Macau residence-approval observations and three school-availability
+records, including the explicitly unreportable Korean estimate.
+
+| Chart family | Verified update |
+|---|---|
+| Hong Kong visits | July/August monthly and matched cumulative U.S.-nationality counts for 2025/2026. January-August totals are 659,003 and 737,530. Both overnight + same-day components and successive cumulative totals reconcile, starting with the retained first half. Annual residence/nationality boundaries are unchanged. |
+| German businesses | Eurostat's full 2010-2023 country history and Bundesbank's direct 2021-2024 workbook, ending at 1,911 provisional enterprises. Their overlapping counts differ, so two separately identified histories are shown rather than a fabricated source splice. Germany is not added to EU27 or used to reconstruct confidential aggregates. |
+| Macau residence approvals | Every calendar year 2010-2025, from overlapping DSEC yearbooks, table 2.10; latest 34 people in the U.S. country category. These are neither resident stocks nor U.S. fiscal-year grants, verified U.S. departures or a permanent-residency legal classification. |
+| Public-school language availability | Nationwide January 2024 NCES School Pulse Panel: Chinese 3%, Japanese 1%; Korean below reporting standards. All public schools are the denominator, not only language-offering schools. Not student counts, not 2026 observations and not a continuation of the 2014-15 respondent program counts. |
+
+The HKTB numerical facts were manually reviewed in its publicly readable
+monthly PDFs after normal automated retrieval failed. The versioned
+`data/reviewed/hktb-monthly-2026-08.json` records only the selected U.S. facts,
+primary report URLs, column identities and review date. Those observations'
+source URL and checksum identify this exact reviewed transcription, **not a
+cached publisher PDF**. The same checksummed file is publicly accessible on
+GitHub. The source link on the reader-facing chart opens HKTB's official page.
+No login, verification screen or access restriction was bypassed.
+
+```sh
+.venv/bin/python scripts/build_tourism_backfill.py --hktb-reviewed-only
+.venv/bin/python scripts/build_business_data.py --germany-only --data-only
+.venv/bin/python scripts/build_immigration_data.py --macau-only
+.venv/bin/python scripts/build_language_data.py --school-pulse-only --data-only
+```
+
+The national NCES workbook is `Language.xlsx`. The separately linked
+`Language_oa.xlsx` covers U.S. outlying areas and is rejected as a national
+replacement. Korean's published complement is not used to reconstruct its
+suppressed estimate. Historical program-count and enrollment observations
+remain complete in downloads; no growth calculation joins the new percentages
+to the old counts.
+
+The September 25, 2026 Federal Reserve FEDS Note on direct-investment
+decoupling was also reviewed. Its newer project/deal/capital-investment
+measures do not extend the published BEA affiliate-entity count: its cited
+AUSMNE activity series still ends in 2023. No confidential or proprietary
+microdata, project counts or investment values substitute for affiliate counts.
+
 ## Plot styling and publication backgrounds
 
 Charts follow the `uk_decline` project's `vizstyle` house settings: serif type,
@@ -820,9 +863,9 @@ The interactive plotting area is proportional to its width rather than fixed
 at a shallow desktop height. Desktop axes use 17px type, phone axes 14px, and
 large-value ticks use one declared scale (for example, trips in millions).
 
-`data/site/immigration.json` freezes 102 observations from five primary assets:
-four OHSS workbooks/archives and the UN DESA International Migrant Stock 2024
-workbook. UN stocks cover six published 1 July benchmarks (2000, 2005, 2010,
+`data/site/immigration.json` freezes 118 observations from eleven primary assets:
+four OHSS workbooks/archives, the UN DESA International Migrant Stock 2024
+workbook and six DSEC yearbook workbooks. UN stocks cover six published 1 July benchmarks (2000, 2005, 2010,
 2015, 2020 and 2024), in both directions for mainland China/Hong Kong.
 Mainland-China destination uses U.S. citizenship; the other reviewed routes
 use birthplace. They are resident stocks, not annual arrivals or grants.
@@ -852,7 +895,7 @@ not fill that bilateral gap.
 PYTHONPATH=src .venv/bin/python -m pytest tests/test_exchange_immigration.py -q
 ```
 
-Retrieval is explicit/manual; `--refresh` rechecks the five immigration source
+Retrieval is explicit/manual; `--refresh` rechecks the reviewed immigration source
 assets. The ordinary build is offline. JSON, all source observations as CSV,
 and every plotted value as CSV are complete downloads. Both publication
 backgrounds have matching PNG/SVG figures under `immigration/`. Missing or

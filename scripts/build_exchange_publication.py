@@ -27,8 +27,8 @@ PAGES = {
                    "2025 annual data · 2026 partial-year updates"),
     "travel.html": ("Travel & tourism", "Visitor trips between the U.S., mainland China, Hong Kong and Macau.",
                     "Arrivals are trips, not unique people or necessarily leisure tourists"),
-    "immigration.html": ("Immigration", "Bilateral resident stocks and U.S. permanent-resident grants—not visitor trips or visa issuances.",
-                         "Resident-stock benchmarks: 2000–2024 · U.S. green-card grants through FY2025"),
+    "immigration.html": ("Immigration", "Resident stocks and residence approvals, kept separate from visitor trips.",
+                         "Resident stocks through 2024 · U.S. grants and Macau approvals through 2025"),
     "comparisons.html": ("China, Hong Kong & Macau", "The same measure, three separately reported geographies.",
                          "Fixed regional colours · No combined regional total"),
     "language-learning.html": ("Language learning", "Chinese, Japanese and Korean compared through course enrollments, degree awards and school programs.",
@@ -121,6 +121,9 @@ def plot_model(svg, labels, observations):
     if bars:
         model["kind"] = "bars"
         model["bars"] = []
+        model["unavailable_bars"] = [
+            {"id": p["data-series-id"], "label": p["data-label"], "reason": p["data-reason"]}
+            for p in svg.select(".unavailable-bar")]
         for p in bars:
             label = p.get("data-label") or labels.get(p.get("data-series-id"), "")
             year = p.get("data-year")
@@ -373,7 +376,7 @@ def decorate(site, name, labels, revision):
                     for point in group["points"]:
                         if group["id"].startswith("un_stock:"):
                             point["label"] = f'{group["label"]} · 1 July {point["year"]}: {point["value"]:,.0f} estimated residents'
-                        else:
+                        elif group["id"].startswith("ohss_"):
                             point["label"] = f'{group["label"]} · FY{point["year"]}: {point["value"]:,.0f} status grants (reported)'
         image.replace_with(fragment(str(svg)))
         if model:

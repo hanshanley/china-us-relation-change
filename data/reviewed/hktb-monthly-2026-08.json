@@ -1,0 +1,31 @@
+{
+  "version": 1,
+  "publisher": "Hong Kong Tourism Board",
+  "reviewed_on": "2026-10-24",
+  "evidence_format": "Selected statistical facts manually transcribed from the publicly readable HKTB reports; not cached publisher PDFs.",
+  "country": "USA",
+  "population": "nationality_region",
+  "transport_scope": "all_mode",
+  "unit": "arrivals",
+  "column_order": ["previous_year_month", "current_year_month", "previous_year_ytd", "current_year_ytd"],
+  "reports": [
+    {
+      "year": 2026,
+      "month": 7,
+      "report_url": "https://www.discoverhongkong.com/content/dam/dhk/intl/corporate/newsroom/tourisum-statistics/2026/tourism_stat_07_2026.pdf",
+      "publication_month": "2026-08",
+      "total": [95946, 104497, 585363, 657025],
+      "overnight": [59041, 66151, 384910, 429737],
+      "same_day": [36905, 38346, 200453, 227288]
+    },
+    {
+      "year": 2026,
+      "month": 8,
+      "report_url": "https://www.discoverhongkong.com/content/dam/dhk/intl/corporate/newsroom/tourisum-statistics/2026/tourism_stat_08_2026.pdf",
+      "publication_month": "2026-09",
+      "total": [73640, 80505, 659003, 737530],
+      "overnight": [44978, 49229, 429888, 478966],
+      "same_day": [28662, 31276, 229115, 258564]
+    }
+  ]
+}

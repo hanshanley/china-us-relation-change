@@ -11,7 +11,7 @@ from .indicator_charts import svg_indicator_chart
 from .model import json_text
 from .pipeline import write_atomic
 from .theme import CHART_THEMES, PARTNER_COLORS
-from .immigration_sources import STOCK_PAIRS, STOCK_YEARS
+from .immigration_sources import MACAU_ABODE_YEARS, STOCK_PAIRS, STOCK_YEARS
 
 
 CHARTS = {
@@ -35,6 +35,12 @@ CHARTS = {
         "title": "Green-card grants to Macau-born people", "subtitle": "Fiscal years 2000–2024 | U.S. permanent residency",
         "series": ["ohss_birth:MAC"], "unit": "Status grants", "mode": "levels",
         "note": "DHS/OHSS birthplace category. Includes arrivals and adjustments. FY2015–2024 rounded to nearest ten; confidential/missing values are not zero."},
+    "macau-residence-approvals": {
+        "title": "Macau residence approvals: U.S. category", "subtitle": "Calendar years 2010-2025 | people newly approved",
+        "series": ["dsec_abode:USA:MAC"], "unit": "People approved", "mode": "levels",
+        "note": "DSEC annual yearbooks, table 2.10. People in the U.S. country category newly approved for residence "
+        "in Macau. Calendar-year approvals, not resident stocks, U.S. departures or U.S. green-card grants. "
+        "The source category does not establish citizenship or a permanent-resident legal status."},
     "latest-admissions": {
         "title": "FY2025: arrivals and status adjustments", "subtitle": "DHS China-nationality category | NOT the birthplace series",
         "series": ["ohss_nationality:new_arrivals", "ohss_nationality:adjustments"], "unit": "Status grants", "mode": "bars",
@@ -48,9 +54,15 @@ def validate_immigration_data(data):
     expected = {f"ohss_birth:{g}" for g in ("CHN", "HKG", "MAC")} | {
         "ohss_nationality:total", "ohss_nationality:new_arrivals", "ohss_nationality:adjustments"}
     expected |= {f"un_stock:{origin}:{destination}" for origin, destination in STOCK_PAIRS}
+    expected.add("dsec_abode:USA:MAC")
     if set(data["series"]) != expected:
         raise ValueError("Immigration populations must remain explicit")
     for sid, definition in data["series"].items():
+        if sid == "dsec_abode:USA:MAC":
+            if (definition["measure"], definition["unit"], definition["period_basis"], definition["cadence"]) != (
+                    "residence_authorizations", "people approved", "calendar", "annual"):
+                raise ValueError("Macau approvals must retain their source category and calendar-year basis")
+            continue
         if sid.startswith("un_stock:"):
             pair = tuple(sid.split(":")[1:])
             if (definition["measure"], definition["unit"], definition["period_basis"], definition.get("data_type")) != (
@@ -70,7 +82,9 @@ def validate_immigration_data(data):
                 raise ValueError("Immigration source checksum or retrieval timestamp invalid")
             for field in ("url", "request_url"):
                 url = urlsplit(asset[field])
-                if url.scheme != "https" or url.netloc != ("www.un.org" if source_id == "un_stock_2024" else "ohss.dhs.gov"):
+                host = ("www.un.org" if source_id == "un_stock_2024" else
+                        "www.dsec.gov.mo" if source_id.startswith("dsec_abode_") else "ohss.dhs.gov")
+                if url.scheme != "https" or url.netloc != host:
                     raise ValueError("Immigration values require the reviewed official source")
     seen = set()
     for r in data["observations"]:
@@ -83,7 +97,8 @@ def validate_immigration_data(data):
         expected_source = ("un_stock_2024" if r["series_id"].startswith("un_stock:") else
                            f"ohss_birth_{2004 if r['year'] <= 2004 else 2014 if r['year'] <= 2014 else 2024}"
                            if r["series_id"].startswith("ohss_birth") else "ohss_nationality_2025")
-        if r["source_id"] != expected_source:
+        if ((r["series_id"].startswith("dsec_abode:") and not r["source_id"].startswith("dsec_abode_"))
+                or (not r["series_id"].startswith("dsec_abode:") and r["source_id"] != expected_source)):
             raise ValueError("Immigration observation population/source mismatch")
         if r["status"] not in {"observed", "rounded", "estimated", "suppressed", "missing"} or (r["value"] is None) != (r["status"] in {"suppressed", "missing"}):
             raise ValueError("Immigration missingness cannot become zero")
@@ -93,7 +108,8 @@ def validate_immigration_data(data):
             raise ValueError("Rounded immigration counts must be multiples of ten")
     for sid in expected:
         years = {year for identity, year in seen if identity == sid}
-        if years != (set(STOCK_YEARS) if sid.startswith("un_stock:") else
+        if years != (set(MACAU_ABODE_YEARS) if sid.startswith("dsec_abode:") else
+                     set(STOCK_YEARS) if sid.startswith("un_stock:") else
                      set(range(2000, 2025)) if sid.startswith("ohss_birth") else {2025}):
             raise ValueError("Reviewed immigration coverage is incomplete or has invented years")
     if not all(data["context"].get(k) for k in ("definition", "periods", "rounding", "rights")):
@@ -124,7 +140,7 @@ def build_immigration(root, data, gallery):
     for chart_id, config in CHARTS.items():
         groups = chart_groups(data, chart_id)
         stock_chart = chart_id.startswith("migrant-stock")
-        basis = "mid-year July 1" if stock_chart else "fiscal ending year"
+        basis = groups[0]["period_basis"]
         paths = {theme: export_figure(root, Path("immigration") / theme / chart_id, svg_indicator_chart(
             config, groups, theme, "Resident stocks and status grants have distinct periods and populations; not all physical arrivals.", "immigration-point"))
                  for theme in CHART_THEMES}
@@ -135,7 +151,8 @@ def build_immigration(root, data, gallery):
                                     scope=data["series"][group["id"]]["scope"], period_basis=basis,
                                     source_name=data["sources"][point["source_id"]]["name"],
                                     source_vintage=data["sources"][point["source_id"]]["vintage"]))
-                period = f'1 July {point["year"]}' if stock_chart else f'FY{point["year"]}'
+                period = (f'1 July {point["year"]}' if stock_chart else
+                          f'FY{point["year"]}' if basis == "fiscal ending year" else str(point["year"]))
                 exact.append(f'<tr><td>{esc(group["label"])}</td><th scope="row">{period}</th>'
                              f'<td>{point["value"]:,}</td><td>{point["status"]}</td></tr>')
         cards.append(f'<section class="series-panel" id="{chart_id}"><h2>{esc(config["title"])}</h2>'
@@ -151,8 +168,10 @@ def build_immigration(root, data, gallery):
     write_atomic(root / "site/downloads/immigration.json", json_text(data))
     for name, rows in [("immigration-observations", [dict(r, **{k: v for k, v in data["series"][r["series_id"]].items() if k != "notes"},
                                                       definition_notes=data["series"][r["series_id"]]["notes"],
-                                                      fiscal_period_start="" if r["series_id"].startswith("un_stock:") else f'{r["year"]-1}-10-01',
-                                                      fiscal_period_end="" if r["series_id"].startswith("un_stock:") else f'{r["year"]}-09-30',
+                                                      fiscal_period_start=f'{r["year"]-1}-10-01' if data["series"][r["series_id"]]["period_basis"] == "fiscal ending year" else "",
+                                                      fiscal_period_end=f'{r["year"]}-09-30' if data["series"][r["series_id"]]["period_basis"] == "fiscal ending year" else "",
+                                                      calendar_period_start=f'{r["year"]}-01-01' if data["series"][r["series_id"]]["period_basis"] == "calendar" else "",
+                                                      calendar_period_end=f'{r["year"]}-12-31' if data["series"][r["series_id"]]["period_basis"] == "calendar" else "",
                                                       observation_date=f'{r["year"]}-07-01' if r["series_id"].startswith("un_stock:") else "",
                                                       source_name=data["sources"][r["source_id"]]["name"],
                                                       source_vintage=data["sources"][r["source_id"]]["vintage"],
@@ -171,7 +190,7 @@ def build_immigration(root, data, gallery):
                                 f'retrieved {esc(a["retrieved_at"])}</p>' for a in s["assets"]) + '</li>' for s in data["sources"].values())
     html = ('<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">'
             '<title>Immigration | U.S.–China connections</title><link rel="stylesheet" href="assets/style.css"></head><body><div class="page">'
-            '<header><h1>Immigration</h1><p>Bilateral resident stocks and U.S. permanent-resident grants, shown separately.</p>'
+            '<header><h1>Immigration</h1><p>Resident stocks, U.S. permanent-resident grants and Macau residence approvals, shown separately.</p>'
             '<p><a href="downloads/immigration.json" download>Complete data and provenance · JSON</a> · '
             '<a href="downloads/immigration-observations.csv" download>All observations · CSV</a> · '
             '<a href="downloads/immigration-chart-values.csv" download>All plotted values · CSV</a></p></header><main>' +

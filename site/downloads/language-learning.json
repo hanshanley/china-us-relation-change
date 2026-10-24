@@ -86,6 +86,11 @@
       "description": "Enrollments, program availability and exam participation do not directly measure unmet demand. No composite national learner total is calculated.",
       "id": "language_demand",
       "status": "not_measured"
+    },
+    {
+      "description": "January 2024 national public-school availability estimates: Chinese 3%, Japanese 1%; Korean below reporting standards. Not student enrollments or a continuation of 2014-15 program counts.",
+      "id": "school_pulse_availability",
+      "status": "survey_snapshot"
     }
   ],
   "observations": [
@@ -3382,6 +3387,33 @@
       "status": "observed",
       "value": 335,
       "year": 2025
+    },
+    {
+      "comparability": "spp_availability:chinese",
+      "notes": "Source standard error: 0.4 percentage points.",
+      "series_id": "spp_availability:chinese",
+      "source_id": "nces_spp_languages_2024",
+      "status": "estimated",
+      "value": 3,
+      "year": 2024
+    },
+    {
+      "comparability": "spp_availability:japanese",
+      "notes": "Source standard error: 0.3 percentage points.",
+      "series_id": "spp_availability:japanese",
+      "source_id": "nces_spp_languages_2024",
+      "status": "estimated",
+      "value": 1,
+      "year": 2024
+    },
+    {
+      "comparability": "spp_availability:korean",
+      "notes": "Estimate below NCES reporting standards, not zero.",
+      "series_id": "spp_availability:korean",
+      "source_id": "nces_spp_languages_2024",
+      "status": "suppressed",
+      "value": null,
+      "year": 2024
     }
   ],
   "series": {
@@ -3681,6 +3713,33 @@
       "period_basis": "calendar",
       "scope": "Nexus compiled U.S. immersion inventory, including public, charter and private schools",
       "unit": "programs"
+    },
+    "spp_availability:chinese": {
+      "cadence": "survey snapshot",
+      "label": "Chinese",
+      "measure": "school_offering_share",
+      "notes": "NCES School Pulse Panel experimental sample estimates. Independent language classes, not student enrollments, unique learners or program counts. Chinese includes Mandarin or Cantonese. Not comparable to the 2014-15 respondent program inventory.",
+      "period_basis": "January 2024 survey",
+      "scope": "Nationwide U.S. public elementary, middle, high and combined-grade schools; all schools, not only schools offering a world language",
+      "unit": "percent"
+    },
+    "spp_availability:japanese": {
+      "cadence": "survey snapshot",
+      "label": "Japanese",
+      "measure": "school_offering_share",
+      "notes": "NCES School Pulse Panel experimental sample estimates. Independent language classes, not student enrollments, unique learners or program counts. Chinese includes Mandarin or Cantonese. Not comparable to the 2014-15 respondent program inventory.",
+      "period_basis": "January 2024 survey",
+      "scope": "Nationwide U.S. public elementary, middle, high and combined-grade schools; all schools, not only schools offering a world language",
+      "unit": "percent"
+    },
+    "spp_availability:korean": {
+      "cadence": "survey snapshot",
+      "label": "Korean",
+      "measure": "school_offering_share",
+      "notes": "NCES School Pulse Panel experimental sample estimates. Independent language classes, not student enrollments, unique learners or program counts. Chinese includes Mandarin or Cantonese. Not comparable to the 2014-15 respondent program inventory.",
+      "period_basis": "January 2024 survey",
+      "scope": "Nationwide U.S. public elementary, middle, high and combined-grade schools; all schools, not only schools offering a world language",
+      "unit": "percent"
     }
   },
   "sources": {
@@ -4511,6 +4570,20 @@
       "name": "Modern Language Association",
       "notes": "1,308 matched institutions; not the full 2021 census. Article's rounded 21% decline is context only, not a national census observation.",
       "vintage": "Fall 2020 snapshot; fall 2022 newsletter"
+    },
+    "nces_spp_languages_2024": {
+      "assets": [
+        {
+          "request_url": "https://nces.ed.gov/surveys/spp/docs/release/Language.xlsx",
+          "retrieved_at": "2026-10-24T15:51:19+00:00",
+          "sha256": "d1e30778aaa31aea836587be9a968fb102a0817288c1cc5e7818b3aa8898e0ef",
+          "url": "https://nces.ed.gov/surveys/spp/docs/release/Language.xlsx"
+        }
+      ],
+      "locator": "All Schools; Lang1_3, Lang1_9 and Lang1_10; Jan24 Pct / SE; About sampling definitions",
+      "name": "National Center for Education Statistics",
+      "notes": "National workbook Language.xlsx, not the separate Language_oa.xlsx outlying-area universe. Denominator is all public schools. Korean estimate fails reporting standards; the 100% complement is not used to reconstruct a suppressed estimate. Publication in a 2026 report does not make these 2026 data.",
+      "vintage": "School Pulse Panel; January 2024 collection, 2023-24 school year"
     },
     "nexus_2025": {
       "assets": [

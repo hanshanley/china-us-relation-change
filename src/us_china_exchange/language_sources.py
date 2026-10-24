@@ -37,6 +37,7 @@ AP_GROUP_CONTEXT = {
 IPEDS = "https://nces.ed.gov/ipeds/datacenter/data/"
 IPEDS_CURRENT = "https://nces.ed.gov/ipeds/complete-data-files/"
 NEXUS = "https://nexusmandarin.org/publications-1"
+SPP_LANGUAGES = "https://nces.ed.gov/surveys/spp/docs/release/Language.xlsx"
 STATES = set("AL AK AZ AR CA CO CT DE DC FL GA HI ID IL IN IA KS KY LA ME MD MA MI MN MS MO MT NE NV NH NJ NM NY NC ND OH OK OR PA RI SC SD TN TX UT VT VA WA WV WI WY".split())
 
 
@@ -134,6 +135,65 @@ def pdf_text(content):
     if not content.startswith(b"%PDF"):
         raise ValueError("Expected a language-source PDF")
     return [p.extract_text() for p in PdfReader(io.BytesIO(content)).pages]
+
+
+def parse_school_pulse(content):
+    book = load_workbook(io.BytesIO(content), read_only=True, data_only=True)
+    if "About" not in book or "OA_About" in book:
+        raise ValueError("School Pulse national sample must not be replaced by outlying-area data")
+    about = " ".join(str(v) for r in book["About"].values for v in r if v is not None)
+    if "sample of 4,000 public" not in about or "experimental data" not in about:
+        raise ValueError("School Pulse national sampling definition changed")
+    records = list(book["All Schools"].values)
+    if records[0][:9] != ("Most Recent Month", "Subgroup", "VarName", "Respondents", "Description",
+                          "Category", "Jan24 Pct", "Jan24 SE", "Jan24 Flag"):
+        raise ValueError("School Pulse survey period or percentage columns changed")
+    result = []
+    for language, variable, label in [
+            ("chinese", "Lang1_3", "Chinese (Mandarin or Cantonese)"),
+            ("japanese", "Lang1_9", "Japanese"), ("korean", "Lang1_10", "Korean")]:
+        matches = [r for r in records if r[2] == variable and r[5] == label]
+        if len(matches) != 1:
+            raise ValueError("School Pulse language row missing or ambiguous")
+        r = matches[0]
+        if (r[0] != datetime(2024, 1, 1) or r[1] != "All public schools" or r[3] != "All Schools"
+                or r[4] != "Which of the following languages are taught as independent classes at your school?"
+                or str(r[8]).strip()):
+            raise ValueError("School Pulse population, denominator or reliability flag changed")
+        value, error = r[6:8]
+        if value == "‡" and error == "†":
+            result.append((language, None, "suppressed",
+                           "Estimate below NCES reporting standards, not zero."))
+        else:
+            if (isinstance(value, bool) or not isinstance(value, (int, float)) or not math.isfinite(value)
+                    or not 0 <= value <= 100 or isinstance(error, bool)
+                    or not isinstance(error, (int, float)) or not math.isfinite(error) or error < 0):
+                raise ValueError("Invalid School Pulse percentage or standard error")
+            result.append((language, value, "estimated", f"Source standard error: {error:g} percentage points."))
+    return result
+
+
+def school_pulse(client):
+    content, asset = client.get(SPP_LANGUAGES)
+    definitions, observations = {}, []
+    for language, value, status, precision in parse_school_pulse(content):
+        sid = "spp_availability:" + language
+        definitions[sid] = series(
+            language.capitalize(), "school_offering_share", "percent",
+            "Nationwide U.S. public elementary, middle, high and combined-grade schools; all schools, "
+            "not only schools offering a world language",
+            "survey snapshot", "January 2024 survey",
+            "NCES School Pulse Panel experimental sample estimates. Independent language classes, not "
+            "student enrollments, unique learners or program counts. Chinese includes Mandarin or Cantonese. "
+            "Not comparable to the 2014-15 respondent program inventory.")
+        observations.append(row(sid, 2024, value, "nces_spp_languages_2024", status, precision))
+    sources = {"nces_spp_languages_2024": source(
+        "National Center for Education Statistics", "School Pulse Panel; January 2024 collection, 2023-24 school year",
+        [asset], "All Schools; Lang1_3, Lang1_9 and Lang1_10; Jan24 Pct / SE; About sampling definitions",
+        "National workbook Language.xlsx, not the separate Language_oa.xlsx outlying-area universe. "
+        "Denominator is all public schools. Korean estimate fails reporting standards; the 100% complement "
+        "is not used to reconstruct a suppressed estimate. Publication in a 2026 report does not make these 2026 data.")}
+    return definitions, observations, sources
 
 
 def mla(client):

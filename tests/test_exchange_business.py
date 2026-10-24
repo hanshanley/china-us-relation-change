@@ -15,7 +15,7 @@ from PIL import Image, ImageColor
 from openpyxl import Workbook
 
 from us_china_exchange.business_analysis import BENCHMARK_CHART, CHARTS, COLORS, RETIRED_CHARTS, build_business, chart_groups, svg_business_chart, validate_business_data
-from us_china_exchange.business_sources import count_cell, country_counts, parse_eurostat, parse_norway, parse_ons
+from us_china_exchange.business_sources import count_cell, country_counts, parse_eurostat, parse_germany, parse_norway, parse_ons
 from us_china_exchange.render import build
 from us_china_exchange.theme import CHART_THEMES, PARTNER_COLORS
 
@@ -54,9 +54,41 @@ def test_distinct_parent_and_affiliate_checkpoints_remain_different_units():
     assert [rows[("eurostat_uk:china", y)]["value"] for y in (2010, 2018, 2019)] == [681, 709, 531]
     assert rows[("eurostat_uk:china", 2019)]["status"] == "estimated"
     assert rows[("eurostat_norway:china", 2023)]["value"] == 88
-    assert len(rows) == 91
+    assert len(rows) == 109
     assert rows[("ssb_norway:china", 2023)]["value"] == 89
     assert rows[("ssb_norway:china", 2024)]["value"] == 80
+
+
+def test_german_workbook_counts_entities_not_employment_and_does_not_splice_other_vintages():
+    book = Workbook()
+    book.active.title = "DATA"
+    for r in [[], [], [None, 45291, 45657],
+              ["BBFOFATS.A.DE.ENT.BTSXO.CN", 1929, 1911],
+              ["BBFOFATS.A.DE.EMP.BTSXO.CN", 543341, 550000],
+              ["BBFOFATS.A.DE.ENT.BTSXO.HK", 345, 318]]:
+        book.active.append(r)
+    book.create_sheet("Methodology").append([
+        "Foreign affiliates ultimately controlled by German investors; more than 50%; total assets exceed €3 million"])
+    book.create_sheet("Economic activity").append([
+        "BTSXO", "All economic activities (without agriculture, public administration, private households)"])
+
+    def parse():
+        stream = io.BytesIO()
+        book.save(stream)
+        return parse_germany(stream.getvalue())
+
+    assert parse() == [(2023, 1929, "observed"), (2024, 1911, "provisional")]
+    book["DATA"].cell(4, 3, "X")
+    assert parse()[1] == (2024, None, "missing")
+    book["DATA"].cell(4, 1, "BBFOFATS.A.DE.EMP.BTSXO.CN")
+    with pytest.raises(ValueError, match="enterprise-count"):
+        parse()
+    groups = chart_groups(published(), "germany-affiliates-china")
+    assert [g["id"] for g in groups] == ["eurostat_germany:china", "bundesbank_germany:china"]
+    assert [[p["year"] for p in g["points"]] for g in groups] == [
+        list(range(2010, 2024)), list(range(2021, 2025))]
+    assert [next(p["value"] for p in g["points"] if p["year"] == 2023) for g in groups] == [1921, 1929]
+    assert groups[0]["points"][10]["comparability"] != groups[0]["points"][11]["comparability"]
 
 
 def test_eurostat_confidential_zero_is_not_published_and_wrong_populations_fail():
@@ -177,7 +209,7 @@ def test_complete_business_downloads_exact_points_backgrounds_and_stale_cleanup(
         (base / "substack").mkdir(parents=True)
         for chart_id in RETIRED_CHARTS:
             (base / "substack" / (chart_id + ".svg")).write_text("Obsolete wrong-destination chart")
-    assert build_business(tmp_path, data, defaultdict(list)) == 5
+    assert build_business(tmp_path, data, defaultdict(list)) == 6
     assert not any((tmp_path / "outputs/figures/business_presence/substack" / (cid + ".svg")).exists()
                    for cid in RETIRED_CHARTS)
     assert json.loads((tmp_path / "site/downloads/business-presence.json").read_text()) == data
@@ -239,7 +271,7 @@ def test_invalid_business_input_is_rejected_before_writes_and_deleted_input_with
         build(tmp_path)
     assert before == {p.relative_to(tmp_path): p.read_bytes() for p in tmp_path.rglob("*") if p.is_file()}
     frozen.write_text(json.dumps(published()))
-    assert build(tmp_path)["business_charts"] == 5
+    assert build(tmp_path)["business_charts"] == 6
     page = BeautifulSoup((tmp_path / "site/business-presence.html").read_text(), "html.parser")
     assert not page.select('a[href="language-learning.html"]')
     frozen.unlink()
@@ -259,20 +291,20 @@ def test_publication_is_business_only_with_complete_data_original_downloads_and_
     assert page.select_one('link[rel="canonical"]')["href"] == manifest["canonical_url"]
     assert page.select_one(".publication-header nav").text == "LatestArchiveInteractive analysisAbout"
     assert not page.select('a[href="index.html"],a[href="language-learning.html"],iframe')
-    assert len(page.select("svg[role=img]")) == 5
+    assert len(page.select("svg[role=img]")) == 6
     assert len(page.select("#annual-values [data-business-year]")) == 25
     assert page.select_one("#business-controls").has_attr("hidden")
-    assert {n["data-business-origin"] for n in page.select("section[data-business-origin]")} == {"us", "eu", "uk", "norway"}
+    assert {n["data-business-origin"] for n in page.select("section[data-business-origin]")} == {"us", "eu", "uk", "norway", "germany"}
     assert page.select_one("#business-benchmark-background").get("open") is None
     assert set(p.name for p in (output / "downloads").iterdir()) == {
         "business-presence.json", "business-observations.csv", "business-chart-values.csv"}
     data = json.loads((output / "downloads/business-presence.json").read_text())
-    assert data == published() and manifest["observations"] == 91
+    assert data == published() and manifest["observations"] == 109
     assert manifest["source_revision"] == "verified-source-revision"
     for name, checksum in manifest["files"].items():
         assert hashlib.sha256((output / name).read_bytes()).hexdigest() == checksum
     with (output / "downloads/business-observations.csv").open() as f:
-        assert len(list(csv.DictReader(f))) == 91
+        assert len(list(csv.DictReader(f))) == 109
     for link in page.select('a[href^="figures/"]'):
         assert link.has_attr("data-original-chart") and (output / link["href"]).is_file()
     assert not (output / "business-presence.html").exists()

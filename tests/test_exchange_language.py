@@ -5,6 +5,7 @@ import importlib.util
 import json
 import zipfile
 from collections import defaultdict
+from datetime import datetime
 from pathlib import Path
 from types import SimpleNamespace
 from xml.etree import ElementTree
@@ -66,6 +67,42 @@ def test_national_release_check_detects_new_data_without_using_summer_or_regiona
 
 def published():
     return json.loads((ROOT / "data/site/language_learning.json").read_text())
+
+
+def test_school_pulse_requires_national_denominator_and_keeps_unreportable_korean_null():
+    book = Workbook()
+    book.active.title = "About"
+    book.active.append(["A sample of 4,000 public schools; experimental data"])
+    sheet = book.create_sheet("All Schools")
+    sheet.append(["Most Recent Month", "Subgroup", "VarName", "Respondents", "Description",
+                  "Category", "Jan24 Pct", "Jan24 SE", "Jan24 Flag"])
+    for variable, label, value, error in [
+            ("Lang1_3", "Chinese (Mandarin or Cantonese)", 3, .4),
+            ("Lang1_9", "Japanese", 1, .3), ("Lang1_10", "Korean", "‡", "†")]:
+        sheet.append([datetime(2024, 1, 1), "All public schools", variable, "All Schools",
+                      "Which of the following languages are taught as independent classes at your school?",
+                      label, value, error, " "])
+
+    def parse():
+        stream = io.BytesIO()
+        book.save(stream)
+        return language_sources.parse_school_pulse(stream.getvalue())
+
+    assert [(r[0], r[1], r[2]) for r in parse()] == [
+        ("chinese", 3, "estimated"), ("japanese", 1, "estimated"), ("korean", None, "suppressed")]
+    sheet.cell(2, 4, "Schools offering world languages")
+    with pytest.raises(ValueError, match="denominator"):
+        parse()
+    sheet.cell(2, 4, "All Schools")
+    book["About"].title = "OA_About"
+    with pytest.raises(ValueError, match="outlying-area"):
+        parse()
+    groups = chart_points(published(), "school-language-availability")
+    assert [[p["value"] for p in g["points"]] for g in groups] == [[3], [1], []]
+    assert groups[2]["unavailable_label"] == "Not reportable"
+    assert all(p["reported_unit"] == "percent" and p["year"] == 2024 for g in groups for p in g["points"])
+    assert any(r["series_id"] == "school_availability:korean" and r["value"] == 43
+               for r in published()["observations"])
 
 
 def test_school_parser_skips_contents_and_keeps_enrollment_and_availability_populations_separate(monkeypatch):

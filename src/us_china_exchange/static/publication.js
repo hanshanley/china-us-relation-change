@@ -191,6 +191,12 @@
           rows: [{id: point.id || point.label, label: model.unit, color: point.color, point}]});
         height = y + (lines.length - 1) * 19 + 39;
       }
+      for (const point of model.unavailable_bars || []) {
+        const y = height + font;
+        content += `<text x="0" y="${y}" font-size="${font}">${escape(point.label)}</text>
+          <text x="${width - 2}" y="${y}" text-anchor="end" font-size="${font}">${escape(point.reason)}</text>`;
+        height = y + 39;
+      }
     } else {
       height = mobile ? 310 : Math.round(Math.max(380, Math.min(520, width * .5)));
       const margin = {left: mobile ? 66 : 94, right: 30, top: 44, bottom: 46};

@@ -140,6 +140,12 @@ def check(site, url=None, screenshots=None):
                 expect(page.locator("#partial-panel")).to_contain_text("2026")
                 expect(page.locator("#partial-panel")).to_contain_text(
                     "32,000 (+7.2%)" if geo == "CHN" else "53,000 (-17.4%)")
+            page.select_option("#measure", "visitors")
+            expect(page.locator("#partial-panel")).to_contain_text("Jan–Aug 2026")
+            expect(page.locator("#partial-panel")).to_contain_text("737,530")
+            if screenshots:
+                page.locator(".exchange-panel").screenshot(path=str(screenshots / f"hong-kong-current-{width}.png"))
+            page.select_option("#measure", "air_visitors")
             page.select_option("#direction", "to_us")
             expect(page.locator("#measure")).to_have_value("visitors")
             expect(page.locator("#selection-note")).to_contain_text("no verified annual series for this route")
@@ -162,6 +168,11 @@ def check(site, url=None, screenshots=None):
                     page.select_option("#module-chart", "latest-admissions")
                     assert page.locator("#latest-admissions .screen-bar").evaluate_all(
                         "nodes=>nodes.map(n=>Number(n.dataset.value))") == [27020, 38650]
+                    page.select_option("#module-chart", "macau-residence-approvals")
+                    assert page.locator("#macau-residence-approvals .screen-point").count() == 16
+                    expect(page.locator("#macau-residence-approvals .screen-unit")).to_have_text("People approved")
+                    if screenshots:
+                        page.locator("#macau-residence-approvals").screenshot(path=str(screenshots / f"macau-approvals-{width}.png"))
                 if name == "language-learning.html":
                     expect(page.locator("#module-chart")).to_have_value("college-enrollments")
                     assert page.locator("#college-enrollments .screen-point").count() == 18
@@ -179,7 +190,11 @@ def check(site, url=None, screenshots=None):
                         "nodes=>nodes.map(n=>Number(n.dataset.value))") == [227086, 67909]
                     page.select_option("#module-chart", "school-language-availability")
                     assert page.locator("#school-language-availability .screen-bar").evaluate_all(
-                        "nodes=>nodes.map(n=>Number(n.dataset.value))") == [1144, 433, 43]
+                        "nodes=>nodes.map(n=>Number(n.dataset.value))") == [3, 1]
+                    expect(page.locator("#school-language-availability .screen-chart")).to_contain_text("Korean")
+                    expect(page.locator("#school-language-availability .screen-chart")).to_contain_text("Not reportable")
+                    if screenshots:
+                        page.locator("#school-language-availability").screenshot(path=str(screenshots / f"school-availability-{width}.png"))
                     page.select_option("#module-chart", "ap-chinese-global")
                     assert page.locator("#ap-chinese-global .screen-point").count() == 38
                     years = page.locator("#ap-chinese-global .screen-year").all_text_contents()
@@ -187,6 +202,12 @@ def check(site, url=None, screenshots=None):
                     expect(page.locator("#ap-chinese-global .ap-scope-note")).to_contain_text("not U.S.-only")
                     assert page.locator('#module-chart option[value="ap-language-standard-group"]').count() == 0
                     assert page.locator("#ap-language-standard-group").count() == 0
+                if name == "business-presence.html":
+                    page.select_option("#module-chart", "germany-affiliates-china")
+                    assert page.locator("#germany-affiliates-china .screen-point").count() == 18
+                    expect(page.locator("#germany-affiliates-china .plot-legend")).to_contain_text("Bundesbank")
+                    if screenshots:
+                        page.locator("#germany-affiliates-china").screenshot(path=str(screenshots / f"german-businesses-{width}.png"))
                 if name == "weibo.html":
                     weibo_summary = json.loads((site / "downloads/weibo-summary.json").read_text())
                     monthly = weibo_summary.get("monthly", [])

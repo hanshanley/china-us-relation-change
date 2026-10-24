@@ -140,6 +140,9 @@ def test_collective_export_preserves_complete_inputs_and_native_plot_boundaries(
     immigration = BeautifulSoup((tmp_path / "immigration.html").read_text(), "html.parser")
     assert immigration.select_one("#green-card-grants .plot-data")
     assert immigration.select_one("#latest-admissions .plot-data")
+    approvals = json.loads(immigration.select_one("#macau-residence-approvals .plot-data").string)
+    assert [p["period"] for p in approvals["groups"][0]["points"]] == [str(y) for y in range(2010, 2026)]
+    assert all("FY" not in p["label"] for p in approvals["groups"][0]["points"])
     business = BeautifulSoup((tmp_path / "business-presence.html").read_text(), "html.parser")
     model = json.loads(business.select_one("#us-affiliates-china .plot-data").string)
     assert len(model["groups"][0]["points"]) == 24
@@ -157,7 +160,10 @@ def test_collective_export_preserves_complete_inputs_and_native_plot_boundaries(
     assert [b["value"] for b in school["bars"]] == [227086, 67909]
     assert [b["period"] for b in school["bars"]] == ["2015", "2015"]
     availability = json.loads(language.select_one("#school-language-availability .plot-data").string)
-    assert [b["value"] for b in availability["bars"]] == [1144, 433, 43]
+    assert [b["value"] for b in availability["bars"]] == [3, 1]
+    assert availability["unit"] == "Percent"
+    assert availability["unavailable_bars"] == [
+        {"id": "spp_availability:korean", "label": "Korean", "reason": "Not reportable"}]
     ap_scope = language.select_one("#ap-chinese-global .ap-scope-note")
     assert "no AP Korean exam is offered" in ap_scope.text
     assert "not zero participation" in ap_scope.text

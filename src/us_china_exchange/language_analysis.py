@@ -23,10 +23,12 @@ CHARTS = {
         "series": ["schools:k12_estimate", "schools:k12_japanese_estimate"], "unit": "Enrollments", "mode": "bars",
         "note": "American Councils Table 2. Chinese/Japanese state reports plus modeled estimates for missing data; not unique people. No comparable national Korean total is supplied. Its 936 respondent enrollments are not mixed into these national estimates."},
     "school-language-availability": {
-        "title": "Reported high-school language availability", "subtitle": "2014–15 survey | programs, not learner counts",
-        "series": ["school_availability:chinese", "school_availability:japanese", "school_availability:korean"],
-        "unit": "Reported programs", "mode": "bars",
-        "note": "American Councils Table 4. Chinese 1,144; Japanese 433; Korean 43. Reported high-school language programs, not a census of unique schools, student enrollment or unmet demand. Schools may offer more than one language."},
+        "title": "Language classes in public schools", "subtitle": "Nationwide NCES sample | January 2024",
+        "series": ["spp_availability:chinese", "spp_availability:japanese", "spp_availability:korean"],
+        "unit": "Percent", "mode": "bars",
+        "note": "NCES School Pulse Panel, January 2024; experimental national estimates. All U.S. public schools "
+        "are the denominator; Chinese includes Mandarin or Cantonese. Standard errors: Chinese 0.4pp, "
+        "Japanese 0.3pp. Korean is below reporting standards, not zero. Course offerings are not student enrollments."},
     "college-share": {
         "title": "Each language's share of college language study",
         "subtitle": "Share of all non-English language course registrations",
@@ -128,13 +130,22 @@ def validate_language_data(data):
         if key in seen:
             raise ValueError("Duplicate language observation")
         seen.add(key)
-        if r["status"] not in {"observed", "estimated", "reported_or_imputed", "missing"}:
+        if r["status"] not in {"observed", "estimated", "reported_or_imputed", "missing", "suppressed"}:
             raise ValueError("Invalid language observation status")
-        if (r["value"] is None) != (r["status"] == "missing"):
+        if (r["value"] is None) != (r["status"] in {"missing", "suppressed"}):
             raise ValueError("Language observation missingness disagrees with status")
-        if r["value"] is not None and (isinstance(r["value"], bool) or not isinstance(r["value"], int)
-                                       or r["value"] < 0):
-            raise ValueError("Language indicators require nonnegative integer counts")
+        percentage = definitions[r["series_id"]]["measure"] == "school_offering_share"
+        if percentage and (not r["series_id"].startswith("spp_availability:")
+                           or r["source_id"] != "nces_spp_languages_2024" or r["year"] != 2024
+                           or definitions[r["series_id"]]["unit"] != "percent"
+                           or definitions[r["series_id"]]["period_basis"] != "January 2024 survey"
+                           or definitions[r["series_id"]]["cadence"] != "survey snapshot"
+                           or "all schools" not in definitions[r["series_id"]]["scope"]):
+            raise ValueError("School availability must retain its survey period, percentage unit and source")
+        if r["value"] is not None and (isinstance(r["value"], bool)
+                or not isinstance(r["value"], (int, float) if percentage else int)
+                or not math.isfinite(r["value"]) or r["value"] < 0 or (percentage and r["value"] > 100)):
+            raise ValueError("Language counts must be nonnegative integers; school percentages must be finite and within 0-100")
         if not isinstance(r["comparability"], str) or not r["comparability"]:
             raise ValueError("Missing language comparability definition")
         if not isinstance(r["notes"], str):
@@ -232,7 +243,9 @@ def chart_points(data, chart_id):
         grouped.append({"id": sid, "label": label, "color": color,
                         "points": points, "scheduled_years": [r["year"] for r in selected],
                         "cadence": data["series"][sid]["cadence"],
-                        "period_basis": data["series"][sid]["period_basis"]})
+                        "period_basis": data["series"][sid]["period_basis"],
+                        "unavailable_label": "Not reportable" if selected and all(
+                            r["status"] == "suppressed" for r in selected) else "Unavailable"})
     return grouped
 
 

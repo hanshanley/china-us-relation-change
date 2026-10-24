@@ -12,7 +12,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
 from us_china_exchange.language_analysis import validate_language_data
-from us_china_exchange.language_sources import AP_GROUP_CONTEXT, MLA_SNAPSHOT, ReviewClient, ap_global, ap_us_cohorts, ipeds, mla, schools, school_comparisons, source
+from us_china_exchange.language_sources import AP_GROUP_CONTEXT, MLA_SNAPSHOT, ReviewClient, ap_global, ap_us_cohorts, ipeds, mla, schools, school_comparisons, school_pulse, source
 from us_china_exchange.model import json_text
 from us_china_exchange.pipeline import write_atomic
 
@@ -23,7 +23,8 @@ def collect(client, last_degree_year=2025):
     result = {"version": 1, "series": {}, "observations": [], "sources": {}, "coverage": [], "context": {}}
     for name, fetch in [("MLA", mla), ("AP", ap_global), ("AP U.S. cohorts", ap_us_cohorts),
                         ("IPEDS", lambda c: ipeds(c, range(2000, last_degree_year + 1))),
-                        ("Schools", schools), ("School language comparisons", school_comparisons)]:
+                        ("Schools", schools), ("School language comparisons", school_comparisons),
+                        ("National School Pulse Panel", school_pulse)]:
         print("Reviewing " + name + " sources...", flush=True)
         definitions, observations, sources = fetch(client)
         if set(definitions) & result["series"].keys() or set(sources) & result["sources"].keys():
@@ -89,12 +90,29 @@ def update_school_context(result):
         if item["id"] == "k12_learners":
             item["description"] = ("2014-15-era Chinese/Japanese national enrollment estimates, published 2017. "
                                    "No comparable national Korean total or continuous K-12 census is verified.")
-    result["coverage"] = [r for r in result["coverage"] if r["id"] not in {"hs_language_availability", "language_demand"}] + [
+    result["coverage"] = [r for r in result["coverage"] if r["id"] not in {
+        "hs_language_availability", "school_pulse_availability", "language_demand"}] + [
         {"id": "hs_language_availability", "status": "snapshot_only",
          "description": "2014-15 reported high-school programs: Chinese 1,144, Japanese 433 and Korean 43. Not unique schools or a national availability census."},
         {"id": "language_demand", "status": "not_measured",
          "description": "Enrollments, program availability and exam participation do not directly measure unmet demand. No composite national learner total is calculated."}]
+    if "spp_availability:chinese" in result["series"]:
+        result["coverage"].append({
+            "id": "school_pulse_availability", "status": "survey_snapshot",
+            "description": "January 2024 national public-school availability estimates: Chinese 3%, Japanese 1%; "
+            "Korean below reporting standards. Not student enrollments or a continuation of 2014-15 program counts."})
     return validate_language_data(result)
+
+
+def collect_school_pulse(client, prior):
+    result = copy.deepcopy(prior)
+    definitions, observations, sources = school_pulse(client)
+    result["series"].update(definitions)
+    result["sources"].update(sources)
+    result["observations"] = sorted(
+        [r for r in result["observations"] if r["series_id"] not in definitions] + observations,
+        key=lambda r: (r["series_id"], r["year"]))
+    return update_school_context(result)
 
 
 def collect_school_comparisons(client, prior):
@@ -150,6 +168,7 @@ if __name__ == "__main__":
     selection = parser.add_mutually_exclusive_group()
     selection.add_argument("--ap-only", action="store_true", help="Review only AP sources; preserve all non-AP observations and definitions")
     selection.add_argument("--schools-only", action="store_true", help="Add reviewed school language comparisons; preserve all other observations")
+    selection.add_argument("--school-pulse-only", action="store_true", help="Review national January 2024 availability estimates; preserve historical observations")
     selection.add_argument("--ipeds-only", action="store_true", help="Review the selected final IPEDS year; preserve every other year and non-degree observation")
     selection.add_argument("--ipeds-history", action="store_true", help="Review Chinese, Japanese and Korean degree histories from 2000; preserve non-degree observations")
     args = parser.parse_args()
@@ -157,9 +176,10 @@ if __name__ == "__main__":
     if args.ipeds_only or args.ipeds_history:
         prior = json.loads((ROOT / "data/site/language_learning.json").read_text())
         data = collect_ipeds(client, prior, args.last_degree_year, args.ipeds_history)
-    elif args.ap_only or args.schools_only:
+    elif args.ap_only or args.schools_only or args.school_pulse_only:
         prior = json.loads((ROOT / "data/site/language_learning.json").read_text())
-        data = (collect_ap if args.ap_only else collect_school_comparisons)(client, prior)
+        fetch = collect_ap if args.ap_only else collect_school_pulse if args.school_pulse_only else collect_school_comparisons
+        data = fetch(client, prior)
     else:
         data = collect(client, args.last_degree_year)
     write_atomic(ROOT / "data/site/language_learning.json", json_text(data))

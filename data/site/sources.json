@@ -24,12 +24,12 @@
     "vintage": "Comtrade annual records through 2025"
   },
   "hktb": {
-    "last_recorded_check": "2026-10-23T06:39:14+00:00",
-    "last_successful_retrieval": "2026-10-23T06:39:14+00:00",
-    "notes": "Official HKTDC republication of HKTB arrivals. Nationality, not residence, all purposes and modes. Browser-rendered public report text retained with checksum; no challenge bypass. C&SD/MGTO republications restore 2000-2022 residence history as a separate comparability segment; charts break at 2023 and cross-definition changes/indices are unavailable. MGTO provides direct matched first-half 2025/2026 nationality totals. NTTO air estimates remain separate.",
-    "observations": 28,
+    "last_recorded_check": "2026-10-24T16:15:25+00:00",
+    "last_successful_retrieval": "2026-10-24T16:15:25+00:00",
+    "notes": "Monthly and matched January-July/August 2025/2026 nationality counts, manually verified in public HKTB reports. Checksums cover the versioned reviewed transcription, not publisher PDFs. Both stay-length components and successive cumulative totals reconcile with the retained first half.",
+    "observations": 36,
     "status": "available",
-    "vintage": "HKTB residence arrivals 2000-2022; nationality 2023-2025 and January-June 2025/2026"
+    "vintage": "HKTB July/August 2026 reports; selected U.S. facts reviewed 2026-10-24"
   },
   "iie": {
     "last_recorded_check": "2026-10-23T11:15:26+00:00",

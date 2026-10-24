@@ -21,7 +21,10 @@ BEA = "https://www.bea.gov/data/intl-trade-investment/international-trade-goods-
 BEA_HISTORY = "https://www.bea.gov/sites/default/files/2024-12/trad-geo-time-series-1024.xlsx"
 BEA_EXPANDED = "https://apps.bea.gov/iTable/core/data/app/GetStep"
 BEA_EXPANDED_VIEW = "https://apps.bea.gov/iTable/?isuri=1&product=4&reqid=62&step=6&tablelist=30700"
-SOURCE_PAGES = {"bea_expanded": BEA_EXPANDED_VIEW}
+SOURCE_PAGES = {
+    "bea_expanded": BEA_EXPANDED_VIEW,
+    "hktb": "https://www.discoverhongkong.com/eng/hktb/newsroom/tourism-statistics.html",
+}
 BEA_EXPANDED_QUERY = {
     "appid": 62, "stepnum": 6,
     "data": [["product", "4"], ["tablelist", "30700"], ["Filter_#1", "0"],

@@ -18,10 +18,12 @@ RETIRED_CHARTS = {"us-parent-companies", "us-affiliates-europe", "us-affiliates-
 BENCHMARK_CHART = "us-parent-companies-china"
 COLORS = {"bea_affiliates:china": PARTNER_COLORS["CHN"], "bea_parents:china": PARTNER_COLORS["CHN"],
           "eurostat_affiliates:china": BLUE, "eurostat_historical_eu:china": MUTED,
-          "eurostat_uk:china": GOLD, "eurostat_norway:china": GREEN, "ssb_norway:china": GREEN}
+          "eurostat_uk:china": GOLD, "eurostat_norway:china": GREEN, "ssb_norway:china": GREEN,
+          "bundesbank_germany:china": "#79638A", "eurostat_germany:china": "#A397AC"}
 ORIGINS = {"bea_affiliates:china": "us", "bea_parents:china": "us",
            "eurostat_affiliates:china": "eu", "eurostat_historical_eu:china": "eu",
-           "eurostat_uk:china": "uk", "eurostat_norway:china": "norway", "ssb_norway:china": "norway"}
+           "eurostat_uk:china": "uk", "eurostat_norway:china": "norway", "ssb_norway:china": "norway",
+           "bundesbank_germany:china": "germany", "eurostat_germany:china": "germany"}
 CHARTS = {
     "us-affiliates-china": {
         "title": "U.S.-parent affiliates in China",
@@ -45,6 +47,13 @@ CHARTS = {
         "note": "Statistics Norway, all industries. Direct or indirect Norwegian control; Hong Kong and Macao reported separately. "
         "This full source history replaces the narrower Eurostat view, not just its last year. "
         "Norway is outside the EU; counts are enterprises, not Norwegian parents or office locations."},
+    "germany-affiliates-china": {
+        "title": "German-controlled enterprises in China",
+        "subtitle": "Annual affiliate counts | two reported series",
+        "series": ["eurostat_germany:china", "bundesbank_germany:china"], "unit": "Enterprises", "mode": "levels",
+        "note": "Eurostat and Bundesbank report separate histories; overlapping values differ. "
+        "Eurostat's 2021 methodology change breaks the line. Bundesbank: German majority control, "
+        "assets above EUR 3m; includes branches. Hong Kong and Macau are separate. Germany is already included in EU27."},
     BENCHMARK_CHART: {
         "title": "U.S. parent companies with China affiliates",
         "subtitle": "Supplementary benchmark observations | NOT an annual series",
@@ -65,7 +74,7 @@ def validate_business_data(data):
             raise ValueError("Invalid business series identity")
         if not all(isinstance(v, str) and v for v in definition.values()) or definition["unit"] != units[sid]:
             raise ValueError("Business counting units and populations must remain explicit")
-        expected = ("controlled_enterprises", "annual", "reference year") if sid.startswith(("eurostat", "ssb_")) else (
+        expected = ("controlled_enterprises", "annual", "reference year") if sid.startswith(("eurostat", "ssb_", "bundesbank_")) else (
             ("parent_companies", "benchmark", "fiscal ending year") if sid.startswith("bea_parents")
             else ("majority_owned_affiliates", "annual", "fiscal ending year"))
         if tuple(definition[k] for k in ("measure", "cadence", "period_basis")) != expected:
@@ -117,11 +126,14 @@ def validate_business_data(data):
             "eurostat_historical_eu:china": "fats_out2_EU27_2007" if r["year"] <= 2009 else "fats_out2_r2_EU27_2007",
             "eurostat_uk:china": "ons_2019" if r["year"] in {2018, 2019} else "fats_out2_r2_UK",
             "eurostat_norway:china": "fats_out2_r2_NO" if r["year"] <= 2020 else "fats_out_part_NO",
+            "eurostat_germany:china": "fats_out2_r2_DE" if r["year"] <= 2020 else "fats_out_part_DE",
         }
         if r["series_id"].startswith("eurostat") and r["source_id"] != expected_source[r["series_id"]]:
             raise ValueError("European method/source boundary mismatch")
         if r["series_id"] == "ssb_norway:china" and r["source_id"] != "ssb_09827":
             raise ValueError("Norwegian country table source mismatch")
+        if r["series_id"] == "bundesbank_germany:china" and r["source_id"] != "bundesbank_outward_fats":
+            raise ValueError("German country table source mismatch")
     if not all(data["context"].get(k) for k in ("question", "interpretation", "geography", "rights")):
         raise ValueError("Business interpretation and coverage caveats required")
     if any(set(c) != {"id", "status", "description"} for c in data["coverage"]):
@@ -241,7 +253,9 @@ def build_business(root, data, gallery, publication=False):
         for s in data["sources"].values())
     columns = [("bea_affiliates:china", "U.S. affiliates"), ("eurostat_affiliates:china", "EU27 current members"),
                ("eurostat_historical_eu:china", "EU27 2007 members"), ("eurostat_uk:china", "UK enterprises"),
-               ("ssb_norway:china", "Norwegian enterprises (all industries)")]
+               ("ssb_norway:china", "Norwegian enterprises (all industries)"),
+               ("eurostat_germany:china", "Germany (Eurostat)"),
+               ("bundesbank_germany:china", "Germany (Bundesbank; assets above EUR 3m)")]
     observations = {(r["series_id"], r["year"]): r for r in data["observations"]}
     annual = [r for r in data["observations"] if data["series"][r["series_id"]]["cadence"] == "annual"]
     first = min((r["year"] for r in annual), default=2000)
@@ -271,7 +285,8 @@ def build_business(root, data, gallery, publication=False):
     controls = (f'<form id="business-controls" class="controls" hidden aria-label="Explore China business histories">'
                 '<label>Investor origin<select id="business-origin"><option value="all">All reported origins</option>'
                 '<option value="us">United States</option><option value="eu">EU reporting groups</option>'
-                '<option value="uk">United Kingdom</option><option value="norway">Norway</option></select></label>'
+                '<option value="uk">United Kingdom</option><option value="norway">Norway</option>'
+                '<option value="germany">Germany</option></select></label>'
                 f'<label>Table start year<input id="business-start" type="number" min="{first}" max="{last}" value="{first}" step="1"></label>'
                 f'<label>Table end year<input id="business-end" type="number" min="{first}" max="{last}" value="{last}" step="1"></label>'
                 '<p id="business-filter-status" role="status" aria-live="polite">'
@@ -286,7 +301,7 @@ def build_business(root, data, gallery, publication=False):
                 '<link rel="stylesheet" href="assets/style.css"></head><body><div class="page"><header>' + navigation +
                 f'<h1>Businesses in China.</h1><p class="lead">{esc(data["context"]["question"])}</p>'
                 f'<p><strong>Annual histories, {first}-{last} where reported. China is the host in every chart.</strong> '
-                'The main graphs track U.S., EU, UK and Norwegian business presence in China over time—not U.S. '
+                'The main graphs track U.S., EU, German, UK and Norwegian business presence in China over time—not U.S. '
                 'businesses located in Europe. Sparse company-count benchmarks are secondary.</p>'
                 '<p><strong>Parent companies, affiliate enterprises and physical branches are different counting units.</strong> '
                 'Annual affiliate/enterprise counts are not an annual census of unique parent companies or physical offices.</p>'

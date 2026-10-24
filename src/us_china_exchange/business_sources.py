@@ -6,9 +6,12 @@ import math
 import re
 import zipfile
 from pathlib import PurePosixPath
+from urllib.parse import urljoin
 
 import xlrd
+from bs4 import BeautifulSoup
 from openpyxl import load_workbook
+from openpyxl.utils.datetime import from_excel
 
 from .language_sources import row, series, source
 
@@ -33,6 +36,7 @@ PARENT_BOOKS = {
 EUROSTAT = "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/"
 ONS_DATA = "https://www.ons.gov.uk/file?uri=/businessindustryandtrade/internationaltrade/datasets/ukoutwardforeignaffiliatestatisticsofats/2019/ofatspublicationfinal.xlsx"
 ONS_COVERAGE = "https://www.ons.gov.uk/aboutus/transparencyandgovernance/freedomofinformationfoi/ukoutwardforeignaffiliatestatisticsofats2015to2025"
+BUNDESBANK_FATS = "https://www.bundesbank.de/en/statistics/external-sector/direct-investments/foreign-affiliates-statistics-fats--795240"
 SSB_COUNTRIES = "https://data.ssb.no/api/v0/en/table/09827"
 SSB_CHINA_QUERY = {
     "query": [
@@ -117,6 +121,87 @@ def norwegian_affiliates(client):
     observations = [row("ssb_norway:china", year, value, "ssb_09827", status,
                         "Direct Statistics Norway all-industry country count, not a subset allocated from Asia.",
                         "ssb:09827:CN:all_industries") for year, value, status in points]
+    return definitions, observations, sources
+
+
+def parse_germany(content):
+    book = load_workbook(io.BytesIO(content), read_only=True, data_only=True)
+    method = " ".join(str(v) for r in book["Methodology"].values for v in r if v is not None)
+    if not all(s in method for s in ("ultimately controlled by German investors", "more than 50%", "exceed €3 million")):
+        raise ValueError("German affiliate control or reporting threshold changed")
+    activities = list(book["Economic activity"].values)
+    if not any(r[0] == "BTSXO" and "without agriculture" in str(r[1]).lower() for r in activities):
+        raise ValueError("German affiliate economic activity definition changed")
+    records = list(book["DATA"].values)
+    try:
+        dates = [from_excel(v, book.epoch) for v in records[2][1:]]
+    except (TypeError, ValueError, OverflowError) as exc:
+        raise ValueError("German affiliate annual columns changed") from exc
+    years = [d.year for d in dates]
+    if not years or years != sorted(set(years)) or any((d.month, d.day) != (12, 31) for d in dates):
+        raise ValueError("German affiliate annual columns changed")
+    matches = [r for r in records if r[0] == "BBFOFATS.A.DE.ENT.BTSXO.CN"]
+    if len(matches) != 1 or len(matches[0]) != len(years) + 1:
+        raise ValueError("German China enterprise-count row missing or ambiguous")
+    points = []
+    for year, value in zip(years, matches[0][1:]):
+        if value == "X":
+            count, status = None, "missing"
+        elif value == "/":
+            count, status = None, "missing"
+        else:
+            count, status = count_cell(0 if value == "-" else value)
+            if status == "observed" and year == max(years):
+                status = "provisional"
+        points.append((year, count, status))
+    return points
+
+
+def german_affiliates(client):
+    body, landing = client.get(BUNDESBANK_FATS)
+    links = [urljoin(BUNDESBANK_FATS, a["href"]) for a in BeautifulSoup(body, "html.parser").select("a[href]")
+             if a["href"].endswith("/statistik-outward-fats-data.xlsx")]
+    if len(set(links)) != 1:
+        raise ValueError("Bundesbank outward-affiliate workbook link missing or ambiguous")
+    body, asset = client.get(links[0])
+    points = parse_germany(body)
+    definitions = {"bundesbank_germany:china": series(
+        "Germany", "controlled_enterprises", "enterprises",
+        "Foreign affiliates in China, excluding separately coded Hong Kong and Macao, ultimately controlled "
+        "by German investors; NACE Rev. 2 BTSXO",
+        "annual", "reference year",
+        "Direct or indirect control above 50%; affiliates with total assets above EUR 3 million, including "
+        "branches and permanent establishments. Excludes agriculture, public administration and private households. "
+        "Not distinct German parent companies, all European businesses or a reconstruction of confidential EU totals.")}
+    sources = {"bundesbank_outward_fats": source(
+        "Deutsche Bundesbank", f"Outward FATS workbook; reference years {points[0][0]}-{points[-1][0]}",
+        [landing, asset], "DATA; BBFOFATS.A.DE.ENT.BTSXO.CN; Methodology and Economic activity",
+        "Only the China enterprise-count series is used; employment and turnover columns are not company counts. "
+        "Latest year provisional. Germany is an overlapping EU member, not an extra component to add to EU27.")}
+    observations = [row("bundesbank_germany:china", year, value, "bundesbank_outward_fats", status,
+                        "Above EUR 3 million in assets; German ultimate control. Latest year provisional.",
+                        "bundesbank:BTSXO:CN:EUR3m") for year, value, status in points]
+    definitions["eurostat_germany:china"] = series(
+        "Germany (Eurostat)", "controlled_enterprises", "enterprises",
+        "German-controlled enterprises in China except Hong Kong; Eurostat NACE B-S except O",
+        "annual", "reference year",
+        "Eurostat's reported history is retained separately from Bundesbank's current workbook. "
+        "Overlapping 2021-2023 counts differ; they are not spliced, averaged or treated as a matched revision. "
+        "The 2021 EBS methodology boundary is disconnected. Germany overlaps the EU27 aggregate.")
+    definitions["bundesbank_germany:china"]["label"] = "Germany (Bundesbank)"
+    for dataset, indicator in [("fats_out2_r2", "indic_bp=ENT"), ("fats_out_part", "indic_sbs=ENT_NR")]:
+        url = (EUROSTAT + dataset + "?lang=EN&freq=A&nace_r2=B-S_X_O&" + indicator
+               + "&partner=CN_X_HK&geo=DE")
+        body, asset = client.get(url)
+        source_id = dataset + "_DE"
+        sources[source_id] = source(
+            "Eurostat", dataset + "; Germany reporting country", [asset],
+            "geo=DE; partner=CN_X_HK; NACE B-S except O; enterprise counts",
+            "Separate source population/vintage from the Bundesbank workbook; overlapping counts are not forced to agree.")
+        observations.extend(row("eurostat_germany:china", year, value, source_id, status,
+                                "Eurostat German reporting population; source flags: " + flag, comparability)
+                            for year, value, status, flag, comparability in parse_eurostat(
+                                json.loads(body), dataset, "DE"))
     return definitions, observations, sources
 
 
@@ -294,6 +379,10 @@ def collect_business(client):
     definitions.update(norway_definitions)
     observations.extend(norway_observations)
     sources.update(norway_sources)
+    germany_definitions, germany_observations, germany_sources = german_affiliates(client)
+    definitions.update(germany_definitions)
+    observations.extend(germany_observations)
+    sources.update(germany_sources)
     coverage = []
     for sid in definitions:
         selected = [r for r in observations if r["series_id"] == sid]
@@ -311,7 +400,7 @@ def collect_business(client):
         "context": {
             "question": "How has U.S. and European business presence in China changed over time?",
             "interpretation": "Company counts, affiliate entities and branch locations are distinct. U.S. parents and ultimately EU-controlled enterprises are not matched ownership populations; BEA and Eurostat levels must not be used to rank otherwise comparable business presence.",
-            "geography": "China is the host in every chart. European coverage includes current EU27, a separately labelled historical EU membership group, the United Kingdom and Norway. These are not summed into an all-Europe total; Switzerland and other European origins remain outside verified coverage.",
+            "geography": "China is the host in every chart. European coverage includes current EU27, a separately labelled historical EU membership group, Germany, the United Kingdom and Norway. Germany overlaps EU27; these are not summed into an all-Europe total. Switzerland and other European origins remain outside verified coverage.",
             "rights": "Publish aggregate statistics and original charts only; raw workbooks and reports remain local. Sources and retrieval checksums accompany every observation.",
             "release_timing": "As checked October 22, 2026, BEA's latest activity release covers 2023. The published schedule puts the 2024 activity release on November 20, 2026; no 2024 value is inferred.",
         },

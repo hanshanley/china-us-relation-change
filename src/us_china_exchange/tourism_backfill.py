@@ -24,6 +24,9 @@ MACAU_2002 = (
     "https://www.dsec.gov.mo/getAttachment/8c86dc19-36cc-4a05-8133-5470c143c09b/"
     "P_TUR_PUB_2002_Y.aspx")
 DSEC_VISITORS = "https://www.dsec.gov.mo/StatisticsJSON/AllReleases_en-US_TourismAndServices.json"
+HK_REVIEWED_INPUT = (
+    "https://raw.githubusercontent.com/hanshanley/china-us-relation-change/main/"
+    "data/reviewed/hktb-monthly-2026-08.json")
 HK_REPORTS = [
     (2008, "M12_MarketingPerformance_2008_1246941849.pdf",
      "9e2ac46cf301021f8c1b8862bf590c199792cc0b2b3cf9933085ddf61b8ead0e"),
@@ -40,6 +43,67 @@ HK_HALVES = [
     (2026, "Market%20Performance%20Jan-Jun%202026.pdf",
      "9a0ab73bf4495f2f17c063ba349df6cf9bdf9861143fda2a2eac9f8f245c95d4"),
 ]
+
+
+def reviewed_hktb_months(content, prior, retrieved_at):
+    data = json.loads(content)
+    if (data.get("version") != 1 or data.get("publisher") != "Hong Kong Tourism Board"
+            or data.get("country") != "USA" or data.get("population") != "nationality_region"
+            or data.get("transport_scope") != "all_mode" or data.get("unit") != "arrivals"
+            or data.get("column_order") != ["previous_year_month", "current_year_month",
+                                           "previous_year_ytd", "current_year_ytd"]
+            or "not cached publisher PDFs" not in data.get("evidence_format", "")):
+        raise ValueError("Reviewed HKTB input population, units or transcription identity changed")
+    reviewed = datetime.strptime(data["reviewed_on"], "%Y-%m-%d")
+    cumulative = {(r["year"], int(r["period"][-2:])): r["value"] for r in prior
+                  if r["series_id"] == "hktb:USA:HKG:visitors" and r["frequency"] == "ytd"
+                  and r["comparability"] == "hktb:us_nationality:all_mode"}
+    rows, seen = [], set()
+    for report in sorted(data["reports"], key=lambda r: (r["year"], r["month"])):
+        year, month = report["year"], report["month"]
+        if (isinstance(year, bool) or not isinstance(year, int) or isinstance(month, bool)
+                or not isinstance(month, int) or not 1 <= month <= 12):
+            raise ValueError("Reviewed HKTB report year/month must be integers")
+        expected_url = ("https://www.discoverhongkong.com/content/dam/dhk/intl/corporate/newsroom/"
+                        f"tourisum-statistics/{year}/tourism_stat_{month:02d}_{year}.pdf")
+        if ((year, month) >= (reviewed.year, reviewed.month)
+                or report["report_url"] != expected_url or (year, month) in seen):
+            raise ValueError("Reviewed HKTB report period or primary URL changed")
+        seen.add((year, month))
+        for field in ("total", "overnight", "same_day"):
+            if len(report[field]) != 4 or any(isinstance(v, bool) or not isinstance(v, int) or v < 0
+                                            for v in report[field]):
+                raise ValueError("Reviewed HKTB counts require four exact, nonnegative integers")
+        totals = report["total"]
+        if any(totals[i] != report["overnight"][i] + report["same_day"][i] for i in range(4)):
+            raise ValueError("HKTB total arrivals do not reconcile with overnight and same-day counts")
+        for y, monthly, ytd in ((year - 1, totals[0], totals[2]), (year, totals[1], totals[3])):
+            previous = cumulative.get((y, month - 1))
+            if previous is None or previous + monthly != ytd:
+                raise ValueError("HKTB monthly arrivals do not reconcile with the preceding published cumulative total")
+            if (y, month) in cumulative and cumulative[y, month] != ytd:
+                raise ValueError("Reviewed HKTB cumulative count differs from retained source vintage")
+            cumulative[y, month] = ytd
+            for frequency, value in (("monthly", monthly), ("ytd", ytd)):
+                rows.append(observation(
+                    "hktb", "USA", "HKG", "visitors", y, value,
+                    "HKTB all-mode U.S.-nationality visitor arrivals; includes overnight and same-day visits, "
+                    "not the historical U.S.-residence population, unique people or leisure-only tourists",
+                    frequency=frequency, month=month, comparability="hktb:us_nationality:all_mode",
+                    notes="Selected U.S. numerical facts manually reviewed from HKTB tables 1-3. "
+                    "Primary report: " + report["report_url"] + ". Published " + report["publication_month"] + ". "
+                    "Source URL and checksum refer to the versioned reviewed JSON transcription, not a cached "
+                    "publisher PDF; direct automated PDF retrieval was unavailable. Overnight + same-day and "
+                    "the preceding cumulative total + this month both reconcile exactly. "
+                    "Not annualized or spliced into the pre-2023 residence history."))
+    if not rows:
+        raise ValueError("Reviewed HKTB input contains no observations")
+    asset = {"url": HK_REVIEWED_INPUT, "sha256": digest(content), "retrieved_at": retrieved_at}
+    vintage = "HKTB July/August 2026 reports; selected U.S. facts reviewed " + data["reviewed_on"]
+    return attach(validate(rows), asset, vintage), vintage, (
+        "Monthly and matched January-July/August 2025/2026 nationality counts, manually verified in "
+        "public HKTB reports. Checksums cover the versioned reviewed transcription, not publisher PDFs. "
+        "Both stay-length components and successive cumulative totals reconcile with the retained first half.")
 
 
 def parse_archived_macau_services(content):

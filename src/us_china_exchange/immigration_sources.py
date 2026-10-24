@@ -1,8 +1,11 @@
 """Manual review of official green-card tables; never infer migration from visits."""
 
 import io
+import json
+import re
 import zipfile
 from pathlib import PurePosixPath
+from urllib.parse import urljoin
 
 import xlrd
 from openpyxl import load_workbook
@@ -21,6 +24,92 @@ UN_STOCK = "https://www.un.org/development/desa/pd/sites/www.un.org.development.
 STOCK_YEARS = [2000, 2005, 2010, 2015, 2020, 2024]
 STOCK_PAIRS = {("CHN", "USA"): "B", ("HKG", "USA"): "B",
                ("USA", "CHN"): "C R", ("USA", "HKG"): "B R"}
+MACAU_ABODE_YEARS = tuple(range(2010, 2026))
+DSEC_YEARBOOKS = "https://www.dsec.gov.mo/StatisticsJSON/AllReleases_en-US_General.json"
+
+
+def parse_macau_abode(records):
+    title = " ".join(str(v).strip() for r in records[:4] for v in r if v)
+    if not re.search(r"INDIVIDUALS (?:NEWLY )?GRANTED RIGHT OF ABODE BY COUNTRY OR TERRITORY", title):
+        raise ValueError("Macau residence-approval population or country category changed")
+    headers = [r for r in records[:8] if "Country or territory" in str(r[0])]
+    if len(headers) != 1:
+        raise ValueError("Macau residence-approval year header missing or ambiguous")
+    columns = {int(str(v).removesuffix(".0")): i for i, v in enumerate(headers[0])
+               if re.fullmatch(r"20\d{2}(?:\.0)?", str(v).strip())}
+    if len(columns) != 5 or sorted(columns) != list(columns):
+        raise ValueError("Macau residence-approval year columns changed")
+    matches = [i for i, r in enumerate(records) if str(r[2]).strip() == "United States of America"]
+    if len(matches) != 1 or matches[0] < 2 or str(records[matches[0] - 1][2]).strip() != "Estados Unidos da América":
+        raise ValueError("Macau U.S. country row missing or ambiguous")
+    us = records[matches[0] - 2]
+
+    def counts(r):
+        result = {}
+        for year, column in columns.items():
+            value = r[column]
+            if isinstance(value, str) and value.isdigit():
+                value = int(value)
+            result[year] = count(value)[0]
+        return result
+
+    values = counts(us)
+    total_rows = [i for i, r in enumerate(records) if str(r[1]).strip() == "Total"]
+    if len(total_rows) != 1:
+        raise ValueError("Macau total control row missing")
+    totals = counts(records[total_rows[0] - 1])
+    if any(values[y] is None or totals[y] is None or values[y] > totals[y] for y in columns):
+        raise ValueError("Macau U.S. approvals exceed the published total or require suppression review")
+    return values
+
+
+def macau_abode(client):
+    body, _ = client.get(DSEC_YEARBOOKS)
+    records = json.loads(body)["YearbookOfStatistics"]["Containers"]["YearbookOfStatistics"]["Publication"]["Yearly"]
+    publications = sorted((r for r in records if int(r["Name"]) >= 2020), key=lambda r: int(r["Name"]))
+    observations, sources = {}, {}
+    for publication in publications:
+        edition = int(publication["Name"])
+        files = [f for f in publication["File"]
+                 if f["Type"] in {".xlsx", ".xls"} and f["Name"] == "Statistical Tables 1"]
+        if len(files) != 1:
+            raise ValueError("Macau population workbook missing or ambiguous")
+        body, asset = client.get(urljoin(DSEC_YEARBOOKS, files[0]["Link"]))
+        if files[0]["Type"] == ".xls":
+            book = xlrd.open_workbook(file_contents=body)
+            tables = [(s.name.strip(), [s.row_values(i) for i in range(s.nrows)]) for s in book.sheets()]
+        else:
+            book = load_workbook(io.BytesIO(body), read_only=True, data_only=True)
+            tables = [(s.title.strip(), list(s.values)) for s in book]
+        matches = [(name, rows) for name, rows in tables if name == "2.10"]
+        if len(matches) != 1:
+            raise ValueError("Macau residence-approval table missing or ambiguous")
+        values = parse_macau_abode(matches[0][1])
+        source_id = f"dsec_abode_{edition}"
+        sources[source_id] = source(
+            "Macao Statistics and Census Service", f"Yearbook of Statistics {edition}",
+            [asset], "Table 2.10; United States of America country/territory category; all genders",
+            "Individuals newly granted residence, not resident stocks, visa issuances or physical arrivals. "
+            "The English title uses 'right of abode'; no permanent-resident legal classification or U.S. "
+            "citizenship/birthplace population is inferred. Overlapping annual tables are reconciled.")
+        for year, value in values.items():
+            if year < 2010:
+                continue
+            if year in observations and observations[year]["value"] != value:
+                raise ValueError("Macau overlapping annual approval counts changed; review the revision")
+            observations[year] = row(
+                "dsec_abode:USA:MAC", year, value, source_id,
+                notes="Calendar-year people approved; source U.S. country/territory category, "
+                "not verified U.S. departures or a permanent-residence classification.")
+    if set(observations) != set(MACAU_ABODE_YEARS):
+        raise ValueError("Macau reviewed annual approval history incomplete or has unreviewed years")
+    definitions = {"dsec_abode:USA:MAC": series(
+        "U.S. country category", "residence_authorizations", "people approved",
+        "Macau individuals newly granted residence in DSEC's United States of America country/territory category",
+        "annual", "calendar",
+        "Annual approvals, not the stock of U.S. residents, physical U.S. departures or visa issuances. "
+        "Not labelled permanent-resident grants; the source country category does not establish citizenship or birthplace.")}
+    return definitions, sorted(observations.values(), key=lambda r: r["year"]), sources
 
 
 def parse_stock(records):
@@ -174,6 +263,10 @@ def collect(client):
     definitions.update(stock_definitions)
     observations.extend(stock_rows)
     sources["un_stock_2024"] = stock_source
+    abode_definitions, abode_rows, abode_sources = macau_abode(client)
+    definitions.update(abode_definitions)
+    observations.extend(abode_rows)
+    sources.update(abode_sources)
     return {
         "version": 1, "series": definitions, "observations": sorted(observations, key=lambda r: (r["series_id"], r["year"])),
         "sources": sources,
@@ -183,9 +276,13 @@ def collect(client):
             {"id": "from_us", "status": "not_verified", "description": "A comparable annual U.S.-to-mainland-China permanent-residency series has not been verified. All-foreigner visas, residence permits and border crossings are not substitutes."},
             {"id": "bilateral_resident_stocks", "status": "available", "description": "UN bilateral resident estimates in both directions for mainland China and Hong Kong: 2000, 2005, 2010, 2015, 2020 and 2024. Mainland destination uses U.S. citizenship, not U.S. birthplace. These stocks are not immigration flows."},
             {"id": "macau_resident_stock", "status": "not_verified", "description": "The reviewed UN bilateral table does not separately report the U.S.–Macau pair. No zero or allocation from mainland China is inferred."},
+            {"id": "macau_residence_approvals", "status": "available",
+             "description": "DSEC U.S.-category residence approvals for every calendar year 2010-2025. "
+             "Separate from U.S. permanent-resident grants and UN resident stocks; not a permanent-residency classification."},
         ],
         "context": {"definition": "The OHSS series count grants of U.S. permanent-resident status; the UN series count resident stocks. Neither is a measure of net migration. Grants include adjustments by people already in the United States, not only new physical arrivals. Birthplace is not a departure country.",
-                    "periods": "U.S. fiscal years end September 30, not December 31. Birthplace and nationality series remain separate.",
+                    "periods": "U.S. fiscal years end September 30. Macau approvals use calendar years. UN stocks use 1 July benchmarks. Birthplace, nationality and source-country categories remain separate.",
+                    "macau_approvals": "DSEC counts newly approved people in its U.S. country category, not verified U.S. citizens, U.S. departures or permanent-resident grants.",
                     "rounding": "FY2015–2024 birthplace counts and FY2025 nationality counts are rounded to the nearest ten. Earlier figures use older, exact-count vintages.",
                     "resident_stocks": "UN stocks refer to 1 July in actual published benchmark years. China destination estimates use foreign citizenship; Hong Kong and U.S. destination estimates use foreign birth. Refugee adjustments are included where flagged R. These are not new immigration or net migration. No annual observations are invented between benchmarks.",
                     "rights": "Selected statistical aggregates and original figures only; no source workbooks are redistributed. UN estimates: United Nations DESA, Population Division, International Migrant Stock 2024, adapted under CC BY 3.0 IGO."},
