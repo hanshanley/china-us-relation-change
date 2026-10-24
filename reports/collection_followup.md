@@ -35,24 +35,27 @@ The selected **1,000 SCImago U.S.-classified domains** are ranked by digital
 reputation, not traffic; their present ownership/nationality was not independently
 audited. **Five have current-profile evidence, seven historical-only evidence,
 988 remain unknown, and zero are verified negatives.** All underwent homepage
-screening, but only 321 have recorded manual review.
+screening, but only 326 have recorded manual review.
 
-The [latest scheduled pass](discovery_iteration65.md) adds five reviews.
-Nine complete publisher responses and one genuinely reused corporate capture
-support limited context. Kearney's appointment hours are not paper closure,
-and Minot's mailing/street roles were not conflated.
-Vicksburg's newspaper HTTP403 was held; an actual cached corporate-menu
-label and literal HTTP URI were inspected without upgrading or following it.
-Alamogordo's current named New Mexico body was read without inheriting
-another paper's access restriction or asserting historical account continuity.
-An extra Bluefield About supplies actual named Virginia/West Virginia scope,
-not an unrelated regional navigation label or generic Contact/weather.
+The [latest scheduled pass](discovery_iteration66.md) adds five reviews.
+Four fresh publisher responses, three fresh corporate responses, one
+genuinely reused corporate HTML capture and two existing PDFs support
+limited context. LaGrange and Lubbock newspaper HTTP403 restrictions were
+held; cached menu/directory context was not called fresh newspaper access.
+Fort Dodge's actual Contact supplies named Iowa context, not a generic
+Messenger identity or a posting date inferred from a stale page header.
+Myrtle Beach's single ordinary retry timed out before a page body was
+recorded. Independent corporate Markets HTML supplies the actual ranked
+hostname; the separate brand page and historical2015 PDF do not.
+The original selected "Myrtle Beach Onliine" label remains unchanged.
+Scottsbluff's actual named About supplies Nebraska coverage, not an
+inherited partner account or an account inferred from reporting about Weibo.
 All eighteen publisher-body holds, Southern/NWA and institutional/corporate
 conditions remain distinct. No parent/sibling handle was inherited.
 Shared catalogs are not edited.
 The live 6,570-post corpus, original archived baseline and all rolling data
 remain unchanged by discovery.
-Discovery is not exhausted: 679 selected domains still lack a recorded
+Discovery is not exhausted: 674 selected domains still lack a recorded
 manual review. A bounded recurring prompt is active every 30 minutes; later
 passes must advance the frontier rather than repeatedly probing exhausted leads.
 

@@ -2422,6 +2422,56 @@
       "notes": "Complete root, exact linked Contact and linked named About inspected without an institutional Sina designation. Extra About was read because generic Contact/footer text alone did not name the publication. Its real newspaper paragraph, not the unrelated Niagara Frontier navigation label, weather widget or2016 directory, supplies scope. Founding and seven-day print statements are not Weibo age/activity; missing video widgets are not inactivity. Alton/UK Daily Telegraph, parent/sibling and staff channels not inherited. Unknown, not absent. Review date: 2026-10-24 UTC."
     },
     {
+      "id": "lagrange-daily-news",
+      "name": "LaGrange Daily News / selected La Grange News domain",
+      "category": "newspaper",
+      "aliases": ["La Grange News", "LaGrange Daily News"],
+      "us_basis": "United States-classified source position322; an existing Boone Natchez capture supplies the actual menu label LaGrange (GA) Daily News and literal lagrangenews.com URI. This is limited corporate-menu context, not a fresh LaGrange newspaper/profile body or independently audited current control.",
+      "source_url": "https://lagrangenews.com/",
+      "research_status": "reviewed",
+      "notes": "Recorded newspaper HTTP403 held with zero new newspaper/alias/static/help/obituary/client requests. Existing corporate capture reused offline with its original observation time and hash. Literal supplied http://lagrangenews.com was not upgraded/followed or called an observed redirect; two responsive menus are one capture. Natchez body geography/control and Texas La Grange publications were not assigned to this Georgia menu entry. Original cohort name retained. Parent/sibling/staff handles not inherited. Unknown, not absent. Review date: 2026-10-24 UTC."
+    },
+    {
+      "id": "lubbock-avalanche-journal",
+      "name": "Lubbock Avalanche-Journal",
+      "category": "newspaper",
+      "aliases": ["Lubbock Avalanche-Journal"],
+      "us_basis": "United States-classified source position323; the existing undated LocaliQ obituary directory names Lubbock Avalanche-Journal under Texas on PDF page15. Page20 supplies a matching email domain, not an independently verified current website or legal-control audit.",
+      "source_url": "https://lubbockonline.com/",
+      "research_status": "reviewed",
+      "notes": "Recorded newspaper HTTP403 held without newspaper, alias, static/help/obituary, mirror or alternate-client requests. Cached directory pages15/20 inspected offline, preserving the original source observation/hash. Actual page15 URI actions are shared obituary portals, not a direct lubbockonline.com website link; no portal was followed or contact inventory published. Historical directory context, staff identities and parent/sibling brands are not institutional Sina proof. Unknown, not absent. Review date: 2026-10-24 UTC."
+    },
+    {
+      "id": "fort-dodge-messenger",
+      "name": "Fort Dodge Messenger / Messenger News",
+      "category": "newspaper",
+      "aliases": ["Fort Dodge Messenger", "Messenger News"],
+      "us_basis": "United States-classified source position324; actual publisher root and linked Contact identify Messenger News and Fort Dodge, Iowa. Correspondence and staff-role labels do not independently verify current office occupancy, staffing or legal control.",
+      "source_url": "https://www.messengernews.net/",
+      "research_status": "reviewed",
+      "notes": "Complete root and actual linked Contact inspected without a qualifying institutional Sina designation. Named Fort Dodge context was read rather than inferred from a generic Messenger title; other Messenger newspapers, messaging services, personal/staff accounts and parent/sibling handles were not substituted. The stale Today’s Paper date in the cached Contact is not the capture time or evidence of newspaper/Weibo inactivity. No forms submitted or licensed issues downloaded. Unknown, not absent. Review date: 2026-10-24 UTC."
+    },
+    {
+      "id": "myrtle-beach-online",
+      "name": "The Sun News / selected Myrtle Beach domain",
+      "category": "newspaper",
+      "aliases": ["Myrtle Beach Onliine", "The Sun News"],
+      "us_basis": "United States-classified source position325 retains its original Myrtle Beach Onliine label. Actual independent McClatchy advertising Markets HTML maps The Sun News in Myrtle Beach, SC to the ranked hostname; the separate brand body describes Myrtle Beach. These are corporate marketing statements, not a current legal-control audit or a freshly retrieved newspaper body.",
+      "source_url": "https://www.myrtlebeachonline.com/",
+      "research_status": "reviewed",
+      "notes": "One ordinary robots-aware retry after the prior timeout timed out before any publisher page body was recorded; no further newspaper route/client/host was tried. Independent advertising root, actual root-linked /markets and a primary-search-discovered brand page were inspected. Markets supplies literal http://myrtlebeachonline.com, not followed/upgraded or called an observed redirect. The brand page alone has no exact newspaper-domain anchor. Cached2015 annual PDF page14 lists www.thesunnews.com, not the ranked hostname; no silent replacement or redirect claim. Original Onliine typo retained. Audience totals, print schedules, old office-move reporting and Canadian Sun News identities are not Sina or activity proof; no account inherited. Unknown, not absent. Review date: 2026-10-24 UTC."
+    },
+    {
+      "id": "scottsbluff-star-herald",
+      "name": "Scottsbluff Star-Herald",
+      "category": "newspaper",
+      "aliases": ["Scottsbluff Star-Herald", "Star-Herald"],
+      "us_basis": "United States-classified source position326; actual root-linked About explicitly names Scottsbluff Star-Herald and its western Nebraska/Panhandle coverage. The footer PO box is mailing information; current legal ownership and shareholder statements are not independently audited.",
+      "source_url": "https://starherald.com/",
+      "research_status": "reviewed",
+      "notes": "Complete root and literal /site/about.html inspected without an institutional Sina designation. Actual named About, not weather, sponsored ads, generic Star-Herald titles or another Nebraska publication, supplies scope. The1912 lineage claim is not Weibo age or continuous account control. Sites & Partners separately lists Gering Courier and Hemingford Ledger, not inherited accounts. Reporting mentioning a1990 Star-Herald article alongside other people's Weibo posts is not the newspaper's official account. No account absence inferred from listed social platforms or AI-search UI. Unknown, not absent. Review date: 2026-10-24 UTC."
+    },
+    {
       "id": "telemundo", "name": "Telemundo / Noticias Telemundo", "category": "broadcast_news",
       "aliases": ["Telemundo", "Noticias Telemundo", "Telemundo Noticias"],
       "us_basis": "United States-classified source position110; actual network root separately links its Noticias Telemundo newsroom section. Current corporate domicile/headquarters and legal account control are not independently audited.",
