@@ -34,6 +34,7 @@ def check(site, url=None, screenshots=None):
             payload = json.loads(page.locator("#exchange-data").text_content())
             visible = set(payload.get("visible_series", {r["series_id"] for r in data["observations"]}))
             expect(page.locator("form.controls")).to_be_visible()
+            assert page.locator("#reverse-direction,.reverse-direction").count() == 0
             assert not page.locator("#coverage, #coverage-limits, #downloads, #sources, #all-values").count()
             expect(page.locator(".analysis-tabs a").last).to_have_text("GitHub")
             expect(page.locator(".analysis-tabs a").last).to_have_attribute(

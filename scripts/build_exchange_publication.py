@@ -424,9 +424,6 @@ def decorate(site, name, labels, revision):
         soup.select_one("#exchange-data").string = json_text(payload).replace("<", "\\u003c")
         panel = soup.select_one(".series-panel")
         panel["class"].append("exchange-panel")
-        reverse = soup.new_tag("button", attrs={"type": "button", "id": "reverse-direction", "class": "reverse-direction"})
-        reverse.string = "View United States → Mainland China"
-        form.append(reverse)
         population = soup.new_tag("p", attrs={"id": "series-population", "class": "chart-context", "hidden": ""})
         panel.find("h2").insert_after(population)
         if name == "travel.html":

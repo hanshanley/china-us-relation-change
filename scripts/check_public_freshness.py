@@ -116,13 +116,14 @@ def check(site, url=None):
                     page.select_option("#geography", "CHN")
                     page.select_option("#direction", "to_us")
                     page.select_option("#measure", "visitors")
-                    page.locator("#reverse-direction").click()
+                    assert page.locator("#reverse-direction,.reverse-direction").count() == 0
+                    page.select_option("#direction", "from_us")
                     expect(page.locator("#direction")).to_have_value("from_us")
                     expect(page.locator("#measure")).to_have_value("air_visitors")
                     assert page.locator("#chart .screen-column").count() == 13
                     assert page.locator('#chart .screen-column[data-year="2021"]').count() == 0
                     expect(page.locator("#chart .covid-label")).to_have_text("COVID travel restrictions")
-                    page.locator("#reverse-direction").click()
+                    page.select_option("#direction", "to_us")
                     expect(page.locator("#direction")).to_have_value("to_us")
                     expect(page.locator("#measure")).to_have_value("visitors")
                     assert page.locator("#chart .screen-column").count() == 26

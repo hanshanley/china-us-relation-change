@@ -105,6 +105,7 @@ def test_collective_export_preserves_complete_inputs_and_native_plot_boundaries(
             (ROOT / f"data/site/{input_name}.json").read_text())
     for name in module.PAGES:
         page = BeautifulSoup((tmp_path / name).read_text(), "html.parser")
+        assert not page.select("#reverse-direction,.reverse-direction"), name
         assert len(page.select("h1")) == 1 and len(page.select(".analysis-tabs a")) == len(module.TABS) + 1
         assert not page.select("iframe")
         github = page.select(".analysis-tabs a")[-1]

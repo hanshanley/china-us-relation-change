@@ -31,9 +31,6 @@
   function render(event) {
     const geo = $("geography").value;
     const outgoing = $("direction").value === "from_us";
-    const reverse = $("reverse-direction");
-    if (reverse) reverse.textContent = "View " + (outgoing ?
-      `${data.geographies[geo]} \u2192 United States` : `United States \u2192 ${data.geographies[geo]}`);
     const origin = outgoing ? "USA" : geo, destination = outgoing ? geo : "USA";
     const selectionNotes = [];
     if (data.prefer_current_travel && outgoing && geo === "CHN" &&
@@ -213,9 +210,5 @@
   for (const id of ["geography", "direction", "measure", "chart-mode", "chart-theme"]) {
     $(id).addEventListener("change", render);
   }
-  $("reverse-direction")?.addEventListener("click", () => {
-    $("direction").value = $("direction").value === "from_us" ? "to_us" : "from_us";
-    $("direction").dispatchEvent(new Event("change", {bubbles: true}));
-  });
   render();
 })();
