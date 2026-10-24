@@ -35,36 +35,39 @@ The selected **1,000 SCImago U.S.-classified domains** are ranked by digital
 reputation, not traffic; their present ownership/nationality was not independently
 audited. **Five have current-profile evidence, seven historical-only evidence,
 988 remain unknown, and zero are verified negatives.** All underwent homepage
-screening, but only 368 have recorded manual review.
+screening, but only 373 have recorded manual review.
 
-The [latest scheduled pass](discovery_iteration76.md) adds one Bradford review.
-Its old 1,500,001-byte truncated root was not called complete. The fresh
-2,439,485-byte complete root was read, then that exact fresh copy was removed
-after the publisher's actually supplied Terms of Use were read through the
-web provider. Their explicit data-mining/gathering/extraction and
-database/archive/cache restrictions name BradfordEra.com, OleanTimesHerald.com
-and SalamancaPress.com. All three named publishers are held against further
-body requests; the latter two are not counted as additional manual reviews.
-The provider-reported target and crawl-age label are not an independently
-verified fresh redirect chain or policy effective date. No local policy
-body/hash is available; the discarded root fingerprint is not primary proof.
-Contact/Privacy were not fetched after the notice; older captures are untouched.
-The original doubled cohort name and actual relative footer links are preserved.
-No institutional Sina binding or new account resulted; unknown is not absent.
-There are now twenty-four explicit source-use publisher-body holds, five distinct publisher
-search-provider restrictions, and Southern/Citrus/NWA/Goldsboro retention
+The [latest scheduled pass](discovery_iteration77.md) adds five reviews:
+Kingston Freeman, Herald-Tribune, Mattoon Times-Courier, North Platte Telegraph
+and Eugene Register-Guard. All remain unknown, not verified negatives.
+Daily Freeman's own root reservation and North Platte's actual automated-
+collection clause add two precisely scoped publisher-body holds. Exactly
+three fresh copies were removed conservatively; older captures are untouched,
+available raw/hash fields are null, and discarded fingerprints are not proofs.
+The JG-TC root remains available from before a token-required policy response.
+That web-provider response is not a verified fresh origin403, robots rule,
+readable policy or permission; no token, Contact, alias or other-client retry.
+The two newspaper403 holds were respected with zero newspaper requests.
+Their cached publisher PDF provides bounded regional/title/contact context:
+Herald-Tribune's exact hostname occurs in an obituary email; Register-Guard's
+does not occur in extracted text. Neither is an institutional Sina binding.
+Original names, hyphenated domain and the Mattoon/Charleston multi-title scope
+are preserved. No account, post or numeric binding was added.
+There are now twenty-six explicit source-use publisher-body holds and six
+distinct publisher-provider access holds: five prior robots restrictions and
+one newly observed authorization gate. Southern/Citrus/NWA/Goldsboro retention
 conditions and institutional/corporate restrictions remain separate.
 No parent/sibling handle was inherited.
 Shared catalogs are not edited.
 The live 6,570-post corpus, original archived baseline and all rolling data
 remain unchanged by discovery.
-Discovery is not exhausted: 632 selected domains still lack a recorded
+Discovery is not exhausted: 627 selected domains still lack a recorded
 manual review. A bounded recurring prompt is active every 30 minutes; later
 passes must advance the frontier rather than repeatedly probing exhausted leads.
 
 The main Weibo view now makes coverage gaps explicit: a 1,000-domain
 unit field shows 98.8% unresolved account decisions, with a review-progress
-switch showing 63.2% not yet manually reviewed. Unknown is not absent.
+switch showing 62.7% not yet manually reviewed. Unknown is not absent.
 Separate recovery bars report channels without recovered in-window posts
 and truncated texts within the recovered sample; the share of all historical
 posts missing is not estimable. The sourced publisher/account directory is

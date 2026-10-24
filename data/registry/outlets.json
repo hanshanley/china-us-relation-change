@@ -2892,6 +2892,41 @@
       "notes": "The earlier1500001-byte truncated root was not treated as complete. One fresh2439485-byte complete root was read, then that exact fresh copy was removed conservatively after its actually supplied Terms of Use were read through the web provider. Terms explicitly disallow data mining/gathering/extraction and database/archive/cache incorporation, naming BradfordEra.com, OleanTimesHerald.com and SalamancaPress.com; no further body requests to these named publishers. Provider-reported policy target and cached-age description are not a separately verified fresh origin redirect chain or policy effective date; no local policy body/hash exists. Available root raw/hash null; discarded fingerprint is not primary proof. Older captures untouched. Actual relative Contact/Terms/Privacy links not replaced with guessed paths; Contact/Privacy not fetched after the notice. UK Bradford namesakes, Bradford Publishing, Olean/Salamanca siblings, staff, apps and vendors not inherited as Sina accounts. Account remains unknown, not absent. Review date: 2026-10-24 UTC."
     },
     {
+      "id": "kingston-daily-freeman", "name": "Daily Freeman / Kingston", "category": "newspaper",
+      "aliases": ["Kingston Freeman", "Daily Freeman", "Kingston Daily Freeman"],
+      "us_basis": "United States-classified source position369; actual publisher root identifies Kingston, New York. Factual metadata only, not an independently audited current-ownership or control finding.",
+      "source_url": "https://www.dailyfreeman.com/", "research_status": "reviewed",
+      "notes": "Own fresh root explicitly reserves AI/ML and text/data-mining uses absent written consent. Exactly that fresh copy removed conservatively; available raw/hash null, discarded fingerprint not source proof, older captures untouched. No subsequent About/Contact/corporate Terms or alternate-client request. This is the publication's own notice, not an inherited group ban. Oneida Daily Dispatch, Saratogian, Troy Record, staff, unrelated Freeman namesakes and parent accounts not inherited. Unknown, not absent. Review date: 2026-10-24 UTC."
+    },
+    {
+      "id": "sarasota-herald-tribune", "name": "Sarasota Herald-Tribune", "category": "newspaper",
+      "aliases": ["Herald-Tribune", "Sarasota Herald-Tribune"],
+      "us_basis": "United States-classified source position370; existing undated publisher directory lists Sarasota Herald-Tribune under Florida on page4 and an obituary email using heraldtribune.com on page18. An email-domain mention is not independently audited website or corporate control.",
+      "source_url": "https://www.heraldtribune.com/", "research_status": "reviewed",
+      "notes": "Prior newspaperHTTP403 held with zero newspaper/alias/help/static/obituary/mirror/client requests. Cached publisher PDF re-read offline at its originalcapture time: title/state on page4, actual obits@heraldtribune.com contact on page18. Do not incorrectly say exact hostname absent from all extracted text; its occurrence is an email, not a numeric Sina binding. Page4 portal actions not followed or attributed to a title without annotation-specific proof. Generic Herald/Tribune namesakes, Sarasota organizations, staff, parent and siblings not inherited. Unknown, not absent. Review date: 2026-10-24 UTC."
+    },
+    {
+      "id": "journal-gazette-times-courier", "name": "Journal Gazette & Times-Courier", "category": "newspaper",
+      "aliases": ["Mattoon Times-Courier", "Journal Gazette & Times-Courier", "JG-TC"],
+      "us_basis": "United States-classified source position371; actual root identifies the Mattoon/Charleston, Illinois multi-title publication and Mattoon address. Original cohort name/domain hyphen preserved; one domain is not counted as two accounts.",
+      "source_url": "https://jg-tc.com/", "research_status": "reviewed",
+      "notes": "Complete root retained from before the policy gate. Its actual /terms/ requested through the web provider returned a token-required JSON response at a provider-reported tollbit.jg-tc.com target. No independently verified fresh originHTTP403, robots prohibition, policy body/hash, reuse license or group-wide ban invented. No token/API use or later Contact/alias/other-client request; original permitted root remains available. Current footer ownership statements are self-descriptions, not independent control or account-transfer evidence. Fort Wayne's different Journal Gazette, staff, partners and parent/siblings not inherited. Unknown, not absent. Review date: 2026-10-24 UTC."
+    },
+    {
+      "id": "north-platte-telegraph", "name": "The North Platte Telegraph", "category": "newspaper",
+      "aliases": ["North Platte Telegraph", "The North Platte Telegraph"],
+      "us_basis": "United States-classified source position372; actual root identifies North Platte, Nebraska and distinguishes its street address from PO Box370. Footer ownership self-description is not independently audited current corporate control.",
+      "source_url": "https://nptelegraph.com/", "research_status": "reviewed",
+      "notes": "Actual root-supplied /terms/ contains an explicit prohibition on automated scripts collecting information or interacting with the site. Exactly two fresh root/Terms copies removed conservatively; available raw/hash null, discarded fingerprints not available proofs, older captures untouched. No later Contact/alias/client request. This is an actual automated-collection clause, not staff AI guidance, an inferred sibling-wide ban or a token-gate claim. Subscription auto-renewal boilerplate does not establish a researcher transaction. No cookie/privacy settings changed; staff, partners and similarly named Telegraph publishers not inherited. Unknown, not absent. Review date: 2026-10-24 UTC."
+    },
+    {
+      "id": "eugene-register-guard", "name": "Eugene Register-Guard", "category": "newspaper",
+      "aliases": ["Eugene Register-Guard", "The Register-Guard", "Register-Guard"],
+      "us_basis": "United States-classified source position373; existing undated publisher directory page13 lists Eugene Register-Guard under Oregon; page20 supplies a Gannett-domain obituary contact, not the ranked registerguard.com hostname or current legal control.",
+      "source_url": "https://www.registerguard.com/", "research_status": "reviewed",
+      "notes": "Prior newspaperHTTP403 held with zero newspaper/alias/help/static/obituary/mirror/client requests. Cached publisher PDF pages13/20 read offline at originalcapture time. Exact registerguard.com absent from extracted text; the RegisterGuardObits localpart is not a publisher-host alias, website redirect or numeric Sina UID. Actual portal action not followed or silently relabeled a website link. Salem Statesman Journal, Des Moines Register, generic Register/Guard namesakes, staff and siblings not inherited. Unknown, not absent. Review date: 2026-10-24 UTC."
+    },
+    {
       "id": "telemundo", "name": "Telemundo / Noticias Telemundo", "category": "broadcast_news",
       "aliases": ["Telemundo", "Noticias Telemundo", "Telemundo Noticias"],
       "us_basis": "United States-classified source position110; actual network root separately links its Noticias Telemundo newsroom section. Current corporate domicile/headquarters and legal account control are not independently audited.",
