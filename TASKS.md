@@ -10,44 +10,45 @@ Previously verified milestones are recorded separately from the remaining work.
 This is the **single authoritative request ledger**. `PUBLICATION-TODO.md`
 contains archived planning context, not a second set of completion statuses.
 
-**Current release handoff:** official annual Chinese-nationality U.S. admissions
-for FY2020-FY2025 are committed and pushed in `0c8cf49`. The freshness gate and
-annual-immigration default still require integrated publication and live
-verification. A recovered forward series does not complete the reverse-flow
-request. Keep DATA-10, DATA-11 and UI-07 open until their own conditions are met.
+**Verified release:** `2a4c646` is deployed and live-checked. The public freshness
+gate, single-series annual bars, reverse controls, COVID shading and annual
+immigration default are published. Official annual-admissions source recovery is
+in `0c8cf49`. DATA-11 remains open: a verified forward series is not a recovered
+reverse-flow series. Direction-specific colours, the Business replacement, the
+reported header line and the remaining source gaps below are not declared done.
 
 ## 1. Finish the current graph corrections
 
 Work through these in order; complete and verify a coherent release before
 claiming that the website is fixed.
 
-- [ ] **UI-01: Fix repeated toggling.** Switching geography, direction, measure
+- [x] **UI-01: Fix repeated toggling.** Switching geography, direction, measure
   and display mode must never leave the previous plot, wrong data, wrong title,
   missing marks, stale tooltip, invalid index or a blank/broken chart.
   Reproduce the October 24 enrolled-student screenshot and toggle back and forth,
   not just reload the initial page.
-- [ ] **UI-02: Use bars for a single measured count.** Single-series annual
+- [x] **UI-02: Use bars for a single measured count.** Single-series annual
   reported-value charts must use vertical annual bars, including enrolled
   students, students + OPT, study abroad, visits and trade. Apply consistently
   to the website, regional single-series panels and PNG/SVG exports.
   Baseline indexes and genuine multi-series comparisons need deliberate,
   clearly identified treatment, not accidental style changes.
-- [ ] **UI-03: Provide the reverse graphs.** Make China-to-U.S. and U.S.-to-China
+- [x] **UI-03: Provide the reverse graphs.** Make China-to-U.S. and U.S.-to-China
   views easy to reach. Where a genuinely compatible reverse series is unavailable,
   state that rather than substitute a stock, a regional total or another measure.
 - [ ] **UI-04: Distinguish direction by colour.** China-to-U.S. and U.S.-to-China
   must use different, consistent colours across the interactive and downloaded
   versions. Keep geography/language comparisons distinguishable as well.
-- [ ] **UI-05: Preserve every reported value.** The enrolled-only inbound series
+- [x] **UI-05: Preserve every reported value.** The enrolled-only inbound series
   already contains all seven academic ending years 2019-2025. Do not make
   definition changes look like lost observations. Keep true missing years blank;
   hovering a blank year must not display a neighbouring year's value as its own.
-- [ ] **UI-06: Label the COVID travel-restriction period throughout time charts.**
+- [x] **UI-06: Label the COVID travel-restriction period throughout time charts.**
   Use a restrained shaded band and readable period label in native charts and
   both export themes. Verify official dates, exemptions and staged reopenings.
   Do not imply one universal ban, that all travel stopped, or that goods trade
   was prohibited. Do not put a time-period band on maps or categorical snapshots.
-- [ ] **UI-07: Enforce the user's latest public-chart freshness rule.**
+- [x] **UI-07: Enforce the user's latest public-chart freshness rule.**
   Histories need a reported observation in 2023 or later; standalone snapshots
   must be from 2024-2026. Hide ineligible public plots and their controls/links,
   without deleting historical observations from complete downloads. A newer,
@@ -57,7 +58,7 @@ claiming that the website is fixed.
   Explicitly test the U.S.-to-mainland enrolled series ending in 2018 through
   route controls, old deep links, cached selections and downloadable graphics;
   newer credit study abroad must not be relabeled as current enrollment.
-- [ ] **UI-08: Recheck size and appearance.** Compact, legible desktop and phone
+- [x] **UI-08: Recheck size and appearance.** Compact, legible desktop and phone
   charts; no overflowing labels, empty-looking line fragments, oversized panels,
   clipped annotations, random points, overlapping legends or illegible axes.
 - [ ] **UI-09: Replace the rejected Business view with current evidence.**
@@ -69,10 +70,14 @@ claiming that the website is fixed.
   desktop/phone result and distinguish the unwanted line from intentional
   masthead and axis rules. Do not claim this fixed from source inspection alone.
 
-**Current evidence, not completion:** the live enrolled-student screenshot was
-reproduced. Its 2019-2025 values are present; the old line renderer splits at
-population-definition changes. A repair candidate is under
-`data/local/bilateral-repair/`; it is not the published fix.
+**Completion evidence for the checked graph items:** the live site was verified
+against the exact `2a4c646` source. It has 72 public plot models, 224 SVG exports,
+66 enabled route choices and zero stale public plots. The obsolete mainland
+enrollment and visitor graphic URLs return 404; forcing the retired enrolled
+selection falls back to separately labelled credit study abroad, not invented
+current enrollment. Both travel directions use annual bars and work through the
+reverse button. Local validation passed 318 tests, the offline browser suite and
+620 chart renderings / 1,143 hover checks with zero audit issues.
 
 ## 2. Resolve data gaps one by one
 
@@ -108,10 +113,10 @@ government republications and compatible source tables.
 - [ ] **DATA-09: Trade history.** Seek compatible Macau services before 2018.
   Maintain separate goods/services and accounting definitions; never allocate a
   regional remainder or splice incompatible release vintages.
-- [ ] **DATA-10: Annual immigration to the U.S.** Present annual China-to-U.S.
+- [x] **DATA-10: Annual immigration to the U.S.** Present annual China-to-U.S.
   immigration, keeping birthplace, nationality, new arrivals and adjustments
-  distinct. Newly committed annual-admissions work still needs public-release
-  and live-chart verification.
+  distinct. FY2020-FY2025 new permanent-resident arrivals are published as the
+  default, with adjustments for people already in the U.S. on a separate chart.
   Open the page on the annual view, not the resident map; keep the map and stocks
   as separate measures. Preserve published exact/rounded precision and totals
   rather than forcing independently rounded components to sum exactly.
@@ -269,7 +274,7 @@ These checks describe the named releases, not a claim that the new queue is done
 
 ## 5. Release gate: required before checking off the current fixes
 
-- [ ] **VERIFY-01:** Run focused regressions for the new behavior, then the
+- [x] **VERIFY-01:** Run focused regressions for the new behavior, then the
   relevant integrated suite; resolve introduced failures.
   Wire `scripts/check_public_freshness.py` into the refresh workflow and verify
   actual enabled choices, measurement dates, nulls, zeros and snapshot cutoffs.
@@ -277,20 +282,29 @@ These checks describe the named releases, not a claim that the new queue is done
   bar and COVID-band geometry, direction colours and chart download links.
   Audit the filtered public figure directory, not the deliberately complete
   historical research archive.
-- [ ] **VERIFY-03:** Exercise repeated direction/geography/measure/index toggles,
+  Values, units, bars, COVID geometry and links pass for `2a4c646`; the remaining
+  direction-colour request is tracked by UI-04 and prevents closing this item.
+- [x] **VERIFY-03:** Exercise repeated direction/geography/measure/index toggles,
   hover, touch, keyboard, resizing and no-JavaScript fallback at desktop, 390px
   and 320px widths. Inspect actual screenshots.
-- [ ] **VERIFY-04:** Confirm complete CSV/JSON downloads, including historical
+- [x] **VERIFY-04:** Confirm complete CSV/JSON downloads, including historical
   and non-plotted records; no metadata-only or filtered-page-only downloads.
-- [ ] **VERIFY-05:** Commit and push as **Hans Hanley**, with no Copilot
+- [x] **VERIFY-05:** Commit and push as **Hans Hanley**, with no Copilot
   authorship/co-author trailers. Preserve unrelated concurrent edits.
-- [ ] **VERIFY-06:** Deploy the intended revision; verify the website's actual
+- [x] **VERIFY-06:** Deploy the intended revision; verify the website's actual
   served manifest, relevant asset hashes and live toggle sequences. A local
   success or green deployment alone is insufficient.
   Confirm retired stale graphic URLs are no longer published and the complete
   downloadable datasets still retain their historical observations.
-- [ ] **VERIFY-07:** Update this file with the completion evidence and remaining
+- [x] **VERIFY-07:** Update this file with the completion evidence and remaining
   gaps. Report only verified results; leave unfinished work unchecked.
+
+Release evidence: website deployment **40139087280**; live source revision
+**`2a4c646cedb9e6dacf21887f68af39f1cac9211c`**; **496 served assets** verified
+byte-for-byte, **nine complete datasets**, and **five retired stale-graphic URLs**
+confirmed 404. Evidence logs and screenshots are under `data/local/freshness/`.
+The live collective browser and freshness/reverse-flow checks both passed.
+These checkmarks refer to this verified release, not to all remaining data work.
 
 ## 6. Weibo research and unattended updates
 
