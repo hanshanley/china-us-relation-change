@@ -73,6 +73,7 @@ claiming that the website is fixed.
 - [ ] **UI-10: Recheck the reported faint header line.** Inspect the actual
   desktop/phone result and distinguish the unwanted line from intentional
   masthead and axis rules. Do not claim this fixed from source inspection alone.
+  The reported line crosses the middle of The Margin of Error wordmark.
 - [ ] **UI-11: Remove the redundant reverse-direction button.** The October 24,
   6:44 p.m. screenshot identifies the large "View United States -> Mainland
   China" button as unnecessary and unattractive because the direction dropdown
@@ -289,6 +290,8 @@ These are continuing requirements and final regression checks, not new scope.
 - [ ] **STYLE-02:** Keep the website outward-facing. No internal gap inventories,
   operational audit dumps or redundant introductory copy. Link to GitHub for
   the research detail; retain essential definitions and source attribution.
+  Preserve the explicit removal of "Explore two-way histories, with annual data
+  through 2025 and partial-year updates in 2026 where available."
 - [ ] **STYLE-03:** Verify the collective analysis remains on the website's
   Interactive Analysis page, uses the latest user-selected cover image, and
   appears before older analyses.
@@ -300,7 +303,7 @@ These are continuing requirements and final regression checks, not new scope.
   relative links/anchors, the tracked preview image and all nine live analysis
   links on October 24, 2026. This is documentation work, not a new chart release
   or completion of the remaining data/UI tasks.
-- [ ] **DOC-02: Require persistent coordinated work and complete request intake.**
+- [x] **DOC-02: Require persistent coordinated work and complete request intake.**
   Put the user's instruction to keep targeting all outstanding actionable tasks
   together in `AGENTS.md`, require communication/ownership/handoffs through local
   ignored `AGENT-COMMS.md`, and keep every request and correction in this ledger.
