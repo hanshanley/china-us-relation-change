@@ -1697,6 +1697,41 @@
       "notes": "Root-linked /site/aipolicy.html was read before more institutional pages. The policy governs staff AI workflows, including a company-IP clause; it was not relabeled as a blanket external-access/text-mining ban. Conservative factual-metadata-only retention: two exact fresh root/policy copies removed, older captures untouched, no Contact/About request this pass. This distinct choice is separate from explicit no-further-body reservations. Other Southern titles, parent/sibling and staff accounts were not inherited. Unknown, not absent. Review date: 2026-10-24 UTC."
     },
     {
+      "id": "valdosta-daily-times", "name": "The Valdosta Daily Times", "category": "newspaper",
+      "aliases": ["Valdosta Times", "Valdosta Daily Times", "The Valdosta Daily Times"],
+      "us_basis": "United States-classified source position252; actual root and linked About identify The Valdosta Daily Times. Publisher-stated history, schedules and related magazine titles are not an independent current-control or office-occupancy audit.",
+      "source_url": "https://valdostadailytimes.com/", "research_status": "reviewed",
+      "notes": "Complete root and actually linked /services/about-us/ inspected without a qualifying institutional Sina designation. Print and online schedules did not become Weibo activity. Named Valdosta Scene and Ag Scene titles were not extra ranked-domain reviews or inherited channels. Indexed third-party ownership, circulation, building-sale and staff-directory claims were not account-control proof. Other Times titles and parent/sibling/staff accounts were not inherited. Unknown, not absent. Review date: 2026-10-24 UTC."
+    },
+    {
+      "id": "carlisle-sentinel-cumberlink", "name": "The Sentinel / Carlisle, Pennsylvania", "category": "newspaper",
+      "aliases": ["Carlisle Sentinel", "The Sentinel", "Cumberlink"],
+      "us_basis": "United States-classified source position253; actual root-linked Contact identifies The Sentinel and Carlisle, Pennsylvania. Contact-body street number325 and footer327 conflict, so no exact current office address or occupancy was independently certified.",
+      "source_url": "https://cumberlink.com/", "research_status": "reviewed",
+      "notes": "Root and linked /about and /contact captured; observed finals end in slashes. About returned a complete HTML shell without a substantive named main section; its HTTP200/generic title/footer were not used alone. Contact supplies the actual departmental body but its325 B Street conflicts with footer327 B Street; neither was silently selected as verified occupancy. Root business listings were not publisher addresses, and unresolved template routes were not followed. No institutional Sina designation. Other Sentinel titles, parent/sibling/staff accounts were not inherited, nor was another Sentinel publisher's source reservation presumed. Unknown, not absent. Review date: 2026-10-24 UTC."
+    },
+    {
+      "id": "pendleton-east-oregonian", "name": "East Oregonian / Pendleton, Oregon", "category": "newspaper",
+      "aliases": ["Pendleton East Oregonian", "East Oregonian", "The East Oregonian"],
+      "us_basis": "United States-classified source position254; actual root and linked About name East Oregonian, northeastern Oregon coverage, a Pendleton main office and Hermiston bureau. Publisher descriptions are not independently verified present-day ownership or occupancy.",
+      "source_url": "https://eastoregonian.com/", "research_status": "reviewed",
+      "notes": "Complete root and actually linked /services/about-us/ inspected without an institutional Sina identifier. Publisher-stated audience, print/online frequency and historical descriptions were not audited as current control or used as Weibo posting evidence. A subscription success widget and indexed archival pages were not account designations or new primary captures. The different Oregonian title, parent/sibling and staff channels were not inherited. Unknown, not absent. Review date: 2026-10-24 UTC."
+    },
+    {
+      "id": "mason-city-globe-gazette", "name": "Globe Gazette / Mason City, Iowa", "category": "newspaper",
+      "aliases": ["Mason City Globe-Gazette", "Globe Gazette", "Globe-Gazette", "The Globe Gazette"],
+      "us_basis": "United States-classified source position255; actual root and linked Contact identify Globe Gazette and Mason City, Iowa general correspondence. Shared sibling contact entries are not extra ranked-domain reviews or independently verified office/control bindings.",
+      "source_url": "https://globegazette.com/", "research_status": "reviewed",
+      "notes": "Complete root and exact linked /contact inspected; observed final /contact/. The separately recorded /contact_us/ redirect hold was not retried even though the root still linked it. All-days-closed hours widget was not interpreted as newspaper closure, a specific lobby policy or Weibo inactivity. Sibling contacts, other-platform handles and unresolved template routes did not become Sina identities. Other Globe/Gazette titles and parent/sibling/staff channels were not inherited. Unknown, not absent. Review date: 2026-10-24 UTC."
+    },
+    {
+      "id": "rock-hill-herald", "name": "The Herald / Rock Hill, South Carolina", "category": "newspaper",
+      "aliases": ["Rock Hill The Herald", "The Herald", "Rock Hill Herald"],
+      "us_basis": "United States-classified source position256; genuine cached2015 publisher annual report page14 joins The Herald, heraldonline.com and Rock Hill, South Carolina. The dated row is not independently audited current control, occupancy or audience.",
+      "source_url": "https://www.heraldonline.com/", "research_status": "reviewed",
+      "notes": "One ordinary publisher attempt timed out without a usable body. Genuine cached2015 row read offline as historical publication/domain/location scope, not a Sina designation or present-day activity. No alternate host/client, static route or mirrored newspaper body was used. Historical circulation and traffic were not current posting rates. Other Herald titles, parent/sibling and staff accounts were not inherited. Unknown, not absent. Review date: 2026-10-24 UTC."
+    },
+    {
       "id": "telemundo", "name": "Telemundo / Noticias Telemundo", "category": "broadcast_news",
       "aliases": ["Telemundo", "Noticias Telemundo", "Telemundo Noticias"],
       "us_basis": "United States-classified source position110; actual network root separately links its Noticias Telemundo newsroom section. Current corporate domicile/headquarters and legal account control are not independently audited.",

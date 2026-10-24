@@ -35,21 +35,21 @@ The selected **1,000 SCImago U.S.-classified domains** are ranked by digital
 reputation, not traffic; their present ownership/nationality was not independently
 audited. **Five have current-profile evidence, seven historical-only evidence,
 988 remain unknown, and zero are verified negatives.** All underwent homepage
-screening, but only 251 have recorded manual review.
+screening, but only 256 have recorded manual review.
 
-The [latest scheduled pass](discovery_iteration51.md) adds five reviews.
-Two complete Dubuque newspaper pages and one independent named Texarkana
-project root were retained, plus a genuine cached publisher directory.
-Poughkeepsie's HTTP403 and Texarkana's redirect hold were not retried.
-Sentinel & Enterprise's fresh root was removed after an explicit AI/text-mining
-reservation; there are now eleven no-further-publisher-body restrictions.
-Southern's two fresh root/staff-policy copies were removed under a separate
-conservative factual-metadata retention choice, not an asserted blanket
-external-access ban. No parent, sibling or namesake account was inherited.
-NWA's distinct retention condition remains separate.
+The [latest scheduled pass](discovery_iteration52.md) adds five reviews
+with nine complete HTML captures and one genuine cached2015 publisher PDF.
+Carlisle's About was a thin HTML shell; its actual linked Contact was also
+read, and the body325/footer327 street-number conflict was not silently
+resolved. Globe Gazette's all-closed hours widget was not newspaper closure
+or Weibo inactivity, and its separately held contact_us route was not retried.
+Rock Hill's ordinary route timed out; its2015 row remains historical scope.
+Print/online schedules and named magazines did not become Sina activity or
+inherited accounts. All eleven explicit publisher-body holds and the separate
+Southern/NWA retention conditions remain unchanged; no new disposal was needed.
 The live 6,570-post corpus, original archived baseline and all rolling data
 remain unchanged by discovery.
-Discovery is not exhausted: 749 selected domains still lack a recorded
+Discovery is not exhausted: 744 selected domains still lack a recorded
 manual review. A bounded recurring prompt is active every 30 minutes; later
 passes must advance the frontier rather than repeatedly probing exhausted leads.
 
