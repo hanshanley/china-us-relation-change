@@ -162,7 +162,11 @@ def validate_language_data(data):
                 or definitions[r["series_id"]]["period_basis"] != "academic ending year"
                 or definitions[r["series_id"]]["unit"] != "subject-apportioned enrollments"
                 or "UK higher education" not in definitions[r["series_id"]]["scope"]
-                or r["comparability"] != "hesa_chinese_studies:" + ("jacs" if r["year"] < 2020 else "hecos")):
+                or r["comparability"] != ("hesa_chinese_studies:quoted_legacy_population"
+                    if r["series_id"] == "hesa_chinese_studies:quoted_2012"
+                    else "hesa_chinese_studies:" + ("jacs" if r["year"] < 2020 else "hecos"))
+                or (r["series_id"] == "hesa_chinese_studies:total" and r["year"] < 2015)
+                or (r["series_id"] == "hesa_chinese_studies:quoted_2012" and r["year"] != 2013)):
             raise ValueError("HESA must retain UK subject allocations, academic years and the coding boundary")
         if r["series_id"].startswith("ap:") and "global" not in definitions[r["series_id"]]["scope"].lower():
             raise ValueError("Global AP data must not be relabelled U.S.-only")

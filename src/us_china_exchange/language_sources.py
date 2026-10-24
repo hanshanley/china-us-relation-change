@@ -26,6 +26,7 @@ MLA_REPORT = "https://www.mla.org/content/download/191324/file/Enrollments-in-La
 MLA_DATA = "https://www.mla.org/content/download/191323/file/Historical-language-enrollments-1958-2021.xlsx"
 MLA_SNAPSHOT = "https://www.mla.org/content/download/191129/file/Fall-2022-NL-snapshot.pdf"
 BACS_REPORT = "https://bacsuk.org.uk/wp-content/uploads/2015/05/BACS-State-of-the-Field-2021-22-Report.pdf"
+BACS_EARLY_REPORT = "https://bacsuk.org.uk/wp-content/uploads/2023/04/BACS-report-on-China-Studies-2016.pdf"
 AP_ARCHIVE = "https://reports.collegeboard.org/ap-program-results/data-archive"
 AP_COURSES = "https://apstudents.collegeboard.org/courses"
 AP_GROUP_CONTEXT = {
@@ -362,6 +363,12 @@ def parse_hesa_bacs(content):
 
 def hesa_bacs(client):
     content, asset = client.get(BACS_REPORT)
+    values = parse_hesa_bacs(content)
+    early_content, early_asset = client.get(BACS_EARLY_REPORT)
+    early_text = " ".join(" ".join(pdf_text(early_content)).split())
+    legacy = re.search(r"Total\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)", early_text)
+    if not legacy or "12/13 FT 12/13 PT" not in early_text or int(legacy[1]) != values[0][1]:
+        raise ValueError("BACS early quoted endpoint or full-time/part-time definition needs review")
     sid = "hesa_chinese_studies:total"
     definitions = {sid: series(
         "Chinese studies (UK)", "degree_subject_enrollments", "subject-apportioned enrollments",
@@ -370,18 +377,32 @@ def hesa_bacs(client):
         "Subject-apportioned, rounded totals, not unique students, admissions or all Mandarin learners. "
         "HECoS 101164/101165/101166/101167 from 2019/20; earlier JACS classification is separate. "
         "No Japanese/Korean figures inferred and no missing 2013/14 value interpolated.")}
+    quoted = "hesa_chinese_studies:quoted_2012"
+    definitions[quoted] = series(
+        "Chinese studies (UK, quoted early endpoint)", "degree_subject_enrollments", "subject-apportioned enrollments",
+        "UK higher education; the 2012/13 endpoint quoted by BACS, not a verified all-mode Table 7 total",
+        "historical snapshot", "academic ending year",
+        "The 2021-22 report quotes 1,535 for 2012/13; the 2016 report labels the matching 1,535 as full-time "
+        "and reports part-time separately. Equivalence with later Table 7 totals is unverified. "
+        "Keep this quoted endpoint separate; do not calculate a like-for-like 31% decline.")
     observations = [row(
         sid, year, value, "hesa_bacs_2021_22",
         notes=f"{year - 1}/{str(year)[-2:]}; reported subject-apportioned total, rounded to nearest five. "
         + ("2012/13 quoted in the discussion following Table 7." if year == 2013 else "Table 7 total column."),
         comparability="hesa_chinese_studies:" + ("jacs" if year < 2020 else "hecos"))
-        for year, value in parse_hesa_bacs(content)]
+        for year, value in values[1:]]
+    observations.append(row(
+        quoted, values[0][0], values[0][1], "hesa_bacs_2021_22",
+        notes="2012/13 endpoint quoted after Table 7. Earlier report Table 1 (PDF page 5) identifies the "
+        "matching value as full-time, with part-time counts separate. Not harmonized with later all-mode totals.",
+        comparability="hesa_chinese_studies:quoted_legacy_population"))
     sources = {"hesa_bacs_2021_22": source(
         "British Association for Chinese Studies, reporting HESA",
         "State of the Field 2021-22 report; academic data through 2021/22",
-        [asset], "PDF page 18, Table 7 and following historical-endpoint discussion; PDF page 16, definitions",
+        [asset, early_asset], "2021-22 report: PDF page 18, Table 7/discussion, page 16 definitions; 2016 report: Table 1, PDF page 5",
         "Public HESA-derived national totals, not the report's separate bespoke institution table. "
-        "The article's 31% describes 2012/13 to 2021/22, not admissions in calendar 2012/2021. "
+        "The article's 31% uses a quoted 2012/13 endpoint whose full-time/all-mode equivalence is not verified; "
+        "it is kept as a separate series, not a comparable national decline or calendar-year admissions. "
         "Preserve the JACS/HECoS boundary. Rounded domicile components need not sum to the rounded total. "
         "Selected factual totals only; no report text or artwork redistributed.")}
     return definitions, observations, sources

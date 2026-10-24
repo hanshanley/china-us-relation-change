@@ -85,10 +85,13 @@ def update_article_context(result):
         "mla_snapshot:chinese", "mla_snapshot:japanese", "mla_snapshot:korean"]
     result["context"]["uk_chinese_studies"] = {
         "series_id": "hesa_chinese_studies:total", "source_id": "hesa_bacs_2021_22",
+        "quoted_endpoint_series_id": "hesa_chinese_studies:quoted_2012",
         "reference_periods": ["2012/13", "2021/22"],
         "note": "Subject-apportioned enrollments, not admissions or all Mandarin learners. "
         "Historical source data are kept in complete downloads; they do not qualify as a current public plot. "
-        "JACS and HECoS observations are separate comparison groups; no U.S./UK learner total is calculated."}
+        "JACS and HECoS observations are separate comparison groups. The earlier quoted endpoint has "
+        "unverified full-time/all-mode equivalence and is a separate series, not a like-for-like decline. "
+        "No U.S./UK learner total is calculated."}
     return result
 
 

@@ -41,7 +41,8 @@
     "question": "Is the United States losing its capacity to develop Chinese-language expertise, or is learning shifting between educational settings?",
     "rights": "Only selected numerical aggregates and our original figures are published, not source reports, artwork, institution-level workbooks or exam questions. Source terms still apply; commercial reuse permission is not established by these exports.",
     "uk_chinese_studies": {
-      "note": "Subject-apportioned enrollments, not admissions or all Mandarin learners. Historical source data are kept in complete downloads; they do not qualify as a current public plot. JACS and HECoS observations are separate comparison groups; no U.S./UK learner total is calculated.",
+      "note": "Subject-apportioned enrollments, not admissions or all Mandarin learners. Historical source data are kept in complete downloads; they do not qualify as a current public plot. JACS and HECoS observations are separate comparison groups. The earlier quoted endpoint has unverified full-time/all-mode equivalence and is a separate series, not a like-for-like decline. No U.S./UK learner total is calculated.",
+      "quoted_endpoint_series_id": "hesa_chinese_studies:quoted_2012",
       "reference_periods": [
         "2012/13",
         "2021/22"
@@ -861,9 +862,9 @@
       "year": 2013
     },
     {
-      "comparability": "hesa_chinese_studies:jacs",
-      "notes": "2012/13; reported subject-apportioned total, rounded to nearest five. 2012/13 quoted in the discussion following Table 7.",
-      "series_id": "hesa_chinese_studies:total",
+      "comparability": "hesa_chinese_studies:quoted_legacy_population",
+      "notes": "2012/13 endpoint quoted after Table 7. Earlier report Table 1 (PDF page 5) identifies the matching value as full-time, with part-time counts separate. Not harmonized with later all-mode totals.",
+      "series_id": "hesa_chinese_studies:quoted_2012",
       "source_id": "hesa_bacs_2021_22",
       "status": "observed",
       "value": 1535,
@@ -3616,6 +3617,15 @@
       "scope": "U.S. public-school graduating classes; Chinese AP exams taken during high school; not private-school or global totals",
       "unit": "exams"
     },
+    "hesa_chinese_studies:quoted_2012": {
+      "cadence": "historical snapshot",
+      "label": "Chinese studies (UK, quoted early endpoint)",
+      "measure": "degree_subject_enrollments",
+      "notes": "The 2021-22 report quotes 1,535 for 2012/13; the 2016 report labels the matching 1,535 as full-time and reports part-time separately. Equivalence with later Table 7 totals is unverified. Keep this quoted endpoint separate; do not calculate a like-for-like 31% decline.",
+      "period_basis": "academic ending year",
+      "scope": "UK higher education; the 2012/13 endpoint quoted by BACS, not a verified all-mode Table 7 total",
+      "unit": "subject-apportioned enrollments"
+    },
     "hesa_chinese_studies:total": {
       "cadence": "annual",
       "label": "Chinese studies (UK)",
@@ -4178,11 +4188,17 @@
           "retrieved_at": "2026-10-24T22:28:44+00:00",
           "sha256": "854fca1cf1b7975771e21bb2462503b3d4446c9db9739a3783ca9181b7e8bb54",
           "url": "https://bacsuk.org.uk/wp-content/uploads/2015/05/BACS-State-of-the-Field-2021-22-Report.pdf"
+        },
+        {
+          "request_url": "https://bacsuk.org.uk/wp-content/uploads/2023/04/BACS-report-on-China-Studies-2016.pdf",
+          "retrieved_at": "2026-10-24T22:45:12+00:00",
+          "sha256": "0fd9137e357bce5d349a2cf7c162d3918e2b75f653444e2739f4b6daa55c46cd",
+          "url": "https://bacsuk.org.uk/wp-content/uploads/2023/04/BACS-report-on-China-Studies-2016.pdf"
         }
       ],
-      "locator": "PDF page 18, Table 7 and following historical-endpoint discussion; PDF page 16, definitions",
+      "locator": "2021-22 report: PDF page 18, Table 7/discussion, page 16 definitions; 2016 report: Table 1, PDF page 5",
       "name": "British Association for Chinese Studies, reporting HESA",
-      "notes": "Public HESA-derived national totals, not the report's separate bespoke institution table. The article's 31% describes 2012/13 to 2021/22, not admissions in calendar 2012/2021. Preserve the JACS/HECoS boundary. Rounded domicile components need not sum to the rounded total. Selected factual totals only; no report text or artwork redistributed.",
+      "notes": "Public HESA-derived national totals, not the report's separate bespoke institution table. The article's 31% uses a quoted 2012/13 endpoint whose full-time/all-mode equivalence is not verified; it is kept as a separate series, not a comparable national decline or calendar-year admissions. Preserve the JACS/HECoS boundary. Rounded domicile components need not sum to the rounded total. Selected factual totals only; no report text or artwork redistributed.",
       "vintage": "State of the Field 2021-22 report; academic data through 2021/22"
     },
     "ipeds_2000": {

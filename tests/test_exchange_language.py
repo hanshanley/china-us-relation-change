@@ -115,7 +115,10 @@ def test_article_observations_remain_separate_from_the_national_and_us_populatio
     assert values["mla:chinese", 2021] == 46492
     assert values["hesa_chinese_studies:total", 2022] == 1055
     hesa = [r for r in data["observations"] if r["series_id"] == "hesa_chinese_studies:total"]
-    assert len(hesa) == 9
+    assert len(hesa) == 8
+    assert ("hesa_chinese_studies:total", 2013) not in values
+    assert values["hesa_chinese_studies:quoted_2012", 2013] == 1535
+    assert "unverified" in data["series"]["hesa_chinese_studies:quoted_2012"]["notes"]
     assert {r["comparability"] for r in hesa} == {
         "hesa_chinese_studies:jacs", "hesa_chinese_studies:hecos"}
     data["series"]["mla_snapshot:chinese"]["scope"] = "U.S. national census"
@@ -123,6 +126,10 @@ def test_article_observations_remain_separate_from_the_national_and_us_populatio
         validate_language_data(data)
     data = published()
     data["series"]["hesa_chinese_studies:total"]["unit"] = "unique Mandarin learners"
+    with pytest.raises(ValueError, match="subject allocations"):
+        validate_language_data(data)
+    data = published()
+    next(r for r in data["observations"] if r["series_id"] == "hesa_chinese_studies:quoted_2012")["comparability"] = "hesa_chinese_studies:jacs"
     with pytest.raises(ValueError, match="subject allocations"):
         validate_language_data(data)
 
