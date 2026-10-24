@@ -2722,6 +2722,56 @@
       "notes": "Complete root, actual linked /ai_use/ and /contact/ inspected without an institutional Sina designation. Own AI page describes editorial assistance/oversight, not a blanket external-access/TDM ban or redistribution license. Corporate www.hearst.com robots-policy403 hold was not retried or transferred to this readable newspaper host. Alternate edwpub.net/hearst service emails, Pennsylvania/Wheeling Intelligencer namesakes, photographic client lists, parent/staff accounts and misspelled logo text not account proof. Contact eEdition/gift-link allowances were not Weibo activity or a paywall bypass; no login, gift link, form, issue or archive service used. Unknown, not absent. Review date: 2026-10-24 UTC."
     },
     {
+      "id": "grass-valley-union",
+      "name": "The Union / Grass Valley",
+      "category": "newspaper",
+      "aliases": ["Grass Valley Union", "The Union"],
+      "us_basis": "United States-classified source position352; actual root and linked Contact identify The Union in Grass Valley, California. Correspondence, department and publisher/editor role labels are not independently audited current occupancy or legal control.",
+      "source_url": "https://www.theunion.com/",
+      "research_status": "reviewed",
+      "notes": "Complete root and actual /site/contact.html inspected without an institutional Sina designation. Actual Grass Valley context was not replaced by labor unions, San Diego Union-Tribune, other Union papers or similarly named organizations. Prospector/Wildwood and staff/personal channels were not inherited from shared role labels. Login/help/subscription information was not account activity; no password hotline, form, newspaper issue, login or submission service used. Unknown, not absent. Review date: 2026-10-24 UTC."
+    },
+    {
+      "id": "lehighton-times-news",
+      "name": "Lehighton Times News / Times News Online",
+      "category": "newspaper",
+      "aliases": ["Lehighton Times News", "Times News", "Times News Online"],
+      "us_basis": "United States-classified source position353; actual root and About connect Times News with Lehighton/Pennsylvania correspondence and the Carbon County regional history. Pencor, acquisitions and legacy-title statements are publisher historical self-descriptions, not an independently audited current legal-control census.",
+      "source_url": "https://www.tnonline.com/",
+      "research_status": "reviewed",
+      "notes": "Complete root and actually linked /about-us/ inspected without a qualifying Sina designation. Actual institutional history, not generic Times News, Tennessee abbreviations, NC/Burlington namesakes or a finance syndication page, supplies scope. The more-than120-years/1883 narrative and historical mergers do not establish Weibo age, posting or account transfer. Weekly sister titles, staff/family profiles and Pencor channels not inherited. Embedded Twitter feed text not a Sina UID; no widget, form or licensed issue requested. Unknown, not absent. Review date: 2026-10-24 UTC."
+    },
+    {
+      "id": "aspen-daily-news",
+      "name": "Aspen Daily News",
+      "category": "newspaper",
+      "aliases": ["Aspen Daily News"],
+      "us_basis": "United States-classified source position354; independent Aspen Chamber member metadata names Aspen Daily News, Aspen/Colorado and supplies the ranked newspaper URI. This is the chamber's own directory context, not a newly retrieved newspaper body or independently verified current publisher control.",
+      "source_url": "https://aspendailynews.com/",
+      "research_status": "reviewed",
+      "notes": "Recorded newspaper HTTP403 held with zero newspaper/alias/static/help/obituary/mirror/client requests. Independent chamber root and primary-search-discovered member page read after own notice/robots checks; individual member route not falsely claimed root-linked. Actual Website anchor https://www.aspendailynews.com/ was not followed or called observed redirect. Same member body mixes since1978 and25yearsstrong; not silently reconciled, dated as current occupancy/frequency, or used as Weibo age/activity. Aspen Times, chamber tourism/social accounts, staff/photographers, member discounts and bundled issue PDFs not publisher Sina proof. Unknown, not absent. Review date: 2026-10-24 UTC."
+    },
+    {
+      "id": "concord-monitor",
+      "name": "Concord Monitor",
+      "category": "newspaper",
+      "aliases": ["Concord Monitor"],
+      "us_basis": "United States-classified source position355; actual root/About identify Concord and central New Hampshire. Newspapers of New England membership, family-ownership, audience and award statements are publisher self-descriptions, not independently audited current legal control or social-account transfer.",
+      "source_url": "https://www.concordmonitor.com/",
+      "research_status": "reviewed",
+      "notes": "Complete root and literal linked AI policy/About inspected without an institutional Sina designation. Own /ai-policy/ describes limited editorial assistance, human verification and disclosure, not an external-access/TDM ban or redistribution license. Claimed household reach and Pulitzer references are not Weibo activity; held Pulitzer host not requested. Other Concords, generic Monitor titles, NNE sibling/staff accounts, and FinancialContent/IN TRAVEL press releases mentioning Weibo not publisher designation. No login, gift link, donation, form or licensed issue used. Unknown, not absent. Review date: 2026-10-24 UTC."
+    },
+    {
+      "id": "sunbury-daily-item",
+      "name": "The Daily Item / Sunbury",
+      "category": "newspaper",
+      "aliases": ["Sunbury Daily Item", "The Daily Item", "Daily Item"],
+      "us_basis": "United States-classified source position356; actual root/About name The Daily Item in Sunbury, Pennsylvania and its Central Susquehanna Valley scope. Historical merger and correspondence statements are publisher self-descriptions, not current legal-control or office-occupancy audits.",
+      "source_url": "https://www.dailyitem.com/",
+      "research_status": "reviewed",
+      "notes": "Complete root and actual /site/about-us.html inspected without an institutional Sina designation. The empty more-than-years template was not filled or treated as account-age evidence. Historical1937merger, legacy Sunbury/Evening Item titles and the weather update do not establish account continuity, posting or an About revision date. Lynn/Massachusetts Item publications, generic Daily Item names, staff/personal channels and parent accounts not inherited. No forms, login, eEdition or issue mirror requested. Unknown, not absent. Review date: 2026-10-24 UTC."
+    },
+    {
       "id": "telemundo", "name": "Telemundo / Noticias Telemundo", "category": "broadcast_news",
       "aliases": ["Telemundo", "Noticias Telemundo", "Telemundo Noticias"],
       "us_basis": "United States-classified source position110; actual network root separately links its Noticias Telemundo newsroom section. Current corporate domicile/headquarters and legal account control are not independently audited.",

@@ -35,21 +35,22 @@ The selected **1,000 SCImago U.S.-classified domains** are ranked by digital
 reputation, not traffic; their present ownership/nationality was not independently
 audited. **Five have current-profile evidence, seven historical-only evidence,
 988 remain unknown, and zero are verified negatives.** All underwent homepage
-screening, but only 351 have recorded manual review.
+screening, but only 356 have recorded manual review.
 
-The [latest scheduled pass](discovery_iteration71.md) adds five reviews.
-Eight fresh publisher responses, one genuine cached corporate HTML capture
-and one existing PDF remain available for limited context.
-Savannah's newspaper HTTP403 was held; directory email/portal context is
-not independently verified website control.
-Florence's real South Carolina Contact was not conflated with namesakes.
-Sonoma's own reservation caused a stop and removal of only its fresh root;
-the actual cached corporate URI has empty anchor text/image-alt, not a
-silently supplied brand label or a followed redirect.
-SouthernMinn's root/Contact/Owatonna section remain one multi-publication
-domain; title-specific mailing roles do not transfer accounts.
-Edwardsville's actual Illinois Contact and editorial AI guidance were read
-without retrying the held Hearst corporate host or using account/gift links.
+The [latest scheduled pass](discovery_iteration72.md) adds five reviews.
+Nine fresh publisher responses and two independently readable chamber
+responses remain available for limited context.
+Grass Valley's actual Contact was not conflated with labor unions or other
+Union publications. Lehighton's real institutional history is not generic
+Times News or inherited Pencor/sister accounts.
+Aspen Daily News's newspaper HTTP403 was held; the independent member
+listing's actual Website anchor was not followed, and its mixed-age copy
+is not current-control, publishing-frequency or Weibo evidence.
+Concord's editorial AI policy is not an external-access ban or reuse license;
+NNE/award/audience self-descriptions do not transfer accounts.
+Sunbury's actual regional About was not replaced by a Massachusetts Item,
+and its empty age template and weather update were not account dates.
+No new retention disposal, source-use hold or permission change was made.
 The twenty-one source-use publisher-body holds, separate Davis provider
 restriction and distinct Southern/Citrus/NWA retention
 conditions and institutional/corporate restrictions remain separate.
@@ -57,7 +58,7 @@ No parent/sibling handle was inherited.
 Shared catalogs are not edited.
 The live 6,570-post corpus, original archived baseline and all rolling data
 remain unchanged by discovery.
-Discovery is not exhausted: 649 selected domains still lack a recorded
+Discovery is not exhausted: 644 selected domains still lack a recorded
 manual review. A bounded recurring prompt is active every 30 minutes; later
 passes must advance the frontier rather than repeatedly probing exhausted leads.
 
