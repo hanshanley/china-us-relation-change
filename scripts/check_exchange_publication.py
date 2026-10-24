@@ -96,15 +96,24 @@ def check(site, url=None, screenshots=None):
             assert page.locator("#chart").bounding_box()["y"] < 680
             assert page.locator("#chart").evaluate("node=>node.scrollWidth<=node.clientWidth")
             for geo in ("CHN", "HKG", "MAC"):
-                page.select_option("#geography", geo)
                 for direction in ("to_us", "from_us"):
-                    page.select_option("#direction", direction)
                     origin, destination = (geo, "USA") if direction == "to_us" else ("USA", geo)
                     for measure in data["measures"]:
+                        target = ("trade.html" if measure in {"goods", "services"} else
+                                  "travel.html" if "visitors" in measure else "index.html")
+                        if not page.url.split("?")[0].endswith("/" + target):
+                            page.goto(url.rsplit("/", 1)[0] + "/" + target)
+                        if target == "trade.html":
+                            page.locator(".individual-series").evaluate("node=>node.open=true")
+                        page.select_option("#geography", geo)
+                        page.select_option("#direction", direction)
                         annual = sorted((r for r in primary_observations(data["observations"]) if r["origin"] == origin and r["destination"] == destination
                                          and r["measure"] == measure and r["frequency"] == "annual" and r["value"] is not None),
                                         key=lambda r: r["year"])
                         option = page.locator(f'#measure option[value="{measure}"]')
+                        if not option.count():
+                            assert not annual, (geo, direction, measure)
+                            continue
                         assert option.evaluate("(o)=>o.disabled") == (not annual), (geo, direction, measure)
                         if not annual:
                             continue
@@ -138,6 +147,8 @@ def check(site, url=None, screenshots=None):
                                 assert (float(snapshot.get_attribute("height")) > 0) == (row["value"] > 0)
                             assert page.locator("#chart .screen-year").all_text_contents() == [str(r["year"]) for r in annual]
                         assert not page.evaluate("document.documentElement.scrollWidth>innerWidth"), (geo, direction, measure)
+            page.goto(url.rsplit("/", 1)[0] + "/trade.html")
+            page.locator(".individual-series").evaluate("node=>node.open=true")
             page.select_option("#geography", "CHN")
             page.select_option("#direction", "to_us")
             page.select_option("#measure", "goods")
@@ -153,9 +164,9 @@ def check(site, url=None, screenshots=None):
             })""")
             page.select_option("#chart-mode", "index")
             assert float(page.locator("#chart .screen-point[data-year='2020']").get_attribute("data-value")) == 100
+            page.goto(url)
             page.select_option("#measure", "international_students")
             expect(page.locator("#chart-mode")).to_have_value("levels")
-            expect(page.locator("#selection-note")).to_contain_text("Showing reported levels")
             assert page.locator("#chart .screen-point").count() == 26
             page.select_option("#measure", "enrolled_students")
             page.locator("#related-series button").click()
@@ -170,7 +181,7 @@ def check(site, url=None, screenshots=None):
                 page.select_option("#geography", "CHN")
                 page.select_option("#direction", "to_us")
             page.select_option("#chart-mode", "levels")
-            page.select_option("#measure", "goods")
+            page.select_option("#measure", "international_students")
             if screenshots:
                 page.screenshot(path=str(screenshots / f"collective-exchanges-{width}.png"))
             page.goto(url.rsplit("/", 1)[0] + "/travel.html")
@@ -224,20 +235,20 @@ def check(site, url=None, screenshots=None):
             expect(page.locator("#measure")).to_have_value("visitors")
             expect(page.locator("#selection-note")).to_contain_text("no verified annual series for this route")
             assert page.locator("#chart .screen-point").count() == 26
-            for name in ["immigration.html", "comparisons.html", "language-learning.html", "confucius.html", "business-presence.html", "weibo.html", "opinions.html"]:
+            for name in ["immigration.html", "trade.html", "language-learning.html", "confucius.html", "business-presence.html", "weibo.html", "opinions.html"]:
                 if not (site / name).is_file():
                     continue
                 page.goto(url.rsplit("/", 1)[0] + "/" + name)
                 page.evaluate("document.fonts.ready")
-                if name == "confucius.html":
-                    from check_confucius_publication import check_page
-
-                    check_page(page, json.loads((site / "downloads/confucius-programs.json").read_text()), exhaustive=False)
-                    continue
                 if name == "opinions.html":
                     from check_opinion_publication import check_page
 
                     check_page(page, json.loads((site / "downloads/opinions.json").read_text()), exhaustive=False)
+                    continue
+                if name == "confucius.html":
+                    from check_confucius_publication import check_page
+
+                    check_page(page, json.loads((site / "downloads/confucius-programs.json").read_text()), exhaustive=False)
                     continue
                 if name == "weibo.html":
                     check_weibo_explorer(page, json.loads((site / "downloads/weibo-summary.json").read_text()))
@@ -245,12 +256,12 @@ def check(site, url=None, screenshots=None):
                         page.screenshot(path=str(screenshots / f"collective-weibo-{width}.png"))
                     continue
                 expect(page.locator(".module-controls")).to_be_visible()
-                if name == "comparisons.html":
+                if name == "trade.html":
                     page.select_option("#module-chart", "goods-to_us")
                     logarithmic = page.locator("#goods-to_us details").filter(has=page.locator(".native-chart"))
                     logarithmic.evaluate("node=>node.open=true")
-                    expect(logarithmic.locator(".screen-unit")).to_have_text("Nominal US$ (log scale)")
-                    for indicator in ["visitors-from_us", "visitors-to_us", "air_visitors-from_us"]:
+                    assert logarithmic.locator(".screen-unit").all_text_contents() == ["Nominal US$ (log scale)"] * 2
+                    for indicator in ["goods-to_us", "goods-from_us", "services-to_us", "services-from_us"]:
                         page.select_option("#module-chart", indicator)
                         panels = page.locator(f"#{indicator} > .comparison-panels > .comparison-pane")
                         assert panels.count() == 2
@@ -360,11 +371,12 @@ def check(site, url=None, screenshots=None):
         page.select_option("#geography", "HKG")
         expect(page.locator("#" + old_id)).to_have_count(0)
         expect(page.locator(".plot-tooltip")).to_have_count(1)
-        page.goto(url.rsplit("/", 1)[0] + "/comparisons.html")
+        page.goto(url.rsplit("/", 1)[0] + "/comparisons.html?indicator=goods-to_us")
+        page.wait_for_url("**/trade.html?indicator=goods-to_us#regional-comparisons")
         page.select_option("#module-chart", "goods-to_us")
         details = page.locator("#goods-to_us details").filter(has=page.locator(".native-chart"))
         details.evaluate("node=>node.open=true")
-        native = details.locator(".native-chart")
+        native = details.locator(".native-chart").first
         expect(native).to_have_attribute("data-tooltip-id", re.compile("plot-tooltip-"))
         details.evaluate("node=>node.open=false")
         expect(native).not_to_have_attribute("data-tooltip-id", re.compile(".+"))
@@ -382,7 +394,7 @@ def check(site, url=None, screenshots=None):
         assert page.locator("#chart").evaluate("node=>node.scrollWidth>node.clientWidth")
         assert page.locator("#selected-table #series-table tbody tr").count() == len([
             row for row in data["observations"] if row["origin"] == "CHN" and row["destination"] == "USA"
-            and row["measure"] == "goods" and row["frequency"] == "annual"])
+            and row["measure"] == "international_students" and row["frequency"] == "annual"])
         assert not page.evaluate("document.documentElement.scrollWidth>innerWidth")
         browser.close()
     print("Collective coverage, exact values, 2025/2026 periods, filters and mobile/no-JS checks passed.")

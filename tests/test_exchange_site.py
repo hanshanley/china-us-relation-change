@@ -205,7 +205,7 @@ def test_published_comparisons_match_geography_colors_and_annual_points(tmp_path
     assert not obsolete.exists()
     rows = json.loads((ROOT / "data/site/observations.json").read_text())
     files = list((tmp_path / "outputs/figures").glob("*/comparisons/*/*.svg"))
-    assert len(files) == 64
+    assert len(files) == 96
     for path in files:
         doc = ElementTree.fromstring(path.read_text())
         geographies = doc.get("data-geographies", "CHN HKG MAC").split()
@@ -213,10 +213,7 @@ def test_published_comparisons_match_geography_colors_and_annual_points(tmp_path
         direction, measure, scale = path.stem.removeprefix(prefix + "-").split("-", 2)
         groups = {geo: annual for geo, annual in regional_series(rows, measure, direction).items()
                   if geo in geographies}
-        if measure in {"visitors", "air_visitors", "leisure_visitors"}:
-            assert geographies in [["CHN"], ["HKG", "MAC"]]
-        else:
-            assert geographies == ["CHN", "HKG", "MAC"]
+        assert geographies in [["CHN"], ["HKG", "MAC"]]
         for geo, annual in groups.items():
             points = [x for x in doc.iter() if x.tag.endswith("circle") and x.get("data-geography") == geo]
             expected = {r["period"] for r in annual if r["value"] is not None and
@@ -229,7 +226,7 @@ def test_published_comparisons_match_geography_colors_and_annual_points(tmp_path
             tmp_path / "site/figures" / path.relative_to(tmp_path / "outputs/figures")).with_suffix(".png").read_bytes()
         with Image.open(path.with_suffix(".png")) as image:
             assert image.size == (PNG_WIDTH, PNG_HEIGHT)
-        if measure == "goods":
+        if measure == "goods" and "MAC" in geographies:
             macau = next(x for x in doc.iter() if x.get("class") == "data-line" and x.get("data-geography") == "MAC")
             assert macau.get("stroke-dasharray") and "Accounting differs" in "".join(doc.itertext())
 

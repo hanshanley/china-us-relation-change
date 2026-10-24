@@ -8,7 +8,7 @@ from pathlib import Path
 from urllib.parse import urlsplit
 
 from .indicator_charts import svg_indicator_chart
-from .model import json_text
+from .model import GEOGRAPHIES, json_text
 from .pipeline import write_atomic
 from .theme import CHART_THEMES, PARTNER_COLORS
 from .immigration_sources import MACAU_ABODE_YEARS, STOCK_PAIRS, STOCK_YEARS
@@ -124,6 +124,7 @@ def chart_groups(data, chart_id):
         definition = data["series"][sid]
         geo = (definition["origin"] if definition.get("destination") == "USA" else definition.get("destination")) if sid.startswith("un_stock:") else sid.split(":")[-1]
         groups.append({"id": sid, "label": data["series"][sid]["label"],
+                       "geography": geo,
                        "color": PARTNER_COLORS.get(geo, PARTNER_COLORS["CHN"]),
                        "cadence": definition["cadence"], "scheduled_years": [r["year"] for r in rows],
                        "period_basis": definition["period_basis"],
@@ -148,6 +149,47 @@ def build_immigration(root, data, gallery, state_data=None, state_geometry=None)
         paths = {theme: export_figure(root, Path("immigration") / theme / chart_id, svg_indicator_chart(
             config, groups, theme, "Resident stocks and status grants have distinct periods and populations; not all physical arrivals.", "immigration-point"))
                  for theme in CHART_THEMES}
+        regional = any(g["geography"] == "CHN" for g in groups) and any(
+            g["geography"] in {"HKG", "MAC"} for g in groups)
+        if regional:
+            year_range = (min(p["year"] for g in groups for p in g["points"]),
+                          max(p["year"] for g in groups for p in g["points"]))
+            panes = []
+            for geographies, label in ((("CHN",), "Mainland China"), (("HKG", "MAC"), "Hong Kong and Macau")):
+                selected = [g for g in groups if g["geography"] in geographies and g["points"]]
+                if not selected:
+                    panes.append(f'<div class="comparison-pane" data-geographies="{" ".join(geographies)}" '
+                                 f'role="group" aria-label="{label}"><h3 class="comparison-region-title">{label}</h3>'
+                                 f'<p class="gap">No reported observations for {label} in this snapshot.</p></div>')
+                    continue
+                actual_geographies = [g["geography"] for g in selected]
+                if len(actual_geographies) == 1:
+                    label = GEOGRAPHIES[actual_geographies[0]]
+                panel_config = dict(config, subtitle=label + " | " + config["subtitle"],
+                                    first_year=year_range[0], last_year=year_range[1],
+                                    geographies=actual_geographies)
+                panel_paths = {theme: export_figure(
+                    root, Path("immigration") / theme / (chart_id + "-" + "-".join(geographies).lower()),
+                    svg_indicator_chart(panel_config, selected, theme,
+                                        "Same observation years; separate vertical scales. "
+                                        "Resident stocks and status grants retain their source populations and periods.",
+                                        "immigration-point")) for theme in CHART_THEMES}
+                panes.append(f'<div class="comparison-pane" data-geographies="{" ".join(actual_geographies)}" '
+                             f'role="group" aria-label="{label}"><h3 class="comparison-region-title">{label}</h3>'
+                             f'<div class="comparison-chart"><img src="{panel_paths["themarginoferror"]["png"]}" '
+                             f'width="1000" height="600" alt="{esc(panel_config["title"])}: {label}" loading="lazy"></div>'
+                             + "".join(f'<p class="chart-note">{GEOGRAPHIES[geo]}: no reported observations in this snapshot.</p>'
+                                       for geo in geographies if geo not in actual_geographies)
+                             + figure_links(panel_paths) + '</div>')
+            chart_markup = ('<p class="chart-context">Same year range; separate vertical scales. '
+                            'Hong Kong or Macau is omitted only where this source has no series.</p>'
+                            '<div class="comparison-panels">' + "".join(panes) + '</div>'
+                            '<details><summary>Combined-scale reference downloads</summary>'
+                            + figure_links(paths) + '</details>')
+        else:
+            chart_markup = (f'<div class="comparison-chart"><img src="{paths["themarginoferror"]["png"]}" '
+                            f'width="1000" height="600" alt="{esc(config["title"])}" loading="lazy"></div>'
+                            + figure_links(paths))
         exact = []
         for group in groups:
             for point in group["points"]:
@@ -160,9 +202,7 @@ def build_immigration(root, data, gallery, state_data=None, state_geometry=None)
                 exact.append(f'<tr><td>{esc(group["label"])}</td><th scope="row">{period}</th>'
                              f'<td>{point["value"]:,}</td><td>{point["status"]}</td></tr>')
         cards.append(f'<section class="series-panel" id="{chart_id}"><h2>{esc(config["title"])}</h2>'
-                     f'<div class="comparison-chart"><img src="{paths["themarginoferror"]["png"]}" width="1000" height="600" '
-                     f'alt="{esc(config["title"])}" loading="lazy"></div>'
-                     f'<p class="chart-note">{esc(config["note"])}</p>{figure_links(paths)}'
+                     + chart_markup + f'<p class="chart-note">{esc(config["note"])}</p>'
                      '<details><summary>Exact reported values</summary><div class="table-scroll"><table>'
                      f'<thead><tr><th>Population</th><th>Period</th><th>{esc(config["unit"])}</th><th>Precision</th></tr></thead>'
                      '<tbody>' + "".join(exact) + '</tbody></table></div></details></section>')

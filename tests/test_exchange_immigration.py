@@ -19,6 +19,22 @@ def published():
     return json.loads((ROOT / "data/site/immigration.json").read_text())
 
 
+def test_regional_panels_keep_an_unavailable_population_missing(tmp_path):
+    data = published()
+    for row in data["observations"]:
+        if row["series_id"] == "un_stock:CHN:USA":
+            row.update(value=None, status="missing")
+    build_immigration(tmp_path, data, defaultdict(list))
+    page = BeautifulSoup((tmp_path / "site/immigration.html").read_text(), "html.parser")
+    panes = page.select("#migrant-stock-to-us > .comparison-panels > .comparison-pane")
+    assert len(panes) == 2
+    assert "No reported observations" in panes[0].select_one(".gap").text
+    assert not panes[0].select("img")
+    assert panes[1].select_one(".comparison-chart img")
+    rows = list(csv.DictReader((tmp_path / "site/downloads/immigration-observations.csv").open()))
+    assert all(row["value"] == "" for row in rows if row["series_id"] == "un_stock:CHN:USA")
+
+
 def test_birthplace_and_nationality_counts_are_separate_fiscal_populations():
     data = validate_immigration_data(published())
     rows = {(r["series_id"], r["year"]): r for r in data["observations"]}

@@ -118,8 +118,16 @@ def test_collective_export_preserves_complete_inputs_and_native_plot_boundaries(
             assert a.has_attr("data-original-chart") and (tmp_path / urlsplit(a["href"]).path).is_file()
     page = BeautifulSoup((tmp_path / "index.html").read_text(), "html.parser")
     assert not page.select('#geography option[value="TWN"]')
-    assert page.select_one('#measure option[selected]')["value"] == "goods"
-    assert "2025" in page.select_one("#annual-headlines").text
+    assert page.select_one('#measure option[selected]')["value"] == "international_students"
+    assert {o["value"] for o in page.select("#measure option")} == {
+        "enrolled_students", "degree_students", "international_students", "study_abroad"}
+    tabs = [(a["href"], a.text) for a in page.select(".analysis-tabs a")]
+    assert tabs.count(("trade.html", "Trade")) == 1
+    assert not any(href == "comparisons.html" for href, _ in tabs)
+    latest_students = max((r for r in expected if r["origin"] == "CHN" and r["destination"] == "USA"
+                           and r["measure"] == "international_students" and r["frequency"] == "annual"
+                           and r["value"] is not None), key=lambda r: r["year"])
+    assert latest_students["period"] in page.select_one("#annual-headlines").text
     assert page.select_one("form.controls").has_attr("hidden")
     assert not page.select("#coverage-limits")
     assert "Coverage, including the gaps" not in page.get_text()
@@ -160,6 +168,9 @@ def test_collective_export_preserves_complete_inputs_and_native_plot_boundaries(
     assert [p["period"] for p in approvals["groups"][0]["points"]] == [str(y) for y in range(2010, 2026)]
     assert all("FY" not in p["label"] for p in approvals["groups"][0]["points"])
     business = BeautifulSoup((tmp_path / "business-presence.html").read_text(), "html.parser")
+    assert business.select_one('#module-chart optgroup[label="European enterprise series"] option[value="norway-affiliates-china"]')
+    assert not business.select_one('#module-chart option[value="us-parent-companies-china"]')
+    assert business.select_one("#business-benchmark-background #us-parent-companies-china")
     model = json.loads(business.select_one("#us-affiliates-china .plot-data").string)
     assert len(model["groups"][0]["points"]) == 24
     assert [p["year"] for p in model["groups"][0]["points"] if not p["connect"]] == [2000, 2004, 2009, 2014, 2019]
@@ -189,12 +200,23 @@ def test_collective_export_preserves_complete_inputs_and_native_plot_boundaries(
     inventories = json.loads(language.select_one("#school-program-inventories .plot-data").string)
     assert all(str(year) in row["label"] for year, row in zip([2011, 2021, 2025], inventories["bars"]))
     comparisons = BeautifulSoup((tmp_path / "comparisons.html").read_text(), "html.parser")
-    model = json.loads(comparisons.select_one("#goods-to_us .plot-data").string)
-    assert len(model["groups"]) == 3
-    assert model["unit"] == "Nominal USD"
-    assert next(g for g in model["groups"] if g["label"] == "Macau")["dash"] == "7 4"
-    for chart in ["visitors-to_us", "visitors-from_us", "air_visitors-from_us"]:
-        section = comparisons.select_one("#" + chart)
+    assert not comparisons.select(".plot-data,.module-controls")
+    routes = json.loads(comparisons.select_one("#regional-topic-routes").string)
+    assert routes["goods-to_us"] == "trade.html"
+    assert routes["visitors-from_us"] == "travel.html"
+    assert routes["international_students-to_us"] == "index.html"
+    trade = BeautifulSoup((tmp_path / "trade.html").read_text(), "html.parser")
+    assert {o["value"] for o in trade.select("#measure option")} == {"goods", "services"}
+    assert [g["label"] for g in trade.select("#module-chart optgroup")] == ["Goods trade", "Services trade"]
+    assert trade.select_one(".individual-series form.controls")
+    assert not trade.select_one("#regional-comparisons").has_attr("open")
+    for chart, target in [
+        ("goods-to_us", trade), ("goods-from_us", trade),
+        ("services-to_us", trade), ("services-from_us", trade),
+        ("international_students-to_us", page),
+        ("visitors-to_us", travel), ("visitors-from_us", travel), ("air_visitors-from_us", travel),
+    ]:
+        section = target.select_one("#" + chart)
         assert "separate vertical scales" in section.select_one(".chart-context").text
         panels = section.find("div", class_="comparison-panels", recursive=False).select(".comparison-pane")
         assert [p["data-geographies"].split() for p in panels] == [["CHN"], ["HKG", "MAC"]]
@@ -209,7 +231,19 @@ def test_collective_export_preserves_complete_inputs_and_native_plot_boundaries(
                 for g in models[1]["groups"]} <= {"HKG", "MAC"}
         assert all(p.select_one(".chart-downloads") for p in panels)
         assert all("Download reported values" not in p.get_text() for p in panels)
-    assert not comparisons.select_one("#goods-to_us .comparison-panels")
+    regional = [json.loads(p.string) for p in trade.select("#goods-to_us > .comparison-panels .plot-data")]
+    assert [len(m["groups"]) for m in regional] == [1, 2]
+    assert next(g for g in regional[1]["groups"] if g["label"] == "Macau")["dash"] == "7 4"
+    right_svg = trade.select_one("#goods-to_us > .comparison-panels > .comparison-pane:last-child svg")
+    assert min(float(p["cy"]) for p in right_svg.select("circle[data-value]")) < 276
+    for chart in ("migrant-stock-to-us", "migrant-stock-from-us", "green-card-grants"):
+        panes = immigration.select(f"#{chart} > .comparison-panels > .comparison-pane")
+        assert len(panes) == 2
+        models = [json.loads(p.select_one(".plot-data").string) for p in panes]
+        assert models[0]["geographies"] == ["CHN"]
+        assert set(models[1]["geographies"]) <= {"HKG", "MAC"}
+        assert models[0]["first"] == models[1]["first"] == 2000
+        assert models[0]["last"] == models[1]["last"] == 2024
     weibo = BeautifulSoup((tmp_path / "weibo.html").read_text(), "html.parser")
     source_weibo = json.loads((ROOT / "data/site/weibo_summary.json").read_text())
     monthly = source_weibo["monthly"]

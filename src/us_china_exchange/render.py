@@ -18,10 +18,10 @@ from .immigration_analysis import CHARTS as IMMIGRATION_CHARTS, build_immigratio
 from .language_analysis import CHARTS as LANGUAGE_CHARTS, RETIRED_CHARTS as LANGUAGE_RETIRED_CHARTS, chart_points, svg_language_chart, validate_language_data
 from .pipeline import load, write_atomic
 from . import student_estimates
-from .confucius_analysis import CHARTS as CONFUCIUS_CHARTS, build_confucius
-from .confucius_sources import validate as validate_confucius
 from .opinion_analysis import CHARTS as OPINION_CHARTS, build_opinions
 from .opinion_sources import validate_opinion_data
+from .confucius_analysis import CHARTS as CONFUCIUS_CHARTS, build_confucius
+from .confucius_sources import validate as validate_confucius
 from .state_immigration_sources import validate as validate_state_immigration
 from .sources import SOURCE_PAGES, SOURCE_POLICIES
 from .weibo_analysis import WEIBO_CHARTS, svg_weibo, validate_summary
@@ -47,7 +47,7 @@ SOURCE_NAMES = {
     "comtrade": "UN Comtrade (U.S. reporter)",
     "ustr": "Office of the U.S. Trade Representative",
 }
-SPLIT_VISITOR_MEASURES = {"visitors", "leisure_visitors", "air_visitors"}
+SPLIT_REGIONAL_MEASURES = set(MEASURES)
 
 
 def esc(value):
@@ -721,8 +721,8 @@ def build(root):
             regional = regional_series(rows, measure, direction)
             label = "To the United States" if direction == "to_us" else "From the United States"
             heading = MEASURES[measure] + " · " + label
-            split_visitors = measure in SPLIT_VISITOR_MEASURES
-            panels = (("CHN",), ("HKG", "MAC")) if split_visitors else (COMPARISON_GEOGRAPHIES,)
+            split_regions = measure in SPLIT_REGIONAL_MEASURES
+            panels = (("CHN",), ("HKG", "MAC")) if split_regions else (COMPARISON_GEOGRAPHIES,)
             panel_labels = {"-".join(geo.lower() for geo in geographies):
                             " and ".join(GEOGRAPHIES[geo] for geo in geographies)
                             for geographies in panels}
@@ -735,7 +735,7 @@ def build(root):
             versions = {}
             for scale in ("levels", "log"):
                 versions[scale] = {}
-                if split_visitors:
+                if split_regions:
                     for theme in CHART_THEMES:
                         remove_figure(root, Path(figure_category(measure)) / "comparisons" / theme /
                                       f"chn-hkg-mac-{direction}-{measure}-{scale}")
@@ -773,29 +773,36 @@ def build(root):
                             f'<img src="{esc(image)}" alt="{esc(heading)}: {esc(panel_label)}'
                             f'{" on a log scale" if scale == "log" else ""}" '
                             'width="1000" height="600" loading="lazy"></div>' + figure_links(paths))
-                    if split_visitors:
+                    if split_regions:
                         content = (f'<div class="comparison-pane" data-geographies="{" ".join(geographies)}" '
-                                   f'role="group" aria-label="{esc(panel_label)}">{content}</div>')
+                                   f'role="group" aria-label="{esc(panel_label)}">'
+                                   f'<h3 class="comparison-region-title">{esc(panel_label)}</h3>{content}</div>')
                     result.append(content)
                 markup = "".join(result)
-                return f'<div class="comparison-panels">{markup}</div>' if split_visitors else markup
+                return f'<div class="comparison-panels">{markup}</div>' if split_regions else markup
 
             body = ""
             if "levels" in versions:
                 comparison_count += 1
-                if split_visitors:
+                if split_regions:
                     body += '<p class="chart-context">Same year range; separate vertical scales.</p>'
                 body += comparison_markup("levels")
+                if measure == "goods" and any(r["source_id"] == "comtrade" for r in available):
+                    body += ('<p class="chart-note">Macau (dashed) uses customs accounting: exports FOB, imports CIF. '
+                             'Mainland China and Hong Kong use balance-of-payments data; the accounting bases differ.</p>')
+                if measure == "services" and any(r["source_id"] == "ustr" for r in available):
+                    body += ('<p class="chart-note">Macau releases are separate annual snapshots. '
+                             'Different release vintages are not connected or used to calculate growth.</p>')
                 if "log" in versions:
                     body += ('<details><summary>Logarithmic view — useful when series differ greatly in size</summary>'
                              + comparison_markup("log") + '</details>')
-                catalog_label = "Two-panel visit comparison" if split_visitors else "Three-geography comparison"
+                catalog_label = "Regional comparison"
                 catalog = f'<article class="combined-chart"><h3>{catalog_label}: {esc(heading)}</h3>'
                 for scale, panel_versions in versions.items():
                     for prefix, paths in panel_versions.items():
                         relative_paths = {theme: {kind: path.removeprefix("figures/") for kind, path in files.items()}
                                           for theme, files in paths.items()}
-                        pane_caption = f' · {esc(panel_labels[prefix])}' if split_visitors else ""
+                        pane_caption = f' · {esc(panel_labels[prefix])}' if split_regions else ""
                         catalog += (f'<h4>{"Reported values" if scale == "levels" else "Logarithmic view"}'
                                     f'{pane_caption}</h4>' + figure_links(relative_paths))
                 gallery[figure_category(measure)].insert(0, catalog + '</article>')
@@ -932,6 +939,17 @@ def build(root):
         write_atomic(site / "assets" / name, (package / "static" / name).read_text())
     for name in FONT_FILES + ("LICENSE",):
         write_atomic(site / "assets/fonts" / name, (package / "static/fonts" / name).read_bytes())
+    category_sections = []
+    for category, label in FIGURE_CATEGORIES.items():
+        if category == "services_trade":
+            continue
+        if category == "goods_trade":
+            content = "".join(
+                f'<section id="{key}"><h3>{title}</h3>{"".join(gallery[key])}</section>'
+                for key, title in (("goods_trade", "Goods"), ("services_trade", "Services")))
+            category_sections.append(f'<section id="trade"><h2>Trade</h2>{content}</section>')
+        else:
+            category_sections.append(f'<section id="{category}"><h2>{label}</h2>{"".join(gallery[category])}</section>')
     figure_index = ('<!doctype html><html lang="en"><meta charset="utf-8">'
                     '<meta name="viewport" content="width=device-width,initial-scale=1">'
                     '<title>Exchange charts by category</title>'
@@ -940,8 +958,7 @@ def build(root):
                     'a{color:#3D6F8C}h2{margin-top:48px}h3{font-size:21px}li{margin:8px 0}</style>'
                     '<h1>Exchange charts by category</h1>'
                     '<p>PNG images are 3000 \u00d7 1800 pixels. Both backgrounds contain the same reported values.</p>' +
-                    "".join(f'<section><h2>{label}</h2>{"".join(gallery[category])}</section>'
-                            for category, label in FIGURE_CATEGORIES.items()) + '</html>')
+                    "".join(category_sections) + '</html>')
     write_atomic(figures / "index.html", figure_index)
     write_atomic(site / "figures/index.html", figure_index)
     # Retire only known generated paths from the previous flat export layout.

@@ -17,7 +17,7 @@ sys.path.insert(0, str(ROOT / "src"))
 from bs4 import BeautifulSoup
 from us_china_exchange.model import GEOGRAPHIES, json_text
 from us_china_exchange.language_analysis import RETIRED_CHARTS as LANGUAGE_RETIRED_CHARTS
-from us_china_exchange.render import SPLIT_VISITOR_MEASURES, annual_table, build, figure_links, initial_panel, svg_chart
+from us_china_exchange.render import SPLIT_REGIONAL_MEASURES, annual_table, build, figure_links, initial_panel, svg_chart
 from us_china_exchange.theme import figure_category
 from us_china_exchange.confucius_analysis import CHARTS as CONFUCIUS_CHARTS
 
@@ -25,34 +25,107 @@ from us_china_exchange.confucius_analysis import CHARTS as CONFUCIUS_CHARTS
 CANONICAL = "https://www.themarginoferror.com/china-us-relations/"
 REPOSITORY = "https://github.com/hanshanley/china-us-relation-change"
 PAGES = {
-    "index.html": ("U.S.–China connections", "Students, travel, trade and the ties between two countries.",
-                   "2025 annual data · 2026 partial-year updates"),
+    "index.html": ("Student exchanges", "Students and study-abroad participation between the U.S., mainland China, Hong Kong and Macau.",
+                   "Academic-year series · Enrollment and participation kept separate"),
+    "trade.html": ("Trade", "Goods and services exchanged with the U.S., with mainland China separate from Hong Kong and Macau.",
+                   "Annual reported values · Separate regional scales"),
     "travel.html": ("Travel & tourism", "Visitor trips between the U.S., mainland China, Hong Kong and Macau.",
                     "Arrivals are trips, not unique people or necessarily leisure tourists"),
     "immigration.html": ("Immigration", "Where China-born residents live, and how migration ties have changed.",
                          "Resident stocks through 2024 · U.S. grants and Macau approvals through 2025"),
     "opinions.html": ("Public opinion", "How Americans view China, how Chinese respondents view the U.S., and the differences by age.",
                       "Reported survey rounds · Different questions kept separate"),
-    "comparisons.html": ("China, Hong Kong & Macau", "The same measure, three separately reported geographies.",
-                         "Fixed regional colours · No combined regional total"),
+    "comparisons.html": ("Regional comparisons", "Comparisons are organized within Students, Travel and Trade.",
+                         "Existing chart links lead to their topic"),
     "language-learning.html": ("Language learning", "Chinese, Japanese and Korean compared through course enrollments, degree awards and school programs.",
                               "AP exams through 2025 · Degree awards through 2024 · College census through 2021"),
     "confucius.html": ("Confucius Institutes & Classrooms", "U.S. institutes, school programs and documented replacements, counted separately.",
                        "Dated historical reports · Operator listings are not an operating census"),
-    "business-presence.html": ("Businesses in China", "U.S. and European business presence, with different counting rules kept separate.",
+    "business-presence.html": ("Businesses in mainland China", "Annual affiliate and enterprise counts—not trade flows, offices or a combined European total.",
                              "Annual affiliate histories · Latest available year varies by origin"),
     "weibo.html": ("U.S. media on Weibo", "What is documented—and how much of the picture is still missing.",
                    "Coverage and uncertainty, not a posting-history comparison"),
 }
-TABS = [("index.html", "Students & trade"), ("travel.html", "Travel & tourism"), ("immigration.html", "Immigration"),
+TABS = [("index.html", "Students"), ("travel.html", "Travel & tourism"), ("trade.html", "Trade"), ("immigration.html", "Immigration"),
         ("opinions.html", "Opinions"),
-        ("comparisons.html", "Regional comparison"),
         ("language-learning.html", "Language"), ("confucius.html", "Confucius programs"),
         ("business-presence.html", "Business"), ("weibo.html", "Weibo")]
 
 
 def fragment(markup):
     return BeautifulSoup(markup, "html.parser")
+
+
+def regional_topic(measure):
+    return ("trade.html" if measure in {"goods", "services"} else
+            "travel.html" if "visitors" in measure else "index.html")
+
+
+def prepare_topic_pages(site):
+    source = (site / "index.html").read_text()
+    comparison = BeautifulSoup((site / "comparisons.html").read_text(), "html.parser")
+    sections = list(comparison.select("main > section[id]"))
+    routes = {}
+    for name in ("index.html", "travel.html", "trade.html"):
+        page = BeautifulSoup(source, "html.parser")
+        selected = [section for section in sections
+                    if regional_topic(section["id"].rsplit("-", 1)[0]) == name]
+        details = page.new_tag("details", attrs={"id": "regional-comparisons", "class": "regional-explorer"})
+        summary = page.new_tag("summary")
+        summary.string = "Compare mainland China, Hong Kong & Macau"
+        details.append(summary)
+        for section in selected:
+            chart = fragment(str(section)).section
+            chart["data-regional-chart"] = ""
+            details.append(chart)
+            routes[chart["id"]] = name
+        page.main.append(details)
+        (site / name).write_text(str(page), encoding="utf-8")
+    comparison.main.clear()
+    for name, label in (("index.html", "Students"), ("travel.html", "Travel & tourism"), ("trade.html", "Trade")):
+        section = comparison.new_tag("section", attrs={"class": "comparison-directory"})
+        heading = comparison.new_tag("h2")
+        heading.string = label
+        section.append(heading)
+        for original in sections:
+            if routes[original["id"]] != name or not original.select_one(".comparison-chart"):
+                continue
+            p = comparison.new_tag("p")
+            a = comparison.new_tag("a", attrs={"href": f'{name}?indicator={original["id"]}#regional-comparisons'})
+            a.string = original.h2.text
+            p.append(a)
+            section.append(p)
+        comparison.main.append(section)
+    data = comparison.new_tag("script", attrs={"type": "application/json", "id": "regional-topic-routes"})
+    data.string = json_text(routes)
+    comparison.body.append(data)
+    (site / "comparisons.html").write_text(str(comparison), encoding="utf-8")
+
+
+def module_controls(soup, charts, preferred, groups=None):
+    controls = soup.new_tag("div", attrs={"class": "controls module-controls", "hidden": ""})
+    label = soup.new_tag("label", attrs={"for": "module-chart"})
+    label.string = "Indicator"
+    select = soup.new_tag("select", attrs={"id": "module-chart"})
+    parents = {}
+    for i, section in enumerate(charts):
+        identifier = section.get("id", f"indicator-{i}")
+        section["data-module-chart"] = identifier
+        parent = select
+        if groups and identifier in groups:
+            group = groups[identifier]
+            if group not in parents:
+                parents[group] = soup.new_tag("optgroup", attrs={"label": group})
+                select.append(parents[group])
+            parent = parents[group]
+        option = soup.new_tag("option", attrs={"value": identifier})
+        option.string = section.h2.text
+        if identifier == preferred:
+            option["selected"] = ""
+        parent.append(option)
+    label.append(select)
+    controls.append(label)
+    return controls
 
 
 def plot_model(svg, labels, observations):
@@ -154,13 +227,13 @@ def plot_model(svg, labels, observations):
 def decorate(site, name, labels, revision):
     soup = BeautifulSoup((site / name).read_text(), "html.parser")
     title, lead, scope = PAGES[name]
-    if name in {"index.html", "travel.html"}:
+    if name in {"index.html", "travel.html", "trade.html"}:
         rows = json.loads((site / "downloads/observations.json").read_text())
-        if name == "travel.html":
-            rows = [r for r in rows if r["measure"] in {"visitors", "leisure_visitors"}]
+        rows = [r for r in rows if regional_topic(r["measure"]) == name]
         annual = max(r["year"] for r in rows if r["frequency"] == "annual" and r["value"] is not None)
         partial = max((r["year"] for r in rows if r["frequency"] == "ytd" and r["value"] is not None), default=annual)
-        scope = f"{annual} annual data" + (f" · {partial} partial-year updates" if partial > annual else "")
+        scope = (f"Academic ending years through {annual}" if name == "index.html" else f"{annual} annual data")
+        scope += f" · {partial} partial-year updates" if partial > annual else ""
     elif name == "language-learning.html":
         rows = json.loads((site / "downloads/language-learning.json").read_text())["observations"]
         latest = lambda prefix: max(r["year"] for r in rows if r["series_id"].startswith(prefix) and r["value"] is not None)
@@ -218,8 +291,8 @@ def decorate(site, name, labels, revision):
     page.insert(0, tabs)
     for node in reversed(list(intro.contents)):
         page.insert(0, node)
-    if name in {"index.html", "travel.html"}:
-        initial_measure = "visitors" if name == "travel.html" else "goods"
+    if name in {"index.html", "travel.html", "trade.html"}:
+        initial_measure = {"index.html": "international_students", "travel.html": "visitors", "trade.html": "goods"}[name]
         for p in list(main.find_all("p", recursive=False)):
             p.decompose()
         for option in soup.select('#geography option[value="TWN"]'):
@@ -237,6 +310,8 @@ def decorate(site, name, labels, revision):
                         "goods": "Goods trade", "services": "Services trade"}
         for option in soup.select("#measure option"):
             option.string = short_labels[option["value"]]
+            if regional_topic(option["value"]) != name:
+                option.decompose()
         payload = json.loads(soup.select_one("#exchange-data").string)
         payload["restrict_to_available"] = True
         payload["prefer_current_travel"] = True
@@ -289,7 +364,7 @@ def decorate(site, name, labels, revision):
             note.string = "Arrivals include business and family travel, not just tourism. U.S. travel to mainland China defaults to current air-travel estimates; historical all-mode arrivals remain separately available. Country attribution follows each source, not necessarily the last departure point."
             panel.find("h2").insert_after(note)
             note.insert_after(fragment(
-                '<p class="chart-note"><a href="comparisons.html?indicator=visitors-from_us">'
+                '<p class="chart-note"><a href="travel.html?indicator=visitors-from_us#regional-comparisons">'
                 'Compare U.S. visits to mainland China, Hong Kong and Macau side by side</a>.</p>'))
         chart = soup.select_one("#chart")
         stats = soup.select_one("#annual-headlines").extract()
@@ -339,6 +414,30 @@ def decorate(site, name, labels, revision):
             section.decompose()
         for footer in page.find_all("footer", recursive=False):
             footer.decompose()
+        regional = soup.select_one("#regional-comparisons")
+        charts = [section for section in regional.select(":scope > section") if section.select_one(".comparison-chart")]
+        for section in list(regional.select(":scope > section")):
+            if section not in charts:
+                section.decompose()
+        groups = {section["id"]: section.h2.text.split(" · ")[0] for section in charts}
+        preferred = {"index.html": "international_students-to_us", "travel.html": "visitors-from_us",
+                     "trade.html": "goods-to_us"}[name]
+        regional.insert(1, module_controls(soup, charts, preferred, groups))
+        if name == "trade.html":
+            regional.find("summary", recursive=False).decompose()
+            regional.name = "div"
+            secondary = soup.new_tag("details", attrs={"class": "individual-series"})
+            summary = soup.new_tag("summary")
+            summary.string = "Individual series & partial-year updates"
+            secondary.append(summary)
+            secondary.append(form.extract())
+            secondary.append(panel.extract())
+            main.append(secondary)
+            for note in main.select(":scope > details.reading-note"):
+                main.append(note.extract())
+    elif name == "comparisons.html":
+        for node in old_intro:
+            node.decompose()
     elif name == "weibo.html":
         for node in old_intro:
             node.decompose()
@@ -347,37 +446,22 @@ def decorate(site, name, labels, revision):
             node.decompose()
         sections = list(main.find_all("section", recursive=False))
         charts = [n for n in sections if n.select_one(".comparison-chart")]
-        if name == "business-presence.html":
-            norway = next((n for n in charts if n.get("id") == "norway-affiliates-china"), None)
-            if norway is not None:
-                charts.remove(norway)
-                sections.remove(norway)
-                details = soup.new_tag("details", attrs={"class": "supplementary-origin"})
-                summary = soup.new_tag("summary")
-                summary.string = "Supplementary European coverage"
-                details.append(summary)
-                norway.replace_with(details)
-                details.append(norway)
         for section in sections:
             if section not in charts:
                 section.decompose()
         if charts:
-            controls = soup.new_tag("div", attrs={"class": "controls module-controls", "hidden": ""})
-            label = soup.new_tag("label", attrs={"for": "module-chart"})
-            label.string = "Indicator"
-            select = soup.new_tag("select", attrs={"id": "module-chart"})
             preferred = {"language-learning.html": "college-enrollments", "comparisons.html": "goods-to_us",
                          "immigration.html": "state-china-map", "opinions.html": "us-china-favorability"}.get(name)
-            for i, section in enumerate(charts):
-                section["data-module-chart"] = section.get("id", f"indicator-{i}")
-                option = soup.new_tag("option", attrs={"value": section["data-module-chart"]})
-                option.string = section.h2.text
-                if section["data-module-chart"] == preferred:
-                    option["selected"] = ""
-                select.append(option)
-            label.append(select)
-            controls.append(label)
-            main.insert(0, controls)
+            groups = ({section["id"]: ("U.S. affiliates" if section["id"].startswith("us-") else
+                                      "European enterprise series") for section in charts}
+                      if name == "business-presence.html" else None)
+            if name == "immigration.html":
+                groups = {section["id"]: (
+                    "Where people live" if section["id"].startswith(("state-", "migrant-stock")) else
+                    "Single-region reference" if section["id"] in {"hong-kong-green-cards", "macau-green-cards"} else
+                    "Macau residence approvals" if section["id"] == "macau-residence-approvals" else
+                    "U.S. permanent-residency grants") for section in charts}
+            main.insert(0, module_controls(soup, charts, preferred, groups))
         for details in main.find_all("details", recursive=False):
             if name != "confucius.html" and not details.select_one(".comparison-chart"):
                 details.decompose()
@@ -497,7 +581,7 @@ def build_publication(source, output, revision):
         shutil.copytree(source / "data/site", root / "data/site")
         result = build(root)
         site = root / "site"
-        shutil.copyfile(site / "index.html", site / "travel.html")
+        prepare_topic_pages(site)
         definitions = {}
         for name in ["language_learning", "business_presence", "immigration", "opinions"]:
             if not (root / f"data/site/{name}.json").is_file():
@@ -558,7 +642,7 @@ def build_publication(source, output, revision):
                 for theme in ["themarginoferror", "substack"]:
                     for extension in ["png", "svg", "website.png"]:
                         (output / "figures/language_learning" / theme / f"{chart_id}.{extension}").unlink(missing_ok=True)
-        for measure in SPLIT_VISITOR_MEASURES:
+        for measure in SPLIT_REGIONAL_MEASURES:
             for direction in ["to_us", "from_us"]:
                 for theme in ["themarginoferror", "substack"]:
                     for scale in ["levels", "log"]:

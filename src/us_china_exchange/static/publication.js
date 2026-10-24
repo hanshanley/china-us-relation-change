@@ -1,6 +1,13 @@
 "use strict";
 (() => {
   const revision = new URL(document.currentScript.src).searchParams.get("v");
+  const regionalRoutes = document.getElementById("regional-topic-routes");
+  if (regionalRoutes) {
+    const indicator = new URLSearchParams(location.search).get("indicator") || location.hash.slice(1);
+    const routes = JSON.parse(regionalRoutes.textContent);
+    const target = Object.hasOwn(routes, indicator) ? routes[indicator] : null;
+    if (target) location.replace(`${target}?indicator=${encodeURIComponent(indicator)}#regional-comparisons`);
+  }
   const tabs = document.querySelector(".analysis-tabs");
   const currentTab = tabs?.querySelector("[aria-current]");
   if (currentTab && tabs.scrollWidth > tabs.clientWidth) {
@@ -394,23 +401,34 @@
     observe.observe(container);
   }
   for (const details of document.querySelectorAll("details")) {
-    if (details.querySelector(".native-chart")) details.addEventListener("toggle", () => {
-      for (const container of details.querySelectorAll(".native-chart")) draw(container, models.get(container));
+    if (details.querySelector(".native-chart,#chart")) details.addEventListener("toggle", () => {
+      for (const container of details.querySelectorAll(".native-chart,#chart")) {
+        if (models.has(container)) draw(container, models.get(container));
+      }
     });
   }
   const moduleSelector = document.getElementById("module-chart");
   if (moduleSelector) {
     const requested = new URLSearchParams(location.search).get("indicator");
-    if ([...moduleSelector.options].some(option => option.value === requested)) moduleSelector.value = requested;
-    const select = () => {
+    if ([...moduleSelector.options].some(option => option.value === requested)) {
+      moduleSelector.value = requested;
+      const parent = moduleSelector.closest("details");
+      if (parent) parent.open = true;
+    }
+    const select = (updateURL = false) => {
       for (const section of document.querySelectorAll("[data-module-chart]")) {
         section.hidden = section.dataset.moduleChart !== moduleSelector.value;
       }
       for (const container of document.querySelectorAll(".native-chart")) {
         draw(container, models.get(container));
       }
+      if (updateURL && location.protocol !== "file:") {
+        const url = new URL(location.href);
+        url.searchParams.set("indicator", moduleSelector.value);
+        history.replaceState(null, "", url);
+      }
     };
-    moduleSelector.addEventListener("change", select);
+    moduleSelector.addEventListener("change", () => select(true));
     select();
     document.querySelector(".module-controls").hidden = false;
   }

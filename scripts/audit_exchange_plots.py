@@ -155,7 +155,7 @@ class Audit:
                 self.issue("weibo:rolling", "window_calculation", row["date"])
 
     def expected_groups(self, page, chart, model):
-        if page == "comparisons.html":
+        if page == "comparisons.html" or (page in {"index.html", "travel.html", "trade.html"} and model.get("geographies")):
             result = {}
             measure, direction = chart.rsplit("-", 1)
             for geo in model.get("geographies", ("CHN", "HKG", "MAC")):
@@ -171,6 +171,9 @@ class Audit:
             groups = defaultdict(list)
             for row in self.plotted[page]:
                 if row["chart_id"] == chart:
+                    if model.get("geographies") and not any(
+                            g in row["series_id"].split(":") for g in model["geographies"]):
+                        continue
                     groups[row["series_id"]].append(dict(
                         year=int(row["year"]), value=float(row["plotted_value"]), label=row["label"],
                         comparability=row["comparability"]))
@@ -192,7 +195,7 @@ class Audit:
             if units != {model["unit"]}:
                 self.issue(key, "wrong_counting_unit", {"actual": model["unit"], "expected": list(units)})
         if model["kind"] == "line":
-            if page == "comparisons.html":
+            if page == "comparisons.html" or (page in {"index.html", "travel.html", "trade.html"} and model.get("geographies")):
                 for group in model["groups"]:
                     _, origin, destination, _ = group["id"].split(":")
                     partner = destination if origin == "USA" else origin
@@ -507,7 +510,7 @@ class Audit:
     def native(self, browser, width, screenshots, url):
         page = browser.new_page(viewport={"width": width, "height": 1000})
         program_pages = ["confucius.html"] if (self.site / "confucius.html").is_file() else []
-        for filename in ["comparisons.html", *self.datasets, "weibo.html", *program_pages]:
+        for filename in ["index.html", "travel.html", "trade.html", *self.datasets, "weibo.html", *program_pages]:
             soup = BeautifulSoup((self.site / filename).read_text(), "html.parser")
             scripts = soup.select(".native-chart script.plot-data")
             page.goto(url + filename)
@@ -600,6 +603,12 @@ class Audit:
             rows.sort(key=lambda r: r["year"])
             sample = rows[0]
             geo = sample["destination"] if sample["origin"] == "USA" else sample["origin"]
+            target = ("trade.html" if sample["measure"] in {"goods", "services"} else
+                      "travel.html" if "visitors" in sample["measure"] else "index.html")
+            if not page.url.split("?")[0].endswith("/" + target):
+                page.goto(url + target)
+            if target == "trade.html":
+                page.locator(".individual-series").evaluate("node=>node.open=true")
             page.select_option("#geography", geo)
             page.select_option("#direction", "from_us" if sample["origin"] == "USA" else "to_us")
             page.select_option("#measure", sample["measure"])
@@ -681,6 +690,9 @@ class Audit:
         elif family in {"language_learning", "business_presence", "immigration", "opinions"}:
             page = {"language_learning": "language-learning.html", "business_presence": "business-presence.html",
                     "immigration": "immigration.html", "opinions": "opinions.html"}[family]
+            if soup.svg.get("data-geographies"):
+                model["geographies"] = soup.svg["data-geographies"].split()
+                chart = re.sub(r"-(?:chn|hkg-mac)$", "", chart)
             expected = self.expected_groups(page, chart, model)
         else:
             if geometry["points"]:

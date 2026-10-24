@@ -772,6 +772,30 @@ JavaScript, the initial chart, all topic charts and full tables remain readable.
 The provenance manifest records the source revision and public-asset checksums.
 The website deployment rebuilds committed snapshots without collecting data.
 
+### Topic organization and regional scales
+
+The collective publication has one home for each topic. Students and Travel
+retain individual-series controls and their latest partial-year updates, with
+regional comparisons inside the same topic. Trade contains goods and services,
+grouped by measure and direction; its individual-series controls are secondary.
+Legacy `comparisons.html?indicator=...` links lead to the appropriate topic,
+and a readable directory remains available without JavaScript.
+
+Regional comparisons use mainland China in one panel and Hong Kong/Macau in
+the other, side by side on wide screens and stacked on narrow screens.
+They share the year range but use separately labeled vertical scales.
+Unavailable series remain explicit rather than becoming zero. Macau customs
+goods accounting and separate services vintages retain visible qualifications.
+Comparable immigration regional views use the same layout while keeping
+citizenship, birthplace, stocks and status grants distinct.
+
+Business stays separate from cross-border trade flows. Annual affiliate and
+enterprise histories are grouped by reporting origin; parent-company
+benchmarks remain supplementary. EU, German, UK and Norwegian coverage is not
+added into a European total, and entity counts are not relabeled offices.
+Complete downloads, exact-value tables and source/definition boundaries remain
+available; this presentation change does not alter reported observations.
+
 ### Language-enrollment comparisons
 
 Language now defaults to actual Chinese/Japanese/Korean college registrations

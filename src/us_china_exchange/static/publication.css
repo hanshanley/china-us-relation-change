@@ -57,6 +57,14 @@ html:not(.plot-js) .publication-page .comparison-chart { overflow-x: auto; }
 html:not(.plot-js) .publication-page #chart svg,
 html:not(.plot-js) .publication-page .comparison-chart svg { min-width: 840px; }
 .publication-page .native-chart { margin-block: 20px 24px; }
+.publication-page .comparison-region-title { margin: 0 0 10px; font: 500 19px/1.3 var(--serif); }
+.publication-page .comparison-pane .native-chart { margin-top: 12px; }
+.publication-page .regional-explorer { margin-top: 28px; }
+.publication-page .regional-explorer > summary,
+.publication-page .individual-series > summary { font-size: 16px; }
+.publication-page .regional-explorer > .series-panel { padding-top: 18px; border-bottom: 0; }
+.publication-page .individual-series { margin-top: 28px; border-top: 1px solid var(--rule); }
+.publication-page .comparison-directory p { font: 15px/1.5 var(--sans); }
 .publication-page .screen-chart { font-variant-numeric: tabular-nums lining-nums; cursor: crosshair; }
 .publication-page .screen-chart:focus-visible { outline: 1px solid var(--rule); outline-offset: 4px; }
 .publication-page .plot-hover-layer { pointer-events: none; }

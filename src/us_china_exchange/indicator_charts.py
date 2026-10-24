@@ -38,6 +38,8 @@ def svg_indicator_chart(config, groups, theme, description, point_class):
     parts = [
         '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 600" role="img" '
         f'aria-label="{esc(config["title"])}"'
+        + (f' data-geographies="{" ".join(config["geographies"])}" data-first-year="{first}" data-last-year="{last}"'
+           if config.get("geographies") else "")
         + (f' data-axis-max="{maximum}"' if config.get("bounded") else "")
         + f'><title>{esc(config["title"])}</title>',
         f'<desc>{esc(description)}</desc>',
