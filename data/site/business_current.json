@@ -1,0 +1,353 @@
+{
+  "as_of": "2026-10-24",
+  "context": {
+    "archive": "Earlier affiliate and enterprise counts are retained only as historical data downloads, not primary charts.",
+    "interpretation": "Company decisions and investment are separate measures. Neither is a census of businesses or offices.",
+    "investment": "U.S. outward direct investment only, on a historical-cost basis and by immediate host. Includes equity and net intercompany debt, not just new projects. Position changes are not investment flows.",
+    "survey_comparison": "Different member populations and questions: these are not matched U.S.-European estimates. Germany is not an EU-wide sample."
+  },
+  "observations": [
+    {
+      "comparability": "bea_historical_cost_immediate_host",
+      "notes": "Worksheet 2020, cell B77; source reports millions of dollars.",
+      "period": "31 December 2020",
+      "series_id": "bea_position:CHN",
+      "source_id": "bea_2025",
+      "status": "observed",
+      "value": 116508000000,
+      "year": 2020
+    },
+    {
+      "comparability": "bea_historical_cost_immediate_host",
+      "notes": "Worksheet 2020, cell B78; source reports millions of dollars.",
+      "period": "31 December 2020",
+      "series_id": "bea_position:HKG",
+      "source_id": "bea_2025",
+      "status": "observed",
+      "value": 94495000000,
+      "year": 2020
+    },
+    {
+      "comparability": "bea_historical_cost_immediate_host",
+      "notes": "Worksheet 2021, cell B77; source reports millions of dollars.",
+      "period": "31 December 2021",
+      "series_id": "bea_position:CHN",
+      "source_id": "bea_2025",
+      "status": "observed",
+      "value": 116003000000,
+      "year": 2021
+    },
+    {
+      "comparability": "bea_historical_cost_immediate_host",
+      "notes": "Worksheet 2021, cell B78; source reports millions of dollars.",
+      "period": "31 December 2021",
+      "series_id": "bea_position:HKG",
+      "source_id": "bea_2025",
+      "status": "observed",
+      "value": 92664000000,
+      "year": 2021
+    },
+    {
+      "comparability": "bea_historical_cost_immediate_host",
+      "notes": "Worksheet 2022, cell B77; source reports millions of dollars.",
+      "period": "31 December 2022",
+      "series_id": "bea_position:CHN",
+      "source_id": "bea_2025",
+      "status": "observed",
+      "value": 116314000000,
+      "year": 2022
+    },
+    {
+      "comparability": "bea_historical_cost_immediate_host",
+      "notes": "Worksheet 2022, cell B78; source reports millions of dollars.",
+      "period": "31 December 2022",
+      "series_id": "bea_position:HKG",
+      "source_id": "bea_2025",
+      "status": "observed",
+      "value": 94666000000,
+      "year": 2022
+    },
+    {
+      "comparability": "bea_historical_cost_immediate_host",
+      "notes": "Worksheet 2023, cell B77; source reports millions of dollars.",
+      "period": "31 December 2023",
+      "series_id": "bea_position:CHN",
+      "source_id": "bea_2025",
+      "status": "observed",
+      "value": 116454000000,
+      "year": 2023
+    },
+    {
+      "comparability": "bea_historical_cost_immediate_host",
+      "notes": "Worksheet 2023, cell B78; source reports millions of dollars.",
+      "period": "31 December 2023",
+      "series_id": "bea_position:HKG",
+      "source_id": "bea_2025",
+      "status": "observed",
+      "value": 91372000000,
+      "year": 2023
+    },
+    {
+      "comparability": "bea_historical_cost_immediate_host",
+      "notes": "Worksheet 2024, cell B77; source reports millions of dollars.",
+      "period": "31 December 2024",
+      "series_id": "bea_position:CHN",
+      "source_id": "bea_2025",
+      "status": "observed",
+      "value": 112018000000,
+      "year": 2024
+    },
+    {
+      "comparability": "bea_historical_cost_immediate_host",
+      "notes": "Worksheet 2024, cell B78; source reports millions of dollars.",
+      "period": "31 December 2024",
+      "series_id": "bea_position:HKG",
+      "source_id": "bea_2025",
+      "status": "observed",
+      "value": 99795000000,
+      "year": 2024
+    },
+    {
+      "comparability": "bea_historical_cost_immediate_host",
+      "notes": "Worksheet 2025, cell B77; source reports millions of dollars.",
+      "period": "31 December 2025",
+      "series_id": "bea_position:CHN",
+      "source_id": "bea_2025",
+      "status": "observed",
+      "value": 120547000000,
+      "year": 2025
+    },
+    {
+      "comparability": "bea_historical_cost_immediate_host",
+      "notes": "Worksheet 2025, cell B78; source reports millions of dollars.",
+      "period": "31 December 2025",
+      "series_id": "bea_position:HKG",
+      "source_id": "bea_2025",
+      "status": "observed",
+      "value": 103737000000,
+      "year": 2025
+    },
+    {
+      "comparability": "amcham_2026:amcham:profitable",
+      "notes": "Exact fieldwork dates and item-level bases are not stated in the public release.",
+      "period": "2025 performance, reported in the 2026 survey",
+      "series_id": "amcham:profitable",
+      "source_id": "amcham_2026",
+      "status": "rounded",
+      "value": 78,
+      "year": 2025
+    },
+    {
+      "comparability": "amcham_2026:amcham:optimistic",
+      "notes": "Exact fieldwork dates and item-level bases are not stated in the public release.",
+      "period": "Outlook reported in the 2026 survey",
+      "series_id": "amcham:optimistic",
+      "source_id": "amcham_2026",
+      "status": "rounded",
+      "value": 58,
+      "year": 2026
+    },
+    {
+      "comparability": "amcham_2026:amcham:redirecting",
+      "notes": "Exact fieldwork dates and item-level bases are not stated in the public release.",
+      "period": "Investment plans reported in the 2026 survey",
+      "series_id": "amcham:redirecting",
+      "source_id": "amcham_2026",
+      "status": "rounded",
+      "value": 39,
+      "year": 2026
+    },
+    {
+      "comparability": "amcham_2026:amcham:increased",
+      "notes": "Exact fieldwork dates and item-level bases are not stated in the public release.",
+      "period": "2025 investment, reported in the 2026 survey",
+      "series_id": "amcham:increased",
+      "source_id": "amcham_2026",
+      "status": "rounded",
+      "value": 28,
+      "year": 2025
+    },
+    {
+      "comparability": "ahk_2026:ahk:significant",
+      "notes": "Interim cutoff only. Survey scheduled through 7 October; full release scheduled 7 December 2026.",
+      "period": "Conditional expectations; interim responses 1-29 September 2026",
+      "series_id": "ahk:significant",
+      "source_id": "ahk_2026",
+      "status": "rounded",
+      "value": 33,
+      "year": 2026
+    },
+    {
+      "comparability": "ahk_2026:ahk:moderate",
+      "notes": "Interim cutoff only. Survey scheduled through 7 October; full release scheduled 7 December 2026.",
+      "period": "Conditional expectations; interim responses 1-29 September 2026",
+      "series_id": "ahk:moderate",
+      "source_id": "ahk_2026",
+      "status": "rounded",
+      "value": 47,
+      "year": 2026
+    },
+    {
+      "comparability": "ahk_2026:ahk:none",
+      "notes": "Interim cutoff only. Survey scheduled through 7 October; full release scheduled 7 December 2026.",
+      "period": "Conditional expectations; interim responses 1-29 September 2026",
+      "series_id": "ahk:none",
+      "source_id": "ahk_2026",
+      "status": "rounded",
+      "value": 14,
+      "year": 2026
+    }
+  ],
+  "series": {
+    "ahk:moderate": {
+      "cadence": "snapshot",
+      "label": "Moderate impact if EU-China trade escalates",
+      "measure": "survey_share",
+      "period_basis": "reported reference period",
+      "scope": "German Chamber member respondents; not an EU-wide sample",
+      "source_id": "ahk_2026",
+      "unit": "percent"
+    },
+    "ahk:none": {
+      "cadence": "snapshot",
+      "label": "No impact if EU-China trade escalates",
+      "measure": "survey_share",
+      "period_basis": "reported reference period",
+      "scope": "German Chamber member respondents; not an EU-wide sample",
+      "source_id": "ahk_2026",
+      "unit": "percent"
+    },
+    "ahk:significant": {
+      "cadence": "snapshot",
+      "label": "Significant impact if EU-China trade escalates",
+      "measure": "survey_share",
+      "period_basis": "reported reference period",
+      "scope": "German Chamber member respondents; not an EU-wide sample",
+      "source_id": "ahk_2026",
+      "unit": "percent"
+    },
+    "amcham:increased": {
+      "cadence": "snapshot",
+      "label": "Increased investment in China (2025)",
+      "measure": "survey_share",
+      "period_basis": "reported reference period",
+      "scope": "AmCham Shanghai member respondents; not a census of U.S. businesses",
+      "source_id": "amcham_2026",
+      "unit": "percent"
+    },
+    "amcham:optimistic": {
+      "cadence": "snapshot",
+      "label": "Optimistic about the five-year outlook",
+      "measure": "survey_share",
+      "period_basis": "reported reference period",
+      "scope": "AmCham Shanghai member respondents; not a census of U.S. businesses",
+      "source_id": "amcham_2026",
+      "unit": "percent"
+    },
+    "amcham:profitable": {
+      "cadence": "snapshot",
+      "label": "Profitable China operations (2025)",
+      "measure": "survey_share",
+      "period_basis": "reported reference period",
+      "scope": "AmCham Shanghai member respondents; not a census of U.S. businesses",
+      "source_id": "amcham_2026",
+      "unit": "percent"
+    },
+    "amcham:redirecting": {
+      "cadence": "snapshot",
+      "label": "Redirecting planned China investment elsewhere",
+      "measure": "survey_share",
+      "period_basis": "reported reference period",
+      "scope": "AmCham Shanghai member respondents; not a census of U.S. businesses",
+      "source_id": "amcham_2026",
+      "unit": "percent"
+    },
+    "bea_position:CHN": {
+      "cadence": "annual",
+      "label": "Mainland China",
+      "measure": "direct_investment_position",
+      "period_basis": "year-end",
+      "scope": "U.S. direct investment abroad; immediate host Mainland China",
+      "source_id": "bea_2025",
+      "unit": "USD"
+    },
+    "bea_position:HKG": {
+      "cadence": "annual",
+      "label": "Hong Kong",
+      "measure": "direct_investment_position",
+      "period_basis": "year-end",
+      "scope": "U.S. direct investment abroad; immediate host Hong Kong",
+      "source_id": "bea_2025",
+      "unit": "USD"
+    }
+  },
+  "sources": {
+    "ahk_2026": {
+      "assets": [
+        {
+          "request_url": "https://china.ahk.de/en/media-centre",
+          "retrieved_at": "2026-10-24T22:02:38+00:00",
+          "sha256": "f37be7410fe5ea38e02608a1a966e6a92af0cac7e6c7d8a0515ee1ffa49e3469",
+          "url": "https://china.ahk.de/en/media-centre"
+        }
+      ],
+      "locator": "Pre-Result, 6 October 2026: result and methodology.",
+      "name": "German Chamber of Commerce in China, 2026/27 preliminary finding",
+      "notes": "Interim responses through 29 September, not the completed survey. German findings translated into English. Full release announced for 7 December 2026, still future at review.",
+      "release_date": "2026-10-06"
+    },
+    "amcham_2026": {
+      "assets": [
+        {
+          "request_url": "https://www.amcham-shanghai.org/en/article/amcham-shanghai-releases-2026-report-business-climate-china",
+          "retrieved_at": "2026-10-24T22:04:01+00:00",
+          "sha256": "2eb564a034b0a17fb5b7aa04ae873181cd84f49b01056a4fdcd30ac46079290a",
+          "url": "https://www.amcham-shanghai.org/en/article/amcham-shanghai-releases-2026-report-business-climate-china"
+        }
+      ],
+      "locator": "Public findings and methodology paragraph.",
+      "name": "AmCham Shanghai / PwC China, 2026 China Business Report public release",
+      "notes": "Page metadata says 9 September; the press-release dateline is 10 September. Captured through the normal unauthenticated JavaScript-rendered public website. No member-only report retrieved.",
+      "release_date": "2026-09-10"
+    },
+    "bea_2025": {
+      "assets": [
+        {
+          "request_url": "https://www.bea.gov/news/2026/direct-investment-country-and-industry-2025",
+          "retrieved_at": "2026-10-24T21:59:28+00:00",
+          "sha256": "95a5977f4b4c64943ab1214bb08bfa9f1b62d6f213cd7a55ee050127fa5be3ba",
+          "url": "https://www.bea.gov/news/2026/direct-investment-country-and-industry-2025"
+        },
+        {
+          "request_url": "https://apps.bea.gov/international/xls/usdia-current/usdia-positionbyaccountforselectedcountries-2020-2025.xlsx",
+          "retrieved_at": "2026-10-24T21:59:31+00:00",
+          "sha256": "aae50c66cb82d253ad633e8cc29012fe7eba37c02573f19698a5fbb61410d5cc",
+          "url": "https://apps.bea.gov/international/xls/usdia-current/usdia-positionbyaccountforselectedcountries-2020-2025.xlsx"
+        }
+      ],
+      "locator": "Annual worksheets 2020-2025; China and Hong Kong rows, Total column B.",
+      "name": "U.S. Bureau of Economic Analysis, Direct Investment by Country and Industry, 2025",
+      "notes": "One downloaded vintage throughout, including revisions. Source millions converted to nominal USD. Not BEA affiliate-count statistics; no 2026 investment observation inferred.",
+      "release_date": "2026-07-21"
+    }
+  },
+  "surveys": {
+    "ahk_2026": {
+      "field_end": "2026-09-29",
+      "field_start": "2026-09-01",
+      "fieldwork_note": "Interim cutoff only. Survey scheduled through 7 October; full release scheduled 7 December 2026.",
+      "item_n": 381,
+      "overall_n": 488,
+      "preliminary": true
+    },
+    "amcham_2026": {
+      "field_end": null,
+      "field_start": null,
+      "fieldwork_note": "Exact fieldwork dates and item-level bases are not stated in the public release.",
+      "item_n": null,
+      "overall_n": 262,
+      "preliminary": false
+    }
+  },
+  "version": 1
+}
