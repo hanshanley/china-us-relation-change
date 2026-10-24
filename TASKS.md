@@ -3,8 +3,6 @@
 Updated: October 24, 2026. This is the durable checklist for the user's requests.
 Read this before starting or resuming work, and update it as each item is resolved.
 Repeated requests are consolidated below, not silently discarded.
-This is the master request ledger. `PUBLICATION-TODO.md` is the narrower
-current-release checklist; keep its statuses consistent with this file.
 
 **An unchecked item is not finished.** Work in an isolated candidate, a passing
 unit test, or a successful deployment alone does not establish completion.
