@@ -127,8 +127,16 @@ corrections,5,805 available source bodies and765 truncated previews remain
 intact. Complete private JSONL SHA-256:
 `b7ea9bdd39e4d1102f42a7dc2803a80b565208a7ec716aa7051af0f25fbcedea`.
 The original6,521-post October21 baseline remains separately archived.
-Monthly/daily/rolling values, complete downloads and published blocked
-refresh health remain unchanged.
+Monthly/daily/rolling values and complete downloads remain unchanged.
+The discovery commit preserved the then-published third-failure health.
+Immediately afterward, the fourth natural 09:35 Mac-local invocation was
+observed failing before Python initialized, with zero collector/feed execution.
+A separate health-only follow-up records actual stderr modification
+`2026-10-24T13:35:04.868037+00:00` and SHA-256
+`195d975274e22bc2bb4ade54b59c5c8458ef6a55729ab22d83e20cbd089fec3b`.
+That timestamp is not a feed-request start. Last successful manual collection,
+cutoff and every activity value remain intact; no restart, permission change
+or alternate launcher was attempted.
 
 Calendar completeness is not retrieval completeness. This pass does not
 repair historical recovery bias, reweight posts or establish unattended

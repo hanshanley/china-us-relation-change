@@ -60,16 +60,19 @@ Discovery is not exhausted: 659 selected domains still lack a recorded
 manual review. A bounded recurring prompt is active every 30 minutes; later
 passes must advance the frontier rather than repeatedly probing exhausted leads.
 
-**Unattended collection is currently blocked:** three natural OS-scheduled
-invocations, at 15:35 and 21:35 Mac local time on October23 and 03:35 on
-October24, failed before Python initialized because the
+**Unattended collection is currently blocked:** four natural OS-scheduled
+invocations, at 15:35 and 21:35 Mac local time on October23 and 03:35 and
+09:35 on October24, failed before Python initialized because the
 Documents-hosted virtual environment was not accessible to that process.
 No new scheduled collection occurred. The earlier bounded manual success and
 successful GitHub aggregate rebuild do not establish unattended collection.
 The [operations note](../docs/EXCHANGE.md#automatic-private-weibo-refresh)
 records the actual failure and user-approved-access requirement. Published
-refresh health now records the third startup block and zero attempted feeds, retaining
+refresh health now records the fourth startup block and zero attempted feeds, retaining
 the last successful collection time, cutoff, corpus and all rolling data.
+The fourth failure was observed just after discovery publication; actual
+stderr modification time is `2026-10-24T13:35:04.868037+00:00`, not a feed-request
+start. No restart, permission change or alternate launcher was attempted.
 
 **Historical activity comparisons remain recovery-biased:** in the current
 6,570-post snapshot, 4,464 records (67.9%) are dated 2026 and 3,359 (51.1%)

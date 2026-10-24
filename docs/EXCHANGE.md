@@ -283,9 +283,11 @@ failed at approximately 19:35 UTC on October 23, 2026. The second natural
 invocation, at 21:35 Mac local time on October 23 (01:35 UTC on October 24),
 failed in the same way before Python could initialize its `site` module.
 The third natural invocation, at 03:35 Mac local time on October 24
-(07:35 UTC), failed at the same startup stage. Actual stderr now records
-three `PermissionError: [Errno 1]` startup failures reading
-the repository's `.venv/pyvenv.cfg` under Documents; `launchctl` records three
+(07:35 UTC), failed at the same startup stage. The fourth natural invocation,
+at 09:35 Mac local time on October 24 (13:35 UTC), failed before Python
+initialized as well. Actual stderr now records four
+`PermissionError: [Errno 1]` startup failures reading
+the repository's `.venv/pyvenv.cfg` under Documents; `launchctl` records four
 runs and last exit code 1. No collector code or network collection started.
 This is consistent with macOS Documents-folder access protection, not a Sina
 denial. Schedule registration, successful local tests and the earlier bounded
@@ -301,8 +303,9 @@ by a successful real scheduled-process run before this is marked operational.
 Private evidence is in `data/local/automation/scheduler-health.json` and
 `refresh.stderr.log`. Published refresh status now records this startup block
 with zero attempted feeds while retaining the last successful bounded manual
-collection time and cutoff. Its attempt timestamp comes from the actual stderr
-modification time, not an observed feed-request start. Zero new records for
+collection time and cutoff. The fourth failure's attempt timestamp comes from
+the actual stderr modification time, `2026-10-24T13:35:04.868037+00:00`,
+not an observed feed-request start. Zero new records for
 this failed invocation is not an inactivity finding or a fresh collection.
 
 The first command is a private, non-promoting preview. The installed per-user
