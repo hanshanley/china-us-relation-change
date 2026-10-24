@@ -93,3 +93,75 @@
   .weibo-dot { box-shadow: none; }
   .weibo-interactive .weibo-inspector { position: static; }
 }
+
+.weibo-coverage, .weibo-recovery { color: #171713; font: 15px/1.55 var(--sans, Arial, sans-serif); }
+.coverage-kicker { margin: 0 0 14px; font: 11px var(--mono, monospace); letter-spacing: .075em; text-transform: uppercase; color: #655f55; }
+.coverage-headline { display: flex; align-items: baseline; flex-wrap: wrap; gap: 6px 22px; margin: 4px 0 10px !important; font: 500 30px/1.15 var(--serif, Georgia, serif) !important; letter-spacing: -.035em; }
+#coverage-percent { font-size: 74px; letter-spacing: -.065em; font-variant-numeric: tabular-nums; }
+#coverage-tally { margin: 4px 0 22px; font-size: 15px; color: #655f55; }
+.coverage-modes { display: flex; gap: 26px; margin: 0 0 20px; border-bottom: 1px solid #c9c2b5; }
+.coverage-modes button { padding: 10px 0; border: 0; border-bottom: 2px solid transparent; background: none; color: #655f55; font: 13px var(--sans, Arial, sans-serif); cursor: pointer; }
+.coverage-modes button[aria-pressed="true"] { border-bottom-color: #171713; color: #171713; }
+.coverage-field { display: grid; grid-template-columns: minmax(0, 1fr) 270px; gap: 30px; align-items: start; }
+.coverage-field figure { margin: 0; min-width: 0; }
+#coverage-waffle { display: block; width: 100%; height: auto; }
+.coverage-cell { stroke-width: .8px; transition: fill 160ms, opacity 160ms; }
+.coverage-cell.current_evidence { fill: #3d6f8c; stroke: #3d6f8c; }
+.coverage-cell.historical { fill: #a47738; stroke: #a47738; }
+.coverage-cell.unknown, .coverage-cell.unreviewed { fill: transparent; stroke: #c6beaf; }
+.coverage-cell.candidate { fill: #a58c99; stroke: #a58c99; }
+.coverage-cell.verified_negative { fill: #8d8578; stroke: #8d8578; }
+.coverage-cell.reviewed { fill: #708b94; stroke: #708b94; }
+.coverage-cell.coverage-dimmed { opacity: .2; }
+.coverage-field figcaption { margin: 12px 0 0; color: #655f55; font-size: 11px; }
+.coverage-key { display: grid; gap: 0; }
+.coverage-category { display: grid; grid-template-columns: 11px minmax(0, 1fr) auto; gap: 12px; align-items: baseline; padding: 15px 0; border: 0; border-bottom: 1px solid #c9c2b5; background: none; color: #171713; text-align: left; font: 14px/1.4 var(--sans, Arial, sans-serif); cursor: pointer; }
+.coverage-category:first-child { padding-top: 2px; }
+.coverage-category strong { font: 500 25px/1.1 var(--serif, Georgia, serif); font-variant-numeric: tabular-nums; letter-spacing: -.025em; }
+.coverage-category small { display: block; margin-top: 5px; color: #655f55; font-size: 11px; }
+.coverage-category[aria-pressed="true"] .coverage-category-name { text-decoration: underline; text-underline-offset: 4px; }
+.coverage-swatch { display: inline-block; width: 10px; height: 10px; box-sizing: border-box; border: 1px solid #c6beaf; border-radius: 1px; }
+.coverage-swatch.current_evidence { background: #3d6f8c; border-color: #3d6f8c; }
+.coverage-swatch.historical { background: #a47738; border-color: #a47738; }
+.coverage-swatch.reviewed { background: #708b94; border-color: #708b94; }
+.coverage-swatch.candidate { background: #a58c99; border-color: #a58c99; }
+.coverage-swatch.verified_negative { background: #8d8578; border-color: #8d8578; }
+.coverage-explanation { min-height: 44px; margin: 20px 0 12px; max-width: 850px; font: 19px/1.4 var(--serif, Georgia, serif); }
+.coverage-source { max-width: 900px; margin: 10px 0 0; color: #655f55; font-size: 11px; }
+.weibo-recovery > h2 { margin: 0 0 12px; font: 500 28px/1.2 var(--serif, Georgia, serif); letter-spacing: -.025em; }
+.recovery-intro { max-width: 850px; color: #655f55; font-size: 13px; }
+.recovery-row { padding: 22px 0; border-bottom: 1px solid #c9c2b5; }
+.recovery-row-heading { display: flex; justify-content: space-between; flex-wrap: wrap; align-items: baseline; gap: 8px 20px; margin-bottom: 14px; }
+.recovery-row-heading h3 { margin: 0; font: 500 20px/1.25 var(--serif, Georgia, serif); letter-spacing: -.015em; }
+.recovery-row-heading p { margin: 0; color: #655f55; font-size: 12px; }
+.recovery-row-heading strong { margin-right: 5px; color: #171713; font: 500 27px var(--serif, Georgia, serif); font-variant-numeric: tabular-nums; }
+.recovery-bar { display: flex; height: 24px; width: 100%; border: 1px solid #c9c2b5; box-sizing: border-box; }
+.recovery-segment { display: block; height: 100%; }
+.recovery-segment.represented, .recovery-segment.source-body { background: #708b94; }
+.recovery-segment.explicit-full { background: #3d6f8c; }
+.recovery-segment.truncated { background: #a47738; }
+.recovery-segment.unrepresented, .recovery-segment.unknown-text { background: repeating-linear-gradient(135deg, transparent 0 5px, #d7d0c3 5px 6px); }
+.recovery-count { margin: 10px 0 5px; font-size: 13px; }
+.recovery-count span { color: #655f55; }
+.recovery-segment-labels { margin: 8px 0 0; color: #655f55; font-size: 11px; }
+.coverage-unmeasured { display: flex; align-items: start; gap: 22px; margin: 28px 0 10px; padding: 22px 0; }
+.coverage-unmeasured > span { font: 44px/1 var(--serif, Georgia, serif); color: #8d8578; }
+.coverage-unmeasured h3 { margin: 0 0 8px; font: 500 22px/1.25 var(--serif, Georgia, serif); letter-spacing: -.02em; }
+.coverage-unmeasured p { max-width: 850px; margin: 0; color: #655f55; font-size: 13px; }
+.weibo-directory > summary, .publication-page .weibo-directory > summary { font: 500 21px/1.4 var(--serif, Georgia, serif); cursor: pointer; }
+.weibo-directory > summary span { display: inline-block; margin-left: 12px; color: #655f55; font: 12px var(--sans, Arial, sans-serif); }
+.weibo-directory > .weibo-explorer { margin-top: 24px; }
+.coverage-modes button:focus-visible, .coverage-category:focus-visible, #coverage-waffle:focus-visible { outline: 2px solid #3d6f8c; outline-offset: 4px; }
+@media (max-width: 760px) {
+  #coverage-percent { font-size: 60px; }
+  .coverage-headline { gap: 3px 16px; font-size: 25px !important; }
+  #coverage-tally { font-size: 13px; }
+  .coverage-field { grid-template-columns: 1fr; gap: 20px; }
+  .coverage-key { grid-template-columns: 1fr; }
+  .coverage-category { min-height: 66px; padding: 13px 0; }
+  .coverage-category:first-child { padding-top: 13px; }
+  .coverage-explanation { min-height: 0; font-size: 18px; margin-top: 16px; }
+  .coverage-unmeasured { gap: 14px; }
+  .weibo-directory > summary span { display: block; margin: 7px 0 0 18px; }
+}
+@media (prefers-reduced-motion: reduce) { .coverage-cell { transition: none; } }

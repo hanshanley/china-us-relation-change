@@ -272,15 +272,26 @@ are withdrawn. The offline catalog includes both views. Macau goods retain their
 different customs accounting and a dashed line, with an explicit caveat against
 treating them as identical to the other geographies' BEA accounting.
 
-### Weibo account evidence explorer
+### Weibo coverage and uncertainty
 
-`site/weibo.html` presents an interactive, non-temporal account map: one tile
-per publisher/brand group and one equal-sized dot per documented channel,
-ordered alphabetically. Search English/Chinese names, handles or UIDs; filter
-by media type, evidence period or UID checks needing follow-up. Selecting a
-channel exposes its operator, publication relationship, U.S.-inclusion basis
-and complete serialized identity evidence. The same account details remain
-readable without JavaScript.
+`site/weibo.html` leads with a unit map of the selected 1,000-domain cohort:
+one square per domain, with the unresolved majority left unfilled. The
+Account evidence / Review progress switch changes the research outcome shown,
+not the denominator. Every legend reports a count, denominator and percentage.
+Unknown identities are not verified account absences; manual review is not
+the same as a successful identity decision.
+
+Separate recovery-gap bars explicitly use different populations: documented
+channels with/without recovered in-window posts, and text completeness among
+recovered records. Neither is a percentage of all historical posts. That
+percentage cannot be estimated because the total published-post denominator
+is unknown. Office/profile availability and zero recovery are not inactivity.
+
+The broader account registry is a secondary, collapsible inspection view,
+not the lead graphic. Its equal-sized channel dots remain grouped by
+publisher/brand, with English/Chinese name and UID search, media/evidence
+filters, operator relationships and original identity sources. Full details
+and the coverage graphic remain readable without JavaScript.
 
 Current profile evidence is distinct from historical-only evidence and is
 not labelled active/inactive. Recovered-post counts and publication dates do

@@ -19,6 +19,28 @@ def check_weibo_explorer(page, summary):
     ids = {a["account_id"] for a in accounts}
     visible_ids = lambda: set(page.locator(".weibo-dot:visible").evaluate_all(
         "nodes=>nodes.map(n=>n.dataset.accountId)"))
+    cohort = summary.get("cohort")
+    if cohort:
+        total = cohort["selected_domains"]
+        missing = cohort["unknown_domains"] + cohort["candidate_domains"]
+        expect(page.locator("#coverage-percent")).to_have_text(f"{missing / total * 100:.1f}%")
+        assert page.locator(".coverage-cell").count() == total
+        assert page.locator('.coverage-cell.unknown').count() == cohort["unknown_domains"]
+        page.locator('[data-coverage-mode="review"]').click()
+        expect(page.locator("#coverage-percent")).to_have_text(
+            f'{(total - cohort["manually_reviewed_domains"]) / total * 100:.1f}%')
+        assert page.locator(".coverage-cell.reviewed").count() == cohort["manually_reviewed_domains"]
+        page.locator("#coverage-waffle").focus()
+        page.locator("#coverage-waffle").press("End")
+        expect(page.locator('.coverage-category[data-state="unreviewed"]')).to_have_attribute("aria-pressed", "true")
+        page.locator("#coverage-waffle").press("Escape")
+        assert page.locator(".coverage-dimmed").count() == 0
+        page.locator('[data-coverage-mode="evidence"]').click()
+    represented = sum(a["recovered_posts"] > 0 for a in accounts)
+    bars = page.locator(".weibo-recovery .recovery-bar")
+    assert bars.nth(0).locator(".represented").get_attribute("data-count") == str(represented)
+    assert bars.nth(0).locator(".unrepresented").get_attribute("data-count") == str(len(accounts) - represented)
+    page.locator("#weibo-directory").evaluate("node=>node.open=true")
     expect(page.locator("#weibo-filters")).to_be_visible()
     assert visible_ids() == ids
     assert page.locator(".weibo-brand:visible").count() == len({a["outlet_id"] for a in accounts})
@@ -51,6 +73,7 @@ def check_weibo_explorer(page, summary):
     page.locator("#weibo-filters button[type=reset]").click()
     assert visible_ids() == ids
     assert not page.evaluate("document.documentElement.scrollWidth>innerWidth")
+    page.locator("#weibo-directory").evaluate("node=>node.open=false")
 
 
 def check(site, url=None, screenshots=None):

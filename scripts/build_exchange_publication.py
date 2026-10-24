@@ -28,7 +28,7 @@ PAGES = {
                    "2025 annual data · 2026 partial-year updates"),
     "travel.html": ("Travel & tourism", "Visitor trips between the U.S., mainland China, Hong Kong and Macau.",
                     "Arrivals are trips, not unique people or necessarily leisure tourists"),
-    "immigration.html": ("Immigration", "Resident stocks and residence approvals, kept separate from visitor trips.",
+    "immigration.html": ("Immigration", "Where China-born residents live, and how migration ties have changed.",
                          "Resident stocks through 2024 · U.S. grants and Macau approvals through 2025"),
     "comparisons.html": ("China, Hong Kong & Macau", "The same measure, three separately reported geographies.",
                          "Fixed regional colours · No combined regional total"),
@@ -36,8 +36,8 @@ PAGES = {
                               "AP exams through 2025 · Degree awards through 2024 · College census through 2021"),
     "business-presence.html": ("Businesses in China", "U.S. and European business presence, with different counting rules kept separate.",
                              "Annual affiliate histories · Latest available year varies by origin"),
-    "weibo.html": ("U.S. media on Weibo", "Explore documented outlets, channels and the evidence connecting them.",
-                   "An account inventory—not a posting-history comparison"),
+    "weibo.html": ("U.S. media on Weibo", "What is documented—and how much of the picture is still missing.",
+                   "Coverage and uncertainty, not a posting-history comparison"),
 }
 TABS = [("index.html", "Students & trade"), ("travel.html", "Travel & tourism"), ("immigration.html", "Immigration"),
         ("comparisons.html", "Regional comparison"),
@@ -156,6 +156,12 @@ def decorate(site, name, labels, revision):
         rows = json.loads((site / "downloads/language-learning.json").read_text())["observations"]
         latest = lambda prefix: max(r["year"] for r in rows if r["series_id"].startswith(prefix) and r["value"] is not None)
         scope = f"AP exams through {latest('ap:')} · Degree awards through {latest('ipeds:')} · College census through {latest('mla:')}"
+    elif name == "immigration.html" and (site / "downloads/state-immigration.json").is_file():
+        state_data = json.loads((site / "downloads/state-immigration.json").read_text())
+        immigration = json.loads((site / "downloads/immigration.json").read_text())
+        approval_year = max(r["year"] for r in immigration["observations"] if not r["series_id"].startswith("un_stock:"))
+        scope = (f"State estimates: {state_data['start_year']}–{state_data['end_year']} ACS"
+                 f" · Residence approvals through {approval_year}")
     soup.title.string = title + " | The Margin of Error"
     for old in soup.select('link[rel=canonical],meta[name=description]'):
         old.decompose()
@@ -335,7 +341,8 @@ def decorate(site, name, labels, revision):
             label = soup.new_tag("label", attrs={"for": "module-chart"})
             label.string = "Indicator"
             select = soup.new_tag("select", attrs={"id": "module-chart"})
-            preferred = {"language-learning.html": "college-enrollments", "comparisons.html": "goods-to_us"}.get(name)
+            preferred = {"language-learning.html": "college-enrollments", "comparisons.html": "goods-to_us",
+                         "immigration.html": "state-china-map"}.get(name)
             for i, section in enumerate(charts):
                 section["data-module-chart"] = section.get("id", f"indicator-{i}")
                 option = soup.new_tag("option", attrs={"value": section["data-module-chart"]})
@@ -486,7 +493,8 @@ def build_publication(source, output, revision):
                     "scope": "Collective exchanges, immigration, language, business and public Weibo research aggregates; no raw posts or source reports",
                     "observations": result["observations"], "files": files,
                     "datasets": {name: files[f"downloads/{name}.json"] for name in
-                                 ["exchange", "language-learning", "business-presence", "weibo-summary", "immigration", "student-estimates"]
+                                 ["exchange", "language-learning", "business-presence", "weibo-summary", "immigration",
+                                  "student-estimates", "state-immigration"]
                                  if f"downloads/{name}.json" in files}}
         (site / "publication-manifest.json").write_text(json_text(manifest), encoding="utf-8")
         output.mkdir(parents=True, exist_ok=True)

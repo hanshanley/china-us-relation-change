@@ -11,7 +11,7 @@ from us_china_exchange.render import build, build_weibo
 from us_china_exchange.model import digest, json_text
 from us_china_exchange.weibo_analysis import create_summary, svg_weibo, validate_summary
 from us_china_exchange.weibo_activity import rolling_activity
-from us_china_exchange.weibo_explorer import explorer_page
+from us_china_exchange.weibo_explorer import coverage_model, explorer_page
 from weibo_media.registry import load
 from weibo_media.storage import connect
 
@@ -503,3 +503,42 @@ def test_account_explorer_preserves_scope_and_escapes_serialized_evidence(tmp_pa
     assert account["operator"] in detail.text and account["us_basis"] in detail.text
     assert detail.select_one(".weibo-sources a")["href"] == account["evidence"][0]["source_url"]
     assert account["evidence"][0]["justification"] in detail.text
+
+
+def test_coverage_visual_uses_cohort_denominators_and_does_not_call_unknowns_absent(tmp_path):
+    from bs4 import BeautifulSoup
+
+    database, registry = snapshot_inputs(tmp_path, unresolved_uid_channels=2)
+    summary = create_summary(database, registry)
+    summary["cohort"] = dict(selected_domains=1000, current_identity_domains=5,
+                             historical_only_domains=7, unknown_domains=988, candidate_domains=0,
+                             manually_reviewed_domains=367, verified_negative_domains=0,
+                             ranking_source="https://example.org/ranking", ranking_basis="digital reputation, not website traffic")
+    model = coverage_model(summary)
+    assert model["modes"]["evidence"]["percent"] == 98.8
+    assert model["modes"]["review"]["percent"] == 63.3
+    assert sum(g["count"] for g in model["modes"]["evidence"]["groups"]) == 1000
+    page = BeautifulSoup(explorer_page(summary), "html.parser")
+    assert len(page.select("#coverage-waffle rect")) == 1000
+    assert len(page.select(".coverage-cell.current_evidence")) == 5
+    assert len(page.select(".coverage-cell.historical")) == 7
+    assert len(page.select(".coverage-cell.unknown")) == 988
+    assert page.select_one("#coverage-percent").text == "98.8%"
+    assert not page.select_one("#weibo-directory").has_attr("open")
+    assert "cannot be estimated" in page.select_one(".coverage-unmeasured").text
+    assert "not verified absences" in page.get_text()
+    bars = page.select(".recovery-bar")
+    assert bars[0].select_one(".represented")["data-count"] == "2"
+    assert bars[0].select_one(".unrepresented")["data-count"] == "2"
+    assert "50.0%" in bars[0]["aria-label"]
+    assert bars[1].select_one(".truncated")["data-count"] == "1"
+    assert "33.3%" in bars[1]["aria-label"]
+    summary["cohort"].update(unknown_domains=985, candidate_domains=2, verified_negative_domains=1)
+    assert coverage_model(summary)["modes"]["evidence"]["percent"] == 98.7
+    decisions = BeautifulSoup(explorer_page(summary), "html.parser")
+    assert len(decisions.select("#coverage-waffle rect")) == 1000
+    assert len(decisions.select(".coverage-cell.verified_negative")) == 1
+    assert len(decisions.select(".coverage-cell.candidate")) == 2
+    del summary["cohort"]
+    assert coverage_model(summary) is None
+    assert not BeautifulSoup(explorer_page(summary), "html.parser").select("#coverage-waffle")

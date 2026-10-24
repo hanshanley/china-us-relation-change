@@ -3,7 +3,111 @@
   const root = document.querySelector("#weibo-explorer");
   const data = document.querySelector("#weibo-explorer-data");
   if (!root || !data) return;
-  const accounts = JSON.parse(data.textContent).accounts;
+  const payload = JSON.parse(data.textContent);
+  const accounts = payload.accounts;
+  const coverage = document.querySelector("#weibo-coverage");
+  if (coverage && payload.coverage) {
+    const total = payload.coverage.total;
+    const waffle = coverage.querySelector("#coverage-waffle");
+    const cells = [...waffle.querySelectorAll(".coverage-cell")];
+    const key = coverage.querySelector("#coverage-key");
+    const explanation = coverage.querySelector("#coverage-explanation");
+    let modeId = "evidence", mode = payload.coverage.modes.evidence, pinned = "", inspected = "";
+    const emphasize = state => {
+      if (state === inspected) return;
+      inspected = state;
+      const group = mode.groups.find(item => item.id === state);
+      for (const cell of cells) cell.classList.toggle("coverage-dimmed", !!state && cell.dataset.state !== state);
+      for (const button of key.querySelectorAll("button")) {
+        button.setAttribute("aria-pressed", String(button.dataset.state === state));
+      }
+      explanation.textContent = group ? group.note : mode.explanation;
+    };
+    const renderCoverage = (selectedMode, writeUrl = false) => {
+      modeId = selectedMode;
+      mode = payload.coverage.modes[modeId];
+      pinned = inspected = "";
+      let index = 0;
+      for (const group of mode.groups) {
+        for (let i = 0; i < group.count; i++) {
+          const cell = cells[index++];
+          cell.dataset.state = group.id;
+          cell.setAttribute("class", `coverage-cell ${group.id}`);
+        }
+      }
+      coverage.querySelector("#coverage-percent").textContent = `${mode.percent.toFixed(1)}%`;
+      coverage.querySelector("#coverage-headline").textContent = mode.headline;
+      coverage.querySelector("#coverage-tally").textContent =
+        `${mode.count.toLocaleString("en-US")} of ${total.toLocaleString("en-US")} selected outlets ` +
+        (modeId === "evidence" ? "have no confirmed account decision." : "have not had a manual review.");
+      waffle.setAttribute("aria-label", `${total} selected domains: ${mode.count} ${mode.headline}`);
+      waffle.querySelector("title").textContent = modeId === "evidence" ?
+        "Known accounts occupy a small part of the research coverage map" : "Manual review coverage";
+      waffle.querySelector("desc").textContent = modeId === "evidence" ?
+        "Each square is one selected domain, grouped by research outcome. Unfilled squares are unknown, not verified absences." :
+        "Each square is one selected domain. Filled squares have been manually reviewed; unfilled squares have not. Review does not guarantee an account decision.";
+      for (const button of coverage.querySelectorAll("[data-coverage-mode]")) {
+        button.setAttribute("aria-pressed", String(button.dataset.coverageMode === modeId));
+      }
+      key.replaceChildren();
+      for (const group of mode.groups) {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "coverage-category";
+        button.dataset.state = group.id;
+        button.setAttribute("aria-pressed", "false");
+        const swatch = document.createElement("span");
+        swatch.className = `coverage-swatch ${group.id}`;
+        swatch.setAttribute("aria-hidden", "true");
+        const name = document.createElement("span");
+        name.className = "coverage-category-name";
+        name.textContent = group.label;
+        const count = document.createElement("small");
+        count.textContent = `${group.count.toLocaleString("en-US")} of ${total.toLocaleString("en-US")} domains`;
+        name.append(count);
+        const percent = document.createElement("strong");
+        percent.textContent = `${group.percent.toFixed(1)}%`;
+        button.append(swatch, name, percent);
+        button.addEventListener("pointerenter", () => emphasize(group.id));
+        button.addEventListener("pointerleave", () => emphasize(pinned));
+        button.addEventListener("focus", () => emphasize(group.id));
+        button.addEventListener("click", () => { pinned = pinned === group.id ? "" : group.id; emphasize(pinned); });
+        key.append(button);
+      }
+      explanation.textContent = mode.explanation;
+      if (writeUrl && location.protocol !== "file:") {
+        const url = new URL(location.href);
+        if (modeId === "evidence") url.searchParams.delete("coverage");
+        else url.searchParams.set("coverage", modeId);
+        history.replaceState(null, "", url);
+      }
+    };
+    for (const button of coverage.querySelectorAll("[data-coverage-mode]")) {
+      button.addEventListener("click", () => renderCoverage(button.dataset.coverageMode, true));
+    }
+    waffle.addEventListener("pointermove", event => {
+      const cell = event.target.closest(".coverage-cell");
+      if (cell) emphasize(cell.dataset.state);
+    });
+    waffle.addEventListener("pointerleave", () => emphasize(pinned));
+    waffle.addEventListener("click", event => {
+      const cell = event.target.closest(".coverage-cell");
+      if (cell) { pinned = pinned === cell.dataset.state ? "" : cell.dataset.state; emphasize(pinned); }
+    });
+    waffle.addEventListener("keydown", event => {
+      if (!["ArrowLeft", "ArrowRight", "Home", "End", "Escape"].includes(event.key)) return;
+      event.preventDefault();
+      const index = mode.groups.findIndex(group => group.id === inspected);
+      const next = index < 0 ? (event.key === "ArrowLeft" ? mode.groups.length - 1 : 0) :
+        (index + (event.key === "ArrowLeft" ? -1 : 1) + mode.groups.length) % mode.groups.length;
+      pinned = event.key === "Escape" ? "" : event.key === "Home" ? mode.groups[0].id :
+        event.key === "End" ? mode.groups.at(-1).id :
+        mode.groups[next].id;
+      emphasize(pinned);
+    });
+    const requested = new URL(location.href).searchParams.get("coverage");
+    renderCoverage(Object.hasOwn(payload.coverage.modes, requested) ? requested : "evidence");
+  }
   const form = root.querySelector("#weibo-filters");
   const search = root.querySelector("#weibo-search");
   const category = root.querySelector("#weibo-category");
@@ -68,7 +172,10 @@
     }
   };
   root.classList.add("weibo-interactive");
-  if (byId.has(selected)) root.classList.add("weibo-detail-open");
+  if (byId.has(selected)) {
+    root.classList.add("weibo-detail-open");
+    root.closest("#weibo-directory")?.setAttribute("open", "");
+  }
   form.hidden = false;
   const back = root.querySelector("#weibo-back");
   back.hidden = false;
@@ -102,7 +209,10 @@
   });
   window.addEventListener("hashchange", () => {
     selected = hashId();
-    if (byId.has(selected)) root.classList.add("weibo-detail-open");
+    if (byId.has(selected)) {
+      root.classList.add("weibo-detail-open");
+      root.closest("#weibo-directory")?.setAttribute("open", "");
+    }
     update(false);
   });
   update(false);

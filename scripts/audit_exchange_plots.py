@@ -517,13 +517,28 @@ class Audit:
                     self.issue(f"weibo:account-map:{width}", "recovery_timeline_in_primary_view", None)
                 if page.evaluate("document.documentElement.scrollWidth>innerWidth"):
                     self.issue(f"weibo:account-map:{width}", "page_overflow", width)
-                bounds = page.locator("#weibo-map").bounding_box()
-                self.charts.append({"chart": f"weibo:account-map:{width}", "points": len(actual),
-                                    "bars": 0, "width": bounds["width"], "height": bounds["height"]})
+                coverage = self.weibo.get("cohort")
+                cells = page.locator(".coverage-cell").evaluate_all("nodes=>nodes.map(n=>n.dataset.state)")
+                if coverage:
+                    expected_cells = {
+                        "current_evidence": coverage["current_identity_domains"],
+                        "historical": coverage["historical_only_domains"],
+                        "unknown": coverage["unknown_domains"],
+                        "candidate": coverage["candidate_domains"],
+                        "verified_negative": coverage["verified_negative_domains"],
+                    }
+                    if len(cells) != coverage["selected_domains"] or any(
+                            cells.count(state) != count for state, count in expected_cells.items()):
+                        self.issue(f"weibo:coverage:{width}", "cohort_denominator_or_status_mismatch", cells)
+                panel = page.locator("#weibo-coverage" if coverage else ".weibo-recovery")
+                bounds = panel.bounding_box()
+                self.charts.append({"chart": f"weibo:coverage:{width}", "points": len(cells),
+                                    "bars": page.locator(".recovery-segment").count(),
+                                    "width": bounds["width"], "height": bounds["height"]})
                 if screenshots:
-                    picture = self.output / "screens" / f"weibo-account-map-{width}.png"
-                    page.locator("#weibo-explorer").screenshot(path=str(picture))
-                    self.pictures[filename].append((f"weibo:account-map:{width}", picture))
+                    picture = self.output / "screens" / f"weibo-coverage-{width}.png"
+                    panel.screenshot(path=str(picture))
+                    self.pictures[filename].append((f"weibo:coverage:{width}", picture))
                 continue
             for index, script in enumerate(scripts):
                 model = json.loads(script.string)
