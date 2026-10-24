@@ -35,32 +35,32 @@ The selected **1,000 SCImago U.S.-classified domains** are ranked by digital
 reputation, not traffic; their present ownership/nationality was not independently
 audited. **Five have current-profile evidence, seven historical-only evidence,
 988 remain unknown, and zero are verified negatives.** All underwent homepage
-screening, but only 256 have recorded manual review.
+screening, but only 261 have recorded manual review.
 
-The [latest scheduled pass](discovery_iteration52.md) adds five reviews
-with nine complete HTML captures and one genuine cached2015 publisher PDF.
-Carlisle's About was a thin HTML shell; its actual linked Contact was also
-read, and the body325/footer327 street-number conflict was not silently
-resolved. Globe Gazette's all-closed hours widget was not newspaper closure
-or Weibo inactivity, and its separately held contact_us route was not retried.
-Rock Hill's ordinary route timed out; its2015 row remains historical scope.
-Print/online schedules and named magazines did not become Sina activity or
-inherited accounts. All eleven explicit publisher-body holds and the separate
-Southern/NWA retention conditions remain unchanged; no new disposal was needed.
+The [latest scheduled pass](discovery_iteration53.md) adds five reviews.
+Eight complete newspaper root/institutional captures remain available.
+New Haven Register's actual Contact names a Norwalk mailing address, not
+an independently verified New Haven office. Lufkin, Maui and Brattleboro
+named bodies were inspected without inheriting magazine, tourism or sister
+publication channels. Standard-Speaker's exact fresh root was removed after
+an explicit AI/text-mining reservation; there are now twelve domain-specific
+publisher-body holds. Southern/NWA's distinct retention conditions remain
+separate, and no parent/sibling/staff Sina account was inherited.
 The live 6,570-post corpus, original archived baseline and all rolling data
 remain unchanged by discovery.
-Discovery is not exhausted: 744 selected domains still lack a recorded
+Discovery is not exhausted: 739 selected domains still lack a recorded
 manual review. A bounded recurring prompt is active every 30 minutes; later
 passes must advance the frontier rather than repeatedly probing exhausted leads.
 
-**Unattended collection is currently blocked:** the first OS-scheduled
-invocation on October 23 failed before Python initialized because the
+**Unattended collection is currently blocked:** both natural OS-scheduled
+invocations on October 23, at 15:35 and 21:35 Mac local time, failed before
+Python initialized because the
 Documents-hosted virtual environment was not accessible to that process.
 No new scheduled collection occurred. The earlier bounded manual success and
 successful GitHub aggregate rebuild do not establish unattended collection.
 The [operations note](../docs/EXCHANGE.md#automatic-private-weibo-refresh)
 records the actual failure and user-approved-access requirement. Published
-refresh health now records the startup block and zero attempted feeds, retaining
+refresh health now records the second startup block and zero attempted feeds, retaining
 the last successful collection time, cutoff, corpus and all rolling data.
 
 **Historical activity comparisons remain recovery-biased:** in the current

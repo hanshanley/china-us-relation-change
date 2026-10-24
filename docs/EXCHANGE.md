@@ -233,11 +233,13 @@ PYTHONPATH=src .venv/bin/python scripts/refresh_weibo.py --publish --push
 .venv/bin/python scripts/install_weibo_refresh.py
 ```
 
-**Observed unattended-execution blocker, October 23, 2026:** the first scheduled
-invocation failed at approximately 19:35 UTC, before Python could initialize
-its `site` module. Its actual stderr reports `PermissionError: [Errno 1]`
-reading the repository's `.venv/pyvenv.cfg` under Documents; `launchctl` records
-one run and exit code 1. No collector code or network collection started.
+**Observed unattended-execution blocker:** the first scheduled invocation
+failed at approximately 19:35 UTC on October 23, 2026. The second natural
+invocation, at 21:35 Mac local time on October 23 (01:35 UTC on October 24),
+failed in the same way before Python could initialize its `site` module.
+Actual stderr records two `PermissionError: [Errno 1]` startup failures reading
+the repository's `.venv/pyvenv.cfg` under Documents; `launchctl` records two
+runs and last exit code 1. No collector code or network collection started.
 This is consistent with macOS Documents-folder access protection, not a Sina
 denial. Schedule registration, successful local tests and the earlier bounded
 manual collection do not prove unattended execution works.
