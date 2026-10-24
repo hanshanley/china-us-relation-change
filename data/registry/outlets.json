@@ -2359,6 +2359,69 @@
       "notes": "Complete root and exact supplied /contact requested; observed same-host HTTPS final /contact/ retained separately, not silently invented. Actual named address, weekday service hours and shorter explicitly labelled lobby hours are not newspaper closure or a Sina posting schedule. Unfilled {{url}} template route was not repaired or requested. Corporate/other Democrat titles and staff accounts were not inherited; no family-wide source-use rule inferred. No institutional Sina designation found. Unknown, not absent. Review date: 2026-10-24 UTC."
     },
     {
+      "id": "kearney-hub",
+      "name": "Kearney Hub",
+      "category": "newspaper",
+      "aliases": [
+        "Kearney Hub"
+      ],
+      "us_basis": "United States-classified source position317; actual root and linked Contact explicitly name Kearney Hub with Kearney, Nebraska correspondence. Named location is publisher context, not independently verified occupancy, current legal control or ownership/nationality.",
+      "source_url": "https://kearneyhub.com/",
+      "research_status": "reviewed",
+      "notes": "Complete root and actual /contact/ inspected without an institutional Sina designation. Actual named Contact, not a third-party directory or a stale self-hosted business-profile ownership paragraph, supplies Nebraska context. Appointment-only/weekend-closed hours are not newspaper closure or a Weibo posting schedule; placeholder {{url}} was not repaired/requested. Footer corporate/shareholder descriptions remain unaudited. Other Kearney titles, parent/sibling and staff channels not inherited. Original repeated-word cohort label retained. Unknown, not absent. Review date: 2026-10-24 UTC."
+    },
+    {
+      "id": "minot-daily-news",
+      "name": "The Minot Daily News",
+      "category": "newspaper",
+      "aliases": [
+        "Minot Daily News",
+        "The Minot Daily News"
+      ],
+      "us_basis": "United States-classified source position318; actual root and linked Contact identify Minot, North Dakota. The named PO-box mailing section and distinct street-address footer are correspondence roles, not independently audited occupancy, current staffing or legal control.",
+      "source_url": "https://www.minotdailynews.com/",
+      "research_status": "reviewed",
+      "notes": "Complete root and actual /contact-us/ inspected without a publisher-designated Sina account. Mail PO Box1150/ZIP58702 was not conflated with the3014thStreetSE/ZIP58701 footer. Old LinkedIn publisher biographies, staff/circulation directories, app IDs, numeric Twitter/Wikidata IDs and government-hosted newspaper issues were not current account/control proof or substitutes for the readable named body. Affiliate/parent/sibling and personal channels not inherited. Unknown, not absent. Review date: 2026-10-24 UTC."
+    },
+    {
+      "id": "vicksburg-post",
+      "name": "The Vicksburg Post",
+      "category": "newspaper",
+      "aliases": [
+        "Vicksburg Post",
+        "The Vicksburg Post"
+      ],
+      "us_basis": "United States-classified source position319; a genuine existing Boone Newsmedia Natchez capture actually supplies the navigation label The Vicksburg (MS) Post and a literal vicksburgpost.com URI. This is limited corporate-menu context, not a freshly retrieved Vicksburg profile/newspaper body or independently audited current ownership.",
+      "source_url": "https://vicksburgpost.com/",
+      "research_status": "reviewed",
+      "notes": "Recorded newspaper HTTP403 held with zero newspaper/alias/static/help/obituary/client requests. Existing corporate capture reused offline with original2026-10-24T03:29:08.926450+00:00 observation and SHA3e8b8de35d5648c8712ab82d039bb522912795b491a7dcb826ee7f80d622b80f. Literal supplied http://www.vicksburgpost.com/ was not upgraded/followed or called an observed redirect. Two responsive-menu copies are one capture, not independent confirmations; Natchez body geography/control was not assigned. Article mirrors, traffic/staff directories and parent/sibling accounts not Sina proof. Unknown, not absent. Review date: 2026-10-24 UTC."
+    },
+    {
+      "id": "alamogordo-daily-news-domain",
+      "name": "Alamogordo News / selected Daily News domain",
+      "category": "newspaper",
+      "aliases": [
+        "Alamogordo Daily News",
+        "Alamogordo News"
+      ],
+      "us_basis": "United States-classified source position320 retains its original Alamogordo Daily News label. Current actual root/About display Alamogordo News and explicitly describe Alamogordo/Otero County in New Mexico and membership in El Rito Media. These are publisher self-descriptions, not independently audited current legal control or historical account continuity.",
+      "source_url": "https://alamogordonews.com/",
+      "research_status": "reviewed",
+      "notes": "Complete root and actually linked /about/ inspected without a Sina designation; another Gannett paper's403 was not inherited. Actual About distinguishes an office from a PO-box mailing address and states current regional coverage alongside a historical lineage claim. Original cohort label remains unchanged; current branding, a stable domain and deep-roots wording do not establish a Weibo rename, launch date or continuous account control. Old headquarters/ownership descriptions and parent/sibling/staff channels not substituted. No forms/login/licensed content requested. Unknown, not absent. Review date: 2026-10-24 UTC."
+    },
+    {
+      "id": "bluefield-daily-telegraph",
+      "name": "Bluefield Daily Telegraph",
+      "category": "newspaper",
+      "aliases": [
+        "Bluefield Daily Telegraph"
+      ],
+      "us_basis": "United States-classified source position321; actual root-linked About explicitly names Bluefield Daily Telegraph in Bluefield, West Virginia and describes Virginia/West Virginia coverage. The additional Contact supplies Bluefield correspondence, not an independently verified current office, staffing or legal-control census.",
+      "source_url": "https://www.bdtonline.com/",
+      "research_status": "reviewed",
+      "notes": "Complete root, exact linked Contact and linked named About inspected without an institutional Sina designation. Extra About was read because generic Contact/footer text alone did not name the publication. Its real newspaper paragraph, not the unrelated Niagara Frontier navigation label, weather widget or2016 directory, supplies scope. Founding and seven-day print statements are not Weibo age/activity; missing video widgets are not inactivity. Alton/UK Daily Telegraph, parent/sibling and staff channels not inherited. Unknown, not absent. Review date: 2026-10-24 UTC."
+    },
+    {
       "id": "telemundo", "name": "Telemundo / Noticias Telemundo", "category": "broadcast_news",
       "aliases": ["Telemundo", "Noticias Telemundo", "Telemundo Noticias"],
       "us_basis": "United States-classified source position110; actual network root separately links its Noticias Telemundo newsroom section. Current corporate domicile/headquarters and legal account control are not independently audited.",
