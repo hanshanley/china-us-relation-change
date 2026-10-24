@@ -2882,6 +2882,16 @@
       "notes": "Complete root and one actually linked /contact/ captured without an institutional Sina designation. All-days-closed service table and explicit office-closed-to-public notice do not establish newsroom closure, cessation or Weibo inactivity. Both trailing/nontrailing Contact variants remain actual source attributes, not inferred redirects; older duplicate Contact observations are not independent accounts. Wisconsin service contacts, LaCrosse/River Valley partners, Winona State or generic Winona/skincare namesakes, staff/parent and sibling accounts not inherited. Literal {{url}} template not repaired/followed. Search absence stays unknown; no form, login, issue, service or privacy preference used/changed. Review date: 2026-10-24 UTC."
     },
     {
+      "id": "bradford-era",
+      "name": "The Bradford Era",
+      "category": "newspaper",
+      "aliases": ["Bradford Bradford Era", "Bradford Era", "The Bradford Era"],
+      "us_basis": "United States-classified source position368; publisher root identifies The Bradford Era at43 Main St, Bradford, Pennsylvania. Factual-only context, not independently audited present corporate control; the original doubled cohort name is preserved.",
+      "source_url": "https://www.bradfordera.com/",
+      "research_status": "reviewed",
+      "notes": "The earlier1500001-byte truncated root was not treated as complete. One fresh2439485-byte complete root was read, then that exact fresh copy was removed conservatively after its actually supplied Terms of Use were read through the web provider. Terms explicitly disallow data mining/gathering/extraction and database/archive/cache incorporation, naming BradfordEra.com, OleanTimesHerald.com and SalamancaPress.com; no further body requests to these named publishers. Provider-reported policy target and cached-age description are not a separately verified fresh origin redirect chain or policy effective date; no local policy body/hash exists. Available root raw/hash null; discarded fingerprint is not primary proof. Older captures untouched. Actual relative Contact/Terms/Privacy links not replaced with guessed paths; Contact/Privacy not fetched after the notice. UK Bradford namesakes, Bradford Publishing, Olean/Salamanca siblings, staff, apps and vendors not inherited as Sina accounts. Account remains unknown, not absent. Review date: 2026-10-24 UTC."
+    },
+    {
       "id": "telemundo", "name": "Telemundo / Noticias Telemundo", "category": "broadcast_news",
       "aliases": ["Telemundo", "Noticias Telemundo", "Telemundo Noticias"],
       "us_basis": "United States-classified source position110; actual network root separately links its Noticias Telemundo newsroom section. Current corporate domicile/headquarters and legal account control are not independently audited.",

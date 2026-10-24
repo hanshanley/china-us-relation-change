@@ -35,31 +35,36 @@ The selected **1,000 SCImago U.S.-classified domains** are ranked by digital
 reputation, not traffic; their present ownership/nationality was not independently
 audited. **Five have current-profile evidence, seven historical-only evidence,
 988 remain unknown, and zero are verified negatives.** All underwent homepage
-screening, but only 367 have recorded manual review.
+screening, but only 368 have recorded manual review.
 
-The [latest scheduled pass](discovery_iteration75.md) adds one review while
-the requested presentation replacement is published.
-Two fresh complete Winona root/Contact responses remain available.
-Its office-closed-to-public notice and closed service-hour table were
-not converted into newsroom closure or Weibo inactivity.
-Contact URI variants, repeated footer city/ZIP wording, shared Wisconsin
-service roles and regional partners were preserved without invented
-redirects, corrected occupancy claims or inherited accounts.
-No new account, retention disposal, source-use hold or provider hold resulted.
-The twenty-one source-use publisher-body holds, five distinct publisher
+The [latest scheduled pass](discovery_iteration76.md) adds one Bradford review.
+Its old 1,500,001-byte truncated root was not called complete. The fresh
+2,439,485-byte complete root was read, then that exact fresh copy was removed
+after the publisher's actually supplied Terms of Use were read through the
+web provider. Their explicit data-mining/gathering/extraction and
+database/archive/cache restrictions name BradfordEra.com, OleanTimesHerald.com
+and SalamancaPress.com. All three named publishers are held against further
+body requests; the latter two are not counted as additional manual reviews.
+The provider-reported target and crawl-age label are not an independently
+verified fresh redirect chain or policy effective date. No local policy
+body/hash is available; the discarded root fingerprint is not primary proof.
+Contact/Privacy were not fetched after the notice; older captures are untouched.
+The original doubled cohort name and actual relative footer links are preserved.
+No institutional Sina binding or new account resulted; unknown is not absent.
+There are now twenty-four explicit source-use publisher-body holds, five distinct publisher
 search-provider restrictions, and Southern/Citrus/NWA/Goldsboro retention
 conditions and institutional/corporate restrictions remain separate.
 No parent/sibling handle was inherited.
 Shared catalogs are not edited.
 The live 6,570-post corpus, original archived baseline and all rolling data
 remain unchanged by discovery.
-Discovery is not exhausted: 633 selected domains still lack a recorded
+Discovery is not exhausted: 632 selected domains still lack a recorded
 manual review. A bounded recurring prompt is active every 30 minutes; later
 passes must advance the frontier rather than repeatedly probing exhausted leads.
 
 The main Weibo view now makes coverage gaps explicit: a 1,000-domain
 unit field shows 98.8% unresolved account decisions, with a review-progress
-switch showing 63.3% not yet manually reviewed. Unknown is not absent.
+switch showing 63.2% not yet manually reviewed. Unknown is not absent.
 Separate recovery bars report channels without recovered in-window posts
 and truncated texts within the recovered sample; the share of all historical
 posts missing is not estimable. The sourced publisher/account directory is
@@ -67,18 +72,18 @@ secondary and collapsible. Recovery volumes and publication dates do not
 determine its layout or rankings. Complete historical recovery datasets
 and archival exports remain available for audit, not as primary posting trends.
 
-**Unattended collection is currently blocked:** four natural OS-scheduled
+**Unattended collection is currently blocked:** five natural OS-scheduled
 invocations, at 15:35 and 21:35 Mac local time on October23 and 03:35 and
-09:35 on October24, failed before Python initialized because the
+09:35 and 15:35 on October24, failed before Python initialized because the
 Documents-hosted virtual environment was not accessible to that process.
 No new scheduled collection occurred. The earlier bounded manual success and
 successful GitHub aggregate rebuild do not establish unattended collection.
 The [operations note](../docs/EXCHANGE.md#automatic-private-weibo-refresh)
 records the actual failure and user-approved-access requirement. Published
-refresh health now records the fourth startup block and zero attempted feeds, retaining
+refresh health now records the fifth startup block and zero attempted feeds, retaining
 the last successful collection time, cutoff, corpus and all rolling data.
-The fourth failure was observed just after iteration69's discovery publication; actual
-stderr modification time is `2026-10-24T13:35:04.868037+00:00`, not a feed-request
+The fifth failure was observed after iteration75's discovery publication; actual
+stderr modification time is `2026-10-24T19:35:05.213988+00:00`, not a feed-request
 start. No restart, permission change or alternate launcher was attempted.
 
 **Historical activity comparisons remain recovery-biased:** in the current
