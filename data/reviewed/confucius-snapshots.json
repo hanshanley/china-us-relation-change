@@ -1,0 +1,46 @@
+{
+  "version": 1,
+  "reviewed_on": "2026-10-24",
+  "method": "Selected numerical facts reviewed from the original public pages/reports. This transcription has its own checksum; no publisher-response checksum is claimed. Automated retrieval of these pages returned errors, while the public reports were readable through the research browser.",
+  "facts": [
+    {
+      "id": "gao_campus_2018",
+      "source_id": "gao_2019",
+      "reference": "2018-12",
+      "reference_basis": "as_of",
+      "qualifier": "exact",
+      "value": 96,
+      "bound": null,
+      "publisher_url": "https://www.gao.gov/products/gao-19-278",
+      "published_on": "2019-02-13",
+      "locator": "GAO-19-278, Highlights, Why GAO Did This Study; public release February 27, 2019",
+      "scope": "Confucius Institutes at U.S. colleges and universities"
+    },
+    {
+      "id": "gao_campus_2023",
+      "source_id": "gao_2023",
+      "reference": "2023-07",
+      "reference_basis": "as_of",
+      "qualifier": "less_than",
+      "value": null,
+      "bound": 5,
+      "publisher_url": "https://www.gao.gov/products/gao-24-105981",
+      "published_on": "2023-10-30",
+      "locator": "GAO-24-105981, printed page 1 (PDF page 5), specifies July 2023",
+      "scope": "Operating Confucius Institutes at U.S. colleges and universities"
+    },
+    {
+      "id": "nas_successors_2023",
+      "source_id": "nas_tracker_2023",
+      "reference": "2023-06-22",
+      "reference_basis": "reported_by",
+      "qualifier": "at_least",
+      "value": null,
+      "bound": 28,
+      "publisher_url": "https://www.nas.org/blogs/article/how_many_confucius_institutes_are_in_the_united_states/",
+      "published_on": "2023-06-22",
+      "locator": "Explicit Updated June 22, 2023 header and summary of post-closure replacements",
+      "scope": "U.S. institutions reported by NAS to have replaced their institute with a similar program; not a current operating-program census"
+    }
+  ]
+}
