@@ -6,6 +6,8 @@ import sys
 
 from playwright.sync_api import expect, sync_playwright
 
+from check_exchange_publication import check_weibo_explorer
+
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 from us_china_exchange.model import change
@@ -151,7 +153,7 @@ def check():
         page.goto((ROOT / "site/comparisons.html").as_uri())
         assert page.locator(".series-panel").count() == 18
         images = page.locator('img[src$="-levels.png"]')
-        assert images.count() == 13
+        assert images.count() == 16
         for image in images.all():
             image.scroll_into_view_if_needed()
             expect(image).to_have_js_property("naturalWidth", PNG_WIDTH)
@@ -175,7 +177,7 @@ def check():
             assert page.locator("#business-benchmark-background").get_attribute("open") is None
             page.locator("#business-benchmark-background > summary").click()
             images = page.locator("img")
-            assert images.count() == 5
+            assert images.count() == 6
             for image in images.all():
                 image.scroll_into_view_if_needed()
                 expect(image).to_have_js_property("naturalWidth", PNG_WIDTH)
@@ -183,16 +185,18 @@ def check():
             assert not page.evaluate("document.documentElement.scrollWidth > innerWidth")
         if (ROOT / "site/weibo.html").exists():
             page.goto((ROOT / "site/weibo.html").as_uri())
-            images = page.locator("img")
             summary = json.loads((ROOT / "data/site/weibo_summary.json").read_text())
-            monthly = any(r["recovered_posts"] for r in summary.get("monthly", []))
-            rolling = any(r["recovered_posts"] for r in summary.get("rolling_30d", []) if not r["partial_window"])
-            assert images.count() == (4 if summary["yearly"] else 3) + (2 if monthly else 0) + (4 if rolling else 0)
-            for image in images.all():
-                image.scroll_into_view_if_needed()
-                expect(image).to_have_js_property("naturalWidth", PNG_WIDTH)
-                expect(image).to_have_js_property("naturalHeight", PNG_HEIGHT)
+            if summary.get("cohort"):
+                expect(page.locator("#coverage-waffle")).to_be_visible()
+                assert page.locator(".coverage-cell").count() == summary["cohort"]["selected_domains"]
+            page.locator("#weibo-directory").evaluate("node=>node.open=true")
+            assert page.locator(".weibo-dot").count() == len(summary["accounts"])
             assert not page.evaluate("document.documentElement.scrollWidth > innerWidth")
+            page.close()
+            page = browser.new_page(viewport={"width": 390, "height": 844})
+            page.on("pageerror", lambda error: errors.append(str(error)))
+            page.goto((ROOT / "site/weibo.html").as_uri())
+            check_weibo_explorer(page, summary)
         assert not errors, errors
         browser.close()
     print(f"Browser acceptance passed: all {len(matrix)} combinations, exact changes, YTD, keyboard, mobile, no JavaScript.")
