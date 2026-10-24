@@ -35,20 +35,17 @@ The selected **1,000 SCImago U.S.-classified domains** are ranked by digital
 reputation, not traffic; their present ownership/nationality was not independently
 audited. **Five have current-profile evidence, seven historical-only evidence,
 988 remain unknown, and zero are verified negatives.** All underwent homepage
-screening, but only 366 have recorded manual review.
+screening, but only 367 have recorded manual review.
 
-The [latest scheduled pass](discovery_iteration74.md) adds five reviews.
-Four fresh complete publisher responses and one existing publisher PDF
-remain available for bounded context.
-Ironton's real Ohio About was not conflated with sister/staff accounts.
-Its supplied corporate terms route failed a pre-body origin guard; no
-corporate body, redirect, origin403 or permission inference was invented.
-Kenosha's two address roles, weekday dashes and appointment-only notice
-were retained without declaring a move, closure or Weibo inactivity.
-Goldsboro's staff AI/company-IP policy prompted removal of only two fresh
-copies and a separate factual-only retention choice, not an external-use ban.
-News-Press and Reno newspaper403 holds were honored with zero requests;
-cached directory names/contact/portal context do not bind the ranked hosts.
+The [latest scheduled pass](discovery_iteration75.md) adds one review while
+the requested presentation replacement is published.
+Two fresh complete Winona root/Contact responses remain available.
+Its office-closed-to-public notice and closed service-hour table were
+not converted into newsroom closure or Weibo inactivity.
+Contact URI variants, repeated footer city/ZIP wording, shared Wisconsin
+service roles and regional partners were preserved without invented
+redirects, corrected occupancy claims or inherited accounts.
+No new account, retention disposal, source-use hold or provider hold resulted.
 The twenty-one source-use publisher-body holds, five distinct publisher
 search-provider restrictions, and Southern/Citrus/NWA/Goldsboro retention
 conditions and institutional/corporate restrictions remain separate.
@@ -56,9 +53,19 @@ No parent/sibling handle was inherited.
 Shared catalogs are not edited.
 The live 6,570-post corpus, original archived baseline and all rolling data
 remain unchanged by discovery.
-Discovery is not exhausted: 634 selected domains still lack a recorded
+Discovery is not exhausted: 633 selected domains still lack a recorded
 manual review. A bounded recurring prompt is active every 30 minutes; later
 passes must advance the frontier rather than repeatedly probing exhausted leads.
+
+The main Weibo view now makes coverage gaps explicit: a 1,000-domain
+unit field shows 98.8% unresolved account decisions, with a review-progress
+switch showing 63.3% not yet manually reviewed. Unknown is not absent.
+Separate recovery bars report channels without recovered in-window posts
+and truncated texts within the recovered sample; the share of all historical
+posts missing is not estimable. The sourced publisher/account directory is
+secondary and collapsible. Recovery volumes and publication dates do not
+determine its layout or rankings. Complete historical recovery datasets
+and archival exports remain available for audit, not as primary posting trends.
 
 **Unattended collection is currently blocked:** four natural OS-scheduled
 invocations, at 15:35 and 21:35 Mac local time on October23 and 03:35 and
