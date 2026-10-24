@@ -2038,6 +2038,70 @@
       "notes": "This publication's own fresh root explicitly reserved AI-training/text-and-data-mining use. Only that exact fresh root was removed; older captures remain untouched and no About/Contact, alias or other publisher-body follow-up was requested. Available raw-file/SHA fields are null and the discarded fingerprint is not available primary proof. Separate permitted corporate captures were reused offline with original times; their actual supplied URI has no trailing slash and was not followed or silently relabeled as an observed redirect. Parent/sibling and staff accounts were not inherited. Unknown, not absent. Review date: 2026-10-24 UTC."
     },
     {
+      "id": "vacaville-reporter",
+      "name": "The Vacaville Reporter",
+      "category": "newspaper",
+      "aliases": [
+        "Vacaville Reporter",
+        "The Vacaville Reporter"
+      ],
+      "us_basis": "United States-classified source position292; existing genuine MediaNews Group directory HTML links thereporter.com with actual image-alt text The Reporter Weekly Review logo. The fresh root's Vacaville, California title is factual observation metadata only after removal of that copy. Publication links are not independently audited current control or occupancy.",
+      "source_url": "https://www.thereporter.com/",
+      "research_status": "reviewed",
+      "notes": "This publication's own fresh root explicitly reserved AI-training/text-and-data-mining use. Only that exact fresh root was removed, older captures untouched, and no Contact/alias/static/image/body follow-up was requested. Available raw-file/SHA fields are null; the discarded fingerprint is not available primary proof. Permitted corporate root/directory captures reused offline with original times. Actual Weekly Review logo-alt wording was preserved, not silently renamed or treated as an observed newspaper title change. Other Reporter titles, parent/sibling and staff accounts were not inherited. Unknown, not absent. Review date: 2026-10-24 UTC."
+    },
+    {
+      "id": "cumberland-times-news",
+      "name": "Cumberland Times-News",
+      "category": "newspaper",
+      "aliases": [
+        "Cumberland Times-News",
+        "The Cumberland Times-News"
+      ],
+      "us_basis": "United States-classified source position293; actual root and linked Contact explicitly name The Cumberland Times-News with Cumberland, Maryland correspondence. Scope rests on the named body, not a generic title, weather widget or another Times-News publication; correspondence is not independently verified occupancy or current legal control.",
+      "source_url": "https://www.times-news.com/",
+      "research_status": "reviewed",
+      "notes": "Complete root and actual /site/contact-us.html inspected without an institutional Sina designation. Actual named Contact gives39 Baltimore Street Suite201 and customer-service availability; these are publisher statements, not independently audited office occupancy or posting schedules. Burlington, Kingsport and other Times-News namesakes, CNHI/parent/sibling and staff accounts were not inherited. Subscriber services, personal contact inventories, print frequency and third-party social-directory descriptions were not account/activity proof. Unknown, not absent. Review date: 2026-10-24 UTC."
+    },
+    {
+      "id": "troy-record",
+      "name": "The Troy Record",
+      "category": "newspaper",
+      "aliases": [
+        "Troy Record",
+        "The Troy Record"
+      ],
+      "us_basis": "United States-classified source position294; existing genuine MediaNews Group Communities HTML explicitly links a The Troy Record logo-alt element to the exact www.troyrecord.com host. The fresh root's Troy, New York title is factual metadata only after disposal; corporate publication links are not independently audited current legal control or occupancy.",
+      "source_url": "https://www.troyrecord.com/",
+      "research_status": "reviewed",
+      "notes": "Own fresh root explicitly reserved AI-training/text-and-data-mining use. Only that exact fresh file was removed; older captures untouched and no About/Contact, alias, static or other body follow-up. Available raw-file/SHA fields null and discarded fingerprint not available primary proof. Separate permitted corporate root/directory captures genuinely reused offline with original observations. Actual supplied corporate URI has no trailing slash and was not followed or relabeled as an observed redirect. Other Record titles, parent/sibling and staff channels not inherited. Unknown, not absent. Review date: 2026-10-24 UTC."
+    },
+    {
+      "id": "albert-lea-tribune",
+      "name": "Albert Lea Tribune",
+      "category": "newspaper",
+      "aliases": [
+        "Albert Lea Tribune"
+      ],
+      "us_basis": "United States-classified source position295; an existing genuine Boone Newsmedia Natchez profile has an actual navigation link labeled Albert Lea (MN) Tribune pointing to http://www.albertleatribune.com/. This is limited corporate-menu context, not an Albert Lea newspaper body, newly captured Albert Lea profile or independently audited current control.",
+      "source_url": "https://www.albertleatribune.com/",
+      "research_status": "reviewed",
+      "notes": "Recorded newspaper HTTP403 held: no newspaper/alias/static/help/obituary/alternate-client request. Existing corporate capture reused offline with original2026-10-24T03:29:08.926450+00:00 observation and SHA3e8b8de35d5648c8712ab82d039bb522912795b491a7dcb826ee7f80d622b80f. Literal supplied HTTP URI was not upgraded, followed or called an observed redirect. Repeated responsive-menu links are one source, not independent confirmations; Natchez body geography was not assigned to Albert Lea. Corporate/staff/sibling and other Tribune accounts were not inherited. Unknown, not absent. Review date: 2026-10-24 UTC."
+    },
+    {
+      "id": "central-maine-paired-domain",
+      "name": "Central Maine / Kennebec Journal and Morning Sentinel",
+      "category": "newspaper",
+      "aliases": [
+        "Central Maine ranked domain",
+        "Kennebec Journal / Morning Sentinel"
+      ],
+      "us_basis": "United States-classified source position296 retains its original Augusta Kennebec Journal / Waterville Morning Sentinel label. Independent Maine Trust root and actual linked About explicitly identify CentralMaine.com as the digital home of both titles serving the Waterville/Augusta area. This is one selected domain, not independently audited current ownership/nationality or office occupancy.",
+      "source_url": "https://www.centralmaine.com/",
+      "research_status": "reviewed",
+      "notes": "Recorded newspaper HTTP403 held without newspaper/alias/static/help/obituary/alternate-client requests. Independent corporate root/About, not a mirrored newspaper article or government-bundled newspaper PDF, supplied scope. Exact corporate CentralMaine.com link was not followed. Both named titles remain one ranked-domain review, not two accounts or an inherited Maine Trust/parent/sibling channel. Mixed corporate leadership title surfaces and network counts were not certified as uniformly current; undated bios, print changes, subscriptions and audience claims are not Weibo identity/activity. Unknown, not absent. Review date: 2026-10-24 UTC."
+    },
+    {
       "id": "telemundo", "name": "Telemundo / Noticias Telemundo", "category": "broadcast_news",
       "aliases": ["Telemundo", "Noticias Telemundo", "Telemundo Noticias"],
       "us_basis": "United States-classified source position110; actual network root separately links its Noticias Telemundo newsroom section. Current corporate domicile/headquarters and legal account control are not independently audited.",

@@ -35,25 +35,26 @@ The selected **1,000 SCImago U.S.-classified domains** are ranked by digital
 reputation, not traffic; their present ownership/nationality was not independently
 audited. **Five have current-profile evidence, seven historical-only evidence,
 988 remain unknown, and zero are verified negatives.** All underwent homepage
-screening, but only 291 have recorded manual review.
+screening, but only 296 have recorded manual review.
 
-The [latest scheduled pass](discovery_iteration59.md) adds five reviews.
-Five fresh publisher and two independent institutional HTML captures, two
-genuinely reused corporate captures and one cached primary PDF support
-limited context. Daily Local and Saratogian each displayed its own explicit
-AI/text-mining reservation; only their exact fresh roots were removed and
-no body follow-up was requested. There are now fourteen explicit publisher-body
-holds, distinct from Southern/NWA conditions and ordinary access failures.
-Ledger-Enquirer's policy/connection probe timed out before body retrieval;
-an independent Georgia Trust announcement supplies July2026 context without
-promoting the2015 directory to current ownership proof. The announcement's
-visible and machine-readable dates are preserved separately.
-Gazette-Mail's named Contact identifies West Virginia; YourSun's actual
-multi-title Contact was not silently reduced to its original News-Sun label.
-No parent/sibling handle was inherited. Shared catalogs are not edited.
+The [latest scheduled pass](discovery_iteration60.md) adds five reviews.
+Two fresh publisher and two independent corporate HTML captures, plus three
+genuinely reused corporate captures, support limited context.
+Reporter and Troy Record each displayed its own explicit AI/text-mining
+reservation; only their exact fresh roots were removed and no body follow-up
+was requested. There are now sixteen explicit publisher-body holds, separate
+from Southern/NWA conditions and ordinary access failures.
+Albert Lea's recorded HTTP403 was held; an actual cached corporate-menu label
+and its literal HTTP URI were inspected without upgrading or following it.
+Central Maine's newspaper HTTP403 was also held; independent corporate About
+explicitly maps the shared domain to both named papers, still one ranked
+review without inherited accounts. Cumberland's named Contact, not generic
+title/weather or another Times-News paper, supplies Maryland context.
+Corporate image-alt wording and original reused-source times were preserved.
+Shared catalogs are not edited.
 The live 6,570-post corpus, original archived baseline and all rolling data
 remain unchanged by discovery.
-Discovery is not exhausted: 709 selected domains still lack a recorded
+Discovery is not exhausted: 704 selected domains still lack a recorded
 manual review. A bounded recurring prompt is active every 30 minutes; later
 passes must advance the frontier rather than repeatedly probing exhausted leads.
 
