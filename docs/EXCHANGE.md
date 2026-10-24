@@ -282,8 +282,10 @@ PYTHONPATH=src .venv/bin/python scripts/refresh_weibo.py --publish --push
 failed at approximately 19:35 UTC on October 23, 2026. The second natural
 invocation, at 21:35 Mac local time on October 23 (01:35 UTC on October 24),
 failed in the same way before Python could initialize its `site` module.
-Actual stderr records two `PermissionError: [Errno 1]` startup failures reading
-the repository's `.venv/pyvenv.cfg` under Documents; `launchctl` records two
+The third natural invocation, at 03:35 Mac local time on October 24
+(07:35 UTC), failed at the same startup stage. Actual stderr now records
+three `PermissionError: [Errno 1]` startup failures reading
+the repository's `.venv/pyvenv.cfg` under Documents; `launchctl` records three
 runs and last exit code 1. No collector code or network collection started.
 This is consistent with macOS Documents-folder access protection, not a Sina
 denial. Schedule registration, successful local tests and the earlier bounded

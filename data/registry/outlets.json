@@ -2102,6 +2102,70 @@
       "notes": "Recorded newspaper HTTP403 held without newspaper/alias/static/help/obituary/alternate-client requests. Independent corporate root/About, not a mirrored newspaper article or government-bundled newspaper PDF, supplied scope. Exact corporate CentralMaine.com link was not followed. Both named titles remain one ranked-domain review, not two accounts or an inherited Maine Trust/parent/sibling channel. Mixed corporate leadership title surfaces and network counts were not certified as uniformly current; undated bios, print changes, subscriptions and audience claims are not Weibo identity/activity. Unknown, not absent. Review date: 2026-10-24 UTC."
     },
     {
+      "id": "marietta-daily-journal",
+      "name": "Marietta Daily Journal",
+      "category": "newspaper",
+      "aliases": [
+        "Marietta Journal",
+        "Marietta Daily Journal"
+      ],
+      "us_basis": "United States-classified source position297; actual root and linked Contact explicitly identify Marietta Daily Journal in Marietta, Georgia. Named main-office and mailing-address sections are distinct publisher statements, not independently verified occupancy or current legal control.",
+      "source_url": "https://www.mdjonline.com/",
+      "research_status": "reviewed",
+      "notes": "Complete root and actual /site/contact.html inspected without an institutional Sina designation. Actual named Contact separates the Waddell Street main-office description from the PO-box mailing address; no delivery/occupancy audit or staff census was inferred. Other Daily Journal titles, press-release/business-directory mentions, app-platform identities and parent/sibling/staff channels were not substituted. Historical age and print/ad deadlines are not Weibo activity. Original cohort name/order retained. Unknown, not absent. Review date: 2026-10-24 UTC."
+    },
+    {
+      "id": "fairbanks-daily-news-miner",
+      "name": "Fairbanks Daily News-Miner",
+      "category": "newspaper",
+      "aliases": [
+        "Fairbanks Daily News-Miner",
+        "Fairbanks News-Miner"
+      ],
+      "us_basis": "United States-classified source position298; actual root and linked About contain a newspaper-specific Fairbanks, Alaska history and publication identity. This is not inferred from an Arctic-camera widget or generic directory, and publisher-stated history is not independently audited current legal control.",
+      "source_url": "https://www.newsminer.com/",
+      "research_status": "reviewed",
+      "notes": "Complete root and actual /arctic_cam/about_news_miner/ inspected without a qualifying Sina designation. Despite its nested route, the saved body genuinely contains the named newspaper history and a stated2016 nonprofit acquisition; neither establishes a present ownership census, account join date or historical posting continuity. Old print disruptions, the Kodiak sibling title, personal/staff and other-platform profiles were not inherited as News-Miner channels. No government-bundled or third-party newspaper PDF was downloaded as a substitute. Unknown, not absent. Review date: 2026-10-24 UTC."
+    },
+    {
+      "id": "dunkirk-observer",
+      "name": "Observer Today / Dunkirk Observer",
+      "category": "newspaper",
+      "aliases": [
+        "Dunkirk Observer",
+        "Observer Today"
+      ],
+      "us_basis": "United States-classified source position299; actual root and linked Contact identify the Dunkirk, New York publication. The Contact's PO Box391 is explicitly mailing context, not a verified physical newsroom address or an independently audited current operator.",
+      "source_url": "https://www.observertoday.com/",
+      "research_status": "reviewed",
+      "notes": "Complete root and actual /contact-us/ inspected without a publisher-designated Sina account. Actual mailing section and publication domain, not other Observer titles, supply scope. Affiliated-site links to regional publications do not assign each other's accounts, and personal contact inventories are not republished. British Observer, other New York Observer and parent/sibling/staff identities were not inherited; missing links are not absence or inactivity. Unknown, not absent. Review date: 2026-10-24 UTC."
+    },
+    {
+      "id": "santa-maria-times",
+      "name": "Santa Maria Times",
+      "category": "newspaper",
+      "aliases": [
+        "Santa Maria Times"
+      ],
+      "us_basis": "United States-classified source position300; actual root and linked Contact explicitly name Santa Maria Times with Santa Maria, California correspondence. Source-country classification and publisher-stated location are not independently audited present ownership/nationality or office occupancy.",
+      "source_url": "https://santamariatimes.com/",
+      "research_status": "reviewed",
+      "notes": "Complete root and actual /contact/ inspected without an institutional Sina designation. Named address/hours context is real body content, but weekend Closed entries are not newspaper closure or account inactivity, and weekday office hours are not a posting schedule. A literal {{url}} template URI in the page was not filled, repaired or requested. Third-party Twitter mirrors, app/directory records and other Times/parent/sibling/staff channels were not Sina proof. Current legal control was not inferred from old acquisition descriptions. Unknown, not absent. Review date: 2026-10-24 UTC."
+    },
+    {
+      "id": "alton-telegraph",
+      "name": "The Telegraph / Alton, Illinois",
+      "category": "newspaper",
+      "aliases": [
+        "Alton Telegraph",
+        "The Telegraph Alton"
+      ],
+      "us_basis": "United States-classified source position301; actual root and linked About explicitly identify Alton and Illinois' River Bend region. Newspaper-stated history, awards, corporate relationship and staffing counts are not independently audited current control or a current corporate census.",
+      "source_url": "https://www.thetelegraph.com/",
+      "research_status": "reviewed",
+      "notes": "Complete root, actual /about-us/ and genuinely linked paper-hosted /ai_use/ inspected without a qualifying Sina identity. The AI page describes editorial assistance/oversight, not by itself a newly observed external-use reservation or a redistribution license; Southern/NWA conditions were not transferred. Existing www.hearst.com policy403 was honored with zero corporate/alias/client requests, not inherited as a newspaper-domain ban. UK Daily Telegraph and other Telegraph titles, parent/sibling and staff accounts were not assigned to Alton. Historical founding and print/audience descriptions are not Weibo activity. Unknown, not absent. Review date: 2026-10-24 UTC."
+    },
+    {
       "id": "telemundo", "name": "Telemundo / Noticias Telemundo", "category": "broadcast_news",
       "aliases": ["Telemundo", "Noticias Telemundo", "Telemundo Noticias"],
       "us_basis": "United States-classified source position110; actual network root separately links its Noticias Telemundo newsroom section. Current corporate domicile/headquarters and legal account control are not independently audited.",

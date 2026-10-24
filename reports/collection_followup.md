@@ -35,38 +35,34 @@ The selected **1,000 SCImago U.S.-classified domains** are ranked by digital
 reputation, not traffic; their present ownership/nationality was not independently
 audited. **Five have current-profile evidence, seven historical-only evidence,
 988 remain unknown, and zero are verified negatives.** All underwent homepage
-screening, but only 296 have recorded manual review.
+screening, but only 301 have recorded manual review.
 
-The [latest scheduled pass](discovery_iteration60.md) adds five reviews.
-Two fresh publisher and two independent corporate HTML captures, plus three
-genuinely reused corporate captures, support limited context.
-Reporter and Troy Record each displayed its own explicit AI/text-mining
-reservation; only their exact fresh roots were removed and no body follow-up
-was requested. There are now sixteen explicit publisher-body holds, separate
-from Southern/NWA conditions and ordinary access failures.
-Albert Lea's recorded HTTP403 was held; an actual cached corporate-menu label
-and its literal HTTP URI were inspected without upgrading or following it.
-Central Maine's newspaper HTTP403 was also held; independent corporate About
-explicitly maps the shared domain to both named papers, still one ranked
-review without inherited accounts. Cumberland's named Contact, not generic
-title/weather or another Times-News paper, supplies Maryland context.
-Corporate image-alt wording and original reused-source times were preserved.
-Shared catalogs are not edited.
+The [latest scheduled pass](discovery_iteration61.md) adds five reviews.
+Eleven complete publisher HTML captures support limited named context.
+Marietta's main-office/mailing roles, Fairbanks' actual newspaper-history
+body and Dunkirk's mailing-only context were distinguished.
+Santa Maria's office-closed entries are not account inactivity, and a literal
+template URI was not repaired or followed. Alton's actual Illinois body was
+not assigned UK Telegraph identities; its paper-hosted editorial AI guidance
+was not called an external-use ban or a redistribution license.
+The held Hearst corporate host was not requested. All sixteen publisher-body
+holds and separate Southern/NWA conditions remain intact.
+No parent/sibling handle was inherited. Shared catalogs are not edited.
 The live 6,570-post corpus, original archived baseline and all rolling data
 remain unchanged by discovery.
-Discovery is not exhausted: 704 selected domains still lack a recorded
+Discovery is not exhausted: 699 selected domains still lack a recorded
 manual review. A bounded recurring prompt is active every 30 minutes; later
 passes must advance the frontier rather than repeatedly probing exhausted leads.
 
-**Unattended collection is currently blocked:** both natural OS-scheduled
-invocations on October 23, at 15:35 and 21:35 Mac local time, failed before
-Python initialized because the
+**Unattended collection is currently blocked:** three natural OS-scheduled
+invocations, at 15:35 and 21:35 Mac local time on October23 and 03:35 on
+October24, failed before Python initialized because the
 Documents-hosted virtual environment was not accessible to that process.
 No new scheduled collection occurred. The earlier bounded manual success and
 successful GitHub aggregate rebuild do not establish unattended collection.
 The [operations note](../docs/EXCHANGE.md#automatic-private-weibo-refresh)
 records the actual failure and user-approved-access requirement. Published
-refresh health now records the second startup block and zero attempted feeds, retaining
+refresh health now records the third startup block and zero attempted feeds, retaining
 the last successful collection time, cutoff, corpus and all rolling data.
 
 **Historical activity comparisons remain recovery-biased:** in the current
