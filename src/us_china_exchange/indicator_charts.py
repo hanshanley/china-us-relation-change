@@ -31,12 +31,15 @@ def svg_indicator_chart(config, groups, theme, description, point_class):
                   f"Fiscal year ending {year}" if "fiscal" in basis else
                   f"{year - 1}/{str(year)[-2:]}" if "academic" in basis else
                   f"Class of {year}" if basis == "graduating class" else str(year))
+        period = row.get("period", period)
         return (f'data-period="{esc(period)}" data-reported-value="{row["value"]}" '
                 f'data-reported-unit="{esc(row.get("reported_unit", config["unit"]))}" '
                 f'data-status="{esc(row.get("status", ""))}"')
     parts = [
         '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 600" role="img" '
-        f'aria-label="{esc(config["title"])}"><title>{esc(config["title"])}</title>',
+        f'aria-label="{esc(config["title"])}"'
+        + (f' data-axis-max="{maximum}"' if config.get("bounded") else "")
+        + f'><title>{esc(config["title"])}</title>',
         f'<desc>{esc(description)}</desc>',
         f'<rect class="chart-background" width="1000" height="600" fill="{CHART_THEMES[theme]["background"]}"/>',
         f'<g font-family="{esc(FONT)}" font-size="20" fill="{MUTED}">',
@@ -69,13 +72,16 @@ def svg_indicator_chart(config, groups, theme, description, point_class):
                 raise ValueError("Program inventory bars require separate single-snapshot series")
             r = group["points"][0]
             height = 420 - y(r["plotted_value"])
+            width = config.get("bar_width", 130)
+            label = f' data-label="{esc(group["label"])}"' if config.get("bounded") else ""
+            value_label = axis_label(r["value"]) if config.get("bounded") else f'{r["value"]:,}'
             parts.append(
-                f'<rect class="{point_class}" data-series-id="{esc(group["id"])}" data-year="{r["year"]}" '
-                f'data-value="{r["plotted_value"]}" {metadata(group, r)} x="{pos - 65:.2f}" y="{y(r["plotted_value"]):.2f}" '
-                f'width="130" height="{height:.2f}" fill="{group["color"]}"/>'
-                f'<text x="{pos:.2f}" y="{y(r["plotted_value"]) - 12:.2f}" text-anchor="middle" fill="{TEXT}">{r["value"]:,}</text>'
-                f'<text x="{pos:.2f}" y="450" text-anchor="middle">{r["year"]}</text>'
-                f'<text x="{pos:.2f}" y="478" text-anchor="middle" font-size="18">{esc(group["label"])}</text>')
+                f'<rect class="{point_class}" data-series-id="{esc(group["id"])}" data-year="{r["year"]}"{label} '
+                f'data-value="{r["plotted_value"]}" {metadata(group, r)} x="{pos - width / 2:.2f}" y="{y(r["plotted_value"]):.2f}" '
+                f'width="{width}" height="{height:.2f}" fill="{group["color"]}"/>'
+                f'<text x="{pos:.2f}" y="{y(r["plotted_value"]) - 12:.2f}" text-anchor="middle" fill="{TEXT}">{esc(value_label)}</text>'
+                + (f'<text x="{pos:.2f}" y="450" text-anchor="middle">{r["year"]}</text>' if config.get("show_bar_period", True) else "")
+                + f'<text x="{pos:.2f}" y="{478 if config.get("show_bar_period", True) else 450}" text-anchor="middle" font-size="18">{esc(group["label"])}</text>')
     else:
         ticks = [first] + [year for year in range((first // 5 + 1) * 5, last, 5)
                            if last - year >= 2 and year - first >= 2] + [last]

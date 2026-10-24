@@ -164,12 +164,13 @@
     if (model.kind === "bars") {
       hoverAxis = "y";
       height = 8;
-      const maximum = Math.max(...model.bars.map(p => p.value), 1);
+      const maximum = model.axis_max || Math.max(...model.bars.map(p => p.value), 1);
       const context = document.createElement("canvas").getContext("2d");
       context.font = `${font}px Georgia, serif`;
       for (const point of model.bars) {
         const valueLabel = /USD/.test(model.unit) ? compact(point.value, model.unit) :
-          point.value.toLocaleString("en-US", {maximumFractionDigits: 6});
+          point.value.toLocaleString("en-US", {maximumFractionDigits: 6}) +
+          (model.axis_max && /percent|%/i.test(model.unit) ? "%" : "");
         const available = width - context.measureText(valueLabel).width - 24;
         const lines = [""];
         for (const word of point.label.split(/\s+/)) {
@@ -182,6 +183,8 @@
         content += `<text x="0" y="${y}" font-size="${font}">${lines.map((line, i) =>
           `<tspan x="0" dy="${i ? 19 : 0}">${escape(line)}</tspan>`).join("")}</text>
           <text class="screen-bar-value" x="${width - 2}" y="${y}" text-anchor="end" font-size="${font}">${escape(valueLabel)}</text>
+          ${model.axis_max ? `<rect class="screen-bar-track" x="0" y="${y + (lines.length - 1) * 19 + 12}"
+            width="${width - 10}" height="8" rx="1" fill="#d6d3cc" fill-opacity=".35"></rect>` : ""}
           <rect class="screen-bar" data-label="${escape(point.label)}" data-value="${point.value}"
             x="0" y="${y + (lines.length - 1) * 19 + 12}" width="${length}" height="8" rx="1" fill="${color(point.color)}"
             aria-label="${escape(point.label)}: ${escape(point.value.toLocaleString("en-US"))} ${escape(model.unit)}"></rect>`;
@@ -207,7 +210,8 @@
       const columns = !!model.columns && !dated && model.groups.length === 1 && model.scale !== "log";
       const periodValue = point => daily ? point.date : point.month;
       const position = point => daily ? point.date_index : monthly ? point.month_index : point.year;
-      const axis = linearAxis(Math.max(...points.map(p => p.value), 0));
+      const axis = model.axis_max ? {maximum: model.axis_max, ticks: [0, .25, .5, .75, 1].map(f => f * model.axis_max)} :
+        linearAxis(Math.max(...points.map(p => p.value), 0));
       const logarithmic = model.scale === "log";
       const low = logarithmic ? Math.floor(Math.log10(Math.min(...points.map(p => p.value)))) : 0;
       const high = logarithmic ? Math.max(low + 1, Math.ceil(Math.log10(Math.max(...points.map(p => p.value))))) : 1;
@@ -366,7 +370,7 @@
     const legend = keys?.length && (keys.length > 1 || model.show_legend) ? '<div class="plot-legend">' + keys.map(group =>
       `<span><i style="${group.dash ? `border-top:2px dashed ${color(group.color)}` : `background:${color(group.color)}`}"></i>${escape(group.label)}</span>`).join("") + "</div>" : "";
     container.innerHTML = `${model.kind === "bars" ? `<p class="plot-unit">${escape(model.unit)}</p>` : ""}${legend}<svg class="screen-chart" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width} ${height}"
-      role="img" aria-label="${escape(model.title)}"${model.columns ? ' data-plot-style="columns"' : ""}><desc>${escape(model.description)} Use arrow keys to inspect observations; Escape closes the value tooltip.</desc>
+      role="img" aria-label="${escape(model.title)}"${model.axis_max ? ` data-axis-max="${model.axis_max}"` : ""}${model.columns ? ' data-plot-style="columns"' : ""}><desc>${escape(model.description)} Use arrow keys to inspect observations; Escape closes the value tooltip.</desc>
       <g font-family="Georgia,serif" fill="#171713">${content}</g></svg>
       <p class="plot-interaction-hint">Hover, tap or use arrow keys for values.</p>`;
     enableHover(container, model, selections, hoverAxis, guide);

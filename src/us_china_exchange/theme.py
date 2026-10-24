@@ -31,6 +31,7 @@ FIGURE_CATEGORIES = {
     "language_learning": "Language learning",
     "business_presence": "Business presence",
     "immigration": "Immigration",
+    "opinions": "Public opinion",
 }
 
 
