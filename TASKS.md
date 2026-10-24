@@ -256,6 +256,14 @@ These are continuing requirements and final regression checks, not new scope.
 - [ ] **STYLE-03:** Verify the collective analysis remains on the website's
   Interactive Analysis page, uses the latest user-selected cover image, and
   appears before older analyses.
+- [x] **DOC-01: Clean up the repository README in the `uk_decline` style.**
+  Replaced the Weibo-first introduction with a centered project title/navigation,
+  overview, chart preview, linked analyses, chart guidance, automatic updates,
+  setup and data-integrity sections. Existing detailed collector instructions
+  are preserved in `docs/WEIBO.md`. Verified GitHub Markdown rendering, all
+  relative links/anchors, the tracked preview image and all nine live analysis
+  links on October 24, 2026. This is documentation work, not a new chart release
+  or completion of the remaining data/UI tasks.
 
 ## 4. Previously published and verified milestones
 

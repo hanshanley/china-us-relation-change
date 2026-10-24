@@ -1,210 +1,138 @@
-# U.S. news media on Weibo
+<div align="center">
+  <h1>People, Trade, and Connections Between the United States and China</h1>
+  <p>
+    <a href="#us-china-connections-since-2000">Overview</a> ·
+    <a href="#explore-the-evidence">Analyses</a> ·
+    <a href="#setup">Setup</a> ·
+    <a href="https://www.themarginoferror.com/china-us-relations/">Live site</a>
+  </p>
+</div>
 
-**Project checklist:** [`TASKS.md`](TASKS.md) tracks the
-requested work, verified completions, remaining data gaps and blocked automation.
-Read it before resuming work; a local implementation is not a verified deployment.
+---
 
-This repository also contains an independent **U.S. bilateral exchange
-dashboard** for students, visitor trips, and trade with mainland China,
-Hong Kong, Macau, and Taiwan. Open [`site/index.html`](site/index.html) locally;
-see [exchange setup, definitions and operations](docs/EXCHANGE.md) and
-[source contracts](docs/SOURCES.md). Hosting is not configured.
+## U.S.-China connections since 2000
 
-The [combined exchange charts](site/comparisons.html) compare mainland China,
-Hong Kong and Macau only. The [Weibo research charts](site/weibo.html) separately
-show timestamped aggregate snapshots, not total activity or popularity.
-The private collector is configured to rebuild the graphs and complete
-downloads, then commit and push them four times daily. Unattended attempts
-are currently blocked by macOS file-access permissions; a successful
-manual run does not establish that the scheduled job can run unattended.
-See [automatic refresh](docs/EXCHANGE.md#automatic-private-weibo-refresh)
-for the schedule and safeguards, and
-[graph generation and limits](docs/EXCHANGE.md#weibo-research-graphs)
-for the trailing-30-day measures and PNG/SVG exports. This updates the published
-files; it does not add hosting or live-refresh an already-open browser tab.
+Source-backed charts following student exchanges, travel, trade, immigration
+and public opinion between the United States and China. Related analyses examine
+language learning, businesses, Confucius programs and U.S. media on Weibo.
+Histories begin in 2000 where verified; each measure retains its own available
+years, population and definition. These are separate indicators, not a composite
+index of the bilateral relationship.
 
-The [Chinese-language learning section](site/language-learning.html) adds college
-registrations and their language-study share, matched-institution comparisons,
-AP exam indicators, immersion inventories and annual Chinese-language degree
-awards. These are separate educational indicators, not a combined learner total.
-AP global administration counts and historical U.S. public-school graduating
-cohorts are explicitly separate. See [definitions and manual refresh](docs/EXCHANGE.md#chinese-language-learning).
+Mainland China, Hong Kong and Macau remain distinct in the public comparisons.
+Taiwan observations are retained separately in the complete research data.
+Academic years use their **ending year**; calendar years, fiscal years, survey
+rounds and matched year-to-date periods are labelled rather than treated as
+interchangeable annual observations.
 
-The [business-presence section](site/business-presence.html) tracks **U.S. and
-European businesses in China over time**, not U.S. businesses in Europe.
-Annual U.S. affiliate history starts in 2000; European coverage includes
-separately labelled EU memberships, the UK and Norway. Full yearly tables,
-complete downloads and both chart backgrounds accompany the graphs. Sparse
-U.S. parent-company benchmarks are secondary, not annual substitutes.
-See [business definitions and refresh](docs/EXCHANGE.md#business-presence).
+<p align="center">
+  <a href="https://www.themarginoferror.com/china-us-relations/trade.html">
+    <img src="outputs/figures/goods_trade/themarginoferror/bea-CHN-USA-goods.png" width="1200" alt="Annual goods trade from mainland China to the United States, 2000-2025, in nominal U.S. dollars on a balance-of-payments basis">
+  </a>
+</p>
 
-An evidence-backed account inventory and small, resumable post-recovery CLI.
-The scope includes U.S. news brands, their explicitly labeled Chinese editions,
-and U.S.-based Chinese-language outlets. It is **not an exhaustive census**.
+## Explore the evidence
 
-Start with [the inventory](reports/weibo_media_inventory.md) and
-[the access pilot](reports/access_pilot.md). Confirmed officialness is separate
-from current account accessibility or observed posting activity. The reviewed
-roster also retains unresolved candidates and outlets where usable evidence was
-not found; neither means that an account does not exist.
+**Movement and exchange:** [student enrollment and study abroad](https://www.themarginoferror.com/china-us-relations/),
+[travel and tourism](https://www.themarginoferror.com/china-us-relations/travel.html),
+and [goods and services trade](https://www.themarginoferror.com/china-us-relations/trade.html).
+Both directions are available where verified. Enrollment excludes OPT when
+labelled enrolled-only; visitor trips are not unique people or necessarily
+leisure travel; goods and services remain separate.
 
-## Run
+**Migration and attitudes:** [immigration](https://www.themarginoferror.com/china-us-relations/immigration.html)
+distinguishes annual permanent-resident admissions from resident stocks and
+includes a 50-state/DC China-born resident map.
+[Public opinion](https://www.themarginoferror.com/china-us-relations/opinions.html)
+covers both directions and age comparisons, keeping favorable percentages
+separate from warmth scores and preserving each survey's population.
 
-Requires Python 3.9+ and the system timezone database. There are no third-party
-runtime dependencies. From the repository root:
+**Language and institutions:** [Chinese, Japanese and Korean](https://www.themarginoferror.com/china-us-relations/language-learning.html)
+are compared separately through available course, degree and school indicators.
+[Confucius Institutes and Classrooms](https://www.themarginoferror.com/china-us-relations/confucius.html)
+distinguishes dated counts, directory listings and documented successors.
+[Business presence](https://www.themarginoferror.com/china-us-relations/business-presence.html)
+keeps source populations and enterprise definitions separate, without combining
+different European countries into an invented total.
 
-```sh
-export PYTHONPATH=src
-python3 -m weibo_media registry
-python3 -m weibo_media collect --limit 110
-python3 -m weibo_media export
-python3 -m weibo_media report
+**Media connections:** [U.S. media on Weibo](https://www.themarginoferror.com/china-us-relations/weibo.html)
+is an evidence-backed directory of accounts and Chinese-language editions,
+not an exhaustive census or a measure of popularity. See the
+[research inventory](reports/weibo_media_inventory.md) and
+[collector guide](docs/WEIBO.md) for identity evidence and recovery limits.
+
+## Working with the charts
+
+Charts provide source notes, exact values through hover, touch or keyboard,
+and complete CSV/JSON downloads. The research figure collection is in
+[`outputs/figures/`](outputs/figures), organized by topic. Editable SVG and
+high-resolution PNG versions use the same house style as `uk_decline`, with
+**The Margin of Error** (`#F7F5F0`) and **Substack** (`#F5F5F5`) backgrounds.
+
+The public edition shows histories reaching at least **2023** and standalone
+snapshots from **2024-2026**, using measurement dates rather than upload dates.
+Complete downloads and the offline research edition retain older observations;
+the archive is not the current public chart selection.
+Single-series annual levels use bars, with missing years left blank. Shading
+marks the principal **2020-2022 COVID travel-restriction years**, not a universal
+ban or an explanation of every change.
+
+## Automatic updates
+
+The [exchange refresh workflow](.github/workflows/update-exchange.yml) is scheduled
+daily at **11:23 UTC**. It checks supported sources, preserves last-known-good
+data on retrieval failures, and validates candidate data and charts before
+committing meaningful updates. Some reviewed sources require manual checks or
+permission and are not automatically downloaded.
+
+The separate host, [`hanshanley/margin_of_error`](https://github.com/hanshanley/margin_of_error),
+builds the public edition from this repository's `main` branch and is scheduled
+to republish at **09:20 and 21:20 UTC**. Scheduled times are not guarantees of
+new data or immediate publication.
+
+Private Weibo collection is a separate process. Its unattended operation remains
+blocked by local file-access authorization; scheduled chart builds do not prove
+that new posts were collected. See [collection operation](docs/EXCHANGE.md#automatic-private-weibo-refresh).
+
+## Setup
+
+Python 3.9+:
+
+```bash
+python3 -m venv .venv
+./.venv/bin/python -m pip install -r requirements-exchange-dev.txt
 ```
 
-Alternatively, install with `python3 -m pip install -e .` and use `weibo-media`.
-`python3 -m weibo_media --help` lists commands. The global `--db PATH` option goes
-before the command; default: `data/local/weibo.sqlite`.
+Build from the committed data without fetching sources:
 
-The manual CLI's default publication interval is **January 1, 2020 through October 21, 2026**,
-inclusive in Asia/Shanghai. Internally it is half-open, ending at October 22,
-2026 00:00 Shanghai time. `collect`, `archive`, and `import` accept `--start` and
-`--end` overrides. Original timestamps and normalized UTC timestamps are stored
-separately. Sina's unzoned Chinese publication timestamps are interpreted in
-Asia/Shanghai; imports with explicit offsets retain their own interpretation.
-The automatic refresh advances the live collection window separately and
-recomputes rolling graphs through the last completed Shanghai day; it does not
-reset the live corpus to this original baseline.
-
-```sh
-python3 -m weibo_media collect --account forbes-china --limit 25 --delay 2
-python3 -m weibo_media archive --account fortune-china \
-  --url https://web.archive.org/web/20260310032620id_/https://weibo.com/fortunechina
+```bash
+./.venv/bin/python scripts/build_site.py
+./.venv/bin/python scripts/build_exchange_publication.py --output data/local/publication
 ```
 
-`--account` is repeatable for `collect`; it defaults to confirmed accounts only.
-`--url` is repeatable for `archive`. Only pilot-verified source routes are
-supported. Requests use an identifiable user agent, robots checks, conservative
-spacing, bounded network/5xx retries, and no login/CAPTCHA bypass. HTTP access or
-rate-limit failures stop further network requests by that client. Archive
-redirects to different capture timestamps are refused.
-Sina redirects that change the requested profile/post identity or source route
-are also refused, even when the hostname stays the same.
+Open `site/index.html` for the complete offline research edition, or
+`data/local/publication/index.html` for the filtered public edition.
+The builders also generate downloads and chart exports.
 
-A `collect` rerun resumes an unfinished persisted feed snapshot. Once its cursor
-is exhausted, another invocation starts a fresh snapshot. Post IDs deduplicate
-across runs while retaining source text and engagement snapshots. An old pinned
-post never stops the date scan. Unavailable detail pages retain labeled previews;
-their errors are saved in the run checkpoint and do not prevent other feed
-entries from being processed. A new feed pass retries details. `archive` reruns
-deduplicate post IDs and retain snapshot provenance.
-
-An explicit detail-page contradiction in post ID, author UID, or the requested
-date/attribution bounds is different from an unavailable detail page: that source
-is skipped, not imported as a fallback preview. Such conflicts are retained in
-the run checkpoint's `source_conflicts` for review.
-
-Canonical text selection compares completeness before length. Equally
-`source_full` original/unknown-kind records prefer a validated native detail body
-over longer archived UI renderings; known reposts retain longer quoted context.
-Ignored archival pin controls are excluded from post text. Canonical imports
-restore the supplied, provenance-matched choice among equal-quality variants.
-Every prior source variant remains in provenance rather than being discarded.
-
-Accounts may specify an optional `attribution_end` date (`YYYY-MM-DD`, exclusive,
-Asia/Shanghai). Live collection, archives and imports all exclude publications
-on or after that cutoff, even if the UID and displayed brand name are unchanged.
-Evidence and account notes explain conservative cutoffs; they are not necessarily
-exact contract-termination dates. Existing registries and databases without the
-field remain compatible. An absent cutoff is not evidence of a continuing license.
-
-Collection runs are deliberately **partial**, even when the visible feed is
-exhausted: no complete historical pagination has been demonstrated. Blocked
-accounts are recorded rather than silently skipped. Exit code `2` means that
-some source retrievals were blocked/failed, but usable records may have been
-saved; code `1` indicates a command/input failure. Inspect `runs.csv` and
-`coverage.csv`, not just process success.
-
-## Data and exports
-
-| Location | Contents |
-|---|---|
-| `data/registry/outlets.json` | Reviewed roster, candidate accounts, identity/operator evidence |
-| `data/local/weibo.sqlite` | Local posts, provenance, observations, runs/checkpoints |
-| `data/local/raw/` | Local raw responses for reproducibility |
-| `data/local/exports/` | Full-text CSV and JSONL exports plus coverage and manifest |
-| `reports/weibo_media_inventory.md` | Shareable sourced inventory and descriptive activity |
-
-Local databases, raw responses, and corpus exports are ignored by Git. Do not
-publish third-party text without checking source terms and redistribution rights.
-The default export is a **local/private research corpus**, not a license to
-redistribute. `export --public --output data/local/public` omits posts without
-explicit `redistribution: "permitted"` and lists every omission in
-`omissions.csv`; it does not silently substitute metadata-only post rows.
-Review all metadata/rights assertions yourself before sharing any output.
-
-`posts.jsonl` is the canonical lossless post export. Each row includes full
-recoverable text, string IDs, publication timestamps, completeness, original/
-repost classification, all text provenance, and engagement observations.
-`posts.csv` includes the same text with proper CSV quoting; nested provenance
-and observations are JSON cells. Import IDs and text as **text** in spreadsheets
-to avoid precision loss or formula execution. Other tables have CSV and JSONL
-exports; SQL nulls are JSON `null` and empty CSV cells.
-
-Text-completeness labels:
-
-- `source_full`: entire accessible syndicated/captured body, not independently
-  verified against an inaccessible original.
-- `truncated`: a feed preview or unexpanded archived post.
-- `full`: an import explicitly establishes complete original text.
-- `unknown`: completeness cannot be established.
-
-Sina headline/description summaries, recommendations, and comments are not
-treated as original post text. Source-feed engagement is recorded at the feed
-retrieval time, not the later detail-fetch time. Archive observations use
-capture time, separate from retrieval and publication times. Missing counts
-remain null, never zero. Counts may be cached. Monthly activity is recovered
-output, not true total output; missing months are not reported as zero activity.
-Syndicated posts with unknown repost status are not assumed original.
-
-## Extend coverage with authorized or archival records
-
-`import` accepts either the canonical exported `posts.jsonl` (including all
-provenance and observations), or normalized JSONL like this synthetic example:
-
-```json
-{"id":"90071992547409931","account_id":"forbes-china","uid":"1765373140","published_original":"2020-01-01T12:00:00+08:00","text":"Example authorized text.\nSecond line.","text_status":"full","kind":"original","source_url":"https://example.org/permitted-export/record","source_type":"authorized_import","retrieved_at":"2026-10-21T12:00:00+00:00","likes":null,"comments":0,"reposts":null,"redistribution":"unknown"}
+```bash
+./.venv/bin/python scripts/update.py                         # check supported sources
+PYTHONPATH=src ./.venv/bin/python -m pytest tests/test_exchange_*.py -q
 ```
 
-```sh
-python3 -m weibo_media import data/local/authorized.jsonl
-python3 -m weibo_media export
-python3 -m weibo_media report
-```
+See [methods and operation](docs/EXCHANGE.md), [source contracts](docs/SOURCES.md),
+and the [Weibo CLI guide](docs/WEIBO.md) for source-specific commands and checks.
 
-Allowed sources are `sina_syndication`, `archive`, and `authorized_import`.
-Archived records additionally require timezone-aware `captured_at`; publication
-cannot follow capture. `retrieved_at` must be timezone-aware. Post/account IDs
-must be numeric **strings** and bind to a confirmed registry account with a
-known UID. `kind` is `original`, `repost`, or `unknown`; optional
-`referenced_id` and `repost_commentary` preserve repost context.
-Missing `redistribution` defaults to `unknown`. Metadata-only input is rejected.
-Each import is transactional: a malformed line rolls back that whole file.
+## Data integrity
 
-Registry loading validates exact fields and evidence gates, then upserts; it
-does not delete older registry records from an existing database. Use a fresh
-database when an exact independent registry snapshot is needed.
+Reviewed inputs are tracked in [`data/site/`](data/site); raw responses, private
+databases and post corpora stay under ignored `data/local/`. Observations retain
+definitions, reference periods, source links and provenance. Missing or suppressed
+values are not zero, incompatible definitions are not spliced, and resident
+stocks are not converted into annual flows.
 
-## Verification
-
-```sh
-PYTHONPATH=src python3 -m unittest discover -s tests -v
-```
-
-Tests use synthetic, offline data, not real post text. They cover evidence
-gating, author/ID checks, Shanghai boundaries, pinned posts, resume/deduplication,
-detail isolation, archive capture times, preview retention, nullable engagement,
-transactional imports, and full Chinese multiline CSV/JSONL round trips.
-Live results are documented separately in the access pilot.
-
-No topics, LLM labels, sentiment, comments, follower lists, media files, or
-article-body crawling are collected.
+Some bilateral measures remain unverified, including comparable annual
+U.S.-to-mainland-China permanent immigration. Older national language-course
+counts are not made current by newer degree or program figures. The
+[project checklist](TASKS.md) records verified work and remaining gaps.
+Public exports contain complete selected datasets, not metadata-only substitutes;
+they do not redistribute source reports or the private Weibo text corpus.
