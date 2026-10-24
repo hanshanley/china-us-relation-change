@@ -653,3 +653,49 @@ positions do not complete the requested operating-company count histories.
   Show the real historical endpoint rather than implying a 2026 operating
   census. Verify desktop/phone, keyboard/touch/no-JS and the deployed page
   before checking off either item.
+
+## 11. Project purpose and long-run analysis acceptance
+
+The user's October 24 instruction is explicit: **show how interactions between
+China and the United States have changed from at least 2000 to the present**.
+Data recovery, graph selection, comparisons and written interpretation must
+serve that question. Attractive recent snapshots or padded axes do not fulfil
+the requested historical analysis.
+
+- [ ] **SCOPE-10: Make the 2000-to-present question the graph acceptance gate.**
+  For each relevant direction, geography and measure, pursue and include the
+  full compatible history from at least 2000 toward the latest actual released
+  observation, including 2026 where published. Show interpretable change over
+  time, not just two isolated endpoints or an unexplained short recent window.
+  Retain actual calendar spacing and definition/source breaks; make the first
+  and last observations, internal gaps and unresolved endpoint gaps clear.
+  Where meaningful, distinguish changes in levels from shares or same-baseline
+  indexes rather than confusing population growth with intensity of contact.
+  Keep partial-year data matched to the same periods and distinct from full
+  annual observations. A genuinely shorter or sparse indicator can supplement
+  the analysis, but must not be presented as completion of the long-run task.
+  Record its precise missing periods under DATA-01/DATA-17 and continue seeking
+  legitimate alternatives; do not interpolate, invent unavailable 2026 values
+  or splice incompatible definitions. Preserve UI-07's public freshness rule
+  and later presentation corrections, including the evidence-led Weibo view.
+- [ ] **UI-17: Make topic and measure grouping coherent throughout.**
+  Address the user's complaint about multiple confusing Trade/Business items,
+  alongside UI-14's concrete Language duplicate. Audit topic navigation,
+  selectors, titles and related panels so users can understand the construct,
+  direction, geography and units. Consolidate redundant presentations without
+  merging genuinely different goods/services, source vintages, company counts,
+  investment positions, survey percentages, awards or enrollment populations.
+  Preserve every original observation in complete downloads and verify the
+  actual desktop/phone route combinations with the release owner.
+- [ ] **LANG-08: Preserve the full requested three-language comparison.**
+  Compare Chinese, Japanese and Korean over reported periods, not AP alone or
+  a combined learner total. Retain compatible course-enrollment levels and
+  shares, common-baseline comparisons where defined, and matched-institution
+  or nonresponse context where available. Overall language/student totals are
+  clearly labelled denominators or benchmarks, not replacements for the three
+  languages. Keep annual bachelor's and graduate awards separate; degrees are
+  not fluent speakers. Distinguish school/program availability from actual
+  learners and demand; do not infer unmeasured demand from schools offering a
+  course. U.S./U.K. evidence, census rounds, academic years, classification
+  changes and overlapping populations remain separate. Apply the same actual
+  release/freshness and no-invented-history rules as the rest of the project.
