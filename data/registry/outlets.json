@@ -1802,6 +1802,41 @@
       "notes": "Complete root and actually linked /site/about.html inspected beyond the generic domain title and weather widget without a qualifying institutional Sina identifier. The stated2020 combination of three named newspapers was not three extra ranked reviews, inherited historical accounts or a current-control certificate. Third-party audits, directories, staff lists and externally mirrored PDFs were not substituted. Publication schedules were not Weibo activity. Parent/sibling and staff channels were not inherited. Unknown, not absent. Review date: 2026-10-24 UTC."
     },
     {
+      "id": "albany-democrat-herald", "name": "Albany Democrat-Herald / Oregon", "category": "newspaper",
+      "aliases": ["Albany Democrat-Herald", "The Albany Democrat-Herald", "Albany Democrat Herald"],
+      "us_basis": "United States-classified source position267; actual root and linked Contact identify Albany Democrat-Herald and Albany, Oregon correspondence. Published contact/history are not an independent current-control or occupancy audit.",
+      "source_url": "https://democratherald.com/", "research_status": "reviewed",
+      "notes": "Complete root and exact linked /contact inspected; observed final /contact/. The actual all-closed panel explicitly concerns lobby services, not newspaper closure or Weibo inactivity. Prior duplicate Contact responses were not counted as independent sources; unresolved template routes were not followed. Other-platform domain handles, the different Albany Democrat namesake, other Albany/Herald titles and parent/sibling/staff accounts were not inherited as Sina identities. Unknown, not absent. Review date: 2026-10-24 UTC."
+    },
+    {
+      "id": "marquette-mining-journal", "name": "The Mining Journal / Marquette, Michigan", "category": "newspaper",
+      "aliases": ["Marquette Mining Journal", "The Mining Journal", "Mining Journal"],
+      "us_basis": "United States-classified source position268; actual root and linked Contact explicitly name the Mining Journal and Marquette, Michigan office context. Published office details are not independently verified current control or occupancy.",
+      "source_url": "https://www.miningjournal.net/", "research_status": "reviewed",
+      "notes": "Complete root and actually linked /contact-us/ inspected without a qualifying institutional Sina designation. The different mining-industry publication/name and its possible channels were not substituted for this Marquette newspaper. A malformed relative digital-edition URI containing a space and HTTP component was not repaired or followed. Staff accounts, office hours and third-party copied notices were not identity or posting-activity proof; parent/sibling channels were not inherited. Unknown, not absent. Review date: 2026-10-24 UTC."
+    },
+    {
+      "id": "natchez-democrat", "name": "The Natchez Democrat / Mississippi", "category": "newspaper",
+      "aliases": ["Natchez Democrat", "The Natchez Democrat"],
+      "us_basis": "United States-classified source position269; actual independent named corporate profile joins The Natchez Democrat, natchezdemocrat.com and Natchez/southwest Mississippi context. Undated history and ownership prose do not independently certify present-day control.",
+      "source_url": "https://www.natchezdemocrat.com/", "research_status": "reviewed",
+      "notes": "Recorded newspaper HTTP403 respected with zero new newspaper/alias/static/help/obituary or alternate-client requests. Actual Boone /community/natchez/ body used only for publication/domain/geography scope, not substitute newspaper content or Sina designation. Historical circulation, awards, print frequency, leadership and ownership were not current-activity/control proof. Other-platform handles, Miss-Lou/sister titles and parent/staff accounts were not inherited. Unknown, not absent. Review date: 2026-10-24 UTC."
+    },
+    {
+      "id": "southeast-missourian", "name": "Southeast Missourian / Cape Girardeau", "category": "newspaper",
+      "aliases": ["Cape Girardeau Southeast Missourian", "Southeast Missourian", "The Southeast Missourian"],
+      "us_basis": "United States-classified source position270 and original Cape Girardeau publication label retained. Newspaper HTTP403 and independent corporate search-provider robots restriction leave no newly available primary publisher/control capture; current ownership and inclusion basis are not independently audited.",
+      "source_url": "https://www.semissourian.com/", "research_status": "reviewed",
+      "notes": "Newspaper HTTP403 respected with zero direct/alias/static/help/obituary requests. Rust corporate search yielded a non-retryable robots restriction and was not retried with another client or host. Third-party app mirrors are an unverified lead, not a primary App Store capture; their inconsistent platform/removal claims did not establish current availability, paper closure, control or a Sina identity. No mirrored newspaper body or library proxy was fetched, and no candidate UID assigned. Unknown, not absent. Review date: 2026-10-24 UTC."
+    },
+    {
+      "id": "frankfort-state-journal", "name": "The State Journal / Frankfort, Kentucky", "category": "newspaper",
+      "aliases": ["Frankfort State Journal", "The State Journal", "State Journal"],
+      "us_basis": "United States-classified source position271; actual root and linked About explicitly identify The State Journal serving Frankfort, Kentucky and Franklin County. Publisher-stated history/awards are not independently audited present-day control or readership.",
+      "source_url": "https://state-journal.com/", "research_status": "reviewed",
+      "notes": "Complete root and exact linked /about-us/ inspected without a qualifying institutional Sina identifier. Actual named Kentucky body was used beyond the generic root title and article/sidebar topics. Historic awards, print schedules and subscription widgets did not become Weibo activity. The Wall Street Journal, Wisconsin State Journal, other similarly named publications and parent/sibling/staff accounts were not inherited. Unknown, not absent. Review date: 2026-10-24 UTC."
+    },
+    {
       "id": "telemundo", "name": "Telemundo / Noticias Telemundo", "category": "broadcast_news",
       "aliases": ["Telemundo", "Noticias Telemundo", "Telemundo Noticias"],
       "us_basis": "United States-classified source position110; actual network root separately links its Noticias Telemundo newsroom section. Current corporate domicile/headquarters and legal account control are not independently audited.",
