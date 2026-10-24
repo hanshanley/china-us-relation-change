@@ -110,6 +110,18 @@ government republications and compatible source tables.
 - [ ] **DATA-04: Credit study-abroad histories.** Seek remaining early annual
   observations, especially before 2014. The China 2007/08 checkpoint is not
   a complete early history. Do not invent an unreleased 2024/25 annual total.
+
+  Source checkpoint **`80a2e06`**, pushed October 24: 118 additional observations
+  preserve all 2,638 prior records exactly. Enrolled-only histories now cover
+  2007-2025 for every geography; Macau OPT-inclusive totals cover 2000-2025;
+  credit-study-abroad counts cover every academic ending year 2000-2024.
+  Pre-2007 enrolled-only counts remain unverified because the earlier reviewed
+  tables combine non-degree and OPT. The original 2013 Taiwan total (21,867)
+  differs from the retained NCES republication (21,897); that difference is
+  disclosed without overwriting the retained source. All 342 frozen-source
+  tests passed, the public build succeeded, complete 2,756-row CSV/JSON exports
+  reconciled, and repeated recovery changed no data hashes. **Combined website
+  deployment and live verification remain with the release owner.**
 - [ ] **DATA-05: Degree mobility and other host enrollment.** Investigate missing
   UIS periods and U.S.-specific mainland/Hong Kong/Macau host figures.
   Empty responses and grouped "rest of world" categories are not country counts.
@@ -472,3 +484,58 @@ gaps must remain explicit, without invented values or interpolation.
   source attribution and essential disclosure. This is a final visual pass,
   not a substitute for DATA-21 or permission to make short histories appear
   complete. Leave unchecked until the resulting charts are actually reviewed.
+
+## 10. Business coverage and consistent bars: October 24, 7:03 p.m.
+
+The 7:03:08 p.m. screenshot shows U.S.-parent affiliates ending in 2023; the
+7:03:55 p.m. screenshot shows German enterprise counts as lines. These requests
+extend UI-09 and DATA-15. Newer chamber-survey percentages or investment
+positions do not complete the requested operating-company count histories.
+
+- [ ] **BIZ-01: Extend business-count histories toward 2025.** Seek actual
+  measured 2024/2025 affiliate or enterprise counts using additional compatible
+  primary sources, rather than stopping at the current U.S. 2023 endpoint.
+  Keep historical coverage and verify source thresholds, ownership definitions,
+  sector coverage and reporting periods. A 2025 publication date does not make
+  its older measurements 2025 data; surveys, investment dollars and newly formed
+  firms are not substitutes for the stock of operating businesses.
+- [ ] **BIZ-02: Add Chinese businesses operating in the United States.**
+  Recover a genuine reverse-direction count history, not merely U.S. companies
+  in China. State whether counts are controlled affiliates, enterprises,
+  branches or unique parents and identify the immediate/ultimate ownership
+  basis. Keep mainland China, Hong Kong and Macau distinct. Exports, investment
+  flows and visa counts do not fill this business-presence request.
+- [ ] **BIZ-03: Expand beyond the U.S., Germany and Norway.** Add France, the
+  UK and other prominent investing countries with verified businesses in China.
+  Record a clear country-coverage roster and pursue additional national or
+  compatible international sources for missing/current histories. Norway is
+  not a stand-in for Europe; national counts and overlapping EU aggregates
+  must not be summed. Label source differences and unresolved countries.
+- [ ] **BIZ-04: Make the Business count charts consistently use bars.**
+  Replace Germany's line presentation with annual count bars, matching the
+  treatment of the other business-count graphs on the website and in both
+  export backgrounds. Preserve Eurostat/Bundesbank as separately identified
+  source histories, using grouped or separate panels where needed; do not sum
+  overlapping estimates or imply a compatible splice. Verify years, exact
+  values, tooltips, source breaks and desktop/phone rendering on the live site.
+
+## 10. Confucius page: October 24, 7:02 p.m. screenshot
+
+- [ ] **UI-15: Remove the repetitive Operating status column.** Remove the
+  column headed "Operating status" and its repeated "Not verified" cells from
+  the operator-directory table. Keep the program names and source labels,
+  explain the listing/operation distinction once, and preserve all original
+  fields and unknown statuses in the complete CSV/JSON downloads.
+- [ ] **UI-16: Lead with Confucius change over time.** Restore a meaningful
+  chronological presentation of qualifying institute histories; the page must
+  not lead with an open directory or treat one directory retrieval as a trend.
+  Apply the existing history-since-2023 rule to actual histories rather than
+  filtering every historical observation as a standalone snapshot. Continue
+  requiring 2024-2026 for genuine standalone snapshots; do not restore the
+  classroom-only history ending in 2019. Preserve source-specific populations,
+  missing years, campus-only counts, bounds and approximate counts; do not
+  append directory entries as verified operating counts. Retain annual bars,
+  COVID context, exact tooltips, complete downloads and both export themes.
+  Show the real historical endpoint rather than implying a 2026 operating
+  census. Verify desktop/phone, keyboard/touch/no-JS and the deployed page
+  before checking off either item.
