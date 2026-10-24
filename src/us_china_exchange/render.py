@@ -18,6 +18,7 @@ from .immigration_analysis import CHARTS as IMMIGRATION_CHARTS, build_immigratio
 from .language_analysis import CHARTS as LANGUAGE_CHARTS, RETIRED_CHARTS as LANGUAGE_RETIRED_CHARTS, chart_points, svg_language_chart, validate_language_data
 from .pipeline import load, write_atomic
 from . import student_estimates
+from .state_immigration_sources import validate as validate_state_immigration
 from .sources import SOURCE_PAGES, SOURCE_POLICIES
 from .weibo_analysis import WEIBO_CHARTS, svg_weibo, validate_summary
 from .weibo_explorer import explorer_page
@@ -643,6 +644,12 @@ def build(root):
     immigration_data = load(root / "data/site/immigration.json", None)
     if immigration_data is not None:
         validate_immigration_data(immigration_data)
+    state_data = load(root / "data/site/state_immigration.json", None)
+    state_geometry = load(root / "data/site/us_states.geojson", None) if state_data is not None else None
+    if state_data is not None:
+        validate_state_immigration(state_data, state_geometry)
+        if immigration_data is None:
+            raise ValueError("The state immigration map requires the immigration page")
     student_estimate_data = load(root / "data/site/student_estimates.json", None)
     if student_estimate_data is not None:
         student_estimates.validate(student_estimate_data)
@@ -841,7 +848,14 @@ def build(root):
             if path.is_file():
                 path.unlink()
     business_count = build_business(root, business_data, gallery) if business_data is not None else 0
-    immigration_count = build_immigration(root, immigration_data, gallery) if immigration_data is not None else 0
+    immigration_count = build_immigration(root, immigration_data, gallery, state_data, state_geometry) if immigration_data is not None else 0
+    if state_data is None:
+        for theme in CHART_THEMES:
+            for metric in ("share", "count"):
+                remove_figure(root, Path("immigration") / theme / ("state-china-" + metric))
+        for relative in ("downloads/state-immigration.json", "downloads/state-immigration.csv",
+                         "downloads/us-states.geojson", "assets/state-map.js", "assets/state-map.css"):
+            (site / relative).unlink(missing_ok=True)
     if immigration_data is None:
         for chart_id in IMMIGRATION_CHARTS:
             for theme in CHART_THEMES:

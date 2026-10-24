@@ -311,6 +311,11 @@ def check(site, url=None, screenshots=None):
                 for option in page.locator("#module-chart option").all():
                     page.select_option("#module-chart", option.get_attribute("value"))
                     assert page.locator("[data-module-chart]:visible").count() == 1
+                    if option.get_attribute("value") == "state-china-map":
+                        from check_state_immigration_map import check_page
+
+                        check_page(page, json.loads((site / "downloads/state-immigration.json").read_text()))
+                        continue
                     assert page.locator("[data-module-chart]:visible .screen-chart").count()
                     assert page.locator("[data-module-chart]:visible .screen-chart text").evaluate_all("""nodes=>nodes.every(n=>{
                       const b=n.getBBox(),v=n.ownerSVGElement.viewBox.baseVal;

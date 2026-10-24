@@ -1,0 +1,37 @@
+.state-map-panel { max-width: 1000px; }
+.state-map-panel .state-map-chart { max-width: 920px; margin: 10px auto 0; overflow: visible; }
+.state-map-panel .state-map-chart svg { display: block; width: 100%; min-width: 0 !important; height: auto; }
+.state-map-controls { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: 14px 24px; margin: 18px 0 8px; }
+.state-map-controls[hidden] { display: none; }
+.state-map-metrics { display: inline-flex; border: 1px solid #C6B7B1; border-radius: 3px; overflow: hidden; }
+.state-map-metrics button { border: 0; border-right: 1px solid #C6B7B1; border-radius: 0; background: transparent; color: #5C504A; padding: 10px 14px; min-height: 42px; font: inherit; font-size: 13px; cursor: pointer; }
+.state-map-metrics button:last-child { border-right: 0; }
+.state-map-metrics button[aria-pressed="true"] { background: #7B2D26; color: #FFF; }
+.state-map-metrics button:focus-visible { outline: 3px solid #3D6F8C; outline-offset: -3px; }
+.state-map-controls label { width: 230px; font-size: 12px; }
+.state-map-controls select { min-height: 42px; padding: 8px 28px 8px 10px; margin-top: 4px; background-color: transparent; }
+.state-shape,.state-callout { cursor: pointer; }
+.state-shape { vector-effect: non-scaling-stroke; }
+.state-shape.state-active,.state-shape:focus-visible { stroke: #1A1A1A; stroke-width: 1.6; outline: none; }
+.state-callout:focus-visible { outline: 2px solid #1A1A1A; outline-offset: 3px; }
+.state-callout.state-active .state-callout-fill { stroke: #1A1A1A; stroke-width: 1.6; }
+.state-map-legend { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 18px; margin: 12px 0 20px; color: #6B6B6B; font-size: 12px; }
+.state-map-legend span { display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; }
+.state-map-legend i { display: inline-block; width: 19px; height: 12px; }
+.state-map-readout { min-height: 105px; padding: 14px 0; border-top: 1px solid #D6D3CC; border-bottom: 1px solid #D6D3CC; font-size: 14px; font-variant-numeric: tabular-nums; }
+.state-map-readout:empty { display: none; }
+.state-map-readout strong { display: block; font-size: 15px; font-weight: 600; }
+.state-map-values { display: flex; flex-wrap: wrap; gap: 3px 24px; margin: 5px 0; }
+.state-map-uncertainty { display: block; color: #6B6B6B; font-size: 12px; }
+.state-map-panel .chart-downloads h3 { font-size: 14px; margin: 15px 0 8px; }
+.state-map-table table { min-width: 720px; }
+@media (max-width: 600px) {
+  .state-map-chart .state-inset-label { font-size: 24px; }
+  .state-map-controls { gap: 12px; }
+  .state-map-controls label { width: 100%; }
+  .state-map-metrics { display: flex; width: 100%; }
+  .state-map-metrics button { flex: 1; padding: 10px 8px; font-size: 12px; }
+  .state-map-legend { gap: 8px 13px; margin-top: 5px; }
+  .state-map-readout { min-height: 132px; font-size: 13px; }
+  .state-map-values { display: grid; gap: 4px; }
+}

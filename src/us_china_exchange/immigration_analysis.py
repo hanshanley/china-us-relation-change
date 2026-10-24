@@ -132,11 +132,15 @@ def chart_groups(data, chart_id):
     return groups
 
 
-def build_immigration(root, data, gallery):
+def build_immigration(root, data, gallery, state_data=None, state_geometry=None):
     from .render import esc, export_figure, figure_links
 
     validate_immigration_data(data)
     cards, plotted = [], []
+    if state_data is not None:
+        from .state_immigration_map import build_state_map
+
+        cards.append(build_state_map(root, state_data, state_geometry, gallery))
     for chart_id, config in CHARTS.items():
         groups = chart_groups(data, chart_id)
         stock_chart = chart_id.startswith("migrant-stock")
@@ -189,7 +193,9 @@ def build_immigration(root, data, gallery):
                       + "".join(f'<p><a href="{esc(a["url"])}">Official source</a> · SHA-256 <code>{a["sha256"]}</code> · '
                                 f'retrieved {esc(a["retrieved_at"])}</p>' for a in s["assets"]) + '</li>' for s in data["sources"].values())
     html = ('<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">'
-            '<title>Immigration | U.S.–China connections</title><link rel="stylesheet" href="assets/style.css"></head><body><div class="page">'
+            '<title>Immigration | U.S.–China connections</title><link rel="stylesheet" href="assets/style.css">'
+            + ('<link rel="stylesheet" href="assets/state-map.css">' if state_data is not None else '') +
+            '</head><body><div class="page">'
             '<header><h1>Immigration</h1><p>Resident stocks, U.S. permanent-resident grants and Macau residence approvals, shown separately.</p>'
             '<p><a href="downloads/immigration.json" download>Complete data and provenance · JSON</a> · '
             '<a href="downloads/immigration-observations.csv" download>All observations · CSV</a> · '
@@ -198,6 +204,8 @@ def build_immigration(root, data, gallery):
             "".join(f'<p>{esc(v)}</p>' for v in data["context"].values()) +
             '<div class="table-scroll"><table><thead><tr><th>Series</th><th>Status</th><th>Scope or gap</th></tr></thead><tbody>' + coverage +
             '</tbody></table></div></section><section class="series-panel"><h2>Primary sources</h2><ul>' + sources +
-            '</ul></section></main></div></body></html>')
+            '</ul></section></main></div>' +
+            ('<script src="assets/state-map.js" defer></script>' if state_data is not None else '') +
+            '</body></html>')
     write_atomic(root / "site/immigration.html", html)
     return len(cards)

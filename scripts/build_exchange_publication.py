@@ -505,6 +505,14 @@ def build_publication(source, output, revision):
                     (output / "figures/language_learning" / theme / f"{chart_id}.{extension}").unlink(missing_ok=True)
         for old in ["business-publication.css", "business-publication.js"]:
             (output / "assets" / old).unlink(missing_ok=True)
+        if "state-immigration" not in manifest["datasets"]:
+            for relative in ("downloads/state-immigration.json", "downloads/state-immigration.csv",
+                             "downloads/us-states.geojson", "assets/state-map.js", "assets/state-map.css"):
+                (output / relative).unlink(missing_ok=True)
+            for theme in ["themarginoferror", "substack"]:
+                for metric in ["count", "share"]:
+                    for extension in ["png", "svg", "website.png"]:
+                        (output / "figures/immigration" / theme / f"state-china-{metric}.{extension}").unlink(missing_ok=True)
         for measure in SPLIT_VISITOR_MEASURES:
             for direction in ["to_us", "from_us"]:
                 for theme in ["themarginoferror", "substack"]:

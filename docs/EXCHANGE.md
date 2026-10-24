@@ -26,6 +26,46 @@ committed publication tables. Building alone needs only
 `requirements-exchange.txt`; the development requirements also supply the image
 and browser checks.
 
+### China-born residents by U.S. state
+
+The immigration page opens with an interactive 50-state/DC map, switching between
+resident counts and the share of each state's foreign-born residents. Both values,
+the denominator and the Census count margins of error are available on hover,
+focus, touch or the state selector. Alaska and Hawaii have independently scaled
+insets; DC has an accessible callout. A complete table also works without JavaScript.
+Count/share PNG and SVG exports use both publication backgrounds.
+
+`data/site/state_immigration.json` retains all 51 state records, the national
+control, source cells, margins of error and provenance. `us_states.geojson` holds
+the official generalized Census state boundaries. The separate map dataset does
+not change the existing immigration time-series observations.
+
+The current map uses **2020–2024 ACS five-year estimates**, table B05006:
+`B05006_E050` is **China, excluding Hong Kong and Taiwan**; `B05006_E001`
+is the foreign-born universe excluding people born at sea. Do not substitute
+the parent China category, which includes Hong Kong and Taiwan, or assert a
+separately verified Macau exclusion. These are five-year period estimates, not
+2024-only stocks or annual new immigration. The one-year detailed table has
+only 30 state/DC records after Census quality filtering; do not fill its gaps
+with five-year observations or the differently grouped collapsed table.
+
+`python scripts/build_state_immigration_data.py` checks the release page for the
+latest **actually released five-year** summary file, then validates all 51 states
+and the national control before replacing the frozen data. An API metadata shell
+is not a release. The daily workflow keeps the last verified map on retrieval
+failure and records the actual attempt in `data/local/state-immigration/check.json`.
+Unchanged values and geometry do not create daily timestamp-only commits.
+`--year 2024 --cached` reproduces the reviewed vintage from the local cache.
+
+The 267 MB public summary file is read using its first 1 MiB HTTP byte range;
+all 51 state records and the U.S. control are present in that prefix. Validation
+fails if any is absent. The retained SHA-256 describes **the retrieved prefix,
+not the entire nationwide file**. Public CSV/JSON downloads contain every
+selected state estimate, not a source inventory. The full state GeoJSON is
+available separately. Run `scripts/check_state_immigration_map.py --site PATH`
+for the independent identity/colour/value/export, desktop/phone, keyboard,
+touch and no-JavaScript checks.
+
 | Location | Purpose |
 |---|---|
 | `src/us_china_exchange/` | Model, source parsers, refresh orchestration, static rendering |

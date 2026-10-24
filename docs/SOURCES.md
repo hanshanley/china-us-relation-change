@@ -21,6 +21,32 @@ and Taiwan separately, from 2000 where verified. Missing coverage is not zero.
 | Taiwan arrivals | [Government open-data catalog](https://data.gov.tw/dataset/45512), [official CSV](https://stat.taiwan.net.tw/data/opendata/6) | Public annual purpose-by-residence CSV starts 2012. U.S. residence rows provide total arrivals and a separate declared-sightseeing series. The interactive API rejected requests; the explicitly public CSV is accessible without bypassing that restriction. |
 | Mainland arrivals/enrollment | [NBS](https://www.stats.gov.cn/english/), [MOE](https://en.moe.gov.cn/) | Verify the bilateral breakdown for each publication; national totals do not establish U.S.-specific counts. |
 
+## State immigration map
+
+The [Census ACS summary-file release page](https://www.census.gov/programs-surveys/acs/data/summary-file.html)
+links the actually released five-year data. Table **B05006** uses the foreign-born
+universe excluding people born at sea. The map numerator is **E050, China excluding
+Hong Kong and Taiwan**, not E049 (their parent group). E001 is the denominator;
+M050/M001 are published 90% count margins of error, not percentage margins of
+error. Parent China, Hong Kong and Taiwan counts and source cells are retained
+for reconciliation. Macau is not independently identified.
+
+The October 24, 2026 review selected **2020–2024 five-year period estimates** for
+all 50 states and DC. The same year's one-year detailed table contains only 30
+states after [ACS quality filtering](https://www2.census.gov/programs-surveys/acs/tech_docs/data_suppression/ACS_Data_Release_Rules.pdf);
+do not mix annual and five-year data to fill it. The five-year estimates describe
+the whole collection period, not 2024 alone. Every state and the national control
+must be present and reconcile before publication.
+
+The public 267 MB table-based summary file supports ordinary HTTP byte ranges.
+Its first 1 MiB contains every selected state and national row; the retained
+checksum and `byte_range` identify that prefix, never the whole file. Complete
+selected observations, original cells and provenance are in the public JSON/CSV.
+Boundaries are the official generalized 2024 TIGERweb state polygons, joined by
+FIPS and checked against state names/postal codes. Alaska and Hawaii insets use
+separate scales. Census data and boundaries are U.S. government statistical
+products; no personal records or proprietary map tiles are redistributed.
+
 ## Chinese-language learning sources
 
 The separate language-learning publication does not add domestic registrations,

@@ -508,6 +508,14 @@ class Audit:
             scripts = soup.select(".native-chart script.plot-data")
             page.goto(url + filename)
             page.evaluate("document.fonts.ready")
+            if filename == "immigration.html" and (self.site / "downloads/state-immigration.json").is_file():
+                from check_state_immigration_map import check_page
+
+                try:
+                    check_page(page, json.loads((self.site / "downloads/state-immigration.json").read_text()))
+                except AssertionError as exc:
+                    self.issue(f"state-map:{width}", "state_map_interaction", str(exc))
+                self.charts.append({"chart": f"state-map:{width}", "states": 51})
             if filename == "weibo.html":
                 expected = {a["account_id"] for a in self.weibo["accounts"]}
                 actual = page.locator(".weibo-dot").evaluate_all("nodes=>nodes.map(n=>n.dataset.accountId)")
@@ -613,9 +621,18 @@ class Audit:
         for path in sorted(root.rglob("*.svg")):
             key = "export:" + str(path.relative_to(root))
             page.goto(path.resolve().as_uri())
+            soup = BeautifulSoup(path.read_text(), "html.parser")
+            if soup.svg.get("data-state-map"):
+                from check_state_immigration_map import check_export
+
+                try:
+                    check_export(path, json.loads((self.site / "downloads/state-immigration.json").read_text()))
+                except AssertionError as exc:
+                    self.issue(key, "state_map_export", str(exc))
+                self.charts.append({"chart": key, "states": 51})
+                continue
             geometry = page.locator("svg").evaluate(LABEL_GEOMETRY)
             logarithmic = "log scale" in geometry["unit"]
-            soup = BeautifulSoup(path.read_text(), "html.parser")
             model = self.export_model(path.relative_to(root), soup, geometry, logarithmic)
             self.geometry(key, geometry, model)
             self.export_font_layout(key, soup)

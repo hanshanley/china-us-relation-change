@@ -98,7 +98,8 @@ def test_collective_export_preserves_complete_inputs_and_native_plot_boundaries(
     for path, checksum in manifest["files"].items():
         assert hashlib.sha256((tmp_path / path).read_bytes()).hexdigest() == checksum
     for input_name, output_name in [("language_learning", "language-learning"), ("business_presence", "business-presence"),
-                                    ("weibo_summary", "weibo-summary"), ("immigration", "immigration")]:
+                                    ("weibo_summary", "weibo-summary"), ("immigration", "immigration"),
+                                    ("state_immigration", "state-immigration")]:
         assert json.loads((tmp_path / f"downloads/{output_name}.json").read_text()) == json.loads(
             (ROOT / f"data/site/{input_name}.json").read_text())
     for name in module.PAGES:
@@ -138,6 +139,13 @@ def test_collective_export_preserves_complete_inputs_and_native_plot_boundaries(
                 *range(2012, 2021), *range(2022, 2026)}
     assert {o["value"] for o in travel.select("#measure option")} <= {"visitors", "leisure_visitors", "air_visitors"}
     immigration = BeautifulSoup((tmp_path / "immigration.html").read_text(), "html.parser")
+    assert immigration.select_one('#module-chart option[selected]')["value"] == "state-china-map"
+    assert len(immigration.select("#state-china-map .state-shape")) == 51
+    assert immigration.select_one('#state-china-map [data-map-metric="count"]')
+    assert immigration.select_one('#state-china-map [data-map-metric="share"]')
+    assert "state-immigration" in manifest["datasets"]
+    assert json.loads((tmp_path / "downloads/us-states.geojson").read_text()) == json.loads(
+        (ROOT / "data/site/us_states.geojson").read_text())
     assert immigration.select_one("#green-card-grants .plot-data")
     assert immigration.select_one("#latest-admissions .plot-data")
     approvals = json.loads(immigration.select_one("#macau-residence-approvals .plot-data").string)
