@@ -124,6 +124,10 @@ def test_transcription_checksums_are_explicit_not_publisher_pdf_hashes():
     source["assets"][0]["request_url"] = source["publisher_url"]
     with pytest.raises(ValueError, match="transcription"):
         validate(data)
+    data = published()
+    data["sources"]["gao_2023"]["evidence_kind"] = "publisher_response"
+    with pytest.raises(ValueError, match="transcription"):
+        validate(data)
 
 
 def test_bounded_exports_have_open_boundary_marks_not_exact_count_bars():

@@ -1,0 +1,27 @@
+.confucius-summary { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 24px; padding: 0 0 15px; }
+.confucius-summary > div { border-top: 1px solid #B8B0A2; padding-top: 12px; }
+.confucius-summary p { margin: 5px 0; }
+.confucius-summary .metric { font-size: 25px; font-variant-numeric: tabular-nums; }
+.confucius-summary-date { font-size: 13px; }
+.confucius-summary-note,.confucius-scope { color: #655F55; font-size: 13px; line-height: 1.5; }
+.confucius-chart { max-width: 920px; margin-inline: auto !important; }
+.confucius-chart svg { display: block; width: 100%; height: auto; }
+.confucius-chart .confucius-hit { cursor: pointer; outline: none; }
+.confucius-hit:focus-visible .confucius-focus,.confucius-hit[data-hovered] .confucius-focus { stroke: #655F55; }
+.confucius-focus { fill: transparent; stroke: transparent; stroke-width: 1; }
+.confucius-tooltip { position: fixed; z-index: 1000; pointer-events: none; width: max-content; max-width: min(370px,calc(100vw - 24px)); padding: 12px 14px; border: 1px solid #B8B0A2; background: #F2EFE7; color: #171713; font: 14px/1.45 Arial,sans-serif; }
+.confucius-tooltip p { margin: 5px 0; }
+.confucius-tooltip .confucius-tip-scope { color: #655F55; font-size: 12px; }
+.confucius-tooltip[hidden] { display: none; }
+.publication-page .confucius-directory > summary,.publication-page .confucius-method > summary,.publication-page .confucius-downloads > summary { font-size: 19px; }
+.confucius-campus > summary { margin: 12px 0; }
+.confucius-directory table { min-width: 550px; }
+.confucius-method ul { padding-left: 20px; font-size: 13px; }
+.confucius-method li { margin: 9px 0; overflow-wrap: anywhere; }
+.confucius-chart.js-ready svg { min-width: 0 !important; }
+@media(max-width:600px) {
+  .confucius-summary { gap: 14px; }
+  .confucius-summary .metric { font-size: 21px; }
+  .confucius-summary .label,.confucius-summary-note { font-size: 11px; }
+  .confucius-summary-date { font-size: 11px; }
+}

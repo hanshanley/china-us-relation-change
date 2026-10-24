@@ -5,7 +5,7 @@ import hashlib
 import io
 import json
 import re
-from datetime import date, datetime
+from datetime import date, datetime, timezone
 from pathlib import Path
 from urllib.parse import urlencode, urlsplit
 
@@ -298,7 +298,7 @@ def collect(root, client):
         raise ValueError("Reviewed Confucius selected-facts transcription changed")
     reviewed_asset = {"url": REVIEW_URL, "request_url": REVIEW_URL,
                       "sha256": hashlib.sha256(review).hexdigest(),
-                      "retrieved_at": reviewed["reviewed_on"] + "T00:00:00+00:00"}
+                      "retrieved_at": datetime.now(timezone.utc).isoformat(timespec="seconds")}
     for fact in reviewed["facts"]:
         name = "U.S. Government Accountability Office" if fact["source_id"].startswith("gao_") else "National Association of Scholars"
         sources[fact["source_id"]] = source(name, fact["published_on"], fact["publisher_url"], fact["locator"],
@@ -331,6 +331,9 @@ def validate(data):
         raise ValueError("Confucius categories, units and population definitions must remain separate")
     if not all(data["context"].get(k) for k in ("definition", "dates", "history", "current", "successors", "rights")):
         raise ValueError("Confucius definitions and currentness limitations are required")
+    reviewed_sources = {"gao_2019", "gao_2023", "nas_tracker_2023"}
+    if set(data["sources"]) != set(URLS) | reviewed_sources:
+        raise ValueError("Confucius evidence sources require explicit review")
     identities = set()
     for row in data["observations"]:
         if (set(row) != ROW_FIELDS or row["id"] in identities or row["series_id"] not in SERIES
@@ -403,6 +406,9 @@ def validate(data):
             raise ValueError("Program source provenance incomplete")
         if item["published_on"]:
             reference_date(item["published_on"])
+        expected_kind = "reviewed_selected_facts" if key in reviewed_sources else "publisher_response"
+        if item["evidence_kind"] != expected_kind:
+            raise ValueError("A transcription must remain distinct from a publisher-response download")
         for asset in item["assets"]:
             if not re.fullmatch("[0-9a-f]{64}", asset["sha256"]) or datetime.fromisoformat(asset["retrieved_at"]).tzinfo is None:
                 raise ValueError("Program source checksum or retrieval timestamp invalid")

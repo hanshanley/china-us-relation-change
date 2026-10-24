@@ -18,6 +18,8 @@ from .immigration_analysis import CHARTS as IMMIGRATION_CHARTS, build_immigratio
 from .language_analysis import CHARTS as LANGUAGE_CHARTS, RETIRED_CHARTS as LANGUAGE_RETIRED_CHARTS, chart_points, svg_language_chart, validate_language_data
 from .pipeline import load, write_atomic
 from . import student_estimates
+from .confucius_analysis import CHARTS as CONFUCIUS_CHARTS, build_confucius
+from .confucius_sources import validate as validate_confucius
 from .state_immigration_sources import validate as validate_state_immigration
 from .sources import SOURCE_PAGES, SOURCE_POLICIES
 from .weibo_analysis import WEIBO_CHARTS, svg_weibo, validate_summary
@@ -638,6 +640,9 @@ def build(root):
     language_data = load(root / "data/site/language_learning.json", None)
     if language_data is not None:
         validate_language_data(language_data)
+    confucius_data = load(root / "data/site/confucius_programs.json", None)
+    if confucius_data is not None:
+        validate_confucius(confucius_data)
     business_data = load(root / "data/site/business_presence.json", None)
     if business_data is not None:
         validate_business_data(business_data)
@@ -838,6 +843,15 @@ def build(root):
             if path.is_file():
                 path.unlink()
     language_count = build_languages(root, language_data, gallery) if language_data is not None else 0
+    confucius_count = build_confucius(root, confucius_data, gallery) if confucius_data is not None else 0
+    if confucius_data is None:
+        for chart_id in CONFUCIUS_CHARTS:
+            for theme in CHART_THEMES:
+                remove_figure(root, Path("language_learning") / theme / chart_id)
+        for relative in ("confucius.html", "downloads/confucius-programs.json",
+                         "downloads/confucius-observations.csv", "downloads/confucius-records.csv",
+                         "assets/confucius.js", "assets/confucius.css"):
+            (site / relative).unlink(missing_ok=True)
     if language_data is None:
         for chart_id in set(LANGUAGE_CHARTS) | LANGUAGE_RETIRED_CHARTS:
             for theme in CHART_THEMES:
@@ -974,6 +988,7 @@ Four separate geographies. Both directions. History since {START_YEAR}; change s
 <main id="main">
 <p><a href="comparisons.html">Compare mainland China, Hong Kong and Macau on the same charts</a></p>
 {"<p><a href='language-learning.html'>Chinese-language learning: college, AP, school programs and degree awards</a> — separate educational indicators, not bilateral flows.</p>" if language_data is not None else ""}
+{"<p><a href='confucius.html'>Confucius Institutes, Classrooms and documented successor programs in the United States</a>.</p>" if confucius_data is not None else ""}
 {"<p><a href='business-presence.html'>U.S. and European businesses in China over time: annual affiliate and enterprise histories</a>.</p>" if business_data is not None else ""}
 {"<p><a href='immigration.html'>Immigration: permanent-resident grants, not visitor trips or visas</a>.</p>" if immigration_data is not None else ""}
 {"<p><a href='weibo.html'>Explore U.S. media accounts on Weibo</a> — documented identities and publisher relationships, not posting trends.</p>" if weibo_summary is not None else ""}
@@ -1031,5 +1046,5 @@ Four separate geographies. Both directions. History since {START_YEAR}; change s
 """
     write_atomic(site / "index.html", document)
     return {"observations": len(rows), "series": len(groups), "coverage_cells": len(matrix),
-            "comparisons": comparison_count, "language_charts": language_count, "business_charts": business_count,
+            "comparisons": comparison_count, "language_charts": language_count, "confucius_charts": confucius_count, "business_charts": business_count,
             "immigration_charts": immigration_count}

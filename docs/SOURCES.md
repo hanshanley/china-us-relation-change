@@ -21,6 +21,36 @@ and Taiwan separately, from 2000 where verified. Missing coverage is not zero.
 | Taiwan arrivals | [Government open-data catalog](https://data.gov.tw/dataset/45512), [official CSV](https://stat.taiwan.net.tw/data/opendata/6) | Public annual purpose-by-residence CSV starts 2012. U.S. residence rows provide total arrivals and a separate declared-sightseeing series. The interactive API rejected requests; the explicitly public CSV is accessible without bypassing that restriction. |
 | Mainland arrivals/enrollment | [NBS](https://www.stats.gov.cn/english/), [MOE](https://en.moe.gov.cn/) | Verify the bilateral breakdown for each publication; national totals do not establish U.S.-specific counts. |
 
+## Confucius-program counts
+
+These indicators live in their own `confucius_programs.json` dataset and public
+page. They do not change the learner/enrollment datasets.
+
+| Primary source | Contract |
+|---|---|
+| China MFA, September 29, 2014 press conference, embassy-hosted original transcript | Reported 100 U.S. institutes and 366 classrooms; counting rules are not independently harmonized with later school-site counts. |
+| NAS, *Outsourced to China*, April 2017, amended June 2017 | Summary: 103 operating institutes and 501 primary/secondary school sites. The 2025 upload path and a later webpage date are not new observations. |
+| NAS, *After Confucius Institutes*, June 2022 | Retrospective 2006/2007/2015 counts and the original 28 documented replacements, 12 proposed replacements, 58 retained partnerships and five transfers. Groups can overlap. Attribute source classifications; do not adopt advocacy framing or infer current operation. |
+| GAO-19-278 and GAO-24-105981 | 96 campus institutes as of December 2018; fewer than five as of July 2023. Preserve the campus-only population and the exclusive upper bound, not exactly five. Original facts were browser-reviewed; the selected-facts transcription is versioned and separately checksummed, never falsely labelled a downloaded GAO response. |
+| CRS IF11180 versions 11 and 13 | April 2022: 18 reported institutes including announced closures and non-college hosts. December 2022: approximately seven on campuses, attributed to NASEM. Verify the date inside each PDF; version 12 still contains the May 2022 report and is not the 2023 vintage. |
+| U.S. Senate, *China's Impact on the U.S. Education System*, February 2019 | Executive Summary reports 519 classrooms/school sites. Its later inclusion as an exhibit at a 2023 hearing does not update the observation. |
+| USC US-China Institute, November 18, 2021 | Original article/map reports 30 still open, including some announced future closures. Not an independently harmonized annual series. |
+| NAS, *China and Our Children*, July 2024 | 164 documented school/district cases, including current and former programs. An incomplete mixed-unit inventory; the report explicitly says the current operating total is unknown. |
+| NAS, June 22, 2023 tracker and its linked workbooks | Retain ten listed institutes including one paused program, and the source's at-least-28 replacement statement. Keep all 108 post-closure workbook rows and overlapping R/M/T flags. Do not fabricate the difference from the webpage's 111 closed/closing figure, promote a proposal to a completion, or substitute 29 R flags for current active programs. |
+| CIEF public U.S.-filtered directory, observed October 24, 2026 | Complete returned set of 17 names: ten Institute-labelled and seven Classroom-labelled entries. A listed name is not proof of operation; API `enable` is website presentation, not active/closed status. No national K-12 school total is derived from university-named classroom entries. |
+
+Historical observations retain year/month/day precision and distinguish as-of,
+reported-by and retrieval dates. There is no interpolation or combined
+Institutes/Classrooms/successors total. A complete inventory of current programs
+was not established; do not infer zero from closures, new policies or a missing
+entry. Official operator releases and public-directory records are used for
+currentness, not derivative news claims of a nationwide count.
+
+Redistributed records contain factual names, dates, flags and evidence links,
+not source report text, artwork or long workbook narratives. Full selected
+observations and records—not just metadata—are included in every dataset export.
+The source cache retains original downloads locally with their SHA-256 identities.
+
 ## State immigration map
 
 The [Census ACS summary-file release page](https://www.census.gov/programs-surveys/acs/data/summary-file.html)

@@ -99,12 +99,12 @@ def test_collective_export_preserves_complete_inputs_and_native_plot_boundaries(
         assert hashlib.sha256((tmp_path / path).read_bytes()).hexdigest() == checksum
     for input_name, output_name in [("language_learning", "language-learning"), ("business_presence", "business-presence"),
                                     ("weibo_summary", "weibo-summary"), ("immigration", "immigration"),
-                                    ("state_immigration", "state-immigration")]:
+                                    ("state_immigration", "state-immigration"), ("confucius_programs", "confucius-programs")]:
         assert json.loads((tmp_path / f"downloads/{output_name}.json").read_text()) == json.loads(
             (ROOT / f"data/site/{input_name}.json").read_text())
     for name in module.PAGES:
         page = BeautifulSoup((tmp_path / name).read_text(), "html.parser")
-        assert len(page.select("h1")) == 1 and len(page.select(".analysis-tabs a")) == 8
+        assert len(page.select("h1")) == 1 and len(page.select(".analysis-tabs a")) == len(module.TABS) + 1
         assert not page.select("iframe")
         github = page.select(".analysis-tabs a")[-1]
         assert github.text == "GitHub" and github["href"] == module.REPOSITORY

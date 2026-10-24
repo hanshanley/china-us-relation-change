@@ -19,6 +19,7 @@ from us_china_exchange.model import GEOGRAPHIES, json_text
 from us_china_exchange.language_analysis import RETIRED_CHARTS as LANGUAGE_RETIRED_CHARTS
 from us_china_exchange.render import SPLIT_VISITOR_MEASURES, annual_table, build, figure_links, initial_panel, svg_chart
 from us_china_exchange.theme import figure_category
+from us_china_exchange.confucius_analysis import CHARTS as CONFUCIUS_CHARTS
 
 
 CANONICAL = "https://www.themarginoferror.com/china-us-relations/"
@@ -34,6 +35,8 @@ PAGES = {
                          "Fixed regional colours · No combined regional total"),
     "language-learning.html": ("Language learning", "Chinese, Japanese and Korean compared through course enrollments, degree awards and school programs.",
                               "AP exams through 2025 · Degree awards through 2024 · College census through 2021"),
+    "confucius.html": ("Confucius Institutes & Classrooms", "U.S. institutes, school programs and documented replacements, counted separately.",
+                       "Dated historical reports · Operator listings are not an operating census"),
     "business-presence.html": ("Businesses in China", "U.S. and European business presence, with different counting rules kept separate.",
                              "Annual affiliate histories · Latest available year varies by origin"),
     "weibo.html": ("U.S. media on Weibo", "What is documented—and how much of the picture is still missing.",
@@ -41,7 +44,8 @@ PAGES = {
 }
 TABS = [("index.html", "Students & trade"), ("travel.html", "Travel & tourism"), ("immigration.html", "Immigration"),
         ("comparisons.html", "Regional comparison"),
-        ("language-learning.html", "Language"), ("business-presence.html", "Business"), ("weibo.html", "Weibo")]
+        ("language-learning.html", "Language"), ("confucius.html", "Confucius programs"),
+        ("business-presence.html", "Business"), ("weibo.html", "Weibo")]
 
 
 def fragment(markup):
@@ -162,6 +166,10 @@ def decorate(site, name, labels, revision):
         approval_year = max(r["year"] for r in immigration["observations"] if not r["series_id"].startswith("un_stock:"))
         scope = (f"State estimates: {state_data['start_year']}–{state_data['end_year']} ACS"
                  f" · Residence approvals through {approval_year}")
+    elif name == "confucius.html":
+        program_data = json.loads((site / "downloads/confucius-programs.json").read_text())
+        snapshot = next(r["reference"] for r in program_data["observations"] if r["id"] == "cief_institutes")
+        scope = f"Operator directory retrieved {snapshot} · Listings are not an operating census"
     soup.title.string = title + " | The Margin of Error"
     for old in soup.select('link[rel=canonical],meta[name=description]'):
         old.decompose()
@@ -354,7 +362,7 @@ def decorate(site, name, labels, revision):
             controls.append(label)
             main.insert(0, controls)
         for details in main.find_all("details", recursive=False):
-            if not details.select_one(".comparison-chart"):
+            if name != "confucius.html" and not details.select_one(".comparison-chart"):
                 details.decompose()
     observations = {(r["series_id"], r["period"]): r for r in
                     json.loads((site / "downloads/observations.json").read_text()) if r["frequency"] == "annual"}
@@ -494,7 +502,7 @@ def build_publication(source, output, revision):
                     "observations": result["observations"], "files": files,
                     "datasets": {name: files[f"downloads/{name}.json"] for name in
                                  ["exchange", "language-learning", "business-presence", "weibo-summary", "immigration",
-                                  "student-estimates", "state-immigration"]
+                                  "student-estimates", "state-immigration", "confucius-programs"]
                                  if f"downloads/{name}.json" in files}}
         (site / "publication-manifest.json").write_text(json_text(manifest), encoding="utf-8")
         output.mkdir(parents=True, exist_ok=True)
@@ -513,6 +521,14 @@ def build_publication(source, output, revision):
                 for metric in ["count", "share"]:
                     for extension in ["png", "svg", "website.png"]:
                         (output / "figures/immigration" / theme / f"state-china-{metric}.{extension}").unlink(missing_ok=True)
+        if "confucius-programs" not in manifest["datasets"]:
+            for relative in ("confucius.html", "downloads/confucius-programs.json", "downloads/confucius-observations.csv",
+                             "downloads/confucius-records.csv", "assets/confucius.js", "assets/confucius.css"):
+                (output / relative).unlink(missing_ok=True)
+            for chart_id in CONFUCIUS_CHARTS:
+                for theme in ["themarginoferror", "substack"]:
+                    for extension in ["png", "svg", "website.png"]:
+                        (output / "figures/language_learning" / theme / f"{chart_id}.{extension}").unlink(missing_ok=True)
         for measure in SPLIT_VISITOR_MEASURES:
             for direction in ["to_us", "from_us"]:
                 for theme in ["themarginoferror", "substack"]:

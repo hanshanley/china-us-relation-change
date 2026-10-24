@@ -1,0 +1,199 @@
+bound,category,evidence_kind,id,locator,measurement,notes,qualifier,reference,reference_basis,reported,scope,series_id,source_assets,source_id,source_name,source_published_on,source_url,unit,value
+,classrooms,publisher_response,nas_classroom_inventory_2024,Executive Summary; inventory includes current/former cases,documented_inventory,"An incomplete inventory mixing schools and school systems, not 164 active classrooms.",exact,2024-07-16,reported_by,164,"NAS inventory of schools and school systems, including current and former programs. Incomplete inventory, not operating stock.",classrooms_inventory,"[
+  {
+    ""request_url"": ""https://www.nas.org/wp-content/uploads/2025/10/China_and_Our_Children.pdf"",
+    ""retrieved_at"": ""2026-10-24T20:22:07+00:00"",
+    ""sha256"": ""4daa5964c23421fb822238648e3cdc79c912c6dbeab3bd9eb86a6fc82d23e6a0"",
+    ""url"": ""https://www.nas.org/wp-content/uploads/2025/10/China_and_Our_Children.pdf""
+  }
+]
+",nas_classrooms_2024,National Association of Scholars,2024-07-16,https://www.nas.org/wp-content/uploads/2025/10/China_and_Our_Children.pdf,documented cases,164
+,classrooms,publisher_response,cief_classrooms,"Complete U.S. directory response, classified by program name",directory_listings,"Directory entries only, not a verified current operating count.",exact,2026-10-24,retrieved,7,"Classroom-labelled entries in the operator's U.S. directory, including a university-named entry. Not a K-12 school census or proof of operation.",classrooms_listed,"[
+  {
+    ""request_url"": ""https://ci.cn/open/site-tab/sitesByLabelIdAndSiteName?labelId=C-Ame-United-States-of-America&siteName=&language=EN"",
+    ""retrieved_at"": ""2026-10-24T20:30:43+00:00"",
+    ""sha256"": ""cdc7907e71b7b4668a5a79bea3053b1f046c4f9a77dc25f4189ecce0f7a17e7b"",
+    ""url"": ""https://ci.cn/open/site-tab/sitesByLabelIdAndSiteName?labelId=C-Ame-United-States-of-America&siteName=&language=EN""
+  }
+]
+",cief_directory,Chinese International Education Foundation,,https://ci.cn/open/site-tab/sitesByLabelIdAndSiteName?labelId=C-Ame-United-States-of-America&siteName=&language=EN,listed classroom programs,7
+,classrooms,publisher_response,mfa_2014_classrooms_reported,"Spokesperson press conference, U.S. Confucius Institute question",reported_stock,Official statement; source counting definitions not independently harmonized.,exact,2014-09-29,as_of,366,Historical national reports of K-12 Confucius Classrooms; programs and school sites are not necessarily identical units.,classrooms_reported,"[
+  {
+    ""request_url"": ""https://np.china-embassy.gov.cn/eng/fyrth/201409/t20140929_1592935.htm"",
+    ""retrieved_at"": ""2026-10-24T20:20:35+00:00"",
+    ""sha256"": ""e53f9397a896c68b8a3c751ee2c58e619ede31114e5a18175ef354d3232bd5ea"",
+    ""url"": ""https://np.china-embassy.gov.cn/eng/fyrth/201409/t20140929_1592935.htm""
+  }
+]
+",mfa_2014,China Ministry of Foreign Affairs,2014-09-29,https://np.china-embassy.gov.cn/eng/fyrth/201409/t20140929_1592935.htm,reported classrooms or school sites,366
+,classrooms,publisher_response,nas_2017_classrooms_reported,Summary,reported_stock,"Report-period snapshot from the April 2017 report, amended June 2017; no exact measurement month or end-of-year census is inferred.",exact,2017,reported_by,501,Historical national reports of K-12 Confucius Classrooms; programs and school sites are not necessarily identical units.,classrooms_reported,"[
+  {
+    ""request_url"": ""https://www.nas.org/wp-content/uploads/2025/10/NAS_confuciusInstitutes.pdf"",
+    ""retrieved_at"": ""2026-10-24T20:20:32+00:00"",
+    ""sha256"": ""c5569eaf897b0b55de6c6a1a234bf18aa865989d8391e08c77cad500b1323197"",
+    ""url"": ""https://www.nas.org/wp-content/uploads/2025/10/NAS_confuciusInstitutes.pdf""
+  }
+]
+",nas_2017,National Association of Scholars,2017-04,https://www.nas.org/wp-content/uploads/2025/10/NAS_confuciusInstitutes.pdf,reported classrooms or school sites,501
+,classrooms,publisher_response,senate_classrooms_2019,"Executive Summary, printed page 1",reported_stock,Reported classroom school sites; not physical classroom rooms.,exact,2019-02,reported_by,519,Historical national reports of K-12 Confucius Classrooms; programs and school sites are not necessarily identical units.,classrooms_reported,"[
+  {
+    ""request_url"": ""https://www.congress.gov/118/meeting/house/116334/documents/HHRG-118-ED14-20230919-SD002.pdf"",
+    ""retrieved_at"": ""2026-10-24T20:22:08+00:00"",
+    ""sha256"": ""6b921554eeda8b92a4a90ca5d3d6ba984dede4777e5594e78006ab554c67535d"",
+    ""url"": ""https://www.congress.gov/118/meeting/house/116334/documents/HHRG-118-ED14-20230919-SD002.pdf""
+  }
+]
+",senate_2019,U.S. Senate Permanent Subcommittee on Investigations,2019-02-27,https://www.congress.gov/118/meeting/house/116334/documents/HHRG-118-ED14-20230919-SD002.pdf,reported classrooms or school sites,519
+,institutes,reviewed_selected_facts,gao_campus_2018,"GAO-19-278, Highlights, Why GAO Did This Study; public release February 27, 2019",campus_stock,Confucius Institutes at U.S. colleges and universities,exact,2018-12,as_of,96,U.S. college and university campuses only; excludes other hosts.,institutes_campus,"[
+  {
+    ""request_url"": ""https://raw.githubusercontent.com/hanshanley/china-us-relation-change/main/data/reviewed/confucius-snapshots.json"",
+    ""retrieved_at"": ""2026-10-24T20:36:56+00:00"",
+    ""sha256"": ""2cd4bf89b5ccbad66348b372a023c295c70544c36c57b373086414656620c1f7"",
+    ""url"": ""https://raw.githubusercontent.com/hanshanley/china-us-relation-change/main/data/reviewed/confucius-snapshots.json""
+  }
+]
+",gao_2019,U.S. Government Accountability Office,2019-02-13,https://www.gao.gov/products/gao-19-278,institutes,96
+,institutes,publisher_response,crs_dec2022,Pages 1-2,campus_stock,"CRS reports the National Academies' college/university count, approximately seven.",approximate,2022-12,as_of,About 7,U.S. college and university campuses only; excludes other hosts.,institutes_campus,"[
+  {
+    ""request_url"": ""https://www.congress.gov/crs_external_products/IF/PDF/IF11180/IF11180.13.pdf"",
+    ""retrieved_at"": ""2026-10-24T20:20:32+00:00"",
+    ""sha256"": ""a789bb58b822d422818497b9709d5d3293a3b1979ecb3f29209fc1e7774d8a52"",
+    ""url"": ""https://www.congress.gov/crs_external_products/IF/PDF/IF11180/IF11180.13.pdf""
+  }
+]
+",crs_2023,Congressional Research Service,2023-05-02,https://www.congress.gov/crs_external_products/IF/PDF/IF11180/IF11180.13.pdf,institutes,7
+5,institutes,reviewed_selected_facts,gao_campus_2023,"GAO-24-105981, printed page 1 (PDF page 5), specifies July 2023",campus_stock,Operating Confucius Institutes at U.S. colleges and universities,less_than,2023-07,as_of,Fewer than 5,U.S. college and university campuses only; excludes other hosts.,institutes_campus,"[
+  {
+    ""request_url"": ""https://raw.githubusercontent.com/hanshanley/china-us-relation-change/main/data/reviewed/confucius-snapshots.json"",
+    ""retrieved_at"": ""2026-10-24T20:36:56+00:00"",
+    ""sha256"": ""2cd4bf89b5ccbad66348b372a023c295c70544c36c57b373086414656620c1f7"",
+    ""url"": ""https://raw.githubusercontent.com/hanshanley/china-us-relation-change/main/data/reviewed/confucius-snapshots.json""
+  }
+]
+",gao_2023,U.S. Government Accountability Office,2023-10-30,https://www.gao.gov/products/gao-24-105981,institutes,
+,institutes,publisher_response,cief_institutes,"Complete U.S. directory response, classified by program name",directory_listings,"Directory entries only, not a verified current operating count.",exact,2026-10-24,retrieved,10,Institute-labelled entries in the operator's U.S. directory. Website publication switches are not operating status.,institutes_listed,"[
+  {
+    ""request_url"": ""https://ci.cn/open/site-tab/sitesByLabelIdAndSiteName?labelId=C-Ame-United-States-of-America&siteName=&language=EN"",
+    ""retrieved_at"": ""2026-10-24T20:30:43+00:00"",
+    ""sha256"": ""cdc7907e71b7b4668a5a79bea3053b1f046c4f9a77dc25f4189ecce0f7a17e7b"",
+    ""url"": ""https://ci.cn/open/site-tab/sitesByLabelIdAndSiteName?labelId=C-Ame-United-States-of-America&siteName=&language=EN""
+  }
+]
+",cief_directory,Chinese International Education Foundation,,https://ci.cn/open/site-tab/sitesByLabelIdAndSiteName?labelId=C-Ame-United-States-of-America&siteName=&language=EN,listed institutes,10
+,institutes,publisher_response,nas_history_2006,"Printed page 30, historical discussion",reported_stock,Retrospective source count; no month/day or continuous annual series is inferred.,exact,2006,as_of,11,"National reported counts; host coverage and announced closures vary by source. Disconnected snapshots, not a harmonized annual census.",institutes_reported,"[
+  {
+    ""request_url"": ""https://www.nas.org/wp-content/uploads/2025/10/After_Confucius_Institutes_NAS.pdf"",
+    ""retrieved_at"": ""2026-10-24T20:20:58+00:00"",
+    ""sha256"": ""34860b4a3b8b41526927b7c575ee6b5a227a3d7cdb2682690b9018d0b7f83ffe"",
+    ""url"": ""https://www.nas.org/wp-content/uploads/2025/10/After_Confucius_Institutes_NAS.pdf""
+  }
+]
+",nas_2022,National Association of Scholars,2022-06,https://www.nas.org/wp-content/uploads/2025/10/After_Confucius_Institutes_NAS.pdf,institutes,11
+,institutes,publisher_response,nas_history_2007,"Printed page 30, historical discussion",reported_stock,Retrospective source count; no month/day or continuous annual series is inferred.,exact,2007,as_of,31,"National reported counts; host coverage and announced closures vary by source. Disconnected snapshots, not a harmonized annual census.",institutes_reported,"[
+  {
+    ""request_url"": ""https://www.nas.org/wp-content/uploads/2025/10/After_Confucius_Institutes_NAS.pdf"",
+    ""retrieved_at"": ""2026-10-24T20:20:58+00:00"",
+    ""sha256"": ""34860b4a3b8b41526927b7c575ee6b5a227a3d7cdb2682690b9018d0b7f83ffe"",
+    ""url"": ""https://www.nas.org/wp-content/uploads/2025/10/After_Confucius_Institutes_NAS.pdf""
+  }
+]
+",nas_2022,National Association of Scholars,2022-06,https://www.nas.org/wp-content/uploads/2025/10/After_Confucius_Institutes_NAS.pdf,institutes,31
+,institutes,publisher_response,mfa_2014_institutes_reported,"Spokesperson press conference, U.S. Confucius Institute question",reported_stock,Official statement; source counting definitions not independently harmonized.,exact,2014-09-29,as_of,100,"National reported counts; host coverage and announced closures vary by source. Disconnected snapshots, not a harmonized annual census.",institutes_reported,"[
+  {
+    ""request_url"": ""https://np.china-embassy.gov.cn/eng/fyrth/201409/t20140929_1592935.htm"",
+    ""retrieved_at"": ""2026-10-24T20:20:35+00:00"",
+    ""sha256"": ""e53f9397a896c68b8a3c751ee2c58e619ede31114e5a18175ef354d3232bd5ea"",
+    ""url"": ""https://np.china-embassy.gov.cn/eng/fyrth/201409/t20140929_1592935.htm""
+  }
+]
+",mfa_2014,China Ministry of Foreign Affairs,2014-09-29,https://np.china-embassy.gov.cn/eng/fyrth/201409/t20140929_1592935.htm,institutes,100
+,institutes,publisher_response,nas_history_2015,"Printed page 30, historical discussion",reported_stock,Retrospective source count; no month/day or continuous annual series is inferred.,exact,2015,as_of,109,"National reported counts; host coverage and announced closures vary by source. Disconnected snapshots, not a harmonized annual census.",institutes_reported,"[
+  {
+    ""request_url"": ""https://www.nas.org/wp-content/uploads/2025/10/After_Confucius_Institutes_NAS.pdf"",
+    ""retrieved_at"": ""2026-10-24T20:20:58+00:00"",
+    ""sha256"": ""34860b4a3b8b41526927b7c575ee6b5a227a3d7cdb2682690b9018d0b7f83ffe"",
+    ""url"": ""https://www.nas.org/wp-content/uploads/2025/10/After_Confucius_Institutes_NAS.pdf""
+  }
+]
+",nas_2022,National Association of Scholars,2022-06,https://www.nas.org/wp-content/uploads/2025/10/After_Confucius_Institutes_NAS.pdf,institutes,109
+,institutes,publisher_response,nas_2017_institutes_reported,Summary,reported_stock,"Report-period snapshot from the April 2017 report, amended June 2017; no exact measurement month or end-of-year census is inferred.",exact,2017,reported_by,103,"National reported counts; host coverage and announced closures vary by source. Disconnected snapshots, not a harmonized annual census.",institutes_reported,"[
+  {
+    ""request_url"": ""https://www.nas.org/wp-content/uploads/2025/10/NAS_confuciusInstitutes.pdf"",
+    ""retrieved_at"": ""2026-10-24T20:20:32+00:00"",
+    ""sha256"": ""c5569eaf897b0b55de6c6a1a234bf18aa865989d8391e08c77cad500b1323197"",
+    ""url"": ""https://www.nas.org/wp-content/uploads/2025/10/NAS_confuciusInstitutes.pdf""
+  }
+]
+",nas_2017,National Association of Scholars,2017-04,https://www.nas.org/wp-content/uploads/2025/10/NAS_confuciusInstitutes.pdf,institutes,103
+,institutes,publisher_response,usc_nov2021,Article introduction,reported_stock,Some included programs had announced future closures.,exact,2021-11-18,as_of,30,"National reported counts; host coverage and announced closures vary by source. Disconnected snapshots, not a harmonized annual census.",institutes_reported,"[
+  {
+    ""request_url"": ""https://china.usc.edu/confucius-institutes-united-states"",
+    ""retrieved_at"": ""2026-10-24T20:19:26+00:00"",
+    ""sha256"": ""86ea420d06fa27c385f607e5700ff5a29224a40c0175e30dfbf9270f5f794dc7"",
+    ""url"": ""https://china.usc.edu/confucius-institutes-united-states""
+  }
+]
+",usc_2021,USC US-China Institute,2021-11-18,https://china.usc.edu/confucius-institutes-united-states,institutes,30
+,institutes,publisher_response,crs_apr2022,Page 2,reported_stock,"Includes four announced closures, one institute under review and four non-college hosts. CRS attributes the count to NAS.",exact,2022-04,as_of,18,"National reported counts; host coverage and announced closures vary by source. Disconnected snapshots, not a harmonized annual census.",institutes_reported,"[
+  {
+    ""request_url"": ""https://www.congress.gov/crs_external_products/IF/PDF/IF11180/IF11180.11.pdf"",
+    ""retrieved_at"": ""2026-10-24T20:19:26+00:00"",
+    ""sha256"": ""ce5713931450ff592477597a9e7df39aaf16340c41252c82435b603e88565fef"",
+    ""url"": ""https://www.congress.gov/crs_external_products/IF/PDF/IF11180/IF11180.11.pdf""
+  }
+]
+",crs_2022,Congressional Research Service,2022-05-20,https://www.congress.gov/crs_external_products/IF/PDF/IF11180/IF11180.11.pdf,institutes,18
+,institutes,publisher_response,nas_listed_jun2023,"Current sheet, ten institution rows",reported_stock,"Includes non-university hosts and one paused program. Listed, not ten independently verified operating institutes.",exact,2023-06-22,reported_by,10,"National reported counts; host coverage and announced closures vary by source. Disconnected snapshots, not a harmonized annual census.",institutes_reported,"[
+  {
+    ""request_url"": ""https://www.nas.org/wp-content/uploads/2023/06/Confucius20Institutes20in20the20US206-22-23.xlsx"",
+    ""retrieved_at"": ""2026-10-24T20:20:33+00:00"",
+    ""sha256"": ""f36a16d677849f62a1b4a346e9a5b220d70c0691fcc61626a665fd0232b8fd1a"",
+    ""url"": ""https://www.nas.org/wp-content/uploads/2023/06/Confucius20Institutes20in20the20US206-22-23.xlsx""
+  }
+]
+",nas_roster_2023,National Association of Scholars,2023-06-22,https://www.nas.org/wp-content/uploads/2023/06/Confucius20Institutes20in20the20US206-22-23.xlsx,institutes,10
+,institutes,publisher_response,nas_2022_institutes_transferred,"Executive Summary, printed page 7",documented_transfers,Counts are source-coded institutions and may overlap; not an active-program census.,exact,2022-06,reported_by,5,Institutions transferring an institute in the 2022 NAS investigation; not new programs or additional successors.,institutes_transferred,"[
+  {
+    ""request_url"": ""https://www.nas.org/wp-content/uploads/2025/10/After_Confucius_Institutes_NAS.pdf"",
+    ""retrieved_at"": ""2026-10-24T20:20:58+00:00"",
+    ""sha256"": ""34860b4a3b8b41526927b7c575ee6b5a227a3d7cdb2682690b9018d0b7f83ffe"",
+    ""url"": ""https://www.nas.org/wp-content/uploads/2025/10/After_Confucius_Institutes_NAS.pdf""
+  }
+]
+",nas_2022,National Association of Scholars,2022-06,https://www.nas.org/wp-content/uploads/2025/10/After_Confucius_Institutes_NAS.pdf,institutions,5
+,successors,publisher_response,nas_2022_partners_retained,"Executive Summary, printed page 7",retained_partnerships,Counts are source-coded institutions and may overlap; not an active-program census.,exact,2022-06,reported_by,58,Institutions maintaining a former Chinese partner relationship in the 2022 NAS investigation. May overlap replacement cases; not itself a rebrand.,partners_retained,"[
+  {
+    ""request_url"": ""https://www.nas.org/wp-content/uploads/2025/10/After_Confucius_Institutes_NAS.pdf"",
+    ""retrieved_at"": ""2026-10-24T20:20:58+00:00"",
+    ""sha256"": ""34860b4a3b8b41526927b7c575ee6b5a227a3d7cdb2682690b9018d0b7f83ffe"",
+    ""url"": ""https://www.nas.org/wp-content/uploads/2025/10/After_Confucius_Institutes_NAS.pdf""
+  }
+]
+",nas_2022,National Association of Scholars,2022-06,https://www.nas.org/wp-content/uploads/2025/10/After_Confucius_Institutes_NAS.pdf,institutions,58
+,successors,publisher_response,nas_2022_successors_documented,"Executive Summary, printed page 7",documented_replacements,Counts are source-coded institutions and may overlap; not an active-program census.,exact,2022-06,reported_by,28,"U.S. institutions NAS documented as replacing a closed institute with a similar program. Cumulative documentation, not currently operating programs.",successors_documented,"[
+  {
+    ""request_url"": ""https://www.nas.org/wp-content/uploads/2025/10/After_Confucius_Institutes_NAS.pdf"",
+    ""retrieved_at"": ""2026-10-24T20:20:58+00:00"",
+    ""sha256"": ""34860b4a3b8b41526927b7c575ee6b5a227a3d7cdb2682690b9018d0b7f83ffe"",
+    ""url"": ""https://www.nas.org/wp-content/uploads/2025/10/After_Confucius_Institutes_NAS.pdf""
+  }
+]
+",nas_2022,National Association of Scholars,2022-06,https://www.nas.org/wp-content/uploads/2025/10/After_Confucius_Institutes_NAS.pdf,institutions,28
+28,successors,reviewed_selected_facts,nas_successors_2023,"Explicit Updated June 22, 2023 header and summary of post-closure replacements",documented_replacements,U.S. institutions reported by NAS to have replaced their institute with a similar program; not a current operating-program census,at_least,2023-06-22,reported_by,At least 28,"U.S. institutions NAS documented as replacing a closed institute with a similar program. Cumulative documentation, not currently operating programs.",successors_documented,"[
+  {
+    ""request_url"": ""https://raw.githubusercontent.com/hanshanley/china-us-relation-change/main/data/reviewed/confucius-snapshots.json"",
+    ""retrieved_at"": ""2026-10-24T20:36:56+00:00"",
+    ""sha256"": ""2cd4bf89b5ccbad66348b372a023c295c70544c36c57b373086414656620c1f7"",
+    ""url"": ""https://raw.githubusercontent.com/hanshanley/china-us-relation-change/main/data/reviewed/confucius-snapshots.json""
+  }
+]
+",nas_tracker_2023,National Association of Scholars,2023-06-22,https://www.nas.org/blogs/article/how_many_confucius_institutes_are_in_the_united_states/,institutions,
+,successors,publisher_response,nas_2022_successors_proposed,"Executive Summary, printed page 7",proposed_replacements,Counts are source-coded institutions and may overlap; not an active-program census.,exact,2022-06,reported_by,12,Institutions seeking a replacement in the 2022 NAS investigation; not completed replacements.,successors_proposed,"[
+  {
+    ""request_url"": ""https://www.nas.org/wp-content/uploads/2025/10/After_Confucius_Institutes_NAS.pdf"",
+    ""retrieved_at"": ""2026-10-24T20:20:58+00:00"",
+    ""sha256"": ""34860b4a3b8b41526927b7c575ee6b5a227a3d7cdb2682690b9018d0b7f83ffe"",
+    ""url"": ""https://www.nas.org/wp-content/uploads/2025/10/After_Confucius_Institutes_NAS.pdf""
+  }
+]
+",nas_2022,National Association of Scholars,2022-06,https://www.nas.org/wp-content/uploads/2025/10/After_Confucius_Institutes_NAS.pdf,institutions,12

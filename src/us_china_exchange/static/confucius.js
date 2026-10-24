@@ -31,7 +31,8 @@
   function render(container) {
     const model = models.get(container);
     const width = Math.floor(container.getBoundingClientRect().width);
-    if (width < 100) return;
+    if (width < 100 || model.width === width) return;
+    model.width = width;
     hide(container);
     const left = 10, right = width - 12, top = model.maximum;
     const step = 57, first = 19, bottom = model.rows.length * step + 2;
@@ -44,7 +45,8 @@
       const x = amountX(row);
       const amount = row.value == null ? "" : row.value;
       const bound = row.bound == null ? "" : row.bound;
-      const label = `${row.label} · ${row.source_short}`;
+      const shortLabel = model.id === "confucius-directory" ? row.label : row.reference;
+      const label = `${width < 360 ? shortLabel : row.label} · ${row.source_short}`;
       const accessible = `${row.label}: ${row.reported} ${row.unit}. ${row.source_name}. ${row.notes}`;
       markup += `<g class="confucius-hit confucius-mark" role="button" tabindex="0" aria-label="${escape(accessible)}"` +
         ` data-observation-id="${row.id}" data-value="${amount}" data-bound="${bound}"` +
@@ -126,7 +128,20 @@
   document.addEventListener("pointerdown", event => {
     if (!event.target.closest(".confucius-hit")) containers.forEach(hide);
   });
-  document.addEventListener("scroll", () => containers.forEach(hide), { passive: true });
+  document.addEventListener("scroll", () => {
+    const active = document.activeElement;
+    for (const container of containers) {
+      const tip = tips.get(container);
+      if (tip.hidden) continue;
+      if (active?.matches(".confucius-hit") && container.contains(active) &&
+          tip.dataset.observationId === active.dataset.observationId) {
+        const row = models.get(container).rows.find(row => row.id === active.dataset.observationId);
+        show(container, row, active);
+      } else {
+        hide(container);
+      }
+    }
+  }, { passive: true });
   document.addEventListener("change", () => containers.forEach(hide));
   document.addEventListener("toggle", () => containers.forEach(hide), true);
 })();

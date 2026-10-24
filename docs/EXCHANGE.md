@@ -26,6 +26,54 @@ committed publication tables. Building alone needs only
 `requirements-exchange.txt`; the development requirements also supply the image
 and browser checks.
 
+### Confucius Institutes, Classrooms and successor programs
+
+`confucius.html` is a dedicated public page, separate from the Chinese/Japanese/
+Korean language comparisons. It presents disconnected national historical
+snapshots, separately expandable campus-only figures, and source-attributed
+documented replacements. Compact native charts preserve exact hover, tap and
+keyboard values; bounds have open boundary marks, never exact-count bars.
+The same five charts are exported as PNG/SVG in both publication backgrounds.
+
+`data/site/confucius_programs.json` holds 22 selected observations and 135
+supporting factual records: all 17 entries returned by the operator's U.S.
+directory, the ten-entry historical NAS roster, and all 108 rows of the linked
+post-closure workbook. Full observations/definitions and all selected records
+are downloadable as CSV; JSON includes all observations, records and provenance.
+No reports, source artwork, long narrative cells, contacts or administrative
+directory fields are republished.
+
+The October 24, 2026 directory query returns ten Institute-labelled and seven
+Classroom-labelled entries. These are **listings, not a verified operating
+census**. The directory's `enable` field controls its website presentation,
+not whether a program is open. One classroom entry is university-named, so
+seven entries cannot be called seven K-12 schools.
+
+GAO's fewer-than-five campus count refers to **July 2023**, not its October
+publication date. The 2017 NAS report remains a 2017 source despite its 2025
+upload path and a 2026 web-page date; the 2019 Senate report was subsequently
+deposited at a 2023 hearing. The 164-case 2024 classroom inventory mixes current
+and former school/district cases and is not added to the operating history.
+NAS's 28 documented replacements in 2022 and at least 28 in 2023 are cumulative
+source documentation, not the number open now. Proposals, retained partnerships
+and transfers overlap and are not summed into a rebrand total. The workbook
+has 29 R-coded rows, with prospective or ambiguous descriptions; those codes
+remain source evidence, not independent current-status certifications.
+
+`python scripts/build_confucius_data.py --cached` reproduces the explicit
+reviewed collection using the checked source cache. The two GAO facts and
+the 2023 tracker bound use `data/reviewed/confucius-snapshots.json`: its hash
+identifies our selected-fact transcription, not a publisher response.
+`--check-only` checks the public directory without altering reviewed data.
+The daily workflow records actual retrieval failures and changes requiring
+review in `data/local/confucius/check.json`; it does not silently reclassify
+programs or refresh old observations to today's date.
+
+`scripts/check_confucius_publication.py --site PATH` reconciles complete
+downloads, every plotted identity/value/bound, original export dimensions and
+both backgrounds, and desktop/phone, touch, keyboard and no-JavaScript behavior.
+The full plot audit also checks the new page and each export.
+
 ### China-born residents by U.S. state
 
 The immigration page opens with an interactive 50-state/DC map, switching between

@@ -88,6 +88,12 @@ def check_page(page, data, exhaustive=True):
                 if row["bound"] is not None:
                     assert not mark.locator(".confucius-bar").count()
                     assert mark.locator(".confucius-boundary").count() == 1
+                if row["value"] is not None:
+                    assert mark.locator(".confucius-bar").evaluate("""(bar,value)=>{
+                      const v=bar.ownerSVGElement.viewBox.baseVal;
+                      const maximum=Number(bar.closest('.confucius-chart').querySelector('svg').dataset.axisMax);
+                      return Math.abs(Number(bar.getAttribute('width'))-value/maximum*(v.width-22))<.01;
+                    }""", row["value"]), (chart_id, row["id"], "incorrect bar width")
                 if exhaustive or row["bound"] is not None:
                     mark.focus()
                     tip = page.locator(f'.confucius-tooltip[data-observation-id="{row["id"]}"]')
@@ -108,6 +114,7 @@ def check_page(page, data, exhaustive=True):
               const labels=n.querySelectorAll('text'), a=labels[0].getBBox(), b=labels[1].getBBox();
               return a.x+a.width+5<=b.x;
             })"""), (chart_id, "overlapping date/value labels")
+            assert chart.locator("svg").bounding_box()["height"] <= 530
             marks.first.focus()
             marks.first.press("End")
             expect(marks.last).to_be_focused()
@@ -149,7 +156,7 @@ def check(site, url=None, screenshots=None):
         screenshots.mkdir(parents=True, exist_ok=True)
     with sync_playwright() as playwright:
         browser = playwright.chromium.launch()
-        for width in (1360, 390):
+        for width in (1360, 390, 320):
             page = browser.new_page(viewport={"width": width, "height": 1000})
             errors = []
             page.on("pageerror", lambda exc: errors.append(str(exc)))
@@ -185,6 +192,19 @@ def check(site, url=None, screenshots=None):
         assert page.locator("[data-confucius-row]").count() == len(values)
         assert not page.evaluate("document.documentElement.scrollWidth>innerWidth")
         fallback.close()
+        page = browser.new_page()
+        for theme in ("substack", "themarginoferror"):
+            for chart_id in SERIES_BY_CHART:
+                page.goto((site.resolve() / f"figures/language_learning/{theme}/{chart_id}.svg").as_uri())
+                assert page.locator("svg").evaluate("""svg=>{
+                  const v=svg.viewBox.baseVal, nodes=[...svg.querySelectorAll('text')];
+                  if(!nodes.every(n=>{const b=n.getBBox();return b.x>=-1&&b.y>=-1&&b.x+b.width<=v.width+1&&b.y+b.height<=v.height+1;}))return false;
+                  const boxes=nodes.map(n=>n.getBBox());
+                  return boxes.every((a,i)=>boxes.slice(i+1).every(b=>
+                    Math.min(a.x+a.width,b.x+b.width)-Math.max(a.x,b.x)<=2||
+                    Math.min(a.y+a.height,b.y+b.height)-Math.max(a.y,b.y)<=2));
+                }"""), (chart_id, theme, "clipped/overlapping export labels")
+        page.close()
         browser.close()
     print(f"Confucius publication: {len(values)} observations, {len(records)} records; exact bounds, all exports, desktop/phone, keyboard, touch and no-JS checks passed.")
 

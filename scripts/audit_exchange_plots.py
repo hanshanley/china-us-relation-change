@@ -503,11 +503,22 @@ class Audit:
 
     def native(self, browser, width, screenshots, url):
         page = browser.new_page(viewport={"width": width, "height": 1000})
-        for filename in ["comparisons.html", *self.datasets, "weibo.html"]:
+        program_pages = ["confucius.html"] if (self.site / "confucius.html").is_file() else []
+        for filename in ["comparisons.html", *self.datasets, "weibo.html", *program_pages]:
             soup = BeautifulSoup((self.site / filename).read_text(), "html.parser")
             scripts = soup.select(".native-chart script.plot-data")
             page.goto(url + filename)
             page.evaluate("document.fonts.ready")
+            if filename == "confucius.html":
+                from check_confucius_publication import check_page
+
+                program_data = json.loads((self.site / "downloads/confucius-programs.json").read_text())
+                try:
+                    check_page(page, program_data)
+                except AssertionError as exc:
+                    self.issue(f"confucius:{width}", "program_count_interaction", str(exc))
+                self.charts.append({"chart": f"confucius:{width}", "observations": len(program_data["observations"])})
+                continue
             if filename == "immigration.html" and (self.site / "downloads/state-immigration.json").is_file():
                 from check_state_immigration_map import check_page
 
@@ -622,6 +633,15 @@ class Audit:
             key = "export:" + str(path.relative_to(root))
             page.goto(path.resolve().as_uri())
             soup = BeautifulSoup(path.read_text(), "html.parser")
+            if soup.svg.get("data-confucius-chart"):
+                from check_confucius_publication import check_export
+
+                try:
+                    check_export(path, json.loads((self.site / "downloads/confucius-programs.json").read_text()))
+                except AssertionError as exc:
+                    self.issue(key, "program_count_export", str(exc))
+                self.charts.append({"chart": key, "observations": len(soup.select(".confucius-mark"))})
+                continue
             if soup.svg.get("data-state-map"):
                 from check_state_immigration_map import check_export
 
