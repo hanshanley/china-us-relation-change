@@ -1,5 +1,9 @@
 # U.S. news media on Weibo
 
+**Project checklist:** [`PUBLICATION-TODO.md`](PUBLICATION-TODO.md) tracks the
+requested work, verified completions, remaining data gaps and blocked automation.
+Read it before resuming work; a local implementation is not a verified deployment.
+
 This repository also contains an independent **U.S. bilateral exchange
 dashboard** for students, visitor trips, and trade with mainland China,
 Hong Kong, Macau, and Taiwan. Open [`site/index.html`](site/index.html) locally;

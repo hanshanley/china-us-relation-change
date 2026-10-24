@@ -2,13 +2,34 @@
 
 Updated: October 24, 2026.
 
+The complete, numbered request ledger is [`TASKS.md`](TASKS.md). This file tracks
+the current publication release; keep completion evidence consistent between them.
+
 This is the working checklist for the user's requests. Keep it current as work
 progresses. A task is not finished just because code was written or a local graph
 looks plausible. Check the deployed website, its actual data and its downloads
 before checking off a publication task.
 
+Read this file before starting or resuming work. Use it as the single project
+checklist, including the Weibo research and automation below, rather than
+creating competing task lists. Update the status and verification evidence when
+an item changes. **Implemented, committed, deployed and verified are different
+milestones.** A blocked item stays open.
+
 ## Current work: finish in this order
 
+- [ ] **Replace the rejected Business tab with different, newer evidence.**
+  Remove the old affiliate/enterprise-count charts from the primary view and
+  figure catalog; retain complete historical data as an explicitly labeled
+  archive. Separate company-survey percentages from dollar investment positions.
+  Keep survey publication dates, fieldwork, performance years and question bases
+  distinct; do not turn German chamber members into an EU-wide sample.
+  Status: an isolated replacement preview has 19 observations from AmCham
+  Shanghai's September 2026 release, the German Chamber's October 6 preliminary
+  finding, and BEA's 2025 investment tables. Desktop/mobile preview checks and
+  67 focused pre-integration tests passed. **Not committed or live yet.** Integrate
+  it with the current shared source before deployment; the candidate and source
+  receipts are under `data/local/business-refresh-work/`.
 - [x] Inventory stale graphs throughout the website, including individual route
   controls, regional comparisons, supplemental charts and graphic downloads.
 - [ ] **Remove stale public graphs everywhere.** A history needs a nonmissing
@@ -50,6 +71,10 @@ before checking off a publication task.
   source year, unit, direction, bar position, COVID band and export. Test desktop,
   phone, keyboard, touch, no-JavaScript fallbacks, and every enabled public
   route/indicator. Fix actual failures instead of weakening the checks.
+- [ ] **Remove the unwanted faint line through the publication/header.**
+  Recheck the live wordmark and chart margins on desktop and phone; distinguish
+  the reported defect from intentional axis and masthead rules. Do not mark this
+  done without checking the actual rendered result.
 - [ ] **Commit, push and deploy the complete changes.** Commit as Hans Hanley,
   with no Copilot attribution. Preserve other work in the shared checkout.
 - [ ] **Verify the deployed result.** Check the exact served source revision,
@@ -59,6 +84,9 @@ before checking off a publication task.
 
 ## Earlier requested features: preserve and recheck
 
+- [x] The specifically requested mainland-China student-count chart uses annual
+  bars, academic-ending-year labels and matching PNG/SVG downloads.
+  Evidence: `bf629ff`; deployment `40135647570`; desktop/mobile live verification.
 - [x] Two-way student, travel, goods and services histories, with mainland China,
   Hong Kong, Macau and Taiwan kept statistically distinct in complete data.
 - [x] Separate Students, Travel and Trade public topics, with regional
@@ -83,6 +111,62 @@ before checking off a publication task.
 - [ ] Apply the new freshness policy to these earlier features too; do not keep
   an obsolete plot merely because an earlier task asked for it.
 
+## U.S. media on Weibo: research and data
+
+- [x] Establish an evidence-backed inventory that distinguishes current official
+  profiles, historical accounts, licensed editions and unresolved candidates.
+  The latest published snapshot contains 87 channels across 62 publisher-brand
+  groups. This is not a census of all U.S. media.
+- [x] Establish the selected 1,000-domain U.S.-classified SCImago cohort and keep
+  its denominator explicit. It is a digital-reputation selection, not a traffic
+  ranking or an independently audited current-U.S.-ownership census.
+- [ ] **Finish the remaining permitted discovery or document genuine source
+  exhaustion.** Published progress is 373/1,000 manually reviewed, with 627 left.
+  The cohort has 5 current-profile positives, 7 historical-only positives and
+  988 unknowns, not 988 verified negatives. Do not repeatedly query already held
+  or exhausted routes. Keep scheduled discovery active while actionable work
+  remains; stop it when the permitted frontier is genuinely exhausted.
+- [ ] **Publish the already researched pass 78 once.** The Lewiston Sun Journal
+  corporate-context evidence is saved privately; the account remains unknown.
+  Reuse those captures, do not repeat the newspaper's blocked request or append
+  the journal twice. Published progress remains 373 until integration completes.
+- [x] Recover and source-audit a private 6,570-post corpus, keeping the original
+  6,521-post baseline separately. Source-full and truncated records, timestamps,
+  original/repost distinctions and engagement observation times remain distinct.
+- [ ] **Resolve recoverable account/post gaps without bypassing restrictions.**
+  NYT Chinese's historical numeric recheck and VOA `legalwindow`'s numeric
+  binding remain unresolved. Never import candidate posts as confirmed evidence
+  or describe recovered posts as an exhaustive historical corpus.
+- [x] Retain complete permitted private corpus exports and provenance, not
+  metadata-only replacements. Public GitHub/site outputs remain appropriate
+  inventories and aggregates rather than copyrighted raw post collections.
+- [x] Replace recovery-biased Weibo time series as the primary presentation with
+  an interactive account/coverage view. Make missing and unknown percentages,
+  denominators and historical evidence visible; do not estimate historical
+  completeness from recent recovery. Evidence: `cc2d230`, followed by `6966b45`.
+- [x] Implement daily/monthly/rolling-30-day aggregates, including recovered
+  posts, accounts and outlets with observed posts, and posts per day. Incomplete
+  windows stay null; recent collection does not establish actual inactivity.
+
+## Automatic updates: not finished until an unattended run succeeds
+
+- [x] Register the private refresh schedule and implement rebuilding, complete
+  exports, chart generation and guarded commit/push steps.
+- [ ] **Make daily private collection operational.** The configured job still
+  fails before collection because its Python environment and project live in
+  Documents. Last verified state: five natural startup failures; the last
+  successful bounded collection was manual on October 23, 2026.
+  Requires user-approved access for the actual scheduled process, then a real
+  unattended collection run. Do not change permissions, relocate the project,
+  replace the launcher or bypass the block without authorization.
+- [ ] **Verify the complete automatic chain.** Confirm collection, advanced
+  cutoff, deduplicated corpus, regenerated aggregates/downloads, commit/push and
+  the actual website deployment. A successful GitHub aggregate build is not
+  proof that private collection or daily updates worked.
+- [ ] **Keep status honest after failures.** Preserve the last successful data
+  and distinguish a fresh build from a fresh observation. Do not relabel access
+  failures as no posting, no account or zero activity.
+
 ## Data and presentation rules for every remaining item
 
 - Recover current data from original sources and try valid alternative public
@@ -101,6 +185,8 @@ before checking off a publication task.
   desktop. No clipped labels, misleading axes or disconnected unexplained data.
 - Record genuinely unavailable data as such and leave its recovery task open;
   report the limitation rather than silently declaring everything complete.
+- Publish commits as **Hans Hanley**, with no Copilot authorship or co-author
+  trailers. Commit/push coherent work periodically; preserve concurrent changes.
 
 ## Verification evidence
 
@@ -108,3 +194,9 @@ Source-recovery logs, immutable test candidates, browser checks, plot audits and
 screenshots for the current work are under `data/local/freshness/` (not public).
 The final commit, deployment run, live source revision and validation results
 will be recorded here after verification.
+
+Completed regional layout/topic work: `3daec63`, deployment `40134431131`.
+Completed requested student bars: `bf629ff`, deployment `40135647570`.
+Latest published bounded Weibo discovery: pass 77, `26cba61`; the later account
+presentation change is `6966b45`. The new Business/COVID integrated release and
+unattended daily collection remain open until their separate evidence is recorded.
