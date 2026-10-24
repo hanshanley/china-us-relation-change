@@ -1,16 +1,20 @@
 [
   {
     "available_years": [
+      2019,
+      2020,
       2021,
+      2022,
+      2023,
       2024,
       2025
     ],
-    "baseline_2020": false,
+    "baseline_2020": true,
     "destination": "USA",
-    "first_year": 2021,
+    "first_year": 2019,
     "last_year": 2025,
     "measure": "enrolled_students",
-    "observations": 3,
+    "observations": 7,
     "origin": "CHN",
     "reason": "",
     "source_ids": [
@@ -478,16 +482,20 @@
   },
   {
     "available_years": [
+      2019,
+      2020,
       2021,
+      2022,
+      2023,
       2024,
       2025
     ],
-    "baseline_2020": false,
+    "baseline_2020": true,
     "destination": "USA",
-    "first_year": 2021,
+    "first_year": 2019,
     "last_year": 2025,
     "measure": "enrolled_students",
-    "observations": 3,
+    "observations": 7,
     "origin": "HKG",
     "reason": "",
     "source_ids": [
@@ -973,16 +981,20 @@
   },
   {
     "available_years": [
+      2019,
+      2020,
       2021,
+      2022,
+      2023,
       2024,
       2025
     ],
-    "baseline_2020": false,
+    "baseline_2020": true,
     "destination": "USA",
-    "first_year": 2021,
+    "first_year": 2019,
     "last_year": 2025,
     "measure": "enrolled_students",
-    "observations": 3,
+    "observations": 7,
     "origin": "MAC",
     "reason": "",
     "source_ids": [
@@ -1160,18 +1172,25 @@
   },
   {
     "available_years": [
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
       2024,
       2025
     ],
-    "baseline_2020": false,
+    "baseline_2020": true,
     "destination": "USA",
-    "first_year": 2024,
+    "first_year": 2018,
     "last_year": 2025,
     "measure": "services",
-    "observations": 2,
+    "observations": 10,
     "origin": "MAC",
     "reason": "",
     "source_ids": [
+      "bea_expanded",
       "ustr"
     ]
   },
@@ -1295,7 +1314,7 @@
     "first_year": 2001,
     "last_year": 2025,
     "measure": "visitors",
-    "observations": 65,
+    "observations": 67,
     "origin": "USA",
     "reason": "",
     "source_ids": [
@@ -1369,33 +1388,44 @@
   },
   {
     "available_years": [
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
       2024,
       2025
     ],
-    "baseline_2020": false,
+    "baseline_2020": true,
     "destination": "MAC",
-    "first_year": 2024,
+    "first_year": 2018,
     "last_year": 2025,
     "measure": "services",
-    "observations": 2,
+    "observations": 10,
     "origin": "USA",
     "reason": "",
     "source_ids": [
+      "bea_expanded",
       "ustr"
     ]
   },
   {
     "available_years": [
+      2019,
+      2020,
       2021,
+      2022,
+      2023,
       2024,
       2025
     ],
-    "baseline_2020": false,
+    "baseline_2020": true,
     "destination": "USA",
-    "first_year": 2021,
+    "first_year": 2019,
     "last_year": 2025,
     "measure": "enrolled_students",
-    "observations": 3,
+    "observations": 7,
     "origin": "TWN",
     "reason": "",
     "source_ids": [

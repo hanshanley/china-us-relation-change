@@ -85,15 +85,32 @@ class ReviewClient:
                 finally:
                     browser.close()
 
-    def remember(self, url, content, effective):
+    def post_json(self, url, data):
+        body = json.dumps(data, separators=(",", ":"), sort_keys=True)
+        cache_key = "POST " + url + " " + digest(body.encode())
+        prior = self.assets.get(cache_key)
+        if prior and not self.refresh:
+            path = self.cache / prior["sha256"]
+            if path.is_file() and digest(path.read_bytes()) == prior["sha256"]:
+                return path.read_bytes(), prior
+        result = subprocess.run(
+            ["curl", "--fail", "--location", "--silent", "--show-error", "--retry", "2",
+             "--max-time", "180", "--header", "Content-Type: application/json",
+             "--data-binary", body, "--write-out", "\n%{url_effective}", url],
+            capture_output=True, check=True)
+        content, effective = result.stdout.rsplit(b"\n", 1)
+        return self.remember(url, content, effective.decode(), cache_key)
+
+    def remember(self, url, content, effective, cache_key=None):
         asset = {"url": effective, "request_url": url, "sha256": digest(content),
                  "retrieved_at": datetime.now(timezone.utc).isoformat(timespec="seconds")}
         write_atomic(self.cache / asset["sha256"], content)
-        self.assets[url] = asset
+        cache_key = cache_key or url
+        self.assets[cache_key] = asset
         with (self.cache / "assets.lock").open("a") as lock:
             fcntl.flock(lock, fcntl.LOCK_EX)
             current = json.loads(self.index.read_text()) if self.index.exists() else {}
-            current[url] = asset
+            current[cache_key] = asset
             write_atomic(self.index, json_text(current))
             fcntl.flock(lock, fcntl.LOCK_UN)
         return content, asset

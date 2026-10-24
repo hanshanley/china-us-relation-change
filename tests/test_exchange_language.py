@@ -121,6 +121,30 @@ def test_reviewed_checkpoints_and_derived_values_are_not_new_learner_counts():
     assert not any(r["value"] == 34341 for r in data["observations"])
 
 
+def test_review_client_distinguishes_get_and_different_public_query_bodies(tmp_path, monkeypatch):
+    from types import SimpleNamespace
+    from us_china_exchange import language_sources
+
+    requests = []
+
+    def run(command, **kwargs):
+        payload = (json.loads(command[command.index("--data-binary") + 1])
+                   if "--data-binary" in command else None)
+        requests.append(payload)
+        return SimpleNamespace(stdout=json.dumps({"query": payload}).encode() + b"\nhttps://example.test/table")
+
+    monkeypatch.setattr(language_sources.subprocess, "run", run)
+    client = language_sources.ReviewClient(tmp_path)
+    url = "https://example.test/table"
+    assert json.loads(client.get(url)[0]) == {"query": None}
+    first, asset = client.post_json(url, {"country": "CN"})
+    assert json.loads(first) == {"query": {"country": "CN"}}
+    assert json.loads(client.post_json(url, {"country": "HK"})[0]) == {"query": {"country": "HK"}}
+    assert client.post_json(url, {"country": "CN"}) == (first, asset)
+    assert requests == [None, {"country": "CN"}, {"country": "HK"}]
+    assert asset["request_url"] == asset["url"] == url
+
+
 def test_nationwide_comparisons_keep_chinese_japanese_and_korean_separate():
     data = published()
     charts = ["college-enrollments", "college-share", "college-benchmarks", "matched-college-benchmarks",

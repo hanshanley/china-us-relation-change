@@ -35,6 +35,17 @@ class Client:
             response.raise_for_status()
         except requests.RequestException as exc:
             raise SourceUnavailable(str(exc)) from exc
+        return self.remember(response)
+
+    def post_json(self, url, data):
+        try:
+            response = self.session.post(url, json=data, timeout=(20, 90))
+            response.raise_for_status()
+        except requests.RequestException as exc:
+            raise SourceUnavailable(str(exc)) from exc
+        return self.remember(response)
+
+    def remember(self, response):
         content = response.content
         checksum = digest(content)
         path = self.cache / checksum

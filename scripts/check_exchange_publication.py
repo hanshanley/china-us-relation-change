@@ -4,9 +4,14 @@
 import argparse
 import json
 import re
+import sys
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
+
 from playwright.sync_api import expect, sync_playwright
+
+from us_china_exchange.model import primary_observations
 
 
 def check(site, url=None, screenshots=None):
@@ -34,7 +39,7 @@ def check(site, url=None, screenshots=None):
                     page.select_option("#direction", direction)
                     origin, destination = (geo, "USA") if direction == "to_us" else ("USA", geo)
                     for measure in data["measures"]:
-                        annual = sorted((r for r in data["observations"] if r["origin"] == origin and r["destination"] == destination
+                        annual = sorted((r for r in primary_observations(data["observations"]) if r["origin"] == origin and r["destination"] == destination
                                          and r["measure"] == measure and r["frequency"] == "annual" and r["value"] is not None),
                                         key=lambda r: r["year"])
                         option = page.locator(f'#measure option[value="{measure}"]')

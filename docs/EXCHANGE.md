@@ -56,6 +56,51 @@ must be the matching `YYYY` for annual data or `YYYY-MM` for monthly/YTD data,
 with the month matching the validated ending boundary. Academic and reporting
 labels follow their own year-only rules.
 
+### Currentness review: October 23, 2026
+
+Alternative primary sources recovered 34 additional bilateral observations and
+17 business observations. Existing numerical observations are preserved:
+
+| Chart family | Verified extension |
+|---|---|
+| Macau services | BEA expanded-geography Table 2.4 supplies both directions for every year 2018-2025, including a genuine 2020 baseline. It replaces USTR's two isolated vintages in the main and regional charts; all four USTR observations remain in complete downloads and research exports. |
+| U.S.-host enrolled students | Original IIE reports deposited in the federal ERIC repository fill 2019, 2020, 2022 and 2023 for China, Hong Kong, Macau and Taiwan. All four histories now cover 2019-2025 continuously. Exact undergraduate, graduate and non-degree counts are added; OPT is excluded. The pandemic-expanded 2021-2023 population remains disconnected. |
+| Macau current tourism | DSEC's September workbook, released October 23, supplies 10,378 U.S.-issued-document arrivals for September 2026 and 120,071 for January-September. Matched 2025 values are 8,322 and 112,330. Each pair reconciles separately with sea/land/air and same-day/overnight components. The MGTO September URL still returns an August-labelled report and is not relabelled. |
+| Norwegian businesses in China | Statistics Norway Table 09827 supplies a complete 2008-2024 all-industry history, ending at 80 enterprises. This full source history replaces the narrower Eurostat chart, rather than splicing its endpoint onto Eurostat's different sector coverage. Original Eurostat observations remain in the data. |
+
+```sh
+.venv/bin/python scripts/build_tourism_backfill.py --services-only
+.venv/bin/python scripts/build_tourism_backfill.py --dsec-only
+.venv/bin/python scripts/build_contact_backfill.py --enrollment-only
+.venv/bin/python scripts/build_business_data.py --norway-only --data-only
+```
+
+The BEA expanded table and current DSEC country workbook are also checked by
+the ordinary exchange refresh. Public POST endpoints are queried using the
+same request bodies as their official interfaces; cached requests distinguish
+GET from POST and different query bodies. Every response retains its original
+URL, checksum and retrieval date. Human-facing BEA source links open the
+interactive table rather than a POST-only endpoint.
+
+Source-specific publication limits are not silently filled with another
+population. The fresh MLA report/database/workbook check still ends in fall
+2021; 2020 is a separate sample, not a newer national census. Fresh UIS requests
+still end in 2023 for U.S.-host degree mobility and 2024 for U.S.-origin students
+in Hong Kong/Macau, with no new mainland-destination records. Eurostat's EU27
+2023 enterprise count remains confidential. ONS explicitly reports no outward
+affiliate statistics from 2020 onward; its new inward-affiliate release is not
+an extension of UK businesses in China. BEA's activity release still covers
+2023; its next benchmark release is scheduled for November 2026.
+
+Current AP national/cohort reports and the Texas agency's national tables were
+also reviewed. They do not supply the missing nationwide language-specific
+public-graduating-cohort counts. State-only counts, all-subject totals and
+global AP participation are not substituted into that historical cohort
+series. Newer Chinese program respondent surveys, regional college data and
+all-nationality Chinese immigration/tourism totals likewise remain distinct
+from missing national Chinese/Japanese/Korean course counts or U.S.-specific
+mainland enrollment/all-mode arrival histories.
+
 ## Plot styling and publication backgrounds
 
 Charts follow the `uk_decline` project's `vizstyle` house settings: serif type,
@@ -472,7 +517,7 @@ businesses located in Europe.
 | U.S.-parent affiliates in China | All 24 annual fiscal-year observations, 2000-2023. Affiliate entities, including holding companies, not distinct parents, branch offices or annual openings. Nonbank coverage before 2009; reporting thresholds and benchmarks create breaks. |
 | EU-reporting groups in China | Historical EU27 membership (including UK, excluding Croatia) supplies 2009, 2011 and 2012. Current EU27 membership (excluding UK, including Croatia) supplies 2014-2022, with 2021 estimated. Different memberships/classifications are distinct traces, not a joined splice. Confidential and unavailable years remain gaps. |
 | UK-controlled enterprises in China | Ten annual values, 2010-2019. Eurostat history through 2017; ONS revised 2018 and 2019 estimates. The 2018 source/sector boundary is disconnected. ONS total activity includes agriculture. No outward-affiliate counts from 2020 onward verified; do not use newer inward-affiliate or FDI statistics as substitutes. |
-| Norwegian-controlled enterprises in China | Fourteen annual observations, 2010-2023. Eurostat NACE B-S except O; 2021 method boundary disconnected. Norway is outside the EU and is not silently added to a Europe total. |
+| Norwegian-controlled enterprises in China | Seventeen annual Statistics Norway observations, 2008-2024, all industries. The full SSB history is used, not spliced to the narrower Eurostat population. The fourteen old Eurostat observations remain in complete downloads. Norway is outside the EU and is not added to a Europe total. |
 | Supplementary U.S. parent-company benchmarks | Only 2004, 2009, 2014 and 2019 are verified. They appear in a collapsed background section, not as the main time series or an annual census. Foreign-affiliate ownership begins at 10%, not necessarily majority control; reporting exclusions apply. No interpolation. |
 
 The U.S. affiliate reporting cutoff changes from $7 million through 2003 to
@@ -868,9 +913,10 @@ confidential cells stay distinct from zero; raw source files are not published.
 rejected substitutes. Mainland U.S.-attributed all-mode visitor history after
 2018 and several degree-enrollment directions remain unverified or blocked.
 Hong Kong's full 2000-2025 arrival history is recovered with a documented
-population break. Macau services now have direct current USTR 2025 estimates
-and separately qualified archival 2024 estimates in both directions, not an
-invented continuous history. Missing observations show a
+population break. Macau services now have directly published BEA annual
+histories for 2018-2025 in both directions, including a genuine 2020 baseline.
+Current and archival USTR vintages remain separate, not spliced into BEA.
+Missing observations show a
 specific gap instead of a zero.
 
 ## Scheduled operation

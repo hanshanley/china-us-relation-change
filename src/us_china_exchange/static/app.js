@@ -1,6 +1,10 @@
 "use strict";
 (() => {
   const data = JSON.parse(document.getElementById("exchange-data").textContent);
+  const plotRows = data.observations.filter(r => {
+    const preferred = data.primary_series?.[`${r.origin}:${r.destination}:${r.measure}`];
+    return !preferred || r.series_id === preferred;
+  });
   const $ = id => document.getElementById(id);
   const format = (value, unit = "") => value === null ? "Not available" :
     (unit === "USD" ? "$" : "") + value.toLocaleString("en-US", {maximumFractionDigits: 20});
@@ -39,7 +43,7 @@
         "All-mode arrivals (through 2018)" : arrivalOption.dataset.defaultLabel;
     }
     if (data.restrict_to_available) {
-      const available = new Set(data.observations.filter(r => r.origin === origin &&
+      const available = new Set(plotRows.filter(r => r.origin === origin &&
         r.destination === destination && r.frequency === "annual" && r.value !== null).map(r => r.measure));
       const selected = $("measure").value;
       for (const option of $("measure").options) {
@@ -59,7 +63,7 @@
       }
     }
     const measure = $("measure").value;
-    const rows = data.observations.filter(r =>
+    const rows = plotRows.filter(r =>
       r.origin === origin && r.destination === destination && r.measure === measure);
     const estimatePanel = $("student-estimates");
     const showEstimates = !!estimatePanel && outgoing && geo === "CHN" &&
@@ -93,7 +97,7 @@
         alternative = "international_students";
         explanation = "A broader student series has a longer history, but includes graduates on OPT as well as enrolled students.";
       }
-      const other = rows.length && alternative && data.observations.filter(r => r.origin === origin &&
+      const other = rows.length && alternative && plotRows.filter(r => r.origin === origin &&
         r.destination === destination && r.measure === alternative && r.frequency === "annual" && r.value !== null);
       const latestOther = other?.length ? Math.max(...other.map(r => r.year)) : null;
       if (other?.length && current && (measure === "air_visitors" || latestOther > current.year || (
@@ -171,7 +175,7 @@
         (variedDefinitions ? `<td>${escape(r.definition)}</td>` : "") + "</tr>").join("") +
       "</tbody></table></div>";
     const manifest = data.sources[current.source_id];
-    $("series-source").innerHTML = `Source: <a href="${escape(current.source_url)}">${escape(data.source_names[current.source_id])}</a>` +
+    $("series-source").innerHTML = `Source: <a href="${escape(data.source_pages?.[current.source_id] || current.source_url)}">${escape(data.source_names[current.source_id])}</a>` +
       ` \u00b7 ${escape(current.source_vintage)}` + (data.public_display ? "." :
         ` \u00b7 ${escape(manifest.status)}. Published retrieval: ${escape(current.retrieved_at)}. ${escape(manifest.notes || "")}`);
     const breaks = annual.filter((row, i) => i && row.comparability !== annual[i - 1].comparability).map(row => row.period);

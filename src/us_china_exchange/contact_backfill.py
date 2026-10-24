@@ -241,6 +241,73 @@ def parse_educationusa_levels(plain, country):
     return counts
 
 
+def parse_eric_academic_levels(plain, country, year):
+    compact = "".join(plain.split())
+    if ("TOTALUNDERGRADUATEGRADUATENON-DEGREEOPTIONALPRACTICALTRAINING" not in compact
+            or f"{year - 2}/{str(year - 1)[-2:]}" not in compact
+            or f"{year - 1}/{str(year)[-2:]}" not in compact):
+        raise ValueError("ERIC academic-level header or years changed")
+    matches = {tuple(line[len(country) + 1:].split()) for line in plain.splitlines()
+               if line.startswith(country + " ")}
+    if len(matches) != 1:
+        raise ValueError("ERIC country academic-level row missing or conflicting")
+    fields = list(matches.pop())
+    if len(fields) != 17:
+        raise ValueError("ERIC academic-level columns changed")
+    positions = (0, 1, 2, 5, 6, 9, 10, 13, 14)
+    if any(not re.fullmatch(r"\d+(?:,\d{3})*", fields[i]) for i in positions):
+        raise ValueError("ERIC exact academic-level count missing")
+    numeric = {i: int(fields[i].replace(",", "")) for i in positions}
+    previous = [numeric[i] for i in (1, 5, 9, 13)]
+    current = [numeric[i] for i in (2, 6, 10, 14)]
+    if sum(current) != numeric[0]:
+        raise ValueError("ERIC academic-level counts do not reconcile with the printed total")
+    return previous, current
+
+
+def government_enrollment_history(client, prior):
+    reports = [
+        (2020, "ED661341", "5eadfd853ca4a8be8e4ad2d3f2060c7af75300aba1d18509ac9dc0b86ccf24e6",
+         {"CHN": ("China", 46), "HKG": ("Hong Kong", 47), "MAC": ("Macau", 47), "TWN": ("Taiwan", 47)}),
+        (2023, "ED661412", "9e7875404730421b5d9acf2c0fe194d07eef03095362741389dbf8dad6af7e71",
+         {"CHN": ("China", 54), "HKG": ("Hong Kong", 54), "MAC": ("Macau", 54), "TWN": ("Taiwan", 54)}),
+    ]
+    existing = {key(r): r for r in prior}
+    totals = {(r["origin"], r["year"]): r["value"] for r in prior
+              if r["source_id"] == "iie" and r["destination"] == "USA"
+              and r["measure"] == "international_students"}
+    for last_year, document, checksum, countries in reports:
+        body, asset = client.get("https://files.eric.ed.gov/fulltext/" + document + ".pdf")
+        if asset["sha256"] != checksum:
+            raise ValueError("Reviewed ERIC country-level report changed")
+        pages = PdfReader(io.BytesIO(body)).pages
+        for geo, (country, page) in countries.items():
+            levels = parse_eric_academic_levels(pages[page].extract_text(), country, last_year)
+            for year, counts in zip((last_year - 1, last_year), levels):
+                if sum(counts) != totals.get((geo, year)):
+                    raise ValueError("ERIC levels do not reconcile with the retained country/year total")
+                base_year = 2021 if 2021 <= year <= 2023 else 2025
+                base = next(r for r in prior if r["source_id"] == "iie" and r["origin"] == geo
+                            and r["destination"] == "USA" and r["measure"] == "enrolled_students"
+                            and r["year"] == base_year)
+                row = observation(
+                    "iie", geo, "USA", "enrolled_students", year, sum(counts[:3]), base["definition"],
+                    period_basis="academic", comparability=base["comparability"],
+                    notes=f"IIE Open Doors {last_year}, original report deposited in the federal ERIC "
+                    f"repository ({document}), table 1.15, PDF page {page + 1}. Exact undergraduate "
+                    f"{counts[0]}, graduate {counts[1]} and non-degree {counts[2]} counts summed; "
+                    f"OPT {counts[3]} excluded. The four counts reconcile with the independently retained "
+                    "country/year total. No rounded-share back-calculation. Original IIE authorship and "
+                    "source restrictions remain; selected numerical facts only, not a redistributed report. "
+                    "Pandemic-expanded census years retain their separate comparison identity. "
+                    "Direct IIE-hosted retrieval remains paused.")
+                row = attach([row], asset, f"IIE Open Doors {last_year}; original ERIC deposit {document}, table 1.15")[0]
+                if key(row) in existing and existing[key(row)]["value"] != row["value"]:
+                    raise ValueError("ERIC enrollment history conflicts with a retained observation")
+                existing.setdefault(key(row), row)
+    return validate(list(existing.values()))
+
+
 def government_mobility_history(client, prior):
     body, asset = client.get(EDUCATIONUSA_2021)
     if asset["sha256"] != "cc3d1155da82fbb60eda18751c780657f44ee8de500412cef2280362bde4296c":

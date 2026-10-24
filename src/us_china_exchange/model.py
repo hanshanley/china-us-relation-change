@@ -66,6 +66,17 @@ def key(row):
     return row["series_id"], row["period"], row["frequency"]
 
 
+def primary_series(rows):
+    return {":".join((r["origin"], r["destination"], r["measure"])): r["series_id"]
+            for r in rows if r["source_id"] == "bea_expanded" and r["value"] is not None}
+
+
+def primary_observations(rows):
+    preferred = primary_series(rows)
+    return [r for r in rows if r["series_id"] == preferred.get(
+        ":".join((r["origin"], r["destination"], r["measure"])), r["series_id"])]
+
+
 def validate(rows):
     seen = set()
     for row in rows:
@@ -182,7 +193,7 @@ def gap_reason(geo, origin, measure):
     if measure == "leisure_visitors":
         return "Available arrival sources are all-purpose trips; no separately verified leisure-purpose series for this direction."
     if measure == "services":
-        return "Macau services are directly reported in the USTR country summary for 2025; older years remain unverified. A missing value is not zero or a regional allocation."
+        return "Macau services have a directly reported BEA expanded-geography history from 2018. Earlier years remain unverified; missing values are not zero or a regional allocation."
     if measure == "visitors" and origin == "USA":
         if geo == "HKG":
             return "HKTB all-mode history uses residence for 2000-2022 and nationality for 2023-2025, with a visible definition break; matched first-half 2025/2026 counts are separate. No cross-definition 2020 index is calculated."

@@ -1,16 +1,19 @@
+import io
 import json
+from datetime import datetime
 from pathlib import Path
 from types import SimpleNamespace
 
 import pytest
 from bs4 import BeautifulSoup
+from openpyxl import Workbook
 
 from us_china_exchange.model import change
 from us_china_exchange.pipeline import refresh
 from us_china_exchange.render import svg_chart
 from us_china_exchange import tourism_backfill
 from us_china_exchange.tourism_backfill import (
-    parse_archived_macau_services, parse_early_hong_kong, parse_early_macau, parse_hong_kong_profile,
+    parse_archived_macau_services, parse_dsec_visitors, parse_early_hong_kong, parse_early_macau, parse_hong_kong_profile,
     parse_macau_months, parse_top_ten,
 )
 
@@ -137,6 +140,54 @@ def test_macau_monthly_and_ytd_columns_allow_different_source_market_ranks():
         parse_top_ten([halves[0].replace("11,713", "200,000"), halves[1]], 2026, 8)
     with pytest.raises(ValueError, match="ambiguous"):
         parse_top_ten([halves[0] + "\n1\nUnited States of America", halves[1]], 2026, 8)
+
+
+def test_dsec_country_workbook_extends_past_stale_top_ten_report_with_two_controls():
+    book = Workbook()
+    book.remove(book.active)
+    totals = {
+        1: ("VISITOR ARRIVALS", [8322, 10378, 112330, 120071]),
+        2: ("VISITOR ARRIVALS BY SEA AND", [2344, 3135, 31690, 33974]),
+        3: ("VISITOR ARRIVALS BY LAND AND", [4850, 5931, 67141, 71980]),
+        4: ("VISITOR ARRIVALS BY AIR AND", [1128, 1312, 13499, 14117]),
+        5: ("SAME-DAY VISITOR ARRIVALS", [4006, 5193, 56096, 61657]),
+        9: ("OVERNIGHT VISITOR ARRIVALS", [4316, 5185, 56234, 58414]),
+    }
+    for number, (title, values) in totals.items():
+        sheet = book.create_sheet(str(number))
+        sheet.cell(3, 1, title + " BY ISSUING PLACE OF TRAVEL DOCUMENT")
+        sheet.cell(5, 7, "Jan. - Sept.")
+        sheet.cell(10, 3, "USA")
+        for column, year, value in zip((4, 5, 7, 9), (2025, 2026, 2025, 2026), values):
+            sheet.cell(6, column, datetime(year, 9, 1))
+            sheet.cell(9, column, "No.")
+            sheet.cell(10, column, value)
+        sheet.cell(10, 6, 24.7)
+        sheet.cell(10, 8, .4)
+
+    def content():
+        stream = io.BytesIO()
+        book.save(stream)
+        return stream.getvalue()
+
+    rows = parse_dsec_visitors(content(), 2026, 9)
+    assert {(r["year"], r["frequency"]): r["value"] for r in rows} == {
+        (2025, "monthly"): 8322, (2025, "ytd"): 112330,
+        (2026, "monthly"): 10378, (2026, "ytd"): 120071}
+    assert all(r["period"].endswith("-09") and "travel document" in r["definition"] for r in rows)
+    with pytest.raises(ValueError, match="periods"):
+        parse_dsec_visitors(content(), 2026, 8)
+    book["2"].cell(10, 4, 2345)
+    with pytest.raises(ValueError, match="reconcile"):
+        parse_dsec_visitors(content(), 2026, 9)
+    book["2"].cell(10, 4, 2344)
+    book["9"].cell(10, 9, 58415)
+    with pytest.raises(ValueError, match="reconcile"):
+        parse_dsec_visitors(content(), 2026, 9)
+    published = json.loads((ROOT / "data/site/observations.json").read_text())
+    current = next(r for r in published if r["source_id"] == "macau_tourism"
+                   and r["period"] == "2026-09" and r["frequency"] == "ytd")
+    assert current["value"] == 120071 and current["source_url"].startswith("https://www.dsec.gov.mo/getAttachment/")
 
 
 def test_hong_kong_recovery_keeps_population_break_and_matched_halves():

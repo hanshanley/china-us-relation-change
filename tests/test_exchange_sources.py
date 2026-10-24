@@ -88,6 +88,50 @@ def xlsx(book):
     return stream.getvalue()
 
 
+def expanded_services():
+    cells = []
+    for index, kind in enumerate(("Exports of services", "Imports of services", "Balance on services")):
+        for offset, year in enumerate(range(2018, 2026)):
+            column = index * 8 + offset + 3
+            cells.extend([{"Row_ID": "1", "Column_ID": str(column), "Cell_Value": kind},
+                          {"Row_ID": "2", "Column_ID": str(column), "Cell_Value": str(year)}])
+    for line, country in enumerate(("China", "Hong Kong", "Macau", "Taiwan"), 3):
+        cells.append({"Row_ID": str(line), "Column_ID": "2", "Cell_Value": country})
+        for offset, year in enumerate(range(2018, 2026)):
+            values = (441, 34, 406) if country == "Macau" and year == 2024 else (434, 208, 226)
+            for index, value in enumerate(values):
+                cells.append({"Row_ID": str(line), "Column_ID": str(index * 8 + offset + 3),
+                              "Cell_Value": str(value)})
+    table = {"Title": "Table 2.4. U.S. Trade in Services, Expanded Geographic Detail",
+             "Sub_Title": "[Millions of dollars]", "Description": "Release Date: July 7, 2026",
+             "Number_Of_Columns": "26", "TD": cells}
+    return {"AppId": 62, "Number": 6, "Prompts": [{"Name": "TheTableFlexibleIipIta",
+            "PromtData": json.dumps({"Table": json.dumps(table)})}]}, table
+
+
+def test_expanded_bea_services_use_direct_macau_history_and_independent_rounding_controls():
+    data, table = expanded_services()
+    rows, _ = sources.parse_bea_expanded(json.dumps(data))
+    assert len(rows) == 16 and {r["year"] for r in rows} == set(range(2018, 2026))
+    assert {r["source_id"] for r in rows} == {"bea_expanded"}
+    assert next(r["value"] for r in rows if r["origin"] == "USA" and r["year"] == 2024) == 441_000_000
+    assert next(r["value"] for r in rows if r["origin"] == "MAC" and r["year"] == 2025) == 208_000_000
+    cell = next(c for c in table["TD"] if (c["Row_ID"], c["Column_ID"]) == ("5", "9"))
+    cell["Cell_Value"] = "(*)"
+    data["Prompts"][0]["PromtData"] = json.dumps({"Table": json.dumps(table)})
+    rows, _ = sources.parse_bea_expanded(json.dumps(data))
+    missing = next(r for r in rows if r["origin"] == "USA" and r["year"] == 2024)
+    assert missing["value"] is None and missing["status"] == "missing"
+    cell["Cell_Value"] = "451"
+    data["Prompts"][0]["PromtData"] = json.dumps({"Table": json.dumps(table)})
+    with pytest.raises(ValueError, match="rounding precision"):
+        sources.parse_bea_expanded(json.dumps(data))
+    table["Sub_Title"] = "[Billions of dollars]"
+    data["Prompts"][0]["PromtData"] = json.dumps({"Table": json.dumps(table)})
+    with pytest.raises(ValueError, match="units"):
+        sources.parse_bea_expanded(json.dumps(data))
+
+
 def test_bea_scale_directions_and_matched_quarter_sums():
     book = Workbook()
     book.remove(book.active)
@@ -219,6 +263,8 @@ def test_macau_classification_break_is_not_compared_with_2020():
 
 
 def test_macau_discovers_historical_and_latest_complete_profiles(monkeypatch):
+    from us_china_exchange import tourism_backfill
+
     paths = [
         "/VAHightlights/2015/Dec.pdf", "/VAHightlights/2025/Dec.pdf",
         "/MarketPerformance/2015/Market Performance  2015.pdf",
@@ -239,6 +285,8 @@ def test_macau_discovers_historical_and_latest_complete_profiles(monkeypatch):
     monkeypatch.setattr(sources, "parse_macau", lambda content, year: 999)
     monkeypatch.setattr(sources, "parse_macau_market",
                         lambda content, edition: dict.fromkeys(range(edition - 5, edition + 1), edition))
+    monkeypatch.setattr(tourism_backfill, "dsec_recent_visitors",
+                        lambda client: ([], "DSEC checked separately", "Direct monthly controls."))
     rows, _, _ = sources.macau(SimpleNamespace(get=get))
     rows = {row["year"]: row for row in rows}
     assert rows[2010]["value"] == rows[2015]["value"] == 2015
@@ -248,6 +296,12 @@ def test_macau_discovers_historical_and_latest_complete_profiles(monkeypatch):
     assert rows[2015]["source_url"].endswith(paths[2])
     assert rows[2024]["source_url"].endswith(paths[4])
     assert not any("2023" in url or "Jan-Sep" in url for url in requested)
+    december = sources.macau_observation(2025, 1001, "Direct DSEC January-December count")
+    monkeypatch.setattr(tourism_backfill, "dsec_recent_visitors",
+                        lambda client: ([december], "DSEC December", "Full year, not annualized"))
+    revised, _, _ = sources.macau(SimpleNamespace(get=get))
+    assert len({(r["series_id"], r["period"], r["frequency"]) for r in revised}) == len(revised)
+    assert next(r["value"] for r in revised if r["year"] == 2025) == 1001
 
 
 def test_macau_rejects_conflicting_extracted_us_totals(monkeypatch):

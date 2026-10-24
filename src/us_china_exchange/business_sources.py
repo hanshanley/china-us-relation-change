@@ -33,6 +33,15 @@ PARENT_BOOKS = {
 EUROSTAT = "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/"
 ONS_DATA = "https://www.ons.gov.uk/file?uri=/businessindustryandtrade/internationaltrade/datasets/ukoutwardforeignaffiliatestatisticsofats/2019/ofatspublicationfinal.xlsx"
 ONS_COVERAGE = "https://www.ons.gov.uk/aboutus/transparencyandgovernance/freedomofinformationfoi/ukoutwardforeignaffiliatestatisticsofats2015to2025"
+SSB_COUNTRIES = "https://data.ssb.no/api/v0/en/table/09827"
+SSB_CHINA_QUERY = {
+    "query": [
+        {"code": "Land", "selection": {"filter": "item", "values": ["CN"]}},
+        {"code": "ContentsCode", "selection": {"filter": "item", "values": ["Foretak"]}},
+        {"code": "Tid", "selection": {"filter": "all", "values": ["*"]}},
+    ],
+    "response": {"format": "json-stat2"},
+}
 
 
 def count_cell(value):
@@ -67,6 +76,48 @@ def country_counts(sheets, title):
     if set(found) != {"China", "Europe"}:
         raise ValueError("Missing China/Europe business-count rows")
     return found
+
+
+def parse_norway(data):
+    if (data.get("source") != "Statistics Norway" or data.get("class") != "dataset"
+            or data.get("extension", {}).get("px", {}).get("tableid") != "09827"
+            or data.get("id") != ["Land", "ContentsCode", "Tid"]
+            or data.get("size", [])[:2] != [1, 1]):
+        raise ValueError("Norwegian subsidiary dataset identity changed")
+    dimensions = data["dimension"]
+    if (dimensions["Land"]["category"]["index"] != {"CN": 0}
+            or dimensions["ContentsCode"]["category"]["index"] != {"Foretak": 0}
+            or dimensions["ContentsCode"]["category"]["unit"]["Foretak"] != {
+                "base": "enterprises", "decimals": 0}):
+        raise ValueError("Norwegian country, counting unit or measure changed")
+    years = dimensions["Tid"]["category"]["index"]
+    if (not years or data["size"] != [1, 1, len(years)]
+            or not isinstance(data["value"], list) or len(data["value"]) != len(years)
+            or set(years.values()) != set(range(len(years))) or data.get("status")):
+        raise ValueError("Norwegian periods or source flags require review")
+    return [(int(year), *count_cell(data["value"][position])) for year, position in sorted(years.items())]
+
+
+def norwegian_affiliates(client):
+    body, asset = client.post_json(SSB_COUNTRIES, SSB_CHINA_QUERY)
+    data = json.loads(body)
+    points = parse_norway(data)
+    definitions = {"ssb_norway:china": series(
+        "Norway", "controlled_enterprises", "enterprises",
+        "Subsidiary enterprises in China, separately from Hong Kong and Macao, under direct or indirect Norwegian control; all industries",
+        "annual", "reference year",
+        "Statistics Norway's own complete country history. All-industry coverage is broader than the "
+        "old Eurostat B-S except O series; those values are preserved separately, not spliced. "
+        "Counts are subsidiary enterprises, not unique Norwegian parents or physical offices.")}
+    sources = {"ssb_09827": source(
+        "Statistics Norway", "Table 09827; updated " + data["updated"], [asset],
+        "Public API POST: Land=CN; ContentsCode=Foretak; Tid=all; all-industry country table",
+        " ".join(data.get("note", [])) + " Hong Kong and Macao are separately coded countries. "
+        "The original Eurostat population is not silently extended with this broader population.")}
+    observations = [row("ssb_norway:china", year, value, "ssb_09827", status,
+                        "Direct Statistics Norway all-industry country count, not a subset allocated from Asia.",
+                        "ssb:09827:CN:all_industries") for year, value, status in points]
+    return definitions, observations, sources
 
 
 def collect_business(client):
@@ -239,6 +290,10 @@ def collect_business(client):
         _, asset = client.get(url)
         sources[name] = source("BEA" if name.startswith("bea") else "Eurostat",
                                "Reviewed source definitions", [asset], "Definitions and source coverage")
+    norway_definitions, norway_observations, norway_sources = norwegian_affiliates(client)
+    definitions.update(norway_definitions)
+    observations.extend(norway_observations)
+    sources.update(norway_sources)
     coverage = []
     for sid in definitions:
         selected = [r for r in observations if r["series_id"] == sid]

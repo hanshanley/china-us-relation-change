@@ -1,15 +1,18 @@
 """Reviewed government republications of bilateral visitor statistics."""
 
 import io
+import json
 import re
+from datetime import datetime
 from decimal import Decimal
+from urllib.parse import urljoin
 
 from bs4 import BeautifulSoup
 from pypdf import PdfReader
 
 from .language_sources import pdf_text
 from .model import digest, key, observation, validate
-from .sources import attach, macau_observation, parse_ustr_macau_services, ustr_macau_services
+from .sources import attach, macau_observation, parse_ustr_macau_services, ustr_macau_services, workbook
 
 
 MGTO = "https://dataplus.macaotourism.gov.mo"
@@ -20,6 +23,7 @@ HK_DIGEST = "https://www.statistics.gov.hk/pub/B10100032003AN03B0600.pdf"
 MACAU_2002 = (
     "https://www.dsec.gov.mo/getAttachment/8c86dc19-36cc-4a05-8133-5470c143c09b/"
     "P_TUR_PUB_2002_Y.aspx")
+DSEC_VISITORS = "https://www.dsec.gov.mo/StatisticsJSON/AllReleases_en-US_TourismAndServices.json"
 HK_REPORTS = [
     (2008, "M12_MarketingPerformance_2008_1246941849.pdf",
      "9e2ac46cf301021f8c1b8862bf590c199792cc0b2b3cf9933085ddf61b8ead0e"),
@@ -74,6 +78,74 @@ def macau_services_history(client):
     rows.extend(attach(parse_archived_macau_services(body), asset,
                        "USTR 2024 estimates; original government page archived December 18, 2025"))
     return rows, vintage, notes
+
+
+def parse_dsec_visitors(content, year, month):
+    book = workbook(content)
+    expected_dates = [datetime(y, month, 1) for y in (year - 1, year, year - 1, year)]
+    columns = (3, 4, 6, 8)
+
+    def counts(number, title):
+        table = list(book[str(number)].values)
+        if (table[2][0] != title or [table[5][c] for c in columns] != expected_dates
+                or any(table[8][c] != "No." for c in columns)
+                or not re.search(r"Jan\.\s*-", str(table[4][6]))):
+            raise ValueError("DSEC visitor population, periods, count columns or cumulative header changed")
+        countries = [r for r in table if r[2] == "USA"]
+        if len(countries) != 1:
+            raise ValueError("DSEC U.S. visitor row missing or ambiguous")
+        values = [countries[0][c] for c in columns]
+        if any(isinstance(v, bool) or not isinstance(v, (int, float)) or v < 0
+               or not float(v).is_integer() for v in values):
+            raise ValueError("DSEC visitor counts are missing or invalid")
+        return [int(v) for v in values]
+
+    suffix = " BY ISSUING PLACE OF TRAVEL DOCUMENT"
+    total = counts(1, "VISITOR ARRIVALS" + suffix)
+    modes = [counts(n, "VISITOR ARRIVALS BY " + mode + " AND" + suffix)
+             for n, mode in ((2, "SEA"), (3, "LAND"), (4, "AIR"))]
+    same_day = counts(5, "SAME-DAY VISITOR ARRIVALS" + suffix)
+    overnight = counts(9, "OVERNIGHT VISITOR ARRIVALS" + suffix)
+    if any(total[i] != sum(v[i] for v in modes) or total[i] != same_day[i] + overnight[i]
+           for i in range(4)):
+        raise ValueError("DSEC visitor modes or same-day/overnight totals do not reconcile")
+    if total[0] > total[2] or total[1] > total[3]:
+        raise ValueError("DSEC monthly arrivals exceed cumulative arrivals")
+    if month == 1 and (total[0] != total[2] or total[1] != total[3]):
+        raise ValueError("DSEC January monthly and cumulative arrivals do not agree")
+    rows = []
+    for y, monthly, cumulative in ((year - 1, total[0], total[2]), (year, total[1], total[3])):
+        base = macau_observation(y, cumulative, "")
+        for frequency, value in (("monthly", monthly), ("ytd", cumulative)):
+            rows.append(observation(
+                "macau_tourism", "USA", "MAC", "visitors", y, value, base["definition"],
+                frequency=frequency, month=month, comparability=base["comparability"],
+                notes=base["notes"] + " Direct DSEC table 1 U.S. travel-document row; monthly and "
+                "January-to-month count columns, not percentages. Sea + land + air and same-day + overnight "
+                "independently reconcile with each published total, for both comparison years."))
+        if month == 12:
+            rows.append(macau_observation(
+                y, cumulative, "Direct DSEC January-December count, not annualized from a shorter period."))
+    return validate(rows)
+
+
+def dsec_recent_visitors(client):
+    body, _ = client.get(DSEC_VISITORS)
+    publications = json.loads(body)["VisitorArrivals"]["Containers"]["VisitorArrivals"]["LatestPublication"]["Monthly"]
+    latest = max(publications, key=lambda p: (int(p["Year"]), int(p["Period"])))
+    year, month = int(latest["Year"]), int(latest["Period"])
+    now = datetime.now()
+    if not 1 <= month <= 12 or (year, month) >= (now.year, now.month):
+        raise ValueError("DSEC visitor report is not a completed month")
+    files = [f for f in latest["File"] if f["Type"] == ".xlsx" and f["Link"].startswith("/getAttachment/")]
+    if len(files) != 1:
+        raise ValueError("DSEC latest visitor workbook missing or ambiguous")
+    content, asset = client.get(urljoin(DSEC_VISITORS, files[0]["Link"]))
+    vintage = f"DSEC Visitor Arrivals {year}-{month:02d}, tables 1-5 and 9"
+    return attach(parse_dsec_visitors(content, year, month), asset, vintage), vintage, (
+        "Direct monthly and January-to-month counts for U.S.-issued travel documents, not U.S. residents. "
+        "The current DSEC country workbook takes priority over a stale MGTO latest-report endpoint. "
+        "Matched prior/current-year periods and two independent component controls are verified.")
 
 
 def parse_early_hong_kong(plain):
@@ -299,19 +371,25 @@ def macau_recent(client):
             if key(row) in reviewed and reviewed[key(row)]["value"] != value:
                 raise ValueError("Overlapping Macau monthly source vintages disagree")
             reviewed.setdefault(key(row), row)
+    current, current_vintage, current_notes = dsec_recent_visitors(client)
+    for row in current:
+        if key(row) in reviewed and reviewed[key(row)]["value"] != row["value"]:
+            raise ValueError("DSEC and MGTO overlapping visitor counts disagree")
+        reviewed.setdefault(key(row), row)
     rows = validate(list(reviewed.values()))
-    if not all(any(r["year"] == y and r["frequency"] == "ytd" and r["period"].endswith("-08")
-                   for r in rows) for y in (2025, 2026)):
+    latest = max((r for r in rows if r["frequency"] == "ytd"), key=lambda r: r["period"])
+    if not any(r["year"] == latest["year"] - 1 and r["frequency"] == "ytd"
+               and r["period"].endswith(latest["period"][-3:]) for r in rows):
         raise ValueError("Matching latest Macau cumulative periods are required")
     complete = {r["period"]: r["value"] for r in rows
                 if r["year"] == 2025 and r["frequency"] == "monthly"}
     december = next((r["value"] for r in rows if r["period"] == "2025-12" and r["frequency"] == "ytd"), None)
     if len(complete) != 12 or sum(complete.values()) != december:
         raise ValueError("Complete 2025 Macau monthly counts must reconcile with December cumulative total")
-    return rows, "DSEC 2001-2002; full monthly 2025 and monthly/YTD through August 2026", (
+    return rows, "DSEC 2001-2002; full monthly 2025; " + current_vintage, (
         "Direct 2025/2026 monthly and cumulative source-market tables, supplemented by complete U.S. "
         "first-half profiles when a monthly top-ten row is absent; travel-document issuing place, "
         "not U.S. residence. All twelve 2025 monthly counts reconcile with the December cumulative total. "
-        "A requested September 2026 report still displays August captions and is not mislabelled. "
+        f"{current_notes} "
         "Original DSEC 2002 table 1 restores 2001/2002 all-mode residence "
         "arrivals before the 2008 worker/student exclusion. Other annual history retained.")

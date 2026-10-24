@@ -24,7 +24,7 @@ def check(site, url=None):
             page.evaluate("document.fonts.ready")
             expect(page.locator("#business-controls")).to_be_visible()
             assert page.locator("section[data-business-origin]:visible").count() == 4
-            assert page.locator("#annual-values tbody tr:visible").count() == 24
+            assert page.locator("#annual-values tbody tr:visible").count() == 25
             assert not page.evaluate("document.documentElement.scrollWidth > innerWidth")
             assert page.locator("#us-affiliates-china svg").evaluate(
                 "node => node.viewBox.baseVal.width") == 1000
@@ -49,9 +49,9 @@ def check(site, url=None):
             expect(page.locator("#business-filter-status")).to_contain_text("Choose whole table years")
             page.locator("#business-start").fill("2000")
             page.locator("#business-start").press("Tab")
-            page.locator("#business-end").fill("2023")
+            page.locator("#business-end").fill("2024")
             page.locator("#business-end").press("Tab")
-            for origin, chart, count in [("us", "us", 24), ("uk", "uk", 10), ("norway", "norway", 14)]:
+            for origin, chart, count in [("us", "us", 24), ("uk", "uk", 10), ("norway", "norway", 17)]:
                 page.select_option("#business-origin", origin)
                 assert page.locator("section[data-business-origin]:visible").count() == 1
                 assert page.locator("#annual-values thead th:visible").count() == 2
@@ -67,7 +67,7 @@ def check(site, url=None):
         page.goto(url)
         expect(page.locator("#business-controls")).to_be_hidden()
         assert page.locator("section[data-business-origin]:visible").count() == 4
-        assert page.locator("#annual-values tbody tr:visible").count() == 24
+        assert page.locator("#annual-values tbody tr:visible").count() == 25
         assert page.locator("#annual-values thead th:visible").count() == 6
         assert not page.evaluate("document.documentElement.scrollWidth > innerWidth")
         assert page.locator("a[data-original-chart]").count() == 20

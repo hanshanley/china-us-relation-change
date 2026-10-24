@@ -18,10 +18,10 @@ RETIRED_CHARTS = {"us-parent-companies", "us-affiliates-europe", "us-affiliates-
 BENCHMARK_CHART = "us-parent-companies-china"
 COLORS = {"bea_affiliates:china": PARTNER_COLORS["CHN"], "bea_parents:china": PARTNER_COLORS["CHN"],
           "eurostat_affiliates:china": BLUE, "eurostat_historical_eu:china": MUTED,
-          "eurostat_uk:china": GOLD, "eurostat_norway:china": GREEN}
+          "eurostat_uk:china": GOLD, "eurostat_norway:china": GREEN, "ssb_norway:china": GREEN}
 ORIGINS = {"bea_affiliates:china": "us", "bea_parents:china": "us",
            "eurostat_affiliates:china": "eu", "eurostat_historical_eu:china": "eu",
-           "eurostat_uk:china": "uk", "eurostat_norway:china": "norway"}
+           "eurostat_uk:china": "uk", "eurostat_norway:china": "norway", "ssb_norway:china": "norway"}
 CHARTS = {
     "us-affiliates-china": {
         "title": "U.S.-parent affiliates in China",
@@ -40,9 +40,11 @@ CHARTS = {
         "note": "Eurostat history; ONS revised 2018/2019 estimates. Survey breaks and 2018 source/sector boundary disconnected. ONS total activity includes agriculture. No later outward-affiliate counts verified; do not fill with inward or FDI data."},
     "norway-affiliates-china": {
         "title": "Norwegian-controlled enterprises in China",
-        "subtitle": "Annual observations, 2010-2023 | Eurostat",
-        "series": ["eurostat_norway:china"], "unit": "Enterprises", "mode": "levels",
-        "note": "Eurostat outward FATS, NACE B-S except O. Norway is outside the EU and shown separately, not summed into all Europe. The 2021 method boundary is disconnected. Not unique Norwegian parent companies or office locations."},
+        "subtitle": "Annual observations from 2008 | Statistics Norway",
+        "series": ["ssb_norway:china"], "unit": "Enterprises", "mode": "levels",
+        "note": "Statistics Norway, all industries. Direct or indirect Norwegian control; Hong Kong and Macao reported separately. "
+        "This full source history replaces the narrower Eurostat view, not just its last year. "
+        "Norway is outside the EU; counts are enterprises, not Norwegian parents or office locations."},
     BENCHMARK_CHART: {
         "title": "U.S. parent companies with China affiliates",
         "subtitle": "Supplementary benchmark observations | NOT an annual series",
@@ -63,7 +65,7 @@ def validate_business_data(data):
             raise ValueError("Invalid business series identity")
         if not all(isinstance(v, str) and v for v in definition.values()) or definition["unit"] != units[sid]:
             raise ValueError("Business counting units and populations must remain explicit")
-        expected = ("controlled_enterprises", "annual", "reference year") if sid.startswith("eurostat") else (
+        expected = ("controlled_enterprises", "annual", "reference year") if sid.startswith(("eurostat", "ssb_")) else (
             ("parent_companies", "benchmark", "fiscal ending year") if sid.startswith("bea_parents")
             else ("majority_owned_affiliates", "annual", "fiscal ending year"))
         if tuple(definition[k] for k in ("measure", "cadence", "period_basis")) != expected:
@@ -118,6 +120,8 @@ def validate_business_data(data):
         }
         if r["series_id"].startswith("eurostat") and r["source_id"] != expected_source[r["series_id"]]:
             raise ValueError("European method/source boundary mismatch")
+        if r["series_id"] == "ssb_norway:china" and r["source_id"] != "ssb_09827":
+            raise ValueError("Norwegian country table source mismatch")
     if not all(data["context"].get(k) for k in ("question", "interpretation", "geography", "rights")):
         raise ValueError("Business interpretation and coverage caveats required")
     if any(set(c) != {"id", "status", "description"} for c in data["coverage"]):
@@ -152,8 +156,7 @@ def svg_business_chart(data, chart_id, theme="themarginoferror"):
     selected = [r for r in data["observations"] if r["series_id"] in config["series"]]
     if selected:
         last_year = max(r["year"] for r in selected)
-        config["last_year"] = (last_year if chart_id == BENCHMARK_CHART else
-                              max(r["year"] for r in data["observations"] if data["series"][r["series_id"]]["cadence"] == "annual"))
+        config["last_year"] = last_year
         latest = [r for r in selected if r["year"] == last_year]
         if any(r["status"] == "suppressed" for r in latest):
             config["note"] += f" {last_year} confidential."
@@ -238,7 +241,7 @@ def build_business(root, data, gallery, publication=False):
         for s in data["sources"].values())
     columns = [("bea_affiliates:china", "U.S. affiliates"), ("eurostat_affiliates:china", "EU27 current members"),
                ("eurostat_historical_eu:china", "EU27 2007 members"), ("eurostat_uk:china", "UK enterprises"),
-               ("eurostat_norway:china", "Norwegian enterprises")]
+               ("ssb_norway:china", "Norwegian enterprises (all industries)")]
     observations = {(r["series_id"], r["year"]): r for r in data["observations"]}
     annual = [r for r in data["observations"] if data["series"][r["series_id"]]["cadence"] == "annual"]
     first = min((r["year"] for r in annual), default=2000)

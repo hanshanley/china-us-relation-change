@@ -12,13 +12,13 @@ from pathlib import Path
 
 import resvg_py
 
-from .model import START_YEAR, GEOGRAPHIES, MEASURES, change, coverage, gap_reason, json_text, validate
+from .model import START_YEAR, GEOGRAPHIES, MEASURES, change, coverage, gap_reason, json_text, primary_observations, primary_series, validate
 from .business_analysis import CHARTS as BUSINESS_CHARTS, RETIRED_CHARTS as BUSINESS_RETIRED_CHARTS, build_business, validate_business_data
 from .immigration_analysis import CHARTS as IMMIGRATION_CHARTS, build_immigration, validate_immigration_data
 from .language_analysis import CHARTS as LANGUAGE_CHARTS, RETIRED_CHARTS as LANGUAGE_RETIRED_CHARTS, chart_points, svg_language_chart, validate_language_data
 from .pipeline import load, write_atomic
 from . import student_estimates
-from .sources import SOURCE_POLICIES
+from .sources import SOURCE_PAGES, SOURCE_POLICIES
 from .weibo_analysis import AUDIT_LABELS, SHANGHAI, WEIBO_CHARTS, svg_weibo, timestamp, validate_summary
 from .weibo_activity import DAILY_FIELDS, ROLLING_FIELDS
 from .theme import (CHART_HEIGHT, CHART_THEMES, CHART_WIDTH, COMPARISON_GEOGRAPHIES, FIGURE_CATEGORIES, FONT,
@@ -28,6 +28,7 @@ from .theme import (CHART_HEIGHT, CHART_THEMES, CHART_WIDTH, COMPARISON_GEOGRAPH
 
 SOURCE_NAMES = {
     "bea": "U.S. Bureau of Economic Analysis",
+    "bea_expanded": "U.S. Bureau of Economic Analysis",
     "ntto": "U.S. National Travel and Tourism Office",
     "nbs_tourism": "China National Bureau of Statistics / Ministry of Culture and Tourism",
     "ntto_siat": "U.S. National Travel and Tourism Office / SIAT",
@@ -137,8 +138,11 @@ def svg_chart(rows, indexed=False, theme="themarginoferror"):
         parts.append(f'<text x="{x(year):.2f}" y="472" text-anchor="middle">{year}</text>')
     parts.append(f'<path d="M115 150V435H950" stroke="{GRID}" stroke-width="0.8" fill="none"/>')
     if ref is not None:
-        parts.append(f'<path d="M{x(ref["year"]):.2f} 150V435" stroke="{MUTED}" stroke-width="0.8" stroke-dasharray="4 5"/>')
-        parts.append(f'<text x="{x(ref["year"]) - 8:.2f}" y="125" text-anchor="end">{ref["year"]} baseline</text>')
+        reference_x = x(ref["year"])
+        anchor = "start" if reference_x < 400 else "end"
+        label_x = max(260, reference_x + 8) if anchor == "start" else reference_x - 8
+        parts.append(f'<path d="M{reference_x:.2f} 150V435" stroke="{MUTED}" stroke-width="0.8" stroke-dasharray="4 5"/>')
+        parts.append(f'<text x="{label_x:.2f}" y="125" text-anchor="{anchor}">{ref["year"]} baseline</text>')
     if indexed:
         parts.append(f'<text x="115" y="125" fill="{TEXT}">{ref["year"]} = 100</text>')
     else:
@@ -203,6 +207,7 @@ def svg_chart(rows, indexed=False, theme="themarginoferror"):
 
 
 def regional_series(rows, measure, direction):
+    rows = primary_observations(rows)
     if direction not in {"to_us", "from_us"}:
         raise ValueError("Unknown comparison direction")
     groups = {}
@@ -268,8 +273,11 @@ def svg_comparison(rows, measure, direction, theme="themarginoferror", logarithm
         parts.append(f'<text x="{x(year):.2f}" y="455" font-size="18" text-anchor="middle">{year}</text>')
     parts.append(f'<path d="M115 180V420H950" stroke="{GRID}" stroke-width="0.8" fill="none"/>')
     if any(r["year"] == 2020 for r in present):
-        parts.append(f'<path d="M{x(2020):.2f} 180V420" stroke="{MUTED}" stroke-width="0.8" stroke-dasharray="4 5"/>'
-                     f'<text x="{x(2020) - 8:.2f}" y="153" text-anchor="end">2020 baseline</text>')
+        reference_x = x(2020)
+        anchor = "start" if reference_x < 550 else "end"
+        label_x = max(400, reference_x + 8) if anchor == "start" else reference_x - 8
+        parts.append(f'<path d="M{reference_x:.2f} 180V420" stroke="{MUTED}" stroke-width="0.8" stroke-dasharray="4 5"/>'
+                     f'<text x="{label_x:.2f}" y="153" text-anchor="{anchor}">2020 baseline</text>')
     for geo, annual in groups.items():
         data = [r for r in annual if r["value"] is not None and (not logarithmic or r["value"] > 0)]
         if not data:
@@ -855,7 +863,7 @@ def build(root):
                 body += f'<h3>{esc(GEOGRAPHIES[geo])}</h3>'
                 if present:
                     latest = max(present, key=lambda r: r["year"])
-                    body += (f'<p>Source: <a href="{esc(latest["source_url"])}">{esc(SOURCE_NAMES[latest["source_id"]])}</a>'
+                    body += (f'<p>Source: <a href="{esc(SOURCE_PAGES.get(latest["source_id"], latest["source_url"]))}">{esc(SOURCE_NAMES[latest["source_id"]])}</a>'
                              f' · {esc(latest["source_vintage"])}. Latest: {esc(latest["period"])}.</p>' + annual_table(annual))
                 else:
                     body += f'<p>{esc(gap_reason(geo, geo if direction == "to_us" else "USA", measure))}</p>'
@@ -922,9 +930,11 @@ def build(root):
             if path.is_file():
                 path.unlink()
     payload = {"observations": rows, "sources": sources, "coverage": matrix,
+               "primary_series": primary_series(rows),
                "geographies": GEOGRAPHIES, "measures": MEASURES,
                "prefer_current_travel": True,
                "source_policies": SOURCE_POLICIES,
+               "source_pages": SOURCE_PAGES,
                "source_names": SOURCE_NAMES, "charts": charts, "chart_themes": CHART_THEMES,
                "figures": figure_paths}
     if student_estimate_data is not None:
@@ -1043,7 +1053,7 @@ Four separate geographies. Both directions. History since {START_YEAR}; change s
 <p class="chart-note">Gaps stay gaps. Academic-year labels use their ending year on the axis; the 2020 baseline is 2019/20, not calendar 2020. Reporting-year UIS data are not physical-presence counts.</p>
 <details id="selected-table"><summary>Exact values for this series</summary><div id="series-table">{annual_table(selected)}</div></details>
 <div id="partial-panel" class="partial" hidden></div>
-<div class="source-note" id="series-source">Source: <a href="{esc(current["source_url"])}">{esc(SOURCE_NAMES[current["source_id"]])}</a> \u00b7 {esc(current["source_vintage"])}. {esc(selected_source.get("notes", ""))}</div>
+<div class="source-note" id="series-source">Source: <a href="{esc(SOURCE_PAGES.get(current["source_id"], current["source_url"]))}">{esc(SOURCE_NAMES[current["source_id"]])}</a> \u00b7 {esc(current["source_vintage"])}. {esc(selected_source.get("notes", ""))}</div>
 <p id="series-notes" class="chart-note">{esc(current["notes"])}</p>
 </section>
 {student_estimates.panel(student_estimate_data) if student_estimate_data is not None else ""}

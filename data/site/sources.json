@@ -7,6 +7,14 @@
     "status": "available",
     "vintage": "Last updated September 3, 2026"
   },
+  "bea_expanded": {
+    "last_recorded_check": "2026-10-24T02:34:20+00:00",
+    "last_successful_retrieval": "2026-10-24T02:34:20+00:00",
+    "notes": "Table 2.4 expanded geographic detail; public iTable GetStep POST, appid=62, stepnum=6, product=4, tablelist=30700, all years. Chinese, Hong Kong and Taiwan rows provide balance controls; only the directly published Macau history is imported. The separate USTR release vintages remain in the complete downloads, not spliced into this history.",
+    "observations": 16,
+    "status": "available",
+    "vintage": "Release Date: July 7, 2026"
+  },
   "comtrade": {
     "last_recorded_check": "2026-10-21T15:37:28+00:00",
     "last_successful_retrieval": "2026-10-21T15:37:28+00:00",
@@ -27,17 +35,17 @@
     "last_recorded_check": "2026-10-23T11:15:26+00:00",
     "last_successful_retrieval": "2026-10-21T17:01:48+00:00",
     "notes": "IIE automatic retrieval is paused: its terms prohibit automated downloading and analysis. Previously reviewed IIE-hosted observations are retained, not newly checked. Historical aggregates are independently reviewed in government republications; exact retrieved URLs, checksums, vintages and dates remain on those rows. Separate direct retrieval and reuse permission has not been verified; public access is not commercial-use clearance.",
-    "observations": 150,
+    "observations": 166,
     "status": "permission_required",
     "vintage": "Open Doors 2025"
   },
   "macau_tourism": {
-    "last_recorded_check": "2026-10-23T11:15:26+00:00",
-    "last_successful_retrieval": "2026-10-23T09:34:44+00:00",
-    "notes": "Selected-market PDFs; unlisted U.S. values are missing, never zero. Latest complete annual market profile fills selected-market omissions. Arrivals exclude non-resident workers/students from 2008. Residence classification changed to issuing place of travel document in April 2015; transition is not comparable. This adapter covers complete annual reports, not newer monthly highlights. MGTO site terms limit use to noncommercial purposes. Commercial reuse permission has not been verified; these exports do not grant publication rights.",
-    "observations": 65,
+    "last_recorded_check": "2026-10-24T02:43:50+00:00",
+    "last_successful_retrieval": "2026-10-24T02:43:50+00:00",
+    "notes": "Direct monthly and January-to-month counts for U.S.-issued travel documents, not U.S. residents. The current DSEC country workbook takes priority over a stale MGTO latest-report endpoint. Matched prior/current-year periods and two independent component controls are verified.",
+    "observations": 67,
     "status": "available",
-    "vintage": "MGTO annual highlights through 2025; Market Performance 2008, 2010, 2015, 2024"
+    "vintage": "DSEC Visitor Arrivals 2026-09, tables 1-5 and 9"
   },
   "moe": {
     "last_recorded_check": "2026-10-23T07:06:18+00:00",

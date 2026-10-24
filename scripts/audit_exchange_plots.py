@@ -92,6 +92,9 @@ class Audit:
         self.fonts = {}
         self.hover_checks = 0
         self.exchange = json.loads((site / "downloads/observations.json").read_text())
+        preferred = json.loads((site / "downloads/exchange.json").read_text()).get("primary_series", {})
+        self.primary_exchange = [r for r in self.exchange if r["series_id"] == preferred.get(
+            ":".join((r["origin"], r["destination"], r["measure"])), r["series_id"])]
         self.weibo = json.loads((site / "downloads/weibo-summary.json").read_text())
         self.datasets, self.plotted = {}, {}
         for page, stem, source in [
@@ -151,7 +154,7 @@ class Audit:
             measure, direction = chart.rsplit("-", 1)
             for geo in ("CHN", "HKG", "MAC"):
                 origin, destination = (geo, "USA") if direction == "to_us" else ("USA", geo)
-                rows = sorted((r for r in self.exchange if
+                rows = sorted((r for r in self.primary_exchange if
                                (r["origin"], r["destination"], r["measure"], r["frequency"]) ==
                                (origin, destination, measure, "annual") and r["value"] is not None),
                               key=lambda r: r["year"])
@@ -518,7 +521,7 @@ class Audit:
         page.goto(url + "index.html")
         data = json.loads(BeautifulSoup((self.site / "index.html").read_text(), "html.parser").select_one("#exchange-data").string)
         groups = defaultdict(list)
-        for row in self.exchange:
+        for row in self.primary_exchange:
             if row["frequency"] == "annual" and row["value"] is not None and "TWN" not in (row["origin"], row["destination"]):
                 groups[row["series_id"]].append(row)
         for sid, rows in groups.items():

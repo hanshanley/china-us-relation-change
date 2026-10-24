@@ -405,8 +405,10 @@
       const geo = get("geography").value;
       const outgoing = get("direction").value === "from_us";
       const origin = outgoing ? "USA" : geo, destination = outgoing ? geo : "USA";
+      const preferred = data.primary_series?.[`${origin}:${destination}:${get("measure").value}`];
       const rows = data.observations.filter(r => r.origin === origin && r.destination === destination &&
-        r.measure === get("measure").value && r.frequency === "annual").sort((a, b) => a.year - b.year);
+        r.measure === get("measure").value && r.frequency === "annual" &&
+        (!preferred || r.series_id === preferred)).sort((a, b) => a.year - b.year);
       const present = rows.filter(r => r.value !== null);
       const chart = get("chart");
       if (chart.querySelector("svg") && present.length) {

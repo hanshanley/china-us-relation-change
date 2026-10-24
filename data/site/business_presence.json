@@ -36,6 +36,11 @@
       "description": "Verified values: 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023. All series concern businesses in China; definitions and gaps are retained.",
       "id": "eurostat_norway:china",
       "status": "annual"
+    },
+    {
+      "description": "Statistics Norway all-industry country history; the narrower Eurostat history remains separate.",
+      "id": "ssb_norway:china",
+      "status": "annual"
     }
   ],
   "observations": [
@@ -704,6 +709,159 @@
       "status": "missing",
       "value": null,
       "year": 2020
+    },
+    {
+      "comparability": "ssb:09827:CN:all_industries",
+      "notes": "Direct Statistics Norway all-industry country count, not a subset allocated from Asia.",
+      "series_id": "ssb_norway:china",
+      "source_id": "ssb_09827",
+      "status": "observed",
+      "value": 46,
+      "year": 2008
+    },
+    {
+      "comparability": "ssb:09827:CN:all_industries",
+      "notes": "Direct Statistics Norway all-industry country count, not a subset allocated from Asia.",
+      "series_id": "ssb_norway:china",
+      "source_id": "ssb_09827",
+      "status": "observed",
+      "value": 57,
+      "year": 2009
+    },
+    {
+      "comparability": "ssb:09827:CN:all_industries",
+      "notes": "Direct Statistics Norway all-industry country count, not a subset allocated from Asia.",
+      "series_id": "ssb_norway:china",
+      "source_id": "ssb_09827",
+      "status": "observed",
+      "value": 76,
+      "year": 2010
+    },
+    {
+      "comparability": "ssb:09827:CN:all_industries",
+      "notes": "Direct Statistics Norway all-industry country count, not a subset allocated from Asia.",
+      "series_id": "ssb_norway:china",
+      "source_id": "ssb_09827",
+      "status": "observed",
+      "value": 77,
+      "year": 2011
+    },
+    {
+      "comparability": "ssb:09827:CN:all_industries",
+      "notes": "Direct Statistics Norway all-industry country count, not a subset allocated from Asia.",
+      "series_id": "ssb_norway:china",
+      "source_id": "ssb_09827",
+      "status": "observed",
+      "value": 103,
+      "year": 2012
+    },
+    {
+      "comparability": "ssb:09827:CN:all_industries",
+      "notes": "Direct Statistics Norway all-industry country count, not a subset allocated from Asia.",
+      "series_id": "ssb_norway:china",
+      "source_id": "ssb_09827",
+      "status": "observed",
+      "value": 115,
+      "year": 2013
+    },
+    {
+      "comparability": "ssb:09827:CN:all_industries",
+      "notes": "Direct Statistics Norway all-industry country count, not a subset allocated from Asia.",
+      "series_id": "ssb_norway:china",
+      "source_id": "ssb_09827",
+      "status": "observed",
+      "value": 109,
+      "year": 2014
+    },
+    {
+      "comparability": "ssb:09827:CN:all_industries",
+      "notes": "Direct Statistics Norway all-industry country count, not a subset allocated from Asia.",
+      "series_id": "ssb_norway:china",
+      "source_id": "ssb_09827",
+      "status": "observed",
+      "value": 126,
+      "year": 2015
+    },
+    {
+      "comparability": "ssb:09827:CN:all_industries",
+      "notes": "Direct Statistics Norway all-industry country count, not a subset allocated from Asia.",
+      "series_id": "ssb_norway:china",
+      "source_id": "ssb_09827",
+      "status": "observed",
+      "value": 123,
+      "year": 2016
+    },
+    {
+      "comparability": "ssb:09827:CN:all_industries",
+      "notes": "Direct Statistics Norway all-industry country count, not a subset allocated from Asia.",
+      "series_id": "ssb_norway:china",
+      "source_id": "ssb_09827",
+      "status": "observed",
+      "value": 110,
+      "year": 2017
+    },
+    {
+      "comparability": "ssb:09827:CN:all_industries",
+      "notes": "Direct Statistics Norway all-industry country count, not a subset allocated from Asia.",
+      "series_id": "ssb_norway:china",
+      "source_id": "ssb_09827",
+      "status": "observed",
+      "value": 104,
+      "year": 2018
+    },
+    {
+      "comparability": "ssb:09827:CN:all_industries",
+      "notes": "Direct Statistics Norway all-industry country count, not a subset allocated from Asia.",
+      "series_id": "ssb_norway:china",
+      "source_id": "ssb_09827",
+      "status": "observed",
+      "value": 97,
+      "year": 2019
+    },
+    {
+      "comparability": "ssb:09827:CN:all_industries",
+      "notes": "Direct Statistics Norway all-industry country count, not a subset allocated from Asia.",
+      "series_id": "ssb_norway:china",
+      "source_id": "ssb_09827",
+      "status": "observed",
+      "value": 93,
+      "year": 2020
+    },
+    {
+      "comparability": "ssb:09827:CN:all_industries",
+      "notes": "Direct Statistics Norway all-industry country count, not a subset allocated from Asia.",
+      "series_id": "ssb_norway:china",
+      "source_id": "ssb_09827",
+      "status": "observed",
+      "value": 91,
+      "year": 2021
+    },
+    {
+      "comparability": "ssb:09827:CN:all_industries",
+      "notes": "Direct Statistics Norway all-industry country count, not a subset allocated from Asia.",
+      "series_id": "ssb_norway:china",
+      "source_id": "ssb_09827",
+      "status": "observed",
+      "value": 92,
+      "year": 2022
+    },
+    {
+      "comparability": "ssb:09827:CN:all_industries",
+      "notes": "Direct Statistics Norway all-industry country count, not a subset allocated from Asia.",
+      "series_id": "ssb_norway:china",
+      "source_id": "ssb_09827",
+      "status": "observed",
+      "value": 89,
+      "year": 2023
+    },
+    {
+      "comparability": "ssb:09827:CN:all_industries",
+      "notes": "Direct Statistics Norway all-industry country count, not a subset allocated from Asia.",
+      "series_id": "ssb_norway:china",
+      "source_id": "ssb_09827",
+      "status": "observed",
+      "value": 80,
+      "year": 2024
     }
   ],
   "series": {
@@ -759,6 +917,15 @@
       "notes": "Eurostat historical UK series and revised ONS 2018/2019 estimates. Source and sector boundary in 2018 is disconnected; ONS total activity includes agriculture. The 2018 China count agrees across both sources. No UK outward affiliate statistics from 2020 onward verified; investment flows are not substituted.",
       "period_basis": "reference year",
       "scope": "UK-controlled enterprises in China; Eurostat NACE B-S except O through 2017, ONS total published activity in 2018-2019",
+      "unit": "enterprises"
+    },
+    "ssb_norway:china": {
+      "cadence": "annual",
+      "label": "Norway",
+      "measure": "controlled_enterprises",
+      "notes": "Statistics Norway's own complete country history. All-industry coverage is broader than the old Eurostat B-S except O series; those values are preserved separately, not spliced. Counts are subsidiary enterprises, not unique Norwegian parents or physical offices.",
+      "period_basis": "reference year",
+      "scope": "Subsidiary enterprises in China, separately from Hong Kong and Macao, under direct or indirect Norwegian control; all industries",
       "unit": "enterprises"
     }
   },
@@ -1336,6 +1503,20 @@
       "name": "Office for National Statistics",
       "notes": "Do not substitute new inward-affiliate statistics or FDI investment values for UK-controlled enterprises in China.",
       "vintage": "July 15, 2025 disclosure; checked with current dataset listing"
+    },
+    "ssb_09827": {
+      "assets": [
+        {
+          "request_url": "https://data.ssb.no/api/v0/en/table/09827",
+          "retrieved_at": "2026-10-24T02:34:22+00:00",
+          "sha256": "70d8a63371e049f46cb33b77e2e3674dc5fc7d039388030908e1d5617dc6fcfa",
+          "url": "https://data.ssb.no/api/v0/en/table/09827"
+        }
+      ],
+      "locator": "Public API POST: Land=CN; ContentsCode=Foretak; Tid=all; all-industry country table",
+      "name": "Statistics Norway",
+      "notes": "Subsidiary enterprises under direct or indirect control by norwegian own enterprises. The quality of the statistic is affected by the quality of the data that is reported. The variables employee benefits expense and gross investments where first reported for the reference year 2021. There may be an uncertain amount as it is the first time reporting. Hong Kong and Macao are separately coded countries. The original Eurostat population is not silently extended with this broader population.",
+      "vintage": "Table 09827; updated 2025-12-17T07:00:00Z"
     }
   },
   "version": 1

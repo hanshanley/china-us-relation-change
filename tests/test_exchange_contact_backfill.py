@@ -4,7 +4,7 @@ from pathlib import Path
 import pytest
 
 from us_china_exchange.contact_backfill import (
-    parse_cau_history, parse_educationusa_levels, parse_hktdc, parse_nces, parse_nces_credit,
+    parse_cau_history, parse_educationusa_levels, parse_eric_academic_levels, parse_hktdc, parse_nces, parse_nces_credit,
 )
 from us_china_exchange.sources import SOURCE_POLICIES
 from us_china_exchange.model import change
@@ -78,6 +78,31 @@ def test_government_mobility_backfill_keeps_credit_enrollment_and_opt_population
     macau = [r for r in rows if r["source_id"] == "iie" and r["origin"] == "MAC"
              and r["measure"] == "international_students"]
     assert {r["year"] for r in macau} == set(range(2015, 2026))
+
+
+def test_eric_country_levels_preserve_columns_exclude_opt_and_restore_comparable_history():
+    header = ("TOTAL UNDERGRADUATE GRADUATE NON-DEGREE OPTIONAL PRACTICAL TRAINING\n"
+              "2019/20 2018/19 2019/20\n")
+    line = ("China 372,532 148,880 148,160 39.8 -0.5 133,396 137,096 36.8 2.8 "
+            "17,235 15,896 4.3 -7.8 70,037 71,380 19.2 1.9")
+    previous, current = parse_eric_academic_levels(header + line, "China", 2020)
+    assert sum(previous[:3]) == 299511 and sum(current[:3]) == 301152
+    assert parse_eric_academic_levels(header + line.replace("39.8", "\u2014"), "China", 2020) == (previous, current)
+    assert parse_eric_academic_levels(header + line + "\n" + line, "China", 2020) == (previous, current)
+    for invalid in (header.replace("2018/19", "2017/18") + line,
+                    header + line.replace("372,532", "372,533"),
+                    header + line.replace("148,880", "148 880")):
+        with pytest.raises(ValueError):
+            parse_eric_academic_levels(invalid, "China", 2020)
+    rows = json.loads((ROOT / "data/site/observations.json").read_text())
+    for geo in ("CHN", "HKG", "MAC", "TWN"):
+        history = {r["year"]: r for r in rows if r["origin"] == geo and r["destination"] == "USA"
+                   and r["measure"] == "enrolled_students"}
+        assert set(history) == set(range(2019, 2026))
+        assert change(history[2025], history[2020])["percent"] is not None
+        assert change(history[2024], history[2023])["percent"] is None
+        assert all(history[y]["source_url"].startswith("https://files.eric.ed.gov/")
+                   for y in (2019, 2020, 2022, 2023))
 
 
 def test_hong_kong_parser_does_not_substitute_continental_totals_or_residence_counts():

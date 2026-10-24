@@ -156,6 +156,23 @@ def test_comparisons_reject_conflicting_sources_or_units():
         svg_comparison(rows + [wrong_unit], "goods", "to_us")
 
 
+def test_macau_comparison_prefers_consistent_bea_history_without_erasing_ustr_vintages():
+    from us_china_exchange.model import primary_observations
+
+    rows = json.loads((ROOT / "data/site/observations.json").read_text())
+    snapshots = [r for r in rows if r["source_id"] == "ustr"]
+    assert len(snapshots) == 4 and {r["year"] for r in snapshots} == {2024, 2025}
+    primary = primary_observations(rows)
+    assert not any(r["source_id"] == "ustr" for r in primary)
+    for direction, origin in (("to_us", "MAC"), ("from_us", "USA")):
+        selected = [r for r in primary if r["source_id"] == "bea_expanded" and r["origin"] == origin]
+        assert {r["year"] for r in selected} == set(range(2018, 2026))
+        doc = ElementTree.fromstring(svg_comparison(rows, "services", direction))
+        macau = [p for p in doc.iter() if p.tag.endswith("circle") and p.get("data-geography") == "MAC"]
+        assert len(macau) == 8 and all(p.get("data-series-id").startswith("bea_expanded:") for p in macau)
+    assert len(primary_observations(snapshots)) == 4
+
+
 def test_published_comparisons_match_geography_colors_and_annual_points(tmp_path):
     shutil.copytree(ROOT / "data/site", tmp_path / "data/site")
     build(tmp_path)

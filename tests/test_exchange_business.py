@@ -15,7 +15,7 @@ from PIL import Image, ImageColor
 from openpyxl import Workbook
 
 from us_china_exchange.business_analysis import BENCHMARK_CHART, CHARTS, COLORS, RETIRED_CHARTS, build_business, chart_groups, svg_business_chart, validate_business_data
-from us_china_exchange.business_sources import count_cell, country_counts, parse_eurostat, parse_ons
+from us_china_exchange.business_sources import count_cell, country_counts, parse_eurostat, parse_norway, parse_ons
 from us_china_exchange.render import build
 from us_china_exchange.theme import CHART_THEMES, PARTNER_COLORS
 
@@ -54,7 +54,9 @@ def test_distinct_parent_and_affiliate_checkpoints_remain_different_units():
     assert [rows[("eurostat_uk:china", y)]["value"] for y in (2010, 2018, 2019)] == [681, 709, 531]
     assert rows[("eurostat_uk:china", 2019)]["status"] == "estimated"
     assert rows[("eurostat_norway:china", 2023)]["value"] == 88
-    assert len(rows) == 74
+    assert len(rows) == 91
+    assert rows[("ssb_norway:china", 2023)]["value"] == 89
+    assert rows[("ssb_norway:china", 2024)]["value"] == 80
 
 
 def test_eurostat_confidential_zero_is_not_published_and_wrong_populations_fail():
@@ -79,6 +81,29 @@ def test_eurostat_confidential_zero_is_not_published_and_wrong_populations_fail(
     assert parse_eurostat(data, "fats_out_part", "UK")[0][1] == 6900
     with pytest.raises(ValueError, match="different geography"):
         parse_eurostat(data, "fats_out_part")
+
+
+def test_norwegian_history_uses_own_full_population_not_a_eurostat_endpoint_splice():
+    data = {
+        "source": "Statistics Norway", "class": "dataset",
+        "extension": {"px": {"tableid": "09827"}},
+        "id": ["Land", "ContentsCode", "Tid"], "size": [1, 1, 2],
+        "dimension": {
+            "Land": {"category": {"index": {"CN": 0}}},
+            "ContentsCode": {"category": {"index": {"Foretak": 0},
+                "unit": {"Foretak": {"base": "enterprises", "decimals": 0}}}},
+            "Tid": {"category": {"index": {"2023": 0, "2024": 1}}}},
+        "value": [89, 80],
+    }
+    assert parse_norway(data) == [(2023, 89, "observed"), (2024, 80, "observed")]
+    data["value"][1] = None
+    assert parse_norway(data)[1] == (2024, None, "missing")
+    data["dimension"]["Land"]["category"]["index"] = {"HK": 0}
+    with pytest.raises(ValueError, match="country"):
+        parse_norway(data)
+    groups = chart_groups(published(), "norway-affiliates-china")
+    assert len(groups) == 1 and groups[0]["id"] == "ssb_norway:china"
+    assert [p["year"] for p in groups[0]["points"]] == list(range(2008, 2025))
 
 
 def test_ons_parser_uses_enterprises_not_employment_and_verifies_year():
@@ -138,7 +163,7 @@ def test_annual_histories_and_method_boundaries_are_not_endpoint_snapshots():
     assert len(chart_groups(data, "us-affiliates-china")[0]["points"]) == 24
     assert sum(len(g["points"]) for g in chart_groups(data, "eu-affiliates-china")) == 12
     assert len(chart_groups(data, "uk-affiliates-china")[0]["points"]) == 10
-    assert len(chart_groups(data, "norway-affiliates-china")[0]["points"]) == 14
+    assert len(chart_groups(data, "norway-affiliates-china")[0]["points"]) == 17
     doc = ElementTree.fromstring(svg_business_chart(data, "eu-affiliates-china"))
     path = next(n for n in doc.iter() if n.get("class") == "data-line" and n.get("data-series-id") == "eurostat_affiliates:china")
     assert path.get("d").count("M") == 2
@@ -189,7 +214,7 @@ def test_complete_business_downloads_exact_points_backgrounds_and_stale_cleanup(
     assert "different counting units" in page.header.text
     assert "EU27" in page.header.text and "not matched" in page.header.text
     table = page.select("#annual-values tbody tr")
-    assert len(table) == 24 and table[0].th.text == "2000" and table[-1].th.text == "2023"
+    assert len(table) == 25 and table[0].th.text == "2000" and table[-1].th.text == "2024"
     assert page.select_one("#business-benchmark-background").get("open") is None
     assert page.select_one("#" + BENCHMARK_CHART).find_parent("details")["id"] == "business-benchmark-background"
     assert not page.select('#us-affiliates-europe,#us-affiliates-index,#us-parent-companies')
@@ -235,19 +260,19 @@ def test_publication_is_business_only_with_complete_data_original_downloads_and_
     assert page.select_one(".publication-header nav").text == "LatestArchiveInteractive analysisAbout"
     assert not page.select('a[href="index.html"],a[href="language-learning.html"],iframe')
     assert len(page.select("svg[role=img]")) == 5
-    assert len(page.select("#annual-values [data-business-year]")) == 24
+    assert len(page.select("#annual-values [data-business-year]")) == 25
     assert page.select_one("#business-controls").has_attr("hidden")
     assert {n["data-business-origin"] for n in page.select("section[data-business-origin]")} == {"us", "eu", "uk", "norway"}
     assert page.select_one("#business-benchmark-background").get("open") is None
     assert set(p.name for p in (output / "downloads").iterdir()) == {
         "business-presence.json", "business-observations.csv", "business-chart-values.csv"}
     data = json.loads((output / "downloads/business-presence.json").read_text())
-    assert data == published() and manifest["observations"] == 74
+    assert data == published() and manifest["observations"] == 91
     assert manifest["source_revision"] == "verified-source-revision"
     for name, checksum in manifest["files"].items():
         assert hashlib.sha256((output / name).read_bytes()).hexdigest() == checksum
     with (output / "downloads/business-observations.csv").open() as f:
-        assert len(list(csv.DictReader(f))) == 74
+        assert len(list(csv.DictReader(f))) == 91
     for link in page.select('a[href^="figures/"]'):
         assert link.has_attr("data-original-chart") and (output / link["href"]).is_file()
     assert not (output / "business-presence.html").exists()

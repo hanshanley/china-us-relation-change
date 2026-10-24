@@ -2,6 +2,7 @@
 
 import csv
 import io
+import json
 import re
 import time
 from datetime import datetime
@@ -13,11 +14,20 @@ from bs4 import BeautifulSoup
 from openpyxl import load_workbook
 from pypdf import PdfReader
 
-from .model import START_YEAR, digest, observation
+from .model import START_YEAR, digest, key, observation, validate
 
 
 BEA = "https://www.bea.gov/data/intl-trade-investment/international-trade-goods-and-services"
 BEA_HISTORY = "https://www.bea.gov/sites/default/files/2024-12/trad-geo-time-series-1024.xlsx"
+BEA_EXPANDED = "https://apps.bea.gov/iTable/core/data/app/GetStep"
+BEA_EXPANDED_VIEW = "https://apps.bea.gov/iTable/?isuri=1&product=4&reqid=62&step=6&tablelist=30700"
+SOURCE_PAGES = {"bea_expanded": BEA_EXPANDED_VIEW}
+BEA_EXPANDED_QUERY = {
+    "appid": 62, "stepnum": 6,
+    "data": [["product", "4"], ["tablelist", "30700"], ["Filter_#1", "0"],
+             ["Filter_#2", "0,1,2"], ["Filter_#3", "192,196,202,222"],
+             ["Filter_#4", "0"], ["Filter_#5", "0"]],
+}
 NTTO = "https://www.trade.gov/i-94-arrivals-program"
 USTR_MACAU = "https://ustr.gov/countries-regions/china-mongolia-taiwan/macau"
 UIS = "https://api.uis.unesco.org/api/public/"
@@ -164,6 +174,92 @@ def bea(client):
             "Annual 2000/2001 use the December 5, 2024 geographic workbook with its own provenance; "
             "the current workbook repeats the 2000 label and omits 2001. Later years use the current release.")
     return attach(rows, asset, vintage), vintage, ""
+
+
+def parse_bea_expanded(content):
+    data = json.loads(content)
+    prompts = [p for p in data["Prompts"] if p["Name"] == "TheTableFlexibleIipIta"]
+    if data.get("AppId") != 62 or data.get("Number") != 6 or len(prompts) != 1:
+        raise ValueError("BEA expanded-services response identity changed")
+    table = json.loads(json.loads(prompts[0]["PromtData"])["Table"])
+    if (table["Title"] != "Table 2.4. U.S. Trade in Services, Expanded Geographic Detail"
+            or table["Sub_Title"] != "[Millions of dollars]"
+            or not table["Description"].startswith("Release Date: ")):
+        raise ValueError("BEA expanded-services table, units or release date changed")
+    cells = {}
+    for cell in table["TD"]:
+        position = int(cell["Row_ID"]), int(cell["Column_ID"])
+        if position in cells:
+            raise ValueError("Duplicate BEA expanded-services cell")
+        cells[position] = cell["Cell_Value"].strip()
+    columns = {}
+    for column in range(3, int(table["Number_Of_Columns"]) + 1):
+        kind, year = cells[(1, column)], cells[(2, column)]
+        if kind not in {"Exports of services", "Imports of services", "Balance on services"} or not re.fullmatch(r"\d{4}", year):
+            raise ValueError("BEA expanded-services headers changed")
+        if (kind, int(year)) in columns:
+            raise ValueError("Duplicate BEA expanded-services period")
+        columns[(kind, int(year))] = column
+    years = sorted(year for kind, year in columns if kind == "Exports of services")
+    if (not years or years != list(range(2018, years[-1] + 1))
+            or years[-1] >= datetime.now().year
+            or set(columns) != {(kind, year) for kind in
+                               ("Exports of services", "Imports of services", "Balance on services")
+                               for year in years}):
+        raise ValueError("BEA expanded-services history is incomplete")
+    countries = {}
+    for (line, column), text in cells.items():
+        if column == 2 and text in {"China", "Hong Kong", "Macau", "Taiwan"}:
+            if text in countries:
+                raise ValueError("Duplicate BEA expanded-services country")
+            countries[text] = line
+    if set(countries) != {"China", "Hong Kong", "Macau", "Taiwan"}:
+        raise ValueError("BEA expanded-services control countries are missing")
+
+    def number(text):
+        if text in {"(D)", "(*)", "n.a.", "....."}:
+            return None
+        if not re.fullmatch(r"-?(?:\d+|\d{1,3}(?:,\d{3})+)(?:\.\d+)?", text):
+            raise ValueError("Unknown BEA expanded-services value")
+        return Decimal(text.replace(",", ""))
+
+    rows = []
+    for name, line in countries.items():
+        for year in years:
+            raw = [cells[(line, columns[(kind, year)])] for kind in
+                   ("Exports of services", "Imports of services", "Balance on services")]
+            values = [number(text) for text in raw]
+            if all(value is not None for value in values):
+                tolerance = sum(Decimal(5).scaleb(value.as_tuple().exponent - 1) for value in values)
+                if abs(values[0] - values[1] - values[2]) > tolerance:
+                    raise ValueError("BEA expanded-services balance exceeds published rounding precision")
+            if name != "Macau":
+                continue
+            for outbound, text, value in zip((True, False), raw, values):
+                if value is not None and value < 0:
+                    raise ValueError("Negative BEA bilateral services total")
+                status = ("suppressed" if text == "(D)" else "not_applicable" if text == "....."
+                          else "missing") if value is None else "observed"
+                rows.append(observation(
+                    "bea_expanded", "USA" if outbound else "MAC", "MAC" if outbound else "USA",
+                    "services", year, None if value is None else float(value * 1_000_000),
+                    "BEA Table 2.4 annual bilateral services trade; nominal USD; expanded geographic detail",
+                    status=status, comparability="bea_expanded:annual_services",
+                    notes="Direct Macau row, not a regional allocation or an affiliate-sales estimate. "
+                    "Published exports, imports and balances are independently rounded; balance controls allow "
+                    "only their combined rounding precision. Source cell: " + text +
+                    ". (*) is an amount below $500,000, not zero; no missing component is inferred from a balance."))
+    return validate(rows), table["Description"]
+
+
+def bea_expanded(client):
+    content, asset = client.post_json(BEA_EXPANDED, BEA_EXPANDED_QUERY)
+    rows, vintage = parse_bea_expanded(content)
+    return attach(rows, asset, vintage), vintage, (
+        "Table 2.4 expanded geographic detail; public iTable GetStep POST, appid=62, stepnum=6, "
+        "product=4, tablelist=30700, all years. Chinese, Hong Kong and Taiwan rows provide balance "
+        "controls; only the directly published Macau history is imported. "
+        "The separate USTR release vintages remain in the complete downloads, not spliced into this history.")
 
 
 COUNTRIES = {"China": "CHN", "Hong Kong": "HKG", "Macao SAR": "MAC", "Taiwan": "TWN"}
@@ -556,14 +652,17 @@ def macau(client):
                 year, value, f"Machine-read U.S. annual profile in Market Performance {edition}; "
                 "sea + land + air reconciles to total. Complete annual profile takes priority over older highlights."
             )], asset, f"MGTO Market Performance {edition}")[0]
-    return list(rows.values()), (
+    from .tourism_backfill import dsec_recent_visitors
+    monthly, monthly_vintage, monthly_notes = dsec_recent_visitors(client)
+    combined = {key(r): r for r in list(rows.values()) + monthly}
+    return list(combined.values()), (
         f"MGTO annual highlights through {max(y for y, u in urls)}; Market Performance " +
-        ", ".join(str(year) for year, _ in editions)), (
+        ", ".join(str(year) for year, _ in editions) + "; " + monthly_vintage), (
         "Selected-market PDFs; unlisted U.S. values are missing, never zero. "
         "Latest complete annual market profile fills selected-market omissions. "
         "Arrivals exclude non-resident workers/students from 2008. "
-        "Residence classification changed to issuing place of travel document in April 2015; transition is not comparable. "
-        "This adapter covers complete annual reports, not newer monthly highlights. " +
+        "Residence classification changed to issuing place of travel document in April 2015; transition is not comparable. " +
+        monthly_notes + " " +
         SOURCE_POLICIES["macau_tourism"]["notice"])
 
 
@@ -679,7 +778,7 @@ def comtrade(client):
         "U.S.-reported customs trade: exports FOB, imports CIF; intentionally not spliced with BEA balance-of-payments series.")
 
 
-ADAPTERS = {"bea": bea, "ntto": ntto, "uis": uis,
+ADAPTERS = {"bea": bea, "bea_expanded": bea_expanded, "ntto": ntto, "uis": uis,
             "taiwan_tourism": taiwan, "iie": iie,
             "macau_tourism": macau, "comtrade": comtrade,
             "ustr": ustr_macau_services}
