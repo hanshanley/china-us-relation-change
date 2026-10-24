@@ -1767,6 +1767,41 @@
       "notes": "Explicit AI-training, machine-learning and text/data-mining reservation observed on the actual root. Only that exact fresh copy was removed; older captures untouched, no Contact request and no further publisher-body requests. Discarded fingerprint is not available-body proof. Prior duplicate Contact entries were not counted as independent sources, and third-party ownership/merger lists were not Sina designations. Other Standard/Speaker titles, parent/sibling and staff accounts were not inherited. Unknown, not absent. Review date: 2026-10-24 UTC."
     },
     {
+      "id": "kingsport-times-news", "name": "Kingsport Times News / Tennessee", "category": "newspaper",
+      "aliases": ["Kingsport Times-News", "Kingsport Times News", "The Kingsport Times-News"],
+      "us_basis": "United States-classified source position262; actual root and its directly linked corporate Contact name Kingsport Times News and Kingsport, Tennessee correspondence. Publisher descriptions are not independently audited current control or office occupancy.",
+      "source_url": "https://timesnews.net/", "research_status": "reviewed",
+      "notes": "Complete root and actually supplied Six Rivers corporate Contact base read without an institutional Sina designation. The root's separate literal-space About URI was not silently repaired or followed. The supplied corporate Contact fragment was not confirmed as an ID in the saved body; the actual named Kingsport section, not an assumed fragment selector, supplied scope. Other Times-News titles, app developers, parent/sibling and staff accounts were not inherited; schedules were not Weibo activity. Unknown, not absent. Review date: 2026-10-24 UTC."
+    },
+    {
+      "id": "triathlete-magazine", "name": "Triathlete", "category": "magazine",
+      "aliases": ["Triathlete", "Triathlete Magazine", "Triathlete magazine"],
+      "us_basis": "United States-classified source position263; actual independent Outside corporate brand directory explicitly names Triathlete and supplies a brand URI. Corporate publication context is not independently verified current control, licensing or account identity.",
+      "source_url": "https://www.triathlete.com/", "research_status": "reviewed",
+      "notes": "Recorded cross-publisher/non-HTTPS newspaper redirect hold respected with zero new direct site or alternate-client/host requests. Actual corporate /brands/ publishes http://www.triathlete.com; that supplied HTTP URI was not followed, upgraded or described as an observed redirect target. Outside/other network brands and Chinese-edition channels were not inherited. Generic references to triathletes and athletes' personal Weibo posts were not magazine identity proof; no Chinese alias or license was invented. Unknown, not absent. Review date: 2026-10-24 UTC."
+    },
+    {
+      "id": "amarillo-globe-news", "name": "Amarillo Globe-News / Texas", "category": "newspaper",
+      "aliases": ["Amarillo Globe-News", "The Amarillo Globe-News", "Amarillo Globe News"],
+      "us_basis": "United States-classified source position264; genuine cached publisher directory page15 names Amarillo Globe-News under Texas. The undated regional entry does not independently establish an exact current ranked-host binding, ownership or office occupancy.",
+      "source_url": "https://www.amarillo.com/", "research_status": "reviewed",
+      "notes": "Recorded newspaper HTTP403 respected: zero new newspaper, alias-host, static/help, obituary or alternate-client requests. Actual cached regional publisher entry read offline; a group contact email was not an exact amarillo.com or Sina binding. Historical print/audience claims and other Globe/News titles, parent/sibling and staff channels were not inherited or treated as posting activity. Unknown, not absent. Review date: 2026-10-24 UTC."
+    },
+    {
+      "id": "bellingham-herald", "name": "The Bellingham Herald / Washington", "category": "newspaper",
+      "aliases": ["Bellingham Herald", "The Bellingham Herald"],
+      "us_basis": "United States-classified source position265; genuine cached2015 publisher annual report page14 joins The Bellingham Herald, bellinghamherald.com and Bellingham, Washington. The dated row is not current-control, occupancy or audience certification.",
+      "source_url": "https://www.bellinghamherald.com/", "research_status": "reviewed",
+      "notes": "One ordinary publisher attempt timed out without a usable body. Genuine cached2015 publisher row read offline for historical publication/domain/location scope only. No alternate host/client, digital-edition route, external archive, library proxy or mirrored newspaper PDF was used to recover the body. Historical circulation/traffic, other-platform handles and other Herald titles were not Sina activity or identity proof. Parent/sibling and staff accounts were not inherited. Unknown, not absent. Review date: 2026-10-24 UTC."
+    },
+    {
+      "id": "columbia-gorge-news", "name": "Columbia Gorge News / Oregon and Washington", "category": "newspaper",
+      "aliases": ["Columbia Gorge News", "The Columbia Gorge News"],
+      "us_basis": "United States-classified source position266; actual root and linked About identify Columbia Gorge News and The Dalles, Hood River and White Salmon regional/mailing context. Publisher-stated history and correspondence are not independently verified present-day control or occupancy.",
+      "source_url": "https://www.columbiagorgenews.com/", "research_status": "reviewed",
+      "notes": "Complete root and actually linked /site/about.html inspected beyond the generic domain title and weather widget without a qualifying institutional Sina identifier. The stated2020 combination of three named newspapers was not three extra ranked reviews, inherited historical accounts or a current-control certificate. Third-party audits, directories, staff lists and externally mirrored PDFs were not substituted. Publication schedules were not Weibo activity. Parent/sibling and staff channels were not inherited. Unknown, not absent. Review date: 2026-10-24 UTC."
+    },
+    {
       "id": "telemundo", "name": "Telemundo / Noticias Telemundo", "category": "broadcast_news",
       "aliases": ["Telemundo", "Noticias Telemundo", "Telemundo Noticias"],
       "us_basis": "United States-classified source position110; actual network root separately links its Noticias Telemundo newsroom section. Current corporate domicile/headquarters and legal account control are not independently audited.",

@@ -35,20 +35,21 @@ The selected **1,000 SCImago U.S.-classified domains** are ranked by digital
 reputation, not traffic; their present ownership/nationality was not independently
 audited. **Five have current-profile evidence, seven historical-only evidence,
 988 remain unknown, and zero are verified negatives.** All underwent homepage
-screening, but only 261 have recorded manual review.
+screening, but only 266 have recorded manual review.
 
-The [latest scheduled pass](discovery_iteration53.md) adds five reviews.
-Eight complete newspaper root/institutional captures remain available.
-New Haven Register's actual Contact names a Norwalk mailing address, not
-an independently verified New Haven office. Lufkin, Maui and Brattleboro
-named bodies were inspected without inheriting magazine, tourism or sister
-publication channels. Standard-Speaker's exact fresh root was removed after
-an explicit AI/text-mining reservation; there are now twelve domain-specific
-publisher-body holds. Southern/NWA's distinct retention conditions remain
-separate, and no parent/sibling/staff Sina account was inherited.
+The [latest scheduled pass](discovery_iteration54.md) adds five reviews.
+Five complete HTML captures remain: three newspaper root/institutional
+responses and two actual corporate directory/Contact responses. Kingsport's
+root-linked corporate body names the paper; Triathlete's directory supplies
+an HTTP URI that was not upgraded, followed or called a redirect destination.
+Triathlete's redirect and Amarillo's HTTP403 holds were not retried.
+Bellingham's ordinary route timed out; genuine cached publisher PDFs remain
+explicitly historical/regional scope. Columbia Gorge's named About was read
+beyond its generic title. All twelve publisher-body holds and the separate
+Southern/NWA retention conditions remain unchanged.
 The live 6,570-post corpus, original archived baseline and all rolling data
 remain unchanged by discovery.
-Discovery is not exhausted: 739 selected domains still lack a recorded
+Discovery is not exhausted: 734 selected domains still lack a recorded
 manual review. A bounded recurring prompt is active every 30 minutes; later
 passes must advance the frontier rather than repeatedly probing exhausted leads.
 
