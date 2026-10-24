@@ -35,28 +35,28 @@ The selected **1,000 SCImago U.S.-classified domains** are ranked by digital
 reputation, not traffic; their present ownership/nationality was not independently
 audited. **Five have current-profile evidence, seven historical-only evidence,
 988 remain unknown, and zero are verified negatives.** All underwent homepage
-screening, but only 336 have recorded manual review.
+screening, but only 341 have recorded manual review.
 
-The [latest scheduled pass](discovery_iteration68.md) adds five reviews.
-Eight complete fresh publisher responses and one genuinely reused PDF
-support limited context. Fairfield's actual California history was not
-conflated with the different South Dakota Daily Republic.
-Hickory's mailing/service-hour roles are not office occupancy, closure or
-Weibo inactivity. Idaho Press's actual Caldwell roots and Nampa correspondence
-were distinguished without changing the original Press-Tribune cohort label
-or asserting account continuity. Iron Mountain's actual Michigan Contact
-separates PO-box mailing from a street footer and other affiliated papers.
-Kitsap Sun's newspaper HTTP403 was held; the real cached directory names
-the Washington paper but supplies shared obituary portals and a Gannett
-email, not a direct ranked-website or Sina designation.
-No new retention disposal or publisher-body hold was added.
-The nineteen publisher-body holds, distinct Southern/Citrus/NWA retention
+The [latest scheduled pass](discovery_iteration69.md) adds five reviews.
+Seven fresh publisher responses, one genuinely reused corporate HTML capture
+and one existing PDF remain available for limited context.
+Williamsport's Contact/footer ZIP variants were not silently resolved.
+Warren Tribune Chronicle's actual Ohio context is distinct from Warren's
+Pennsylvania Times Observer. APG Wisconsin's real root/About/Ashland section
+were read as one selected multi-publication host, not a silently narrowed
+single-paper domain or inherited corporate account.
+Canon City's own explicit reservation caused a stop and removal of only
+its fresh root. The actual cached corporate target matches the ranked
+hostname, but its image-alt says Carson, not Canon; that mismatch was retained.
+Asheville's newspaper HTTP403 was held and its real directory context is not
+a direct ranked-host or Sina binding.
+The twenty publisher-body holds, distinct Southern/Citrus/NWA retention
 conditions and institutional/corporate restrictions remain separate.
 No parent/sibling handle was inherited.
 Shared catalogs are not edited.
 The live 6,570-post corpus, original archived baseline and all rolling data
 remain unchanged by discovery.
-Discovery is not exhausted: 664 selected domains still lack a recorded
+Discovery is not exhausted: 659 selected domains still lack a recorded
 manual review. A bounded recurring prompt is active every 30 minutes; later
 passes must advance the frontier rather than repeatedly probing exhausted leads.
 

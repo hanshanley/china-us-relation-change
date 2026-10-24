@@ -2572,6 +2572,56 @@
       "notes": "Recorded newspaper HTTP403 held with zero newspaper/alias/static/help/obituary/mirror/client requests. Actual cached PDF16/20 inspected offline with original observation/hash retained. Page16 URI actions are shared obituary portals, including a bks path, not a direct kitsapsun.com website or Sina UID; no portal followed. Page20 uses a Gannett email domain, not the ranked newspaper hostname. Photo credits and separate Weibo references in search results are not publisher account proof; no issue PDF/reprint body retrieved. Parent/sibling/staff identities not inherited. Unknown, not absent. Review date: 2026-10-24 UTC."
     },
     {
+      "id": "williamsport-sun-gazette",
+      "name": "Williamsport Sun-Gazette",
+      "category": "newspaper",
+      "aliases": ["Williamsport Sun-Gazette", "Sun-Gazette"],
+      "us_basis": "United States-classified source position337; actual root and linked Contact identify Williamsport Sun-Gazette in Pennsylvania. Contact and footer ZIP variants are retained in their observed roles, not silently corrected or treated as independently verified occupancy/current control.",
+      "source_url": "https://www.sungazette.com/",
+      "research_status": "reviewed",
+      "notes": "Complete root and actual /contact-us/ inspected without an institutional Sina designation. Phone & Mail section and footer name the same paper but supply different ZIP strings; no unsupported current address resolution or closure inferred. Staff roles, newspaper photo credits, multilingual aggregation tags, other Sun/Gazette publications and parent/sibling handles not account proof. No forms, issue mirrors, login or licensed content requested. Unknown, not absent. Review date: 2026-10-24 UTC."
+    },
+    {
+      "id": "warren-tribune-chronicle",
+      "name": "Warren Tribune Chronicle",
+      "category": "newspaper",
+      "aliases": ["Warren Tribune Chronicle", "Tribune Chronicle"],
+      "us_basis": "United States-classified source position338; actual root and linked Contact identify Tribune Chronicle and Warren, Ohio. The Mail section and street footer support correspondence context, not independently audited occupancy, staffing or legal control.",
+      "source_url": "https://www.tribtoday.com/",
+      "research_status": "reviewed",
+      "notes": "Complete root and actual /contact-us/ inspected without a qualifying Sina designation. Warren, Ohio is distinguished from the previously reviewed Warren Times Observer in Pennsylvania; shared city words and generic Tribune/Chronicle titles do not transfer accounts. Publishing/management, newsroom, advertising, circulation and photo-submission roles are not a publisher's institutional Weibo designation. Staff/personal channels, Chicago Tribune and corporate accounts not inherited. Unknown, not absent. Review date: 2026-10-24 UTC."
+    },
+    {
+      "id": "ashland-daily-press-apg-domain",
+      "name": "Ashland Daily Press / selected APG Wisconsin domain",
+      "category": "newspaper",
+      "aliases": ["Ashland Daily Press", "APG Media of Wisconsin", "apg-wi.com"],
+      "us_basis": "United States-classified source position339 retains the original Ashland Daily Press/apg-wi.com pair. Actual root/About identify a multi-publication Northwestern Wisconsin host, and the root separately links its Ashland Daily Press section. Group membership and audience statements are publisher self-descriptions, not current legal-control or account-transfer proofs.",
+      "source_url": "https://www.apg-wi.com/",
+      "research_status": "reviewed",
+      "notes": "Complete multi-publication root, actual /site/about-apg.html and literal /ashland_daily_press/ section inspected without an institutional Sina designation. One selected domain, not an extra ranked record for each section or sibling paper; no silent replacement with ashlanddailypress.net. Corporate About lists several combined publication sites and a parent relationship; literal alternate-host references were not repaired/followed. Ashland Wisconsin is not Ashland Kentucky's Daily Independent. Parent/APG/Adams, Eau Claire and other sibling/staff identities not inherited. Unknown, not absent. Review date: 2026-10-24 UTC."
+    },
+    {
+      "id": "canon-city-daily-record",
+      "name": "Canon City Daily Record",
+      "category": "newspaper",
+      "aliases": ["Canon City Record", "Canon City Daily Record"],
+      "us_basis": "United States-classified source position340; own root factual metadata names the Colorado publication but the fresh body was removed after its explicit source-use reservation. A genuine cached corporate directory targets the ranked hostname while its image-alt says Carson City Daily Record logo; that mismatch is not silently corrected or treated as local/current-control proof.",
+      "source_url": "https://www.canoncitydailyrecord.com/",
+      "research_status": "reviewed",
+      "notes": "Own root explicitly reserves AI training, machine learning and text/data-mining use without written consent; further newspaper-body requests stopped and only the exact fresh root was removed, older captures untouched. Available raw file/source hash null; discarded fingerprint explicitly unavailable proof. Cached MDG Communities HTML reused offline with original time/hash; actual target URI and literal Carson image-alt distinguished, no image or newspaper destination fetched. Not an inferred Nevada identity, rename or inherited parent account. Unknown, not absent. Review date: 2026-10-24 UTC."
+    },
+    {
+      "id": "asheville-citizen-times",
+      "name": "Asheville Citizen-Times",
+      "category": "newspaper",
+      "aliases": ["Asheville Citizen-Times", "Citizen-Times"],
+      "us_basis": "United States-classified source position341; existing undated LocaliQ directory names Asheville Citizen-Times under North Carolina on PDF page12. Its shared Gannett contact/portal context is not a verified current website, ownership or newsroom-location audit.",
+      "source_url": "https://citizen-times.com/",
+      "research_status": "reviewed",
+      "notes": "Recorded newspaper HTTP403 held with zero newspaper/alias/static/help/obituary/mirror/client requests. Actual cached PDF12/19 inspected offline, preserving original observation/hash. Page12 URI actions are shared obituary portals, not a direct citizen-times.com website; page19 uses a Gannett email domain. No portal, reprint issue or photo mirror followed; newspaper credits and separate Weibo mentions are not an account designation. Parent/sibling/staff and unrelated Citizen/Times identities not inherited. Unknown, not absent. Review date: 2026-10-24 UTC."
+    },
+    {
       "id": "telemundo", "name": "Telemundo / Noticias Telemundo", "category": "broadcast_news",
       "aliases": ["Telemundo", "Noticias Telemundo", "Telemundo Noticias"],
       "us_basis": "United States-classified source position110; actual network root separately links its Noticias Telemundo newsroom section. Current corporate domicile/headquarters and legal account control are not independently audited.",
