@@ -36,6 +36,8 @@ claiming that the website is fixed.
 - [x] **UI-03: Provide the reverse graphs.** Make China-to-U.S. and U.S.-to-China
   views easy to reach. Where a genuinely compatible reverse series is unavailable,
   state that rather than substitute a stock, a regional total or another measure.
+  Retain both directions in the existing dropdown; UI-11 removes the redundant
+  reverse-direction button, not access to either graph.
 - [ ] **UI-04: Distinguish direction by colour.** China-to-U.S. and U.S.-to-China
   must use different, consistent colours across the interactive and downloaded
   versions. Keep geography/language comparisons distinguishable as well.
@@ -69,6 +71,14 @@ claiming that the website is fixed.
 - [ ] **UI-10: Recheck the reported faint header line.** Inspect the actual
   desktop/phone result and distinguish the unwanted line from intentional
   masthead and axis rules. Do not claim this fixed from source inspection alone.
+- [ ] **UI-11: Remove the redundant reverse-direction button.** The October 24,
+  6:44 p.m. screenshot identifies the large "View United States -> Mainland
+  China" button as unnecessary and unattractive because the direction dropdown
+  already provides this choice. Remove this button throughout the public topic
+  pages; keep the existing dropdown and both available directions working.
+  Remove obsolete button-specific styling, event handlers and test expectations.
+  Verify the dropdown on desktop and phone and confirm the button is absent
+  from the deployed site before checking this off.
 
 **Completion evidence for the checked graph items:** the live site was verified
 against the exact `2a4c646` source. It has 72 public plot models, 224 SVG exports,
