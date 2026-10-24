@@ -35,30 +35,27 @@ The selected **1,000 SCImago U.S.-classified domains** are ranked by digital
 reputation, not traffic; their present ownership/nationality was not independently
 audited. **Five have current-profile evidence, seven historical-only evidence,
 988 remain unknown, and zero are verified negatives.** All underwent homepage
-screening, but only 356 have recorded manual review.
+screening, but only 361 have recorded manual review.
 
-The [latest scheduled pass](discovery_iteration72.md) adds five reviews.
-Nine fresh publisher responses and two independently readable chamber
-responses remain available for limited context.
-Grass Valley's actual Contact was not conflated with labor unions or other
-Union publications. Lehighton's real institutional history is not generic
-Times News or inherited Pencor/sister accounts.
-Aspen Daily News's newspaper HTTP403 was held; the independent member
-listing's actual Website anchor was not followed, and its mixed-age copy
-is not current-control, publishing-frequency or Weibo evidence.
-Concord's editorial AI policy is not an external-access ban or reuse license;
-NNE/award/audience self-descriptions do not transfer accounts.
-Sunbury's actual regional About was not replaced by a Massachusetts Item,
-and its empty age template and weather update were not account dates.
+The [latest scheduled pass](discovery_iteration73.md) adds five reviews.
+Seven fresh complete publisher responses remain privately available.
+Harrisonburg, Emporia and Frederick roots were saved before later
+non-retryable search-provider restrictions; no later publisher/alias/client
+requests were made. Their About/Contact links were not fetched afterward.
+Elko's literal Contact fragment and closed service-hour wording were
+preserved, not converted into newsroom closure or Weibo inactivity.
+New Braunfels's root/About were saved before its later provider restriction;
+the historical1957merger and1967consolidation remain distinct.
+Frederick's school-policy headline is not a publisher AI/TDM reservation.
 No new retention disposal, source-use hold or permission change was made.
-The twenty-one source-use publisher-body holds, separate Davis provider
-restriction and distinct Southern/Citrus/NWA retention
+The twenty-one source-use publisher-body holds, five distinct publisher
+search-provider restrictions (including the four new notices), and Southern/Citrus/NWA retention
 conditions and institutional/corporate restrictions remain separate.
 No parent/sibling handle was inherited.
 Shared catalogs are not edited.
 The live 6,570-post corpus, original archived baseline and all rolling data
 remain unchanged by discovery.
-Discovery is not exhausted: 644 selected domains still lack a recorded
+Discovery is not exhausted: 639 selected domains still lack a recorded
 manual review. A bounded recurring prompt is active every 30 minutes; later
 passes must advance the frontier rather than repeatedly probing exhausted leads.
 

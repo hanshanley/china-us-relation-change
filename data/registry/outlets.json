@@ -2772,6 +2772,56 @@
       "notes": "Complete root and actual /site/about-us.html inspected without an institutional Sina designation. The empty more-than-years template was not filled or treated as account-age evidence. Historical1937merger, legacy Sunbury/Evening Item titles and the weather update do not establish account continuity, posting or an About revision date. Lynn/Massachusetts Item publications, generic Daily Item names, staff/personal channels and parent accounts not inherited. No forms, login, eEdition or issue mirror requested. Unknown, not absent. Review date: 2026-10-24 UTC."
     },
     {
+      "id": "harrisonburg-news-record",
+      "name": "Harrisonburg News Record",
+      "category": "newspaper",
+      "aliases": ["Harrisonburg News Record", "News-Record", "DNRonline"],
+      "us_basis": "United States-classified source position357; the actual publisher root supplies Harrisonburg, Virginia correspondence and regional scope. Its2025 Ogden copyright line is not independently audited current legal control or a source observation date.",
+      "source_url": "https://www.dnronline.com/",
+      "research_status": "reviewed",
+      "notes": "Complete root saved before a later non-retryable search-provider robots restriction for dnronline.com. No subsequent publisher/alias/path/client request; earlier capture retained, no origin403 or locally fetched prohibitory rule invented. Root-linked About/Contact were not subsequently fetched. Generic News-Record titles, Ogden sibling accounts and Purple & Bold podcast/staff identities not inherited. Earlier newsletter/podcast dates are not Weibo inactivity evidence. Unknown, not absent. Review date: 2026-10-24 UTC."
+    },
+    {
+      "id": "elko-daily-free-press",
+      "name": "Elko Daily Free Press",
+      "category": "newspaper",
+      "aliases": ["Elko Daily Free Press", "Elko Daily", "Elkodaily.com"],
+      "us_basis": "United States-classified source position358; actual root and linked Contact identify Elko Daily Free Press in Elko, Nevada. Departmental correspondence, service hours and Lee-domain addresses do not independently audit office occupancy or current legal control.",
+      "source_url": "https://elkodaily.com/",
+      "research_status": "reviewed",
+      "notes": "Complete root and literal Contact URI /contact/#tracking-source=footer-nav inspected without an institutional Sina designation; fragment preserved. All-days-closed service hours and the explicit phone/email/online service notice do not establish newsroom closure, deletion or Weibo inactivity. Empty subscription wording not filled. Hiring-network candidate profiles, social promotion, community submissions, Lee parent/sibling and staff accounts not publisher Sina proof. No privacy/cookie preferences changed, account service, form, staff directory, issue or advertising PDF requested. Unknown, not absent. Review date: 2026-10-24 UTC."
+    },
+    {
+      "id": "emporia-gazette",
+      "name": "The Emporia Gazette",
+      "category": "newspaper",
+      "aliases": ["Emporia Emporia Gazette", "Emporia Gazette", "The Emporia Gazette"],
+      "us_basis": "United States-classified source position359; actual root identifies Emporia, Kansas correspondence and Gazette reporting. Original doubled source name remains intact in the selected cohort; shared publications and email-domain labels are not current-control or account-transfer proof.",
+      "source_url": "https://www.emporiagazette.com/",
+      "research_status": "reviewed",
+      "notes": "Complete root saved before a later non-retryable search-provider robots restriction for emporiagazette.com. No later publisher/alias/path/client request, including root-linked Contact; earlier capture retained without inventing origin403 or a locally fetched prohibitory rule. Flint Hills Shopper, Chase County Leader News, Madison News, Abilene Reflector-Chronicle and Emporia Living were not counted separately or assigned inherited handles. Emporia Virginia/generic Gazette, staff and personal identities not substituted. Unknown, not absent. Review date: 2026-10-24 UTC."
+    },
+    {
+      "id": "frederick-news-post",
+      "name": "The Frederick News-Post",
+      "category": "newspaper",
+      "aliases": ["Frederick News-Post (Fnp)", "Frederick News-Post", "The Frederick News-Post"],
+      "us_basis": "United States-classified source position360; actual root title and footer identify Frederick County, Maryland and the newspaper. Printing-service and advertising relationships are not independently audited current legal control or inherited social accounts.",
+      "source_url": "https://www.fredericknewspost.com/",
+      "research_status": "reviewed",
+      "notes": "Complete root saved before a later non-retryable search-provider robots restriction for fredericknewspost.com. Its absolute bare-host Contact URI and relative /site/contact.html path were not subsequently requested; the latter resolves on the saved www root, not a supplied absolute www anchor or observed redirect. Earlier capture remains available; no origin403/local robots prohibition invented. A school-policy AI-ban headline is not this publisher's external-access/TDM policy. FNP printing/advertising/client logos, staff, unrelated Frederick titles, account/gift/checkout templates not Sina evidence or actual transactions; no forms or services used. Unknown, not absent. Review date: 2026-10-24 UTC."
+    },
+    {
+      "id": "new-braunfels-herald-zeitung",
+      "name": "New Braunfels Herald-Zeitung",
+      "category": "newspaper",
+      "aliases": ["New Braunfels Herald-Zeitung", "Herald-Zeitung"],
+      "us_basis": "United States-classified source position361; actual root/About identify New Braunfels and Comal County, Texas. Historical German-language roots, mergers, owners and office descriptions are publisher self-descriptions, not independently audited current language, legal control or occupancy.",
+      "source_url": "https://herald-zeitung.com/",
+      "research_status": "reviewed",
+      "notes": "Complete root and actually linked /site/about.html saved before a later non-retryable search-provider robots restriction for herald-zeitung.com; no subsequent publisher/alias/path/client request, earlier captures retained. About distinguishes1957merger from full1967consolidation and recounts later office/production changes; no single invented merger date or account-age inference. The malformed visible site label and weather freshness were not repaired into a URI/redirect or About revision date. Generic Herald/German Zeitung namesakes, sister papers, historical owners and staff accounts not substituted. No issue, mirror, submission form or service requested. Unknown, not absent. Review date: 2026-10-24 UTC."
+    },
+    {
       "id": "telemundo", "name": "Telemundo / Noticias Telemundo", "category": "broadcast_news",
       "aliases": ["Telemundo", "Noticias Telemundo", "Telemundo Noticias"],
       "us_basis": "United States-classified source position110; actual network root separately links its Noticias Telemundo newsroom section. Current corporate domicile/headquarters and legal account control are not independently audited.",
