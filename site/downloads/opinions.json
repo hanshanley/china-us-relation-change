@@ -1,0 +1,1449 @@
+{
+  "context": {
+    "age": "Original age bands are retained. Ages 18-34 include 34-year-olds; Chinese 18-29 and U.S. 18-34 groups are not matched cohorts.",
+    "interpretation": "Country opinions, not opinions of an ethnicity, approval of a government, or evidence that a social-media trend caused a change.",
+    "rights": "Only reported aggregate numerical facts and our own charts are redistributed; no microdata, publisher graphics or full source reports.",
+    "scales": "Percent favorable and mean 0-100 warmth ratings are different measures. Fifty is neutral on the warmth scale, not fifty percent favorable."
+  },
+  "observations": [
+    {
+      "comparability": "pew_us_atp",
+      "notes": "Age-group sample size is not inferred from the full survey of 3,507.",
+      "period": "Spring 2026",
+      "series_id": "pew_age:18-34:favorable",
+      "source_id": "pew_us_age",
+      "status": "observed",
+      "survey_id": "pew_atp_2026",
+      "value": 38,
+      "year": 2026
+    },
+    {
+      "comparability": "pew_us_atp",
+      "notes": "Age-group sample size is not inferred from the full survey of 3,507.",
+      "period": "Spring 2026",
+      "series_id": "pew_age:18-34:unfavorable",
+      "source_id": "pew_us_age",
+      "status": "observed",
+      "survey_id": "pew_atp_2026",
+      "value": 59,
+      "year": 2026
+    },
+    {
+      "comparability": "pew_us_atp",
+      "notes": "Age-group sample size is not inferred from the full survey of 3,507.",
+      "period": "Spring 2026",
+      "series_id": "pew_age:35-49:favorable",
+      "source_id": "pew_us_age",
+      "status": "observed",
+      "survey_id": "pew_atp_2026",
+      "value": 28,
+      "year": 2026
+    },
+    {
+      "comparability": "pew_us_atp",
+      "notes": "Age-group sample size is not inferred from the full survey of 3,507.",
+      "period": "Spring 2026",
+      "series_id": "pew_age:35-49:unfavorable",
+      "source_id": "pew_us_age",
+      "status": "observed",
+      "survey_id": "pew_atp_2026",
+      "value": 69,
+      "year": 2026
+    },
+    {
+      "comparability": "pew_us_atp",
+      "notes": "Age-group sample size is not inferred from the full survey of 3,507.",
+      "period": "Spring 2026",
+      "series_id": "pew_age:50+:favorable",
+      "source_id": "pew_us_age",
+      "status": "observed",
+      "survey_id": "pew_atp_2026",
+      "value": 19,
+      "year": 2026
+    },
+    {
+      "comparability": "pew_us_atp",
+      "notes": "Age-group sample size is not inferred from the full survey of 3,507.",
+      "period": "Spring 2026",
+      "series_id": "pew_age:50+:unfavorable",
+      "source_id": "pew_us_age",
+      "status": "observed",
+      "survey_id": "pew_atp_2026",
+      "value": 79,
+      "year": 2026
+    },
+    {
+      "comparability": "pew_china_coverage_2010",
+      "notes": "",
+      "period": "Spring 2010",
+      "series_id": "pew_china:favorable",
+      "source_id": "pew_china_history",
+      "status": "observed",
+      "survey_id": "pew_china_2010",
+      "value": 58,
+      "year": 2010
+    },
+    {
+      "comparability": "pew_china_coverage_2011",
+      "notes": "",
+      "period": "Spring 2011",
+      "series_id": "pew_china:favorable",
+      "source_id": "pew_china_history",
+      "status": "observed",
+      "survey_id": "pew_china_2011",
+      "value": 44,
+      "year": 2011
+    },
+    {
+      "comparability": "pew_china_coverage_2012",
+      "notes": "",
+      "period": "Spring 2012",
+      "series_id": "pew_china:favorable",
+      "source_id": "pew_china_history",
+      "status": "observed",
+      "survey_id": "pew_china_2012",
+      "value": 43,
+      "year": 2012
+    },
+    {
+      "comparability": "pew_china_coverage_2013",
+      "notes": "",
+      "period": "Spring 2013",
+      "series_id": "pew_china:favorable",
+      "source_id": "pew_china_history",
+      "status": "observed",
+      "survey_id": "pew_china_2013",
+      "value": 40,
+      "year": 2013
+    },
+    {
+      "comparability": "pew_china_coverage_2014",
+      "notes": "",
+      "period": "Spring 2014",
+      "series_id": "pew_china:favorable",
+      "source_id": "pew_china_history",
+      "status": "observed",
+      "survey_id": "pew_china_2014",
+      "value": 50,
+      "year": 2014
+    },
+    {
+      "comparability": "pew_china_coverage_2015",
+      "notes": "",
+      "period": "Spring 2015",
+      "series_id": "pew_china:favorable",
+      "source_id": "pew_china_history",
+      "status": "observed",
+      "survey_id": "pew_china_2015",
+      "value": 44,
+      "year": 2015
+    },
+    {
+      "comparability": "pew_china_coverage_2016",
+      "notes": "",
+      "period": "Spring 2016",
+      "series_id": "pew_china:favorable",
+      "source_id": "pew_china_history",
+      "status": "observed",
+      "survey_id": "pew_china_2016",
+      "value": 50,
+      "year": 2016
+    },
+    {
+      "comparability": "pew_china_coverage_2010",
+      "notes": "",
+      "period": "Spring 2010",
+      "series_id": "pew_china:unfavorable",
+      "source_id": "pew_china_history",
+      "status": "observed",
+      "survey_id": "pew_china_2010",
+      "value": 37,
+      "year": 2010
+    },
+    {
+      "comparability": "pew_china_coverage_2011",
+      "notes": "",
+      "period": "Spring 2011",
+      "series_id": "pew_china:unfavorable",
+      "source_id": "pew_china_history",
+      "status": "observed",
+      "survey_id": "pew_china_2011",
+      "value": 46,
+      "year": 2011
+    },
+    {
+      "comparability": "pew_china_coverage_2012",
+      "notes": "",
+      "period": "Spring 2012",
+      "series_id": "pew_china:unfavorable",
+      "source_id": "pew_china_history",
+      "status": "observed",
+      "survey_id": "pew_china_2012",
+      "value": 48,
+      "year": 2012
+    },
+    {
+      "comparability": "pew_china_coverage_2013",
+      "notes": "",
+      "period": "Spring 2013",
+      "series_id": "pew_china:unfavorable",
+      "source_id": "pew_china_history",
+      "status": "observed",
+      "survey_id": "pew_china_2013",
+      "value": 53,
+      "year": 2013
+    },
+    {
+      "comparability": "pew_china_coverage_2014",
+      "notes": "",
+      "period": "Spring 2014",
+      "series_id": "pew_china:unfavorable",
+      "source_id": "pew_china_history",
+      "status": "observed",
+      "survey_id": "pew_china_2014",
+      "value": 43,
+      "year": 2014
+    },
+    {
+      "comparability": "pew_china_coverage_2015",
+      "notes": "",
+      "period": "Spring 2015",
+      "series_id": "pew_china:unfavorable",
+      "source_id": "pew_china_history",
+      "status": "observed",
+      "survey_id": "pew_china_2015",
+      "value": 49,
+      "year": 2015
+    },
+    {
+      "comparability": "pew_china_coverage_2016",
+      "notes": "",
+      "period": "Spring 2016",
+      "series_id": "pew_china:unfavorable",
+      "source_id": "pew_china_history",
+      "status": "observed",
+      "survey_id": "pew_china_2016",
+      "value": 44,
+      "year": 2016
+    },
+    {
+      "comparability": "pew_us_atp",
+      "notes": "",
+      "period": "March 2020",
+      "series_id": "pew_us_atp:favorable",
+      "source_id": "pew_us_trend",
+      "status": "observed",
+      "survey_id": "pew_atp_2020",
+      "value": 19,
+      "year": 2020
+    },
+    {
+      "comparability": "pew_us_atp",
+      "notes": "",
+      "period": "Spring 2021",
+      "series_id": "pew_us_atp:favorable",
+      "source_id": "pew_us_trend",
+      "status": "observed",
+      "survey_id": "pew_atp_2021",
+      "value": 21,
+      "year": 2021
+    },
+    {
+      "comparability": "pew_us_atp",
+      "notes": "",
+      "period": "Spring 2022",
+      "series_id": "pew_us_atp:favorable",
+      "source_id": "pew_us_trend",
+      "status": "observed",
+      "survey_id": "pew_atp_2022",
+      "value": 16,
+      "year": 2022
+    },
+    {
+      "comparability": "pew_us_atp",
+      "notes": "",
+      "period": "Spring 2023",
+      "series_id": "pew_us_atp:favorable",
+      "source_id": "pew_us_trend",
+      "status": "observed",
+      "survey_id": "pew_atp_2023",
+      "value": 14,
+      "year": 2023
+    },
+    {
+      "comparability": "pew_us_atp",
+      "notes": "",
+      "period": "Spring 2024",
+      "series_id": "pew_us_atp:favorable",
+      "source_id": "pew_us_trend",
+      "status": "observed",
+      "survey_id": "pew_atp_2024",
+      "value": 16,
+      "year": 2024
+    },
+    {
+      "comparability": "pew_us_atp",
+      "notes": "",
+      "period": "Spring 2025",
+      "series_id": "pew_us_atp:favorable",
+      "source_id": "pew_us_trend",
+      "status": "observed",
+      "survey_id": "pew_atp_2025",
+      "value": 21,
+      "year": 2025
+    },
+    {
+      "comparability": "pew_us_atp",
+      "notes": "",
+      "period": "Spring 2026",
+      "series_id": "pew_us_atp:favorable",
+      "source_id": "pew_us_trend",
+      "status": "observed",
+      "survey_id": "pew_atp_2026",
+      "value": 27,
+      "year": 2026
+    },
+    {
+      "comparability": "pew_us_atp",
+      "notes": "",
+      "period": "March 2020",
+      "series_id": "pew_us_atp:unfavorable",
+      "source_id": "pew_us_trend",
+      "status": "observed",
+      "survey_id": "pew_atp_2020",
+      "value": 79,
+      "year": 2020
+    },
+    {
+      "comparability": "pew_us_atp",
+      "notes": "",
+      "period": "Spring 2021",
+      "series_id": "pew_us_atp:unfavorable",
+      "source_id": "pew_us_trend",
+      "status": "observed",
+      "survey_id": "pew_atp_2021",
+      "value": 77,
+      "year": 2021
+    },
+    {
+      "comparability": "pew_us_atp",
+      "notes": "",
+      "period": "Spring 2022",
+      "series_id": "pew_us_atp:unfavorable",
+      "source_id": "pew_us_trend",
+      "status": "observed",
+      "survey_id": "pew_atp_2022",
+      "value": 82,
+      "year": 2022
+    },
+    {
+      "comparability": "pew_us_atp",
+      "notes": "",
+      "period": "Spring 2023",
+      "series_id": "pew_us_atp:unfavorable",
+      "source_id": "pew_us_trend",
+      "status": "observed",
+      "survey_id": "pew_atp_2023",
+      "value": 83,
+      "year": 2023
+    },
+    {
+      "comparability": "pew_us_atp",
+      "notes": "",
+      "period": "Spring 2024",
+      "series_id": "pew_us_atp:unfavorable",
+      "source_id": "pew_us_trend",
+      "status": "observed",
+      "survey_id": "pew_atp_2024",
+      "value": 81,
+      "year": 2024
+    },
+    {
+      "comparability": "pew_us_atp",
+      "notes": "",
+      "period": "Spring 2025",
+      "series_id": "pew_us_atp:unfavorable",
+      "source_id": "pew_us_trend",
+      "status": "observed",
+      "survey_id": "pew_atp_2025",
+      "value": 77,
+      "year": 2025
+    },
+    {
+      "comparability": "pew_us_atp",
+      "notes": "",
+      "period": "Spring 2026",
+      "series_id": "pew_us_atp:unfavorable",
+      "source_id": "pew_us_trend",
+      "status": "observed",
+      "survey_id": "pew_atp_2026",
+      "value": 71,
+      "year": 2026
+    },
+    {
+      "comparability": "pew_us_phone",
+      "notes": "",
+      "period": "Spring 2010",
+      "series_id": "pew_us_phone:favorable",
+      "source_id": "pew_us_trend",
+      "status": "observed",
+      "survey_id": "pew_phone_2010",
+      "value": 49,
+      "year": 2010
+    },
+    {
+      "comparability": "pew_us_phone",
+      "notes": "",
+      "period": "Spring 2011",
+      "series_id": "pew_us_phone:favorable",
+      "source_id": "pew_us_trend",
+      "status": "observed",
+      "survey_id": "pew_phone_2011",
+      "value": 52,
+      "year": 2011
+    },
+    {
+      "comparability": "pew_us_phone",
+      "notes": "",
+      "period": "Spring 2012",
+      "series_id": "pew_us_phone:favorable",
+      "source_id": "pew_us_trend",
+      "status": "observed",
+      "survey_id": "pew_phone_2012",
+      "value": 41,
+      "year": 2012
+    },
+    {
+      "comparability": "pew_us_phone",
+      "notes": "",
+      "period": "Spring 2013",
+      "series_id": "pew_us_phone:favorable",
+      "source_id": "pew_us_trend",
+      "status": "observed",
+      "survey_id": "pew_phone_2013",
+      "value": 36,
+      "year": 2013
+    },
+    {
+      "comparability": "pew_us_phone",
+      "notes": "",
+      "period": "Spring 2014",
+      "series_id": "pew_us_phone:favorable",
+      "source_id": "pew_us_trend",
+      "status": "observed",
+      "survey_id": "pew_phone_2014",
+      "value": 35,
+      "year": 2014
+    },
+    {
+      "comparability": "pew_us_phone",
+      "notes": "",
+      "period": "Spring 2015",
+      "series_id": "pew_us_phone:favorable",
+      "source_id": "pew_us_trend",
+      "status": "observed",
+      "survey_id": "pew_phone_2015",
+      "value": 38,
+      "year": 2015
+    },
+    {
+      "comparability": "pew_us_phone",
+      "notes": "",
+      "period": "Spring 2016",
+      "series_id": "pew_us_phone:favorable",
+      "source_id": "pew_us_trend",
+      "status": "observed",
+      "survey_id": "pew_phone_2016",
+      "value": 37,
+      "year": 2016
+    },
+    {
+      "comparability": "pew_us_phone",
+      "notes": "",
+      "period": "Spring 2017",
+      "series_id": "pew_us_phone:favorable",
+      "source_id": "pew_us_trend",
+      "status": "observed",
+      "survey_id": "pew_phone_2017",
+      "value": 43,
+      "year": 2017
+    },
+    {
+      "comparability": "pew_us_phone",
+      "notes": "",
+      "period": "Spring 2018",
+      "series_id": "pew_us_phone:favorable",
+      "source_id": "pew_us_trend",
+      "status": "observed",
+      "survey_id": "pew_phone_2018",
+      "value": 38,
+      "year": 2018
+    },
+    {
+      "comparability": "pew_us_phone",
+      "notes": "",
+      "period": "Spring 2019",
+      "series_id": "pew_us_phone:favorable",
+      "source_id": "pew_us_trend",
+      "status": "observed",
+      "survey_id": "pew_phone_2019",
+      "value": 26,
+      "year": 2019
+    },
+    {
+      "comparability": "pew_us_phone",
+      "notes": "",
+      "period": "Spring 2020",
+      "series_id": "pew_us_phone:favorable",
+      "source_id": "pew_us_trend",
+      "status": "observed",
+      "survey_id": "pew_phone_2020",
+      "value": 27,
+      "year": 2020
+    },
+    {
+      "comparability": "pew_us_phone",
+      "notes": "",
+      "period": "Spring 2010",
+      "series_id": "pew_us_phone:unfavorable",
+      "source_id": "pew_us_trend",
+      "status": "observed",
+      "survey_id": "pew_phone_2010",
+      "value": 37,
+      "year": 2010
+    },
+    {
+      "comparability": "pew_us_phone",
+      "notes": "",
+      "period": "Spring 2011",
+      "series_id": "pew_us_phone:unfavorable",
+      "source_id": "pew_us_trend",
+      "status": "observed",
+      "survey_id": "pew_phone_2011",
+      "value": 36,
+      "year": 2011
+    },
+    {
+      "comparability": "pew_us_phone",
+      "notes": "",
+      "period": "Spring 2012",
+      "series_id": "pew_us_phone:unfavorable",
+      "source_id": "pew_us_trend",
+      "status": "observed",
+      "survey_id": "pew_phone_2012",
+      "value": 40,
+      "year": 2012
+    },
+    {
+      "comparability": "pew_us_phone",
+      "notes": "",
+      "period": "Spring 2013",
+      "series_id": "pew_us_phone:unfavorable",
+      "source_id": "pew_us_trend",
+      "status": "observed",
+      "survey_id": "pew_phone_2013",
+      "value": 51,
+      "year": 2013
+    },
+    {
+      "comparability": "pew_us_phone",
+      "notes": "",
+      "period": "Spring 2014",
+      "series_id": "pew_us_phone:unfavorable",
+      "source_id": "pew_us_trend",
+      "status": "observed",
+      "survey_id": "pew_phone_2014",
+      "value": 55,
+      "year": 2014
+    },
+    {
+      "comparability": "pew_us_phone",
+      "notes": "",
+      "period": "Spring 2015",
+      "series_id": "pew_us_phone:unfavorable",
+      "source_id": "pew_us_trend",
+      "status": "observed",
+      "survey_id": "pew_phone_2015",
+      "value": 54,
+      "year": 2015
+    },
+    {
+      "comparability": "pew_us_phone",
+      "notes": "",
+      "period": "Spring 2016",
+      "series_id": "pew_us_phone:unfavorable",
+      "source_id": "pew_us_trend",
+      "status": "observed",
+      "survey_id": "pew_phone_2016",
+      "value": 55,
+      "year": 2016
+    },
+    {
+      "comparability": "pew_us_phone",
+      "notes": "",
+      "period": "Spring 2017",
+      "series_id": "pew_us_phone:unfavorable",
+      "source_id": "pew_us_trend",
+      "status": "observed",
+      "survey_id": "pew_phone_2017",
+      "value": 47,
+      "year": 2017
+    },
+    {
+      "comparability": "pew_us_phone",
+      "notes": "",
+      "period": "Spring 2018",
+      "series_id": "pew_us_phone:unfavorable",
+      "source_id": "pew_us_trend",
+      "status": "observed",
+      "survey_id": "pew_phone_2018",
+      "value": 48,
+      "year": 2018
+    },
+    {
+      "comparability": "pew_us_phone",
+      "notes": "",
+      "period": "Spring 2019",
+      "series_id": "pew_us_phone:unfavorable",
+      "source_id": "pew_us_trend",
+      "status": "observed",
+      "survey_id": "pew_phone_2019",
+      "value": 60,
+      "year": 2019
+    },
+    {
+      "comparability": "pew_us_phone",
+      "notes": "",
+      "period": "Spring 2020",
+      "series_id": "pew_us_phone:unfavorable",
+      "source_id": "pew_us_trend",
+      "status": "observed",
+      "survey_id": "pew_phone_2020",
+      "value": 66,
+      "year": 2020
+    },
+    {
+      "comparability": "pew_us_phone",
+      "notes": "",
+      "period": "Summer 2020",
+      "series_id": "pew_us_phone_summer:favorable",
+      "source_id": "pew_us_trend",
+      "status": "observed",
+      "survey_id": "pew_phone_summer_2020",
+      "value": 22,
+      "year": 2020
+    },
+    {
+      "comparability": "pew_us_phone",
+      "notes": "",
+      "period": "Summer 2020",
+      "series_id": "pew_us_phone_summer:unfavorable",
+      "source_id": "pew_us_trend",
+      "status": "observed",
+      "survey_id": "pew_phone_summer_2020",
+      "value": 73,
+      "year": 2020
+    },
+    {
+      "comparability": "pew_warmth",
+      "notes": "Published mean, not calculated from rounded rating-category percentages.",
+      "period": "Oct-Nov 2016",
+      "series_id": "pew_warmth:all",
+      "source_id": "pew_us_warmth",
+      "status": "observed",
+      "survey_id": "pew_warmth_2016",
+      "value": 39,
+      "year": 2016
+    },
+    {
+      "comparability": "pew_warmth",
+      "notes": "Published mean, not calculated from rounded rating-category percentages.",
+      "period": "Jul-Aug 2018",
+      "series_id": "pew_warmth:all",
+      "source_id": "pew_us_warmth",
+      "status": "observed",
+      "survey_id": "pew_warmth_2018",
+      "value": 42,
+      "year": 2018
+    },
+    {
+      "comparability": "pew_warmth",
+      "notes": "Published mean, not calculated from rounded rating-category percentages.",
+      "period": "February 2021",
+      "series_id": "pew_warmth:all",
+      "source_id": "pew_us_warmth",
+      "status": "observed",
+      "survey_id": "pew_warmth_2021",
+      "value": 28,
+      "year": 2021
+    },
+    {
+      "comparability": "pew_warmth",
+      "notes": "Published mean, not calculated from rounded rating-category percentages.",
+      "period": "September 2026",
+      "series_id": "pew_warmth:all",
+      "source_id": "pew_us_warmth",
+      "status": "observed",
+      "survey_id": "pew_warmth_2026",
+      "value": 37,
+      "year": 2026
+    },
+    {
+      "comparability": "pew_warmth",
+      "notes": "",
+      "period": "September 2026",
+      "series_id": "pew_warmth_age:18-49",
+      "source_id": "pew_us_warmth",
+      "status": "observed",
+      "survey_id": "pew_warmth_2026",
+      "value": 42,
+      "year": 2026
+    },
+    {
+      "comparability": "pew_warmth",
+      "notes": "",
+      "period": "September 2026",
+      "series_id": "pew_warmth_age:50+",
+      "source_id": "pew_us_warmth",
+      "status": "observed",
+      "survey_id": "pew_warmth_2026",
+      "value": 31,
+      "year": 2026
+    },
+    {
+      "comparability": "china_pulse_october_2026_weights",
+      "notes": "",
+      "period": "Oct 2025-Jan 2026",
+      "series_id": "pulse:all",
+      "source_id": "china_pulse",
+      "status": "observed",
+      "survey_id": "pulse_2025",
+      "value": 33.0,
+      "year": 2025
+    },
+    {
+      "comparability": "china_pulse_october_2026_weights",
+      "notes": "",
+      "period": "Apr-Jun 2026",
+      "series_id": "pulse:all",
+      "source_id": "china_pulse",
+      "status": "observed",
+      "survey_id": "pulse_2026",
+      "value": 32.0,
+      "year": 2026
+    },
+    {
+      "comparability": "china_pulse_october_2026_weights",
+      "notes": "",
+      "period": "Oct 2025-Jan 2026",
+      "series_id": "pulse_age:18-29",
+      "source_id": "china_pulse",
+      "status": "observed",
+      "survey_id": "pulse_2025",
+      "value": 39.0,
+      "year": 2025
+    },
+    {
+      "comparability": "china_pulse_october_2026_weights",
+      "notes": "",
+      "period": "Apr-Jun 2026",
+      "series_id": "pulse_age:18-29",
+      "source_id": "china_pulse",
+      "status": "observed",
+      "survey_id": "pulse_2026",
+      "value": 32.0,
+      "year": 2026
+    },
+    {
+      "comparability": "china_pulse_october_2026_weights",
+      "notes": "",
+      "period": "Oct 2025-Jan 2026",
+      "series_id": "pulse_age:30-39",
+      "source_id": "china_pulse",
+      "status": "observed",
+      "survey_id": "pulse_2025",
+      "value": 35.0,
+      "year": 2025
+    },
+    {
+      "comparability": "china_pulse_october_2026_weights",
+      "notes": "",
+      "period": "Apr-Jun 2026",
+      "series_id": "pulse_age:30-39",
+      "source_id": "china_pulse",
+      "status": "observed",
+      "survey_id": "pulse_2026",
+      "value": 29.0,
+      "year": 2026
+    },
+    {
+      "comparability": "china_pulse_october_2026_weights",
+      "notes": "",
+      "period": "Oct 2025-Jan 2026",
+      "series_id": "pulse_age:40-49",
+      "source_id": "china_pulse",
+      "status": "observed",
+      "survey_id": "pulse_2025",
+      "value": 30.0,
+      "year": 2025
+    },
+    {
+      "comparability": "china_pulse_october_2026_weights",
+      "notes": "",
+      "period": "Apr-Jun 2026",
+      "series_id": "pulse_age:40-49",
+      "source_id": "china_pulse",
+      "status": "observed",
+      "survey_id": "pulse_2026",
+      "value": 32.0,
+      "year": 2026
+    },
+    {
+      "comparability": "china_pulse_october_2026_weights",
+      "notes": "",
+      "period": "Oct 2025-Jan 2026",
+      "series_id": "pulse_age:50+",
+      "source_id": "china_pulse",
+      "status": "observed",
+      "survey_id": "pulse_2025",
+      "value": 32.0,
+      "year": 2025
+    },
+    {
+      "comparability": "china_pulse_october_2026_weights",
+      "notes": "",
+      "period": "Apr-Jun 2026",
+      "series_id": "pulse_age:50+",
+      "source_id": "china_pulse",
+      "status": "observed",
+      "survey_id": "pulse_2026",
+      "value": 33.0,
+      "year": 2026
+    }
+  ],
+  "series": {
+    "pew_age:18-34:favorable": {
+      "age": "18-34",
+      "cadence": "survey_rounds",
+      "label": "18-34",
+      "measure": "favorability",
+      "notes": "Reported survey estimates; nonresponse is not a neutral opinion.",
+      "respondent_country": "USA",
+      "sampling": "Probability-based American Trends Panel.",
+      "target_country": "CHN",
+      "unit": "percent"
+    },
+    "pew_age:18-34:unfavorable": {
+      "age": "18-34",
+      "cadence": "survey_rounds",
+      "label": "18-34",
+      "measure": "favorability",
+      "notes": "Reported survey estimates; nonresponse is not a neutral opinion.",
+      "respondent_country": "USA",
+      "sampling": "Probability-based American Trends Panel.",
+      "target_country": "CHN",
+      "unit": "percent"
+    },
+    "pew_age:35-49:favorable": {
+      "age": "35-49",
+      "cadence": "survey_rounds",
+      "label": "35-49",
+      "measure": "favorability",
+      "notes": "Reported survey estimates; nonresponse is not a neutral opinion.",
+      "respondent_country": "USA",
+      "sampling": "Probability-based American Trends Panel.",
+      "target_country": "CHN",
+      "unit": "percent"
+    },
+    "pew_age:35-49:unfavorable": {
+      "age": "35-49",
+      "cadence": "survey_rounds",
+      "label": "35-49",
+      "measure": "favorability",
+      "notes": "Reported survey estimates; nonresponse is not a neutral opinion.",
+      "respondent_country": "USA",
+      "sampling": "Probability-based American Trends Panel.",
+      "target_country": "CHN",
+      "unit": "percent"
+    },
+    "pew_age:50+:favorable": {
+      "age": "50+",
+      "cadence": "survey_rounds",
+      "label": "50+",
+      "measure": "favorability",
+      "notes": "Reported survey estimates; nonresponse is not a neutral opinion.",
+      "respondent_country": "USA",
+      "sampling": "Probability-based American Trends Panel.",
+      "target_country": "CHN",
+      "unit": "percent"
+    },
+    "pew_age:50+:unfavorable": {
+      "age": "50+",
+      "cadence": "survey_rounds",
+      "label": "50+",
+      "measure": "favorability",
+      "notes": "Reported survey estimates; nonresponse is not a neutral opinion.",
+      "respondent_country": "USA",
+      "sampling": "Probability-based American Trends Panel.",
+      "target_country": "CHN",
+      "unit": "percent"
+    },
+    "pew_china:favorable": {
+      "age": "All adults",
+      "cadence": "survey_rounds",
+      "label": "Favorable",
+      "measure": "favorability",
+      "notes": "Reported survey estimates; nonresponse is not a neutral opinion.",
+      "respondent_country": "CHN",
+      "sampling": "Historical Pew face-to-face surveys; sample coverage varies by round.",
+      "target_country": "USA",
+      "unit": "percent"
+    },
+    "pew_china:unfavorable": {
+      "age": "All adults",
+      "cadence": "survey_rounds",
+      "label": "Unfavorable",
+      "measure": "favorability",
+      "notes": "Reported survey estimates; nonresponse is not a neutral opinion.",
+      "respondent_country": "CHN",
+      "sampling": "Historical Pew face-to-face surveys; sample coverage varies by round.",
+      "target_country": "USA",
+      "unit": "percent"
+    },
+    "pew_us_atp:favorable": {
+      "age": "All adults",
+      "cadence": "annual",
+      "label": "Favorable",
+      "measure": "favorability",
+      "notes": "Reported survey estimates; nonresponse is not a neutral opinion.",
+      "respondent_country": "USA",
+      "sampling": "Probability-based American Trends Panel; online plus some live telephone in recent waves.",
+      "target_country": "CHN",
+      "unit": "percent"
+    },
+    "pew_us_atp:unfavorable": {
+      "age": "All adults",
+      "cadence": "annual",
+      "label": "Unfavorable",
+      "measure": "favorability",
+      "notes": "Reported survey estimates; nonresponse is not a neutral opinion.",
+      "respondent_country": "USA",
+      "sampling": "Probability-based American Trends Panel; online plus some live telephone in recent waves.",
+      "target_country": "CHN",
+      "unit": "percent"
+    },
+    "pew_us_phone:favorable": {
+      "age": "All adults",
+      "cadence": "annual",
+      "label": "Favorable",
+      "measure": "favorability",
+      "notes": "Reported survey estimates; nonresponse is not a neutral opinion.",
+      "respondent_country": "USA",
+      "sampling": "Telephone surveys; separate from the American Trends Panel.",
+      "target_country": "CHN",
+      "unit": "percent"
+    },
+    "pew_us_phone:unfavorable": {
+      "age": "All adults",
+      "cadence": "annual",
+      "label": "Unfavorable",
+      "measure": "favorability",
+      "notes": "Reported survey estimates; nonresponse is not a neutral opinion.",
+      "respondent_country": "USA",
+      "sampling": "Telephone surveys; separate from the American Trends Panel.",
+      "target_country": "CHN",
+      "unit": "percent"
+    },
+    "pew_us_phone_summer:favorable": {
+      "age": "All adults",
+      "cadence": "annual",
+      "label": "Favorable",
+      "measure": "favorability",
+      "notes": "Reported survey estimates; nonresponse is not a neutral opinion.",
+      "respondent_country": "USA",
+      "sampling": "Telephone surveys; separate from the American Trends Panel.",
+      "target_country": "CHN",
+      "unit": "percent"
+    },
+    "pew_us_phone_summer:unfavorable": {
+      "age": "All adults",
+      "cadence": "annual",
+      "label": "Unfavorable",
+      "measure": "favorability",
+      "notes": "Reported survey estimates; nonresponse is not a neutral opinion.",
+      "respondent_country": "USA",
+      "sampling": "Telephone surveys; separate from the American Trends Panel.",
+      "target_country": "CHN",
+      "unit": "percent"
+    },
+    "pew_warmth:all": {
+      "age": "All adults",
+      "cadence": "survey_rounds",
+      "label": "U.S. adults",
+      "measure": "warmth",
+      "notes": "Reported survey estimates; nonresponse is not a neutral opinion.",
+      "respondent_country": "USA",
+      "sampling": "Probability-based American Trends Panel.",
+      "target_country": "CHN",
+      "unit": "rating_points"
+    },
+    "pew_warmth_age:18-49": {
+      "age": "18-49",
+      "cadence": "survey_rounds",
+      "label": "18-49",
+      "measure": "warmth",
+      "notes": "Reported survey estimates; nonresponse is not a neutral opinion.",
+      "respondent_country": "USA",
+      "sampling": "Probability-based American Trends Panel.",
+      "target_country": "CHN",
+      "unit": "rating_points"
+    },
+    "pew_warmth_age:50+": {
+      "age": "50+",
+      "cadence": "survey_rounds",
+      "label": "50+",
+      "measure": "warmth",
+      "notes": "Reported survey estimates; nonresponse is not a neutral opinion.",
+      "respondent_country": "USA",
+      "sampling": "Probability-based American Trends Panel.",
+      "target_country": "CHN",
+      "unit": "rating_points"
+    },
+    "pulse:all": {
+      "age": "All adults",
+      "cadence": "survey_rounds",
+      "label": "Chinese adults",
+      "measure": "warmth",
+      "notes": "Reported survey estimates; nonresponse is not a neutral opinion.",
+      "respondent_country": "CHN",
+      "sampling": "China-based respondent panel; quota sampling and raking weights.",
+      "target_country": "USA",
+      "unit": "rating_points"
+    },
+    "pulse_age:18-29": {
+      "age": "18-29",
+      "cadence": "survey_rounds",
+      "label": "18-29",
+      "measure": "warmth",
+      "notes": "Reported survey estimates; nonresponse is not a neutral opinion.",
+      "respondent_country": "CHN",
+      "sampling": "China-based respondent panel; quota sampling and raking weights.",
+      "target_country": "USA",
+      "unit": "rating_points"
+    },
+    "pulse_age:30-39": {
+      "age": "30-39",
+      "cadence": "survey_rounds",
+      "label": "30-39",
+      "measure": "warmth",
+      "notes": "Reported survey estimates; nonresponse is not a neutral opinion.",
+      "respondent_country": "CHN",
+      "sampling": "China-based respondent panel; quota sampling and raking weights.",
+      "target_country": "USA",
+      "unit": "rating_points"
+    },
+    "pulse_age:40-49": {
+      "age": "40-49",
+      "cadence": "survey_rounds",
+      "label": "40-49",
+      "measure": "warmth",
+      "notes": "Reported survey estimates; nonresponse is not a neutral opinion.",
+      "respondent_country": "CHN",
+      "sampling": "China-based respondent panel; quota sampling and raking weights.",
+      "target_country": "USA",
+      "unit": "rating_points"
+    },
+    "pulse_age:50+": {
+      "age": "50+",
+      "cadence": "survey_rounds",
+      "label": "50+",
+      "measure": "warmth",
+      "notes": "Reported survey estimates; nonresponse is not a neutral opinion.",
+      "respondent_country": "CHN",
+      "sampling": "China-based respondent panel; quota sampling and raking weights.",
+      "target_country": "USA",
+      "unit": "rating_points"
+    }
+  },
+  "sources": {
+    "china_pulse": {
+      "assets": [
+        {
+          "request_url": "https://uscnpm.org/wp-content/uploads/2026/10/CHINA.PULSE_.Chinese.Public.Supports.Trade_.and_.Security.Cooperation.Still_.Sees_.the_.United.States.as_.a.Threat.pdf",
+          "retrieved_at": "2026-10-24T20:32:42+00:00",
+          "sha256": "d3b0080e65698faeda2e66d4398fbb9fc9e907db7adc7ca88ba187738ba586b7",
+          "url": "https://uscnpm.org/wp-content/uploads/2026/10/CHINA.PULSE_.Chinese.Public.Supports.Trade_.and_.Security.Cooperation.Still_.Sees_.the_.United.States.as_.a.Threat.pdf"
+        },
+        {
+          "request_url": "https://datawrapper.dwcdn.net/LU2Fb/1/dataset.csv",
+          "retrieved_at": "2026-10-24T20:32:42+00:00",
+          "sha256": "b4b52e331fa682cbcf7751d46fdc7aa85809b34a45b5da2d5116a1d71412562b",
+          "url": "https://datawrapper.dwcdn.net/LU2Fb/1/dataset.csv"
+        }
+      ],
+      "locator": "Datawrapper LU2Fb: Overall and Age rows; report pages 4 and 15-16.",
+      "name": "The Carter Center / Emory University, China Pulse",
+      "notes": "October 2026 release; exact publication day is not supplied in the PDF. Both waves use the October release's raking weights. The reweighted 2025 mean is 33, not the earlier release's 34. Quota panel, not documented as a national probability sample; not Pew.",
+      "published": "2026-10",
+      "url": "https://uscnpm.org/china-pulse/chinese-public-supports-trade-and-security-cooperation-still-sees-the-united-states-as-a-threat/"
+    },
+    "pew_china_history": {
+      "assets": [
+        {
+          "request_url": "https://www.pewresearch.org/global/wp-content/uploads/sites/2/2016/10/Pew-Research-Center-China-Report-FINAL-October-5-2016.pdf",
+          "retrieved_at": "2026-10-24T20:32:42+00:00",
+          "sha256": "330dcf95ef32c869e052cef8a5e7313a514c3bebfb4aff7f82d5b607edec6d62",
+          "url": "https://www.pewresearch.org/global/wp-content/uploads/sites/2/2016/10/Pew-Research-Center-China-Report-FINAL-October-5-2016.pdf"
+        }
+      ],
+      "locator": "Page 13: Fluctuating views of the U.S., Q10a; published net percentages.",
+      "name": "Pew Research Center",
+      "notes": "Nets are read directly, not summed from separately rounded response components. Earlier survey coverage varies; no line is drawn across these samples or to the different 2025-2026 China Pulse measure.",
+      "published": "2016-10-05",
+      "url": "https://www.pewresearch.org/global/2016/10/05/chinese-public-sees-more-powerful-role-in-world-names-u-s-as-top-threat/"
+    },
+    "pew_us_age": {
+      "assets": [
+        {
+          "request_url": "https://www.pewresearch.org/wp-content/uploads/sites/20/2026/07/pg_2026.06.15_global-views-china-2026_report.pdf",
+          "retrieved_at": "2026-10-24T20:32:42+00:00",
+          "sha256": "e52a8176ff8c2945b9bdf361edbfc34d054b1525d241b25c09e28f01a8446592",
+          "url": "https://www.pewresearch.org/wp-content/uploads/sites/20/2026/07/pg_2026.06.15_global-views-china-2026_report.pdf"
+        }
+      ],
+      "locator": "Appendix: Views of China by age, U.S. row; U.S. survey methodology.",
+      "name": "Pew Research Center",
+      "notes": "This is the same March 23-29 U.S. survey as the April trend release, not another survey in July.",
+      "published": "2026-07-15",
+      "url": "https://www.pewresearch.org/global/2026/07/15/appendix-detailed-tables-global-views-china-2026/"
+    },
+    "pew_us_trend": {
+      "assets": [
+        {
+          "request_url": "https://www.pewresearch.org/short-reads/2026/04/14/americans-views-of-china-have-grown-somewhat-more-positive-in-recent-years/",
+          "retrieved_at": "2026-10-24T20:32:42+00:00",
+          "sha256": "9f56e85f5ea5b694a601c507186e719b1fe8d55f6a8b1289262e72f0463c2a2c",
+          "url": "https://www.pewresearch.org/short-reads/2026/04/14/americans-views-of-china-have-grown-somewhat-more-positive-in-recent-years/"
+        }
+      ],
+      "locator": "First embedded table: full U.S. favorable/unfavorable phone and ATP trends.",
+      "name": "Pew Research Center",
+      "notes": "Chart dates such as March 1 are positioning dates, not verified fieldwork. Unknown historical field dates stay null. Phone and probability-panel histories are separate.",
+      "published": "2026-04-14",
+      "url": "https://www.pewresearch.org/short-reads/2026/04/14/americans-views-of-china-have-grown-somewhat-more-positive-in-recent-years/"
+    },
+    "pew_us_warmth": {
+      "assets": [
+        {
+          "request_url": "https://www.pewresearch.org/wp-content/uploads/sites/20/2026/09/SR_26.09.23_views-of-china_topline.pdf",
+          "retrieved_at": "2026-10-24T20:32:42+00:00",
+          "sha256": "beb045ad03baac795415c27c89fb69e74c51a1008e68023c8049acf3895fae37",
+          "url": "https://www.pewresearch.org/wp-content/uploads/sites/20/2026/09/SR_26.09.23_views-of-china_topline.pdf"
+        },
+        {
+          "request_url": "https://www.pewresearch.org/short-reads/2026/09/23/americans-views-of-china-have-warmed-in-recent-years/",
+          "retrieved_at": "2026-10-24T20:35:10+00:00",
+          "sha256": "c847efeb20901a978ab9a76b9a6c938d944d35a2ad67a6d71706ac91fdc5f516",
+          "sha256_scope": "The reviewed numerical transcription, not the publisher's article or PDF",
+          "url": "https://github.com/hanshanley/china-us-relation-change/blob/main/data/reviewed/opinion-warmth.json"
+        }
+      ],
+      "locator": "Article's published mean-rating table and age paragraph; topline THERMO_CHINA.",
+      "name": "Pew Research Center",
+      "notes": "Mean ratings transcribed from the publisher's public article and embedded data table, checked through the public web source viewer on October 24, 2026. Direct article retrieval returned HTTP 403. The separately retrieved topline PDF verifies the question, field periods and 2026 China-item sample size; it does not contain these means. These are published means, not means reconstructed from rounded response categories.",
+      "published": "2026-09-23",
+      "url": "https://www.pewresearch.org/short-reads/2026/09/23/americans-views-of-china-have-warmed-in-recent-years/"
+    }
+  },
+  "surveys": {
+    "pew_atp_2020": {
+      "field_end": null,
+      "field_start": null,
+      "n_item": null,
+      "n_total": null,
+      "notes": "",
+      "period": "March 2020",
+      "year": 2020
+    },
+    "pew_atp_2021": {
+      "field_end": null,
+      "field_start": null,
+      "n_item": null,
+      "n_total": null,
+      "notes": "",
+      "period": "Spring 2021",
+      "year": 2021
+    },
+    "pew_atp_2022": {
+      "field_end": null,
+      "field_start": null,
+      "n_item": null,
+      "n_total": null,
+      "notes": "",
+      "period": "Spring 2022",
+      "year": 2022
+    },
+    "pew_atp_2023": {
+      "field_end": null,
+      "field_start": null,
+      "n_item": null,
+      "n_total": null,
+      "notes": "",
+      "period": "Spring 2023",
+      "year": 2023
+    },
+    "pew_atp_2024": {
+      "field_end": null,
+      "field_start": null,
+      "n_item": null,
+      "n_total": null,
+      "notes": "",
+      "period": "Spring 2024",
+      "year": 2024
+    },
+    "pew_atp_2025": {
+      "field_end": null,
+      "field_start": null,
+      "n_item": null,
+      "n_total": null,
+      "notes": "",
+      "period": "Spring 2025",
+      "year": 2025
+    },
+    "pew_atp_2026": {
+      "field_end": "2026-03-29",
+      "field_start": "2026-03-23",
+      "n_item": null,
+      "n_total": 3507,
+      "notes": "",
+      "period": "Spring 2026",
+      "year": 2026
+    },
+    "pew_china_2010": {
+      "field_end": null,
+      "field_start": null,
+      "n_item": null,
+      "n_total": null,
+      "notes": "The retrospective figure does not give historical field dates or subgroup sample sizes.",
+      "period": "Spring 2010",
+      "year": 2010
+    },
+    "pew_china_2011": {
+      "field_end": null,
+      "field_start": null,
+      "n_item": null,
+      "n_total": null,
+      "notes": "The retrospective figure does not give historical field dates or subgroup sample sizes.",
+      "period": "Spring 2011",
+      "year": 2011
+    },
+    "pew_china_2012": {
+      "field_end": null,
+      "field_start": null,
+      "n_item": null,
+      "n_total": null,
+      "notes": "The retrospective figure does not give historical field dates or subgroup sample sizes.",
+      "period": "Spring 2012",
+      "year": 2012
+    },
+    "pew_china_2013": {
+      "field_end": null,
+      "field_start": null,
+      "n_item": null,
+      "n_total": null,
+      "notes": "The retrospective figure does not give historical field dates or subgroup sample sizes.",
+      "period": "Spring 2013",
+      "year": 2013
+    },
+    "pew_china_2014": {
+      "field_end": null,
+      "field_start": null,
+      "n_item": null,
+      "n_total": null,
+      "notes": "The retrospective figure does not give historical field dates or subgroup sample sizes.",
+      "period": "Spring 2014",
+      "year": 2014
+    },
+    "pew_china_2015": {
+      "field_end": null,
+      "field_start": null,
+      "n_item": null,
+      "n_total": null,
+      "notes": "The retrospective figure does not give historical field dates or subgroup sample sizes.",
+      "period": "Spring 2015",
+      "year": 2015
+    },
+    "pew_china_2016": {
+      "field_end": "2016-05-08",
+      "field_start": "2016-04-06",
+      "n_item": null,
+      "n_total": 3154,
+      "notes": "The retrospective figure does not give historical field dates or subgroup sample sizes.",
+      "period": "Spring 2016",
+      "year": 2016
+    },
+    "pew_phone_2010": {
+      "field_end": null,
+      "field_start": null,
+      "n_item": null,
+      "n_total": null,
+      "notes": "",
+      "period": "Spring 2010",
+      "year": 2010
+    },
+    "pew_phone_2011": {
+      "field_end": null,
+      "field_start": null,
+      "n_item": null,
+      "n_total": null,
+      "notes": "",
+      "period": "Spring 2011",
+      "year": 2011
+    },
+    "pew_phone_2012": {
+      "field_end": null,
+      "field_start": null,
+      "n_item": null,
+      "n_total": null,
+      "notes": "",
+      "period": "Spring 2012",
+      "year": 2012
+    },
+    "pew_phone_2013": {
+      "field_end": null,
+      "field_start": null,
+      "n_item": null,
+      "n_total": null,
+      "notes": "",
+      "period": "Spring 2013",
+      "year": 2013
+    },
+    "pew_phone_2014": {
+      "field_end": null,
+      "field_start": null,
+      "n_item": null,
+      "n_total": null,
+      "notes": "",
+      "period": "Spring 2014",
+      "year": 2014
+    },
+    "pew_phone_2015": {
+      "field_end": null,
+      "field_start": null,
+      "n_item": null,
+      "n_total": null,
+      "notes": "",
+      "period": "Spring 2015",
+      "year": 2015
+    },
+    "pew_phone_2016": {
+      "field_end": null,
+      "field_start": null,
+      "n_item": null,
+      "n_total": null,
+      "notes": "",
+      "period": "Spring 2016",
+      "year": 2016
+    },
+    "pew_phone_2017": {
+      "field_end": null,
+      "field_start": null,
+      "n_item": null,
+      "n_total": null,
+      "notes": "",
+      "period": "Spring 2017",
+      "year": 2017
+    },
+    "pew_phone_2018": {
+      "field_end": null,
+      "field_start": null,
+      "n_item": null,
+      "n_total": null,
+      "notes": "",
+      "period": "Spring 2018",
+      "year": 2018
+    },
+    "pew_phone_2019": {
+      "field_end": null,
+      "field_start": null,
+      "n_item": null,
+      "n_total": null,
+      "notes": "",
+      "period": "Spring 2019",
+      "year": 2019
+    },
+    "pew_phone_2020": {
+      "field_end": null,
+      "field_start": null,
+      "n_item": null,
+      "n_total": null,
+      "notes": "",
+      "period": "Spring 2020",
+      "year": 2020
+    },
+    "pew_phone_summer_2020": {
+      "field_end": null,
+      "field_start": null,
+      "n_item": null,
+      "n_total": null,
+      "notes": "",
+      "period": "Summer 2020",
+      "year": 2020
+    },
+    "pew_warmth_2016": {
+      "field_end": "2016-11-08",
+      "field_start": "2016-10-25",
+      "n_item": null,
+      "n_total": null,
+      "notes": "In 2026 only the 1,168 respondents assigned the China item form its base, not all 5,193 respondents.",
+      "period": "Oct-Nov 2016",
+      "year": 2016
+    },
+    "pew_warmth_2018": {
+      "field_end": "2018-08-12",
+      "field_start": "2018-07-30",
+      "n_item": null,
+      "n_total": null,
+      "notes": "In 2026 only the 1,168 respondents assigned the China item form its base, not all 5,193 respondents.",
+      "period": "Jul-Aug 2018",
+      "year": 2018
+    },
+    "pew_warmth_2021": {
+      "field_end": "2021-02-07",
+      "field_start": "2021-02-01",
+      "n_item": null,
+      "n_total": null,
+      "notes": "In 2026 only the 1,168 respondents assigned the China item form its base, not all 5,193 respondents.",
+      "period": "February 2021",
+      "year": 2021
+    },
+    "pew_warmth_2026": {
+      "field_end": "2026-09-20",
+      "field_start": "2026-09-14",
+      "n_item": 1168,
+      "n_total": 5193,
+      "notes": "In 2026 only the 1,168 respondents assigned the China item form its base, not all 5,193 respondents.",
+      "period": "September 2026",
+      "year": 2026
+    },
+    "pulse_2025": {
+      "field_end": "2026-01-01",
+      "field_start": "2025-10-27",
+      "n_item": null,
+      "n_total": 2506,
+      "notes": "Full survey base, not a reported age-subgroup base. Quota panel, reweighted in the October 2026 report.",
+      "period": "Oct 2025-Jan 2026",
+      "year": 2025
+    },
+    "pulse_2026": {
+      "field_end": "2026-06-26",
+      "field_start": "2026-04-16",
+      "n_item": null,
+      "n_total": 2500,
+      "notes": "Full survey base, not a reported age-subgroup base. Quota panel, reweighted in the October 2026 report.",
+      "period": "Apr-Jun 2026",
+      "year": 2026
+    }
+  },
+  "version": 1
+}

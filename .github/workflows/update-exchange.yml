@@ -21,6 +21,8 @@ on:
       - "scripts/build_business_data.py"
       - "scripts/build_immigration_data.py"
       - "scripts/build_state_immigration_data.py"
+      - "scripts/build_opinion_data.py"
+      - "scripts/check_opinion_publication.py"
       - "scripts/check_state_immigration_map.py"
       - "scripts/build_travel_data.py"
       - "scripts/build_contact_backfill.py"
@@ -38,6 +40,8 @@ on:
       - "data/site/business_presence.json"
       - "data/site/immigration.json"
       - "data/site/state_immigration.json"
+      - "data/site/opinions.json"
+      - "data/reviewed/opinion-warmth.json"
       - "data/site/us_states.geojson"
       - "data/site/student_estimates.json"
       - "data/site/gap_review.csv"
@@ -91,6 +95,10 @@ jobs:
         continue-on-error: true
         timeout-minutes: 5
         run: python scripts/build_state_immigration_data.py
+      - name: Recheck reviewed public-opinion releases
+        continue-on-error: true
+        timeout-minutes: 3
+        run: python scripts/build_opinion_data.py
       - name: Build and check candidate publication
         run: |
           python scripts/build_site.py
@@ -100,6 +108,7 @@ jobs:
           python scripts/check_exchange_publication.py --site data/local/collective-publication
           python scripts/check_state_immigration_map.py --site data/local/collective-publication
           python scripts/check_confucius_publication.py --site data/local/collective-publication
+          python scripts/check_opinion_publication.py --site data/local/collective-publication
           python scripts/audit_exchange_plots.py --site data/local/collective-publication --exports outputs/figures --output data/local/plot-audit
           git diff --check
       - name: Record actual check status
@@ -129,6 +138,12 @@ jobs:
             cat data/local/confucius/check.json >> "$GITHUB_STEP_SUMMARY"
             echo '```' >> "$GITHUB_STEP_SUMMARY"
           fi
+          if test -f data/local/opinions/check.json; then
+            echo '### Reviewed public-opinion source check' >> "$GITHUB_STEP_SUMMARY"
+            echo '```json' >> "$GITHUB_STEP_SUMMARY"
+            cat data/local/opinions/check.json >> "$GITHUB_STEP_SUMMARY"
+            echo '```' >> "$GITHUB_STEP_SUMMARY"
+          fi
       - name: Retain check log and candidate site
         if: always()
         uses: actions/upload-artifact@v4
@@ -139,6 +154,7 @@ jobs:
             data/local/language-release-check.json
             data/local/state-immigration/check.json
             data/local/confucius/check.json
+            data/local/opinions/check.json
             data/local/plot-audit/audit.json
             site/
           retention-days: 30
@@ -147,7 +163,7 @@ jobs:
         run: |
           git config user.name "Hans Hanley"
           git config user.email "hwahhanley@gmail.com"
-          git add -- data/site/observations.json data/site/sources.json data/site/coverage.json data/site/state_immigration.json data/site/us_states.geojson site outputs/figures
+          git add -- data/site/observations.json data/site/sources.json data/site/coverage.json data/site/state_immigration.json data/site/us_states.geojson data/site/opinions.json site outputs/figures
           if ! git diff --cached --quiet; then
             git commit -m "Refresh verified bilateral exchange publication"
             git push origin HEAD:main

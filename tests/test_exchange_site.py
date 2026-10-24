@@ -258,7 +258,7 @@ def test_figure_background_variants_preserve_data_and_foreground(tmp_path):
     build(tmp_path)
     figures = tmp_path / "outputs/figures"
     assert {p.name for p in figures.iterdir() if p.is_dir()} == {
-        "students", "visitors", "goods_trade", "services_trade", "weibo", "language_learning", "business_presence", "immigration"}
+        "students", "visitors", "goods_trade", "services_trade", "weibo", "language_learning", "business_presence", "immigration", "opinions"}
     assert not list(figures.glob("*.svg"))
     originals = list(figures.glob("*/themarginoferror/*-USA-*.svg"))
     data = json.loads((ROOT / "data/site/observations.json").read_text())

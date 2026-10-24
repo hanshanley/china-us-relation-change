@@ -224,13 +224,20 @@ def check(site, url=None, screenshots=None):
             expect(page.locator("#measure")).to_have_value("visitors")
             expect(page.locator("#selection-note")).to_contain_text("no verified annual series for this route")
             assert page.locator("#chart .screen-point").count() == 26
-            for name in ["immigration.html", "comparisons.html", "language-learning.html", "confucius.html", "business-presence.html", "weibo.html"]:
+            for name in ["immigration.html", "comparisons.html", "language-learning.html", "confucius.html", "business-presence.html", "weibo.html", "opinions.html"]:
+                if not (site / name).is_file():
+                    continue
                 page.goto(url.rsplit("/", 1)[0] + "/" + name)
                 page.evaluate("document.fonts.ready")
                 if name == "confucius.html":
                     from check_confucius_publication import check_page
 
                     check_page(page, json.loads((site / "downloads/confucius-programs.json").read_text()), exhaustive=False)
+                    continue
+                if name == "opinions.html":
+                    from check_opinion_publication import check_page
+
+                    check_page(page, json.loads((site / "downloads/opinions.json").read_text()), exhaustive=False)
                     continue
                 if name == "weibo.html":
                     check_weibo_explorer(page, json.loads((site / "downloads/weibo-summary.json").read_text()))

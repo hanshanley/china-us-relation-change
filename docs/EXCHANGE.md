@@ -1033,6 +1033,52 @@ and every plotted value as CSV are complete downloads. Both publication
 backgrounds have matching PNG/SVG figures under `immigration/`. Missing or
 confidential cells stay distinct from zero; raw source files are not published.
 
+### Public opinion in both directions
+
+`opinions.html` provides eight separately defined views: U.S. favorable/unfavorable
+opinion, Chinese warmth toward the U.S., each public's actual age bands, U.S.
+warmth over four survey rounds and by age, and the earlier U.S. telephone and
+Chinese Pew histories. The complete `data/site/opinions.json` contains 74 reported
+estimates, 22 series and 32 survey rounds. All observations, survey dates,
+definitions and source identities are downloadable, including observations not
+selected in the default chart.
+
+Percent favorable and mean **0-100 rating points** are never joined, indexed or
+relabelled as one another. Fifty is neutral on the latter scale. Every opinion
+plot retains a 0-100 scale in both the interactive view and the PNG/SVG exports.
+Sparse survey rounds use bars, not continuous annual-looking lines. Each export
+is available in both publication backgrounds. Exact values work on hover,
+keyboard and touch; static figures and complete tables work without JavaScript.
+
+Pew's U.S. favorable/unfavorable telephone and probability-panel histories remain
+separate even in their overlapping 2020 year. The current favorable-opinion age
+bands are **18-34, 35-49 and 50+**, from March 23-29, 2026, though published in
+July. The newer warmth question uses **18-49 and 50+**, from September 14-20.
+The China Pulse age bands are **18-29, 30-39, 40-49 and 50+**, from April 16-June
+26. They are not rebinned into allegedly matched generations.
+
+The China Pulse October 2026 report reweights **both** waves. Its late-2025 mean
+is 33, not the earlier release's 34; this release's common weights are retained
+throughout the comparison. The Chinese quota panel is not represented as Pew's
+probability panel. The September U.S. China-item base is 1,168, not all 5,193
+people in the survey; subgroup sample sizes are not inferred.
+
+```sh
+.venv/bin/python scripts/build_opinion_data.py --cached
+.venv/bin/python scripts/build_site.py
+.venv/bin/python scripts/build_exchange_publication.py --output data/local/publication
+.venv/bin/python scripts/check_opinion_publication.py --site data/local/publication
+```
+
+The daily check revisits reviewed source releases for revisions and preserves
+the frozen data on failure. New publications, question changes or age categories
+require explicit source review, not automatic splicing. Timestamp-only checks
+do not rewrite the publication. The reviewed Pew warmth means are in
+`data/reviewed/opinion-warmth.json`: its fingerprint identifies our factual
+transcription, not the publisher article. The separately retained topline PDF
+verifies wording, dates and bases, not the means. No means are reconstructed
+from rounded response bins. Source reports and microdata are not redistributed.
+
 ## Definitions and comparisons
 
 - History starts in 2000 **where verified**. The publication does not pretend

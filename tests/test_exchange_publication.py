@@ -99,7 +99,8 @@ def test_collective_export_preserves_complete_inputs_and_native_plot_boundaries(
         assert hashlib.sha256((tmp_path / path).read_bytes()).hexdigest() == checksum
     for input_name, output_name in [("language_learning", "language-learning"), ("business_presence", "business-presence"),
                                     ("weibo_summary", "weibo-summary"), ("immigration", "immigration"),
-                                    ("state_immigration", "state-immigration"), ("confucius_programs", "confucius-programs")]:
+                                    ("state_immigration", "state-immigration"), ("confucius_programs", "confucius-programs"),
+                                    ("opinions", "opinions")]:
         assert json.loads((tmp_path / f"downloads/{output_name}.json").read_text()) == json.loads(
             (ROOT / f"data/site/{input_name}.json").read_text())
     for name in module.PAGES:
@@ -139,6 +140,13 @@ def test_collective_export_preserves_complete_inputs_and_native_plot_boundaries(
                 *range(2012, 2021), *range(2022, 2026)}
     assert {o["value"] for o in travel.select("#measure option")} <= {"visitors", "leisure_visitors", "air_visitors"}
     immigration = BeautifulSoup((tmp_path / "immigration.html").read_text(), "html.parser")
+    opinions = BeautifulSoup((tmp_path / "opinions.html").read_text(), "html.parser")
+    assert "opinions" in manifest["datasets"]
+    assert opinions.select_one('#module-chart option[selected]')["value"] == "us-china-favorability"
+    assert "September 2026" in opinions.select_one(".analysis-scope").text
+    for model in opinions.select(".plot-data"):
+        assert json.loads(model.string)["axis_max"] == 100
+    assert len(opinions.select(".native-chart")) == 8
     assert immigration.select_one('#module-chart option[selected]')["value"] == "state-china-map"
     assert len(immigration.select("#state-china-map .state-shape")) == 51
     assert immigration.select_one('#state-china-map [data-map-metric="count"]')

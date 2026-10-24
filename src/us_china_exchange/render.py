@@ -20,6 +20,8 @@ from .pipeline import load, write_atomic
 from . import student_estimates
 from .confucius_analysis import CHARTS as CONFUCIUS_CHARTS, build_confucius
 from .confucius_sources import validate as validate_confucius
+from .opinion_analysis import CHARTS as OPINION_CHARTS, build_opinions
+from .opinion_sources import validate_opinion_data
 from .state_immigration_sources import validate as validate_state_immigration
 from .sources import SOURCE_PAGES, SOURCE_POLICIES
 from .weibo_analysis import WEIBO_CHARTS, svg_weibo, validate_summary
@@ -658,6 +660,9 @@ def build(root):
     student_estimate_data = load(root / "data/site/student_estimates.json", None)
     if student_estimate_data is not None:
         student_estimates.validate(student_estimate_data)
+    opinion_data = load(root / "data/site/opinions.json", None)
+    if opinion_data is not None:
+        validate_opinion_data(opinion_data)
     review_path = root / "data/site/gap_review.csv"
     review_text = review_path.read_text(encoding="utf-8") if review_path.is_file() else None
     review_rows = list(csv.DictReader(io.StringIO(review_text))) if review_text is not None else []
@@ -862,6 +867,14 @@ def build(root):
             if path.is_file():
                 path.unlink()
     business_count = build_business(root, business_data, gallery) if business_data is not None else 0
+    opinion_count = build_opinions(root, opinion_data, gallery) if opinion_data is not None else 0
+    if opinion_data is None:
+        for chart_id in OPINION_CHARTS:
+            for theme in CHART_THEMES:
+                remove_figure(root, Path("opinions") / theme / chart_id)
+        for relative in ("opinions.html", "downloads/opinions.json", "downloads/opinion-observations.csv",
+                         "downloads/opinion-chart-values.csv"):
+            (site / relative).unlink(missing_ok=True)
     immigration_count = build_immigration(root, immigration_data, gallery, state_data, state_geometry) if immigration_data is not None else 0
     if state_data is None:
         for theme in CHART_THEMES:
@@ -991,6 +1004,7 @@ Four separate geographies. Both directions. History since {START_YEAR}; change s
 {"<p><a href='confucius.html'>Confucius Institutes, Classrooms and documented successor programs in the United States</a>.</p>" if confucius_data is not None else ""}
 {"<p><a href='business-presence.html'>U.S. and European businesses in China over time: annual affiliate and enterprise histories</a>.</p>" if business_data is not None else ""}
 {"<p><a href='immigration.html'>Immigration: permanent-resident grants, not visitor trips or visas</a>.</p>" if immigration_data is not None else ""}
+{"<p><a href='opinions.html'>Public opinion in both directions, including age differences</a>.</p>" if opinion_data is not None else ""}
 {"<p><a href='weibo.html'>Explore U.S. media accounts on Weibo</a> — documented identities and publisher relationships, not posting trends.</p>" if weibo_summary is not None else ""}
 <form class="controls" aria-label="Explore bilateral series" onsubmit="return false">
 <label for="geography">Geography<select id="geography">{options}</select></label>
@@ -1047,4 +1061,4 @@ Four separate geographies. Both directions. History since {START_YEAR}; change s
     write_atomic(site / "index.html", document)
     return {"observations": len(rows), "series": len(groups), "coverage_cells": len(matrix),
             "comparisons": comparison_count, "language_charts": language_count, "confucius_charts": confucius_count, "business_charts": business_count,
-            "immigration_charts": immigration_count}
+            "immigration_charts": immigration_count, "opinion_charts": opinion_count}

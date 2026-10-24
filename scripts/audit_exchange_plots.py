@@ -67,7 +67,7 @@ LABEL_GEOMETRY = """svg => {
       year:n.dataset.year,date:n.dataset.date,month:n.dataset.month,
       value:n.dataset.value===undefined?null:+n.dataset.value,x:+n.getAttribute("cx"),y:+n.getAttribute("cy"),
       title:n.querySelector("title")?.textContent||""})),
-    bars:[...svg.querySelectorAll(".screen-bar,rect.data-bar,rect.language-point,rect.business-point,rect.immigration-point")].map(n=>({
+    bars:[...svg.querySelectorAll(".screen-bar,rect.data-bar,rect.language-point,rect.business-point,rect.immigration-point,rect.opinion-point")].map(n=>({
       id:n.dataset.seriesId,year:n.dataset.year,label:n.dataset.label,value:+n.dataset.value,
       x:+n.getAttribute("x"),y:+n.getAttribute("y"),width:+n.getAttribute("width"),height:+n.getAttribute("height")})),
     barLabels:[...svg.querySelectorAll(".screen-bar-value")].map(n=>n.textContent),
@@ -103,7 +103,10 @@ class Audit:
         for page, stem, source in [
                 ("language-learning.html", "language", "language-learning"),
                 ("business-presence.html", "business", "business-presence"),
-                ("immigration.html", "immigration", "immigration")]:
+                ("immigration.html", "immigration", "immigration"),
+                ("opinions.html", "opinion", "opinions")]:
+            if not (site / f"downloads/{source}.json").is_file():
+                continue
             self.datasets[page] = json.loads((site / f"downloads/{source}.json").read_text())
             self.plotted[page] = list(csv.DictReader((site / f"downloads/{stem}-chart-values.csv").open()))
         self.raw = {(r["series_id"], r["year"]): r for r in self.exchange if r["frequency"] == "annual"}
@@ -509,6 +512,7 @@ class Audit:
             scripts = soup.select(".native-chart script.plot-data")
             page.goto(url + filename)
             page.evaluate("document.fonts.ready")
+            page.mouse.move(0, 0)
             if filename == "confucius.html":
                 from check_confucius_publication import check_page
 
@@ -674,9 +678,9 @@ class Audit:
                 sid = next(r["series_id"] for r in self.exchange if r["series_id"].replace(":", "-") == chart)
                 expected = {sid: sorted((r for r in self.exchange if r["series_id"] == sid
                                         and r["frequency"] == "annual" and r["value"] is not None), key=lambda r: r["year"])}
-        elif family in {"language_learning", "business_presence", "immigration"}:
+        elif family in {"language_learning", "business_presence", "immigration", "opinions"}:
             page = {"language_learning": "language-learning.html", "business_presence": "business-presence.html",
-                    "immigration": "immigration.html"}[family]
+                    "immigration": "immigration.html", "opinions": "opinions.html"}[family]
             expected = self.expected_groups(page, chart, model)
         else:
             if geometry["points"]:

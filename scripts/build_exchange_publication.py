@@ -31,6 +31,8 @@ PAGES = {
                     "Arrivals are trips, not unique people or necessarily leisure tourists"),
     "immigration.html": ("Immigration", "Where China-born residents live, and how migration ties have changed.",
                          "Resident stocks through 2024 · U.S. grants and Macau approvals through 2025"),
+    "opinions.html": ("Public opinion", "How Americans view China, how Chinese respondents view the U.S., and the differences by age.",
+                      "Reported survey rounds · Different questions kept separate"),
     "comparisons.html": ("China, Hong Kong & Macau", "The same measure, three separately reported geographies.",
                          "Fixed regional colours · No combined regional total"),
     "language-learning.html": ("Language learning", "Chinese, Japanese and Korean compared through course enrollments, degree awards and school programs.",
@@ -43,6 +45,7 @@ PAGES = {
                    "Coverage and uncertainty, not a posting-history comparison"),
 }
 TABS = [("index.html", "Students & trade"), ("travel.html", "Travel & tourism"), ("immigration.html", "Immigration"),
+        ("opinions.html", "Opinions"),
         ("comparisons.html", "Regional comparison"),
         ("language-learning.html", "Language"), ("confucius.html", "Confucius programs"),
         ("business-presence.html", "Business"), ("weibo.html", "Weibo")]
@@ -61,6 +64,8 @@ def plot_model(svg, labels, observations):
         unit = svg.find("text", attrs={"x": "115", "y": "125"})
     model = {"title": svg.get("aria-label", ""), "description": svg.find("desc").text if svg.find("desc") else "",
              "unit": unit.text if unit else "Count", "groups": [], "kind": "line"}
+    if svg.get("data-axis-max"):
+        model["axis_max"] = float(svg["data-axis-max"])
     if svg.get("data-geographies"):
         model["geographies"] = svg["data-geographies"].split()
         model["show_legend"] = len(model["geographies"]) < 3
@@ -126,7 +131,7 @@ def plot_model(svg, labels, observations):
         model.update(first=int(svg.get("data-first-year", min(all_years))),
                      last=int(svg.get("data-last-year", max(years + all_years))))
         return model
-    bars = svg.select("rect.data-bar, rect.language-point, rect.business-point, rect.immigration-point")
+    bars = svg.select("rect.data-bar, rect.language-point, rect.business-point, rect.immigration-point, rect.opinion-point")
     if bars:
         model["kind"] = "bars"
         model["bars"] = []
@@ -170,6 +175,18 @@ def decorate(site, name, labels, revision):
         program_data = json.loads((site / "downloads/confucius-programs.json").read_text())
         snapshot = next(r["reference"] for r in program_data["observations"] if r["id"] == "cief_institutes")
         scope = f"Operator directory retrieved {snapshot} · Listings are not an operating census"
+    elif name == "opinions.html":
+        from datetime import date
+
+        opinions = json.loads((site / "downloads/opinions.json").read_text())
+        latest = {}
+        for row in opinions["observations"]:
+            country = opinions["series"][row["series_id"]]["respondent_country"]
+            end = opinions["surveys"][row["survey_id"]]["field_end"]
+            if row["value"] is not None and end:
+                latest[country] = max(latest.get(country, end), end)
+        scope = " · ".join(label + " fieldwork through " + date.fromisoformat(latest[country]).strftime("%B %Y")
+                           for country, label in (("USA", "U.S."), ("CHN", "China")))
     soup.title.string = title + " | The Margin of Error"
     for old in soup.select('link[rel=canonical],meta[name=description]'):
         old.decompose()
@@ -350,7 +367,7 @@ def decorate(site, name, labels, revision):
             label.string = "Indicator"
             select = soup.new_tag("select", attrs={"id": "module-chart"})
             preferred = {"language-learning.html": "college-enrollments", "comparisons.html": "goods-to_us",
-                         "immigration.html": "state-china-map"}.get(name)
+                         "immigration.html": "state-china-map", "opinions.html": "us-china-favorability"}.get(name)
             for i, section in enumerate(charts):
                 section["data-module-chart"] = section.get("id", f"indicator-{i}")
                 option = soup.new_tag("option", attrs={"value": section["data-module-chart"]})
@@ -482,7 +499,9 @@ def build_publication(source, output, revision):
         site = root / "site"
         shutil.copyfile(site / "index.html", site / "travel.html")
         definitions = {}
-        for name in ["language_learning", "business_presence", "immigration"]:
+        for name in ["language_learning", "business_presence", "immigration", "opinions"]:
+            if not (root / f"data/site/{name}.json").is_file():
+                continue
             data = json.loads((root / f"data/site/{name}.json").read_text())
             definitions.update({sid: d["label"] for sid, d in data["series"].items()})
         for name in PAGES:
@@ -498,11 +517,11 @@ def build_publication(source, output, revision):
                  for p in site.rglob("*") if p.is_file() and p.suffix != ".html"}
         manifest = {"version": 2, "source_repository": "hanshanley/china-us-relation-change",
                     "source_revision": revision, "canonical_url": CANONICAL,
-                    "scope": "Collective exchanges, immigration, language, business and public Weibo research aggregates; no raw posts or source reports",
+                    "scope": "Collective exchanges, immigration, public opinion, language, business and public Weibo research aggregates; no raw posts or source reports",
                     "observations": result["observations"], "files": files,
                     "datasets": {name: files[f"downloads/{name}.json"] for name in
                                  ["exchange", "language-learning", "business-presence", "weibo-summary", "immigration",
-                                  "student-estimates", "state-immigration", "confucius-programs"]
+                                  "student-estimates", "state-immigration", "confucius-programs", "opinions"]
                                  if f"downloads/{name}.json" in files}}
         (site / "publication-manifest.json").write_text(json_text(manifest), encoding="utf-8")
         output.mkdir(parents=True, exist_ok=True)
@@ -513,6 +532,16 @@ def build_publication(source, output, revision):
                     (output / "figures/language_learning" / theme / f"{chart_id}.{extension}").unlink(missing_ok=True)
         for old in ["business-publication.css", "business-publication.js"]:
             (output / "assets" / old).unlink(missing_ok=True)
+        if "opinions" not in manifest["datasets"]:
+            from us_china_exchange.opinion_analysis import CHARTS as OPINION_CHARTS
+
+            for relative in ("opinions.html", "downloads/opinions.json", "downloads/opinion-observations.csv",
+                             "downloads/opinion-chart-values.csv"):
+                (output / relative).unlink(missing_ok=True)
+            for chart_id in OPINION_CHARTS:
+                for theme in ("themarginoferror", "substack"):
+                    for extension in ("png", "svg", "website.png"):
+                        (output / "figures/opinions" / theme / (chart_id + "." + extension)).unlink(missing_ok=True)
         if "state-immigration" not in manifest["datasets"]:
             for relative in ("downloads/state-immigration.json", "downloads/state-immigration.csv",
                              "downloads/us-states.geojson", "assets/state-map.js", "assets/state-map.css"):
