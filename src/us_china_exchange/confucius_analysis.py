@@ -5,7 +5,7 @@ import html
 import io
 import json
 import textwrap
-from datetime import date
+from collections import Counter
 from pathlib import Path
 
 from .confucius_sources import SERIES, reference_date, reported, validate
@@ -17,27 +17,32 @@ from .theme import CHART_THEMES, FONT, GRID, MUTED, PARTNER_COLORS, TEXT, linear
 CHARTS = {
     "confucius-institutes": {
         "title": "Confucius Institutes: reported U.S. counts",
-        "subtitle": "Dated national snapshots | host coverage differs",
+        "subtitle": "Reported observations by year | unreported years remain blank",
+        "layout": "timeline", "unit": "Institutes",
         "series": ["institutes_reported"],
         "note": "Different sources, not a harmonized annual census. The June 2023 roster includes non-university hosts and one paused institute. Announced closures are not effective closure dates."},
     "confucius-campus": {
         "title": "Institutes at U.S. colleges and universities",
         "subtitle": "Campus-only counts | bounds remain bounds",
+        "layout": "timeline", "unit": "Institutes",
         "series": ["institutes_campus"],
         "note": "Campus-only reports, not the all-host roster. GAO reports fewer than five as of July 2023, not exactly five. The December 2022 figure is approximate. No current total is inferred."},
     "confucius-classrooms": {
         "title": "Confucius Classrooms: historical U.S. reports",
         "subtitle": "Reported programs or school sites | not physical rooms",
+        "layout": "timeline", "unit": "Reported programs / sites",
         "series": ["classrooms_reported"],
         "note": "National reports use different program/site counting rules. The 2024 inventory and today's directory listings are not appended as active-classroom totals. No decline rate is calculated."},
     "confucius-successors": {
         "title": "Documented replacements after institute closures",
         "subtitle": "Institutions identified by NAS | not a census of programs open now",
+        "layout": "timeline", "unit": "Institutions",
         "series": ["successors_documented"],
         "note": "Cumulative source documentation, not an operating stock. Proposed replacements, retained partnerships and transferred institutes are separate, potentially overlapping categories; they are not added to these counts."},
     "confucius-directory": {
         "title": "The operator's U.S. directory",
         "subtitle": "Listed institutes and classroom programs | operation not verified",
+        "layout": "bars", "unit": "Directory entries",
         "series": ["institutes_listed", "classrooms_listed"],
         "note": "Complete U.S.-filtered CIEF directory response. Program names identify the categories; the API's website enable field is not operating status. The classroom list is not a national K-12 school census."},
 }
@@ -66,6 +71,8 @@ def period_label(reference):
 def chart_rows(data, chart_id):
     rows = [r for r in data["observations"] if r["series_id"] in CHARTS[chart_id]["series"]]
     rows.sort(key=lambda r: (reference_date(r["reference"]), r["id"]))
+    counts = Counter(reference_date(r["reference"]).year for r in rows)
+    seen = Counter()
     output = []
     for row in rows:
         definition, provenance = SERIES[row["series_id"]], data["sources"][row["source_id"]]
@@ -73,21 +80,38 @@ def chart_rows(data, chart_id):
         label = prefix + period_label(row["reference"])
         if chart_id == "confucius-directory":
             label = "Institutes" if definition["category"] == "institutes" else "Classroom programs"
+        year = reference_date(row["reference"]).year
+        position = year + ((seen[year] + .5) / counts[year] - .5) * .7
+        seen[year] += 1
         output.append(dict(row, label=label, reported=reported(row), scope=definition["scope"],
                            measurement=definition["measurement"], unit=definition["unit"],
                            source_name=provenance["name"], source_short=SHORT_SOURCES[row["source_id"]],
-                           publisher_url=provenance["publisher_url"], color=PARTNER_COLORS["CHN"]))
+                           publisher_url=provenance["publisher_url"], color=PARTNER_COLORS["CHN"],
+                           observation_year=year, calendar_position=position, observations_in_year=counts[year]))
     return output
+
+
+def time_axis(rows):
+    first, last = min(r["observation_year"] for r in rows), max(r["observation_year"] for r in rows)
+    span = last - first
+    stride = next((step for step in (1, 2, 5, 10, 20, 50, 100) if span / step <= 5), 100)
+    ticks = sorted({first, last} | {year for year in range(first, last + 1) if year % stride == 0})
+    return {"first": first, "last": last, "start": first - .6, "end": last + .6, "ticks": ticks}
 
 
 def svg_counts(data, chart_id, theme="themarginoferror"):
     rows, config = chart_rows(data, chart_id), CHARTS[chart_id]
     top, ticks = linear_axis(max((r["value"] if r["value"] is not None else r["bound"] or 0) for r in rows))
     left, right, first, step, bottom = 58, 928, 122, min(67, 352 / max(1, len(rows))), 492
+    timeline = config["layout"] == "timeline"
+    calendar = time_axis(rows)
+    if timeline:
+        left, right, bottom = 94, 942, 452
     background = CHART_THEMES[theme]["background"]
     parts = [
         f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 600" role="img" '
-        f'data-confucius-chart="{chart_id}" data-axis-max="{top}" aria-label="{esc(config["title"])}" '
+        f'data-confucius-chart="{chart_id}" data-chart-layout="{config["layout"]}" data-axis-max="{top}" '
+        f'data-first-year="{calendar["first"]}" data-last-year="{calendar["last"]}" aria-label="{esc(config["title"])}" '
         f'style="font-family:{esc(FONT)}">',
         f'<title>{esc(config["title"])}</title><desc>{esc(config["note"])}</desc>',
         f'<rect class="chart-background" width="1000" height="600" fill="{background}"/>',
@@ -95,20 +119,50 @@ def svg_counts(data, chart_id, theme="themarginoferror"):
         f'<text x="42" y="76" font-size="16" fill="{MUTED}">{esc(config["subtitle"])}</text>',
     ]
     for tick in ticks:
-        x = left + tick / top * (right - left)
-        parts.append(f'<path d="M{x:.2f},107V{bottom}" stroke="{GRID}" stroke-width=".7"/>'
-                     f'<text x="{x:.2f}" y="{bottom + 20}" text-anchor="middle" font-size="13" fill="{MUTED}">{tick:g}</text>')
+        if timeline:
+            y = bottom - tick / top * (bottom - first)
+            parts.append(f'<path class="confucius-grid" data-tick="{tick:g}" d="M{left},{y:.2f}H{right}" stroke="{GRID}" stroke-width=".7"/>'
+                         f'<text class="confucius-count-tick" x="{left - 12}" y="{y + 4:.2f}" text-anchor="end" font-size="13" fill="{MUTED}">{tick:g}</text>')
+        else:
+            x = left + tick / top * (right - left)
+            parts.append(f'<path d="M{x:.2f},107V{bottom}" stroke="{GRID}" stroke-width=".7"/>'
+                         f'<text x="{x:.2f}" y="{bottom + 20}" text-anchor="middle" font-size="13" fill="{MUTED}">{tick:g}</text>')
+    if timeline:
+        parts.append(f'<text class="confucius-unit" x="{left}" y="105" font-size="14" fill="{MUTED}">{esc(config["unit"])}</text>')
+        for year in calendar["ticks"]:
+            x = left + (year - calendar["start"]) / (calendar["end"] - calendar["start"]) * (right - left)
+            parts.append(f'<text class="confucius-year" x="{x:.2f}" y="{bottom + 25}" text-anchor="middle" '
+                         f'font-size="14" fill="{MUTED}">{year}</text>')
+        parts.append(f'<text x="{(left + right) / 2}" y="513" text-anchor="middle" font-size="13" fill="{MUTED}">Observation year</text>')
     for i, row in enumerate(rows):
         y = first + i * step
         amount = row["value"] if row["value"] is not None else row["bound"]
         x = left + (amount or 0) / top * (right - left)
+        if timeline:
+            x = left + (row["calendar_position"] - calendar["start"]) / (calendar["end"] - calendar["start"]) * (right - left)
+            y = bottom - (amount or 0) / top * (bottom - first)
+            bar_width = min(42, .62 * (right - left) / (calendar["end"] - calendar["start"]) / row["observations_in_year"])
         title = f'{row["label"]}: {row["reported"]} {row["unit"]}. {row["source_name"]}. {row["notes"]}'
         parts.append(f'<g class="confucius-mark" data-observation-id="{row["id"]}" '
                      f'data-value="{row["value"] if row["value"] is not None else ""}" '
                      f'data-bound="{row["bound"] if row["bound"] is not None else ""}" '
-                     f'data-qualifier="{row["qualifier"]}" data-reference="{row["reference"]}">'
-                     f'<title>{esc(title)}</title>'
-                     f'<text x="{left}" y="{y:.2f}" font-size="14" fill="{TEXT}">{esc(row["label"])}'
+                     f'data-qualifier="{row["qualifier"]}" data-reference="{row["reference"]}" '
+                     f'data-observation-year="{row["observation_year"]}"><title>{esc(title)}</title>')
+        if timeline:
+            parts.append(f'<text class="confucius-reported" x="{x:.2f}" y="{y - 12:.2f}" text-anchor="middle" '
+                         f'font-size="14" font-weight="700" fill="{TEXT}">{esc(row["reported"])}</text>')
+            if row["qualifier"] in {"exact", "approximate"}:
+                parts.append(f'<rect class="confucius-bar" x="{x - bar_width / 2:.2f}" y="{y:.2f}" width="{bar_width:.2f}" '
+                             f'height="{bottom - y:.2f}" fill="{row["color"]}" opacity="{.6 if row["qualifier"] == "approximate" else 1}"/>')
+            elif row["bound"] is not None:
+                end = bottom if row["qualifier"] == "less_than" else first
+                parts.append(f'<path class="confucius-bound" d="M{x:.2f},{y:.2f}V{end}" stroke="{row["color"]}" '
+                             f'fill="none" stroke-width="2" stroke-dasharray="4 4"/>'
+                             f'<circle class="confucius-boundary" cx="{x:.2f}" cy="{y:.2f}" r="4" fill="{background}" '
+                             f'stroke="{row["color"]}" stroke-width="2"/>')
+            parts.append('</g>')
+            continue
+        parts.append(f'<text x="{left}" y="{y:.2f}" font-size="14" fill="{TEXT}">{esc(row["label"])}'
                      f' &#183; {esc(row["source_short"])}</text>'
                      f'<text class="confucius-reported" x="{right}" y="{y:.2f}" text-anchor="end" '
                      f'font-size="16" font-weight="700" fill="{TEXT}">{esc(row["reported"])}</text>')
@@ -178,7 +232,8 @@ def build_confucius(root, data, gallery):
         points = chart_rows(data, chart_id)
         maximum, ticks = linear_axis(max((r["value"] if r["value"] is not None else r["bound"] or 0) for r in points))
         model = {"id": chart_id, "rows": points, "maximum": maximum, "ticks": ticks, "note": CHARTS[chart_id]["note"],
-                 "title": CHARTS[chart_id]["title"]}
+                 "title": CHARTS[chart_id]["title"], "layout": CHARTS[chart_id]["layout"],
+                 "unit": CHARTS[chart_id]["unit"], "calendar": time_axis(points)}
         return (f'<div class="comparison-chart confucius-chart" data-confucius-chart="{chart_id}">' +
                 svg_counts(data, chart_id) +
                 '<script type="application/json" class="confucius-plot-data">' +

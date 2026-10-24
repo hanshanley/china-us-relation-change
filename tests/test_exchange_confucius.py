@@ -143,7 +143,39 @@ def test_bounded_exports_have_open_boundary_marks_not_exact_count_bars():
         assert mark.select_one(".confucius-bound")
         assert not mark.select_one(".confucius-bar")
         assert phrase in mark.select_one(".confucius-reported").text
+        boundary = mark.select_one(".confucius-boundary")
+        interval = mark.select_one(".confucius-bound")
+        expected_end = "452" if chart_id == "confucius-campus" else "122"
+        assert interval["d"].endswith("V" + expected_end)
+        assert float(boundary["cy"]) == pytest.approx(
+            452 - float(mark["data-bound"]) / float(svg.svg["data-axis-max"]) * 330, abs=.01)
         assert not svg.select(".data-line")
+
+
+def test_history_uses_calendar_spacing_and_vertical_count_columns_not_snapshot_rows():
+    data = published()
+    svg = BeautifulSoup(svg_counts(data, "confucius-institutes"), "html.parser")
+    assert svg.svg["data-chart-layout"] == "timeline"
+    marks = {int(n["data-observation-year"]): n for n in svg.select(".confucius-mark")}
+    assert set(marks) == {2006, 2007, 2014, 2015, 2017, 2021, 2022, 2023}
+    bars = {year: mark.select_one(".confucius-bar") for year, mark in marks.items()}
+    center = lambda bar: float(bar["x"]) + float(bar["width"]) / 2
+    one_year = center(bars[2007]) - center(bars[2006])
+    seven_years = center(bars[2014]) - center(bars[2007])
+    assert seven_years == pytest.approx(7 * one_year, abs=.1)
+    assert all(float(bar["y"]) + float(bar["height"]) == pytest.approx(452, abs=.02) for bar in bars.values())
+    assert float(bars[2015]["height"]) / float(bars[2006]["height"]) == pytest.approx(109 / 11, abs=.002)
+    years = [int(n.text) for n in svg.select(".confucius-year")]
+    assert [years[0], years[-1]] == [2006, 2023]
+    assert not svg.select(".data-line")
+
+
+def test_directory_comparison_remains_categorical_not_a_fake_time_series():
+    svg = BeautifulSoup(svg_counts(published(), "confucius-directory"), "html.parser")
+    assert svg.svg["data-chart-layout"] == "bars"
+    assert not svg.select(".confucius-year")
+    assert len(svg.select(".confucius-bar")) == 2
+    assert {n["x"] for n in svg.select(".confucius-bar")} == {"58"}
 
 
 def test_complete_exports_include_nonplotted_values_and_all_supporting_records(tmp_path):

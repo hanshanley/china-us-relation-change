@@ -45,6 +45,14 @@ def check_export(path, data):
     marks = svg.select(".confucius-mark")
     assert len(marks) == len(expected) and {m["data-observation-id"] for m in marks} == expected.keys()
     maximum = float(svg["data-axis-max"])
+    assert svg.get("data-chart-layout") == ("bars" if chart_id == "confucius-directory" else "timeline")
+    timeline = svg.get("data-chart-layout") == "timeline"
+    first = min(int(r["reference"][:4]) for r in expected.values())
+    last = max(int(r["reference"][:4]) for r in expected.values())
+    if timeline:
+        years = [int(n.text) for n in svg.select(".confucius-year")]
+        assert years[0] == first and years[-1] == last
+        assert svg.select_one(".confucius-count-tick").text == "0"
     assert not svg.select(".data-line,.screen-line")
     for mark in marks:
         row = expected[mark["data-observation-id"]]
@@ -56,10 +64,22 @@ def check_export(path, data):
             assert not mark.select(".confucius-bar")
             circle = mark.select_one(".confucius-boundary")
             assert circle and mark.select_one(".confucius-bound")
-            assert math.isclose(float(circle["cx"]), 58 + row["bound"] / maximum * 870, abs_tol=.01)
+            if timeline:
+                assert math.isclose(float(circle["cy"]), 452 - row["bound"] / maximum * 330, abs_tol=.01)
+            else:
+                assert math.isclose(float(circle["cx"]), 58 + row["bound"] / maximum * 870, abs_tol=.01)
         elif row["value"] is not None:
             bar = mark.select_one(".confucius-bar")
-            assert math.isclose(float(bar["width"]), row["value"] / maximum * 870, abs_tol=.01)
+            if timeline:
+                assert math.isclose(float(bar["height"]), row["value"] / maximum * 330, abs_tol=.01)
+                assert math.isclose(float(bar["y"]) + float(bar["height"]), 452, abs_tol=.02)
+            else:
+                assert math.isclose(float(bar["width"]), row["value"] / maximum * 870, abs_tol=.01)
+        if timeline:
+            point = mark.select_one(".confucius-bar,.confucius-boundary")
+            x = (float(point["x"]) + float(point["width"]) / 2 if point.name == "rect" else float(point["cx"]))
+            year = int(row["reference"][:4])
+            assert math.isclose(x, 94 + (year - first + .6) / (last - first + 1.2) * 848, abs_tol=.02)
     png = path.with_suffix(".png").read_bytes()
     assert png[:8] == b"\x89PNG\r\n\x1a\n"
     assert (int.from_bytes(png[16:20], "big"), int.from_bytes(png[20:24], "big")) == (3000, 1800)
@@ -76,6 +96,8 @@ def check_page(page, data, exhaustive=True):
         for chart in panel.locator(".confucius-chart").all():
             chart_id = chart.get_attribute("data-confucius-chart")
             expected = expected_rows(data, chart_id)
+            timeline = chart.locator("svg").get_attribute("data-chart-layout") == "timeline"
+            assert timeline == (chart_id != "confucius-directory"), (chart_id, "incorrect chart layout")
             expect(chart).to_have_class(re.compile("js-ready"))
             marks = chart.locator(".confucius-hit")
             assert marks.count() == len(expected)
@@ -84,11 +106,15 @@ def check_page(page, data, exhaustive=True):
                 assert mark.get_attribute("data-value") == ("" if row["value"] is None else str(row["value"]))
                 assert mark.get_attribute("data-bound") == ("" if row["bound"] is None else str(row["bound"]))
                 assert mark.get_attribute("data-reference") == row["reference"]
-                expect(mark.locator(".confucius-reported")).to_have_text(display(row))
+                expect(mark).to_have_attribute("aria-label", re.compile(re.escape(display(row))))
+                if mark.locator(".confucius-reported").count():
+                    label = (("<" if row["qualifier"] == "less_than" else "\u2265") + f'{row["bound"]:,}'
+                             if timeline and row["bound"] is not None else display(row))
+                    expect(mark.locator(".confucius-reported")).to_have_text(label)
                 if row["bound"] is not None:
                     assert not mark.locator(".confucius-bar").count()
                     assert mark.locator(".confucius-boundary").count() == 1
-                if row["value"] is not None:
+                if row["value"] is not None and not timeline:
                     assert mark.locator(".confucius-bar").evaluate("""(bar,value)=>{
                       const v=bar.ownerSVGElement.viewBox.baseVal;
                       const maximum=Number(bar.closest('.confucius-chart').querySelector('svg').dataset.axisMax);
@@ -103,6 +129,12 @@ def check_page(page, data, exhaustive=True):
                     expect(tip).to_contain_text(data["series"][row["series_id"]]["scope"])
                     mark.press("Escape")
                     expect(tip).to_be_hidden()
+                    if exhaustive:
+                        mark.hover()
+                        expect(tip).to_be_visible()
+                        expect(tip).to_contain_text(display(row))
+                        page.mouse.move(0, 0)
+                        expect(tip).to_be_hidden()
             # Every visible label must fit the responsive SVG; bounds have no exact-count bar.
             assert chart.locator("svg").evaluate("""svg=>{
               const v=svg.viewBox.baseVal;
@@ -110,10 +142,39 @@ def check_page(page, data, exhaustive=True):
                 const b=n.getBBox();return b.x>=-1&&b.y>=-1&&b.x+b.width<=v.width+1&&b.y+b.height<=v.height+1;
               });
             }"""), (chart_id, "clipped label")
-            assert chart.locator(".confucius-hit").evaluate_all("""nodes=>nodes.every(n=>{
-              const labels=n.querySelectorAll('text'), a=labels[0].getBBox(), b=labels[1].getBBox();
-              return a.x+a.width+5<=b.x;
-            })"""), (chart_id, "overlapping date/value labels")
+            if timeline:
+                assert chart.locator("svg").evaluate("""(svg,expected)=>{
+                  const years=[...svg.querySelectorAll('.confucius-year')].map(n=>({year:Number(n.textContent),x:Number(n.getAttribute('x'))}));
+                  const first=years[0],last=years.at(-1);
+                  const reportedYears=Object.values(expected).map(row=>Number(row.reference.slice(0,4)));
+                  if(first.year!==Math.min(...reportedYears)||last.year!==Math.max(...reportedYears))return false;
+                  const grid=[...svg.querySelectorAll('.confucius-grid')].map(n=>{
+                    const m=n.getAttribute('d').match(/^M([\\d.]+),([\\d.]+)H([\\d.]+)$/);
+                    return {value:Number(n.dataset.tick),y:Number(m[2])};
+                  }).sort((a,b)=>a.value-b.value);
+                  const zero=grid[0],high=grid.at(-1);
+                  return [...svg.querySelectorAll('.confucius-hit')].every(g=>{
+                    const row=expected[g.dataset.observationId],year=Number(row.reference.slice(0,4));
+                    const bar=g.querySelector('.confucius-bar'),circle=g.querySelector('.confucius-boundary');
+                    const x=bar?Number(bar.getAttribute('x'))+Number(bar.getAttribute('width'))/2:Number(circle.getAttribute('cx'));
+                    const expectedX=first.x+(year-first.year)/(last.year-first.year)*(last.x-first.x);
+                    const value=row.value??row.bound,expectedY=zero.y-value/high.value*(zero.y-high.y);
+                    const y=bar?Number(bar.getAttribute('y')):Number(circle.getAttribute('cy'));
+                    return Math.abs(x-expectedX)<.02&&Math.abs(y-expectedY)<.02&&
+                      (!bar||Math.abs(Number(bar.getAttribute('height'))-(zero.y-expectedY))<.02);
+                  });
+                }""", expected), (chart_id, "incorrect chronological or count geometry")
+            else:
+                assert chart.locator(".confucius-hit").evaluate_all("""nodes=>nodes.every(n=>{
+                  const labels=n.querySelectorAll('text'), a=labels[0].getBBox(), b=labels[1].getBBox();
+                  return a.x+a.width+5<=b.x;
+                })"""), (chart_id, "overlapping category/value labels")
+            assert chart.locator("svg").evaluate("""svg=>{
+              const boxes=[...svg.querySelectorAll('text')].map(n=>n.getBBox());
+              return boxes.every((a,i)=>boxes.slice(i+1).every(b=>
+                Math.min(a.x+a.width,b.x+b.width)-Math.max(a.x,b.x)<=2||
+                Math.min(a.y+a.height,b.y+b.height)-Math.max(a.y,b.y)<=2));
+            }"""), (chart_id, "overlapping chart labels")
             assert chart.locator("svg").bounding_box()["height"] <= 530
             marks.first.focus()
             marks.first.press("End")
@@ -121,6 +182,12 @@ def check_page(page, data, exhaustive=True):
             marks.last.press("Home")
             expect(marks.first).to_be_focused()
             marks.first.press("Escape")
+            if timeline and len(expected) > 1:
+                marks.first.press("ArrowRight")
+                expect(marks.nth(1)).to_be_focused()
+                marks.nth(1).press("ArrowLeft")
+                expect(marks.first).to_be_focused()
+                marks.first.press("Escape")
         if category == "institutes":
             panel.locator(".confucius-campus").evaluate("node=>node.open=false")
         assert not page.evaluate("document.documentElement.scrollWidth>innerWidth")
@@ -182,6 +249,12 @@ def check(site, url=None, screenshots=None):
         expect(tip).to_contain_text("At least 28")
         page.touchscreen.tap(5, 5)
         expect(tip).to_be_hidden()
+        page.select_option("#module-chart", "confucius-institutes")
+        page.locator(".confucius-campus").evaluate("node=>node.open=true")
+        page.locator('[data-observation-id="gao_campus_2023"].confucius-hit').tap()
+        tip = page.locator('.confucius-tooltip[data-observation-id="gao_campus_2023"]')
+        expect(tip).to_be_visible()
+        expect(tip).to_contain_text("Fewer than 5")
         context.close()
         fallback = browser.new_context(java_script_enabled=False, viewport={"width": 390, "height": 844})
         page = fallback.new_page()

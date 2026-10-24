@@ -6,6 +6,12 @@
 .confucius-summary-note,.confucius-scope { color: #655F55; font-size: 13px; line-height: 1.5; }
 .confucius-chart { max-width: 920px; margin-inline: auto !important; }
 .confucius-chart svg { display: block; width: 100%; height: auto; }
+.confucius-chart svg text { pointer-events: none; }
+.confucius-chart svg[data-chart-layout="timeline"] .confucius-bar,
+.confucius-chart svg[data-chart-layout="timeline"] .confucius-bound,
+.confucius-chart svg[data-chart-layout="timeline"] .confucius-boundary,
+.confucius-chart svg[data-chart-layout="timeline"] .confucius-focus { pointer-events: none; }
+.confucius-hit-area { pointer-events: all; }
 .confucius-chart .confucius-hit { cursor: pointer; outline: none; }
 .confucius-hit:focus-visible .confucius-focus,.confucius-hit[data-hovered] .confucius-focus { stroke: #655F55; }
 .confucius-focus { fill: transparent; stroke: transparent; stroke-width: 1; }
