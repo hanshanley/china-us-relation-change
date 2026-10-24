@@ -1973,6 +1973,71 @@
       "notes": "Complete root and actual /services/about-us/ inspected without an institutional Sina designation. Mixed historical and newer About material was not treated as a uniformly current corporate census: expressly2010 survey context is not2026 readership, and a stated December5,2024 acquisition does not independently establish present executives, legal control, licensing or Weibo continuity. Other Advocate titles, parent/sibling and staff accounts are not inherited. No print, readership or website-history claim becomes account activity. Unknown, not absent. Review date: 2026-10-24 UTC."
     },
     {
+      "id": "charleston-gazette-mail",
+      "name": "Charleston Gazette-Mail",
+      "category": "newspaper",
+      "aliases": [
+        "Charleston Gazette-Mail",
+        "Gazette-Mail"
+      ],
+      "us_basis": "United States-classified source position287; actual root and linked Contact explicitly name Charleston Gazette-Mail with Charleston, West Virginia correspondence. The original repeated-word cohort label is retained; correspondence is not independently audited occupancy or current legal control.",
+      "source_url": "https://www.wvgazettemail.com/",
+      "research_status": "reviewed",
+      "notes": "Complete root and actual /site/contact.html inspected without an institutional Sina designation. Actual named Contact body, not generic page title or weather widget, supplies West Virginia context. Listed Facebook/Instagram/Twitter handles are not Weibo identities. Charleston, South Carolina namesakes, other Daily Mail titles, parent/sibling and staff accounts were not inherited. Old print-schedule statements were not current account activity. Unknown, not absent. Review date: 2026-10-24 UTC."
+    },
+    {
+      "id": "yoursun-news-sun-domain",
+      "name": "YourSun network / selected News-Sun domain",
+      "category": "newspaper",
+      "aliases": [
+        "YourSun",
+        "News-Sun ranked domain"
+      ],
+      "us_basis": "United States-classified source position288 retains its News-Sun label for yoursun.com. Actual root, linked About and actual Contact identify a multi-title Florida news domain; named Contact sections identify The Daily Sun in Charlotte Harbor and Venice Gondolier in Venice, Florida. The domain is not assumed to be a single News-Sun paper or an independently audited corporate census.",
+      "source_url": "https://www.yoursun.com/",
+      "research_status": "reviewed",
+      "notes": "Three complete root/institutional responses inspected without an institutional Sina designation. About is an article grid, not a comprehensive institutional narrative; an actual root-linked Contact was therefore checked for named publication context. Multiple named titles remain one selected-domain review, not extra ranked papers or inherited channels. The original News-Sun label was not silently renamed to Daily Sun, assigned historical brand continuity or substituted with another country's Sun title. Staff/parent/sibling identities, audience claims and print schedules are not account or activity proof. Unknown, not absent. Review date: 2026-10-24 UTC."
+    },
+    {
+      "id": "west-chester-daily-local-news",
+      "name": "Daily Local News / West Chester",
+      "category": "newspaper",
+      "aliases": [
+        "West Chester Local News",
+        "Daily Local News"
+      ],
+      "us_basis": "United States-classified source position289; a genuine existing MediaNews Group Communities capture has a Daily Local News logo-alt element linked to the exact www.dailylocal.com host. The fresh root's West Chester PA title is factual observation metadata only after that root copy was removed. Corporate publication links are not independently audited current control or occupancy.",
+      "source_url": "https://www.dailylocal.com/",
+      "research_status": "reviewed",
+      "notes": "This paper's own fresh root explicitly reserved AI-training/text-and-data-mining use. Only that exact fresh copy was removed, older captures untouched; no further publisher-body requests, including Contact or aliases. Its discarded fingerprint is not available primary proof, and available raw-file/SHA fields are null. Separate permitted corporate root/directory captures were genuinely reused offline with their original timestamps and actual anchor/logo-alt attributes. Corporate family membership alone did not supply the reservation or a Weibo identity. Other Local News titles, parent/sibling and staff channels not inherited. Unknown, not absent. Review date: 2026-10-24 UTC."
+    },
+    {
+      "id": "ledger-enquirer",
+      "name": "Ledger-Enquirer / Columbus, Georgia",
+      "category": "newspaper",
+      "aliases": [
+        "Ledger-Enquirer",
+        "Columbus Ledger-Enquirer"
+      ],
+      "us_basis": "United States-classified source position290; actual page14 of the genuine cached2015 McClatchy report identifies Ledger-Enquirer, its exact domain and Columbus, Georgia. A separately captured Georgia Trust institutional root and its actually linked July2026 acquisition announcement provide newer publisher-stated context, not an independently audited current ownership/nationality census.",
+      "source_url": "https://www.ledger-enquirer.com/",
+      "research_status": "reviewed",
+      "notes": "One ordinary retry after the old timeout failed with Errno60 during the robots-policy/connection stage, before any newspaper-body page entry. No newspaper body, usable policy or current About capture was invented and no alternate client/alias retry followed. The genuine Georgia Trust announcement describes acquiring Ledger-Enquirer and Macon Telegraph from McClatchy; the2015 directory is not current-control or audience proof. Saved announcement visibly displays Jul14, while BlogPosting.datePublished is2026-07-15T04:00:00.000Z and dateModified2026-07-31T16:50:31.289Z; both retained without inventing a timezone explanation or exact legal completion date. Future relocation plans are not observed occupancy. Parent/sibling/staff accounts and Instagram metrics were not Sina identities/activity. Unknown, not absent. Review date: 2026-10-24 UTC."
+    },
+    {
+      "id": "saratogian",
+      "name": "The Saratogian",
+      "category": "newspaper",
+      "aliases": [
+        "Saratoga Springs Saratogian",
+        "The Saratogian"
+      ],
+      "us_basis": "United States-classified source position291; an existing genuine MediaNews Group Communities capture explicitly links a The Saratogian logo-alt element to www.saratogian.com. The fresh root's Saratoga Springs NY title survives only as factual observation metadata after removal of that copy; publication-link assertions do not independently audit current control or occupancy.",
+      "source_url": "https://www.saratogian.com/",
+      "research_status": "reviewed",
+      "notes": "This publication's own fresh root explicitly reserved AI-training/text-and-data-mining use. Only that exact fresh root was removed; older captures remain untouched and no About/Contact, alias or other publisher-body follow-up was requested. Available raw-file/SHA fields are null and the discarded fingerprint is not available primary proof. Separate permitted corporate captures were reused offline with original times; their actual supplied URI has no trailing slash and was not followed or silently relabeled as an observed redirect. Parent/sibling and staff accounts were not inherited. Unknown, not absent. Review date: 2026-10-24 UTC."
+    },
+    {
       "id": "telemundo", "name": "Telemundo / Noticias Telemundo", "category": "broadcast_news",
       "aliases": ["Telemundo", "Noticias Telemundo", "Telemundo Noticias"],
       "us_basis": "United States-classified source position110; actual network root separately links its Noticias Telemundo newsroom section. Current corporate domicile/headquarters and legal account control are not independently audited.",
