@@ -2166,6 +2166,70 @@
       "notes": "Complete root, actual /about-us/ and genuinely linked paper-hosted /ai_use/ inspected without a qualifying Sina identity. The AI page describes editorial assistance/oversight, not by itself a newly observed external-use reservation or a redistribution license; Southern/NWA conditions were not transferred. Existing www.hearst.com policy403 was honored with zero corporate/alias/client requests, not inherited as a newspaper-domain ban. UK Daily Telegraph and other Telegraph titles, parent/sibling and staff accounts were not assigned to Alton. Historical founding and print/audience descriptions are not Weibo activity. Unknown, not absent. Review date: 2026-10-24 UTC."
     },
     {
+      "id": "chattanooga-times-free-press",
+      "name": "Chattanooga Times Free Press",
+      "category": "newspaper",
+      "aliases": [
+        "Chattanooga Times Free Press"
+      ],
+      "us_basis": "United States-classified source position302; the original Chattanooga publication label/domain are retained. Current publisher-body access remains unavailable after its recorded controlled redirect, and no independently available current-control or account-designation capture was obtained in this pass.",
+      "source_url": "https://www.timesfreepress.com/",
+      "research_status": "reviewed",
+      "notes": "Recorded cross-publisher/non-HTTPS redirect held without newspaper/alias/route/client retry. WEHCO's separate search-provider robots restriction was also honored. An indexed development-host newspaper result was not requested or imported as primary proof or used to certify current ownership. A distinct ordinary Pulitzer annual award-metadata probe returnedHTTP403; no available body/hash, successful award retrieval or current staff/control claim was invented, and no alternate prize host/path/client followed. Archived/third-party/government-bundled newspaper bodies were not used as substitutes. No parent/sibling/staff or other-platform account inherited. Unknown, not absent. Review date: 2026-10-24 UTC."
+    },
+    {
+      "id": "vallejo-times-herald",
+      "name": "Vallejo Times-Herald",
+      "category": "newspaper",
+      "aliases": [
+        "Vallejo Times-Herald",
+        "Vallejo Times Herald"
+      ],
+      "us_basis": "United States-classified source position303; existing genuine MediaNews Group Communities HTML links the exact timesheraldonline.com host with Times-Herald logo image-alt text. The fresh root's Vallejo title is factual metadata only after removal of that copy. Corporate publication links are not independently audited current legal control or occupancy.",
+      "source_url": "https://www.timesheraldonline.com/",
+      "research_status": "reviewed",
+      "notes": "Own fresh root explicitly reserved AI-training/text-and-data-mining use. Only that exact fresh copy was removed; older captures untouched and no Contact/alias/static/image/body follow-up requested. Available raw-file/SHA fields null; discarded fingerprint not available primary proof. Separate permitted corporate root/directory captures reused offline with original observations and exact anchor/logo-alt attributes. Norristown Times Herald, other Times-Herald titles and parent/sibling/staff channels were not inherited. Unknown, not absent. Review date: 2026-10-24 UTC."
+    },
+    {
+      "id": "tribune-publishing-baltimore-sun-ranked-domain",
+      "name": "Tribune Publishing / Baltimore Sun-labelled ranked domain",
+      "category": "newspaper_group",
+      "aliases": [
+        "Tribune Publishing",
+        "The Baltimore Sun ranked domain"
+      ],
+      "us_basis": "United States-classified source position304 is labelled The Baltimore Sun but actually selects tribpub.com. Complete root and actual About identify Tribune Publishing's U.S. newspaper network, not a newspaper-specific Baltimore Sun body. The original cohort label/domain remain unchanged and their current paper/operator association is not independently certified.",
+      "source_url": "https://www.tribpub.com/",
+      "research_status": "reviewed",
+      "notes": "Complete corporate root and actual /about-us/ inspected without an institutional Sina designation. No silent substitution of baltimoresun.com, corporate or other Tribune brand channels, or extra ranked-paper reviews. Illustrative brand lists and shared group marketing/audience figures are not independently verified current ownership, account numbers or Weibo activity; omission from examples is not a transaction/absence finding. Current legal ownership of The Baltimore Sun was not inferred from the stale cohort label or this corporate domain. Unknown, not absent. Review date: 2026-10-24 UTC."
+    },
+    {
+      "id": "bradenton-herald",
+      "name": "Bradenton Herald",
+      "category": "newspaper",
+      "aliases": [
+        "Bradenton Herald",
+        "The Bradenton Herald"
+      ],
+      "us_basis": "United States-classified source position305; genuine cached2015 McClatchy report page14 identifies The Bradenton Herald and Bradenton, Florida. Its extracted hostname is www.brandenton.com, not the ranked bradenton.com; no page14 URI annotation resolves that mismatch. This is historical name/location context, not exact current-host or legal-control certification.",
+      "source_url": "https://www.bradenton.com/",
+      "research_status": "reviewed",
+      "notes": "One ordinary bounded retry after the prior timeout failed during policy/connection retrieval before any newspaper-body page entry. No body, usable policy, current About, alternate-client or alias retry was invented. Actual2015 PDF text and annotations inspected offline with original observation/hash; extracted brandenton spelling preserved, not silently repaired, followed or substituted into the immutable ranked cohort. Historical audience/ownership rows are not current control or Sina activity. Parent/sibling/staff accounts not inherited. Unknown, not absent. Review date: 2026-10-24 UTC."
+    },
+    {
+      "id": "topeka-capital-journal",
+      "name": "Topeka Capital-Journal",
+      "category": "newspaper",
+      "aliases": [
+        "Topeka Capital-Journal",
+        "The Topeka Capital-Journal"
+      ],
+      "us_basis": "United States-classified source position306; genuine cached LocaliQ obituary directory actually lists Topeka Capital-Journal under Kansas on page6. The undated regional entry and shared portal annotations are not exact ranked-host, current ownership or office-occupancy certification.",
+      "source_url": "https://www.cjonline.com/",
+      "research_status": "reviewed",
+      "notes": "Recorded newspaper HTTP403 held: no newspaper/alias/static/help/obituary/alternate-client request. Genuine existing directory reused offline with original2026-10-23T08:08:21.974537+00:00 observation and SHA9722be6afdb21ff3c8a0c45dfe98a15ee145083dad8c392787c259427b1177c2. Page6 text and annotations inspected; no direct cjonline.com URI, and shared obituary portals not followed or asserted as a specific ranked-host binding. Other Capital Journal titles, parent/sibling/staff channels, missing links and failed access are not account or inactivity proof. Unknown, not absent. Review date: 2026-10-24 UTC."
+    },
+    {
       "id": "telemundo", "name": "Telemundo / Noticias Telemundo", "category": "broadcast_news",
       "aliases": ["Telemundo", "Noticias Telemundo", "Telemundo Noticias"],
       "us_basis": "United States-classified source position110; actual network root separately links its Noticias Telemundo newsroom section. Current corporate domicile/headquarters and legal account control are not independently audited.",
