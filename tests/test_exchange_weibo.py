@@ -11,6 +11,7 @@ from us_china_exchange.render import build, build_weibo
 from us_china_exchange.model import digest, json_text
 from us_china_exchange.weibo_analysis import create_summary, svg_weibo, validate_summary
 from us_china_exchange.weibo_activity import rolling_activity
+from us_china_exchange.weibo_explorer import explorer_page
 from weibo_media.registry import load
 from weibo_media.storage import connect
 
@@ -341,7 +342,8 @@ def test_legacy_snapshot_does_not_invent_uid_resolution(tmp_path, monkeypatch):
     assert "Numeric UID resolution was not recorded in this legacy snapshot" in page
     assert "channels have resolved numeric UIDs" not in page
     assert "UID resolution, evidence" not in page
-    assert "Monthly publication dates are not available" in page
+    assert 'id="weibo-explorer"' in page
+    assert 'id="monthly-posts"' not in page
     assert not (tmp_path / "site/downloads/weibo-months.csv").exists()
 
 
@@ -460,3 +462,44 @@ def test_weibo_outputs_publish_only_complete_aggregates_and_both_backgrounds(tmp
     assert not list((tmp_path / "site/figures/weibo").glob("*/*.svg"))
     assert not (tmp_path / "site/weibo.html").exists()
     assert not list((tmp_path / "site/downloads").glob("weibo-*"))
+    assert not (tmp_path / "site/assets/weibo-explorer.js").exists()
+
+
+def test_account_map_keeps_distinct_channels_grouped_without_recovery_weights(tmp_path):
+    from bs4 import BeautifulSoup
+
+    database, registry = snapshot_inputs(tmp_path, unresolved_uid_channels=1)
+    summary = create_summary(database, registry)
+    summary["accounts"][1].update(outlet_id="outlet1", outlet_name="Publisher 1", recovered_posts=0)
+    before = BeautifulSoup(explorer_page(summary), "html.parser")
+    dots = before.select(".weibo-dot")
+    assert len(dots) == 3
+    assert len(before.select(".weibo-brand")) == 2
+    assert {dot["data-account-id"] for dot in dots} == {a["account_id"] for a in summary["accounts"]}
+    assert before.select_one("#weibo-account-account4 .weibo-uid").text == "UID unresolved"
+    assert not before.select(".comparison-chart, .plot-data, #publication-years, #monthly-posts, #rolling30-posts")
+    payload = json.loads(before.select_one("#weibo-explorer-data").string)
+    assert {a["id"] for a in payload["accounts"]} == {a["account_id"] for a in summary["accounts"]}
+    assert all("recovered_posts" not in a and "latest_publication_utc" not in a for a in payload["accounts"])
+    for account in summary["accounts"]:
+        account.update(recovered_posts=999999, earliest_publication_utc=None, latest_publication_utc=None)
+    after = BeautifulSoup(explorer_page(summary), "html.parser")
+    assert str(before.select_one("#weibo-map")) == str(after.select_one("#weibo-map"))
+    assert before.select_one("#weibo-explorer-data").string == after.select_one("#weibo-explorer-data").string
+
+
+def test_account_explorer_preserves_scope_and_escapes_serialized_evidence(tmp_path):
+    from bs4 import BeautifulSoup
+
+    database, registry = snapshot_inputs(tmp_path)
+    summary = create_summary(database, registry)
+    account = summary["accounts"][0]
+    account.update(display_name="<script>not executable</script>", relationship="Licensed edition, not the U.S. newsroom")
+    page = BeautifulSoup(explorer_page(summary), "html.parser")
+    detail = page.select_one("#weibo-account-account1")
+    assert detail.select_one(".weibo-channel-name").text == account["display_name"]
+    assert not detail.select("script")
+    assert account["relationship"] in detail.text
+    assert account["operator"] in detail.text and account["us_basis"] in detail.text
+    assert detail.select_one(".weibo-sources a")["href"] == account["evidence"][0]["source_url"]
+    assert account["evidence"][0]["justification"] in detail.text

@@ -35,8 +35,8 @@ PAGES = {
                               "AP exams through 2025 · Degree awards through 2024 · College census through 2021"),
     "business-presence.html": ("Businesses in China", "U.S. and European business presence, with different counting rules kept separate.",
                              "Annual affiliate histories · Latest available year varies by origin"),
-    "weibo.html": ("U.S. media on Weibo", "What the documented accounts and recovered corpus can tell us—and what they cannot.",
-                   "Research coverage, not total posting activity or popularity"),
+    "weibo.html": ("U.S. media on Weibo", "Explore documented outlets, channels and the evidence connecting them.",
+                   "An account inventory—not a posting-history comparison"),
 }
 TABS = [("index.html", "Students & trade"), ("travel.html", "Travel & tourism"), ("immigration.html", "Immigration"),
         ("comparisons.html", "Regional comparison"),
@@ -151,9 +151,6 @@ def decorate(site, name, labels, revision):
         rows = json.loads((site / "downloads/language-learning.json").read_text())["observations"]
         latest = lambda prefix: max(r["year"] for r in rows if r["series_id"].startswith(prefix) and r["value"] is not None)
         scope = f"AP exams through {latest('ap:')} · Degree awards through {latest('ipeds:')} · College census through {latest('mla:')}"
-    elif name == "weibo.html":
-        snapshot = json.loads((site / "downloads/weibo-summary.json").read_text())["source"]["latest_collection_at"]
-        scope = (f"Latest recorded collection: {snapshot[:10]} · " if snapshot else "") + scope
     soup.title.string = title + " | The Margin of Error"
     for old in soup.select('link[rel=canonical],meta[name=description]'):
         old.decompose()
@@ -303,6 +300,9 @@ def decorate(site, name, labels, revision):
             section.decompose()
         for footer in page.find_all("footer", recursive=False):
             footer.decompose()
+    elif name == "weibo.html":
+        for node in old_intro:
+            node.decompose()
     else:
         for node in old_intro:
             node.decompose()

@@ -14,6 +14,46 @@ from playwright.sync_api import expect, sync_playwright
 from us_china_exchange.model import primary_observations
 
 
+def check_weibo_explorer(page, summary):
+    accounts = summary["accounts"]
+    ids = {a["account_id"] for a in accounts}
+    visible_ids = lambda: set(page.locator(".weibo-dot:visible").evaluate_all(
+        "nodes=>nodes.map(n=>n.dataset.accountId)"))
+    expect(page.locator("#weibo-filters")).to_be_visible()
+    assert visible_ids() == ids
+    assert page.locator(".weibo-brand:visible").count() == len({a["outlet_id"] for a in accounts})
+    assert not page.locator("#module-chart,.native-chart,#monthly-posts,#publication-years").count()
+    page.select_option("#weibo-evidence", "historical")
+    assert visible_ids() == {a["account_id"] for a in accounts if a["existence"] == "historical"}
+    page.select_option("#weibo-evidence", "")
+    page.check("#weibo-followup")
+    pending = {a["account_id"] for a in accounts if a.get("primary_audit_status") != "numeric_binding_rechecked"}
+    assert visible_ids() == pending
+    page.locator("#weibo-filters button[type=reset]").click()
+    assert visible_ids() == ids
+    for category in sorted({a.get("category", "not_recorded") for a in accounts}):
+        page.select_option("#weibo-category", category)
+        assert visible_ids() == {a["account_id"] for a in accounts if a.get("category", "not_recorded") == category}
+    page.select_option("#weibo-category", "")
+    target = next(a for a in accounts if a.get("uid"))
+    page.fill("#weibo-search", target["uid"])
+    expect(page.locator(f'.weibo-dot[data-account-id="{target["account_id"]}"]')).to_be_visible()
+    page.locator(f'.weibo-dot[data-account-id="{target["account_id"]}"]').press("Enter")
+    detail = page.locator(".weibo-channel-detail:visible")
+    expect(detail).to_have_count(1)
+    expect(detail).to_have_attribute("data-account-id", target["account_id"])
+    expect(detail.locator(".weibo-relationship")).to_have_text(target["relationship"])
+    expect(detail.locator(".weibo-uid")).to_have_text(target["uid"])
+    page.fill("#weibo-search", "__no_matching_media_channel__")
+    assert visible_ids() == set()
+    expect(page.locator("#weibo-empty")).to_be_visible()
+    assert page.locator(".weibo-channel-detail:visible").count() == 0
+    page.locator("#weibo-filters button[type=reset]").click()
+    assert visible_ids() == ids
+    assert not page.evaluate("document.documentElement.scrollWidth>innerWidth")
+
+
+
 def check(site, url=None, screenshots=None):
     url = url or (site.resolve() / "index.html").as_uri()
     data = json.loads((site / "downloads/exchange.json").read_text())
@@ -153,6 +193,11 @@ def check(site, url=None, screenshots=None):
             for name in ["immigration.html", "comparisons.html", "language-learning.html", "business-presence.html", "weibo.html"]:
                 page.goto(url.rsplit("/", 1)[0] + "/" + name)
                 page.evaluate("document.fonts.ready")
+                if name == "weibo.html":
+                    check_weibo_explorer(page, json.loads((site / "downloads/weibo-summary.json").read_text()))
+                    if screenshots:
+                        page.screenshot(path=str(screenshots / f"collective-weibo-{width}.png"))
+                    continue
                 expect(page.locator(".module-controls")).to_be_visible()
                 if name == "comparisons.html":
                     page.select_option("#module-chart", "goods-to_us")
@@ -208,30 +253,6 @@ def check(site, url=None, screenshots=None):
                     expect(page.locator("#germany-affiliates-china .plot-legend")).to_contain_text("Bundesbank")
                     if screenshots:
                         page.locator("#germany-affiliates-china").screenshot(path=str(screenshots / f"german-businesses-{width}.png"))
-                if name == "weibo.html":
-                    weibo_summary = json.loads((site / "downloads/weibo-summary.json").read_text())
-                    monthly = weibo_summary.get("monthly", [])
-                    if monthly:
-                        for chart, field in (("monthly-posts", "recovered_posts"), ("monthly-accounts", "observed_accounts")):
-                            page.select_option("#module-chart", chart)
-                            actual = page.locator(f"#{chart} .screen-point").evaluate_all(
-                                "nodes=>nodes.map(n=>[n.dataset.month,Number(n.dataset.value),n.dataset.partialWindow==='true'])")
-                            assert actual == [[row["month"], row[field], row["partial_window"]] for row in monthly]
-                            assert page.locator(f"#{chart} .screen-partial-line").count()
-                            expect(page.locator(f"#{chart} .chart-context")).to_contain_text("not total posting activity")
-                            if monthly[-1]["month"] == "2026-10":
-                                expect(page.locator(f"#{chart} .chart-context")).to_contain_text("2026")
-                    rolling = [r for r in weibo_summary.get("rolling_30d", []) if not r["partial_window"]]
-                    if rolling:
-                        for chart, field in (("rolling30-accounts", "observed_accounts"),
-                                             ("rolling30-outlets", "observed_outlets"),
-                                             ("rolling30-posts", "recovered_posts"),
-                                             ("rolling30-average", "posts_per_day")):
-                            page.select_option("#module-chart", chart)
-                            actual = page.locator(f"#{chart} .screen-point").evaluate_all(
-                                "nodes=>nodes.map(n=>[n.dataset.date,Number(n.dataset.value)])")
-                            assert actual == [[row["date"], row[field]] for row in rolling]
-                            expect(page.locator(f"#{chart} .chart-context")).to_contain_text("not a census")
                 for option in page.locator("#module-chart option").all():
                     page.select_option("#module-chart", option.get_attribute("value"))
                     assert page.locator("[data-module-chart]:visible").count() == 1

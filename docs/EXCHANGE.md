@@ -255,14 +255,26 @@ directory. The offline catalog includes both views. Macau goods retain their
 different customs accounting and a dashed line, with an explicit caveat against
 treating them as identical to the other geographies' BEA accounting.
 
-### Weibo research graphs
+### Weibo account evidence explorer
 
-`site/weibo.html` includes monthly recovered-post counts and monthly counts of
-distinct channels represented in the recovered sample, alongside documented-channel
-identity evidence, recovered-corpus coverage, publication years, and text completeness.
-They use the same house typography
-and both publication backgrounds, under `outputs/figures/weibo/<background>/`
-and `site/figures/weibo/<background>/`. The figure catalog links all of them.
+`site/weibo.html` presents an interactive, non-temporal account map: one tile
+per publisher/brand group and one equal-sized dot per documented channel,
+ordered alphabetically. Search English/Chinese names, handles or UIDs; filter
+by media type, evidence period or UID checks needing follow-up. Selecting a
+channel exposes its operator, publication relationship, U.S.-inclusion basis
+and complete serialized identity evidence. The same account details remain
+readable without JavaScript.
+
+Current profile evidence is distinct from historical-only evidence and is
+not labelled active/inactive. Recovered-post counts and publication dates do
+not determine positions, dot sizes or ordering. This intentionally replaces
+the primary time-series presentation, whose historical sample is strongly
+biased toward recently recovered records.
+
+Complete recovery datasets and original figure exports remain available for
+audit and reproducibility under `outputs/figures/weibo/<background>/` and
+`site/figures/weibo/<background>/`; those archival recovery charts are not
+embedded in the account explorer.
 
 These are **research coverage statistics**, not a census, posting-activity trend,
 audience/popularity ranking or causal explanation for exchange flows.
@@ -294,11 +306,13 @@ connected. `observed_accounts` counts distinct channels with recovered posts, no
 publishers or all active accounts. `partial_window` identifies months not fully
 covered by the requested window, independently of source recovery completeness;
 the plots mark these months without extrapolating them to a full-month estimate.
-For the current fixed window, October 2026 ends on October 21. Monthly totals
+The original baseline ends October 21, 2026; the live cutoff is recorded
+separately in the snapshot. Monthly totals
 reconcile to annual and account totals; private post text is not included.
 Older snapshots remain readable but do not invent missing monthly data.
-The collective publication's interactive selector preserves the same monthly
-calendar positions, distinct-channel counts and partial-month markers on mobile.
+These complete exports retain calendar positions, distinct-channel counts
+and partial-month flags; the interactive account map does not turn them into
+apparent posting-activity trends.
 
 Version 5 adds complete daily counts and trailing-30-day measures:
 `site/downloads/weibo-days.csv` and `site/downloads/weibo-rolling30.csv`.

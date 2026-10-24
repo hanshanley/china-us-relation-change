@@ -19,7 +19,8 @@ from .language_analysis import CHARTS as LANGUAGE_CHARTS, RETIRED_CHARTS as LANG
 from .pipeline import load, write_atomic
 from . import student_estimates
 from .sources import SOURCE_PAGES, SOURCE_POLICIES
-from .weibo_analysis import AUDIT_LABELS, SHANGHAI, WEIBO_CHARTS, svg_weibo, timestamp, validate_summary
+from .weibo_analysis import WEIBO_CHARTS, svg_weibo, validate_summary
+from .weibo_explorer import explorer_page
 from .weibo_activity import DAILY_FIELDS, ROLLING_FIELDS
 from .theme import (CHART_HEIGHT, CHART_THEMES, CHART_WIDTH, COMPARISON_GEOGRAPHIES, FIGURE_CATEGORIES, FONT,
                     FONT_FILES, GRID, MUTED, PARTNER_COLORS, PNG_HEIGHT, PNG_WIDTH,
@@ -367,10 +368,7 @@ def remove_figure(root, relative):
 
 def build_weibo(root, summary, gallery):
     validate_summary(summary)
-    windows = summary["source"]["requested_windows"]
-    cutoff = (max(timestamp(w["end"]) for w in windows) - timedelta(microseconds=1)).astimezone(SHANGHAI) if windows else None
-    window_note = f' Requested window ends {cutoff:%B %d, %Y} (Asia/Shanghai).' if cutoff else ""
-    cards = []
+    # Keep archival figure exports reproducible without presenting recovery as an activity trend.
     for metric, title in WEIBO_CHARTS.items():
         paths = {}
         for theme in CHART_THEMES:
@@ -378,29 +376,12 @@ def build_weibo(root, summary, gallery):
             if svg.startswith("<svg"):
                 paths[theme] = export_figure(root, Path("weibo") / theme / metric, svg)
         if paths:
-            image = paths["themarginoferror"]["png"]
-            body = (f'<div class="comparison-chart"><img src="{esc(image)}" alt="{esc(title)}" '
-                    'width="1000" height="600" loading="lazy"></div>' + figure_links(paths))
             relative = {theme: {kind: path.removeprefix("figures/") for kind, path in files.items()}
                         for theme, files in paths.items()}
             gallery["weibo"].append(f'<article><h3>{esc(title)}</h3>{figure_links(relative)}</article>')
-            if metric.startswith("monthly-"):
-                body = ('<p class="chart-context">Monthly recovered sample, not total posting activity. '
-                        'Hollow markers and dashed segments mark partial requested months; '
-                        'no full-month estimate is made.' + window_note + '</p>' + body)
-            elif metric.startswith("rolling30-"):
-                body = ('<p class="chart-context">Recovered-sample lower bounds, not a census of activity. '
-                        'Each point includes its date and previous 29 Shanghai days. '
-                        'The daily running average is the 30-day total divided by 30; '
-                        'incomplete calendar windows are unavailable, not zero. '
-                        'The partial current day is not a completed-day estimate.' + window_note + '</p>' + body)
         else:
             for theme in CHART_THEMES:
                 remove_figure(root, Path("weibo") / theme / metric)
-            body = ('<p class="gap">Monthly publication dates are not available in this frozen snapshot.</p>'
-                    if metric.startswith("monthly-") else
-                    '<p class="gap">No recovered publication dates in this frozen snapshot.</p>')
-        cards.append(f'<section class="series-panel" id="{esc(metric)}"><h2>{esc(title)}</h2>{body}</section>')
     write_atomic(root / "site/downloads/weibo-summary.json", json_text(summary))
     downloads = [("accounts", summary["accounts"]), ("years", summary["yearly"]),
                  ("text-completeness", summary["text_completeness"])]
@@ -429,136 +410,9 @@ def build_weibo(root, summary, gallery):
         writer.writerows({key: json.dumps(value, ensure_ascii=False, sort_keys=True) if isinstance(value, (dict, list))
                           else value for key, value in row.items()} for row in records)
         write_atomic(root / f"site/downloads/weibo-{name}.csv", stream.getvalue())
-    roster = summary["roster"]
-    total = sum(a["recovered_posts"] for a in summary["accounts"])
-    recovered = sum(a["recovered_posts"] > 0 for a in summary["accounts"])
-    resolution = (f'<p><strong>{roster["resolved_numeric_accounts"]:,} channels have resolved numeric UIDs; '
-                  f'{roster["unresolved_numeric_accounts"]:,} do not.</strong> '
-                  'A documented historical vanity URL is not a resolved numeric account. '
-                  'No candidate UID or posts are assigned without an established identity binding.</p>'
-                  if summary["version"] >= 2 else
-                  '<p>Numeric UID resolution was not recorded in this legacy snapshot.</p>')
-    audit = summary.get("primary_source_audit")
-    audit_text = ""
-    if audit:
-        decisions = audit["accounts"]
-        rechecked = sum(a["status"] == "numeric_binding_rechecked" for a in decisions)
-        pending = sum(a["status"] == "numeric_binding_recheck_pending" for a in decisions)
-        unresolved = sum(a["status"] == "vanity_rechecked_uid_unresolved" for a in decisions)
-        pending_names = ", ".join(a["display_name"] for a in summary["accounts"]
-                                  if a["primary_audit_status"] == "numeric_binding_recheck_pending")
-        pending_text = (f'Pending historical numeric bindings: {esc(pending_names)}. '
-                        'Previous historical evidence is retained, not represented as freshly revalidated. '
-                        if pending_names else '')
-        audit_text = (
-            f'<p><strong>Primary-source recheck ({esc(audit["audited_at"][:10])}): '
-            f'{rechecked:,} numeric binding{"s" if rechecked != 1 else ""} rechecked; '
-            f'{pending:,} historical numeric binding{"s" if pending != 1 else ""} still pending; '
-            f'{unresolved:,} historical vanity-only channel remains UID-unresolved.</strong> '
-            f'All {audit["corpus"]["primary_text_matches"]:,} stored texts matched their primary source snapshots, '
-            'including explicitly truncated previews—not independently complete originals. '
-            f'{audit["corpus"]["canonical_text_corrections"]:,} canonical text selections were corrected; '
-            'prior source variants remain preserved privately. '
-            + pending_text +
-            '<a href="https://github.com/hanshanley/china-us-relation-change/blob/main/reports/weibo_primary_source_audit.md">'
-            'Methods, findings and unresolved checks</a> · '
-            '<a href="https://github.com/hanshanley/china-us-relation-change/blob/main/data/discovery/weibo_post_source_audit.csv">'
-            f'Complete {audit["corpus"]["posts_checked"]:,}-row source-audit metadata manifest (not post text)</a>.</p>')
-    cohort = summary.get("cohort")
-    cohort_text = (
-        f'<p><strong>Selected U.S.-classified cohort: {cohort["selected_domains"]:,} domains; '
-        f'{cohort["current_identity_domains"]:,} with current profile evidence, '
-        f'{cohort["historical_only_domains"]:,} historical-only, {cohort["unknown_domains"]:,} unknown, '
-        f'{cohort["candidate_domains"]:,} unresolved candidates, '
-        f'{cohort["verified_negative_domains"]:,} verified negatives.</strong> '
-        f'{cohort["manually_reviewed_domains"]:,} domains have recorded manual review. '
-        'Homepage screening is not equivalent to an account-existence audit. '
-        f'Ranking basis: <a href="{esc(cohort["ranking_source"])}">{esc(cohort["ranking_basis"])}</a>. '
-        'The source country classification is not an independently verified current ownership or nationality audit. '
-        '<a href="https://github.com/hanshanley/china-us-relation-change/blob/main/data/discovery/us_top1000_accounts.csv">'
-        'Complete domain-by-domain decisions in the repository</a>.</p>'
-        if cohort else '<p>No ranked-cohort assessment is included in this snapshot; no absence rate is inferred.</p>')
-    metadata_note = ('per-account relationships, UID resolution, evidence and attribution exclusions are retained '
-                     'in the complete JSON and account CSV.' if summary["version"] >= 2 else
-                     'per-account relationships and attribution exclusions are retained in the aggregate JSON.')
-    monthly_note = (
-        '<p><strong>Over-time graphs describe the recovered sample, not total posting activity.</strong> '
-        'Each month uses publication dates in Asia/Shanghai. Channel counts are distinct accounts with at least '
-        'one recovered post in that month, not independent publishers. This is not a census of active accounts. '
-        'Unrequested months break the line; zero recovered posts does not establish inactivity. '
-        'Hollow markers, dashed segments and an asterisk identify partial requested months, without extrapolation. '
-        '<a href="downloads/weibo-months.csv" download>Complete monthly counts and partial-window flags · CSV</a>.</p>'
-        if "monthly" in summary else '')
-    rolling_note = (
-        '<p><a href="downloads/weibo-rolling30.csv" download>Complete daily trailing-30-day measures · CSV</a> · '
-        '<a href="downloads/weibo-days.csv" download>Complete daily counts and institutional account IDs · CSV</a>. '
-        'Publisher counts deduplicate multiple channels of the same publisher/brand group. '
-        'The first 29 requested days and windows crossing coverage-calendar gaps have no 30-day estimate.</p>'
-        if "rolling_30d" in summary else '')
-    refresh = summary.get("refresh")
-    refresh_note = (
-        f'<p class="refresh-status"><strong>Automatic refresh: {esc(refresh["status"])}.</strong> '
-        f'Last attempt: {esc(refresh["attempted_at"])}. '
-        f'Last readable collection: {esc(refresh["successful_collection_at"] or "none recorded")}. '
-        f'Through: {esc(refresh["through_date"] or "not advanced")}; '
-        f'{refresh["readable_feeds"]:,}/{refresh["accounts_attempted"]:,} attempted feeds readable. '
-        f'{esc(refresh["note"])} Runs locally when the collection Mac is available.</p>' if refresh else
-        '<p class="refresh-status">No automatic collection status is recorded for this frozen snapshot. '
-        'Rebuilding this page alone does not collect new Weibo posts.</p>' if summary["version"] >= 5 else '')
-    table = "".join(f'<tr><th scope="row">{esc(a["outlet_name"])}</th>'
-                    f'<td>{esc(a.get("display_name", "not recorded"))}<br>'
-                    f'{esc(a.get("uid") or ("UID unresolved" if summary["version"] >= 2 else "UID not recorded"))}</td>'
-                    f'<td>{esc(a["existence"])}<br>{esc(a["relationship"])}</td>'
-                    f'<td>{esc(AUDIT_LABELS.get(a.get("primary_audit_status"), "Not assessed in this snapshot"))}</td>'
-                    f'<td>{a["recovered_posts"]:,}</td><td>{esc(a["latest_run_status"] or "not attempted")}</td>'
-                    f'<td>{esc(a["attribution_end"] or "not established")}</td>'
-                    f'<td><a href="{esc(a["profile_url"])}">Registered profile</a>'
-                    + ('<details><summary>Evidence and scope</summary><p>'
-                       + esc(a["us_basis"]) + '</p><p>' + esc(a["notes"]) + '</p>'
-                       + (f'<p>{esc(a["primary_audit_note"])} '
-                          f'<a href="{esc(a["primary_audit_source_url"])}">Audit source</a></p>'
-                          if "primary_audit_note" in a else '') + '<ul>'
-                       + "".join(f'<li><a href="{esc(e["source_url"])}">{esc(e["source_type"])}</a>: '
-                                 f'{esc(e["justification"])}</li>' for e in a["evidence"])
-                       + '</ul></details>' if summary["version"] >= 2 else '')
-                    + '</td></tr>' for a in summary["accounts"])
-    document = ('<!doctype html><html lang="en"><head><meta charset="utf-8">'
-                '<meta name="viewport" content="width=device-width,initial-scale=1">'
-                '<title>Weibo research coverage</title><link rel="stylesheet" href="assets/style.css"></head>'
-                '<body><div class="page"><header><p><a href="index.html">Exchange dashboard</a> · '
-                '<a href="comparisons.html">Three-geography comparisons</a></p><h1>Weibo research.</h1>'
-                '<p class="lead">Account evidence and recovered-corpus coverage—not a census of posting activity.</p>'
-                f'<p>{roster["outlets"]:,} entries in the expandable research roster; '
-                f'{roster["confirmed_accounts"]:,} documented current or historical channels '
-                f'across {roster["confirmed_outlets"]:,} publisher/brand groups. '
-                f'{total:,} posts partially recovered from {recovered:,} channels—not complete timelines.</p>'
-                + resolution + audit_text + cohort_text +
-                '<p>This is a frozen aggregate snapshot, not a live Weibo feed. Current identity evidence does not prove '
-                'current activity, present-day control or continuing licensing. '
-                'Zero recovery does not mean zero posting; unknown accounts are not verified absences. '
-                'Historical licensing cutoffs are respected. Counts are not audience size, popularity or evidence of a causal link to trade or travel.</p>'
-                '<p>The sample includes explicitly labelled Chinese editions, U.S.-based Chinese-language media, '
-                'press-release services and independent regional distributors. Multiple channels of one publisher '
-                'are not separate outlets; account totals are not independent editorial-newsroom totals. '
-                'Institutional identity is not proof of direct U.S.-newsroom operation or a continuing license; '
-                + metadata_note + '</p>'
-                '<p>Available source bodies are not independently verified complete originals. '
-                'Images, video and their transcripts were not recovered. Discovery and post recovery are partial; '
-                'this presentation does not certify exhaustive coverage.</p>'
-                '<p>Only aggregate counts and public institutional account metadata are published. No post text, '
-                'private corpus records or engagement rankings are included. Sources and requested collection windows '
-                'are identified in the complete aggregate JSON.</p>'
-                '<p><a href="downloads/weibo-summary.json" download>Complete aggregate snapshot and provenance · JSON</a> · '
-                '<a href="downloads/weibo-accounts.csv" download>All account aggregates · CSV</a> · '
-                '<a href="downloads/weibo-years.csv" download>All publication-year aggregates · CSV</a> · '
-                '<a href="downloads/weibo-text-completeness.csv" download>All text-completeness aggregates · CSV</a></p>'
-                + monthly_note + rolling_note + refresh_note + '</header><main>' + "".join(cards) +
-                '<section class="series-panel"><h2>Account coverage details</h2><div class="table-scroll"><table>'
-                '<thead><tr><th>Outlet / edition</th><th>Channel / numeric UID</th><th>Evidence period / relationship</th>'
-                '<th>Primary recheck</th><th>Recovered posts</th>'
-                '<th>Latest run</th><th>Exclusive attribution end</th><th>Source</th></tr></thead>'
-                f'<tbody>{table}</tbody></table></div></section></main></div></body></html>')
-    write_atomic(root / "site/weibo.html", document)
+    write_atomic(root / "site/weibo.html", explorer_page(summary))
+    for name in ("weibo-explorer.css", "weibo-explorer.js"):
+        write_atomic(root / "site/assets" / name, (Path(__file__).parent / "static" / name).read_text())
 
 
 def build_languages(root, data, gallery):
@@ -898,7 +752,8 @@ def build(root):
                 remove_figure(root, Path("weibo") / theme / metric)
         for relative in ["weibo.html", "downloads/weibo-summary.json", "downloads/weibo-accounts.csv",
                          "downloads/weibo-years.csv", "downloads/weibo-text-completeness.csv",
-                         "downloads/weibo-months.csv", "downloads/weibo-days.csv", "downloads/weibo-rolling30.csv"]:
+                         "downloads/weibo-months.csv", "downloads/weibo-days.csv", "downloads/weibo-rolling30.csv",
+                         "assets/weibo-explorer.css", "assets/weibo-explorer.js"]:
             path = site / relative
             if path.is_file():
                 path.unlink()
@@ -1034,7 +889,7 @@ Four separate geographies. Both directions. History since {START_YEAR}; change s
 {"<p><a href='language-learning.html'>Chinese-language learning: college, AP, school programs and degree awards</a> — separate educational indicators, not bilateral flows.</p>" if language_data is not None else ""}
 {"<p><a href='business-presence.html'>U.S. and European businesses in China over time: annual affiliate and enterprise histories</a>.</p>" if business_data is not None else ""}
 {"<p><a href='immigration.html'>Immigration: permanent-resident grants, not visitor trips or visas</a>.</p>" if immigration_data is not None else ""}
-{"<p><a href='weibo.html'>Weibo account evidence and recovered-corpus graphs</a> — separate research coverage, not an exchange-flow measure.</p>" if weibo_summary is not None else ""}
+{"<p><a href='weibo.html'>Explore U.S. media accounts on Weibo</a> — documented identities and publisher relationships, not posting trends.</p>" if weibo_summary is not None else ""}
 <form class="controls" aria-label="Explore bilateral series" onsubmit="return false">
 <label for="geography">Geography<select id="geography">{options}</select></label>
 <label for="direction">Direction<select id="direction">{direction_options}</select></label>

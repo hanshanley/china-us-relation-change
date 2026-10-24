@@ -492,6 +492,23 @@ class Audit:
             scripts = soup.select(".native-chart script.plot-data")
             page.goto(url + filename)
             page.evaluate("document.fonts.ready")
+            if filename == "weibo.html":
+                expected = {a["account_id"] for a in self.weibo["accounts"]}
+                actual = page.locator(".weibo-dot").evaluate_all("nodes=>nodes.map(n=>n.dataset.accountId)")
+                if len(actual) != len(expected) or set(actual) != expected:
+                    self.issue(f"weibo:account-map:{width}", "account_identity_mismatch", actual)
+                if page.locator(".native-chart,#monthly-posts,#publication-years,#rolling30-posts").count():
+                    self.issue(f"weibo:account-map:{width}", "recovery_timeline_in_primary_view", None)
+                if page.evaluate("document.documentElement.scrollWidth>innerWidth"):
+                    self.issue(f"weibo:account-map:{width}", "page_overflow", width)
+                bounds = page.locator("#weibo-map").bounding_box()
+                self.charts.append({"chart": f"weibo:account-map:{width}", "points": len(actual),
+                                    "bars": 0, "width": bounds["width"], "height": bounds["height"]})
+                if screenshots:
+                    picture = self.output / "screens" / f"weibo-account-map-{width}.png"
+                    page.locator("#weibo-explorer").screenshot(path=str(picture))
+                    self.pictures[filename].append((f"weibo:account-map:{width}", picture))
+                continue
             for index, script in enumerate(scripts):
                 model = json.loads(script.string)
                 section = script.find_parent("section")

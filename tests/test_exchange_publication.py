@@ -178,27 +178,24 @@ def test_collective_export_preserves_complete_inputs_and_native_plot_boundaries(
     assert model["unit"] == "Nominal USD"
     assert next(g for g in model["groups"] if g["label"] == "Macau")["dash"] == "7 4"
     weibo = BeautifulSoup((tmp_path / "weibo.html").read_text(), "html.parser")
-    monthly = json.loads((ROOT / "data/site/weibo_summary.json").read_text())["monthly"]
-    for chart, field in (("monthly-posts", "recovered_posts"), ("monthly-accounts", "observed_accounts")):
-        model = json.loads(weibo.select_one(f"#{chart} .plot-data").string)
-        assert model["frequency"] == "monthly"
-        assert [(p["month"], p["value"], p["partial_window"]) for p in model["groups"][0]["points"]] == [
-            (row["month"], row[field], row["partial_window"]) for row in monthly]
-        assert not model["groups"][0]["points"][0]["connect"]
-        assert model["groups"][0]["points"][-1]["connect"]
+    source_weibo = json.loads((ROOT / "data/site/weibo_summary.json").read_text())
+    monthly = source_weibo["monthly"]
+    assert weibo.select_one("#weibo-explorer")
+    assert not weibo.select("#module-chart, .plot-data, #monthly-posts, #publication-years, #rolling30-posts")
+    assert len(weibo.select(".weibo-dot")) == len(source_weibo["accounts"])
+    assert len(weibo.select(".weibo-brand")) == len({a["outlet_id"] for a in source_weibo["accounts"]})
+    assert len(weibo.select(".weibo-channel-detail")) == len(source_weibo["accounts"])
+    assert weibo.select_one('script[src^="assets/weibo-explorer.js"]')
+    assert weibo.select_one('link[href^="assets/weibo-explorer.css"]')
+    assert (tmp_path / "assets/weibo-explorer.js").is_file()
+    assert (tmp_path / "assets/weibo-explorer.css").is_file()
     with (tmp_path / "downloads/weibo-months.csv").open(newline="") as stream:
         rows = list(csv.DictReader(stream))
     assert len(rows) == len(monthly)
     assert sum(int(row["recovered_posts"]) for row in rows) == sum(row["recovered_posts"] for row in monthly)
-    source_weibo = json.loads((ROOT / "data/site/weibo_summary.json").read_text())
-    rolling = [r for r in source_weibo.get("rolling_30d", []) if not r["partial_window"]]
-    if rolling:
-        for chart, field in (("rolling30-accounts", "observed_accounts"), ("rolling30-outlets", "observed_outlets"),
-                             ("rolling30-posts", "recovered_posts"), ("rolling30-average", "posts_per_day")):
-            model = json.loads(weibo.select_one(f"#{chart} .plot-data").string)
-            assert model["frequency"] == "daily"
-            assert [(p["date"], p["value"]) for p in model["groups"][0]["points"]] == [
-                (row["date"], row[field]) for row in rolling]
+    with (tmp_path / "downloads/weibo-rolling30.csv").open(newline="") as stream:
+        rolling = list(csv.DictReader(stream))
+    assert len(rolling) == len(source_weibo["rolling_30d"])
     assert not list(tmp_path.rglob("*.pdf")) and not list(tmp_path.rglob("*.db"))
 
 
