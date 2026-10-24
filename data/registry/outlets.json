@@ -1627,6 +1627,41 @@
       "notes": "Complete root and actually linked /contact_us/ read without a qualifying institutional Sina identifier. The prior duplicate Contact URL was not counted as two independent sources. A malformed relative jobs route was not followed or silently repaired. Other Eagle/Tribune titles, parent/sibling papers and staff accounts were not inherited; subscriber and office widgets were not closure or inactivity evidence. Unknown, not absent. Review date: 2026-10-23 UTC."
     },
     {
+      "id": "macon-telegraph-georgia", "name": "The Telegraph / Macon, Georgia", "category": "newspaper",
+      "aliases": ["Macon Telegraph", "The Telegraph", "Macon Telegraph and News"],
+      "us_basis": "United States-classified source position242; genuine cached2015 publisher annual report page14 joins The Telegraph, macon.com and Macon, Georgia. The dated row is not current-control, circulation or office-occupancy certification.",
+      "source_url": "https://www.macon.com/", "research_status": "reviewed",
+      "notes": "One ordinary publisher attempt timed out without a usable body. The genuine cached2015 publisher row was reread offline for historical publication/domain/geography scope only, not a Sina designation. Historical traffic and circulation were not present-day posting activity. The British Telegraph, other Telegraph titles, parent/sibling and staff accounts were not inherited. No alternate host, client or mirrored newspaper body was requested. Unknown, not absent. Review date: 2026-10-24 UTC."
+    },
+    {
+      "id": "twin-falls-times-news", "name": "Times-News / Twin Falls, Idaho", "category": "newspaper",
+      "aliases": ["Twin Falls Times-News", "Times-News", "The Times-News"],
+      "us_basis": "United States-classified source position243; complete root and actually linked Contact identify the Times-News and Twin Falls, Idaho correspondence. Published contact information is not independently audited current office occupancy or control.",
+      "source_url": "https://magicvalley.com/", "research_status": "reviewed",
+      "notes": "Root and exact linked /contact route inspected; the observed final URL was /contact/. No qualifying institutional Sina designation found. The earlier duplicate Contact route was not counted twice. The all-days-closed hours panel explicitly concerns lobby services and offers phone/email/online alternatives; it was not treated as newspaper closure or Weibo inactivity. An unresolved {{url}} template route was not followed or repaired. Other Times-News titles, parent/sibling and staff accounts were not inherited. Unknown, not absent. Review date: 2026-10-24 UTC."
+    },
+    {
+      "id": "merced-sun-star", "name": "Merced Sun-Star / California", "category": "newspaper",
+      "aliases": ["Merced Sun-Star", "Merced Sun Star", "Merced Merced Sun-Star"],
+      "us_basis": "United States-classified source position244; genuine cached2015 publisher annual report page14 joins Merced Sun-Star, mercedsunstar.com and Merced, California. Historical publication/domain scope does not independently establish current control or activity.",
+      "source_url": "https://www.mercedsunstar.com/", "research_status": "reviewed",
+      "notes": "One ordinary publisher attempt timed out without a usable body. Genuine cached2015 publisher scope was inspected offline, not downloaded again or treated as a present-day ownership, circulation or Sina account certificate. Original repeated-word cohort name was preserved. Other Sun/Star titles and parent/sibling or staff accounts were not inherited, and incidental search co-occurrence was not a publisher designation. No alternate host, client or mirrored newspaper body was requested. Unknown, not absent. Review date: 2026-10-24 UTC."
+    },
+    {
+      "id": "norfolk-daily-news-nebraska", "name": "Norfolk Daily News / Nebraska", "category": "newspaper",
+      "aliases": ["Norfolk Daily News", "The Norfolk Daily News"],
+      "us_basis": "United States-classified source position245; actual root and linked About body explicitly identify the named news organization in downtown Norfolk, Nebraska. Publisher-stated family history is not an independent current-control audit.",
+      "source_url": "https://norfolkdailynews.com/", "research_status": "reviewed",
+      "notes": "Complete root and actually linked /site/about.html inspected without an institutional Sina identifier. Actual named Nebraska body was used beyond the generic domain title and weather/footer widgets. The published ownership/history paragraph was not independently certified as current control or posting activity. Norfolk, Virginia and United Kingdom namesakes, parent/sibling and staff accounts were not substituted or inherited. Unknown, not absent. Review date: 2026-10-24 UTC."
+    },
+    {
+      "id": "peninsula-daily-news-washington", "name": "Peninsula Daily News / Washington", "category": "newspaper",
+      "aliases": ["Port Angeles Peninsula Daily News", "Peninsula Daily News"],
+      "us_basis": "United States-classified source position246; actual root and linked About supply the named publication's Port Angeles, Port Townsend and Olympic Peninsula context. A historical acquisition paragraph does not independently establish current corporate control.",
+      "source_url": "https://www.peninsuladailynews.com/", "research_status": "reviewed",
+      "notes": "Complete root and actually linked /services/about/ inspected without a qualifying institutional Sina designation. A dated2011 acquisition paragraph did not become a current legal-control or account certificate, and named sibling titles were not extra ranked reviews or inherited channels. Other Peninsula and Daily News titles and staff accounts were not substituted. Sponsored article topics were not source-use reservations or account evidence; no account/post was assigned from search co-occurrence. Unknown, not absent. Review date: 2026-10-24 UTC."
+    },
+    {
       "id": "telemundo", "name": "Telemundo / Noticias Telemundo", "category": "broadcast_news",
       "aliases": ["Telemundo", "Noticias Telemundo", "Telemundo Noticias"],
       "us_basis": "United States-classified source position110; actual network root separately links its Noticias Telemundo newsroom section. Current corporate domicile/headquarters and legal account control are not independently audited.",

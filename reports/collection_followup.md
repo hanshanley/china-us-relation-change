@@ -1,6 +1,6 @@
 # Account verification and post-collection follow-up
 
-Snapshot updated October 23, 2026. The [generated inventory](weibo_media_inventory.md)
+Snapshot updated October 24, 2026 UTC. The [generated inventory](weibo_media_inventory.md)
 contains the authoritative per-account post totals. A verified identity is not
 a guarantee of current ownership, current posting, or complete historical recovery.
 
@@ -11,7 +11,7 @@ Asia/Shanghai day. The generated inventory, frozen aggregate JSON and refresh
 status report the latest live totals; historical checkpoint counts below are
 not rewritten as though they were the latest collection.
 
-## Published snapshot: October 23, 2026
+## Published snapshot: October 24, 2026 UTC
 
 The [primary-source recheck](weibo_primary_source_audit.md) now reports
 **85 numeric bindings rechecked, one historical numeric recheck pending,
@@ -35,21 +35,20 @@ The selected **1,000 SCImago U.S.-classified domains** are ranked by digital
 reputation, not traffic; their present ownership/nationality was not independently
 audited. **Five have current-profile evidence, seven historical-only evidence,
 988 remain unknown, and zero are verified negatives.** All underwent homepage
-screening, but only 241 have recorded manual review.
+screening, but only 246 have recorded manual review.
 
-The [latest scheduled pass](discovery_iteration49.md) adds five reviews with
-six complete newspaper pages, one actual named corporate profile and one
-genuine cached2015 publisher PDF. Cheyenne, Lake Charles and North Andover
-source bodies were read beyond generic titles or weather widgets. Austin's
-newspaper HTTP403 was not retried; the independent corporate profile identifies
-Minnesota, not Texas, without certifying its old schedules or current control.
-Belleville's ordinary route timed out and its cached2015 row remains historical
-context only. No staff layoffs, mirrored body or historical traffic figure
-was converted into a Sina or activity finding. All ten no-further-body
+The [latest scheduled pass](discovery_iteration50.md) adds five reviews with
+six complete newspaper root/institutional pages and two publication rows
+in one genuine cached2015 publisher PDF. Times-News's Contact, Norfolk's
+About and Peninsula Daily News's About were read as actual named bodies.
+Times-News's lobby-service closure notice was not a newspaper-closure or
+inactivity finding. Macon and Merced ordinary routes timed out; their2015
+publisher rows remain historical context, not present-day activity or control.
+No parent, sibling or namesake account was inherited. All ten no-further-body
 restrictions and NWA's separate retention condition remain unchanged.
 The live 6,570-post corpus, original archived baseline and all rolling data
 remain unchanged by discovery.
-Discovery is not exhausted: 759 selected domains still lack a recorded
+Discovery is not exhausted: 754 selected domains still lack a recorded
 manual review. A bounded recurring prompt is active every 30 minutes; later
 passes must advance the frontier rather than repeatedly probing exhausted leads.
 
