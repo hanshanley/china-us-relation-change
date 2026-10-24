@@ -9,7 +9,7 @@ import pytest
 from bs4 import BeautifulSoup
 
 from us_china_exchange.immigration_analysis import CHARTS, build_immigration, validate_immigration_data
-from us_china_exchange.immigration_sources import count, parse_birth, parse_latest, parse_macau_abode, parse_stock, STOCK_YEARS
+from us_china_exchange.immigration_sources import count, parse_admissions, parse_birth, parse_latest, parse_macau_abode, parse_stock, STOCK_YEARS
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -38,7 +38,7 @@ def test_regional_panels_keep_an_unavailable_population_missing(tmp_path):
 def test_birthplace_and_nationality_counts_are_separate_fiscal_populations():
     data = validate_immigration_data(published())
     rows = {(r["series_id"], r["year"]): r for r in data["observations"]}
-    assert len(rows) == 118
+    assert len(rows) == 133
     assert [rows[("ohss_birth:CHN", year)]["value"] for year in (2000, 2014, 2024)] == [45652, 76089, 71470]
     assert rows[("ohss_birth:HKG", 2024)]["value"] == 1950
     assert rows[("ohss_birth:MAC", 2024)]["value"] == 80
@@ -111,14 +111,43 @@ def test_latest_parser_reads_reported_annual_totals_not_quarters():
         parse_latest(rows)
 
 
+def test_annual_admissions_keep_reported_precision_and_do_not_become_stock_changes():
+    data = published()
+    rows = {(r["series_id"], r["year"]): r for r in data["observations"]}
+    assert [rows[("ohss_nationality:new_arrivals", year)]["value"] for year in range(2020, 2026)] == [
+        12726, 11278, 25115, 21890, 23570, 27020]
+    assert rows[("ohss_nationality:adjustments", 2020)]["value"] == 29023
+    assert rows[("ohss_nationality:total", 2024)]["value"] == 70090
+    assert rows[("ohss_nationality:new_arrivals", 2020)]["status"] == "observed"
+    assert rows[("ohss_nationality:new_arrivals", 2023)]["status"] == "rounded"
+    data["observations"] = [r for r in data["observations"]
+                            if r["series_id"] != "ohss_nationality:adjustments" or r["year"] == 2025]
+    with pytest.raises(ValueError, match="same reported fiscal years"):
+        validate_immigration_data(data)
+
+
+def test_older_admission_header_is_not_mistaken_for_quarters_or_rounded_counts():
+    rows = [[None] * 16 for _ in range(7)]
+    rows[1][0] = "PERMANENT RESIDENT STATUS BY COUNTRY OF NATIONALITY: FISCAL YEAR 2020"
+    rows[3] = [None, "Total", None, None, None, None, "Adjustments of status", None, None, None, None,
+               "New arrivals", None, None, None, None]
+    rows[4] = ["Region and country of nationality", "Total", 1, 2, 3, 4, "Total", 1, 2, 3, 4, "Total", 1, 2, 3, 4]
+    rows[6] = ["China, People's Republic", 41749, 15534, 12300, 5596, 8319,
+               29023, 7476, 8638, 5108, 7801, 12726, 8058, 3662, 488, 518]
+    assert parse_admissions(rows, 2020) == {"total": 41749, "adjustments": 29023, "new_arrivals": 12726}
+    rows[4][1] = "Quarter 1"
+    with pytest.raises(ValueError, match="annual reported totals"):
+        parse_admissions(rows, 2020)
+
+
 def test_immigration_exports_include_all_counts_and_fiscal_dates(tmp_path):
     data = published()
     assert build_immigration(tmp_path, data, defaultdict(list)) == len(CHARTS)
     assert json.loads((tmp_path / "site/downloads/immigration.json").read_text()) == data
     with (tmp_path / "site/downloads/immigration-observations.csv").open() as stream:
         raw = list(csv.DictReader(stream))
-    assert len(raw) == len(data["observations"]) == 118
-    row = next(r for r in raw if r["series_id"] == "ohss_nationality:total")
+    assert len(raw) == len(data["observations"]) == 133
+    row = next(r for r in raw if r["series_id"] == "ohss_nationality:total" and r["year"] == "2025")
     assert row["fiscal_period_start"] == "2024-10-01" and row["fiscal_period_end"] == "2025-09-30"
     assert row["value"] == "65670"
     assert row["notes"] != row["definition_notes"]

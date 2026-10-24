@@ -8,13 +8,29 @@ from pathlib import Path
 from urllib.parse import urlsplit
 
 from .indicator_charts import svg_indicator_chart
+from .public_freshness import current_groups
 from .model import GEOGRAPHIES, json_text
 from .pipeline import write_atomic
-from .theme import CHART_THEMES, PARTNER_COLORS
-from .immigration_sources import MACAU_ABODE_YEARS, STOCK_PAIRS, STOCK_YEARS
+from .theme import CHART_THEMES, MUTED, PARTNER_COLORS
+from .immigration_sources import ADMISSION_YEARS, MACAU_ABODE_YEARS, STOCK_PAIRS, STOCK_YEARS
 
 
 CHARTS = {
+    "annual-china-to-us": {
+        "title": "China to the U.S.: annual permanent immigration",
+        "subtitle": "Chinese nationality | U.S. fiscal years 2020-2025",
+        "series": ["ohss_nationality:new_arrivals"],
+        "unit": "People per fiscal year", "mode": "levels",
+        "note": "DHS/OHSS Table 1A. New arrivals enter as permanent residents; adjustments concern people "
+        "already in the U.S. Nationality is not birthplace or previous residence. Later releases round to ten; "
+        "earlier releases retain reported counts. "
+        "No comparable annual U.S.-to-mainland-China count has been verified; resident stocks are separate."},
+    "annual-china-adjustments": {
+        "title": "Chinese nationals gaining residency while in the U.S.",
+        "subtitle": "Status adjustments | U.S. fiscal years 2020-2025",
+        "series": ["ohss_nationality:adjustments"], "unit": "People per fiscal year", "mode": "levels",
+        "note": "DHS/OHSS. These people were already in the U.S.; the year of permanent-residency approval "
+        "is not their year of arrival. Do not add them to a chart labelled new arrivals."},
     "migrant-stock-to-us": {
         "title": "China- and Hong Kong-born residents in the U.S.", "subtitle": "UN estimates | actual 1 July benchmarks, 2000–2024",
         "series": ["un_stock:CHN:USA", "un_stock:HKG:USA"], "unit": "Estimated residents", "mode": "levels",
@@ -96,7 +112,7 @@ def validate_immigration_data(data):
         seen.add(key)
         expected_source = ("un_stock_2024" if r["series_id"].startswith("un_stock:") else
                            f"ohss_birth_{2004 if r['year'] <= 2004 else 2014 if r['year'] <= 2014 else 2024}"
-                           if r["series_id"].startswith("ohss_birth") else "ohss_nationality_2025")
+                           if r["series_id"].startswith("ohss_birth") else f"ohss_nationality_{r['year']}")
         if ((r["series_id"].startswith("dsec_abode:") and not r["source_id"].startswith("dsec_abode_"))
                 or (not r["series_id"].startswith("dsec_abode:") and r["source_id"] != expected_source)):
             raise ValueError("Immigration observation population/source mismatch")
@@ -108,10 +124,18 @@ def validate_immigration_data(data):
             raise ValueError("Rounded immigration counts must be multiples of ten")
     for sid in expected:
         years = {year for identity, year in seen if identity == sid}
+        if sid.startswith("ohss_nationality:"):
+            if years not in ({2025}, set(ADMISSION_YEARS)):
+                raise ValueError("Nationality admissions require a complete reviewed annual history")
+            continue
         if years != (set(MACAU_ABODE_YEARS) if sid.startswith("dsec_abode:") else
                      set(STOCK_YEARS) if sid.startswith("un_stock:") else
                      set(range(2000, 2025)) if sid.startswith("ohss_birth") else {2025}):
             raise ValueError("Reviewed immigration coverage is incomplete or has invented years")
+    admission_years = {tuple(sorted(year for identity, year in seen if identity == sid))
+                       for sid in expected if sid.startswith("ohss_nationality:")}
+    if len(admission_years) != 1:
+        raise ValueError("Admission types must cover the same reported fiscal years")
     if not all(data["context"].get(k) for k in ("definition", "periods", "rounding", "rights")):
         raise ValueError("Immigration definitions and limitations required")
     return data
@@ -121,16 +145,18 @@ def chart_groups(data, chart_id):
     groups = []
     for sid in CHARTS[chart_id]["series"]:
         rows = sorted((r for r in data["observations"] if r["series_id"] == sid), key=lambda r: r["year"])
+        if CHARTS[chart_id]["mode"] == "bars":
+            rows = [r for r in rows if r["year"] == max(p["year"] for p in rows)]
         definition = data["series"][sid]
         geo = (definition["origin"] if definition.get("destination") == "USA" else definition.get("destination")) if sid.startswith("un_stock:") else sid.split(":")[-1]
         groups.append({"id": sid, "label": data["series"][sid]["label"],
                        "geography": geo,
-                       "color": PARTNER_COLORS.get(geo, PARTNER_COLORS["CHN"]),
+                       "color": MUTED if sid == "ohss_nationality:adjustments" else PARTNER_COLORS.get(geo, PARTNER_COLORS["CHN"]),
                        "cadence": definition["cadence"], "scheduled_years": [r["year"] for r in rows],
                        "period_basis": definition["period_basis"],
                        "points": [dict(r, plotted_value=r["value"], reported_unit=definition["unit"], plotted_unit=CHARTS[chart_id]["unit"])
                                   for r in rows if r["value"] is not None]})
-    return groups
+    return current_groups(groups)
 
 
 def build_immigration(root, data, gallery, state_data=None, state_geometry=None):
@@ -144,6 +170,8 @@ def build_immigration(root, data, gallery, state_data=None, state_geometry=None)
         cards.append(build_state_map(root, state_data, state_geometry, gallery))
     for chart_id, config in CHARTS.items():
         groups = chart_groups(data, chart_id)
+        if not groups:
+            continue
         stock_chart = chart_id.startswith("migrant-stock")
         basis = groups[0]["period_basis"]
         paths = {theme: export_figure(root, Path("immigration") / theme / chart_id, svg_indicator_chart(
@@ -206,6 +234,12 @@ def build_immigration(root, data, gallery, state_data=None, state_geometry=None)
                      '<details><summary>Exact reported values</summary><div class="table-scroll"><table>'
                      f'<thead><tr><th>Population</th><th>Period</th><th>{esc(config["unit"])}</th><th>Precision</th></tr></thead>'
                      '<tbody>' + "".join(exact) + '</tbody></table></div></details></section>')
+        if chart_id == "annual-china-to-us":
+            cards[-1] = cards[-1].replace("</section>",
+                '<p class="chart-note annual-reverse-note"><strong>U.S. → mainland China:</strong> '
+                'a comparable annual count has not been verified. The resident-stock charts below are not annual arrivals.</p>'
+                '<p class="chart-note"><a href="immigration.html?indicator=annual-china-adjustments">'
+                'View residency adjustments for people already in the U.S.</a></p></section>')
         relative = {theme: {kind: path.removeprefix("figures/") for kind, path in files.items()}
                     for theme, files in paths.items()}
         gallery["immigration"].append(f'<article><h3>{esc(config["title"])}</h3>{figure_links(relative)}</article>')
