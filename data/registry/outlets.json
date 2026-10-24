@@ -2295,6 +2295,70 @@
       "notes": "Recorded newspaper controlled redirect and separate WEHCO corporate robots hold respected with zero newspaper/corporate/alias/alternate-client requests. Independent official platform record, not a third-party app mirror or newspaper issue/archive body, was inspected. Its supplied hotsr.com privacy/terms URI was not followed. App ID897603702 is not a Sina UID; ratings/downloads, format, privacy labels and update claims are not Weibo activity or current account control. No app installation, login or licensed-content retrieval. Parent/sibling/staff accounts not inherited. Unknown, not absent. Review date: 2026-10-24 UTC."
     },
     {
+      "id": "olean-times-herald",
+      "name": "Olean Times Herald",
+      "category": "newspaper",
+      "aliases": [
+        "Olean Times-Herald",
+        "Olean Times Herald"
+      ],
+      "us_basis": "United States-classified source position312; actual complete root and a genuinely captured publisher-owned Contact identify Olean Times Herald with Olean, New York correspondence. Current ownership, staffing and office occupancy are not independently audited.",
+      "source_url": "https://www.oleantimesherald.com/",
+      "research_status": "reviewed",
+      "notes": "Earlier1,500,001-byte root was explicitly truncated. One ordinary bounded3MB client-cap probe now saved the complete2,490,436-byte response, without bypassing a server access barrier; this is not complete site/timeline recovery. The known first-party search-discovered /contact-us/ was readable, but not falsely called a link in the saved root. Phone9-4 and office9-3 weekday roles remain distinct, not Weibo posting or closure evidence. No Sina designation found. Unsupported third-party geography/funding/staff directories, other Times-Herald titles and parent/sibling/staff channels not substituted. Unknown, not absent. Review date: 2026-10-24 UTC."
+    },
+    {
+      "id": "athens-banner-herald",
+      "name": "Athens Banner-Herald",
+      "category": "newspaper",
+      "aliases": [
+        "Athens Banner-Herald"
+      ],
+      "us_basis": "United States-classified source position313; genuine cached LocaliQ directory page4 lists Athens Banner-Herald under Georgia, while page18's Georgia contact section includes an onlineathens.com obituary-email domain. This is regional/contact-domain context, not a successfully retrieved website, current legal-control or Sina certification.",
+      "source_url": "https://www.onlineathens.com/",
+      "research_status": "reviewed",
+      "notes": "Recorded newspaper HTTP403 held: zero newspaper/alias/static/help/obituary/alternate-client requests. Genuine PDF reused with original2026-10-23T08:08:21.974537+00:00 observation and SHA9722be6afdb21ff3c8a0c45dfe98a15ee145083dad8c392787c259427b1177c2. Actual pages4/18 and page4 annotation targets inspected; shared portals not followed or assigned as exact paper routes. Contact-email domain was not upgraded into proof of current web control. Greek Athens, other Banner-Herald, Gannett/parent/sibling/staff accounts not inherited. Undated directory not posting activity. Unknown, not absent. Review date: 2026-10-24 UTC."
+    },
+    {
+      "id": "alpena-news",
+      "name": "The Alpena News",
+      "category": "newspaper",
+      "aliases": [
+        "Alpena News",
+        "The Alpena News"
+      ],
+      "us_basis": "United States-classified source position314; actual root and linked Contact explicitly name The Alpena News with Alpena, Michigan correspondence. Named mailing context is not independently verified occupancy, current ownership or a current staffing census.",
+      "source_url": "https://www.thealpenanews.com/",
+      "research_status": "reviewed",
+      "notes": "Complete root and actual /contact-us/ inspected without an institutional Sina designation. Named Mail section identifies130 Park Place, Alpena, Michigan. An email-shaped relative href was not repaired, requested as a web route or treated as an account. Affiliate lists do not inherit other papers' channels; personal contact inventories are not republished. Independent archive/finding-aid or government-clipping sources were not substituted for this readable publisher body, and no print-frequency claim became activity. Unknown, not absent. Review date: 2026-10-24 UTC."
+    },
+    {
+      "id": "brunswick-news-georgia",
+      "name": "The Brunswick News / Georgia",
+      "category": "newspaper",
+      "aliases": [
+        "Brunswick News",
+        "The Brunswick News Georgia"
+      ],
+      "us_basis": "United States-classified source position315; actual root and linked Contact identify the Golden Isles publication with Brunswick, Georgia correspondence. Original repeated-word cohort name remains unchanged; location and publisher self-description are not independently audited current control or occupancy.",
+      "source_url": "https://thebrunswicknews.com/",
+      "research_status": "reviewed",
+      "notes": "Complete root and actual /contact_us/ inspected without a publisher-designated Sina account. Actual Where To Find Us body identifies the Georgia paper, not a Canadian Brunswick company or weather widget alone. App-store IDs, Wikidata/Twitter numeric IDs and third-party follower/employee records were not used as Sina identities. Forms and subscription/advertising transactions not submitted. Parent/sibling/staff accounts not inherited; print schedules and marketing audience are not Weibo activity. Unknown, not absent. Review date: 2026-10-24 UTC."
+    },
+    {
+      "id": "orangeburg-times-and-democrat",
+      "name": "The Times and Democrat / Orangeburg",
+      "category": "newspaper",
+      "aliases": [
+        "Orangeburg Times And Democrat",
+        "The Times and Democrat"
+      ],
+      "us_basis": "United States-classified source position316; actual root and linked Contact name The Times and Democrat with Orangeburg, South Carolina correspondence. Publisher footer ownership/shareholder descriptions are not independently audited current legal control or account ownership.",
+      "source_url": "https://thetandd.com/",
+      "research_status": "reviewed",
+      "notes": "Complete root and exact supplied /contact requested; observed same-host HTTPS final /contact/ retained separately, not silently invented. Actual named address, weekday service hours and shorter explicitly labelled lobby hours are not newspaper closure or a Sina posting schedule. Unfilled {{url}} template route was not repaired or requested. Corporate/other Democrat titles and staff accounts were not inherited; no family-wide source-use rule inferred. No institutional Sina designation found. Unknown, not absent. Review date: 2026-10-24 UTC."
+    },
+    {
       "id": "telemundo", "name": "Telemundo / Noticias Telemundo", "category": "broadcast_news",
       "aliases": ["Telemundo", "Noticias Telemundo", "Telemundo Noticias"],
       "us_basis": "United States-classified source position110; actual network root separately links its Noticias Telemundo newsroom section. Current corporate domicile/headquarters and legal account control are not independently audited.",

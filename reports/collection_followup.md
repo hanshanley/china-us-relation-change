@@ -35,23 +35,24 @@ The selected **1,000 SCImago U.S.-classified domains** are ranked by digital
 reputation, not traffic; their present ownership/nationality was not independently
 audited. **Five have current-profile evidence, seven historical-only evidence,
 988 remain unknown, and zero are verified negatives.** All underwent homepage
-screening, but only 311 have recorded manual review.
+screening, but only 316 have recorded manual review.
 
-The [latest scheduled pass](discovery_iteration63.md) adds five reviews.
-Three fresh publisher responses, an actual root-supplied corporate page,
-independent library/app metadata and two genuinely reused corporate captures
-support limited context. Woodland's own source-use reservation raised the
-publisher-body holds to eighteen after only its exact fresh root was removed.
-Moscow-Pullman's HTTP403 and Hot Springs' controlled redirect were held;
-library/app metadata were not relabeled as publisher bodies or Sina proof.
-El Tiempo Latino's actual corporate routing was preserved rather than
-silently substituted with an older About URL. Everett's owned social matrix
-is bounded other-platform evidence, not an exhaustive account census.
-All Southern/NWA, corporate and independent-institution conditions remain
-distinct. No parent/sibling handle was inherited. Shared catalogs are not edited.
+The [latest scheduled pass](discovery_iteration64.md) adds five reviews.
+Eight complete publisher responses and one genuine cached primary directory
+support limited context. A bounded client cap now captures Olean's complete
+2,490,436-byte response rather than the old truncated prefix; this is not
+historical Weibo backfill. Its known publisher Contact was not falsely called
+root-linked. Athens' newspaper HTTP403 was held; actual directory pages4/18
+separate regional name from contact-domain context, not current web control.
+Alpena's malformed email-shaped route was not followed, Brunswick's actual
+Georgia body was not assigned a Canadian identity, and Orangeburg's exact
+Contact normalization and separate lobby hours were retained.
+All eighteen publisher-body holds, Southern/NWA and institutional/corporate
+conditions remain distinct. No parent/sibling handle was inherited.
+Shared catalogs are not edited.
 The live 6,570-post corpus, original archived baseline and all rolling data
 remain unchanged by discovery.
-Discovery is not exhausted: 689 selected domains still lack a recorded
+Discovery is not exhausted: 684 selected domains still lack a recorded
 manual review. A bounded recurring prompt is active every 30 minutes; later
 passes must advance the frontier rather than repeatedly probing exhausted leads.
 
