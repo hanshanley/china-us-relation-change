@@ -387,7 +387,7 @@ already verified. Preserve the separate population and access restrictions.
    Do not create another competing checklist or declare the whole project done
    while these data, publication or automation items remain unresolved.
 
-## 8. Latest screenshot regressions: October 24, 6:54-6:55 p.m.
+## 8. Latest screenshot regressions: October 24, 6:54-7:01 p.m.
 
 Prioritize these concrete examples in the current chart/source repair. Earlier
 release checks do not establish that these newly reported cases are fixed.
@@ -423,3 +423,16 @@ do not restore the rejected button merely to satisfy an old regression test.
   a broader substitute as the missing series. Exercise both directions and
   repeated dropdown switches in final live checks. Coordinate chart behavior
   with `chart-repair` and historical student recovery with `history-recovery`.
+- [ ] **UI-14: Consolidate the redundant Language degree chart.** The user
+  identifies the graph in `Screenshot 2026-10-24 at 7.01.19 PM.png` as
+  superfluous to the existing bachelor's-degree language-learning view.
+  Its 2018/19 tooltip shows Chinese **431**, Japanese **569** and Korean
+  **61** awards; these match `ipeds:bachelors` and its Japanese/Korean
+  counterparts. Identify the overlapping or mislabeled selector/panel and
+  remove or consolidate the redundant presentation, retaining one clear,
+  correctly titled bachelor's-degree comparison. Do not delete the underlying
+  observations or accidentally merge genuinely distinct graduate-degree,
+  course-enrollment or school-availability measures.
+  Preserve complete CSV/JSON downloads and correct academic periods, units and
+  tooltips. Verify the surviving view and absence of redundant options on
+  desktop/phone and the deployed site before checking this off.
