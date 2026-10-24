@@ -1,4 +1,6 @@
 from copy import deepcopy
+import json
+from pathlib import Path
 
 import pytest
 
@@ -109,3 +111,17 @@ def test_conflicting_or_missing_independent_evidence_stops_the_merge(fault):
         prior.pop()
     with pytest.raises(ValueError):
         mainland_history(SourceClient(), prior)
+
+
+def test_frozen_mainland_history_includes_earlier_reporting_years_and_the_missing_2017_count():
+    root = Path(__file__).resolve().parents[1]
+    history = {r["year"]: r for r in json.loads((root / "data/site/observations.json").read_text())
+               if r["series_id"] == "moe:USA:CHN:enrolled_students"}
+    assert set(history) == set(range(2000, 2019))
+    assert {year: history[year]["value"] for year in range(2000, 2006)} == {
+        2000: 4280, 2001: 5413, 2002: 7359, 2003: 3693, 2004: 8480, 2005: 10343}
+    assert history[2017]["value"] == 23911 and history[2017]["source_url"] == UNIVERSITY_2017
+    assert history[2016]["value"] == 23838 and history[2018]["value"] == 20996
+    assert all(r["period_basis"] == "reporting" and r["period_start"] is None
+               and r["period_end"] is None for r in history.values())
+    assert not eligible(history.values())

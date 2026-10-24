@@ -185,7 +185,7 @@ def test_frozen_backfills_have_full_inbound_histories_without_accessing_restrict
         assert all(r["period_basis"] == "academic" for r in selected)
     assert SOURCE_POLICIES["iie"]["automatic_retrieval"] is False
     moe = [r for r in rows if r["source_id"] == "moe"]
-    assert {r["year"] for r in moe} == set(range(2006, 2017)) | {2018}
+    assert set(range(2006, 2017)) | {2018} <= {r["year"] for r in moe}
     assert all(r["period_basis"] == "reporting" and r["period_start"] is None and r["period_end"] is None
                and "degree and non-degree" in r["definition"] for r in moe)
     hk = {r["year"]: r for r in rows if r["source_id"] == "hktb"}

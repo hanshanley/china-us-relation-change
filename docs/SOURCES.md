@@ -21,6 +21,39 @@ and Taiwan separately, from 2000 where verified. Missing coverage is not zero.
 | Taiwan arrivals | [Government open-data catalog](https://data.gov.tw/dataset/45512), [official CSV](https://stat.taiwan.net.tw/data/opendata/6) | Public annual purpose-by-residence CSV starts 2012. U.S. residence rows provide total arrivals and a separate declared-sightseeing series. The interactive API rejected requests; the explicitly public CSV is accessible without bypassing that restriction. |
 | Mainland arrivals/enrollment | [NBS](https://www.stats.gov.cn/english/), [MOE](https://en.moe.gov.cn/) | Verify the bilateral breakdown for each publication; national totals do not establish U.S.-specific counts. |
 
+## Historical U.S. students in mainland China
+
+`scripts/build_mainland_history.py` reviews two checksum-pinned scholarly
+republications of the MOE reporting population. It writes a private candidate
+by default; `--apply` merges reviewed observations into the canonical data,
+preserving existing values and provenance. It does not fetch IIE resources.
+
+[Tian and Liu's original article](https://doi.org/10.1007/s10734-020-00522-5),
+Table 3, supplies the six missing 2000-2005 U.S.-origin counts. The article is
+read through the public Europe PMC XML service. All ten 2006-2015 overlaps
+reconcile with the independently retained MOE history. The article's conflicting
+2016 count and mislabelled later periods are excluded, not silently corrected.
+Only the selected numerical facts are published, not the article or its artwork;
+its repository access statement is not asserted to grant perpetual reuse rights.
+
+The exact **2017 count, 23,911**, is separately and explicitly dated in
+[Liu Xianjun's retrospective account hosted by Xi'an University](https://fzgh.xawl.edu.cn/info/1130/1873.htm),
+attributed to the China Association of Higher Education. This is a scholarly
+republication, not a newly retrieved original ministry table. The selected count
+is annual reporting-year degree/non-degree participation, not an academic-credit
+study-abroad count, departures, or the number physically present on one date.
+No precise within-year boundaries are invented.
+
+These recoveries make the historical series continuous for 2000-2018. They do
+not supply a comparable annual U.S.-specific post-2018 series or qualify this
+old history for the current public charts. Dated embassy statements, degree-only
+statistics and short-program participation remain distinct measures.
+
+The [original authors' 2025 mobility review](https://peidongyang.com/wp-content/uploads/2025/10/chpt7_student-mobility-to-china_an-overview_yang-lu-yin-2025.pdf)
+was also checked. Its newer 2022/2023 national aggregates do not supply an annual
+U.S.-nationality breakdown. Neither those totals nor the chapter's publication
+date extend the bilateral all-program series.
+
 ## Confucius-program counts
 
 These indicators live in their own `confucius_programs.json` dataset and public

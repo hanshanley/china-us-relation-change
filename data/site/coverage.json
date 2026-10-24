@@ -260,6 +260,12 @@
   },
   {
     "available_years": [
+      2000,
+      2001,
+      2002,
+      2003,
+      2004,
+      2005,
       2006,
       2007,
       2008,
@@ -271,14 +277,15 @@
       2014,
       2015,
       2016,
+      2017,
       2018
     ],
     "baseline_2020": false,
     "destination": "CHN",
-    "first_year": 2006,
+    "first_year": 2000,
     "last_year": 2018,
     "measure": "enrolled_students",
-    "observations": 12,
+    "observations": 19,
     "origin": "USA",
     "reason": "",
     "source_ids": [
