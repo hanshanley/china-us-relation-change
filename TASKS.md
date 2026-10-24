@@ -113,6 +113,13 @@ government republications and compatible source tables.
   Component `354a39b` and `scripts/build_mainland_history.py` preserve every
   prior observation. This item remains open for a compatible post-2018 annual
   series; historical recovery does not restore a stale public chart.
+  Source/data checkpoint **`e7fb536`** is pushed and read back byte-for-byte
+  from GitHub: seven additions preserve all 2,756 prior records, giving 2,763
+  complete observations. **334 frozen-source tests passed**, the public build
+  and complete JSON/CSV checks succeeded, and a repeated collector run is a
+  byte-for-byte no-op. The public freshness check found zero stale plots.
+  Website publication awaits the combined release owner; this source checkpoint
+  is not claimed as deployed or as a recovered 2019-2026 annual series.
 - [ ] **DATA-03: Longer U.S.-host enrollment histories.** Extend enrolled-only
   counts before 2019 and Macau students + OPT before 2015 where verified.
   Do not replace enrolled-only counts with totals that include OPT.
