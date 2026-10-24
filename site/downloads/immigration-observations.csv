@@ -818,6 +818,51 @@ annual,,,ohss_birth:MAC,,"Includes arrivals and adjustments of status; not natio
   }
 ]
 ",ohss_birth_2024,Table 3; country of birth; fiscal years 2015-2024,U.S. Department of Homeland Security / OHSS,2024 Yearbook of Immigration Statistics,rounded,status grants,80,2024
+annual,,,ohss_nationality:adjustments,,Different population from the birthplace history. Not a visa issuance count.,,2020-09-30,2019-10-01,Adjustments within the U.S.,permanent_resident_grants,Fiscal year ending September 30. Exact count from this source vintage.,,,fiscal ending year,"DHS China, People's Republic nationality category; U.S. permanent-resident grants",ohss_nationality:adjustments,"[
+  {
+    ""request_url"": ""https://ohss.dhs.gov/sites/default/files/2023-12/fy_2020_q4_d_final_v2.pdf.xlsx"",
+    ""retrieved_at"": ""2026-10-24T22:07:03+00:00"",
+    ""sha256"": ""2bf268594b1ba64c63ed67c795a2a5f4677c4b5d6286a0f6dfdbf6bbf31d41a3"",
+    ""url"": ""https://ohss.dhs.gov/sites/default/files/2023-12/fy_2020_q4_d_final_v2.pdf.xlsx""
+  }
+]
+",ohss_nationality_2020,"Table 1A; China, People's Republic; full-fiscal-year totals for all grants, adjustments and new arrivals.",U.S. Department of Homeland Security / OHSS,"Legal Immigration and Adjustment of Status Report, FY2020 Q4",observed,status grants,29023,2020
+annual,,,ohss_nationality:adjustments,,Different population from the birthplace history. Not a visa issuance count.,,2021-09-30,2020-10-01,Adjustments within the U.S.,permanent_resident_grants,Fiscal year ending September 30. Exact count from this source vintage.,,,fiscal ending year,"DHS China, People's Republic nationality category; U.S. permanent-resident grants",ohss_nationality:adjustments,"[
+  {
+    ""request_url"": ""https://ohss.dhs.gov/sites/default/files/2023-12/22_0323_plcy_legal_immigration_and_adjustment_of_status_report_fy2021_q4_final_d_version.xlsx"",
+    ""retrieved_at"": ""2026-10-24T22:10:14+00:00"",
+    ""sha256"": ""c88fbba84d01f69e9f53ca111cb943ed5bc1784e7a3ec3803df24b1d60cc0048"",
+    ""url"": ""https://ohss.dhs.gov/sites/default/files/2023-12/22_0323_plcy_legal_immigration_and_adjustment_of_status_report_fy2021_q4_final_d_version.xlsx""
+  }
+]
+",ohss_nationality_2021,"Table 1A; China, People's Republic; full-fiscal-year totals for all grants, adjustments and new arrivals.",U.S. Department of Homeland Security / OHSS,"Legal Immigration and Adjustment of Status Report, FY2021 Q4",observed,status grants,38412,2021
+annual,,,ohss_nationality:adjustments,,Different population from the birthplace history. Not a visa issuance count.,,2022-09-30,2021-10-01,Adjustments within the U.S.,permanent_resident_grants,Fiscal year ending September 30. Exact count from this source vintage.,,,fiscal ending year,"DHS China, People's Republic nationality category; U.S. permanent-resident grants",ohss_nationality:adjustments,"[
+  {
+    ""request_url"": ""https://ohss.dhs.gov/sites/default/files/2023-12/2023_0308_plcy_legal_immigration_adjustment_of_status_report_fy_2022q4_final_d_0.xlsx"",
+    ""retrieved_at"": ""2026-10-24T22:10:15+00:00"",
+    ""sha256"": ""53afe8c09addaab829136472855b268d1e17e10a2d7709e45b5baf75485e2c2e"",
+    ""url"": ""https://ohss.dhs.gov/sites/default/files/2023-12/2023_0308_plcy_legal_immigration_adjustment_of_status_report_fy_2022q4_final_d_0.xlsx""
+  }
+]
+",ohss_nationality_2022,"Table 1A; China, People's Republic; full-fiscal-year totals for all grants, adjustments and new arrivals.",U.S. Department of Homeland Security / OHSS,"Legal Immigration and Adjustment of Status Report, FY2022 Q4",observed,status grants,42985,2022
+annual,,,ohss_nationality:adjustments,,Different population from the birthplace history. Not a visa issuance count.,,2023-09-30,2022-10-01,Adjustments within the U.S.,permanent_resident_grants,Fiscal year ending September 30. Rounded to nearest ten.,,,fiscal ending year,"DHS China, People's Republic nationality category; U.S. permanent-resident grants",ohss_nationality:adjustments,"[
+  {
+    ""request_url"": ""https://ohss.dhs.gov/sites/default/files/2024-06/2024_0507_ohss_legal-immigration-adjustment-of-status-fy-2023q4.xlsx"",
+    ""retrieved_at"": ""2026-10-24T22:10:15+00:00"",
+    ""sha256"": ""5748f20d8dfc43c2a516a6d6425176bd7a74626fc94e6e741f50a102f786b656"",
+    ""url"": ""https://ohss.dhs.gov/sites/default/files/2024-06/2024_0507_ohss_legal-immigration-adjustment-of-status-fy-2023q4.xlsx""
+  }
+]
+",ohss_nationality_2023,"Table 1A; China, People's Republic; full-fiscal-year totals for all grants, adjustments and new arrivals.",U.S. Department of Homeland Security / OHSS,"Legal Immigration and Adjustment of Status Report, FY2023 Q4",rounded,status grants,36940,2023
+annual,,,ohss_nationality:adjustments,,Different population from the birthplace history. Not a visa issuance count.,,2024-09-30,2023-10-01,Adjustments within the U.S.,permanent_resident_grants,Fiscal year ending September 30. Rounded to nearest ten.,,,fiscal ending year,"DHS China, People's Republic nationality category; U.S. permanent-resident grants",ohss_nationality:adjustments,"[
+  {
+    ""request_url"": ""https://ohss.dhs.gov/sites/default/files/2025-06/2025_0624_ohss_legal-immigration-adjustment-of-status-fy-2024q4_0.xlsx"",
+    ""retrieved_at"": ""2026-10-24T22:10:16+00:00"",
+    ""sha256"": ""01f223391d8d6be67104aa34316a22492e1f17fb7005e2852a4a6c48ace6c295"",
+    ""url"": ""https://ohss.dhs.gov/sites/default/files/2025-06/2025_0624_ohss_legal-immigration-adjustment-of-status-fy-2024q4_0.xlsx""
+  }
+]
+",ohss_nationality_2024,"Table 1A; China, People's Republic; full-fiscal-year totals for all grants, adjustments and new arrivals.",U.S. Department of Homeland Security / OHSS,"Legal Immigration and Adjustment of Status Report, FY2024 Q4",rounded,status grants,46530,2024
 annual,,,ohss_nationality:adjustments,,Different population from the birthplace history. Not a visa issuance count.,,2025-09-30,2024-10-01,Adjustments within the U.S.,permanent_resident_grants,"Fiscal year October 1, 2024–September 30, 2025; rounded to nearest ten.",,,fiscal ending year,"DHS China, People's Republic nationality category; U.S. permanent-resident grants",ohss_nationality:adjustments,"[
   {
     ""request_url"": ""https://ohss.dhs.gov/system/files/2026-06/2026_0604_ohss_legal-immigration-adjustment-of-status-fy-2025q4.xlsx"",
@@ -827,6 +872,51 @@ annual,,,ohss_nationality:adjustments,,Different population from the birthplace 
   }
 ]
 ",ohss_nationality_2025,"Table 1A; China, People's Republic; annual Total columns 2, 7 and 12",U.S. Department of Homeland Security / OHSS,"Legal Immigration and Adjustment of Status Report, FY2025 Q4",rounded,status grants,38650,2025
+annual,,,ohss_nationality:new_arrivals,,Different population from the birthplace history. Not a visa issuance count.,,2020-09-30,2019-10-01,New arrivals,permanent_resident_grants,Fiscal year ending September 30. Exact count from this source vintage.,,,fiscal ending year,"DHS China, People's Republic nationality category; U.S. permanent-resident grants",ohss_nationality:new_arrivals,"[
+  {
+    ""request_url"": ""https://ohss.dhs.gov/sites/default/files/2023-12/fy_2020_q4_d_final_v2.pdf.xlsx"",
+    ""retrieved_at"": ""2026-10-24T22:07:03+00:00"",
+    ""sha256"": ""2bf268594b1ba64c63ed67c795a2a5f4677c4b5d6286a0f6dfdbf6bbf31d41a3"",
+    ""url"": ""https://ohss.dhs.gov/sites/default/files/2023-12/fy_2020_q4_d_final_v2.pdf.xlsx""
+  }
+]
+",ohss_nationality_2020,"Table 1A; China, People's Republic; full-fiscal-year totals for all grants, adjustments and new arrivals.",U.S. Department of Homeland Security / OHSS,"Legal Immigration and Adjustment of Status Report, FY2020 Q4",observed,status grants,12726,2020
+annual,,,ohss_nationality:new_arrivals,,Different population from the birthplace history. Not a visa issuance count.,,2021-09-30,2020-10-01,New arrivals,permanent_resident_grants,Fiscal year ending September 30. Exact count from this source vintage.,,,fiscal ending year,"DHS China, People's Republic nationality category; U.S. permanent-resident grants",ohss_nationality:new_arrivals,"[
+  {
+    ""request_url"": ""https://ohss.dhs.gov/sites/default/files/2023-12/22_0323_plcy_legal_immigration_and_adjustment_of_status_report_fy2021_q4_final_d_version.xlsx"",
+    ""retrieved_at"": ""2026-10-24T22:10:14+00:00"",
+    ""sha256"": ""c88fbba84d01f69e9f53ca111cb943ed5bc1784e7a3ec3803df24b1d60cc0048"",
+    ""url"": ""https://ohss.dhs.gov/sites/default/files/2023-12/22_0323_plcy_legal_immigration_and_adjustment_of_status_report_fy2021_q4_final_d_version.xlsx""
+  }
+]
+",ohss_nationality_2021,"Table 1A; China, People's Republic; full-fiscal-year totals for all grants, adjustments and new arrivals.",U.S. Department of Homeland Security / OHSS,"Legal Immigration and Adjustment of Status Report, FY2021 Q4",observed,status grants,11278,2021
+annual,,,ohss_nationality:new_arrivals,,Different population from the birthplace history. Not a visa issuance count.,,2022-09-30,2021-10-01,New arrivals,permanent_resident_grants,Fiscal year ending September 30. Exact count from this source vintage.,,,fiscal ending year,"DHS China, People's Republic nationality category; U.S. permanent-resident grants",ohss_nationality:new_arrivals,"[
+  {
+    ""request_url"": ""https://ohss.dhs.gov/sites/default/files/2023-12/2023_0308_plcy_legal_immigration_adjustment_of_status_report_fy_2022q4_final_d_0.xlsx"",
+    ""retrieved_at"": ""2026-10-24T22:10:15+00:00"",
+    ""sha256"": ""53afe8c09addaab829136472855b268d1e17e10a2d7709e45b5baf75485e2c2e"",
+    ""url"": ""https://ohss.dhs.gov/sites/default/files/2023-12/2023_0308_plcy_legal_immigration_adjustment_of_status_report_fy_2022q4_final_d_0.xlsx""
+  }
+]
+",ohss_nationality_2022,"Table 1A; China, People's Republic; full-fiscal-year totals for all grants, adjustments and new arrivals.",U.S. Department of Homeland Security / OHSS,"Legal Immigration and Adjustment of Status Report, FY2022 Q4",observed,status grants,25115,2022
+annual,,,ohss_nationality:new_arrivals,,Different population from the birthplace history. Not a visa issuance count.,,2023-09-30,2022-10-01,New arrivals,permanent_resident_grants,Fiscal year ending September 30. Rounded to nearest ten.,,,fiscal ending year,"DHS China, People's Republic nationality category; U.S. permanent-resident grants",ohss_nationality:new_arrivals,"[
+  {
+    ""request_url"": ""https://ohss.dhs.gov/sites/default/files/2024-06/2024_0507_ohss_legal-immigration-adjustment-of-status-fy-2023q4.xlsx"",
+    ""retrieved_at"": ""2026-10-24T22:10:15+00:00"",
+    ""sha256"": ""5748f20d8dfc43c2a516a6d6425176bd7a74626fc94e6e741f50a102f786b656"",
+    ""url"": ""https://ohss.dhs.gov/sites/default/files/2024-06/2024_0507_ohss_legal-immigration-adjustment-of-status-fy-2023q4.xlsx""
+  }
+]
+",ohss_nationality_2023,"Table 1A; China, People's Republic; full-fiscal-year totals for all grants, adjustments and new arrivals.",U.S. Department of Homeland Security / OHSS,"Legal Immigration and Adjustment of Status Report, FY2023 Q4",rounded,status grants,21890,2023
+annual,,,ohss_nationality:new_arrivals,,Different population from the birthplace history. Not a visa issuance count.,,2024-09-30,2023-10-01,New arrivals,permanent_resident_grants,Fiscal year ending September 30. Rounded to nearest ten.,,,fiscal ending year,"DHS China, People's Republic nationality category; U.S. permanent-resident grants",ohss_nationality:new_arrivals,"[
+  {
+    ""request_url"": ""https://ohss.dhs.gov/sites/default/files/2025-06/2025_0624_ohss_legal-immigration-adjustment-of-status-fy-2024q4_0.xlsx"",
+    ""retrieved_at"": ""2026-10-24T22:10:16+00:00"",
+    ""sha256"": ""01f223391d8d6be67104aa34316a22492e1f17fb7005e2852a4a6c48ace6c295"",
+    ""url"": ""https://ohss.dhs.gov/sites/default/files/2025-06/2025_0624_ohss_legal-immigration-adjustment-of-status-fy-2024q4_0.xlsx""
+  }
+]
+",ohss_nationality_2024,"Table 1A; China, People's Republic; full-fiscal-year totals for all grants, adjustments and new arrivals.",U.S. Department of Homeland Security / OHSS,"Legal Immigration and Adjustment of Status Report, FY2024 Q4",rounded,status grants,23570,2024
 annual,,,ohss_nationality:new_arrivals,,Different population from the birthplace history. Not a visa issuance count.,,2025-09-30,2024-10-01,New arrivals,permanent_resident_grants,"Fiscal year October 1, 2024–September 30, 2025; rounded to nearest ten.",,,fiscal ending year,"DHS China, People's Republic nationality category; U.S. permanent-resident grants",ohss_nationality:new_arrivals,"[
   {
     ""request_url"": ""https://ohss.dhs.gov/system/files/2026-06/2026_0604_ohss_legal-immigration-adjustment-of-status-fy-2025q4.xlsx"",
@@ -836,6 +926,51 @@ annual,,,ohss_nationality:new_arrivals,,Different population from the birthplace
   }
 ]
 ",ohss_nationality_2025,"Table 1A; China, People's Republic; annual Total columns 2, 7 and 12",U.S. Department of Homeland Security / OHSS,"Legal Immigration and Adjustment of Status Report, FY2025 Q4",rounded,status grants,27020,2025
+annual,,,ohss_nationality:total,,Different population from the birthplace history. Not a visa issuance count.,,2020-09-30,2019-10-01,Total grants,permanent_resident_grants,Fiscal year ending September 30. Exact count from this source vintage.,,,fiscal ending year,"DHS China, People's Republic nationality category; U.S. permanent-resident grants",ohss_nationality:total,"[
+  {
+    ""request_url"": ""https://ohss.dhs.gov/sites/default/files/2023-12/fy_2020_q4_d_final_v2.pdf.xlsx"",
+    ""retrieved_at"": ""2026-10-24T22:07:03+00:00"",
+    ""sha256"": ""2bf268594b1ba64c63ed67c795a2a5f4677c4b5d6286a0f6dfdbf6bbf31d41a3"",
+    ""url"": ""https://ohss.dhs.gov/sites/default/files/2023-12/fy_2020_q4_d_final_v2.pdf.xlsx""
+  }
+]
+",ohss_nationality_2020,"Table 1A; China, People's Republic; full-fiscal-year totals for all grants, adjustments and new arrivals.",U.S. Department of Homeland Security / OHSS,"Legal Immigration and Adjustment of Status Report, FY2020 Q4",observed,status grants,41749,2020
+annual,,,ohss_nationality:total,,Different population from the birthplace history. Not a visa issuance count.,,2021-09-30,2020-10-01,Total grants,permanent_resident_grants,Fiscal year ending September 30. Exact count from this source vintage.,,,fiscal ending year,"DHS China, People's Republic nationality category; U.S. permanent-resident grants",ohss_nationality:total,"[
+  {
+    ""request_url"": ""https://ohss.dhs.gov/sites/default/files/2023-12/22_0323_plcy_legal_immigration_and_adjustment_of_status_report_fy2021_q4_final_d_version.xlsx"",
+    ""retrieved_at"": ""2026-10-24T22:10:14+00:00"",
+    ""sha256"": ""c88fbba84d01f69e9f53ca111cb943ed5bc1784e7a3ec3803df24b1d60cc0048"",
+    ""url"": ""https://ohss.dhs.gov/sites/default/files/2023-12/22_0323_plcy_legal_immigration_and_adjustment_of_status_report_fy2021_q4_final_d_version.xlsx""
+  }
+]
+",ohss_nationality_2021,"Table 1A; China, People's Republic; full-fiscal-year totals for all grants, adjustments and new arrivals.",U.S. Department of Homeland Security / OHSS,"Legal Immigration and Adjustment of Status Report, FY2021 Q4",observed,status grants,49690,2021
+annual,,,ohss_nationality:total,,Different population from the birthplace history. Not a visa issuance count.,,2022-09-30,2021-10-01,Total grants,permanent_resident_grants,Fiscal year ending September 30. Exact count from this source vintage.,,,fiscal ending year,"DHS China, People's Republic nationality category; U.S. permanent-resident grants",ohss_nationality:total,"[
+  {
+    ""request_url"": ""https://ohss.dhs.gov/sites/default/files/2023-12/2023_0308_plcy_legal_immigration_adjustment_of_status_report_fy_2022q4_final_d_0.xlsx"",
+    ""retrieved_at"": ""2026-10-24T22:10:15+00:00"",
+    ""sha256"": ""53afe8c09addaab829136472855b268d1e17e10a2d7709e45b5baf75485e2c2e"",
+    ""url"": ""https://ohss.dhs.gov/sites/default/files/2023-12/2023_0308_plcy_legal_immigration_adjustment_of_status_report_fy_2022q4_final_d_0.xlsx""
+  }
+]
+",ohss_nationality_2022,"Table 1A; China, People's Republic; full-fiscal-year totals for all grants, adjustments and new arrivals.",U.S. Department of Homeland Security / OHSS,"Legal Immigration and Adjustment of Status Report, FY2022 Q4",observed,status grants,68100,2022
+annual,,,ohss_nationality:total,,Different population from the birthplace history. Not a visa issuance count.,,2023-09-30,2022-10-01,Total grants,permanent_resident_grants,Fiscal year ending September 30. Rounded to nearest ten.,,,fiscal ending year,"DHS China, People's Republic nationality category; U.S. permanent-resident grants",ohss_nationality:total,"[
+  {
+    ""request_url"": ""https://ohss.dhs.gov/sites/default/files/2024-06/2024_0507_ohss_legal-immigration-adjustment-of-status-fy-2023q4.xlsx"",
+    ""retrieved_at"": ""2026-10-24T22:10:15+00:00"",
+    ""sha256"": ""5748f20d8dfc43c2a516a6d6425176bd7a74626fc94e6e741f50a102f786b656"",
+    ""url"": ""https://ohss.dhs.gov/sites/default/files/2024-06/2024_0507_ohss_legal-immigration-adjustment-of-status-fy-2023q4.xlsx""
+  }
+]
+",ohss_nationality_2023,"Table 1A; China, People's Republic; full-fiscal-year totals for all grants, adjustments and new arrivals.",U.S. Department of Homeland Security / OHSS,"Legal Immigration and Adjustment of Status Report, FY2023 Q4",rounded,status grants,58820,2023
+annual,,,ohss_nationality:total,,Different population from the birthplace history. Not a visa issuance count.,,2024-09-30,2023-10-01,Total grants,permanent_resident_grants,Fiscal year ending September 30. Rounded to nearest ten.,,,fiscal ending year,"DHS China, People's Republic nationality category; U.S. permanent-resident grants",ohss_nationality:total,"[
+  {
+    ""request_url"": ""https://ohss.dhs.gov/sites/default/files/2025-06/2025_0624_ohss_legal-immigration-adjustment-of-status-fy-2024q4_0.xlsx"",
+    ""retrieved_at"": ""2026-10-24T22:10:16+00:00"",
+    ""sha256"": ""01f223391d8d6be67104aa34316a22492e1f17fb7005e2852a4a6c48ace6c295"",
+    ""url"": ""https://ohss.dhs.gov/sites/default/files/2025-06/2025_0624_ohss_legal-immigration-adjustment-of-status-fy-2024q4_0.xlsx""
+  }
+]
+",ohss_nationality_2024,"Table 1A; China, People's Republic; full-fiscal-year totals for all grants, adjustments and new arrivals.",U.S. Department of Homeland Security / OHSS,"Legal Immigration and Adjustment of Status Report, FY2024 Q4",rounded,status grants,70090,2024
 annual,,,ohss_nationality:total,,Different population from the birthplace history. Not a visa issuance count.,,2025-09-30,2024-10-01,Total grants,permanent_resident_grants,"Fiscal year October 1, 2024–September 30, 2025; rounded to nearest ten.",,,fiscal ending year,"DHS China, People's Republic nationality category; U.S. permanent-resident grants",ohss_nationality:total,"[
   {
     ""request_url"": ""https://ohss.dhs.gov/system/files/2026-06/2026_0604_ohss_legal-immigration-adjustment-of-status-fy-2025q4.xlsx"",

@@ -95,8 +95,10 @@ class Audit:
         self.fonts = {}
         self.hover_checks = 0
         self.exchange = json.loads((site / "downloads/observations.json").read_text())
+        payload = json.loads(BeautifulSoup((site / "index.html").read_text(), "html.parser").select_one("#exchange-data").string)
+        visible = set(payload.get("visible_series", {r["series_id"] for r in self.exchange}))
         preferred = json.loads((site / "downloads/exchange.json").read_text()).get("primary_series", {})
-        self.primary_exchange = [r for r in self.exchange if r["series_id"] == preferred.get(
+        self.primary_exchange = [r for r in self.exchange if r["series_id"] in visible and r["series_id"] == preferred.get(
             ":".join((r["origin"], r["destination"], r["measure"])), r["series_id"])]
         self.weibo = json.loads((site / "downloads/weibo-summary.json").read_text())
         self.datasets, self.plotted = {}, {}
@@ -214,7 +216,7 @@ class Audit:
                     self.issue(key, "source_points", sid)
                 for i, point in enumerate(points):
                     should_connect = bool(i and self.connected(sid, points[i - 1], point, model.get("frequency")))
-                    if point["connect"] != should_connect:
+                    if not model.get("columns") and point["connect"] != should_connect:
                         self.issue(key, "wrong_source_connection", {"series": sid, "point": point})
         elif page in self.plotted:
             rows = [r for r in self.plotted[page] if r["chart_id"] == chart]
@@ -615,8 +617,7 @@ class Audit:
                           for r in rows]
                 snapshots = len(rows) == 1 or (len(rows) == 2 and sample["source_id"] == "ustr"
                     and len({r["comparability"] for r in rows}) == 2)
-                model = {"kind": "line", "columns": mode == "levels" and not snapshots
-                         and sample["measure"] in {"goods", "services"},
+                model = {"kind": "line", "columns": mode == "levels" and not snapshots,
                          "groups": [{"id": sid, "points": points}]}
                 key = f"exchange:{sid}:{mode}:{width}"
                 geometry = page.locator("#chart .screen-chart").evaluate(LABEL_GEOMETRY)

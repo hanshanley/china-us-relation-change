@@ -86,12 +86,14 @@ def test_charts_break_missing_years_and_definition_changes():
     rows = [row(2018), row(2020), row(2021, "new definition")]
     svg = svg_chart(rows)
     doc = ElementTree.fromstring(svg)
-    paths = [x for x in doc.iter() if x.get("class") == "data-line"]
-    assert paths[0].get("d").count("M") == 3
+    assert not [x for x in doc.iter() if x.get("class") == "data-line"]
+    bars = [x for x in doc.iter() if x.get("class") == "annual-column"]
+    assert [int(x.get("data-year")) for x in bars] == [2018, 2020, 2021]
+    assert "Population-definition breaks: 2021" in "".join(doc.itertext())
     assert "Definitions differ" in svg_chart(rows, indexed=True)
 
 
-@pytest.mark.parametrize("measure", ["goods", "services"])
+@pytest.mark.parametrize("measure", ["goods", "services", "visitors", "air_visitors", "international_students", "enrolled_students", "study_abroad"])
 def test_annual_trade_columns_preserve_calendar_gaps_zero_values_and_index_lines(measure):
     rows = [observation("test", "CHN", "USA", measure, year, value, "Annual trade",
                         status="missing" if value is None else "observed")
@@ -107,7 +109,9 @@ def test_annual_trade_columns_preserve_calendar_gaps_zero_values_and_index_lines
     assert float(bars[0].get("x")) > 115
     assert float(bars[-1].get("x")) + float(bars[-1].get("width")) < 950
     assert not any(n.get("class") == "data-line" for n in doc.iter())
-    indexed = ElementTree.fromstring(svg_chart(rows, indexed=True))
+    indexed_rows = rows + ([observation("test", "CHN", "USA", measure, 2019, 100, "Annual trade")]
+                           if measure == "air_visitors" else [])
+    indexed = ElementTree.fromstring(svg_chart(indexed_rows, indexed=True))
     assert indexed.get("data-plot-style") is None
     assert not any(n.get("class") == "annual-column" for n in indexed.iter())
     assert any(n.get("class") == "data-line" for n in indexed.iter())

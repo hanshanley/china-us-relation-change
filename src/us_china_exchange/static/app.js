@@ -1,7 +1,9 @@
 "use strict";
 (() => {
   const data = JSON.parse(document.getElementById("exchange-data").textContent);
+  const visibleSeries = data.visible_series ? new Set(data.visible_series) : null;
   const plotRows = data.observations.filter(r => {
+    if (visibleSeries && !visibleSeries.has(r.series_id)) return false;
     const preferred = data.primary_series?.[`${r.origin}:${r.destination}:${r.measure}`];
     return !preferred || r.series_id === preferred;
   });
@@ -29,12 +31,16 @@
   function render(event) {
     const geo = $("geography").value;
     const outgoing = $("direction").value === "from_us";
+    const reverse = $("reverse-direction");
+    if (reverse) reverse.textContent = "View " + (outgoing ?
+      `${data.geographies[geo]} \u2192 United States` : `United States \u2192 ${data.geographies[geo]}`);
     const origin = outgoing ? "USA" : geo, destination = outgoing ? geo : "USA";
     const selectionNotes = [];
     if (data.prefer_current_travel && outgoing && geo === "CHN" &&
         $("measure").value === "visitors" && ["geography", "direction"].includes(event?.target.id)) {
       $("measure").value = "air_visitors";
-      selectionNotes.push("Showing current U.S.-resident air-travel estimates. The separate all-mode arrival history ends in 2018 and remains available in the indicator menu.");
+      selectionNotes.push(data.freshness_policy ? "Showing U.S.-resident air-travel estimates." :
+        "Showing current U.S.-resident air-travel estimates. The separate all-mode arrival history ends in 2018 and remains available in the indicator menu.");
     }
     const arrivalOption = $("measure").querySelector('option[value="visitors"]');
     if (arrivalOption) {
@@ -48,6 +54,7 @@
       const selected = $("measure").value;
       for (const option of $("measure").options) {
         option.disabled = !available.has(option.value);
+        if (data.freshness_policy) option.hidden = option.disabled;
       }
       if (!available.has(selected)) {
         const families = [["visitors", "air_visitors", "leisure_visitors"],
@@ -206,5 +213,9 @@
   for (const id of ["geography", "direction", "measure", "chart-mode", "chart-theme"]) {
     $(id).addEventListener("change", render);
   }
+  $("reverse-direction")?.addEventListener("click", () => {
+    $("direction").value = $("direction").value === "from_us" ? "to_us" : "from_us";
+    $("direction").dispatchEvent(new Event("change", {bubbles: true}));
+  });
   render();
 })();

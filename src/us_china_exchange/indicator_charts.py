@@ -5,6 +5,7 @@ import math
 import textwrap
 
 from .theme import CHART_THEMES, FONT, GRID, MUTED, TEXT, axis_label
+from .covid_context import svg_band
 
 
 def svg_indicator_chart(config, groups, theme, description, point_class):
@@ -19,9 +20,11 @@ def svg_indicator_chart(config, groups, theme, description, point_class):
     if maximum <= minimum or any(not minimum <= r["plotted_value"] <= maximum for r in points):
         raise ValueError("Indicator axis limits cannot clip observations")
     bars = config["mode"] == "bars"
+    columns = not bars and config["mode"] == "levels" and sum(bool(g["points"]) for g in groups) == 1
     first = config.get("first_year", min(r["year"] for r in points))
     last = max(first + 1, max(r["year"] for r in points), config.get("last_year", 0))
-    x = lambda year: 115 + (year - first) / (last - first) * 835
+    x = lambda year: 115 + ((year - first + .5) / (last - first + 1) if columns else
+                            (year - first) / (last - first)) * 835
     y = lambda value: 420 - (value - minimum) / (maximum - minimum) * 250
 
     def metadata(group, row):
@@ -38,6 +41,7 @@ def svg_indicator_chart(config, groups, theme, description, point_class):
     parts = [
         '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 600" role="img" '
         f'aria-label="{esc(config["title"])}"'
+        + (' data-plot-style="columns"' if columns else "")
         + (f' data-geographies="{" ".join(config["geographies"])}" data-first-year="{first}" data-last-year="{last}"'
            if config.get("geographies") else "")
         + (f' data-axis-max="{maximum}"' if config.get("bounded") else "")
@@ -49,6 +53,8 @@ def svg_indicator_chart(config, groups, theme, description, point_class):
         f'<text x="115" y="77" font-size="18">{esc(config["subtitle"])}</text>',
         f'<text class="axis-unit" x="115" y="145" font-size="18">{esc(config["unit"])}</text>',
     ]
+    if not bars:
+        parts.append(svg_band(first, last, 115, 950, 170, 420, columns=columns))
     if not bars:
         for i, group in enumerate(groups):
             pos = ([115, 550] if len(groups) <= 2 else [115, 345, 550, 760])[i]
@@ -102,13 +108,20 @@ def svg_indicator_chart(config, groups, theme, description, point_class):
                 connected = same_definition and contiguous
                 path.append(f'{"L" if connected else "M"}{x(r["year"]):.2f},{y(r["plotted_value"]):.2f}')
                 previous = r
-            parts.append(f'<path class="data-line" data-series-id="{esc(group["id"])}" d="{" ".join(path)}" '
-                         f'stroke="{group["color"]}" stroke-width="3" fill="none"/>')
+            if not columns:
+                parts.append(f'<path class="data-line" data-series-id="{esc(group["id"])}" d="{" ".join(path)}" '
+                             f'stroke="{group["color"]}" stroke-width="3" fill="none"/>')
             for r in group["points"]:
+                if columns:
+                    width = min(64, 835 / (last - first + 1) * .72)
+                    parts.append(f'<rect class="annual-column" data-series-id="{esc(group["id"])}" '
+                                 f'data-year="{r["year"]}" data-value="{r["plotted_value"]}" '
+                                 f'x="{x(r["year"]) - width / 2:.2f}" y="{y(r["plotted_value"]):.2f}" '
+                                 f'width="{width:.2f}" height="{420 - y(r["plotted_value"]):.2f}" fill="{group["color"]}"/>')
                 parts.append(f'<circle class="{point_class}" data-series-id="{esc(group["id"])}" '
                              f'data-year="{r["year"]}" data-value="{r["plotted_value"]}" '
                              f'{metadata(group, r)} '
-                             f'cx="{x(r["year"]):.2f}" cy="{y(r["plotted_value"]):.2f}" r="4" fill="{group["color"]}">'
+                             f'cx="{x(r["year"]):.2f}" cy="{y(r["plotted_value"]):.2f}" r="{0 if columns else 4}" fill="{group["color"]}">'
                              f'<title>{esc(group["label"])} {r["year"]}: {r["plotted_value"]:,.4f} {esc(config["unit"])}</title></circle>')
     for i, text in enumerate(textwrap.wrap(config["note"], width=106)):
         parts.append(f'<text class="figure-source" x="115" y="{520 + i * 20}" font-size="14" font-style="italic">{esc(text)}</text>')

@@ -28,8 +28,13 @@ def expected_rows(data, config):
 
 def check_page(page, data, exhaustive=True):
     expect(page.locator("#module-chart")).to_be_visible()
-    assert set(page.locator("#module-chart option").evaluate_all("nodes=>nodes.map(n=>n.value)")) == set(CHARTS)
+    choices = set(page.locator("#module-chart option").evaluate_all("nodes=>nodes.map(n=>n.value)"))
+    expected = set(CHARTS) - {"us-china-earlier-favorability", "china-us-earlier-favorability"}
+    assert choices == expected
     for chart_id, config in CHARTS.items():
+        if chart_id not in choices:
+            assert not page.locator("#" + chart_id).count()
+            continue
         page.select_option("#module-chart", chart_id)
         panel = page.locator("#" + chart_id)
         expect(panel).to_be_visible()
@@ -96,6 +101,8 @@ def check(site, url=None, screenshots=None):
             check_page(page, data)
             if screenshots:
                 for chart_id in CHARTS:
+                    if not page.locator("#" + chart_id).count():
+                        continue
                     page.select_option("#module-chart", chart_id)
                     page.locator("#" + chart_id).screenshot(path=str(screenshots / f"{chart_id}-{width}.png"))
             assert not errors, errors
@@ -121,6 +128,8 @@ def check(site, url=None, screenshots=None):
         page.goto(url)
         expect(page.locator(".module-controls")).to_be_hidden()
         for chart_id in CHARTS:
+            if not page.locator("#" + chart_id).count():
+                continue
             panel = page.locator("#" + chart_id)
             expect(panel).to_be_visible()
             assert panel.locator(".comparison-chart > svg").count() == 1

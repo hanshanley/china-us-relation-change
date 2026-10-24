@@ -20,6 +20,8 @@ from .pipeline import load, write_atomic
 from . import student_estimates
 from .opinion_analysis import CHARTS as OPINION_CHARTS, build_opinions
 from .opinion_sources import validate_opinion_data
+from .public_freshness import annual_series, eligible, public
+from .covid_context import COVID_CONTEXT, svg_band
 from .confucius_analysis import CHARTS as CONFUCIUS_CHARTS, build_confucius
 from .confucius_sources import validate as validate_confucius
 from .state_immigration_sources import validate as validate_state_immigration
@@ -95,6 +97,8 @@ def comparison(result, unit):
 
 
 def svg_chart(rows, indexed=False, theme="themarginoferror"):
+    if public() and not eligible([r for r in rows if r["frequency"] == "annual"]):
+        return '<p class="gap">This series has no observations within the public chart window.</p>'
     background = CHART_THEMES[theme]["background"]
     annual = sorted((r for r in rows if r["frequency"] == "annual"), key=lambda r: r["year"])
     present = [r for r in annual if r["value"] is not None]
@@ -114,9 +118,7 @@ def svg_chart(rows, indexed=False, theme="themarginoferror"):
     snapshot = ((len(present) == 1 and first == end) or
                 (len(present) == 2 and present[0]["source_id"] == "ustr"
                  and len({r["comparability"] for r in present}) == 2))
-    columns = not indexed and not snapshot and (
-        present[0]["measure"] in {"goods", "services"}
-        or present[0]["series_id"] == "iie:CHN:USA:international_students")
+    columns = not indexed and not snapshot
     x = lambda year: 115 + ((year - first + .5) / (end - first + 1) if snapshot or columns
                             else (year - first) / max(1, end - first)) * 835
     y = lambda value: 435 - value / maximum * 285
@@ -143,6 +145,7 @@ def svg_chart(rows, indexed=False, theme="themarginoferror"):
              f'<g font-family="{esc(FONT)}" font-size="20" fill="{MUTED}">',
              f'<text x="115" y="45" font-size="28" font-weight="bold" fill="{TEXT}">{esc(heading)}</text>',
              f'<text x="115" y="80" font-size="22">{esc(direction)}</text>']
+    parts.append(svg_band(first, end, 115, 950, 150, 435, columns=columns or snapshot))
     for value in ticks:
         label = axis_label(value, "" if indexed else unit)
         parts.append(f'<path d="M115 {y(value):.2f}H950" stroke="{GRID}" stroke-opacity="0.6" stroke-width="0.5"/>'
@@ -239,6 +242,8 @@ def regional_series(rows, measure, direction):
         annual = sorted((r for r in rows if r["measure"] == measure and r["frequency"] == "annual"
                          and r["origin"] == origin and r["destination"] == destination),
                         key=lambda r: r["year"])
+        if public() and not eligible(annual):
+            annual = []
         if len({r["series_id"] for r in annual}) > 1:
             raise ValueError("Comparison requires one source series per geography and measure")
         groups[geo] = annual
@@ -252,6 +257,8 @@ def svg_comparison(rows, measure, direction, theme="themarginoferror", logarithm
         raise ValueError("Comparison geographies must be distinct mainland China, Hong Kong or Macau")
     groups = {geo: annual for geo, annual in regional_series(rows, measure, direction).items()
               if geo in geographies}
+    if public():
+        groups = {geo: annual for geo, annual in groups.items() if any(r["value"] is not None for r in annual)}
     present = [r for annual in groups.values() for r in annual if r["value"] is not None]
     if not present:
         return '<p class="gap">No verified annual observations for this measure and direction.</p>'
@@ -265,7 +272,10 @@ def svg_comparison(rows, measure, direction, theme="themarginoferror", logarithm
         if year_range[0] > first or year_range[1] < end:
             raise ValueError("Shared comparison year range cannot clip observations")
         first, end = year_range
-    x = lambda year: 115 + (year - first) / max(1, end - first) * 835
+    columns = not logarithmic and sum(any(r["value"] is not None for r in annual)
+                                     for annual in groups.values()) == 1
+    x = lambda year: 115 + ((year - first + .5) / (end - first + 1) if columns else
+                            (year - first) / max(1, end - first)) * 835
     if logarithmic:
         low = math.floor(math.log10(min(r["value"] for r in plotted)))
         high = max(low + 1, math.ceil(math.log10(max(r["value"] for r in plotted))))
@@ -281,6 +291,8 @@ def svg_comparison(rows, measure, direction, theme="themarginoferror", logarithm
     if split_panel:
         title += " · " + " and ".join(GEOGRAPHIES[geo] for geo in groups)
         metadata = f' data-geographies="{" ".join(groups)}" data-first-year="{first}" data-last-year="{end}"'
+    if columns:
+        metadata += ' data-plot-style="columns"'
     description = ("Separately reported geographies" if split_panel else "Three separate geographies")
     unit = "Nominal USD" if present[0]["unit"] == "USD" else present[0]["unit"].capitalize()
     if logarithmic:
@@ -293,6 +305,7 @@ def svg_comparison(rows, measure, direction, theme="themarginoferror", logarithm
         f'<text x="115" y="40" font-size="28" font-weight="bold" fill="{TEXT}">{esc(MEASURES[measure])}</text>',
         f'<text x="115" y="75" font-size="22">{esc(direction_label)}</text>',
     ]
+    parts.append(svg_band(first, end, 115, 950, 180, 420, columns=columns))
     missing = []
     for i, geo in enumerate(groups):
         color = PARTNER_COLORS[geo]
@@ -327,14 +340,21 @@ def svg_comparison(rows, measure, direction, theme="themarginoferror", logarithm
             path.append(f'{"L" if connected else "M"}{x(row["year"]):.2f},{y(row["value"]):.2f}')
             previous = row
         dash = ' stroke-dasharray="7 4"' if data[0]["source_id"] == "comtrade" else ""
-        parts.append(f'<path class="data-line" data-geography="{geo}" data-series-id="{esc(data[0]["series_id"])}" '
-                     f'd="{" ".join(path)}" fill="none" stroke="{PARTNER_COLORS[geo]}" stroke-width="3.2" stroke-linejoin="round"{dash}/>')
+        if not columns:
+            parts.append(f'<path class="data-line" data-geography="{geo}" data-series-id="{esc(data[0]["series_id"])}" '
+                         f'd="{" ".join(path)}" fill="none" stroke="{PARTNER_COLORS[geo]}" stroke-width="3.2" stroke-linejoin="round"{dash}/>')
         for row in data:
             label = GEOGRAPHIES[geo] + " · " + row["period"] + ": " + number(row["value"], row["unit"])
+            if columns:
+                width = min(64, 835 / (end - first + 1) * .72)
+                parts.append(f'<rect class="annual-column" data-series-id="{esc(row["series_id"])}" '
+                             f'data-year="{row["year"]}" data-value="{row["value"]}" '
+                             f'x="{x(row["year"]) - width / 2:.2f}" y="{y(row["value"]):.2f}" '
+                             f'width="{width:.2f}" height="{420 - y(row["value"]):.2f}" fill="{PARTNER_COLORS[geo]}"/>')
             parts.append(f'<circle data-geography="{geo}" data-series-id="{esc(row["series_id"])}" data-year="{row["year"]}" '
                          f'data-value="{row["value"]}" data-period="{esc(row["period"])}" '
                          f'data-status="{esc(row["status"])}" cx="{x(row["year"]):.2f}" '
-                         f'cy="{y(row["value"]):.2f}" r="3" fill="{PARTNER_COLORS[geo]}"><title>{esc(label)}</title></circle>')
+                         f'cy="{y(row["value"]):.2f}" r="{0 if columns else 3}" fill="{PARTNER_COLORS[geo]}"><title>{esc(label)}</title></circle>')
     note = "Sources: " + "; ".join(SOURCE_NAMES.get(s, s) for s in sorted({r["source_id"] for r in present})) + ". "
     if measure == "goods" and any(r["source_id"] == "comtrade" for r in present):
         note += "Macau dashed: customs exports FOB/imports CIF; others: BEA balance-of-payments. Accounting differs. "
@@ -769,6 +789,8 @@ def build(root):
                     prefix = "-".join(geo.lower() for geo in geographies)
                     panel_label = panel_labels[prefix]
                     paths = versions[scale].get(prefix)
+                    if public() and not paths:
+                        continue
                     content = f'<p class="gap">No verified annual observations for {esc(panel_label)}.</p>'
                     if paths:
                         image = paths["themarginoferror"]["png"]
@@ -911,6 +933,7 @@ def build(root):
             if path.is_file():
                 path.unlink()
     payload = {"observations": rows, "sources": sources, "coverage": matrix,
+               "covid_context": COVID_CONTEXT,
                "primary_series": primary_series(rows),
                "geographies": GEOGRAPHIES, "measures": MEASURES,
                "prefer_current_travel": True,
@@ -918,6 +941,13 @@ def build(root):
                "source_pages": SOURCE_PAGES,
                "source_names": SOURCE_NAMES, "charts": charts, "chart_themes": CHART_THEMES,
                "figures": figure_paths}
+    if public():
+        from .public_freshness import POLICY
+
+        allowed = annual_series(rows)
+        payload["visible_series"] = sorted(allowed)
+        payload["freshness_policy"] = POLICY
+        payload["primary_series"] = primary_series([r for r in rows if r["series_id"] in allowed])
     if student_estimate_data is not None:
         student_estimates.export(root, student_estimate_data)
         payload["student_estimates"] = student_estimate_data

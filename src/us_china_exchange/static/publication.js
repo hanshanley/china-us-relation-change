@@ -253,8 +253,21 @@
         else unitLines[unitLines.length - 1] = candidate;
       }
       margin.top = Math.max(margin.top, 16 + unitLines.length * (font + 4));
+      if (!dated && model.covid_context && first <= 2022 && model.last >= 2020) margin.top += 18;
       content += `<text class="screen-unit" x="${margin.left}" y="${font + 3}" font-size="${font}" fill="#655f55">${unitLines.map((line, i) =>
         `<tspan x="${margin.left}" dy="${i ? font + 4 : 0}">${escape(line)}</tspan>`).join("")}</text>`;
+      if (!dated && model.covid_context && first <= 2022 && model.last >= 2020) {
+        const low = columns || snapshot ? first - .5 : first;
+        const high = columns || snapshot ? model.last + .5 : last;
+        const bandX = year => margin.left + (year - low) / (high - low) * plotWidth;
+        const start = bandX(Math.max(low, 2019.5)), stop = bandX(Math.min(high, 2022.5));
+        const centre = Math.max(margin.left + 70, Math.min(width - margin.right - 70, (start + stop) / 2));
+        content += `<rect class="covid-band" data-start-year="2020" data-end-year="2022"
+          x="${start}" y="${margin.top}" width="${stop - start}" height="${height - margin.bottom - margin.top}"
+          fill="#d6d3cc" fill-opacity=".3" pointer-events="none"></rect>
+          <text class="covid-label" x="${centre}" y="${margin.top - 9}" text-anchor="middle"
+          font-size="${mobile ? 10 : 12}" fill="#6b6b6b">COVID travel restrictions</text>`;
+      }
       const ticks = logarithmic ? Array.from({length: high - low + 1}, (_, i) => 10 ** (low + i)) : axis.ticks;
       for (const value of ticks) {
         const yy = y(value);
@@ -443,6 +456,7 @@
       const preferred = data.primary_series?.[`${origin}:${destination}:${get("measure").value}`];
       const rows = data.observations.filter(r => r.origin === origin && r.destination === destination &&
         r.measure === get("measure").value && r.frequency === "annual" &&
+        (!data.visible_series || data.visible_series.includes(r.series_id)) &&
         (!preferred || r.series_id === preferred)).sort((a, b) => a.year - b.year);
       const present = rows.filter(r => r.value !== null);
       const chart = get("chart");
@@ -466,6 +480,7 @@
         const snapshots = present.length === 2 && present[0].source_id === "ustr" &&
           new Set(present.map(row => row.comparability)).size === 2;
         const model = {kind: "line", title: `${data.measures[get("measure").value]}: ${data.geographies[origin]} to ${data.geographies[destination]}`,
+          covid_context: data.covid_context,
           description: sourceSVG.querySelector("desc")?.textContent || (snapshots ? "Separate annual snapshots; release vintages are not connected or used for growth." :
             "Reported observations only. Missing years and changes in definition break the line. Exact values and complete downloads follow."),
           columns: !indexed && sourceSVG.dataset.plotStyle === "columns",

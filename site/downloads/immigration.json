@@ -5,7 +5,7 @@
     "periods": "U.S. grant series use fiscal years ending September 30. Macau approvals use January-December calendar years. UN resident stocks use 1 July benchmarks. Birthplace, citizenship and source-country categories remain separate.",
     "resident_stocks": "UN stocks refer to 1 July in actual published benchmark years. China destination estimates use foreign citizenship; Hong Kong and U.S. destination estimates use foreign birth. Refugee adjustments are included where flagged R. These are not new immigration or net migration. No annual observations are invented between benchmarks.",
     "rights": "Selected statistical aggregates and original figures only; no source workbooks are redistributed. UN estimates: United Nations DESA, Population Division, International Migrant Stock 2024, adapted under CC BY 3.0 IGO.",
-    "rounding": "FY2015\u20132024 birthplace counts and FY2025 nationality counts are rounded to the nearest ten. Earlier figures use older, exact-count vintages."
+    "rounding": "FY2015-2024 birthplace counts and FY2023-2025 nationality counts are rounded to the nearest ten. Earlier source vintages retain their published exact counts."
   },
   "coverage": [
     {
@@ -14,7 +14,7 @@
       "status": "available"
     },
     {
-      "description": "China nationality category, FY2025 reported annual totals. Hong Kong and Macau are not separately identified in this table.",
+      "description": "China nationality category, FY2020-FY2025 annual permanent-residency grants. New arrivals and adjustments within the U.S. are distinct; not a count by previous residence.",
       "id": "to_us_nationality",
       "status": "available"
     },
@@ -861,6 +861,51 @@
     },
     {
       "comparability": "ohss_nationality:adjustments",
+      "notes": "Fiscal year ending September 30. Exact count from this source vintage.",
+      "series_id": "ohss_nationality:adjustments",
+      "source_id": "ohss_nationality_2020",
+      "status": "observed",
+      "value": 29023,
+      "year": 2020
+    },
+    {
+      "comparability": "ohss_nationality:adjustments",
+      "notes": "Fiscal year ending September 30. Exact count from this source vintage.",
+      "series_id": "ohss_nationality:adjustments",
+      "source_id": "ohss_nationality_2021",
+      "status": "observed",
+      "value": 38412,
+      "year": 2021
+    },
+    {
+      "comparability": "ohss_nationality:adjustments",
+      "notes": "Fiscal year ending September 30. Exact count from this source vintage.",
+      "series_id": "ohss_nationality:adjustments",
+      "source_id": "ohss_nationality_2022",
+      "status": "observed",
+      "value": 42985,
+      "year": 2022
+    },
+    {
+      "comparability": "ohss_nationality:adjustments",
+      "notes": "Fiscal year ending September 30. Rounded to nearest ten.",
+      "series_id": "ohss_nationality:adjustments",
+      "source_id": "ohss_nationality_2023",
+      "status": "rounded",
+      "value": 36940,
+      "year": 2023
+    },
+    {
+      "comparability": "ohss_nationality:adjustments",
+      "notes": "Fiscal year ending September 30. Rounded to nearest ten.",
+      "series_id": "ohss_nationality:adjustments",
+      "source_id": "ohss_nationality_2024",
+      "status": "rounded",
+      "value": 46530,
+      "year": 2024
+    },
+    {
+      "comparability": "ohss_nationality:adjustments",
       "notes": "Fiscal year October 1, 2024\u2013September 30, 2025; rounded to nearest ten.",
       "series_id": "ohss_nationality:adjustments",
       "source_id": "ohss_nationality_2025",
@@ -870,12 +915,102 @@
     },
     {
       "comparability": "ohss_nationality:new_arrivals",
+      "notes": "Fiscal year ending September 30. Exact count from this source vintage.",
+      "series_id": "ohss_nationality:new_arrivals",
+      "source_id": "ohss_nationality_2020",
+      "status": "observed",
+      "value": 12726,
+      "year": 2020
+    },
+    {
+      "comparability": "ohss_nationality:new_arrivals",
+      "notes": "Fiscal year ending September 30. Exact count from this source vintage.",
+      "series_id": "ohss_nationality:new_arrivals",
+      "source_id": "ohss_nationality_2021",
+      "status": "observed",
+      "value": 11278,
+      "year": 2021
+    },
+    {
+      "comparability": "ohss_nationality:new_arrivals",
+      "notes": "Fiscal year ending September 30. Exact count from this source vintage.",
+      "series_id": "ohss_nationality:new_arrivals",
+      "source_id": "ohss_nationality_2022",
+      "status": "observed",
+      "value": 25115,
+      "year": 2022
+    },
+    {
+      "comparability": "ohss_nationality:new_arrivals",
+      "notes": "Fiscal year ending September 30. Rounded to nearest ten.",
+      "series_id": "ohss_nationality:new_arrivals",
+      "source_id": "ohss_nationality_2023",
+      "status": "rounded",
+      "value": 21890,
+      "year": 2023
+    },
+    {
+      "comparability": "ohss_nationality:new_arrivals",
+      "notes": "Fiscal year ending September 30. Rounded to nearest ten.",
+      "series_id": "ohss_nationality:new_arrivals",
+      "source_id": "ohss_nationality_2024",
+      "status": "rounded",
+      "value": 23570,
+      "year": 2024
+    },
+    {
+      "comparability": "ohss_nationality:new_arrivals",
       "notes": "Fiscal year October 1, 2024\u2013September 30, 2025; rounded to nearest ten.",
       "series_id": "ohss_nationality:new_arrivals",
       "source_id": "ohss_nationality_2025",
       "status": "rounded",
       "value": 27020,
       "year": 2025
+    },
+    {
+      "comparability": "ohss_nationality:total",
+      "notes": "Fiscal year ending September 30. Exact count from this source vintage.",
+      "series_id": "ohss_nationality:total",
+      "source_id": "ohss_nationality_2020",
+      "status": "observed",
+      "value": 41749,
+      "year": 2020
+    },
+    {
+      "comparability": "ohss_nationality:total",
+      "notes": "Fiscal year ending September 30. Exact count from this source vintage.",
+      "series_id": "ohss_nationality:total",
+      "source_id": "ohss_nationality_2021",
+      "status": "observed",
+      "value": 49690,
+      "year": 2021
+    },
+    {
+      "comparability": "ohss_nationality:total",
+      "notes": "Fiscal year ending September 30. Exact count from this source vintage.",
+      "series_id": "ohss_nationality:total",
+      "source_id": "ohss_nationality_2022",
+      "status": "observed",
+      "value": 68100,
+      "year": 2022
+    },
+    {
+      "comparability": "ohss_nationality:total",
+      "notes": "Fiscal year ending September 30. Rounded to nearest ten.",
+      "series_id": "ohss_nationality:total",
+      "source_id": "ohss_nationality_2023",
+      "status": "rounded",
+      "value": 58820,
+      "year": 2023
+    },
+    {
+      "comparability": "ohss_nationality:total",
+      "notes": "Fiscal year ending September 30. Rounded to nearest ten.",
+      "series_id": "ohss_nationality:total",
+      "source_id": "ohss_nationality_2024",
+      "status": "rounded",
+      "value": 70090,
+      "year": 2024
     },
     {
       "comparability": "ohss_nationality:total",
@@ -1342,6 +1477,76 @@
       "name": "U.S. Department of Homeland Security / OHSS",
       "notes": "Lawful permanent-resident status grants, including new arrivals and adjustments within the U.S. Published cells rounded to nearest ten.",
       "vintage": "2024 Yearbook of Immigration Statistics"
+    },
+    "ohss_nationality_2020": {
+      "assets": [
+        {
+          "request_url": "https://ohss.dhs.gov/sites/default/files/2023-12/fy_2020_q4_d_final_v2.pdf.xlsx",
+          "retrieved_at": "2026-10-24T22:07:03+00:00",
+          "sha256": "2bf268594b1ba64c63ed67c795a2a5f4677c4b5d6286a0f6dfdbf6bbf31d41a3",
+          "url": "https://ohss.dhs.gov/sites/default/files/2023-12/fy_2020_q4_d_final_v2.pdf.xlsx"
+        }
+      ],
+      "locator": "Table 1A; China, People's Republic; full-fiscal-year totals for all grants, adjustments and new arrivals.",
+      "name": "U.S. Department of Homeland Security / OHSS",
+      "notes": "Country of nationality, not birthplace or previous residence. Exact counts as published in this release. New arrivals enter as permanent residents; adjustments concern people already in the U.S. Total grants include both and are not all physical moves from mainland China.",
+      "vintage": "Legal Immigration and Adjustment of Status Report, FY2020 Q4"
+    },
+    "ohss_nationality_2021": {
+      "assets": [
+        {
+          "request_url": "https://ohss.dhs.gov/sites/default/files/2023-12/22_0323_plcy_legal_immigration_and_adjustment_of_status_report_fy2021_q4_final_d_version.xlsx",
+          "retrieved_at": "2026-10-24T22:10:14+00:00",
+          "sha256": "c88fbba84d01f69e9f53ca111cb943ed5bc1784e7a3ec3803df24b1d60cc0048",
+          "url": "https://ohss.dhs.gov/sites/default/files/2023-12/22_0323_plcy_legal_immigration_and_adjustment_of_status_report_fy2021_q4_final_d_version.xlsx"
+        }
+      ],
+      "locator": "Table 1A; China, People's Republic; full-fiscal-year totals for all grants, adjustments and new arrivals.",
+      "name": "U.S. Department of Homeland Security / OHSS",
+      "notes": "Country of nationality, not birthplace or previous residence. Exact counts as published in this release. New arrivals enter as permanent residents; adjustments concern people already in the U.S. Total grants include both and are not all physical moves from mainland China.",
+      "vintage": "Legal Immigration and Adjustment of Status Report, FY2021 Q4"
+    },
+    "ohss_nationality_2022": {
+      "assets": [
+        {
+          "request_url": "https://ohss.dhs.gov/sites/default/files/2023-12/2023_0308_plcy_legal_immigration_adjustment_of_status_report_fy_2022q4_final_d_0.xlsx",
+          "retrieved_at": "2026-10-24T22:10:15+00:00",
+          "sha256": "53afe8c09addaab829136472855b268d1e17e10a2d7709e45b5baf75485e2c2e",
+          "url": "https://ohss.dhs.gov/sites/default/files/2023-12/2023_0308_plcy_legal_immigration_adjustment_of_status_report_fy_2022q4_final_d_0.xlsx"
+        }
+      ],
+      "locator": "Table 1A; China, People's Republic; full-fiscal-year totals for all grants, adjustments and new arrivals.",
+      "name": "U.S. Department of Homeland Security / OHSS",
+      "notes": "Country of nationality, not birthplace or previous residence. Exact counts as published in this release. New arrivals enter as permanent residents; adjustments concern people already in the U.S. Total grants include both and are not all physical moves from mainland China.",
+      "vintage": "Legal Immigration and Adjustment of Status Report, FY2022 Q4"
+    },
+    "ohss_nationality_2023": {
+      "assets": [
+        {
+          "request_url": "https://ohss.dhs.gov/sites/default/files/2024-06/2024_0507_ohss_legal-immigration-adjustment-of-status-fy-2023q4.xlsx",
+          "retrieved_at": "2026-10-24T22:10:15+00:00",
+          "sha256": "5748f20d8dfc43c2a516a6d6425176bd7a74626fc94e6e741f50a102f786b656",
+          "url": "https://ohss.dhs.gov/sites/default/files/2024-06/2024_0507_ohss_legal-immigration-adjustment-of-status-fy-2023q4.xlsx"
+        }
+      ],
+      "locator": "Table 1A; China, People's Republic; full-fiscal-year totals for all grants, adjustments and new arrivals.",
+      "name": "U.S. Department of Homeland Security / OHSS",
+      "notes": "Country of nationality, not birthplace or previous residence. Rounded to nearest ten. New arrivals enter as permanent residents; adjustments concern people already in the U.S. Total grants include both and are not all physical moves from mainland China.",
+      "vintage": "Legal Immigration and Adjustment of Status Report, FY2023 Q4"
+    },
+    "ohss_nationality_2024": {
+      "assets": [
+        {
+          "request_url": "https://ohss.dhs.gov/sites/default/files/2025-06/2025_0624_ohss_legal-immigration-adjustment-of-status-fy-2024q4_0.xlsx",
+          "retrieved_at": "2026-10-24T22:10:16+00:00",
+          "sha256": "01f223391d8d6be67104aa34316a22492e1f17fb7005e2852a4a6c48ace6c295",
+          "url": "https://ohss.dhs.gov/sites/default/files/2025-06/2025_0624_ohss_legal-immigration-adjustment-of-status-fy-2024q4_0.xlsx"
+        }
+      ],
+      "locator": "Table 1A; China, People's Republic; full-fiscal-year totals for all grants, adjustments and new arrivals.",
+      "name": "U.S. Department of Homeland Security / OHSS",
+      "notes": "Country of nationality, not birthplace or previous residence. Rounded to nearest ten. New arrivals enter as permanent residents; adjustments concern people already in the U.S. Total grants include both and are not all physical moves from mainland China.",
+      "vintage": "Legal Immigration and Adjustment of Status Report, FY2024 Q4"
     },
     "ohss_nationality_2025": {
       "assets": [

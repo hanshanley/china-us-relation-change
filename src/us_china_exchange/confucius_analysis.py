@@ -11,6 +11,7 @@ from pathlib import Path
 from .confucius_sources import SERIES, reference_date, reported, validate
 from .model import json_text
 from .pipeline import write_atomic
+from .public_freshness import eligible, public
 from .theme import CHART_THEMES, FONT, GRID, MUTED, PARTNER_COLORS, TEXT, linear_axis
 
 
@@ -70,6 +71,8 @@ def period_label(reference):
 
 def chart_rows(data, chart_id):
     rows = [r for r in data["observations"] if r["series_id"] in CHARTS[chart_id]["series"]]
+    if public():
+        rows = [row for row in rows if eligible([row], snapshot=True)]
     rows.sort(key=lambda r: (reference_date(r["reference"]), r["id"]))
     counts = Counter(reference_date(r["reference"]).year for r in rows)
     seen = Counter()
@@ -111,6 +114,7 @@ def svg_counts(data, chart_id, theme="themarginoferror"):
     parts = [
         f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 600" role="img" '
         f'data-confucius-chart="{chart_id}" data-chart-layout="{config["layout"]}" data-axis-max="{top}" '
+        + ('data-freshness-snapshot-from="2024" ' if public() else "") +
         f'data-first-year="{calendar["first"]}" data-last-year="{calendar["last"]}" aria-label="{esc(config["title"])}" '
         f'style="font-family:{esc(FONT)}">',
         f'<title>{esc(config["title"])}</title><desc>{esc(config["note"])}</desc>',
@@ -221,6 +225,8 @@ def build_confucius(root, data, gallery):
     export_data(root, data)
     figures = {}
     for chart_id, config in CHARTS.items():
+        if not chart_rows(data, chart_id):
+            continue
         paths = {theme: export_figure(root, Path("language_learning") / theme / chart_id,
                                      svg_counts(data, chart_id, theme)) for theme in CHART_THEMES}
         figures[chart_id] = paths
@@ -229,6 +235,8 @@ def build_confucius(root, data, gallery):
         gallery["language_learning"].append(f'<article><h3>{esc(config["title"])}</h3>{figure_links(relative)}</article>')
 
     def graphic(chart_id):
+        if chart_id not in figures:
+            return ""
         points = chart_rows(data, chart_id)
         maximum, ticks = linear_axis(max((r["value"] if r["value"] is not None else r["bound"] or 0) for r in points))
         model = {"id": chart_id, "rows": points, "maximum": maximum, "ticks": ticks, "note": CHARTS[chart_id]["note"],
@@ -257,6 +265,8 @@ def build_confucius(root, data, gallery):
         cards = []
         for identity, label, detail in definitions[category]:
             row = index[identity]
+            if public() and not eligible([row], snapshot=True):
+                continue
             cards.append(f'<div><p class="label">{label}</p><p class="metric">{esc(reported(row))}</p>'
                          f'<p class="confucius-summary-date">{esc(period_label(row["reference"]))}</p>'
                          f'<p class="confucius-summary-note">{esc(detail)}</p></div>')
@@ -269,6 +279,8 @@ def build_confucius(root, data, gallery):
              "Historical national reports are shown here. NAS documented 164 school or school-system cases in July 2024, including former programs; that is not 164 active classrooms. The current operating total is unknown."),
             ("successors", "Successor & rebranded programs", "confucius-successors",
              "NAS reported 28 institutions with replacement programs in June 2022 and at least 28 in June 2023. These are cumulative documented cases, not a count still operating now. Twelve proposed replacements and 58 retained partnerships in the 2022 report are different, overlapping categories.")):
+        if chart_id not in figures:
+            continue
         category_rows = [r for r in data["observations"] if SERIES[r["series_id"]]["category"] == category]
         extra = ('<details class="confucius-campus"><summary>College and university campuses only</summary>' +
                  graphic("confucius-campus") + '</details>') if category == "institutes" else ""

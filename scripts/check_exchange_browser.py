@@ -99,7 +99,7 @@ def check():
         page.set_viewport_size({"width": 390, "height": 844})
         assert not page.evaluate("document.documentElement.scrollWidth > innerWidth")
         assert page.locator("#chart").evaluate("node => node.scrollWidth > node.clientWidth")
-        assert page.locator("#chart svg text:not(.figure-source)").evaluate_all("""nodes =>
+        assert page.locator("#chart svg text:not(.figure-source):not(.covid-label)").evaluate_all("""nodes =>
           nodes.every(node => parseFloat(getComputedStyle(node).fontSize) *
           node.ownerSVGElement.getBoundingClientRect().width /
           node.ownerSVGElement.viewBox.baseVal.width >= 16)""")
@@ -153,7 +153,7 @@ def check():
         page.goto((ROOT / "site/comparisons.html").as_uri())
         assert page.locator(".series-panel").count() == 18
         images = page.locator('img[src$="-levels.png"]')
-        assert images.count() == 16
+        assert images.count() == 24
         for image in images.all():
             image.scroll_into_view_if_needed()
             expect(image).to_have_js_property("naturalWidth", PNG_WIDTH)
@@ -186,11 +186,9 @@ def check():
         if (ROOT / "site/weibo.html").exists():
             page.goto((ROOT / "site/weibo.html").as_uri())
             summary = json.loads((ROOT / "data/site/weibo_summary.json").read_text())
-            if summary.get("cohort"):
-                expect(page.locator("#coverage-waffle")).to_be_visible()
-                assert page.locator(".coverage-cell").count() == summary["cohort"]["selected_domains"]
-            page.locator("#weibo-directory").evaluate("node=>node.open=true")
-            assert page.locator(".weibo-dot").count() == len(summary["accounts"])
+            expect(page.locator("#weibo-filters")).to_be_hidden()
+            assert page.locator(".weibo-channel-link:visible").count() == len(summary["accounts"])
+            assert page.locator(".weibo-channel-detail:visible").count() == len(summary["accounts"])
             assert not page.evaluate("document.documentElement.scrollWidth > innerWidth")
             page.close()
             page = browser.new_page(viewport={"width": 390, "height": 844})

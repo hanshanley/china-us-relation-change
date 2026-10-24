@@ -45,6 +45,10 @@ def test_birthplace_and_nationality_counts_are_separate_fiscal_populations():
     assert rows[("ohss_nationality:total", 2025)]["value"] == 65670
     assert rows[("ohss_nationality:new_arrivals", 2025)]["value"] == 27020
     assert rows[("ohss_nationality:adjustments", 2025)]["value"] == 38650
+    assert [rows[("ohss_nationality:new_arrivals", year)]["value"] for year in range(2020, 2026)] == [
+        12726, 11278, 25115, 21890, 23570, 27020]
+    assert rows[("ohss_nationality:new_arrivals", 2020)]["status"] == "observed"
+    assert rows[("ohss_nationality:new_arrivals", 2023)]["status"] == "rounded"
     assert ("ohss_birth:CHN", 2025) not in rows
     assert rows[("ohss_birth:CHN", 2024)]["status"] == "rounded"
     data = copy.deepcopy(data)

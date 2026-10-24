@@ -6,6 +6,7 @@ from datetime import datetime
 from urllib.parse import urlsplit
 
 from .indicator_charts import svg_indicator_chart
+from .public_freshness import current_groups, public
 from .theme import PARTNER_COLORS
 
 
@@ -246,13 +247,18 @@ def chart_points(data, chart_id):
                         "period_basis": data["series"][sid]["period_basis"],
                         "unavailable_label": "Not reportable" if selected and all(
                             r["status"] == "suppressed" for r in selected) else "Unavailable"})
-    return grouped
+    return current_groups(grouped)
 
 
 def svg_language_chart(data, chart_id, theme="themarginoferror"):
     config = dict(CHARTS[chart_id])
     groups = chart_points(data, chart_id)
     points = [r for group in groups for r in group["points"]]
+    if public() and chart_id == "school-program-inventories":
+        config.update(title="Mandarin immersion program inventory",
+                      subtitle="Nexus compiled inventory | 2025 snapshot",
+                      note="Nexus compiled inventory including private schools. A program count, not enrolled students. "
+                           "Older inventories used different universes and are retained only in the complete data archive.")
     if any(r["source_id"].startswith("mla") for r in points) and "permission" not in config["note"]:
         config["note"] += " MLA commercial reuse permission unverified."
     return svg_indicator_chart(

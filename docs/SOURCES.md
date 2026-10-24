@@ -175,6 +175,28 @@ field dates, original age bands and question-specific sample bases. Reviewed
 transcription checksums are distinguished from publisher download checksums.
 Only aggregate numerical facts and original visualizations are redistributed.
 
+## COVID travel-restriction annotations
+
+The shaded 2020–2022 interval denotes the main period of pandemic restrictions,
+not a prohibition on all travel. It is calendar context, not an estimate of
+how much any series was affected. Original notices are linked in the public
+`covid-context.json` download:
+
+- U.S. Proclamation 10294 and its Federal Register publication: the country-based
+  entry suspensions were replaced effective November 8, 2021.
+- China MFA/NIA announcement: suspension affecting existing foreign-national
+  visas/residence permits began March 28, 2020, with exceptions and subsequent
+  changes. The December 2022 notice introduced revised measures January 8, 2023.
+- Hong Kong's April 22, 2022 notice identifies the overseas nonresident
+  restriction beginning March 25, 2020 and its relaxation May 1, 2022.
+- Macau DSEC's published statistical footnote identifies March 18, 2020–August
+  31, 2022 restrictions on foreign visitors, excluding specified groups and
+  exemptions; conditional entry followed before January 8, 2023.
+
+Neither chart shading nor publication year makes an older observation current.
+The public recency rule uses the reference/measurement period and preserves all
+historical records in complete archival downloads.
+
 ## Interpretation
 
 Students are stocks or academic-year participation, not departures. UIS degree

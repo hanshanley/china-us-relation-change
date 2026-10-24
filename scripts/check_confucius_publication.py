@@ -33,15 +33,16 @@ def display(row):
     return prefix + f'{row["value"] if row["value"] is not None else row["bound"]:,}'
 
 
-def expected_rows(data, chart_id):
-    return {r["id"]: r for r in data["observations"] if r["series_id"] in SERIES_BY_CHART[chart_id]}
+def expected_rows(data, chart_id, current=False):
+    return {r["id"]: r for r in data["observations"] if r["series_id"] in SERIES_BY_CHART[chart_id]
+            and (not current or 2024 <= int(r["reference"][:4]) <= 2026)}
 
 
 def check_export(path, data):
     soup = BeautifulSoup(path.read_text(), "html.parser")
     svg = soup.svg
     chart_id = svg["data-confucius-chart"]
-    expected = expected_rows(data, chart_id)
+    expected = expected_rows(data, chart_id, current=svg.has_attr("data-freshness-snapshot-from"))
     marks = svg.select(".confucius-mark")
     assert len(marks) == len(expected) and {m["data-observation-id"] for m in marks} == expected.keys()
     maximum = float(svg["data-axis-max"])
@@ -87,6 +88,8 @@ def check_export(path, data):
 
 def check_page(page, data, exhaustive=True):
     for category in ("institutes", "classrooms", "successors"):
+        if not page.locator("#confucius-" + category).count():
+            continue
         if page.locator("#module-chart").count():
             page.select_option("#module-chart", "confucius-" + category)
         panel = page.locator("#confucius-" + category)
@@ -217,8 +220,38 @@ def check(site, url=None, screenshots=None):
         assert row["qualifier"] == original["qualifier"] and row["reference"] == original["reference"]
     for theme in ("substack", "themarginoferror"):
         for chart_id in SERIES_BY_CHART:
-            check_export(site / f"figures/language_learning/{theme}/{chart_id}.svg", data)
+            path = site / f"figures/language_learning/{theme}/{chart_id}.svg"
+            if path.is_file():
+                check_export(path, data)
     url = url or (site.resolve() / "confucius.html").as_uri()
+    current = (site / "publication-manifest.json").is_file() and "chart_freshness" in json.loads(
+        (site / "publication-manifest.json").read_text())
+    if current:
+        with sync_playwright() as playwright:
+            browser = playwright.chromium.launch()
+            for width in (1360, 390, 320):
+                page = browser.new_page(viewport={"width": width, "height": 1000})
+                page.goto(url)
+                assert page.locator("#module-chart").count() == 0
+                assert page.locator(".confucius-chart").count() == 1
+                check_page(page, data)
+                page.close()
+            touch = browser.new_context(has_touch=True, is_mobile=True, viewport={"width": 390, "height": 844})
+            page = touch.new_page()
+            page.goto(url)
+            page.locator(".confucius-hit").first.tap()
+            expect(page.locator(".confucius-tooltip")).to_be_visible()
+            touch.close()
+            fallback = browser.new_context(java_script_enabled=False, viewport={"width": 390, "height": 844})
+            page = fallback.new_page()
+            page.goto(url)
+            expect(page.locator(".confucius-chart")).to_be_visible()
+            assert page.locator(".confucius-plot-data").count() == 1
+            assert not page.evaluate("document.documentElement.scrollWidth>innerWidth")
+            fallback.close()
+            browser.close()
+        print("Current directory, complete archival downloads, exact values, keyboard, touch and no-JS checks passed.")
+        return
     if screenshots:
         screenshots.mkdir(parents=True, exist_ok=True)
     with sync_playwright() as playwright:

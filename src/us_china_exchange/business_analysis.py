@@ -9,6 +9,7 @@ from pathlib import Path
 from urllib.parse import urlsplit
 
 from .indicator_charts import svg_indicator_chart
+from .public_freshness import current_groups
 from .model import json_text
 from .pipeline import write_atomic
 from .theme import BLUE, CHART_THEMES, GOLD, GREEN, MUTED, PARTNER_COLORS
@@ -159,7 +160,7 @@ def chart_groups(data, chart_id):
         result.append({"id": sid, "label": definition["label"], "color": COLORS[sid],
                        "cadence": definition["cadence"], "period_basis": definition["period_basis"],
                        "scheduled_years": [r["year"] for r in rows], "points": points})
-    return result
+    return current_groups(result)
 
 
 def svg_business_chart(data, chart_id, theme="themarginoferror"):

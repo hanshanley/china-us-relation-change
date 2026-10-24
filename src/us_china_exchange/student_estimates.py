@@ -11,6 +11,7 @@ from bs4 import BeautifulSoup
 from .language_sources import pdf_text
 from .model import json_text
 from .pipeline import write_atomic
+from .public_freshness import POLICY, public
 
 
 DOCUMENTS = {
@@ -109,10 +110,12 @@ def export(root, data):
 
 def panel(data):
     esc = lambda value: html.escape(str(value), quote=True)
+    visible = [row for row in data["observations"] if not public()
+               or POLICY["snapshot_from"] <= int(row["statement_date"][:4]) <= POLICY["snapshot_through"]]
     rows = "".join(
         f'<tr><th scope="row">{row["statement_date"]}</th><td>{esc(reported(row))}</td>'
         f'<td>{esc(row["reference_period"])}</td><td><a href="{esc(data["sources"][row["source_id"]]["asset"]["request_url"])}">'
-        f'{esc(data["sources"][row["source_id"]]["name"])}</a></td></tr>' for row in data["observations"])
+        f'{esc(data["sources"][row["source_id"]]["name"])}</a></td></tr>' for row in visible)
     return ('<section class="series-panel" id="student-estimates"><h2>Recent reported student estimates</h2>'
             '<p>Separate evidence for Americans studying in China—not an extension of the annual enrollment line. '
             'Dates identify the statement or publication, not a verified census date. “&lt;” and “&gt;” remain bounds.</p>'

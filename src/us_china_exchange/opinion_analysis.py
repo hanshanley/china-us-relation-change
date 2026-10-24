@@ -8,6 +8,7 @@ from pathlib import Path
 from .indicator_charts import svg_indicator_chart
 from .model import json_text
 from .opinion_sources import validate_opinion_data
+from .public_freshness import current_groups
 from .pipeline import write_atomic
 from .theme import BLUE, CHART_THEMES, MUTED, PARTNER_COLORS
 
@@ -90,7 +91,7 @@ def chart_groups(data, chart_id):
                            "cadence": definition["cadence"], "period_basis": "survey round",
                            "scheduled_years": [r["year"] for r in selected], "points": points,
                            "unavailable_label": "Not reported"})
-    return result
+    return current_groups(result)
 
 
 def svg_opinion_chart(data, chart_id, theme="themarginoferror"):

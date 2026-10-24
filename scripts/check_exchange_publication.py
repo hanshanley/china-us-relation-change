@@ -31,6 +31,8 @@ def check(site, url=None, screenshots=None):
             page.on("pageerror", lambda error: errors.append(str(error)))
             page.goto(url)
             page.evaluate("document.fonts.ready")
+            payload = json.loads(page.locator("#exchange-data").text_content())
+            visible = set(payload.get("visible_series", {r["series_id"] for r in data["observations"]}))
             expect(page.locator("form.controls")).to_be_visible()
             assert not page.locator("#coverage, #coverage-limits, #downloads, #sources, #all-values").count()
             expect(page.locator(".analysis-tabs a").last).to_have_text("GitHub")
@@ -51,7 +53,8 @@ def check(site, url=None, screenshots=None):
                             page.locator(".individual-series").evaluate("node=>node.open=true")
                         page.select_option("#geography", geo)
                         page.select_option("#direction", direction)
-                        annual = sorted((r for r in primary_observations(data["observations"]) if r["origin"] == origin and r["destination"] == destination
+                        annual = sorted((r for r in primary_observations(data["observations"]) if r["series_id"] in visible
+                                         and r["origin"] == origin and r["destination"] == destination
                                          and r["measure"] == measure and r["frequency"] == "annual" and r["value"] is not None),
                                         key=lambda r: r["year"])
                         option = page.locator(f'#measure option[value="{measure}"]')
@@ -65,7 +68,7 @@ def check(site, url=None, screenshots=None):
                         actual = page.locator("#chart .screen-point").evaluate_all(
                             "nodes=>nodes.map(n=>[Number(n.dataset.year),Number(n.dataset.value)])")
                         assert actual == [[r["year"], r["value"]] for r in annual], (geo, direction, measure)
-                        if measure in {"goods", "services"} and len(annual) > 2:
+                        if len(annual) > 2:
                             columns = page.locator("#chart .screen-column")
                             assert columns.evaluate_all(
                                 "nodes=>nodes.map(n=>[Number(n.dataset.year),Number(n.dataset.value)])") == actual
@@ -118,7 +121,7 @@ def check(site, url=None, screenshots=None):
             if data.get("student_estimates"):
                 page.select_option("#direction", "from_us")
                 expect(page.locator("#student-estimates")).to_be_visible()
-                assert page.locator("#student-estimates tbody tr").count() == 5
+                assert page.locator("#student-estimates tbody tr").count() == 3
                 expect(page.locator("#student-estimates")).to_contain_text("<2,000 per year")
                 page.select_option("#geography", "HKG")
                 expect(page.locator("#student-estimates")).to_be_hidden()
@@ -137,7 +140,7 @@ def check(site, url=None, screenshots=None):
             assert page.locator("#chart .screen-point").count() == 26
             page.select_option("#direction", "from_us")
             expect(page.locator("#measure")).to_have_value("air_visitors")
-            expect(page.locator("#selection-note")).to_contain_text("ends in 2018")
+            expect(page.locator("#selection-note")).to_contain_text("U.S.-resident air-travel")
             assert page.locator("#chart .screen-point").count() == 13
             expect(page.locator("#series-population")).to_contain_text("2012–2025")
             expect(page.locator("#partial-panel")).to_contain_text("2026")
@@ -153,12 +156,9 @@ def check(site, url=None, screenshots=None):
             page.select_option("#chart-mode", "index")
             assert float(page.locator("#chart .screen-point[data-year='2019']").get_attribute("data-value")) == 100
             page.select_option("#chart-mode", "levels")
-            page.locator("#related-series button").click()
-            expect(page.locator("#measure")).to_have_value("visitors")
-            expect(page.locator("#latest-period")).to_contain_text("2018")
-            assert page.locator("#chart .screen-point").count() == 19
-            expect(page.locator("#related-series")).to_contain_text("ends in 2018")
-            page.locator("#related-series button").click()
+            assert page.locator("#related-series button").count() == 0
+            assert page.locator('#measure option[value="visitors"]').evaluate("o=>o.disabled&&o.hidden")
+            page.locator("#measure").evaluate("n=>{n.value='visitors';n.dispatchEvent(new Event('change',{bubbles:true}));}")
             expect(page.locator("#measure")).to_have_value("air_visitors")
             assert page.locator("#chart .screen-point").count() == 13
             if screenshots:
@@ -241,25 +241,13 @@ def check(site, url=None, screenshots=None):
                     if screenshots:
                         page.locator("#macau-residence-approvals").screenshot(path=str(screenshots / f"macau-approvals-{width}.png"))
                 if name == "language-learning.html":
-                    expect(page.locator("#module-chart")).to_have_value("college-enrollments")
-                    assert page.locator("#college-enrollments .screen-point").count() == 18
-                    if width == 390:
-                        years = page.locator("#college-enrollments .screen-year").all_text_contents()
-                        assert years[0] == "2002" and years[-1] == "2021"
-                        assert len(years) >= 4 and set(years) <= {"2002", "2006", "2009", "2013", "2016", "2021"}
-                        assert page.locator("#college-enrollments .screen-year").evaluate_all("""nodes=>nodes.every((n,i)=>{
-                          if(!i)return true;
-                          const previous=nodes[i-1].getBBox(),current=n.getBBox();
-                          return current.x-previous.x-previous.width>=7.9;
-                        })""")
-                    page.select_option("#module-chart", "school-language-enrollments")
-                    assert page.locator("#school-language-enrollments .screen-bar").evaluate_all(
-                        "nodes=>nodes.map(n=>Number(n.dataset.value))") == [227086, 67909]
+                    expect(page.locator("#module-chart")).to_have_value("chinese-bachelors")
+                    assert page.locator("#chinese-bachelors .screen-point").count() == 75
+                    assert not page.locator("#college-enrollments,#school-language-enrollments").count()
                     page.select_option("#module-chart", "school-language-availability")
                     assert page.locator("#school-language-availability .screen-bar").evaluate_all(
                         "nodes=>nodes.map(n=>Number(n.dataset.value))") == [3, 1]
-                    expect(page.locator("#school-language-availability .screen-chart")).to_contain_text("Korean")
-                    expect(page.locator("#school-language-availability .screen-chart")).to_contain_text("Not reportable")
+                    assert "Korean" not in page.locator("#school-language-availability .screen-chart").text_content()
                     if screenshots:
                         page.locator("#school-language-availability").screenshot(path=str(screenshots / f"school-availability-{width}.png"))
                     page.select_option("#module-chart", "ap-chinese-global")
@@ -292,8 +280,9 @@ def check(site, url=None, screenshots=None):
                 if screenshots:
                     page.screenshot(path=str(screenshots / f"collective-{name[:-5]}-{width}.png"))
             page.goto(url.rsplit("/", 1)[0] + "/language-learning.html?indicator=college-benchmarks")
-            expect(page.locator("#module-chart")).to_have_value("college-benchmarks")
-            assert page.locator('#college-benchmarks .screen-line[data-series-id="mla:korean"]').count() == 1
+            expect(page.locator("#module-chart")).to_have_value("chinese-bachelors")
+            assert page.locator("#college-benchmarks").count() == 0
+            assert page.locator('#chinese-bachelors .screen-line[data-series-id="ipeds_korean:bachelors"]').count() == 1
             assert not errors, errors
             page.close()
         touch = browser.new_context(has_touch=True, is_mobile=True, viewport={"width": 390, "height": 844})

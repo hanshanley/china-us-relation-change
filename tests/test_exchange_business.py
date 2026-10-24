@@ -188,10 +188,11 @@ def test_count_parser_skips_contents_but_rejects_duplicate_country_rows():
 def test_annual_histories_and_method_boundaries_are_not_endpoint_snapshots():
     data = published()
     doc = ElementTree.fromstring(svg_business_chart(data, BENCHMARK_CHART))
-    paths = [n for n in doc.iter() if n.get("class") == "data-line"]
-    assert len(paths) == 1 and paths[0].get("d").count("M") == 4 and "L" not in paths[0].get("d")
+    assert not [n for n in doc.iter() if n.get("class") == "data-line"]
+    assert len([n for n in doc.iter() if n.get("class") == "annual-column"]) == 4
     doc = ElementTree.fromstring(svg_business_chart(data, "us-affiliates-china"))
-    assert next(n for n in doc.iter() if n.get("class") == "data-line").get("d").count("M") == 5
+    assert not [n for n in doc.iter() if n.get("class") == "data-line"]
+    assert len([n for n in doc.iter() if n.get("class") == "annual-column"]) == 24
     assert len(chart_groups(data, "us-affiliates-china")[0]["points"]) == 24
     assert sum(len(g["points"]) for g in chart_groups(data, "eu-affiliates-china")) == 12
     assert len(chart_groups(data, "uk-affiliates-china")[0]["points"]) == 10

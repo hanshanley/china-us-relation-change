@@ -158,8 +158,8 @@ def test_collective_export_preserves_complete_inputs_and_native_plot_boundaries(
     assert "September 2026" in opinions.select_one(".analysis-scope").text
     for model in opinions.select(".plot-data"):
         assert json.loads(model.string)["axis_max"] == 100
-    assert len(opinions.select(".native-chart")) == 8
-    assert immigration.select_one('#module-chart option[selected]')["value"] == "state-china-map"
+    assert len(opinions.select(".native-chart")) == 6
+    assert immigration.select_one('#module-chart option[selected]')["value"] == "annual-china-to-us"
     assert len(immigration.select("#state-china-map .state-shape")) == 51
     assert immigration.select_one('#state-china-map [data-map-metric="count"]')
     assert immigration.select_one('#state-china-map [data-map-metric="share"]')
@@ -174,27 +174,24 @@ def test_collective_export_preserves_complete_inputs_and_native_plot_boundaries(
     business = BeautifulSoup((tmp_path / "business-presence.html").read_text(), "html.parser")
     assert business.select_one('#module-chart optgroup[label="European enterprise series"] option[value="norway-affiliates-china"]')
     assert not business.select_one('#module-chart option[value="us-parent-companies-china"]')
-    assert business.select_one("#business-benchmark-background #us-parent-companies-china")
+    assert not business.select_one("#us-parent-companies-china")
     model = json.loads(business.select_one("#us-affiliates-china .plot-data").string)
     assert len(model["groups"][0]["points"]) == 24
-    assert [p["year"] for p in model["groups"][0]["points"] if not p["connect"]] == [2000, 2004, 2009, 2014, 2019]
+    assert model["columns"]
+    assert [p["year"] for p in model["groups"][0]["points"]] == list(range(2000, 2024))
     language = BeautifulSoup((tmp_path / "language-learning.html").read_text(), "html.parser")
-    assert language.select_one("#module-chart option[selected]")["value"] == "college-enrollments"
-    college = json.loads(language.select_one("#college-enrollments .plot-data").string)
-    assert [g["id"] for g in college["groups"]] == ["mla:chinese", "mla:japanese", "mla:korean"]
+    assert language.select_one("#module-chart option[selected]")["value"] == "chinese-bachelors"
+    assert not language.select_one("#college-enrollments")
     for chart in ["chinese-bachelors", "chinese-graduate-awards", "language-doctorates"]:
         model = json.loads(language.select_one(f"#{chart} .plot-data").string)
         assert [group["label"] for group in model["groups"]] == ["Chinese", "Japanese", "Korean"]
         assert model["unit"] == "Awards"
         assert [max(p["year"] for p in group["points"]) for group in model["groups"]] == [2025, 2025, 2025]
-    school = json.loads(language.select_one("#school-language-enrollments .plot-data").string)
-    assert [b["value"] for b in school["bars"]] == [227086, 67909]
-    assert [b["period"] for b in school["bars"]] == ["2015", "2015"]
+    assert not language.select_one("#school-language-enrollments")
     availability = json.loads(language.select_one("#school-language-availability .plot-data").string)
     assert [b["value"] for b in availability["bars"]] == [3, 1]
     assert availability["unit"] == "Percent"
-    assert availability["unavailable_bars"] == [
-        {"id": "spp_availability:korean", "label": "Korean", "reason": "Not reportable"}]
+    assert availability["unavailable_bars"] == []
     ap_scope = language.select_one("#ap-chinese-global .ap-scope-note")
     assert "no AP Korean exam is offered" in ap_scope.text
     assert "not zero participation" in ap_scope.text
@@ -202,7 +199,7 @@ def test_collective_export_preserves_complete_inputs_and_native_plot_boundaries(
     assert ap_scope.find_next(class_="comparison-chart") is not None
     assert language.select_one("main > section").select_one(".native-chart")
     inventories = json.loads(language.select_one("#school-program-inventories .plot-data").string)
-    assert all(str(year) in row["label"] for year, row in zip([2011, 2021, 2025], inventories["bars"]))
+    assert [row["year"] for row in inventories["bars"]] == [2025]
     comparisons = BeautifulSoup((tmp_path / "comparisons.html").read_text(), "html.parser")
     assert not comparisons.select(".plot-data,.module-controls")
     routes = json.loads(comparisons.select_one("#regional-topic-routes").string)
@@ -223,12 +220,17 @@ def test_collective_export_preserves_complete_inputs_and_native_plot_boundaries(
         section = target.select_one("#" + chart)
         assert "separate vertical scales" in section.select_one(".chart-context").text
         panels = section.find("div", class_="comparison-panels", recursive=False).select(".comparison-pane")
-        assert [p["data-geographies"].split() for p in panels] == [["CHN"], ["HKG", "MAC"]]
+        expected_geographies = [["HKG", "MAC"]] if chart == "visitors-from_us" else [["CHN"], ["HKG", "MAC"]]
+        assert [p["data-geographies"].split() for p in panels] == expected_geographies
         models = [json.loads(p.select_one(".plot-data").string) for p in panels]
-        assert [m["geographies"] for m in models] == [["CHN"], ["HKG", "MAC"]]
+        model_geographies = [["CHN"], ["HKG"]] if chart == "air_visitors-from_us" else expected_geographies
+        assert [m["geographies"] for m in models] == model_geographies
         assert all(m["show_legend"] for m in models)
-        assert models[0]["first"] == models[1]["first"]
-        assert models[0]["last"] == models[1]["last"] == 2025
+        assert len({m["first"] for m in models}) == 1
+        assert all(m["last"] == 2025 for m in models)
+        if chart == "visitors-from_us":
+            assert len(models) == 1
+            continue
         assert {g["id"].split(":")[1 if chart.endswith("to_us") else 2]
                 for g in models[0]["groups"]} == {"CHN"}
         assert {g["id"].split(":")[1 if chart.endswith("to_us") else 2]

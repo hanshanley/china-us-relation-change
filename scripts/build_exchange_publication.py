@@ -9,7 +9,8 @@ import shutil
 import subprocess
 import sys
 import tempfile
-from pathlib import Path
+from pathlib import Path, PurePosixPath
+from urllib.parse import urlsplit
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
@@ -20,6 +21,8 @@ from us_china_exchange.language_analysis import RETIRED_CHARTS as LANGUAGE_RETIR
 from us_china_exchange.render import SPLIT_REGIONAL_MEASURES, annual_table, build, figure_links, initial_panel, svg_chart
 from us_china_exchange.theme import figure_category
 from us_china_exchange.confucius_analysis import CHARTS as CONFUCIUS_CHARTS
+from us_china_exchange.public_freshness import POLICY, eligible, public_charts
+from us_china_exchange.covid_context import COVID_CONTEXT
 
 
 CANONICAL = "https://www.themarginoferror.com/china-us-relations/"
@@ -31,7 +34,7 @@ PAGES = {
                    "Annual reported values · Separate regional scales"),
     "travel.html": ("Travel & tourism", "Visitor trips between the U.S., mainland China, Hong Kong and Macau.",
                     "Arrivals are trips, not unique people or necessarily leisure tourists"),
-    "immigration.html": ("Immigration", "Where China-born residents live, and how migration ties have changed.",
+    "immigration.html": ("Immigration", "Annual permanent immigration and separate views of where people live.",
                          "Resident stocks through 2024 · U.S. grants and Macau approvals through 2025"),
     "opinions.html": ("Public opinion", "How Americans view China, how Chinese respondents view the U.S., and the differences by age.",
                       "Reported survey rounds · Different questions kept separate"),
@@ -56,6 +59,30 @@ def fragment(markup):
     return BeautifulSoup(markup, "html.parser")
 
 
+def prune_unlinked_figures(site):
+    linked = set()
+
+    def keep(value):
+        if isinstance(value, dict):
+            for item in value.values():
+                keep(item)
+        elif isinstance(value, str):
+            path = urlsplit(value).path
+            if path.startswith("figures/"):
+                linked.add(path)
+
+    for path in site.glob("*.html"):
+        soup = fragment(path.read_text())
+        for node in soup.select('a[href^="figures/"],img[src^="figures/"]'):
+            keep(node.get("href") or node["src"])
+        payload = soup.select_one("#exchange-data")
+        if payload:
+            keep(json.loads(payload.string).get("figures", {}))
+    for path in (site / "figures").rglob("*"):
+        if path.is_file() and path.suffix in {".png", ".svg"} and str(path.relative_to(site)) not in linked:
+            path.unlink()
+
+
 def regional_topic(measure):
     return ("trade.html" if measure in {"goods", "services"} else
             "travel.html" if "visitors" in measure else "index.html")
@@ -64,7 +91,8 @@ def regional_topic(measure):
 def prepare_topic_pages(site):
     source = (site / "index.html").read_text()
     comparison = BeautifulSoup((site / "comparisons.html").read_text(), "html.parser")
-    sections = list(comparison.select("main > section[id]"))
+    sections = [section for section in comparison.select("main > section[id]")
+                if section.select_one(".comparison-chart")]
     routes = {}
     for name in ("index.html", "travel.html", "trade.html"):
         page = BeautifulSoup(source, "html.parser")
@@ -137,8 +165,37 @@ def plot_model(svg, labels, observations):
         unit = svg.find("text", attrs={"x": "115", "y": "125"})
     model = {"title": svg.get("aria-label", ""), "description": svg.find("desc").text if svg.find("desc") else "",
              "unit": unit.text if unit else "Count", "groups": [], "kind": "line"}
+    if svg.select_one(".covid-band"):
+        model["covid_context"] = COVID_CONTEXT
     if svg.get("data-axis-max"):
         model["axis_max"] = float(svg["data-axis-max"])
+    if svg.get("data-plot-style") == "columns":
+        from collections import defaultdict
+
+        groups = defaultdict(list)
+        colors = {}
+        for point in svg.select("circle[data-series-id][data-year][data-value]"):
+            sid = point["data-series-id"]
+            colors[sid] = point["fill"]
+            groups[sid].append({
+                "year": int(point["data-year"]), "value": float(point["data-value"]), "connect": False,
+                "label": point.title.text if point.title else "", "period": point.get("data-period", point["data-year"]),
+                "reported_value": float(point.get("data-reported-value", point["data-value"])),
+                "reported_unit": point.get("data-reported-unit", model["unit"]), "status": point.get("data-status", "")})
+        for sid, points in groups.items():
+            parts = sid.split(":")
+            geo = (parts[2] if parts[1] == "USA" else parts[1]) if len(parts) == 4 and parts[1] in GEOGRAPHIES else None
+            model["groups"].append({"id": sid, "label": GEOGRAPHIES[geo] if geo else labels.get(sid, ""),
+                                    "color": colors[sid], "points": points})
+        if not groups:
+            raise ValueError("Column chart requires reported point metadata")
+        all_years = [p["year"] for group in groups.values() for p in group]
+        model.update(columns=True, first=int(svg.get("data-first-year", min(all_years))),
+                     last=int(svg.get("data-last-year", max(years + all_years))))
+        if svg.get("data-geographies"):
+            model["geographies"] = svg["data-geographies"].split()
+            model["show_legend"] = len(model["geographies"]) < 3
+        return model
     if svg.get("data-geographies"):
         model["geographies"] = svg["data-geographies"].split()
         model["show_legend"] = len(model["geographies"]) < 3
@@ -226,6 +283,10 @@ def plot_model(svg, labels, observations):
 
 def decorate(site, name, labels, revision):
     soup = BeautifulSoup((site / name).read_text(), "html.parser")
+    if name == "immigration.html" and soup.select_one("#state-china-map"):
+        state = json.loads((site / "downloads/state-immigration.json").read_text())
+        if not eligible([{"year": state["end_year"], "value": 1}], snapshot=True):
+            soup.select_one("#state-china-map").decompose()
     title, lead, scope = PAGES[name]
     if name in {"index.html", "travel.html", "trade.html"}:
         rows = json.loads((site / "downloads/observations.json").read_text())
@@ -237,7 +298,7 @@ def decorate(site, name, labels, revision):
     elif name == "language-learning.html":
         rows = json.loads((site / "downloads/language-learning.json").read_text())["observations"]
         latest = lambda prefix: max(r["year"] for r in rows if r["series_id"].startswith(prefix) and r["value"] is not None)
-        scope = f"AP exams through {latest('ap:')} · Degree awards through {latest('ipeds:')} · College census through {latest('mla:')}"
+        scope = f"Degree awards through {latest('ipeds:')} · AP exams through {latest('ap:')} · School offerings: January 2024"
     elif name == "immigration.html" and (site / "downloads/state-immigration.json").is_file():
         state_data = json.loads((site / "downloads/state-immigration.json").read_text())
         immigration = json.loads((site / "downloads/immigration.json").read_text())
@@ -248,6 +309,11 @@ def decorate(site, name, labels, revision):
         program_data = json.loads((site / "downloads/confucius-programs.json").read_text())
         snapshot = next(r["reference"] for r in program_data["observations"] if r["id"] == "cief_institutes")
         scope = f"Operator directory retrieved {snapshot} · Listings are not an operating census"
+        directory = soup.select_one("main > .confucius-directory")
+        if directory and not soup.select("main > .series-panel .comparison-chart"):
+            directory["open"] = ""
+            title = "Confucius program directory"
+            lead = "U.S. operator listings, not a verified count of programs currently operating."
     elif name == "opinions.html":
         from datetime import date
 
@@ -265,6 +331,7 @@ def decorate(site, name, labels, revision):
         old.decompose()
     soup.head.append(soup.new_tag("link", attrs={"rel": "canonical", "href": CANONICAL + ("" if name == "index.html" else name)}))
     soup.head.append(soup.new_tag("meta", attrs={"name": "description", "content": lead + " " + scope}))
+    soup.head.append(soup.new_tag("meta", attrs={"name": "chart-freshness", "content": json_text(POLICY)}))
     soup.head.append(soup.new_tag("link", attrs={"rel": "stylesheet", "href": f"assets/publication.css?v={revision[:12]}"}))
     soup.body["class"] = ["publication-page"]
     page = soup.select_one(".page")
@@ -357,11 +424,14 @@ def decorate(site, name, labels, revision):
         soup.select_one("#exchange-data").string = json_text(payload).replace("<", "\\u003c")
         panel = soup.select_one(".series-panel")
         panel["class"].append("exchange-panel")
+        reverse = soup.new_tag("button", attrs={"type": "button", "id": "reverse-direction", "class": "reverse-direction"})
+        reverse.string = "View United States → Mainland China"
+        form.append(reverse)
         population = soup.new_tag("p", attrs={"id": "series-population", "class": "chart-context", "hidden": ""})
         panel.find("h2").insert_after(population)
         if name == "travel.html":
             note = soup.new_tag("p", attrs={"class": "travel-definition chart-note"})
-            note.string = "Arrivals include business and family travel, not just tourism. U.S. travel to mainland China defaults to current air-travel estimates; historical all-mode arrivals remain separately available. Country attribution follows each source, not necessarily the last departure point."
+            note.string = "Arrivals include business and family travel, not just tourism. U.S. travel to mainland China uses current air-travel estimates. Country attribution follows each source, not necessarily the last departure point."
             panel.find("h2").insert_after(note)
             note.insert_after(fragment(
                 '<p class="chart-note"><a href="travel.html?indicator=visitors-from_us#regional-comparisons">'
@@ -420,9 +490,21 @@ def decorate(site, name, labels, revision):
             if section not in charts:
                 section.decompose()
         groups = {section["id"]: section.h2.text.split(" · ")[0] for section in charts}
+        identifiers = {section["id"] for section in charts}
+        for section in charts:
+            measure, direction = section["id"].rsplit("-", 1)
+            opposite = measure + "-" + ("from_us" if direction == "to_us" else "to_us")
+            if opposite in identifiers:
+                section.append(fragment(
+                    f'<p class="chart-note"><a class="reverse-chart-link" href="{name}?indicator={opposite}#regional-comparisons">'
+                    'View the reverse direction</a></p>'))
+        if not charts:
+            regional.decompose()
+            charts = []
         preferred = {"index.html": "international_students-to_us", "travel.html": "visitors-from_us",
                      "trade.html": "goods-to_us"}[name]
-        regional.insert(1, module_controls(soup, charts, preferred, groups))
+        if charts:
+            regional.insert(1, module_controls(soup, charts, preferred, groups))
         if name == "trade.html":
             regional.find("summary", recursive=False).decompose()
             regional.name = "div"
@@ -450,14 +532,15 @@ def decorate(site, name, labels, revision):
             if section not in charts:
                 section.decompose()
         if charts:
-            preferred = {"language-learning.html": "college-enrollments", "comparisons.html": "goods-to_us",
-                         "immigration.html": "state-china-map", "opinions.html": "us-china-favorability"}.get(name)
+            preferred = {"language-learning.html": "chinese-bachelors", "comparisons.html": "goods-to_us",
+                         "immigration.html": "annual-china-to-us", "opinions.html": "us-china-favorability"}.get(name)
             groups = ({section["id"]: ("U.S. affiliates" if section["id"].startswith("us-") else
                                       "European enterprise series") for section in charts}
                       if name == "business-presence.html" else None)
             if name == "immigration.html":
                 groups = {section["id"]: (
                     "Where people live" if section["id"].startswith(("state-", "migrant-stock")) else
+                    "Annual permanent immigration" if section["id"] == "annual-china-to-us" else
                     "Single-region reference" if section["id"] in {"hong-kong-green-cards", "macau-green-cards"} else
                     "Macau residence approvals" if section["id"] == "macau-residence-approvals" else
                     "U.S. permanent-residency grants") for section in charts}
@@ -481,7 +564,7 @@ def decorate(site, name, labels, revision):
                 explanation.string = text
                 section.select_one(".comparison-chart").insert_before(explanation)
                 link = fragment('<p class="chart-note">No AP Korean exam is offered. '
-                                '<a href="language-learning.html?indicator=college-benchmarks">Compare Korean, Chinese and Japanese college enrollments instead</a>. '
+                                '<a href="language-learning.html?indicator=chinese-bachelors">Compare Korean, Chinese and Japanese degree awards instead</a>. '
                                 'Different educational populations are not combined.</p>')
                 section.append(link)
     for block in soup.select(".comparison-chart"):
@@ -565,6 +648,10 @@ def decorate(site, name, labels, revision):
     soup.body.insert(0, skip.extract())
     footer = fragment('<footer class="publication-footer"><span>The Margin of Error · Hans W. A. Hanley</span>'
                       f'<span><a href="{REPOSITORY}">Data & methods on GitHub</a></span></footer>')
+    if soup.select_one(".covid-band") or soup.select_one("#exchange-data"):
+        sources = "".join(f'<li><a href="{item["url"]}">{item["name"]}</a></li>' for item in COVID_CONTEXT["sources"])
+        page.append(fragment('<details class="covid-context"><summary>About the COVID shading</summary>'
+                             f'<p>{COVID_CONTEXT["note"]}</p><ul>{sources}</ul></details>'))
     page.append(footer)
     script = soup.new_tag("script", attrs={"src": f"assets/publication.js?v={revision[:12]}", "defer": ""})
     soup.body.append(script)
@@ -575,7 +662,10 @@ def decorate(site, name, labels, revision):
     (site / name).write_text(str(soup), encoding="utf-8")
 
 
+@public_charts()
 def build_publication(source, output, revision):
+    prior_manifest = output / "publication-manifest.json"
+    previous = json.loads(prior_manifest.read_text()).get("files", {}) if prior_manifest.is_file() else {}
     with tempfile.TemporaryDirectory(prefix="china-exchange-publication-") as work:
         root = Path(work)
         shutil.copytree(source / "data/site", root / "data/site")
@@ -597,12 +687,14 @@ def build_publication(source, output, revision):
         for path in list((site / "figures").rglob("*")):
             if path.is_file() and "TWN" in path.name:
                 path.unlink()
+        prune_unlinked_figures(site)
+        (site / "downloads/covid-context.json").write_text(json_text(COVID_CONTEXT), encoding="utf-8")
         files = {str(p.relative_to(site)): hashlib.sha256(p.read_bytes()).hexdigest()
                  for p in site.rglob("*") if p.is_file() and p.suffix != ".html"}
         manifest = {"version": 2, "source_repository": "hanshanley/china-us-relation-change",
                     "source_revision": revision, "canonical_url": CANONICAL,
                     "scope": "Collective exchanges, immigration, public opinion, language, business and public Weibo research aggregates; no raw posts or source reports",
-                    "observations": result["observations"], "files": files,
+                    "observations": result["observations"], "files": files, "chart_freshness": POLICY,
                     "datasets": {name: files[f"downloads/{name}.json"] for name in
                                  ["exchange", "language-learning", "business-presence", "weibo-summary", "immigration",
                                   "student-estimates", "state-immigration", "confucius-programs", "opinions"]
@@ -610,6 +702,11 @@ def build_publication(source, output, revision):
         (site / "publication-manifest.json").write_text(json_text(manifest), encoding="utf-8")
         output.mkdir(parents=True, exist_ok=True)
         shutil.copytree(site, output, dirs_exist_ok=True)
+        for name in previous.keys() - files.keys():
+            relative = PurePosixPath(name)
+            if (not relative.is_absolute() and relative.parts[0] == "figures" and ".." not in relative.parts
+                    and relative.suffix in {".png", ".svg"}):
+                (output / name).unlink(missing_ok=True)
         for chart_id in LANGUAGE_RETIRED_CHARTS:
             for theme in ["themarginoferror", "substack"]:
                 for extension in ["png", "svg", "website.png"]:

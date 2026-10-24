@@ -24,6 +24,7 @@ on:
       - "scripts/build_state_immigration_data.py"
       - "scripts/build_opinion_data.py"
       - "scripts/check_opinion_publication.py"
+      - "scripts/check_public_freshness.py"
       - "scripts/check_state_immigration_map.py"
       - "scripts/build_travel_data.py"
       - "scripts/build_contact_backfill.py"
@@ -107,11 +108,12 @@ jobs:
           python scripts/check_exchange_browser.py
           python scripts/build_exchange_publication.py --output data/local/collective-publication
           python scripts/check_exchange_publication.py --site data/local/collective-publication
+          python scripts/check_public_freshness.py --site data/local/collective-publication
           python scripts/check_state_immigration_map.py --site data/local/collective-publication
           python scripts/check_confucius_publication.py --site data/local/collective-publication
           python scripts/check_weibo_publication.py --site data/local/collective-publication
           python scripts/check_opinion_publication.py --site data/local/collective-publication
-          python scripts/audit_exchange_plots.py --site data/local/collective-publication --exports outputs/figures --output data/local/plot-audit
+          python scripts/audit_exchange_plots.py --site data/local/collective-publication --output data/local/plot-audit
           git diff --check
       - name: Record actual check status
         if: always()

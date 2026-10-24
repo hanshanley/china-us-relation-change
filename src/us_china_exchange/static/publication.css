@@ -138,3 +138,6 @@ html:not(.plot-js) .publication-page .comparison-chart svg { min-width: 840px; }
   .publication-page .exchange-panel { padding-top: 6px; }
 }
 @media print { .analysis-tabs, .controls, .chart-heading, .plot-tooltip, .plot-interaction-hint { display: none !important; } }
+.comparison-panels > .comparison-pane:only-child {
+  grid-column: 1 / -1;
+}

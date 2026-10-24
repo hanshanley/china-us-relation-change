@@ -1120,6 +1120,42 @@ transcription, not the publisher article. The separately retained topline PDF
 verifies wording, dates and bases, not the means. No means are reconstructed
 from rounded response bins. Source reports and microdata are not redistributed.
 
+### Public chart freshness, annual bars and COVID context
+
+The public website now excludes histories without a reported observation in
+2023 or later, and independent snapshots outside 2024–2026. This applies to
+individual route controls, regional panes, topic selectors and downloadable
+graphics. Null/suppressed cells and recent upload timestamps cannot make a
+stale series current. Older points remain in an eligible history; independently
+dated program inventories are filtered individually. Complete canonical CSV/JSON
+downloads still contain every archived observation.
+
+Single-series levels use calendar-spaced columns in both interactive charts
+and PNG/SVG exports. Missing years remain empty and actual zero observations
+retain zero-height bars. Multi-series comparisons and baseline indices retain
+lines. Reverse-direction controls and chart links expose available two-way
+histories without substituting an incompatible measure.
+
+Immigration opens with FY2020–2025 new permanent-resident arrivals for Chinese
+nationals. Status adjustments for people already in the U.S. are separate.
+Neither is a count of departures from mainland China. The reverse annual
+U.S.-to-mainland-China count remains unverified; UN resident stocks are never
+differenced or relabelled as yearly arrivals.
+
+Time-series charts covering 2020–2022 shade the principal COVID travel-restriction
+years. This is context, **not a universal travel ban or causal attribution**.
+The public explanation and `downloads/covid-context.json` link original U.S.,
+mainland, Hong Kong and Macau notices. Country-specific U.S. restrictions ended
+November 8, 2021; mainland quarantine measures changed January 8, 2023.
+Hong Kong and Macau nonresident restrictions had different dates and exemptions.
+The same annotation appears in both export backgrounds without altering data,
+filling missing years or changing the chart scale.
+
+`scripts/check_public_freshness.py --site PATH` examines every public plot model,
+SVG export and enabled individual route, including retired deep links. The plot
+audit checks column coordinates, calendar gaps, hover values and annotation
+layout on desktop and small screens.
+
 ## Definitions and comparisons
 
 - History starts in 2000 **where verified**. The publication does not pretend
