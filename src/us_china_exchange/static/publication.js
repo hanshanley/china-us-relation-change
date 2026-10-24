@@ -204,6 +204,7 @@
       const monthly = model.frequency === "monthly";
       const daily = model.frequency === "daily";
       const dated = monthly || daily;
+      const columns = !!model.columns && !dated && model.groups.length === 1 && model.scale !== "log";
       const periodValue = point => daily ? point.date : point.month;
       const position = point => daily ? point.date_index : monthly ? point.month_index : point.year;
       const axis = linearAxis(Math.max(...points.map(p => p.value), 0));
@@ -229,7 +230,7 @@
          (model.snapshots && points.length === 2 && points.every(p => !p.connect)));
       const plotWidth = width - margin.left - margin.right;
       const x = period => margin.left + (dated && model.first === model.last ? .5 :
-        snapshot ? (period - first + .5) / (model.last - first + 1) :
+        snapshot || columns ? (period - first + .5) / (model.last - first + 1) :
         (period - first) / (last - first)) * plotWidth;
       const y = value => height - margin.bottom - (logarithmic ? (Math.log10(value) - low) / (high - low) : value / maximum) * (height - margin.top - margin.bottom);
       const measure = document.createElement("canvas").getContext("2d");
@@ -312,7 +313,7 @@
           previous = point;
           return `${command}${x(position(point)).toFixed(2)},${y(point.value).toFixed(2)}`;
         }).join(" ");
-        content += `<path class="screen-line" data-series-id="${escape(group.id)}" d="${path}" fill="none"
+        if (!columns) content += `<path class="screen-line" data-series-id="${escape(group.id)}" d="${path}" fill="none"
           stroke="${color(group.color)}" stroke-width="${mobile ? 2.5 : 3}" stroke-linecap="round" stroke-linejoin="round"${group.dash ? ` stroke-dasharray="${escape(group.dash)}"` : ""}/>`;
         if (dated) {
           for (let i = 1; i < group.points.length; i++) {
@@ -330,15 +331,21 @@
               width="${barWidth}" height="${y(0) - y(point.value)}" fill="${color(group.color)}" aria-hidden="true"/>
               <text x="${x(point.year)}" y="${y(point.value) - 9}" font-size="${font}" text-anchor="middle">${escape(compact(point.value, model.unit))}</text>`;
           }
+          if (columns) {
+            const barWidth = Math.min(42, plotWidth / (model.last - first + 1) * .72);
+            content += `<rect class="screen-column" data-series-id="${escape(group.id)}" data-year="${point.year}" data-value="${point.value}"
+              x="${x(point.year) - barWidth / 2}" y="${y(point.value)}" width="${barWidth}" height="${y(0) - y(point.value)}"
+              fill="${color(group.color)}" aria-label="${escape(point.label)}"></rect>`;
+          }
           const period = dated ? `data-${daily ? "date" : "month"}="${escape(periodValue(point))}" data-partial-window="${point.partial_window}"` : `data-year="${point.year}"`;
           const fill = dated && point.partial_window ? "#f7f5f0" : color(group.color);
           const stroke = dated ? ` stroke="${color(group.color)}" stroke-width="1.3"` : "";
-          const radius = point === group.points.at(-1) ? 4 : daily ? 0 : monthly ? 1.8 : 2.4;
+          const radius = columns ? 0 : point === group.points.at(-1) ? 4 : daily ? 0 : monthly ? 1.8 : 2.4;
           content += `<circle class="screen-point" data-series-id="${escape(group.id)}" ${period} data-value="${point.value}"
             cx="${x(position(point))}" cy="${y(point.value)}" r="${radius}" fill="${fill}"${stroke}
             tabindex="-1" aria-label="${escape(point.label || `${group.label} ${point.year}: ${point.value.toLocaleString("en-US")} ${model.unit}`)}"></circle>`;
         }
-        if (!snapshot && model.groups.length === 1) {
+        if (!snapshot && !columns && model.groups.length === 1) {
           const point = group.points.at(-1);
           content += `<text class="screen-end-label" x="${x(position(point)) - 9}" y="${y(point.value) - 12}"
             text-anchor="end" font-size="${font}" font-weight="bold" fill="${color(group.color)}"
@@ -356,10 +363,10 @@
       guide = {top: margin.top, bottom: height - margin.bottom};
     }
     const keys = model.legend || model.groups;
-    const legend = keys?.length > 1 ? '<div class="plot-legend">' + keys.map(group =>
+    const legend = keys?.length && (keys.length > 1 || model.show_legend) ? '<div class="plot-legend">' + keys.map(group =>
       `<span><i style="${group.dash ? `border-top:2px dashed ${color(group.color)}` : `background:${color(group.color)}`}"></i>${escape(group.label)}</span>`).join("") + "</div>" : "";
     container.innerHTML = `${model.kind === "bars" ? `<p class="plot-unit">${escape(model.unit)}</p>` : ""}${legend}<svg class="screen-chart" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width} ${height}"
-      role="img" aria-label="${escape(model.title)}"><desc>${escape(model.description)} Use arrow keys to inspect observations; Escape closes the value tooltip.</desc>
+      role="img" aria-label="${escape(model.title)}"${model.columns ? ' data-plot-style="columns"' : ""}><desc>${escape(model.description)} Use arrow keys to inspect observations; Escape closes the value tooltip.</desc>
       <g font-family="Georgia,serif" fill="#171713">${content}</g></svg>
       <p class="plot-interaction-hint">Hover, tap or use arrow keys for values.</p>`;
     enableHover(container, model, selections, hoverAxis, guide);
@@ -418,6 +425,7 @@
       const present = rows.filter(r => r.value !== null);
       const chart = get("chart");
       if (chart.querySelector("svg") && present.length) {
+        const sourceSVG = chart.querySelector("svg");
         const indexed = get("chart-mode").value === "index";
         const reference = present.find(r => r.year === (present[0].measure === "air_visitors" ? 2019 : 2020));
         let previous;
@@ -436,8 +444,9 @@
         const snapshots = present.length === 2 && present[0].source_id === "ustr" &&
           new Set(present.map(row => row.comparability)).size === 2;
         const model = {kind: "line", title: `${data.measures[get("measure").value]}: ${data.geographies[origin]} to ${data.geographies[destination]}`,
-          description: snapshots ? "Separate annual snapshots; release vintages are not connected or used for growth." :
-            "Reported observations only. Missing years and changes in definition break the line. Exact values and complete downloads follow.",
+          description: sourceSVG.querySelector("desc")?.textContent || (snapshots ? "Separate annual snapshots; release vintages are not connected or used for growth." :
+            "Reported observations only. Missing years and changes in definition break the line. Exact values and complete downloads follow."),
+          columns: !indexed && sourceSVG.dataset.plotStyle === "columns",
           snapshots,
           unit: indexed ? `${reference.year} = 100` : present[0].unit === "USD" ? "Nominal USD" : present[0].unit,
           first: Math.min(...rows.map(r => r.year)), last: Math.max(...rows.map(r => r.year)),

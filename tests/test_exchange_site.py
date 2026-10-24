@@ -91,6 +91,28 @@ def test_charts_break_missing_years_and_definition_changes():
     assert "Definitions differ" in svg_chart(rows, indexed=True)
 
 
+@pytest.mark.parametrize("measure", ["goods", "services"])
+def test_annual_trade_columns_preserve_calendar_gaps_zero_values_and_index_lines(measure):
+    rows = [observation("test", "CHN", "USA", measure, year, value, "Annual trade",
+                        status="missing" if value is None else "observed")
+            for year, value in [(2020, 100), (2022, None), (2023, 0), (2025, 300)]]
+    doc = ElementTree.fromstring(svg_chart(rows))
+    assert doc.get("data-plot-style") == "columns"
+    bars = [n for n in doc.iter() if n.get("class") == "annual-column"]
+    assert [(int(n.get("data-year")), float(n.get("data-value"))) for n in bars] == [
+        (2020, 100), (2023, 0), (2025, 300)]
+    assert float(bars[1].get("height")) == 0
+    centers = [float(n.get("x")) + float(n.get("width")) / 2 for n in bars]
+    assert (centers[1] - centers[0]) / (centers[2] - centers[1]) == pytest.approx(3 / 2, abs=.001)
+    assert float(bars[0].get("x")) > 115
+    assert float(bars[-1].get("x")) + float(bars[-1].get("width")) < 950
+    assert not any(n.get("class") == "data-line" for n in doc.iter())
+    indexed = ElementTree.fromstring(svg_chart(rows, indexed=True))
+    assert indexed.get("data-plot-style") is None
+    assert not any(n.get("class") == "annual-column" for n in indexed.iter())
+    assert any(n.get("class") == "data-line" for n in indexed.iter())
+
+
 def test_export_axes_preserve_fractional_thousands_instead_of_repeating_rounded_ticks():
     rows = [observation("test", "USA", "HKG", "study_abroad", year, value, "Credit participation")
             for year, value in [(2010, 1900), (2020, 1200), (2025, 2170)]]
@@ -175,14 +197,26 @@ def test_macau_comparison_prefers_consistent_bea_history_without_erasing_ustr_vi
 
 def test_published_comparisons_match_geography_colors_and_annual_points(tmp_path):
     shutil.copytree(ROOT / "data/site", tmp_path / "data/site")
+    obsolete = (tmp_path / "outputs/figures/visitors/comparisons/substack/"
+                "chn-hkg-mac-from_us-visitors-levels.svg")
+    obsolete.parent.mkdir(parents=True)
+    obsolete.write_text("Obsolete combined visitor chart")
     build(tmp_path)
+    assert not obsolete.exists()
     rows = json.loads((ROOT / "data/site/observations.json").read_text())
     files = list((tmp_path / "outputs/figures").glob("*/comparisons/*/*.svg"))
-    assert len(files) == 52
+    assert len(files) == 64
     for path in files:
-        direction, measure, scale = path.stem.removeprefix("chn-hkg-mac-").split("-", 2)
-        groups = regional_series(rows, measure, direction)
         doc = ElementTree.fromstring(path.read_text())
+        geographies = doc.get("data-geographies", "CHN HKG MAC").split()
+        prefix = "-".join(geo.lower() for geo in geographies)
+        direction, measure, scale = path.stem.removeprefix(prefix + "-").split("-", 2)
+        groups = {geo: annual for geo, annual in regional_series(rows, measure, direction).items()
+                  if geo in geographies}
+        if measure in {"visitors", "air_visitors", "leisure_visitors"}:
+            assert geographies in [["CHN"], ["HKG", "MAC"]]
+        else:
+            assert geographies == ["CHN", "HKG", "MAC"]
         for geo, annual in groups.items():
             points = [x for x in doc.iter() if x.tag.endswith("circle") and x.get("data-geography") == geo]
             expected = {r["period"] for r in annual if r["value"] is not None and
@@ -190,6 +224,7 @@ def test_published_comparisons_match_geography_colors_and_annual_points(tmp_path
             assert {x.get("data-period") for x in points} == expected
             assert all(x.get("fill") == PARTNER_COLORS[geo] for x in points)
         assert all(x.get("data-geography") != "TWN" for x in doc.iter())
+        assert {x.get("data-geography") for x in doc.iter() if x.tag.endswith("circle")} <= set(geographies)
         assert path.with_suffix(".png").read_bytes() == (
             tmp_path / "site/figures" / path.relative_to(tmp_path / "outputs/figures")).with_suffix(".png").read_bytes()
         with Image.open(path.with_suffix(".png")) as image:
@@ -235,7 +270,9 @@ def test_figure_background_variants_preserve_data_and_foreground(tmp_path):
         sid = next(r["series_id"] for r in data if r["series_id"].replace(":", "-") == original.stem)
         first = min(r["year"] for r in data if r["series_id"] == sid and r["frequency"] == "annual" and r["value"] is not None)
         assert any(x.text == str(first) for x in doc.iter())
-        line_color = next(x.get("stroke") for x in doc.iter() if x.get("class") == "data-line")
+        line_color = (next(x.get("fill") for x in doc.iter() if x.get("class") == "annual-column")
+                      if doc.get("data-plot-style") == "columns" else
+                      next(x.get("stroke") for x in doc.iter() if x.get("class") == "data-line"))
         for theme, spec in CHART_THEMES.items():
             path = original.parent.parent / theme / original.name
             exported = path.read_bytes()

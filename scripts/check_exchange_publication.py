@@ -53,7 +53,6 @@ def check_weibo_explorer(page, summary):
     assert not page.evaluate("document.documentElement.scrollWidth>innerWidth")
 
 
-
 def check(site, url=None, screenshots=None):
     url = url or (site.resolve() / "index.html").as_uri()
     data = json.loads((site / "downloads/exchange.json").read_text())
@@ -90,6 +89,14 @@ def check(site, url=None, screenshots=None):
                         actual = page.locator("#chart .screen-point").evaluate_all(
                             "nodes=>nodes.map(n=>[Number(n.dataset.year),Number(n.dataset.value)])")
                         assert actual == [[r["year"], r["value"]] for r in annual], (geo, direction, measure)
+                        if measure in {"goods", "services"} and len(annual) > 2:
+                            columns = page.locator("#chart .screen-column")
+                            assert columns.evaluate_all(
+                                "nodes=>nodes.map(n=>[Number(n.dataset.year),Number(n.dataset.value)])") == actual
+                            assert page.locator("#chart .screen-line").count() == 0
+                            assert all(float(columns.nth(i).get_attribute("height")) >= 0 for i in range(len(annual)))
+                            if screenshots and geo == "CHN" and direction == "to_us" and measure == "goods":
+                                page.locator(".exchange-panel").screenshot(path=str(screenshots / f"annual-trade-columns-{width}.png"))
                         if len(annual) == 1 or (len(annual) == 2 and annual[0]["source_id"] == "ustr"
                                                and len({r["comparability"] for r in annual}) == 2):
                             snapshots = page.locator("#chart .screen-snapshot")
@@ -111,6 +118,10 @@ def check(site, url=None, screenshots=None):
             page.select_option("#geography", "CHN")
             page.select_option("#direction", "to_us")
             page.select_option("#measure", "goods")
+            page.select_option("#chart-mode", "index")
+            assert page.locator("#chart .screen-column").count() == 0
+            assert page.locator("#chart .screen-line").count() == 1
+            page.select_option("#chart-mode", "levels")
             expect(page.locator("#latest-period")).to_contain_text("2025")
             expect(page.locator("#partial-panel")).to_contain_text("2026")
             assert page.locator("#chart svg text").evaluate_all("""nodes=>nodes.every(n=>{
@@ -204,6 +215,27 @@ def check(site, url=None, screenshots=None):
                     logarithmic = page.locator("#goods-to_us details").filter(has=page.locator(".native-chart"))
                     logarithmic.evaluate("node=>node.open=true")
                     expect(logarithmic.locator(".screen-unit")).to_have_text("Nominal US$ (log scale)")
+                    for indicator in ["visitors-from_us", "visitors-to_us", "air_visitors-from_us"]:
+                        page.select_option("#module-chart", indicator)
+                        panels = page.locator(f"#{indicator} > .comparison-panels > .comparison-pane")
+                        assert panels.count() == 2
+                        assert panels.nth(0).get_attribute("data-geographies") == "CHN"
+                        assert panels.nth(1).get_attribute("data-geographies") == "HKG MAC"
+                        bounds = [panels.nth(i).bounding_box() for i in range(2)]
+                        if width == 390:
+                            assert bounds[1]["y"] >= bounds[0]["y"] + bounds[0]["height"]
+                        else:
+                            assert bounds[0]["x"] + bounds[0]["width"] <= bounds[1]["x"]
+                            assert abs(bounds[0]["y"] - bounds[1]["y"]) < 1
+                            plots = [panels.nth(i).locator(".screen-chart").bounding_box() for i in range(2)]
+                            assert abs(plots[0]["y"] - plots[1]["y"]) < 1
+                        endpoints = [p.locator(".screen-year").all_text_contents() for p in
+                                     [panels.nth(0), panels.nth(1)]]
+                        assert endpoints[0][0] == endpoints[1][0]
+                        assert endpoints[0][-1] == endpoints[1][-1] == "2025"
+                        if screenshots:
+                            page.locator(f"#{indicator} > .comparison-panels").screenshot(
+                                path=str(screenshots / f"split-{indicator}-{width}.png"))
                 if name == "immigration.html":
                     page.select_option("#module-chart", "migrant-stock-from-us")
                     assert page.locator("#migrant-stock-from-us .screen-point").count() == 12

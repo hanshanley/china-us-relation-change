@@ -9,4 +9,6 @@
 .comparison-chart{max-width:100%;overflow-x:auto;margin:20px 0}.comparison-chart img{display:block;width:100%;min-width:800px;height:auto}.comparison-chart:focus-visible{outline:3px solid var(--blue);outline-offset:4px}
 @media(max-width:960px){.chart-scroll-hint{display:block}}
 @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+.comparison-panels{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:28px;align-items:start}.comparison-pane{min-width:0}
+@media(max-width:760px){.comparison-panels{grid-template-columns:minmax(0,1fr);gap:24px}}
 @media print{body{background:white}.page{max-width:none;padding:12px}.controls,.downloads,.chart-control{display:none}.series-panel{break-inside:avoid}details:not([open]){display:none}#all-values{display:none}a{color:inherit}}

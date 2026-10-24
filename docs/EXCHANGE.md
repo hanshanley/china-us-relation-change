@@ -236,6 +236,13 @@ check covers touch, redraw cleanup and the no-JavaScript fallback.
 
 ### Combined regional comparisons
 
+Single-series goods and services level charts use vertical annual columns,
+not connected lines. Only reported years get a bar; true zeros and missing
+observations remain different, and partial-year updates are not annualized.
+Indexed views and multi-series comparisons retain lines. The same style is
+used by the interactive chart and both PNG/SVG publication backgrounds;
+hover, touch and keyboard values retain full reported precision.
+
 Open `site/comparisons.html`, linked from the dashboard. These new comparisons
 include **mainland China, Hong Kong and Macau only**; Taiwan is excluded, while
 the existing individual series and source dataset are retained. The same
@@ -249,9 +256,19 @@ Raw-value and logarithmic views are provided in both publication backgrounds;
 logarithmic views omit genuine zeros, leave gaps, and never add pseudocounts.
 Missing years and population-definition breaks remain disconnected.
 
+Visitor comparisons use two panels: **mainland China on the left**, **Hong Kong
+and Macau together on the right**. Both panels share the same year range but
+use separately labelled vertical scales so smaller routes remain readable.
+The panels stack on phones. This applies in both directions and to the
+separate resident-air estimates; missing Macau air estimates remain unavailable,
+not zero. Each panel retains exact-value hover, keyboard and touch interaction.
+Trade and student comparisons retain their existing three-series layout.
+
 Combined PNG/SVG exports live under
 `outputs/figures/<category>/comparisons/<background>/` and the matching site
-directory. The offline catalog includes both views. Macau goods retain their
+directory. Visitor panels have separate `chn-` and `hkg-mac-` downloads in both
+backgrounds and both linear/logarithmic views; obsolete combined visitor exports
+are withdrawn. The offline catalog includes both views. Macau goods retain their
 different customs accounting and a dashed line, with an explicit caveat against
 treating them as identical to the other geographies' BEA accounting.
 

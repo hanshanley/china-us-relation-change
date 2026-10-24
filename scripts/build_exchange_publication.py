@@ -17,7 +17,8 @@ sys.path.insert(0, str(ROOT / "src"))
 from bs4 import BeautifulSoup
 from us_china_exchange.model import GEOGRAPHIES, json_text
 from us_china_exchange.language_analysis import RETIRED_CHARTS as LANGUAGE_RETIRED_CHARTS
-from us_china_exchange.render import annual_table, build, figure_links, initial_panel, svg_chart
+from us_china_exchange.render import SPLIT_VISITOR_MEASURES, annual_table, build, figure_links, initial_panel, svg_chart
+from us_china_exchange.theme import figure_category
 
 
 CANONICAL = "https://www.themarginoferror.com/china-us-relations/"
@@ -56,6 +57,9 @@ def plot_model(svg, labels, observations):
         unit = svg.find("text", attrs={"x": "115", "y": "125"})
     model = {"title": svg.get("aria-label", ""), "description": svg.find("desc").text if svg.find("desc") else "",
              "unit": unit.text if unit else "Count", "groups": [], "kind": "line"}
+    if svg.get("data-geographies"):
+        model["geographies"] = svg["data-geographies"].split()
+        model["show_legend"] = len(model["geographies"]) < 3
     dated = svg.select("circle.data-point[data-date]")
     monthly = dated or svg.select("circle.data-point[data-month]")
     if monthly:
@@ -115,7 +119,8 @@ def plot_model(svg, labels, observations):
                                 "id": sid or "", "points": points})
     if paths:
         all_years = [p["year"] for g in model["groups"] for p in g["points"]]
-        model.update(first=min(all_years), last=max(years + all_years))
+        model.update(first=int(svg.get("data-first-year", min(all_years))),
+                     last=int(svg.get("data-last-year", max(years + all_years))))
         return model
     bars = svg.select("rect.data-bar, rect.language-point, rect.business-point, rect.immigration-point")
     if bars:
@@ -252,6 +257,9 @@ def decorate(site, name, labels, revision):
             note = soup.new_tag("p", attrs={"class": "travel-definition chart-note"})
             note.string = "Arrivals include business and family travel, not just tourism. U.S. travel to mainland China defaults to current air-travel estimates; historical all-mode arrivals remain separately available. Country attribution follows each source, not necessarily the last departure point."
             panel.find("h2").insert_after(note)
+            note.insert_after(fragment(
+                '<p class="chart-note"><a href="comparisons.html?indicator=visitors-from_us">'
+                'Compare U.S. visits to mainland China, Hong Kong and Macau side by side</a>.</p>'))
         chart = soup.select_one("#chart")
         stats = soup.select_one("#annual-headlines").extract()
         chart.insert_after(stats)
@@ -401,10 +409,13 @@ def decorate(site, name, labels, revision):
                 context = soup.new_tag("p", attrs={"class": "chart-context"})
                 context.string = subtitle.text
                 parent.h2.insert_after(context)
-            for p in parent.find_all("p", recursive=False):
+            download_parent = block.find_parent(class_="comparison-pane")
+            if download_parent is None:
+                download_parent = parent
+            for p in download_parent.find_all("p", recursive=False):
                 if p.text.startswith("Download reported values"):
                     p.decompose()
-            for ul in list(parent.find_all("ul", recursive=False)):
+            for ul in list(download_parent.find_all("ul", recursive=False)):
                 details = soup.new_tag("details", attrs={"class": "chart-downloads"})
                 summary = soup.new_tag("summary")
                 summary.string = "Download PNG / SVG"
@@ -486,6 +497,13 @@ def build_publication(source, output, revision):
                     (output / "figures/language_learning" / theme / f"{chart_id}.{extension}").unlink(missing_ok=True)
         for old in ["business-publication.css", "business-publication.js"]:
             (output / "assets" / old).unlink(missing_ok=True)
+        for measure in SPLIT_VISITOR_MEASURES:
+            for direction in ["to_us", "from_us"]:
+                for theme in ["themarginoferror", "substack"]:
+                    for scale in ["levels", "log"]:
+                        for extension in ["png", "svg", "website.png"]:
+                            (output / "figures" / figure_category(measure) / "comparisons" / theme /
+                             f"chn-hkg-mac-{direction}-{measure}-{scale}.{extension}").unlink(missing_ok=True)
     return manifest
 
 

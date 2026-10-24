@@ -42,6 +42,7 @@ SOURCE_NAMES = {
     "comtrade": "UN Comtrade (U.S. reporter)",
     "ustr": "Office of the U.S. Trade Representative",
 }
+SPLIT_VISITOR_MEASURES = {"visitors", "leisure_visitors", "air_visitors"}
 
 
 def esc(value):
@@ -108,7 +109,8 @@ def svg_chart(rows, indexed=False, theme="themarginoferror"):
     snapshot = ((len(present) == 1 and first == end) or
                 (len(present) == 2 and present[0]["source_id"] == "ustr"
                  and len({r["comparability"] for r in present}) == 2))
-    x = lambda year: 115 + ((year - first + .5) / (end - first + 1) if snapshot
+    columns = not indexed and not snapshot and present[0]["measure"] in {"goods", "services"}
+    x = lambda year: 115 + ((year - first + .5) / (end - first + 1) if snapshot or columns
                             else (year - first) / max(1, end - first)) * 835
     y = lambda value: 435 - value / maximum * 285
     sample = present[0]
@@ -120,8 +122,11 @@ def svg_chart(rows, indexed=False, theme="themarginoferror"):
     description = (f"Single verified annual snapshot for {first}; no historical trend inferred."
                    if snapshot and len(present) == 1 else
                    f"Separate annual snapshots for {first} and {end}; release vintages are not connected or used for growth."
-                   if snapshot else f"Annual history from {first} where available. Missing years and definition changes break the line. Exact values are in the complete data download.")
-    parts = [f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {CHART_WIDTH} {CHART_HEIGHT}" role="img" aria-label="{esc(title)}">',
+                   if snapshot else
+                   "Annual reported totals shown as columns. Missing years are left blank. Exact values are in the complete data download."
+                   if columns else f"Annual history from {first} where available. Missing years and definition changes break the line. Exact values are in the complete data download.")
+    style_attribute = ' data-plot-style="columns"' if columns else ""
+    parts = [f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {CHART_WIDTH} {CHART_HEIGHT}" role="img" aria-label="{esc(title)}"{style_attribute}>',
              f"<title>{esc(title)}</title>",
              f"<desc>{esc(description)}</desc>",
              f'<rect class="chart-background" width="{CHART_WIDTH}" height="{CHART_HEIGHT}" fill="{background}"/>',
@@ -148,14 +153,15 @@ def svg_chart(rows, indexed=False, theme="themarginoferror"):
         parts.append(f'<text x="115" y="125" fill="{TEXT}">{ref["year"]} = 100</text>')
     else:
         parts.append(f'<text x="115" y="125" fill="{TEXT}">{esc("Nominal USD" if unit == "USD" else unit.capitalize())}</text>')
-    path, previous, previous_definition = [], None, None
-    for year, value in sorted(values.items()):
-        definition = next(r["comparability"] for r in present if r["year"] == year)
-        connected = previous == year - 1 and previous_definition == definition
-        path.append(f"{'L' if connected else 'M'}{x(year):.2f},{y(value):.2f}")
-        previous = year
-        previous_definition = definition
-    parts.append(f'<path class="data-line" data-series-id="{esc(sample["series_id"])}" d="{" ".join(path)}" fill="none" stroke="{color}" stroke-width="3.2" stroke-linejoin="round"/>')
+    if not columns:
+        path, previous, previous_definition = [], None, None
+        for year, value in sorted(values.items()):
+            definition = next(r["comparability"] for r in present if r["year"] == year)
+            connected = previous == year - 1 and previous_definition == definition
+            path.append(f"{'L' if connected else 'M'}{x(year):.2f},{y(value):.2f}")
+            previous = year
+            previous_definition = definition
+        parts.append(f'<path class="data-line" data-series-id="{esc(sample["series_id"])}" d="{" ".join(path)}" fill="none" stroke="{color}" stroke-width="3.2" stroke-linejoin="round"/>')
     for row in present:
         year = row["year"]
         label = row["period"] + ": " + number(row["value"], unit)
@@ -168,13 +174,19 @@ def svg_chart(rows, indexed=False, theme="themarginoferror"):
                          f'width="64" height="{435 - y(values[year]):.2f}" fill="{color}" aria-hidden="true"/>'
                          f'<text x="{x(year):.2f}" y="{y(values[year]) - 10:.2f}" text-anchor="middle" '
                          f'font-size="20" fill="{TEXT}">{esc(value_label)}</text>')
-        radius = 4.5 if row is present[-1] else 2.8
+        if columns:
+            width = min(64, 835 / (end - first + 1) * .72)
+            parts.append(f'<rect class="annual-column" data-series-id="{esc(row["series_id"])}" '
+                         f'data-year="{year}" data-value="{values[year]}" x="{x(year) - width / 2:.2f}" '
+                         f'y="{y(values[year]):.2f}" width="{width:.2f}" height="{435 - y(values[year]):.2f}" '
+                         f'fill="{color}"><title>{esc(label)}</title></rect>')
+        radius = 0 if columns else 4.5 if row is present[-1] else 2.8
         parts.append(f'<circle data-series-id="{esc(row["series_id"])}" data-year="{year}" data-value="{values[year]}" '
                      f'data-period="{esc(row["period"])}" data-reported-value="{row["value"]}" '
                      f'data-reported-unit="{esc(unit)}" data-status="{esc(row["status"])}" '
                      f'cx="{x(year):.2f}" cy="{y(values[year]):.2f}" r="{radius}" fill="{color}">'
                      f'<title>{esc(label)}</title></circle>')
-    if not snapshot:
+    if not snapshot and not columns:
         latest = present[-1]
         latest_value = values[latest["year"]]
         label = f"{latest_value:.0f}" if indexed else number(latest_value, unit, compact=True)
@@ -223,8 +235,13 @@ def regional_series(rows, measure, direction):
     return groups
 
 
-def svg_comparison(rows, measure, direction, theme="themarginoferror", logarithmic=False):
-    groups = regional_series(rows, measure, direction)
+def svg_comparison(rows, measure, direction, theme="themarginoferror", logarithmic=False,
+                   geographies=COMPARISON_GEOGRAPHIES, year_range=None):
+    if not geographies or len(set(geographies)) != len(geographies) or any(
+            geo not in COMPARISON_GEOGRAPHIES for geo in geographies):
+        raise ValueError("Comparison geographies must be distinct mainland China, Hong Kong or Macau")
+    groups = {geo: annual for geo, annual in regional_series(rows, measure, direction).items()
+              if geo in geographies}
     present = [r for annual in groups.values() for r in annual if r["value"] is not None]
     if not present:
         return '<p class="gap">No verified annual observations for this measure and direction.</p>'
@@ -234,6 +251,10 @@ def svg_comparison(rows, measure, direction, theme="themarginoferror", logarithm
     if not plotted:
         return '<p class="gap">No positive observations are available for a logarithmic view.</p>'
     first, end = min(r["year"] for r in present), max(r["year"] for annual in groups.values() for r in annual)
+    if year_range is not None:
+        if year_range[0] > first or year_range[1] < end:
+            raise ValueError("Shared comparison year range cannot clip observations")
+        first, end = year_range
     x = lambda year: 115 + (year - first) / max(1, end - first) * 835
     if logarithmic:
         low = math.floor(math.log10(min(r["value"] for r in plotted)))
@@ -245,19 +266,25 @@ def svg_comparison(rows, measure, direction, theme="themarginoferror", logarithm
         y = lambda value: 420 - value / maximum * 240
     direction_label = "To the United States" if direction == "to_us" else "From the United States"
     title = MEASURES[measure] + ": " + direction_label
+    split_panel = tuple(geographies) != tuple(COMPARISON_GEOGRAPHIES)
+    metadata = ""
+    if split_panel:
+        title += " · " + " and ".join(GEOGRAPHIES[geo] for geo in groups)
+        metadata = f' data-geographies="{" ".join(groups)}" data-first-year="{first}" data-last-year="{end}"'
+    description = ("Separately reported geographies" if split_panel else "Three separate geographies")
     unit = "Nominal USD" if present[0]["unit"] == "USD" else present[0]["unit"].capitalize()
     if logarithmic:
         unit += " (log scale)"
     parts = [
-        f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {CHART_WIDTH} {CHART_HEIGHT}" role="img" aria-label="{esc(title)}">',
-        f'<title>{esc(title)}</title><desc>Three separate geographies, not a regional total. Missing observations and definition changes are not connected.</desc>',
+        f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {CHART_WIDTH} {CHART_HEIGHT}" role="img" aria-label="{esc(title)}"{metadata}>',
+        f'<title>{esc(title)}</title><desc>{description}, not a regional total. Missing observations and definition changes are not connected.</desc>',
         f'<rect class="chart-background" width="{CHART_WIDTH}" height="{CHART_HEIGHT}" fill="{CHART_THEMES[theme]["background"]}"/>',
         f'<g font-family="{esc(FONT)}" font-size="20" fill="{MUTED}">',
         f'<text x="115" y="40" font-size="28" font-weight="bold" fill="{TEXT}">{esc(MEASURES[measure])}</text>',
         f'<text x="115" y="75" font-size="22">{esc(direction_label)}</text>',
     ]
     missing = []
-    for i, geo in enumerate(COMPARISON_GEOGRAPHIES):
+    for i, geo in enumerate(groups):
         color = PARTNER_COLORS[geo]
         available = any(r["value"] is not None for r in groups[geo])
         if not available:
@@ -304,8 +331,11 @@ def svg_comparison(rows, measure, direction, theme="themarginoferror", logarithm
     if measure == "services" and any(r["source_id"] == "ustr" and r["year"] == 2024 for r in present):
         note += "Macau 2024 archival vintage is not compared with 2025. "
     if measure == "visitors" and direction == "from_us":
-        note += ("Hong Kong: residence through 2022, nationality from 2023. "
-                 "Macau: travel-document issuing place (residence before April 2015). Trips, not people. ")
+        if "HKG" in groups:
+            note += "Hong Kong: residence through 2022, nationality from 2023. "
+        if "MAC" in groups:
+            note += "Macau: travel-document issuing place (residence before April 2015). "
+        note += "Trips, not people. "
     if measure in {"international_students", "enrolled_students"} and any(
             r["source_id"] == "iie" and 2021 <= r["year"] <= 2023 for r in present):
         note += "IIE population expands in 2020/21–2022/23. "
@@ -674,40 +704,83 @@ def build(root):
             regional = regional_series(rows, measure, direction)
             label = "To the United States" if direction == "to_us" else "From the United States"
             heading = MEASURES[measure] + " · " + label
+            split_visitors = measure in SPLIT_VISITOR_MEASURES
+            panels = (("CHN",), ("HKG", "MAC")) if split_visitors else (COMPARISON_GEOGRAPHIES,)
+            panel_labels = {"-".join(geo.lower() for geo in geographies):
+                            " and ".join(GEOGRAPHIES[geo] for geo in geographies)
+                            for geographies in panels}
+            available = [r for annual in regional.values() for r in annual if r["value"] is not None]
+            if len({(r["unit"], r["period_basis"]) for r in available}) > 1:
+                raise ValueError("Comparison units and period bases must match")
+            year_range = ((min(r["year"] for r in available),
+                           max(r["year"] for annual in regional.values() for r in annual))
+                          if available else None)
             versions = {}
             for scale in ("levels", "log"):
-                svg = svg_comparison(rows, measure, direction, logarithmic=scale == "log")
-                if not svg.startswith("<svg"):
-                    for theme in CHART_THEMES:
-                        relative = (Path(figure_category(measure)) / "comparisons" / theme /
-                                    f"chn-hkg-mac-{direction}-{measure}-{scale}")
-                        remove_figure(root, relative)
-                    continue
                 versions[scale] = {}
-                for theme in CHART_THEMES:
-                    themed = svg_comparison(rows, measure, direction, theme, logarithmic=scale == "log")
-                    relative = (Path(figure_category(measure)) / "comparisons" / theme /
-                                f"chn-hkg-mac-{direction}-{measure}-{scale}")
-                    versions[scale][theme] = export_figure(root, relative, themed)
+                if split_visitors:
+                    for theme in CHART_THEMES:
+                        remove_figure(root, Path(figure_category(measure)) / "comparisons" / theme /
+                                      f"chn-hkg-mac-{direction}-{measure}-{scale}")
+                for geographies in panels:
+                    prefix = "-".join(geo.lower() for geo in geographies)
+                    svg = svg_comparison(rows, measure, direction, logarithmic=scale == "log",
+                                         geographies=geographies, year_range=year_range)
+                    if not svg.startswith("<svg"):
+                        for theme in CHART_THEMES:
+                            remove_figure(root, Path(figure_category(measure)) / "comparisons" / theme /
+                                          f"{prefix}-{direction}-{measure}-{scale}")
+                        continue
+                    versions[scale][prefix] = {}
+                    for theme in CHART_THEMES:
+                        themed = svg_comparison(rows, measure, direction, theme, logarithmic=scale == "log",
+                                                geographies=geographies, year_range=year_range)
+                        relative = (Path(figure_category(measure)) / "comparisons" / theme /
+                                    f"{prefix}-{direction}-{measure}-{scale}")
+                        versions[scale][prefix][theme] = export_figure(root, relative, themed)
+                if not versions[scale]:
+                    del versions[scale]
+
+            def comparison_markup(scale):
+                result = []
+                for geographies in panels:
+                    prefix = "-".join(geo.lower() for geo in geographies)
+                    panel_label = panel_labels[prefix]
+                    paths = versions[scale].get(prefix)
+                    content = f'<p class="gap">No verified annual observations for {esc(panel_label)}.</p>'
+                    if paths:
+                        image = paths["themarginoferror"]["png"]
+                        content = (
+                            f'<div class="comparison-chart" tabindex="0" role="region" '
+                            f'aria-label="{esc(heading)}: {esc(panel_label)}">'
+                            f'<img src="{esc(image)}" alt="{esc(heading)}: {esc(panel_label)}'
+                            f'{" on a log scale" if scale == "log" else ""}" '
+                            'width="1000" height="600" loading="lazy"></div>' + figure_links(paths))
+                    if split_visitors:
+                        content = (f'<div class="comparison-pane" data-geographies="{" ".join(geographies)}" '
+                                   f'role="group" aria-label="{esc(panel_label)}">{content}</div>')
+                    result.append(content)
+                markup = "".join(result)
+                return f'<div class="comparison-panels">{markup}</div>' if split_visitors else markup
+
             body = ""
             if "levels" in versions:
                 comparison_count += 1
-                image = versions["levels"]["themarginoferror"]["png"]
-                body += (f'<div class="comparison-chart" tabindex="0" role="region" aria-label="{esc(heading)}">'
-                         f'<img src="{esc(image)}" alt="{esc(heading)}: mainland China, Hong Kong and Macau" '
-                         'width="1000" height="600" loading="lazy"></div>' +
-                         figure_links(versions["levels"]))
+                if split_visitors:
+                    body += '<p class="chart-context">Same year range; separate vertical scales.</p>'
+                body += comparison_markup("levels")
                 if "log" in versions:
-                    image = versions["log"]["themarginoferror"]["png"]
                     body += ('<details><summary>Logarithmic view — useful when series differ greatly in size</summary>'
-                             f'<div class="comparison-chart"><img src="{esc(image)}" alt="{esc(heading)} on a log scale" '
-                             'width="1000" height="600" loading="lazy"></div>' +
-                             figure_links(versions["log"]) + '</details>')
-                catalog = f'<article class="combined-chart"><h3>Three-geography comparison: {esc(heading)}</h3>'
-                for scale, paths in versions.items():
-                    relative_paths = {theme: {kind: path.removeprefix("figures/") for kind, path in files.items()}
-                                      for theme, files in paths.items()}
-                    catalog += f'<h4>{"Reported values" if scale == "levels" else "Logarithmic view"}</h4>' + figure_links(relative_paths)
+                             + comparison_markup("log") + '</details>')
+                catalog_label = "Two-panel visit comparison" if split_visitors else "Three-geography comparison"
+                catalog = f'<article class="combined-chart"><h3>{catalog_label}: {esc(heading)}</h3>'
+                for scale, panel_versions in versions.items():
+                    for prefix, paths in panel_versions.items():
+                        relative_paths = {theme: {kind: path.removeprefix("figures/") for kind, path in files.items()}
+                                          for theme, files in paths.items()}
+                        pane_caption = f' · {esc(panel_labels[prefix])}' if split_visitors else ""
+                        catalog += (f'<h4>{"Reported values" if scale == "levels" else "Logarithmic view"}'
+                                    f'{pane_caption}</h4>' + figure_links(relative_paths))
                 gallery[figure_category(measure)].insert(0, catalog + '</article>')
             else:
                 body += '<p class="gap">No verified annual series for these geographies in this direction. Missing is not zero.</p>'
@@ -728,7 +801,7 @@ def build(root):
                            '<title>China, Hong Kong and Macau | U.S. exchange comparisons</title>'
                            '<link rel="stylesheet" href="assets/style.css"></head><body><div class="page">'
                            '<header><p><a href="index.html">Individual series and complete data</a></p>'
-                           '<h1>Three geographies.<br>One chart.</h1>'
+                           '<h1>Mainland China,<br>Hong Kong and Macau.</h1>'
                            '<p class="lead">Mainland China, Hong Kong and Macau, with a fixed colour for each geography. '
                            'Taiwan is excluded from these comparisons. No regional totals are constructed.</p>'
                            '<p>Annual history from 2000 where verified. Series can end in different years. '

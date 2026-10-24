@@ -71,6 +71,9 @@ LABEL_GEOMETRY = """svg => {
       id:n.dataset.seriesId,year:n.dataset.year,label:n.dataset.label,value:+n.dataset.value,
       x:+n.getAttribute("x"),y:+n.getAttribute("y"),width:+n.getAttribute("width"),height:+n.getAttribute("height")})),
     barLabels:[...svg.querySelectorAll(".screen-bar-value")].map(n=>n.textContent),
+    columns:[...svg.querySelectorAll(".annual-column,.screen-column")].map(n=>({
+      id:n.dataset.seriesId,year:+n.dataset.year,value:+n.dataset.value,
+      x:+n.getAttribute("x"),y:+n.getAttribute("y"),width:+n.getAttribute("width"),height:+n.getAttribute("height")})),
     snapshots:[...svg.querySelectorAll(".snapshot-bar,.screen-snapshot")].map(n=>({
       x:+n.getAttribute("x"),y:+n.getAttribute("y"),width:+n.getAttribute("width"),height:+n.getAttribute("height")})),
     years:[...svg.querySelectorAll("text")].filter(n=>n.classList.contains("screen-year")||
@@ -152,7 +155,7 @@ class Audit:
         if page == "comparisons.html":
             result = {}
             measure, direction = chart.rsplit("-", 1)
-            for geo in ("CHN", "HKG", "MAC"):
+            for geo in model.get("geographies", ("CHN", "HKG", "MAC")):
                 origin, destination = (geo, "USA") if direction == "to_us" else ("USA", geo)
                 rows = sorted((r for r in self.primary_exchange if
                                (r["origin"], r["destination"], r["measure"], r["frequency"]) ==
@@ -288,6 +291,19 @@ class Audit:
                             or abs(bar["y"] - point["y"]) > .1
                             or abs(bar["height"] - (y0 - point["y"])) > .1):
                         self.issue(key, "misplaced_snapshot", bar)
+                if model.get("columns"):
+                    columns = geometry["columns"]
+                    if len(columns) != len(actual):
+                        self.issue(key, "annual_column_count", [len(columns), len(actual)])
+                    for bar, point in zip(columns, actual):
+                        if (bar["year"] != int(point["year"]) or not close(bar["value"], point["value"])
+                                or bar["width"] <= 0 or bar["height"] < 0
+                                or abs(bar["x"] + bar["width"] / 2 - point["x"]) > .1
+                                or abs(bar["y"] - point["y"]) > .1
+                                or abs(bar["height"] - (y0 - point["y"])) > .1):
+                            self.issue(key, "misplaced_annual_column", bar)
+                    if any(a["x"] + a["width"] > b["x"] + .1 for a, b in zip(columns, columns[1:])):
+                        self.issue(key, "overlapping_annual_columns", key)
         if model and model["kind"] == "line" and model.get("frequency") not in {"daily", "monthly"}:
             years = geometry["years"]
             if len(years) >= 2:
@@ -514,7 +530,8 @@ class Audit:
                 section = script.find_parent("section")
                 chart = section["id"]
                 scale = model.get("scale", "linear")
-                key = f"{filename}:{chart}:{scale}:{width}"
+                panel = "-".join(model.get("geographies", []))
+                key = f"{filename}:{chart}:{scale}:{panel}:{width}"
                 self.model_values(key, filename, chart, model)
                 container = page.locator(".native-chart").nth(index)
                 identifier = container.evaluate("""e=>{
@@ -532,7 +549,7 @@ class Audit:
                     self.issue(key, "page_overflow", width)
                 screenshot = None
                 if screenshots:
-                    screenshot = self.output / "screens" / f"{filename[:-5]}-{chart}-{scale}-{width}.png"
+                    screenshot = self.output / "screens" / f"{filename[:-5]}-{chart}-{scale}-{panel}-{width}.png"
                     container.screenshot(path=str(screenshot))
                 self.remember(key, geometry, screenshot)
         page.goto(url + "index.html")
@@ -556,7 +573,11 @@ class Audit:
                 points = [dict(year=r["year"], period=r["period"], reported_value=r["value"],
                                value=r["value"] if mode == "levels" else r["value"] / ref["value"] * 100)
                           for r in rows]
-                model = {"kind": "line", "groups": [{"id": sid, "points": points}]}
+                snapshots = len(rows) == 1 or (len(rows) == 2 and sample["source_id"] == "ustr"
+                    and len({r["comparability"] for r in rows}) == 2)
+                model = {"kind": "line", "columns": mode == "levels" and not snapshots
+                         and sample["measure"] in {"goods", "services"},
+                         "groups": [{"id": sid, "points": points}]}
                 key = f"exchange:{sid}:{mode}:{width}"
                 geometry = page.locator("#chart .screen-chart").evaluate(LABEL_GEOMETRY)
                 actual = [(p["year"], p["value"]) for p in geometry["points"]]
@@ -588,11 +609,15 @@ class Audit:
 
     def export_model(self, path, soup, geometry, logarithmic):
         family, chart = path.parts[0], path.stem
-        model = {"kind": "line" if geometry["points"] else "bars", "scale": "log" if logarithmic else "linear"}
+        model = {"kind": "line" if geometry["points"] else "bars", "scale": "log" if logarithmic else "linear",
+                 "columns": soup.svg.get("data-plot-style") == "columns"}
         if family in {"students", "visitors", "goods_trade", "services_trade"}:
             if "comparisons" in path.parts:
-                match = re.fullmatch(r"chn-hkg-mac-(to_us|from_us)-(.+)-(levels|log)", chart)
-                expected = self.expected_groups("comparisons.html", f"{match[2]}-{match[1]}", model)
+                match = re.fullmatch(r"(chn-hkg-mac|chn|hkg-mac)-(to_us|from_us)-(.+)-(levels|log)", chart)
+                if match is None:
+                    raise ValueError("Unknown regional comparison export identity: " + chart)
+                model["geographies"] = soup.svg.get("data-geographies", "CHN HKG MAC").split()
+                expected = self.expected_groups("comparisons.html", f"{match[3]}-{match[2]}", model)
             else:
                 sid = next(r["series_id"] for r in self.exchange if r["series_id"].replace(":", "-") == chart)
                 expected = {sid: sorted((r for r in self.exchange if r["series_id"] == sid

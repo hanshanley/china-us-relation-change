@@ -177,6 +177,23 @@ def test_collective_export_preserves_complete_inputs_and_native_plot_boundaries(
     assert len(model["groups"]) == 3
     assert model["unit"] == "Nominal USD"
     assert next(g for g in model["groups"] if g["label"] == "Macau")["dash"] == "7 4"
+    for chart in ["visitors-to_us", "visitors-from_us", "air_visitors-from_us"]:
+        section = comparisons.select_one("#" + chart)
+        assert "separate vertical scales" in section.select_one(".chart-context").text
+        panels = section.find("div", class_="comparison-panels", recursive=False).select(".comparison-pane")
+        assert [p["data-geographies"].split() for p in panels] == [["CHN"], ["HKG", "MAC"]]
+        models = [json.loads(p.select_one(".plot-data").string) for p in panels]
+        assert [m["geographies"] for m in models] == [["CHN"], ["HKG", "MAC"]]
+        assert all(m["show_legend"] for m in models)
+        assert models[0]["first"] == models[1]["first"]
+        assert models[0]["last"] == models[1]["last"] == 2025
+        assert {g["id"].split(":")[1 if chart.endswith("to_us") else 2]
+                for g in models[0]["groups"]} == {"CHN"}
+        assert {g["id"].split(":")[1 if chart.endswith("to_us") else 2]
+                for g in models[1]["groups"]} <= {"HKG", "MAC"}
+        assert all(p.select_one(".chart-downloads") for p in panels)
+        assert all("Download reported values" not in p.get_text() for p in panels)
+    assert not comparisons.select_one("#goods-to_us .comparison-panels")
     weibo = BeautifulSoup((tmp_path / "weibo.html").read_text(), "html.parser")
     source_weibo = json.loads((ROOT / "data/site/weibo_summary.json").read_text())
     monthly = source_weibo["monthly"]
