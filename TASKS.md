@@ -104,6 +104,14 @@ government republications and compatible source tables.
 - [ ] **DATA-02: U.S. students in mainland China.** Seek a compatible annual
   U.S.-specific enrollment history after 2018 and the missing 2017 observation.
   Keep dated statements, degree students, credit participation and bounds separate.
+  Historical recovery: the exact 2017 count (23,911) is now independently
+  sourced to Liu Xianjun's explicitly dated scholarly account. Six additional
+  2000-2005 facts from Tian/Liu Table 3 reconcile with all ten retained
+  2006-2015 overlaps. The full MOE-population history is continuous 2000-2018;
+  the source's conflicting 2016 and mislabelled later rows are excluded.
+  Component `354a39b` and `scripts/build_mainland_history.py` preserve every
+  prior observation. This item remains open for a compatible post-2018 annual
+  series; historical recovery does not restore a stale public chart.
 - [ ] **DATA-03: Longer U.S.-host enrollment histories.** Extend enrolled-only
   counts before 2019 and Macau students + OPT before 2015 where verified.
   Do not replace enrolled-only counts with totals that include OPT.
@@ -485,7 +493,7 @@ gaps must remain explicit, without invented values or interpolation.
   not a substitute for DATA-21 or permission to make short histories appear
   complete. Leave unchecked until the resulting charts are actually reviewed.
 
-## 10. Business coverage and consistent bars: October 24, 7:03 p.m.
+## Business coverage and consistent bars: October 24, 7:03 p.m.
 
 The 7:03:08 p.m. screenshot shows U.S.-parent affiliates ending in 2023; the
 7:03:55 p.m. screenshot shows German enterprise counts as lines. These requests
