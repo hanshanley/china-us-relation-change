@@ -9,6 +9,8 @@ unit test, or a successful deployment alone does not establish completion.
 Previously verified milestones are recorded separately from the remaining work.
 This is the **single authoritative request ledger**. `PUBLICATION-TODO.md`
 contains archived planning context, not a second set of completion statuses.
+Agents coordinate file claims, active changes and handoffs in `AGENT-COMMS.md`;
+read and update it before overlapping work.
 
 **Verified release:** `2a4c646` is deployed and live-checked. The public freshness
 gate, single-series annual bars, reverse controls, COVID shading and annual
