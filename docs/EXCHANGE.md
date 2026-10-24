@@ -1,5 +1,8 @@
 # Bilateral exchange dashboard
 
+The active user-request checklist and release gates are in
+[`TASKS.md`](../TASKS.md). Read and update it when continuing this work.
+
 Open `site/index.html` directly. It is a self-contained static publication; no
 web server, analytics, CDN, API key or deployment account is needed to read it.
 Hosting integration is intentionally deferred.
