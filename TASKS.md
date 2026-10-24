@@ -436,3 +436,39 @@ do not restore the rejected button merely to satisfy an old regression test.
   Preserve complete CSV/JSON downloads and correct academic periods, units and
   tooltips. Verify the surviving view and absence of redundant options on
   desktop/phone and the deployed site before checking this off.
+
+## 9. Long histories, two-way permanent immigration and final visual polish
+
+The October 24 follow-up reinforces **SCOPE-01**: try to recover comparable
+annual histories back to at least **2000**, earlier where suitable, and aim
+through **2026 where observations have actually been released**. This applies
+to the actual data, not simply the axis limits. A short recent series does not
+fulfil the long-history requirement; unpublished years and unresolved internal
+gaps must remain explicit, without invented values or interpolation.
+
+- [ ] **DATA-21: Complete permanent-immigration histories in both directions.**
+  The user explicitly requires **China-to-U.S. and U.S.-to-mainland-China over
+  time**, with the 2000-2026 coverage target above. Extend the verified forward
+  permanent-resident admissions history before 2020 and toward the latest
+  released period; retain earlier compatible observations already recovered.
+  Complete the reverse annual permanent-residence grants/admissions under
+  **DATA-11**, using U.S.-specific original evidence, rather than presenting
+  only one direction or two isolated stock benchmarks. Keep mainland China,
+  Hong Kong and Macau distinct. Do not substitute temporary residence permits,
+  visas, work/student permits, resident stocks, trips or all-foreign totals.
+  Preserve nationality versus birthplace, fiscal versus calendar years, new
+  arrivals versus status adjustments, and source-definition breaks; do not
+  splice incompatible series into a cosmetic continuous history. Verify both
+  complete time-series downloads and actual plotted years/values/definitions.
+  Missing reverse-flow evidence remains an open gap, not zero immigration.
+  **DATA-10's checked recent forward-series milestone does not close this task.**
+- [ ] **STYLE-04: Beautify the final plots after substantive work is complete.**
+  After data recovery/integration, functional fixes and final graph regeneration,
+  review the actual desktop/phone charts and both export themes for wasted
+  canvas and excessive outer margins, as shown in the user's Goods trade
+  screenshot. Rebalance plot area, title/subtitle, axes, legends and source-note
+  spacing without clipping or crowding; verify high-resolution PNG and editable
+  SVG exports. Preserve every value, unit, meaningful axis, missing-year gap,
+  source attribution and essential disclosure. This is a final visual pass,
+  not a substitute for DATA-21 or permission to make short histories appear
+  complete. Leave unchecked until the resulting charts are actually reviewed.
