@@ -300,6 +300,14 @@ These are continuing requirements and final regression checks, not new scope.
   relative links/anchors, the tracked preview image and all nine live analysis
   links on October 24, 2026. This is documentation work, not a new chart release
   or completion of the remaining data/UI tasks.
+- [ ] **DOC-02: Require persistent coordinated work and complete request intake.**
+  Put the user's instruction to keep targeting all outstanding actionable tasks
+  together in `AGENTS.md`, require communication/ownership/handoffs through local
+  ignored `AGENT-COMMS.md`, and keep every request and correction in this ledger.
+  Reconcile the saved exchange, Weibo, screenshot and README requests against
+  the task IDs; preserve explicit blockers and the separate implementation,
+  commit, deployment and live-verification states. Verify the committed
+  instructions and keep the communication file off the public current tree.
 
 ## 4. Previously published and verified milestones
 
@@ -378,6 +386,23 @@ already verified. Preserve the separate population and access restrictions.
 - [ ] **WEIBO-03: Resolve recoverable account/post bindings.** The historical
   NYT Chinese numeric recheck and VOA `legalwindow` binding remain unresolved.
   Candidate posts are not confirmed evidence and recovery is not total output.
+- [ ] **WEIBO-04: Preserve the requested interactive coverage-first view.**
+  The user's later preference supersedes Weibo-over-time as the primary public
+  presentation because recovery is biased toward recently accessible posts.
+  Keep a useful interactive account/evidence directory with explicit missing
+  and unknown percentages, labelled denominators, filters and source details.
+  Distinguish accounts, publisher groups and the selected top-1,000 U.S. domains;
+  unknowns are not verified absent accounts. Recheck the actual deployed view
+  after integration, rather than treating an older redesign as final evidence.
+- [ ] **WEIBO-05: Preserve rolling research measures and the daily update request.**
+  Retain the originally requested rolling-30-day active-account/outlet counts,
+  recovered post totals and daily-average measures as separately labelled
+  research outputs, not exhaustive historical activity or popularity estimates.
+  The later directory-first preference changes the primary public display,
+  not the need for accurate collection, deduplication, complete permitted
+  exports and daily refresh. Coordinate permitted recurring discovery under
+  WEIBO-01 and actual unattended collection under AUTO-01/AUTO-02; do not
+  equate an aggregate rebuild or scheduled prompt with successful collection.
 - [ ] **AUTO-01: Make private daily collection operational.** The recorded
   scheduled-process access failure remains a blocker until authorization and
   a genuinely unattended collection run are verified. Do not change filesystem
@@ -406,6 +431,84 @@ already verified. Preserve the separate population and access restrictions.
 5. Commit/push coherent progress as Hans Hanley, then update the checkboxes here.
    Do not create another competing checklist or declare the whole project done
    while these data, publication or automation items remain unresolved.
+6. Continue working with the other agents until the requested tasks are
+   completed and verified. A checklist, passing component, pushed commit or
+   handoff is a milestone, not permission to stop while actionable work remains.
+7. Use the local `AGENT-COMMS.md` throughout the work for file ownership,
+   messages, blockers, integration order and release coordination. If one item
+   is blocked, document it and pursue the next independent actionable task;
+   do not silently abandon it or bypass a source/permission restriction.
+8. Map every new request or screenshot to an existing ID or add a distinct task
+   with its acceptance conditions. Preserve all requirements when consolidating
+   duplicates, and do not mark a new report fixed using an earlier release's
+   checks. Keep the communication file private and the completion ledger here.
+
+### Request coverage index
+
+This index points to the actual tasks; it is not another checklist or a claim
+that the listed work is finished.
+
+| User requirement | Tasks |
+|---|---|
+| Two-way students, visitors and trade; history from 2000, current 2025/2026 data and legitimate alternatives | SCOPE-01; DATA-01 through DATA-09; DATA-17; UI-12/UI-13 |
+| Annual permanent immigration in both directions and longer histories, not stock or visa substitutes | DATA-10/DATA-11/DATA-12/DATA-21 |
+| All-state China-born count/share map, not California alone | SCOPE-06; VERIFY-03/VERIFY-04 |
+| National Chinese/Japanese/Korean learning comparisons, AP, actual course enrollments, degrees, schools and immersion | SCOPE-04/SCOPE-05; DATA-13/DATA-14/DATA-18/DATA-19; LANG-01 through LANG-07; UI-14 |
+| U.S. and European businesses in China, Chinese businesses in the U.S., France/UK/other major countries, current count histories and German bars | UI-09; DATA-15; BIZ-01 through BIZ-04 |
+| Opinions in both directions, age comparisons and honest survey definitions | SCOPE-07; DATA-20 |
+| Confucius change over time and removal of the repetitive Operating status column | SCOPE-08; DATA-16; UI-15/UI-16 |
+| Weibo integration, readable evidence, complete data, remaining discovery and automatic collection | SCOPE-09; WEIBO-01 through WEIBO-03; AUTO-01 through AUTO-03 |
+| Mainland China left and Hong Kong/Macau right; no Taiwan in public comparisons | SCOPE-02/SCOPE-03 |
+| UK-project house style, both backgrounds, PNG/SVG category folders, consistent colors, compact charts and final polish | STYLE-01/STYLE-04; UI-02/UI-04/UI-08; BIZ-04 |
+| Hover/tap/keyboard values, correct toggling, years, definitions and no random or missing plotted points | UI-01/UI-05/UI-12/UI-13; VERIFY-01 through VERIFY-04 |
+| Current public histories since 2023 and snapshots from 2024-2026, with full archives preserved | UI-07; VERIFY-04/VERIFY-06 |
+| Public-facing copy, GitHub rather than internal coverage walls, collective analysis placement and the "Cooling Ties Across the Harbor" cover | STYLE-02/STYLE-03; DOC-01 |
+| Remove redundant direction button and redundant Language degree view | UI-11/UI-14 |
+| Audit all graphs/data; retain complete downloads and verify actual publication | DATA-01/DATA-17; VERIFY-01 through VERIFY-07 |
+| Periodic commits/pushes as Hans Hanley, no Copilot attribution | VERIFY-05; AGENTS.md |
+| Keep targeting all tasks with other agents and coordinate rather than stopping at handoffs | This protocol; AGENTS.md; local AGENT-COMMS.md |
+6. Keep targeting the remaining actionable tasks with the other agents.
+   A finished subtask, test run, commit, deployment or handoff is a checkpoint,
+   not permission to stop the overall work. Reread this ledger and the latest
+   local communication messages, claim the next suitable task or resolve an
+   agreed integration dependency. If an item is blocked, record the actual
+   blocker and alternatives and continue other work; do not leave actionable
+   tasks idle, bypass restrictions or manufacture completion.
+7. Record every new user request and screenshot correction here before acting.
+   Consolidate repetitions, retain the latest requirements and explicitly
+   identify superseded presentations. Keep local file ownership, messages and
+   handoffs in ignored `AGENT-COMMS.md`; never force-add or publish that file.
+
+### Request-coverage crosswalk
+
+The October 24 request audit checked the saved user messages from the original
+exchange and Weibo sessions, later graph/Confucius follow-ups, and the README
+session. This index consolidates repeated requests; it does not add a competing
+set of completion statuses. New follow-ups still require intake under step 7.
+
+| User requirement | Authoritative task IDs |
+|---|---|
+| Two-way student, visitor, goods and services histories from 2000 toward the present; recover gaps through alternative sources | SCOPE-01; DATA-01 through DATA-09; DATA-17 |
+| Complete early student data and explain the exact study-abroad screenshot | DATA-02 through DATA-05; UI-05, UI-12, UI-13 |
+| Mainland China separate from Hong Kong/Macau; Taiwan excluded from public comparison graphs | SCOPE-02, SCOPE-03 |
+| Bars for single measures; consistent directional colours; correct repeated toggles | UI-01, UI-02, UI-04; BIZ-04 |
+| Both directions accessible, without the redundant reverse button | UI-03, UI-11 |
+| Remove stale public histories/snapshots without deleting the complete data | UI-07; LANG-06; VERIFY-04 |
+| COVID travel-restriction context throughout applicable time charts | UI-06 |
+| Annual permanent immigration both ways over a long history, separate from stocks; state count/share map | DATA-10 through DATA-12; DATA-21; SCOPE-06 |
+| Actual nationwide Chinese/Japanese/Korean learners, courses, awards, school availability and distinct AP measures; trace the supplied article | DATA-13, DATA-14, DATA-18, DATA-19; LANG-01 through LANG-07; SCOPE-04, SCOPE-05 |
+| Remove the redundant bachelor's-degree language visualization | UI-14 |
+| U.S. opinions of China and Chinese opinions of the U.S., including original age groups | DATA-20; SCOPE-07 |
+| Current business evidence and longer country-count histories, Chinese businesses in the U.S., France/UK/other country coverage | UI-09; DATA-15; BIZ-01 through BIZ-04 |
+| Confucius counts over time; remove the repetitive Operating status column while preserving the data | DATA-16; SCOPE-08; UI-15, UI-16 |
+| Verify media accounts across the top-1,000 U.S. domains, recover permitted posts and keep missingness explicit | SCOPE-09; WEIBO-01 through WEIBO-04 |
+| Daily updates and rolling-30-day research measures without recent-recovery bias or false freshness | WEIBO-05; AUTO-01 through AUTO-03 |
+| House style, readable PNG/SVG, both backgrounds, topic folders, split panels, compact plots and final whitespace polish | STYLE-01, STYLE-04; UI-08; SCOPE-03 |
+| Hover/touch/keyboard/no-JS, full data/value/visual audits and the faint header-line defect | UI-10; VERIFY-01 through VERIFY-04 |
+| Public-facing copy, no internal gap dumps or redundant introduction; collective analysis first with the latest selected cover | STYLE-02, STYLE-03 |
+| Periodic commits/pushes as Hans Hanley with no Copilot attribution; deploy and check actual served results | VERIFY-05 through VERIFY-07 |
+| README in the `uk_decline` style | DOC-01 |
+| Keep working together until verified completion; track all requests and keep agent communications private/local | DOC-02; resume protocol above; `AGENTS.md` |
 
 ## 8. Latest screenshot regressions: October 24, 6:54-7:01 p.m.
 
