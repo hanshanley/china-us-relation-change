@@ -35,24 +35,23 @@ The selected **1,000 SCImago U.S.-classified domains** are ranked by digital
 reputation, not traffic; their present ownership/nationality was not independently
 audited. **Five have current-profile evidence, seven historical-only evidence,
 988 remain unknown, and zero are verified negatives.** All underwent homepage
-screening, but only 306 have recorded manual review.
+screening, but only 311 have recorded manual review.
 
-The [latest scheduled pass](discovery_iteration62.md) adds five reviews.
-Two fresh corporate-domain captures, two genuinely reused corporate captures
-and two genuine cached primary PDFs support limited context.
-The Baltimore Sun-labelled ranked domain actually serves Tribune Publishing
-corporate pages; no newspaper-domain substitution or inherited account occurred.
-Vallejo's own explicit source-use reservation raised the publisher-body holds
-to seventeen after only its exact fresh root was removed.
-Chattanooga's controlled redirect and Topeka's HTTP403 were held.
-A separate ordinary award-metadata probe returnedHTTP403; no alternate
-development/prize host or unavailable primary proof was substituted.
-Bradenton's historical PDF extracted-host mismatch was preserved rather
-than silently repaired. All Southern/NWA and corporate conditions remain
+The [latest scheduled pass](discovery_iteration63.md) adds five reviews.
+Three fresh publisher responses, an actual root-supplied corporate page,
+independent library/app metadata and two genuinely reused corporate captures
+support limited context. Woodland's own source-use reservation raised the
+publisher-body holds to eighteen after only its exact fresh root was removed.
+Moscow-Pullman's HTTP403 and Hot Springs' controlled redirect were held;
+library/app metadata were not relabeled as publisher bodies or Sina proof.
+El Tiempo Latino's actual corporate routing was preserved rather than
+silently substituted with an older About URL. Everett's owned social matrix
+is bounded other-platform evidence, not an exhaustive account census.
+All Southern/NWA, corporate and independent-institution conditions remain
 distinct. No parent/sibling handle was inherited. Shared catalogs are not edited.
 The live 6,570-post corpus, original archived baseline and all rolling data
 remain unchanged by discovery.
-Discovery is not exhausted: 694 selected domains still lack a recorded
+Discovery is not exhausted: 689 selected domains still lack a recorded
 manual review. A bounded recurring prompt is active every 30 minutes; later
 passes must advance the frontier rather than repeatedly probing exhausted leads.
 

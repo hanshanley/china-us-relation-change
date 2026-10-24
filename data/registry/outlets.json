@@ -2230,6 +2230,71 @@
       "notes": "Recorded newspaper HTTP403 held: no newspaper/alias/static/help/obituary/alternate-client request. Genuine existing directory reused offline with original2026-10-23T08:08:21.974537+00:00 observation and SHA9722be6afdb21ff3c8a0c45dfe98a15ee145083dad8c392787c259427b1177c2. Page6 text and annotations inspected; no direct cjonline.com URI, and shared obituary portals not followed or asserted as a specific ranked-host binding. Other Capital Journal titles, parent/sibling/staff channels, missing links and failed access are not account or inactivity proof. Unknown, not absent. Review date: 2026-10-24 UTC."
     },
     {
+      "id": "woodland-daily-democrat",
+      "name": "Daily Democrat / Woodland",
+      "category": "newspaper",
+      "aliases": [
+        "Woodland Democrat",
+        "Woodland Daily Democrat"
+      ],
+      "us_basis": "United States-classified source position307; an existing genuine MediaNews Group Communities capture links the exact dailydemocrat.com host with Woodland Daily Democrat logo image-alt text. The fresh root's Yolo County, California title is factual metadata only after removal of that copy; corporate publication links are not an independently audited current-control or occupancy census.",
+      "source_url": "https://www.dailydemocrat.com/",
+      "research_status": "reviewed",
+      "notes": "Own fresh root explicitly reserved AI-training/text-and-data-mining use. Only that exact fresh copy removed; older captures untouched, no Contact/alias/static/image/body follow-up. Available raw-file/SHA null; discarded fingerprint not available primary proof. Permitted existing corporate root/directory reused offline with original timestamps and literal anchor/logo-alt attributes. Other Democrat newspapers, political-party accounts, parent/sibling and staff channels were not inherited. Unknown, not absent. Review date: 2026-10-24 UTC."
+    },
+    {
+      "id": "moscow-pullman-daily-news",
+      "name": "Moscow-Pullman Daily News / selected dnews.com domain",
+      "category": "newspaper",
+      "aliases": [
+        "Moscow-Pullman Daily News",
+        "Moscow-Pullman Daily News ranked domain"
+      ],
+      "us_basis": "United States-classified source position308; a genuinely captured University of Idaho Library newspaper-metadata page lists Moscow-Pullman Daily News under its Moscow entry. It supplies limited bibliographic name/context, not exact dnews.com-host, physical-office, current legal-control or account certification. Original repeated-word source name/domain are preserved.",
+      "source_url": "https://dnews.com/",
+      "research_status": "reviewed",
+      "notes": "Recorded newspaper HTTP403 held with zero newspaper/alias/static/help/obituary/alternate-client requests. Independent university metadata, not a newspaper issue PDF, government clipping or legal-notice mirror, was inspected. No direct dnews.com anchor was found in that saved metadata; no exact publisher-host binding was invented. Licensed database/resource links were not followed, and library holdings or access ranges are not Weibo publication coverage. Russian Moscow titles, Discovery DNews, sister-paper and personal/staff identities were not assigned. Unknown, not absent. Review date: 2026-10-24 UTC."
+    },
+    {
+      "id": "el-tiempo-latino",
+      "name": "El Tiempo Latino / Washington, D.C.",
+      "category": "newspaper",
+      "aliases": [
+        "El Tiempo Latino"
+      ],
+      "us_basis": "United States-classified Spanish-language source position309; the actual publication root supplies a TIEMPO company URI, whose readable root identifies independent U.S. Latino media, Washington, D.C. headquarters and an exact return link to El Tiempo Latino. This is publisher/company self-description, not independently audited present legal control or a newsroom staffing census.",
+      "source_url": "https://eltiempolatino.com/",
+      "research_status": "reviewed",
+      "notes": "Complete publication root and its actually supplied corporate root inspected with English/Spanish source-use context and no institutional Sina designation. Current Acerca de nosotros route is external TIEMPO company, not a silently substituted older publication About route. Corporate follower, interaction and audience marketing totals are not Sina metrics. Other TIEMPO publications, Colombian El Tiempo, Washington Post and parent/sibling/staff identities were not inherited or counted as additional ranked reviews. Ownership, elapsed-age and staffing claims remain unaudited. Unknown, not absent. Review date: 2026-10-24 UTC."
+    },
+    {
+      "id": "everett-herald",
+      "name": "The Daily Herald / Everett HeraldNet",
+      "category": "newspaper",
+      "aliases": [
+        "Everett Herald",
+        "The Daily Herald Everett",
+        "HeraldNet"
+      ],
+      "us_basis": "United States-classified source position310; the actual root identifies Everett and Snohomish County in Washington, and its owned linked social page explicitly identifies HeraldNet/The Daily Herald. Source-country and publisher descriptions do not independently certify current ownership/nationality or office occupancy.",
+      "source_url": "https://www.heraldnet.com/",
+      "research_status": "reviewed",
+      "notes": "Complete root and actually linked /social-media/ inspected without an institutional Sina designation. The owned matrix lists Facebook, X, Instagram, TikTok and Threads; neither their handles nor omission of Weibo is an exhaustive account census, a verified negative or recent Sina activity. Other Herald titles, Spanish-language siblings, parent/staff profiles and old ownership/print-cessation stories were not inherited or converted into current legal-control/account conclusions. Unknown, not absent. Review date: 2026-10-24 UTC."
+    },
+    {
+      "id": "hot-springs-sentinel-record",
+      "name": "Hot Springs Sentinel-Record",
+      "category": "newspaper",
+      "aliases": [
+        "Hot Springs Sentinel-Record",
+        "The Sentinel-Record"
+      ],
+      "us_basis": "United States-classified source position311; genuinely captured official App Store metadata describes the Hot Springs Sentinel Record app, labels its developer WEHCO Media and supplies a hotsr.com terms URI. This is limited self-described app/platform context, not a retrieved newspaper body, audited current legal operator or Sina certification.",
+      "source_url": "https://hotsr.com/",
+      "research_status": "reviewed",
+      "notes": "Recorded newspaper controlled redirect and separate WEHCO corporate robots hold respected with zero newspaper/corporate/alias/alternate-client requests. Independent official platform record, not a third-party app mirror or newspaper issue/archive body, was inspected. Its supplied hotsr.com privacy/terms URI was not followed. App ID897603702 is not a Sina UID; ratings/downloads, format, privacy labels and update claims are not Weibo activity or current account control. No app installation, login or licensed-content retrieval. Parent/sibling/staff accounts not inherited. Unknown, not absent. Review date: 2026-10-24 UTC."
+    },
+    {
       "id": "telemundo", "name": "Telemundo / Noticias Telemundo", "category": "broadcast_news",
       "aliases": ["Telemundo", "Noticias Telemundo", "Telemundo Noticias"],
       "us_basis": "United States-classified source position110; actual network root separately links its Noticias Telemundo newsroom section. Current corporate domicile/headquarters and legal account control are not independently audited.",
