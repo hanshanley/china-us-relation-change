@@ -35,22 +35,24 @@ The selected **1,000 SCImago U.S.-classified domains** are ranked by digital
 reputation, not traffic; their present ownership/nationality was not independently
 audited. **Five have current-profile evidence, seven historical-only evidence,
 988 remain unknown, and zero are verified negatives.** All underwent homepage
-screening, but only 281 have recorded manual review.
+screening, but only 286 have recorded manual review.
 
-The [latest scheduled pass](discovery_iteration57.md) adds five reviews.
-Nine fresh publisher HTML captures and one genuine reused corporate Contact
-support limited institutional context. Johnson City's original corporate
-capture time is preserved; it was not downloaded again. The Astorian's stated
-title history did not become Weibo account continuity, and La Noticia's actual
-About identifies North Carolina rather than a namesake in another country.
-Beaumont's branded customer-care page was read, but its separate corporate
-profile was not obtained after a robots-policy HTTP403. The failure is recorded
-separately from readable newspaper access. All twelve publisher-body holds and
-distinct Southern/NWA conditions remain intact; no parent/sibling handle was
-inherited. Shared catalogs are not edited.
+The [latest scheduled pass](discovery_iteration58.md) adds five reviews.
+Six fresh publisher HTML captures, two independent corporate HTML captures
+and one genuine cached obituary directory support limited context.
+Pottstown's nested newspaper HTTP403 was honored despite its null outer error.
+The corporate directory's actual anchor/logo-alt attributes distinguish its
+exact host from Mercury News, without fetching either newspaper or logo assets.
+Appleton's directory page17 and shared obituary-portal annotation were
+inspected offline with the original capture time preserved; neither establishes
+exact ranked-host control. Port Arthur's actual Texas body was not bound to
+a bare PANews token, and Victoria's historical survey figures were not treated
+as current readership. All twelve publisher-body holds and distinct Southern/NWA
+conditions remain intact; no parent/sibling handle was inherited.
+Shared catalogs are not edited.
 The live 6,570-post corpus, original archived baseline and all rolling data
 remain unchanged by discovery.
-Discovery is not exhausted: 719 selected domains still lack a recorded
+Discovery is not exhausted: 714 selected domains still lack a recorded
 manual review. A bounded recurring prompt is active every 30 minutes; later
 passes must advance the frontier rather than repeatedly probing exhausted leads.
 
