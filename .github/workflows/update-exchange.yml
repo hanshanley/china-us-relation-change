@@ -13,6 +13,7 @@ on:
       - "scripts/update.py"
       - "scripts/build_site.py"
       - "scripts/build_weibo_summary.py"
+      - "scripts/check_weibo_publication.py"
       - "scripts/refresh_weibo.py"
       - "scripts/install_weibo_refresh.py"
       - "scripts/build_language_data.py"
@@ -108,6 +109,7 @@ jobs:
           python scripts/check_exchange_publication.py --site data/local/collective-publication
           python scripts/check_state_immigration_map.py --site data/local/collective-publication
           python scripts/check_confucius_publication.py --site data/local/collective-publication
+          python scripts/check_weibo_publication.py --site data/local/collective-publication
           python scripts/check_opinion_publication.py --site data/local/collective-publication
           python scripts/audit_exchange_plots.py --site data/local/collective-publication --exports outputs/figures --output data/local/plot-audit
           git diff --check

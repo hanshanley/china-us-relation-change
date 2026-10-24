@@ -8,8 +8,7 @@
   const coverage = document.querySelector("#weibo-coverage");
   if (coverage && payload.coverage) {
     const total = payload.coverage.total;
-    const waffle = coverage.querySelector("#coverage-waffle");
-    const cells = [...waffle.querySelectorAll(".coverage-cell")];
+    const bar = coverage.querySelector("#coverage-bar");
     const key = coverage.querySelector("#coverage-key");
     const explanation = coverage.querySelector("#coverage-explanation");
     let modeId = "evidence", mode = payload.coverage.modes.evidence, pinned = "", inspected = "";
@@ -17,7 +16,9 @@
       if (state === inspected) return;
       inspected = state;
       const group = mode.groups.find(item => item.id === state);
-      for (const cell of cells) cell.classList.toggle("coverage-dimmed", !!state && cell.dataset.state !== state);
+      for (const segment of bar.children) {
+        segment.classList.toggle("coverage-dimmed", !!state && segment.dataset.state !== state);
+      }
       for (const button of key.querySelectorAll("button")) {
         button.setAttribute("aria-pressed", String(button.dataset.state === state));
       }
@@ -27,30 +28,16 @@
       modeId = selectedMode;
       mode = payload.coverage.modes[modeId];
       pinned = inspected = "";
-      let index = 0;
-      for (const group of mode.groups) {
-        for (let i = 0; i < group.count; i++) {
-          const cell = cells[index++];
-          cell.dataset.state = group.id;
-          cell.setAttribute("class", `coverage-cell ${group.id}`);
-        }
-      }
-      coverage.querySelector("#coverage-percent").textContent = `${mode.percent.toFixed(1)}%`;
-      coverage.querySelector("#coverage-headline").textContent = mode.headline;
-      coverage.querySelector("#coverage-tally").textContent =
-        `${mode.count.toLocaleString("en-US")} of ${total.toLocaleString("en-US")} selected outlets ` +
-        (modeId === "evidence" ? "have no confirmed account decision." : "have not had a manual review.");
-      waffle.setAttribute("aria-label", `${total} selected domains: ${mode.count} ${mode.headline}`);
-      waffle.querySelector("title").textContent = modeId === "evidence" ?
-        "Known accounts occupy a small part of the research coverage map" : "Manual review coverage";
-      waffle.querySelector("desc").textContent = modeId === "evidence" ?
-        "Each square is one selected domain, grouped by research outcome. Unfilled squares are unknown, not verified absences." :
-        "Each square is one selected domain. Filled squares have been manually reviewed; unfilled squares have not. Review does not guarantee an account decision.";
-      for (const button of coverage.querySelectorAll("[data-coverage-mode]")) {
-        button.setAttribute("aria-pressed", String(button.dataset.coverageMode === modeId));
-      }
+      bar.replaceChildren();
       key.replaceChildren();
       for (const group of mode.groups) {
+        const segment = document.createElement("span");
+        segment.className = `coverage-segment ${group.id}`;
+        segment.dataset.state = group.id;
+        segment.dataset.count = group.count;
+        segment.style.width = `${group.count / total * 100}%`;
+        segment.title = `${group.label}: ${group.count.toLocaleString("en-US")} of ${total.toLocaleString("en-US")} (${group.percent.toFixed(1)}%)`;
+        bar.append(segment);
         const button = document.createElement("button");
         button.type = "button";
         button.className = "coverage-category";
@@ -71,8 +58,20 @@
         button.addEventListener("pointerenter", () => emphasize(group.id));
         button.addEventListener("pointerleave", () => emphasize(pinned));
         button.addEventListener("focus", () => emphasize(group.id));
-        button.addEventListener("click", () => { pinned = pinned === group.id ? "" : group.id; emphasize(pinned); });
+        button.addEventListener("click", () => {
+          pinned = pinned === group.id ? "" : group.id;
+          emphasize(pinned);
+        });
         key.append(button);
+      }
+      const tally = coverage.querySelector("#coverage-tally");
+      const amount = document.createElement("strong");
+      amount.textContent = `${mode.documented.toLocaleString("en-US")} of ${total.toLocaleString("en-US")} selected domains`;
+      tally.replaceChildren(amount, document.createTextNode(modeId === "evidence" ?
+        " have a documented account association." : " have a recorded manual review."));
+      bar.setAttribute("aria-label", `${total} selected domains: ${mode.count} ${mode.headline}`);
+      for (const button of coverage.querySelectorAll("[data-coverage-mode]")) {
+        button.setAttribute("aria-pressed", String(button.dataset.coverageMode === modeId));
       }
       explanation.textContent = mode.explanation;
       if (writeUrl && location.protocol !== "file:") {
@@ -82,138 +81,222 @@
         history.replaceState(null, "", url);
       }
     };
+    coverage.querySelector(".coverage-modes").hidden = false;
+    bar.setAttribute("role", "group");
+    bar.tabIndex = 0;
+    bar.setAttribute("aria-keyshortcuts", "ArrowLeft ArrowRight Home End Escape");
     for (const button of coverage.querySelectorAll("[data-coverage-mode]")) {
       button.addEventListener("click", () => renderCoverage(button.dataset.coverageMode, true));
     }
-    waffle.addEventListener("pointermove", event => {
-      const cell = event.target.closest(".coverage-cell");
-      if (cell) emphasize(cell.dataset.state);
+    bar.addEventListener("pointermove", event => {
+      const segment = event.target.closest(".coverage-segment");
+      if (segment) emphasize(segment.dataset.state);
     });
-    waffle.addEventListener("pointerleave", () => emphasize(pinned));
-    waffle.addEventListener("click", event => {
-      const cell = event.target.closest(".coverage-cell");
-      if (cell) { pinned = pinned === cell.dataset.state ? "" : cell.dataset.state; emphasize(pinned); }
+    bar.addEventListener("pointerleave", () => emphasize(pinned));
+    bar.addEventListener("click", event => {
+      const segment = event.target.closest(".coverage-segment");
+      if (segment) {
+        pinned = pinned === segment.dataset.state ? "" : segment.dataset.state;
+        emphasize(pinned);
+      }
     });
-    waffle.addEventListener("keydown", event => {
+    bar.addEventListener("keydown", event => {
       if (!["ArrowLeft", "ArrowRight", "Home", "End", "Escape"].includes(event.key)) return;
       event.preventDefault();
       const index = mode.groups.findIndex(group => group.id === inspected);
       const next = index < 0 ? (event.key === "ArrowLeft" ? mode.groups.length - 1 : 0) :
         (index + (event.key === "ArrowLeft" ? -1 : 1) + mode.groups.length) % mode.groups.length;
       pinned = event.key === "Escape" ? "" : event.key === "Home" ? mode.groups[0].id :
-        event.key === "End" ? mode.groups.at(-1).id :
-        mode.groups[next].id;
+        event.key === "End" ? mode.groups.at(-1).id : mode.groups[next].id;
       emphasize(pinned);
     });
     const requested = new URL(location.href).searchParams.get("coverage");
     renderCoverage(Object.hasOwn(payload.coverage.modes, requested) ? requested : "evidence");
+    if (Object.hasOwn(payload.coverage.modes, requested)) coverage.open = true;
   }
   const form = root.querySelector("#weibo-filters");
   const search = root.querySelector("#weibo-search");
   const category = root.querySelector("#weibo-category");
   const evidence = root.querySelector("#weibo-evidence");
   const followup = root.querySelector("#weibo-followup");
-  const dots = [...root.querySelectorAll(".weibo-dot")];
+  const filterOptions = root.querySelector("#weibo-filter-options");
+  const filterToggle = root.querySelector("#weibo-filter-toggle");
+  const mobileFilters = matchMedia("(max-width: 760px)");
+  const links = [...root.querySelectorAll(".weibo-channel-link")];
   const cards = [...root.querySelectorAll(".weibo-brand")];
   const details = [...root.querySelectorAll(".weibo-channel-detail")];
+  const pager = root.querySelector("#weibo-pagination");
+  const previous = root.querySelector("#weibo-previous");
+  const next = root.querySelector("#weibo-next");
+  const pageSize = 8;
   const normalize = value => String(value).normalize("NFKC").toLocaleLowerCase();
   const byId = new Map(accounts.map(account => [account.id, {...account, search: normalize(account.search)}]));
   const parameters = new URL(location.href).searchParams;
   search.value = parameters.get("q") || "";
-  if ([...category.options].some(option => option.value === parameters.get("category"))) {
-    category.value = parameters.get("category");
-  }
-  if ([...evidence.options].some(option => option.value === parameters.get("evidence"))) {
-    evidence.value = parameters.get("evidence");
+  for (const [select, parameter] of [[category, "category"], [evidence, "evidence"]]) {
+    if ([...select.options].some(option => option.value === parameters.get(parameter))) {
+      select.value = parameters.get(parameter);
+    }
   }
   followup.checked = parameters.get("followup") === "1";
-  const hashId = () => {
-    try { return decodeURIComponent(location.hash).replace(/^#weibo-account-/, ""); }
-    catch { return ""; }
+  let filtersExpanded = Boolean(category.value || evidence.value || followup.checked);
+  const layoutFilters = () => {
+    const expanded = !mobileFilters.matches || filtersExpanded;
+    filterOptions.hidden = !expanded;
+    filterToggle.hidden = !mobileFilters.matches;
+    filterToggle.setAttribute("aria-expanded", String(expanded));
+    const active = [category.value, evidence.value, followup.checked].filter(Boolean).length;
+    filterToggle.textContent = active ? `Filters (${active})` : "Filters";
   };
-  let selected = hashId();
-
-  const update = (writeUrl = true) => {
+  filterToggle.addEventListener("click", () => {
+    filtersExpanded = !filtersExpanded;
+    layoutFilters();
+  });
+  mobileFilters.addEventListener("change", layoutFilters);
+  let page = Math.max(1, Number.parseInt(parameters.get("page"), 10) || 1);
+  const hashId = () => {
+    try {
+      return location.hash.startsWith("#weibo-account-") ? decodeURIComponent(location.hash.slice(15)) : "";
+    } catch { return ""; }
+  };
+  let selected = byId.has(hashId()) ? hashId() : "";
+  const matchingAccounts = () => {
     const terms = normalize(search.value).trim().split(/\s+/).filter(Boolean);
-    const matching = accounts.filter(account => {
+    return accounts.filter(account => {
       const item = byId.get(account.id);
       return (!category.value || item.category === category.value) &&
         (!evidence.value || item.state === evidence.value) &&
         (!followup.checked || item.needs_review) &&
         terms.every(term => item.search.includes(term));
     });
+  };
+  const clearFilters = () => {
+    search.value = category.value = evidence.value = "";
+    followup.checked = false;
+    filtersExpanded = false;
+  };
+  const update = ({writeUrl = true, resetPage = false, revealSelection = false} = {}) => {
+    layoutFilters();
+    const matching = matchingAccounts();
     const ids = new Set(matching.map(account => account.id));
     const outlets = new Set(matching.map(account => account.outlet));
+    const ordered = cards.map(card => card.dataset.outletId).filter(id => outlets.has(id));
     if (!ids.has(selected)) selected = matching[0]?.id || "";
-    for (const dot of dots) {
-      const active = dot.dataset.accountId === selected;
-      dot.hidden = !ids.has(dot.dataset.accountId);
-      dot.setAttribute("aria-current", String(active));
+    if (resetPage) page = 1;
+    if (revealSelection && selected) page = Math.floor(ordered.indexOf(byId.get(selected).outlet) / pageSize) + 1;
+    const pages = Math.max(1, Math.ceil(ordered.length / pageSize));
+    page = Math.max(1, Math.min(page, pages));
+    const visible = new Set(ordered.slice((page - 1) * pageSize, page * pageSize));
+    if (selected && !visible.has(byId.get(selected).outlet)) {
+      selected = matching.find(account => visible.has(account.outlet))?.id || "";
     }
-    for (const card of cards) card.hidden = !outlets.has(card.dataset.outletId);
+    for (const link of links) {
+      link.hidden = !ids.has(link.dataset.accountId);
+      link.dataset.matched = String(ids.has(link.dataset.accountId));
+      link.setAttribute("aria-current", String(link.dataset.accountId === selected));
+    }
+    for (const card of cards) card.hidden = !visible.has(card.dataset.outletId);
     for (const detail of details) detail.hidden = detail.dataset.accountId !== selected;
     root.querySelector("#weibo-empty").hidden = matching.length !== 0;
     root.querySelector("#weibo-empty-detail").hidden = matching.length !== 0;
     root.querySelector("#weibo-result-count").textContent =
-      `${matching.length} channel${matching.length === 1 ? "" : "s"} across ${outlets.size} publisher / brand group${outlets.size === 1 ? "" : "s"}`;
+      `${matching.length} matching channel${matching.length === 1 ? "" : "s"} across ` +
+      `${outlets.size} publisher / brand group${outlets.size === 1 ? "" : "s"}`;
     for (const count of root.querySelectorAll("[data-state-count]")) {
       count.textContent = matching.filter(account => account.state === count.dataset.stateCount).length;
     }
+    pager.hidden = pages === 1;
+    previous.disabled = page === 1;
+    next.disabled = page === pages;
+    root.querySelector("#weibo-page-label").textContent = `Page ${page} of ${pages}`;
     if (writeUrl) {
       const url = new URL(location.href);
       for (const [key, value] of [["q", search.value.trim()], ["category", category.value],
-        ["evidence", evidence.value], ["followup", followup.checked ? "1" : ""]]) {
+        ["evidence", evidence.value], ["followup", followup.checked ? "1" : ""],
+        ["page", page > 1 ? String(page) : ""]]) {
         if (value) url.searchParams.set(key, value);
         else url.searchParams.delete(key);
       }
-      url.hash = selected ? `weibo-account-${selected}` : "";
+      url.hash = root.classList.contains("weibo-detail-open") && selected ? `weibo-account-${selected}` : "";
       if (location.protocol === "file:") url.search = location.search;
       history.replaceState(null, "", url);
     }
   };
-  root.classList.add("weibo-interactive");
-  if (byId.has(selected)) {
+  const reveal = (id, writeUrl = true) => {
+    if (!byId.has(id)) return;
+    selected = id;
+    if (!matchingAccounts().some(account => account.id === selected)) clearFilters();
     root.classList.add("weibo-detail-open");
-    root.closest("#weibo-directory")?.setAttribute("open", "");
-  }
+    update({writeUrl, revealSelection: true});
+  };
+  const backToList = () => {
+    root.classList.remove("weibo-detail-open");
+    update({revealSelection: true});
+    const link = links.find(node => node.dataset.accountId === selected);
+    link?.focus({preventScroll: true});
+    link?.scrollIntoView({block: "center", behavior: "auto"});
+  };
+  const scrollToDetail = () => root.querySelector(".weibo-inspector").scrollIntoView({block: "start", behavior: "auto"});
+  root.classList.add("weibo-interactive");
   form.hidden = false;
   const back = root.querySelector("#weibo-back");
   back.hidden = false;
-  back.addEventListener("click", () => {
+  back.addEventListener("click", backToList);
+  const changed = () => {
+    if (category.value || evidence.value || followup.checked) filtersExpanded = true;
     root.classList.remove("weibo-detail-open");
-    const dot = dots.find(node => node.dataset.accountId === selected);
-    dot?.focus({preventScroll: true});
-    dot?.scrollIntoView({block: "center", behavior: "auto"});
-  });
+    update({resetPage: true});
+  };
   form.addEventListener("submit", event => event.preventDefault());
-  form.addEventListener("input", () => update());
-  form.addEventListener("change", () => update());
+  form.addEventListener("input", changed);
+  form.addEventListener("change", changed);
   form.addEventListener("reset", event => {
     event.preventDefault();
-    search.value = category.value = evidence.value = "";
-    followup.checked = false;
-    root.classList.remove("weibo-detail-open");
-    update();
+    clearFilters();
+    changed();
   });
-  for (const dot of dots) dot.addEventListener("click", event => {
+  for (const [button, direction] of [[previous, -1], [next, 1]]) {
+    button.addEventListener("click", () => {
+      page += direction;
+      root.classList.remove("weibo-detail-open");
+      update();
+      const first = links.find(link => !link.hidden && !link.closest(".weibo-brand").hidden);
+      first?.focus({preventScroll: true});
+      first?.scrollIntoView({block: "start", behavior: "auto"});
+    });
+  }
+  for (const link of links) link.addEventListener("click", event => {
     if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
     event.preventDefault();
-    selected = dot.dataset.accountId;
-    root.classList.add("weibo-detail-open");
-    update();
-    const detail = document.getElementById(`weibo-account-${selected}`);
-    detail.querySelector("h3").focus({preventScroll: true});
+    reveal(link.dataset.accountId);
+    document.getElementById(`weibo-account-${selected}`).querySelector("h3").focus({preventScroll: true});
     if (matchMedia("(max-width: 760px)").matches) {
-      detail.scrollIntoView({block: "start", behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth"});
+      scrollToDetail();
+    }
+  });
+  root.addEventListener("keydown", event => {
+    if (event.key === "Escape" && root.classList.contains("weibo-detail-open")) {
+      event.preventDefault();
+      backToList();
     }
   });
   window.addEventListener("hashchange", () => {
-    selected = hashId();
-    if (byId.has(selected)) {
-      root.classList.add("weibo-detail-open");
-      root.closest("#weibo-directory")?.setAttribute("open", "");
+    if (byId.has(hashId())) {
+      reveal(hashId(), false);
+      scrollToDetail();
     }
-    update(false);
+    else {
+      root.classList.remove("weibo-detail-open");
+      update({writeUrl: false});
+    }
   });
-  update(false);
+  if (selected) {
+    reveal(selected);
+    requestAnimationFrame(scrollToDetail);
+  } else {
+    update({writeUrl: false});
+    if (coverage && Object.hasOwn(payload.coverage.modes, parameters.get("coverage"))) {
+      requestAnimationFrame(() => coverage.scrollIntoView({block: "start", behavior: "auto"}));
+    }
+  }
 })();

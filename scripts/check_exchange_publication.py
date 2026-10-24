@@ -15,65 +15,9 @@ from us_china_exchange.model import primary_observations
 
 
 def check_weibo_explorer(page, summary):
-    accounts = summary["accounts"]
-    ids = {a["account_id"] for a in accounts}
-    visible_ids = lambda: set(page.locator(".weibo-dot:visible").evaluate_all(
-        "nodes=>nodes.map(n=>n.dataset.accountId)"))
-    cohort = summary.get("cohort")
-    if cohort:
-        total = cohort["selected_domains"]
-        missing = cohort["unknown_domains"] + cohort["candidate_domains"]
-        expect(page.locator("#coverage-percent")).to_have_text(f"{missing / total * 100:.1f}%")
-        assert page.locator(".coverage-cell").count() == total
-        assert page.locator('.coverage-cell.unknown').count() == cohort["unknown_domains"]
-        page.locator('[data-coverage-mode="review"]').click()
-        expect(page.locator("#coverage-percent")).to_have_text(
-            f'{(total - cohort["manually_reviewed_domains"]) / total * 100:.1f}%')
-        assert page.locator(".coverage-cell.reviewed").count() == cohort["manually_reviewed_domains"]
-        page.locator("#coverage-waffle").focus()
-        page.locator("#coverage-waffle").press("End")
-        expect(page.locator('.coverage-category[data-state="unreviewed"]')).to_have_attribute("aria-pressed", "true")
-        page.locator("#coverage-waffle").press("Escape")
-        assert page.locator(".coverage-dimmed").count() == 0
-        page.locator('[data-coverage-mode="evidence"]').click()
-    represented = sum(a["recovered_posts"] > 0 for a in accounts)
-    bars = page.locator(".weibo-recovery .recovery-bar")
-    assert bars.nth(0).locator(".represented").get_attribute("data-count") == str(represented)
-    assert bars.nth(0).locator(".unrepresented").get_attribute("data-count") == str(len(accounts) - represented)
-    page.locator("#weibo-directory").evaluate("node=>node.open=true")
-    expect(page.locator("#weibo-filters")).to_be_visible()
-    assert visible_ids() == ids
-    assert page.locator(".weibo-brand:visible").count() == len({a["outlet_id"] for a in accounts})
-    assert not page.locator("#module-chart,.native-chart,#monthly-posts,#publication-years").count()
-    page.select_option("#weibo-evidence", "historical")
-    assert visible_ids() == {a["account_id"] for a in accounts if a["existence"] == "historical"}
-    page.select_option("#weibo-evidence", "")
-    page.check("#weibo-followup")
-    pending = {a["account_id"] for a in accounts if a.get("primary_audit_status") != "numeric_binding_rechecked"}
-    assert visible_ids() == pending
-    page.locator("#weibo-filters button[type=reset]").click()
-    assert visible_ids() == ids
-    for category in sorted({a.get("category", "not_recorded") for a in accounts}):
-        page.select_option("#weibo-category", category)
-        assert visible_ids() == {a["account_id"] for a in accounts if a.get("category", "not_recorded") == category}
-    page.select_option("#weibo-category", "")
-    target = next(a for a in accounts if a.get("uid"))
-    page.fill("#weibo-search", target["uid"])
-    expect(page.locator(f'.weibo-dot[data-account-id="{target["account_id"]}"]')).to_be_visible()
-    page.locator(f'.weibo-dot[data-account-id="{target["account_id"]}"]').press("Enter")
-    detail = page.locator(".weibo-channel-detail:visible")
-    expect(detail).to_have_count(1)
-    expect(detail).to_have_attribute("data-account-id", target["account_id"])
-    expect(detail.locator(".weibo-relationship")).to_have_text(target["relationship"])
-    expect(detail.locator(".weibo-uid")).to_have_text(target["uid"])
-    page.fill("#weibo-search", "__no_matching_media_channel__")
-    assert visible_ids() == set()
-    expect(page.locator("#weibo-empty")).to_be_visible()
-    assert page.locator(".weibo-channel-detail:visible").count() == 0
-    page.locator("#weibo-filters button[type=reset]").click()
-    assert visible_ids() == ids
-    assert not page.evaluate("document.documentElement.scrollWidth>innerWidth")
-    page.locator("#weibo-directory").evaluate("node=>node.open=false")
+    from check_weibo_publication import check_page
+
+    check_page(page, summary)
 
 
 def check(site, url=None, screenshots=None):

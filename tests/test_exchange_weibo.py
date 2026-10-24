@@ -519,12 +519,14 @@ def test_coverage_visual_uses_cohort_denominators_and_does_not_call_unknowns_abs
     assert model["modes"]["review"]["percent"] == 63.3
     assert sum(g["count"] for g in model["modes"]["evidence"]["groups"]) == 1000
     page = BeautifulSoup(explorer_page(summary), "html.parser")
-    assert len(page.select("#coverage-waffle rect")) == 1000
-    assert len(page.select(".coverage-cell.current_evidence")) == 5
-    assert len(page.select(".coverage-cell.historical")) == 7
-    assert len(page.select(".coverage-cell.unknown")) == 988
-    assert page.select_one("#coverage-percent").text == "98.8%"
-    assert not page.select_one("#weibo-directory").has_attr("open")
+    assert not page.select("#coverage-waffle,#coverage-percent")
+    segments = {n["data-state"]: int(n["data-count"]) for n in page.select("#coverage-bar .coverage-segment")}
+    assert segments == {"current_evidence": 5, "historical": 7, "unknown": 988}
+    assert sum(segments.values()) == 1000
+    assert "12 of 1,000 selected domains" in page.select_one("#coverage-tally").text
+    assert page.select_one("#weibo-directory").name == "section"
+    assert not page.select_one("#weibo-coverage").has_attr("open")
+    assert not page.select_one("#weibo-recovery").has_attr("open")
     assert "cannot be estimated" in page.select_one(".coverage-unmeasured").text
     assert "not verified absences" in page.get_text()
     bars = page.select(".recovery-bar")
@@ -536,9 +538,32 @@ def test_coverage_visual_uses_cohort_denominators_and_does_not_call_unknowns_abs
     summary["cohort"].update(unknown_domains=985, candidate_domains=2, verified_negative_domains=1)
     assert coverage_model(summary)["modes"]["evidence"]["percent"] == 98.7
     decisions = BeautifulSoup(explorer_page(summary), "html.parser")
-    assert len(decisions.select("#coverage-waffle rect")) == 1000
-    assert len(decisions.select(".coverage-cell.verified_negative")) == 1
-    assert len(decisions.select(".coverage-cell.candidate")) == 2
+    assert decisions.select_one('.coverage-segment.verified_negative')["data-count"] == "1"
+    assert decisions.select_one('.coverage-segment.candidate')["data-count"] == "2"
+    assert "12 of 1,000 selected domains" in decisions.select_one("#coverage-tally").text
     del summary["cohort"]
     assert coverage_model(summary) is None
-    assert not BeautifulSoup(explorer_page(summary), "html.parser").select("#coverage-waffle")
+    assert not BeautifulSoup(explorer_page(summary), "html.parser").select("#coverage-bar")
+
+
+def test_public_directory_names_are_readable_and_precede_research_coverage(tmp_path):
+    from bs4 import BeautifulSoup
+
+    database, registry = snapshot_inputs(tmp_path)
+    summary = create_summary(database, registry)
+    markup = explorer_page(summary)
+    page = BeautifulSoup(markup, "html.parser")
+    assert markup.index('id="weibo-directory"') < markup.index('id="weibo-recovery"')
+    assert markup.index('id="weibo-map"') < markup.index('id="weibo-detail-list"')
+    for account in summary["accounts"]:
+        link = page.select_one(f'.weibo-channel-link[data-account-id="{account["account_id"]}"]')
+        assert link.select_one(".weibo-link-name").text == account["display_name"]
+        assert link.select_one(".weibo-link-state").text
+        assert link["href"] == "#weibo-account-" + account["account_id"]
+    assert page.select_one("#weibo-pagination").has_attr("hidden")
+    assert page.select_one("#weibo-filters").has_attr("hidden")
+    assert not page.select("svg#coverage-waffle")
+    ended = next(a for a in summary["accounts"] if a.get("attribution_end"))
+    detail = page.select_one("#weibo-account-" + ended["account_id"])
+    assert ended["attribution_end"] in detail.select_one(".weibo-period").text
+    assert detail.select_one(".weibo-period").find_parent("details") is None

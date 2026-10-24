@@ -535,6 +535,8 @@ class Audit:
                     self.issue(f"state-map:{width}", "state_map_interaction", str(exc))
                 self.charts.append({"chart": f"state-map:{width}", "states": 51})
             if filename == "weibo.html":
+                from check_weibo_publication import check_page
+
                 expected = {a["account_id"] for a in self.weibo["accounts"]}
                 actual = page.locator(".weibo-dot").evaluate_all("nodes=>nodes.map(n=>n.dataset.accountId)")
                 if len(actual) != len(expected) or set(actual) != expected:
@@ -543,28 +545,19 @@ class Audit:
                     self.issue(f"weibo:account-map:{width}", "recovery_timeline_in_primary_view", None)
                 if page.evaluate("document.documentElement.scrollWidth>innerWidth"):
                     self.issue(f"weibo:account-map:{width}", "page_overflow", width)
-                coverage = self.weibo.get("cohort")
-                cells = page.locator(".coverage-cell").evaluate_all("nodes=>nodes.map(n=>n.dataset.state)")
-                if coverage:
-                    expected_cells = {
-                        "current_evidence": coverage["current_identity_domains"],
-                        "historical": coverage["historical_only_domains"],
-                        "unknown": coverage["unknown_domains"],
-                        "candidate": coverage["candidate_domains"],
-                        "verified_negative": coverage["verified_negative_domains"],
-                    }
-                    if len(cells) != coverage["selected_domains"] or any(
-                            cells.count(state) != count for state, count in expected_cells.items()):
-                        self.issue(f"weibo:coverage:{width}", "cohort_denominator_or_status_mismatch", cells)
-                panel = page.locator("#weibo-coverage" if coverage else ".weibo-recovery")
+                try:
+                    check_page(page, self.weibo)
+                except AssertionError as exc:
+                    self.issue(f"weibo:directory:{width}", "account_or_coverage_interaction", str(exc))
+                panel = page.locator("#weibo-directory")
                 bounds = panel.bounding_box()
-                self.charts.append({"chart": f"weibo:coverage:{width}", "points": len(cells),
-                                    "bars": page.locator(".recovery-segment").count(),
+                self.charts.append({"chart": f"weibo:directory:{width}", "points": len(expected),
+                                    "bars": page.locator(".coverage-segment,.recovery-segment").count(),
                                     "width": bounds["width"], "height": bounds["height"]})
                 if screenshots:
-                    picture = self.output / "screens" / f"weibo-coverage-{width}.png"
+                    picture = self.output / "screens" / f"weibo-directory-{width}.png"
                     panel.screenshot(path=str(picture))
-                    self.pictures[filename].append((f"weibo:coverage:{width}", picture))
+                    self.pictures[filename].append((f"weibo:directory:{width}", picture))
                 continue
             for index, script in enumerate(scripts):
                 model = json.loads(script.string)

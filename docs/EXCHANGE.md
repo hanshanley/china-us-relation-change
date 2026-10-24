@@ -362,30 +362,44 @@ treating them as identical to the other geographies' BEA accounting.
 
 ### Weibo coverage and uncertainty
 
-`site/weibo.html` leads with a unit map of the selected 1,000-domain cohort:
-one square per domain, with the unresolved majority left unfilled. The
-Account evidence / Review progress switch changes the research outcome shown,
-not the denominator. Every legend reports a count, denominator and percentage.
-Unknown identities are not verified account absences; manual review is not
-the same as a successful identity decision.
+`site/weibo.html` opens with a readable account directory, not a large
+unresolved-percentage graphic or a thousand-cell research-progress map.
+All 87 documented channels across 62 publisher/brand groups remain present,
+with channel names, identity evidence and original sources. Publisher groups
+are alphabetical and paginated eight at a time; search and filters operate
+over the complete registry, not just the current page. Downloads always
+contain the complete account set, not only the visible page.
 
-Separate recovery-gap bars explicitly use different populations: documented
-channels with/without recovered in-window posts, and text completeness among
-recovered records. Neither is a percentage of all historical posts. That
-percentage cannot be estimated because the total published-post denominator
-is unknown. Office/profile availability and zero recovery are not inactivity.
+Desktop uses a list beside a source inspector. Phones open a selected account
+in place of the result list and provide a keyboard/touch-accessible return
+path. Secondary filters collapse behind a labelled control on phones, with
+the number of active filters kept visible. Direct links reveal the correct result page and clear conflicting
+filters rather than silently selecting another account. Historical attribution
+cutoffs are visible in the account detail. With JavaScript disabled, all account
+links and evidence remain available in reading order, without dead filters or
+pagination controls.
 
-The broader account registry is a secondary, collapsible inspection view,
-not the lead graphic. Its equal-sized channel dots remain grouped by
-publisher/brand, with English/Chinese name and UID search, media/evidence
-filters, operator relationships and original identity sources. Full details
-and the coverage graphic remain readable without JavaScript.
+The separate selected-domain cohort belongs under **Selection & research
+coverage**. Its compact proportional bar retains exact counts, percentages and
+keyboard/hover explanations. Twelve documented domain associations do not mean
+the broader registry has only twelve accounts, nor that other domains have no
+accounts. Verified negatives, if present, are not included in the confirmed
+account numerator. Account evidence and manual-review progress remain separate.
 
-Current profile evidence is distinct from historical-only evidence and is
-not labelled active/inactive. Recovered-post counts and publication dates do
-not determine positions, dot sizes or ordering. This intentionally replaces
-the primary time-series presentation, whose historical sample is strongly
-biased toward recently recovered records.
+**Recovered posts & limitations** contains sample-recovery counts with explicit
+denominators. Neither channel representation nor text completeness measures the
+fraction of all historical posts recovered; that denominator is unknown.
+Available source text is not an independently verified complete original.
+
+Current profile evidence is distinct from historical-only evidence and is not
+labelled active/inactive. Observed evidence dates are shown without implying live
+posting or current U.S. editorial control. Recovered-post counts do not affect
+account ordering or visibility. No posting-history/popularity trend is invented.
+
+Run `scripts/check_weibo_publication.py --site PATH` for exact coverage geometry,
+every channel across pagination and filters, direct-link identity and viewport
+position, 320px layout, touch, keyboard and no-JavaScript checks. The shared
+browser checks and independent plot audit use the same acceptance contract.
 
 Complete recovery datasets and original figure exports remain available for
 audit and reproducibility under `outputs/figures/weibo/<background>/` and

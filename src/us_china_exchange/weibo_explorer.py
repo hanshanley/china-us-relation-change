@@ -56,9 +56,11 @@ def coverage_model(summary):
         "total": total,
         "modes": {
             "evidence": dict(percent=percentage(unresolved), count=unresolved,
+                             documented=cohort["current_identity_domains"] + cohort["historical_only_domains"],
                              headline="remain unresolved", groups=[g for g in evidence if g["count"]],
                              explanation="Missing evidence is not evidence that an outlet has no Weibo account."),
             "review": dict(percent=percentage(total - reviewed), count=total - reviewed,
+                           documented=reviewed,
                            headline="have not had a manual review", groups=[g for g in review if g["count"]],
                            explanation="This shows the investigation's coverage—not the percentage using Weibo."),
         },
@@ -71,47 +73,33 @@ def coverage_markup(summary):
     primary = ""
     if model and model["total"]:
         mode, total = model["modes"]["evidence"], model["total"]
-        columns = min(50, total)
-        rows = (total + columns - 1) // columns
-        cells, index = [], 0
-        for group in mode["groups"]:
-            for _ in range(group["count"]):
-                cells.append(f'<rect class="coverage-cell {group["id"]}" data-state="{group["id"]}" '
-                             f'x="{index % columns * 14 + 1}" y="{index // columns * 14 + 1}" '
-                             'width="11" height="11" rx="1"/>')
-                index += 1
-        assert index == total
+        segments = "".join(
+            f'<span class="coverage-segment {g["id"]}" data-state="{g["id"]}" data-count="{g["count"]}" '
+            f'style="width:{g["count"] / total * 100:.8f}%" '
+            f'title="{esc(g["label"])}: {g["count"]:,} of {total:,} ({g["percent"]:.1f}%)"></span>'
+            for g in mode["groups"])
         legend = "".join(
             f'<button type="button" class="coverage-category" data-state="{g["id"]}" '
-            f'aria-pressed="false"><span class="coverage-swatch {g["id"]}" aria-hidden="true"></span>'
+            f'aria-pressed="false" disabled><span class="coverage-swatch {g["id"]}" aria-hidden="true"></span>'
             f'<span class="coverage-category-name">{esc(g["label"])}'
             f'<small>{g["count"]:,} of {total:,} domains</small></span>'
             f'<strong>{g["percent"]:.1f}%</strong></button>' for g in mode["groups"]
         )
         primary = (
-            '<section class="weibo-coverage" id="weibo-coverage" aria-label="Known and unknown outlet coverage">'
-            f'<p class="coverage-kicker">Discovery coverage / {total:,} selected domains</p>'
-            f'<h2 class="coverage-headline"><span id="coverage-percent">{mode["percent"]:.1f}%</span>'
-            f'<span id="coverage-headline">{esc(mode["headline"])}</span></h2>'
-            f'<p id="coverage-tally">{mode["count"]:,} of {total:,} selected outlets have no confirmed account decision.</p>'
-            '<div class="coverage-modes" role="group" aria-label="Coverage perspective">'
+            '<details class="weibo-coverage" id="weibo-coverage"><summary>Selection &amp; research coverage</summary>'
+            f'<p id="coverage-tally"><strong>{mode["documented"]:,} of {total:,} selected domains</strong> '
+            'have a documented account association.</p>'
+            '<div class="coverage-modes" role="group" aria-label="Coverage perspective" hidden>'
             '<button type="button" data-coverage-mode="evidence" aria-pressed="true">Account evidence</button>'
             '<button type="button" data-coverage-mode="review" aria-pressed="false">Review progress</button></div>'
-            '<div class="coverage-field"><figure>'
-            f'<svg id="coverage-waffle" viewBox="0 0 {columns * 14} {rows * 14}" role="img" tabindex="0" '
-            f'aria-label="{total:,} selected domains: {model["modes"]["evidence"]["count"]:,} unresolved" '
-            'aria-keyshortcuts="ArrowLeft ArrowRight Home End Escape">'
-            '<title>Known accounts occupy a small part of the research coverage map</title>'
-            '<desc>Each square is one selected domain, grouped by research outcome. Unfilled squares are unknown, not verified absences.</desc>'
-            + "".join(cells) + '</svg>'
-            '<figcaption>One square = one selected domain. Grouped by research outcome, not rank.</figcaption>'
-            '</figure><div class="coverage-key" id="coverage-key">' + legend
-            + '</div></div>'
+            f'<div id="coverage-bar" class="coverage-bar" role="img" '
+            f'aria-label="{total:,} selected domains: {mode["count"]:,} unresolved">'
+            + segments + '</div><div class="coverage-key" id="coverage-key">' + legend + '</div>'
             f'<p id="coverage-explanation" class="coverage-explanation" role="status">{esc(mode["explanation"])}</p>'
             '<p class="coverage-source">The cohort is SCImago’s U.S.-classified digital-reputation selection, '
             'not a traffic ranking or an independently audited census of current U.S. ownership. '
             '<a href="https://github.com/hanshanley/china-us-relation-change/blob/main/data/discovery/us_top1000_accounts.csv">'
-            'Inspect all domain decisions ↗</a></p></section>'
+            'Inspect all domain decisions ↗</a></p></details>'
         )
     accounts = summary["accounts"]
     represented = sum(a["recovered_posts"] > 0 for a in accounts)
@@ -119,7 +107,7 @@ def coverage_markup(summary):
     text_counts = {r["status"]: r["recovered_posts"] for r in summary["text_completeness"]}
     post_total = sum(text_counts.values())
 
-    def recovery_row(title, total, missing, label, segments, note):
+    def recovery_row(title, total, amount, label, segments, note):
         if not total:
             return f'<div class="recovery-row"><h3>{title}</h3><p>No records in this snapshot; no percentage is inferred.</p></div>'
         bars = "".join(
@@ -130,22 +118,22 @@ def coverage_markup(summary):
         labels = " · ".join(f'{name}: {count:,} ({count / total * 100:.1f}%)' for _, count, name in segments if count)
         return (
             f'<div class="recovery-row"><div class="recovery-row-heading"><h3>{title}</h3>'
-            f'<p><strong>{missing / total * 100:.1f}%</strong> {label}</p></div>'
+            f'<p>{amount:,} of {total:,} {label}</p></div>'
             f'<div class="recovery-bar" role="img" aria-label="{esc(labels)}">{bars}</div>'
-            f'<p class="recovery-count">{missing:,} / {total:,} {label}. <span>{esc(note)}</span></p>'
+            f'<p class="recovery-count">{esc(note)}</p>'
             f'<p class="recovery-segment-labels">{esc(labels)}</p></div>'
         )
 
     channels = recovery_row(
-        "Channels represented in the recovered corpus", channel_total, channel_total - represented,
-        "have no recovered in-window posts",
+        "Channels with recovered posts", channel_total, represented,
+        "documented channels",
         [("represented", represented, "With recovered posts"),
          ("unrepresented", channel_total - represented, "No recovered posts")],
         "This is not an inactivity rate; some historical channels ended before the requested window.",
     )
     texts = recovery_row(
-        "Text available within the recovered sample", post_total, text_counts.get("truncated", 0),
-        "are truncated previews",
+        "Text in the recovered sample", post_total, text_counts.get("source_full", 0) + text_counts.get("full", 0),
+        "recovered posts have source text",
         [("source-body", text_counts.get("source_full", 0), "Available source body"),
          ("explicit-full", text_counts.get("full", 0), "Explicitly full original"),
          ("truncated", text_counts.get("truncated", 0), "Truncated preview"),
@@ -153,15 +141,13 @@ def coverage_markup(summary):
         "An available source body is not an independently verified complete original; images and video are not recovered.",
     )
     return (
-        primary + '<section class="weibo-recovery" aria-label="Recovery gaps and their denominators">'
-        '<p class="coverage-kicker">A different denominator / the documented-account registry</p>'
-        '<h2>What is missing from the recovered sample?</h2>'
-        '<p class="recovery-intro">These percentages describe our records—not all Weibo posts, and not the 1,000-domain cohort above.</p>'
+        primary + '<details class="weibo-recovery" id="weibo-recovery"><summary>Recovered posts &amp; limitations</summary>'
+        '<p class="recovery-intro">These counts describe the recovered sample, not all Weibo posts or the selected-domain cohort.</p>'
         + channels + texts
-        + '<div class="coverage-unmeasured"><span aria-hidden="true">—</span><div>'
-        '<h3>The share of historical posts missing cannot be estimated.</h3>'
+        + '<div class="coverage-unmeasured">'
+        '<p><strong>The share of historical posts missing cannot be estimated.</strong></p>'
         '<p>We do not know the total number published. There is no defensible denominator for a “percent of all posts recovered.” '
-        'Uneven recovery is why no posting-history or popularity trend is shown.</p></div></div></section>'
+        'Uneven recovery is why no posting-history or popularity trend is shown.</p></div></details>'
     )
 
 
@@ -201,10 +187,12 @@ def explorer_page(summary):
                                    ("outlet_name", "display_name", "handle", "uid", "account_id")),
             })
             dots.append(
-                f'<a class="weibo-dot {esc(state)}" href="#weibo-account-{esc(identifier)}" '
+                f'<a class="weibo-dot weibo-channel-link {esc(state)}" href="#weibo-account-{esc(identifier)}" '
                 f'data-account-id="{esc(identifier)}" aria-label="{esc(first["outlet_name"])}: '
                 f'{esc(title)} — {esc(label)}" title="{esc(title)} — {esc(label)}">'
-                '<span aria-hidden="true"></span></a>'
+                f'<span class="weibo-state-dot" aria-hidden="true"></span>'
+                f'<span class="weibo-link-name">{esc(title)}</span>'
+                f'<span class="weibo-link-state">{esc("Profile evidence" if state == "current_evidence" else label)}</span></a>'
             )
             sources = "".join(
                 f'<li>{link(e["source_url"], e["source_type"].replace("_", " ").capitalize())}'
@@ -224,15 +212,16 @@ def explorer_page(summary):
                 f'<h3 tabindex="-1">{esc(account["outlet_name"])}</h3>'
                 f'<p class="weibo-channel-name">{esc(title)}</p>'
                 f'<p class="weibo-evidence-label {esc(state)}">{esc(label)}</p>'
-                f'<p class="weibo-uid">{esc(uid)}</p>'
-                f'<p>{link(account["profile_url"], "Registered profile ↗")}</p>'
+                f'<p class="weibo-profile">{link(account["profile_url"], "Weibo profile ↗")} '
+                f'<span class="weibo-uid">{esc(uid)}</span></p>'
                 f'<p class="weibo-relationship">{esc(account["relationship"])}</p>'
-                '<details><summary>Operator & publication scope</summary>'
+                + (f'<p class="weibo-period">Publisher association recorded only before '
+                   f'{esc(account["attribution_end"])}. Later posts are not attributed to this publisher.</p>'
+                   if account.get("attribution_end") else "")
+                + '<details><summary>Operator & publication scope</summary>'
                 f'<p><strong>Operator:</strong> {esc(account.get("operator", "Not recorded"))}</p>'
                 f'<p>{esc(account.get("us_basis", "U.S.-inclusion basis not recorded in this legacy snapshot."))}</p>'
                 f'<p>{esc(account.get("notes", ""))}</p>'
-                + (f'<p>Exclusive attribution end: {esc(account["attribution_end"])}. Later posts are not '
-                   'assigned to this publisher identity.</p>' if account.get("attribution_end") else "")
                 + '</details>'
                 f'<details><summary>Primary source evidence ({len(account.get("evidence", []))})</summary>'
                 f'<ol class="weibo-sources">{sources}</ol>'
@@ -295,51 +284,61 @@ def explorer_page(summary):
         f'<a href="downloads/weibo-{name}.csv" download>{label} · CSV</a>' for name, label in archive
     )
     payload = json_text({"accounts": model, "coverage": coverage_model(summary)}).replace("<", "\\u003c")
+    observed = max((e["observed_at"][:10] for a in accounts for e in a.get("evidence", [])), default=None)
+    dated = f'Evidence recorded through {observed}. ' if observed else ""
     return (
         '<!doctype html><html lang="en"><head><meta charset="utf-8">'
         '<meta name="viewport" content="width=device-width,initial-scale=1">'
         '<title>U.S. media on Weibo</title><link rel="stylesheet" href="assets/style.css">'
         '<link rel="stylesheet" href="assets/weibo-explorer.css"></head>'
         '<body><div class="page"><header><p><a href="index.html">Exchange dashboard</a></p>'
-        '<h1>U.S. media on Weibo</h1><p class="lead">What is documented—and how much of the picture '
-        'is still missing.</p></header><main>'
-        + coverage_markup(summary)
-        + f'<details class="weibo-directory" id="weibo-directory"><summary>Inspect the documented accounts '
-        f'<span>{len(accounts):,} channels / {len(groups):,} publisher & brand groups</span></summary>'
-        '<section class="weibo-explorer" id="weibo-explorer" aria-label="Publisher and account evidence explorer">'
+        '<h1>U.S. media on Weibo</h1><p class="lead">Documented accounts and Chinese-language editions, '
+        'with sources for each association.</p></header><main>'
+        '<section class="weibo-directory" id="weibo-directory" aria-label="Documented account directory">'
+        '<div class="weibo-explorer" id="weibo-explorer">'
         '<div class="weibo-overview">'
         f'<p><strong>{len(accounts):,}</strong><span>documented channels</span></p>'
         f'<p><strong>{len(groups):,}</strong><span>publisher / brand groups</span></p>'
-        '</div><p class="weibo-intro">Equal-sized dots are channels, grouped by publisher. '
-        'Select one for its identity and sources. Alphabetical—not an activity ranking.</p>'
+        '</div><p class="weibo-intro">Includes publisher-linked editions and U.S.-based Chinese-language media. '
+        'Select a channel to inspect its identity and sources.</p>'
+        f'<p class="weibo-snapshot">{esc(dated)}Profile evidence does not establish current posting or U.S. editorial control.</p>'
         '<form class="weibo-filters" id="weibo-filters" hidden>'
         '<label>Find an outlet or channel<input id="weibo-search" name="q" type="search" '
-        'placeholder="Name, Chinese name, handle or UID" autocomplete="off"></label>'
+        'placeholder="Name or Weibo ID" autocomplete="off"></label>'
+        '<button type="button" id="weibo-filter-toggle" class="weibo-filter-toggle" '
+        'aria-expanded="false" aria-controls="weibo-filter-options" hidden>Filters</button>'
+        '<div id="weibo-filter-options" class="weibo-filter-options">'
         f'<label>Media type<select id="weibo-category" name="category"><option value="">All media types</option>{options}</select></label>'
         '<label>Identity evidence<select id="weibo-evidence" name="evidence"><option value="">All evidence periods</option>'
         '<option value="current_evidence">Current profile evidence</option>'
         '<option value="historical">Historical evidence only</option>'
         '<option value="unknown">Evidence period unknown</option></select></label>'
         '<div class="weibo-filter-actions"><label><input type="checkbox" id="weibo-followup" name="followup">'
-        'UID checks needing follow-up</label><button type="reset">Reset filters</button></div></form>'
+        'Evidence checks pending</label><button type="reset">Reset filters</button></div></div></form>'
         f'<div class="weibo-legend">{legend}</div>'
-        f'<p id="weibo-result-count" class="weibo-result-count" role="status" aria-live="polite">'
+        f'<div class="weibo-result-line"><p id="weibo-result-count" class="weibo-result-count" role="status" aria-live="polite">'
         f'{len(accounts)} channels across {len(groups)} publisher / brand groups</p>'
-        '<div class="weibo-layout"><aside class="weibo-inspector" aria-label="Selected channel">'
+        '<a href="downloads/weibo-accounts.csv" download>Download all accounts</a></div>'
+        '<div class="weibo-layout">'
+        '<div class="weibo-results"><div class="weibo-map" id="weibo-map">' + "".join(cards)
+        + '<p id="weibo-empty" hidden>No matching channels. Try another name or reset the filters.</p></div>'
+        '<nav class="weibo-pagination" id="weibo-pagination" aria-label="Publisher result pages" hidden>'
+        '<button type="button" id="weibo-previous">Previous</button>'
+        '<span id="weibo-page-label" role="status" aria-live="polite"></span>'
+        '<button type="button" id="weibo-next">Next</button></nav></div>'
+        '<aside class="weibo-inspector" aria-label="Selected channel">'
         '<p class="weibo-inspector-label">Channel details</p>'
-        '<button type="button" id="weibo-back" class="weibo-back" hidden>Back to account map</button>'
+        '<button type="button" id="weibo-back" class="weibo-back" hidden>Back to accounts</button>'
         '<div id="weibo-detail-list">'
-        + "".join(details) + '</div><p id="weibo-empty-detail" hidden>No channel matches these filters.</p></aside>'
-        '<div class="weibo-map" id="weibo-map">' + "".join(cards)
-        + '<p id="weibo-empty" hidden>No matching channels. Try another name or reset the filters.</p></div></div>'
-        '<section class="weibo-cohort"><h2>What this inventory can—and cannot—show</h2>'
+        + "".join(details) + '</div><p id="weibo-empty-detail" hidden>No channel matches these filters.</p></aside></div>'
+        '<details class="weibo-cohort"><summary>What these accounts represent</summary>'
         + cohort_text
         + '<p>These are documented associations, not a complete inventory or a current ownership/licensing audit. '
-        'Unknown outlets are not verified absences. No recovered-post counts, dates or collection volumes '
-        'determine the dots, their size or their order.</p>'
+        'Unknown outlets are not verified absences. Accounts are listed alphabetically; recovered-post '
+        'counts and collection volumes do not determine their order.</p>'
         '<p>Current profile evidence does not mean currently posting; historical-only does not mean deleted. '
         'Licensed Chinese editions, regional distributors and U.S.-based Chinese-language media are distinguished '
-        'in each channel’s publication scope. Publisher/brand groups are not independent U.S. newsrooms.</p></section>'
+        'in each channel’s publication scope. Publisher/brand groups are not independent U.S. newsrooms.</p></details>'
         '<details class="weibo-methods"><summary>Identity checks, complete data & recovery limits</summary>'
         + resolution + audit_text
         + '<p><a href="downloads/weibo-accounts.csv" download>Complete account metadata and evidence · CSV</a> · '
@@ -348,7 +347,7 @@ def explorer_page(summary):
         'It cannot establish comparable historical posting rates. This is not a census of active accounts. '
         'Recovery data remain available for audit, but are not plotted as an activity trend here.</p>'
         f'<p>{archive_links}</p>'
-        + '</details></section></details></main></div>'
+        + '</details></div></section>' + coverage_markup(summary) + '</main></div>'
         f'<script id="weibo-explorer-data" type="application/json">{payload}</script>'
         '<script src="assets/weibo-explorer.js" defer></script></body></html>'
     )

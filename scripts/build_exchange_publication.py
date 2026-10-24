@@ -43,8 +43,8 @@ PAGES = {
                        "Dated historical reports · Operator listings are not an operating census"),
     "business-presence.html": ("Businesses in mainland China", "Annual affiliate and enterprise counts—not trade flows, offices or a combined European total.",
                              "Annual affiliate histories · Latest available year varies by origin"),
-    "weibo.html": ("U.S. media on Weibo", "What is documented—and how much of the picture is still missing.",
-                   "Coverage and uncertainty, not a posting-history comparison"),
+    "weibo.html": ("U.S. media on Weibo", "Documented accounts and Chinese-language editions, with sources for each association.",
+                   "Account identity evidence, not a measure of posting activity"),
 }
 TABS = [("index.html", "Students"), ("travel.html", "Travel & tourism"), ("trade.html", "Trade"), ("immigration.html", "Immigration"),
         ("opinions.html", "Opinions"),
