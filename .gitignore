@@ -9,3 +9,6 @@ data/local/
 *.sqlite*
 exports/
 /AGENT-COMMS.md
+/TASKS.md
+/PUBLICATION-TODO.md
+/AGENTS.md
