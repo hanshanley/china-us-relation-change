@@ -28,7 +28,11 @@ COLORS = {"bea_affiliates:china": PARTNER_COLORS["CHN"], "bea_parents:china": PA
           "eurostat_italy:china": "#7E6D7A", "eurostat_italy_legal:china": "#7E6D7A",
           "eurostat_spain:china": "#8B7656", "dst_denmark:china": "#756D7D",
           "eurostat_austria:china": "#8A6F64", "eurostat_austria_legal:china": "#8A6F64",
-          "eurostat_poland:china": "#6D8176"}
+          "eurostat_poland:china": "#6D8176",
+          "eurostat_portugal:china": "#8D756D", "eurostat_portugal_pre_uci:china": "#8D756D",
+          "eurostat_czechia:china": "#73838A",
+          "eurostat_belgium:china": "#7B7F60", "eurostat_belgium_legal:china": "#7B7F60",
+          "eurostat_belgium_preuci:china": "#7B7F60"}
 ORIGINS = {"bea_affiliates:china": "us", "bea_parents:china": "us",
            "eurostat_affiliates:china": "eu", "eurostat_historical_eu:china": "eu",
            "eurostat_uk:china": "uk", "eurostat_norway:china": "norway", "ssb_norway:china": "norway",
@@ -40,7 +44,11 @@ ORIGINS = {"bea_affiliates:china": "us", "bea_parents:china": "us",
            "eurostat_italy:china": "italy", "eurostat_italy_legal:china": "italy",
            "eurostat_spain:china": "spain", "dst_denmark:china": "denmark",
            "eurostat_austria:china": "austria", "eurostat_austria_legal:china": "austria",
-           "eurostat_poland:china": "poland"}
+           "eurostat_poland:china": "poland",
+           "eurostat_portugal:china": "portugal", "eurostat_portugal_pre_uci:china": "portugal",
+           "eurostat_czechia:china": "czechia",
+           "eurostat_belgium:china": "belgium", "eurostat_belgium_legal:china": "belgium",
+           "eurostat_belgium_preuci:china": "belgium"}
 CHARTS = {
     "us-affiliates-china": {
         "title": "U.S.-parent affiliates in China",
@@ -155,6 +163,30 @@ CHARTS = {
         "note": "Eurostat / Statistics Poland. Ultimate control includes documented joint/minority cases. "
         "2007 unreported; 2010 legacy NACE transition and 2018 legal-unit/enterprise break retained. "
         "2021 changes dataset, not the Polish enterprise unit. Not the broader national foreign-equity survey."},
+    "portugal-affiliates-china": {
+        "title": "Portuguese-controlled enterprises in China",
+        "subtitle": "China except Hong Kong | Ultimate control from 2008",
+        "series": ["eurostat_portugal:china"], "unit": "Enterprises", "mode": "levels",
+        "note": "Eurostat / Banco de Portugal. The pre-UCI 2007 count is separate in complete downloads. "
+        "2012 confidential, not zero. Keep the 2010 NACE transition, 2014 sample-to-IES source change "
+        "and 2020 coverage expansion. No comparable current 2019 change or unpublished later count. "
+        "Enterprises, not unique Portuguese parents; not summed with EU aggregates."},
+    "czechia-affiliates-china": {
+        "title": "Czech-controlled enterprises in China",
+        "subtitle": "China except Hong Kong | Ultimate control from 2007",
+        "series": ["eurostat_czechia:china"], "unit": "Enterprises", "mode": "levels",
+        "note": "Eurostat / Czech National Bank. Preserve the 2008 NACE revision, 2010 selected-table "
+        "transition and 2021 EBS coverage/definition break. 2021 confidential, not zero. "
+        "No comparable current 2019 change or pre-2007 count inferred. Enterprises/branches under "
+        "ultimate control, not all FDI interests or an addition to overlapping EU totals."},
+    "belgium-affiliates-china": {
+        "title": "Belgian-controlled enterprises in China",
+        "subtitle": "China except Hong Kong | Since 2022 | Thresholded reporting frame",
+        "series": ["eurostat_belgium:china"], "unit": "Enterprises", "mode": "levels",
+        "note": "Eurostat / National Bank of Belgium. Enterprise counts start 2022; older UCI legal units "
+        "and pre-UCI records remain separate in complete downloads. Reporting-unit frame cutoffs: "
+        "EUR 30m equity, 75m assets or 15m long-term investments, any criterion; not all Belgian firms "
+        "or verified constant historical limits. Method windows differ; no comparable 2019 change."},
     BENCHMARK_CHART: {
         "title": "U.S. parent companies with China affiliates",
         "subtitle": "Supplementary benchmark observations | NOT an annual series",
@@ -167,7 +199,8 @@ def validate_business_data(data):
     if set(data) != {"version", "series", "observations", "sources", "coverage", "context"} or data["version"] != 1:
         raise ValueError("Invalid business-presence schema")
     units = {sid: "U.S. parents" if sid.startswith("bea_parents") else "affiliates" if sid.startswith("bea_affiliates")
-             else "legal units" if sid in {"eurostat_italy_legal:china", "eurostat_austria_legal:china"}
+             else "legal units" if sid in {"eurostat_italy_legal:china", "eurostat_austria_legal:china",
+                                          "eurostat_belgium_legal:china", "eurostat_belgium_preuci:china"}
              else "enterprises" for sid in COLORS}
     if not data["series"] or not data["sources"] or not isinstance(data["observations"], list):
         raise ValueError("Business definitions, observations and provenance required")
@@ -176,8 +209,10 @@ def validate_business_data(data):
             raise ValueError("Invalid business series identity")
         if not all(isinstance(v, str) and v for v in definition.values()) or definition["unit"] != units[sid]:
             raise ValueError("Business counting units and populations must remain explicit")
-        controlled_measure = ("controlled_legal_units" if sid in {
-            "eurostat_italy_legal:china", "eurostat_austria_legal:china"} else "controlled_enterprises")
+        controlled_measure = ("historical_affiliates" if sid == "eurostat_portugal_pre_uci:china"
+                              else "controlled_legal_units" if sid in {
+            "eurostat_italy_legal:china", "eurostat_austria_legal:china",
+            "eurostat_belgium_legal:china", "eurostat_belgium_preuci:china"} else "controlled_enterprises")
         expected = (controlled_measure, "annual", "reference year") if sid.startswith(
             ("eurostat", "ssb_", "bundesbank_", "tillvaxtanalys_", "statfin_", "dst_")) else (
             ("parent_companies", "benchmark", "fiscal ending year") if sid.startswith("bea_parents")
@@ -211,6 +246,24 @@ def validate_business_data(data):
         if sid == "eurostat_poland:china" and not all(
                 token in definition["scope"] for token in ("Polish-resident UCI", "China except Hong Kong")):
             raise ValueError("Polish ultimate-control and host-country scope must remain explicit")
+        if sid == "eurostat_portugal:china" and not all(
+                token in definition["scope"] for token in ("Portuguese-resident UCI", "China except Hong Kong")):
+            raise ValueError("Portuguese ultimate-control and host-country scope must remain explicit")
+        if sid == "eurostat_portugal_pre_uci:china" and not all(
+                token in definition["scope"] for token in ("Portugal-reported", "China except Hong Kong", "UCI not established")):
+            raise ValueError("Portuguese historical control qualification must remain explicit")
+        if sid == "eurostat_czechia:china" and not all(
+                token in definition["scope"] for token in ("Czech-resident UCI", "China except Hong Kong")):
+            raise ValueError("Czech ultimate-control and host-country scope must remain explicit")
+        if sid.startswith("eurostat_belgium"):
+            if not all(token in definition["scope"] for token in (
+                    "China except Hong Kong", "thresholded FDI reporting-unit frame")):
+                raise ValueError("Belgian host and reporting-frame scope must remain explicit")
+            if sid == "eurostat_belgium_preuci:china":
+                if "pre-UCI attribution" not in definition["scope"] or "Belgium-resident UCI" in definition["scope"]:
+                    raise ValueError("Belgian pre-UCI attribution must remain separate")
+            elif "Belgium-resident UCI" not in definition["scope"]:
+                raise ValueError("Belgian ultimate-control scope must remain explicit")
     for item in data["sources"].values():
         if set(item) != {"name", "vintage", "assets", "locator", "notes"} or not item["assets"]:
             raise ValueError("Business source provenance incomplete")
@@ -272,6 +325,15 @@ def validate_business_data(data):
             "eurostat_austria:china": "fats_out_part_AT",
             "eurostat_poland:china": ("fats_out2_PL" if r["year"] <= 2009 else
                                      "fats_out2_r2_PL" if r["year"] <= 2020 else "fats_out_part_PL"),
+            "eurostat_portugal_pre_uci:china": "fats_out2_PT",
+            "eurostat_portugal:china": ("fats_out2_PT" if r["year"] <= 2009 else
+                                       "fats_out2_r2_PT" if r["year"] <= 2020 else "fats_out_part_PT"),
+            "eurostat_czechia:china": ("fats_out2_CZ" if r["year"] <= 2009 else
+                                      "fats_out2_r2_CZ" if r["year"] <= 2020 else "fats_out_part_CZ"),
+            "eurostat_belgium_preuci:china": "fats_out2_BE",
+            "eurostat_belgium_legal:china": ("fats_out2_BE" if r["year"] == 2009 else
+                                           "fats_out2_r2_BE" if r["year"] <= 2020 else "fats_out_part_BE"),
+            "eurostat_belgium:china": "fats_out_part_BE",
         }
         if ((r["series_id"] == "eurostat_italy_legal:china" and not 2007 <= r["year"] <= 2023)
                 or (r["series_id"] == "eurostat_italy:china" and r["year"] < 2021)):
@@ -279,6 +341,15 @@ def validate_business_data(data):
         if ((r["series_id"] == "eurostat_austria_legal:china" and not 2007 <= r["year"] <= 2020)
                 or (r["series_id"] == "eurostat_austria:china" and r["year"] < 2021)):
             raise ValueError("Austrian legal-unit and enterprise populations must not be spliced")
+        if ((r["series_id"] == "eurostat_portugal_pre_uci:china" and r["year"] != 2007)
+                or (r["series_id"] == "eurostat_portugal:china" and r["year"] < 2008)):
+            raise ValueError("Portuguese pre-UCI and ultimate-control populations must not be spliced")
+        if r["series_id"] == "eurostat_czechia:china" and r["year"] < 2007:
+            raise ValueError("Czech UCI history cannot precede the verified 2007 implementation")
+        if ((r["series_id"] == "eurostat_belgium_preuci:china" and r["year"] not in {2007, 2008})
+                or (r["series_id"] == "eurostat_belgium_legal:china" and not 2009 <= r["year"] <= 2021)
+                or (r["series_id"] == "eurostat_belgium:china" and r["year"] < 2022)):
+            raise ValueError("Belgian pre-UCI, legal-unit and enterprise populations must not be spliced")
         if r["series_id"].startswith("eurostat") and r["source_id"] != expected_source[r["series_id"]]:
             raise ValueError("European method/source boundary mismatch")
         if r["series_id"] == "ssb_norway:china" and r["source_id"] != "ssb_09827":
