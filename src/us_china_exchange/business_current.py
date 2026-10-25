@@ -318,6 +318,7 @@ def build_current_business(root, archive, gallery):
                              "netherlands-affiliates-china", "finland-affiliates-china-eurostat",
                              "italy-affiliates-china", "sweden-affiliates-china-eurostat", "spain-affiliates-china",
                              "denmark-affiliates-china", "austria-affiliates-china", "poland-affiliates-china",
+                             "luxembourg-affiliates-china",
                              "portugal-affiliates-china", "czechia-affiliates-china",
                              "belgium-affiliates-china"}:
             count_cards.append(str(section))

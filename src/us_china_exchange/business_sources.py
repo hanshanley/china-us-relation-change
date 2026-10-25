@@ -60,6 +60,7 @@ FINLAND_EUROSTAT_METHODS = "https://ec.europa.eu/eurostat/cache/metadata/EN/fats
 SWEDEN_EUROSTAT_METHODS = "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_se.htm"
 AUSTRIA_EUROSTAT_METHODS = "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_at.htm"
 POLAND_EUROSTAT_METHODS = "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_pl.htm"
+LUXEMBOURG_EUROSTAT_METHODS = "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_lu.htm"
 PORTUGAL_EUROSTAT_METHODS = "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_pt.htm"
 CZECHIA_EUROSTAT_METHODS = "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_cz.htm"
 BELGIUM_EUROSTAT_METHODS = "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_be.htm"
@@ -249,6 +250,62 @@ def french_affiliates(client):
                     comparability += {2007: ":pilot2007", 2008: ":unreported2008", 2009: ":annual2009"}[year]
                 observations.append(row(sid, year, value, source_id, status,
                                         notes + " Source flags: " + flag, comparability))
+    return definitions, observations, sources
+
+
+def luxembourg_affiliates(client):
+    sid, observations, sources = "eurostat_luxembourg:china", [], {}
+    notes = (
+        "Luxembourg-resident ultimate control; enterprises or branches in China except Hong Kong, "
+        "not all resident immediate parents or an all-firm census. SPEs are excluded from the underlying "
+        "FDI survey; the frame covers all large and medium enterprises and many small entities. "
+        "The country report declares comparability from 2009 with no methodological break, not an "
+        "independent audit of every historical vintage. Retain the 2010 NACE and 2021 dataset lineage "
+        "without inventing a country-unit break. 2007/2008 are unreported, not zero; no earlier or "
+        "unpublished current-year observations are inferred. Luxembourg overlaps EU aggregates.")
+    body, methodology = client.get(LUXEMBOURG_EUROSTAT_METHODS)
+    text = " ".join(BeautifulSoup(body, "html.parser").get_text(" ", strip=True).split())
+    if not all(token in text for token in (
+            "National reference metadata Luxembourg", "LU - Grand Duchy of Luxembourg",
+            "statistical unit of FATS is the enterprise as defined",
+            "SPEs are not covered by our FDI survey",
+            "All large and medium sized enterprises and many small entities are covered",
+            "There is no break in series since there were no changes in the methodology",
+            "Length of comparable time series: from 2009 up to now",
+            "Number of enterprises and employment variables are recorded in absolute figures",
+            "We apply the UCI approach")):
+        raise ValueError("Luxembourg country unit, frame or declared continuity changed")
+    definitions = {sid: series(
+        "Luxembourg", "controlled_enterprises", "enterprises",
+        "Luxembourg-resident UCI; statistical enterprises/branches in China except Hong Kong; "
+        "selected legacy NACE C-O except L, then market producers in NACE B-N and P-S",
+        "annual", "reference year", notes)}
+    for dataset, indicator, activity, first, last in [
+        ("fats_out2", "indic_bp=ENT", "nace_r1=C-O_X_L", 2007, 2009),
+        ("fats_out2_r2", "indic_bp=ENT", "nace_r2=B-S_X_O", 2010, 2020),
+        ("fats_out_part", "indic_sbs=ENT_NR", "nace_r2=B-S_X_O", 2021, None),
+    ]:
+        url = EUROSTAT + dataset + "?lang=EN&freq=A&geo=LU&partner=CN_X_HK&" + indicator + "&" + activity
+        body, asset = client.get(url)
+        data, source_id = json.loads(body), dataset + "_LU"
+        points = parse_eurostat(data, dataset, "LU")
+        years = [point[0] for point in points]
+        if (not years or years != list(range(first, (last or max(years)) + 1))
+                or (last is None and max(years) < 2023)):
+            raise ValueError("Luxembourg affiliate history is incomplete")
+        sources[source_id] = source(
+            "Eurostat (Luxembourg reporting)", dataset + "; source updated " + data["updated"],
+            [asset, methodology], "geo=LU; partner=CN_X_HK; " + indicator + "; " + activity, notes)
+        for year, value, status, flag, _ in points:
+            if any(marker in flag for marker in ("b", "d")):
+                raise ValueError("Luxembourg observation flags contradict declared continuity")
+            if year < 2009:
+                if value is not None or status != "missing":
+                    raise ValueError("Luxembourg pre-2009 population is not the reviewed history")
+                continue
+            observations.append(row(
+                sid, year, value, source_id, status, notes + " Source flags: " + (flag or "none"),
+                "luxembourg:uci2009:continuous"))
     return definitions, observations, sources
 
 
@@ -1204,6 +1261,10 @@ def collect_business(client):
     definitions.update(poland_definitions)
     observations.extend(poland_observations)
     sources.update(poland_sources)
+    lu_definitions, lu_observations, lu_sources = luxembourg_affiliates(client)
+    definitions.update(lu_definitions)
+    observations.extend(lu_observations)
+    sources.update(lu_sources)
     portugal_definitions, portugal_observations, portugal_sources = portuguese_affiliates(client)
     definitions.update(portugal_definitions)
     observations.extend(portugal_observations)
@@ -1225,7 +1286,7 @@ def collect_business(client):
                          "description": "Verified values: " + ", ".join(actual) +
                          (". Confidential: " + ", ".join(confidential) if confidential else "") +
                          ". All series concern businesses in China; definitions and gaps are retained."})
-    return {
+    result = {
         "version": 1, "series": definitions,
         "observations": sorted(observations, key=lambda r: (r["series_id"], r["year"])),
         "sources": sources,
@@ -1238,6 +1299,8 @@ def collect_business(client):
             "release_timing": "As checked October 22, 2026, BEA's latest activity release covers 2023. The published schedule puts the 2024 activity release on November 20, 2026; no 2024 value is inferred.",
         },
     }
+    result["context"]["geography"] += " Luxembourg remains separate from overlapping EU aggregates."
+    return result
 
 
 def parse_cbs_netherlands(body):

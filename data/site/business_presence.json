@@ -1,6 +1,6 @@
 {
   "context": {
-    "geography": "China is the host. U.S., German, Norwegian, Swedish and Finnish series retain their own control, sector, threshold and source definitions; these are not matched country rankings. UK history ends in 2019. National and overlapping EU27 membership aggregates are not summed. Netherlands is shown separately from the overlapping EU27 aggregate. Spain's Eurostat financial/nonfinancial history is separate from INE's national nonfinancial population; Spain overlaps EU aggregates and is not added to them. Denmark's national resident-parent coverage includes foreign ultimate owners and excludes branches; it is not spliced with Danish-UCI Eurostat counts or summed into EU aggregates. Italian legal-unit history reaches 2023; grouped Eurostat enterprises remain a separate population. Austria is separate from overlapping EU27 membership and broader national counts; its older legal units are not spliced into current enterprise counts. Poland's ultimate-control population remains separate from the broader national foreign-equity survey and is not added to overlapping EU aggregates. Portuguese and Czech populations retain country-specific control/coverage breaks; Portugal's 2007 pre-UCI count is separate archive-only evidence. Belgium's pre-UCI legal units, UCI legal units and2022+enterprises remain separate; its current FDI reporting-frame cutoffs are not backdated or treated as all Belgian firms.",
+    "geography": "China is the host. U.S., German, Norwegian, Swedish and Finnish series retain their own control, sector, threshold and source definitions; these are not matched country rankings. UK history ends in 2019. National and overlapping EU27 membership aggregates are not summed. Netherlands is shown separately from the overlapping EU27 aggregate. Spain's Eurostat financial/nonfinancial history is separate from INE's national nonfinancial population; Spain overlaps EU aggregates and is not added to them. Denmark's national resident-parent coverage includes foreign ultimate owners and excludes branches; it is not spliced with Danish-UCI Eurostat counts or summed into EU aggregates. Italian legal-unit history reaches 2023; grouped Eurostat enterprises remain a separate population. Austria is separate from overlapping EU27 membership and broader national counts; its older legal units are not spliced into current enterprise counts. Poland's ultimate-control population remains separate from the broader national foreign-equity survey and is not added to overlapping EU aggregates. Portuguese and Czech populations retain country-specific control/coverage breaks; Portugal's 2007 pre-UCI count is separate archive-only evidence. Belgium's pre-UCI legal units, UCI legal units and2022+enterprises remain separate; its current FDI reporting-frame cutoffs are not backdated or treated as all Belgian firms. Luxembourg remains separate from overlapping EU aggregates.",
     "interpretation": "Company counts, affiliate entities and branch locations are distinct. U.S. parents and ultimately EU-controlled enterprises are not matched ownership populations; BEA and Eurostat levels must not be used to rank otherwise comparable business presence.",
     "question": "How has U.S. and European business presence in China changed over time?",
     "release_timing": "As checked October 22, 2026, BEA's latest activity release covers 2023. The published schedule puts the 2024 activity release on November 20, 2026; no 2024 value is inferred.",
@@ -145,6 +145,11 @@
     {
       "description": "Belgian UCI attribution starts 2009; 2007/2008 pre-UCI legal units remain separate. Legal units through 2021 and enterprise-level counts from 2022 are not spliced. Keep 2010 NACE, 2014 non-resident activity classification, 2016 declared window and 2021 EBS/source boundaries. Country comparable-window paragraphs differ; no cross-unit 2019 growth. Current metadata reports a thresholded FDI reporting-unit frame: EUR 30m equity, EUR 75m balance-sheet total or EUR 15m long-term investments, any criterion; these are not foreign-affiliate size cutoffs or verified unchanged historical thresholds. Control concept says more than half while the FDI screening frame says at least half; no extra 50/50 assumption. No unreported 2004-2006 experimental enterprise counts or 2024+ values inferred. Current supplement starts 2022.",
       "id": "eurostat_belgium:china",
+      "status": "partial_history"
+    },
+    {
+      "description": "Luxembourg-resident ultimate control; enterprises or branches in China except Hong Kong, not all resident immediate parents or an all-firm census. SPEs are excluded from the underlying FDI survey; the frame covers all large and medium enterprises and many small entities. The country report declares comparability from 2009 with no methodological break, not an independent audit of every historical vintage. Retain the 2010 NACE and 2021 dataset lineage without inventing a country-unit break. 2007/2008 are unreported, not zero; no earlier or unpublished current-year observations are inferred. Luxembourg overlaps EU aggregates.",
+      "id": "eurostat_luxembourg:china",
       "status": "partial_history"
     }
   ],
@@ -1896,6 +1901,141 @@
       "year": 2023
     },
     {
+      "comparability": "luxembourg:uci2009:continuous",
+      "notes": "Luxembourg-resident ultimate control; enterprises or branches in China except Hong Kong, not all resident immediate parents or an all-firm census. SPEs are excluded from the underlying FDI survey; the frame covers all large and medium enterprises and many small entities. The country report declares comparability from 2009 with no methodological break, not an independent audit of every historical vintage. Retain the 2010 NACE and 2021 dataset lineage without inventing a country-unit break. 2007/2008 are unreported, not zero; no earlier or unpublished current-year observations are inferred. Luxembourg overlaps EU aggregates. Source flags: none",
+      "series_id": "eurostat_luxembourg:china",
+      "source_id": "fats_out2_LU",
+      "status": "observed",
+      "value": 8,
+      "year": 2009
+    },
+    {
+      "comparability": "luxembourg:uci2009:continuous",
+      "notes": "Luxembourg-resident ultimate control; enterprises or branches in China except Hong Kong, not all resident immediate parents or an all-firm census. SPEs are excluded from the underlying FDI survey; the frame covers all large and medium enterprises and many small entities. The country report declares comparability from 2009 with no methodological break, not an independent audit of every historical vintage. Retain the 2010 NACE and 2021 dataset lineage without inventing a country-unit break. 2007/2008 are unreported, not zero; no earlier or unpublished current-year observations are inferred. Luxembourg overlaps EU aggregates. Source flags: none",
+      "series_id": "eurostat_luxembourg:china",
+      "source_id": "fats_out2_r2_LU",
+      "status": "observed",
+      "value": 10,
+      "year": 2010
+    },
+    {
+      "comparability": "luxembourg:uci2009:continuous",
+      "notes": "Luxembourg-resident ultimate control; enterprises or branches in China except Hong Kong, not all resident immediate parents or an all-firm census. SPEs are excluded from the underlying FDI survey; the frame covers all large and medium enterprises and many small entities. The country report declares comparability from 2009 with no methodological break, not an independent audit of every historical vintage. Retain the 2010 NACE and 2021 dataset lineage without inventing a country-unit break. 2007/2008 are unreported, not zero; no earlier or unpublished current-year observations are inferred. Luxembourg overlaps EU aggregates. Source flags: none",
+      "series_id": "eurostat_luxembourg:china",
+      "source_id": "fats_out2_r2_LU",
+      "status": "observed",
+      "value": 7,
+      "year": 2011
+    },
+    {
+      "comparability": "luxembourg:uci2009:continuous",
+      "notes": "Luxembourg-resident ultimate control; enterprises or branches in China except Hong Kong, not all resident immediate parents or an all-firm census. SPEs are excluded from the underlying FDI survey; the frame covers all large and medium enterprises and many small entities. The country report declares comparability from 2009 with no methodological break, not an independent audit of every historical vintage. Retain the 2010 NACE and 2021 dataset lineage without inventing a country-unit break. 2007/2008 are unreported, not zero; no earlier or unpublished current-year observations are inferred. Luxembourg overlaps EU aggregates. Source flags: none",
+      "series_id": "eurostat_luxembourg:china",
+      "source_id": "fats_out2_r2_LU",
+      "status": "observed",
+      "value": 13,
+      "year": 2012
+    },
+    {
+      "comparability": "luxembourg:uci2009:continuous",
+      "notes": "Luxembourg-resident ultimate control; enterprises or branches in China except Hong Kong, not all resident immediate parents or an all-firm census. SPEs are excluded from the underlying FDI survey; the frame covers all large and medium enterprises and many small entities. The country report declares comparability from 2009 with no methodological break, not an independent audit of every historical vintage. Retain the 2010 NACE and 2021 dataset lineage without inventing a country-unit break. 2007/2008 are unreported, not zero; no earlier or unpublished current-year observations are inferred. Luxembourg overlaps EU aggregates. Source flags: none",
+      "series_id": "eurostat_luxembourg:china",
+      "source_id": "fats_out2_r2_LU",
+      "status": "observed",
+      "value": 13,
+      "year": 2013
+    },
+    {
+      "comparability": "luxembourg:uci2009:continuous",
+      "notes": "Luxembourg-resident ultimate control; enterprises or branches in China except Hong Kong, not all resident immediate parents or an all-firm census. SPEs are excluded from the underlying FDI survey; the frame covers all large and medium enterprises and many small entities. The country report declares comparability from 2009 with no methodological break, not an independent audit of every historical vintage. Retain the 2010 NACE and 2021 dataset lineage without inventing a country-unit break. 2007/2008 are unreported, not zero; no earlier or unpublished current-year observations are inferred. Luxembourg overlaps EU aggregates. Source flags: none",
+      "series_id": "eurostat_luxembourg:china",
+      "source_id": "fats_out2_r2_LU",
+      "status": "observed",
+      "value": 7,
+      "year": 2014
+    },
+    {
+      "comparability": "luxembourg:uci2009:continuous",
+      "notes": "Luxembourg-resident ultimate control; enterprises or branches in China except Hong Kong, not all resident immediate parents or an all-firm census. SPEs are excluded from the underlying FDI survey; the frame covers all large and medium enterprises and many small entities. The country report declares comparability from 2009 with no methodological break, not an independent audit of every historical vintage. Retain the 2010 NACE and 2021 dataset lineage without inventing a country-unit break. 2007/2008 are unreported, not zero; no earlier or unpublished current-year observations are inferred. Luxembourg overlaps EU aggregates. Source flags: none",
+      "series_id": "eurostat_luxembourg:china",
+      "source_id": "fats_out2_r2_LU",
+      "status": "observed",
+      "value": 7,
+      "year": 2015
+    },
+    {
+      "comparability": "luxembourg:uci2009:continuous",
+      "notes": "Luxembourg-resident ultimate control; enterprises or branches in China except Hong Kong, not all resident immediate parents or an all-firm census. SPEs are excluded from the underlying FDI survey; the frame covers all large and medium enterprises and many small entities. The country report declares comparability from 2009 with no methodological break, not an independent audit of every historical vintage. Retain the 2010 NACE and 2021 dataset lineage without inventing a country-unit break. 2007/2008 are unreported, not zero; no earlier or unpublished current-year observations are inferred. Luxembourg overlaps EU aggregates. Source flags: none",
+      "series_id": "eurostat_luxembourg:china",
+      "source_id": "fats_out2_r2_LU",
+      "status": "observed",
+      "value": 7,
+      "year": 2016
+    },
+    {
+      "comparability": "luxembourg:uci2009:continuous",
+      "notes": "Luxembourg-resident ultimate control; enterprises or branches in China except Hong Kong, not all resident immediate parents or an all-firm census. SPEs are excluded from the underlying FDI survey; the frame covers all large and medium enterprises and many small entities. The country report declares comparability from 2009 with no methodological break, not an independent audit of every historical vintage. Retain the 2010 NACE and 2021 dataset lineage without inventing a country-unit break. 2007/2008 are unreported, not zero; no earlier or unpublished current-year observations are inferred. Luxembourg overlaps EU aggregates. Source flags: none",
+      "series_id": "eurostat_luxembourg:china",
+      "source_id": "fats_out2_r2_LU",
+      "status": "observed",
+      "value": 7,
+      "year": 2017
+    },
+    {
+      "comparability": "luxembourg:uci2009:continuous",
+      "notes": "Luxembourg-resident ultimate control; enterprises or branches in China except Hong Kong, not all resident immediate parents or an all-firm census. SPEs are excluded from the underlying FDI survey; the frame covers all large and medium enterprises and many small entities. The country report declares comparability from 2009 with no methodological break, not an independent audit of every historical vintage. Retain the 2010 NACE and 2021 dataset lineage without inventing a country-unit break. 2007/2008 are unreported, not zero; no earlier or unpublished current-year observations are inferred. Luxembourg overlaps EU aggregates. Source flags: none",
+      "series_id": "eurostat_luxembourg:china",
+      "source_id": "fats_out2_r2_LU",
+      "status": "observed",
+      "value": 8,
+      "year": 2018
+    },
+    {
+      "comparability": "luxembourg:uci2009:continuous",
+      "notes": "Luxembourg-resident ultimate control; enterprises or branches in China except Hong Kong, not all resident immediate parents or an all-firm census. SPEs are excluded from the underlying FDI survey; the frame covers all large and medium enterprises and many small entities. The country report declares comparability from 2009 with no methodological break, not an independent audit of every historical vintage. Retain the 2010 NACE and 2021 dataset lineage without inventing a country-unit break. 2007/2008 are unreported, not zero; no earlier or unpublished current-year observations are inferred. Luxembourg overlaps EU aggregates. Source flags: none",
+      "series_id": "eurostat_luxembourg:china",
+      "source_id": "fats_out2_r2_LU",
+      "status": "observed",
+      "value": 10,
+      "year": 2019
+    },
+    {
+      "comparability": "luxembourg:uci2009:continuous",
+      "notes": "Luxembourg-resident ultimate control; enterprises or branches in China except Hong Kong, not all resident immediate parents or an all-firm census. SPEs are excluded from the underlying FDI survey; the frame covers all large and medium enterprises and many small entities. The country report declares comparability from 2009 with no methodological break, not an independent audit of every historical vintage. Retain the 2010 NACE and 2021 dataset lineage without inventing a country-unit break. 2007/2008 are unreported, not zero; no earlier or unpublished current-year observations are inferred. Luxembourg overlaps EU aggregates. Source flags: none",
+      "series_id": "eurostat_luxembourg:china",
+      "source_id": "fats_out2_r2_LU",
+      "status": "observed",
+      "value": 10,
+      "year": 2020
+    },
+    {
+      "comparability": "luxembourg:uci2009:continuous",
+      "notes": "Luxembourg-resident ultimate control; enterprises or branches in China except Hong Kong, not all resident immediate parents or an all-firm census. SPEs are excluded from the underlying FDI survey; the frame covers all large and medium enterprises and many small entities. The country report declares comparability from 2009 with no methodological break, not an independent audit of every historical vintage. Retain the 2010 NACE and 2021 dataset lineage without inventing a country-unit break. 2007/2008 are unreported, not zero; no earlier or unpublished current-year observations are inferred. Luxembourg overlaps EU aggregates. Source flags: none",
+      "series_id": "eurostat_luxembourg:china",
+      "source_id": "fats_out_part_LU",
+      "status": "observed",
+      "value": 9,
+      "year": 2021
+    },
+    {
+      "comparability": "luxembourg:uci2009:continuous",
+      "notes": "Luxembourg-resident ultimate control; enterprises or branches in China except Hong Kong, not all resident immediate parents or an all-firm census. SPEs are excluded from the underlying FDI survey; the frame covers all large and medium enterprises and many small entities. The country report declares comparability from 2009 with no methodological break, not an independent audit of every historical vintage. Retain the 2010 NACE and 2021 dataset lineage without inventing a country-unit break. 2007/2008 are unreported, not zero; no earlier or unpublished current-year observations are inferred. Luxembourg overlaps EU aggregates. Source flags: none",
+      "series_id": "eurostat_luxembourg:china",
+      "source_id": "fats_out_part_LU",
+      "status": "observed",
+      "value": 11,
+      "year": 2022
+    },
+    {
+      "comparability": "luxembourg:uci2009:continuous",
+      "notes": "Luxembourg-resident ultimate control; enterprises or branches in China except Hong Kong, not all resident immediate parents or an all-firm census. SPEs are excluded from the underlying FDI survey; the frame covers all large and medium enterprises and many small entities. The country report declares comparability from 2009 with no methodological break, not an independent audit of every historical vintage. Retain the 2010 NACE and 2021 dataset lineage without inventing a country-unit break. 2007/2008 are unreported, not zero; no earlier or unpublished current-year observations are inferred. Luxembourg overlaps EU aggregates. Source flags: none",
+      "series_id": "eurostat_luxembourg:china",
+      "source_id": "fats_out_part_LU",
+      "status": "observed",
+      "value": 11,
+      "year": 2023
+    },
+    {
       "comparability": "fats_out2:NL:0",
       "notes": "Eurostat source flags: none",
       "series_id": "eurostat_netherlands:china",
@@ -3499,6 +3639,15 @@
       "scope": "Italy-resident UCI; China except Hong Kong; market producers in the selected NACE sectors; NACE C-O except L before 2010, B-S except O thereafter; legal units",
       "unit": "legal units"
     },
+    "eurostat_luxembourg:china": {
+      "cadence": "annual",
+      "label": "Luxembourg",
+      "measure": "controlled_enterprises",
+      "notes": "Luxembourg-resident ultimate control; enterprises or branches in China except Hong Kong, not all resident immediate parents or an all-firm census. SPEs are excluded from the underlying FDI survey; the frame covers all large and medium enterprises and many small entities. The country report declares comparability from 2009 with no methodological break, not an independent audit of every historical vintage. Retain the 2010 NACE and 2021 dataset lineage without inventing a country-unit break. 2007/2008 are unreported, not zero; no earlier or unpublished current-year observations are inferred. Luxembourg overlaps EU aggregates.",
+      "period_basis": "reference year",
+      "scope": "Luxembourg-resident UCI; statistical enterprises/branches in China except Hong Kong; selected legacy NACE C-O except L, then market producers in NACE B-N and P-S",
+      "unit": "enterprises"
+    },
     "eurostat_netherlands:china": {
       "cadence": "annual",
       "label": "Netherlands",
@@ -4294,6 +4443,26 @@
       "notes": "Eurostat changes from legal units to grouped enterprises in 2021; ISTAT national reports continue counting legal units. The national 2019/2020 controls match both older Eurostat values. Keep the 2010 NACE and 2021 source boundaries, original estimated flags and separate enterprise population. No pre-2007 count or cross-source 2019 change is inferred. Original Italy-specific metadata explicitly rejects comparison across 2021.",
       "vintage": "fats_out2; Italy; source updated 2024-04-25T11:00:00+0200"
     },
+    "fats_out2_LU": {
+      "assets": [
+        {
+          "request_url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out2?lang=EN&freq=A&geo=LU&partner=CN_X_HK&indic_bp=ENT&nace_r1=C-O_X_L",
+          "retrieved_at": "2026-10-25T09:06:09.791946+00:00",
+          "sha256": "6468cac5ae53bdb2ff021701e919dc07f60e41b790519df4d35b1a98b66416ef",
+          "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out2?lang=EN&freq=A&geo=LU&partner=CN_X_HK&indic_bp=ENT&nace_r1=C-O_X_L"
+        },
+        {
+          "request_url": "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_lu.htm",
+          "retrieved_at": "2026-10-25T09:06:13.051569+00:00",
+          "sha256": "290deb835c342b62aed4dea11367145483e5327c1e4937570418d36e1017d55e",
+          "url": "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_lu.htm"
+        }
+      ],
+      "locator": "geo=LU; partner=CN_X_HK; indic_bp=ENT; nace_r1=C-O_X_L",
+      "name": "Eurostat (Luxembourg reporting)",
+      "notes": "Luxembourg-resident ultimate control; enterprises or branches in China except Hong Kong, not all resident immediate parents or an all-firm census. SPEs are excluded from the underlying FDI survey; the frame covers all large and medium enterprises and many small entities. The country report declares comparability from 2009 with no methodological break, not an independent audit of every historical vintage. Retain the 2010 NACE and 2021 dataset lineage without inventing a country-unit break. 2007/2008 are unreported, not zero; no earlier or unpublished current-year observations are inferred. Luxembourg overlaps EU aggregates.",
+      "vintage": "fats_out2; source updated 2024-04-25T11:00:00+0200"
+    },
     "fats_out2_NL": {
       "assets": [
         {
@@ -4558,6 +4727,26 @@
       "notes": "Eurostat changes from legal units to grouped enterprises in 2021; ISTAT national reports continue counting legal units. The national 2019/2020 controls match both older Eurostat values. Keep the 2010 NACE and 2021 source boundaries, original estimated flags and separate enterprise population. No pre-2007 count or cross-source 2019 change is inferred. Original Italy-specific metadata explicitly rejects comparison across 2021.",
       "vintage": "fats_out2_r2; Italy; source updated 2024-04-25T11:00:00+0200"
     },
+    "fats_out2_r2_LU": {
+      "assets": [
+        {
+          "request_url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out2_r2?lang=EN&freq=A&geo=LU&partner=CN_X_HK&indic_bp=ENT&nace_r2=B-S_X_O",
+          "retrieved_at": "2026-10-25T09:06:10.896216+00:00",
+          "sha256": "abd572bdd3465d07e8e56f66a949eb09672d3dff9481db7cd582716a24b4359c",
+          "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out2_r2?lang=EN&freq=A&geo=LU&partner=CN_X_HK&indic_bp=ENT&nace_r2=B-S_X_O"
+        },
+        {
+          "request_url": "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_lu.htm",
+          "retrieved_at": "2026-10-25T09:06:13.051569+00:00",
+          "sha256": "290deb835c342b62aed4dea11367145483e5327c1e4937570418d36e1017d55e",
+          "url": "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_lu.htm"
+        }
+      ],
+      "locator": "geo=LU; partner=CN_X_HK; indic_bp=ENT; nace_r2=B-S_X_O",
+      "name": "Eurostat (Luxembourg reporting)",
+      "notes": "Luxembourg-resident ultimate control; enterprises or branches in China except Hong Kong, not all resident immediate parents or an all-firm census. SPEs are excluded from the underlying FDI survey; the frame covers all large and medium enterprises and many small entities. The country report declares comparability from 2009 with no methodological break, not an independent audit of every historical vintage. Retain the 2010 NACE and 2021 dataset lineage without inventing a country-unit break. 2007/2008 are unreported, not zero; no earlier or unpublished current-year observations are inferred. Luxembourg overlaps EU aggregates.",
+      "vintage": "fats_out2_r2; source updated 2024-04-25T11:00:00+0200"
+    },
     "fats_out2_r2_NL": {
       "assets": [
         {
@@ -4821,6 +5010,26 @@
       "name": "Eurostat / ISTAT",
       "notes": "Eurostat changes from legal units to grouped enterprises in 2021; ISTAT national reports continue counting legal units. The national 2019/2020 controls match both older Eurostat values. Keep the 2010 NACE and 2021 source boundaries, original estimated flags and separate enterprise population. No pre-2007 count or cross-source 2019 change is inferred. Original Italy-specific metadata explicitly rejects comparison across 2021.",
       "vintage": "fats_out_part; Italy; source updated 2026-03-31T23:00:00+0200"
+    },
+    "fats_out_part_LU": {
+      "assets": [
+        {
+          "request_url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out_part?lang=EN&freq=A&geo=LU&partner=CN_X_HK&indic_sbs=ENT_NR&nace_r2=B-S_X_O",
+          "retrieved_at": "2026-10-25T09:06:11.990637+00:00",
+          "sha256": "68e332876db027a390d50052c618a3360a7e1ef6f695cb2d57e6f35c7984d492",
+          "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out_part?lang=EN&freq=A&geo=LU&partner=CN_X_HK&indic_sbs=ENT_NR&nace_r2=B-S_X_O"
+        },
+        {
+          "request_url": "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_lu.htm",
+          "retrieved_at": "2026-10-25T09:06:13.051569+00:00",
+          "sha256": "290deb835c342b62aed4dea11367145483e5327c1e4937570418d36e1017d55e",
+          "url": "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_lu.htm"
+        }
+      ],
+      "locator": "geo=LU; partner=CN_X_HK; indic_sbs=ENT_NR; nace_r2=B-S_X_O",
+      "name": "Eurostat (Luxembourg reporting)",
+      "notes": "Luxembourg-resident ultimate control; enterprises or branches in China except Hong Kong, not all resident immediate parents or an all-firm census. SPEs are excluded from the underlying FDI survey; the frame covers all large and medium enterprises and many small entities. The country report declares comparability from 2009 with no methodological break, not an independent audit of every historical vintage. Retain the 2010 NACE and 2021 dataset lineage without inventing a country-unit break. 2007/2008 are unreported, not zero; no earlier or unpublished current-year observations are inferred. Luxembourg overlaps EU aggregates.",
+      "vintage": "fats_out_part; source updated 2026-03-31T23:00:00+0200"
     },
     "fats_out_part_NL": {
       "assets": [

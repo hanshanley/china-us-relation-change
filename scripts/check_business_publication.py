@@ -33,6 +33,7 @@ def check(site, url=None):
         "denmark-affiliates-china": "dst_denmark:china",
         "austria-affiliates-china": "eurostat_austria:china",
         "poland-affiliates-china": "eurostat_poland:china",
+        "luxembourg-affiliates-china": "eurostat_luxembourg:china",
         "portugal-affiliates-china": "eurostat_portugal:china",
         "czechia-affiliates-china": "eurostat_czechia:china",
         "belgium-affiliates-china": "eurostat_belgium:china",
@@ -49,6 +50,7 @@ def check(site, url=None):
                                "netherlands-affiliates-china", "finland-affiliates-china-eurostat",
                                "italy-affiliates-china", "sweden-affiliates-china-eurostat", "spain-affiliates-china",
                                "denmark-affiliates-china", "austria-affiliates-china", "poland-affiliates-china",
+                               "luxembourg-affiliates-china",
                                "portugal-affiliates-china", "czechia-affiliates-china",
                                "belgium-affiliates-china"}}
     visible_count = (6 if inward is not None else 4) + len(new_counts)
@@ -166,6 +168,7 @@ def check(site, url=None):
                       "netherlands-affiliates-china", "finland-affiliates-china-eurostat",
                       "italy-affiliates-china", "sweden-affiliates-china-eurostat", "spain-affiliates-china",
                       "denmark-affiliates-china", "austria-affiliates-china", "poland-affiliates-china",
+                      "luxembourg-affiliates-china",
                       "portugal-affiliates-china", "czechia-affiliates-china",
                       "belgium-affiliates-china"):
             if chart in counts:
