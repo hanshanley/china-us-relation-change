@@ -53,6 +53,18 @@ FINLAND_METHODS = "https://stat.fi/en/documentation/changes-in-statistics/clh08g
 FINLAND_DOCUMENTATION = "https://stat.fi/en/documentation/documentation-of-statistics/stu"
 FINLAND_EUROSTAT_METHODS = "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_fi.htm"
 SWEDEN_EUROSTAT_METHODS = "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_se.htm"
+SPAIN_EUROSTAT_METHODS = "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_es.htm"
+DENMARK_METADATA = "https://api.statbank.dk/v1/tableinfo"
+DENMARK_DATA = "https://api.statbank.dk/v1/data"
+DENMARK_METHODS = (
+    "https://www.dst.dk/da/Statistik/dokumentation/statistikdokumentation/"
+    "danske-datterselskaber-i-udlandet/")
+DENMARK_QUERY = {
+    "table": "OFATS4", "format": "JSONSTAT", "lang": "en",
+    "variables": [{"code": "LAND", "values": ["CN"]},
+                  {"code": "ENHED", "values": ["DSANTAL"]},
+                  {"code": "Tid", "values": ["*"]}],
+}
 NORDIC_QUERIES = {
     "sweden": {"query": [
         {"code": "Tid", "selection": {"filter": "item", "values": [str(y) for y in range(2000, 2025)]}},
@@ -228,6 +240,121 @@ def french_affiliates(client):
                 observations.append(row(sid, year, value, source_id, status,
                                         notes + " Source flags: " + flag, comparability))
     return definitions, observations, sources
+
+
+def spanish_affiliates(client):
+    sid, observations, sources = "eurostat_spain:china", [], {}
+    notes = (
+        "Spanish-resident ultimate control; Eurostat's China except Hong Kong host category. "
+        "Financial and nonfinancial activities, not unique Spanish parents. "
+        "Counts are reported from 2009; 2007/2008 are unreported and no 2000-2006 values are inferred. "
+        "Retain the 2010 classification transition and the 2021 change from legal units to "
+        "statistical enterprises. Recent estimates retain their original flags. "
+        "INE's national nonfinancial population is different and is not appended to this series.")
+    definitions = {sid: series(
+        "Spain (Eurostat)", "controlled_enterprises", "enterprises",
+        "Spanish-resident UCI enterprises in China except Hong Kong; legacy NACE C-O except L, "
+        "then NACE B-S except O; financial and nonfinancial activities",
+        "annual", "reference year", notes)}
+    _, methodology = client.get(SPAIN_EUROSTAT_METHODS)
+    for dataset, indicator, activity in [
+        ("fats_out2", "indic_bp=ENT", "nace_r1=C-O_X_L"),
+        ("fats_out2_r2", "indic_bp=ENT", "nace_r2=B-S_X_O"),
+        ("fats_out_part", "indic_sbs=ENT_NR", "nace_r2=B-S_X_O"),
+    ]:
+        url = EUROSTAT + dataset + "?lang=EN&freq=A&geo=ES&partner=CN_X_HK&" + indicator + "&" + activity
+        body, asset = client.get(url)
+        data, source_id = json.loads(body), dataset + "_ES"
+        sources[source_id] = source(
+            "Eurostat", dataset + "; Spain; source updated " + data.get("updated", "not supplied"),
+            [asset, methodology], "geo=ES; partner=CN_X_HK; " + indicator + "; " + activity,
+            notes + " Original reporter metadata and observation flags are retained.")
+        points = parse_eurostat(data, dataset, "ES")
+        years = {point[0] for point in points}
+        expected = (set(range(2007, 2010)) if dataset == "fats_out2" else
+                    set(range(2010, 2021)) if dataset == "fats_out2_r2" else
+                    set(range(2021, max(years) + 1)))
+        if years != expected or (dataset == "fats_out_part" and max(years) < 2023):
+            raise ValueError("Spanish affiliate history is incomplete; preserve the reviewed snapshot")
+        observations.extend(
+            row(sid, year, value, source_id, status, notes + " Source flags: " + flag, comparability)
+            for year, value, status, flag, comparability in points)
+    return definitions, observations, sources
+
+
+def parse_denmark(data, metadata):
+    if metadata.get("id") != "OFATS4" or metadata.get("suppressedDataValue") != "0":
+        raise ValueError("Danish table identity or suppression convention changed")
+    variables = {item["id"]: item for item in metadata.get("variables", [])}
+    if set(variables) != {"LAND", "ENHED", "Tid"}:
+        raise ValueError("Danish country-count dimensions changed")
+    countries = {item["id"]: item["text"] for item in variables["LAND"]["values"]}
+    units = {item["id"]: item["text"] for item in variables["ENHED"]["values"]}
+    if any(countries.get(code) != name for code, name in (
+            ("CN", "China"), ("HK", "Hong Kong"), ("MO", "Macao"))) or units.get("DSANTAL") != "Affiliates":
+        raise ValueError("Danish host geography or subsidiary unit changed")
+    years = sorted(item["id"] for item in variables["Tid"]["values"])
+    if (not years or any(not re.fullmatch(r"\d{4}", year) for year in years)
+            or years[0] != "2007" or int(years[-1]) < 2024
+            or [int(year) for year in years] != list(range(2007, int(years[-1]) + 1))):
+        raise ValueError("Danish reviewed history is incomplete")
+    dataset = data.get("dataset", {})
+    dimensions = dataset.get("dimension", {})
+    if (dataset.get("extension", {}).get("px", {}).get("tableid") != "OFATS4"
+            or set(dimensions.get("id", [])) != {"LAND", "ENHED", "ContentsCode", "Tid"}
+            or len(dimensions.get("size", [])) != 4 or dataset.get("status")):
+        raise ValueError("Danish dataset identity or quality flags changed")
+    for name, code in (("LAND", "CN"), ("ENHED", "DSANTAL"), ("ContentsCode", "OFATS4")):
+        if (dimensions[name]["category"]["index"] != {code: 0}
+                or dimensions["size"][dimensions["id"].index(name)] != 1):
+            raise ValueError("Danish response is not the requested China affiliate population")
+    unit = dimensions["ContentsCode"]["category"].get("unit", {}).get("OFATS4", {})
+    times = dimensions["Tid"]["category"]["index"]
+    values = dataset.get("value", [])
+    if (unit != {"base": "Number", "decimals": 0} or sorted(times) != years
+            or set(times.values()) != set(range(len(years)))
+            or dimensions["size"][dimensions["id"].index("Tid")] != len(years)
+            or not isinstance(values, list) or len(values) != len(years)):
+        raise ValueError("Danish count units or complete time axis changed")
+    result = []
+    for year in years:
+        value, status = count_cell(values[times[year]])
+        # The publisher also uses zero for suppressed cells; do not infer zero subsidiaries.
+        if value == 0:
+            value, status = None, "missing"
+        result.append((int(year), value, status, "dst_ofats4:" + ("DB03" if int(year) < 2010 else "DB07")))
+    return result
+
+
+def danish_affiliates(client):
+    metadata_body, metadata_asset = client.post_json(
+        DENMARK_METADATA, {"table": "OFATS4", "format": "JSON", "lang": "en"})
+    body, asset = client.post_json(DENMARK_DATA, DENMARK_QUERY)
+    metadata, data = json.loads(metadata_body), json.loads(body)
+    points = parse_denmark(data, metadata)
+    assets = [asset, metadata_asset]
+    for section in ("indhold", "sammenlignelighed", "statistisk-behandling", "praecision-og-paalidelighed"):
+        _, method_asset = client.get(DENMARK_METHODS + section)
+        assets.append(method_asset)
+    sid, source_id = "dst_denmark:china", "dst_ofats4"
+    notes = (
+        "Subsidiaries in China controlled from Denmark-resident parents, including parents under foreign "
+        "ultimate control; not the narrower Danish-UCI Eurostat population. Autonomous subsidiary entities, "
+        "not unique parents, plants or branches. Private non-agricultural activities, including finance; "
+        "no lower activity threshold. Retain the 2010 DB03/DB07 classification transition. "
+        "The source also uses zero for suppressed cells, so no zero is inferred. No pre-2007 values invented.")
+    definitions = {sid: series(
+        "Denmark (Statistics Denmark)", "controlled_enterprises", "enterprises",
+        "Denmark-resident parents; China; Hong Kong and Macao separately coded; foreign ultimate owners "
+        "included; private non-agricultural subsidiary entities; branches excluded",
+        "annual", "reference year", notes)}
+    sources = {source_id: source(
+        "Statistics Denmark", "OFATS4; source updated " + data["dataset"].get("updated", "not supplied"),
+        assets, "OFATS4; LAND=CN; ENHED=DSANTAL (Affiliates); Tid=all published years; JSONSTAT",
+        notes)}
+    return definitions, [
+        row(sid, year, value, source_id, status, notes, comparability)
+        for year, value, status, comparability in points], sources
 
 
 def finnish_eurostat_affiliates(client):
@@ -638,6 +765,14 @@ def collect_business(client):
     definitions.update(sweden_definitions)
     observations.extend(sweden_observations)
     sources.update(sweden_sources)
+    spain_definitions, spain_observations, spain_sources = spanish_affiliates(client)
+    definitions.update(spain_definitions)
+    observations.extend(spain_observations)
+    sources.update(spain_sources)
+    denmark_definitions, denmark_observations, denmark_sources = danish_affiliates(client)
+    definitions.update(denmark_definitions)
+    observations.extend(denmark_observations)
+    sources.update(denmark_sources)
     coverage = []
     for sid in definitions:
         selected = [r for r in observations if r["series_id"] == sid]
@@ -655,7 +790,7 @@ def collect_business(client):
         "context": {
             "question": "How has U.S. and European business presence in China changed over time?",
             "interpretation": "Company counts, affiliate entities and branch locations are distinct. U.S. parents and ultimately EU-controlled enterprises are not matched ownership populations; BEA and Eurostat levels must not be used to rank otherwise comparable business presence.",
-            "geography": "China is the host. European coverage includes current/historical EU groups, Germany, the UK, Norway, Sweden, Finland, France and the Netherlands. French, Finnish, Swedish and Dutch Eurostat host categories are China except Hong Kong. Finnish and Swedish Eurostat UCI histories remain separate from their national series. National series overlap EU aggregates and have different control/sector definitions; these are not summed into an all-Europe total. Other European origins remain unresolved.",
+            "geography": "China is the host. European coverage includes current/historical EU groups, Germany, the UK, Norway, Sweden, Finland, France, the Netherlands, Spain and Denmark. French, Finnish, Swedish, Dutch and Spanish Eurostat host categories are China except Hong Kong. Denmark separately codes Hong Kong/Macao; its resident-parent population includes foreign ultimate owners, unlike Eurostat's Danish-UCI population. Finnish and Swedish Eurostat UCI histories remain separate from their national series. Spain's Eurostat financial/nonfinancial history is not spliced with INE's national nonfinancial counts. National series overlap EU aggregates and have different control/sector definitions; these are not summed into an all-Europe total. Other European origins remain unresolved.",
             "rights": "Publish aggregate statistics and original charts only; raw workbooks and reports remain local. Sources and retrieval checksums accompany every observation.",
             "release_timing": "As checked October 22, 2026, BEA's latest activity release covers 2023. The published schedule puts the 2024 activity release on November 20, 2026; no 2024 value is inferred.",
         },
