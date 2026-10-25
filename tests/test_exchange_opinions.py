@@ -22,6 +22,44 @@ def data():
     return json.loads((ROOT / "data/site/opinions.json").read_text())
 
 
+@pytest.mark.parametrize("theme", ["themarginoferror", "substack"])
+@pytest.mark.parametrize("chart_id", [
+    "us-china-favorability", "us-china-panel-favorability",
+    "us-china-earlier-favorability", "china-us-earlier-favorability",
+])
+def test_sentiment_colors_are_distinct_in_exports_and_interactive_models(chart_id, theme):
+    from us_china_exchange.theme import BLUE
+
+    d = data()
+    svg = BeautifulSoup(svg_opinion_chart(d, chart_id, theme), "html.parser").svg
+    for mark in svg.select(".data-line,.opinion-point"):
+        color = mark.get("stroke") if mark.name == "path" else mark["fill"]
+        if mark["data-series-id"].endswith(":favorable"):
+            assert color == BLUE
+        else:
+            red, green, blue = (int(color[i:i + 2], 16) for i in (1, 3, 5))
+            assert red > 1.5 * green and red > 1.5 * blue
+    for legend in svg.select(".legend-label"):
+        color = legend.find_previous_sibling("path")["stroke"]
+        label = legend.get_text(strip=True).lower()
+        marks = svg.select(f'[data-series-id$=":{label}"]')
+        assert marks
+        assert all((mark.get("stroke") if mark.name == "path" else mark["fill"]) == color for mark in marks)
+    spec = importlib.util.spec_from_file_location("opinion_color_publication", ROOT / "scripts/build_exchange_publication.py")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    labels = {sid: definition["label"] for sid, definition in d["series"].items()}
+    model = module.plot_model(svg, labels, {})
+    groups = chart_groups(d, chart_id)
+    expected_colors = {group["id"]: group["color"] for group in groups}
+    assert all(group["color"] == expected_colors[group["id"]]
+               for group in model.get("bars", model["groups"]))
+    model_points = model["bars"] if model["kind"] == "bars" else [
+        point for group in model["groups"] for point in group["points"]]
+    assert [point["value"] for point in model_points] == [
+        point["value"] for group in groups for point in group["points"]]
+
+
 def test_c100_reported_age_panel_preserves_country_geometry_and_literal_bins():
     events = [dict(x=x, y=y, values=values) for x, y, values in (
         (165, 145, [50, 40]), (250, 145, [55, 54]),

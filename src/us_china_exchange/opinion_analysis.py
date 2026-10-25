@@ -10,7 +10,10 @@ from .model import json_text
 from .opinion_sources import validate_opinion_data
 from .public_freshness import current_groups
 from .pipeline import write_atomic
-from .theme import BLUE, CHART_THEMES, MUTED, PARTNER_COLORS
+from .theme import BLUE, CHART_THEMES, PARTNER_COLORS
+
+
+FAVORABILITY_COLORS = {"favorable": BLUE, "unfavorable": "#A34035"}
 
 
 CHARTS = {
@@ -94,8 +97,9 @@ def chart_groups(data, chart_id):
             rows = list(annual.values())
         if config.get("latest"):
             rows = [r for r in rows if r["year"] == max(p["year"] for p in rows)]
-        color = (MUTED if sid.endswith(":unfavorable") else
-                 PARTNER_COLORS["CHN"] if definition["respondent_country"] == "CHN" else BLUE)
+        color = FAVORABILITY_COLORS.get(
+            sid.rsplit(":", 1)[-1],
+            PARTNER_COLORS["CHN"] if definition["respondent_country"] == "CHN" else BLUE)
         sets = [[r] for r in rows] if config.get("by_period") else [rows]
         for selected in sets:
             label = selected[0]["period"] if config.get("by_period") else definition["label"]
