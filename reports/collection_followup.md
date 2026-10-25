@@ -11,7 +11,18 @@ Asia/Shanghai day. The generated inventory, frozen aggregate JSON and refresh
 status report the latest live totals; historical checkpoint counts below are
 not rewritten as though they were the latest collection.
 
-## Latest prepared source checkpoint: discovery pass96
+## Latest prepared source checkpoint: discovery pass101
+
+The dated [Register-Herald review](discovery_iteration101.md) adds one
+publication/domain identity, no Weibo account or negative. The coupled
+source checkpoint has463registry/381manual reviews; canonical synchronization,
+source-main promotion and actual website publication have separate receipts.
+All87channels/62groups/6,570posts, complete private exports, v5 calendars
+and six-failure health are unchanged. The county's2013entry is not2026
+continuity or control. No publisher body or staff contacts are redistributed.
+This private preparation is not a website or unattended-collection claim.
+
+## Archived source checkpoint: discovery pass96
 
 The dated [Greenwich review](discovery_iteration96.md) adds one factual
 identity, no Weibo account or negative. Source462registry/380manual;

@@ -3538,6 +3538,16 @@
       "source_url": "https://www.greenwichtime.com/",
       "research_status": "reviewed",
       "notes": "Dated identity review from two already permitted, privately saved original government responses. Both exact original hashes and visual source pages were rechecked offline; no new HTTP or publisher/body/alias/client/token request. Canonical publisher URL is a reference from existing screening, not fetched in this review. Current network/policy scope stays conservatively deferred without claiming a domain-specific2026 prohibition. No staff names, phones, emails or street addresses enter derived metadata. Account remains unknown, not absence; no parent/staff/sibling/namesake account inherited."
+    },
+    {
+      "id": "beckley-register-herald",
+      "name": "The Register-Herald",
+      "category": "newspaper",
+      "aliases": [],
+      "us_basis": "SCImago U.S.-classified cohort position423. Fayette County's independent directory entry dated9/1/2013 identifies this newspaper with Beckley, West Virginia and supplies register-herald.com as literal text. This is dated publication/domain identity, not audited2026 ownership or continuity.",
+      "source_url": "https://www.register-herald.com/",
+      "research_status": "reviewed",
+      "notes": "Factual dated identity from an original county-government directory response, not a newspaper-article mirror. Original HTML is saved privately with its SHA256; the publisher URL is a reference from existing screening and the directory's literal text, not a fresh publisher request or verified clickable directory link. The existing publisher-provider access hold remains in force. No publisher body, alias, token, Sina query or account-profile request; no staff names, contacts or addresses enter derived metadata. Account remains unknown, not verified absence; no parent, sibling, staff or namesake account inherited. No2026 corporate-control claim."
     }
   ],
   "accounts": [
