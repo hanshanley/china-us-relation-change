@@ -12,22 +12,19 @@
 
 ## U.S.-China connections since 2000
 
-Source-backed charts following student exchanges, travel, trade, immigration
-and public opinion between the United States and China. Related analyses examine
-language learning, businesses, Confucius programs and U.S. media on Weibo.
-Histories begin in 2000 where verified; each measure retains its own available
-years, population and definition. These are separate indicators, not a composite
-index of the bilateral relationship.
+An interactive study of how U.S.-China connections have changed since 2000:
+student exchanges, travel and tourism, migration, goods and services trade,
+business presence, public opinion, language learning, institutions and media.
+The analyses follow these different dimensions of the relationship rather than
+reducing them to a single measure.
 
-Mainland China, Hong Kong and Macau remain distinct in the public comparisons.
-Taiwan observations are retained separately in the complete research data.
-Academic years use their **ending year**; calendar years, fiscal years, survey
-rounds and matched year-to-date periods are labelled rather than treated as
-interchangeable annual observations.
+Explore changes in both directions where data are available, with distinct
+comparisons for mainland China, Hong Kong and Macau. Taiwan observations are
+retained separately in the complete research data.
 
 <p align="center">
-  <a href="https://www.themarginoferror.com/china-us-relations/trade.html">
-    <img src="outputs/figures/goods_trade/themarginoferror/bea-CHN-USA-goods.png" width="1200" alt="Annual goods trade from mainland China to the United States, 2000-2025, in nominal U.S. dollars on a balance-of-payments basis">
+  <a href="https://www.themarginoferror.com/china-us-relations/">
+    <img src="https://www.themarginoferror.com/artifacts/china-us-relations/us-china-fractured-network.webp" width="1200" alt="U.S.-China connections illustrated as a fractured network">
   </a>
 </p>
 
@@ -122,19 +119,3 @@ PYTHONPATH=src ./.venv/bin/python -m pytest tests/test_exchange_*.py -q
 
 See [methods and operation](docs/EXCHANGE.md), [source contracts](docs/SOURCES.md),
 and the [Weibo CLI guide](docs/WEIBO.md) for source-specific commands and checks.
-
-## Data integrity
-
-Reviewed inputs are tracked in [`data/site/`](data/site); raw responses, private
-databases and post corpora stay under ignored `data/local/`. Observations retain
-definitions, reference periods, source links and provenance. Missing or suppressed
-values are not zero, incompatible definitions are not spliced, and resident
-stocks are not converted into annual flows.
-
-Some bilateral measures remain unverified, including comparable annual
-U.S.-to-mainland-China permanent immigration. Older national language-course
-counts are not made current by newer degree or program figures. The
-[methods documentation](docs/EXCHANGE.md) describes source definitions and
-remaining coverage gaps.
-Public exports contain complete selected datasets, not metadata-only substitutes;
-they do not redistribute source reports or the private Weibo text corpus.
