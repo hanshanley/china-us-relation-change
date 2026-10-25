@@ -40,7 +40,7 @@ PAGES = {
                       "Reported survey rounds · Different questions kept separate"),
     "comparisons.html": ("Regional comparisons", "Comparisons are organized within Students, Travel and Trade.",
                          "Existing chart links lead to their topic"),
-    "language-learning.html": ("Language learning", "Chinese, Japanese and Korean compared through course enrollments, degree awards and school programs.",
+    "language-learning.html": ("Language learning", "Chinese, Japanese and Korean across degree awards and school offerings. Separate AP exams; historical enrollments in downloads.",
                               "AP exams through 2025 · Degree awards through 2024 · College census through 2021"),
     "confucius.html": ("Confucius Institutes & Classrooms", "U.S. institutes, school programs and documented replacements, counted separately.",
                        "Dated historical reports · Operator listings are not an operating census"),
