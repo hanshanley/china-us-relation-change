@@ -142,8 +142,16 @@ def check(site, url=None, screenshots=None):
             page.select_option("#direction", "from_us")
             expect(page.locator("#measure")).to_have_value("air_visitors")
             expect(page.locator("#selection-note")).to_contain_text("U.S.-resident air-travel")
-            assert page.locator("#chart .screen-point").count() == 13
-            expect(page.locator("#series-population")).to_contain_text("2012–2025")
+            air = sorted((row for row in data["observations"] if
+                          row["series_id"] == "ntto_siat:USA:CHN:air_visitors"
+                          and row["frequency"] == "annual" and row["value"] is not None),
+                         key=lambda row: row["year"])
+            assert page.locator("#chart .screen-point").evaluate_all(
+                "nodes=>nodes.map(n=>[+n.dataset.year,+n.dataset.value])") == [
+                    [row["year"], row["value"]] for row in air]
+            assert air[0]["year"] == 2000
+            expect(page.locator("#series-population")).to_contain_text(
+                f'{air[0]["year"]}\u2013{air[-1]["year"]}')
             expect(page.locator("#partial-panel")).to_contain_text("2026")
             assert float(page.locator("#chart .screen-point[data-year='2020']").get_attribute("data-value")) == 89000
             assert page.locator("#chart .screen-point[data-year='2021']").count() == 0
@@ -161,7 +169,7 @@ def check(site, url=None, screenshots=None):
             assert page.locator('#measure option[value="visitors"]').evaluate("o=>o.disabled&&o.hidden")
             page.locator("#measure").evaluate("n=>{n.value='visitors';n.dispatchEvent(new Event('change',{bubbles:true}));}")
             expect(page.locator("#measure")).to_have_value("air_visitors")
-            assert page.locator("#chart .screen-point").count() == 13
+            assert page.locator("#chart .screen-point").count() == len(air)
             if screenshots:
                 page.locator(".exchange-panel").screenshot(path=str(screenshots / f"tourism-current-{width}.png"))
             for geo in ("CHN", "HKG"):
