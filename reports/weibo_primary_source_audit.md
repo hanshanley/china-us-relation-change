@@ -10,10 +10,11 @@ proof manifest and aggregate JSON expose the updated corpus counts. These
 incremental checks do not imply another live account-identity sweep, and do not
 replace the archived October 21 baseline.
 
-The registry-bound manifest was refreshed October 25 UTC after 256 additional
+The registry-bound manifest was refreshed October 25 UTC after 259 additional
 ranked-domain reviews. Account/post source captures and all identity decisions
-are retained. The latest factual-only Gwinnett review adds no account or
-post and implies no new live numeric-profile sweep; see discovery_iteration85.md.
+are retained. Three factual publisher-identity reviews add no account or post;
+dated government records do not certify current control. No new numeric-profile
+sweep is implied; see discovery_iteration91.md.
 
 This is a source-level recheck, not just a reconciliation of registry flags.
 It establishes documented institutional/profile associations and consistency

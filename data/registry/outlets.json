@@ -3494,6 +3494,40 @@
       "source_url": "https://www.gwinnettdailypost.com/",
       "research_status": "reviewed",
       "notes": "Factual-metadata-only rendered-page review. The provider described its root view as cached today; this is not a fresh origin/robots/redirect proof. The actual root-linked Terms returned provider429, so no later publisher/alias/client request was made. Terms body unavailable; no publisher AI-use or retention prohibition is inferred. No fresh local body/hash retained. Login, gift and unrelated newsletter widget boilerplate is not an actual authenticated session, transaction or publisher relationship. No parent, sibling, staff or namesake Weibo account is inherited. Account evidence remains unknown, not absence; no account, post or verified negative added."
+    },
+    {
+      "id": "midland-reporter-telegram",
+      "name": "Midland Reporter-Telegram",
+      "category": "newspaper",
+      "aliases": [
+        "MRT"
+      ],
+      "us_basis": "SCImago U.S.-classified cohort position407. The actual Contact identifies Midland Reporter-Telegram and the footer names Hearst Newspapers II, LLC; publisher self-description, not independently audited current control.",
+      "source_url": "https://www.mrt.com/",
+      "research_status": "reviewed",
+      "notes": "Distinct from Michigan's Midland Daily News/ourmidland. Actual Contact-linked Terms section6 restricts manual/automated extraction, archive copying and AI use without permission. No further publisher/body/AI-guidance/alias/client requests. Contact/Terms were provider-cached2/4days; policy displays2025-10-08. No fresh local publisher body/hash retained, older captures untouched. No staff contacts or subscription/gift boilerplate retained as user activity. Account remains unknown, not absent; no parent/sibling/staff/namesake account inherited."
+    },
+    {
+      "id": "danbury-news-times",
+      "name": "The News-Times (Danbury)",
+      "category": "newspaper",
+      "aliases": [
+        "Danbury News-Times"
+      ],
+      "us_basis": "SCImago U.S.-classified cohort position409. Original Connecticut2021 state directory joins The News-Times (Danbury) with newstimes.com and Danbury, Connecticut. Publisher-submitted2023 legislative testimony lists the brand among Hearst newspapers; not a government ownership finding or independently audited2026 continuity.",
+      "source_url": "https://www.newstimes.com/",
+      "research_status": "reviewed",
+      "notes": "Factual dated identity review from two privately saved original public-government responses. Canonical publisher URL is a reference from existing screening metadata, not a publisher-body request in this review. Actual source locators,2021/2023 dates and SHA proofs accompany the review journal. No publisher, alias, parent, client or token request; current network/policy scope remains conservatively deferred without claiming a domain-specific2026 prohibition. No staff names/phones/emails/street addresses in derived metadata. Account remains unknown, not absence; no parent/staff/sibling/namesake account inherited."
+    },
+    {
+      "id": "stamford-advocate",
+      "name": "Stamford Advocate",
+      "category": "newspaper",
+      "aliases": [],
+      "us_basis": "SCImago U.S.-classified cohort position410. Original Connecticut2021 state directory joins Stamford Advocate with stamfordadvocate.com and Stamford, Connecticut. Publisher-submitted2023 legislative testimony lists the brand among Hearst newspapers; not a government ownership finding or independently audited2026 continuity.",
+      "source_url": "https://www.stamfordadvocate.com/",
+      "research_status": "reviewed",
+      "notes": "Factual dated identity review from two privately saved original public-government responses. Canonical publisher URL is a reference from existing screening metadata, not a publisher-body request in this review. Actual source locators,2021/2023 dates and SHA proofs accompany the review journal. No publisher, alias, parent, client or token request; current network/policy scope remains conservatively deferred without claiming a domain-specific2026 prohibition. No staff names/phones/emails/street addresses in derived metadata. Account remains unknown, not absence; no parent/staff/sibling/namesake account inherited."
     }
   ],
   "accounts": [
