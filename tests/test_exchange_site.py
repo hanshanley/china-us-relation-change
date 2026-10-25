@@ -84,6 +84,24 @@ def test_travel_titles_follow_the_same_directional_format_across_measures(sid, t
                       if r["frequency"] == "annual" and r["value"] is not None]
 
 
+@pytest.mark.parametrize("geo,place", [("CHN", "mainland China"), ("HKG", "Hong Kong"), ("MAC", "Macau")])
+@pytest.mark.parametrize("theme", ["themarginoferror", "substack"])
+def test_study_abroad_headings_name_the_students_and_destination_with_credit_scope_below(geo, place, theme):
+    rows = [r for r in json.loads((ROOT / "data/site/observations.json").read_text())
+            if r["series_id"] == f"iie:USA:{geo}:study_abroad"]
+    expected = [(r["year"], r["value"]) for r in sorted(rows, key=lambda r: r["year"])
+                if r["frequency"] == "annual" and r["value"] is not None]
+    for markup in (svg_chart(rows, theme=theme),
+                   svg_comparison(rows, "study_abroad", "from_us", theme=theme, geographies=(geo,))):
+        svg = ElementTree.fromstring(markup)
+        heading = next(n for n in svg.iter() if n.tag.endswith("text") and n.get("font-weight") == "bold")
+        assert heading.text == f"U.S. college students studying in {place}"
+        assert "course credit" in "".join(svg.itertext())
+        assert "Academic-credit" not in heading.text
+        assert [(int(n.get("data-year")), float(n.get("data-value")))
+                for n in svg.iter() if n.tag.endswith("circle")] == expected
+
+
 @pytest.mark.parametrize("absolute,percent,expected", [
     (17, 106.25, "+17 (+106.3%)"),
     (-49, -12.25, "\u221249 (-12.3%)"),

@@ -15,7 +15,7 @@ from xml.etree import ElementTree
 import resvg_py
 from PIL import Image
 
-from .model import START_YEAR, GEOGRAPHIES, MEASURES, change, coverage, gap_reason, json_text, primary_observations, primary_series, travel_title, validate
+from .model import START_YEAR, GEOGRAPHIES, MEASURES, change, coverage, gap_reason, json_text, primary_observations, primary_series, study_abroad_title, travel_title, validate
 from .business_analysis import CHARTS as BUSINESS_CHARTS, RETIRED_CHARTS as BUSINESS_RETIRED_CHARTS, validate_business_data
 from .business_current import CHARTS as CURRENT_BUSINESS_CHARTS, build_current_business, validate as validate_current_business
 from .business_inward import CHARTS as INWARD_BUSINESS_CHARTS, validate as validate_inward_business
@@ -140,6 +140,9 @@ def svg_chart(rows, indexed=False, theme="themarginoferror"):
                      "Leisure visitor trips" if sample["measure"] == "leisure_visitors" else
                      "Overnight visitor arrivals by country of residence" if sample["source_id"] == "ntto" else
                      "Visitor arrivals")
+    elif sample["measure"] == "study_abroad":
+        heading = study_abroad_title(sample["destination"])
+        direction = "Study abroad for course credit"
     title = f"{heading}: {direction}"
     description = (f"Annual snapshot for {first}."
                    if snapshot and len(present) == 1 else
@@ -306,6 +309,9 @@ def svg_comparison(rows, measure, direction, theme="themarginoferror", logarithm
             geo = next(iter(groups))
             heading = travel_title(geo, "USA") if direction == "to_us" else travel_title("USA", geo)
         subtitle = MEASURES[measure]
+    elif measure == "study_abroad":
+        heading = study_abroad_title(next(iter(groups))) if len(groups) == 1 else MEASURES[measure]
+        subtitle = "Study abroad for course credit"
     title = heading + ": " + subtitle
     split_panel = tuple(geographies) != tuple(COMPARISON_GEOGRAPHIES)
     metadata = ""
@@ -821,6 +827,8 @@ def build(root):
             heading = MEASURES[measure] + " · " + label
             if "visitors" in measure:
                 heading = "Travel to the U.S." if direction == "to_us" else "Travel from the U.S."
+            elif measure == "study_abroad":
+                heading = MEASURES[measure]
             split_regions = measure in SPLIT_REGIONAL_MEASURES
             panels = (("CHN",), ("HKG", "MAC")) if split_regions else (COMPARISON_GEOGRAPHIES,)
             panel_labels = {"-".join(geo.lower() for geo in geographies):

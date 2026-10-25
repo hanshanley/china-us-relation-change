@@ -13,7 +13,7 @@ MEASURES = {
     "degree_students": "Degree enrollment",
     "historical_students": "Historical reported student totals (coverage qualified)",
     "international_students": "International students, including OPT",
-    "study_abroad": "Academic-credit study abroad",
+    "study_abroad": "U.S. college students studying abroad",
     "visitors": "Visitor trips",
     "air_visitors": "U.S. air travel",
     "leisure_visitors": "Leisure visitor trips",
@@ -25,6 +25,11 @@ MEASURES = {
 def travel_title(origin, destination):
     labels = dict(GEOGRAPHIES, USA="the U.S.", CHN="mainland China")
     return f"Travel from {labels[origin]} to {labels[destination]}"
+
+
+def study_abroad_title(destination):
+    place = "mainland China" if destination == "CHN" else GEOGRAPHIES[destination]
+    return f"U.S. college students studying in {place}"
 
 
 def json_text(value):

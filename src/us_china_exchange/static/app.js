@@ -105,7 +105,7 @@
         explanation = "Historical all-mode arrivals are also available, under a different definition. They are not spliced into this air-travel survey.";
       } else if (outgoing && measure === "enrolled_students") {
         alternative = "study_abroad";
-        explanation = "A separate academic-credit study-abroad series has newer observations. It is not a replacement for all U.S.-nationality enrollments.";
+        explanation = "The U.S. college study-abroad series has newer observations. It counts credit-bearing programs, not all U.S. nationals enrolled abroad.";
       } else if (!outgoing && measure === "enrolled_students") {
         alternative = "international_students";
         explanation = "A broader student series has a longer history, but includes graduates on OPT as well as enrolled students.";
@@ -127,22 +127,25 @@
         related.innerHTML += ' <a href="#student-estimates">Separate dated estimates through 2026, including reported bounds</a>.';
       }
     }
-    const travelName = code => code === "USA" ? "the U.S." :
+    const placeName = code => code === "USA" ? "the U.S." :
       code === "CHN" ? "mainland China" : data.geographies[code];
     $("series-title").textContent = ["visitors", "air_visitors", "leisure_visitors"].includes(measure) ?
-      `Travel from ${travelName(origin)} to ${travelName(destination)}` :
+      `Travel from ${placeName(origin)} to ${placeName(destination)}` :
+      measure === "study_abroad" ? `U.S. college students studying in ${placeName(destination)}` :
       `${data.geographies[origin]} \u2192 ${data.geographies[destination]}`;
-    $("series-category").textContent = data.measures[measure];
+    $("series-category").textContent = measure === "study_abroad" ? "Study abroad" : data.measures[measure];
     const population = $("series-population");
     if (population) {
       const travel = ["visitors", "air_visitors", "leisure_visitors"].includes(measure) && !!current;
-      population.hidden = !travel;
-      if (travel) {
-        const scope = measure === "air_visitors" ? "U.S. residents; annual survey estimates" :
+      const studyingAbroad = measure === "study_abroad" && !!current;
+      population.hidden = !travel && !studyingAbroad;
+      if (travel || studyingAbroad) {
+        const scope = studyingAbroad ? "Study abroad for course credit, reported by U.S. colleges" :
+          measure === "air_visitors" ? "U.S. residents; annual survey estimates" :
           current.source_id === "ntto" ? "Overnight visitor arrivals by country of residence" :
           current.source_id === "nbs_tourism" ? "Historical all-mode visitor arrivals" :
           "Visitor arrivals; source-specific country attribution";
-        population.textContent = `${scope} \u00b7 ${annual[0].year}\u2013${current.year}`;
+        population.textContent = `${scope} \u00b7 ${studyingAbroad ? "Academic years ending " : ""}${annual[0].year}\u2013${current.year}`;
       }
     }
     const continuity = $("series-continuity");

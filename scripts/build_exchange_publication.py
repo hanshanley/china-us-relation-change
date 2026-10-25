@@ -29,7 +29,7 @@ PROJECT_NAME = "U.S.–China Exchange"
 CANONICAL = "https://www.themarginoferror.com/china-us-relations/"
 REPOSITORY = "https://github.com/hanshanley/china-us-relation-change"
 PAGES = {
-    "index.html": ("Student exchanges", "Student enrollment, Optional Practical Training (OPT), and study abroad for academic credit.",
+    "index.html": ("Student exchanges", "Student enrollment, Optional Practical Training (OPT), and U.S. college study-abroad programs.",
                    "Academic-year series · Enrollment and participation kept separate"),
     "trade.html": ("Trade", "Goods and services exchanged with the U.S., with mainland China separate from Hong Kong and Macau.",
                    "Annual reported values · Separate regional scales"),
@@ -396,7 +396,7 @@ def decorate(site, name, labels, revision):
         display.append(soup.select_one("#chart-mode").extract())
         form.append(display)
         short_labels = {"international_students": "Enrolled + OPT", "enrolled_students": "Enrolled students",
-                        "degree_students": "Degree students", "study_abroad": "Study abroad for credit",
+                        "degree_students": "Degree students", "study_abroad": "Study abroad",
                         "visitors": "Visitor trips", "leisure_visitors": "Leisure trips",
                         "air_visitors": "U.S. air travel",
                         "goods": "Goods trade", "services": "Services trade"}
