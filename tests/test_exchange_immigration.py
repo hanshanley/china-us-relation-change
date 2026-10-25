@@ -1,5 +1,7 @@
 import copy
 import csv
+import hashlib
+import io
 import json
 from collections import defaultdict
 from pathlib import Path
@@ -7,7 +9,9 @@ from xml.etree import ElementTree
 
 import pytest
 from bs4 import BeautifulSoup
+from openpyxl import Workbook
 
+from us_china_exchange import immigration_sources
 from us_china_exchange.immigration_analysis import CHARTS, build_immigration, validate_immigration_data
 from us_china_exchange.immigration_sources import count, parse_admissions, parse_birth, parse_latest, parse_macau_abode, parse_macau_abode_2008, parse_stock, STOCK_YEARS
 from us_china_exchange.theme import CHART_THEMES
@@ -196,6 +200,55 @@ def test_older_admission_header_is_not_mistaken_for_quarters_or_rounded_counts()
         parse_admissions(rows, 2020)
 
 
+@pytest.mark.parametrize("year", [2016, 2017, 2018, 2019])
+def test_admission_source_retains_the_explicit_nationality_correction(year, monkeypatch):
+    url = f"https://ohss.dhs.gov/reviewed-fy{year}.xlsx"
+    monkeypatch.setattr(immigration_sources, "ADMISSION_ASSETS", {year: url})
+    correction = (
+        "Note: Previously published numbers in this table were computed using Country of Birth. "
+        "On September 2019, numbers in this table were updated to account for Country of Nationality.")
+
+    class Client:
+        def __init__(self, footer):
+            self.footer = footer
+
+        def get(self, requested):
+            assert requested == url
+            book = Workbook()
+            sheet = book.active
+            sheet.title = "Table 1A"
+            sheet.append([f"PERMANENT RESIDENT STATUS BY COUNTRY OF NATIONALITY: FISCAL YEAR {year}"])
+            sheet.append(["Region and country of nationality", "Total", None, None, None, None,
+                          "Adjustments of status", None, None, None, None,
+                          "New arrivals", None, None, None, None])
+            sheet.append([None, "Total", 1, 2, 3, 4, "Total", 1, 2, 3, 4, "Total", 1, 2, 3, 4])
+            sheet.append(["China, People's Republic", 30, None, None, None, None,
+                          20, None, None, None, None, 10, None, None, None, None])
+            sheet.append([self.footer])
+            stream = io.BytesIO()
+            book.save(stream)
+            body = stream.getvalue()
+            return body, {"url": url, "request_url": url,
+                          "sha256": hashlib.sha256(body).hexdigest(),
+                          "retrieved_at": "2026-10-24T22:52:10+00:00"}
+
+    observations, sources = immigration_sources.admissions(Client(correction if year < 2019 else ""))
+    assert {row["year"] for row in observations} == {year}
+    assert {row["series_id"]: row["value"] for row in observations} == {
+        "ohss_nationality:total": 30, "ohss_nationality:adjustments": 20,
+        "ohss_nationality:new_arrivals": 10}
+    source = sources[f"ohss_nationality_{year}"]
+    if year < 2019:
+        assert "September 2019" in source["vintage"]
+        assert "Country of Birth" in source["notes"] and "Country of Nationality" in source["notes"]
+        for footer in ("", correction.replace("September 2019", "October 2019"),
+                       correction.replace("account for Country of Nationality", "account for Country of Birth")):
+            with pytest.raises(ValueError, match="nationality correction"):
+                immigration_sources.admissions(Client(footer))
+    else:
+        assert "September 2019" not in source["vintage"]
+
+
 def test_immigration_exports_include_all_counts_and_fiscal_dates(tmp_path):
     data = published()
     assert build_immigration(tmp_path, data, defaultdict(list)) == len(CHARTS)
@@ -209,6 +262,11 @@ def test_immigration_exports_include_all_counts_and_fiscal_dates(tmp_path):
     assert row["notes"] != row["definition_notes"]
     page = BeautifulSoup((tmp_path / "site/immigration.html").read_text(), "html.parser")
     assert "nationality" in page.select_one("#latest-admissions").text.lower()
+    assert "September 2019" in page.select_one("#annual-china-to-us > .chart-note").text
+    for theme in CHART_THEMES:
+        annual = ElementTree.fromstring(
+            (tmp_path / f"site/figures/immigration/{theme}/annual-china-to-us.svg").read_text())
+        assert "FY2016-2018 tables corrected to nationality" in " ".join(annual.itertext())
     assert "not_verified" in page.text
     svg = ElementTree.fromstring((tmp_path / "site/figures/immigration/themarginoferror/green-card-grants.svg").read_text())
     points = [n for n in svg.iter() if n.get("class") == "immigration-point"]
