@@ -43,14 +43,14 @@
       "status": "annual"
     },
     {
-      "description": "German-controlled China enterprises; Eurostat and Bundesbank source histories stay separate because overlapping counts differ. Not added to EU27 or relabelled parent companies.",
+      "description": "Direct or indirect control above 50%; affiliates with total assets above EUR 3 million, including branches and permanent establishments. Excludes agriculture, public administration and private households. Not distinct German parent companies, all European businesses or a reconstruction of confidential EU totals.",
       "id": "bundesbank_germany:china",
-      "status": "annual"
+      "status": "partial_history"
     },
     {
-      "description": "German-controlled China enterprises; Eurostat and Bundesbank source histories stay separate because overlapping counts differ. Not added to EU27 or relabelled parent companies.",
+      "description": "Eurostat's reported history is retained separately from Bundesbank's current workbook. Overlapping 2021-2023 counts differ; they are not spliced, averaged or treated as a matched revision. The 2021 EBS methodology boundary is disconnected. Germany overlaps the EU27 aggregate.",
       "id": "eurostat_germany:china",
-      "status": "annual"
+      "status": "partial_history"
     },
     {
       "description": "Swedish owners hold at least 50% of group voting rights; a subsidiary has >50% ownership or dominant influence. Counts at balance-sheet date, not unique parents or offices. Subsidiary counts began in 2010; 2000-2009 source '..' cells remain missing. 2018 EGR coverage/imputation, 2019 frame repair and 2021 GDC-to-GGH ownership boundaries remain separate. The API's 9999 update sentinel is not a publication date.",
@@ -370,6 +370,42 @@
       "status": "observed",
       "value": 1134,
       "year": 2019
+    },
+    {
+      "comparability": "bundesbank:BTSXO:CN:EUR3m",
+      "notes": "November 2020 publication vintage; 2018 provisional under the original latest-year note. German ultimate control; assets above EUR 3m. No 2019/2020 value is inferred.",
+      "series_id": "bundesbank_germany:china",
+      "source_id": "bundesbank_outward_fats_2020",
+      "status": "observed",
+      "value": 1646,
+      "year": 2015
+    },
+    {
+      "comparability": "bundesbank:BTSXO:CN:EUR3m",
+      "notes": "November 2020 publication vintage; 2018 provisional under the original latest-year note. German ultimate control; assets above EUR 3m. No 2019/2020 value is inferred.",
+      "series_id": "bundesbank_germany:china",
+      "source_id": "bundesbank_outward_fats_2020",
+      "status": "observed",
+      "value": 1688,
+      "year": 2016
+    },
+    {
+      "comparability": "bundesbank:BTSXO:CN:EUR3m",
+      "notes": "November 2020 publication vintage; 2018 provisional under the original latest-year note. German ultimate control; assets above EUR 3m. No 2019/2020 value is inferred.",
+      "series_id": "bundesbank_germany:china",
+      "source_id": "bundesbank_outward_fats_2020",
+      "status": "observed",
+      "value": 1735,
+      "year": 2017
+    },
+    {
+      "comparability": "bundesbank:BTSXO:CN:EUR3m",
+      "notes": "November 2020 publication vintage; 2018 provisional under the original latest-year note. German ultimate control; assets above EUR 3m. No 2019/2020 value is inferred.",
+      "series_id": "bundesbank_germany:china",
+      "source_id": "bundesbank_outward_fats_2020",
+      "status": "provisional",
+      "value": 1735,
+      "year": 2018
     },
     {
       "comparability": "bundesbank:BTSXO:CN:EUR3m",
@@ -3474,6 +3510,20 @@
       "name": "Deutsche Bundesbank",
       "notes": "Only the China enterprise-count series is used; employment and turnover columns are not company counts. Latest year provisional. Germany is an overlapping EU member, not an extra component to add to EU27.",
       "vintage": "Outward FATS workbook; reference years 2021-2024"
+    },
+    "bundesbank_outward_fats_2020": {
+      "assets": [
+        {
+          "request_url": "https://web.archive.org/web/20250419145839id_/https://www.bundesbank.de/resource/blob/768898/57e1855ed8172f316354ab4b6d39f6d5/472B63F073F071307366337C94F8C870/statistik-outward-fats-data.pdf",
+          "retrieved_at": "2026-10-25T06:47:59+00:00",
+          "sha256": "131dc1e22fd22d82f9bb24ba331789b8463637c49111e2162d345b5a21f17454",
+          "url": "https://web.archive.org/web/20250419145839id_/https://www.bundesbank.de/resource/blob/768898/57e1855ed8172f316354ab4b6d39f6d5/472B63F073F071307366337C94F8C870/statistik-outward-fats-data.pdf"
+        }
+      ],
+      "locator": "Page 7; II.1.1; China, People's Republic; Number of the affiliates abroad",
+      "name": "Deutsche Bundesbank",
+      "notes": "Archived original publication, not the archive-capture year. German ultimate control above 50%, assets above EUR 3m, NACE Rev.2; branches and permanent establishments included. Original latest-year note makes 2018 provisional. Later historical revisions and 2019/2020 counts are not inferred. Not spliced with the different Eurostat population.",
+      "vintage": "Outward FATS, November 2020; reference years 2015-2018"
     },
     "cbs_netherlands_2026": {
       "assets": [
