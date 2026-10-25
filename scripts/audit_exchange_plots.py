@@ -104,13 +104,18 @@ class Audit:
         self.datasets, self.plotted = {}, {}
         for page, stem, source in [
                 ("language-learning.html", "language", "language-learning"),
-                ("business-presence.html", "business", "business-presence"),
+                ("business-presence.html", "business-current", "business-current"),
+                ("business-presence.html", "business-inward", "business-inward"),
                 ("immigration.html", "immigration", "immigration"),
                 ("opinions.html", "opinion", "opinions")]:
             if not (site / f"downloads/{source}.json").is_file():
                 continue
-            self.datasets[page] = json.loads((site / f"downloads/{source}.json").read_text())
-            self.plotted[page] = list(csv.DictReader((site / f"downloads/{stem}-chart-values.csv").open()))
+            data = json.loads((site / f"downloads/{source}.json").read_text())
+            combined = self.datasets.setdefault(page, {"series": {}, "observations": []})
+            combined["series"].update(data["series"])
+            combined["observations"].extend(data["observations"])
+            with (site / f"downloads/{stem}-chart-values.csv").open() as stream:
+                self.plotted.setdefault(page, []).extend(csv.DictReader(stream))
         self.raw = {(r["series_id"], r["year"]): r for r in self.exchange if r["frequency"] == "annual"}
         self.cadences = {r["series_id"]: "annual" for r in self.exchange}
         for data in self.datasets.values():

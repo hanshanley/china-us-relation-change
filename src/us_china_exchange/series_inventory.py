@@ -11,7 +11,7 @@ from bs4 import BeautifulSoup
 
 DATASETS = (
     "exchange", "immigration", "opinions", "language-learning", "business-presence",
-    "business-current", "confucius-programs", "student-estimates",
+    "business-current", "business-inward", "confucius-programs", "student-estimates",
 )
 
 

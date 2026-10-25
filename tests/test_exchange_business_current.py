@@ -64,11 +64,42 @@ def test_survey_bases_performance_years_and_investment_units_are_not_interchange
         (lambda d: d["series"]["bea_position:CHN"].update(unit="enterprises"), "counts or flows"),
         (lambda d: d["observations"][-1].update(value=101), "percentage"),
         (lambda d: d["observations"][0].update(year=2026), "reference year"),
+        (lambda d: d["observations"][0].pop("raw_sha256"), "workbook provenance"),
     ]:
         invalid = copy.deepcopy(data)
         mutate(invalid)
         with pytest.raises(ValueError, match=message):
             business_current.validate(invalid)
+
+
+def test_full_position_history_preserves_reported_years_units_and_each_workbook():
+    data = current()
+    for geo, first, last in [("CHN", 11140, 120547), ("HKG", 27447, 103737)]:
+        rows = sorted((r for r in data["observations"] if r["series_id"] == "bea_position:" + geo),
+                      key=lambda r: r["year"])
+        assert [r["year"] for r in rows] == list(range(2000, 2026))
+        assert [rows[0]["value"], rows[-1]["value"]] == [first * 1_000_000, last * 1_000_000]
+        assert len({r["raw_sha256"] for r in rows}) == 3
+        assert all(r["source_url"].startswith("https://apps.bea.gov/")
+                   and r["retrieved_at"] and "cell B" in r["notes"] for r in rows)
+    book = Workbook()
+    sheet = book.active
+    sheet.title = "2000"
+    for row in [
+        ["U.S. Direct Investment Position Abroad on a Historical-Cost Basis, 2000"],
+        ["[Millions of dollars]"], [None, "All industries"], ["China", "11,140"], ["Hong Kong", "-27,447"],
+    ]:
+        sheet.append(row)
+    book.create_sheet("Notes")
+    stream = io.BytesIO()
+    book.save(stream)
+    assert [r["value"] for r in business_current.parse_positions(stream.getvalue(), all_industries=True)] == [
+        11140000000, -27447000000]
+    sheet.cell(4, 2, "10-20")
+    stream = io.BytesIO()
+    book.save(stream)
+    with pytest.raises(ValueError, match="suppressed or ranged"):
+        business_current.parse_positions(stream.getvalue(), all_industries=True)
 
 
 def test_component_exports_complete_current_and_historical_data_without_old_charts(tmp_path):
@@ -89,7 +120,7 @@ def test_component_exports_complete_current_and_historical_data_without_old_char
     assert json.loads((tmp_path / "site/downloads/business-current.json").read_text()) == data
     assert json.loads((tmp_path / "site/downloads/business-presence.json").read_text()) == archive
     records = list(csv.DictReader((tmp_path / "site/downloads/business-current-observations.csv").open()))
-    assert len(records) == len(data["observations"]) == 19
+    assert len(records) == len(data["observations"]) == 59
     assert all(json.loads(row["source_assets"]) and row["source_locator"] for row in records)
     historical = list(csv.DictReader((tmp_path / "site/downloads/business-observations.csv").open()))
     assert len(historical) == len(archive["observations"])
@@ -98,7 +129,7 @@ def test_component_exports_complete_current_and_historical_data_without_old_char
         svg = BeautifulSoup(business_current.svg_current_chart(data, cid), "html.parser")
         if cid.startswith("us-investment"):
             assert svg.svg["data-plot-style"] == "columns"
-            assert len(svg.select(".annual-column")) == 6 and not svg.select(".data-line")
+            assert len(svg.select(".annual-column")) == 26 and not svg.select(".data-line")
         else:
             assert svg.svg["data-axis-max"] == "100"
             for bar in svg.select(".business-point"):

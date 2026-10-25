@@ -171,11 +171,9 @@ def check():
             assert not page.evaluate("document.documentElement.scrollWidth > innerWidth")
         if (ROOT / "site/business-presence.html").exists():
             page.goto((ROOT / "site/business-presence.html").as_uri())
-            expect(page.locator("header")).to_contain_text("different counting units")
-            expect(page.locator("header")).to_contain_text("China is the host in every chart")
-            assert page.locator("#annual-values tbody tr").count() >= 20
-            assert page.locator("#business-benchmark-background").get_attribute("open") is None
-            page.locator("#business-benchmark-background > summary").click()
+            expect(page.locator("header")).to_contain_text("Business links")
+            assert page.locator(".business-card").count() == 6
+            assert not page.locator("#annual-values,#business-benchmark-background").count()
             images = page.locator("img")
             assert images.count() == 6
             for image in images.all():

@@ -13,7 +13,9 @@ from pathlib import Path
 import resvg_py
 
 from .model import START_YEAR, GEOGRAPHIES, MEASURES, change, coverage, gap_reason, json_text, primary_observations, primary_series, validate
-from .business_analysis import CHARTS as BUSINESS_CHARTS, RETIRED_CHARTS as BUSINESS_RETIRED_CHARTS, build_business, validate_business_data
+from .business_analysis import CHARTS as BUSINESS_CHARTS, RETIRED_CHARTS as BUSINESS_RETIRED_CHARTS, validate_business_data
+from .business_current import CHARTS as CURRENT_BUSINESS_CHARTS, build_current_business, validate as validate_current_business
+from .business_inward import CHARTS as INWARD_BUSINESS_CHARTS, validate as validate_inward_business
 from .immigration_analysis import CHARTS as IMMIGRATION_CHARTS, build_immigration, validate_immigration_data
 from .language_analysis import CHARTS as LANGUAGE_CHARTS, RETIRED_CHARTS as LANGUAGE_RETIRED_CHARTS, chart_points, svg_language_chart, validate_language_data
 from .pipeline import load, write_atomic
@@ -677,6 +679,13 @@ def build(root):
     business_data = load(root / "data/site/business_presence.json", None)
     if business_data is not None:
         validate_business_data(business_data)
+        current_business_data = load(root / "data/site/business_current.json", None)
+        if current_business_data is None:
+            raise ValueError("Reviewed current business evidence is required; do not restore stale graphs")
+        validate_current_business(current_business_data)
+        inward_business_data = load(root / "data/site/business_inward.json", None)
+        if inward_business_data is not None:
+            validate_inward_business(inward_business_data)
     immigration_data = load(root / "data/site/immigration.json", None)
     if immigration_data is not None:
         validate_immigration_data(immigration_data)
@@ -906,7 +915,7 @@ def build(root):
             path = site / relative
             if path.is_file():
                 path.unlink()
-    business_count = build_business(root, business_data, gallery) if business_data is not None else 0
+    business_count = build_current_business(root, business_data, gallery) if business_data is not None else 0
     opinion_count = build_opinions(root, opinion_data, gallery) if opinion_data is not None else 0
     if opinion_data is None:
         for chart_id in OPINION_CHARTS:
@@ -930,11 +939,14 @@ def build(root):
         for name in ["immigration.html", "downloads/immigration.json", "downloads/immigration-observations.csv", "downloads/immigration-chart-values.csv"]:
             (site / name).unlink(missing_ok=True)
     if business_data is None:
-        for chart_id in set(BUSINESS_CHARTS) | BUSINESS_RETIRED_CHARTS:
+        for chart_id in set(BUSINESS_CHARTS) | BUSINESS_RETIRED_CHARTS | set(CURRENT_BUSINESS_CHARTS) | set(INWARD_BUSINESS_CHARTS):
             for theme in CHART_THEMES:
                 remove_figure(root, Path("business_presence") / theme / chart_id)
         for relative in ["business-presence.html", "downloads/business-presence.json",
-                         "downloads/business-observations.csv", "downloads/business-chart-values.csv"]:
+                         "downloads/business-observations.csv", "downloads/business-chart-values.csv",
+                         "downloads/business-current.json", "downloads/business-current-observations.csv",
+                         "downloads/business-current-chart-values.csv", "downloads/business-inward.json",
+                         "downloads/business-inward-observations.csv", "downloads/business-inward-chart-values.csv"]:
             path = site / relative
             if path.is_file():
                 path.unlink()
@@ -1060,7 +1072,7 @@ Four separate geographies. Both directions. History since {START_YEAR}; change s
 <p><a href="comparisons.html">Compare mainland China, Hong Kong and Macau on the same charts</a></p>
 {"<p><a href='language-learning.html'>Chinese-language learning: college, AP, school programs and degree awards</a> — separate educational indicators, not bilateral flows.</p>" if language_data is not None else ""}
 {"<p><a href='confucius.html'>Confucius Institutes, Classrooms and documented successor programs in the United States</a>.</p>" if confucius_data is not None else ""}
-{"<p><a href='business-presence.html'>U.S. and European businesses in China over time: annual affiliate and enterprise histories</a>.</p>" if business_data is not None else ""}
+{"<p><a href='business-presence.html'>Business links: investment, U.S. affiliates and company surveys</a>.</p>" if business_data is not None else ""}
 {"<p><a href='immigration.html'>Immigration: permanent-resident grants, not visitor trips or visas</a>.</p>" if immigration_data is not None else ""}
 {"<p><a href='opinions.html'>Public opinion in both directions, including age differences</a>.</p>" if opinion_data is not None else ""}
 {"<p><a href='weibo.html'>Explore U.S. media accounts on Weibo</a> — documented identities and publisher relationships, not posting trends.</p>" if weibo_summary is not None else ""}
