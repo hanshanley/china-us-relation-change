@@ -22,13 +22,13 @@ COLORS = {"bea_affiliates:china": PARTNER_COLORS["CHN"], "bea_parents:china": PA
           "eurostat_uk:china": GOLD, "eurostat_norway:china": GREEN, "ssb_norway:china": GREEN,
           "bundesbank_germany:china": "#79638A", "eurostat_germany:china": "#A397AC",
           "tillvaxtanalys_sweden:china": "#526F76", "statfin_finland:china": "#6F7354",
-          "eurostat_france:china": "#8A6556"}
+          "eurostat_france:china": "#8A6556", "eurostat_finland:china": "#999D7D"}
 ORIGINS = {"bea_affiliates:china": "us", "bea_parents:china": "us",
            "eurostat_affiliates:china": "eu", "eurostat_historical_eu:china": "eu",
            "eurostat_uk:china": "uk", "eurostat_norway:china": "norway", "ssb_norway:china": "norway",
            "bundesbank_germany:china": "germany", "eurostat_germany:china": "germany",
            "tillvaxtanalys_sweden:china": "sweden", "statfin_finland:china": "finland",
-           "eurostat_france:china": "france"}
+           "eurostat_france:china": "france", "eurostat_finland:china": "finland"}
 CHARTS = {
     "us-affiliates-china": {
         "title": "U.S.-parent affiliates in China",
@@ -75,13 +75,19 @@ CHARTS = {
         "subtitle": "Supplementary annual history, 2020-2024",
         "series": ["statfin_finland:china"], "unit": "Enterprises", "mode": "levels",
         "note": "Statistics Finland. Active affiliates and branches, all sizes/industries; not unique parents. "
-        "2021: EBS methodology boundary. Earlier China history unavailable; Hong Kong and Macau separate."},
+        "2021: EBS methodology boundary. Earlier matching national counts unavailable; the longer Eurostat population is separate. Hong Kong and Macau separate."},
     "france-affiliates-china": {
         "title": "French-controlled enterprises in China",
         "subtitle": "China except Hong Kong | Eurostat, 2007-2023",
         "series": ["eurostat_france:china"], "unit": "Enterprises", "mode": "levels",
         "note": "Eurostat. 2008 unreported; 2007 pilot/2009 frame, 2010 NACE, 2016 source and 2021 EBS breaks. "
         "Not spliced with rounded INSEE counts. The reported host category is China except Hong Kong."},
+    "finland-affiliates-china-eurostat": {
+        "title": "Finnish-controlled enterprises: the longer history",
+        "subtitle": "China except Hong Kong | Eurostat, 2007-2023",
+        "series": ["eurostat_finland:china"], "unit": "Enterprises", "mode": "levels",
+        "note": "Eurostat, Finnish-UCI market producers. 2010 NACE, 2013 YTY system and 2021 EBS boundaries retained. "
+        "The broader national affiliate/branch counts above are a different population, not a splice or a matched comparison."},
     BENCHMARK_CHART: {
         "title": "U.S. parent companies with China affiliates",
         "subtitle": "Supplementary benchmark observations | NOT an annual series",
@@ -158,6 +164,8 @@ def validate_business_data(data):
             "eurostat_germany:china": "fats_out2_r2_DE" if r["year"] <= 2020 else "fats_out_part_DE",
             "eurostat_france:china": ("fats_out2_FR" if r["year"] <= 2009 else
                                      "fats_out2_r2_FR" if r["year"] <= 2020 else "fats_out_part_FR"),
+            "eurostat_finland:china": ("fats_out2_FI" if r["year"] <= 2009 else
+                                      "fats_out2_r2_FI" if r["year"] <= 2020 else "fats_out_part_FI"),
         }
         if r["series_id"].startswith("eurostat") and r["source_id"] != expected_source[r["series_id"]]:
             raise ValueError("European method/source boundary mismatch")

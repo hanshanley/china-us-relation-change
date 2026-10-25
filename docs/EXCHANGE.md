@@ -716,6 +716,10 @@ Open `site/business-presence.html`. Investment positions, reverse-direction
 U.S. affiliate counts and company surveys remain distinct from foreign
 business counts in China. The new Swedish, Finnish and French histories
 are separate annual bar panels, with their actual reporting windows.
+Finland also has a separate Eurostat UCI history back to2007. Its market-
+producer population differs from the broader national count and is not
+spliced into it; the2013 YTY system break remains explicit alongside the
+classification and2021 EBS boundaries.
 Earlier U.S., German and Norwegian count histories are explicitly labelled
 secondary references in a closed disclosure, not newly recovered current
 evidence. Stale EU/UK and parent-company benchmarks stay download-only.
@@ -728,6 +732,7 @@ evidence. Stale EU/UK and parent-company benchmarks stay download-only.
 | Norwegian-controlled enterprises in China | Seventeen annual Statistics Norway observations, 2008-2024, all industries. The full SSB history is used, not spliced to the narrower Eurostat population. The fourteen old Eurostat observations remain in complete downloads. Norway is outside the EU and is not added to a Europe total. |
 | Swedish-group subsidiaries | Fifteen reported2010-2024 counts, ending885;2000-2009 remain explicitly missing. Subsidiary variable2 is not the longer parent-group variable0. The 2018 EGR/imputation,2019 frame and2021 ownership changes remain separate. |
 | Finnish-reported affiliates | All five2020-2024 country counts, ending242. Active subsidiaries and branches, all sizes/industries. The 2021 EBS boundary remains explicit; no earlier China count is inferred from regional aggregates. |
+| Finnish-UCI enterprises, Eurostat | Seventeen2007-2023 enterprise counts in China except Hong Kong, ending185. Legacy NACE C-O except L, then market producers B-S except O. The2010 classification,2013 YTY and2021 EBS boundaries are retained. Overlapping national counts differ; this is a separate annual-bar panel, not an extension or denominator for the national series. |
 | French-controlled enterprises | Sixteen reported2007-2023 counts and one missing2008 cell, ending2153. Eurostat's host category is China except Hong Kong. The 2007/2009,2010,2016 and2021 boundaries are not spliced or used for cross-regime growth. INSEE's rounded count remains a separate source finding. |
 | Supplementary U.S. parent-company benchmarks | Only 2004,2009,2014 and2019 are verified and remain archive-only, not an annual census. Foreign-affiliate ownership begins at10%, not necessarily majority control; reporting exclusions apply. No interpolation. |
 
