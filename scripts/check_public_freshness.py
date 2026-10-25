@@ -66,7 +66,7 @@ def check(site, url=None):
         for script in soup.select(".confucius-plot-data"):
             data = json.loads(script.string)
             assert_current([dict(r, year=int(r["reference"][:4])) for r in data["rows"]],
-                           path.name + ":" + data["id"], snapshot=True)
+                           path.name + ":" + data["id"], snapshot=data["layout"] != "timeline")
             html_plots += 1
         payload = soup.select_one("#exchange-data")
         if payload:
@@ -88,7 +88,7 @@ def check(site, url=None):
             assert 2024 <= int(soup.svg["data-period"].split("-")[-1]) <= 2026
         elif soup.svg.get("data-confucius-chart"):
             rows = [{"year": int(n["data-reference"][:4])} for n in soup.select(".confucius-mark")]
-            assert_current(rows, str(path), snapshot=True)
+            assert_current(rows, str(path), snapshot=soup.svg.get("data-chart-layout") != "timeline")
         else:
             model = builder.plot_model(soup.svg, labels, lookup)
             assert model, (str(path), "export has no inspectable dates")

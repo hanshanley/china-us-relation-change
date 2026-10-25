@@ -72,7 +72,10 @@ def period_label(reference):
 def chart_rows(data, chart_id):
     rows = [r for r in data["observations"] if r["series_id"] in CHARTS[chart_id]["series"]]
     if public():
-        rows = [row for row in rows if eligible([row], snapshot=True)]
+        if CHARTS[chart_id]["layout"] == "timeline":
+            rows = rows if eligible(rows) else []
+        else:
+            rows = [row for row in rows if eligible([row], snapshot=True)]
     rows.sort(key=lambda r: (reference_date(r["reference"]), r["id"]))
     counts = Counter(reference_date(r["reference"]).year for r in rows)
     seen = Counter()
@@ -114,7 +117,7 @@ def svg_counts(data, chart_id, theme="themarginoferror"):
     parts = [
         f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 600" role="img" '
         f'data-confucius-chart="{chart_id}" data-chart-layout="{config["layout"]}" data-axis-max="{top}" '
-        + ('data-freshness-snapshot-from="2024" ' if public() else "") +
+        + ('data-freshness-snapshot-from="2024" ' if public() and not timeline else "") +
         f'data-first-year="{calendar["first"]}" data-last-year="{calendar["last"]}" aria-label="{esc(config["title"])}" '
         f'style="font-family:{esc(FONT)}">',
         f'<title>{esc(config["title"])}</title><desc>{esc(config["note"])}</desc>',
@@ -254,10 +257,8 @@ def build_confucius(root, data, gallery):
     def summary(category):
         definitions = {
             "institutes": [
-                ("cief_institutes", "Latest operator listing", "Directory entries; operation not verified"),
                 ("gao_campus_2023", "Latest verified campus report", "Operating university institutes, GAO")],
             "classrooms": [
-                ("cief_classrooms", "Latest operator listing", "Program listings; not a national K-12 census"),
                 ("senate_classrooms_2019", "Last national school-site report", "Reported classroom sites, U.S. Senate")],
             "successors": [
                 ("nas_successors_2023", "Latest documented replacement count", "Institutions reported by NAS; not programs verified open now")],
@@ -270,7 +271,7 @@ def build_confucius(root, data, gallery):
             cards.append(f'<div><p class="label">{label}</p><p class="metric">{esc(reported(row))}</p>'
                          f'<p class="confucius-summary-date">{esc(period_label(row["reference"]))}</p>'
                          f'<p class="confucius-summary-note">{esc(detail)}</p></div>')
-        return '<div class="confucius-summary">' + "".join(cards) + '</div>'
+        return '<div class="confucius-summary">' + "".join(cards) + '</div>' if cards else ""
     panels = []
     for category, title, chart_id, note in (
             ("institutes", "Confucius Institutes", "confucius-institutes",
@@ -292,8 +293,8 @@ def build_confucius(root, data, gallery):
     listing_rows = [r for r in data["records"] if r["source_id"] == "cief_directory"]
     listing_table = "".join(
         f'<tr data-directory-id="{r["id"]}"><th scope="row"><a href="{esc(r["url"])}">{esc(r["institution"])}</a>'
-        f'</th><td>{"Institute" if r["category"] == "institutes" else "Classroom program"}</td>'
-        '<td>Not verified</td></tr>' for r in listing_rows)
+        f'</th><td>{"Institute" if r["category"] == "institutes" else "Classroom program"}</td></tr>'
+        for r in listing_rows)
     source_list = "".join(f'<li><a href="{esc(s["publisher_url"])}">{esc(s["name"])}</a>'
                           f' ({esc(s["published_on"] or directory_date)}). {esc(s["locator"])}</li>'
                           for s in data["sources"].values())
@@ -309,7 +310,7 @@ def build_confucius(root, data, gallery):
         'Listing is not proof that a program remains open. The source includes a university-named classroom entry; '
         'these seven names cannot be read as a K-12 school census.</p>' + graphic("confucius-directory") +
         '<div class="table-scroll"><table><thead><tr><th>Listed program</th><th>Source label</th>'
-        '<th>Operating status</th></tr></thead><tbody>' + listing_table + '</tbody></table></div></details>'
+        '</tr></thead><tbody>' + listing_table + '</tbody></table></div></details>'
         '<details class="confucius-method"><summary>Definitions &amp; sources</summary>'
         '<p>Snapshots retain their original reference dates, including year-only and month-only observations. '
         'A report upload, webpage modification or retrieval in a later year does not make an old count current. '

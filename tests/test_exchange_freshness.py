@@ -102,7 +102,7 @@ def test_publication_retires_all_stale_surfaces_but_keeps_complete_data(tmp_path
                                    "matched-college-benchmarks", "school-language-enrollments", "ap-chinese-us-cohorts"},
         "business-presence.html": {"eu-affiliates-china", "uk-affiliates-china", "us-parent-companies-china"},
         "opinions.html": {"us-china-earlier-favorability", "china-us-earlier-favorability"},
-        "confucius.html": {"confucius-institutes", "confucius-classrooms", "confucius-campus", "confucius-successors"},
+        "confucius.html": {"confucius-classrooms"},
     }
     for name, identifiers in removed.items():
         page = BeautifulSoup((tmp_path / name).read_text(), "html.parser")
@@ -110,6 +110,19 @@ def test_publication_retires_all_stale_surfaces_but_keeps_complete_data(tmp_path
             assert not page.select("#" + identifier), (name, identifier)
             assert not page.select(f'[data-confucius-chart="{identifier}"]'), (name, identifier)
         assert not identifiers.intersection(o["value"] for o in page.select("#module-chart option"))
+    confucius = BeautifulSoup((tmp_path / "confucius.html").read_text(), "html.parser")
+    assert confucius.select_one("main > .series-panel")["id"] == "confucius-institutes"
+    assert not confucius.select_one(".confucius-directory").has_attr("open")
+    assert not confucius.select("#confucius-institutes .confucius-summary")
+    assert "Operating status" not in confucius.get_text()
+    assert "Reported histories: 2006–2023" in confucius.select_one('meta[name="description"]')["content"]
+    assert not confucius.select(".covid-band,.covid-label")
+    for identifier in ("confucius-institutes", "confucius-campus", "confucius-successors"):
+        model = json.loads(confucius.select_one(f'[data-confucius-chart="{identifier}"] .confucius-plot-data').string)
+        assert model["layout"] == "timeline"
+        assert "covid_context" not in model
+        assert len({r["observation_year"] for r in model["rows"]}) > 1
+        assert max(r["observation_year"] for r in model["rows"]) == 2023
     languages = BeautifulSoup((tmp_path / "language-learning.html").read_text(), "html.parser")
     assert languages.select_one('#module-chart option[selected]')["value"] == "chinese-bachelors"
     inventory = json.loads(languages.select_one("#school-program-inventories .plot-data").string)

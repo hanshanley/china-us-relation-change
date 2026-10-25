@@ -10,6 +10,7 @@ from bs4 import BeautifulSoup
 
 from us_china_exchange.confucius_analysis import CHARTS, build_confucius, chart_rows, svg_counts
 from us_china_exchange.confucius_sources import parse_directory, reference_date, reported, validate
+from us_china_exchange.public_freshness import public_charts
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -178,6 +179,25 @@ def test_directory_comparison_remains_categorical_not_a_fake_time_series():
     assert {n["x"] for n in svg.select(".confucius-bar")} == {"58"}
 
 
+def test_public_histories_reaching_2023_are_not_misclassified_as_old_snapshots():
+    data = published()
+    with public_charts():
+        history = chart_rows(data, "confucius-institutes")
+        assert [r["observation_year"] for r in history] == [2006, 2007, 2014, 2015, 2017, 2021, 2022, 2023]
+        campus = chart_rows(data, "confucius-campus")
+        assert campus[-1]["bound"] == 5 and campus[-1]["value"] is None
+        assert chart_rows(data, "confucius-classrooms") == []
+        assert len(chart_rows(data, "confucius-directory")) == 2
+        timeline = BeautifulSoup(svg_counts(data, "confucius-institutes"), "html.parser")
+        assert not timeline.svg.has_attr("data-freshness-snapshot-from")
+        assert not timeline.select(".covid-band,.covid-label")
+        directory = BeautifulSoup(svg_counts(data, "confucius-directory"), "html.parser")
+        assert directory.svg["data-freshness-snapshot-from"] == "2024"
+        assert not directory.select(".covid-band")
+        single = dict(data, observations=[r for r in data["observations"] if r["id"] == "nas_listed_jun2023"])
+        assert chart_rows(single, "confucius-institutes") == []
+
+
 def test_complete_exports_include_nonplotted_values_and_all_supporting_records(tmp_path):
     data = published()
     gallery = {"language_learning": []}
@@ -195,12 +215,18 @@ def test_complete_exports_include_nonplotted_values_and_all_supporting_records(t
     page = BeautifulSoup((tmp_path / "site/confucius.html").read_text(), "html.parser")
     assert len(page.select("[data-confucius-row]")) == len(values)
     assert len(page.select("[data-directory-id]")) == 17
+    directory = page.select_one(".confucius-directory table")
+    assert [n.get_text(strip=True) for n in directory.select("thead th")] == ["Listed program", "Source label"]
+    assert all(len(row.select("th,td")) == 2 for row in directory.select("tbody tr"))
+    assert not directory.find(string="Not verified")
+    assert all(r["operating_status"] == "not_verified" for r in records if r["source_id"] == "cief_directory")
     for theme, background in (("themarginoferror", "#F7F5F0"), ("substack", "#F5F5F5")):
         for chart_id in CHARTS:
             figure = tmp_path / f"outputs/figures/language_learning/{theme}/{chart_id}.svg"
             svg = BeautifulSoup(figure.read_text(), "html.parser")
             assert svg.select_one(".chart-background")["fill"] == background
             assert len(svg.select(".confucius-mark")) == len(chart_rows(data, chart_id))
+            assert not svg.select(".covid-band,.covid-label")
             png = figure.with_suffix(".png").read_bytes()
             assert (int.from_bytes(png[16:20], "big"), int.from_bytes(png[20:24], "big")) == (3000, 1800)
 
