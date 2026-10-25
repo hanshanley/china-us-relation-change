@@ -433,7 +433,15 @@ def check(site, url=None, screenshots=None):
                     assert page.locator('#module-chart option[value="ap-language-standard-group"]').count() == 0
                     assert page.locator("#ap-language-standard-group").count() == 0
                 if name == "business-presence.html":
-                    assert page.locator(".business-card:visible").count() == 6
+                    primary_cards = page.locator(".business-card:visible")
+                    assert primary_cards.count() == 9
+                    assert set(primary_cards.evaluate_all("nodes=>nodes.map(n=>n.id)")) == {
+                        "us-investment-mainland", "us-investment-hong-kong",
+                        "china-ubo-us-affiliates", "hong-kong-ubo-us-affiliates",
+                        "sweden-affiliates-china", "finland-affiliates-china",
+                        "france-affiliates-china", "us-company-decisions", "german-company-risk"}
+                    assert page.locator("#business-count-references").get_attribute("open") is None
+                    assert page.locator("#business-count-references .business-card").count() == 4
                     assert page.locator("#us-investment-mainland .screen-column").count() == 26
                     assert page.locator("#us-investment-hong-kong .screen-column").count() == 26
                     assert page.locator("#german-company-risk .screen-bar").count() == 3
