@@ -159,7 +159,8 @@ institution-level workbook, report artwork or exam questions are redistributed.
 
 ## Business-presence sources
 
-`data/site/business_presence.json` retains all 304 China-hosted observations, including
+`data/site/business_presence.json` retains 366 China-hosted observations, including
+all 355 prior records and the eleven separately qualified SNB observations,
 explicit confidential/unavailable cells, series definitions, source URLs,
 selected table members, retrieval timestamps and SHA-256 checksums.
 
@@ -204,6 +205,21 @@ half, while the screening frame says at least half; no extra 50/50 population
 is inferred. Original experimental 2004-2006 responses contain employment and
 turnover but no enterprise-count cells for this pair, not zeros to backfill.
 No national dissemination or unreported 2024+ country count is substituted.
+
+The [SNB company-count country table](https://data.snb.ch/de/topics/aube/cube/opanmuausuland)
+provides eleven native CN observations for 2014-2024, ending 792. Full uncapped
+JSON and CSV reconcile all 92 country/regional series and 1,012 cells exactly;
+eight fractional values elsewhere are retained without interpretation or
+rounding. This is the combined **Switzerland and Liechtenstein reporting area**,
+not a pure-Switzerland slice. [AMNE/FATS methods](https://data.snb.ch/de/topics/aube/doc/explanations_aube_amne)
+define direct/indirect majority subsidiaries including unincorporated branches.
+The current CHF10m cross-border-capital reporting-group frame is not a cutoff
+for each affiliate or an all-firm census; historical threshold stability is
+not asserted. Native CN, HK and MO are separately defined in the producer's
+Eurostat geonomenclature. Missing row-specific flags do not establish finality:
+the canonical status is `reported`. The 2025-12-12 publication describes
+reference years through 2024, not a 2025 observation. No pre-2014 history,
+pure-Swiss equivalence, unique-parent count or default 2019 growth is inferred.
 
 Italian Eurostat queries select `geo=IT`, `partner=CN_X_HK` and enterprise
 indicators in `fats_out2`, `fats_out2_r2` and `fats_out_part`.
