@@ -11,7 +11,17 @@ Asia/Shanghai day. The generated inventory, frozen aggregate JSON and refresh
 status report the latest live totals; historical checkpoint counts below are
 not rewritten as though they were the latest collection.
 
-## Latest prepared source checkpoint: discovery passes 90-91
+## Latest prepared source checkpoint: discovery pass96
+
+The dated [Greenwich review](discovery_iteration96.md) adds one factual
+identity, no Weibo account or negative. Prepared462registry/380manual;
+canonical remains461/379 until separately approved synchronization.
+All87channels/62groups/6,570posts, full private exports, v5 calendars and
+six-failure health are unchanged. Dated2021/2023 evidence is not current
+control. No publisher body/staff contacts are redistributed.
+This private preparation is not a website or unattended-collection claim.
+
+## Archived source checkpoint: discovery passes 90-91
 
 Registry461; manual selected-domain reviews379; all87channels/62publisher
 groups and6,570live posts unchanged. All version5 calendar/rolling values,

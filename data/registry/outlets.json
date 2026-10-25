@@ -3528,6 +3528,16 @@
       "source_url": "https://www.stamfordadvocate.com/",
       "research_status": "reviewed",
       "notes": "Factual dated identity review from two privately saved original public-government responses. Canonical publisher URL is a reference from existing screening metadata, not a publisher-body request in this review. Actual source locators,2021/2023 dates and SHA proofs accompany the review journal. No publisher, alias, parent, client or token request; current network/policy scope remains conservatively deferred without claiming a domain-specific2026 prohibition. No staff names/phones/emails/street addresses in derived metadata. Account remains unknown, not absence; no parent/staff/sibling/namesake account inherited."
+    },
+    {
+      "id": "greenwich-time",
+      "name": "Greenwich Time",
+      "category": "newspaper",
+      "aliases": [],
+      "us_basis": "SCImago U.S.-classified cohort position433. Original Connecticut2021 state directory joins Greenwich Time with greenwichtime.com and Greenwich, Connecticut. Publisher-submitted2023 legislative testimony lists the brand among Hearst daily newspapers; not a government ownership finding or audited2026 continuity.",
+      "source_url": "https://www.greenwichtime.com/",
+      "research_status": "reviewed",
+      "notes": "Dated identity review from two already permitted, privately saved original government responses. Both exact original hashes and visual source pages were rechecked offline; no new HTTP or publisher/body/alias/client/token request. Canonical publisher URL is a reference from existing screening, not fetched in this review. Current network/policy scope stays conservatively deferred without claiming a domain-specific2026 prohibition. No staff names, phones, emails or street addresses enter derived metadata. Account remains unknown, not absence; no parent/staff/sibling/namesake account inherited."
     }
   ],
   "accounts": [
