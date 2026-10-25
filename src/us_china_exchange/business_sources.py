@@ -34,6 +34,8 @@ PARENT_BOOKS = {
     2019: "https://apps.bea.gov/international/xls/usdia2019r/PartI-K1-K2.xls",
 }
 EUROSTAT = "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/"
+CBS_NETHERLANDS_REPORT = "https://longreads.cbs.nl/nederland-handelsland-2026/buitenlandse-investeringen-en-multinationals/"
+CBS_NETHERLANDS_METHODS = "https://www.cbs.nl/nl-nl/onze-diensten/methoden/onderzoeksomschrijvingen/korte-onderzoeksbeschrijvingen/outward-fats-statistiek-over-nederlandse-zeggenschappen-over-buitenlandse-bedrijven"
 ONS_DATA = "https://www.ons.gov.uk/file?uri=/businessindustryandtrade/internationaltrade/datasets/ukoutwardforeignaffiliatestatisticsofats/2019/ofatspublicationfinal.xlsx"
 ONS_COVERAGE = "https://www.ons.gov.uk/aboutus/transparencyandgovernance/freedomofinformationfoi/ukoutwardforeignaffiliatestatisticsofats2015to2025"
 BUNDESBANK_FATS = "https://www.bundesbank.de/en/statistics/external-sector/direct-investments/foreign-affiliates-statistics-fats--795240"
@@ -383,6 +385,10 @@ def collect_business(client):
     definitions.update(germany_definitions)
     observations.extend(germany_observations)
     sources.update(germany_sources)
+    nl_definitions, nl_observations, nl_sources = netherlands_affiliates(client)
+    definitions.update(nl_definitions)
+    observations.extend(nl_observations)
+    sources.update(nl_sources)
     coverage = []
     for sid in definitions:
         selected = [r for r in observations if r["series_id"] == sid]
@@ -400,11 +406,94 @@ def collect_business(client):
         "context": {
             "question": "How has U.S. and European business presence in China changed over time?",
             "interpretation": "Company counts, affiliate entities and branch locations are distinct. U.S. parents and ultimately EU-controlled enterprises are not matched ownership populations; BEA and Eurostat levels must not be used to rank otherwise comparable business presence.",
-            "geography": "China is the host in every chart. European coverage includes current EU27, a separately labelled historical EU membership group, Germany, the United Kingdom and Norway. Germany overlaps EU27; these are not summed into an all-Europe total. Switzerland and other European origins remain outside verified coverage.",
+            "geography": "China is the host in every chart. European coverage includes current EU27, a separately labelled historical EU membership group, Germany, the Netherlands, the United Kingdom and Norway. Germany and the Netherlands overlap EU27; these are not summed into an all-Europe total. Switzerland and other European origins remain outside verified coverage.",
             "rights": "Publish aggregate statistics and original charts only; raw workbooks and reports remain local. Sources and retrieval checksums accompany every observation.",
             "release_timing": "As checked October 22, 2026, BEA's latest activity release covers 2023. The published schedule puts the 2024 activity release on November 20, 2026; no 2024 value is inferred.",
         },
     }
+
+
+def parse_cbs_netherlands(body):
+    soup = BeautifulSoup(body, "html.parser")
+    selected = []
+    for table in soup.select("table"):
+        figure = table.find_parent("figure")
+        title = figure.get_text(" ", strip=True) if figure else ""
+        if ("5.4.1 Top 10 landen met Nederlandse dochterondernemingen" in title
+                and "(dochterondernemingen)" in title):
+            selected.append(table)
+    if len(selected) != 1:
+        raise ValueError("CBS outward affiliate count table missing or ambiguous")
+    rows = [[c.get_text(" ", strip=True) for c in tr.find_all(["th", "td"])]
+            for tr in selected[0].select("tr")]
+    if not rows or rows[0] != ["Land", "2024*", "2023"]:
+        raise ValueError("CBS reference years or provisional marker changed")
+    china = [cells for cells in rows[1:] if cells and cells[0] == "China"]
+    if len(china) != 1 or len(china[0]) != 3:
+        raise ValueError("CBS China row missing or ambiguous")
+    if "* voorlopige cijfers" not in soup.get_text(" ", strip=True):
+        raise ValueError("CBS provisional-status legend missing")
+    values = []
+    for cell in china[0][1:]:
+        if not re.fullmatch(r"\d+(?: \d{3})*", cell):
+            raise ValueError("CBS missing/confidential counts cannot become zero")
+        values.append(int(cell.replace(" ", "")))
+    return {2024: (values[0], "provisional"), 2023: (values[1], "observed")}
+
+
+def netherlands_affiliates(client):
+    sid = "eurostat_netherlands:china"
+    definitions = {sid: series(
+        "Netherlands", "controlled_enterprises", "enterprises",
+        "Dutch-resident UCI; affiliates in China except Hong Kong; NACE Rev.1.1 C-O except L "
+        "in 2007-2009 and Rev.2 B-S except O from 2010",
+        "annual", "reference year",
+        "Financial and nonfinancial affiliate enterprises, not unique parents or everyone trading with China. "
+        "Official population estimates include nonresponse weighting. Classification changes in 2010; "
+        "the 2021 CBS method is not directly comparable with earlier years. No 2019 comparison across "
+        "that boundary. Netherlands overlaps EU27; do not sum them. No pre-2007 or 2025 count inferred.")}
+    observations, sources = [], {}
+    for dataset, query in (
+            ("fats_out2", "indic_bp=ENT&nace_r1=C-O_X_L"),
+            ("fats_out2_r2", "indic_bp=ENT&nace_r2=B-S_X_O"),
+            ("fats_out_part", "indic_sbs=ENT_NR&nace_r2=B-S_X_O")):
+        body, asset = client.get(EUROSTAT + dataset + "?lang=EN&geo=NL&partner=CN_X_HK&" + query)
+        data = json.loads(body)
+        source_id = dataset + "_NL"
+        sources[source_id] = source(
+            "Eurostat", data["label"] + "; updated " + data["updated"], [asset],
+            "A; NL; CN_X_HK; " + query,
+            "Dutch control and China except Hong Kong. Preserve NACE, source flags and the 2021 method boundary.")
+        observations.extend(row(sid, year, value, source_id, status,
+                                "Eurostat source flags: " + (flag or "none"), comparability)
+                            for year, value, status, flag, comparability in parse_eurostat(data, dataset, "NL"))
+    body, report_asset = client.get(CBS_NETHERLANDS_REPORT)
+    counts = parse_cbs_netherlands(body)
+    methods, methods_asset = client.get(CBS_NETHERLANDS_METHODS)
+    text = BeautifulSoup(methods, "html.parser").get_text(" ", strip=True)
+    if not all(term in text for term in (
+            "UCI in Nederland", "SBI 2008 sectie B t/m S exclusief O",
+            "financi\u00eble en niet financi\u00eble", "vanaf verslagperiode 2007",
+            "Voor de cijfers van 2021 is een nieuwe methodiek gekozen")):
+        raise ValueError("CBS Dutch control, sectors or methodology changed")
+    by_year = {r["year"]: r for r in observations}
+    if 2023 not in by_year or counts[2023][0] != by_year[2023]["value"]:
+        raise ValueError("CBS and Eurostat Dutch overlap changed; review the source revision")
+    sources["cbs_netherlands_2026"] = source(
+        "Statistics Netherlands (CBS)", "Nederland Handelsland 2026; 2024 preliminary",
+        [report_asset, methods_asset], "Original HTML figure 5.4.1, China row, 2024* and 2023; * means provisional.",
+        "Dutch-resident UCI; financial/nonfinancial B-S except O. Same OFATS population as the verified "
+        "2023 Eurostat overlap. This is a 2024 measurement, not 2026 data. The 2021 method is not "
+        "one-to-one comparable with earlier years.")
+    if 2024 in by_year:
+        if by_year[2024]["value"] != counts[2024][0]:
+            raise ValueError("CBS and Eurostat Dutch 2024 counts differ; review the source revision")
+    else:
+        observations.append(row(
+            sid, 2024, counts[2024][0], "cbs_netherlands_2026", counts[2024][1],
+            "CBS figure 5.4.1; provisional. Published 2023 control agrees with Eurostat.",
+            by_year[2023]["comparability"]))
+    return definitions, sorted(observations, key=lambda r: r["year"]), sources
 
 
 def parse_eurostat(data, dataset, geo="EU27_2020"):

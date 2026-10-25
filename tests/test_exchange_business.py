@@ -15,7 +15,7 @@ from PIL import Image, ImageColor
 from openpyxl import Workbook
 
 from us_china_exchange.business_analysis import BENCHMARK_CHART, CHARTS, COLORS, RETIRED_CHARTS, build_business, chart_groups, svg_business_chart, validate_business_data
-from us_china_exchange.business_sources import count_cell, country_counts, parse_eurostat, parse_germany, parse_norway, parse_ons
+from us_china_exchange.business_sources import CBS_NETHERLANDS_METHODS, CBS_NETHERLANDS_REPORT, count_cell, country_counts, parse_cbs_netherlands, parse_eurostat, parse_germany, parse_norway, parse_ons
 from us_china_exchange.render import build
 from us_china_exchange.theme import CHART_THEMES, PARTNER_COLORS
 
@@ -54,9 +54,106 @@ def test_distinct_parent_and_affiliate_checkpoints_remain_different_units():
     assert [rows[("eurostat_uk:china", y)]["value"] for y in (2010, 2018, 2019)] == [681, 709, 531]
     assert rows[("eurostat_uk:china", 2019)]["status"] == "estimated"
     assert rows[("eurostat_norway:china", 2023)]["value"] == 88
-    assert len(rows) == 109
+    assert len(rows) == 127
     assert rows[("ssb_norway:china", 2023)]["value"] == 89
     assert rows[("ssb_norway:china", 2024)]["value"] == 80
+
+
+def cbs_netherlands():
+    return b"""<p>* voorlopige cijfers</p>
+<figure>5.3.7 Buitenlandse bedrijven in Nederland
+<table><tr><th>Land</th><th>2024*</th></tr><tr><td>China</td><td>590</td></tr></table></figure>
+<figure>5.4.1 Top 10 landen met Nederlandse dochterondernemingen (dochterondernemingen)
+<table><tr><th>Land</th><th>2024*</th><th>2023</th></tr>
+<tr><td>China</td><td>620</td><td>574</td></tr></table></figure>"""
+
+
+def test_cbs_dutch_counts_are_outward_enterprises_not_inward_companies_or_employees():
+    body = cbs_netherlands()
+    assert parse_cbs_netherlands(body) == {2024: (620, "provisional"), 2023: (574, "observed")}
+    for old, new in ((b"(dochterondernemingen)", b"(FTE)"),
+                     (b"<th>2024*</th><th>2023", b"<th>2025*</th><th>2024"),
+                     (b"<td>620</td>", b"<td>.</td>"),
+                     (b"<td>China</td><td>620", b"<td>Japan</td><td>620"),
+                     (b"* voorlopige cijfers", b"** nader voorlopige cijfers")):
+        with pytest.raises(ValueError):
+            parse_cbs_netherlands(body.replace(old, new))
+
+
+def test_netherlands_selective_collection_preserves_other_countries_and_rejects_conflicts():
+    spec = importlib.util.spec_from_file_location("business_netherlands_cli", ROOT / "scripts/build_business_data.py")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+
+    class Client:
+        conflict = False
+        wrong_country = False
+
+        def get(self, url):
+            if url == CBS_NETHERLANDS_REPORT:
+                body = cbs_netherlands()
+                if self.conflict:
+                    body = body.replace(b"<td>574</td>", b"<td>575</td>")
+            elif url == CBS_NETHERLANDS_METHODS:
+                body = ("UCI in Nederland; SBI 2008 sectie B t/m S exclusief O; "
+                        "financi\u00eble en niet financi\u00eble; vanaf verslagperiode 2007; "
+                        "Voor de cijfers van 2021 is een nieuwe methodiek gekozen").encode()
+            else:
+                dataset = url.split("/data/")[1].split("?")[0]
+                indicator = "indic_sbs" if dataset == "fats_out_part" else "indic_bp"
+                activity = "nace_r1" if dataset == "fats_out2" else "nace_r2"
+                codes = {"freq": "A", activity: "C-O_X_L" if activity == "nace_r1" else "B-S_X_O",
+                         indicator: "ENT_NR" if indicator == "indic_sbs" else "ENT",
+                         "partner": "CN_X_HK", "geo": "UK" if self.wrong_country else "NL"}
+                values = ([(2007, 465), (2008, 592), (2009, 761)] if dataset == "fats_out2" else
+                          [(2019, 695), (2020, 689)] if dataset == "fats_out2_r2" else
+                          [(2021, 681), (2022, 714), (2023, 574)])
+                d = {"id": list(codes) + ["time"], "size": [1] * len(codes) + [len(values)],
+                     "dimension": {k: {"category": {"index": {v: 0}}} for k, v in codes.items()},
+                     "extension": {"id": dataset}, "value": {str(i): v for i, (_, v) in enumerate(values)},
+                     "label": "Reviewed enterprise population", "updated": "2026-03-31"}
+                d["dimension"]["time"] = {"category": {"index": {str(y): i for i, (y, _) in enumerate(values)}}}
+                body = json.dumps(d).encode()
+            return body, {"url": url, "request_url": url, "sha256": hashlib.sha256(body).hexdigest(),
+                          "retrieved_at": "2026-10-25T00:00:00+00:00"}
+
+    old = published()
+    before = copy.deepcopy(old)
+    updated = validate_business_data(module.collect_netherlands(Client(), old))
+    assert old == before
+    sid = "eurostat_netherlands:china"
+    assert [r for r in updated["observations"] if r["series_id"] != sid] == [
+        r for r in old["observations"] if r["series_id"] != sid]
+    assert all(updated["series"][k] == v for k, v in old["series"].items() if k != sid)
+    points = {r["year"]: r for r in updated["observations"] if r["series_id"] == sid}
+    assert (points[2024]["value"], points[2024]["status"]) == (620, "provisional")
+    assert points[2019]["comparability"] != points[2024]["comparability"]
+    assert points[2023]["comparability"] == points[2024]["comparability"]
+    assert module.collect_netherlands(Client(), updated) == updated
+    for attribute in ("conflict", "wrong_country"):
+        client = Client()
+        setattr(client, attribute, True)
+        with pytest.raises(ValueError):
+            module.collect_netherlands(client, old)
+
+
+def test_dutch_history_has_every_reported_year_and_explicit_method_boundaries():
+    data = published()
+    points = chart_groups(data, "netherlands-affiliates-china")[0]["points"]
+    assert [p["year"] for p in points] == list(range(2007, 2025))
+    assert [points[i]["value"] for i in (0, 12, 16, 17)] == [465, 695, 574, 620]
+    assert points[2]["comparability"] != points[3]["comparability"]
+    assert points[13]["comparability"] != points[14]["comparability"]
+    for theme in CHART_THEMES:
+        svg = ElementTree.fromstring(svg_business_chart(data, "netherlands-affiliates-china", theme))
+        assert len([n for n in svg.iter() if n.get("class") == "annual-column"]) == 18
+        assert not [n for n in svg.iter() if n.get("class") in {"data-line", "covid-band"}]
+        assert "2024 provisional" in "".join(svg.itertext())
+    wrong = copy.deepcopy(data)
+    next(r for r in wrong["observations"] if r["series_id"] == "eurostat_netherlands:china" and
+         r["year"] == 2024)["source_id"] = "fats_out2_r2_NL"
+    with pytest.raises(ValueError, match="boundary"):
+        validate_business_data(wrong)
 
 
 def test_german_workbook_counts_entities_not_employment_and_does_not_splice_other_vintages():
@@ -210,7 +307,7 @@ def test_complete_business_downloads_exact_points_backgrounds_and_stale_cleanup(
         (base / "substack").mkdir(parents=True)
         for chart_id in RETIRED_CHARTS:
             (base / "substack" / (chart_id + ".svg")).write_text("Obsolete wrong-destination chart")
-    assert build_business(tmp_path, data, defaultdict(list)) == 6
+    assert build_business(tmp_path, data, defaultdict(list)) == 7
     assert not any((tmp_path / "outputs/figures/business_presence/substack" / (cid + ".svg")).exists()
                    for cid in RETIRED_CHARTS)
     assert json.loads((tmp_path / "site/downloads/business-presence.json").read_text()) == data
@@ -305,14 +402,14 @@ def test_publication_is_business_only_with_complete_data_original_downloads_and_
         "business-current-observations.csv", "business-current-chart-values.csv",
         "business-inward.json", "business-inward-observations.csv", "business-inward-chart-values.csv"}
     data = json.loads((output / "downloads/business-presence.json").read_text())
-    assert data == published() and manifest["historical_observations"] == 109
+    assert data == published() and manifest["historical_observations"] == 127
     assert manifest["observations"] == 59
     assert manifest["inward_observations"] == 50
     assert manifest["source_revision"] == "verified-source-revision"
     for name, checksum in manifest["files"].items():
         assert hashlib.sha256((output / name).read_bytes()).hexdigest() == checksum
     with (output / "downloads/business-observations.csv").open() as f:
-        assert len(list(csv.DictReader(f))) == 109
+        assert len(list(csv.DictReader(f))) == 127
     for link in page.select('a[href^="figures/"]'):
         assert link.has_attr("data-original-chart") and (output / link["href"].split("?")[0]).is_file()
     assert not (output / "business-presence.html").exists()

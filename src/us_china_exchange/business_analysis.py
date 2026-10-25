@@ -20,11 +20,13 @@ BENCHMARK_CHART = "us-parent-companies-china"
 COLORS = {"bea_affiliates:china": PARTNER_COLORS["CHN"], "bea_parents:china": PARTNER_COLORS["CHN"],
           "eurostat_affiliates:china": BLUE, "eurostat_historical_eu:china": MUTED,
           "eurostat_uk:china": GOLD, "eurostat_norway:china": GREEN, "ssb_norway:china": GREEN,
-          "bundesbank_germany:china": "#79638A", "eurostat_germany:china": "#A397AC"}
+          "bundesbank_germany:china": "#79638A", "eurostat_germany:china": "#A397AC",
+          "eurostat_netherlands:china": "#617C78"}
 ORIGINS = {"bea_affiliates:china": "us", "bea_parents:china": "us",
            "eurostat_affiliates:china": "eu", "eurostat_historical_eu:china": "eu",
            "eurostat_uk:china": "uk", "eurostat_norway:china": "norway", "ssb_norway:china": "norway",
-           "bundesbank_germany:china": "germany", "eurostat_germany:china": "germany"}
+           "bundesbank_germany:china": "germany", "eurostat_germany:china": "germany",
+           "eurostat_netherlands:china": "netherlands"}
 CHARTS = {
     "us-affiliates-china": {
         "title": "U.S.-parent affiliates in China",
@@ -55,6 +57,13 @@ CHARTS = {
         "note": "Eurostat and Bundesbank report separate histories; overlapping values differ. "
         "Eurostat's 2021 methodology change breaks the line. Bundesbank: German majority control, "
         "assets above EUR 3m; includes branches. Hong Kong and Macau are separate. Germany is already included in EU27."},
+    "netherlands-affiliates-china": {
+        "title": "Dutch-controlled enterprises in China",
+        "subtitle": "China except Hong Kong | 2007-2024 | 2024 provisional",
+        "series": ["eurostat_netherlands:china"], "unit": "Enterprises", "mode": "levels",
+        "note": "Eurostat and CBS. Dutch-resident ultimate control; financial/nonfinancial affiliates, not parents. "
+        "NACE changes in 2010; the 2021 method is not directly comparable with earlier years. "
+        "No comparable 2019 change or pre-2007 count inferred. Netherlands overlaps EU27; do not sum them."},
     BENCHMARK_CHART: {
         "title": "U.S. parent companies with China affiliates",
         "subtitle": "Supplementary benchmark observations | NOT an annual series",
@@ -88,6 +97,9 @@ def validate_business_data(data):
             raise ValueError("Eurostat EU27 must not be relabelled all Europe")
         if sid == "eurostat_historical_eu:china" and ("EU27_2007" not in definition["scope"] or "including the UK" not in definition["scope"]):
             raise ValueError("Historical EU membership must remain distinct")
+        if sid == "eurostat_netherlands:china" and not all(
+                token in definition["scope"] for token in ("Dutch-resident UCI", "China except Hong Kong")):
+            raise ValueError("Dutch control and host-country scope must remain explicit")
     for item in data["sources"].values():
         if set(item) != {"name", "vintage", "assets", "locator", "notes"} or not item["assets"]:
             raise ValueError("Business source provenance incomplete")
@@ -128,6 +140,10 @@ def validate_business_data(data):
             "eurostat_uk:china": "ons_2019" if r["year"] in {2018, 2019} else "fats_out2_r2_UK",
             "eurostat_norway:china": "fats_out2_r2_NO" if r["year"] <= 2020 else "fats_out_part_NO",
             "eurostat_germany:china": "fats_out2_r2_DE" if r["year"] <= 2020 else "fats_out_part_DE",
+            "eurostat_netherlands:china": (
+                "fats_out2_NL" if r["year"] <= 2009 else "fats_out2_r2_NL" if r["year"] <= 2020
+                else "cbs_netherlands_2026" if r["year"] == 2024 and r["source_id"] == "cbs_netherlands_2026"
+                else "fats_out_part_NL"),
         }
         if r["series_id"].startswith("eurostat") and r["source_id"] != expected_source[r["series_id"]]:
             raise ValueError("European method/source boundary mismatch")

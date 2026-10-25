@@ -1,6 +1,6 @@
 {
   "context": {
-    "geography": "China is the host in every chart. Germany is shown separately from the overlapping EU27 aggregate. Historical EU membership, UK and Norwegian populations remain distinct; no all-Europe total is calculated.",
+    "geography": "China is the host in every chart. Germany is shown separately from the overlapping EU27 aggregate. Historical EU membership, UK and Norwegian populations remain distinct; no all-Europe total is calculated. Netherlands is shown separately from the overlapping EU27 aggregate.",
     "interpretation": "Company counts, affiliate entities and branch locations are distinct. U.S. parents and ultimately EU-controlled enterprises are not matched ownership populations; BEA and Eurostat levels must not be used to rank otherwise comparable business presence.",
     "question": "How has U.S. and European business presence in China changed over time?",
     "release_timing": "As checked October 22, 2026, BEA's latest activity release covers 2023. The published schedule puts the 2024 activity release on November 20, 2026; no 2024 value is inferred.",
@@ -50,6 +50,11 @@
     {
       "description": "German-controlled China enterprises; Eurostat and Bundesbank source histories stay separate because overlapping counts differ. Not added to EU27 or relabelled parent companies.",
       "id": "eurostat_germany:china",
+      "status": "annual"
+    },
+    {
+      "description": "Dutch-controlled China affiliates, 2007-2024; 2024 provisional. 2010 classification and 2021 methodology boundaries; earlier history and 2025 unreported.",
+      "id": "eurostat_netherlands:china",
       "status": "annual"
     }
   ],
@@ -658,6 +663,168 @@
       "year": 2013
     },
     {
+      "comparability": "fats_out2:NL:0",
+      "notes": "Eurostat source flags: none",
+      "series_id": "eurostat_netherlands:china",
+      "source_id": "fats_out2_NL",
+      "status": "observed",
+      "value": 465,
+      "year": 2007
+    },
+    {
+      "comparability": "fats_out2:NL:0",
+      "notes": "Eurostat source flags: none",
+      "series_id": "eurostat_netherlands:china",
+      "source_id": "fats_out2_NL",
+      "status": "observed",
+      "value": 592,
+      "year": 2008
+    },
+    {
+      "comparability": "fats_out2:NL:0",
+      "notes": "Eurostat source flags: none",
+      "series_id": "eurostat_netherlands:china",
+      "source_id": "fats_out2_NL",
+      "status": "observed",
+      "value": 761,
+      "year": 2009
+    },
+    {
+      "comparability": "fats_out2_r2:NL:0",
+      "notes": "Eurostat source flags: none",
+      "series_id": "eurostat_netherlands:china",
+      "source_id": "fats_out2_r2_NL",
+      "status": "observed",
+      "value": 796,
+      "year": 2010
+    },
+    {
+      "comparability": "fats_out2_r2:NL:0",
+      "notes": "Eurostat source flags: none",
+      "series_id": "eurostat_netherlands:china",
+      "source_id": "fats_out2_r2_NL",
+      "status": "observed",
+      "value": 696,
+      "year": 2011
+    },
+    {
+      "comparability": "fats_out2_r2:NL:0",
+      "notes": "Eurostat source flags: none",
+      "series_id": "eurostat_netherlands:china",
+      "source_id": "fats_out2_r2_NL",
+      "status": "observed",
+      "value": 711,
+      "year": 2012
+    },
+    {
+      "comparability": "fats_out2_r2:NL:0",
+      "notes": "Eurostat source flags: none",
+      "series_id": "eurostat_netherlands:china",
+      "source_id": "fats_out2_r2_NL",
+      "status": "observed",
+      "value": 714,
+      "year": 2013
+    },
+    {
+      "comparability": "fats_out2_r2:NL:0",
+      "notes": "Eurostat source flags: none",
+      "series_id": "eurostat_netherlands:china",
+      "source_id": "fats_out2_r2_NL",
+      "status": "observed",
+      "value": 683,
+      "year": 2014
+    },
+    {
+      "comparability": "fats_out2_r2:NL:0",
+      "notes": "Eurostat source flags: none",
+      "series_id": "eurostat_netherlands:china",
+      "source_id": "fats_out2_r2_NL",
+      "status": "observed",
+      "value": 662,
+      "year": 2015
+    },
+    {
+      "comparability": "fats_out2_r2:NL:0",
+      "notes": "Eurostat source flags: none",
+      "series_id": "eurostat_netherlands:china",
+      "source_id": "fats_out2_r2_NL",
+      "status": "observed",
+      "value": 695,
+      "year": 2016
+    },
+    {
+      "comparability": "fats_out2_r2:NL:0",
+      "notes": "Eurostat source flags: none",
+      "series_id": "eurostat_netherlands:china",
+      "source_id": "fats_out2_r2_NL",
+      "status": "observed",
+      "value": 651,
+      "year": 2017
+    },
+    {
+      "comparability": "fats_out2_r2:NL:0",
+      "notes": "Eurostat source flags: none",
+      "series_id": "eurostat_netherlands:china",
+      "source_id": "fats_out2_r2_NL",
+      "status": "observed",
+      "value": 659,
+      "year": 2018
+    },
+    {
+      "comparability": "fats_out2_r2:NL:0",
+      "notes": "Eurostat source flags: none",
+      "series_id": "eurostat_netherlands:china",
+      "source_id": "fats_out2_r2_NL",
+      "status": "observed",
+      "value": 695,
+      "year": 2019
+    },
+    {
+      "comparability": "fats_out2_r2:NL:0",
+      "notes": "Eurostat source flags: none",
+      "series_id": "eurostat_netherlands:china",
+      "source_id": "fats_out2_r2_NL",
+      "status": "observed",
+      "value": 689,
+      "year": 2020
+    },
+    {
+      "comparability": "fats_out_part:NL:0",
+      "notes": "Eurostat source flags: none",
+      "series_id": "eurostat_netherlands:china",
+      "source_id": "fats_out_part_NL",
+      "status": "observed",
+      "value": 681,
+      "year": 2021
+    },
+    {
+      "comparability": "fats_out_part:NL:0",
+      "notes": "Eurostat source flags: none",
+      "series_id": "eurostat_netherlands:china",
+      "source_id": "fats_out_part_NL",
+      "status": "observed",
+      "value": 714,
+      "year": 2022
+    },
+    {
+      "comparability": "fats_out_part:NL:0",
+      "notes": "Eurostat source flags: none",
+      "series_id": "eurostat_netherlands:china",
+      "source_id": "fats_out_part_NL",
+      "status": "observed",
+      "value": 574,
+      "year": 2023
+    },
+    {
+      "comparability": "fats_out_part:NL:0",
+      "notes": "CBS figure 5.4.1; provisional. Published 2023 control agrees with Eurostat.",
+      "series_id": "eurostat_netherlands:china",
+      "source_id": "cbs_netherlands_2026",
+      "status": "provisional",
+      "value": 620,
+      "year": 2024
+    },
+    {
       "comparability": "fats_out2_r2:NO:0",
       "notes": "Eurostat source flags: none",
       "series_id": "eurostat_norway:china",
@@ -1089,6 +1256,15 @@
       "notes": "Historical EU membership, not the current EU27. NACE Rev. 1.1 through 2009 and Rev. 2 from 2010; both classification and membership boundaries remain disconnected. No splice into current-membership counts.",
       "period_basis": "reference year",
       "scope": "China except Hong Kong; EU27_2007 control, including the UK and excluding Croatia",
+      "unit": "enterprises"
+    },
+    "eurostat_netherlands:china": {
+      "cadence": "annual",
+      "label": "Netherlands",
+      "measure": "controlled_enterprises",
+      "notes": "Financial and nonfinancial affiliate enterprises, not unique parents or everyone trading with China. Official population estimates include nonresponse weighting. Classification changes in 2010; the 2021 CBS method is not directly comparable with earlier years. No 2019 comparison across that boundary. Netherlands overlaps EU27; do not sum them. No pre-2007 or 2025 count inferred.",
+      "period_basis": "reference year",
+      "scope": "Dutch-resident UCI; affiliates in China except Hong Kong; NACE Rev.1.1 C-O except L in 2007-2009 and Rev.2 B-S except O from 2010",
       "unit": "enterprises"
     },
     "eurostat_norway:china": {
@@ -1574,6 +1750,26 @@
       "notes": "Only the China enterprise-count series is used; employment and turnover columns are not company counts. Latest year provisional. Germany is an overlapping EU member, not an extra component to add to EU27.",
       "vintage": "Outward FATS workbook; reference years 2021-2024"
     },
+    "cbs_netherlands_2026": {
+      "assets": [
+        {
+          "request_url": "https://longreads.cbs.nl/nederland-handelsland-2026/buitenlandse-investeringen-en-multinationals/",
+          "retrieved_at": "2026-10-25T03:28:26+00:00",
+          "sha256": "569a7f50431531fba14085d1ed53ab1af69b817602374b11a9f239e7137f4e0d",
+          "url": "https://longreads.cbs.nl/nederland-handelsland-2026/buitenlandse-investeringen-en-multinationals/"
+        },
+        {
+          "request_url": "https://www.cbs.nl/nl-nl/onze-diensten/methoden/onderzoeksomschrijvingen/korte-onderzoeksbeschrijvingen/outward-fats-statistiek-over-nederlandse-zeggenschappen-over-buitenlandse-bedrijven",
+          "retrieved_at": "2026-10-25T03:28:26+00:00",
+          "sha256": "c4845904150e3f41ee613467ba80168b87636ab4b82d2af2930e215bf4f9d878",
+          "url": "https://www.cbs.nl/nl-nl/onze-diensten/methoden/onderzoeksomschrijvingen/korte-onderzoeksbeschrijvingen/outward-fats-statistiek-over-nederlandse-zeggenschappen-over-buitenlandse-bedrijven"
+        }
+      ],
+      "locator": "Original HTML figure 5.4.1, China row, 2024* and 2023; * means provisional.",
+      "name": "Statistics Netherlands (CBS)",
+      "notes": "Dutch-resident UCI; financial/nonfinancial B-S except O. Same OFATS population as the verified 2023 Eurostat overlap. This is a 2024 measurement, not 2026 data. The 2021 method is not one-to-one comparable with earlier years.",
+      "vintage": "Nederland Handelsland 2026; 2024 preliminary"
+    },
     "eurostat_methods": {
       "assets": [
         {
@@ -1600,6 +1796,20 @@
       "locator": "A; EU27_2007; CN_X_HK; nace_r1=C-O_X_L; indic_bp=ENT",
       "name": "Eurostat",
       "notes": "Keep each control geography, membership and activity classification explicit. Preserve estimated, break and confidential flags; methodology boundaries remain disconnected. No reconstruction of confidential totals from member-country values.",
+      "vintage": "Outward FATS - main variables (2007-2009); updated 2024-04-25T11:00:00+0200"
+    },
+    "fats_out2_NL": {
+      "assets": [
+        {
+          "request_url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out2?lang=EN&geo=NL&partner=CN_X_HK&indic_bp=ENT&nace_r1=C-O_X_L",
+          "retrieved_at": "2026-10-25T03:28:24+00:00",
+          "sha256": "d7142c3bec38d2f454004a7ffe551f8f0d08fc4e7620111be8e2a42ba318ed27",
+          "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out2?lang=EN&geo=NL&partner=CN_X_HK&indic_bp=ENT&nace_r1=C-O_X_L"
+        }
+      ],
+      "locator": "A; NL; CN_X_HK; indic_bp=ENT&nace_r1=C-O_X_L",
+      "name": "Eurostat",
+      "notes": "Dutch control and China except Hong Kong. Preserve NACE, source flags and the 2021 method boundary.",
       "vintage": "Outward FATS - main variables (2007-2009); updated 2024-04-25T11:00:00+0200"
     },
     "fats_out2_r2": {
@@ -1642,6 +1852,20 @@
       "locator": "A; EU27_2007; CN_X_HK; nace_r2=B-S_X_O; indic_bp=ENT",
       "name": "Eurostat",
       "notes": "Keep each control geography, membership and activity classification explicit. Preserve estimated, break and confidential flags; methodology boundaries remain disconnected. No reconstruction of confidential totals from member-country values.",
+      "vintage": "Outward FATS, main variables - NACE Rev. 2 activity (2010-2020); updated 2024-04-25T11:00:00+0200"
+    },
+    "fats_out2_r2_NL": {
+      "assets": [
+        {
+          "request_url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out2_r2?lang=EN&geo=NL&partner=CN_X_HK&indic_bp=ENT&nace_r2=B-S_X_O",
+          "retrieved_at": "2026-10-25T03:28:24+00:00",
+          "sha256": "0bc14aa85e9867749628aa372cabdb5a15457ffca4663b5f92db11177a01c6b7",
+          "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out2_r2?lang=EN&geo=NL&partner=CN_X_HK&indic_bp=ENT&nace_r2=B-S_X_O"
+        }
+      ],
+      "locator": "A; NL; CN_X_HK; indic_bp=ENT&nace_r2=B-S_X_O",
+      "name": "Eurostat",
+      "notes": "Dutch control and China except Hong Kong. Preserve NACE, source flags and the 2021 method boundary.",
       "vintage": "Outward FATS, main variables - NACE Rev. 2 activity (2010-2020); updated 2024-04-25T11:00:00+0200"
     },
     "fats_out2_r2_NO": {
@@ -1699,6 +1923,20 @@
       "name": "Eurostat",
       "notes": "Separate source population/vintage from the Bundesbank workbook; overlapping counts are not forced to agree.",
       "vintage": "fats_out_part; Germany reporting country"
+    },
+    "fats_out_part_NL": {
+      "assets": [
+        {
+          "request_url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out_part?lang=EN&geo=NL&partner=CN_X_HK&indic_sbs=ENT_NR&nace_r2=B-S_X_O",
+          "retrieved_at": "2026-10-25T03:28:25+00:00",
+          "sha256": "e6480a020433296502aad5197784ef38fd5d9117cf2845a6b6ec3c51ce202d5f",
+          "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out_part?lang=EN&geo=NL&partner=CN_X_HK&indic_sbs=ENT_NR&nace_r2=B-S_X_O"
+        }
+      ],
+      "locator": "A; NL; CN_X_HK; indic_sbs=ENT_NR&nace_r2=B-S_X_O",
+      "name": "Eurostat",
+      "notes": "Dutch control and China except Hong Kong. Preserve NACE, source flags and the 2021 method boundary.",
+      "vintage": "Foreign affiliates of the EU enterprises by detailed breakdown of country of the affiliates (from 2021 onwards); updated 2026-03-31T23:00:00+0200"
     },
     "fats_out_part_NO": {
       "assets": [
