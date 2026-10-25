@@ -83,7 +83,7 @@ def number(value, unit="", compact=False):
 
 def baseline(rows, year=None):
     if year is None:
-        year = 2019 if rows and rows[0]["measure"] == "air_visitors" else 2020
+        year = 2019
     return next((r for r in rows if r["year"] == year and r["value"] is not None), None)
 
 
@@ -108,7 +108,7 @@ def svg_chart(rows, indexed=False, theme="themarginoferror"):
         return '<p class="gap">No verified annual observations for this series.</p>'
     ref = baseline(annual)
     if indexed and (ref is None or not ref["value"]):
-        return '<p class="gap">A comparable, nonzero baseline is not available.</p>'
+        return '<p class="gap">A comparable, nonzero 2019 baseline is not available.</p>'
     if indexed and any(change(r, ref)["absolute"] is None for r in present):
         return '<p class="gap">Definitions differ from the baseline; an index would not be comparable.</p>'
     unit = present[0]["unit"]
@@ -325,12 +325,12 @@ def svg_comparison(rows, measure, direction, theme="themarginoferror", logarithm
     for year in sorted({first, end} | {year for year in range((first // 5 + 1) * 5, end, 5) if year - first >= 2 and end - year >= 2}):
         parts.append(f'<text x="{x(year):.2f}" y="455" font-size="18" text-anchor="middle">{year}</text>')
     parts.append(f'<path d="M115 180V420H950" stroke="{GRID}" stroke-width="0.8" fill="none"/>')
-    if any(r["year"] == 2020 for r in present):
-        reference_x = x(2020)
+    if any(r["year"] == 2019 for r in present):
+        reference_x = x(2019)
         anchor = "start" if reference_x < 550 else "end"
         label_x = max(400, reference_x + 8) if anchor == "start" else reference_x - 8
         parts.append(f'<path d="M{reference_x:.2f} 180V420" stroke="{MUTED}" stroke-width="0.8" stroke-dasharray="4 5"/>'
-                     f'<text x="{label_x:.2f}" y="153" text-anchor="{anchor}">2020 baseline</text>')
+                     f'<text x="{label_x:.2f}" y="153" text-anchor="{anchor}">2019 baseline</text>')
     for geo, annual in groups.items():
         data = [r for r in annual if r["value"] is not None and (not logarithmic or r["value"] > 0)]
         if not data:
@@ -658,7 +658,7 @@ def initial_panel(rows):
         '<div class="headline-grid">'
         f'<div><p class="label">Latest complete annual observation</p><p class="metric" id="latest-value">{number(current["value"], current["unit"])}</p>'
         f'<p id="latest-period">{esc(current["period"])} \u00b7 {esc(MEASURES[current["measure"]])}</p></div>'
-        f'<div><p class="label" id="baseline-label">Change since {esc(ref["period"] if ref else "2020")}</p>'
+        f'<div><p class="label" id="baseline-label">Change since {esc(ref["period"] if ref else "2019")}</p>'
         f'<p class="delta" id="baseline-change">{comparison(change(current, ref), current["unit"])}</p>'
         f'<p id="yoy-change">Prior year: {comparison(change(current, prior), current["unit"])}</p></div></div>'
     )
@@ -1043,7 +1043,7 @@ def build(root):
     cov_rows = "".join(
         f'<tr><td>{esc(GEOGRAPHIES[c["origin"]])} \u2192 {esc(GEOGRAPHIES[c["destination"]])}</td>'
         f'<td>{esc(MEASURES[c["measure"]])}</td><td>{esc(", ".join(map(str, c["available_years"]))) if c["available_years"] else esc(c["reason"])}</td>'
-        f'<td>{"Available" if c["baseline_2020"] else "Not available"}</td></tr>' for c in matrix)
+        f'<td>{"Available" if c["baseline_2019"] else "Not available"}</td></tr>' for c in matrix)
     source_rows = "".join(
         f'<tr><th scope="row">{esc(SOURCE_NAMES[s])}</th><td>{esc(m["status"])}</td>'
         f'<td>{esc(m.get("vintage", "No verified release"))}</td>'
@@ -1068,7 +1068,7 @@ def build(root):
 <body><a class="skip" href="#main">Skip to content</a><div class="page">
 <header><p class="eyebrow">A bilateral exchange monitor</p><h1>Students, visitors<br>and trade.</h1>
 <p class="lead">The United States and mainland China, Hong Kong, Macau, and Taiwan.
-Four separate geographies. Both directions. History since {START_YEAR}; change since 2020.</p>
+Four separate geographies. Both directions. History since {START_YEAR}; change since 2019.</p>
 <p class="scope">History from {START_YEAR} where available \u00b7 Latest verified period varies by series \u00b7 Nominal USD for trade</p></header>
 <main id="main">
 <p><a href="comparisons.html">Compare mainland China, Hong Kong and Macau on the same charts</a></p>
@@ -1093,7 +1093,7 @@ Four separate geographies. Both directions. History since {START_YEAR}; change s
 <div class="chart-control"><label for="chart-theme">Background</label><select id="chart-theme">{theme_options}</select></div></div>
 <div id="chart" tabindex="0" role="region" aria-label="Annual chart; scroll horizontally on narrow screens">{charts[selected_id]["levels"]}</div>
 <p class="chart-note chart-scroll-hint">On a narrow screen, scroll the chart sideways to keep its labels readable.</p>
-<p class="chart-note">Gaps stay gaps. Academic-year labels use their ending year on the axis; the 2020 baseline is 2019/20, not calendar 2020. Reporting-year UIS data are not physical-presence counts.</p>
+<p class="chart-note">Gaps stay gaps. Academic-year labels use their ending year on the axis; the 2019 baseline is 2018/19, not calendar 2019. Reporting-year UIS data are not physical-presence counts.</p>
 <details id="selected-table"><summary>Exact values for this series</summary><div id="series-table">{annual_table(selected)}</div></details>
 <div id="partial-panel" class="partial" hidden></div>
 <div class="source-note" id="series-source">Source: <a href="{esc(SOURCE_PAGES.get(current["source_id"], current["source_url"]))}">{esc(SOURCE_NAMES[current["source_id"]])}</a> \u00b7 {esc(current["source_vintage"])}. {esc(selected_source.get("notes", ""))}</div>
@@ -1104,7 +1104,7 @@ Four separate geographies. Both directions. History since {START_YEAR}; change s
 <p><strong>Students are not departures.</strong> Enrolled-only counts, enrollment including OPT, degree mobility, and credit study abroad are separate populations. None is a border-crossing count.</p>
 <p><strong>Trips are not unique tourists.</strong> NTTO covers overnight visits and all purposes. Destination arrival series can include same-day visits. Leisure-only data are shown only when explicitly reported.</p>
 <p><strong>Trade follows exports.</strong> U.S. imports are partner \u2192 U.S. BEA uses balance-of-payments accounting. Macau goods use Comtrade customs data: exports FOB, imports CIF. Services exclude affiliate sales.</p>
-<p><strong>2020 is an unusual baseline.</strong> Pandemic restrictions can make percentage rebounds very large. Full annual history and prior-year changes provide context; no causal effect is claimed.</p></div></section>
+<p><strong>Comparisons use the pre-pandemic 2019 baseline.</strong> Missing, zero or incompatible 2019 observations do not produce a percentage change. Full annual history and prior-year changes provide context; no causal effect is claimed.</p></div></section>
 <section id="downloads"><h2>The complete data, not just the chart.</h2>
 <p>All observations, including monthly history and matched YTD sums, definitions, missingness, source vintages, request URLs, retrieval timestamps and raw-response checksums.</p>
 <div class="downloads"><a href="downloads/observations.csv" download>All observations \u00b7 CSV</a><a href="downloads/exchange.json" download>Complete dataset + coverage \u00b7 JSON</a></div>
@@ -1117,7 +1117,7 @@ Four separate geographies. Both directions. History since {START_YEAR}; change s
   'This review accompanies rather than replaces the complete observation downloads.</p>') if review_text is not None else ""}
 <details><summary>View all four geographies, both directions and every measure</summary>
 <div class="table-scroll"><table><caption>Verified annual coverage by geography and measure</caption>
-<thead><tr><th>Direction</th><th>Measure</th><th>Available ending years / specific gap</th><th>2020 baseline</th></tr></thead>
+<thead><tr><th>Direction</th><th>Measure</th><th>Available ending years / specific gap</th><th>2019 baseline</th></tr></thead>
 <tbody>{cov_rows}</tbody></table></div></details></section>
 <section id="sources"><h2>Sources and recorded checks.</h2>
 <p>Dates below belong to the published snapshot. An unchanged daily check does not rewrite them. The daily workflow's check artifact records every actual attempt; a successful check is not a new data release.</p>

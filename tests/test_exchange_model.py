@@ -90,6 +90,13 @@ def test_coverage_includes_all_geographies_and_explicit_gaps():
     assert all(r["reason"] for r in result if not r["observations"])
 
 
+@pytest.mark.parametrize("year,available", [(2019, True), (2020, False)])
+def test_coverage_requires_an_actual_2019_baseline(year, available):
+    cell = next(r for r in coverage([row(year)]) if r["origin"] == "CHN"
+                and r["destination"] == "USA" and r["measure"] == "visitors")
+    assert cell["baseline_2019"] is available
+
+
 def test_academic_label_preserves_year_ending():
     assert row(period_basis="academic")["period"] == "2019/20"
     assert row(period_basis="academic")["period_start"] is None

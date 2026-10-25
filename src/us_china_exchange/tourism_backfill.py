@@ -283,7 +283,7 @@ def hong_kong_history(client):
             comparability="hktb:us_residence:all_mode",
             notes="Historical country-of-residence classification. The retained series changes to the "
             "separately reported nationality classification at 2023; the chart breaks there and no "
-            "cross-definition 2020 change or index is calculated. The residence-based 2023 count is "
+            "cross-definition change or index is calculated. The residence-based 2023 count is "
             "594,752, not the retained nationality-based 596,958. Arrival cards ceased on 16 October "
             "2024; C&SD table 650-80001 documents the change to nationality/region. "
             "Official republications only; original reports are not redistributed.")

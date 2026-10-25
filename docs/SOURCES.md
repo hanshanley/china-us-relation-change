@@ -243,7 +243,7 @@ historical records in complete archival downloads.
 Students are stocks or academic-year participation, not departures. UIS degree
 mobility, Open Doors enrollment-plus-OPT, and academic-credit study abroad are
 different series and must never be spliced. Academic years use their ending year
-for the 2020 baseline, with the original period label retained.
+for the 2019 baseline (2018/19), with the original period label retained.
 
 [IIE's student-census methodology](https://opendoorsdata.org/about/about-international-student-census/)
 expands the international-student definition in Open Doors 2021–2023
@@ -252,7 +252,7 @@ status, then returns to the pre-pandemic definition in Open Doors 2024
 (2023/24). OPT-inclusive and recovered enrolled-only observations receive separate standard and
 pandemic-expanded comparison identities. Charts break at both boundaries,
 display those dates in exported figure notes, and reject the incompatible
-full-history 2020 index. Standard-population 2024/25-versus-2019/20 comparisons
+full-history 2019 index. Standard-population 2024/25-versus-2018/19 comparisons
 remain valid. This is not a definition change to the separate study-abroad
 participation measure. Annual tables show each year's population definition
 when it varies.
@@ -333,7 +333,7 @@ The audit on October 21, 2026 also checked the following:
   2024/25 is explicitly null, not a newer available observation.
 - Macau bilateral services are absent from the selected-country BEA workbook,
   but **BEA expanded-geography Table 2.4 now restores 2018-2025 in both
-  directions**, including the 2020 baseline. Direct USTR 2025 and archived
+  directions**, including the 2019 baseline. Direct USTR 2025 and archived
   2024 estimates remain separate, with their original rounding and known
   aggregate-unit error documented. Neither is spliced into BEA or used for
   cross-vintage growth. Before 2018 remains unverified; no regional allocation
@@ -411,5 +411,5 @@ remain attached to observations. No PDFs or extracted images are redistributed.
 documents a switch in April 2015 from place of residence to place of issue of
 travel document. Pre-2015 observations, the mixed 2015 transition and 2016+
 observations receive distinct comparison identities. Chart paths break at both
-boundaries; pre-transition values are not comparable with 2020. Document-issue
+boundaries; pre-transition values are not comparable with 2019. Document-issue
 attribution does not establish U.S. residence or a departure from the U.S.

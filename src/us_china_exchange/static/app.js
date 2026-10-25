@@ -155,7 +155,7 @@
       return;
     }
     $("chart-mode").disabled = false;
-    const referenceYear = measure === "air_visitors" ? 2019 : 2020;
+    const referenceYear = 2019;
     const reference = find(annual, referenceYear), previous = find(annual, current.year - 1);
     $("annual-headlines").innerHTML = `<div class="headline-grid"><div>
       <p class="label">Latest complete annual observation</p>
@@ -201,7 +201,7 @@
       $("partial-panel").hidden = false;
       $("partial-panel").innerHTML = `<h3>Latest partial year \u00b7 ${escape(label)}</h3>
         <p><strong>${escape(format(partial.value, partial.unit))}</strong> \u00b7 ${escape(partial.status)}</p>
-        <p>Same interval in 2020: ${escape(difference(partial, find(matched, 2020)))}</p>
+        <p>Same interval in 2019: ${escape(difference(partial, find(matched, 2019)))}</p>
         <p>Same interval in ${partial.year - 1}: ${escape(difference(partial, find(matched, partial.year - 1)))}</p>
         <p>${escape(partial.definition)}. ${escape(partial.notes)}</p>
         <p>Source vintage: ${escape(partial.source_vintage)}. No annualization or full-year comparison.</p>`;

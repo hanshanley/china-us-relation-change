@@ -10,7 +10,7 @@ from bs4 import BeautifulSoup
 from PIL import Image, ImageColor
 
 from us_china_exchange.model import GEOGRAPHIES, MEASURES, change, observation
-from us_china_exchange.render import annual_table, build, regional_series, svg_chart, svg_comparison
+from us_china_exchange.render import annual_table, baseline, build, initial_panel, regional_series, svg_chart, svg_comparison
 from us_china_exchange.theme import CHART_THEMES, COMPARISON_GEOGRAPHIES, PARTNER_COLORS, PNG_HEIGHT, PNG_WIDTH
 
 
@@ -98,7 +98,7 @@ def test_charts_break_missing_years_and_definition_changes():
     bars = [x for x in doc.iter() if x.get("class") == "annual-column"]
     assert [int(x.get("data-year")) for x in bars] == [2018, 2020, 2021]
     assert "Population-definition breaks: 2021" in "".join(doc.itertext())
-    assert "Definitions differ" in svg_chart(rows, indexed=True)
+    assert "Definitions differ" in svg_chart([row(2019)] + rows, indexed=True)
 
 
 @pytest.mark.parametrize("measure", ["goods", "services", "visitors", "air_visitors", "international_students", "enrolled_students", "study_abroad"])
@@ -117,12 +117,45 @@ def test_annual_trade_columns_preserve_calendar_gaps_zero_values_and_index_lines
     assert float(bars[0].get("x")) > 115
     assert float(bars[-1].get("x")) + float(bars[-1].get("width")) < 950
     assert not any(n.get("class") == "data-line" for n in doc.iter())
-    indexed_rows = rows + ([observation("test", "CHN", "USA", measure, 2019, 100, "Annual trade")]
-                           if measure == "air_visitors" else [])
+    indexed_rows = rows + [observation("test", "CHN", "USA", measure, 2019, 100, "Annual trade")]
     indexed = ElementTree.fromstring(svg_chart(indexed_rows, indexed=True))
     assert indexed.get("data-plot-style") is None
     assert not any(n.get("class") == "annual-column" for n in indexed.iter())
     assert any(n.get("class") == "data-line" for n in indexed.iter())
+
+
+@pytest.mark.parametrize("measure", ["goods", "services", "visitors", "international_students"])
+@pytest.mark.parametrize("theme", ["themarginoferror", "substack"])
+def test_baseline_percentages_and_indexes_use_2019_not_the_2020_count(measure, theme):
+    rows = [observation("test", "CHN", "USA", measure, year, value, "Comparable counts")
+            for year, value in [(2019, 80), (2020, 20), (2025, 120)]]
+    assert baseline(rows)["value"] == 80
+    panel = BeautifulSoup(initial_panel(rows), "html.parser")
+    assert panel.select_one("#baseline-label").text == "Change since 2019"
+    assert "(+50.0%)" in panel.select_one("#baseline-change").text
+    indexed = ElementTree.fromstring(svg_chart(rows, indexed=True, theme=theme))
+    assert "2019 = 100" in "".join(indexed.itertext())
+    current = next(n for n in indexed.iter() if n.tag.endswith("circle") and n.get("data-year") == "2025")
+    assert float(current.get("data-value")) == 150
+    assert float(current.get("data-reported-value")) == 120
+    endpoint = next(n for n in indexed.iter() if n.get("class") == "end-label")
+    assert endpoint.text == "150"
+
+
+@pytest.mark.parametrize("reference,reason", [(None, "Baseline unavailable"),
+                                             (0, "percentage undefined"),
+                                             ("different", "Definitions or periods differ")])
+def test_missing_zero_or_incompatible_2019_does_not_fall_back_to_2020(reference, reason):
+    rows = [observation("test", "CHN", "USA", "visitors", year, value, "Comparable counts")
+            for year, value in [(2020, 20), (2025, 120)]]
+    if reference is not None:
+        rows.append(observation("test", "CHN", "USA", "visitors", 2019,
+                                80 if reference == "different" else reference, "Comparable counts",
+                                comparability="other" if reference == "different" else None))
+    panel = BeautifulSoup(initial_panel(rows), "html.parser")
+    assert panel.select_one("#baseline-label").text == "Change since 2019"
+    assert reason in panel.select_one("#baseline-change").text
+    assert "<svg" not in svg_chart(rows, indexed=True)
 
 
 def test_export_axes_preserve_fractional_thousands_instead_of_repeating_rounded_ticks():

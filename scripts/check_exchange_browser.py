@@ -11,7 +11,7 @@ from check_exchange_publication import check_weibo_explorer
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 from us_china_exchange.model import change
-from us_china_exchange.render import baseline as select_baseline, comparison, number
+from us_china_exchange.render import comparison, number
 from us_china_exchange.theme import CHART_THEMES, PNG_HEIGHT, PNG_WIDTH
 
 
@@ -41,7 +41,7 @@ def check():
             actual = page.locator("#latest-value").inner_text()
             expected = number(current["value"], current["unit"])
             assert actual == expected, (origin, destination, measure, actual, expected)
-            baseline = select_baseline(available)
+            baseline = next((r for r in available if r["year"] == 2019), None)
             actual = page.locator("#baseline-change").inner_text()
             expected = comparison(change(current, baseline), current["unit"])
             assert actual == expected, (origin, destination, measure, actual, expected)
@@ -68,7 +68,7 @@ def check():
                 text = panel.inner_text()
                 assert number(partial["value"], partial["unit"]) in text
                 assert partial["status"] in text
-                for year in [2020, partial["year"] - 1]:
+                for year in [2019, partial["year"] - 1]:
                     reference = next((r for r in partials
                                       if r["period"] == f"{year}-{partial['period'][5:]}"), None)
                     assert comparison(change(partial, reference), partial["unit"]) in text
@@ -92,7 +92,7 @@ def check():
         page.select_option("#direction", "to_us")
         page.select_option("#measure", "visitors")
         page.select_option("#chart-mode", "index")
-        assert "2020 = 100" in page.locator("#chart").inner_text()
+        assert "2019 = 100" in page.locator("#chart").inner_text()
         page.select_option("#measure", "goods")
         if page.locator("#partial-panel").is_visible():
             assert "seasonally adjusted" in page.locator("#partial-panel").inner_text()

@@ -171,7 +171,7 @@ def coverage(rows):
                     "origin": origin, "destination": destination, "measure": measure,
                     "observations": len(available), "first_year": min(years) if years else None,
                     "last_year": max(years) if years else None, "available_years": years,
-                    "baseline_2020": 2020 in years,
+                    "baseline_2019": 2019 in years,
                     "source_ids": sorted({r["source_id"] for r in subset}),
                     "reason": "" if available else gap_reason(geo, origin, measure),
                 })
@@ -199,7 +199,7 @@ def gap_reason(geo, origin, measure):
         return "Macau services have a directly reported BEA expanded-geography history from 2018. Earlier years remain unverified; missing values are not zero or a regional allocation."
     if measure == "visitors" and origin == "USA":
         if geo == "HKG":
-            return "HKTB all-mode history uses residence for 2000-2022 and nationality for 2023-2025, with a visible definition break; matched January-August 2025/2026 counts are separate. No cross-definition 2020 index is calculated."
+            return "HKTB all-mode history uses residence for 2000-2022 and nationality for 2023-2025, with a visible definition break; matched January-August 2025/2026 counts are separate. No cross-definition change or index is calculated."
         if geo == "CHN":
             return "No current U.S.-origin all-mode visitor table verified in mainland official releases; historic arrivals are not spliced to air-passenger proxies."
     return "No verified compatible primary-source observations; missing values are never inferred as zero."

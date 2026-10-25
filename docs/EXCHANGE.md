@@ -154,7 +154,7 @@ Alternative primary sources recovered 34 additional bilateral observations and
 
 | Chart family | Verified extension |
 |---|---|
-| Macau services | BEA expanded-geography Table 2.4 supplies both directions for every year 2018-2025, including a genuine 2020 baseline. It replaces USTR's two isolated vintages in the main and regional charts; all four USTR observations remain in complete downloads and research exports. |
+| Macau services | BEA expanded-geography Table 2.4 supplies both directions for every year 2018-2025, including the 2019 baseline. It replaces USTR's two isolated vintages in the main and regional charts; all four USTR observations remain in complete downloads and research exports. |
 | U.S.-host enrolled students | Original IIE reports deposited in the federal ERIC repository fill 2019, 2020, 2022 and 2023 for China, Hong Kong, Macau and Taiwan. All four histories now cover 2019-2025 continuously. Exact undergraduate, graduate and non-degree counts are added; OPT is excluded. The pandemic-expanded 2021-2023 population remains disconnected. |
 | Macau current tourism | DSEC's September workbook, released October 23, supplies 10,378 U.S.-issued-document arrivals for September 2026 and 120,071 for January-September. Matched 2025 values are 8,322 and 112,330. Each pair reconciles separately with sea/land/air and same-day/overnight components. The MGTO September URL still returns an August-labelled report and is not relabelled. |
 | Norwegian businesses in China | Statistics Norway Table 09827 supplies a complete 2008-2024 all-industry history, ending at 80 enterprises. This full source history replaces the narrower Eurostat chart, rather than splicing its endpoint onto Eurostat's different sector coverage. Original Eurostat observations remain in the data. |
@@ -911,7 +911,7 @@ from 2000 through 2025**. C&SD's 2003 Annual Digest (table 9.20, printed page
 200) supplies 2000-2002; MGTO's original 2008, 2013, 2018 and 2023 reports
 republish the overlapping HKTB residence histories. Through 2022 the population
 is **U.S. residence**; from 2023 the retained observations use **U.S.
-nationality**. The line breaks at this boundary, and a 2020-based index/change
+nationality**. The line breaks at this boundary, and a 2019-based index/change
 across it is unavailable. C&SD table 650-80001 documents the October 16, 2024
 arrival-card abolition and change of classification.
 
@@ -1185,15 +1185,15 @@ layout on desktop and small screens.
   student coverage varies by source. Missing earlier years are not estimated.
 - Student measures are distinct: enrolled-only, including OPT, internationally
   mobile degree students, and U.S. academic-credit study abroad. Enrolled-only
-  IIE counts are available for only two recent years; there is no 2020 baseline
-  for that specific series. Academic years retain their labels and use ending
+  IIE histories cover 2007-2025 for all four geographies, with OPT excluded.
+  Academic years retain their labels and use ending
   years on the chart. Exact academic start/end dates are not invented.
 - IIE's OPT-inclusive population expands in 2020/21–2022/23 to include online
   coursework from outside the U.S. regardless of visa status, then returns to
   the pre-pandemic definition in 2023/24. Distinct comparison identities break
   chart lines at 2020/21 and 2023/24; the full-history index is unavailable
-  because those populations cannot all share the 2020 baseline. Latest
-  2024/25-versus-2019/20 comparisons remain valid. Study-abroad participation
+  because those populations cannot all share the 2019 baseline. Latest
+  2024/25-versus-2018/19 comparisons remain valid. Study-abroad participation
   does not inherit this international-student definition break.
 - UIS reporting years are not physical-presence years. Fractional source
   estimates are preserved, including in exact tables and downloads. Reporting
@@ -1212,7 +1212,7 @@ layout on desktop and small screens.
   workers and students starting in 2008, then changed from residence
   to travel-document issuing place in April 2015; 2015 is a mixed-method
   transition. Charts break at all those boundaries and incompatible years cannot
-  be compared with 2020.
+  be compared with 2019.
 - BEA goods/services use nominal USD and balance-of-payments accounting.
   Comtrade Macau goods use customs accounting: U.S. exports FOB, imports CIF.
   Cross-geography totals are not produced. BEA's current annual workbook has a
@@ -1220,12 +1220,12 @@ layout on desktop and small screens.
   labelled December 5, 2024 official workbook, retaining that older vintage and
   its exact provenance. Current-release quarterly data and later annual years
   remain separate. No year is inferred from row position.
-- Latest complete annual values compare with **2020**, not 2019. Academic
-  baselines use 2019/20. Absolute and percent changes require matching
+- Latest complete annual values compare with **2019**, not 2020. Academic
+  baselines use 2018/19. Absolute and percent changes require matching
   populations, units, series and period coverage. Zero or unavailable
   baselines never produce an invented percentage.
 - The partial-year panel compares identical January-to-month or Q1-to-quarter
-  intervals with 2020 and the prior year. Quarterly BEA sums are seasonally
+  intervals with 2019 and the prior year. Quarterly BEA sums are seasonally
   adjusted and separate from the annual definition. Provisional NTTO months
   propagate provisional status into derived YTD totals.
 - Missing, suppressed and absent years remain gaps. Chart paths also break on
@@ -1237,7 +1237,7 @@ rejected substitutes. Mainland U.S.-attributed all-mode visitor history after
 2018 and several degree-enrollment directions remain unverified or blocked.
 Hong Kong's full 2000-2025 arrival history is recovered with a documented
 population break. Macau services now have directly published BEA annual
-histories for 2018-2025 in both directions, including a genuine 2020 baseline.
+histories for 2018-2025 in both directions, including the 2019 baseline.
 Current and archival USTR vintages remain separate, not spliced into BEA.
 Missing observations show a
 specific gap instead of a zero.
@@ -1332,7 +1332,7 @@ For browser checks:
 .venv/bin/python scripts/check_exchange_browser.py
 ```
 
-These exercise every geography/direction/measure, exact values and 2020
+These exercise every geography/direction/measure, exact values and 2019
 changes, the partial-year panel, index mode, keyboard interaction, mobile
 overflow, both publication backgrounds, figure-text clipping, and no-JavaScript
 tables/downloads. Unit tests verify all PNG dimensions, background and series
