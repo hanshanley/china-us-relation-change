@@ -49,6 +49,7 @@ def build_publication(source, output, revision, canonical="https://www.themargin
         for name in FONT_FILES + ("LICENSE",):
             shutil.copyfile(static / "fonts" / name, assets / "fonts" / name)
         labels = {sid: d["label"] for sid, d in current["series"].items()}
+        labels.update({sid: d["label"] for sid, d in data["series"].items()})
         if inward is not None:
             labels.update({sid: d["label"] for sid, d in inward["series"].items()})
         decorate(site, "business-presence.html", labels, revision)
@@ -79,7 +80,7 @@ def build_publication(source, output, revision, canonical="https://www.themargin
                     if not (site / relative).is_file():
                         (output / relative).unlink(missing_ok=True)
         shutil.copytree(site, output, dirs_exist_ok=True)
-        for relative in ("assets/business-publication.css", "assets/business-publication.js", "downloads/business-chart-values.csv"):
+        for relative in ("assets/business-publication.css", "assets/business-publication.js"):
             (output / relative).unlink(missing_ok=True)
         if inward is None:
             for name in ("business-inward.json", "business-inward-observations.csv", "business-inward-chart-values.csv"):

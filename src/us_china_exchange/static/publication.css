@@ -151,3 +151,6 @@ html:not(.plot-js) .publication-page .comparison-chart svg { min-width: 840px; }
   .publication-page .business-card + .business-card { border-top: 1px solid var(--rule); padding-top: 24px; }
   .publication-page .business-card .chart-context { min-height: 0; }
 }
+#affiliate-presence .business-card:last-child:nth-child(odd) {
+  grid-column: 1 / -1;
+}
