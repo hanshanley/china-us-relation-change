@@ -12,7 +12,7 @@ from .indicator_charts import svg_indicator_chart
 from .public_freshness import current_groups
 from .model import json_text
 from .pipeline import write_atomic
-from .theme import BLUE, CHART_THEMES, GOLD, GREEN, MUTED, PARTNER_COLORS
+from .theme import BLUE, CHART_THEMES, GOLD, GREEN, MUTED, PARTNER_COLORS, linear_axis
 
 
 RETIRED_CHARTS = {"us-parent-companies", "us-affiliates-europe", "us-affiliates-index"}
@@ -26,7 +26,9 @@ COLORS = {"bea_affiliates:china": PARTNER_COLORS["CHN"], "bea_parents:china": PA
           "eurostat_france:china": "#8A6556", "eurostat_finland:china": "#999D7D",
           "eurostat_sweden:china": "#97AAAE",
           "eurostat_italy:china": "#7E6D7A", "eurostat_italy_legal:china": "#7E6D7A",
-          "eurostat_spain:china": "#8B7656", "dst_denmark:china": "#756D7D"}
+          "eurostat_spain:china": "#8B7656", "dst_denmark:china": "#756D7D",
+          "eurostat_austria:china": "#8A6F64", "eurostat_austria_legal:china": "#8A6F64",
+          "eurostat_poland:china": "#6D8176"}
 ORIGINS = {"bea_affiliates:china": "us", "bea_parents:china": "us",
            "eurostat_affiliates:china": "eu", "eurostat_historical_eu:china": "eu",
            "eurostat_uk:china": "uk", "eurostat_norway:china": "norway", "ssb_norway:china": "norway",
@@ -36,7 +38,9 @@ ORIGINS = {"bea_affiliates:china": "us", "bea_parents:china": "us",
            "eurostat_france:china": "france", "eurostat_finland:china": "finland",
            "eurostat_sweden:china": "sweden",
            "eurostat_italy:china": "italy", "eurostat_italy_legal:china": "italy",
-           "eurostat_spain:china": "spain", "dst_denmark:china": "denmark"}
+           "eurostat_spain:china": "spain", "dst_denmark:china": "denmark",
+           "eurostat_austria:china": "austria", "eurostat_austria_legal:china": "austria",
+           "eurostat_poland:china": "poland"}
 CHARTS = {
     "us-affiliates-china": {
         "title": "U.S.-parent affiliates in China",
@@ -134,6 +138,21 @@ CHARTS = {
         "not Danish-UCI Eurostat counts. Subsidiary entities, not parents, plants or branches. "
         "2010 DB03/DB07 classification transition; Hong Kong and Macao separate. "
         "No pre-2007 values inferred; no sum with overlapping EU aggregates."},
+    "austria-affiliates-china": {
+        "title": "Austrian-controlled enterprises in China",
+        "subtitle": "China except Hong Kong | Since 2021 | Current enterprise definition",
+        "series": ["eurostat_austria:china"], "unit": "Enterprises", "mode": "levels",
+        "note": "Eurostat / Statistics Austria, Austria-resident ultimate control. Supplementary enterprise "
+        "counts start in 2021. The 2007-2020 legal-unit history remains separate in complete downloads, "
+        "not joined here. Foreign legal units remain an imperfect enterprise proxy. Broader national "
+        "resident-parent counts and the 2024 control snapshot are not spliced into this population."},
+    "poland-affiliates-china": {
+        "title": "Enterprises controlled from Poland",
+        "subtitle": "China except Hong Kong | Eurostat | Reported counts from 2008",
+        "series": ["eurostat_poland:china"], "unit": "Enterprises", "mode": "levels",
+        "note": "Eurostat / Statistics Poland. Ultimate control includes documented joint/minority cases. "
+        "2007 unreported; 2010 legacy NACE transition and 2018 legal-unit/enterprise break retained. "
+        "2021 changes dataset, not the Polish enterprise unit. Not the broader national foreign-equity survey."},
     BENCHMARK_CHART: {
         "title": "U.S. parent companies with China affiliates",
         "subtitle": "Supplementary benchmark observations | NOT an annual series",
@@ -146,7 +165,8 @@ def validate_business_data(data):
     if set(data) != {"version", "series", "observations", "sources", "coverage", "context"} or data["version"] != 1:
         raise ValueError("Invalid business-presence schema")
     units = {sid: "U.S. parents" if sid.startswith("bea_parents") else "affiliates" if sid.startswith("bea_affiliates")
-             else "legal units" if sid == "eurostat_italy_legal:china" else "enterprises" for sid in COLORS}
+             else "legal units" if sid in {"eurostat_italy_legal:china", "eurostat_austria_legal:china"}
+             else "enterprises" for sid in COLORS}
     if not data["series"] or not data["sources"] or not isinstance(data["observations"], list):
         raise ValueError("Business definitions, observations and provenance required")
     for sid, definition in data["series"].items():
@@ -154,7 +174,8 @@ def validate_business_data(data):
             raise ValueError("Invalid business series identity")
         if not all(isinstance(v, str) and v for v in definition.values()) or definition["unit"] != units[sid]:
             raise ValueError("Business counting units and populations must remain explicit")
-        controlled_measure = "controlled_legal_units" if sid == "eurostat_italy_legal:china" else "controlled_enterprises"
+        controlled_measure = ("controlled_legal_units" if sid in {
+            "eurostat_italy_legal:china", "eurostat_austria_legal:china"} else "controlled_enterprises")
         expected = (controlled_measure, "annual", "reference year") if sid.startswith(
             ("eurostat", "ssb_", "bundesbank_", "tillvaxtanalys_", "statfin_", "dst_")) else (
             ("parent_companies", "benchmark", "fiscal ending year") if sid.startswith("bea_parents")
@@ -175,6 +196,9 @@ def validate_business_data(data):
         if sid.startswith("eurostat_italy") and not all(
                 token in definition["scope"] for token in ("Italy-resident UCI", "China except Hong Kong")):
             raise ValueError("Italian control and host-country scope must remain explicit")
+        if sid.startswith("eurostat_austria") and not all(
+                token in definition["scope"] for token in ("Austria-resident UCI", "China except Hong Kong")):
+            raise ValueError("Austrian control and host-country scope must remain explicit")
         if sid == "eurostat_spain:china" and not all(
                 token in definition["scope"] for token in ("Spanish-resident UCI", "China except Hong Kong")):
             raise ValueError("Spanish control and host-country scope must remain explicit")
@@ -182,6 +206,9 @@ def validate_business_data(data):
                 token in definition["scope"] for token in (
                     "Denmark-resident parents", "Hong Kong and Macao separately", "foreign ultimate owners")):
             raise ValueError("Danish resident-parent and host-country scope must remain explicit")
+        if sid == "eurostat_poland:china" and not all(
+                token in definition["scope"] for token in ("Polish-resident UCI", "China except Hong Kong")):
+            raise ValueError("Polish ultimate-control and host-country scope must remain explicit")
     for item in data["sources"].values():
         if set(item) != {"name", "vintage", "assets", "locator", "notes"} or not item["assets"]:
             raise ValueError("Business source provenance incomplete")
@@ -239,10 +266,17 @@ def validate_business_data(data):
                                      "fats_out2_r2_SE" if r["year"] <= 2020 else "fats_out_part_SE"),
             "eurostat_spain:china": ("fats_out2_ES" if r["year"] <= 2009 else
                                     "fats_out2_r2_ES" if r["year"] <= 2020 else "fats_out_part_ES"),
+            "eurostat_austria_legal:china": "fats_out2_AT" if r["year"] <= 2009 else "fats_out2_r2_AT",
+            "eurostat_austria:china": "fats_out_part_AT",
+            "eurostat_poland:china": ("fats_out2_PL" if r["year"] <= 2009 else
+                                     "fats_out2_r2_PL" if r["year"] <= 2020 else "fats_out_part_PL"),
         }
         if ((r["series_id"] == "eurostat_italy_legal:china" and not 2007 <= r["year"] <= 2023)
                 or (r["series_id"] == "eurostat_italy:china" and r["year"] < 2021)):
             raise ValueError("Italian legal-unit and enterprise populations must not be spliced")
+        if ((r["series_id"] == "eurostat_austria_legal:china" and not 2007 <= r["year"] <= 2020)
+                or (r["series_id"] == "eurostat_austria:china" and r["year"] < 2021)):
+            raise ValueError("Austrian legal-unit and enterprise populations must not be spliced")
         if r["series_id"].startswith("eurostat") and r["source_id"] != expected_source[r["series_id"]]:
             raise ValueError("European method/source boundary mismatch")
         if r["series_id"] == "ssb_norway:china" and r["source_id"] != "ssb_09827":
@@ -286,6 +320,9 @@ def chart_groups(data, chart_id):
 def svg_business_chart(data, chart_id, theme="themarginoferror"):
     config = dict(CHARTS[chart_id])
     groups = chart_groups(data, chart_id)
+    if (config["mode"] == "levels" and len(groups) == 1
+            and groups[0]["cadence"] == "annual" and groups[0]["points"]):
+        config["y_max"] = linear_axis(max(point["plotted_value"] for point in groups[0]["points"]))[0]
     selected = [r for r in data["observations"] if r["series_id"] in config["series"]]
     if selected:
         last_year = max(r["year"] for r in selected)
