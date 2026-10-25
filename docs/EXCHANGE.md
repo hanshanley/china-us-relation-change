@@ -1036,9 +1036,9 @@ The interactive plotting area is proportional to its width rather than fixed
 at a shallow desktop height. Desktop axes use 17px type, phone axes 14px, and
 large-value ticks use one declared scale (for example, trips in millions).
 
-`data/site/immigration.json` freezes 180 observations from 22 reviewed sources:
+`data/site/immigration.json` freezes 181 observations from 23 reviewed sources:
 three OHSS birthplace workbooks/archives, ten OHSS nationality/admission reports,
-the UN DESA International Migrant Stock 2024 workbook and eight DSEC yearbooks.
+the UN DESA International Migrant Stock 2024 workbook and nine DSEC yearbooks.
 UN stocks cover six published 1 July benchmarks (2000, 2005, 2010,
 2015, 2020 and 2024), in both directions for mainland China/Hong Kong.
 Mainland-China destination uses U.S. citizenship; the other reviewed routes
@@ -1062,10 +1062,16 @@ are exact as published; FY2023-FY2025 are rounded to ten. Nationality is not
 birthplace or previous residence, so the two populations are never spliced.
 The actual plotted years determine each caption. U.S. fiscal years end September 30.
 
-Compatible DSEC table 2.10 republications in its 2013/2014 yearbooks extend
-the separate U.S.-category residence-approval history to 2008-2025. Every
-overlap reconciles. The 2002/2004/2006 selected-resident end-of-year tables are
-not annual approvals and are not imported or differenced to fill earlier years.
+The original DSEC 2008 table 2.2.9 and compatible table 2.10 republications
+extend the separate U.S.-category residence-approval history to 2007-2025.
+The 2007 count is 109; the independent 2009 edition repeats it and the
+retained 2008/2009 counts of 112/125. The 2008 original explicitly identifies
+identity-document issuing country, not citizenship. Its method note says
+that the revised compilation is not directly comparable with figures before
+2007. Those earlier-method figures are not joined. The 2002/2004/2006
+selected-resident end-of-year tables are not imported or differenced to fill
+earlier years; this remains residence approval, not a verified permanent-
+resident legal classification or a count of physical U.S. departures.
 The extension adds 47 observations while preserving all 133 prior observation
 dictionaries exactly. Selective cached review uses `--birthplace-only`,
 `--admissions-only` or `--macau-only`; complete previously reviewed vintages

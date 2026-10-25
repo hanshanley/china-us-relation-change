@@ -57,7 +57,8 @@ CHARTS = {
         "series": ["dsec_abode:USA:MAC"], "unit": "People approved", "mode": "levels",
         "note": "DSEC annual yearbooks, table 2.10. People in the U.S. country category newly approved for residence "
         "in Macau. Calendar-year approvals, not resident stocks, U.S. departures or U.S. green-card grants. "
-        "The source category does not establish citizenship or a permanent-resident legal status."},
+        "The source category does not establish citizenship or a permanent-resident legal status. "
+        "The revised compilation begins in 2007; earlier-method figures are not joined."},
     "latest-admissions": {
         "title": "FY2025: arrivals and status adjustments", "subtitle": "DHS China-nationality category | NOT the birthplace series",
         "series": ["ohss_nationality:new_arrivals", "ohss_nationality:adjustments"], "unit": "Status grants", "mode": "bars",
@@ -129,7 +130,7 @@ def validate_immigration_data(data):
             if years not in ({2025}, set(range(2020, 2026)), set(ADMISSION_YEARS)):
                 raise ValueError("Nationality admissions require a complete reviewed annual history")
             continue
-        if sid == "dsec_abode:USA:MAC" and years == set(range(2010, 2026)):
+        if sid == "dsec_abode:USA:MAC" and years in (set(range(2010, 2026)), set(range(2008, 2026))):
             continue
         if sid.startswith("ohss_birth:"):
             if years not in (set(range(2000, 2025)), set(BIRTH_YEARS)):

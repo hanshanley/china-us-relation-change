@@ -35,12 +35,21 @@
       "status": "not_verified"
     },
     {
-      "description": "DSEC U.S.-category residence approvals for every calendar year 2008-2025; not resident stocks, physical U.S. departures or a permanent-resident classification.",
+      "description": "DSEC U.S.-category residence approvals for every calendar year 2007-2025; not resident stocks, physical U.S. departures or a permanent-resident classification.",
       "id": "macau_residence_approvals",
       "status": "available"
     }
   ],
   "observations": [
+    {
+      "comparability": "dsec_abode:USA:MAC",
+      "notes": "Calendar-year people approved; source U.S. country/territory category, not verified U.S. departures or a permanent-residence classification.",
+      "series_id": "dsec_abode:USA:MAC",
+      "source_id": "dsec_abode_2008",
+      "status": "observed",
+      "value": 109,
+      "year": 2007
+    },
     {
       "comparability": "dsec_abode:USA:MAC",
       "notes": "Calendar-year people approved; source U.S. country/territory category, not verified U.S. departures or a permanent-residence classification.",
@@ -1667,7 +1676,7 @@
       "cadence": "annual",
       "label": "U.S. country category",
       "measure": "residence_authorizations",
-      "notes": "Annual approvals, not the stock of U.S. residents, physical U.S. departures or visa issuances. Not labelled permanent-resident grants; the source country category does not establish citizenship or birthplace.",
+      "notes": "Annual approvals, not the stock of U.S. residents, physical U.S. departures or visa issuances. Not labelled permanent-resident grants; the source country category does not establish citizenship or birthplace. The revised compilation starts in 2007; earlier-method figures are not joined. The earliest original explicitly identifies identity-document issuing country.",
       "period_basis": "calendar",
       "scope": "Macau individuals newly granted residence in DSEC's United States of America country/territory category",
       "unit": "people approved"
@@ -1776,6 +1785,20 @@
     }
   },
   "sources": {
+    "dsec_abode_2008": {
+      "assets": [
+        {
+          "request_url": "https://www.dsec.gov.mo/getAttachment/6ac6a9fc-fa49-4a77-8580-69189daa7766/E_ae_pub_2008_y_1.aspx",
+          "retrieved_at": "2026-10-24T22:56:10+00:00",
+          "sha256": "269f68fe2b3ac5c145aba0eb6d0a4b0ed24a34058a1fcb78df953fe433f7b2d2",
+          "url": "https://www.dsec.gov.mo/getAttachment/6ac6a9fc-fa49-4a77-8580-69189daa7766/E_ae_pub_2008_y_1.aspx"
+        }
+      ],
+      "locator": "Table 2.2.9; United States identity-document issuing-country category; 2007-2008; revised-compilation note excludes comparison before 2007",
+      "name": "Macao Statistics and Census Service",
+      "notes": "Individuals newly granted residence, not resident stocks, visa issuances or physical arrivals. The earliest English title says 'authorized to reside'; no permanent-resident legal classification or U.S. citizenship/birthplace population is inferred. Overlapping annual tables are reconciled. The 2008 original explicitly identifies document issuing country and a revised compilation from 2007; earlier-method figures are not joined.",
+      "vintage": "Yearbook of Statistics 2008"
+    },
     "dsec_abode_2013": {
       "assets": [
         {

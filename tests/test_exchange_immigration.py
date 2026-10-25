@@ -9,7 +9,7 @@ import pytest
 from bs4 import BeautifulSoup
 
 from us_china_exchange.immigration_analysis import CHARTS, build_immigration, validate_immigration_data
-from us_china_exchange.immigration_sources import count, parse_admissions, parse_birth, parse_latest, parse_macau_abode, parse_stock, STOCK_YEARS
+from us_china_exchange.immigration_sources import count, parse_admissions, parse_birth, parse_latest, parse_macau_abode, parse_macau_abode_2008, parse_stock, STOCK_YEARS
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -38,7 +38,7 @@ def test_regional_panels_keep_an_unavailable_population_missing(tmp_path):
 def test_birthplace_and_nationality_counts_are_separate_fiscal_populations():
     data = validate_immigration_data(published())
     rows = {(r["series_id"], r["year"]): r for r in data["observations"]}
-    assert len(rows) == 180
+    assert len(rows) == 181
     assert [rows[(f"ohss_birth:{geo}", 1989)]["value"] for geo in ("CHN", "HKG", "MAC")] == [32272, 9740, 246]
     assert [rows[("ohss_birth:CHN", year)]["value"] for year in (2000, 2014, 2024)] == [45652, 76089, 71470]
     assert rows[("ohss_birth:HKG", 2024)]["value"] == 1950
@@ -116,6 +116,34 @@ def test_latest_parser_reads_reported_annual_totals_not_quarters():
         parse_latest(rows)
 
 
+def test_legacy_macau_approvals_require_the_revised_population_and_exact_years():
+    rows = [[""] * 13 for _ in range(13)]
+    rows[0][2] = "INDIVIDUALS AUTHORIZED TO RESIDE IN MACAO BY COUNTRY/TERRITORY OF ISSUANCE OF IDENTITY DOCUMENT"
+    rows[5][0] = "Country / Territory"
+    rows[5][9], rows[5][11] = "2007", "2008"
+    rows[7][1] = "Total"
+    rows[7][9], rows[7][11] = 6115, 7917
+    rows[10][6], rows[10][8] = "Estados Unidos", "United States"
+    rows[10][9], rows[10][11] = 109, 112
+    rows[12][1] = "Note: direct comparison with data prior to 2007 is not appropriate."
+    assert parse_macau_abode_2008(rows) == {2007: 109, 2008: 112}
+    changed = copy.deepcopy(rows)
+    changed[5][9] = "2006"
+    with pytest.raises(ValueError, match="year columns"):
+        parse_macau_abode_2008(changed)
+    changed = copy.deepcopy(rows)
+    changed[12][1] = ""
+    with pytest.raises(ValueError, match="boundary"):
+        parse_macau_abode_2008(changed)
+    changed = copy.deepcopy(rows)
+    changed[10][11] = 7918
+    with pytest.raises(ValueError, match="exceed"):
+        parse_macau_abode_2008(changed)
+    rows[0][2] = "END-YEAR BALANCE OF NON-RESIDENT WORKERS"
+    with pytest.raises(ValueError, match="population"):
+        parse_macau_abode_2008(rows)
+
+
 def test_annual_admissions_keep_reported_precision_and_do_not_become_stock_changes():
     data = published()
     rows = {(r["series_id"], r["year"]): r for r in data["observations"]}
@@ -138,6 +166,9 @@ def test_annual_admissions_keep_reported_precision_and_do_not_become_stock_chang
 
 def test_extended_histories_preserve_supported_prior_vintages_but_reject_new_gaps():
     data = published()
+    data["observations"] = [r for r in data["observations"]
+                            if (r["series_id"], r["year"]) != ("dsec_abode:USA:MAC", 2007)]
+    assert len(validate_immigration_data(data)["observations"]) == 180
     data["observations"] = [
         r for r in data["observations"]
         if not (r["series_id"].startswith("ohss_nationality:") and r["year"] < 2020)
@@ -170,7 +201,7 @@ def test_immigration_exports_include_all_counts_and_fiscal_dates(tmp_path):
     assert json.loads((tmp_path / "site/downloads/immigration.json").read_text()) == data
     with (tmp_path / "site/downloads/immigration-observations.csv").open() as stream:
         raw = list(csv.DictReader(stream))
-    assert len(raw) == len(data["observations"]) == 180
+    assert len(raw) == len(data["observations"]) == 181
     row = next(r for r in raw if r["series_id"] == "ohss_nationality:total" and r["year"] == "2025")
     assert row["fiscal_period_start"] == "2024-10-01" and row["fiscal_period_end"] == "2025-09-30"
     assert row["value"] == "65670"
@@ -186,8 +217,8 @@ def test_immigration_exports_include_all_counts_and_fiscal_dates(tmp_path):
     assert stock_row["fiscal_period_start"] == stock_row["fiscal_period_end"] == ""
     assert stock_row["observation_date"] == "2000-07-01"
     approvals = [r for r in raw if r["series_id"] == "dsec_abode:USA:MAC"]
-    assert [int(r["year"]) for r in approvals] == list(range(2008, 2026))
-    assert [(int(r["year"]), int(r["value"])) for r in approvals[:2]] == [(2008, 112), (2009, 125)]
+    assert [int(r["year"]) for r in approvals] == list(range(2007, 2026))
+    assert [(int(r["year"]), int(r["value"])) for r in approvals[:3]] == [(2007, 109), (2008, 112), (2009, 125)]
     assert all(r["fiscal_period_start"] == r["fiscal_period_end"] == "" for r in approvals)
     assert approvals[-1]["calendar_period_start"] == "2025-01-01"
     assert approvals[-1]["calendar_period_end"] == "2025-12-31"

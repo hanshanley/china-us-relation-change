@@ -38,8 +38,34 @@ UN_STOCK = "https://www.un.org/development/desa/pd/sites/www.un.org.development.
 STOCK_YEARS = [2000, 2005, 2010, 2015, 2020, 2024]
 STOCK_PAIRS = {("CHN", "USA"): "B", ("HKG", "USA"): "B",
                ("USA", "CHN"): "C R", ("USA", "HKG"): "B R"}
-MACAU_ABODE_YEARS = tuple(range(2008, 2026))
+MACAU_ABODE_YEARS = tuple(range(2007, 2026))
 DSEC_YEARBOOKS = "https://www.dsec.gov.mo/StatisticsJSON/AllReleases_en-US_General.json"
+
+
+def parse_macau_abode_2008(records):
+    title = re.sub(r"\s+", " ", " ".join(str(v) for r in records[:4] for v in r if v))
+    if "INDIVIDUALS AUTHORIZED TO RESIDE IN MACAO BY COUNTRY/TERRITORY OF ISSUANCE OF IDENTITY DOCUMENT" not in title:
+        raise ValueError("Macau 2008 residence-approval population changed")
+    notes = re.sub(r"\s+", " ", " ".join(str(v) for r in records for v in r if v))
+    if "direct comparison with data prior to 2007 is not appropriate" not in notes:
+        raise ValueError("Macau revised-compilation boundary missing")
+    headers = [r for r in records[:8] if "Country / Territory" in str(r[0])]
+    if len(headers) != 1:
+        raise ValueError("Macau 2008 approval year header missing or ambiguous")
+    columns = {int(str(v).removesuffix(".0")): i for i, v in enumerate(headers[0])
+               if re.fullmatch(r"20\d{2}(?:\.0)?", str(v).strip())}
+    if list(columns) != [2007, 2008]:
+        raise ValueError("Macau 2008 reviewed year columns changed")
+    matches = [r for r in records if str(r[8]).strip() == "United States"
+               and str(r[6]).strip() == "Estados Unidos"]
+    totals = [r for r in records if str(r[1]).strip().endswith("Total")]
+    if len(matches) != 1 or len(totals) != 1:
+        raise ValueError("Macau 2008 U.S. category or total missing or ambiguous")
+    values = {year: count(matches[0][column])[0] for year, column in columns.items()}
+    controls = {year: count(totals[0][column])[0] for year, column in columns.items()}
+    if any(values[y] is None or controls[y] is None or values[y] > controls[y] for y in columns):
+        raise ValueError("Macau 2008 U.S. approvals exceed the total or require suppression review")
+    return values
 
 
 def parse_macau_abode(records):
@@ -80,7 +106,7 @@ def parse_macau_abode(records):
 def macau_abode(client):
     body, _ = client.get(DSEC_YEARBOOKS)
     records = json.loads(body)["YearbookOfStatistics"]["Containers"]["YearbookOfStatistics"]["Publication"]["Yearly"]
-    publications = sorted((r for r in records if int(r["Name"]) in {2013, 2014} or int(r["Name"]) >= 2020),
+    publications = sorted((r for r in records if int(r["Name"]) in {2008, 2013, 2014} or int(r["Name"]) >= 2020),
                           key=lambda r: int(r["Name"]))
     observations, sources = {}, {}
     for publication in publications:
@@ -96,17 +122,25 @@ def macau_abode(client):
         else:
             book = load_workbook(io.BytesIO(body), read_only=True, data_only=True)
             tables = [(s.title.strip(), list(s.values)) for s in book]
-        matches = [(name, rows) for name, rows in tables if name == "2.10"]
+        table_name = "2.2.9" if edition == 2008 else "2.10"
+        matches = [(name, rows) for name, rows in tables if name == table_name]
         if len(matches) != 1:
             raise ValueError("Macau residence-approval table missing or ambiguous")
-        values = parse_macau_abode(matches[0][1])
+        values = (parse_macau_abode_2008 if edition == 2008 else parse_macau_abode)(matches[0][1])
         source_id = f"dsec_abode_{edition}"
         sources[source_id] = source(
             "Macao Statistics and Census Service", f"Yearbook of Statistics {edition}",
-            [asset], "Table 2.10; United States of America country/territory category; all genders",
+            [asset], ("Table 2.2.9; United States identity-document issuing-country category; "
+                      "2007-2008; revised-compilation note excludes comparison before 2007"
+                      if edition == 2008 else
+                      "Table 2.10; United States of America country/territory category; all genders"),
             "Individuals newly granted residence, not resident stocks, visa issuances or physical arrivals. "
-            "The English title uses 'right of abode'; no permanent-resident legal classification or U.S. "
-            "citizenship/birthplace population is inferred. Overlapping annual tables are reconciled.")
+            + ("The earliest English title says 'authorized to reside'; no " if edition == 2008 else
+               "The English title uses 'right of abode'; no ") +
+            "permanent-resident legal classification or U.S. "
+            "citizenship/birthplace population is inferred. Overlapping annual tables are reconciled."
+            + (" The 2008 original explicitly identifies document issuing country and a revised "
+               "compilation from 2007; earlier-method figures are not joined." if edition == 2008 else ""))
         for year, value in values.items():
             if year < MACAU_ABODE_YEARS[0]:
                 continue
@@ -123,7 +157,9 @@ def macau_abode(client):
         "Macau individuals newly granted residence in DSEC's United States of America country/territory category",
         "annual", "calendar",
         "Annual approvals, not the stock of U.S. residents, physical U.S. departures or visa issuances. "
-        "Not labelled permanent-resident grants; the source country category does not establish citizenship or birthplace.")}
+        "Not labelled permanent-resident grants; the source country category does not establish citizenship or birthplace. "
+        "The revised compilation starts in 2007; earlier-method figures are not joined. "
+        "The earliest original explicitly identifies identity-document issuing country.")}
     return definitions, sorted(observations.values(), key=lambda r: r["year"]), sources
 
 

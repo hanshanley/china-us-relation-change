@@ -177,7 +177,7 @@ def test_collective_export_preserves_complete_inputs_and_native_plot_boundaries(
     assert immigration.select_one("#green-card-grants .plot-data")
     assert immigration.select_one("#latest-admissions .plot-data")
     approvals = json.loads(immigration.select_one("#macau-residence-approvals .plot-data").string)
-    assert [p["period"] for p in approvals["groups"][0]["points"]] == [str(y) for y in range(2008, 2026)]
+    assert [p["period"] for p in approvals["groups"][0]["points"]] == [str(y) for y in range(2007, 2026)]
     assert all("FY" not in p["label"] for p in approvals["groups"][0]["points"])
     business = BeautifulSoup((tmp_path / "business-presence.html").read_text(), "html.parser")
     assert business.select_one('#module-chart optgroup[label="European enterprise series"] option[value="norway-affiliates-china"]')
