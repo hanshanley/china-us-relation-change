@@ -9,7 +9,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
-from us_china_exchange.business_sources import austrian_affiliates, collect_business, danish_affiliates, finnish_eurostat_affiliates, french_affiliates, german_affiliates, italian_affiliates, netherlands_affiliates, norwegian_affiliates, nordic_affiliates, polish_affiliates, spanish_affiliates, swedish_eurostat_affiliates, uk_early_affiliates
+from us_china_exchange.business_sources import austrian_affiliates, belgian_affiliates, collect_business, danish_affiliates, finnish_eurostat_affiliates, french_affiliates, german_affiliates, italian_affiliates, netherlands_affiliates, norwegian_affiliates, nordic_affiliates, polish_affiliates, spanish_affiliates, swedish_eurostat_affiliates, uk_early_affiliates
 from us_china_exchange.language_sources import ReviewClient
 from us_china_exchange.model import json_text
 from us_china_exchange.pipeline import write_atomic
@@ -216,6 +216,22 @@ def collect_poland(client, prior):
     return data
 
 
+def collect_belgium(client, prior):
+    data = copy.deepcopy(prior)
+    definitions, observations, sources = belgian_affiliates(client)
+    data["series"].update(definitions)
+    data["sources"].update(sources)
+    data["observations"] = sorted(
+        [r for r in data["observations"] if r["series_id"] not in definitions] + observations,
+        key=lambda r: (r["series_id"], r["year"]))
+    update_country_coverage(data, definitions)
+    if "Belgium" not in data["context"]["geography"]:
+        data["context"]["geography"] += (
+            " Belgium's pre-UCI legal units, UCI legal units and2022+enterprises remain separate; "
+            "its current FDI reporting-frame cutoffs are not backdated or treated as all Belgian firms.")
+    return data
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--refresh", action="store_true", help="Refetch reviewed public assets instead of the local checksummed cache")
@@ -244,11 +260,14 @@ if __name__ == "__main__":
                            help="Review separate Austrian legal-unit/enterprise cohorts; preserve other countries")
     selection.add_argument("--poland-only", action="store_true",
                            help="Review Polish-resident-UCI China enterprises; preserve other countries")
+    selection.add_argument("--belgium-only", action="store_true",
+                           help="Review Belgian pre-UCI/legal/enterprise populations separately; preserve other countries")
     args = parser.parse_args()
     client = ReviewClient(ROOT / "data/local/business-presence/raw", args.refresh)
     collector = (collect_austria if args.austria_only else collect_italy if args.italy_only else
                  collect_uk_history if args.uk_history_only else
                  collect_sweden_history if args.sweden_history_only else
+                 collect_belgium if args.belgium_only else
                  collect_poland if args.poland_only else
                  collect_denmark if args.denmark_only else collect_spain if args.spain_only else
                  collect_netherlands if args.netherlands_only else

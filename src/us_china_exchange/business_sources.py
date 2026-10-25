@@ -57,6 +57,7 @@ FINLAND_EUROSTAT_METHODS = "https://ec.europa.eu/eurostat/cache/metadata/EN/fats
 SWEDEN_EUROSTAT_METHODS = "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_se.htm"
 AUSTRIA_EUROSTAT_METHODS = "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_at.htm"
 POLAND_EUROSTAT_METHODS = "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_pl.htm"
+BELGIUM_EUROSTAT_METHODS = "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_be.htm"
 SPAIN_EUROSTAT_METHODS = "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_es.htm"
 DENMARK_METADATA = "https://api.statbank.dk/v1/tableinfo"
 DENMARK_DATA = "https://api.statbank.dk/v1/data"
@@ -631,6 +632,66 @@ def polish_affiliates(client):
     return definitions, observations, sources
 
 
+def belgian_affiliates(client):
+    pre, legal, current = ("eurostat_belgium_preuci:china", "eurostat_belgium_legal:china",
+                           "eurostat_belgium:china")
+    notes = (
+        "Belgian UCI attribution starts2009;2007/2008 pre-UCI legal units remain separate. "
+        "Legal units through2021 and enterprise-level counts from2022 are not spliced. "
+        "Keep2010 NACE,2014 non-resident activity classification,2016 declared window and2021 "
+        "EBS/source boundaries. Country comparable-window paragraphs differ; no cross-unit2019 growth. "
+        "Current metadata reports a thresholded FDI reporting-unit frame: EUR30m equity, EUR75m "
+        "balance-sheet total or EUR15m long-term investments, any criterion; these are not foreign-"
+        "affiliate size cutoffs or verified unchanged historical thresholds. Control concept says "
+        "more than half while the FDI screening frame says at least half; no extra50/50 assumption. "
+        "No unreported2004-2006 experimental enterprise counts or2024+ values inferred.")
+    common = "China except Hong Kong; thresholded FDI reporting-unit frame"
+    definitions = {
+        pre: series("Belgium, pre-UCI legal units", "controlled_legal_units", "legal units",
+                    "Belgian reporting units; pre-UCI attribution; " + common + "; NACE C-O except L",
+                    "annual", "reference year", notes + " Pre-UCI observations are download-only."),
+        legal: series("Belgium, historical UCI legal units", "controlled_legal_units", "legal units",
+                      "Belgium-resident UCI; " + common + "; NACE C-O except L, then B-S except O",
+                      "annual", "reference year", notes + " Historical legal units are download-only."),
+        current: series("Belgium (enterprise definition)", "controlled_enterprises", "enterprises",
+                        "Belgium-resident UCI; " + common + "; NACE B-S except O; enterprise unit from2022",
+                        "annual", "reference year", notes + " Current supplement starts2022."),
+    }
+    body, methodology = client.get(BELGIUM_EUROSTAT_METHODS)
+    text = " ".join(BeautifulSoup(body, "html.parser").get_text(" ", strip=True).split()).lower()
+    if not all(token in text for token in (
+            "as of reference year 2009", "from 2022 onwards", "before reference year 2022",
+            "30 000 000", "75 000 000", "15 000 000")):
+        raise ValueError("Belgian control, unit or reporting-frame methodology changed")
+    observations, sources = [], {}
+    for dataset, indicator, activity, first, last in [
+        ("fats_out2", "indic_bp=ENT", "nace_r1=C-O_X_L", 2007, 2009),
+        ("fats_out2_r2", "indic_bp=ENT", "nace_r2=B-S_X_O", 2010, 2020),
+        ("fats_out_part", "indic_sbs=ENT_NR", "nace_r2=B-S_X_O", 2021, None),
+    ]:
+        url = EUROSTAT + dataset + "?lang=EN&freq=A&geo=BE&partner=CN_X_HK&" + indicator + "&" + activity
+        body, asset = client.get(url)
+        data, source_id = json.loads(body), dataset + "_BE"
+        points = parse_eurostat(data, dataset, "BE")
+        years = [point[0] for point in points]
+        end = last if last is not None else max(years, default=0)
+        if years != list(range(first, end + 1)) or (last is None and end < 2023):
+            raise ValueError("Belgian affiliate history is incomplete; preserve the reviewed snapshot")
+        sources[source_id] = source(
+            "Eurostat / National Bank of Belgium", dataset + "; Belgium; source updated " + data["updated"],
+            [asset, methodology], "geo=BE; partner=CN_X_HK; " + indicator + "; " + activity, notes)
+        for year, value, status, flag, _ in points:
+            if set(flag.partition("|")[0]) & {"b", "d"} and year not in {2009, 2010, 2014, 2016, 2021, 2022}:
+                raise ValueError("Belgian method boundary changed; preserve the reviewed snapshot")
+            sid = pre if year < 2009 else legal if year < 2022 else current
+            phase = max(boundary for boundary in (2007, 2009, 2010, 2014, 2016, 2021, 2022)
+                        if boundary <= year)
+            observations.append(row(sid, year, value, source_id, status,
+                                    notes + " Source flags: " + (flag or "none"),
+                                    "belgium:" + sid.split(":")[0] + ":" + str(phase)))
+    return definitions, observations, sources
+
+
 def country_counts(sheets, title):
     found = {}
     for sheet in sheets:
@@ -993,6 +1054,10 @@ def collect_business(client):
     definitions.update(poland_definitions)
     observations.extend(poland_observations)
     sources.update(poland_sources)
+    belgium_definitions, belgium_observations, belgium_sources = belgian_affiliates(client)
+    definitions.update(belgium_definitions)
+    observations.extend(belgium_observations)
+    sources.update(belgium_sources)
     coverage = []
     for sid in definitions:
         selected = [r for r in observations if r["series_id"] == sid]
@@ -1010,7 +1075,7 @@ def collect_business(client):
         "context": {
             "question": "How has U.S. and European business presence in China changed over time?",
             "interpretation": "Company counts, affiliate entities and branch locations are distinct. U.S. parents and ultimately EU-controlled enterprises are not matched ownership populations; BEA and Eurostat levels must not be used to rank otherwise comparable business presence.",
-            "geography": "China is the host. European coverage includes current/historical EU groups, Germany, the UK, Norway, Sweden, Finland, France, the Netherlands, Spain, Denmark, Italy, Austria and Poland. French, Finnish, Swedish, Dutch, Spanish, Italian, Austrian and Polish Eurostat host categories are China except Hong Kong. Denmark separately codes Hong Kong/Macao; its resident-parent population includes foreign ultimate owners, unlike Eurostat's Danish-UCI population. Finnish and Swedish Eurostat UCI histories remain separate from their national series. Spain's Eurostat financial/nonfinancial history is not spliced with INE's national nonfinancial counts. Italian legal-unit history reaches 2023; grouped Eurostat enterprises remain a separate population. Austrian legal units before 2021 are not spliced into current enterprise counts or broader national populations. Poland's UCI population is not the broader national foreign-equity survey. National series overlap EU aggregates and have different control/sector definitions; these are not summed into an all-Europe total. Other European origins remain unresolved.",
+            "geography": "China is the host. European coverage includes current/historical EU groups, Germany, the UK, Norway, Sweden, Finland, France, the Netherlands, Spain, Denmark, Italy, Austria, Poland and Belgium. French, Finnish, Swedish, Dutch, Spanish, Italian, Austrian, Polish and Belgian Eurostat host categories are China except Hong Kong. Denmark separately codes Hong Kong/Macao; its resident-parent population includes foreign ultimate owners, unlike Eurostat's Danish-UCI population. Finnish and Swedish Eurostat UCI histories remain separate from their national series. Spain's Eurostat financial/nonfinancial history is not spliced with INE's national nonfinancial counts. Italian legal-unit history reaches 2023; grouped Eurostat enterprises remain a separate population. Austrian legal units before 2021 are not spliced into current enterprise counts or broader national populations. Poland's UCI population is not the broader national foreign-equity survey. Belgium's pre2009attribution and pre2022legal units remain separate from current enterprises; its thresholded FDI reporting frame is not all Belgian firms or assumed historically constant. National series overlap EU aggregates and have different control/sector definitions; these are not summed into an all-Europe total. Other European origins remain unresolved.",
             "rights": "Publish aggregate statistics and original charts only; raw workbooks and reports remain local. Sources and retrieval checksums accompany every observation.",
             "release_timing": "As checked October 22, 2026, BEA's latest activity release covers 2023. The published schedule puts the 2024 activity release on November 20, 2026; no 2024 value is inferred.",
         },

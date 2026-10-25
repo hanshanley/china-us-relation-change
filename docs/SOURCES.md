@@ -188,6 +188,23 @@ selected table members, retrieval timestamps and SHA-256 checksums.
 | Eurostat Polish country history, `geo=PL`, `partner=CN_X_HK`; [Polish reporter metadata](https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_pl.htm) | Seventeen source cells, including missing2007; all16reported2008-2023 counts and flags independently match native TSV. Latest2023=32, not a2026 measurement. The enterprise unit begins2018; the reporter declares2018-2023 comparable, so2021 is dataset provenance rather than an invented second country unit break. Retain the selected legacy NACE2010 transition. Ultimate control can include joint50/50 and documented minority control, without a size cutoff. The broad national foreign-equity survey is not substituted. No pre2008, missing-as-zero or unreported2024+ observation. |
 | Eurostat Dutch country history, `geo=NL`, `partner=CN_X_HK`; [CBS Nederland Handelsland2026, figure5.4.1](https://longreads.cbs.nl/nederland-handelsland-2026/buitenlandse-investeringen-en-multinationals/); [CBS OFATS methods](https://www.cbs.nl/nl-nl/onze-diensten/methoden/onderzoeksomschrijvingen/korte-onderzoeksbeschrijvingen/outward-fats-statistiek-over-nederlandse-zeggenschappen-over-buitenlandse-bedrijven) | Seventeen Eurostat enterprise counts2007-2023 independently match native TSV exports. The original CBS HTML outward table, not the inward China row or digitized PDF, reports2024*=620 and2023=574;2023 reconciles. Star means provisional, and the reference year is2024, not the2026 publication. Dutch-resident UCI; financial/nonfinancial B-S except O with nonresponse weighting. Keep2010 NACE and2021 methodology boundaries; do not compare2024 with2019 across that break or add Netherlands to its overlapping EU aggregate. |
 
+Belgian Eurostat queries select `geo=BE`, `partner=CN_X_HK` and exact
+enterprise indicators in `fats_out2`, `fats_out2_r2` and `fats_out_part`.
+All seventeen2007-2023 count cells match independent native TSVs.
+[Belgian reporter metadata](https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_be.htm)
+starts UCI attribution in2009 and enterprise-level counting in2022, not2021.
+Two pre-UCI legal units and thirteen UCI legal units remain separate archives;
+only2022=72/2023=80 enter the short current-enterprise chart. Keep2010NACE,
+2014non-resident activity,2016declared-window and2021EBS-source boundaries.
+The3.8/15.2.1comparable-window paragraphs differ; the explicit2022unit rule
+does not authorize cross-regime2019growth. Current metadata's FDI reporting-unit
+frame uses EUR30m equity/75m assets/15m long-term investments (any criterion);
+historical stability is unverified. Control-concept wording is greater than
+half, while the screening frame says at least half; no extra50/50population
+is inferred. Original experimental2004-2006responses contain employment and
+turnover but no enterprise-count cells for this pair, not zeros to backfill.
+No national dissemination or unreported2024+country count is substituted.
+
 Italian Eurostat queries select `geo=IT`, `partner=CN_X_HK` and enterprise
 indicators in `fats_out2`, `fats_out2_r2` and `fats_out_part`.
 All seventeen2007-2023 values independently reconcile to original native TSVs.

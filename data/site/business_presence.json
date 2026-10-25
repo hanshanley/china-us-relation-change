@@ -1,6 +1,6 @@
 {
   "context": {
-    "geography": "China is the host. U.S., German, Norwegian, Swedish and Finnish series retain their own control, sector, threshold and source definitions; these are not matched country rankings. UK history ends in 2019. National and overlapping EU27 membership aggregates are not summed. Netherlands is shown separately from the overlapping EU27 aggregate. Spain's Eurostat financial/nonfinancial history is separate from INE's national nonfinancial population; Spain overlaps EU aggregates and is not added to them. Denmark's national resident-parent coverage includes foreign ultimate owners and excludes branches; it is not spliced with Danish-UCI Eurostat counts or summed into EU aggregates. Italian legal-unit history reaches 2023; grouped Eurostat enterprises remain a separate population. Austria is separate from overlapping EU27 membership and broader national counts; its older legal units are not spliced into current enterprise counts. Poland's ultimate-control population remains separate from the broader national foreign-equity survey and is not added to overlapping EU aggregates.",
+    "geography": "China is the host. U.S., German, Norwegian, Swedish and Finnish series retain their own control, sector, threshold and source definitions; these are not matched country rankings. UK history ends in 2019. National and overlapping EU27 membership aggregates are not summed. Netherlands is shown separately from the overlapping EU27 aggregate. Spain's Eurostat financial/nonfinancial history is separate from INE's national nonfinancial population; Spain overlaps EU aggregates and is not added to them. Denmark's national resident-parent coverage includes foreign ultimate owners and excludes branches; it is not spliced with Danish-UCI Eurostat counts or summed into EU aggregates. Italian legal-unit history reaches 2023; grouped Eurostat enterprises remain a separate population. Austria is separate from overlapping EU27 membership and broader national counts; its older legal units are not spliced into current enterprise counts. Poland's ultimate-control population remains separate from the broader national foreign-equity survey and is not added to overlapping EU aggregates. Belgium's pre-UCI legal units, UCI legal units and2022+enterprises remain separate; its current FDI reporting-frame cutoffs are not backdated or treated as all Belgian firms.",
     "interpretation": "Company counts, affiliate entities and branch locations are distinct. U.S. parents and ultimately EU-controlled enterprises are not matched ownership populations; BEA and Eurostat levels must not be used to rank otherwise comparable business presence.",
     "question": "How has U.S. and European business presence in China changed over time?",
     "release_timing": "As checked October 22, 2026, BEA's latest activity release covers 2023. The published schedule puts the 2024 activity release on November 20, 2026; no 2024 value is inferred.",
@@ -115,6 +115,21 @@
     {
       "description": "Polish-resident ultimate control of enterprises/branches in China except Hong Kong, not the broader national survey of all foreign equity interests. Enterprise-unit implementation breaks the series in 2018. Preserve the selected legacy NACE2010 transition; 2021 is source-dataset lineage, not a second Polish unit break. Joint 50/50 and documented de-facto minority control can qualify; no size cutoff. 2007 is unreported, not zero. No pre2008 or unreported current-year counts inferred.",
       "id": "eurostat_poland:china",
+      "status": "partial_history"
+    },
+    {
+      "description": "Belgian UCI attribution starts2009;2007/2008 pre-UCI legal units remain separate. Legal units through2021 and enterprise-level counts from2022 are not spliced. Keep2010 NACE,2014 non-resident activity classification,2016 declared window and2021 EBS/source boundaries. Country comparable-window paragraphs differ; no cross-unit2019 growth. Current metadata reports a thresholded FDI reporting-unit frame: EUR30m equity, EUR75m balance-sheet total or EUR15m long-term investments, any criterion; these are not foreign-affiliate size cutoffs or verified unchanged historical thresholds. Control concept says more than half while the FDI screening frame says at least half; no extra50/50 assumption. No unreported2004-2006 experimental enterprise counts or2024+ values inferred. Pre-UCI observations are download-only.",
+      "id": "eurostat_belgium_preuci:china",
+      "status": "partial_history"
+    },
+    {
+      "description": "Belgian UCI attribution starts2009;2007/2008 pre-UCI legal units remain separate. Legal units through2021 and enterprise-level counts from2022 are not spliced. Keep2010 NACE,2014 non-resident activity classification,2016 declared window and2021 EBS/source boundaries. Country comparable-window paragraphs differ; no cross-unit2019 growth. Current metadata reports a thresholded FDI reporting-unit frame: EUR30m equity, EUR75m balance-sheet total or EUR15m long-term investments, any criterion; these are not foreign-affiliate size cutoffs or verified unchanged historical thresholds. Control concept says more than half while the FDI screening frame says at least half; no extra50/50 assumption. No unreported2004-2006 experimental enterprise counts or2024+ values inferred. Historical legal units are download-only.",
+      "id": "eurostat_belgium_legal:china",
+      "status": "partial_history"
+    },
+    {
+      "description": "Belgian UCI attribution starts2009;2007/2008 pre-UCI legal units remain separate. Legal units through2021 and enterprise-level counts from2022 are not spliced. Keep2010 NACE,2014 non-resident activity classification,2016 declared window and2021 EBS/source boundaries. Country comparable-window paragraphs differ; no cross-unit2019 growth. Current metadata reports a thresholded FDI reporting-unit frame: EUR30m equity, EUR75m balance-sheet total or EUR15m long-term investments, any criterion; these are not foreign-affiliate size cutoffs or verified unchanged historical thresholds. Control concept says more than half while the FDI screening frame says at least half; no extra50/50 assumption. No unreported2004-2006 experimental enterprise counts or2024+ values inferred. Current supplement starts2022.",
+      "id": "eurostat_belgium:china",
       "status": "partial_history"
     }
   ],
@@ -847,6 +862,159 @@
       "status": "observed",
       "value": 152,
       "year": 2020
+    },
+    {
+      "comparability": "belgium:eurostat_belgium:2022",
+      "notes": "Belgian UCI attribution starts2009;2007/2008 pre-UCI legal units remain separate. Legal units through2021 and enterprise-level counts from2022 are not spliced. Keep2010 NACE,2014 non-resident activity classification,2016 declared window and2021 EBS/source boundaries. Country comparable-window paragraphs differ; no cross-unit2019 growth. Current metadata reports a thresholded FDI reporting-unit frame: EUR30m equity, EUR75m balance-sheet total or EUR15m long-term investments, any criterion; these are not foreign-affiliate size cutoffs or verified unchanged historical thresholds. Control concept says more than half while the FDI screening frame says at least half; no extra50/50 assumption. No unreported2004-2006 experimental enterprise counts or2024+ values inferred. Source flags: none",
+      "series_id": "eurostat_belgium:china",
+      "source_id": "fats_out_part_BE",
+      "status": "observed",
+      "value": 72,
+      "year": 2022
+    },
+    {
+      "comparability": "belgium:eurostat_belgium:2022",
+      "notes": "Belgian UCI attribution starts2009;2007/2008 pre-UCI legal units remain separate. Legal units through2021 and enterprise-level counts from2022 are not spliced. Keep2010 NACE,2014 non-resident activity classification,2016 declared window and2021 EBS/source boundaries. Country comparable-window paragraphs differ; no cross-unit2019 growth. Current metadata reports a thresholded FDI reporting-unit frame: EUR30m equity, EUR75m balance-sheet total or EUR15m long-term investments, any criterion; these are not foreign-affiliate size cutoffs or verified unchanged historical thresholds. Control concept says more than half while the FDI screening frame says at least half; no extra50/50 assumption. No unreported2004-2006 experimental enterprise counts or2024+ values inferred. Source flags: none",
+      "series_id": "eurostat_belgium:china",
+      "source_id": "fats_out_part_BE",
+      "status": "observed",
+      "value": 80,
+      "year": 2023
+    },
+    {
+      "comparability": "belgium:eurostat_belgium_legal:2009",
+      "notes": "Belgian UCI attribution starts2009;2007/2008 pre-UCI legal units remain separate. Legal units through2021 and enterprise-level counts from2022 are not spliced. Keep2010 NACE,2014 non-resident activity classification,2016 declared window and2021 EBS/source boundaries. Country comparable-window paragraphs differ; no cross-unit2019 growth. Current metadata reports a thresholded FDI reporting-unit frame: EUR30m equity, EUR75m balance-sheet total or EUR15m long-term investments, any criterion; these are not foreign-affiliate size cutoffs or verified unchanged historical thresholds. Control concept says more than half while the FDI screening frame says at least half; no extra50/50 assumption. No unreported2004-2006 experimental enterprise counts or2024+ values inferred. Source flags: none",
+      "series_id": "eurostat_belgium_legal:china",
+      "source_id": "fats_out2_BE",
+      "status": "observed",
+      "value": 76,
+      "year": 2009
+    },
+    {
+      "comparability": "belgium:eurostat_belgium_legal:2010",
+      "notes": "Belgian UCI attribution starts2009;2007/2008 pre-UCI legal units remain separate. Legal units through2021 and enterprise-level counts from2022 are not spliced. Keep2010 NACE,2014 non-resident activity classification,2016 declared window and2021 EBS/source boundaries. Country comparable-window paragraphs differ; no cross-unit2019 growth. Current metadata reports a thresholded FDI reporting-unit frame: EUR30m equity, EUR75m balance-sheet total or EUR15m long-term investments, any criterion; these are not foreign-affiliate size cutoffs or verified unchanged historical thresholds. Control concept says more than half while the FDI screening frame says at least half; no extra50/50 assumption. No unreported2004-2006 experimental enterprise counts or2024+ values inferred. Source flags: none",
+      "series_id": "eurostat_belgium_legal:china",
+      "source_id": "fats_out2_r2_BE",
+      "status": "observed",
+      "value": 82,
+      "year": 2010
+    },
+    {
+      "comparability": "belgium:eurostat_belgium_legal:2010",
+      "notes": "Belgian UCI attribution starts2009;2007/2008 pre-UCI legal units remain separate. Legal units through2021 and enterprise-level counts from2022 are not spliced. Keep2010 NACE,2014 non-resident activity classification,2016 declared window and2021 EBS/source boundaries. Country comparable-window paragraphs differ; no cross-unit2019 growth. Current metadata reports a thresholded FDI reporting-unit frame: EUR30m equity, EUR75m balance-sheet total or EUR15m long-term investments, any criterion; these are not foreign-affiliate size cutoffs or verified unchanged historical thresholds. Control concept says more than half while the FDI screening frame says at least half; no extra50/50 assumption. No unreported2004-2006 experimental enterprise counts or2024+ values inferred. Source flags: none",
+      "series_id": "eurostat_belgium_legal:china",
+      "source_id": "fats_out2_r2_BE",
+      "status": "observed",
+      "value": 78,
+      "year": 2011
+    },
+    {
+      "comparability": "belgium:eurostat_belgium_legal:2010",
+      "notes": "Belgian UCI attribution starts2009;2007/2008 pre-UCI legal units remain separate. Legal units through2021 and enterprise-level counts from2022 are not spliced. Keep2010 NACE,2014 non-resident activity classification,2016 declared window and2021 EBS/source boundaries. Country comparable-window paragraphs differ; no cross-unit2019 growth. Current metadata reports a thresholded FDI reporting-unit frame: EUR30m equity, EUR75m balance-sheet total or EUR15m long-term investments, any criterion; these are not foreign-affiliate size cutoffs or verified unchanged historical thresholds. Control concept says more than half while the FDI screening frame says at least half; no extra50/50 assumption. No unreported2004-2006 experimental enterprise counts or2024+ values inferred. Source flags: none",
+      "series_id": "eurostat_belgium_legal:china",
+      "source_id": "fats_out2_r2_BE",
+      "status": "observed",
+      "value": 99,
+      "year": 2012
+    },
+    {
+      "comparability": "belgium:eurostat_belgium_legal:2010",
+      "notes": "Belgian UCI attribution starts2009;2007/2008 pre-UCI legal units remain separate. Legal units through2021 and enterprise-level counts from2022 are not spliced. Keep2010 NACE,2014 non-resident activity classification,2016 declared window and2021 EBS/source boundaries. Country comparable-window paragraphs differ; no cross-unit2019 growth. Current metadata reports a thresholded FDI reporting-unit frame: EUR30m equity, EUR75m balance-sheet total or EUR15m long-term investments, any criterion; these are not foreign-affiliate size cutoffs or verified unchanged historical thresholds. Control concept says more than half while the FDI screening frame says at least half; no extra50/50 assumption. No unreported2004-2006 experimental enterprise counts or2024+ values inferred. Source flags: none",
+      "series_id": "eurostat_belgium_legal:china",
+      "source_id": "fats_out2_r2_BE",
+      "status": "observed",
+      "value": 97,
+      "year": 2013
+    },
+    {
+      "comparability": "belgium:eurostat_belgium_legal:2014",
+      "notes": "Belgian UCI attribution starts2009;2007/2008 pre-UCI legal units remain separate. Legal units through2021 and enterprise-level counts from2022 are not spliced. Keep2010 NACE,2014 non-resident activity classification,2016 declared window and2021 EBS/source boundaries. Country comparable-window paragraphs differ; no cross-unit2019 growth. Current metadata reports a thresholded FDI reporting-unit frame: EUR30m equity, EUR75m balance-sheet total or EUR15m long-term investments, any criterion; these are not foreign-affiliate size cutoffs or verified unchanged historical thresholds. Control concept says more than half while the FDI screening frame says at least half; no extra50/50 assumption. No unreported2004-2006 experimental enterprise counts or2024+ values inferred. Source flags: none",
+      "series_id": "eurostat_belgium_legal:china",
+      "source_id": "fats_out2_r2_BE",
+      "status": "observed",
+      "value": 97,
+      "year": 2014
+    },
+    {
+      "comparability": "belgium:eurostat_belgium_legal:2014",
+      "notes": "Belgian UCI attribution starts2009;2007/2008 pre-UCI legal units remain separate. Legal units through2021 and enterprise-level counts from2022 are not spliced. Keep2010 NACE,2014 non-resident activity classification,2016 declared window and2021 EBS/source boundaries. Country comparable-window paragraphs differ; no cross-unit2019 growth. Current metadata reports a thresholded FDI reporting-unit frame: EUR30m equity, EUR75m balance-sheet total or EUR15m long-term investments, any criterion; these are not foreign-affiliate size cutoffs or verified unchanged historical thresholds. Control concept says more than half while the FDI screening frame says at least half; no extra50/50 assumption. No unreported2004-2006 experimental enterprise counts or2024+ values inferred. Source flags: none",
+      "series_id": "eurostat_belgium_legal:china",
+      "source_id": "fats_out2_r2_BE",
+      "status": "observed",
+      "value": 81,
+      "year": 2015
+    },
+    {
+      "comparability": "belgium:eurostat_belgium_legal:2016",
+      "notes": "Belgian UCI attribution starts2009;2007/2008 pre-UCI legal units remain separate. Legal units through2021 and enterprise-level counts from2022 are not spliced. Keep2010 NACE,2014 non-resident activity classification,2016 declared window and2021 EBS/source boundaries. Country comparable-window paragraphs differ; no cross-unit2019 growth. Current metadata reports a thresholded FDI reporting-unit frame: EUR30m equity, EUR75m balance-sheet total or EUR15m long-term investments, any criterion; these are not foreign-affiliate size cutoffs or verified unchanged historical thresholds. Control concept says more than half while the FDI screening frame says at least half; no extra50/50 assumption. No unreported2004-2006 experimental enterprise counts or2024+ values inferred. Source flags: none",
+      "series_id": "eurostat_belgium_legal:china",
+      "source_id": "fats_out2_r2_BE",
+      "status": "observed",
+      "value": 85,
+      "year": 2016
+    },
+    {
+      "comparability": "belgium:eurostat_belgium_legal:2016",
+      "notes": "Belgian UCI attribution starts2009;2007/2008 pre-UCI legal units remain separate. Legal units through2021 and enterprise-level counts from2022 are not spliced. Keep2010 NACE,2014 non-resident activity classification,2016 declared window and2021 EBS/source boundaries. Country comparable-window paragraphs differ; no cross-unit2019 growth. Current metadata reports a thresholded FDI reporting-unit frame: EUR30m equity, EUR75m balance-sheet total or EUR15m long-term investments, any criterion; these are not foreign-affiliate size cutoffs or verified unchanged historical thresholds. Control concept says more than half while the FDI screening frame says at least half; no extra50/50 assumption. No unreported2004-2006 experimental enterprise counts or2024+ values inferred. Source flags: none",
+      "series_id": "eurostat_belgium_legal:china",
+      "source_id": "fats_out2_r2_BE",
+      "status": "observed",
+      "value": 86,
+      "year": 2017
+    },
+    {
+      "comparability": "belgium:eurostat_belgium_legal:2016",
+      "notes": "Belgian UCI attribution starts2009;2007/2008 pre-UCI legal units remain separate. Legal units through2021 and enterprise-level counts from2022 are not spliced. Keep2010 NACE,2014 non-resident activity classification,2016 declared window and2021 EBS/source boundaries. Country comparable-window paragraphs differ; no cross-unit2019 growth. Current metadata reports a thresholded FDI reporting-unit frame: EUR30m equity, EUR75m balance-sheet total or EUR15m long-term investments, any criterion; these are not foreign-affiliate size cutoffs or verified unchanged historical thresholds. Control concept says more than half while the FDI screening frame says at least half; no extra50/50 assumption. No unreported2004-2006 experimental enterprise counts or2024+ values inferred. Source flags: none",
+      "series_id": "eurostat_belgium_legal:china",
+      "source_id": "fats_out2_r2_BE",
+      "status": "observed",
+      "value": 83,
+      "year": 2018
+    },
+    {
+      "comparability": "belgium:eurostat_belgium_legal:2016",
+      "notes": "Belgian UCI attribution starts2009;2007/2008 pre-UCI legal units remain separate. Legal units through2021 and enterprise-level counts from2022 are not spliced. Keep2010 NACE,2014 non-resident activity classification,2016 declared window and2021 EBS/source boundaries. Country comparable-window paragraphs differ; no cross-unit2019 growth. Current metadata reports a thresholded FDI reporting-unit frame: EUR30m equity, EUR75m balance-sheet total or EUR15m long-term investments, any criterion; these are not foreign-affiliate size cutoffs or verified unchanged historical thresholds. Control concept says more than half while the FDI screening frame says at least half; no extra50/50 assumption. No unreported2004-2006 experimental enterprise counts or2024+ values inferred. Source flags: none",
+      "series_id": "eurostat_belgium_legal:china",
+      "source_id": "fats_out2_r2_BE",
+      "status": "observed",
+      "value": 90,
+      "year": 2019
+    },
+    {
+      "comparability": "belgium:eurostat_belgium_legal:2016",
+      "notes": "Belgian UCI attribution starts2009;2007/2008 pre-UCI legal units remain separate. Legal units through2021 and enterprise-level counts from2022 are not spliced. Keep2010 NACE,2014 non-resident activity classification,2016 declared window and2021 EBS/source boundaries. Country comparable-window paragraphs differ; no cross-unit2019 growth. Current metadata reports a thresholded FDI reporting-unit frame: EUR30m equity, EUR75m balance-sheet total or EUR15m long-term investments, any criterion; these are not foreign-affiliate size cutoffs or verified unchanged historical thresholds. Control concept says more than half while the FDI screening frame says at least half; no extra50/50 assumption. No unreported2004-2006 experimental enterprise counts or2024+ values inferred. Source flags: none",
+      "series_id": "eurostat_belgium_legal:china",
+      "source_id": "fats_out2_r2_BE",
+      "status": "observed",
+      "value": 89,
+      "year": 2020
+    },
+    {
+      "comparability": "belgium:eurostat_belgium_legal:2021",
+      "notes": "Belgian UCI attribution starts2009;2007/2008 pre-UCI legal units remain separate. Legal units through2021 and enterprise-level counts from2022 are not spliced. Keep2010 NACE,2014 non-resident activity classification,2016 declared window and2021 EBS/source boundaries. Country comparable-window paragraphs differ; no cross-unit2019 growth. Current metadata reports a thresholded FDI reporting-unit frame: EUR30m equity, EUR75m balance-sheet total or EUR15m long-term investments, any criterion; these are not foreign-affiliate size cutoffs or verified unchanged historical thresholds. Control concept says more than half while the FDI screening frame says at least half; no extra50/50 assumption. No unreported2004-2006 experimental enterprise counts or2024+ values inferred. Source flags: none",
+      "series_id": "eurostat_belgium_legal:china",
+      "source_id": "fats_out_part_BE",
+      "status": "observed",
+      "value": 65,
+      "year": 2021
+    },
+    {
+      "comparability": "belgium:eurostat_belgium_preuci:2007",
+      "notes": "Belgian UCI attribution starts2009;2007/2008 pre-UCI legal units remain separate. Legal units through2021 and enterprise-level counts from2022 are not spliced. Keep2010 NACE,2014 non-resident activity classification,2016 declared window and2021 EBS/source boundaries. Country comparable-window paragraphs differ; no cross-unit2019 growth. Current metadata reports a thresholded FDI reporting-unit frame: EUR30m equity, EUR75m balance-sheet total or EUR15m long-term investments, any criterion; these are not foreign-affiliate size cutoffs or verified unchanged historical thresholds. Control concept says more than half while the FDI screening frame says at least half; no extra50/50 assumption. No unreported2004-2006 experimental enterprise counts or2024+ values inferred. Source flags: none",
+      "series_id": "eurostat_belgium_preuci:china",
+      "source_id": "fats_out2_BE",
+      "status": "observed",
+      "value": 63,
+      "year": 2007
+    },
+    {
+      "comparability": "belgium:eurostat_belgium_preuci:2007",
+      "notes": "Belgian UCI attribution starts2009;2007/2008 pre-UCI legal units remain separate. Legal units through2021 and enterprise-level counts from2022 are not spliced. Keep2010 NACE,2014 non-resident activity classification,2016 declared window and2021 EBS/source boundaries. Country comparable-window paragraphs differ; no cross-unit2019 growth. Current metadata reports a thresholded FDI reporting-unit frame: EUR30m equity, EUR75m balance-sheet total or EUR15m long-term investments, any criterion; these are not foreign-affiliate size cutoffs or verified unchanged historical thresholds. Control concept says more than half while the FDI screening frame says at least half; no extra50/50 assumption. No unreported2004-2006 experimental enterprise counts or2024+ values inferred. Source flags: none",
+      "series_id": "eurostat_belgium_preuci:china",
+      "source_id": "fats_out2_BE",
+      "status": "observed",
+      "value": 68,
+      "year": 2008
     },
     {
       "comparability": "fats_out2:FI:0",
@@ -2884,6 +3052,33 @@
       "scope": "Austria-resident UCI; China except Hong Kong; market producers in the selected NACE sectors; NACE C-O except L before 2010, B-S except O thereafter; legal units",
       "unit": "legal units"
     },
+    "eurostat_belgium:china": {
+      "cadence": "annual",
+      "label": "Belgium (enterprise definition)",
+      "measure": "controlled_enterprises",
+      "notes": "Belgian UCI attribution starts2009;2007/2008 pre-UCI legal units remain separate. Legal units through2021 and enterprise-level counts from2022 are not spliced. Keep2010 NACE,2014 non-resident activity classification,2016 declared window and2021 EBS/source boundaries. Country comparable-window paragraphs differ; no cross-unit2019 growth. Current metadata reports a thresholded FDI reporting-unit frame: EUR30m equity, EUR75m balance-sheet total or EUR15m long-term investments, any criterion; these are not foreign-affiliate size cutoffs or verified unchanged historical thresholds. Control concept says more than half while the FDI screening frame says at least half; no extra50/50 assumption. No unreported2004-2006 experimental enterprise counts or2024+ values inferred. Current supplement starts2022.",
+      "period_basis": "reference year",
+      "scope": "Belgium-resident UCI; China except Hong Kong; thresholded FDI reporting-unit frame; NACE B-S except O; enterprise unit from2022",
+      "unit": "enterprises"
+    },
+    "eurostat_belgium_legal:china": {
+      "cadence": "annual",
+      "label": "Belgium, historical UCI legal units",
+      "measure": "controlled_legal_units",
+      "notes": "Belgian UCI attribution starts2009;2007/2008 pre-UCI legal units remain separate. Legal units through2021 and enterprise-level counts from2022 are not spliced. Keep2010 NACE,2014 non-resident activity classification,2016 declared window and2021 EBS/source boundaries. Country comparable-window paragraphs differ; no cross-unit2019 growth. Current metadata reports a thresholded FDI reporting-unit frame: EUR30m equity, EUR75m balance-sheet total or EUR15m long-term investments, any criterion; these are not foreign-affiliate size cutoffs or verified unchanged historical thresholds. Control concept says more than half while the FDI screening frame says at least half; no extra50/50 assumption. No unreported2004-2006 experimental enterprise counts or2024+ values inferred. Historical legal units are download-only.",
+      "period_basis": "reference year",
+      "scope": "Belgium-resident UCI; China except Hong Kong; thresholded FDI reporting-unit frame; NACE C-O except L, then B-S except O",
+      "unit": "legal units"
+    },
+    "eurostat_belgium_preuci:china": {
+      "cadence": "annual",
+      "label": "Belgium, pre-UCI legal units",
+      "measure": "controlled_legal_units",
+      "notes": "Belgian UCI attribution starts2009;2007/2008 pre-UCI legal units remain separate. Legal units through2021 and enterprise-level counts from2022 are not spliced. Keep2010 NACE,2014 non-resident activity classification,2016 declared window and2021 EBS/source boundaries. Country comparable-window paragraphs differ; no cross-unit2019 growth. Current metadata reports a thresholded FDI reporting-unit frame: EUR30m equity, EUR75m balance-sheet total or EUR15m long-term investments, any criterion; these are not foreign-affiliate size cutoffs or verified unchanged historical thresholds. Control concept says more than half while the FDI screening frame says at least half; no extra50/50 assumption. No unreported2004-2006 experimental enterprise counts or2024+ values inferred. Pre-UCI observations are download-only.",
+      "period_basis": "reference year",
+      "scope": "Belgian reporting units; pre-UCI attribution; China except Hong Kong; thresholded FDI reporting-unit frame; NACE C-O except L",
+      "unit": "legal units"
+    },
     "eurostat_finland:china": {
       "cadence": "annual",
       "label": "Finland (Eurostat)",
@@ -3573,6 +3768,26 @@
       "notes": "Austria changes the statistical unit in 2021: legal units through 2020, enterprises from 2021. Foreign legal-unit data remain an imperfect enterprise proxy; the official metadata retains limited comparability. Preserve the 2010 NACE boundary. Older legal units are not joined to the short current enterprise series. Broader national resident-parent counts and the separate national 2024 control snapshot are not substituted; no pre-2007 or 2019-baseline inference. Original country-specific metadata and source flags are retained.",
       "vintage": "fats_out2; Austria; source updated 2024-04-25T11:00:00+0200"
     },
+    "fats_out2_BE": {
+      "assets": [
+        {
+          "request_url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out2?lang=EN&freq=A&geo=BE&partner=CN_X_HK&indic_bp=ENT&nace_r1=C-O_X_L",
+          "retrieved_at": "2026-10-25T08:02:33+00:00",
+          "sha256": "7501987b30e8d96d7fe29f70481ac0c8506724b9dffebb5ae4ddff4c5182de1e",
+          "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out2?lang=EN&freq=A&geo=BE&partner=CN_X_HK&indic_bp=ENT&nace_r1=C-O_X_L"
+        },
+        {
+          "request_url": "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_be.htm",
+          "retrieved_at": "2026-10-25T08:02:38+00:00",
+          "sha256": "136f5a5de82e1124934905719b29029e54c18088bde8c360f398db6159a620b7",
+          "url": "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_be.htm"
+        }
+      ],
+      "locator": "geo=BE; partner=CN_X_HK; indic_bp=ENT; nace_r1=C-O_X_L",
+      "name": "Eurostat / National Bank of Belgium",
+      "notes": "Belgian UCI attribution starts2009;2007/2008 pre-UCI legal units remain separate. Legal units through2021 and enterprise-level counts from2022 are not spliced. Keep2010 NACE,2014 non-resident activity classification,2016 declared window and2021 EBS/source boundaries. Country comparable-window paragraphs differ; no cross-unit2019 growth. Current metadata reports a thresholded FDI reporting-unit frame: EUR30m equity, EUR75m balance-sheet total or EUR15m long-term investments, any criterion; these are not foreign-affiliate size cutoffs or verified unchanged historical thresholds. Control concept says more than half while the FDI screening frame says at least half; no extra50/50 assumption. No unreported2004-2006 experimental enterprise counts or2024+ values inferred.",
+      "vintage": "fats_out2; Belgium; source updated 2024-04-25T11:00:00+0200"
+    },
     "fats_out2_ES": {
       "assets": [
         {
@@ -3762,6 +3977,26 @@
       "name": "Eurostat / Statistics Austria",
       "notes": "Austria changes the statistical unit in 2021: legal units through 2020, enterprises from 2021. Foreign legal-unit data remain an imperfect enterprise proxy; the official metadata retains limited comparability. Preserve the 2010 NACE boundary. Older legal units are not joined to the short current enterprise series. Broader national resident-parent counts and the separate national 2024 control snapshot are not substituted; no pre-2007 or 2019-baseline inference. Original country-specific metadata and source flags are retained.",
       "vintage": "fats_out2_r2; Austria; source updated 2024-04-25T11:00:00+0200"
+    },
+    "fats_out2_r2_BE": {
+      "assets": [
+        {
+          "request_url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out2_r2?lang=EN&freq=A&geo=BE&partner=CN_X_HK&indic_bp=ENT&nace_r2=B-S_X_O",
+          "retrieved_at": "2026-10-25T08:02:34+00:00",
+          "sha256": "ac8f006d57b5a6b3e37a88e97af522360cc26a6ae6dcde18902bb22f830e39b7",
+          "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out2_r2?lang=EN&freq=A&geo=BE&partner=CN_X_HK&indic_bp=ENT&nace_r2=B-S_X_O"
+        },
+        {
+          "request_url": "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_be.htm",
+          "retrieved_at": "2026-10-25T08:02:38+00:00",
+          "sha256": "136f5a5de82e1124934905719b29029e54c18088bde8c360f398db6159a620b7",
+          "url": "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_be.htm"
+        }
+      ],
+      "locator": "geo=BE; partner=CN_X_HK; indic_bp=ENT; nace_r2=B-S_X_O",
+      "name": "Eurostat / National Bank of Belgium",
+      "notes": "Belgian UCI attribution starts2009;2007/2008 pre-UCI legal units remain separate. Legal units through2021 and enterprise-level counts from2022 are not spliced. Keep2010 NACE,2014 non-resident activity classification,2016 declared window and2021 EBS/source boundaries. Country comparable-window paragraphs differ; no cross-unit2019 growth. Current metadata reports a thresholded FDI reporting-unit frame: EUR30m equity, EUR75m balance-sheet total or EUR15m long-term investments, any criterion; these are not foreign-affiliate size cutoffs or verified unchanged historical thresholds. Control concept says more than half while the FDI screening frame says at least half; no extra50/50 assumption. No unreported2004-2006 experimental enterprise counts or2024+ values inferred.",
+      "vintage": "fats_out2_r2; Belgium; source updated 2024-04-25T11:00:00+0200"
     },
     "fats_out2_r2_DE": {
       "assets": [
@@ -3980,6 +4215,26 @@
       "name": "Eurostat / Statistics Austria",
       "notes": "Austria changes the statistical unit in 2021: legal units through 2020, enterprises from 2021. Foreign legal-unit data remain an imperfect enterprise proxy; the official metadata retains limited comparability. Preserve the 2010 NACE boundary. Older legal units are not joined to the short current enterprise series. Broader national resident-parent counts and the separate national 2024 control snapshot are not substituted; no pre-2007 or 2019-baseline inference. Original country-specific metadata and source flags are retained.",
       "vintage": "fats_out_part; Austria; source updated 2026-03-31T23:00:00+0200"
+    },
+    "fats_out_part_BE": {
+      "assets": [
+        {
+          "request_url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out_part?lang=EN&freq=A&geo=BE&partner=CN_X_HK&indic_sbs=ENT_NR&nace_r2=B-S_X_O",
+          "retrieved_at": "2026-10-25T08:02:36+00:00",
+          "sha256": "ba61db1a0777cbae4ae0b1785c3e92f6f662eab21cc7007add68a6c15f370fab",
+          "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out_part?lang=EN&freq=A&geo=BE&partner=CN_X_HK&indic_sbs=ENT_NR&nace_r2=B-S_X_O"
+        },
+        {
+          "request_url": "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_be.htm",
+          "retrieved_at": "2026-10-25T08:02:38+00:00",
+          "sha256": "136f5a5de82e1124934905719b29029e54c18088bde8c360f398db6159a620b7",
+          "url": "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_be.htm"
+        }
+      ],
+      "locator": "geo=BE; partner=CN_X_HK; indic_sbs=ENT_NR; nace_r2=B-S_X_O",
+      "name": "Eurostat / National Bank of Belgium",
+      "notes": "Belgian UCI attribution starts2009;2007/2008 pre-UCI legal units remain separate. Legal units through2021 and enterprise-level counts from2022 are not spliced. Keep2010 NACE,2014 non-resident activity classification,2016 declared window and2021 EBS/source boundaries. Country comparable-window paragraphs differ; no cross-unit2019 growth. Current metadata reports a thresholded FDI reporting-unit frame: EUR30m equity, EUR75m balance-sheet total or EUR15m long-term investments, any criterion; these are not foreign-affiliate size cutoffs or verified unchanged historical thresholds. Control concept says more than half while the FDI screening frame says at least half; no extra50/50 assumption. No unreported2004-2006 experimental enterprise counts or2024+ values inferred.",
+      "vintage": "fats_out_part; Belgium; source updated 2026-03-31T23:00:00+0200"
     },
     "fats_out_part_DE": {
       "assets": [
