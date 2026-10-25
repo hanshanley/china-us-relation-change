@@ -32,7 +32,8 @@ COLORS = {"bea_affiliates:china": PARTNER_COLORS["CHN"], "bea_parents:china": PA
           "eurostat_portugal:china": "#8D756D", "eurostat_portugal_pre_uci:china": "#8D756D",
           "eurostat_czechia:china": "#73838A",
           "eurostat_belgium:china": "#7B7F60", "eurostat_belgium_legal:china": "#7B7F60",
-          "eurostat_belgium_preuci:china": "#7B7F60"}
+          "eurostat_belgium_preuci:china": "#7B7F60",
+          "ine_spain:china": "#8B7656", "ine_spain_units:china": "#8B7656"}
 ORIGINS = {"bea_affiliates:china": "us", "bea_parents:china": "us",
            "eurostat_affiliates:china": "eu", "eurostat_historical_eu:china": "eu",
            "eurostat_uk:china": "uk", "eurostat_norway:china": "norway", "ssb_norway:china": "norway",
@@ -48,7 +49,8 @@ ORIGINS = {"bea_affiliates:china": "us", "bea_parents:china": "us",
            "eurostat_portugal:china": "portugal", "eurostat_portugal_pre_uci:china": "portugal",
            "eurostat_czechia:china": "czechia",
            "eurostat_belgium:china": "belgium", "eurostat_belgium_legal:china": "belgium",
-           "eurostat_belgium_preuci:china": "belgium"}
+           "eurostat_belgium_preuci:china": "belgium",
+           "ine_spain:china": "spain", "ine_spain_units:china": "spain"}
 CHARTS = {
     "us-affiliates-china": {
         "title": "U.S.-parent affiliates in China",
@@ -199,6 +201,7 @@ def validate_business_data(data):
     if set(data) != {"version", "series", "observations", "sources", "coverage", "context"} or data["version"] != 1:
         raise ValueError("Invalid business-presence schema")
     units = {sid: "U.S. parents" if sid.startswith("bea_parents") else "affiliates" if sid.startswith("bea_affiliates")
+             else "affiliate units" if sid == "ine_spain_units:china"
              else "legal units" if sid in {"eurostat_italy_legal:china", "eurostat_austria_legal:china",
                                           "eurostat_belgium_legal:china", "eurostat_belgium_preuci:china"}
              else "enterprises" for sid in COLORS}
@@ -209,12 +212,12 @@ def validate_business_data(data):
             raise ValueError("Invalid business series identity")
         if not all(isinstance(v, str) and v for v in definition.values()) or definition["unit"] != units[sid]:
             raise ValueError("Business counting units and populations must remain explicit")
-        controlled_measure = ("historical_affiliates" if sid == "eurostat_portugal_pre_uci:china"
+        controlled_measure = ("historical_affiliates" if sid in {"eurostat_portugal_pre_uci:china", "ine_spain_units:china"}
                               else "controlled_legal_units" if sid in {
             "eurostat_italy_legal:china", "eurostat_austria_legal:china",
             "eurostat_belgium_legal:china", "eurostat_belgium_preuci:china"} else "controlled_enterprises")
         expected = (controlled_measure, "annual", "reference year") if sid.startswith(
-            ("eurostat", "ssb_", "bundesbank_", "tillvaxtanalys_", "statfin_", "dst_")) else (
+            ("eurostat", "ssb_", "bundesbank_", "tillvaxtanalys_", "statfin_", "dst_", "ine_spain")) else (
             ("parent_companies", "benchmark", "fiscal ending year") if sid.startswith("bea_parents")
             else ("majority_owned_affiliates", "annual", "fiscal ending year"))
         if tuple(definition[k] for k in ("measure", "cadence", "period_basis")) != expected:
@@ -239,6 +242,11 @@ def validate_business_data(data):
         if sid == "eurostat_spain:china" and not all(
                 token in definition["scope"] for token in ("Spanish-resident UCI", "China except Hong Kong")):
             raise ValueError("Spanish control and host-country scope must remain explicit")
+        if sid.startswith("ine_spain") and not all(
+                token in definition["scope"] for token in (
+                    "Spanish-resident UCI", "nonfinancial", "national host label China",
+                    "CN_X_HK equivalence not established")):
+            raise ValueError("Spanish national control, sector and reported-host qualifications must remain explicit")
         if sid == "dst_denmark:china" and not all(
                 token in definition["scope"] for token in (
                     "Denmark-resident parents", "Hong Kong and Macao separately", "foreign ultimate owners")):
@@ -365,6 +373,15 @@ def validate_business_data(data):
             raise ValueError("Finnish country table source mismatch")
         if r["series_id"] == "dst_denmark:china" and r["source_id"] != "dst_ofats4":
             raise ValueError("Danish country table source mismatch")
+        if r["series_id"].startswith("ine_spain"):
+            limits = (2009, 2020) if r["series_id"] == "ine_spain_units:china" else (2021, 2024)
+            if not limits[0] <= r["year"] <= limits[1]:
+                raise ValueError("Spanish national affiliate-unit and enterprise populations must not be spliced")
+            if r["source_id"] != f"ine_spain_{r['year']}":
+                raise ValueError("Spanish national year/source mismatch")
+            cohort = "affiliate_units" if r["year"] < 2021 else "affiliate_enterprises"
+            if r["comparability"] != f"ine:spain:china:{cohort}":
+                raise ValueError("Spanish national consolidation boundary must remain explicit")
     if not all(data["context"].get(k) for k in ("question", "interpretation", "geography", "rights")):
         raise ValueError("Business interpretation and coverage caveats required")
     if any(set(c) != {"id", "status", "description"} for c in data["coverage"]):

@@ -5,6 +5,7 @@ import json
 import math
 import re
 import zipfile
+from decimal import Decimal, InvalidOperation
 from pathlib import PurePosixPath
 from urllib.parse import urljoin, urlsplit
 
@@ -14,6 +15,7 @@ from openpyxl import load_workbook
 from openpyxl.utils.datetime import from_excel
 
 from .language_sources import pdf_text, row, series, source
+from .model import digest
 
 
 BEA_CURRENT = "https://www.bea.gov/sites/default/files/2025-08/selected-mofas-cntry.xls"
@@ -64,6 +66,43 @@ PORTUGAL_EUROSTAT_METHODS = "https://ec.europa.eu/eurostat/cache/metadata/EN/fat
 CZECHIA_EUROSTAT_METHODS = "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_cz.htm"
 BELGIUM_EUROSTAT_METHODS = "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_be.htm"
 SPAIN_EUROSTAT_METHODS = "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_es.htm"
+SPAIN_NATIONAL_METHODS = (
+    "https://ine.es/dynt3/metadatos/es/RespuestaDatos.html?oe=30082",
+    "15f743bec898d077ea408f185ac93ebc61eb69d51f9e6d3aed59d12f2d7cb9f7")
+SPAIN_NATIONAL_TABLES = {
+    2009: ("https://www.ine.es/jaxi/files/_px/es/px/t37/p082/a2009/l0/01001.px?nocab=1",
+           "a0e9290e4a3c28ea5884e91070a2a0cd10397c278418d7b6a29ec2f7be9309b6"),
+    2010: ("https://www.ine.es/jaxi/files/_px/es/px/t37/p082/a2010/l0/01001.px?nocab=1",
+           "b7b46452c11178fa4f72a4089947d3dcc0596e211832eba1629d2cee26cacb48"),
+    2011: ("https://www.ine.es/jaxi/files/_px/es/px/t37/p082/a2011/l0/01001.px?nocab=1",
+           "7cbdb9c4b5855aad6b1476d154275e6515d6209cbda74d7d39e2a0a92cb920a4"),
+    2012: ("https://www.ine.es/jaxi/files/_px/es/px/t37/p082/a2012/l0/01001.px?nocab=1",
+           "7faffdd05406fbdd1c7488dca886f28eed7fe216c6dfaea707a8654ba346dd24"),
+    2013: ("https://www.ine.es/jaxi/files/_px/es/px/t37/p082/a2013/l0/01001.px?nocab=1",
+           "5ae8d2a24a81213ea9cc2eb3a21c4f2e607745f92a8c8613b5c582bfa8e1d889"),
+    2014: ("https://www.ine.es/jaxi/files/_px/es/px/t37/p082/a2014/l0/01001.px?nocab=1",
+           "3521789d8545b7175dc8c45737e1e2fa06f73d2b92a0c72ce3c14641822f30e7"),
+    2015: ("https://www.ine.es/jaxi/files/_px/es/px/t37/p082/a2015/l0/01001.px?nocab=1",
+           "f5b8f7869ad39657525e5421b4d9af2ad37b6fd954638965ff0da8cea5cb3a75"),
+    2016: ("https://www.ine.es/jaxi/files/_px/es/px/t37/p082/a2016/l0/01001.px?nocab=1",
+           "29bb36ed8e14a2dad708ba9ee5eee6f5bf47ea645e2951519a06f2bfe1fbeb6f"),
+    2017: ("https://www.ine.es/jaxi/files/tpx/es/px/32443.px",
+           "4ea874cbc55f0d36296ad5dd332259b20292dd3e345b53e35ba8b48e0fe6a7b0"),
+    2018: ("https://www.ine.es/jaxi/files/tpx/es/px/37615.px",
+           "6df8a21b030102334430a057b87fe977e048d1a8eb7b60eb6f5b83e7c1dba9e4"),
+    2019: ("https://www.ine.es/jaxi/files/tpx/es/px/49673.px",
+           "c43ef1f0a8461d460c831776b2d970b039dfb6f32c8e647b1cd0c18361801038"),
+    2020: ("https://www.ine.es/jaxi/files/tpx/es/px/53896.px",
+           "67673a7ddfb1c570dc0fc7b207c83ee6071cee7f2fce5d6709f7193dc3a243d9"),
+    2021: ("https://www.ine.es/jaxi/files/tpx/es/px/60087.px",
+           "861bf59c88b60cd140c98a2cf0aff516c51f9262991b1d584a65b4cce1c0cf69"),
+    2022: ("https://www.ine.es/jaxi/files/tpx/es/px/70642.px",
+           "659ab9cbe325cedb63efb202f94765c685b4dde4eacadbba993324a601b281da"),
+    2023: ("https://ine.es/jaxi/files/tpx/es/px/76249.px",
+           "1076ae8d626b623a215c5fa1e6733a2d86e1ef3266bf876d93a73e6e6336f9df"),
+    2024: ("https://www.ine.es/jaxi/files/_px/es/px/tpx/Economia_3708/Empresas_3767/FILEXT_2024_14008/l0/01001.px",
+           "7425ff17c9cd210fd24f4e90acf05f66feebb2480c57e6396d53814c96cf0d39"),
+}
 DENMARK_METADATA = "https://api.statbank.dk/v1/tableinfo"
 DENMARK_DATA = "https://api.statbank.dk/v1/data"
 DENMARK_METHODS = (
@@ -289,6 +328,95 @@ def spanish_affiliates(client):
         observations.extend(
             row(sid, year, value, source_id, status, notes + " Source flags: " + flag, comparability)
             for year, value, status, flag, comparability in points)
+    return definitions, observations, sources
+
+
+def parse_spanish_national(content, year):
+    import csv
+
+    if isinstance(year, bool) or not isinstance(year, int) or year not in SPAIN_NATIONAL_TABLES:
+        raise ValueError("Unreviewed Spanish national reference year")
+    if not re.search(rb'(?m)^CODEPAGE="iso-8859-15";', content):
+        raise ValueError("Spanish national table codepage changed")
+    text = content.decode("iso-8859-15")
+
+    def field(pattern):
+        matches = re.findall(pattern, text, re.S | re.M)
+        if len(matches) != 1:
+            raise ValueError("Spanish national table structure changed")
+        return matches[0]
+
+    if (field(r'^SOURCE="([^"]+)";') != "Instituto Nacional de Estad\u00edstica"
+            or field(r'^MATRIX="([^"]+)";') != "01001"
+            or field(r'^STUB="([^"]+)";') != "Pa\u00eds"
+            or field(r'^HEADING="([^"]+)";') != "Principales variables"):
+        raise ValueError("Spanish national country or table identity changed")
+    countries = next(csv.reader(io.StringIO(field(r'^VALUES\("Pa\u00eds"\)=(.*?);').replace("\n", "").replace("\r", "")),
+                                skipinitialspace=True), [])
+    variables = next(csv.reader(io.StringIO(field(r'^VALUES\("Principales variables"\)=(.*?);').replace("\n", "").replace("\r", "")),
+                                skipinitialspace=True), [])
+    expected = ["N\u00famero de filiales", "Personas ocupadas", "Volumen de negocio"] if year < 2021 else [
+        "N\u00famero de filiales", "Personas ocupadas", "Cifra de negocios",
+        "Costes de personal", "Inversi\u00f3n material bruta"]
+    if variables != expected or len(countries) != len(set(countries)) or not {"China", "TOTAL"} <= set(countries):
+        raise ValueError("Spanish national country, measure or unit regime changed")
+    tokens = field(r'^DATA=(.*?);').split()
+    if len(tokens) != len(countries) * len(variables):
+        raise ValueError("Spanish national table cells incomplete")
+    try:
+        values = [Decimal(token) for token in tokens]
+    except InvalidOperation as exc:
+        raise ValueError("Spanish national count or source missingness changed") from exc
+    if any(not value.is_finite() for value in values):
+        raise ValueError("Spanish national table contains nonfinite values")
+    counts = values[::len(variables)]
+    if any(value < 0 or value != value.to_integral_value() for value in counts):
+        raise ValueError("Spanish national affiliates must be nonnegative integer counts")
+    return int(counts[countries.index("China")])
+
+
+def spanish_national_affiliates(client):
+    method_url, method_hash = SPAIN_NATIONAL_METHODS
+    method_body, method_asset = client.get(method_url)
+    if digest(method_body) != method_hash or method_asset["sha256"] != method_hash:
+        raise ValueError("Reviewed Spanish national methodology changed")
+    scope = ("Spanish-resident UCI; nonfinancial market affiliates and branches; "
+             "national host label China; CN_X_HK equivalence not established")
+    notes = (
+        "INE national nonfinancial population, not Eurostat's financial/nonfinancial aggregate or unique "
+        "Spanish parents. Sections 3.1/3.5 describe consolidation of affiliate units into statistical "
+        "enterprises from 2021; section 15.2 also claims temporal continuity. Both statements are retained "
+        "without assuming retrospective harmonization or a comparable current 2019 denominator. "
+        "The national host label China is not silently relabelled China except Hong Kong. "
+        "Reference 2009 was first published in 2011; no pre-2009 or 2025+ count inferred. "
+        "Reported numbers do not establish census coverage or final revision status.")
+    definitions = {
+        "ine_spain_units:china": series(
+            "Spain, INE pre-2021 affiliate units", "historical_affiliates", "affiliate units",
+            scope, "annual", "reference year",
+            "Download-only 2009-2020 affiliate units; not a splice into 2021+ enterprises. " + notes),
+        "ine_spain:china": series(
+            "Spain, INE nonfinancial enterprises", "controlled_enterprises", "enterprises",
+            scope, "annual", "reference year",
+            "Download-only 2021-2024 consolidated affiliate enterprises; earlier units remain separate. " + notes),
+    }
+    observations, sources = [], {}
+    for year, (url, checksum) in SPAIN_NATIONAL_TABLES.items():
+        body, asset = client.get(url)
+        # These tables lack an internal reference year; the reviewed body binds each year to its catalogue entry.
+        if digest(body) != checksum or asset["sha256"] != checksum:
+            raise ValueError(f"Reviewed Spanish national {year} table changed")
+        value = parse_spanish_national(body, year)
+        source_id = f"ine_spain_{year}"
+        cohort = "affiliate_units" if year < 2021 else "affiliate_enterprises"
+        sid = "ine_spain_units:china" if year < 2021 else "ine_spain:china"
+        sources[source_id] = source(
+            "Instituto Nacional de Estadistica", f"National FILEXT country table; reference {year}",
+            [asset, method_asset],
+            f"Country China; Numero de filiales; original catalogue reference {year}, not Pc-Axis creation date; "
+            "methodology 3.1/3.3/3.5/15.2", notes)
+        observations.append(row(sid, year, value, source_id, notes=notes,
+                                comparability=f"ine:spain:china:{cohort}"))
     return definitions, observations, sources
 
 
@@ -1192,6 +1320,10 @@ def collect_business(client):
     definitions.update(spain_definitions)
     observations.extend(spain_observations)
     sources.update(spain_sources)
+    national_spain_definitions, national_spain_observations, national_spain_sources = spanish_national_affiliates(client)
+    definitions.update(national_spain_definitions)
+    observations.extend(national_spain_observations)
+    sources.update(national_spain_sources)
     denmark_definitions, denmark_observations, denmark_sources = danish_affiliates(client)
     definitions.update(denmark_definitions)
     observations.extend(denmark_observations)
@@ -1225,7 +1357,7 @@ def collect_business(client):
                          "description": "Verified values: " + ", ".join(actual) +
                          (". Confidential: " + ", ".join(confidential) if confidential else "") +
                          ". All series concern businesses in China; definitions and gaps are retained."})
-    return {
+    data = {
         "version": 1, "series": definitions,
         "observations": sorted(observations, key=lambda r: (r["series_id"], r["year"])),
         "sources": sources,
@@ -1238,6 +1370,10 @@ def collect_business(client):
             "release_timing": "As checked October 22, 2026, BEA's latest activity release covers 2023. The published schedule puts the 2024 activity release on November 20, 2026; no 2024 value is inferred.",
         },
     }
+    data["context"]["geography"] += (
+        " INE national nonfinancial counts retain the reported host label China and separate "
+        "pre2021 affiliate units from consolidated enterprises; neither regime is a Eurostat extension.")
+    return data
 
 
 def parse_cbs_netherlands(body):

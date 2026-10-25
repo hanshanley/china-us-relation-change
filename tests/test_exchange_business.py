@@ -59,9 +59,132 @@ def test_distinct_parent_and_affiliate_checkpoints_remain_different_units():
     assert len([r for r in rows.values() if not r["series_id"].startswith(
         ("tillvaxtanalys_", "statfin_", "eurostat_france:", "eurostat_netherlands:", "eurostat_finland:",
          "eurostat_italy", "eurostat_sweden:", "eurostat_spain:", "dst_denmark:", "eurostat_austria", "eurostat_poland:",
-         "eurostat_portugal", "eurostat_czechia:", "eurostat_belgium"))]) == 116
+         "eurostat_portugal", "eurostat_czechia:", "eurostat_belgium", "ine_spain"))]) == 116
     assert rows[("ssb_norway:china", 2023)]["value"] == 89
     assert rows[("ssb_norway:china", 2024)]["value"] == 80
+
+
+def spanish_national_px(year, count=134):
+    variables = ["N\u00famero de filiales", "Personas ocupadas", "Volumen de negocio"] if year < 2021 else [
+        "N\u00famero de filiales", "Personas ocupadas", "Cifra de negocios",
+        "Costes de personal", "Inversi\u00f3n material bruta"]
+    text = (
+        'CODEPAGE="iso-8859-15";\nSOURCE="Instituto Nacional de Estad\u00edstica";\n'
+        'MATRIX="01001";\nCREATION-DATE="20261025";\nSTUB="Pa\u00eds";\n'
+        'HEADING="Principales variables";\nVALUES("Pa\u00eds")="TOTAL","China";\n'
+        'VALUES("Principales variables")=' + ",".join(f'"{v}"' for v in variables) + ";\n"
+        'UNITS="cifras econ\u00f3micas en miles de euros";\nDATA=' +
+        " ".join(map(str, [5000, 90000, 800000, 70000, 60000][:len(variables)] +
+                     [count, 26841, 5057324, 493464, 670596][:len(variables)])) + ";\n")
+    return text.encode("iso-8859-15")
+
+
+def test_spanish_national_refresh_preserves_other_counts_and_separates_units(monkeypatch):
+    from us_china_exchange import business_sources
+
+    spec = importlib.util.spec_from_file_location("spanish_national_collector", ROOT / "scripts/build_business_data.py")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    tables = {year: (url, spanish_national_px(year, 55 if year == 2009 else year - 2000))
+              for year, (url, _) in business_sources.SPAIN_NATIONAL_TABLES.items()}
+    reviewed = {year: (url, hashlib.sha256(body).hexdigest()) for year, (url, body) in tables.items()}
+    method_url = business_sources.SPAIN_NATIONAL_METHODS[0]
+    methods = b"Reviewed national methodology fixture"
+    monkeypatch.setattr(business_sources, "SPAIN_NATIONAL_TABLES", reviewed)
+    monkeypatch.setattr(business_sources, "SPAIN_NATIONAL_METHODS", (method_url, hashlib.sha256(methods).hexdigest()))
+
+    class Client:
+        overrides = {}
+
+        def get(self, url):
+            bodies = {url: body for url, body in tables.values()}
+            bodies[method_url] = methods
+            body = self.overrides.get(url, bodies[url])
+            return body, {"url": url, "request_url": url, "sha256": hashlib.sha256(body).hexdigest(),
+                          "retrieved_at": "2026-10-25T00:00:00+00:00"}
+
+    prior = published()
+    prior["series"] = {k: v for k, v in prior["series"].items() if not k.startswith("ine_spain")}
+    prior["observations"] = [r for r in prior["observations"] if not r["series_id"].startswith("ine_spain")]
+    prior["sources"] = {k: v for k, v in prior["sources"].items() if not k.startswith("ine_spain_")}
+    prior["coverage"] = [r for r in prior["coverage"] if not r["id"].startswith("ine_spain")]
+    before = copy.deepcopy(prior)
+    updated = validate_business_data(module.collect_spain_national(Client(), prior))
+    assert prior == before
+    actual = {(r["series_id"], r["year"]): r for r in updated["observations"]}
+    assert all(actual[r["series_id"], r["year"]] == r for r in prior["observations"])
+    assert all(updated["series"][k] == v for k, v in prior["series"].items())
+    assert all(updated["sources"][k] == v for k, v in prior["sources"].items())
+    assert all(row in updated["coverage"] for row in prior["coverage"])
+    assert len(updated["observations"]) == len(prior["observations"]) + 16
+    assert [r["year"] for r in updated["observations"] if r["series_id"] == "ine_spain_units:china"] == list(range(2009, 2021))
+    assert [r["year"] for r in updated["observations"] if r["series_id"] == "ine_spain:china"] == list(range(2021, 2025))
+    assert actual["ine_spain_units:china", 2009]["value"] == 55
+    assert actual["ine_spain:china", 2024]["value"] == 24
+    assert updated["series"]["ine_spain_units:china"]["unit"] == "affiliate units"
+    assert updated["series"]["ine_spain:china"]["unit"] == "enterprises"
+    assert module.collect_spain_national(Client(), updated) == updated
+    assert all(chart_groups(updated, chart_id) == chart_groups(prior, chart_id) for chart_id in CHARTS)
+    for year in (2009, 2020, 2021, 2024):
+        sid = "ine_spain_units:china" if year < 2021 else "ine_spain:china"
+        point = actual[sid, year]
+        assert point["source_id"] == f"ine_spain_{year}"
+        assert point["comparability"] == "ine:spain:china:" + ("affiliate_units" if year < 2021 else "affiliate_enterprises")
+        assert "15.2 also claims temporal continuity" in point["notes"]
+        assert "without assuming retrospective harmonization" in point["notes"]
+        assert "CN_X_HK equivalence not established" in updated["series"][sid]["scope"]
+    for sid, year in (("ine_spain:china", 2019), ("ine_spain_units:china", 2021)):
+        invalid = copy.deepcopy(updated)
+        next(r for r in invalid["observations"] if r["series_id"] == sid)["year"] = year
+        with pytest.raises(ValueError, match="must not be spliced"):
+            validate_business_data(invalid)
+    for field, value in (("unit", "enterprises"), ("measure", "controlled_enterprises"),
+                         ("scope", "Spanish-resident UCI; China except Hong Kong")):
+        invalid = copy.deepcopy(updated)
+        invalid["series"]["ine_spain_units:china"][field] = value
+        with pytest.raises(ValueError):
+            validate_business_data(invalid)
+    for field, value in (("source_id", "fats_out_part_ES"), ("source_id", "ine_spain_2023"),
+                         ("comparability", "ine:spain:china:affiliate_units")):
+        invalid = copy.deepcopy(updated)
+        next(r for r in invalid["observations"] if r["series_id"] == "ine_spain:china" and r["year"] == 2024)[field] = value
+        with pytest.raises(ValueError):
+            validate_business_data(invalid)
+    for url, replacement in ((method_url, methods + b"changed"),
+                             (tables[2019][0], tables[2020][1]),
+                             (tables[2024][0], spanish_national_px(2024, 25))):
+        client = Client()
+        client.overrides = {url: replacement}
+        with pytest.raises(ValueError, match="changed"):
+            module.collect_spain_national(client, prior)
+
+
+def test_spanish_national_parser_rejects_wrong_identity_units_and_missingness():
+    from us_china_exchange.business_sources import parse_spanish_national
+
+    current = spanish_national_px(2024)
+    assert parse_spanish_national(current, 2024) == 134
+    assert parse_spanish_national(spanish_national_px(2009, 55), 2009) == 55
+    assert parse_spanish_national(spanish_national_px(2024, 0), 2024) == 0
+    for old, new in ((b'Instituto Nacional de Estad', b'Other publisher'),
+                     (b'MATRIX="01001"', b'MATRIX="02001"'),
+                     (b'STUB="Pa', b'STUB="Other'),
+                     (b'"China"', b'"Hong Kong"'),
+                     (b'"China"', b'"TOTAL"'),
+                     ("N\u00famero de filiales".encode("iso-8859-15"), b"Persons employed"),
+                     (b'134 26841', b': 26841'),
+                     (b'134 26841', b'NaN 26841'),
+                     (b'134 26841', b'1.5 26841'),
+                     (b'134 26841', b'-1 26841'),
+                     (b'134 26841', b'134'),
+                     (b'CODEPAGE="iso-8859-15"', b'CODEPAGE="utf-8"')):
+        with pytest.raises(ValueError):
+            parse_spanish_national(current.replace(old, new), 2024)
+    for year in (2008, 2025, 2009.0, True):
+        with pytest.raises(ValueError, match="reference year"):
+            parse_spanish_national(current, year)
+    with pytest.raises(ValueError, match="unit regime"):
+        parse_spanish_national(current, 2020)
 
 
 def test_italian_collection_preserves_other_countries_and_separates_statistical_units(monkeypatch):

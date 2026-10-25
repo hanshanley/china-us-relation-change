@@ -729,6 +729,16 @@ Earlier U.S., German and Norwegian count histories are explicitly labelled
 secondary references in a closed disclosure, not newly recovered current
 evidence. Stale EU/UK and parent-company benchmarks stay download-only.
 
+Complete downloads also retain sixteen INE national nonfinancial observations
+for2009-2024 as two source-specific definitions: twelve pre2021affiliate-unit
+counts and four2021+consolidated-enterprise counts. These are download-only,
+not a new current chart, an extension of the broader Eurostat population or
+a comparable2019denominator. Spanish-resident ultimate control and the literal
+national host label China remain explicit; CN_X_HK equivalence is unverified.
+The producer's generic continuity claim is retained alongside its explicit
+2021consolidation description, without inferring retrospective harmonization.
+No pre2009or2025+count is invented.
+
 | Measure | Verified history and definition |
 |---|---|
 | U.S.-parent affiliates in China | All 24 annual fiscal-year observations, 2000-2023. Affiliate entities, including holding companies, not distinct parents, branch offices or annual openings. Nonbank coverage before 2009; reporting thresholds and benchmarks create breaks. |
