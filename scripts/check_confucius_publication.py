@@ -54,6 +54,7 @@ def check_export(path, data):
         years = [int(n.text) for n in svg.select(".confucius-year")]
         assert years[0] == first and years[-1] == last
         assert svg.select_one(".confucius-count-tick").text == "0"
+    assert not svg.select(".covid-band,.covid-label"), (chart_id, "irrelevant travel annotation")
     assert not svg.select(".data-line,.screen-line")
     for mark in marks:
         row = expected[mark["data-observation-id"]]
@@ -104,6 +105,8 @@ def check_page(page, data, exhaustive=True):
             expect(chart).to_have_class(re.compile("js-ready"))
             marks = chart.locator(".confucius-hit")
             assert marks.count() == len(expected)
+            assert chart.locator(".covid-band,.covid-label").count() == 0, (
+                chart_id, "irrelevant travel annotation")
             for mark in marks.all():
                 row = expected[mark.get_attribute("data-observation-id")]
                 assert mark.get_attribute("data-value") == ("" if row["value"] is None else str(row["value"]))
@@ -199,8 +202,12 @@ def check_page(page, data, exhaustive=True):
     chart = directory.locator(".confucius-chart")
     expect(chart).to_have_class(re.compile("js-ready"))
     assert chart.locator(".confucius-hit").count() == 2
+    assert chart.locator(".covid-band").count() == 0
     assert directory.locator("[data-directory-id]").count() == len([
         r for r in data["records"] if r["source_id"] == "cief_directory"])
+    assert directory.locator("thead th").all_text_contents() == ["Listed program", "Source label"]
+    assert directory.locator("[data-directory-id]").evaluate_all(
+        "rows=>rows.every(row=>row.querySelectorAll('th,td').length===2)")
     directory.evaluate("node=>node.open=false")
     if page.locator("#module-chart").count():
         page.select_option("#module-chart", "confucius-institutes")
@@ -226,34 +233,45 @@ def check(site, url=None, screenshots=None):
     url = url or (site.resolve() / "confucius.html").as_uri()
     current = (site / "publication-manifest.json").is_file() and "chart_freshness" in json.loads(
         (site / "publication-manifest.json").read_text())
+    if screenshots:
+        screenshots.mkdir(parents=True, exist_ok=True)
     if current:
+        charts = {"confucius-institutes", "confucius-campus", "confucius-successors", "confucius-directory"}
         with sync_playwright() as playwright:
             browser = playwright.chromium.launch()
             for width in (1360, 390, 320):
                 page = browser.new_page(viewport={"width": width, "height": 1000})
+                errors = []
+                page.on("pageerror", lambda exc: errors.append(str(exc)))
                 page.goto(url)
-                assert page.locator("#module-chart").count() == 0
-                assert page.locator(".confucius-chart").count() == 1
+                page.evaluate("document.fonts.ready")
+                if page.locator("#module-chart").count():
+                    assert page.locator("#module-chart").input_value() == "confucius-institutes"
+                assert set(page.locator(".confucius-chart").evaluate_all(
+                    "nodes=>nodes.map(node=>node.dataset.confuciusChart)")) == charts
+                assert not page.locator(".confucius-directory").evaluate("node=>node.open")
+                assert page.locator("main > .series-panel").first.get_attribute("id") == "confucius-institutes"
                 check_page(page, data)
+                assert not errors, errors
+                if screenshots:
+                    page.screenshot(path=str(screenshots / f"confucius-history-{width}.png"), full_page=True)
                 page.close()
             touch = browser.new_context(has_touch=True, is_mobile=True, viewport={"width": 390, "height": 844})
             page = touch.new_page()
             page.goto(url)
             page.locator(".confucius-hit").first.tap()
-            expect(page.locator(".confucius-tooltip")).to_be_visible()
+            expect(page.locator(".confucius-tooltip:not([hidden])")).to_be_visible()
             touch.close()
             fallback = browser.new_context(java_script_enabled=False, viewport={"width": 390, "height": 844})
             page = fallback.new_page()
             page.goto(url)
-            expect(page.locator(".confucius-chart")).to_be_visible()
-            assert page.locator(".confucius-plot-data").count() == 1
+            expect(page.locator('#confucius-institutes > .confucius-chart')).to_be_visible()
+            assert page.locator(".confucius-plot-data").count() == len(charts)
             assert not page.evaluate("document.documentElement.scrollWidth>innerWidth")
             fallback.close()
             browser.close()
-        print("Current directory, complete archival downloads, exact values, keyboard, touch and no-JS checks passed.")
+        print("Public histories, two-column directory, complete downloads, exact values, keyboard, touch and no-JS checks passed.")
         return
-    if screenshots:
-        screenshots.mkdir(parents=True, exist_ok=True)
     with sync_playwright() as playwright:
         browser = playwright.chromium.launch()
         for width in (1360, 390, 320):

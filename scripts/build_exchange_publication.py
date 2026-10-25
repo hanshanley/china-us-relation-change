@@ -309,6 +309,11 @@ def decorate(site, name, labels, revision):
         program_data = json.loads((site / "downloads/confucius-programs.json").read_text())
         snapshot = next(r["reference"] for r in program_data["observations"] if r["id"] == "cief_institutes")
         scope = f"Operator directory retrieved {snapshot} · Listings are not an operating census"
+        timelines = soup.select('svg[data-confucius-chart][data-chart-layout="timeline"]')
+        if timelines:
+            first = min(int(chart["data-first-year"]) for chart in timelines)
+            last = max(int(chart["data-last-year"]) for chart in timelines)
+            scope = f"Reported histories: {first}–{last} · Directory retrieved {snapshot}; not an operating census"
         directory = soup.select_one("main > .confucius-directory")
         if directory and not soup.select("main > .series-panel .comparison-chart"):
             directory["open"] = ""
