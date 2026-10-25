@@ -23,6 +23,24 @@ PEW_CHINA_EARLY = "https://www.pewresearch.org/global/wp-content/uploads/sites/2
 PEW_CHINA_2005_METHODS = "https://www.pewresearch.org/wp-content/uploads/sites/2/pdf/249.pdf"
 BAS_HISTORY = "https://www.rsis.edu.sg/wp-content/uploads/rsis-pubs/WP50.pdf"
 C100_CHINA_2007 = "https://www.committee100.org/wp-content/uploads/2017/01/2007-C-100_EN_Survey.pdf"
+C100_AGE_2017 = "https://www.committee100.org/wp-content/uploads/2017/01/C100-Public-Opinion-Survey-2017.pdf"
+C100_AGE_2017_CHINESE = "https://www.committee100.org/wp-content/uploads/2017/01/C100-Public-Opinions-Survey-2017-Chinese.pdf"
+C100_AGE_BINS = ("General Population", "18-34", "35-49", "50+")
+C100_AGE_QUALIFICATION = (
+    "Literal source-reported Q1.2 age labels, not verified underlying coding or harmonized cohorts. "
+    "Question bins are18-34/35-49/50+; English U.S. profile instead prints18-34/35-54/55+ "
+    "and Chinese profile literally prints18-34/45-54/55+. No silent correction or rebinning. "
+    "Age and item denominators are unknown; hidden/unprinted not-sure values are not reconstructed.")
+C100_CHINA_DATE_CONFLICT = (
+    "Cross-year round ending in January2017, not a single-calendar-year survey. "
+    "English summary reports2016-12-06/2017-01-09; both country appendices report2016-12-12/2017-01-09; "
+    "Chinese overall table reports2016-12-06/2017-01-08; Chinese introduction gives a combined "
+    "2016-11-18/2016-12-23 window. No exact-day interval is selected; both canonical date fields "
+    "remain unknown. Full-wave n3696 is not an age or item base.")
+C100_AGE_SAMPLING = {
+    "c100_reported_age_2007": "Publisher-described national ages18-60; seven cities/seven towns/ten villages.",
+    "c100_reported_age_us": "U.S.18+; weighted landline/cell telephone.",
+    "c100_reported_age_china": "China18+;70PSUs;face-to-face;excludes Tibet/Xinjiang/Hong Kong/Macao/Taiwan."}
 PULSE_REPORT = "https://uscnpm.org/wp-content/uploads/2026/10/CHINA.PULSE_.Chinese.Public.Supports.Trade_.and_.Security.Cooperation.Still_.Sees_.the_.United.States.as_.a.Threat.pdf"
 PULSE_DATA = "https://datawrapper.dwcdn.net/LU2Fb/1/dataset.csv"
 REVIEWED_PATH = "data/reviewed/opinion-warmth.json"
@@ -264,6 +282,133 @@ def parse_pulse(body):
     return selected
 
 
+def parse_c100_age_panel(events, visible_text):
+    compact = re.sub(r"\s+", "", visible_text)
+    if any(phrase not in compact for phrase in (
+            "2017GENERALPUBLICAGEBREAKDOWN", "18-34", "35-49", "50+",
+            "HowwouldyoudescribeyourimpressionofChina?",
+            "HowwouldyoudescribeyourimpressionoftheU.S.?")):
+        raise ValueError("Changed C100 question, country or literal age bins")
+    selected = [event for event in events if 0 < event["x"] < 612 and 130 < event["y"] < 215]
+    if [len(event["values"]) for event in selected] != [2, 2, 2, 2, 4, 4]:
+        raise ValueError("Changed visible C100 age fragments or hidden responses")
+    bounds = ((160, 170, 140, 155), (245, 255, 140, 155),
+              (160, 170, 190, 205), (245, 255, 190, 205),
+              (350, 360, 140, 155), (350, 360, 190, 205))
+    for event, (xmin, xmax, ymin, ymax) in zip(selected, bounds):
+        if not xmin < event["x"] < xmax or not ymin < event["y"] < ymax:
+            raise ValueError("Changed C100 country/response geometry")
+    values = {
+        ("USA", "favorable"): selected[2]["values"] + selected[3]["values"],
+        ("USA", "unfavorable"): selected[0]["values"] + selected[1]["values"],
+        ("CHN", "favorable"): selected[5]["values"],
+        ("CHN", "unfavorable"): selected[4]["values"]}
+    if any(isinstance(value, bool) or not isinstance(value, int) or not 0 <= value <= 100
+           for numbers in values.values() for value in numbers):
+        raise ValueError("Invalid printed C100 percentage")
+    return [dict(country=country, response=response, age=age, value=value)
+            for (country, response), numbers in values.items()
+            for age, value in zip(C100_AGE_BINS, numbers)]
+
+
+def parse_c100_reported_ages(english_body, chinese_body, earlier_body):
+    expected = (
+        (english_body, "009e65debd1f52c20913a6b0f968ea5ba4ecf19a86dee4a24e46e6f7feb52879"),
+        (chinese_body, "f349e5026d8daaad39433abaa03b001ce0dea6ac7ab6cdc78b1aa3a11ae5e80c"),
+        (earlier_body, "361c7c5a53e3d95ba8d4872c2b331adde2b2977e0a39c712ea6512d049e249fd"))
+    if any(digest(body) != fingerprint for body, fingerprint in expected):
+        raise ValueError("C100 source edition changed; review reported bins and method conflicts")
+    reader = PdfReader(io.BytesIO(english_body))
+    page = reader.pages[15]
+    if list(map(float, page.mediabox)) != [0, 0, 612, 792]:
+        raise ValueError("Changed original C100 question panel")
+    events, fragments = [], []
+
+    def visit(text, cm, tm, font, size):
+        x = tm[4] * cm[0] + tm[5] * cm[2] + cm[4]
+        y = tm[4] * cm[1] + tm[5] * cm[3] + cm[5]
+        if 0 < x < 612 and 0 < y < 792:
+            fragments.append(text)
+        if re.fullmatch(r"(?:\d+\s*%\s*)+", normalize(text)):
+            events.append(dict(x=x, y=y, values=list(map(int, re.findall(r"(\d+)\s*%", text)))))
+
+    page.extract_text(visitor_text=visit)
+    points = parse_c100_age_panel(events, normalize(" ".join(fragments)))
+    summary, us, china = (normalize(reader.pages[index - 1].extract_text()) for index in (104, 104, 106))
+    if any(phrase not in text for text, phrases in (
+            (summary, ("December 6, 2016", "January 9, 2017")),
+            (us, ("November 18th and December 20th, 2016", "1,019 US respondents",
+                  "landline and cell phone", "Results were weighted")),
+            (china, ("December 12, 2016- January 9, 2017", "3696 Chinese adults aged 18+",
+                     "excluding Tibet, Xinjiang, Hong Kong, Macao and Taiwan", "effective PSUs is 70")))
+           for phrase in phrases):
+        raise ValueError("Changed C100 country-specific fieldwork or sampling frame")
+    chinese = PdfReader(io.BytesIO(chinese_body))
+    if (len(chinese.pages) != 59
+            or digest(chinese.pages[54].images[0].data) != "2b749debb1489535186237b623f78db59dda3f31c49f6cb95f18704cb4bad91a"
+            or digest(chinese.pages[54].images[1].data) != "6417ce273e11a8fd72b85520436753122092a18f5e3626de424c55c5b4197f59"):
+        raise ValueError("Changed Chinese original table/profile images require visual review")
+    earlier = normalize(PdfReader(io.BytesIO(earlier_body)).pages[14].extract_text(extraction_mode="layout"))
+    section = earlier.split("China:", 1)[1].split("Assessment of General Public", 1)[0]
+    match = re.search(r"Younger Chinese aged 18 to 29 years old \((\d+)%\) express more positive opinions of the U.S.", section)
+    if not match:
+        raise ValueError("Missing explicit2007age narrative; do not infer an age response")
+    return points + [dict(country="CHN", response="favorable", age="18-29", value=int(match[1]), earlier=True)]
+
+
+def collect_c100_reported_age_archive(client, data, earlier_body, earlier_asset):
+    english_body, english_asset = client.get(C100_AGE_2017)
+    chinese_body, chinese_asset = client.get(C100_AGE_2017_CHINESE)
+    points = parse_c100_reported_ages(english_body, chinese_body, earlier_body)
+    data["sources"]["c100_reported_age_2017"] = dict(
+        name="Committee of 100 / Brunswick Insights / Horizon Research, source-reported 2017 age panel",
+        published="2017", url=C100_AGE_2017, assets=[english_asset, chinese_asset],
+        locator="English PDF16 Q1.2; methods104-106. Chinese physicalPDF11/55/56, printed16/104-107.",
+        notes=C100_AGE_QUALIFICATION + " " + C100_CHINA_DATE_CONFLICT)
+    data["sources"]["c100_reported_age_2007"] = dict(
+        name="Committee of 100 / Horizon Research, explicit2007Chinese age narrative",
+        published="2007-12-10", url=C100_CHINA_2007, assets=[earlier_asset],
+        locator="PDF15/printed13 Q1China age narrative; methodsPDF62.",
+        notes="Only explicit18-29favorable response. Ages18-60 frame; seven cities/seven towns/ten villages. "
+              "Not a later18-34cohort, inferred complement or continuous national trend.")
+    data["surveys"]["c100_reported_age_us_2016"] = dict(
+        year=2016, period="Nov18-Dec20,2016 interviews (2017 report)",
+        field_start="2016-11-18", field_end="2016-12-20", n_total=1019, n_item=None,
+        notes="U.S.18+ weighted landline/cell telephone wave. Full-wave sample, not age/item denominators. " + C100_AGE_QUALIFICATION)
+    data["surveys"]["c100_reported_age_china_2017"] = dict(
+        year=2017, period="Dec2016-Jan2017 cross-year round (ending-year index; exact dates disputed)",
+        field_start=None, field_end=None, n_total=3696, n_item=None,
+        notes=C100_CHINA_DATE_CONFLICT + " " + C100_AGE_QUALIFICATION)
+    data["surveys"]["c100_reported_age_china_2007"] = dict(
+        year=2007, period="Aug18-Sep7,2007 Chinese age narrative",
+        field_start="2007-08-18", field_end="2007-09-07", n_total=4104, n_item=None,
+        notes="Chinese ages18-60 full-wave frame;18-29question subgroup/item base unknown. "
+              "Publisher-described national sample in seven cities/seven towns/ten villages.")
+    for point in points:
+        earlier = point.get("earlier", False)
+        country, age, response = point["country"], point["age"], point["response"]
+        prefix = "c100_reported_age_2007" if earlier else (
+            "c100_reported_age_us" if country == "USA" else "c100_reported_age_china")
+        sid = prefix + ":" + ("general_public" if age == "General Population" else age) + ":" + response
+        survey_id = "c100_reported_age_" + ("china_2007" if earlier else "us_2016" if country == "USA" else "china_2017")
+        source_id = "c100_reported_age_2007" if earlier else "c100_reported_age_2017"
+        data["series"][sid] = dict(
+            label=("General public" if age == "General Population" else age) + " (source-reported)",
+            respondent_country=country, target_country="CHN" if country == "USA" else "USA",
+            measure="favorability", unit="percent", age="18+" if age == "General Population" else age,
+            cadence="survey_rounds", sampling=C100_AGE_SAMPLING[prefix],
+            notes=("Explicit2007age narrative only;18-29is not the later18-34bin." if earlier else C100_AGE_QUALIFICATION))
+        survey = data["surveys"][survey_id]
+        data["observations"].append(dict(
+            series_id=sid, survey_id=survey_id, source_id=source_id,
+            year=survey["year"], period=survey["period"], value=point["value"], status="observed",
+            comparability=prefix + ":literal_unharmonized_question_bins",
+            notes=("Only explicit favorable response; no missing complement inferred." if earlier else
+                   "Visible Q1.2own impression of the other country, not a government or perception of others' views. "
+                   + C100_AGE_QUALIFICATION)))
+    return data
+
+
 def validate_opinion_data(data):
     if set(data) != {"version", "series", "surveys", "observations", "sources", "context"} or data["version"] != 1:
         raise ValueError("Invalid public-opinion schema")
@@ -277,7 +422,8 @@ def validate_opinion_data(data):
                 or s["measure"] not in UNITS or s["unit"] != UNITS[s["measure"]]):
             raise ValueError("Opinion directions, percentages and rating points must remain distinct")
         chinese = sid.startswith(("pulse:", "pulse_age:", "pew_china:", "pew_china_18_60:",
-                                  "bas_beijing:", "c100_china_18_60:"))
+                                  "bas_beijing:", "c100_china_18_60:", "c100_reported_age_china:",
+                                  "c100_reported_age_2007:"))
         warmth = sid.startswith(("pulse:", "pulse_age:", "pew_warmth:", "pew_warmth_age:", "bas_beijing:"))
         if s["respondent_country"] != ("CHN" if chinese else "USA") or s["measure"] != ("warmth" if warmth else "favorability"):
             raise ValueError("Opinion series cannot change its respondent population or question scale")
@@ -298,6 +444,18 @@ def validate_opinion_data(data):
             raise ValueError("C100 2007 requires its qualified national ages18-60 general-public frame")
         if not all(isinstance(s[k], str) and s[k] for k in s):
             raise ValueError("Opinion population and method required")
+        if sid.startswith("c100_reported_age_"):
+            family, age, response = sid.split(":")
+            expected_age = "18+" if age == "general_public" else age
+            earlier = family == "c100_reported_age_2007"
+            if (family not in {"c100_reported_age_us", "c100_reported_age_china", "c100_reported_age_2007"}
+                    or response not in {"favorable", "unfavorable"}
+                    or (earlier and (age != "18-29" or response != "favorable"))
+                    or (not earlier and age not in {"general_public", "18-34", "35-49", "50+"})
+                    or s["age"] != expected_age or "source-reported" not in s["label"]
+                    or s["sampling"] != C100_AGE_SAMPLING.get(family)
+                    or (not earlier and s["notes"] != C100_AGE_QUALIFICATION)):
+                raise ValueError("C100 source-reported question bins cannot be relabelled, harmonized or complemented")
     for survey_id, survey in data["surveys"].items():
         if set(survey) != {"year", "period", "field_start", "field_end", "n_total", "n_item", "notes"}:
             raise ValueError("Invalid survey identity")
@@ -353,6 +511,35 @@ def validate_opinion_data(data):
             raise ValueError("Opinion percentages and ratings must stay between 0 and 100")
         if not row["comparability"] or not isinstance(row["notes"], str):
             raise ValueError("Opinion comparability and notes required")
+        if row["series_id"].startswith("c100_reported_age_"):
+            family = row["series_id"].split(":")[0]
+            earlier = family == "c100_reported_age_2007"
+            us = family == "c100_reported_age_us"
+            expected_survey = "c100_reported_age_" + ("china_2007" if earlier else "us_2016" if us else "china_2017")
+            expected_source = "c100_reported_age_2007" if earlier else "c100_reported_age_2017"
+            source = data["sources"][row["source_id"]]
+            if (row["survey_id"] != expected_survey or row["source_id"] != expected_source
+                    or row["year"] != (2007 if earlier else 2016 if us else 2017)
+                    or row["comparability"] != family + ":literal_unharmonized_question_bins"
+                    or survey["n_total"] != (4104 if earlier else 1019 if us else 3696)
+                    or survey["n_item"] is not None or row["status"] != "observed"
+                    or source["published"] != ("2007-12-10" if earlier else "2017")
+                    or source["url"] != (C100_CHINA_2007 if earlier else C100_AGE_2017)):
+                raise ValueError("C100 reported age cells require their original country/wave/source and unknown item bases")
+            expected_assets = (
+                [(C100_CHINA_2007, "361c7c5a53e3d95ba8d4872c2b331adde2b2977e0a39c712ea6512d049e249fd")] if earlier else [
+                    (C100_AGE_2017, "009e65debd1f52c20913a6b0f968ea5ba4ecf19a86dee4a24e46e6f7feb52879"),
+                    (C100_AGE_2017_CHINESE, "f349e5026d8daaad39433abaa03b001ce0dea6ac7ab6cdc78b1aa3a11ae5e80c")])
+            if [(asset["url"], asset["sha256"]) for asset in source["assets"]] != expected_assets:
+                raise ValueError("C100 reported age edition provenance cannot be substituted")
+            if us and (survey["field_start"], survey["field_end"]) != ("2016-11-18", "2016-12-20"):
+                raise ValueError("C100 U.S.2017report is actual2016fieldwork")
+            if earlier and (survey["field_start"], survey["field_end"]) != ("2007-08-18", "2007-09-07"):
+                raise ValueError("C1002007age narrative requires its original wave")
+            if not earlier and not us and (
+                    survey["field_start"] is not None or survey["field_end"] is not None
+                    or C100_CHINA_DATE_CONFLICT not in survey["notes"]):
+                raise ValueError("Conflicting C100 China exact dates cannot be silently resolved")
         if row["series_id"].startswith("pulse") and row["comparability"] != "china_pulse_october_2026_weights":
             raise ValueError("Do not splice unweighted and reweighted China Pulse releases")
         if row["series_id"].startswith("gallup_us:") and (
@@ -599,5 +786,6 @@ def collect(client, reviewed_body):
                     "c100_china_18_60_2007_coverage",
                     "Published Q1 response total from the Chinese general-public column, "
                     "not an elite response, rounded-component sum or inferred remainder.")
+    data = collect_c100_reported_age_archive(client, data, body, asset)
     data["observations"].sort(key=lambda r: (r["series_id"], r["year"], r["period"]))
     return validate_opinion_data(data)

@@ -21,6 +21,90 @@ def data():
     return json.loads((ROOT / "data/site/opinions.json").read_text())
 
 
+def test_c100_reported_age_panel_preserves_country_geometry_and_literal_bins():
+    events = [dict(x=x, y=y, values=values) for x, y, values in (
+        (165, 145, [50, 40]), (250, 145, [55, 54]),
+        (165, 195, [48, 57]), (250, 195, [43, 44]),
+        (355, 145, [39, 36, 39, 44]), (355, 195, [55, 60, 55, 48]))]
+    text = ("2017 GENERAL PUBLIC AGE BREAKDOWN 18-34 35-49 50+ "
+            "How would you describe your impression of China? "
+            "How would you describe your impression of the U.S.?")
+    points = sources.parse_c100_age_panel(events, text)
+    assert len(points) == 16
+    assert [(row["age"], row["value"]) for row in points
+            if row["country"] == "USA" and row["response"] == "favorable"] == [
+                ("General Population", 48), ("18-34", 57), ("35-49", 43), ("50+", 44)]
+    for changed_events, changed_text in (
+        (events[:-1], text), ([*events, events[0]], text),
+        ([dict(events[0], x=355), *events[1:]], text),
+        ([dict(events[0], values=[True, 40]), *events[1:]], text),
+        ([*events, dict(x=400, y=150, values=[6, 4, 6, 8])], text),
+        (events, text.replace("35-49", "35-54")),
+        (events, text.replace("impression of the U.S.?", "impression of the U.S. government?")),
+    ):
+        with pytest.raises(ValueError):
+            sources.parse_c100_age_panel(changed_events, changed_text)
+    assert sources.parse_c100_age_panel([*events, dict(x=800, y=150, values=[99] * 4)], text) == points
+    with pytest.raises(ValueError, match="edition changed"):
+        sources.parse_c100_reported_ages(b"unreviewed edition", b"unreviewed translation", b"earlier")
+
+
+def test_c100_reported_age_archive_retains_actual_interviews_unknown_dates_and_unharmonized_bins():
+    d = sources.validate_opinion_data(data())
+    rows = [row for row in d["observations"] if row["series_id"].startswith("c100_reported_age_")]
+    assert len(rows) == 17
+    assert sum(row["series_id"].startswith("c100_reported_age_us:") for row in rows) == 8
+    assert sum(row["series_id"].startswith("c100_reported_age_china:") for row in rows) == 8
+    assert not any(row["series_id"].endswith("not_sure") for row in rows)
+    us = d["surveys"]["c100_reported_age_us_2016"]
+    china = d["surveys"]["c100_reported_age_china_2017"]
+    assert (us["year"], us["field_start"], us["field_end"], us["n_total"], us["n_item"]) == (
+        2016, "2016-11-18", "2016-12-20", 1019, None)
+    assert (china["year"], china["field_start"], china["field_end"], china["n_total"], china["n_item"]) == (
+        2017, None, None, 3696, None)
+    assert sources.C100_CHINA_DATE_CONFLICT in china["notes"]
+    assert {d["series"][row["series_id"]]["age"] for row in rows
+            if not row["series_id"].startswith("c100_reported_age_2007:")} == {"18+", "18-34", "35-49", "50+"}
+    assert all(not sid.startswith("c100_reported_age_") for chart in CHARTS.values() for sid in chart["series"])
+    earlier = next(row for row in rows if row["year"] == 2007)
+    assert earlier["value"] == 69 and d["series"][earlier["series_id"]]["age"] == "18-29"
+
+
+def test_c100_reported_age_archive_rejects_rebins_selected_dates_item_bases_and_source_substitution():
+    for case in ("age", "sampling", "exact_china_dates", "report_year_as_us_interview_year",
+                 "item_base", "discard_date_conflicts", "source", "publication", "bridge", "edition"):
+        d = data()
+        row = next(row for row in d["observations"]
+                   if row["series_id"] == "c100_reported_age_china:35-49:favorable")
+        survey = d["surveys"][row["survey_id"]]
+        if case == "age":
+            d["series"][row["series_id"]]["age"] = "35-54"
+        elif case == "sampling":
+            d["series"][row["series_id"]]["sampling"] = "All China residents, matched to Pew"
+        elif case == "exact_china_dates":
+            survey.update(field_start="2016-12-12", field_end="2017-01-09")
+        elif case == "report_year_as_us_interview_year":
+            survey = d["surveys"]["c100_reported_age_us_2016"]
+            survey.update(year=2017, field_start="2017-11-18", field_end="2017-12-20")
+            for point in d["observations"]:
+                if point["survey_id"] == "c100_reported_age_us_2016":
+                    point["year"] = 2017
+        elif case == "item_base":
+            survey["n_item"] = survey["n_total"]
+        elif case == "discard_date_conflicts":
+            survey["notes"] = "Exact national all-adult survey"
+        elif case == "source":
+            row["source_id"] = "c100_china_2007"
+        elif case == "publication":
+            d["sources"][row["source_id"]]["published"] = "2026"
+        elif case == "bridge":
+            row["comparability"] = "pew_china_telephone"
+        else:
+            d["sources"][row["source_id"]]["assets"][1]["sha256"] = "0" * 64
+        with pytest.raises(ValueError):
+            sources.validate_opinion_data(d)
+
+
 def test_primary_source_checkpoints_keep_two_directions_and_scales_separate():
     d = sources.validate_opinion_data(data())
     values = {(r["series_id"], r["year"]): r["value"] for r in d["observations"]}
@@ -241,7 +325,7 @@ def test_beijing_source_cannot_be_relabelled_as_a_pew_favorable_percentage():
 
 def test_c100_archive_is_only_the_chinese_2007_general_public_country_totals():
     d = sources.validate_opinion_data(data())
-    rows = [r for r in d["observations"] if r["series_id"].startswith("c100_")]
+    rows = [r for r in d["observations"] if r["series_id"].startswith("c100_china_18_60:")]
     assert {r["series_id"]: r["value"] for r in rows} == {
         "c100_china_18_60:favorable": 60, "c100_china_18_60:unfavorable": 26,
         "c100_china_18_60:not_sure": 14}

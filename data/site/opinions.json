@@ -95,6 +95,193 @@
       "year": 2007
     },
     {
+      "comparability": "c100_reported_age_2007:literal_unharmonized_question_bins",
+      "notes": "Only explicit favorable response; no missing complement inferred.",
+      "period": "Aug18-Sep7,2007 Chinese age narrative",
+      "series_id": "c100_reported_age_2007:18-29:favorable",
+      "source_id": "c100_reported_age_2007",
+      "status": "observed",
+      "survey_id": "c100_reported_age_china_2007",
+      "value": 69,
+      "year": 2007
+    },
+    {
+      "comparability": "c100_reported_age_china:literal_unharmonized_question_bins",
+      "notes": "Visible Q1.2own impression of the other country, not a government or perception of others' views. Literal source-reported Q1.2 age labels, not verified underlying coding or harmonized cohorts. Question bins are18-34/35-49/50+; English U.S. profile instead prints18-34/35-54/55+ and Chinese profile literally prints18-34/45-54/55+. No silent correction or rebinning. Age and item denominators are unknown; hidden/unprinted not-sure values are not reconstructed.",
+      "period": "Dec2016-Jan2017 cross-year round (ending-year index; exact dates disputed)",
+      "series_id": "c100_reported_age_china:18-34:favorable",
+      "source_id": "c100_reported_age_2017",
+      "status": "observed",
+      "survey_id": "c100_reported_age_china_2017",
+      "value": 60,
+      "year": 2017
+    },
+    {
+      "comparability": "c100_reported_age_china:literal_unharmonized_question_bins",
+      "notes": "Visible Q1.2own impression of the other country, not a government or perception of others' views. Literal source-reported Q1.2 age labels, not verified underlying coding or harmonized cohorts. Question bins are18-34/35-49/50+; English U.S. profile instead prints18-34/35-54/55+ and Chinese profile literally prints18-34/45-54/55+. No silent correction or rebinning. Age and item denominators are unknown; hidden/unprinted not-sure values are not reconstructed.",
+      "period": "Dec2016-Jan2017 cross-year round (ending-year index; exact dates disputed)",
+      "series_id": "c100_reported_age_china:18-34:unfavorable",
+      "source_id": "c100_reported_age_2017",
+      "status": "observed",
+      "survey_id": "c100_reported_age_china_2017",
+      "value": 36,
+      "year": 2017
+    },
+    {
+      "comparability": "c100_reported_age_china:literal_unharmonized_question_bins",
+      "notes": "Visible Q1.2own impression of the other country, not a government or perception of others' views. Literal source-reported Q1.2 age labels, not verified underlying coding or harmonized cohorts. Question bins are18-34/35-49/50+; English U.S. profile instead prints18-34/35-54/55+ and Chinese profile literally prints18-34/45-54/55+. No silent correction or rebinning. Age and item denominators are unknown; hidden/unprinted not-sure values are not reconstructed.",
+      "period": "Dec2016-Jan2017 cross-year round (ending-year index; exact dates disputed)",
+      "series_id": "c100_reported_age_china:35-49:favorable",
+      "source_id": "c100_reported_age_2017",
+      "status": "observed",
+      "survey_id": "c100_reported_age_china_2017",
+      "value": 55,
+      "year": 2017
+    },
+    {
+      "comparability": "c100_reported_age_china:literal_unharmonized_question_bins",
+      "notes": "Visible Q1.2own impression of the other country, not a government or perception of others' views. Literal source-reported Q1.2 age labels, not verified underlying coding or harmonized cohorts. Question bins are18-34/35-49/50+; English U.S. profile instead prints18-34/35-54/55+ and Chinese profile literally prints18-34/45-54/55+. No silent correction or rebinning. Age and item denominators are unknown; hidden/unprinted not-sure values are not reconstructed.",
+      "period": "Dec2016-Jan2017 cross-year round (ending-year index; exact dates disputed)",
+      "series_id": "c100_reported_age_china:35-49:unfavorable",
+      "source_id": "c100_reported_age_2017",
+      "status": "observed",
+      "survey_id": "c100_reported_age_china_2017",
+      "value": 39,
+      "year": 2017
+    },
+    {
+      "comparability": "c100_reported_age_china:literal_unharmonized_question_bins",
+      "notes": "Visible Q1.2own impression of the other country, not a government or perception of others' views. Literal source-reported Q1.2 age labels, not verified underlying coding or harmonized cohorts. Question bins are18-34/35-49/50+; English U.S. profile instead prints18-34/35-54/55+ and Chinese profile literally prints18-34/45-54/55+. No silent correction or rebinning. Age and item denominators are unknown; hidden/unprinted not-sure values are not reconstructed.",
+      "period": "Dec2016-Jan2017 cross-year round (ending-year index; exact dates disputed)",
+      "series_id": "c100_reported_age_china:50+:favorable",
+      "source_id": "c100_reported_age_2017",
+      "status": "observed",
+      "survey_id": "c100_reported_age_china_2017",
+      "value": 48,
+      "year": 2017
+    },
+    {
+      "comparability": "c100_reported_age_china:literal_unharmonized_question_bins",
+      "notes": "Visible Q1.2own impression of the other country, not a government or perception of others' views. Literal source-reported Q1.2 age labels, not verified underlying coding or harmonized cohorts. Question bins are18-34/35-49/50+; English U.S. profile instead prints18-34/35-54/55+ and Chinese profile literally prints18-34/45-54/55+. No silent correction or rebinning. Age and item denominators are unknown; hidden/unprinted not-sure values are not reconstructed.",
+      "period": "Dec2016-Jan2017 cross-year round (ending-year index; exact dates disputed)",
+      "series_id": "c100_reported_age_china:50+:unfavorable",
+      "source_id": "c100_reported_age_2017",
+      "status": "observed",
+      "survey_id": "c100_reported_age_china_2017",
+      "value": 44,
+      "year": 2017
+    },
+    {
+      "comparability": "c100_reported_age_china:literal_unharmonized_question_bins",
+      "notes": "Visible Q1.2own impression of the other country, not a government or perception of others' views. Literal source-reported Q1.2 age labels, not verified underlying coding or harmonized cohorts. Question bins are18-34/35-49/50+; English U.S. profile instead prints18-34/35-54/55+ and Chinese profile literally prints18-34/45-54/55+. No silent correction or rebinning. Age and item denominators are unknown; hidden/unprinted not-sure values are not reconstructed.",
+      "period": "Dec2016-Jan2017 cross-year round (ending-year index; exact dates disputed)",
+      "series_id": "c100_reported_age_china:general_public:favorable",
+      "source_id": "c100_reported_age_2017",
+      "status": "observed",
+      "survey_id": "c100_reported_age_china_2017",
+      "value": 55,
+      "year": 2017
+    },
+    {
+      "comparability": "c100_reported_age_china:literal_unharmonized_question_bins",
+      "notes": "Visible Q1.2own impression of the other country, not a government or perception of others' views. Literal source-reported Q1.2 age labels, not verified underlying coding or harmonized cohorts. Question bins are18-34/35-49/50+; English U.S. profile instead prints18-34/35-54/55+ and Chinese profile literally prints18-34/45-54/55+. No silent correction or rebinning. Age and item denominators are unknown; hidden/unprinted not-sure values are not reconstructed.",
+      "period": "Dec2016-Jan2017 cross-year round (ending-year index; exact dates disputed)",
+      "series_id": "c100_reported_age_china:general_public:unfavorable",
+      "source_id": "c100_reported_age_2017",
+      "status": "observed",
+      "survey_id": "c100_reported_age_china_2017",
+      "value": 39,
+      "year": 2017
+    },
+    {
+      "comparability": "c100_reported_age_us:literal_unharmonized_question_bins",
+      "notes": "Visible Q1.2own impression of the other country, not a government or perception of others' views. Literal source-reported Q1.2 age labels, not verified underlying coding or harmonized cohorts. Question bins are18-34/35-49/50+; English U.S. profile instead prints18-34/35-54/55+ and Chinese profile literally prints18-34/45-54/55+. No silent correction or rebinning. Age and item denominators are unknown; hidden/unprinted not-sure values are not reconstructed.",
+      "period": "Nov18-Dec20,2016 interviews (2017 report)",
+      "series_id": "c100_reported_age_us:18-34:favorable",
+      "source_id": "c100_reported_age_2017",
+      "status": "observed",
+      "survey_id": "c100_reported_age_us_2016",
+      "value": 57,
+      "year": 2016
+    },
+    {
+      "comparability": "c100_reported_age_us:literal_unharmonized_question_bins",
+      "notes": "Visible Q1.2own impression of the other country, not a government or perception of others' views. Literal source-reported Q1.2 age labels, not verified underlying coding or harmonized cohorts. Question bins are18-34/35-49/50+; English U.S. profile instead prints18-34/35-54/55+ and Chinese profile literally prints18-34/45-54/55+. No silent correction or rebinning. Age and item denominators are unknown; hidden/unprinted not-sure values are not reconstructed.",
+      "period": "Nov18-Dec20,2016 interviews (2017 report)",
+      "series_id": "c100_reported_age_us:18-34:unfavorable",
+      "source_id": "c100_reported_age_2017",
+      "status": "observed",
+      "survey_id": "c100_reported_age_us_2016",
+      "value": 40,
+      "year": 2016
+    },
+    {
+      "comparability": "c100_reported_age_us:literal_unharmonized_question_bins",
+      "notes": "Visible Q1.2own impression of the other country, not a government or perception of others' views. Literal source-reported Q1.2 age labels, not verified underlying coding or harmonized cohorts. Question bins are18-34/35-49/50+; English U.S. profile instead prints18-34/35-54/55+ and Chinese profile literally prints18-34/45-54/55+. No silent correction or rebinning. Age and item denominators are unknown; hidden/unprinted not-sure values are not reconstructed.",
+      "period": "Nov18-Dec20,2016 interviews (2017 report)",
+      "series_id": "c100_reported_age_us:35-49:favorable",
+      "source_id": "c100_reported_age_2017",
+      "status": "observed",
+      "survey_id": "c100_reported_age_us_2016",
+      "value": 43,
+      "year": 2016
+    },
+    {
+      "comparability": "c100_reported_age_us:literal_unharmonized_question_bins",
+      "notes": "Visible Q1.2own impression of the other country, not a government or perception of others' views. Literal source-reported Q1.2 age labels, not verified underlying coding or harmonized cohorts. Question bins are18-34/35-49/50+; English U.S. profile instead prints18-34/35-54/55+ and Chinese profile literally prints18-34/45-54/55+. No silent correction or rebinning. Age and item denominators are unknown; hidden/unprinted not-sure values are not reconstructed.",
+      "period": "Nov18-Dec20,2016 interviews (2017 report)",
+      "series_id": "c100_reported_age_us:35-49:unfavorable",
+      "source_id": "c100_reported_age_2017",
+      "status": "observed",
+      "survey_id": "c100_reported_age_us_2016",
+      "value": 55,
+      "year": 2016
+    },
+    {
+      "comparability": "c100_reported_age_us:literal_unharmonized_question_bins",
+      "notes": "Visible Q1.2own impression of the other country, not a government or perception of others' views. Literal source-reported Q1.2 age labels, not verified underlying coding or harmonized cohorts. Question bins are18-34/35-49/50+; English U.S. profile instead prints18-34/35-54/55+ and Chinese profile literally prints18-34/45-54/55+. No silent correction or rebinning. Age and item denominators are unknown; hidden/unprinted not-sure values are not reconstructed.",
+      "period": "Nov18-Dec20,2016 interviews (2017 report)",
+      "series_id": "c100_reported_age_us:50+:favorable",
+      "source_id": "c100_reported_age_2017",
+      "status": "observed",
+      "survey_id": "c100_reported_age_us_2016",
+      "value": 44,
+      "year": 2016
+    },
+    {
+      "comparability": "c100_reported_age_us:literal_unharmonized_question_bins",
+      "notes": "Visible Q1.2own impression of the other country, not a government or perception of others' views. Literal source-reported Q1.2 age labels, not verified underlying coding or harmonized cohorts. Question bins are18-34/35-49/50+; English U.S. profile instead prints18-34/35-54/55+ and Chinese profile literally prints18-34/45-54/55+. No silent correction or rebinning. Age and item denominators are unknown; hidden/unprinted not-sure values are not reconstructed.",
+      "period": "Nov18-Dec20,2016 interviews (2017 report)",
+      "series_id": "c100_reported_age_us:50+:unfavorable",
+      "source_id": "c100_reported_age_2017",
+      "status": "observed",
+      "survey_id": "c100_reported_age_us_2016",
+      "value": 54,
+      "year": 2016
+    },
+    {
+      "comparability": "c100_reported_age_us:literal_unharmonized_question_bins",
+      "notes": "Visible Q1.2own impression of the other country, not a government or perception of others' views. Literal source-reported Q1.2 age labels, not verified underlying coding or harmonized cohorts. Question bins are18-34/35-49/50+; English U.S. profile instead prints18-34/35-54/55+ and Chinese profile literally prints18-34/45-54/55+. No silent correction or rebinning. Age and item denominators are unknown; hidden/unprinted not-sure values are not reconstructed.",
+      "period": "Nov18-Dec20,2016 interviews (2017 report)",
+      "series_id": "c100_reported_age_us:general_public:favorable",
+      "source_id": "c100_reported_age_2017",
+      "status": "observed",
+      "survey_id": "c100_reported_age_us_2016",
+      "value": 48,
+      "year": 2016
+    },
+    {
+      "comparability": "c100_reported_age_us:literal_unharmonized_question_bins",
+      "notes": "Visible Q1.2own impression of the other country, not a government or perception of others' views. Literal source-reported Q1.2 age labels, not verified underlying coding or harmonized cohorts. Question bins are18-34/35-49/50+; English U.S. profile instead prints18-34/35-54/55+ and Chinese profile literally prints18-34/45-54/55+. No silent correction or rebinning. Age and item denominators are unknown; hidden/unprinted not-sure values are not reconstructed.",
+      "period": "Nov18-Dec20,2016 interviews (2017 report)",
+      "series_id": "c100_reported_age_us:general_public:unfavorable",
+      "source_id": "c100_reported_age_2017",
+      "status": "observed",
+      "survey_id": "c100_reported_age_us_2016",
+      "value": 50,
+      "year": 2016
+    },
+    {
       "comparability": "gallup_us_telephone",
       "notes": "Published net; not an annual average. ",
       "period": "Jan 25-26, 2000",
@@ -1812,6 +1999,193 @@
       "target_country": "USA",
       "unit": "percent"
     },
+    "c100_reported_age_2007:18-29:favorable": {
+      "age": "18-29",
+      "cadence": "survey_rounds",
+      "label": "18-29 (source-reported)",
+      "measure": "favorability",
+      "notes": "Explicit2007age narrative only;18-29is not the later18-34bin.",
+      "respondent_country": "CHN",
+      "sampling": "Publisher-described national ages18-60; seven cities/seven towns/ten villages.",
+      "target_country": "USA",
+      "unit": "percent"
+    },
+    "c100_reported_age_china:18-34:favorable": {
+      "age": "18-34",
+      "cadence": "survey_rounds",
+      "label": "18-34 (source-reported)",
+      "measure": "favorability",
+      "notes": "Literal source-reported Q1.2 age labels, not verified underlying coding or harmonized cohorts. Question bins are18-34/35-49/50+; English U.S. profile instead prints18-34/35-54/55+ and Chinese profile literally prints18-34/45-54/55+. No silent correction or rebinning. Age and item denominators are unknown; hidden/unprinted not-sure values are not reconstructed.",
+      "respondent_country": "CHN",
+      "sampling": "China18+;70PSUs;face-to-face;excludes Tibet/Xinjiang/Hong Kong/Macao/Taiwan.",
+      "target_country": "USA",
+      "unit": "percent"
+    },
+    "c100_reported_age_china:18-34:unfavorable": {
+      "age": "18-34",
+      "cadence": "survey_rounds",
+      "label": "18-34 (source-reported)",
+      "measure": "favorability",
+      "notes": "Literal source-reported Q1.2 age labels, not verified underlying coding or harmonized cohorts. Question bins are18-34/35-49/50+; English U.S. profile instead prints18-34/35-54/55+ and Chinese profile literally prints18-34/45-54/55+. No silent correction or rebinning. Age and item denominators are unknown; hidden/unprinted not-sure values are not reconstructed.",
+      "respondent_country": "CHN",
+      "sampling": "China18+;70PSUs;face-to-face;excludes Tibet/Xinjiang/Hong Kong/Macao/Taiwan.",
+      "target_country": "USA",
+      "unit": "percent"
+    },
+    "c100_reported_age_china:35-49:favorable": {
+      "age": "35-49",
+      "cadence": "survey_rounds",
+      "label": "35-49 (source-reported)",
+      "measure": "favorability",
+      "notes": "Literal source-reported Q1.2 age labels, not verified underlying coding or harmonized cohorts. Question bins are18-34/35-49/50+; English U.S. profile instead prints18-34/35-54/55+ and Chinese profile literally prints18-34/45-54/55+. No silent correction or rebinning. Age and item denominators are unknown; hidden/unprinted not-sure values are not reconstructed.",
+      "respondent_country": "CHN",
+      "sampling": "China18+;70PSUs;face-to-face;excludes Tibet/Xinjiang/Hong Kong/Macao/Taiwan.",
+      "target_country": "USA",
+      "unit": "percent"
+    },
+    "c100_reported_age_china:35-49:unfavorable": {
+      "age": "35-49",
+      "cadence": "survey_rounds",
+      "label": "35-49 (source-reported)",
+      "measure": "favorability",
+      "notes": "Literal source-reported Q1.2 age labels, not verified underlying coding or harmonized cohorts. Question bins are18-34/35-49/50+; English U.S. profile instead prints18-34/35-54/55+ and Chinese profile literally prints18-34/45-54/55+. No silent correction or rebinning. Age and item denominators are unknown; hidden/unprinted not-sure values are not reconstructed.",
+      "respondent_country": "CHN",
+      "sampling": "China18+;70PSUs;face-to-face;excludes Tibet/Xinjiang/Hong Kong/Macao/Taiwan.",
+      "target_country": "USA",
+      "unit": "percent"
+    },
+    "c100_reported_age_china:50+:favorable": {
+      "age": "50+",
+      "cadence": "survey_rounds",
+      "label": "50+ (source-reported)",
+      "measure": "favorability",
+      "notes": "Literal source-reported Q1.2 age labels, not verified underlying coding or harmonized cohorts. Question bins are18-34/35-49/50+; English U.S. profile instead prints18-34/35-54/55+ and Chinese profile literally prints18-34/45-54/55+. No silent correction or rebinning. Age and item denominators are unknown; hidden/unprinted not-sure values are not reconstructed.",
+      "respondent_country": "CHN",
+      "sampling": "China18+;70PSUs;face-to-face;excludes Tibet/Xinjiang/Hong Kong/Macao/Taiwan.",
+      "target_country": "USA",
+      "unit": "percent"
+    },
+    "c100_reported_age_china:50+:unfavorable": {
+      "age": "50+",
+      "cadence": "survey_rounds",
+      "label": "50+ (source-reported)",
+      "measure": "favorability",
+      "notes": "Literal source-reported Q1.2 age labels, not verified underlying coding or harmonized cohorts. Question bins are18-34/35-49/50+; English U.S. profile instead prints18-34/35-54/55+ and Chinese profile literally prints18-34/45-54/55+. No silent correction or rebinning. Age and item denominators are unknown; hidden/unprinted not-sure values are not reconstructed.",
+      "respondent_country": "CHN",
+      "sampling": "China18+;70PSUs;face-to-face;excludes Tibet/Xinjiang/Hong Kong/Macao/Taiwan.",
+      "target_country": "USA",
+      "unit": "percent"
+    },
+    "c100_reported_age_china:general_public:favorable": {
+      "age": "18+",
+      "cadence": "survey_rounds",
+      "label": "General public (source-reported)",
+      "measure": "favorability",
+      "notes": "Literal source-reported Q1.2 age labels, not verified underlying coding or harmonized cohorts. Question bins are18-34/35-49/50+; English U.S. profile instead prints18-34/35-54/55+ and Chinese profile literally prints18-34/45-54/55+. No silent correction or rebinning. Age and item denominators are unknown; hidden/unprinted not-sure values are not reconstructed.",
+      "respondent_country": "CHN",
+      "sampling": "China18+;70PSUs;face-to-face;excludes Tibet/Xinjiang/Hong Kong/Macao/Taiwan.",
+      "target_country": "USA",
+      "unit": "percent"
+    },
+    "c100_reported_age_china:general_public:unfavorable": {
+      "age": "18+",
+      "cadence": "survey_rounds",
+      "label": "General public (source-reported)",
+      "measure": "favorability",
+      "notes": "Literal source-reported Q1.2 age labels, not verified underlying coding or harmonized cohorts. Question bins are18-34/35-49/50+; English U.S. profile instead prints18-34/35-54/55+ and Chinese profile literally prints18-34/45-54/55+. No silent correction or rebinning. Age and item denominators are unknown; hidden/unprinted not-sure values are not reconstructed.",
+      "respondent_country": "CHN",
+      "sampling": "China18+;70PSUs;face-to-face;excludes Tibet/Xinjiang/Hong Kong/Macao/Taiwan.",
+      "target_country": "USA",
+      "unit": "percent"
+    },
+    "c100_reported_age_us:18-34:favorable": {
+      "age": "18-34",
+      "cadence": "survey_rounds",
+      "label": "18-34 (source-reported)",
+      "measure": "favorability",
+      "notes": "Literal source-reported Q1.2 age labels, not verified underlying coding or harmonized cohorts. Question bins are18-34/35-49/50+; English U.S. profile instead prints18-34/35-54/55+ and Chinese profile literally prints18-34/45-54/55+. No silent correction or rebinning. Age and item denominators are unknown; hidden/unprinted not-sure values are not reconstructed.",
+      "respondent_country": "USA",
+      "sampling": "U.S.18+; weighted landline/cell telephone.",
+      "target_country": "CHN",
+      "unit": "percent"
+    },
+    "c100_reported_age_us:18-34:unfavorable": {
+      "age": "18-34",
+      "cadence": "survey_rounds",
+      "label": "18-34 (source-reported)",
+      "measure": "favorability",
+      "notes": "Literal source-reported Q1.2 age labels, not verified underlying coding or harmonized cohorts. Question bins are18-34/35-49/50+; English U.S. profile instead prints18-34/35-54/55+ and Chinese profile literally prints18-34/45-54/55+. No silent correction or rebinning. Age and item denominators are unknown; hidden/unprinted not-sure values are not reconstructed.",
+      "respondent_country": "USA",
+      "sampling": "U.S.18+; weighted landline/cell telephone.",
+      "target_country": "CHN",
+      "unit": "percent"
+    },
+    "c100_reported_age_us:35-49:favorable": {
+      "age": "35-49",
+      "cadence": "survey_rounds",
+      "label": "35-49 (source-reported)",
+      "measure": "favorability",
+      "notes": "Literal source-reported Q1.2 age labels, not verified underlying coding or harmonized cohorts. Question bins are18-34/35-49/50+; English U.S. profile instead prints18-34/35-54/55+ and Chinese profile literally prints18-34/45-54/55+. No silent correction or rebinning. Age and item denominators are unknown; hidden/unprinted not-sure values are not reconstructed.",
+      "respondent_country": "USA",
+      "sampling": "U.S.18+; weighted landline/cell telephone.",
+      "target_country": "CHN",
+      "unit": "percent"
+    },
+    "c100_reported_age_us:35-49:unfavorable": {
+      "age": "35-49",
+      "cadence": "survey_rounds",
+      "label": "35-49 (source-reported)",
+      "measure": "favorability",
+      "notes": "Literal source-reported Q1.2 age labels, not verified underlying coding or harmonized cohorts. Question bins are18-34/35-49/50+; English U.S. profile instead prints18-34/35-54/55+ and Chinese profile literally prints18-34/45-54/55+. No silent correction or rebinning. Age and item denominators are unknown; hidden/unprinted not-sure values are not reconstructed.",
+      "respondent_country": "USA",
+      "sampling": "U.S.18+; weighted landline/cell telephone.",
+      "target_country": "CHN",
+      "unit": "percent"
+    },
+    "c100_reported_age_us:50+:favorable": {
+      "age": "50+",
+      "cadence": "survey_rounds",
+      "label": "50+ (source-reported)",
+      "measure": "favorability",
+      "notes": "Literal source-reported Q1.2 age labels, not verified underlying coding or harmonized cohorts. Question bins are18-34/35-49/50+; English U.S. profile instead prints18-34/35-54/55+ and Chinese profile literally prints18-34/45-54/55+. No silent correction or rebinning. Age and item denominators are unknown; hidden/unprinted not-sure values are not reconstructed.",
+      "respondent_country": "USA",
+      "sampling": "U.S.18+; weighted landline/cell telephone.",
+      "target_country": "CHN",
+      "unit": "percent"
+    },
+    "c100_reported_age_us:50+:unfavorable": {
+      "age": "50+",
+      "cadence": "survey_rounds",
+      "label": "50+ (source-reported)",
+      "measure": "favorability",
+      "notes": "Literal source-reported Q1.2 age labels, not verified underlying coding or harmonized cohorts. Question bins are18-34/35-49/50+; English U.S. profile instead prints18-34/35-54/55+ and Chinese profile literally prints18-34/45-54/55+. No silent correction or rebinning. Age and item denominators are unknown; hidden/unprinted not-sure values are not reconstructed.",
+      "respondent_country": "USA",
+      "sampling": "U.S.18+; weighted landline/cell telephone.",
+      "target_country": "CHN",
+      "unit": "percent"
+    },
+    "c100_reported_age_us:general_public:favorable": {
+      "age": "18+",
+      "cadence": "survey_rounds",
+      "label": "General public (source-reported)",
+      "measure": "favorability",
+      "notes": "Literal source-reported Q1.2 age labels, not verified underlying coding or harmonized cohorts. Question bins are18-34/35-49/50+; English U.S. profile instead prints18-34/35-54/55+ and Chinese profile literally prints18-34/45-54/55+. No silent correction or rebinning. Age and item denominators are unknown; hidden/unprinted not-sure values are not reconstructed.",
+      "respondent_country": "USA",
+      "sampling": "U.S.18+; weighted landline/cell telephone.",
+      "target_country": "CHN",
+      "unit": "percent"
+    },
+    "c100_reported_age_us:general_public:unfavorable": {
+      "age": "18+",
+      "cadence": "survey_rounds",
+      "label": "General public (source-reported)",
+      "measure": "favorability",
+      "notes": "Literal source-reported Q1.2 age labels, not verified underlying coding or harmonized cohorts. Question bins are18-34/35-49/50+; English U.S. profile instead prints18-34/35-54/55+ and Chinese profile literally prints18-34/45-54/55+. No silent correction or rebinning. Age and item denominators are unknown; hidden/unprinted not-sure values are not reconstructed.",
+      "respondent_country": "USA",
+      "sampling": "U.S.18+; weighted landline/cell telephone.",
+      "target_country": "CHN",
+      "unit": "percent"
+    },
     "gallup_us:favorable": {
       "age": "All adults",
       "cadence": "annual",
@@ -2130,6 +2504,42 @@
       "published": "2007-12-10",
       "url": "https://www.committee100.org/wp-content/uploads/2017/01/2007-C-100_EN_Survey.pdf"
     },
+    "c100_reported_age_2007": {
+      "assets": [
+        {
+          "request_url": "https://www.committee100.org/wp-content/uploads/2017/01/2007-C-100_EN_Survey.pdf",
+          "retrieved_at": "2026-10-25T08:35:30.297725+00:00",
+          "sha256": "361c7c5a53e3d95ba8d4872c2b331adde2b2977e0a39c712ea6512d049e249fd",
+          "url": "https://www.committee100.org/wp-content/uploads/2017/01/2007-C-100_EN_Survey.pdf"
+        }
+      ],
+      "locator": "PDF15/printed13 Q1China age narrative; methodsPDF62.",
+      "name": "Committee of 100 / Horizon Research, explicit2007Chinese age narrative",
+      "notes": "Only explicit18-29favorable response. Ages18-60 frame; seven cities/seven towns/ten villages. Not a later18-34cohort, inferred complement or continuous national trend.",
+      "published": "2007-12-10",
+      "url": "https://www.committee100.org/wp-content/uploads/2017/01/2007-C-100_EN_Survey.pdf"
+    },
+    "c100_reported_age_2017": {
+      "assets": [
+        {
+          "request_url": "https://www.committee100.org/wp-content/uploads/2017/01/C100-Public-Opinion-Survey-2017.pdf",
+          "retrieved_at": "2026-10-25T09:07:42.506898+00:00",
+          "sha256": "009e65debd1f52c20913a6b0f968ea5ba4ecf19a86dee4a24e46e6f7feb52879",
+          "url": "https://www.committee100.org/wp-content/uploads/2017/01/C100-Public-Opinion-Survey-2017.pdf"
+        },
+        {
+          "request_url": "https://www.committee100.org/wp-content/uploads/2017/01/C100-Public-Opinions-Survey-2017-Chinese.pdf",
+          "retrieved_at": "2026-10-25T12:35:42.053651+00:00",
+          "sha256": "f349e5026d8daaad39433abaa03b001ce0dea6ac7ab6cdc78b1aa3a11ae5e80c",
+          "url": "https://www.committee100.org/wp-content/uploads/2017/01/C100-Public-Opinions-Survey-2017-Chinese.pdf"
+        }
+      ],
+      "locator": "English PDF16 Q1.2; methods104-106. Chinese physicalPDF11/55/56, printed16/104-107.",
+      "name": "Committee of 100 / Brunswick Insights / Horizon Research, source-reported 2017 age panel",
+      "notes": "Literal source-reported Q1.2 age labels, not verified underlying coding or harmonized cohorts. Question bins are18-34/35-49/50+; English U.S. profile instead prints18-34/35-54/55+ and Chinese profile literally prints18-34/45-54/55+. No silent correction or rebinning. Age and item denominators are unknown; hidden/unprinted not-sure values are not reconstructed. Cross-year round ending in January2017, not a single-calendar-year survey. English summary reports2016-12-06/2017-01-09; both country appendices report2016-12-12/2017-01-09; Chinese overall table reports2016-12-06/2017-01-08; Chinese introduction gives a combined 2016-11-18/2016-12-23 window. No exact-day interval is selected; both canonical date fields remain unknown. Full-wave n3696 is not an age or item base.",
+      "published": "2017",
+      "url": "https://www.committee100.org/wp-content/uploads/2017/01/C100-Public-Opinion-Survey-2017.pdf"
+    },
     "china_pulse": {
       "assets": [
         {
@@ -2309,6 +2719,33 @@
       "notes": "Chinese general public ages18-60, face-to-face multistage sampling in seven cities, seven towns and ten villages. Publisher-described national coverage within that age frame. 4,104 is the whole-wave sample; an exact item denominator is not supplied.",
       "period": "Aug 18-Sep 7, 2007",
       "year": 2007
+    },
+    "c100_reported_age_china_2007": {
+      "field_end": "2007-09-07",
+      "field_start": "2007-08-18",
+      "n_item": null,
+      "n_total": 4104,
+      "notes": "Chinese ages18-60 full-wave frame;18-29question subgroup/item base unknown. Publisher-described national sample in seven cities/seven towns/ten villages.",
+      "period": "Aug18-Sep7,2007 Chinese age narrative",
+      "year": 2007
+    },
+    "c100_reported_age_china_2017": {
+      "field_end": null,
+      "field_start": null,
+      "n_item": null,
+      "n_total": 3696,
+      "notes": "Cross-year round ending in January2017, not a single-calendar-year survey. English summary reports2016-12-06/2017-01-09; both country appendices report2016-12-12/2017-01-09; Chinese overall table reports2016-12-06/2017-01-08; Chinese introduction gives a combined 2016-11-18/2016-12-23 window. No exact-day interval is selected; both canonical date fields remain unknown. Full-wave n3696 is not an age or item base. Literal source-reported Q1.2 age labels, not verified underlying coding or harmonized cohorts. Question bins are18-34/35-49/50+; English U.S. profile instead prints18-34/35-54/55+ and Chinese profile literally prints18-34/45-54/55+. No silent correction or rebinning. Age and item denominators are unknown; hidden/unprinted not-sure values are not reconstructed.",
+      "period": "Dec2016-Jan2017 cross-year round (ending-year index; exact dates disputed)",
+      "year": 2017
+    },
+    "c100_reported_age_us_2016": {
+      "field_end": "2016-12-20",
+      "field_start": "2016-11-18",
+      "n_item": null,
+      "n_total": 1019,
+      "notes": "U.S.18+ weighted landline/cell telephone wave. Full-wave sample, not age/item denominators. Literal source-reported Q1.2 age labels, not verified underlying coding or harmonized cohorts. Question bins are18-34/35-49/50+; English U.S. profile instead prints18-34/35-54/55+ and Chinese profile literally prints18-34/45-54/55+. No silent correction or rebinning. Age and item denominators are unknown; hidden/unprinted not-sure values are not reconstructed.",
+      "period": "Nov18-Dec20,2016 interviews (2017 report)",
+      "year": 2016
     },
     "gallup_us_2000-01-25": {
       "field_end": "2000-01-26",
