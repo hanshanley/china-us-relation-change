@@ -463,7 +463,7 @@
       if (chart.querySelector("svg") && present.length) {
         const sourceSVG = chart.querySelector("svg");
         const indexed = get("chart-mode").value === "index";
-        const reference = present.find(r => r.year === (present[0].measure === "air_visitors" ? 2019 : 2020));
+        const reference = present.find(r => r.year === 2019);
         let previous;
         const points = present.map(row => {
           const value = indexed ? row.value / reference.value * 100 : row.value;

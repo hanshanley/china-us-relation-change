@@ -241,7 +241,7 @@ historical records in complete archival downloads.
 Students are stocks or academic-year participation, not departures. UIS degree
 mobility, Open Doors enrollment-plus-OPT, and academic-credit study abroad are
 different series and must never be spliced. Academic years use their ending year
-for the 2020 baseline, with the original period label retained.
+for the 2019 baseline (2018/19), with the original period label retained.
 
 [IIE's student-census methodology](https://opendoorsdata.org/about/about-international-student-census/)
 expands the international-student definition in Open Doors 2021–2023
@@ -331,7 +331,7 @@ The audit on October 21, 2026 also checked the following:
   2024/25 is explicitly null, not a newer available observation.
 - Macau bilateral services are absent from the selected-country BEA workbook,
   but **BEA expanded-geography Table 2.4 now restores 2018-2025 in both
-  directions**, including the 2020 baseline. Direct USTR 2025 and archived
+  directions**, including the 2019 baseline. Direct USTR 2025 and archived
   2024 estimates remain separate, with their original rounding and known
   aggregate-unit error documented. Neither is spliced into BEA or used for
   cross-vintage growth. Before 2018 remains unverified; no regional allocation

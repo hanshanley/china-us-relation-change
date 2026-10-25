@@ -21,7 +21,7 @@
       2024,
       2025
     ],
-    "baseline_2020": true,
+    "baseline_2019": true,
     "destination": "USA",
     "first_year": 2007,
     "last_year": 2025,
@@ -46,7 +46,7 @@
       2021,
       2023
     ],
-    "baseline_2020": true,
+    "baseline_2019": false,
     "destination": "USA",
     "first_year": 2005,
     "last_year": 2023,
@@ -87,7 +87,7 @@
       2024,
       2025
     ],
-    "baseline_2020": true,
+    "baseline_2019": true,
     "destination": "USA",
     "first_year": 2000,
     "last_year": 2025,
@@ -101,7 +101,7 @@
   },
   {
     "available_years": [],
-    "baseline_2020": false,
+    "baseline_2019": false,
     "destination": "USA",
     "first_year": null,
     "last_year": null,
@@ -140,7 +140,7 @@
       2024,
       2025
     ],
-    "baseline_2020": true,
+    "baseline_2019": true,
     "destination": "USA",
     "first_year": 2000,
     "last_year": 2025,
@@ -154,7 +154,7 @@
   },
   {
     "available_years": [],
-    "baseline_2020": false,
+    "baseline_2019": false,
     "destination": "USA",
     "first_year": null,
     "last_year": null,
@@ -166,7 +166,7 @@
   },
   {
     "available_years": [],
-    "baseline_2020": false,
+    "baseline_2019": false,
     "destination": "USA",
     "first_year": null,
     "last_year": null,
@@ -205,7 +205,7 @@
       2024,
       2025
     ],
-    "baseline_2020": true,
+    "baseline_2019": true,
     "destination": "USA",
     "first_year": 2000,
     "last_year": 2025,
@@ -246,7 +246,7 @@
       2024,
       2025
     ],
-    "baseline_2020": true,
+    "baseline_2019": true,
     "destination": "USA",
     "first_year": 2000,
     "last_year": 2025,
@@ -280,7 +280,7 @@
       2017,
       2018
     ],
-    "baseline_2020": false,
+    "baseline_2019": false,
     "destination": "CHN",
     "first_year": 2000,
     "last_year": 2018,
@@ -294,7 +294,7 @@
   },
   {
     "available_years": [],
-    "baseline_2020": false,
+    "baseline_2019": false,
     "destination": "CHN",
     "first_year": null,
     "last_year": null,
@@ -306,7 +306,7 @@
   },
   {
     "available_years": [],
-    "baseline_2020": false,
+    "baseline_2019": false,
     "destination": "CHN",
     "first_year": null,
     "last_year": null,
@@ -344,7 +344,7 @@
       2023,
       2024
     ],
-    "baseline_2020": true,
+    "baseline_2019": true,
     "destination": "CHN",
     "first_year": 2000,
     "last_year": 2024,
@@ -378,7 +378,7 @@
       2017,
       2018
     ],
-    "baseline_2020": false,
+    "baseline_2019": false,
     "destination": "CHN",
     "first_year": 2000,
     "last_year": 2018,
@@ -406,7 +406,7 @@
       2024,
       2025
     ],
-    "baseline_2020": true,
+    "baseline_2019": true,
     "destination": "CHN",
     "first_year": 2012,
     "last_year": 2025,
@@ -420,7 +420,7 @@
   },
   {
     "available_years": [],
-    "baseline_2020": false,
+    "baseline_2019": false,
     "destination": "CHN",
     "first_year": null,
     "last_year": null,
@@ -459,7 +459,7 @@
       2024,
       2025
     ],
-    "baseline_2020": true,
+    "baseline_2019": true,
     "destination": "CHN",
     "first_year": 2000,
     "last_year": 2025,
@@ -500,7 +500,7 @@
       2024,
       2025
     ],
-    "baseline_2020": true,
+    "baseline_2019": true,
     "destination": "CHN",
     "first_year": 2000,
     "last_year": 2025,
@@ -534,7 +534,7 @@
       2024,
       2025
     ],
-    "baseline_2020": true,
+    "baseline_2019": true,
     "destination": "USA",
     "first_year": 2007,
     "last_year": 2025,
@@ -559,7 +559,7 @@
       2021,
       2023
     ],
-    "baseline_2020": true,
+    "baseline_2019": false,
     "destination": "USA",
     "first_year": 2005,
     "last_year": 2023,
@@ -600,7 +600,7 @@
       2024,
       2025
     ],
-    "baseline_2020": true,
+    "baseline_2019": true,
     "destination": "USA",
     "first_year": 2000,
     "last_year": 2025,
@@ -614,7 +614,7 @@
   },
   {
     "available_years": [],
-    "baseline_2020": false,
+    "baseline_2019": false,
     "destination": "USA",
     "first_year": null,
     "last_year": null,
@@ -653,7 +653,7 @@
       2024,
       2025
     ],
-    "baseline_2020": true,
+    "baseline_2019": true,
     "destination": "USA",
     "first_year": 2000,
     "last_year": 2025,
@@ -667,7 +667,7 @@
   },
   {
     "available_years": [],
-    "baseline_2020": false,
+    "baseline_2019": false,
     "destination": "USA",
     "first_year": null,
     "last_year": null,
@@ -679,7 +679,7 @@
   },
   {
     "available_years": [],
-    "baseline_2020": false,
+    "baseline_2019": false,
     "destination": "USA",
     "first_year": null,
     "last_year": null,
@@ -718,7 +718,7 @@
       2024,
       2025
     ],
-    "baseline_2020": true,
+    "baseline_2019": true,
     "destination": "USA",
     "first_year": 2000,
     "last_year": 2025,
@@ -759,7 +759,7 @@
       2024,
       2025
     ],
-    "baseline_2020": true,
+    "baseline_2019": true,
     "destination": "USA",
     "first_year": 2000,
     "last_year": 2025,
@@ -773,7 +773,7 @@
   },
   {
     "available_years": [],
-    "baseline_2020": false,
+    "baseline_2019": false,
     "destination": "HKG",
     "first_year": null,
     "last_year": null,
@@ -810,7 +810,7 @@
       2023,
       2024
     ],
-    "baseline_2020": true,
+    "baseline_2019": true,
     "destination": "HKG",
     "first_year": 2001,
     "last_year": 2024,
@@ -824,7 +824,7 @@
   },
   {
     "available_years": [],
-    "baseline_2020": false,
+    "baseline_2019": false,
     "destination": "HKG",
     "first_year": null,
     "last_year": null,
@@ -862,7 +862,7 @@
       2023,
       2024
     ],
-    "baseline_2020": true,
+    "baseline_2019": true,
     "destination": "HKG",
     "first_year": 2000,
     "last_year": 2024,
@@ -903,7 +903,7 @@
       2024,
       2025
     ],
-    "baseline_2020": true,
+    "baseline_2019": true,
     "destination": "HKG",
     "first_year": 2000,
     "last_year": 2025,
@@ -931,7 +931,7 @@
       2024,
       2025
     ],
-    "baseline_2020": true,
+    "baseline_2019": true,
     "destination": "HKG",
     "first_year": 2012,
     "last_year": 2025,
@@ -945,7 +945,7 @@
   },
   {
     "available_years": [],
-    "baseline_2020": false,
+    "baseline_2019": false,
     "destination": "HKG",
     "first_year": null,
     "last_year": null,
@@ -984,7 +984,7 @@
       2024,
       2025
     ],
-    "baseline_2020": true,
+    "baseline_2019": true,
     "destination": "HKG",
     "first_year": 2000,
     "last_year": 2025,
@@ -1025,7 +1025,7 @@
       2024,
       2025
     ],
-    "baseline_2020": true,
+    "baseline_2019": true,
     "destination": "HKG",
     "first_year": 2000,
     "last_year": 2025,
@@ -1059,7 +1059,7 @@
       2024,
       2025
     ],
-    "baseline_2020": true,
+    "baseline_2019": true,
     "destination": "USA",
     "first_year": 2007,
     "last_year": 2025,
@@ -1084,7 +1084,7 @@
       2021,
       2023
     ],
-    "baseline_2020": true,
+    "baseline_2019": false,
     "destination": "USA",
     "first_year": 2005,
     "last_year": 2023,
@@ -1125,7 +1125,7 @@
       2024,
       2025
     ],
-    "baseline_2020": true,
+    "baseline_2019": true,
     "destination": "USA",
     "first_year": 2000,
     "last_year": 2025,
@@ -1139,7 +1139,7 @@
   },
   {
     "available_years": [],
-    "baseline_2020": false,
+    "baseline_2019": false,
     "destination": "USA",
     "first_year": null,
     "last_year": null,
@@ -1178,7 +1178,7 @@
       2024,
       2025
     ],
-    "baseline_2020": true,
+    "baseline_2019": true,
     "destination": "USA",
     "first_year": 2000,
     "last_year": 2025,
@@ -1192,7 +1192,7 @@
   },
   {
     "available_years": [],
-    "baseline_2020": false,
+    "baseline_2019": false,
     "destination": "USA",
     "first_year": null,
     "last_year": null,
@@ -1204,7 +1204,7 @@
   },
   {
     "available_years": [],
-    "baseline_2020": false,
+    "baseline_2019": false,
     "destination": "USA",
     "first_year": null,
     "last_year": null,
@@ -1243,7 +1243,7 @@
       2024,
       2025
     ],
-    "baseline_2020": true,
+    "baseline_2019": true,
     "destination": "USA",
     "first_year": 2000,
     "last_year": 2025,
@@ -1266,7 +1266,7 @@
       2024,
       2025
     ],
-    "baseline_2020": true,
+    "baseline_2019": true,
     "destination": "USA",
     "first_year": 2018,
     "last_year": 2025,
@@ -1281,7 +1281,7 @@
   },
   {
     "available_years": [],
-    "baseline_2020": false,
+    "baseline_2019": false,
     "destination": "MAC",
     "first_year": null,
     "last_year": null,
@@ -1316,7 +1316,7 @@
       2023,
       2024
     ],
-    "baseline_2020": true,
+    "baseline_2019": true,
     "destination": "MAC",
     "first_year": 2003,
     "last_year": 2024,
@@ -1330,7 +1330,7 @@
   },
   {
     "available_years": [],
-    "baseline_2020": false,
+    "baseline_2019": false,
     "destination": "MAC",
     "first_year": null,
     "last_year": null,
@@ -1368,7 +1368,7 @@
       2023,
       2024
     ],
-    "baseline_2020": true,
+    "baseline_2019": true,
     "destination": "MAC",
     "first_year": 2000,
     "last_year": 2024,
@@ -1409,7 +1409,7 @@
       2024,
       2025
     ],
-    "baseline_2020": true,
+    "baseline_2019": true,
     "destination": "MAC",
     "first_year": 2000,
     "last_year": 2025,
@@ -1423,7 +1423,7 @@
   },
   {
     "available_years": [],
-    "baseline_2020": false,
+    "baseline_2019": false,
     "destination": "MAC",
     "first_year": null,
     "last_year": null,
@@ -1435,7 +1435,7 @@
   },
   {
     "available_years": [],
-    "baseline_2020": false,
+    "baseline_2019": false,
     "destination": "MAC",
     "first_year": null,
     "last_year": null,
@@ -1474,7 +1474,7 @@
       2024,
       2025
     ],
-    "baseline_2020": true,
+    "baseline_2019": true,
     "destination": "MAC",
     "first_year": 2000,
     "last_year": 2025,
@@ -1497,7 +1497,7 @@
       2024,
       2025
     ],
-    "baseline_2020": true,
+    "baseline_2019": true,
     "destination": "MAC",
     "first_year": 2018,
     "last_year": 2025,
@@ -1532,7 +1532,7 @@
       2024,
       2025
     ],
-    "baseline_2020": true,
+    "baseline_2019": true,
     "destination": "USA",
     "first_year": 2007,
     "last_year": 2025,
@@ -1546,7 +1546,7 @@
   },
   {
     "available_years": [],
-    "baseline_2020": false,
+    "baseline_2019": false,
     "destination": "USA",
     "first_year": null,
     "last_year": null,
@@ -1585,7 +1585,7 @@
       2024,
       2025
     ],
-    "baseline_2020": true,
+    "baseline_2019": true,
     "destination": "USA",
     "first_year": 2000,
     "last_year": 2025,
@@ -1599,7 +1599,7 @@
   },
   {
     "available_years": [],
-    "baseline_2020": false,
+    "baseline_2019": false,
     "destination": "USA",
     "first_year": null,
     "last_year": null,
@@ -1638,7 +1638,7 @@
       2024,
       2025
     ],
-    "baseline_2020": true,
+    "baseline_2019": true,
     "destination": "USA",
     "first_year": 2000,
     "last_year": 2025,
@@ -1652,7 +1652,7 @@
   },
   {
     "available_years": [],
-    "baseline_2020": false,
+    "baseline_2019": false,
     "destination": "USA",
     "first_year": null,
     "last_year": null,
@@ -1664,7 +1664,7 @@
   },
   {
     "available_years": [],
-    "baseline_2020": false,
+    "baseline_2019": false,
     "destination": "USA",
     "first_year": null,
     "last_year": null,
@@ -1703,7 +1703,7 @@
       2024,
       2025
     ],
-    "baseline_2020": true,
+    "baseline_2019": true,
     "destination": "USA",
     "first_year": 2000,
     "last_year": 2025,
@@ -1744,7 +1744,7 @@
       2024,
       2025
     ],
-    "baseline_2020": true,
+    "baseline_2019": true,
     "destination": "USA",
     "first_year": 2000,
     "last_year": 2025,
@@ -1758,7 +1758,7 @@
   },
   {
     "available_years": [],
-    "baseline_2020": false,
+    "baseline_2019": false,
     "destination": "TWN",
     "first_year": null,
     "last_year": null,
@@ -1770,7 +1770,7 @@
   },
   {
     "available_years": [],
-    "baseline_2020": false,
+    "baseline_2019": false,
     "destination": "TWN",
     "first_year": null,
     "last_year": null,
@@ -1782,7 +1782,7 @@
   },
   {
     "available_years": [],
-    "baseline_2020": false,
+    "baseline_2019": false,
     "destination": "TWN",
     "first_year": null,
     "last_year": null,
@@ -1820,7 +1820,7 @@
       2023,
       2024
     ],
-    "baseline_2020": true,
+    "baseline_2019": true,
     "destination": "TWN",
     "first_year": 2000,
     "last_year": 2024,
@@ -1849,7 +1849,7 @@
       2024,
       2025
     ],
-    "baseline_2020": true,
+    "baseline_2019": true,
     "destination": "TWN",
     "first_year": 2012,
     "last_year": 2025,
@@ -1863,7 +1863,7 @@
   },
   {
     "available_years": [],
-    "baseline_2020": false,
+    "baseline_2019": false,
     "destination": "TWN",
     "first_year": null,
     "last_year": null,
@@ -1890,7 +1890,7 @@
       2024,
       2025
     ],
-    "baseline_2020": true,
+    "baseline_2019": true,
     "destination": "TWN",
     "first_year": 2012,
     "last_year": 2025,
@@ -1931,7 +1931,7 @@
       2024,
       2025
     ],
-    "baseline_2020": true,
+    "baseline_2019": true,
     "destination": "TWN",
     "first_year": 2000,
     "last_year": 2025,
@@ -1972,7 +1972,7 @@
       2024,
       2025
     ],
-    "baseline_2020": true,
+    "baseline_2019": true,
     "destination": "TWN",
     "first_year": 2000,
     "last_year": 2025,

@@ -170,7 +170,7 @@ def coverage(rows):
                     "origin": origin, "destination": destination, "measure": measure,
                     "observations": len(available), "first_year": min(years) if years else None,
                     "last_year": max(years) if years else None, "available_years": years,
-                    "baseline_2020": 2020 in years,
+                    "baseline_2019": 2019 in years,
                     "source_ids": sorted({r["source_id"] for r in subset}),
                     "reason": "" if available else gap_reason(geo, origin, measure),
                 })
