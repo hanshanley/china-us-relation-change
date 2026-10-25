@@ -6,7 +6,7 @@
     "periods": "U.S. grant series use fiscal years ending September 30. Macau approvals use January-December calendar years. UN resident stocks use 1 July benchmarks. Birthplace, citizenship and source-country categories remain separate.",
     "resident_stocks": "UN stocks refer to 1 July in actual published benchmark years. China destination estimates use foreign citizenship; Hong Kong and U.S. destination estimates use foreign birth. Refugee adjustments are included where flagged R. These are not new immigration or net migration. No annual observations are invented between benchmarks.",
     "rights": "Selected statistical aggregates and original figures only; no source workbooks are redistributed. UN estimates: United Nations DESA, Population Division, International Migrant Stock 2024, adapted under CC BY 3.0 IGO.",
-    "rounding": "FY2015-2024 birthplace counts and FY2023-2025 nationality counts are rounded to the nearest ten. Earlier source vintages retain their published exact counts."
+    "rounding": "Birthplace all-grant counts for FY2015-2024 and nationality counts for FY2023-2025 are rounded to ten. Birthplace new-arrival counts retain exact published values through FY2022; FY2023-2024 use ten-person precision. Earlier source vintages retain their published exact counts."
   },
   "coverage": [
     {
@@ -38,6 +38,11 @@
       "description": "DSEC U.S.-category residence approvals for every calendar year 2007-2025; not resident stocks, physical U.S. departures or a permanent-resident classification.",
       "id": "macau_residence_approvals",
       "status": "available"
+    },
+    {
+      "description": "Mainland China-born new permanent-resident arrivals, FY2000-2024. FY2003-2005 remain missing, not zero or imputed; nationality counts remain separate.",
+      "id": "to_us_birthplace_arrivals",
+      "status": "partial"
     }
   ],
   "observations": [
@@ -1185,6 +1190,231 @@
       "year": 2024
     },
     {
+      "comparability": "ohss_birth_arrivals:CHN",
+      "notes": "INS Table 11, country of birth; exact new-arrivals column. Country of birth, not nationality or previous residence; excludes in-country adjustments. FY2003-2005 have no verified arrivals breakdown in the reviewed tables and remain missing, not zero. Original annual source vintages are retained; no imputation or visa-issuance proxy is used.",
+      "series_id": "ohss_birth_arrivals:CHN",
+      "source_id": "ohss_birth_arrivals_history",
+      "status": "observed",
+      "value": 28360,
+      "year": 2000
+    },
+    {
+      "comparability": "ohss_birth_arrivals:CHN",
+      "notes": "INS Table 11, country of birth; exact new-arrivals column. Country of birth, not nationality or previous residence; excludes in-country adjustments. FY2003-2005 have no verified arrivals breakdown in the reviewed tables and remain missing, not zero. Original annual source vintages are retained; no imputation or visa-issuance proxy is used.",
+      "series_id": "ohss_birth_arrivals:CHN",
+      "source_id": "ohss_birth_arrivals_history",
+      "status": "observed",
+      "value": 23763,
+      "year": 2001
+    },
+    {
+      "comparability": "ohss_birth_arrivals:CHN",
+      "notes": "INS Table 11, country of birth; exact new-arrivals column. Country of birth, not nationality or previous residence; excludes in-country adjustments. FY2003-2005 have no verified arrivals breakdown in the reviewed tables and remain missing, not zero. Original annual source vintages are retained; no imputation or visa-issuance proxy is used.",
+      "series_id": "ohss_birth_arrivals:CHN",
+      "source_id": "ohss_birth_arrivals_history",
+      "status": "observed",
+      "value": 31833,
+      "year": 2002
+    },
+    {
+      "comparability": "ohss_birth_arrivals:CHN",
+      "notes": "Country of birth, not nationality or previous residence; excludes in-country adjustments. FY2003-2005 have no verified arrivals breakdown in the reviewed tables and remain missing, not zero. Original annual source vintages are retained; no imputation or visa-issuance proxy is used.",
+      "series_id": "ohss_birth_arrivals:CHN",
+      "source_id": "ohss_birth_arrivals_history",
+      "status": "missing",
+      "value": null,
+      "year": 2003
+    },
+    {
+      "comparability": "ohss_birth_arrivals:CHN",
+      "notes": "Country of birth, not nationality or previous residence; excludes in-country adjustments. FY2003-2005 have no verified arrivals breakdown in the reviewed tables and remain missing, not zero. Original annual source vintages are retained; no imputation or visa-issuance proxy is used.",
+      "series_id": "ohss_birth_arrivals:CHN",
+      "source_id": "ohss_birth_arrivals_history",
+      "status": "missing",
+      "value": null,
+      "year": 2004
+    },
+    {
+      "comparability": "ohss_birth_arrivals:CHN",
+      "notes": "Country of birth, not nationality or previous residence; excludes in-country adjustments. FY2003-2005 have no verified arrivals breakdown in the reviewed tables and remain missing, not zero. Original annual source vintages are retained; no imputation or visa-issuance proxy is used.",
+      "series_id": "ohss_birth_arrivals:CHN",
+      "source_id": "ohss_birth_arrivals_history",
+      "status": "missing",
+      "value": null,
+      "year": 2005
+    },
+    {
+      "comparability": "ohss_birth_arrivals:CHN",
+      "notes": "Expanded Table 10, New arrivals total. Country of birth, not nationality or previous residence; excludes in-country adjustments. FY2003-2005 have no verified arrivals breakdown in the reviewed tables and remain missing, not zero. Original annual source vintages are retained; no imputation or visa-issuance proxy is used.",
+      "series_id": "ohss_birth_arrivals:CHN",
+      "source_id": "ohss_birth_arrivals_history",
+      "status": "observed",
+      "value": 37321,
+      "year": 2006
+    },
+    {
+      "comparability": "ohss_birth_arrivals:CHN",
+      "notes": "Expanded Table 10, New arrivals total. Country of birth, not nationality or previous residence; excludes in-country adjustments. FY2003-2005 have no verified arrivals breakdown in the reviewed tables and remain missing, not zero. Original annual source vintages are retained; no imputation or visa-issuance proxy is used.",
+      "series_id": "ohss_birth_arrivals:CHN",
+      "source_id": "ohss_birth_arrivals_history",
+      "status": "observed",
+      "value": 33295,
+      "year": 2007
+    },
+    {
+      "comparability": "ohss_birth_arrivals:CHN",
+      "notes": "Expanded Table 10, New arrivals total. Country of birth, not nationality or previous residence; excludes in-country adjustments. FY2003-2005 have no verified arrivals breakdown in the reviewed tables and remain missing, not zero. Original annual source vintages are retained; no imputation or visa-issuance proxy is used.",
+      "series_id": "ohss_birth_arrivals:CHN",
+      "source_id": "ohss_birth_arrivals_history",
+      "status": "observed",
+      "value": 32151,
+      "year": 2008
+    },
+    {
+      "comparability": "ohss_birth_arrivals:CHN",
+      "notes": "Expanded Table 10, New arrivals total. Country of birth, not nationality or previous residence; excludes in-country adjustments. FY2003-2005 have no verified arrivals breakdown in the reviewed tables and remain missing, not zero. Original annual source vintages are retained; no imputation or visa-issuance proxy is used.",
+      "series_id": "ohss_birth_arrivals:CHN",
+      "source_id": "ohss_birth_arrivals_history",
+      "status": "observed",
+      "value": 23274,
+      "year": 2009
+    },
+    {
+      "comparability": "ohss_birth_arrivals:CHN",
+      "notes": "Expanded Table 10, New arrivals total. Country of birth, not nationality or previous residence; excludes in-country adjustments. FY2003-2005 have no verified arrivals breakdown in the reviewed tables and remain missing, not zero. Original annual source vintages are retained; no imputation or visa-issuance proxy is used.",
+      "series_id": "ohss_birth_arrivals:CHN",
+      "source_id": "ohss_birth_arrivals_history",
+      "status": "observed",
+      "value": 29332,
+      "year": 2010
+    },
+    {
+      "comparability": "ohss_birth_arrivals:CHN",
+      "notes": "Expanded Table 10, New arrivals total. Country of birth, not nationality or previous residence; excludes in-country adjustments. FY2003-2005 have no verified arrivals breakdown in the reviewed tables and remain missing, not zero. Original annual source vintages are retained; no imputation or visa-issuance proxy is used.",
+      "series_id": "ohss_birth_arrivals:CHN",
+      "source_id": "ohss_birth_arrivals_history",
+      "status": "observed",
+      "value": 35506,
+      "year": 2011
+    },
+    {
+      "comparability": "ohss_birth_arrivals:CHN",
+      "notes": "Expanded Table 10, New arrivals total. Country of birth, not nationality or previous residence; excludes in-country adjustments. FY2003-2005 have no verified arrivals breakdown in the reviewed tables and remain missing, not zero. Original annual source vintages are retained; no imputation or visa-issuance proxy is used.",
+      "series_id": "ohss_birth_arrivals:CHN",
+      "source_id": "ohss_birth_arrivals_history",
+      "status": "observed",
+      "value": 38919,
+      "year": 2012
+    },
+    {
+      "comparability": "ohss_birth_arrivals:CHN",
+      "notes": "Expanded Table 10, New arrivals total. Country of birth, not nationality or previous residence; excludes in-country adjustments. FY2003-2005 have no verified arrivals breakdown in the reviewed tables and remain missing, not zero. Original annual source vintages are retained; no imputation or visa-issuance proxy is used.",
+      "series_id": "ohss_birth_arrivals:CHN",
+      "source_id": "ohss_birth_arrivals_history",
+      "status": "observed",
+      "value": 33042,
+      "year": 2013
+    },
+    {
+      "comparability": "ohss_birth_arrivals:CHN",
+      "notes": "Expanded Table 10, New arrivals total. Country of birth, not nationality or previous residence; excludes in-country adjustments. FY2003-2005 have no verified arrivals breakdown in the reviewed tables and remain missing, not zero. Original annual source vintages are retained; no imputation or visa-issuance proxy is used.",
+      "series_id": "ohss_birth_arrivals:CHN",
+      "source_id": "ohss_birth_arrivals_history",
+      "status": "observed",
+      "value": 36562,
+      "year": 2014
+    },
+    {
+      "comparability": "ohss_birth_arrivals:CHN",
+      "notes": "Expanded Table 10, New arrivals total. Country of birth, not nationality or previous residence; excludes in-country adjustments. FY2003-2005 have no verified arrivals breakdown in the reviewed tables and remain missing, not zero. Original annual source vintages are retained; no imputation or visa-issuance proxy is used.",
+      "series_id": "ohss_birth_arrivals:CHN",
+      "source_id": "ohss_birth_arrivals_history",
+      "status": "observed",
+      "value": 38025,
+      "year": 2015
+    },
+    {
+      "comparability": "ohss_birth_arrivals:CHN",
+      "notes": "Expanded Table 10, New arrivals total. Country of birth, not nationality or previous residence; excludes in-country adjustments. FY2003-2005 have no verified arrivals breakdown in the reviewed tables and remain missing, not zero. Original annual source vintages are retained; no imputation or visa-issuance proxy is used.",
+      "series_id": "ohss_birth_arrivals:CHN",
+      "source_id": "ohss_birth_arrivals_history",
+      "status": "observed",
+      "value": 43013,
+      "year": 2016
+    },
+    {
+      "comparability": "ohss_birth_arrivals:CHN",
+      "notes": "Expanded Table 10, New arrivals total. Country of birth, not nationality or previous residence; excludes in-country adjustments. FY2003-2005 have no verified arrivals breakdown in the reviewed tables and remain missing, not zero. Original annual source vintages are retained; no imputation or visa-issuance proxy is used.",
+      "series_id": "ohss_birth_arrivals:CHN",
+      "source_id": "ohss_birth_arrivals_history",
+      "status": "observed",
+      "value": 37075,
+      "year": 2017
+    },
+    {
+      "comparability": "ohss_birth_arrivals:CHN",
+      "notes": "Expanded Table 10, New arrivals total. Country of birth, not nationality or previous residence; excludes in-country adjustments. FY2003-2005 have no verified arrivals breakdown in the reviewed tables and remain missing, not zero. Original annual source vintages are retained; no imputation or visa-issuance proxy is used.",
+      "series_id": "ohss_birth_arrivals:CHN",
+      "source_id": "ohss_birth_arrivals_history",
+      "status": "observed",
+      "value": 29006,
+      "year": 2018
+    },
+    {
+      "comparability": "ohss_birth_arrivals:CHN",
+      "notes": "Expanded Table 10, New arrivals total. Country of birth, not nationality or previous residence; excludes in-country adjustments. FY2003-2005 have no verified arrivals breakdown in the reviewed tables and remain missing, not zero. Original annual source vintages are retained; no imputation or visa-issuance proxy is used.",
+      "series_id": "ohss_birth_arrivals:CHN",
+      "source_id": "ohss_birth_arrivals_history",
+      "status": "observed",
+      "value": 26395,
+      "year": 2019
+    },
+    {
+      "comparability": "ohss_birth_arrivals:CHN",
+      "notes": "Expanded Table 10, New arrivals total. Country of birth, not nationality or previous residence; excludes in-country adjustments. FY2003-2005 have no verified arrivals breakdown in the reviewed tables and remain missing, not zero. Original annual source vintages are retained; no imputation or visa-issuance proxy is used.",
+      "series_id": "ohss_birth_arrivals:CHN",
+      "source_id": "ohss_birth_arrivals_history",
+      "status": "observed",
+      "value": 12103,
+      "year": 2020
+    },
+    {
+      "comparability": "ohss_birth_arrivals:CHN",
+      "notes": "Expanded Table 10, New arrivals total. Country of birth, not nationality or previous residence; excludes in-country adjustments. FY2003-2005 have no verified arrivals breakdown in the reviewed tables and remain missing, not zero. Original annual source vintages are retained; no imputation or visa-issuance proxy is used.",
+      "series_id": "ohss_birth_arrivals:CHN",
+      "source_id": "ohss_birth_arrivals_history",
+      "status": "observed",
+      "value": 10962,
+      "year": 2021
+    },
+    {
+      "comparability": "ohss_birth_arrivals:CHN",
+      "notes": "Expanded Table 10, New arrivals total. Country of birth, not nationality or previous residence; excludes in-country adjustments. FY2003-2005 have no verified arrivals breakdown in the reviewed tables and remain missing, not zero. Original annual source vintages are retained; no imputation or visa-issuance proxy is used.",
+      "series_id": "ohss_birth_arrivals:CHN",
+      "source_id": "ohss_birth_arrivals_history",
+      "status": "observed",
+      "value": 24347,
+      "year": 2022
+    },
+    {
+      "comparability": "ohss_birth_arrivals:CHN",
+      "notes": "Expanded Table 10, New arrivals total. Country of birth, not nationality or previous residence; excludes in-country adjustments. FY2003-2005 have no verified arrivals breakdown in the reviewed tables and remain missing, not zero. Original annual source vintages are retained; no imputation or visa-issuance proxy is used.",
+      "series_id": "ohss_birth_arrivals:CHN",
+      "source_id": "ohss_birth_arrivals_history",
+      "status": "rounded",
+      "value": 21880,
+      "year": 2023
+    },
+    {
+      "comparability": "ohss_birth_arrivals:CHN",
+      "notes": "China birthplace profile, New arrivals row. Country of birth, not nationality or previous residence; excludes in-country adjustments. FY2003-2005 have no verified arrivals breakdown in the reviewed tables and remain missing, not zero. Original annual source vintages are retained; no imputation or visa-issuance proxy is used.",
+      "series_id": "ohss_birth_arrivals:CHN",
+      "source_id": "ohss_birth_arrivals_history",
+      "status": "rounded",
+      "value": 24140,
+      "year": 2024
+    },
+    {
       "comparability": "ohss_nationality:adjustments",
       "notes": "Fiscal year ending September 30. Exact count from this source vintage.",
       "series_id": "ohss_nationality:adjustments",
@@ -1708,6 +1938,15 @@
       "scope": "U.S. lawful permanent-resident grants; country of birth: Macau",
       "unit": "status grants"
     },
+    "ohss_birth_arrivals:CHN": {
+      "cadence": "annual",
+      "label": "Mainland China-born new arrivals",
+      "measure": "permanent_resident_arrivals",
+      "notes": "Country of birth, not nationality or previous residence; excludes in-country adjustments. FY2003-2005 have no verified arrivals breakdown in the reviewed tables and remain missing, not zero. Original annual source vintages are retained; no imputation or visa-issuance proxy is used.",
+      "period_basis": "fiscal ending year",
+      "scope": "U.S. new lawful permanent-resident arrivals; country of birth: China, People's Republic",
+      "unit": "people"
+    },
     "ohss_nationality:adjustments": {
       "cadence": "annual",
       "label": "Adjustments within the U.S.",
@@ -1952,6 +2191,179 @@
       "name": "U.S. Department of Homeland Security / OHSS",
       "notes": "Lawful permanent-resident status grants, including new arrivals and adjustments within the U.S. Published cells rounded to nearest ten.",
       "vintage": "2024 Yearbook of Immigration Statistics"
+    },
+    "ohss_birth_arrivals_history": {
+      "assets": [
+        {
+          "checksum_scope": "extracted XLS member, not the complete ZIP",
+          "crc32": 3315302185,
+          "dataset": "10.17632/r2r444tpzs.2",
+          "licence": "CC BY 4.0",
+          "member_path": "data/input/Homeland Security/Table11_2000.xls",
+          "request_url": "https://data.mendeley.com/public-files/datasets/r2r444tpzs/files/23642639-3e55-494a-ae63-2a0b76b35484/file_downloaded",
+          "retrieved_at": "2026-10-25T16:09:53.734112+00:00",
+          "sha256": "8dd25f4754df63e2f4080e9d0a2a662e398ab465c31efda77c9ebdfa6befe7ca",
+          "url": "https://data.mendeley.com/public-files/datasets/r2r444tpzs/files/23642639-3e55-494a-ae63-2a0b76b35484/file_downloaded"
+        },
+        {
+          "checksum_scope": "extracted XLS member, not the complete ZIP",
+          "crc32": 1650975882,
+          "dataset": "10.17632/r2r444tpzs.2",
+          "licence": "CC BY 4.0",
+          "member_path": "data/input/Homeland Security/Table11_2001.xls",
+          "request_url": "https://data.mendeley.com/public-files/datasets/r2r444tpzs/files/23642639-3e55-494a-ae63-2a0b76b35484/file_downloaded",
+          "retrieved_at": "2026-10-25T16:09:54.362489+00:00",
+          "sha256": "719ca40242905c593d3a7333435c45ad21dc6ccd43a540bd997544a9d9e16dff",
+          "url": "https://data.mendeley.com/public-files/datasets/r2r444tpzs/files/23642639-3e55-494a-ae63-2a0b76b35484/file_downloaded"
+        },
+        {
+          "checksum_scope": "extracted XLS member, not the complete ZIP",
+          "crc32": 1415105731,
+          "dataset": "10.17632/r2r444tpzs.2",
+          "licence": "CC BY 4.0",
+          "member_path": "data/input/Homeland Security/Table11_2002.xls",
+          "request_url": "https://data.mendeley.com/public-files/datasets/r2r444tpzs/files/23642639-3e55-494a-ae63-2a0b76b35484/file_downloaded",
+          "retrieved_at": "2026-10-25T16:09:54.993075+00:00",
+          "sha256": "40eed9fc4bd2e066375f532aed9722718ed6326f34313e99f33ece9b2e6a0d0d",
+          "url": "https://data.mendeley.com/public-files/datasets/r2r444tpzs/files/23642639-3e55-494a-ae63-2a0b76b35484/file_downloaded"
+        },
+        {
+          "request_url": "https://ohss.dhs.gov/sites/default/files/2023-12/fy2006_tables8-11newadj_d.xlsx",
+          "retrieved_at": "2026-10-25T16:21:44.720612+00:00",
+          "sha256": "67217f70fbc0994fec7250ae45564c1830ef133b3cb4826828528fd08f9ad03a",
+          "url": "https://ohss.dhs.gov/sites/default/files/2023-12/fy2006_tables8-11newadj_d.xlsx"
+        },
+        {
+          "request_url": "https://ohss.dhs.gov/sites/default/files/2023-12/fy2007_tables8-11newadj_d.xlsx",
+          "retrieved_at": "2026-10-25T16:22:20.039621+00:00",
+          "sha256": "378bf916a42acb6516c772390cdf0ce7acd6c3d6915cf212844ccd2d4e07198b",
+          "url": "https://ohss.dhs.gov/sites/default/files/2023-12/fy2007_tables8-11newadj_d.xlsx"
+        },
+        {
+          "request_url": "https://ohss.dhs.gov/sites/default/files/2023-12/fy2008_tables8-11newadj_d.xlsx",
+          "retrieved_at": "2026-10-25T16:22:19.733301+00:00",
+          "sha256": "5974ebe3113c078487c8922afa487969547ed6fbfef46aca761e047acaba070a",
+          "url": "https://ohss.dhs.gov/sites/default/files/2023-12/fy2008_tables8-11newadj_d.xlsx"
+        },
+        {
+          "request_url": "https://ohss.dhs.gov/sites/default/files/2023-12/fy2009_tables8-11newadj_d.xlsx",
+          "retrieved_at": "2026-10-25T16:22:19.566439+00:00",
+          "sha256": "be20367c5c7d3cb3b42365721fd1e5c0fdf4a62857ec7894bb99b0d6174f3c6f",
+          "url": "https://ohss.dhs.gov/sites/default/files/2023-12/fy2009_tables8-11newadj_d.xlsx"
+        },
+        {
+          "request_url": "https://ohss.dhs.gov/sites/default/files/2023-12/fy2010_tables8-11newadj_d.xlsx",
+          "retrieved_at": "2026-10-25T16:22:19.396934+00:00",
+          "sha256": "2085fcc4bf4be77576913192e9b6d7ffab33c1a6e9f195b36890948709d189c1",
+          "url": "https://ohss.dhs.gov/sites/default/files/2023-12/fy2010_tables8-11newadj_d.xlsx"
+        },
+        {
+          "request_url": "https://ohss.dhs.gov/sites/default/files/2023-12/fy2011_tables8-11newadj_d.xlsx",
+          "retrieved_at": "2026-10-25T16:22:19.251438+00:00",
+          "sha256": "0ea9fb4f081156ba70a9a43c81166800518d9c19b93c9378d38f28669e1f7a95",
+          "url": "https://ohss.dhs.gov/sites/default/files/2023-12/fy2011_tables8-11newadj_d.xlsx"
+        },
+        {
+          "request_url": "https://ohss.dhs.gov/sites/default/files/2023-12/fy2012_tables8-11newadj_d.xlsx",
+          "retrieved_at": "2026-10-25T16:22:19.104666+00:00",
+          "sha256": "b379c154fb48cd4d091d035fc7a479ce2ceeeb4dd0c9e348f1b7f44d59c211a1",
+          "url": "https://ohss.dhs.gov/sites/default/files/2023-12/fy2012_tables8-11newadj_d.xlsx"
+        },
+        {
+          "request_url": "https://ohss.dhs.gov/sites/default/files/2023-12/fy2013_tables8-11newadj_d.xlsx",
+          "retrieved_at": "2026-10-25T16:22:18.871988+00:00",
+          "sha256": "741966413e429b37f71d65305d26fdd8af2e41f6e03eacbeca993e988f4c3762",
+          "url": "https://ohss.dhs.gov/sites/default/files/2023-12/fy2013_tables8-11newadj_d.xlsx"
+        },
+        {
+          "request_url": "https://ohss.dhs.gov/sites/default/files/2023-12/fy2014_tables8-11newadj_d_0.xlsx",
+          "retrieved_at": "2026-10-25T16:22:18.728875+00:00",
+          "sha256": "6ea2d3dfcb140b2408933605e789a74e4bec7db32e692e6f9d035bc36273b53a",
+          "url": "https://ohss.dhs.gov/sites/default/files/2023-12/fy2014_tables8-11newadj_d_0.xlsx"
+        },
+        {
+          "request_url": "https://ohss.dhs.gov/sites/default/files/2023-12/fy2015_tables8-11newadj_d_0.xlsx",
+          "retrieved_at": "2026-10-25T16:22:18.601905+00:00",
+          "sha256": "0b2685bfd4532d68a58ac06e28f15409259ce6d6849f9ba9ae30a59bbb5acc3b",
+          "url": "https://ohss.dhs.gov/sites/default/files/2023-12/fy2015_tables8-11newadj_d_0.xlsx"
+        },
+        {
+          "request_url": "https://ohss.dhs.gov/sites/default/files/2023-12/fy2016_tables8-11newadj_d.xlsx",
+          "retrieved_at": "2026-10-25T16:22:18.446487+00:00",
+          "sha256": "f8da2ce5740ef5125d7ccef6300f832b3d2054bd9a1fb25d6973f05592f60a6e",
+          "url": "https://ohss.dhs.gov/sites/default/files/2023-12/fy2016_tables8-11newadj_d.xlsx"
+        },
+        {
+          "request_url": "https://ohss.dhs.gov/sites/default/files/2023-12/fy2017_tables8-11newadj_d.xlsx",
+          "retrieved_at": "2026-10-25T16:22:18.285362+00:00",
+          "sha256": "05f7deadef52db7baab8645d09a22a4add54eee32473209dd7dae87a58cca0cb",
+          "url": "https://ohss.dhs.gov/sites/default/files/2023-12/fy2017_tables8-11newadj_d.xlsx"
+        },
+        {
+          "request_url": "https://ohss.dhs.gov/sites/default/files/2023-12/fy2018_tables8-11newadj_d.xlsx",
+          "retrieved_at": "2026-10-25T16:21:45.015680+00:00",
+          "sha256": "89551c2e7ace2a0a3b1b2129e81bd0d6b9eab5c95d4737049d05aa0525d426f0",
+          "url": "https://ohss.dhs.gov/sites/default/files/2023-12/fy2018_tables8-11newadj_d.xlsx"
+        },
+        {
+          "request_url": "https://ohss.dhs.gov/sites/default/files/2023-12/fy2019_tables8-11_newadj_d.xlsx",
+          "retrieved_at": "2026-10-25T16:22:18.131426+00:00",
+          "sha256": "7738ba3443385136efcb5d1784bb069396bffe6b4fa67a3e97f7100519f02c05",
+          "url": "https://ohss.dhs.gov/sites/default/files/2023-12/fy2019_tables8-11_newadj_d.xlsx"
+        },
+        {
+          "request_url": "https://ohss.dhs.gov/sites/default/files/2023-12/2021_0920_plcy_tables8-11newadj_fy2020_d.xlsx",
+          "retrieved_at": "2026-10-25T16:22:17.960076+00:00",
+          "sha256": "e87c3f684257e7b7cc2aeb47f7146b2cb50af21a3708d35ab276902b2e754567",
+          "url": "https://ohss.dhs.gov/sites/default/files/2023-12/2021_0920_plcy_tables8-11newadj_fy2020_d.xlsx"
+        },
+        {
+          "request_url": "https://ohss.dhs.gov/sites/default/files/2023-12/2202_0405_plcy_tables8-11newadj_fy2021_d.xlsx",
+          "retrieved_at": "2026-10-25T16:22:17.823339+00:00",
+          "sha256": "64a7c7683a1815ba0362377900bfe6ea37dba9a4a8b480046a5e5fd73ef11dab",
+          "url": "https://ohss.dhs.gov/sites/default/files/2023-12/2202_0405_plcy_tables8-11newadj_fy2021_d.xlsx"
+        },
+        {
+          "request_url": "https://ohss.dhs.gov/sites/default/files/2023-12/plcy_tables8-11newadj_fy2022_d.xlsx",
+          "retrieved_at": "2026-10-25T16:22:17.694458+00:00",
+          "sha256": "f70a188fd5d97b093fbdd8b9ce89e7601ea2d8c00d27ba1b5b7135c0683cee5f",
+          "url": "https://ohss.dhs.gov/sites/default/files/2023-12/plcy_tables8-11newadj_fy2022_d.xlsx"
+        },
+        {
+          "request_url": "https://ohss.dhs.gov/system/files/2026-07/2025_0828_ohss_tables8-11newadj_fy2023_v2.xlsx",
+          "retrieved_at": "2026-10-25T16:25:25.270898+00:00",
+          "sha256": "4633e626f701f3ac8899a9f1a45358f1344e3f5882f265f7fee22483d3bce100",
+          "url": "https://ohss.dhs.gov/system/files/2026-07/2025_0828_ohss_tables8-11newadj_fy2023_v2.xlsx"
+        },
+        {
+          "request_url": "https://ohss.dhs.gov/data/profiles/lpr/2024/fy2024cobbook51.xlsx",
+          "retrieved_at": "2026-10-25T16:26:36.290610+00:00",
+          "sha256": "21991f30e01a423ad27e994673cc42fa4cfd27a3abbf508c0619722a3a481395",
+          "url": "https://ohss.dhs.gov/data/profiles/lpr/2024/fy2024cobbook51.xlsx"
+        },
+        {
+          "request_url": "https://ohss.dhs.gov/data/profiles/lpr/2003/COBBook63.xls",
+          "retrieved_at": "2026-10-25T16:26:43.258187+00:00",
+          "sha256": "99c7682fc3ff6495cd3ad7b904fe9c41122c532189b39c82d1e5a95741abf269",
+          "url": "https://ohss.dhs.gov/data/profiles/lpr/2003/COBBook63.xls"
+        },
+        {
+          "request_url": "https://ohss.dhs.gov/data/profiles/lpr/2004/COBBook63.xls",
+          "retrieved_at": "2026-10-25T16:26:43.003262+00:00",
+          "sha256": "76dca6b266d9515cd68f518fc09924daf0f07f9224b769daf4478687eeaa574e",
+          "url": "https://ohss.dhs.gov/data/profiles/lpr/2004/COBBook63.xls"
+        },
+        {
+          "request_url": "https://ohss.dhs.gov/data/profiles/lpr/2005/COBBook60.xls",
+          "retrieved_at": "2026-10-25T16:26:42.762327+00:00",
+          "sha256": "71ec8eff26a4790c7bbb6be1ab477007aec46f44db7558b789ce544dc5115608",
+          "url": "https://ohss.dhs.gov/data/profiles/lpr/2005/COBBook60.xls"
+        }
+      ],
+      "locator": "FY2000-2002 INS Table 11 originals in Mendeley r2r444tpzs v2; FY2006-2023 expanded Table 10; FY2024 China birthplace profile, New arrivals row. FY2003-2005 profiles lack that breakdown.",
+      "name": "U.S. INS / DHS / OHSS",
+      "notes": "Country of birth, not nationality or previous residence; excludes in-country adjustments. FY2003-2005 have no verified arrivals breakdown in the reviewed tables and remain missing, not zero. Original annual source vintages are retained; no imputation or visa-issuance proxy is used. Early XLS member SHA256/CRC32 are verified, not the complete research ZIP. The authors' grouped/imputed series is not used. FY2023-2024 counts are rounded to ten.",
+      "vintage": "Reviewed fiscal-year arrivals tables, 2000-2024"
     },
     "ohss_nationality_2016": {
       "assets": [
