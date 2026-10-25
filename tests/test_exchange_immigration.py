@@ -265,10 +265,12 @@ def test_covid_context_covers_immigration_flows_but_not_stocks_or_snapshots(tmp_
             assert paths
             for path in paths:
                 svg = BeautifulSoup(path.read_text(), "html.parser")
-                assert bool(svg.select(".covid-band")) == (chart_id in flows)
+                assert bool(svg.select(".covid-band")) == (chart_id == "annual-china-to-us")
                 if chart_id in flows:
                     footnote = " ".join(node.text for node in svg.select(".figure-source"))
-                    assert "not a universal ban" in footnote
+                    assert "universal ban" in footnote
                     assert "In-country status adjustments are not border arrivals" in svg.find("desc").text
                     assert all(float(node["y"]) <= 580 for node in svg.select(".figure-source"))
+        if chart_id in flows - {"annual-china-to-us", "macau-residence-approvals"}:
+            assert "March 18, 2020" in note.text and "June 4, 2020" in note.text
     assert json.loads((tmp_path / "site/downloads/immigration.json").read_text()) == data
