@@ -131,7 +131,7 @@ def test_export_axes_preserve_fractional_thousands_instead_of_repeating_rounded_
 def test_air_travel_uses_its_own_history_and_pre_pandemic_index():
     rows = [r for r in json.loads((ROOT / "data/site/observations.json").read_text())
             if r["series_id"] == "ntto_siat:USA:CHN:air_visitors" and r["frequency"] == "annual"]
-    assert {r["year"] for r in rows} == {*range(2012, 2021), *range(2022, 2026)}
+    assert {r["year"] for r in rows} == {*range(2000, 2021), *range(2022, 2026)}
     assert next(r for r in rows if r["year"] == 2018)["value"] == 1_587_000
     assert next(r for r in rows if r["year"] == 2020)["value"] == 89_000
     doc = ElementTree.fromstring(svg_chart(rows, indexed=True))
