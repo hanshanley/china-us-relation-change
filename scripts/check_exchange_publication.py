@@ -67,8 +67,10 @@ def check_exchange_toggles(page, data, screenshots=None):
                     const b=n.getBBox();return b.x>=-1&&b.y>=-1&&b.x+b.width<=v.width+1&&b.y+b.height<=v.height+1;
                   })&&![...svg.querySelectorAll('[x],[cx],[width],[height],[d]')].some(n=>/NaN|Infinity/.test(n.outerHTML));
                 }"""), (repeat, geo, direction, measure, "invalid chart geometry")
-                mobility = measure in data["covid_context"]["measures"]
-                if mobility and annual[0]["year"] <= 2022 and annual[-1]["year"] >= 2020:
+                covid = data["covid_context"].get("measure_contexts", {}).get(measure) or (
+                    data["covid_context"] if measure in data["covid_context"]["measures"] else None)
+                if covid and annual[0]["year"] <= 2022 and annual[-1]["year"] >= 2020:
+                    expect(svg.locator(".covid-label")).to_have_text(covid["label"])
                     assert svg.evaluate("""svg=>{
                       const band=svg.querySelector('.covid-band');
                       const ticks=[...svg.querySelectorAll('.screen-year')];
