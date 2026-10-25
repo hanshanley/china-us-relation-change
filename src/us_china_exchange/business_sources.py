@@ -52,6 +52,7 @@ FINLAND_COUNTRIES = "https://pxdata.stat.fi/PxWeb/api/v1/en/StatFin/stu/13k8.px"
 FINLAND_METHODS = "https://stat.fi/en/documentation/changes-in-statistics/clh08g97cga760bw05x4vrip0"
 FINLAND_DOCUMENTATION = "https://stat.fi/en/documentation/documentation-of-statistics/stu"
 FINLAND_EUROSTAT_METHODS = "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_fi.htm"
+SPAIN_EUROSTAT_METHODS = "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_es.htm"
 NORDIC_QUERIES = {
     "sweden": {"query": [
         {"code": "Tid", "selection": {"filter": "item", "values": [str(y) for y in range(2000, 2025)]}},
@@ -195,6 +196,46 @@ def french_affiliates(client):
                     comparability += {2007: ":pilot2007", 2008: ":unreported2008", 2009: ":annual2009"}[year]
                 observations.append(row(sid, year, value, source_id, status,
                                         notes + " Source flags: " + flag, comparability))
+    return definitions, observations, sources
+
+
+def spanish_affiliates(client):
+    sid, observations, sources = "eurostat_spain:china", [], {}
+    notes = (
+        "Spanish-resident ultimate control; Eurostat's China except Hong Kong host category. "
+        "Financial and nonfinancial activities, not unique Spanish parents. "
+        "Counts are reported from 2009; 2007/2008 are unreported and no 2000-2006 values are inferred. "
+        "Retain the 2010 classification transition and the 2021 change from legal units to "
+        "statistical enterprises. Recent estimates retain their original flags. "
+        "INE's national nonfinancial population is different and is not appended to this series.")
+    definitions = {sid: series(
+        "Spain (Eurostat)", "controlled_enterprises", "enterprises",
+        "Spanish-resident UCI enterprises in China except Hong Kong; legacy NACE C-O except L, "
+        "then NACE B-S except O; financial and nonfinancial activities",
+        "annual", "reference year", notes)}
+    _, methodology = client.get(SPAIN_EUROSTAT_METHODS)
+    for dataset, indicator, activity in [
+        ("fats_out2", "indic_bp=ENT", "nace_r1=C-O_X_L"),
+        ("fats_out2_r2", "indic_bp=ENT", "nace_r2=B-S_X_O"),
+        ("fats_out_part", "indic_sbs=ENT_NR", "nace_r2=B-S_X_O"),
+    ]:
+        url = EUROSTAT + dataset + "?lang=EN&freq=A&geo=ES&partner=CN_X_HK&" + indicator + "&" + activity
+        body, asset = client.get(url)
+        data, source_id = json.loads(body), dataset + "_ES"
+        sources[source_id] = source(
+            "Eurostat", dataset + "; Spain; source updated " + data.get("updated", "not supplied"),
+            [asset, methodology], "geo=ES; partner=CN_X_HK; " + indicator + "; " + activity,
+            notes + " Original reporter metadata and observation flags are retained.")
+        points = parse_eurostat(data, dataset, "ES")
+        years = {point[0] for point in points}
+        expected = (set(range(2007, 2010)) if dataset == "fats_out2" else
+                    set(range(2010, 2021)) if dataset == "fats_out2_r2" else
+                    set(range(2021, max(years) + 1)))
+        if years != expected or (dataset == "fats_out_part" and max(years) < 2023):
+            raise ValueError("Spanish affiliate history is incomplete; preserve the reviewed snapshot")
+        observations.extend(
+            row(sid, year, value, source_id, status, notes + " Source flags: " + flag, comparability)
+            for year, value, status, flag, comparability in points)
     return definitions, observations, sources
 
 
@@ -572,6 +613,10 @@ def collect_business(client):
     definitions.update(finland_definitions)
     observations.extend(finland_observations)
     sources.update(finland_sources)
+    spain_definitions, spain_observations, spain_sources = spanish_affiliates(client)
+    definitions.update(spain_definitions)
+    observations.extend(spain_observations)
+    sources.update(spain_sources)
     coverage = []
     for sid in definitions:
         selected = [r for r in observations if r["series_id"] == sid]
@@ -589,7 +634,7 @@ def collect_business(client):
         "context": {
             "question": "How has U.S. and European business presence in China changed over time?",
             "interpretation": "Company counts, affiliate entities and branch locations are distinct. U.S. parents and ultimately EU-controlled enterprises are not matched ownership populations; BEA and Eurostat levels must not be used to rank otherwise comparable business presence.",
-            "geography": "China is the host. European coverage includes current/historical EU groups, Germany, the UK, Norway, Sweden, Finland, France and the Netherlands. French, Finnish and Dutch Eurostat host categories are China except Hong Kong. Finland's Eurostat UCI history and broader national series remain separate. National series overlap EU aggregates and have different control/sector definitions; these are not summed into an all-Europe total. Other European origins remain unresolved.",
+            "geography": "China is the host. European coverage includes current/historical EU groups, Germany, the UK, Norway, Sweden, Finland, France, the Netherlands and Spain. French, Finnish, Dutch and Spanish Eurostat host categories are China except Hong Kong. Finland's Eurostat UCI history and broader national series remain separate. Spain's Eurostat financial/nonfinancial history is not spliced with INE's national nonfinancial counts. National series overlap EU aggregates and have different control/sector definitions; these are not summed into an all-Europe total. Other European origins remain unresolved.",
             "rights": "Publish aggregate statistics and original charts only; raw workbooks and reports remain local. Sources and retrieval checksums accompany every observation.",
             "release_timing": "As checked October 22, 2026, BEA's latest activity release covers 2023. The published schedule puts the 2024 activity release on November 20, 2026; no 2024 value is inferred.",
         },

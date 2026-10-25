@@ -23,14 +23,16 @@ COLORS = {"bea_affiliates:china": PARTNER_COLORS["CHN"], "bea_parents:china": PA
           "bundesbank_germany:china": "#79638A", "eurostat_germany:china": "#A397AC",
           "eurostat_netherlands:china": "#617C78",
           "tillvaxtanalys_sweden:china": "#526F76", "statfin_finland:china": "#6F7354",
-          "eurostat_france:china": "#8A6556", "eurostat_finland:china": "#999D7D"}
+          "eurostat_france:china": "#8A6556", "eurostat_finland:china": "#999D7D",
+          "eurostat_spain:china": "#8B7656"}
 ORIGINS = {"bea_affiliates:china": "us", "bea_parents:china": "us",
            "eurostat_affiliates:china": "eu", "eurostat_historical_eu:china": "eu",
            "eurostat_uk:china": "uk", "eurostat_norway:china": "norway", "ssb_norway:china": "norway",
            "bundesbank_germany:china": "germany", "eurostat_germany:china": "germany",
            "eurostat_netherlands:china": "netherlands",
            "tillvaxtanalys_sweden:china": "sweden", "statfin_finland:china": "finland",
-           "eurostat_france:china": "france", "eurostat_finland:china": "finland"}
+           "eurostat_france:china": "france", "eurostat_finland:china": "finland",
+           "eurostat_spain:china": "spain"}
 CHARTS = {
     "us-affiliates-china": {
         "title": "U.S.-parent affiliates in China",
@@ -97,6 +99,13 @@ CHARTS = {
         "series": ["eurostat_finland:china"], "unit": "Enterprises", "mode": "levels",
         "note": "Eurostat, Finnish-UCI market producers. 2010 NACE, 2013 YTY system and 2021 EBS boundaries retained. "
         "The broader national affiliate/branch counts above are a different population, not a splice or a matched comparison."},
+    "spain-affiliates-china": {
+        "title": "Spanish-controlled enterprises in China",
+        "subtitle": "China except Hong Kong | Reported counts from 2009",
+        "series": ["eurostat_spain:china"], "unit": "Enterprises", "mode": "levels",
+        "note": "Eurostat. 2007/2008 unreported; 2010 classification and 2021 statistical-enterprise boundaries. "
+        "Financial and nonfinancial activities; not unique Spanish parents. Source estimates are flagged. "
+        "Not spliced with INE's differently scoped national nonfinancial counts or summed with EU aggregates."},
     BENCHMARK_CHART: {
         "title": "U.S. parent companies with China affiliates",
         "subtitle": "Supplementary benchmark observations | NOT an annual series",
@@ -134,6 +143,9 @@ def validate_business_data(data):
         if sid == "eurostat_netherlands:china" and not all(
                 token in definition["scope"] for token in ("Dutch-resident UCI", "China except Hong Kong")):
             raise ValueError("Dutch control and host-country scope must remain explicit")
+        if sid == "eurostat_spain:china" and not all(
+                token in definition["scope"] for token in ("Spanish-resident UCI", "China except Hong Kong")):
+            raise ValueError("Spanish control and host-country scope must remain explicit")
     for item in data["sources"].values():
         if set(item) != {"name", "vintage", "assets", "locator", "notes"} or not item["assets"]:
             raise ValueError("Business source provenance incomplete")
@@ -182,6 +194,8 @@ def validate_business_data(data):
                                      "fats_out2_r2_FR" if r["year"] <= 2020 else "fats_out_part_FR"),
             "eurostat_finland:china": ("fats_out2_FI" if r["year"] <= 2009 else
                                       "fats_out2_r2_FI" if r["year"] <= 2020 else "fats_out_part_FI"),
+            "eurostat_spain:china": ("fats_out2_ES" if r["year"] <= 2009 else
+                                    "fats_out2_r2_ES" if r["year"] <= 2020 else "fats_out_part_ES"),
         }
         if r["series_id"].startswith("eurostat") and r["source_id"] != expected_source[r["series_id"]]:
             raise ValueError("European method/source boundary mismatch")
