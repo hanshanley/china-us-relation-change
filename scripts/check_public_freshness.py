@@ -49,6 +49,9 @@ def check(site, url=None):
         data = json.loads((site / f"downloads/{name}.json").read_text())
         definitions.update(data["series"])
     observations = json.loads((site / "downloads/observations.json").read_text())
+    immigration = json.loads((site / "downloads/immigration.json").read_text())
+    arrivals = sorted((r for r in immigration["observations"]
+                       if r["series_id"] == "ohss_nationality:new_arrivals"), key=lambda r: r["year"])
     lookup = {(r["series_id"], r["period"]): r for r in observations}
     spec = importlib.util.spec_from_file_location("freshness_plot_decoder", ROOT / "scripts/build_exchange_publication.py")
     builder = importlib.util.module_from_spec(spec)
@@ -141,7 +144,7 @@ def check(site, url=None):
             expect(page.locator("#module-chart")).to_have_value("annual-china-to-us")
             assert page.locator("#annual-china-to-us .screen-column").evaluate_all(
                 "nodes=>nodes.map(n=>[+n.dataset.year,+n.dataset.value])") == [
-                    [2020, 12726], [2021, 11278], [2022, 25115], [2023, 21890], [2024, 23570], [2025, 27020]]
+                    [r["year"], r["value"]] for r in arrivals]
             expect(page.locator(".annual-reverse-note")).to_contain_text("not been verified")
             page.close()
         browser.close()

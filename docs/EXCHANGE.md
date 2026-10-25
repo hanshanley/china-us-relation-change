@@ -1036,27 +1036,41 @@ The interactive plotting area is proportional to its width rather than fixed
 at a shallow desktop height. Desktop axes use 17px type, phone axes 14px, and
 large-value ticks use one declared scale (for example, trips in millions).
 
-`data/site/immigration.json` freezes 118 observations from eleven primary assets:
-four OHSS workbooks/archives, the UN DESA International Migrant Stock 2024
-workbook and six DSEC yearbook workbooks. UN stocks cover six published 1 July benchmarks (2000, 2005, 2010,
+`data/site/immigration.json` freezes 180 observations from 22 reviewed sources:
+three OHSS birthplace workbooks/archives, ten OHSS nationality/admission reports,
+the UN DESA International Migrant Stock 2024 workbook and eight DSEC yearbooks.
+UN stocks cover six published 1 July benchmarks (2000, 2005, 2010,
 2015, 2020 and 2024), in both directions for mainland China/Hong Kong.
 Mainland-China destination uses U.S. citizenship; the other reviewed routes
 use birthplace. They are resident stocks, not annual arrivals or grants.
 No separate reviewed U.S.-Macau stock is reported; absence is not zero.
 Attribution and CC BY 3.0 IGO terms accompany the selected UN aggregates.
 
-OHSS country-of-birth histories cover fiscal years 2000-2024 for
+OHSS country-of-birth histories cover fiscal years 1989-2024 for
 mainland China, Hong Kong and Macau. These are grants of lawful permanent
 residency, including both new arrivals and adjustments by people already in
 the U.S.; birthplace is not nationality or a departure country. Historical
 source vintages remain explicit; FY2015-2024 cells are rounded to the nearest
 ten rather than presented as exact counts.
 
-A separate FY2025 nationality snapshot reports the DHS China category:
-65,670 total grants, 27,020 new arrivals and 38,650 adjustments. These are the
-report's annual Total columns, not sums of quarterly values. Nationality is
-not birthplace, so the snapshot is not joined to the historical lines or used
-to infer a year-over-year change. U.S. fiscal years end September 30.
+A separate nationality/admission-type history covers every FY2016-FY2025.
+The FY2025 DHS China category reports 65,670 total grants, 27,020 new arrivals
+and 38,650 adjustments. These are each report's full-year Total columns, not
+sums of quarterly values. Each year retains its preliminary Q4 administrative
+vintage; it is not a harmonized final-yearbook revision. FY2016-FY2022 counts
+are exact as published; FY2023-FY2025 are rounded to ten. Nationality is not
+birthplace or previous residence, so the two populations are never spliced.
+The actual plotted years determine each caption. U.S. fiscal years end September 30.
+
+Compatible DSEC table 2.10 republications in its 2013/2014 yearbooks extend
+the separate U.S.-category residence-approval history to 2008-2025. Every
+overlap reconciles. The 2002/2004/2006 selected-resident end-of-year tables are
+not annual approvals and are not imported or differenced to fill earlier years.
+The extension adds 47 observations while preserving all 133 prior observation
+dictionaries exactly. Selective cached review uses `--birthplace-only`,
+`--admissions-only` or `--macau-only`; complete previously reviewed vintages
+remain valid during staged updates.
+
 No comparable annual U.S.-to-mainland-China permanent-residency series has been
 verified here. China-wide totals for foreign permits or border crossings do
 not fill that bilateral gap.
@@ -1136,7 +1150,7 @@ retain zero-height bars. Multi-series comparisons and baseline indices retain
 lines. Reverse-direction controls and chart links expose available two-way
 histories without substituting an incompatible measure.
 
-Immigration opens with FY2020–2025 new permanent-resident arrivals for Chinese
+Immigration opens with FY2016-2025 new permanent-resident arrivals for Chinese
 nationals. Status adjustments for people already in the U.S. are separate.
 Neither is a count of departures from mainland China. The reverse annual
 U.S.-to-mainland-China count remains unverified; UN resident stocks are never

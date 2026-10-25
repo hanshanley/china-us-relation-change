@@ -20,6 +20,10 @@ ASSETS = {
     2025: "https://ohss.dhs.gov/system/files/2026-06/2026_0604_ohss_legal-immigration-adjustment-of-status-fy-2025q4.xlsx",
 }
 ADMISSION_ASSETS = {
+    2016: "https://ohss.dhs.gov/sites/default/files/2023-12/fy2016_q1q2q3q4_tables_d.xlsx",
+    2017: "https://ohss.dhs.gov/sites/default/files/2023-12/fy2017_q1q2q3q4_tables_d.xlsx",
+    2018: "https://ohss.dhs.gov/sites/default/files/2023-12/fy2018_q1q2q3q4_tables_d.xls_.xlsx",
+    2019: "https://ohss.dhs.gov/sites/default/files/2023-12/fy2019_q4_d_final.xlsx",
     2020: "https://ohss.dhs.gov/sites/default/files/2023-12/fy_2020_q4_d_final_v2.pdf.xlsx",
     2021: "https://ohss.dhs.gov/sites/default/files/2023-12/22_0323_plcy_legal_immigration_and_adjustment_of_status_report_fy2021_q4_final_d_version.xlsx",
     2022: "https://ohss.dhs.gov/sites/default/files/2023-12/2023_0308_plcy_legal_immigration_adjustment_of_status_report_fy_2022q4_final_d_0.xlsx",
@@ -28,12 +32,13 @@ ADMISSION_ASSETS = {
     2025: ASSETS[2025],
 }
 ADMISSION_YEARS = tuple(sorted(ADMISSION_ASSETS))
+BIRTH_YEARS = tuple(range(1989, 2025))
 COUNTRIES = {"China, People's Republic": "CHN", "Hong Kong": "HKG", "Macau": "MAC"}
 UN_STOCK = "https://www.un.org/development/desa/pd/sites/www.un.org.development.desa.pd/files/undesa_pd_2024_ims_stock_by_sex_destination_and_origin.xlsx"
 STOCK_YEARS = [2000, 2005, 2010, 2015, 2020, 2024]
 STOCK_PAIRS = {("CHN", "USA"): "B", ("HKG", "USA"): "B",
                ("USA", "CHN"): "C R", ("USA", "HKG"): "B R"}
-MACAU_ABODE_YEARS = tuple(range(2010, 2026))
+MACAU_ABODE_YEARS = tuple(range(2008, 2026))
 DSEC_YEARBOOKS = "https://www.dsec.gov.mo/StatisticsJSON/AllReleases_en-US_General.json"
 
 
@@ -75,7 +80,8 @@ def parse_macau_abode(records):
 def macau_abode(client):
     body, _ = client.get(DSEC_YEARBOOKS)
     records = json.loads(body)["YearbookOfStatistics"]["Containers"]["YearbookOfStatistics"]["Publication"]["Yearly"]
-    publications = sorted((r for r in records if int(r["Name"]) >= 2020), key=lambda r: int(r["Name"]))
+    publications = sorted((r for r in records if int(r["Name"]) in {2013, 2014} or int(r["Name"]) >= 2020),
+                          key=lambda r: int(r["Name"]))
     observations, sources = {}, {}
     for publication in publications:
         edition = int(publication["Name"])
@@ -102,7 +108,7 @@ def macau_abode(client):
             "The English title uses 'right of abode'; no permanent-resident legal classification or U.S. "
             "citizenship/birthplace population is inferred. Overlapping annual tables are reconciled.")
         for year, value in values.items():
-            if year < 2010:
+            if year < MACAU_ABODE_YEARS[0]:
                 continue
             if year in observations and observations[year]["value"] != value:
                 raise ValueError("Macau overlapping annual approval counts changed; review the revision")
@@ -255,6 +261,7 @@ def admissions(client):
             "Table 1A; China, People's Republic; full-fiscal-year totals for all grants, adjustments and new arrivals.",
             "Country of nationality, not birthplace or previous residence. "
             + ("Rounded to nearest ten. " if rounded else "Exact counts as published in this release. ") +
+            "Each fiscal year retains its Q4 preliminary administrative-report vintage, not final yearbook revisions. "
             "New arrivals enter as permanent residents; adjustments concern people already in the U.S. "
             "Total grants include both and are not all physical moves from mainland China.")
         for kind, value in values.items():
@@ -265,7 +272,7 @@ def admissions(client):
     return observations, sources
 
 
-def collect(client):
+def birthplace(client):
     definitions, observations, sources = {}, [], {}
     for year in (2004, 2014, 2024):
         body, asset = client.get(ASSETS[year])
@@ -276,7 +283,7 @@ def collect(client):
                 raise ValueError("Historical birthplace table missing or ambiguous")
             sheet = xlrd.open_workbook(file_contents=archive.read(names[0])).sheet_by_index(0)
             records = [sheet.row_values(i) for i in range(sheet.nrows)]
-            first, last = (2000, 2004) if year == 2004 else (2005, 2014)
+            first, last = (BIRTH_YEARS[0], 2004) if year == 2004 else (2005, 2014)
         else:
             book = load_workbook(io.BytesIO(body), read_only=True, data_only=True)
             records = list(book["Table 3"].values)
@@ -295,6 +302,11 @@ def collect(client):
             {"CHN": "Mainland China-born", "HKG": "Hong Kong-born", "MAC": "Macau-born"}[geo],
             "permanent_resident_grants", "status grants", f"U.S. lawful permanent-resident grants; country of birth: {name}",
             "annual", basis="fiscal ending year", notes="Includes arrivals and adjustments of status; not nationality, ethnicity or a count of new border crossings.")
+    return definitions, observations, sources
+
+
+def collect(client):
+    definitions, observations, sources = birthplace(client)
     admission_rows, admission_sources = admissions(client)
     sources.update(admission_sources)
     observations.extend(admission_rows)
@@ -316,18 +328,24 @@ def collect(client):
         "version": 1, "series": definitions, "observations": sorted(observations, key=lambda r: (r["series_id"], r["year"])),
         "sources": sources,
         "coverage": [
-            {"id": "to_us_birthplace", "status": "available", "description": "China, Hong Kong and Macau birthplace series, FY2000–FY2024; all permanent-resident status grants."},
-            {"id": "to_us_nationality", "status": "available", "description": "China nationality category, FY2020-FY2025 annual totals with new arrivals and adjustments separate. Hong Kong and Macau are not separately identified in this table."},
+            {"id": "to_us_birthplace", "status": "available", "description":
+             f"China, Hong Kong and Macau birthplace series, FY{BIRTH_YEARS[0]}-FY{BIRTH_YEARS[-1]}; "
+             "all permanent-resident status grants."},
+            {"id": "to_us_nationality", "status": "available", "description":
+             f"China nationality category, FY{ADMISSION_YEARS[0]}-FY{ADMISSION_YEARS[-1]} annual totals "
+             "with new arrivals and adjustments separate. Hong Kong and Macau are not separately identified in this table."},
             {"id": "from_us", "status": "not_verified", "description": "A comparable annual U.S.-to-mainland-China permanent-residency series has not been verified. All-foreigner visas, residence permits and border crossings are not substitutes."},
             {"id": "bilateral_resident_stocks", "status": "available", "description": "UN bilateral resident estimates in both directions for mainland China and Hong Kong: 2000, 2005, 2010, 2015, 2020 and 2024. Mainland destination uses U.S. citizenship, not U.S. birthplace. These stocks are not immigration flows."},
             {"id": "macau_resident_stock", "status": "not_verified", "description": "The reviewed UN bilateral table does not separately report the U.S.–Macau pair. No zero or allocation from mainland China is inferred."},
             {"id": "macau_residence_approvals", "status": "available",
-             "description": "DSEC U.S.-category residence approvals for every calendar year 2010-2025. "
+             "description": f"DSEC U.S.-category residence approvals for every calendar year "
+             f"{MACAU_ABODE_YEARS[0]}-{MACAU_ABODE_YEARS[-1]}. "
              "Separate from U.S. permanent-resident grants and UN resident stocks; not a permanent-residency classification."},
         ],
         "context": {"definition": "The OHSS series count grants of U.S. permanent-resident status; the UN series count resident stocks. Neither is a measure of net migration. Grants include adjustments by people already in the United States, not only new physical arrivals. Birthplace is not a departure country.",
                     "periods": "U.S. fiscal years end September 30. Macau approvals use calendar years. UN stocks use 1 July benchmarks. Birthplace, nationality and source-country categories remain separate.",
                     "macau_approvals": "DSEC counts newly approved people in its U.S. country category, not verified U.S. citizens, U.S. departures or permanent-resident grants.",
+                    "admissions_vintages": "Nationality counts retain each fiscal year's published Q4 preliminary administrative-report vintage, not a harmonized final-yearbook revision.",
                     "rounding": "FY2015-2024 birthplace counts and FY2023-2025 nationality counts are rounded to the nearest ten. Earlier source vintages retain their published exact counts.",
                     "resident_stocks": "UN stocks refer to 1 July in actual published benchmark years. China destination estimates use foreign citizenship; Hong Kong and U.S. destination estimates use foreign birth. Refugee adjustments are included where flagged R. These are not new immigration or net migration. No annual observations are invented between benchmarks.",
                     "rights": "Selected statistical aggregates and original figures only; no source workbooks are redistributed. UN estimates: United Nations DESA, Population Division, International Migrant Stock 2024, adapted under CC BY 3.0 IGO."},

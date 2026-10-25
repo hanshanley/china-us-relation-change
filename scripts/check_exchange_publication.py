@@ -228,16 +228,25 @@ def check(site, url=None, screenshots=None):
                             page.locator(f"#{indicator} > .comparison-panels").screenshot(
                                 path=str(screenshots / f"split-{indicator}-{width}.png"))
                 if name == "immigration.html":
+                    immigration = json.loads((site / "downloads/immigration.json").read_text())
+                    present = [r for r in immigration["observations"] if r["value"] is not None]
+                    arrivals = [r for r in present if r["series_id"] == "ohss_nationality:new_arrivals"]
+                    birthplace = [r for r in present if r["series_id"].startswith("ohss_birth:")]
+                    stock_from_us = [r for r in present if r["series_id"].startswith("un_stock:USA:")]
+                    approvals = [r for r in present if r["series_id"] == "dsec_abode:USA:MAC"]
+                    expect(page.locator("#module-chart")).to_have_value("annual-china-to-us")
+                    assert page.locator("#annual-china-to-us .screen-point").count() == len(arrivals)
+                    assert page.locator("#annual-china-to-us .screen-column").count() == len(arrivals)
                     page.select_option("#module-chart", "migrant-stock-from-us")
-                    assert page.locator("#migrant-stock-from-us .screen-point").count() == 12
+                    assert page.locator("#migrant-stock-from-us .screen-point").count() == len(stock_from_us)
                     expect(page.locator("#migrant-stock-from-us")).to_contain_text("citizenship")
                     page.select_option("#module-chart", "green-card-grants")
-                    assert page.locator("#green-card-grants .screen-point").count() == 75
+                    assert page.locator("#green-card-grants .screen-point").count() == len(birthplace)
                     page.select_option("#module-chart", "latest-admissions")
                     assert page.locator("#latest-admissions .screen-bar").evaluate_all(
                         "nodes=>nodes.map(n=>Number(n.dataset.value))") == [27020, 38650]
                     page.select_option("#module-chart", "macau-residence-approvals")
-                    assert page.locator("#macau-residence-approvals .screen-point").count() == 16
+                    assert page.locator("#macau-residence-approvals .screen-point").count() == len(approvals)
                     expect(page.locator("#macau-residence-approvals .screen-unit")).to_have_text("People approved")
                     if screenshots:
                         page.locator("#macau-residence-approvals").screenshot(path=str(screenshots / f"macau-approvals-{width}.png"))

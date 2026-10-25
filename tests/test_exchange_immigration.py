@@ -38,7 +38,8 @@ def test_regional_panels_keep_an_unavailable_population_missing(tmp_path):
 def test_birthplace_and_nationality_counts_are_separate_fiscal_populations():
     data = validate_immigration_data(published())
     rows = {(r["series_id"], r["year"]): r for r in data["observations"]}
-    assert len(rows) == 133
+    assert len(rows) == 180
+    assert [rows[(f"ohss_birth:{geo}", 1989)]["value"] for geo in ("CHN", "HKG", "MAC")] == [32272, 9740, 246]
     assert [rows[("ohss_birth:CHN", year)]["value"] for year in (2000, 2014, 2024)] == [45652, 76089, 71470]
     assert rows[("ohss_birth:HKG", 2024)]["value"] == 1950
     assert rows[("ohss_birth:MAC", 2024)]["value"] == 80
@@ -124,9 +125,28 @@ def test_annual_admissions_keep_reported_precision_and_do_not_become_stock_chang
     assert rows[("ohss_nationality:total", 2024)]["value"] == 70090
     assert rows[("ohss_nationality:new_arrivals", 2020)]["status"] == "observed"
     assert rows[("ohss_nationality:new_arrivals", 2023)]["status"] == "rounded"
+    for year, values in {
+            2016: (43796, 38117, 81913), 2017: (37867, 33932, 71799),
+            2018: (30006, 35591, 65597), 2019: (27004, 35340, 62344)}.items():
+        reported = [rows[(f"ohss_nationality:{kind}", year)] for kind in ("new_arrivals", "adjustments", "total")]
+        assert tuple(r["value"] for r in reported) == values
+        assert all(r["status"] == "observed" and r["source_id"] == f"ohss_nationality_{year}" for r in reported)
     data["observations"] = [r for r in data["observations"]
                             if r["series_id"] != "ohss_nationality:adjustments" or r["year"] == 2025]
     with pytest.raises(ValueError, match="same reported fiscal years"):
+        validate_immigration_data(data)
+
+def test_extended_histories_preserve_supported_prior_vintages_but_reject_new_gaps():
+    data = published()
+    data["observations"] = [
+        r for r in data["observations"]
+        if not (r["series_id"].startswith("ohss_nationality:") and r["year"] < 2020)
+        and not (r["series_id"].startswith("ohss_birth:") and r["year"] < 2000)
+        and not (r["series_id"] == "dsec_abode:USA:MAC" and r["year"] < 2010)]
+    assert len(validate_immigration_data(data)["observations"]) == 133
+    data["observations"] = [r for r in data["observations"]
+                            if (r["series_id"], r["year"]) != ("ohss_nationality:total", 2022)]
+    with pytest.raises(ValueError, match="complete reviewed annual history"):
         validate_immigration_data(data)
 
 
@@ -150,7 +170,7 @@ def test_immigration_exports_include_all_counts_and_fiscal_dates(tmp_path):
     assert json.loads((tmp_path / "site/downloads/immigration.json").read_text()) == data
     with (tmp_path / "site/downloads/immigration-observations.csv").open() as stream:
         raw = list(csv.DictReader(stream))
-    assert len(raw) == len(data["observations"]) == 133
+    assert len(raw) == len(data["observations"]) == 180
     row = next(r for r in raw if r["series_id"] == "ohss_nationality:total" and r["year"] == "2025")
     assert row["fiscal_period_start"] == "2024-10-01" and row["fiscal_period_end"] == "2025-09-30"
     assert row["value"] == "65670"
@@ -160,13 +180,14 @@ def test_immigration_exports_include_all_counts_and_fiscal_dates(tmp_path):
     assert "not_verified" in page.text
     svg = ElementTree.fromstring((tmp_path / "site/figures/immigration/themarginoferror/green-card-grants.svg").read_text())
     points = [n for n in svg.iter() if n.get("class") == "immigration-point"]
-    assert len(points) == 75 and {int(p.get("data-year")) for p in points} == set(range(2000, 2025))
+    assert len(points) == 108 and {int(p.get("data-year")) for p in points} == set(range(1989, 2025))
     assert not any(p.get("data-year") == "2025" for p in points)
     stock_row = next(r for r in raw if r["series_id"] == "un_stock:USA:CHN")
     assert stock_row["fiscal_period_start"] == stock_row["fiscal_period_end"] == ""
     assert stock_row["observation_date"] == "2000-07-01"
     approvals = [r for r in raw if r["series_id"] == "dsec_abode:USA:MAC"]
-    assert [int(r["year"]) for r in approvals] == list(range(2010, 2026))
+    assert [int(r["year"]) for r in approvals] == list(range(2008, 2026))
+    assert [(int(r["year"]), int(r["value"])) for r in approvals[:2]] == [(2008, 112), (2009, 125)]
     assert all(r["fiscal_period_start"] == r["fiscal_period_end"] == "" for r in approvals)
     assert approvals[-1]["calendar_period_start"] == "2025-01-01"
     assert approvals[-1]["calendar_period_end"] == "2025-12-31"

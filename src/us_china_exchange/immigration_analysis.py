@@ -12,22 +12,23 @@ from .public_freshness import current_groups
 from .model import GEOGRAPHIES, json_text
 from .pipeline import write_atomic
 from .theme import CHART_THEMES, MUTED, PARTNER_COLORS
-from .immigration_sources import ADMISSION_YEARS, MACAU_ABODE_YEARS, STOCK_PAIRS, STOCK_YEARS
+from .immigration_sources import ADMISSION_YEARS, BIRTH_YEARS, MACAU_ABODE_YEARS, STOCK_PAIRS, STOCK_YEARS
 
 
 CHARTS = {
     "annual-china-to-us": {
         "title": "China to the U.S.: annual permanent immigration",
-        "subtitle": "Chinese nationality | U.S. fiscal years 2020-2025",
+        "subtitle": "Chinese nationality | U.S. fiscal years",
         "series": ["ohss_nationality:new_arrivals"],
         "unit": "People per fiscal year", "mode": "levels",
-        "note": "DHS/OHSS Table 1A. New arrivals enter as permanent residents; adjustments concern people "
+        "note": "DHS/OHSS Table 1A, each year's preliminary Q4 release. "
+        "New arrivals enter as permanent residents; adjustments concern people "
         "already in the U.S. Nationality is not birthplace or previous residence. Later releases round to ten; "
         "earlier releases retain reported counts. "
         "No comparable annual U.S.-to-mainland-China count has been verified; resident stocks are separate."},
     "annual-china-adjustments": {
         "title": "Chinese nationals gaining residency while in the U.S.",
-        "subtitle": "Status adjustments | U.S. fiscal years 2020-2025",
+        "subtitle": "Status adjustments | U.S. fiscal years",
         "series": ["ohss_nationality:adjustments"], "unit": "People per fiscal year", "mode": "levels",
         "note": "DHS/OHSS. These people were already in the U.S.; the year of permanent-residency approval "
         "is not their year of arrival. Do not add them to a chart labelled new arrivals."},
@@ -40,19 +41,19 @@ CHARTS = {
         "series": ["un_stock:USA:CHN", "un_stock:USA:HKG"], "unit": "Estimated residents", "mode": "levels",
         "note": "UN DESA, International Migrant Stock 2024 (CC BY 3.0 IGO). Mainland China uses U.S. citizenship (C R); Hong Kong uses U.S. birthplace (B R). Stocks on 1 July, not new immigrants, permanent-residency grants or U.S. departures. Do not add the two populations."},
     "green-card-grants": {
-        "title": "U.S. green-card grants by birthplace", "subtitle": "Fiscal years 2000–2024 | includes arrivals and adjustments",
+        "title": "U.S. green-card grants by birthplace", "subtitle": "Arrivals and adjustments | fiscal years",
         "series": ["ohss_birth:CHN", "ohss_birth:HKG", "ohss_birth:MAC"], "unit": "Status grants", "mode": "levels",
         "note": "DHS/OHSS, country of birth, not nationality. Includes people already in the U.S. adjusting status. Fiscal years end September 30. FY2015–2024 rounded to nearest ten; earlier source vintages use exact counts."},
     "hong-kong-green-cards": {
-        "title": "Green-card grants to Hong Kong-born people", "subtitle": "Fiscal years 2000–2024 | U.S. permanent residency",
+        "title": "Green-card grants to Hong Kong-born people", "subtitle": "U.S. permanent residency | fiscal years",
         "series": ["ohss_birth:HKG"], "unit": "Status grants", "mode": "levels",
         "note": "DHS/OHSS birthplace category. Includes arrivals and adjustments, not just new departures from Hong Kong. FY2015–2024 rounded to nearest ten. No visa or visitor counts substituted."},
     "macau-green-cards": {
-        "title": "Green-card grants to Macau-born people", "subtitle": "Fiscal years 2000–2024 | U.S. permanent residency",
+        "title": "Green-card grants to Macau-born people", "subtitle": "U.S. permanent residency | fiscal years",
         "series": ["ohss_birth:MAC"], "unit": "Status grants", "mode": "levels",
         "note": "DHS/OHSS birthplace category. Includes arrivals and adjustments. FY2015–2024 rounded to nearest ten; confidential/missing values are not zero."},
     "macau-residence-approvals": {
-        "title": "Macau residence approvals: U.S. category", "subtitle": "Calendar years 2010-2025 | people newly approved",
+        "title": "Macau residence approvals: U.S. category", "subtitle": "People newly approved | calendar years",
         "series": ["dsec_abode:USA:MAC"], "unit": "People approved", "mode": "levels",
         "note": "DSEC annual yearbooks, table 2.10. People in the U.S. country category newly approved for residence "
         "in Macau. Calendar-year approvals, not resident stocks, U.S. departures or U.S. green-card grants. "
@@ -125,8 +126,14 @@ def validate_immigration_data(data):
     for sid in expected:
         years = {year for identity, year in seen if identity == sid}
         if sid.startswith("ohss_nationality:"):
-            if years not in ({2025}, set(ADMISSION_YEARS)):
+            if years not in ({2025}, set(range(2020, 2026)), set(ADMISSION_YEARS)):
                 raise ValueError("Nationality admissions require a complete reviewed annual history")
+            continue
+        if sid == "dsec_abode:USA:MAC" and years == set(range(2010, 2026)):
+            continue
+        if sid.startswith("ohss_birth:"):
+            if years not in (set(range(2000, 2025)), set(BIRTH_YEARS)):
+                raise ValueError("Birthplace grants require a complete reviewed fiscal-year history")
             continue
         if years != (set(MACAU_ABODE_YEARS) if sid.startswith("dsec_abode:") else
                      set(STOCK_YEARS) if sid.startswith("un_stock:") else
@@ -136,6 +143,10 @@ def validate_immigration_data(data):
                        for sid in expected if sid.startswith("ohss_nationality:")}
     if len(admission_years) != 1:
         raise ValueError("Admission types must cover the same reported fiscal years")
+    birthplace_years = {tuple(sorted(year for identity, year in seen if identity == sid))
+                        for sid in expected if sid.startswith("ohss_birth:")}
+    if len(birthplace_years) != 1:
+        raise ValueError("Birthplace populations must cover the same reported fiscal years")
     if not all(data["context"].get(k) for k in ("definition", "periods", "rounding", "rights")):
         raise ValueError("Immigration definitions and limitations required")
     return data
@@ -172,6 +183,10 @@ def build_immigration(root, data, gallery, state_data=None, state_geometry=None)
         groups = chart_groups(data, chart_id)
         if not groups:
             continue
+        if chart_id in {"annual-china-to-us", "annual-china-adjustments", "macau-residence-approvals",
+                        "green-card-grants", "hong-kong-green-cards", "macau-green-cards"}:
+            years = [p["year"] for g in groups for p in g["points"]]
+            config = dict(config, subtitle=f"{config['subtitle']} {min(years)}-{max(years)}")
         stock_chart = chart_id.startswith("migrant-stock")
         basis = groups[0]["period_basis"]
         paths = {theme: export_figure(root, Path("immigration") / theme / chart_id, svg_indicator_chart(

@@ -1,5 +1,6 @@
 {
   "context": {
+    "admissions_vintages": "Nationality counts retain each fiscal year's published Q4 preliminary administrative-report vintage, not a harmonized final-yearbook revision.",
     "definition": "The OHSS series count grants of U.S. permanent-resident status; the UN series count resident stocks. Neither is a measure of net migration. Grants include adjustments by people already in the United States, not only new physical arrivals. Birthplace is not a departure country.",
     "macau_approvals": "DSEC's Macau series counts newly approved people in its U.S. country category, not verified U.S. citizens, U.S. departures or permanent-resident grants.",
     "periods": "U.S. grant series use fiscal years ending September 30. Macau approvals use January-December calendar years. UN resident stocks use 1 July benchmarks. Birthplace, citizenship and source-country categories remain separate.",
@@ -9,12 +10,12 @@
   },
   "coverage": [
     {
-      "description": "China, Hong Kong and Macau birthplace series, FY2000\u2013FY2024; all permanent-resident status grants.",
+      "description": "China, Hong Kong and Macau birthplace series, FY1989-FY2024; all permanent-resident status grants, including new arrivals and adjustments.",
       "id": "to_us_birthplace",
       "status": "available"
     },
     {
-      "description": "China nationality category, FY2020-FY2025 annual permanent-residency grants. New arrivals and adjustments within the U.S. are distinct; not a count by previous residence.",
+      "description": "China nationality category, FY2016-FY2025 annual permanent-residency grants. New arrivals and adjustments within the U.S. are distinct; not a count by previous residence.",
       "id": "to_us_nationality",
       "status": "available"
     },
@@ -34,12 +35,30 @@
       "status": "not_verified"
     },
     {
-      "description": "DSEC U.S.-category residence approvals for every calendar year 2010-2025; not resident stocks, physical U.S. departures or a permanent-resident classification.",
+      "description": "DSEC U.S.-category residence approvals for every calendar year 2008-2025; not resident stocks, physical U.S. departures or a permanent-resident classification.",
       "id": "macau_residence_approvals",
       "status": "available"
     }
   ],
   "observations": [
+    {
+      "comparability": "dsec_abode:USA:MAC",
+      "notes": "Calendar-year people approved; source U.S. country/territory category, not verified U.S. departures or a permanent-residence classification.",
+      "series_id": "dsec_abode:USA:MAC",
+      "source_id": "dsec_abode_2013",
+      "status": "observed",
+      "value": 112,
+      "year": 2008
+    },
+    {
+      "comparability": "dsec_abode:USA:MAC",
+      "notes": "Calendar-year people approved; source U.S. country/territory category, not verified U.S. departures or a permanent-residence classification.",
+      "series_id": "dsec_abode:USA:MAC",
+      "source_id": "dsec_abode_2014",
+      "status": "observed",
+      "value": 125,
+      "year": 2009
+    },
     {
       "comparability": "dsec_abode:USA:MAC",
       "notes": "Calendar-year people approved; source U.S. country/territory category, not verified U.S. departures or a permanent-residence classification.",
@@ -183,6 +202,105 @@
       "status": "observed",
       "value": 34,
       "year": 2025
+    },
+    {
+      "comparability": "ohss_birth:CHN",
+      "notes": "Fiscal year ending September 30. ",
+      "series_id": "ohss_birth:CHN",
+      "source_id": "ohss_birth_2004",
+      "status": "observed",
+      "value": 32272,
+      "year": 1989
+    },
+    {
+      "comparability": "ohss_birth:CHN",
+      "notes": "Fiscal year ending September 30. ",
+      "series_id": "ohss_birth:CHN",
+      "source_id": "ohss_birth_2004",
+      "status": "observed",
+      "value": 31815,
+      "year": 1990
+    },
+    {
+      "comparability": "ohss_birth:CHN",
+      "notes": "Fiscal year ending September 30. ",
+      "series_id": "ohss_birth:CHN",
+      "source_id": "ohss_birth_2004",
+      "status": "observed",
+      "value": 33025,
+      "year": 1991
+    },
+    {
+      "comparability": "ohss_birth:CHN",
+      "notes": "Fiscal year ending September 30. ",
+      "series_id": "ohss_birth:CHN",
+      "source_id": "ohss_birth_2004",
+      "status": "observed",
+      "value": 38907,
+      "year": 1992
+    },
+    {
+      "comparability": "ohss_birth:CHN",
+      "notes": "Fiscal year ending September 30. ",
+      "series_id": "ohss_birth:CHN",
+      "source_id": "ohss_birth_2004",
+      "status": "observed",
+      "value": 65578,
+      "year": 1993
+    },
+    {
+      "comparability": "ohss_birth:CHN",
+      "notes": "Fiscal year ending September 30. ",
+      "series_id": "ohss_birth:CHN",
+      "source_id": "ohss_birth_2004",
+      "status": "observed",
+      "value": 53985,
+      "year": 1994
+    },
+    {
+      "comparability": "ohss_birth:CHN",
+      "notes": "Fiscal year ending September 30. ",
+      "series_id": "ohss_birth:CHN",
+      "source_id": "ohss_birth_2004",
+      "status": "observed",
+      "value": 35463,
+      "year": 1995
+    },
+    {
+      "comparability": "ohss_birth:CHN",
+      "notes": "Fiscal year ending September 30. ",
+      "series_id": "ohss_birth:CHN",
+      "source_id": "ohss_birth_2004",
+      "status": "observed",
+      "value": 41728,
+      "year": 1996
+    },
+    {
+      "comparability": "ohss_birth:CHN",
+      "notes": "Fiscal year ending September 30. ",
+      "series_id": "ohss_birth:CHN",
+      "source_id": "ohss_birth_2004",
+      "status": "observed",
+      "value": 41147,
+      "year": 1997
+    },
+    {
+      "comparability": "ohss_birth:CHN",
+      "notes": "Fiscal year ending September 30. ",
+      "series_id": "ohss_birth:CHN",
+      "source_id": "ohss_birth_2004",
+      "status": "observed",
+      "value": 36884,
+      "year": 1998
+    },
+    {
+      "comparability": "ohss_birth:CHN",
+      "notes": "Fiscal year ending September 30. ",
+      "series_id": "ohss_birth:CHN",
+      "source_id": "ohss_birth_2004",
+      "status": "observed",
+      "value": 32204,
+      "year": 1999
     },
     {
       "comparability": "ohss_birth:CHN",
@@ -415,6 +533,105 @@
       "series_id": "ohss_birth:HKG",
       "source_id": "ohss_birth_2004",
       "status": "observed",
+      "value": 9740,
+      "year": 1989
+    },
+    {
+      "comparability": "ohss_birth:HKG",
+      "notes": "Fiscal year ending September 30. ",
+      "series_id": "ohss_birth:HKG",
+      "source_id": "ohss_birth_2004",
+      "status": "observed",
+      "value": 9393,
+      "year": 1990
+    },
+    {
+      "comparability": "ohss_birth:HKG",
+      "notes": "Fiscal year ending September 30. ",
+      "series_id": "ohss_birth:HKG",
+      "source_id": "ohss_birth_2004",
+      "status": "observed",
+      "value": 10427,
+      "year": 1991
+    },
+    {
+      "comparability": "ohss_birth:HKG",
+      "notes": "Fiscal year ending September 30. ",
+      "series_id": "ohss_birth:HKG",
+      "source_id": "ohss_birth_2004",
+      "status": "observed",
+      "value": 10452,
+      "year": 1992
+    },
+    {
+      "comparability": "ohss_birth:HKG",
+      "notes": "Fiscal year ending September 30. ",
+      "series_id": "ohss_birth:HKG",
+      "source_id": "ohss_birth_2004",
+      "status": "observed",
+      "value": 9161,
+      "year": 1993
+    },
+    {
+      "comparability": "ohss_birth:HKG",
+      "notes": "Fiscal year ending September 30. ",
+      "series_id": "ohss_birth:HKG",
+      "source_id": "ohss_birth_2004",
+      "status": "observed",
+      "value": 7731,
+      "year": 1994
+    },
+    {
+      "comparability": "ohss_birth:HKG",
+      "notes": "Fiscal year ending September 30. ",
+      "series_id": "ohss_birth:HKG",
+      "source_id": "ohss_birth_2004",
+      "status": "observed",
+      "value": 7249,
+      "year": 1995
+    },
+    {
+      "comparability": "ohss_birth:HKG",
+      "notes": "Fiscal year ending September 30. ",
+      "series_id": "ohss_birth:HKG",
+      "source_id": "ohss_birth_2004",
+      "status": "observed",
+      "value": 7834,
+      "year": 1996
+    },
+    {
+      "comparability": "ohss_birth:HKG",
+      "notes": "Fiscal year ending September 30. ",
+      "series_id": "ohss_birth:HKG",
+      "source_id": "ohss_birth_2004",
+      "status": "observed",
+      "value": 5577,
+      "year": 1997
+    },
+    {
+      "comparability": "ohss_birth:HKG",
+      "notes": "Fiscal year ending September 30. ",
+      "series_id": "ohss_birth:HKG",
+      "source_id": "ohss_birth_2004",
+      "status": "observed",
+      "value": 5275,
+      "year": 1998
+    },
+    {
+      "comparability": "ohss_birth:HKG",
+      "notes": "Fiscal year ending September 30. ",
+      "series_id": "ohss_birth:HKG",
+      "source_id": "ohss_birth_2004",
+      "status": "observed",
+      "value": 4917,
+      "year": 1999
+    },
+    {
+      "comparability": "ohss_birth:HKG",
+      "notes": "Fiscal year ending September 30. ",
+      "series_id": "ohss_birth:HKG",
+      "source_id": "ohss_birth_2004",
+      "status": "observed",
       "value": 5419,
       "year": 2000
     },
@@ -633,6 +850,105 @@
       "status": "rounded",
       "value": 1950,
       "year": 2024
+    },
+    {
+      "comparability": "ohss_birth:MAC",
+      "notes": "Fiscal year ending September 30. ",
+      "series_id": "ohss_birth:MAC",
+      "source_id": "ohss_birth_2004",
+      "status": "observed",
+      "value": 246,
+      "year": 1989
+    },
+    {
+      "comparability": "ohss_birth:MAC",
+      "notes": "Fiscal year ending September 30. ",
+      "series_id": "ohss_birth:MAC",
+      "source_id": "ohss_birth_2004",
+      "status": "observed",
+      "value": 301,
+      "year": 1990
+    },
+    {
+      "comparability": "ohss_birth:MAC",
+      "notes": "Fiscal year ending September 30. ",
+      "series_id": "ohss_birth:MAC",
+      "source_id": "ohss_birth_2004",
+      "status": "observed",
+      "value": 267,
+      "year": 1991
+    },
+    {
+      "comparability": "ohss_birth:MAC",
+      "notes": "Fiscal year ending September 30. ",
+      "series_id": "ohss_birth:MAC",
+      "source_id": "ohss_birth_2004",
+      "status": "observed",
+      "value": 320,
+      "year": 1992
+    },
+    {
+      "comparability": "ohss_birth:MAC",
+      "notes": "Fiscal year ending September 30. ",
+      "series_id": "ohss_birth:MAC",
+      "source_id": "ohss_birth_2004",
+      "status": "observed",
+      "value": 334,
+      "year": 1993
+    },
+    {
+      "comparability": "ohss_birth:MAC",
+      "notes": "Fiscal year ending September 30. ",
+      "series_id": "ohss_birth:MAC",
+      "source_id": "ohss_birth_2004",
+      "status": "observed",
+      "value": 287,
+      "year": 1994
+    },
+    {
+      "comparability": "ohss_birth:MAC",
+      "notes": "Fiscal year ending September 30. ",
+      "series_id": "ohss_birth:MAC",
+      "source_id": "ohss_birth_2004",
+      "status": "observed",
+      "value": 373,
+      "year": 1995
+    },
+    {
+      "comparability": "ohss_birth:MAC",
+      "notes": "Fiscal year ending September 30. ",
+      "series_id": "ohss_birth:MAC",
+      "source_id": "ohss_birth_2004",
+      "status": "observed",
+      "value": 453,
+      "year": 1996
+    },
+    {
+      "comparability": "ohss_birth:MAC",
+      "notes": "Fiscal year ending September 30. ",
+      "series_id": "ohss_birth:MAC",
+      "source_id": "ohss_birth_2004",
+      "status": "observed",
+      "value": 277,
+      "year": 1997
+    },
+    {
+      "comparability": "ohss_birth:MAC",
+      "notes": "Fiscal year ending September 30. ",
+      "series_id": "ohss_birth:MAC",
+      "source_id": "ohss_birth_2004",
+      "status": "observed",
+      "value": 276,
+      "year": 1998
+    },
+    {
+      "comparability": "ohss_birth:MAC",
+      "notes": "Fiscal year ending September 30. ",
+      "series_id": "ohss_birth:MAC",
+      "source_id": "ohss_birth_2004",
+      "status": "observed",
+      "value": 294,
+      "year": 1999
     },
     {
       "comparability": "ohss_birth:MAC",
@@ -863,6 +1179,42 @@
       "comparability": "ohss_nationality:adjustments",
       "notes": "Fiscal year ending September 30. Exact count from this source vintage.",
       "series_id": "ohss_nationality:adjustments",
+      "source_id": "ohss_nationality_2016",
+      "status": "observed",
+      "value": 38117,
+      "year": 2016
+    },
+    {
+      "comparability": "ohss_nationality:adjustments",
+      "notes": "Fiscal year ending September 30. Exact count from this source vintage.",
+      "series_id": "ohss_nationality:adjustments",
+      "source_id": "ohss_nationality_2017",
+      "status": "observed",
+      "value": 33932,
+      "year": 2017
+    },
+    {
+      "comparability": "ohss_nationality:adjustments",
+      "notes": "Fiscal year ending September 30. Exact count from this source vintage.",
+      "series_id": "ohss_nationality:adjustments",
+      "source_id": "ohss_nationality_2018",
+      "status": "observed",
+      "value": 35591,
+      "year": 2018
+    },
+    {
+      "comparability": "ohss_nationality:adjustments",
+      "notes": "Fiscal year ending September 30. Exact count from this source vintage.",
+      "series_id": "ohss_nationality:adjustments",
+      "source_id": "ohss_nationality_2019",
+      "status": "observed",
+      "value": 35340,
+      "year": 2019
+    },
+    {
+      "comparability": "ohss_nationality:adjustments",
+      "notes": "Fiscal year ending September 30. Exact count from this source vintage.",
+      "series_id": "ohss_nationality:adjustments",
       "source_id": "ohss_nationality_2020",
       "status": "observed",
       "value": 29023,
@@ -917,6 +1269,42 @@
       "comparability": "ohss_nationality:new_arrivals",
       "notes": "Fiscal year ending September 30. Exact count from this source vintage.",
       "series_id": "ohss_nationality:new_arrivals",
+      "source_id": "ohss_nationality_2016",
+      "status": "observed",
+      "value": 43796,
+      "year": 2016
+    },
+    {
+      "comparability": "ohss_nationality:new_arrivals",
+      "notes": "Fiscal year ending September 30. Exact count from this source vintage.",
+      "series_id": "ohss_nationality:new_arrivals",
+      "source_id": "ohss_nationality_2017",
+      "status": "observed",
+      "value": 37867,
+      "year": 2017
+    },
+    {
+      "comparability": "ohss_nationality:new_arrivals",
+      "notes": "Fiscal year ending September 30. Exact count from this source vintage.",
+      "series_id": "ohss_nationality:new_arrivals",
+      "source_id": "ohss_nationality_2018",
+      "status": "observed",
+      "value": 30006,
+      "year": 2018
+    },
+    {
+      "comparability": "ohss_nationality:new_arrivals",
+      "notes": "Fiscal year ending September 30. Exact count from this source vintage.",
+      "series_id": "ohss_nationality:new_arrivals",
+      "source_id": "ohss_nationality_2019",
+      "status": "observed",
+      "value": 27004,
+      "year": 2019
+    },
+    {
+      "comparability": "ohss_nationality:new_arrivals",
+      "notes": "Fiscal year ending September 30. Exact count from this source vintage.",
+      "series_id": "ohss_nationality:new_arrivals",
       "source_id": "ohss_nationality_2020",
       "status": "observed",
       "value": 12726,
@@ -966,6 +1354,42 @@
       "status": "rounded",
       "value": 27020,
       "year": 2025
+    },
+    {
+      "comparability": "ohss_nationality:total",
+      "notes": "Fiscal year ending September 30. Exact count from this source vintage.",
+      "series_id": "ohss_nationality:total",
+      "source_id": "ohss_nationality_2016",
+      "status": "observed",
+      "value": 81913,
+      "year": 2016
+    },
+    {
+      "comparability": "ohss_nationality:total",
+      "notes": "Fiscal year ending September 30. Exact count from this source vintage.",
+      "series_id": "ohss_nationality:total",
+      "source_id": "ohss_nationality_2017",
+      "status": "observed",
+      "value": 71799,
+      "year": 2017
+    },
+    {
+      "comparability": "ohss_nationality:total",
+      "notes": "Fiscal year ending September 30. Exact count from this source vintage.",
+      "series_id": "ohss_nationality:total",
+      "source_id": "ohss_nationality_2018",
+      "status": "observed",
+      "value": 65597,
+      "year": 2018
+    },
+    {
+      "comparability": "ohss_nationality:total",
+      "notes": "Fiscal year ending September 30. Exact count from this source vintage.",
+      "series_id": "ohss_nationality:total",
+      "source_id": "ohss_nationality_2019",
+      "status": "observed",
+      "value": 62344,
+      "year": 2019
     },
     {
       "comparability": "ohss_nationality:total",
@@ -1352,11 +1776,39 @@
     }
   },
   "sources": {
+    "dsec_abode_2013": {
+      "assets": [
+        {
+          "request_url": "https://www.dsec.gov.mo/getAttachment/05e83918-f067-4494-85de-b88b5ec43faa/E_ae_pub_2013_y_1.aspx",
+          "retrieved_at": "2026-10-24T22:58:21+00:00",
+          "sha256": "4a80547ed6b871db0229c3924d78d2bcc90feefda2bec35c1c1199a3f58b162c",
+          "url": "https://www.dsec.gov.mo/getAttachment/05e83918-f067-4494-85de-b88b5ec43faa/E_ae_pub_2013_y_1.aspx"
+        }
+      ],
+      "locator": "Table 2.10; United States of America country/territory category; all genders",
+      "name": "Macao Statistics and Census Service",
+      "notes": "Individuals newly granted residence, not resident stocks, visa issuances or physical arrivals. The English title uses 'right of abode'; no permanent-resident legal classification or U.S. citizenship/birthplace population is inferred. Overlapping annual tables are reconciled.",
+      "vintage": "Yearbook of Statistics 2013"
+    },
+    "dsec_abode_2014": {
+      "assets": [
+        {
+          "request_url": "https://www.dsec.gov.mo/getAttachment/a813b788-45a8-4258-ba79-033951961f98/E_AE_PUB_2014_Y_01.aspx",
+          "retrieved_at": "2026-10-24T22:52:31+00:00",
+          "sha256": "fa5f7df54fa848b1c40e70aec91b09b321cf48c414d30d099a80b3641d404842",
+          "url": "https://www.dsec.gov.mo/getAttachment/a813b788-45a8-4258-ba79-033951961f98/E_AE_PUB_2014_Y_01.aspx"
+        }
+      ],
+      "locator": "Table 2.10; United States of America country/territory category; all genders",
+      "name": "Macao Statistics and Census Service",
+      "notes": "Individuals newly granted residence, not resident stocks, visa issuances or physical arrivals. The English title uses 'right of abode'; no permanent-resident legal classification or U.S. citizenship/birthplace population is inferred. Overlapping annual tables are reconciled.",
+      "vintage": "Yearbook of Statistics 2014"
+    },
     "dsec_abode_2020": {
       "assets": [
         {
           "request_url": "https://www.dsec.gov.mo/getAttachment/62e4aa0e-e90b-4090-8680-1bec819c66fc/E_AE_PUB_2020_Y_01.aspx",
-          "retrieved_at": "2026-10-24T15:59:33+00:00",
+          "retrieved_at": "2026-10-24T23:02:13+00:00",
           "sha256": "f7dbd616ff5083b549382a8623bb506bf2745a1c48f979424d14483e118863dd",
           "url": "https://www.dsec.gov.mo/getAttachment/62e4aa0e-e90b-4090-8680-1bec819c66fc/E_AE_PUB_2020_Y_01.aspx"
         }
@@ -1370,7 +1822,7 @@
       "assets": [
         {
           "request_url": "https://www.dsec.gov.mo/getAttachment/7306d4c8-60a4-4dcd-947b-419e0646dd7e/CPE_AE_PUB_2021_Y_01.aspx",
-          "retrieved_at": "2026-10-24T15:55:22+00:00",
+          "retrieved_at": "2026-10-24T23:02:25+00:00",
           "sha256": "9e08ff9dd0473190eeca7da5335be6a1be3dddc6a3d5d7c712ad11e556edfb4a",
           "url": "https://www.dsec.gov.mo/getAttachment/7306d4c8-60a4-4dcd-947b-419e0646dd7e/CPE_AE_PUB_2021_Y_01.aspx"
         }
@@ -1384,7 +1836,7 @@
       "assets": [
         {
           "request_url": "https://www.dsec.gov.mo/getAttachment/d963172d-0e1a-482c-937c-edc475a8db4a/CPE_AE_PUB_2022_Y_01.aspx",
-          "retrieved_at": "2026-10-24T15:55:09+00:00",
+          "retrieved_at": "2026-10-24T23:02:35+00:00",
           "sha256": "2ce6941994f9c131cdbdb07815eb920c031b43118b78316e4c516a59025a7dd4",
           "url": "https://www.dsec.gov.mo/getAttachment/d963172d-0e1a-482c-937c-edc475a8db4a/CPE_AE_PUB_2022_Y_01.aspx"
         }
@@ -1398,7 +1850,7 @@
       "assets": [
         {
           "request_url": "https://www.dsec.gov.mo/getAttachment/80ccfdfc-63cf-4ab5-9ff0-9bc8720108cd/E_AE_PUB_2023_Y_01.aspx",
-          "retrieved_at": "2026-10-24T15:54:59+00:00",
+          "retrieved_at": "2026-10-24T23:02:49+00:00",
           "sha256": "d21ff593cdbb6df721a5d7efcd41b329163971536251c7e2b385b8db7107c65f",
           "url": "https://www.dsec.gov.mo/getAttachment/80ccfdfc-63cf-4ab5-9ff0-9bc8720108cd/E_AE_PUB_2023_Y_01.aspx"
         }
@@ -1412,7 +1864,7 @@
       "assets": [
         {
           "request_url": "https://www.dsec.gov.mo/getAttachment/a2001922-8baa-48ea-99c3-f13d56e0a09d/E_AE_PUB_2024_Y_01.aspx",
-          "retrieved_at": "2026-10-24T15:54:49+00:00",
+          "retrieved_at": "2026-10-24T23:03:00+00:00",
           "sha256": "78cbd3d78ba2b3922693f3b3cce1db808794d0506c9d0c48b1c38e68ce0744fe",
           "url": "https://www.dsec.gov.mo/getAttachment/a2001922-8baa-48ea-99c3-f13d56e0a09d/E_AE_PUB_2024_Y_01.aspx"
         }
@@ -1426,7 +1878,7 @@
       "assets": [
         {
           "request_url": "https://www.dsec.gov.mo/getAttachment/685546d5-479d-4e01-b6b0-4fc24032ff19/CPE_AE_PUB_2025_Y_01.aspx",
-          "retrieved_at": "2026-10-24T15:49:02+00:00",
+          "retrieved_at": "2026-10-24T23:03:11+00:00",
           "sha256": "af83eee498ce6dfc91dc26613ec5eb739ea0591890786c75c4dc7428067daf4e",
           "url": "https://www.dsec.gov.mo/getAttachment/685546d5-479d-4e01-b6b0-4fc24032ff19/CPE_AE_PUB_2025_Y_01.aspx"
         }
@@ -1445,7 +1897,7 @@
           "url": "https://ohss.dhs.gov/sites/default/files/2023-12/LPR2004_2.zip"
         }
       ],
-      "locator": "Table 3; country of birth; fiscal years 2000-2004",
+      "locator": "Table 3; country of birth; fiscal years 1989-2004",
       "name": "U.S. Department of Homeland Security / OHSS",
       "notes": "Lawful permanent-resident status grants, including new arrivals and adjustments within the U.S. Historical reported counts; older source vintage.",
       "vintage": "2004 Yearbook of Immigration Statistics"
@@ -1477,6 +1929,62 @@
       "name": "U.S. Department of Homeland Security / OHSS",
       "notes": "Lawful permanent-resident status grants, including new arrivals and adjustments within the U.S. Published cells rounded to nearest ten.",
       "vintage": "2024 Yearbook of Immigration Statistics"
+    },
+    "ohss_nationality_2016": {
+      "assets": [
+        {
+          "request_url": "https://ohss.dhs.gov/sites/default/files/2023-12/fy2016_q1q2q3q4_tables_d.xlsx",
+          "retrieved_at": "2026-10-24T22:52:10+00:00",
+          "sha256": "a408a6bac7376de731223d9f0195822caf3c5dd2acc57191eb76fcd88d067eb5",
+          "url": "https://ohss.dhs.gov/sites/default/files/2023-12/fy2016_q1q2q3q4_tables_d.xlsx"
+        }
+      ],
+      "locator": "Table 1A; China, People's Republic; full-fiscal-year totals for all grants, adjustments and new arrivals.",
+      "name": "U.S. Department of Homeland Security / OHSS",
+      "notes": "Country of nationality, not birthplace or previous residence. Exact counts as published in this release. Each fiscal year retains its Q4 preliminary administrative-report vintage, not final yearbook revisions. New arrivals enter as permanent residents; adjustments concern people already in the U.S. Total grants include both and are not all physical moves from mainland China.",
+      "vintage": "Legal Immigration and Adjustment of Status Report, FY2016 Q4"
+    },
+    "ohss_nationality_2017": {
+      "assets": [
+        {
+          "request_url": "https://ohss.dhs.gov/sites/default/files/2023-12/fy2017_q1q2q3q4_tables_d.xlsx",
+          "retrieved_at": "2026-10-24T22:52:10+00:00",
+          "sha256": "4049b6b5515f71277a003bef39953381cd8c5f1cbd09b0d10fa7d27a9dfd2bbe",
+          "url": "https://ohss.dhs.gov/sites/default/files/2023-12/fy2017_q1q2q3q4_tables_d.xlsx"
+        }
+      ],
+      "locator": "Table 1A; China, People's Republic; full-fiscal-year totals for all grants, adjustments and new arrivals.",
+      "name": "U.S. Department of Homeland Security / OHSS",
+      "notes": "Country of nationality, not birthplace or previous residence. Exact counts as published in this release. Each fiscal year retains its Q4 preliminary administrative-report vintage, not final yearbook revisions. New arrivals enter as permanent residents; adjustments concern people already in the U.S. Total grants include both and are not all physical moves from mainland China.",
+      "vintage": "Legal Immigration and Adjustment of Status Report, FY2017 Q4"
+    },
+    "ohss_nationality_2018": {
+      "assets": [
+        {
+          "request_url": "https://ohss.dhs.gov/sites/default/files/2023-12/fy2018_q1q2q3q4_tables_d.xls_.xlsx",
+          "retrieved_at": "2026-10-24T22:52:09+00:00",
+          "sha256": "ec00ffb02750a4d0e75c3dcba89fff7c98fad572e81e268cbd8434b3e2343864",
+          "url": "https://ohss.dhs.gov/sites/default/files/2023-12/fy2018_q1q2q3q4_tables_d.xls_.xlsx"
+        }
+      ],
+      "locator": "Table 1A; China, People's Republic; full-fiscal-year totals for all grants, adjustments and new arrivals.",
+      "name": "U.S. Department of Homeland Security / OHSS",
+      "notes": "Country of nationality, not birthplace or previous residence. Exact counts as published in this release. Each fiscal year retains its Q4 preliminary administrative-report vintage, not final yearbook revisions. New arrivals enter as permanent residents; adjustments concern people already in the U.S. Total grants include both and are not all physical moves from mainland China.",
+      "vintage": "Legal Immigration and Adjustment of Status Report, FY2018 Q4"
+    },
+    "ohss_nationality_2019": {
+      "assets": [
+        {
+          "request_url": "https://ohss.dhs.gov/sites/default/files/2023-12/fy2019_q4_d_final.xlsx",
+          "retrieved_at": "2026-10-24T22:52:08+00:00",
+          "sha256": "21014db04a3b4fc40645ce0eb26fb1dec44afce14b6d5ec36037c4694404dd20",
+          "url": "https://ohss.dhs.gov/sites/default/files/2023-12/fy2019_q4_d_final.xlsx"
+        }
+      ],
+      "locator": "Table 1A; China, People's Republic; full-fiscal-year totals for all grants, adjustments and new arrivals.",
+      "name": "U.S. Department of Homeland Security / OHSS",
+      "notes": "Country of nationality, not birthplace or previous residence. Exact counts as published in this release. Each fiscal year retains its Q4 preliminary administrative-report vintage, not final yearbook revisions. New arrivals enter as permanent residents; adjustments concern people already in the U.S. Total grants include both and are not all physical moves from mainland China.",
+      "vintage": "Legal Immigration and Adjustment of Status Report, FY2019 Q4"
     },
     "ohss_nationality_2020": {
       "assets": [

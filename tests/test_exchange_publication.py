@@ -175,7 +175,7 @@ def test_collective_export_preserves_complete_inputs_and_native_plot_boundaries(
     assert immigration.select_one("#green-card-grants .plot-data")
     assert immigration.select_one("#latest-admissions .plot-data")
     approvals = json.loads(immigration.select_one("#macau-residence-approvals .plot-data").string)
-    assert [p["period"] for p in approvals["groups"][0]["points"]] == [str(y) for y in range(2010, 2026)]
+    assert [p["period"] for p in approvals["groups"][0]["points"]] == [str(y) for y in range(2008, 2026)]
     assert all("FY" not in p["label"] for p in approvals["groups"][0]["points"])
     business = BeautifulSoup((tmp_path / "business-presence.html").read_text(), "html.parser")
     assert business.select_one('#module-chart optgroup[label="European enterprise series"] option[value="norway-affiliates-china"]')
@@ -254,7 +254,7 @@ def test_collective_export_preserves_complete_inputs_and_native_plot_boundaries(
         models = [json.loads(p.select_one(".plot-data").string) for p in panes]
         assert models[0]["geographies"] == ["CHN"]
         assert set(models[1]["geographies"]) <= {"HKG", "MAC"}
-        assert models[0]["first"] == models[1]["first"] == 2000
+        assert models[0]["first"] == models[1]["first"] == (1989 if chart == "green-card-grants" else 2000)
         assert models[0]["last"] == models[1]["last"] == 2024
     weibo = BeautifulSoup((tmp_path / "weibo.html").read_text(), "html.parser")
     source_weibo = json.loads((ROOT / "data/site/weibo_summary.json").read_text())
