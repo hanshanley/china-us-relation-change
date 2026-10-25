@@ -32,7 +32,8 @@ COLORS = {"bea_affiliates:china": PARTNER_COLORS["CHN"], "bea_parents:china": PA
           "eurostat_portugal:china": "#8D756D", "eurostat_portugal_pre_uci:china": "#8D756D",
           "eurostat_czechia:china": "#73838A",
           "eurostat_belgium:china": "#7B7F60", "eurostat_belgium_legal:china": "#7B7F60",
-          "eurostat_belgium_preuci:china": "#7B7F60"}
+          "eurostat_belgium_preuci:china": "#7B7F60", "snb_swiss_liechtenstein:china": "#6F7D89",
+          "ine_spain:china": "#8B7656", "ine_spain_units:china": "#8B7656"}
 ORIGINS = {"bea_affiliates:china": "us", "bea_parents:china": "us",
            "eurostat_affiliates:china": "eu", "eurostat_historical_eu:china": "eu",
            "eurostat_uk:china": "uk", "eurostat_norway:china": "norway", "ssb_norway:china": "norway",
@@ -48,7 +49,9 @@ ORIGINS = {"bea_affiliates:china": "us", "bea_parents:china": "us",
            "eurostat_portugal:china": "portugal", "eurostat_portugal_pre_uci:china": "portugal",
            "eurostat_czechia:china": "czechia",
            "eurostat_belgium:china": "belgium", "eurostat_belgium_legal:china": "belgium",
-           "eurostat_belgium_preuci:china": "belgium"}
+           "eurostat_belgium_preuci:china": "belgium",
+           "snb_swiss_liechtenstein:china": "switzerland_liechtenstein",
+           "ine_spain:china": "spain", "ine_spain_units:china": "spain"}
 CHARTS = {
     "us-affiliates-china": {
         "title": "U.S.-parent affiliates in China",
@@ -82,10 +85,11 @@ CHARTS = {
         "2019 change inferred. Eurostat is a different population, shown separately."},
     "germany-affiliates-china-eurostat": {
         "title": "German enterprises: the longer Eurostat history",
-        "subtitle": "Earlier reference | Eurostat | 2010-2023",
+        "subtitle": "Earlier reference | Eurostat | 2007-2023",
         "series": ["eurostat_germany:china"], "unit": "Enterprises", "mode": "levels",
-        "note": "Eurostat, NACE B-S except O; China except Hong Kong. "
-        "The 2021 methodology boundary is retained. Not spliced with the Bundesbank counts; Germany overlaps EU27."},
+        "note": "Eurostat; China except Hong Kong. NACE C-O except L in 2007-2009, B-S except O thereafter. "
+        "Keep the 2010 classification and 2021 EBS dataset boundaries separate. "
+        "No 2000-2006 values inferred. Not spliced with Bundesbank; Germany overlaps EU27."},
     "sweden-affiliates-china": {
         "title": "Swedish-group subsidiaries in China",
         "subtitle": "National annual observations, 2010-2024",
@@ -187,6 +191,16 @@ CHARTS = {
         "and pre-UCI records remain separate in complete downloads. Reporting-unit frame cutoffs: "
         "EUR 30m equity, 75m assets or 15m long-term investments, any criterion; not all Belgian firms "
         "or verified constant historical limits. Method windows differ; no comparable 2019 change."},
+    "swiss-liechtenstein-affiliates-china": {
+        "title": "Switzerland + Liechtenstein: China affiliates",
+        "subtitle": "SNB reporting area | Year-end affiliates and branches, 2014-2024",
+        "series": ["snb_swiss_liechtenstein:china"], "unit": "Affiliates and branches", "mode": "levels",
+        "description": "Swiss-controlled foreign subsidiaries and branches in China; the reporting area "
+        "includes Switzerland and Liechtenstein, not a pure-Switzerland company census.",
+        "note": "SNB. Combined Switzerland/Liechtenstein reporting area, not a pure-Swiss count. "
+        "Direct/indirect majority subsidiaries include unincorporated branches. CHF10m groupwide "
+        "cross-border capital frame; not each affiliate's size, all firms or verified constant historical "
+        "limits. Source revision/estimate flags are not supplied; no default 2019 growth or pre-2014 count."},
     BENCHMARK_CHART: {
         "title": "U.S. parent companies with China affiliates",
         "subtitle": "Supplementary benchmark observations | NOT an annual series",
@@ -199,6 +213,8 @@ def validate_business_data(data):
     if set(data) != {"version", "series", "observations", "sources", "coverage", "context"} or data["version"] != 1:
         raise ValueError("Invalid business-presence schema")
     units = {sid: "U.S. parents" if sid.startswith("bea_parents") else "affiliates" if sid.startswith("bea_affiliates")
+             else "affiliates and branches" if sid == "snb_swiss_liechtenstein:china"
+             else "affiliate units" if sid == "ine_spain_units:china"
              else "legal units" if sid in {"eurostat_italy_legal:china", "eurostat_austria_legal:china",
                                           "eurostat_belgium_legal:china", "eurostat_belgium_preuci:china"}
              else "enterprises" for sid in COLORS}
@@ -209,14 +225,15 @@ def validate_business_data(data):
             raise ValueError("Invalid business series identity")
         if not all(isinstance(v, str) and v for v in definition.values()) or definition["unit"] != units[sid]:
             raise ValueError("Business counting units and populations must remain explicit")
-        controlled_measure = ("historical_affiliates" if sid == "eurostat_portugal_pre_uci:china"
+        controlled_measure = ("historical_affiliates" if sid in {"eurostat_portugal_pre_uci:china", "ine_spain_units:china"}
                               else "controlled_legal_units" if sid in {
             "eurostat_italy_legal:china", "eurostat_austria_legal:china",
             "eurostat_belgium_legal:china", "eurostat_belgium_preuci:china"} else "controlled_enterprises")
-        expected = (controlled_measure, "annual", "reference year") if sid.startswith(
-            ("eurostat", "ssb_", "bundesbank_", "tillvaxtanalys_", "statfin_", "dst_")) else (
+        expected = ("controlled_affiliate_units", "annual", "year-end") if sid == "snb_swiss_liechtenstein:china" else (
+            (controlled_measure, "annual", "reference year") if sid.startswith(
+            ("eurostat", "ssb_", "bundesbank_", "tillvaxtanalys_", "statfin_", "dst_", "ine_spain")) else (
             ("parent_companies", "benchmark", "fiscal ending year") if sid.startswith("bea_parents")
-            else ("majority_owned_affiliates", "annual", "fiscal ending year"))
+            else ("majority_owned_affiliates", "annual", "fiscal ending year")))
         if tuple(definition[k] for k in ("measure", "cadence", "period_basis")) != expected:
             raise ValueError("Business measure, timing or observation cadence changed")
         if sid.startswith("bea_parents:") and (definition["measure"] != "parent_companies" or definition["cadence"] != "benchmark"):
@@ -239,6 +256,11 @@ def validate_business_data(data):
         if sid == "eurostat_spain:china" and not all(
                 token in definition["scope"] for token in ("Spanish-resident UCI", "China except Hong Kong")):
             raise ValueError("Spanish control and host-country scope must remain explicit")
+        if sid.startswith("ine_spain") and not all(
+                token in definition["scope"] for token in (
+                    "Spanish-resident UCI", "nonfinancial", "national host label China",
+                    "CN_X_HK equivalence not established")):
+            raise ValueError("Spanish national control, sector and reported-host qualifications must remain explicit")
         if sid == "dst_denmark:china" and not all(
                 token in definition["scope"] for token in (
                     "Denmark-resident parents", "Hong Kong and Macao separately", "foreign ultimate owners")):
@@ -264,6 +286,13 @@ def validate_business_data(data):
                     raise ValueError("Belgian pre-UCI attribution must remain separate")
             elif "Belgium-resident UCI" not in definition["scope"]:
                 raise ValueError("Belgian ultimate-control scope must remain explicit")
+        if sid == "snb_swiss_liechtenstein:china" and not all(token in definition["scope"] for token in (
+                "Switzerland and Liechtenstein reporting area", "SNB-defined Swiss-controlled groups",
+                "direct/indirect majority subsidiaries", "unincorporated branches",
+                "groupwide cross-border capital CHF10m frame", "SNB CN China, HK/MO separately defined")):
+            raise ValueError("SNB combined reporting area, count units and native host scope must remain explicit")
+        if sid == "snb_swiss_liechtenstein:china" and definition["label"] != "Switzerland/Liechtenstein reporting area":
+            raise ValueError("SNB visible series label must retain the combined reporting area")
     for item in data["sources"].values():
         if set(item) != {"name", "vintage", "assets", "locator", "notes"} or not item["assets"]:
             raise ValueError("Business source provenance incomplete")
@@ -276,6 +305,15 @@ def validate_business_data(data):
                     raise ValueError("Invalid public business source URL")
             if datetime.fromisoformat(asset["retrieved_at"]).tzinfo is None:
                 raise ValueError("Business retrieval timestamps need timezones")
+    if "snb_swiss_liechtenstein:china" in data["series"]:
+        snb_source = data["sources"].get("snb_opanmuausuland_20251212", {})
+        expected_assets = {
+            "https://data.snb.ch/api/cube/opanmuausuland/" + suffix
+            for suffix in ("dimensions/de", "data/json/de", "data/csv/de", "lastUpdate")}
+        expected_assets.update("https://data.snb.ch/de/topics/aube/doc/" + suffix for suffix in (
+            "explanations_aube_amne", "explanations_aube_fdi", "explanations_aube_laend"))
+        if {asset["url"] for asset in snb_source.get("assets", [])} != expected_assets:
+            raise ValueError("SNB source provenance must retain full native count queries and reporting-frame methods")
     seen = set()
     for r in data["observations"]:
         if set(r) != {"series_id", "year", "value", "source_id", "status", "notes", "comparability"}:
@@ -288,7 +326,9 @@ def validate_business_data(data):
         if key in seen:
             raise ValueError("Duplicate business observation")
         seen.add(key)
-        if r["status"] not in {"observed", "estimated", "provisional", "low_reliability", "suppressed", "missing"}:
+        statuses = ({"reported"} if r["series_id"] == "snb_swiss_liechtenstein:china" else
+                    {"observed", "estimated", "provisional", "low_reliability", "suppressed", "missing"})
+        if r["status"] not in statuses:
             raise ValueError("Invalid business status")
         if (r["value"] is None) != (r["status"] in {"missing", "suppressed"}):
             raise ValueError("Business missingness and status disagree")
@@ -304,7 +344,8 @@ def validate_business_data(data):
             "eurostat_uk:china": ("fats_out2_UK" if r["year"] <= 2009 else
                                  "ons_2019" if r["year"] in {2018, 2019} else "fats_out2_r2_UK"),
             "eurostat_norway:china": "fats_out2_r2_NO" if r["year"] <= 2020 else "fats_out_part_NO",
-            "eurostat_germany:china": "fats_out2_r2_DE" if r["year"] <= 2020 else "fats_out_part_DE",
+            "eurostat_germany:china": ("fats_out2_DE" if r["year"] <= 2009 else
+                                     "fats_out2_r2_DE" if r["year"] <= 2020 else "fats_out_part_DE"),
             "eurostat_netherlands:china": (
                 "fats_out2_NL" if r["year"] <= 2009 else "fats_out2_r2_NL" if r["year"] <= 2020
                 else "cbs_netherlands_2026" if r["year"] == 2024 and r["source_id"] == "cbs_netherlands_2026"
@@ -335,6 +376,8 @@ def validate_business_data(data):
                                            "fats_out2_r2_BE" if r["year"] <= 2020 else "fats_out_part_BE"),
             "eurostat_belgium:china": "fats_out_part_BE",
         }
+        if r["series_id"] == "eurostat_germany:china" and r["year"] < 2007:
+            raise ValueError("German Eurostat country history begins in 2007")
         if ((r["series_id"] == "eurostat_italy_legal:china" and not 2007 <= r["year"] <= 2023)
                 or (r["series_id"] == "eurostat_italy:china" and r["year"] < 2021)):
             raise ValueError("Italian legal-unit and enterprise populations must not be spliced")
@@ -365,6 +408,19 @@ def validate_business_data(data):
             raise ValueError("Finnish country table source mismatch")
         if r["series_id"] == "dst_denmark:china" and r["source_id"] != "dst_ofats4":
             raise ValueError("Danish country table source mismatch")
+        if r["series_id"] == "snb_swiss_liechtenstein:china" and (
+                not 2014 <= r["year"] <= 2024 or r["source_id"] != "snb_opanmuausuland_20251212"
+                or r["comparability"] != "snb:opanmuausuland:CN:source-levels-only"):
+            raise ValueError("SNB reviewed source, period and levels-only eligibility must remain explicit")
+        if r["series_id"].startswith("ine_spain"):
+            limits = (2009, 2020) if r["series_id"] == "ine_spain_units:china" else (2021, 2024)
+            if not limits[0] <= r["year"] <= limits[1]:
+                raise ValueError("Spanish national affiliate-unit and enterprise populations must not be spliced")
+            if r["source_id"] != f"ine_spain_{r['year']}":
+                raise ValueError("Spanish national year/source mismatch")
+            cohort = "affiliate_units" if r["year"] < 2021 else "affiliate_enterprises"
+            if r["comparability"] != f"ine:spain:china:{cohort}":
+                raise ValueError("Spanish national consolidation boundary must remain explicit")
     if not all(data["context"].get(k) for k in ("question", "interpretation", "geography", "rights")):
         raise ValueError("Business interpretation and coverage caveats required")
     if any(set(c) != {"id", "status", "description"} for c in data["coverage"]):
@@ -412,7 +468,7 @@ def svg_business_chart(data, chart_id, theme="themarginoferror"):
             config["note"] += " Includes source estimates."
     return svg_indicator_chart(
         config, groups, theme,
-        "Business entity counts, not people, branch locations or cross-border flows. Exact definitions and observations accompany this figure.",
+        config.get("description", "Business entity counts, not people, branch locations or cross-border flows. Exact definitions and observations accompany this figure."),
         "business-point")
 
 

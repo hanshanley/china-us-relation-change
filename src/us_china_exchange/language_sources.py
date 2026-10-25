@@ -106,6 +106,31 @@ class ReviewClient:
                 finally:
                     browser.close()
 
+    def get_public_document(self, url, required_text):
+        content, asset = self.get(url)
+        document = BeautifulSoup(content, "html.parser")
+        if required_text in " ".join(document.get_text(" ", strip=True).split()):
+            return content, asset
+        if document.find("app-root") is None:
+            raise ValueError("Reviewed public-document content changed")
+        from playwright.sync_api import sync_playwright
+
+        with sync_playwright() as playwright:
+            browser = playwright.chromium.launch()
+            try:
+                page = browser.new_page()
+                response = page.goto(url, wait_until="domcontentloaded", timeout=60000)
+                if response is None or response.status != 200:
+                    raise ValueError("Public-document access failed; preserve the reviewed snapshot")
+                page.get_by_text(required_text, exact=False).first.wait_for(state="attached", timeout=45000)
+                content = page.content().encode()
+                document = BeautifulSoup(content, "html.parser")
+                if required_text not in " ".join(document.get_text(" ", strip=True).split()):
+                    raise ValueError("Rendered public-document content changed")
+                return self.remember(url, content, page.url)
+            finally:
+                browser.close()
+
     def post_json(self, url, data):
         body = json.dumps(data, separators=(",", ":"), sort_keys=True)
         cache_key = "POST " + url + " " + digest(body.encode())

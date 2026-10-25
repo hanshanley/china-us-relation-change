@@ -1,6 +1,6 @@
 {
   "context": {
-    "geography": "China is the host. U.S., German, Norwegian, Swedish and Finnish series retain their own control, sector, threshold and source definitions; these are not matched country rankings. UK history ends in 2019. National and overlapping EU27 membership aggregates are not summed. Netherlands is shown separately from the overlapping EU27 aggregate. Spain's Eurostat financial/nonfinancial history is separate from INE's national nonfinancial population; Spain overlaps EU aggregates and is not added to them. Denmark's national resident-parent coverage includes foreign ultimate owners and excludes branches; it is not spliced with Danish-UCI Eurostat counts or summed into EU aggregates. Italian legal-unit history reaches 2023; grouped Eurostat enterprises remain a separate population. Austria is separate from overlapping EU27 membership and broader national counts; its older legal units are not spliced into current enterprise counts. Poland's ultimate-control population remains separate from the broader national foreign-equity survey and is not added to overlapping EU aggregates. Portuguese and Czech populations retain country-specific control/coverage breaks; Portugal's 2007 pre-UCI count is separate archive-only evidence. Belgium's pre-UCI legal units, UCI legal units and2022+enterprises remain separate; its current FDI reporting-frame cutoffs are not backdated or treated as all Belgian firms.",
+    "geography": "China is the host. U.S., German, Norwegian, Swedish and Finnish series retain their own control, sector, threshold and source definitions; these are not matched country rankings. UK history ends in 2019. National and overlapping EU27 membership aggregates are not summed. Netherlands is shown separately from the overlapping EU27 aggregate. Spain's Eurostat financial/nonfinancial history is separate from INE's national nonfinancial population; Spain overlaps EU aggregates and is not added to them. Denmark's national resident-parent coverage includes foreign ultimate owners and excludes branches; it is not spliced with Danish-UCI Eurostat counts or summed into EU aggregates. Italian legal-unit history reaches 2023; grouped Eurostat enterprises remain a separate population. Austria is separate from overlapping EU27 membership and broader national counts; its older legal units are not spliced into current enterprise counts. Poland's ultimate-control population remains separate from the broader national foreign-equity survey and is not added to overlapping EU aggregates. Portuguese and Czech populations retain country-specific control/coverage breaks; Portugal's 2007 pre-UCI count is separate archive-only evidence. Belgium's pre-UCI legal units, UCI legal units and2022+enterprises remain separate; its current FDI reporting-frame cutoffs are not backdated or treated as all Belgian firms. The SNB Switzerland/Liechtenstein reporting area is a separate qualified supplement, not a pure-Switzerland population; majority subsidiaries include unincorporated branches and the current groupwide CHF10m reporting frame is not backdated or treated as all firms. INE national nonfinancial counts retain the reported host label China and separate pre2021 affiliate units from consolidated enterprises; neither regime is a Eurostat extension.",
     "interpretation": "Company counts, affiliate entities and branch locations are distinct. U.S. parents and ultimately EU-controlled enterprises are not matched ownership populations; BEA and Eurostat levels must not be used to rank otherwise comparable business presence.",
     "question": "How has U.S. and European business presence in China changed over time?",
     "release_timing": "As checked October 22, 2026, BEA's latest activity release covers 2023. The published schedule puts the 2024 activity release on November 20, 2026; no 2024 value is inferred.",
@@ -48,7 +48,7 @@
       "status": "partial_history"
     },
     {
-      "description": "Eurostat's reported history is retained separately from Bundesbank's current workbook. Overlapping 2021-2023 counts differ; they are not spliced, averaged or treated as a matched revision. The 2021 EBS methodology boundary is disconnected. Germany overlaps the EU27 aggregate.",
+      "description": "Eurostat's reported history is retained separately from Bundesbank's current workbook. Country metadata declares comparable country breakdowns since 2007; the collection frame uses a balance-sheet threshold above EUR 3 million. No 2000-2006 value is inferred. Overlapping 2021-2023 counts differ; they are not spliced, averaged or treated as a matched revision. The 2010 NACE classification and 2021 EBS dataset boundaries remain separate. Germany overlaps the EU27 aggregate.",
       "id": "eurostat_germany:china",
       "status": "partial_history"
     },
@@ -145,6 +145,21 @@
     {
       "description": "Belgian UCI attribution starts 2009; 2007/2008 pre-UCI legal units remain separate. Legal units through 2021 and enterprise-level counts from 2022 are not spliced. Keep 2010 NACE, 2014 non-resident activity classification, 2016 declared window and 2021 EBS/source boundaries. Country comparable-window paragraphs differ; no cross-unit 2019 growth. Current metadata reports a thresholded FDI reporting-unit frame: EUR 30m equity, EUR 75m balance-sheet total or EUR 15m long-term investments, any criterion; these are not foreign-affiliate size cutoffs or verified unchanged historical thresholds. Control concept says more than half while the FDI screening frame says at least half; no extra 50/50 assumption. No unreported 2004-2006 experimental enterprise counts or 2024+ values inferred. Current supplement starts 2022.",
       "id": "eurostat_belgium:china",
+      "status": "partial_history"
+    },
+    {
+      "description": "Switzerland and Liechtenstein reporting area, not a pure-Switzerland slice or all firms. SNB-defined Swiss-controlled groups; direct/indirect majority subsidiaries include unincorporated branches, not unique parents, employees or FDI. Current reporting-group cross-border capital exceeds CHF10m; not a per-affiliate threshold or verified historically constant. Native CN China, HK Hong Kong and MO Macao are separately defined. Year-end 2014-2024 counts; no pre-2014, 2025 measurement or default 2019 growth inferred. Native revision/estimate flags are not exposed; reported values do not imply final/census status. Full native query preserves other-country fractional values without rounding; only the eleven integer CN counts enter this population.",
+      "id": "snb_swiss_liechtenstein:china",
+      "status": "partial_history"
+    },
+    {
+      "description": "Download-only 2009-2020 affiliate units; not a splice into 2021+ enterprises. INE national nonfinancial population, not Eurostat's financial/nonfinancial aggregate or unique Spanish parents. Sections 3.1/3.5 describe consolidation of affiliate units into statistical enterprises from 2021; section 15.2 also claims temporal continuity. Both statements are retained without assuming retrospective harmonization or a comparable current 2019 denominator. The national host label China is not silently relabelled China except Hong Kong. Reference 2009 was first published in 2011; no pre-2009 or 2025+ count inferred. Reported numbers do not establish census coverage or final revision status.",
+      "id": "ine_spain_units:china",
+      "status": "partial_history"
+    },
+    {
+      "description": "Download-only 2021-2024 consolidated affiliate enterprises; earlier units remain separate. INE national nonfinancial population, not Eurostat's financial/nonfinancial aggregate or unique Spanish parents. Sections 3.1/3.5 describe consolidation of affiliate units into statistical enterprises from 2021; section 15.2 also claims temporal continuity. Both statements are retained without assuming retrospective harmonization or a comparable current 2019 denominator. The national host label China is not silently relabelled China except Hong Kong. Reference 2009 was first published in 2011; no pre-2009 or 2025+ count inferred. Reported numbers do not establish census coverage or final revision status.",
+      "id": "ine_spain:china",
       "status": "partial_history"
     }
   ],
@@ -1525,6 +1540,33 @@
       "status": "observed",
       "value": 2153,
       "year": 2023
+    },
+    {
+      "comparability": "fats_out2:DE:0",
+      "notes": "Eurostat German reporting population; source flags: ",
+      "series_id": "eurostat_germany:china",
+      "source_id": "fats_out2_DE",
+      "status": "observed",
+      "value": 847,
+      "year": 2007
+    },
+    {
+      "comparability": "fats_out2:DE:0",
+      "notes": "Eurostat German reporting population; source flags: ",
+      "series_id": "eurostat_germany:china",
+      "source_id": "fats_out2_DE",
+      "status": "observed",
+      "value": 987,
+      "year": 2008
+    },
+    {
+      "comparability": "fats_out2:DE:0",
+      "notes": "Eurostat German reporting population; source flags: ",
+      "series_id": "eurostat_germany:china",
+      "source_id": "fats_out2_DE",
+      "status": "observed",
+      "value": 1043,
+      "year": 2009
     },
     {
       "comparability": "fats_out2_r2:DE:0",
@@ -2922,6 +2964,249 @@
       "year": 2020
     },
     {
+      "comparability": "ine:spain:china:affiliate_enterprises",
+      "notes": "INE national nonfinancial population, not Eurostat's financial/nonfinancial aggregate or unique Spanish parents. Sections 3.1/3.5 describe consolidation of affiliate units into statistical enterprises from 2021; section 15.2 also claims temporal continuity. Both statements are retained without assuming retrospective harmonization or a comparable current 2019 denominator. The national host label China is not silently relabelled China except Hong Kong. Reference 2009 was first published in 2011; no pre-2009 or 2025+ count inferred. Reported numbers do not establish census coverage or final revision status.",
+      "series_id": "ine_spain:china",
+      "source_id": "ine_spain_2021",
+      "status": "observed",
+      "value": 103,
+      "year": 2021
+    },
+    {
+      "comparability": "ine:spain:china:affiliate_enterprises",
+      "notes": "INE national nonfinancial population, not Eurostat's financial/nonfinancial aggregate or unique Spanish parents. Sections 3.1/3.5 describe consolidation of affiliate units into statistical enterprises from 2021; section 15.2 also claims temporal continuity. Both statements are retained without assuming retrospective harmonization or a comparable current 2019 denominator. The national host label China is not silently relabelled China except Hong Kong. Reference 2009 was first published in 2011; no pre-2009 or 2025+ count inferred. Reported numbers do not establish census coverage or final revision status.",
+      "series_id": "ine_spain:china",
+      "source_id": "ine_spain_2022",
+      "status": "observed",
+      "value": 100,
+      "year": 2022
+    },
+    {
+      "comparability": "ine:spain:china:affiliate_enterprises",
+      "notes": "INE national nonfinancial population, not Eurostat's financial/nonfinancial aggregate or unique Spanish parents. Sections 3.1/3.5 describe consolidation of affiliate units into statistical enterprises from 2021; section 15.2 also claims temporal continuity. Both statements are retained without assuming retrospective harmonization or a comparable current 2019 denominator. The national host label China is not silently relabelled China except Hong Kong. Reference 2009 was first published in 2011; no pre-2009 or 2025+ count inferred. Reported numbers do not establish census coverage or final revision status.",
+      "series_id": "ine_spain:china",
+      "source_id": "ine_spain_2023",
+      "status": "observed",
+      "value": 98,
+      "year": 2023
+    },
+    {
+      "comparability": "ine:spain:china:affiliate_enterprises",
+      "notes": "INE national nonfinancial population, not Eurostat's financial/nonfinancial aggregate or unique Spanish parents. Sections 3.1/3.5 describe consolidation of affiliate units into statistical enterprises from 2021; section 15.2 also claims temporal continuity. Both statements are retained without assuming retrospective harmonization or a comparable current 2019 denominator. The national host label China is not silently relabelled China except Hong Kong. Reference 2009 was first published in 2011; no pre-2009 or 2025+ count inferred. Reported numbers do not establish census coverage or final revision status.",
+      "series_id": "ine_spain:china",
+      "source_id": "ine_spain_2024",
+      "status": "observed",
+      "value": 134,
+      "year": 2024
+    },
+    {
+      "comparability": "ine:spain:china:affiliate_units",
+      "notes": "INE national nonfinancial population, not Eurostat's financial/nonfinancial aggregate or unique Spanish parents. Sections 3.1/3.5 describe consolidation of affiliate units into statistical enterprises from 2021; section 15.2 also claims temporal continuity. Both statements are retained without assuming retrospective harmonization or a comparable current 2019 denominator. The national host label China is not silently relabelled China except Hong Kong. Reference 2009 was first published in 2011; no pre-2009 or 2025+ count inferred. Reported numbers do not establish census coverage or final revision status.",
+      "series_id": "ine_spain_units:china",
+      "source_id": "ine_spain_2009",
+      "status": "observed",
+      "value": 55,
+      "year": 2009
+    },
+    {
+      "comparability": "ine:spain:china:affiliate_units",
+      "notes": "INE national nonfinancial population, not Eurostat's financial/nonfinancial aggregate or unique Spanish parents. Sections 3.1/3.5 describe consolidation of affiliate units into statistical enterprises from 2021; section 15.2 also claims temporal continuity. Both statements are retained without assuming retrospective harmonization or a comparable current 2019 denominator. The national host label China is not silently relabelled China except Hong Kong. Reference 2009 was first published in 2011; no pre-2009 or 2025+ count inferred. Reported numbers do not establish census coverage or final revision status.",
+      "series_id": "ine_spain_units:china",
+      "source_id": "ine_spain_2010",
+      "status": "observed",
+      "value": 56,
+      "year": 2010
+    },
+    {
+      "comparability": "ine:spain:china:affiliate_units",
+      "notes": "INE national nonfinancial population, not Eurostat's financial/nonfinancial aggregate or unique Spanish parents. Sections 3.1/3.5 describe consolidation of affiliate units into statistical enterprises from 2021; section 15.2 also claims temporal continuity. Both statements are retained without assuming retrospective harmonization or a comparable current 2019 denominator. The national host label China is not silently relabelled China except Hong Kong. Reference 2009 was first published in 2011; no pre-2009 or 2025+ count inferred. Reported numbers do not establish census coverage or final revision status.",
+      "series_id": "ine_spain_units:china",
+      "source_id": "ine_spain_2011",
+      "status": "observed",
+      "value": 82,
+      "year": 2011
+    },
+    {
+      "comparability": "ine:spain:china:affiliate_units",
+      "notes": "INE national nonfinancial population, not Eurostat's financial/nonfinancial aggregate or unique Spanish parents. Sections 3.1/3.5 describe consolidation of affiliate units into statistical enterprises from 2021; section 15.2 also claims temporal continuity. Both statements are retained without assuming retrospective harmonization or a comparable current 2019 denominator. The national host label China is not silently relabelled China except Hong Kong. Reference 2009 was first published in 2011; no pre-2009 or 2025+ count inferred. Reported numbers do not establish census coverage or final revision status.",
+      "series_id": "ine_spain_units:china",
+      "source_id": "ine_spain_2012",
+      "status": "observed",
+      "value": 85,
+      "year": 2012
+    },
+    {
+      "comparability": "ine:spain:china:affiliate_units",
+      "notes": "INE national nonfinancial population, not Eurostat's financial/nonfinancial aggregate or unique Spanish parents. Sections 3.1/3.5 describe consolidation of affiliate units into statistical enterprises from 2021; section 15.2 also claims temporal continuity. Both statements are retained without assuming retrospective harmonization or a comparable current 2019 denominator. The national host label China is not silently relabelled China except Hong Kong. Reference 2009 was first published in 2011; no pre-2009 or 2025+ count inferred. Reported numbers do not establish census coverage or final revision status.",
+      "series_id": "ine_spain_units:china",
+      "source_id": "ine_spain_2013",
+      "status": "observed",
+      "value": 90,
+      "year": 2013
+    },
+    {
+      "comparability": "ine:spain:china:affiliate_units",
+      "notes": "INE national nonfinancial population, not Eurostat's financial/nonfinancial aggregate or unique Spanish parents. Sections 3.1/3.5 describe consolidation of affiliate units into statistical enterprises from 2021; section 15.2 also claims temporal continuity. Both statements are retained without assuming retrospective harmonization or a comparable current 2019 denominator. The national host label China is not silently relabelled China except Hong Kong. Reference 2009 was first published in 2011; no pre-2009 or 2025+ count inferred. Reported numbers do not establish census coverage or final revision status.",
+      "series_id": "ine_spain_units:china",
+      "source_id": "ine_spain_2014",
+      "status": "observed",
+      "value": 109,
+      "year": 2014
+    },
+    {
+      "comparability": "ine:spain:china:affiliate_units",
+      "notes": "INE national nonfinancial population, not Eurostat's financial/nonfinancial aggregate or unique Spanish parents. Sections 3.1/3.5 describe consolidation of affiliate units into statistical enterprises from 2021; section 15.2 also claims temporal continuity. Both statements are retained without assuming retrospective harmonization or a comparable current 2019 denominator. The national host label China is not silently relabelled China except Hong Kong. Reference 2009 was first published in 2011; no pre-2009 or 2025+ count inferred. Reported numbers do not establish census coverage or final revision status.",
+      "series_id": "ine_spain_units:china",
+      "source_id": "ine_spain_2015",
+      "status": "observed",
+      "value": 102,
+      "year": 2015
+    },
+    {
+      "comparability": "ine:spain:china:affiliate_units",
+      "notes": "INE national nonfinancial population, not Eurostat's financial/nonfinancial aggregate or unique Spanish parents. Sections 3.1/3.5 describe consolidation of affiliate units into statistical enterprises from 2021; section 15.2 also claims temporal continuity. Both statements are retained without assuming retrospective harmonization or a comparable current 2019 denominator. The national host label China is not silently relabelled China except Hong Kong. Reference 2009 was first published in 2011; no pre-2009 or 2025+ count inferred. Reported numbers do not establish census coverage or final revision status.",
+      "series_id": "ine_spain_units:china",
+      "source_id": "ine_spain_2016",
+      "status": "observed",
+      "value": 108,
+      "year": 2016
+    },
+    {
+      "comparability": "ine:spain:china:affiliate_units",
+      "notes": "INE national nonfinancial population, not Eurostat's financial/nonfinancial aggregate or unique Spanish parents. Sections 3.1/3.5 describe consolidation of affiliate units into statistical enterprises from 2021; section 15.2 also claims temporal continuity. Both statements are retained without assuming retrospective harmonization or a comparable current 2019 denominator. The national host label China is not silently relabelled China except Hong Kong. Reference 2009 was first published in 2011; no pre-2009 or 2025+ count inferred. Reported numbers do not establish census coverage or final revision status.",
+      "series_id": "ine_spain_units:china",
+      "source_id": "ine_spain_2017",
+      "status": "observed",
+      "value": 122,
+      "year": 2017
+    },
+    {
+      "comparability": "ine:spain:china:affiliate_units",
+      "notes": "INE national nonfinancial population, not Eurostat's financial/nonfinancial aggregate or unique Spanish parents. Sections 3.1/3.5 describe consolidation of affiliate units into statistical enterprises from 2021; section 15.2 also claims temporal continuity. Both statements are retained without assuming retrospective harmonization or a comparable current 2019 denominator. The national host label China is not silently relabelled China except Hong Kong. Reference 2009 was first published in 2011; no pre-2009 or 2025+ count inferred. Reported numbers do not establish census coverage or final revision status.",
+      "series_id": "ine_spain_units:china",
+      "source_id": "ine_spain_2018",
+      "status": "observed",
+      "value": 129,
+      "year": 2018
+    },
+    {
+      "comparability": "ine:spain:china:affiliate_units",
+      "notes": "INE national nonfinancial population, not Eurostat's financial/nonfinancial aggregate or unique Spanish parents. Sections 3.1/3.5 describe consolidation of affiliate units into statistical enterprises from 2021; section 15.2 also claims temporal continuity. Both statements are retained without assuming retrospective harmonization or a comparable current 2019 denominator. The national host label China is not silently relabelled China except Hong Kong. Reference 2009 was first published in 2011; no pre-2009 or 2025+ count inferred. Reported numbers do not establish census coverage or final revision status.",
+      "series_id": "ine_spain_units:china",
+      "source_id": "ine_spain_2019",
+      "status": "observed",
+      "value": 124,
+      "year": 2019
+    },
+    {
+      "comparability": "ine:spain:china:affiliate_units",
+      "notes": "INE national nonfinancial population, not Eurostat's financial/nonfinancial aggregate or unique Spanish parents. Sections 3.1/3.5 describe consolidation of affiliate units into statistical enterprises from 2021; section 15.2 also claims temporal continuity. Both statements are retained without assuming retrospective harmonization or a comparable current 2019 denominator. The national host label China is not silently relabelled China except Hong Kong. Reference 2009 was first published in 2011; no pre-2009 or 2025+ count inferred. Reported numbers do not establish census coverage or final revision status.",
+      "series_id": "ine_spain_units:china",
+      "source_id": "ine_spain_2020",
+      "status": "observed",
+      "value": 123,
+      "year": 2020
+    },
+    {
+      "comparability": "snb:opanmuausuland:CN:source-levels-only",
+      "notes": "Switzerland and Liechtenstein reporting area, not a pure-Switzerland slice or all firms. SNB-defined Swiss-controlled groups; direct/indirect majority subsidiaries include unincorporated branches, not unique parents, employees or FDI. Current reporting-group cross-border capital exceeds CHF10m; not a per-affiliate threshold or verified historically constant. Native CN China, HK Hong Kong and MO Macao are separately defined. Year-end 2014-2024 counts; no pre-2014, 2025 measurement or default 2019 growth inferred. Native revision/estimate flags are not exposed; reported values do not imply final/census status. Full native query preserves other-country fractional values without rounding; only the eleven integer CN counts enter this population.",
+      "series_id": "snb_swiss_liechtenstein:china",
+      "source_id": "snb_opanmuausuland_20251212",
+      "status": "reported",
+      "value": 543,
+      "year": 2014
+    },
+    {
+      "comparability": "snb:opanmuausuland:CN:source-levels-only",
+      "notes": "Switzerland and Liechtenstein reporting area, not a pure-Switzerland slice or all firms. SNB-defined Swiss-controlled groups; direct/indirect majority subsidiaries include unincorporated branches, not unique parents, employees or FDI. Current reporting-group cross-border capital exceeds CHF10m; not a per-affiliate threshold or verified historically constant. Native CN China, HK Hong Kong and MO Macao are separately defined. Year-end 2014-2024 counts; no pre-2014, 2025 measurement or default 2019 growth inferred. Native revision/estimate flags are not exposed; reported values do not imply final/census status. Full native query preserves other-country fractional values without rounding; only the eleven integer CN counts enter this population.",
+      "series_id": "snb_swiss_liechtenstein:china",
+      "source_id": "snb_opanmuausuland_20251212",
+      "status": "reported",
+      "value": 598,
+      "year": 2015
+    },
+    {
+      "comparability": "snb:opanmuausuland:CN:source-levels-only",
+      "notes": "Switzerland and Liechtenstein reporting area, not a pure-Switzerland slice or all firms. SNB-defined Swiss-controlled groups; direct/indirect majority subsidiaries include unincorporated branches, not unique parents, employees or FDI. Current reporting-group cross-border capital exceeds CHF10m; not a per-affiliate threshold or verified historically constant. Native CN China, HK Hong Kong and MO Macao are separately defined. Year-end 2014-2024 counts; no pre-2014, 2025 measurement or default 2019 growth inferred. Native revision/estimate flags are not exposed; reported values do not imply final/census status. Full native query preserves other-country fractional values without rounding; only the eleven integer CN counts enter this population.",
+      "series_id": "snb_swiss_liechtenstein:china",
+      "source_id": "snb_opanmuausuland_20251212",
+      "status": "reported",
+      "value": 622,
+      "year": 2016
+    },
+    {
+      "comparability": "snb:opanmuausuland:CN:source-levels-only",
+      "notes": "Switzerland and Liechtenstein reporting area, not a pure-Switzerland slice or all firms. SNB-defined Swiss-controlled groups; direct/indirect majority subsidiaries include unincorporated branches, not unique parents, employees or FDI. Current reporting-group cross-border capital exceeds CHF10m; not a per-affiliate threshold or verified historically constant. Native CN China, HK Hong Kong and MO Macao are separately defined. Year-end 2014-2024 counts; no pre-2014, 2025 measurement or default 2019 growth inferred. Native revision/estimate flags are not exposed; reported values do not imply final/census status. Full native query preserves other-country fractional values without rounding; only the eleven integer CN counts enter this population.",
+      "series_id": "snb_swiss_liechtenstein:china",
+      "source_id": "snb_opanmuausuland_20251212",
+      "status": "reported",
+      "value": 639,
+      "year": 2017
+    },
+    {
+      "comparability": "snb:opanmuausuland:CN:source-levels-only",
+      "notes": "Switzerland and Liechtenstein reporting area, not a pure-Switzerland slice or all firms. SNB-defined Swiss-controlled groups; direct/indirect majority subsidiaries include unincorporated branches, not unique parents, employees or FDI. Current reporting-group cross-border capital exceeds CHF10m; not a per-affiliate threshold or verified historically constant. Native CN China, HK Hong Kong and MO Macao are separately defined. Year-end 2014-2024 counts; no pre-2014, 2025 measurement or default 2019 growth inferred. Native revision/estimate flags are not exposed; reported values do not imply final/census status. Full native query preserves other-country fractional values without rounding; only the eleven integer CN counts enter this population.",
+      "series_id": "snb_swiss_liechtenstein:china",
+      "source_id": "snb_opanmuausuland_20251212",
+      "status": "reported",
+      "value": 664,
+      "year": 2018
+    },
+    {
+      "comparability": "snb:opanmuausuland:CN:source-levels-only",
+      "notes": "Switzerland and Liechtenstein reporting area, not a pure-Switzerland slice or all firms. SNB-defined Swiss-controlled groups; direct/indirect majority subsidiaries include unincorporated branches, not unique parents, employees or FDI. Current reporting-group cross-border capital exceeds CHF10m; not a per-affiliate threshold or verified historically constant. Native CN China, HK Hong Kong and MO Macao are separately defined. Year-end 2014-2024 counts; no pre-2014, 2025 measurement or default 2019 growth inferred. Native revision/estimate flags are not exposed; reported values do not imply final/census status. Full native query preserves other-country fractional values without rounding; only the eleven integer CN counts enter this population.",
+      "series_id": "snb_swiss_liechtenstein:china",
+      "source_id": "snb_opanmuausuland_20251212",
+      "status": "reported",
+      "value": 716,
+      "year": 2019
+    },
+    {
+      "comparability": "snb:opanmuausuland:CN:source-levels-only",
+      "notes": "Switzerland and Liechtenstein reporting area, not a pure-Switzerland slice or all firms. SNB-defined Swiss-controlled groups; direct/indirect majority subsidiaries include unincorporated branches, not unique parents, employees or FDI. Current reporting-group cross-border capital exceeds CHF10m; not a per-affiliate threshold or verified historically constant. Native CN China, HK Hong Kong and MO Macao are separately defined. Year-end 2014-2024 counts; no pre-2014, 2025 measurement or default 2019 growth inferred. Native revision/estimate flags are not exposed; reported values do not imply final/census status. Full native query preserves other-country fractional values without rounding; only the eleven integer CN counts enter this population.",
+      "series_id": "snb_swiss_liechtenstein:china",
+      "source_id": "snb_opanmuausuland_20251212",
+      "status": "reported",
+      "value": 724,
+      "year": 2020
+    },
+    {
+      "comparability": "snb:opanmuausuland:CN:source-levels-only",
+      "notes": "Switzerland and Liechtenstein reporting area, not a pure-Switzerland slice or all firms. SNB-defined Swiss-controlled groups; direct/indirect majority subsidiaries include unincorporated branches, not unique parents, employees or FDI. Current reporting-group cross-border capital exceeds CHF10m; not a per-affiliate threshold or verified historically constant. Native CN China, HK Hong Kong and MO Macao are separately defined. Year-end 2014-2024 counts; no pre-2014, 2025 measurement or default 2019 growth inferred. Native revision/estimate flags are not exposed; reported values do not imply final/census status. Full native query preserves other-country fractional values without rounding; only the eleven integer CN counts enter this population.",
+      "series_id": "snb_swiss_liechtenstein:china",
+      "source_id": "snb_opanmuausuland_20251212",
+      "status": "reported",
+      "value": 749,
+      "year": 2021
+    },
+    {
+      "comparability": "snb:opanmuausuland:CN:source-levels-only",
+      "notes": "Switzerland and Liechtenstein reporting area, not a pure-Switzerland slice or all firms. SNB-defined Swiss-controlled groups; direct/indirect majority subsidiaries include unincorporated branches, not unique parents, employees or FDI. Current reporting-group cross-border capital exceeds CHF10m; not a per-affiliate threshold or verified historically constant. Native CN China, HK Hong Kong and MO Macao are separately defined. Year-end 2014-2024 counts; no pre-2014, 2025 measurement or default 2019 growth inferred. Native revision/estimate flags are not exposed; reported values do not imply final/census status. Full native query preserves other-country fractional values without rounding; only the eleven integer CN counts enter this population.",
+      "series_id": "snb_swiss_liechtenstein:china",
+      "source_id": "snb_opanmuausuland_20251212",
+      "status": "reported",
+      "value": 799,
+      "year": 2022
+    },
+    {
+      "comparability": "snb:opanmuausuland:CN:source-levels-only",
+      "notes": "Switzerland and Liechtenstein reporting area, not a pure-Switzerland slice or all firms. SNB-defined Swiss-controlled groups; direct/indirect majority subsidiaries include unincorporated branches, not unique parents, employees or FDI. Current reporting-group cross-border capital exceeds CHF10m; not a per-affiliate threshold or verified historically constant. Native CN China, HK Hong Kong and MO Macao are separately defined. Year-end 2014-2024 counts; no pre-2014, 2025 measurement or default 2019 growth inferred. Native revision/estimate flags are not exposed; reported values do not imply final/census status. Full native query preserves other-country fractional values without rounding; only the eleven integer CN counts enter this population.",
+      "series_id": "snb_swiss_liechtenstein:china",
+      "source_id": "snb_opanmuausuland_20251212",
+      "status": "reported",
+      "value": 816,
+      "year": 2023
+    },
+    {
+      "comparability": "snb:opanmuausuland:CN:source-levels-only",
+      "notes": "Switzerland and Liechtenstein reporting area, not a pure-Switzerland slice or all firms. SNB-defined Swiss-controlled groups; direct/indirect majority subsidiaries include unincorporated branches, not unique parents, employees or FDI. Current reporting-group cross-border capital exceeds CHF10m; not a per-affiliate threshold or verified historically constant. Native CN China, HK Hong Kong and MO Macao are separately defined. Year-end 2014-2024 counts; no pre-2014, 2025 measurement or default 2019 growth inferred. Native revision/estimate flags are not exposed; reported values do not imply final/census status. Full native query preserves other-country fractional values without rounding; only the eleven integer CN counts enter this population.",
+      "series_id": "snb_swiss_liechtenstein:china",
+      "source_id": "snb_opanmuausuland_20251212",
+      "status": "reported",
+      "value": 792,
+      "year": 2024
+    },
+    {
       "comparability": "ssb:09827:CN:all_industries",
       "notes": "Direct Statistics Norway all-industry country count, not a subset allocated from Asia.",
       "series_id": "ssb_norway:china",
@@ -3467,9 +3752,9 @@
       "cadence": "annual",
       "label": "Germany (Eurostat)",
       "measure": "controlled_enterprises",
-      "notes": "Eurostat's reported history is retained separately from Bundesbank's current workbook. Overlapping 2021-2023 counts differ; they are not spliced, averaged or treated as a matched revision. The 2021 EBS methodology boundary is disconnected. Germany overlaps the EU27 aggregate.",
+      "notes": "Eurostat's reported history is retained separately from Bundesbank's current workbook. Country metadata declares comparable country breakdowns since 2007; the collection frame uses a balance-sheet threshold above EUR 3 million. No 2000-2006 value is inferred. Overlapping 2021-2023 counts differ; they are not spliced, averaged or treated as a matched revision. The 2010 NACE classification and 2021 EBS dataset boundaries remain separate. Germany overlaps the EU27 aggregate.",
       "period_basis": "reference year",
-      "scope": "German-controlled enterprises in China except Hong Kong; Eurostat NACE B-S except O",
+      "scope": "German-resident UCI; enterprises and branches in China except Hong Kong; NACE C-O except L before 2010, B-S except O thereafter",
       "unit": "enterprises"
     },
     "eurostat_historical_eu:china": {
@@ -3570,6 +3855,33 @@
       "period_basis": "reference year",
       "scope": "UK-controlled enterprises in China except Hong Kong; NACE C-O except L in 2009, NACE B-S except O in 2010-2017, ONS total published activity in 2018-2019",
       "unit": "enterprises"
+    },
+    "ine_spain:china": {
+      "cadence": "annual",
+      "label": "Spain, INE nonfinancial enterprises",
+      "measure": "controlled_enterprises",
+      "notes": "Download-only 2021-2024 consolidated affiliate enterprises; earlier units remain separate. INE national nonfinancial population, not Eurostat's financial/nonfinancial aggregate or unique Spanish parents. Sections 3.1/3.5 describe consolidation of affiliate units into statistical enterprises from 2021; section 15.2 also claims temporal continuity. Both statements are retained without assuming retrospective harmonization or a comparable current 2019 denominator. The national host label China is not silently relabelled China except Hong Kong. Reference 2009 was first published in 2011; no pre-2009 or 2025+ count inferred. Reported numbers do not establish census coverage or final revision status.",
+      "period_basis": "reference year",
+      "scope": "Spanish-resident UCI; nonfinancial market affiliates and branches; national host label China; CN_X_HK equivalence not established",
+      "unit": "enterprises"
+    },
+    "ine_spain_units:china": {
+      "cadence": "annual",
+      "label": "Spain, INE pre-2021 affiliate units",
+      "measure": "historical_affiliates",
+      "notes": "Download-only 2009-2020 affiliate units; not a splice into 2021+ enterprises. INE national nonfinancial population, not Eurostat's financial/nonfinancial aggregate or unique Spanish parents. Sections 3.1/3.5 describe consolidation of affiliate units into statistical enterprises from 2021; section 15.2 also claims temporal continuity. Both statements are retained without assuming retrospective harmonization or a comparable current 2019 denominator. The national host label China is not silently relabelled China except Hong Kong. Reference 2009 was first published in 2011; no pre-2009 or 2025+ count inferred. Reported numbers do not establish census coverage or final revision status.",
+      "period_basis": "reference year",
+      "scope": "Spanish-resident UCI; nonfinancial market affiliates and branches; national host label China; CN_X_HK equivalence not established",
+      "unit": "affiliate units"
+    },
+    "snb_swiss_liechtenstein:china": {
+      "cadence": "annual",
+      "label": "Switzerland/Liechtenstein reporting area",
+      "measure": "controlled_affiliate_units",
+      "notes": "Switzerland and Liechtenstein reporting area, not a pure-Switzerland slice or all firms. SNB-defined Swiss-controlled groups; direct/indirect majority subsidiaries include unincorporated branches, not unique parents, employees or FDI. Current reporting-group cross-border capital exceeds CHF10m; not a per-affiliate threshold or verified historically constant. Native CN China, HK Hong Kong and MO Macao are separately defined. Year-end 2014-2024 counts; no pre-2014, 2025 measurement or default 2019 growth inferred. Native revision/estimate flags are not exposed; reported values do not imply final/census status. Full native query preserves other-country fractional values without rounding; only the eleven integer CN counts enter this population.",
+      "period_basis": "year-end",
+      "scope": "Switzerland and Liechtenstein reporting area; SNB-defined Swiss-controlled groups; direct/indirect majority subsidiaries including unincorporated branches; groupwide cross-border capital CHF10m frame; SNB CN China, HK/MO separately defined",
+      "unit": "affiliates and branches"
     },
     "ssb_norway:china": {
       "cadence": "annual",
@@ -4205,6 +4517,26 @@
       "name": "Eurostat / Czech National Bank",
       "notes": "Czech-resident UCI; enterprises/branches in China except Hong Kong, not minority FDI interests. The UCI principle starts in 2007. Preserve the national 2008 NACE revision, the selected 2010 legacy-table transition and the 2021 EBS coverage/characteristic-definition boundary. 2021 is confidential, not zero. No comparable current 2019 change, pre-2007 or unreported current-year count is inferred; not added to overlapping EU aggregates.",
       "vintage": "fats_out2; Czechia; source updated 2024-04-25T11:00:00+0200"
+    },
+    "fats_out2_DE": {
+      "assets": [
+        {
+          "request_url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out2?lang=EN&freq=A&nace_r1=C-O_X_L&indic_bp=ENT&partner=CN_X_HK&geo=DE",
+          "retrieved_at": "2026-10-25T09:56:51+00:00",
+          "sha256": "8df98569f34d7a971cc09145d0c8e640922641ceabaaec4298286b837f4912f4",
+          "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out2?lang=EN&freq=A&nace_r1=C-O_X_L&indic_bp=ENT&partner=CN_X_HK&geo=DE"
+        },
+        {
+          "request_url": "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_de.htm",
+          "retrieved_at": "2026-10-25T08:57:46.359417+00:00",
+          "sha256": "30da208d245496ab990f44a15a0e62d307bad737a0572c74abaf0ce0d5338267",
+          "url": "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_de.htm"
+        }
+      ],
+      "locator": "geo=DE; partner=CN_X_HK; NACE C-O except L; enterprise counts",
+      "name": "Eurostat",
+      "notes": "Separate source population/vintage from the Bundesbank workbook; overlapping counts are not forced to agree.",
+      "vintage": "fats_out2; Germany reporting country"
     },
     "fats_out2_ES": {
       "assets": [
@@ -4936,6 +5268,326 @@
       "notes": "Active affiliates and branches controlled by Finland-resident enterprises; an affiliate has >50% direct/indirect voting control. All size classes and industries; not unique parents or a physical-office census. Financial years ending within the reference calendar year. The 2021 EBS methodology boundary remains separate. This supplementary country table starts in 2020; earlier national regional aggregates are not allocated to China. Not matched to other countries' thresholds.",
       "vintage": "StatFin 13k8; reference years 2020-2024"
     },
+    "ine_spain_2009": {
+      "assets": [
+        {
+          "request_url": "https://www.ine.es/jaxi/files/_px/es/px/t37/p082/a2009/l0/01001.px?nocab=1",
+          "retrieved_at": "2026-10-25T08:42:06.695878+00:00",
+          "sha256": "a0e9290e4a3c28ea5884e91070a2a0cd10397c278418d7b6a29ec2f7be9309b6",
+          "url": "https://www.ine.es/jaxi/files/_px/es/px/t37/p082/a2009/l0/01001.px?nocab=1"
+        },
+        {
+          "request_url": "https://ine.es/dynt3/metadatos/es/RespuestaDatos.html?oe=30082",
+          "retrieved_at": "2026-10-25T08:37:19.540284+00:00",
+          "sha256": "15f743bec898d077ea408f185ac93ebc61eb69d51f9e6d3aed59d12f2d7cb9f7",
+          "url": "https://ine.es/dynt3/metadatos/es/RespuestaDatos.html?oe=30082"
+        }
+      ],
+      "locator": "Country China; Numero de filiales; original catalogue reference 2009, not Pc-Axis creation date; methodology 3.1/3.3/3.5/15.2",
+      "name": "Instituto Nacional de Estadistica",
+      "notes": "INE national nonfinancial population, not Eurostat's financial/nonfinancial aggregate or unique Spanish parents. Sections 3.1/3.5 describe consolidation of affiliate units into statistical enterprises from 2021; section 15.2 also claims temporal continuity. Both statements are retained without assuming retrospective harmonization or a comparable current 2019 denominator. The national host label China is not silently relabelled China except Hong Kong. Reference 2009 was first published in 2011; no pre-2009 or 2025+ count inferred. Reported numbers do not establish census coverage or final revision status.",
+      "vintage": "National FILEXT country table; reference 2009"
+    },
+    "ine_spain_2010": {
+      "assets": [
+        {
+          "request_url": "https://www.ine.es/jaxi/files/_px/es/px/t37/p082/a2010/l0/01001.px?nocab=1",
+          "retrieved_at": "2026-10-25T08:42:06.387760+00:00",
+          "sha256": "b7b46452c11178fa4f72a4089947d3dcc0596e211832eba1629d2cee26cacb48",
+          "url": "https://www.ine.es/jaxi/files/_px/es/px/t37/p082/a2010/l0/01001.px?nocab=1"
+        },
+        {
+          "request_url": "https://ine.es/dynt3/metadatos/es/RespuestaDatos.html?oe=30082",
+          "retrieved_at": "2026-10-25T08:37:19.540284+00:00",
+          "sha256": "15f743bec898d077ea408f185ac93ebc61eb69d51f9e6d3aed59d12f2d7cb9f7",
+          "url": "https://ine.es/dynt3/metadatos/es/RespuestaDatos.html?oe=30082"
+        }
+      ],
+      "locator": "Country China; Numero de filiales; original catalogue reference 2010, not Pc-Axis creation date; methodology 3.1/3.3/3.5/15.2",
+      "name": "Instituto Nacional de Estadistica",
+      "notes": "INE national nonfinancial population, not Eurostat's financial/nonfinancial aggregate or unique Spanish parents. Sections 3.1/3.5 describe consolidation of affiliate units into statistical enterprises from 2021; section 15.2 also claims temporal continuity. Both statements are retained without assuming retrospective harmonization or a comparable current 2019 denominator. The national host label China is not silently relabelled China except Hong Kong. Reference 2009 was first published in 2011; no pre-2009 or 2025+ count inferred. Reported numbers do not establish census coverage or final revision status.",
+      "vintage": "National FILEXT country table; reference 2010"
+    },
+    "ine_spain_2011": {
+      "assets": [
+        {
+          "request_url": "https://www.ine.es/jaxi/files/_px/es/px/t37/p082/a2011/l0/01001.px?nocab=1",
+          "retrieved_at": "2026-10-25T08:42:13.828834+00:00",
+          "sha256": "7cbdb9c4b5855aad6b1476d154275e6515d6209cbda74d7d39e2a0a92cb920a4",
+          "url": "https://www.ine.es/jaxi/files/_px/es/px/t37/p082/a2011/l0/01001.px?nocab=1"
+        },
+        {
+          "request_url": "https://ine.es/dynt3/metadatos/es/RespuestaDatos.html?oe=30082",
+          "retrieved_at": "2026-10-25T08:37:19.540284+00:00",
+          "sha256": "15f743bec898d077ea408f185ac93ebc61eb69d51f9e6d3aed59d12f2d7cb9f7",
+          "url": "https://ine.es/dynt3/metadatos/es/RespuestaDatos.html?oe=30082"
+        }
+      ],
+      "locator": "Country China; Numero de filiales; original catalogue reference 2011, not Pc-Axis creation date; methodology 3.1/3.3/3.5/15.2",
+      "name": "Instituto Nacional de Estadistica",
+      "notes": "INE national nonfinancial population, not Eurostat's financial/nonfinancial aggregate or unique Spanish parents. Sections 3.1/3.5 describe consolidation of affiliate units into statistical enterprises from 2021; section 15.2 also claims temporal continuity. Both statements are retained without assuming retrospective harmonization or a comparable current 2019 denominator. The national host label China is not silently relabelled China except Hong Kong. Reference 2009 was first published in 2011; no pre-2009 or 2025+ count inferred. Reported numbers do not establish census coverage or final revision status.",
+      "vintage": "National FILEXT country table; reference 2011"
+    },
+    "ine_spain_2012": {
+      "assets": [
+        {
+          "request_url": "https://www.ine.es/jaxi/files/_px/es/px/t37/p082/a2012/l0/01001.px?nocab=1",
+          "retrieved_at": "2026-10-25T08:42:13.743556+00:00",
+          "sha256": "7faffdd05406fbdd1c7488dca886f28eed7fe216c6dfaea707a8654ba346dd24",
+          "url": "https://www.ine.es/jaxi/files/_px/es/px/t37/p082/a2012/l0/01001.px?nocab=1"
+        },
+        {
+          "request_url": "https://ine.es/dynt3/metadatos/es/RespuestaDatos.html?oe=30082",
+          "retrieved_at": "2026-10-25T08:37:19.540284+00:00",
+          "sha256": "15f743bec898d077ea408f185ac93ebc61eb69d51f9e6d3aed59d12f2d7cb9f7",
+          "url": "https://ine.es/dynt3/metadatos/es/RespuestaDatos.html?oe=30082"
+        }
+      ],
+      "locator": "Country China; Numero de filiales; original catalogue reference 2012, not Pc-Axis creation date; methodology 3.1/3.3/3.5/15.2",
+      "name": "Instituto Nacional de Estadistica",
+      "notes": "INE national nonfinancial population, not Eurostat's financial/nonfinancial aggregate or unique Spanish parents. Sections 3.1/3.5 describe consolidation of affiliate units into statistical enterprises from 2021; section 15.2 also claims temporal continuity. Both statements are retained without assuming retrospective harmonization or a comparable current 2019 denominator. The national host label China is not silently relabelled China except Hong Kong. Reference 2009 was first published in 2011; no pre-2009 or 2025+ count inferred. Reported numbers do not establish census coverage or final revision status.",
+      "vintage": "National FILEXT country table; reference 2012"
+    },
+    "ine_spain_2013": {
+      "assets": [
+        {
+          "request_url": "https://www.ine.es/jaxi/files/_px/es/px/t37/p082/a2013/l0/01001.px?nocab=1",
+          "retrieved_at": "2026-10-25T08:42:20.562040+00:00",
+          "sha256": "5ae8d2a24a81213ea9cc2eb3a21c4f2e607745f92a8c8613b5c582bfa8e1d889",
+          "url": "https://www.ine.es/jaxi/files/_px/es/px/t37/p082/a2013/l0/01001.px?nocab=1"
+        },
+        {
+          "request_url": "https://ine.es/dynt3/metadatos/es/RespuestaDatos.html?oe=30082",
+          "retrieved_at": "2026-10-25T08:37:19.540284+00:00",
+          "sha256": "15f743bec898d077ea408f185ac93ebc61eb69d51f9e6d3aed59d12f2d7cb9f7",
+          "url": "https://ine.es/dynt3/metadatos/es/RespuestaDatos.html?oe=30082"
+        }
+      ],
+      "locator": "Country China; Numero de filiales; original catalogue reference 2013, not Pc-Axis creation date; methodology 3.1/3.3/3.5/15.2",
+      "name": "Instituto Nacional de Estadistica",
+      "notes": "INE national nonfinancial population, not Eurostat's financial/nonfinancial aggregate or unique Spanish parents. Sections 3.1/3.5 describe consolidation of affiliate units into statistical enterprises from 2021; section 15.2 also claims temporal continuity. Both statements are retained without assuming retrospective harmonization or a comparable current 2019 denominator. The national host label China is not silently relabelled China except Hong Kong. Reference 2009 was first published in 2011; no pre-2009 or 2025+ count inferred. Reported numbers do not establish census coverage or final revision status.",
+      "vintage": "National FILEXT country table; reference 2013"
+    },
+    "ine_spain_2014": {
+      "assets": [
+        {
+          "request_url": "https://www.ine.es/jaxi/files/_px/es/px/t37/p082/a2014/l0/01001.px?nocab=1",
+          "retrieved_at": "2026-10-25T08:42:20.348129+00:00",
+          "sha256": "3521789d8545b7175dc8c45737e1e2fa06f73d2b92a0c72ce3c14641822f30e7",
+          "url": "https://www.ine.es/jaxi/files/_px/es/px/t37/p082/a2014/l0/01001.px?nocab=1"
+        },
+        {
+          "request_url": "https://ine.es/dynt3/metadatos/es/RespuestaDatos.html?oe=30082",
+          "retrieved_at": "2026-10-25T08:37:19.540284+00:00",
+          "sha256": "15f743bec898d077ea408f185ac93ebc61eb69d51f9e6d3aed59d12f2d7cb9f7",
+          "url": "https://ine.es/dynt3/metadatos/es/RespuestaDatos.html?oe=30082"
+        }
+      ],
+      "locator": "Country China; Numero de filiales; original catalogue reference 2014, not Pc-Axis creation date; methodology 3.1/3.3/3.5/15.2",
+      "name": "Instituto Nacional de Estadistica",
+      "notes": "INE national nonfinancial population, not Eurostat's financial/nonfinancial aggregate or unique Spanish parents. Sections 3.1/3.5 describe consolidation of affiliate units into statistical enterprises from 2021; section 15.2 also claims temporal continuity. Both statements are retained without assuming retrospective harmonization or a comparable current 2019 denominator. The national host label China is not silently relabelled China except Hong Kong. Reference 2009 was first published in 2011; no pre-2009 or 2025+ count inferred. Reported numbers do not establish census coverage or final revision status.",
+      "vintage": "National FILEXT country table; reference 2014"
+    },
+    "ine_spain_2015": {
+      "assets": [
+        {
+          "request_url": "https://www.ine.es/jaxi/files/_px/es/px/t37/p082/a2015/l0/01001.px?nocab=1",
+          "retrieved_at": "2026-10-25T08:42:27.279130+00:00",
+          "sha256": "f5b8f7869ad39657525e5421b4d9af2ad37b6fd954638965ff0da8cea5cb3a75",
+          "url": "https://www.ine.es/jaxi/files/_px/es/px/t37/p082/a2015/l0/01001.px?nocab=1"
+        },
+        {
+          "request_url": "https://ine.es/dynt3/metadatos/es/RespuestaDatos.html?oe=30082",
+          "retrieved_at": "2026-10-25T08:37:19.540284+00:00",
+          "sha256": "15f743bec898d077ea408f185ac93ebc61eb69d51f9e6d3aed59d12f2d7cb9f7",
+          "url": "https://ine.es/dynt3/metadatos/es/RespuestaDatos.html?oe=30082"
+        }
+      ],
+      "locator": "Country China; Numero de filiales; original catalogue reference 2015, not Pc-Axis creation date; methodology 3.1/3.3/3.5/15.2",
+      "name": "Instituto Nacional de Estadistica",
+      "notes": "INE national nonfinancial population, not Eurostat's financial/nonfinancial aggregate or unique Spanish parents. Sections 3.1/3.5 describe consolidation of affiliate units into statistical enterprises from 2021; section 15.2 also claims temporal continuity. Both statements are retained without assuming retrospective harmonization or a comparable current 2019 denominator. The national host label China is not silently relabelled China except Hong Kong. Reference 2009 was first published in 2011; no pre-2009 or 2025+ count inferred. Reported numbers do not establish census coverage or final revision status.",
+      "vintage": "National FILEXT country table; reference 2015"
+    },
+    "ine_spain_2016": {
+      "assets": [
+        {
+          "request_url": "https://www.ine.es/jaxi/files/_px/es/px/t37/p082/a2016/l0/01001.px?nocab=1",
+          "retrieved_at": "2026-10-25T08:39:02.259414+00:00",
+          "sha256": "29bb36ed8e14a2dad708ba9ee5eee6f5bf47ea645e2951519a06f2bfe1fbeb6f",
+          "url": "https://www.ine.es/jaxi/files/_px/es/px/t37/p082/a2016/l0/01001.px?nocab=1"
+        },
+        {
+          "request_url": "https://ine.es/dynt3/metadatos/es/RespuestaDatos.html?oe=30082",
+          "retrieved_at": "2026-10-25T08:37:19.540284+00:00",
+          "sha256": "15f743bec898d077ea408f185ac93ebc61eb69d51f9e6d3aed59d12f2d7cb9f7",
+          "url": "https://ine.es/dynt3/metadatos/es/RespuestaDatos.html?oe=30082"
+        }
+      ],
+      "locator": "Country China; Numero de filiales; original catalogue reference 2016, not Pc-Axis creation date; methodology 3.1/3.3/3.5/15.2",
+      "name": "Instituto Nacional de Estadistica",
+      "notes": "INE national nonfinancial population, not Eurostat's financial/nonfinancial aggregate or unique Spanish parents. Sections 3.1/3.5 describe consolidation of affiliate units into statistical enterprises from 2021; section 15.2 also claims temporal continuity. Both statements are retained without assuming retrospective harmonization or a comparable current 2019 denominator. The national host label China is not silently relabelled China except Hong Kong. Reference 2009 was first published in 2011; no pre-2009 or 2025+ count inferred. Reported numbers do not establish census coverage or final revision status.",
+      "vintage": "National FILEXT country table; reference 2016"
+    },
+    "ine_spain_2017": {
+      "assets": [
+        {
+          "request_url": "https://www.ine.es/jaxi/files/tpx/es/px/32443.px",
+          "retrieved_at": "2026-10-25T08:15:01.898321+00:00",
+          "sha256": "4ea874cbc55f0d36296ad5dd332259b20292dd3e345b53e35ba8b48e0fe6a7b0",
+          "url": "https://www.ine.es/jaxi/files/tpx/es/px/32443.px"
+        },
+        {
+          "request_url": "https://ine.es/dynt3/metadatos/es/RespuestaDatos.html?oe=30082",
+          "retrieved_at": "2026-10-25T08:37:19.540284+00:00",
+          "sha256": "15f743bec898d077ea408f185ac93ebc61eb69d51f9e6d3aed59d12f2d7cb9f7",
+          "url": "https://ine.es/dynt3/metadatos/es/RespuestaDatos.html?oe=30082"
+        }
+      ],
+      "locator": "Country China; Numero de filiales; original catalogue reference 2017, not Pc-Axis creation date; methodology 3.1/3.3/3.5/15.2",
+      "name": "Instituto Nacional de Estadistica",
+      "notes": "INE national nonfinancial population, not Eurostat's financial/nonfinancial aggregate or unique Spanish parents. Sections 3.1/3.5 describe consolidation of affiliate units into statistical enterprises from 2021; section 15.2 also claims temporal continuity. Both statements are retained without assuming retrospective harmonization or a comparable current 2019 denominator. The national host label China is not silently relabelled China except Hong Kong. Reference 2009 was first published in 2011; no pre-2009 or 2025+ count inferred. Reported numbers do not establish census coverage or final revision status.",
+      "vintage": "National FILEXT country table; reference 2017"
+    },
+    "ine_spain_2018": {
+      "assets": [
+        {
+          "request_url": "https://www.ine.es/jaxi/files/tpx/es/px/37615.px",
+          "retrieved_at": "2026-10-25T08:22:31.007475+00:00",
+          "sha256": "6df8a21b030102334430a057b87fe977e048d1a8eb7b60eb6f5b83e7c1dba9e4",
+          "url": "https://www.ine.es/jaxi/files/tpx/es/px/37615.px"
+        },
+        {
+          "request_url": "https://ine.es/dynt3/metadatos/es/RespuestaDatos.html?oe=30082",
+          "retrieved_at": "2026-10-25T08:37:19.540284+00:00",
+          "sha256": "15f743bec898d077ea408f185ac93ebc61eb69d51f9e6d3aed59d12f2d7cb9f7",
+          "url": "https://ine.es/dynt3/metadatos/es/RespuestaDatos.html?oe=30082"
+        }
+      ],
+      "locator": "Country China; Numero de filiales; original catalogue reference 2018, not Pc-Axis creation date; methodology 3.1/3.3/3.5/15.2",
+      "name": "Instituto Nacional de Estadistica",
+      "notes": "INE national nonfinancial population, not Eurostat's financial/nonfinancial aggregate or unique Spanish parents. Sections 3.1/3.5 describe consolidation of affiliate units into statistical enterprises from 2021; section 15.2 also claims temporal continuity. Both statements are retained without assuming retrospective harmonization or a comparable current 2019 denominator. The national host label China is not silently relabelled China except Hong Kong. Reference 2009 was first published in 2011; no pre-2009 or 2025+ count inferred. Reported numbers do not establish census coverage or final revision status.",
+      "vintage": "National FILEXT country table; reference 2018"
+    },
+    "ine_spain_2019": {
+      "assets": [
+        {
+          "request_url": "https://www.ine.es/jaxi/files/tpx/es/px/49673.px",
+          "retrieved_at": "2026-10-25T08:22:30.392780+00:00",
+          "sha256": "c43ef1f0a8461d460c831776b2d970b039dfb6f32c8e647b1cd0c18361801038",
+          "url": "https://www.ine.es/jaxi/files/tpx/es/px/49673.px"
+        },
+        {
+          "request_url": "https://ine.es/dynt3/metadatos/es/RespuestaDatos.html?oe=30082",
+          "retrieved_at": "2026-10-25T08:37:19.540284+00:00",
+          "sha256": "15f743bec898d077ea408f185ac93ebc61eb69d51f9e6d3aed59d12f2d7cb9f7",
+          "url": "https://ine.es/dynt3/metadatos/es/RespuestaDatos.html?oe=30082"
+        }
+      ],
+      "locator": "Country China; Numero de filiales; original catalogue reference 2019, not Pc-Axis creation date; methodology 3.1/3.3/3.5/15.2",
+      "name": "Instituto Nacional de Estadistica",
+      "notes": "INE national nonfinancial population, not Eurostat's financial/nonfinancial aggregate or unique Spanish parents. Sections 3.1/3.5 describe consolidation of affiliate units into statistical enterprises from 2021; section 15.2 also claims temporal continuity. Both statements are retained without assuming retrospective harmonization or a comparable current 2019 denominator. The national host label China is not silently relabelled China except Hong Kong. Reference 2009 was first published in 2011; no pre-2009 or 2025+ count inferred. Reported numbers do not establish census coverage or final revision status.",
+      "vintage": "National FILEXT country table; reference 2019"
+    },
+    "ine_spain_2020": {
+      "assets": [
+        {
+          "request_url": "https://www.ine.es/jaxi/files/tpx/es/px/53896.px",
+          "retrieved_at": "2026-10-25T08:22:28.981168+00:00",
+          "sha256": "67673a7ddfb1c570dc0fc7b207c83ee6071cee7f2fce5d6709f7193dc3a243d9",
+          "url": "https://www.ine.es/jaxi/files/tpx/es/px/53896.px"
+        },
+        {
+          "request_url": "https://ine.es/dynt3/metadatos/es/RespuestaDatos.html?oe=30082",
+          "retrieved_at": "2026-10-25T08:37:19.540284+00:00",
+          "sha256": "15f743bec898d077ea408f185ac93ebc61eb69d51f9e6d3aed59d12f2d7cb9f7",
+          "url": "https://ine.es/dynt3/metadatos/es/RespuestaDatos.html?oe=30082"
+        }
+      ],
+      "locator": "Country China; Numero de filiales; original catalogue reference 2020, not Pc-Axis creation date; methodology 3.1/3.3/3.5/15.2",
+      "name": "Instituto Nacional de Estadistica",
+      "notes": "INE national nonfinancial population, not Eurostat's financial/nonfinancial aggregate or unique Spanish parents. Sections 3.1/3.5 describe consolidation of affiliate units into statistical enterprises from 2021; section 15.2 also claims temporal continuity. Both statements are retained without assuming retrospective harmonization or a comparable current 2019 denominator. The national host label China is not silently relabelled China except Hong Kong. Reference 2009 was first published in 2011; no pre-2009 or 2025+ count inferred. Reported numbers do not establish census coverage or final revision status.",
+      "vintage": "National FILEXT country table; reference 2020"
+    },
+    "ine_spain_2021": {
+      "assets": [
+        {
+          "request_url": "https://www.ine.es/jaxi/files/tpx/es/px/60087.px",
+          "retrieved_at": "2026-10-25T08:22:34.189826+00:00",
+          "sha256": "861bf59c88b60cd140c98a2cf0aff516c51f9262991b1d584a65b4cce1c0cf69",
+          "url": "https://www.ine.es/jaxi/files/tpx/es/px/60087.px"
+        },
+        {
+          "request_url": "https://ine.es/dynt3/metadatos/es/RespuestaDatos.html?oe=30082",
+          "retrieved_at": "2026-10-25T08:37:19.540284+00:00",
+          "sha256": "15f743bec898d077ea408f185ac93ebc61eb69d51f9e6d3aed59d12f2d7cb9f7",
+          "url": "https://ine.es/dynt3/metadatos/es/RespuestaDatos.html?oe=30082"
+        }
+      ],
+      "locator": "Country China; Numero de filiales; original catalogue reference 2021, not Pc-Axis creation date; methodology 3.1/3.3/3.5/15.2",
+      "name": "Instituto Nacional de Estadistica",
+      "notes": "INE national nonfinancial population, not Eurostat's financial/nonfinancial aggregate or unique Spanish parents. Sections 3.1/3.5 describe consolidation of affiliate units into statistical enterprises from 2021; section 15.2 also claims temporal continuity. Both statements are retained without assuming retrospective harmonization or a comparable current 2019 denominator. The national host label China is not silently relabelled China except Hong Kong. Reference 2009 was first published in 2011; no pre-2009 or 2025+ count inferred. Reported numbers do not establish census coverage or final revision status.",
+      "vintage": "National FILEXT country table; reference 2021"
+    },
+    "ine_spain_2022": {
+      "assets": [
+        {
+          "request_url": "https://www.ine.es/jaxi/files/tpx/es/px/70642.px",
+          "retrieved_at": "2026-10-25T08:22:34.871824+00:00",
+          "sha256": "659ab9cbe325cedb63efb202f94765c685b4dde4eacadbba993324a601b281da",
+          "url": "https://www.ine.es/jaxi/files/tpx/es/px/70642.px"
+        },
+        {
+          "request_url": "https://ine.es/dynt3/metadatos/es/RespuestaDatos.html?oe=30082",
+          "retrieved_at": "2026-10-25T08:37:19.540284+00:00",
+          "sha256": "15f743bec898d077ea408f185ac93ebc61eb69d51f9e6d3aed59d12f2d7cb9f7",
+          "url": "https://ine.es/dynt3/metadatos/es/RespuestaDatos.html?oe=30082"
+        }
+      ],
+      "locator": "Country China; Numero de filiales; original catalogue reference 2022, not Pc-Axis creation date; methodology 3.1/3.3/3.5/15.2",
+      "name": "Instituto Nacional de Estadistica",
+      "notes": "INE national nonfinancial population, not Eurostat's financial/nonfinancial aggregate or unique Spanish parents. Sections 3.1/3.5 describe consolidation of affiliate units into statistical enterprises from 2021; section 15.2 also claims temporal continuity. Both statements are retained without assuming retrospective harmonization or a comparable current 2019 denominator. The national host label China is not silently relabelled China except Hong Kong. Reference 2009 was first published in 2011; no pre-2009 or 2025+ count inferred. Reported numbers do not establish census coverage or final revision status.",
+      "vintage": "National FILEXT country table; reference 2022"
+    },
+    "ine_spain_2023": {
+      "assets": [
+        {
+          "request_url": "https://ine.es/jaxi/files/tpx/es/px/76249.px",
+          "retrieved_at": "2026-10-25T08:25:28.326410+00:00",
+          "sha256": "1076ae8d626b623a215c5fa1e6733a2d86e1ef3266bf876d93a73e6e6336f9df",
+          "url": "https://ine.es/jaxi/files/tpx/es/px/76249.px"
+        },
+        {
+          "request_url": "https://ine.es/dynt3/metadatos/es/RespuestaDatos.html?oe=30082",
+          "retrieved_at": "2026-10-25T08:37:19.540284+00:00",
+          "sha256": "15f743bec898d077ea408f185ac93ebc61eb69d51f9e6d3aed59d12f2d7cb9f7",
+          "url": "https://ine.es/dynt3/metadatos/es/RespuestaDatos.html?oe=30082"
+        }
+      ],
+      "locator": "Country China; Numero de filiales; original catalogue reference 2023, not Pc-Axis creation date; methodology 3.1/3.3/3.5/15.2",
+      "name": "Instituto Nacional de Estadistica",
+      "notes": "INE national nonfinancial population, not Eurostat's financial/nonfinancial aggregate or unique Spanish parents. Sections 3.1/3.5 describe consolidation of affiliate units into statistical enterprises from 2021; section 15.2 also claims temporal continuity. Both statements are retained without assuming retrospective harmonization or a comparable current 2019 denominator. The national host label China is not silently relabelled China except Hong Kong. Reference 2009 was first published in 2011; no pre-2009 or 2025+ count inferred. Reported numbers do not establish census coverage or final revision status.",
+      "vintage": "National FILEXT country table; reference 2023"
+    },
+    "ine_spain_2024": {
+      "assets": [
+        {
+          "request_url": "https://www.ine.es/jaxi/files/_px/es/px/tpx/Economia_3708/Empresas_3767/FILEXT_2024_14008/l0/01001.px",
+          "retrieved_at": "2026-10-25T08:25:30.244992+00:00",
+          "sha256": "7425ff17c9cd210fd24f4e90acf05f66feebb2480c57e6396d53814c96cf0d39",
+          "url": "https://www.ine.es/jaxi/files/_px/es/px/tpx/Economia_3708/Empresas_3767/FILEXT_2024_14008/l0/01001.px"
+        },
+        {
+          "request_url": "https://ine.es/dynt3/metadatos/es/RespuestaDatos.html?oe=30082",
+          "retrieved_at": "2026-10-25T08:37:19.540284+00:00",
+          "sha256": "15f743bec898d077ea408f185ac93ebc61eb69d51f9e6d3aed59d12f2d7cb9f7",
+          "url": "https://ine.es/dynt3/metadatos/es/RespuestaDatos.html?oe=30082"
+        }
+      ],
+      "locator": "Country China; Numero de filiales; original catalogue reference 2024, not Pc-Axis creation date; methodology 3.1/3.3/3.5/15.2",
+      "name": "Instituto Nacional de Estadistica",
+      "notes": "INE national nonfinancial population, not Eurostat's financial/nonfinancial aggregate or unique Spanish parents. Sections 3.1/3.5 describe consolidation of affiliate units into statistical enterprises from 2021; section 15.2 also claims temporal continuity. Both statements are retained without assuming retrospective harmonization or a comparable current 2019 denominator. The national host label China is not silently relabelled China except Hong Kong. Reference 2009 was first published in 2011; no pre-2009 or 2025+ count inferred. Reported numbers do not establish census coverage or final revision status.",
+      "vintage": "National FILEXT country table; reference 2024"
+    },
     "istat_italy_legal_2021": {
       "assets": [
         {
@@ -5041,6 +5693,56 @@
       "name": "Office for National Statistics",
       "notes": "Do not substitute new inward-affiliate statistics or FDI investment values for UK-controlled enterprises in China.",
       "vintage": "July 15, 2025 disclosure; checked with current dataset listing"
+    },
+    "snb_opanmuausuland_20251212": {
+      "assets": [
+        {
+          "request_url": "https://data.snb.ch/api/cube/opanmuausuland/dimensions/de",
+          "retrieved_at": "2026-10-25T09:44:47+00:00",
+          "sha256": "1df2da756e6d2a67cf00da8eacabc8f58560d1c9a2b982c3800c596368688945",
+          "url": "https://data.snb.ch/api/cube/opanmuausuland/dimensions/de"
+        },
+        {
+          "request_url": "https://data.snb.ch/api/cube/opanmuausuland/data/json/de",
+          "retrieved_at": "2026-10-25T09:44:48+00:00",
+          "sha256": "a1f4cc57d96a552419e3313dea7b54b9c109054b80999a59264aa805a7346906",
+          "url": "https://data.snb.ch/api/cube/opanmuausuland/data/json/de"
+        },
+        {
+          "request_url": "https://data.snb.ch/api/cube/opanmuausuland/data/csv/de",
+          "retrieved_at": "2026-10-25T09:44:48+00:00",
+          "sha256": "e1b6759496e5ac99b31fd9f54b008dbee215d8337953fdaaadc86706a37d906e",
+          "url": "https://data.snb.ch/api/cube/opanmuausuland/data/csv/de"
+        },
+        {
+          "request_url": "https://data.snb.ch/api/cube/opanmuausuland/lastUpdate",
+          "retrieved_at": "2026-10-25T09:44:49+00:00",
+          "sha256": "39857a4d31fc75ffd48c78aa4a31fa77e8b09431826902ec55c258fef78bbdb2",
+          "url": "https://data.snb.ch/api/cube/opanmuausuland/lastUpdate"
+        },
+        {
+          "request_url": "https://data.snb.ch/de/topics/aube/doc/explanations_aube_amne",
+          "retrieved_at": "2026-10-25T09:41:44+00:00",
+          "sha256": "2a37a01cbed3d2a3ec89e11a17151648930b9fe8c32f21bc038b447ed7f45063",
+          "url": "https://data.snb.ch/de/topics/aube/doc/explanations_aube_amne"
+        },
+        {
+          "request_url": "https://data.snb.ch/de/topics/aube/doc/explanations_aube_fdi",
+          "retrieved_at": "2026-10-25T09:45:54+00:00",
+          "sha256": "f65c32891adca7dfce81fce9b46c9dd129c6eead3cfc27e9a80ff0ddebc685aa",
+          "url": "https://data.snb.ch/de/topics/aube/doc/explanations_aube_fdi"
+        },
+        {
+          "request_url": "https://data.snb.ch/de/topics/aube/doc/explanations_aube_laend",
+          "retrieved_at": "2026-10-25T09:46:04+00:00",
+          "sha256": "a554271aadff46b5696a3e5bbef3e6067f5afefab217f363ae973cbfdd133fe9",
+          "url": "https://data.snb.ch/de/topics/aube/doc/explanations_aube_laend"
+        }
+      ],
+      "locator": "opanmuausuland; native CN; all 92 series / 1012 full JSON/CSV cells reconciled; reviewed rendered AMNE/control/country methods",
+      "name": "Swiss National Bank",
+      "notes": "Switzerland and Liechtenstein reporting area, not a pure-Switzerland slice or all firms. SNB-defined Swiss-controlled groups; direct/indirect majority subsidiaries include unincorporated branches, not unique parents, employees or FDI. Current reporting-group cross-border capital exceeds CHF10m; not a per-affiliate threshold or verified historically constant. Native CN China, HK Hong Kong and MO Macao are separately defined. Year-end 2014-2024 counts; no pre-2014, 2025 measurement or default 2019 growth inferred. Native revision/estimate flags are not exposed; reported values do not imply final/census status. Full native query preserves other-country fractional values without rounding; only the eleven integer CN counts enter this population.",
+      "vintage": "Published 2025-12-12 09:00; reference years 2014-2024"
     },
     "ssb_09827": {
       "assets": [

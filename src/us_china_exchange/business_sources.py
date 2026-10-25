@@ -1,11 +1,14 @@
 """Manually reviewed business-presence aggregates, not bilateral flows."""
 
+import csv
+import hashlib
 import io
 import json
 import math
 import re
 import zipfile
 from pathlib import PurePosixPath
+from decimal import Decimal, InvalidOperation
 from urllib.parse import urljoin, urlsplit
 
 import xlrd
@@ -14,6 +17,7 @@ from openpyxl import load_workbook
 from openpyxl.utils.datetime import from_excel
 
 from .language_sources import pdf_text, row, series, source
+from .model import digest
 
 
 BEA_CURRENT = "https://www.bea.gov/sites/default/files/2025-08/selected-mofas-cntry.xls"
@@ -41,6 +45,7 @@ CBS_NETHERLANDS_METHODS = "https://www.cbs.nl/nl-nl/onze-diensten/methoden/onder
 ONS_DATA = "https://www.ons.gov.uk/file?uri=/businessindustryandtrade/internationaltrade/datasets/ukoutwardforeignaffiliatestatisticsofats/2019/ofatspublicationfinal.xlsx"
 ONS_COVERAGE = "https://www.ons.gov.uk/aboutus/transparencyandgovernance/freedomofinformationfoi/ukoutwardforeignaffiliatestatisticsofats2015to2025"
 BUNDESBANK_FATS = "https://www.bundesbank.de/en/statistics/external-sector/direct-investments/foreign-affiliates-statistics-fats--795240"
+GERMANY_EUROSTAT_METHODS = "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_de.htm"
 GERMANY_FATS_2020 = (
     "https://web.archive.org/web/20250419145839id_/https://www.bundesbank.de/resource/blob/"
     "768898/57e1855ed8172f316354ab4b6d39f6d5/472B63F073F071307366337C94F8C870/statistik-outward-fats-data.pdf")
@@ -63,7 +68,55 @@ POLAND_EUROSTAT_METHODS = "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_
 PORTUGAL_EUROSTAT_METHODS = "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_pt.htm"
 CZECHIA_EUROSTAT_METHODS = "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_cz.htm"
 BELGIUM_EUROSTAT_METHODS = "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_be.htm"
+SNB_CUBE = "opanmuausuland"
+SNB_API = "https://data.snb.ch/api/cube/" + SNB_CUBE + "/"
+SNB_METHODS = "https://data.snb.ch/de/topics/aube/doc/explanations_aube_amne"
+SNB_CONTROL_METHODS = "https://data.snb.ch/de/topics/aube/doc/explanations_aube_fdi"
+SNB_COUNTRY_METHODS = "https://data.snb.ch/de/topics/aube/doc/explanations_aube_laend"
+SNB_SERIES = "snb_swiss_liechtenstein:china"
+SNB_CONTEXT_NOTE = (
+    " The SNB Switzerland/Liechtenstein reporting area is a separate qualified supplement, "
+    "not a pure-Switzerland population; majority subsidiaries include unincorporated branches "
+    "and the current groupwide CHF10m reporting frame is not backdated or treated as all firms.")
 SPAIN_EUROSTAT_METHODS = "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_es.htm"
+SPAIN_NATIONAL_METHODS = (
+    "https://ine.es/dynt3/metadatos/es/RespuestaDatos.html?oe=30082",
+    "15f743bec898d077ea408f185ac93ebc61eb69d51f9e6d3aed59d12f2d7cb9f7")
+
+SPAIN_NATIONAL_TABLES = {
+    2009: ("https://www.ine.es/jaxi/files/_px/es/px/t37/p082/a2009/l0/01001.px?nocab=1",
+           "a0e9290e4a3c28ea5884e91070a2a0cd10397c278418d7b6a29ec2f7be9309b6"),
+    2010: ("https://www.ine.es/jaxi/files/_px/es/px/t37/p082/a2010/l0/01001.px?nocab=1",
+           "b7b46452c11178fa4f72a4089947d3dcc0596e211832eba1629d2cee26cacb48"),
+    2011: ("https://www.ine.es/jaxi/files/_px/es/px/t37/p082/a2011/l0/01001.px?nocab=1",
+           "7cbdb9c4b5855aad6b1476d154275e6515d6209cbda74d7d39e2a0a92cb920a4"),
+    2012: ("https://www.ine.es/jaxi/files/_px/es/px/t37/p082/a2012/l0/01001.px?nocab=1",
+           "7faffdd05406fbdd1c7488dca886f28eed7fe216c6dfaea707a8654ba346dd24"),
+    2013: ("https://www.ine.es/jaxi/files/_px/es/px/t37/p082/a2013/l0/01001.px?nocab=1",
+           "5ae8d2a24a81213ea9cc2eb3a21c4f2e607745f92a8c8613b5c582bfa8e1d889"),
+    2014: ("https://www.ine.es/jaxi/files/_px/es/px/t37/p082/a2014/l0/01001.px?nocab=1",
+           "3521789d8545b7175dc8c45737e1e2fa06f73d2b92a0c72ce3c14641822f30e7"),
+    2015: ("https://www.ine.es/jaxi/files/_px/es/px/t37/p082/a2015/l0/01001.px?nocab=1",
+           "f5b8f7869ad39657525e5421b4d9af2ad37b6fd954638965ff0da8cea5cb3a75"),
+    2016: ("https://www.ine.es/jaxi/files/_px/es/px/t37/p082/a2016/l0/01001.px?nocab=1",
+           "29bb36ed8e14a2dad708ba9ee5eee6f5bf47ea645e2951519a06f2bfe1fbeb6f"),
+    2017: ("https://www.ine.es/jaxi/files/tpx/es/px/32443.px",
+           "4ea874cbc55f0d36296ad5dd332259b20292dd3e345b53e35ba8b48e0fe6a7b0"),
+    2018: ("https://www.ine.es/jaxi/files/tpx/es/px/37615.px",
+           "6df8a21b030102334430a057b87fe977e048d1a8eb7b60eb6f5b83e7c1dba9e4"),
+    2019: ("https://www.ine.es/jaxi/files/tpx/es/px/49673.px",
+           "c43ef1f0a8461d460c831776b2d970b039dfb6f32c8e647b1cd0c18361801038"),
+    2020: ("https://www.ine.es/jaxi/files/tpx/es/px/53896.px",
+           "67673a7ddfb1c570dc0fc7b207c83ee6071cee7f2fce5d6709f7193dc3a243d9"),
+    2021: ("https://www.ine.es/jaxi/files/tpx/es/px/60087.px",
+           "861bf59c88b60cd140c98a2cf0aff516c51f9262991b1d584a65b4cce1c0cf69"),
+    2022: ("https://www.ine.es/jaxi/files/tpx/es/px/70642.px",
+           "659ab9cbe325cedb63efb202f94765c685b4dde4eacadbba993324a601b281da"),
+    2023: ("https://ine.es/jaxi/files/tpx/es/px/76249.px",
+           "1076ae8d626b623a215c5fa1e6733a2d86e1ef3266bf876d93a73e6e6336f9df"),
+    2024: ("https://www.ine.es/jaxi/files/_px/es/px/tpx/Economia_3708/Empresas_3767/FILEXT_2024_14008/l0/01001.px",
+           "7425ff17c9cd210fd24f4e90acf05f66feebb2480c57e6396d53814c96cf0d39"),
+}
 DENMARK_METADATA = "https://api.statbank.dk/v1/tableinfo"
 DENMARK_DATA = "https://api.statbank.dk/v1/data"
 DENMARK_METHODS = (
@@ -289,6 +342,95 @@ def spanish_affiliates(client):
         observations.extend(
             row(sid, year, value, source_id, status, notes + " Source flags: " + flag, comparability)
             for year, value, status, flag, comparability in points)
+    return definitions, observations, sources
+
+
+def parse_spanish_national(content, year):
+    import csv
+
+    if isinstance(year, bool) or not isinstance(year, int) or year not in SPAIN_NATIONAL_TABLES:
+        raise ValueError("Unreviewed Spanish national reference year")
+    if not re.search(rb'(?m)^CODEPAGE="iso-8859-15";', content):
+        raise ValueError("Spanish national table codepage changed")
+    text = content.decode("iso-8859-15")
+
+    def field(pattern):
+        matches = re.findall(pattern, text, re.S | re.M)
+        if len(matches) != 1:
+            raise ValueError("Spanish national table structure changed")
+        return matches[0]
+
+    if (field(r'^SOURCE="([^"]+)";') != "Instituto Nacional de Estad\u00edstica"
+            or field(r'^MATRIX="([^"]+)";') != "01001"
+            or field(r'^STUB="([^"]+)";') != "Pa\u00eds"
+            or field(r'^HEADING="([^"]+)";') != "Principales variables"):
+        raise ValueError("Spanish national country or table identity changed")
+    countries = next(csv.reader(io.StringIO(field(r'^VALUES\("Pa\u00eds"\)=(.*?);').replace("\n", "").replace("\r", "")),
+                                skipinitialspace=True), [])
+    variables = next(csv.reader(io.StringIO(field(r'^VALUES\("Principales variables"\)=(.*?);').replace("\n", "").replace("\r", "")),
+                                skipinitialspace=True), [])
+    expected = ["N\u00famero de filiales", "Personas ocupadas", "Volumen de negocio"] if year < 2021 else [
+        "N\u00famero de filiales", "Personas ocupadas", "Cifra de negocios",
+        "Costes de personal", "Inversi\u00f3n material bruta"]
+    if variables != expected or len(countries) != len(set(countries)) or not {"China", "TOTAL"} <= set(countries):
+        raise ValueError("Spanish national country, measure or unit regime changed")
+    tokens = field(r'^DATA=(.*?);').split()
+    if len(tokens) != len(countries) * len(variables):
+        raise ValueError("Spanish national table cells incomplete")
+    try:
+        values = [Decimal(token) for token in tokens]
+    except InvalidOperation as exc:
+        raise ValueError("Spanish national count or source missingness changed") from exc
+    if any(not value.is_finite() for value in values):
+        raise ValueError("Spanish national table contains nonfinite values")
+    counts = values[::len(variables)]
+    if any(value < 0 or value != value.to_integral_value() for value in counts):
+        raise ValueError("Spanish national affiliates must be nonnegative integer counts")
+    return int(counts[countries.index("China")])
+
+
+def spanish_national_affiliates(client):
+    method_url, method_hash = SPAIN_NATIONAL_METHODS
+    method_body, method_asset = client.get(method_url)
+    if digest(method_body) != method_hash or method_asset["sha256"] != method_hash:
+        raise ValueError("Reviewed Spanish national methodology changed")
+    scope = ("Spanish-resident UCI; nonfinancial market affiliates and branches; "
+             "national host label China; CN_X_HK equivalence not established")
+    notes = (
+        "INE national nonfinancial population, not Eurostat's financial/nonfinancial aggregate or unique "
+        "Spanish parents. Sections 3.1/3.5 describe consolidation of affiliate units into statistical "
+        "enterprises from 2021; section 15.2 also claims temporal continuity. Both statements are retained "
+        "without assuming retrospective harmonization or a comparable current 2019 denominator. "
+        "The national host label China is not silently relabelled China except Hong Kong. "
+        "Reference 2009 was first published in 2011; no pre-2009 or 2025+ count inferred. "
+        "Reported numbers do not establish census coverage or final revision status.")
+    definitions = {
+        "ine_spain_units:china": series(
+            "Spain, INE pre-2021 affiliate units", "historical_affiliates", "affiliate units",
+            scope, "annual", "reference year",
+            "Download-only 2009-2020 affiliate units; not a splice into 2021+ enterprises. " + notes),
+        "ine_spain:china": series(
+            "Spain, INE nonfinancial enterprises", "controlled_enterprises", "enterprises",
+            scope, "annual", "reference year",
+            "Download-only 2021-2024 consolidated affiliate enterprises; earlier units remain separate. " + notes),
+    }
+    observations, sources = [], {}
+    for year, (url, checksum) in SPAIN_NATIONAL_TABLES.items():
+        body, asset = client.get(url)
+        # These tables lack an internal reference year; the reviewed body binds each year to its catalogue entry.
+        if digest(body) != checksum or asset["sha256"] != checksum:
+            raise ValueError(f"Reviewed Spanish national {year} table changed")
+        value = parse_spanish_national(body, year)
+        source_id = f"ine_spain_{year}"
+        cohort = "affiliate_units" if year < 2021 else "affiliate_enterprises"
+        sid = "ine_spain_units:china" if year < 2021 else "ine_spain:china"
+        sources[source_id] = source(
+            "Instituto Nacional de Estadistica", f"National FILEXT country table; reference {year}",
+            [asset, method_asset],
+            f"Country China; Numero de filiales; original catalogue reference {year}, not Pc-Axis creation date; "
+            "methodology 3.1/3.3/3.5/15.2", notes)
+        observations.append(row(sid, year, value, source_id, notes=notes,
+                                comparability=f"ine:spain:china:{cohort}"))
     return definitions, observations, sources
 
 
@@ -800,6 +942,150 @@ def belgian_affiliates(client):
     return definitions, observations, sources
 
 
+def parse_snb_counts(metadata, data, native):
+    if (metadata.get("cubeId") != SNB_CUBE or len(metadata.get("dimensions", [])) != 1
+            or metadata["dimensions"][0].get("id") != "d0"):
+        raise ValueError("SNB count cube or country dimension changed")
+    labels = {}
+
+    def visit(items, path):
+        for item in items:
+            label = path + [item["name"]]
+            if item.get("dimensionItems"):
+                visit(item["dimensionItems"], label)
+            else:
+                if item["id"] in labels:
+                    raise ValueError("Duplicate SNB country identity")
+                labels[item["id"]] = " - ".join(label)
+
+    visit(metadata["dimensions"][0]["dimensionItems"], [])
+    if (len(labels) != 92 or labels.get("CN") != "Alle Länder - Asien - China"
+            or labels.get("HK") != "Alle Länder - Asien - Hongkong"):
+        raise ValueError("SNB reviewed China/Hong Kong country scope changed")
+    rows = list(csv.reader(io.StringIO(native.decode("utf-8-sig")), delimiter=";"))
+    if rows[:4] != [["CubeId", SNB_CUBE], ["PublishingDate", "2025-12-12 09:00"],
+                    [], ["Date", "d0", "Value"]]:
+        raise ValueError("SNB native cube, measure, unit or reviewed publication changed")
+    expected_years = {str(year) for year in range(2014, 2025)}
+    native_values, json_values = {}, {}
+
+    def number(value):
+        if value is None or value == "":
+            return None
+        if isinstance(value, bool):
+            raise ValueError("Invalid SNB count")
+        try:
+            result = Decimal(str(value))
+        except InvalidOperation as exc:
+            raise ValueError("Invalid SNB count") from exc
+        if not result.is_finite() or result < 0:
+            raise ValueError("Invalid SNB count")
+        return result
+
+    for item in rows[4:]:
+        if len(item) != 3 or item[0] not in expected_years or item[1] not in labels:
+            raise ValueError("SNB native country or measurement period changed")
+        key = item[1], item[0]
+        if key in native_values:
+            raise ValueError("Duplicate SNB native count")
+        native_values[key] = number(item[2])
+    if set(data) != {"timeseries"} or len(data["timeseries"]) != len(labels):
+        raise ValueError("SNB complete count query changed")
+    for item in data["timeseries"]:
+        meta = item["metadata"]
+        match = re.fullmatch(r"EPB@SNB\." + SNB_CUBE + r"\{([^{}]+)\}", meta["key"])
+        if not match or meta["frequency"] != "P1Y" or meta["scale"] != "":
+            raise ValueError("SNB cube, count unit, scale or annual frequency changed")
+        code = match[1]
+        if code not in labels or item["header"] != [
+                {"dim": "Länder/Ländergruppe", "dimItem": labels[code]}]:
+            raise ValueError("SNB country labels and identities disagree")
+        for point in item["values"]:
+            if set(point) != {"date", "value"} or point["date"] not in expected_years:
+                raise ValueError("SNB measurement years or observation flags changed")
+            key = code, point["date"]
+            if key in json_values:
+                raise ValueError("Duplicate SNB JSON count")
+            json_values[key] = number(point["value"])
+    expected = {(code, year) for code in labels for year in expected_years}
+    if set(native_values) != expected or json_values != native_values:
+        raise ValueError("SNB complete native/JSON values must reconcile without rounding or zero filling")
+    china = []
+    for year in sorted(expected_years):
+        value = json_values["CN", year]
+        if value is None or value != value.to_integral_value():
+            raise ValueError("SNB China counts are missing or require a precision review")
+        china.append((int(year), int(value)))
+    return china
+
+
+def snb_affiliates(client):
+    bodies, assets = {}, []
+    document_markers = {
+        "methods": "3.3. Anzahl Unternehmen", "control": "4.3. Beherrschung",
+        "countries": "Länder-, Branchen- und Sektorendefinitionen"}
+    for name, url in [
+        ("dimensions", SNB_API + "dimensions/de"), ("data", SNB_API + "data/json/de"),
+        ("native", SNB_API + "data/csv/de"), ("release", SNB_API + "lastUpdate"),
+        ("methods", SNB_METHODS), ("control", SNB_CONTROL_METHODS), ("countries", SNB_COUNTRY_METHODS),
+    ]:
+        if name in document_markers and hasattr(client, "get_public_document"):
+            bodies[name], asset = client.get_public_document(url, document_markers[name])
+        else:
+            bodies[name], asset = client.get(url)
+        if (asset.get("request_url") != url or asset.get("url") != url
+                or asset.get("sha256") != hashlib.sha256(bodies[name]).hexdigest()):
+            raise ValueError("SNB source asset identity or checksum changed")
+        assets.append(asset)
+    method = " ".join(BeautifulSoup(bodies["methods"], "html.parser").get_text(" ", strip=True).split())
+    control = " ".join(BeautifulSoup(bodies["control"], "html.parser").get_text(" ", strip=True).split())
+    countries = " ".join(BeautifulSoup(bodies["countries"], "html.parser").get_text(" ", strip=True).split())
+    if not all(token in method for token in (
+            "Die AMNE/FATS erfassen nur Mehrheitsbeteiligungen",
+            "Beteiligungsverhältnisse grösser als 50%", "nur Daten schweizerisch beherrschter Unternehmen",
+            "in der Schweiz und dem Fürstentum Liechtenstein", "gruppenweit 10 Mio. Franken übersteigt",
+            "Die Anzahl Unternehmen umfasst alle direkten und indirekten Mehrheitsbeteiligungen",
+            "inkl. rechtlich unselbständiger Filialen und Zweigniederlassungen")):
+        raise ValueError("SNB reporting frame or branch/control definition changed; reviewed rendered methods required")
+    if ("Unternehmen gelten dann als schweizerisch beherrscht" not in control
+            or "letztlich Berechtigte im Inland" not in control
+            or "Liechtenstein, das statistisch zum Inland gehört" not in countries
+            or "Geonomenklatur von Eurostat" not in countries
+            or any(not re.search(r"\b" + name + r"\s+" + code + r"\b", countries)
+                   for name, code in (("China", "CN"), ("Hongkong", "HK"), ("Macau", "MO")))):
+        raise ValueError("SNB combined reporting area or native country definitions changed")
+    if json.loads(bodies["release"]) != {
+            "editionDate": "20251212_0900", "publicSinceDate": "20251212_0900"}:
+        raise ValueError("SNB source release changed; review the new vintage before replacing frozen observations")
+    points = parse_snb_counts(json.loads(bodies["dimensions"]),
+                              json.loads(bodies["data"], parse_float=Decimal), bodies["native"])
+    notes = (
+        "Switzerland and Liechtenstein reporting area, not a pure-Switzerland slice or all firms. "
+        "SNB-defined Swiss-controlled groups; direct/indirect majority subsidiaries include unincorporated "
+        "branches, not unique parents, employees or FDI. Current reporting-group cross-border capital "
+        "exceeds CHF10m; not a per-affiliate threshold or verified historically constant. Native CN China, "
+        "HK Hong Kong and MO Macao are separately defined. Year-end 2014-2024 counts; no pre-2014, "
+        "2025 measurement or default 2019 growth inferred. Native revision/estimate flags are not exposed; "
+        "reported values do not imply final/census status. Full native query preserves other-country "
+        "fractional values without rounding; only the eleven integer CN counts enter this population.")
+    definitions = {SNB_SERIES: series(
+        "Switzerland/Liechtenstein reporting area", "controlled_affiliate_units", "affiliates and branches",
+        "Switzerland and Liechtenstein reporting area; SNB-defined Swiss-controlled groups; "
+        "direct/indirect majority subsidiaries including unincorporated branches; "
+        "groupwide cross-border capital CHF10m frame; SNB CN China, HK/MO separately defined",
+        "annual", "year-end", notes)}
+    source_id = "snb_opanmuausuland_20251212"
+    sources = {source_id: source(
+        "Swiss National Bank", "Published 2025-12-12 09:00; reference years 2014-2024",
+        assets, "opanmuausuland; native CN; all 92 series / 1012 full JSON/CSV cells reconciled; "
+        "reviewed rendered AMNE/control/country methods", notes)}
+    observations = [
+        row(SNB_SERIES, year, value, source_id, "reported", notes,
+            "snb:opanmuausuland:CN:source-levels-only")
+        for year, value in points]
+    return definitions, observations, sources
+
+
 def country_counts(sheets, title):
     found = {}
     for sheet in sheets:
@@ -967,25 +1253,43 @@ def german_affiliates(client):
         "bundesbank:BTSXO:CN:EUR3m") for year, value, status in parse_germany_history(body))
     definitions["eurostat_germany:china"] = series(
         "Germany (Eurostat)", "controlled_enterprises", "enterprises",
-        "German-controlled enterprises in China except Hong Kong; Eurostat NACE B-S except O",
+        "German-resident UCI; enterprises and branches in China except Hong Kong; "
+        "NACE C-O except L before 2010, B-S except O thereafter",
         "annual", "reference year",
         "Eurostat's reported history is retained separately from Bundesbank's current workbook. "
+        "Country metadata declares comparable country breakdowns since 2007; the collection frame "
+        "uses a balance-sheet threshold above EUR 3 million. No 2000-2006 value is inferred. "
         "Overlapping 2021-2023 counts differ; they are not spliced, averaged or treated as a matched revision. "
-        "The 2021 EBS methodology boundary is disconnected. Germany overlaps the EU27 aggregate.")
+        "The 2010 NACE classification and 2021 EBS dataset boundaries remain separate. "
+        "Germany overlaps the EU27 aggregate.")
     definitions["bundesbank_germany:china"]["label"] = "Germany (Bundesbank)"
-    for dataset, indicator in [("fats_out2_r2", "indic_bp=ENT"), ("fats_out_part", "indic_sbs=ENT_NR")]:
-        url = (EUROSTAT + dataset + "?lang=EN&freq=A&nace_r2=B-S_X_O&" + indicator
+    body, methodology = client.get(GERMANY_EUROSTAT_METHODS)
+    method = " ".join(BeautifulSoup(body, "html.parser").get_text(" ", strip=True).split())
+    if not all(token in method for token in (
+            "Compiling agency: Deutsche Bundesbank", "an enterprise or branch",
+            "ultimate (direct or indirect) control", "Comparable since 2007 for country breakdown",
+            "balance sheet over 3 million Euro")):
+        raise ValueError("German Eurostat country history or control/collection methodology changed")
+    for dataset, indicator, activity in [
+        ("fats_out2", "indic_bp=ENT", "nace_r1=C-O_X_L"),
+        ("fats_out2_r2", "indic_bp=ENT", "nace_r2=B-S_X_O"),
+        ("fats_out_part", "indic_sbs=ENT_NR", "nace_r2=B-S_X_O"),
+    ]:
+        url = (EUROSTAT + dataset + "?lang=EN&freq=A&" + activity + "&" + indicator
                + "&partner=CN_X_HK&geo=DE")
         body, asset = client.get(url)
         source_id = dataset + "_DE"
+        legacy = dataset == "fats_out2"
         sources[source_id] = source(
-            "Eurostat", dataset + "; Germany reporting country", [asset],
-            "geo=DE; partner=CN_X_HK; NACE B-S except O; enterprise counts",
+            "Eurostat", dataset + "; Germany reporting country", [asset, methodology] if legacy else [asset],
+            "geo=DE; partner=CN_X_HK; NACE " + ("C-O except L" if legacy else "B-S except O") + "; enterprise counts",
             "Separate source population/vintage from the Bundesbank workbook; overlapping counts are not forced to agree.")
+        points = parse_eurostat(json.loads(body), dataset, "DE")
+        if legacy and {point[0] for point in points} != set(range(2007, 2010)):
+            raise ValueError("German legacy country history must retain the reported 2007-2009 years")
         observations.extend(row("eurostat_germany:china", year, value, source_id, status,
                                 "Eurostat German reporting population; source flags: " + flag, comparability)
-                            for year, value, status, flag, comparability in parse_eurostat(
-                                json.loads(body), dataset, "DE"))
+                            for year, value, status, flag, comparability in points)
     return definitions, observations, sources
 
 
@@ -1192,6 +1496,10 @@ def collect_business(client):
     definitions.update(spain_definitions)
     observations.extend(spain_observations)
     sources.update(spain_sources)
+    national_spain_definitions, national_spain_observations, national_spain_sources = spanish_national_affiliates(client)
+    definitions.update(national_spain_definitions)
+    observations.extend(national_spain_observations)
+    sources.update(national_spain_sources)
     denmark_definitions, denmark_observations, denmark_sources = danish_affiliates(client)
     definitions.update(denmark_definitions)
     observations.extend(denmark_observations)
@@ -1216,16 +1524,22 @@ def collect_business(client):
     definitions.update(belgium_definitions)
     observations.extend(belgium_observations)
     sources.update(belgium_sources)
+    snb_definitions, snb_observations, snb_sources = snb_affiliates(client)
+    definitions.update(snb_definitions)
+    observations.extend(snb_observations)
+    sources.update(snb_sources)
     coverage = []
     for sid in definitions:
         selected = [r for r in observations if r["series_id"] == sid]
         actual = [str(r["year"]) for r in selected if r["value"] is not None]
         confidential = [str(r["year"]) for r in selected if r["status"] == "suppressed"]
-        coverage.append({"id": sid, "status": "benchmark_only" if sid.startswith("bea_parents") else "annual",
+        coverage.append({"id": sid, "status": "partial_history" if sid == SNB_SERIES else
+                         "benchmark_only" if sid.startswith("bea_parents") else "annual",
                          "description": "Verified values: " + ", ".join(actual) +
                          (". Confidential: " + ", ".join(confidential) if confidential else "") +
-                         ". All series concern businesses in China; definitions and gaps are retained."})
-    return {
+                         ". All series concern businesses in China; definitions and gaps are retained." +
+                         (" " + definitions[sid]["notes"] if sid == SNB_SERIES else "")})
+    data = {
         "version": 1, "series": definitions,
         "observations": sorted(observations, key=lambda r: (r["series_id"], r["year"])),
         "sources": sources,
@@ -1233,11 +1547,15 @@ def collect_business(client):
         "context": {
             "question": "How has U.S. and European business presence in China changed over time?",
             "interpretation": "Company counts, affiliate entities and branch locations are distinct. U.S. parents and ultimately EU-controlled enterprises are not matched ownership populations; BEA and Eurostat levels must not be used to rank otherwise comparable business presence.",
-            "geography": "China is the host. European coverage includes current/historical EU groups, Germany, the UK, Norway, Sweden, Finland, France, the Netherlands, Spain, Denmark, Italy, Austria, Poland, Portugal, Czechia and Belgium. French, Finnish, Swedish, Dutch, Spanish, Italian, Austrian, Polish, Portuguese, Czech and Belgian Eurostat host categories are China except Hong Kong. Denmark separately codes Hong Kong/Macao; its resident-parent population includes foreign ultimate owners, unlike Eurostat's Danish-UCI population. Finnish and Swedish Eurostat UCI histories remain separate from their national series. Spain's Eurostat financial/nonfinancial history is not spliced with INE's national nonfinancial counts. Italian legal-unit history reaches 2023; grouped Eurostat enterprises remain a separate population. Austrian legal units before 2021 are not spliced into current enterprise counts or broader national populations. Poland's UCI population is not the broader national foreign-equity survey. Portuguese and Czech populations retain country-specific control/coverage breaks; Portugal's 2007 pre-UCI count is separate archive-only evidence. Belgium's pre2009attribution and pre2022legal units remain separate from current enterprises; its thresholded FDI reporting frame is not all Belgian firms or assumed historically constant. National series overlap EU aggregates and have different control/sector definitions; these are not summed into an all-Europe total. Other European origins remain unresolved.",
+            "geography": "China is the host. European coverage includes current/historical EU groups, Germany, the UK, Norway, Sweden, Finland, France, the Netherlands, Spain, Denmark, Italy, Austria, Poland, Portugal, Czechia and Belgium. French, Finnish, Swedish, Dutch, Spanish, Italian, Austrian, Polish, Portuguese, Czech and Belgian Eurostat host categories are China except Hong Kong. Denmark separately codes Hong Kong/Macao; its resident-parent population includes foreign ultimate owners, unlike Eurostat's Danish-UCI population. Finnish and Swedish Eurostat UCI histories remain separate from their national series. Spain's Eurostat financial/nonfinancial history is not spliced with INE's national nonfinancial counts. Italian legal-unit history reaches 2023; grouped Eurostat enterprises remain a separate population. Austrian legal units before 2021 are not spliced into current enterprise counts or broader national populations. Poland's UCI population is not the broader national foreign-equity survey. Portuguese and Czech populations retain country-specific control/coverage breaks; Portugal's 2007 pre-UCI count is separate archive-only evidence. Belgium's pre2009attribution and pre2022legal units remain separate from current enterprises; its thresholded FDI reporting frame is not all Belgian firms or assumed historically constant. National series overlap EU aggregates and have different control/sector definitions; these are not summed into an all-Europe total. Other European origins remain unresolved." + SNB_CONTEXT_NOTE,
             "rights": "Publish aggregate statistics and original charts only; raw workbooks and reports remain local. Sources and retrieval checksums accompany every observation.",
             "release_timing": "As checked October 22, 2026, BEA's latest activity release covers 2023. The published schedule puts the 2024 activity release on November 20, 2026; no 2024 value is inferred.",
         },
     }
+    data["context"]["geography"] += (
+        " INE national nonfinancial counts retain the reported host label China and separate "
+        "pre2021 affiliate units from consolidated enterprises; neither regime is a Eurostat extension.")
+    return data
 
 
 def parse_cbs_netherlands(body):

@@ -202,7 +202,7 @@ records, including the explicitly unreportable Korean estimate.
 | Chart family | Verified update |
 |---|---|
 | Hong Kong visits | July/August monthly and matched cumulative U.S.-nationality counts for 2025/2026. January-August totals are 659,003 and 737,530. Both overnight + same-day components and successive cumulative totals reconcile, starting with the retained first half. Annual residence/nationality boundaries are unchanged. |
-| German businesses | Eurostat's full 2010-2023 country history and Bundesbank's direct 2021-2024 workbook, ending at 1,911 provisional enterprises. Their overlapping counts differ, so two separately identified histories are shown rather than a fabricated source splice. Germany is not added to EU27 or used to reconstruct confidential aggregates. |
+| German businesses | Eurostat's 2007-2023 country history and Bundesbank's separate 2015-2018/2021-2024 observations, ending at 1,911 provisional enterprises. Missing national 2019/2020 stays missing. Overlapping counts differ, so the histories are separately identified rather than joined. Germany is not added to EU27 or used to reconstruct confidential aggregates. |
 | Macau residence approvals | Every calendar year 2010-2025, from overlapping DSEC yearbooks, table 2.10; latest 34 people in the U.S. country category. These are neither resident stocks nor U.S. fiscal-year grants, verified U.S. departures or a permanent-residency legal classification. |
 | Public-school language availability | Nationwide January 2024 NCES School Pulse Panel: Chinese 3%, Japanese 1%; Korean below reporting standards. All public schools are the denominator, not only language-offering schools. Not student counts, not 2026 observations and not a continuation of the 2014-15 respondent program counts. |
 
@@ -729,6 +729,16 @@ Earlier U.S., German and Norwegian count histories are explicitly labelled
 secondary references in a closed disclosure, not newly recovered current
 evidence. Stale EU/UK and parent-company benchmarks stay download-only.
 
+Complete downloads also retain sixteen INE national nonfinancial observations
+for2009-2024 as two source-specific definitions: twelve pre2021affiliate-unit
+counts and four2021+consolidated-enterprise counts. These are download-only,
+not a new current chart, an extension of the broader Eurostat population or
+a comparable2019denominator. Spanish-resident ultimate control and the literal
+national host label China remain explicit; CN_X_HK equivalence is unverified.
+The producer's generic continuity claim is retained alongside its explicit
+2021consolidation description, without inferring retrospective harmonization.
+No pre2009or2025+count is invented.
+
 | Measure | Verified history and definition |
 |---|---|
 | U.S.-parent affiliates in China | All 24 annual fiscal-year observations, 2000-2023. Affiliate entities, including holding companies, not distinct parents, branch offices or annual openings. Nonbank coverage before 2009; reporting thresholds and benchmarks create breaks. |
@@ -736,6 +746,7 @@ evidence. Stale EU/UK and parent-company benchmarks stay download-only.
 | UK-controlled enterprises in China | Eleven reported annual values, 2009-2019. Original Eurostat NACE Rev. 1.1 reports 691 for 2009; 2007/2008 are missing, not zero. The 2010 switch to NACE Rev. 2 is disconnected. Later Eurostat history runs through 2017; ONS revised 2018 and 2019 estimates remain separate across the 2018 source/sector boundary. ONS total activity includes agriculture. No outward-affiliate counts from 2020 onward verified; do not use newer inward-affiliate or FDI statistics as substitutes. |
 | Norwegian-controlled enterprises in China | Seventeen annual Statistics Norway observations, 2008-2024, all industries. The full SSB history is used, not spliced to the narrower Eurostat population. The fourteen old Eurostat observations remain in complete downloads. Norway is outside the EU and is not added to a Europe total. |
 | German-controlled enterprises, Bundesbank | Eight available national counts in2015-2018 and2021-2024;2019/2020 remain genuine gaps. The original November2020 report supplies1646/1688/1735/1735, independently matching the original German edition. German ultimate control above50%, assets aboveEUR3m, branches/permanent establishments and the stated NACE scope match current national methods. Historical2018 stays provisional in its release vintage;2024 is separately provisional in the current workbook. No later revision or2019 growth is inferred. The different Eurostat population remains a separate history, not a splice or a matched ranking. |
+| German-controlled enterprises, Eurostat | Seventeen reported 2007-2023 counts; the independently matched JSON/native TSV history adds 847/987/1,043 for 2007/2008/2009. German-resident UCI, enterprise/branch population and a balance-sheet collection frame above EUR3m. Keep legacy NACE C-O except L separate from B-S except O at the 2010 classification transition and retain the 2021 EBS dataset boundary. The producer's statistical-unit break describes activity breakdown, not a generic country-unit change. Experimental 2004-2006 remains unreported. No 2000-2006 padding, native Bundesbank splice or incompatible 2019 comparison. |
 | Swedish-group subsidiaries | Fifteen reported2010-2024 counts, ending885;2000-2009 remain explicitly missing. Subsidiary variable2 is not the longer parent-group variable0. The 2018 EGR/imputation,2019 frame and2021 ownership changes remain separate. |
 | Swedish-UCI enterprises, Eurostat | Sixteen reported2007-2023 counts and confidential2009, ending602. A separate market-producer population, not a splice into the national subsidiary table. Keep the metadata's2008classification boundary, original legacy NACE label/2010table transition,2018legal-unit-to-enterprise/EGR change and2021EBS boundary. Official imputation can apply; the national2022count1133 is not replaced or smoothed. |
 | Finnish-reported affiliates | All five2020-2024 country counts, ending242. Active subsidiaries and branches, all sizes/industries. The 2021 EBS boundary remains explicit; no earlier China count is inferred from regional aggregates. |
@@ -750,6 +761,7 @@ evidence. Stale EU/UK and parent-company benchmarks stay download-only.
 | Italian-controlled legal units | Seventeen annual2007-2023 legal-unit counts, Italy-resident ultimate control. Fourteen original Eurostat values retain estimated flags; ISTAT's national legal-unit continuation reports1113/1169/1122 for2021/22/23. Original2019=1141 and2020=1133 controls match, and every national industry+services sum reconciles. National report pages10/12 confirm legal units and the B-N/P-S sector scope; national host label is Cina, Eurostat's is China except Hong Kong. Keep the2010 NACE and2021 source boundaries. The three Eurostat grouped-enterprise counts675/687/669 remain separate in downloads, not mixed into this chart or used for cross-unit changes. No pre-2007 or unreported2024/2025 count is inferred. |
 | Austrian-controlled units, Eurostat | Seventeen 2007-2023 observations. Fourteen 2007-2020 legal-unit counts remain download-only; only the separately defined 2021-2023 enterprise observations appear in the short supplementary chart, ending at 175. Foreign legal units remain an imperfect enterprise proxy under the official methods. Keep the 2010 NACE and 2021 unit boundaries. Neither broader national resident-parent counts nor the different national 2024 control snapshot is spliced into the UCI population. No 2000/current-history completion or 2019 growth is claimed. |
 | Belgian-controlled units, Eurostat | Seventeen reported 2007-2023 counts remain THREE populations: two 2007/08 pre-UCI legal units, thirteen 2009-2021 UCI legal units and two 2022/23 current enterprises 72/80. Only the short 2022+ enterprise supplement renders. Earlier experimental 2004-2006 ENT cells are missing; EMP/TUR are not replacements. Preserve 2010 NACE/2014 non-resident activity/2016 declared-window/2021 EBS-source/2022 unit boundaries and conflicting country comparability paragraphs; no cross-unit 2019 growth. Current reporting-unit cutoffs are EUR 30m equity/75m assets/15m long-term investments (any criterion), not all Belgian firms or verified constant historical limits. No fabricated 2000/full-current trend. |
+| Switzerland + Liechtenstein reporting-area affiliates | Eleven year-end 2014-2024 SNB China counts, ending 792. This explicitly combined reporting area is NOT a pure-Switzerland population. Direct/indirect majority subsidiaries include unincorporated branches, not unique parents. Current groupwide cross-border-capital reporting frame exceeds CHF10m; not each affiliate's size, all firms or proven historically constant. Native CN/HK/MO definitions remain separate. Per-observation revision/estimate flags are not supplied, so status is reported, not final/census. No pre-2014, 2025 observation or default 2019 growth claim. |
 | Supplementary U.S. parent-company benchmarks | Only 2004,2009,2014 and2019 are verified and remain archive-only, not an annual census. Foreign-affiliate ownership begins at10%, not necessarily majority control; reporting exclusions apply. No interpolation. |
 
 The U.S. affiliate reporting cutoff changes from $7 million through 2003 to
@@ -762,8 +774,10 @@ No incompatible full-history percentage is calculated.
 European origins are not destinations: these national series concern
 enterprises in their reported China host category, not U.S. businesses in Europe.
 This is selected European coverage,
-not a comprehensive all-Europe total; Switzerland and other unverified origins
-are not invented or allocated. Eurostat uses ultimate control and different
+not a comprehensive all-Europe total. A pure-Switzerland split and other
+unverified origins are not invented or allocated; the SNB supplement retains
+its explicit combined Switzerland/Liechtenstein reporting area.
+Eurostat uses ultimate control and different
 unit/sector coverage from BEA's size-qualified affiliates. U.S. and European
 levels are in separate panels, not a matched ranking or ratio. NACE revisions,
 membership changes, source changes and the 2021 EBS boundary stay disconnected.
@@ -795,6 +809,7 @@ Obsolete U.S.-in-Europe plots are withdrawn from both figure trees and catalogs.
 .venv/bin/python scripts/build_business_data.py --portugal-only --data-only
 .venv/bin/python scripts/build_business_data.py --czechia-only --data-only
 .venv/bin/python scripts/build_business_data.py --belgium-only --data-only
+.venv/bin/python scripts/build_business_data.py --swiss-reporting-area-only --data-only
 .venv/bin/python scripts/build_site.py
 PYTHONPATH=src .venv/bin/python -m pytest tests/test_exchange_business.py -q
 ```
@@ -802,6 +817,16 @@ PYTHONPATH=src .venv/bin/python -m pytest tests/test_exchange_business.py -q
 The collection command is explicit and manual; `--refresh` re-fetches its
 reviewed public assets rather than using checksummed local files. It writes
 the frozen candidate only after all sources and validation succeed.
+The full reviewed refresh merges observation identities, retaining unreturned
+historical records, reviewed coverage order and population/geography notes.
+SNB's full native JSON/CSV, country schema and release must reconcile before
+the eleven China counts replace their population. Reviewed rendered-method
+snapshots use the same checksummed cache; a fresh successful JavaScript shell
+can be rendered with the existing Playwright transport, without changing CSP.
+An HTTP failure, changed frame/unit/country definition, new release or incomplete
+count history fails closed. The complete 1,012-cell source query retains eight
+fractional values outside China exactly; they are never rounded into the
+integer China series or substituted for another population.
 Daily exchange jobs only rebuild these indicators offline; they do not fetch
 new business data. The shared indicator SVG renderer preserves the existing
 language figures byte-for-byte. Removing a frozen input withdraws its known

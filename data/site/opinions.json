@@ -7,6 +7,94 @@
   },
   "observations": [
     {
+      "comparability": "bas_beijing_coverage_1998",
+      "notes": "Approximate mean; source says around. Historical Beijing warmth only; not a national favorable percentage.",
+      "period": "1998 BAS wave",
+      "series_id": "bas_beijing:us_warmth",
+      "source_id": "bas_beijing_history",
+      "status": "observed",
+      "survey_id": "bas_beijing_1998",
+      "value": 62,
+      "year": 1998
+    },
+    {
+      "comparability": "bas_beijing_coverage_1999",
+      "notes": "Approximate mean; source says around. Historical Beijing warmth only; not a national favorable percentage.",
+      "period": "1999 BAS wave",
+      "series_id": "bas_beijing:us_warmth",
+      "source_id": "bas_beijing_history",
+      "status": "observed",
+      "survey_id": "bas_beijing_1999",
+      "value": 53,
+      "year": 1999
+    },
+    {
+      "comparability": "bas_beijing_coverage_2000",
+      "notes": "Reported integer mean. Historical Beijing warmth only; not a national favorable percentage.",
+      "period": "2000 BAS wave",
+      "series_id": "bas_beijing:us_warmth",
+      "source_id": "bas_beijing_history",
+      "status": "observed",
+      "survey_id": "bas_beijing_2000",
+      "value": 57,
+      "year": 2000
+    },
+    {
+      "comparability": "bas_beijing_coverage_2001",
+      "notes": "Reported integer mean. Historical Beijing warmth only; not a national favorable percentage.",
+      "period": "2001 BAS wave",
+      "series_id": "bas_beijing:us_warmth",
+      "source_id": "bas_beijing_history",
+      "status": "observed",
+      "survey_id": "bas_beijing_2001",
+      "value": 47,
+      "year": 2001
+    },
+    {
+      "comparability": "bas_beijing_coverage_2002",
+      "notes": "Approximate mean; source says around. Historical Beijing warmth only; not a national favorable percentage.",
+      "period": "2002 BAS wave",
+      "series_id": "bas_beijing:us_warmth",
+      "source_id": "bas_beijing_history",
+      "status": "observed",
+      "survey_id": "bas_beijing_2002",
+      "value": 52,
+      "year": 2002
+    },
+    {
+      "comparability": "c100_china_18_60_2007_coverage",
+      "notes": "Published Q1 response total from the Chinese general-public column, not an elite response, rounded-component sum or inferred remainder.",
+      "period": "Aug 18-Sep 7, 2007",
+      "series_id": "c100_china_18_60:favorable",
+      "source_id": "c100_china_2007",
+      "status": "observed",
+      "survey_id": "c100_china_2007",
+      "value": 60,
+      "year": 2007
+    },
+    {
+      "comparability": "c100_china_18_60_2007_coverage",
+      "notes": "Published Q1 response total from the Chinese general-public column, not an elite response, rounded-component sum or inferred remainder.",
+      "period": "Aug 18-Sep 7, 2007",
+      "series_id": "c100_china_18_60:not_sure",
+      "source_id": "c100_china_2007",
+      "status": "observed",
+      "survey_id": "c100_china_2007",
+      "value": 14,
+      "year": 2007
+    },
+    {
+      "comparability": "c100_china_18_60_2007_coverage",
+      "notes": "Published Q1 response total from the Chinese general-public column, not an elite response, rounded-component sum or inferred remainder.",
+      "period": "Aug 18-Sep 7, 2007",
+      "series_id": "c100_china_18_60:unfavorable",
+      "source_id": "c100_china_2007",
+      "status": "observed",
+      "survey_id": "c100_china_2007",
+      "value": 26,
+      "year": 2007
+    },
+    {
       "comparability": "gallup_us_telephone",
       "notes": "Published net; not an annual average. ",
       "period": "Jan 25-26, 2000",
@@ -1680,6 +1768,50 @@
     }
   ],
   "series": {
+    "bas_beijing:us_warmth": {
+      "age": "Not specified",
+      "cadence": "survey_rounds",
+      "label": "Beijing respondents",
+      "measure": "warmth",
+      "notes": "Reported survey estimates; nonresponse is not a neutral opinion.",
+      "respondent_country": "CHN",
+      "sampling": "Beijing Area Study; not nationally representative. 2000-2002 face-to-face probability-proportional-to-size samples; earlier wave-specific methods and respondent ages are not verified.",
+      "target_country": "USA",
+      "unit": "rating_points"
+    },
+    "c100_china_18_60:favorable": {
+      "age": "18-60",
+      "cadence": "survey_rounds",
+      "label": "Favorable",
+      "measure": "favorability",
+      "notes": "Reported survey estimates; nonresponse is not a neutral opinion.",
+      "respondent_country": "CHN",
+      "sampling": "Face-to-face, multistage, publisher-described national ages18-60 sample; seven cities, seven towns and ten villages. Separate from unrestricted all-adult populations.",
+      "target_country": "USA",
+      "unit": "percent"
+    },
+    "c100_china_18_60:not_sure": {
+      "age": "18-60",
+      "cadence": "survey_rounds",
+      "label": "Not sure",
+      "measure": "favorability",
+      "notes": "Reported survey estimates; nonresponse is not a neutral opinion.",
+      "respondent_country": "CHN",
+      "sampling": "Face-to-face, multistage, publisher-described national ages18-60 sample; seven cities, seven towns and ten villages. Separate from unrestricted all-adult populations.",
+      "target_country": "USA",
+      "unit": "percent"
+    },
+    "c100_china_18_60:unfavorable": {
+      "age": "18-60",
+      "cadence": "survey_rounds",
+      "label": "Unfavorable",
+      "measure": "favorability",
+      "notes": "Reported survey estimates; nonresponse is not a neutral opinion.",
+      "respondent_country": "CHN",
+      "sampling": "Face-to-face, multistage, publisher-described national ages18-60 sample; seven cities, seven towns and ten villages. Separate from unrestricted all-adult populations.",
+      "target_country": "USA",
+      "unit": "percent"
+    },
     "gallup_us:favorable": {
       "age": "All adults",
       "cadence": "annual",
@@ -1968,6 +2100,36 @@
     }
   },
   "sources": {
+    "bas_beijing_history": {
+      "assets": [
+        {
+          "request_url": "https://www.rsis.edu.sg/wp-content/uploads/rsis-pubs/WP50.pdf",
+          "retrieved_at": "2026-10-25T08:35:55.184542+00:00",
+          "sha256": "f235a6f2f62b53eba37716ebe9cf1083fd9e59e7da5ccf89db0e1b05d51614bc",
+          "url": "https://www.rsis.edu.sg/wp-content/uploads/rsis-pubs/WP50.pdf"
+        }
+      ],
+      "locator": "Working Paper 50, printed/PDF page 13 footnote 33; page 8 footnote 20.",
+      "name": "Alastair Iain Johnston / RSIS, Beijing Area Study",
+      "notes": "Publication year only; no month/day verified. Historical Beijing respondents, not national China. Reported 0-100 warmth means, not favorable percentages. The source explicitly qualifies 1998, 1999 and 2002 as approximate. Exact field dates, age coverage, weighting and item bases are not recovered. No connection to Pew or China Pulse is inferred.",
+      "published": "2003",
+      "url": "https://www.rsis.edu.sg/wp-content/uploads/rsis-pubs/WP50.pdf"
+    },
+    "c100_china_2007": {
+      "assets": [
+        {
+          "request_url": "https://www.committee100.org/wp-content/uploads/2017/01/2007-C-100_EN_Survey.pdf",
+          "retrieved_at": "2026-10-25T08:35:30.297725+00:00",
+          "sha256": "361c7c5a53e3d95ba8d4872c2b331adde2b2977e0a39c712ea6512d049e249fd",
+          "url": "https://www.committee100.org/wp-content/uploads/2017/01/2007-C-100_EN_Survey.pdf"
+        }
+      ],
+      "locator": "Original report PDF page 14 / printed12, Q1 Chinese general-public column; PDF page62 / printed60 country sampling; PDF page3 release date.",
+      "name": "Committee of 100 / Horizon Research, 2007 Chinese general public",
+      "notes": "Published totals about the United States as a country, not its people or government. Publisher describes a national sample of ages18-60, drawn from seven cities, seven towns and ten villages. Not an unrestricted all-adult sample or the elite groups. Keep separate from Pew and 0-100 warmth means; archive-only, not a continuous national trend.",
+      "published": "2007-12-10",
+      "url": "https://www.committee100.org/wp-content/uploads/2017/01/2007-C-100_EN_Survey.pdf"
+    },
     "china_pulse": {
       "assets": [
         {
@@ -2094,6 +2256,60 @@
     }
   },
   "surveys": {
+    "bas_beijing_1998": {
+      "field_end": null,
+      "field_start": null,
+      "n_item": null,
+      "n_total": null,
+      "notes": "Survey-wave label, not publication year. Exact field dates and ages unknown. 2000-2002 methods describe December/January interviews; full-wave samples are not item bases.",
+      "period": "1998 BAS wave",
+      "year": 1998
+    },
+    "bas_beijing_1999": {
+      "field_end": null,
+      "field_start": null,
+      "n_item": null,
+      "n_total": null,
+      "notes": "Survey-wave label, not publication year. Exact field dates and ages unknown. 2000-2002 methods describe December/January interviews; full-wave samples are not item bases.",
+      "period": "1999 BAS wave",
+      "year": 1999
+    },
+    "bas_beijing_2000": {
+      "field_end": null,
+      "field_start": null,
+      "n_item": null,
+      "n_total": 757,
+      "notes": "Survey-wave label, not publication year. Exact field dates and ages unknown. 2000-2002 methods describe December/January interviews; full-wave samples are not item bases.",
+      "period": "2000 BAS wave",
+      "year": 2000
+    },
+    "bas_beijing_2001": {
+      "field_end": null,
+      "field_start": null,
+      "n_item": null,
+      "n_total": 615,
+      "notes": "Survey-wave label, not publication year. Exact field dates and ages unknown. 2000-2002 methods describe December/January interviews; full-wave samples are not item bases.",
+      "period": "2001 BAS wave",
+      "year": 2001
+    },
+    "bas_beijing_2002": {
+      "field_end": null,
+      "field_start": null,
+      "n_item": null,
+      "n_total": 662,
+      "notes": "Survey-wave label, not publication year. Exact field dates and ages unknown. 2000-2002 methods describe December/January interviews; full-wave samples are not item bases.",
+      "period": "2002 BAS wave",
+      "year": 2002
+    },
+    "c100_china_2007": {
+      "field_end": "2007-09-07",
+      "field_start": "2007-08-18",
+      "n_item": null,
+      "n_total": 4104,
+      "notes": "Chinese general public ages18-60, face-to-face multistage sampling in seven cities, seven towns and ten villages. Publisher-described national coverage within that age frame. 4,104 is the whole-wave sample; an exact item denominator is not supplied.",
+      "period": "Aug 18-Sep 7, 2007",
+      "year": 2007
+    },
     "gallup_us_2000-01-25": {
       "field_end": "2000-01-26",
       "field_start": "2000-01-25",
