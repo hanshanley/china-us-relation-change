@@ -58,7 +58,8 @@ def test_distinct_parent_and_affiliate_checkpoints_remain_different_units():
     assert rows[("eurostat_norway:china", 2023)]["value"] == 88
     assert len([r for r in rows.values() if not r["series_id"].startswith(
         ("tillvaxtanalys_", "statfin_", "eurostat_france:", "eurostat_netherlands:", "eurostat_finland:",
-         "eurostat_italy", "eurostat_sweden:", "eurostat_spain:", "dst_denmark:", "eurostat_austria", "eurostat_poland:"))]) == 116
+         "eurostat_italy", "eurostat_sweden:", "eurostat_spain:", "dst_denmark:", "eurostat_austria", "eurostat_poland:",
+         "snb_swiss_liechtenstein:"))]) == 116
     assert rows[("ssb_norway:china", 2023)]["value"] == 89
     assert rows[("ssb_norway:china", 2024)]["value"] == 80
 
@@ -604,6 +605,7 @@ def test_selective_country_refreshes_preserve_coverage_order_across_modes(monkey
     monkeypatch.setattr(module, "italian_affiliates", lambda client: selected(("eurostat_italy",)))
     monkeypatch.setattr(module, "austrian_affiliates", lambda client: selected(("eurostat_austria",)))
     monkeypatch.setattr(module, "polish_affiliates", lambda client: selected(("eurostat_poland:",)))
+    monkeypatch.setattr(module, "snb_affiliates", lambda client: selected(("snb_swiss_liechtenstein:",)))
     assert module.collect_nordic(None, prior) == prior
     assert module.collect_france(None, prior) == prior
     assert module.collect_netherlands(None, prior) == prior
@@ -615,11 +617,12 @@ def test_selective_country_refreshes_preserve_coverage_order_across_modes(monkey
     assert module.collect_italy(None, prior) == prior
     assert module.collect_austria(None, prior) == prior
     assert module.collect_poland(None, prior) == prior
+    assert module.collect_swiss_reporting_area(None, prior) == prior
     for collectors in (
         (module.collect_uk_history, module.collect_netherlands, module.collect_nordic, module.collect_france,
          module.collect_finland_history, module.collect_sweden_history, module.collect_spain, module.collect_denmark,
-         module.collect_italy, module.collect_austria, module.collect_poland),
-        (module.collect_poland, module.collect_austria, module.collect_italy, module.collect_denmark, module.collect_spain, module.collect_sweden_history, module.collect_finland_history,
+         module.collect_italy, module.collect_austria, module.collect_poland, module.collect_swiss_reporting_area),
+        (module.collect_swiss_reporting_area, module.collect_poland, module.collect_austria, module.collect_italy, module.collect_denmark, module.collect_spain, module.collect_sweden_history, module.collect_finland_history,
          module.collect_france, module.collect_nordic, module.collect_netherlands, module.collect_uk_history),
     ):
         refreshed = prior
@@ -1021,6 +1024,224 @@ def test_swedish_eurostat_bars_leave_confidential_year_empty_and_national_spike_
         validate_business_data(data)
 
 
+def test_snb_public_document_transport_uses_cache_or_a_successful_javascript_shell_only(tmp_path, monkeypatch):
+    from contextlib import nullcontext
+    from subprocess import CalledProcessError
+    from playwright import sync_api
+    from us_china_exchange.language_sources import ReviewClient
+
+    url, marker = "https://data.snb.ch/de/topics/aube/doc/explanations_aube_amne", "3.3. Anzahl Unternehmen"
+    rendered = f"<html><body><h2>{marker}</h2>Reviewed method</body></html>".encode()
+    shell = b"<html><body><app-root></app-root></body></html>"
+    client = ReviewClient(tmp_path)
+    asset = dict(url=url, request_url=url, sha256=hashlib.sha256(shell).hexdigest(),
+                 retrieved_at="2026-10-25T00:00:00+00:00")
+    state = {"launches": 0, "closed": 0, "status": 200}
+
+    def launch():
+        state["launches"] += 1
+        return browser
+
+    page = SimpleNamespace(
+        url=url, goto=lambda *args, **kwargs: SimpleNamespace(status=state["status"]),
+        content=lambda: rendered.decode(),
+        get_by_text=lambda *args, **kwargs: SimpleNamespace(first=SimpleNamespace(wait_for=lambda **kwargs: None)))
+    browser = SimpleNamespace(new_page=lambda: page, close=lambda: state.update(closed=state["closed"] + 1))
+    monkeypatch.setattr(sync_api, "sync_playwright", lambda: nullcontext(
+        SimpleNamespace(chromium=SimpleNamespace(launch=launch))))
+    monkeypatch.setattr(client, "get", lambda _: (rendered, asset))
+    assert client.get_public_document(url, marker) == (rendered, asset)
+    assert state["launches"] == 0
+    monkeypatch.setattr(client, "get", lambda _: (shell, asset))
+    body, provenance = client.get_public_document(url, marker)
+    assert body == rendered and provenance["sha256"] == hashlib.sha256(rendered).hexdigest()
+    assert provenance["request_url"] == url and state["closed"] == 1
+    monkeypatch.setattr(client, "get", lambda _: (b"<html>Changed method</html>", asset))
+    with pytest.raises(ValueError, match="content changed"):
+        client.get_public_document(url, marker)
+    assert state["launches"] == 1
+    monkeypatch.setattr(client, "get", lambda _: (shell, asset))
+    state["status"] = 403
+    with pytest.raises(ValueError, match="access failed"):
+        client.get_public_document(url, marker)
+    assert state["closed"] == 2
+
+    def denied(_):
+        raise CalledProcessError(22, ["curl", url])
+
+    monkeypatch.setattr(client, "get", denied)
+    with pytest.raises(CalledProcessError):
+        client.get_public_document(url, marker)
+    assert state["launches"] == 2
+
+
+def snb_native_fixture(data):
+    stream = io.StringIO(newline="")
+    writer = csv.writer(stream, delimiter=";", lineterminator="\n")
+    writer.writerows([["CubeId", "opanmuausuland"], ["PublishingDate", "2025-12-12 09:00"],
+                      [], ["Date", "d0", "Value"]])
+    for series in data["timeseries"]:
+        code = series["metadata"]["key"].split("{")[1][:-1]
+        writer.writerows([[point["date"], code, point["value"]] for point in series["values"]])
+    return stream.getvalue().encode()
+
+
+def snb_fixture():
+    from us_china_exchange import business_sources as module
+
+    nodes = [{"id": "CN", "name": "China"}, {"id": "HK", "name": "Hongkong"}]
+    extras = [{"id": f"ZZ{i:02}", "name": f"Other {i}"} for i in range(90)]
+    metadata = {"cubeId": module.SNB_CUBE, "dimensions": [{"id": "d0", "dimensionItems": [
+        {"id": "root", "name": "Alle Länder", "dimensionItems": [
+            {"id": "asia", "name": "Asien", "dimensionItems": nodes}, *extras]}]}]}
+    data = {"timeseries": []}
+    counts = [543, 598, 622, 639, 664, 716, 724, 749, 799, 816, 792]
+    for node in nodes + extras:
+        code = node["id"]
+        label = "Alle Länder - " + ("Asien - " if code in {"CN", "HK"} else "") + node["name"]
+        data["timeseries"].append({
+            "header": [{"dim": "Länder/Ländergruppe", "dimItem": label}],
+            "metadata": {"key": f"EPB@SNB.{module.SNB_CUBE}{{{code}}}", "frequency": "P1Y", "scale": ""},
+            "values": [{"date": str(year), "value": counts[index] if code == "CN" else
+                        7.5 if code == "ZZ00" else 131.00001 if code == "ZZ01" else 10}
+                       for index, year in enumerate(range(2014, 2025))]})
+    bodies = {
+        module.SNB_API + "dimensions/de": json.dumps(metadata).encode(),
+        module.SNB_API + "data/json/de": json.dumps(data).encode(),
+        module.SNB_API + "data/csv/de": snb_native_fixture(data),
+        module.SNB_API + "lastUpdate": json.dumps({
+            "editionDate": "20251212_0900", "publicSinceDate": "20251212_0900"}).encode(),
+        module.SNB_METHODS: (
+            "Die AMNE/FATS erfassen nur Mehrheitsbeteiligungen; Beteiligungsverhältnisse grösser als 50%; "
+            "nur Daten schweizerisch beherrschter Unternehmen; in der Schweiz und dem Fürstentum Liechtenstein; "
+            "gruppenweit 10 Mio. Franken übersteigt; Die Anzahl Unternehmen umfasst alle direkten und "
+            "indirekten Mehrheitsbeteiligungen inkl. rechtlich unselbständiger Filialen und Zweigniederlassungen").encode(),
+        module.SNB_CONTROL_METHODS: (
+            "Unternehmen gelten dann als schweizerisch beherrscht; letztlich Berechtigte im Inland").encode(),
+        module.SNB_COUNTRY_METHODS: (
+            "Liechtenstein, das statistisch zum Inland gehört; Geonomenklatur von Eurostat; "
+            "China CN Hongkong HK Macau MO").encode(),
+    }
+    return metadata, data, bodies
+
+
+def test_snb_refresh_preserves_old_populations_and_rejects_changed_source_contracts():
+    from us_china_exchange import business_sources as sources
+
+    spec = importlib.util.spec_from_file_location("snb_collector", ROOT / "scripts/build_business_data.py")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    _, _, bodies = snb_fixture()
+
+    class Client:
+        wrong_request = False
+
+        def __init__(self, payloads):
+            self.bodies = payloads
+
+        def get(self, url):
+            body = self.bodies[url]
+            return body, dict(url=url, request_url="https://example.com/other" if self.wrong_request else url,
+                              sha256=hashlib.sha256(body).hexdigest(), retrieved_at="2026-10-25T00:00:00+00:00")
+
+    prior, before = published(), copy.deepcopy(published())
+    result = validate_business_data(module.collect_swiss_reporting_area(Client(bodies), prior))
+    assert prior == before
+    assert [row for row in result["observations"] if row["series_id"] != sources.SNB_SERIES] == [
+        row for row in prior["observations"] if row["series_id"] != sources.SNB_SERIES]
+    for field in ("series", "sources"):
+        for key, value in prior[field].items():
+            if key not in {sources.SNB_SERIES, "snb_opanmuausuland_20251212"}:
+                assert result[field][key] == value
+    selected = [row for row in result["observations"] if row["series_id"] == sources.SNB_SERIES]
+    assert [(row["year"], row["value"]) for row in selected] == list(zip(
+        range(2014, 2025), [543, 598, 622, 639, 664, 716, 724, 749, 799, 816, 792]))
+    assert {row["status"] for row in selected} == {"reported"}
+    assert module.collect_swiss_reporting_area(Client(bodies), result) == result
+    wrong = Client(bodies)
+    wrong.wrong_request = True
+    with pytest.raises(ValueError, match="source asset"):
+        module.collect_swiss_reporting_area(wrong, prior)
+    for url, old, new in (
+            (sources.SNB_METHODS, "Fürstentum Liechtenstein", "Ausland"),
+            (sources.SNB_METHODS, "10 Mio.", "1 Mio."),
+            (sources.SNB_METHODS, "grösser als 50%", "ab 10%"),
+            (sources.SNB_COUNTRY_METHODS, "China CN", "China HK"),
+            (sources.SNB_API + "lastUpdate", "20251212_0900", "20261211_0900")):
+        changed = dict(bodies)
+        changed[url] = changed[url].replace(old.encode(), new.encode())
+        with pytest.raises(ValueError):
+            module.collect_swiss_reporting_area(Client(changed), prior)
+    assert prior == before
+
+
+def test_snb_native_parser_preserves_other_country_precision_and_never_zero_fills_china():
+    from us_china_exchange.business_sources import parse_snb_counts
+
+    metadata, data, _ = snb_fixture()
+    native = snb_native_fixture(data)
+    expected = parse_snb_counts(metadata, data, native)
+    assert expected[0] == (2014, 543) and expected[-1] == (2024, 792)
+    changed = copy.deepcopy(data)
+    changed["timeseries"][2]["values"][0]["value"] = None
+    assert parse_snb_counts(metadata, changed, snb_native_fixture(changed)) == expected
+    for field, value in (("key", "EPB@SNB.opanmuauspland{CN}"), ("frequency", "P1M"), ("scale", "1000")):
+        changed = copy.deepcopy(data)
+        changed["timeseries"][0]["metadata"][field] = value
+        with pytest.raises(ValueError):
+            parse_snb_counts(metadata, changed, native)
+    for value in (None, 543.5, -1, True):
+        changed = copy.deepcopy(data)
+        changed["timeseries"][0]["values"][0]["value"] = value
+        with pytest.raises(ValueError):
+            parse_snb_counts(metadata, changed, snb_native_fixture(changed))
+    changed = copy.deepcopy(data)
+    changed["timeseries"][2]["values"][0]["value"] = 8
+    with pytest.raises(ValueError, match="without rounding"):
+        parse_snb_counts(metadata, changed, native)
+    changed = copy.deepcopy(data)
+    changed["timeseries"][0]["values"][0]["date"] = "2025"
+    with pytest.raises(ValueError, match="measurement years"):
+        parse_snb_counts(metadata, changed, native)
+    changed = copy.deepcopy(data)
+    changed["timeseries"][0]["header"][0]["dimItem"] = "Alle Länder - Asien - Hongkong"
+    with pytest.raises(ValueError, match="country labels"):
+        parse_snb_counts(metadata, changed, native)
+
+
+def test_snb_combined_frame_count_units_and_reporting_status_survive_both_themes():
+    sid, chart = "snb_swiss_liechtenstein:china", "swiss-liechtenstein-affiliates-china"
+    data = validate_business_data(published())
+    for theme in CHART_THEMES:
+        svg = ElementTree.fromstring(svg_business_chart(data, chart, theme))
+        bars = [node for node in svg.iter() if node.get("class") == "annual-column"]
+        assert [int(node.get("data-year")) for node in bars] == list(range(2014, 2025))
+        assert (int(bars[0].get("data-value")), int(bars[-1].get("data-value"))) == (543, 792)
+        points = [node for node in svg.iter() if node.get("class") == "business-point"]
+        assert len(points) == 11 and {node.get("data-status") for node in points} == {"reported"}
+        text = " ".join(svg.itertext())
+        assert "Switzerland + Liechtenstein" in text and "Affiliates and branches" in text
+        assert not any(node.get("class") in {"data-line", "covid-band"} for node in svg.iter())
+    for field, value in (("scope", "Switzerland; all enterprises"), ("label", "Switzerland"),
+                          ("unit", "enterprises"), ("measure", "controlled_enterprises"),
+                          ("period_basis", "reference year")):
+        wrong = copy.deepcopy(data)
+        wrong["series"][sid][field] = value
+        with pytest.raises(ValueError):
+            validate_business_data(wrong)
+    for field, value in (("year", 2013), ("year", 2025), ("status", "observed"),
+                          ("status", "provisional"), ("source_id", "fats_out_part")):
+        wrong = copy.deepcopy(data)
+        next(row for row in wrong["observations"] if row["series_id"] == sid)[field] = value
+        with pytest.raises(ValueError):
+            validate_business_data(wrong)
+    wrong = copy.deepcopy(data)
+    wrong["sources"]["snb_opanmuausuland_20251212"]["assets"][0]["url"] = (
+        "https://data.snb.ch/api/cube/opanmuauspland/dimensions/de")
+    with pytest.raises(ValueError, match="source provenance"):
+        validate_business_data(wrong)
+
+
 def test_polish_selective_refresh_preserves_older_countries_and_the_2018_unit_break():
     spec = importlib.util.spec_from_file_location("polish_business_collector", ROOT / "scripts/build_business_data.py")
     module = importlib.util.module_from_spec(spec)
@@ -1186,7 +1407,7 @@ def test_complete_business_downloads_exact_points_backgrounds_and_stale_cleanup(
         (base / "substack").mkdir(parents=True)
         for chart_id in RETIRED_CHARTS:
             (base / "substack" / (chart_id + ".svg")).write_text("Obsolete wrong-destination chart")
-    assert build_business(tmp_path, data, defaultdict(list)) == 18
+    assert build_business(tmp_path, data, defaultdict(list)) == 19
     assert not any((tmp_path / "outputs/figures/business_presence/substack" / (cid + ".svg")).exists()
                    for cid in RETIRED_CHARTS)
     assert json.loads((tmp_path / "site/downloads/business-presence.json").read_text()) == data
@@ -1253,7 +1474,7 @@ def test_invalid_business_input_is_rejected_before_writes_and_deleted_input_with
     with pytest.raises(ValueError, match="current business evidence"):
         build(tmp_path)
     (path / "business_current.json").write_text((ROOT / "data/site/business_current.json").read_text())
-    assert build(tmp_path)["business_charts"] == 19
+    assert build(tmp_path)["business_charts"] == 20
     page = BeautifulSoup((tmp_path / "site/business-presence.html").read_text(), "html.parser")
     assert not page.select('a[href="language-learning.html"]')
     frozen.unlink()
@@ -1273,10 +1494,10 @@ def test_publication_is_business_only_with_complete_data_original_downloads_and_
     assert page.select_one('link[rel="canonical"]')["href"] == manifest["canonical_url"]
     assert "Interactive analysis" in page.select_one(".publication-header nav").text
     assert not page.select('a[href="language-learning.html"],iframe')
-    assert len(page.select("svg[role=img]")) == 21
+    assert len(page.select("svg[role=img]")) == 22
     assert not page.select("#business-controls,#annual-values,#module-chart,#uk-affiliates-china,#eu-affiliates-china")
-    assert len(page.select(".business-card.native-chart,.business-card .native-chart")) == 21
-    assert len(page.select(".business-count-card")) == 15
+    assert len(page.select(".business-card.native-chart,.business-card .native-chart")) == 22
+    assert len(page.select(".business-count-card")) == 16
     assert len(page.select("#business-inward-data table tbody tr")) == 25
     assert page.select_one("#business-data").get("open") is None
     assert set(p.name for p in (output / "downloads").iterdir()) == {

@@ -188,6 +188,21 @@ selected table members, retrieval timestamps and SHA-256 checksums.
 | Eurostat Polish country history, `geo=PL`, `partner=CN_X_HK`; [Polish reporter metadata](https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_pl.htm) | Seventeen source cells, including missing2007; all16reported2008-2023 counts and flags independently match native TSV. Latest2023=32, not a2026 measurement. The enterprise unit begins2018; the reporter declares2018-2023 comparable, so2021 is dataset provenance rather than an invented second country unit break. Retain the selected legacy NACE2010 transition. Ultimate control can include joint50/50 and documented minority control, without a size cutoff. The broad national foreign-equity survey is not substituted. No pre2008, missing-as-zero or unreported2024+ observation. |
 | Eurostat Dutch country history, `geo=NL`, `partner=CN_X_HK`; [CBS Nederland Handelsland2026, figure5.4.1](https://longreads.cbs.nl/nederland-handelsland-2026/buitenlandse-investeringen-en-multinationals/); [CBS OFATS methods](https://www.cbs.nl/nl-nl/onze-diensten/methoden/onderzoeksomschrijvingen/korte-onderzoeksbeschrijvingen/outward-fats-statistiek-over-nederlandse-zeggenschappen-over-buitenlandse-bedrijven) | Seventeen Eurostat enterprise counts2007-2023 independently match native TSV exports. The original CBS HTML outward table, not the inward China row or digitized PDF, reports2024*=620 and2023=574;2023 reconciles. Star means provisional, and the reference year is2024, not the2026 publication. Dutch-resident UCI; financial/nonfinancial B-S except O with nonresponse weighting. Keep2010 NACE and2021 methodology boundaries; do not compare2024 with2019 across that break or add Netherlands to its overlapping EU aggregate. |
 
+The [SNB company-count country table](https://data.snb.ch/de/topics/aube/cube/opanmuausuland)
+provides eleven native CN observations for 2014-2024, ending 792. Full uncapped
+JSON and CSV reconcile all 92 country/regional series and 1,012 cells exactly;
+eight fractional values elsewhere are retained without interpretation or
+rounding. This is the combined **Switzerland and Liechtenstein reporting area**,
+not a pure-Switzerland slice. [AMNE/FATS methods](https://data.snb.ch/de/topics/aube/doc/explanations_aube_amne)
+define direct/indirect majority subsidiaries including unincorporated branches.
+The current CHF10m cross-border-capital reporting-group frame is not a cutoff
+for each affiliate or an all-firm census; historical threshold stability is
+not asserted. Native CN, HK and MO are separately defined in the producer's
+Eurostat geonomenclature. Missing row-specific flags do not establish finality:
+the canonical status is `reported`. The 2025-12-12 publication describes
+reference years through 2024, not a 2025 observation. No pre-2014 history,
+pure-Swiss equivalence, unique-parent count or default 2019 growth is inferred.
+
 Italian Eurostat queries select `geo=IT`, `partner=CN_X_HK` and enterprise
 indicators in `fats_out2`, `fats_out2_r2` and `fats_out_part`.
 All seventeen2007-2023 values independently reconcile to original native TSVs.
