@@ -48,7 +48,7 @@
       "status": "partial_history"
     },
     {
-      "description": "Eurostat's reported history is retained separately from Bundesbank's current workbook. Overlapping 2021-2023 counts differ; they are not spliced, averaged or treated as a matched revision. The 2021 EBS methodology boundary is disconnected. Germany overlaps the EU27 aggregate.",
+      "description": "Eurostat's reported history is retained separately from Bundesbank's current workbook. Country metadata declares comparable country breakdowns since 2007; the collection frame uses a balance-sheet threshold above EUR 3 million. No 2000-2006 value is inferred. Overlapping 2021-2023 counts differ; they are not spliced, averaged or treated as a matched revision. The 2010 NACE classification and 2021 EBS dataset boundaries remain separate. Germany overlaps the EU27 aggregate.",
       "id": "eurostat_germany:china",
       "status": "partial_history"
     },
@@ -1189,6 +1189,33 @@
       "status": "observed",
       "value": 2153,
       "year": 2023
+    },
+    {
+      "comparability": "fats_out2:DE:0",
+      "notes": "Eurostat German reporting population; source flags: ",
+      "series_id": "eurostat_germany:china",
+      "source_id": "fats_out2_DE",
+      "status": "observed",
+      "value": 847,
+      "year": 2007
+    },
+    {
+      "comparability": "fats_out2:DE:0",
+      "notes": "Eurostat German reporting population; source flags: ",
+      "series_id": "eurostat_germany:china",
+      "source_id": "fats_out2_DE",
+      "status": "observed",
+      "value": 987,
+      "year": 2008
+    },
+    {
+      "comparability": "fats_out2:DE:0",
+      "notes": "Eurostat German reporting population; source flags: ",
+      "series_id": "eurostat_germany:china",
+      "source_id": "fats_out2_DE",
+      "status": "observed",
+      "value": 1043,
+      "year": 2009
     },
     {
       "comparability": "fats_out2_r2:DE:0",
@@ -2942,9 +2969,9 @@
       "cadence": "annual",
       "label": "Germany (Eurostat)",
       "measure": "controlled_enterprises",
-      "notes": "Eurostat's reported history is retained separately from Bundesbank's current workbook. Overlapping 2021-2023 counts differ; they are not spliced, averaged or treated as a matched revision. The 2021 EBS methodology boundary is disconnected. Germany overlaps the EU27 aggregate.",
+      "notes": "Eurostat's reported history is retained separately from Bundesbank's current workbook. Country metadata declares comparable country breakdowns since 2007; the collection frame uses a balance-sheet threshold above EUR 3 million. No 2000-2006 value is inferred. Overlapping 2021-2023 counts differ; they are not spliced, averaged or treated as a matched revision. The 2010 NACE classification and 2021 EBS dataset boundaries remain separate. Germany overlaps the EU27 aggregate.",
       "period_basis": "reference year",
-      "scope": "German-controlled enterprises in China except Hong Kong; Eurostat NACE B-S except O",
+      "scope": "German-resident UCI; enterprises and branches in China except Hong Kong; NACE C-O except L before 2010, B-S except O thereafter",
       "unit": "enterprises"
     },
     "eurostat_historical_eu:china": {
@@ -3622,6 +3649,26 @@
       "name": "Eurostat / Statistics Austria",
       "notes": "Austria changes the statistical unit in 2021: legal units through 2020, enterprises from 2021. Foreign legal-unit data remain an imperfect enterprise proxy; the official metadata retains limited comparability. Preserve the 2010 NACE boundary. Older legal units are not joined to the short current enterprise series. Broader national resident-parent counts and the separate national 2024 control snapshot are not substituted; no pre-2007 or 2019-baseline inference. Original country-specific metadata and source flags are retained.",
       "vintage": "fats_out2; Austria; source updated 2024-04-25T11:00:00+0200"
+    },
+    "fats_out2_DE": {
+      "assets": [
+        {
+          "request_url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out2?lang=EN&freq=A&nace_r1=C-O_X_L&indic_bp=ENT&partner=CN_X_HK&geo=DE",
+          "retrieved_at": "2026-10-25T09:56:51+00:00",
+          "sha256": "8df98569f34d7a971cc09145d0c8e640922641ceabaaec4298286b837f4912f4",
+          "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out2?lang=EN&freq=A&nace_r1=C-O_X_L&indic_bp=ENT&partner=CN_X_HK&geo=DE"
+        },
+        {
+          "request_url": "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_de.htm",
+          "retrieved_at": "2026-10-25T08:57:46.359417+00:00",
+          "sha256": "30da208d245496ab990f44a15a0e62d307bad737a0572c74abaf0ce0d5338267",
+          "url": "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_de.htm"
+        }
+      ],
+      "locator": "geo=DE; partner=CN_X_HK; NACE C-O except L; enterprise counts",
+      "name": "Eurostat",
+      "notes": "Separate source population/vintage from the Bundesbank workbook; overlapping counts are not forced to agree.",
+      "vintage": "fats_out2; Germany reporting country"
     },
     "fats_out2_ES": {
       "assets": [
