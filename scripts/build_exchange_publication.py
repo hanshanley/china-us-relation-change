@@ -18,6 +18,7 @@ sys.path.insert(0, str(ROOT / "src"))
 from bs4 import BeautifulSoup
 from us_china_exchange.model import GEOGRAPHIES, json_text, travel_title
 from us_china_exchange.language_analysis import RETIRED_CHARTS as LANGUAGE_RETIRED_CHARTS
+from us_china_exchange.opinion_analysis import RETIRED_CHARTS as OPINION_RETIRED_CHARTS
 from us_china_exchange.render import SPLIT_REGIONAL_MEASURES, annual_table, build, figure_links, initial_panel, svg_chart
 from us_china_exchange.theme import figure_category
 from us_china_exchange.confucius_analysis import CHARTS as CONFUCIUS_CHARTS
@@ -777,6 +778,10 @@ def build_publication(source, output, revision):
             for theme in ["themarginoferror", "substack"]:
                 for extension in ["png", "svg", "website.png"]:
                     (output / "figures/language_learning" / theme / f"{chart_id}.{extension}").unlink(missing_ok=True)
+        for chart_id in OPINION_RETIRED_CHARTS:
+            for theme in ("themarginoferror", "substack"):
+                for extension in ("png", "svg", "website.png"):
+                    (output / "figures/opinions" / theme / f"{chart_id}.{extension}").unlink(missing_ok=True)
         for old in ["business-publication.css", "business-publication.js"]:
             (output / "assets" / old).unlink(missing_ok=True)
         if "business-inward" not in manifest["datasets"]:
@@ -788,7 +793,7 @@ def build_publication(source, output, revision):
             for relative in ("opinions.html", "downloads/opinions.json", "downloads/opinion-observations.csv",
                              "downloads/opinion-chart-values.csv"):
                 (output / relative).unlink(missing_ok=True)
-            for chart_id in OPINION_CHARTS:
+            for chart_id in set(OPINION_CHARTS) | OPINION_RETIRED_CHARTS:
                 for theme in ("themarginoferror", "substack"):
                     for extension in ("png", "svg", "website.png"):
                         (output / "figures/opinions" / theme / (chart_id + "." + extension)).unlink(missing_ok=True)

@@ -23,7 +23,9 @@ from .immigration_analysis import CHARTS as IMMIGRATION_CHARTS, build_immigratio
 from .language_analysis import CHARTS as LANGUAGE_CHARTS, RETIRED_CHARTS as LANGUAGE_RETIRED_CHARTS, chart_points, svg_language_chart, validate_language_data
 from .pipeline import load, write_atomic
 from . import student_estimates
-from .opinion_analysis import CHARTS as OPINION_CHARTS, build_opinions
+from .opinion_analysis import (
+    CHARTS as OPINION_CHARTS, RETIRED_CHARTS as OPINION_RETIRED_CHARTS, build_opinions,
+)
 from .opinion_sources import validate_opinion_data
 from .public_freshness import annual_series, eligible, public
 from .covid_context import COVID_CONTEXT, applies_to as covid_applies_to, svg_band
@@ -989,7 +991,7 @@ def build(root):
     business_count = build_current_business(root, business_data, gallery) if business_data is not None else 0
     opinion_count = build_opinions(root, opinion_data, gallery) if opinion_data is not None else 0
     if opinion_data is None:
-        for chart_id in OPINION_CHARTS:
+        for chart_id in set(OPINION_CHARTS) | OPINION_RETIRED_CHARTS:
             for theme in CHART_THEMES:
                 remove_figure(root, Path("opinions") / theme / chart_id)
         for relative in ("opinions.html", "downloads/opinions.json", "downloads/opinion-observations.csv",

@@ -14,6 +14,7 @@ from .theme import BLUE, CHART_THEMES, PARTNER_COLORS
 
 
 FAVORABILITY_COLORS = {"favorable": BLUE, "unfavorable": "#A34035"}
+RETIRED_CHARTS = {"us-china-warmth"}
 
 
 CHARTS = {
@@ -53,13 +54,6 @@ CHARTS = {
         "mode": "bars", "latest": True, "unit": "Mean warmth (0-100)",
         "summary": "Original Chinese survey age bands; 50 is a neutral rating, not 50% favorable.",
         "note": "The Carter Center / Emory University, October 2026 weighted results. Quota respondent panel, full wave n=2,500; age-specific bases are not supplied. The 18-29 group is not interchangeable with the U.S. 18-34 group."},
-    "us-china-warmth": {
-        "title": "Americans' feelings toward China",
-        "subtitle": "Pew Research Center | four survey rounds, 2016-2026",
-        "series": ["pew_warmth:all"], "mode": "bars", "by_period": True,
-        "unit": "Mean warmth (0-100)",
-        "summary": "Published mean ratings. The latest survey was conducted September 14-20, 2026.",
-        "note": "Pew Research Center, September 2026. Mean ratings among 1,168 respondents asked about China; the full survey included 5,193."},
     "us-china-age-warmth": {
         "title": "Americans' feelings toward China by age",
         "subtitle": "Pew Research Center | September 14-20, 2026",
@@ -136,6 +130,9 @@ def build_opinions(root, data, gallery):
     from .render import esc, export_figure, figure_links, remove_figure
 
     validate_opinion_data(data)
+    for chart_id in RETIRED_CHARTS:
+        for theme in CHART_THEMES:
+            remove_figure(root, Path("opinions") / theme / chart_id)
     cards, plotted = [], []
     for chart_id, config in CHARTS.items():
         paths = {}

@@ -636,11 +636,25 @@ def test_complete_downloads_and_bounded_graphics(tmp_path):
     from PIL import Image
 
     d = data()
+    retired_paths = [
+        tmp_path / directory / "opinions" / theme / ("us-china-warmth." + extension)
+        for directory in ("site/figures", "outputs/figures")
+        for theme in ("themarginoferror", "substack")
+        for extension in ("svg", "png")]
+    for path in retired_paths:
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text("Previously published warmth chart")
     assert build_opinions(tmp_path, d, defaultdict(list)) == len(CHARTS)
+    assert all(not path.exists() for path in retired_paths)
+    page = BeautifulSoup((tmp_path / "site/opinions.html").read_text(), "html.parser")
+    assert not page.select("#us-china-warmth")
+    assert page.select_one("#us-china-favorability")
+    assert page.select_one("#us-china-age-warmth")
     assert json.loads((tmp_path / "site/downloads/opinions.json").read_text()) == d
     raw = list(csv.DictReader((tmp_path / "site/downloads/opinion-observations.csv").open()))
     plotted = list(csv.DictReader((tmp_path / "site/downloads/opinion-chart-values.csv").open()))
     assert len(raw) == len(d["observations"]) and {r["series_id"] for r in raw} == set(d["series"])
+    assert [int(r["value"]) for r in raw if r["series_id"] == "pew_warmth:all"] == [39, 42, 28, 37]
     assert {r["chart_id"] for r in plotted} == set(CHARTS)
     for chart in CHARTS:
         for theme in ("themarginoferror", "substack"):

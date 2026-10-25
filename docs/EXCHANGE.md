@@ -1285,13 +1285,14 @@ confidential cells stay distinct from zero; raw source files are not published.
 
 ### Public opinion in both directions
 
-`opinions.html` provides eight separately defined views: U.S. favorable/unfavorable
-opinion, Chinese warmth toward the U.S., each public's actual age bands, U.S.
-warmth over four survey rounds and by age, and the earlier U.S. telephone and
-Chinese Pew histories. The complete `data/site/opinions.json` contains 74 reported
-estimates, 22 series and 32 survey rounds. All observations, survey dates,
-definitions and source identities are downloadable, including observations not
-selected in the default chart.
+`opinions.html` compares U.S. favorable/unfavorable opinions, Chinese warmth
+toward the U.S. and each public's actual age bands. Earlier U.S. telephone and
+Chinese Pew histories remain separate in the research data. The four-round
+"Americans' feelings toward China" warmth history is retired from the chart
+selection and exports; all four estimates remain in the complete
+`data/site/opinions.json` and observation downloads. All observations, survey
+dates, definitions and source identities remain downloadable, including those
+not selected in the public charts.
 
 Percent favorable and mean **0-100 rating points** are never joined, indexed or
 relabelled as one another. Fifty is neutral on the latter scale. Every opinion

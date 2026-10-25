@@ -126,10 +126,18 @@ def test_publication_retires_all_stale_surfaces_but_keeps_complete_data(tmp_path
                 path.parent.mkdir(parents=True, exist_ok=True)
                 path.write_text("Previously published retired graph")
                 previous[str(path.relative_to(tmp_path))] = "old-sha"
+    retired_opinions = [
+        tmp_path / f"figures/opinions/{theme}/us-china-warmth.{extension}"
+        for theme in ("substack", "themarginoferror")
+        for extension in ("png", "svg", "website.png")]
+    for path in retired_opinions:
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text("Retired warmth graph not listed in the old manifest")
     (tmp_path / "publication-manifest.json").write_text(json.dumps({"files": previous}))
     manifest = module.build_publication(ROOT, tmp_path, "freshness-test")
     assert not old.exists() and custom.read_text() == "Unrelated user graphic"
     assert all(not (tmp_path / path).exists() for path in previous)
+    assert all(not path.exists() for path in retired_opinions)
     assert stale not in manifest["files"]
     assert manifest["chart_freshness"] == {"history_since": 2023, "snapshot_from": 2024, "snapshot_through": 2026}
     raw = json.loads((tmp_path / "downloads/exchange.json").read_text())
@@ -168,7 +176,7 @@ def test_publication_retires_all_stale_surfaces_but_keeps_complete_data(tmp_path
         "language-learning.html": {"college-enrollments", "college-share", "college-benchmarks",
                                    "matched-college-benchmarks", "school-language-enrollments", "ap-chinese-us-cohorts"},
         "business-presence.html": {"eu-affiliates-china", "uk-affiliates-china", "us-parent-companies-china"},
-        "opinions.html": {"us-china-earlier-favorability", "china-us-earlier-favorability"},
+        "opinions.html": {"us-china-earlier-favorability", "china-us-earlier-favorability", "us-china-warmth"},
         "confucius.html": {"confucius-classrooms"},
     }
     for name, identifiers in removed.items():
@@ -195,8 +203,9 @@ def test_publication_retires_all_stale_surfaces_but_keeps_complete_data(tmp_path
     inventory = json.loads(languages.select_one("#school-program-inventories .plot-data").string)
     assert [bar["year"] for bar in inventory["bars"]] == [2025]
     opinions = BeautifulSoup((tmp_path / "opinions.html").read_text(), "html.parser")
-    warmth = json.loads(opinions.select_one("#us-china-warmth .plot-data").string)
-    assert [bar["year"] for bar in warmth["bars"]] == [2016, 2018, 2021, 2026]
+    warmth = json.loads(opinions.select_one("#us-china-age-warmth .plot-data").string)
+    assert warmth["unit"] == "Mean warmth (0-100)"
+    assert all(bar["year"] == 2026 for bar in warmth["bars"])
     for source, target in (("language_learning", "language-learning"), ("opinions", "opinions")):
         assert json.loads((tmp_path / f"downloads/{target}.json").read_text()) == json.loads(
             (ROOT / f"data/site/{source}.json").read_text())

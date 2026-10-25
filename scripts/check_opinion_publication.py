@@ -12,7 +12,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
 from playwright.sync_api import expect, sync_playwright
-from us_china_exchange.opinion_analysis import CHARTS
+from us_china_exchange.opinion_analysis import CHARTS, RETIRED_CHARTS
 from us_china_exchange.opinion_sources import validate_opinion_data
 
 
@@ -35,6 +35,8 @@ def check_page(page, data, exhaustive=True):
     choices = set(page.locator("#module-chart option").evaluate_all("nodes=>nodes.map(n=>n.value)"))
     expected = set(CHARTS) - {"us-china-earlier-favorability", "china-us-earlier-favorability"}
     assert choices == expected
+    for chart_id in RETIRED_CHARTS:
+        assert not page.locator("#" + chart_id).count()
     for chart_id, config in CHARTS.items():
         if chart_id not in choices:
             assert not page.locator("#" + chart_id).count()
@@ -93,6 +95,10 @@ def check_page(page, data, exhaustive=True):
 def check(site, url=None, screenshots=None):
     data = json.loads((site / "downloads/opinions.json").read_text())
     validate_opinion_data(data)
+    for chart_id in RETIRED_CHARTS:
+        for theme in ("themarginoferror", "substack"):
+            for extension in ("png", "svg", "website.png"):
+                assert not (site / "figures/opinions" / theme / f"{chart_id}.{extension}").exists()
     rows = list(csv.DictReader((site / "downloads/opinion-observations.csv").open()))
     assert len(rows) == len(data["observations"])
     assert {(r["series_id"], r["survey_id"]) for r in rows} == {
@@ -115,6 +121,12 @@ def check(site, url=None, screenshots=None):
                         continue
                     page.select_option("#module-chart", chart_id)
                     page.locator("#" + chart_id).screenshot(path=str(screenshots / f"{chart_id}-{width}.png"))
+            for chart_id in RETIRED_CHARTS:
+                for suffix in ("?indicator=" + chart_id, "#" + chart_id):
+                    page.goto(url + suffix)
+                    expect(page.locator("#module-chart")).to_have_value("us-china-favorability")
+                    expect(page.locator("#us-china-favorability")).to_be_visible()
+                    assert not page.locator("#" + chart_id).count()
             assert not errors, errors
             page.close()
         touch = browser.new_context(has_touch=True, is_mobile=True, viewport={"width": 390, "height": 844})
@@ -137,6 +149,8 @@ def check(site, url=None, screenshots=None):
         page = fallback.new_page()
         page.goto(url)
         expect(page.locator(".module-controls")).to_be_hidden()
+        for chart_id in RETIRED_CHARTS:
+            assert not page.locator("#" + chart_id).count()
         for chart_id in CHARTS:
             if not page.locator("#" + chart_id).count():
                 continue
