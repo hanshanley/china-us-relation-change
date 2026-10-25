@@ -340,6 +340,32 @@ def test_nationwide_comparisons_keep_chinese_japanese_and_korean_separate():
     assert not any(sid.startswith("nsc_program:") for sid in data["series"])
 
 
+@pytest.mark.parametrize("chart", [
+    "chinese-bachelors", "chinese-graduate-awards", "language-doctorates", "ap-chinese-global"])
+@pytest.mark.parametrize("theme", ["themarginoferror", "substack"])
+def test_degree_charts_remove_dots_but_retain_every_interactive_observation(chart, theme):
+    data = published()
+    svg = BeautifulSoup(svg_language_chart(data, chart, theme), "html.parser").svg
+    markers = chart == "ap-chinese-global"
+    circles = svg.select("circle.language-point")
+    assert circles and all(float(p["r"]) == (4 if markers else 0) for p in circles)
+    spec = importlib.util.spec_from_file_location("degree_marker_publication", ROOT / "scripts/build_exchange_publication.py")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    model = module.plot_model(svg, {}, {})
+    assert model.get("point_markers", True) == markers
+    expected_groups = chart_points(data, chart)
+    assert len(model["groups"]) == len(expected_groups)
+    for actual, expected in zip(model["groups"], expected_groups):
+        assert actual["id"] == expected["id"]
+        assert [(p["year"], p["value"]) for p in actual["points"]] == [
+            (p["year"], p["plotted_value"]) for p in expected["points"]]
+        if not markers:
+            assert not any(p["connect"] for p in actual["points"] if p["year"] == 2001)
+            if chart == "language-doctorates":
+                assert not any(p["connect"] for p in actual["points"] if p["year"] == 2010)
+
+
 def test_language_population_validation_rejects_global_to_us_relabelling_and_bad_subsets():
     data = published()
     data["series"]["ap:global_total"]["scope"] = "U.S.-only learners"

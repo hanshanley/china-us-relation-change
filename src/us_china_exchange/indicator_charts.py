@@ -21,6 +21,7 @@ def svg_indicator_chart(config, groups, theme, description, point_class):
         raise ValueError("Indicator axis limits cannot clip observations")
     bars = config["mode"] == "bars"
     columns = not bars and config["mode"] == "levels" and sum(bool(g["points"]) for g in groups) == 1
+    point_radius = 0 if columns or config.get("point_markers") is False else 4
     first = config.get("first_year", min(r["year"] for r in points))
     last = max(first + 1, max(r["year"] for r in points), config.get("last_year", 0))
     x = lambda year: 115 + ((year - first + .5) / (last - first + 1) if columns else
@@ -42,6 +43,7 @@ def svg_indicator_chart(config, groups, theme, description, point_class):
         '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 600" role="img" '
         f'aria-label="{esc(config["title"])}"'
         + (' data-plot-style="columns"' if columns else "")
+        + (' data-point-markers="false"' if config.get("point_markers") is False else "")
         + (f' data-geographies="{" ".join(config["geographies"])}" data-first-year="{first}" data-last-year="{last}"'
            if config.get("geographies") else "")
         + (f' data-axis-max="{maximum}"' if config.get("bounded") else "")
@@ -121,7 +123,7 @@ def svg_indicator_chart(config, groups, theme, description, point_class):
                 parts.append(f'<circle class="{point_class}" data-series-id="{esc(group["id"])}" '
                              f'data-year="{r["year"]}" data-value="{r["plotted_value"]}" '
                              f'{metadata(group, r)} '
-                             f'cx="{x(r["year"]):.2f}" cy="{y(r["plotted_value"]):.2f}" r="{0 if columns else 4}" fill="{group["color"]}">'
+                             f'cx="{x(r["year"]):.2f}" cy="{y(r["plotted_value"]):.2f}" r="{point_radius}" fill="{group["color"]}">'
                              f'<title>{esc(group["label"])} {r["year"]}: {r["plotted_value"]:,.4f} {esc(config["unit"])}</title></circle>')
     for i, text in enumerate(textwrap.wrap(config["note"], width=106)):
         parts.append(f'<text class="figure-source" x="115" y="{520 + i * 20}" font-size="14" font-style="italic">{esc(text)}</text>')

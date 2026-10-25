@@ -340,7 +340,7 @@
           return `${command}${x(position(point)).toFixed(2)},${y(point.value).toFixed(2)}`;
         }).join(" ");
         if (!columns && !snapshot) content += `<path class="screen-line" data-series-id="${escape(group.id)}" d="${path}" fill="none"
-          stroke="${color(group.color)}" stroke-width="${mobile ? 2.5 : 3}" stroke-linecap="round" stroke-linejoin="round"${group.dash ? ` stroke-dasharray="${escape(group.dash)}"` : ""}/>`;
+          stroke="${color(group.color)}" stroke-width="${mobile ? 2.5 : 3}" stroke-linecap="${model.point_markers === false ? "butt" : "round"}" stroke-linejoin="round"${group.dash ? ` stroke-dasharray="${escape(group.dash)}"` : ""}/>`;
         if (dated) {
           for (let i = 1; i < group.points.length; i++) {
             const before = group.points[i - 1], point = group.points[i];
@@ -366,7 +366,7 @@
           const period = dated ? `data-${daily ? "date" : "month"}="${escape(periodValue(point))}" data-partial-window="${point.partial_window}"` : `data-year="${point.year}"`;
           const fill = dated && point.partial_window ? "#f7f5f0" : color(group.color);
           const stroke = dated ? ` stroke="${color(group.color)}" stroke-width="1.3"` : "";
-          const radius = columns ? 0 : point === group.points.at(-1) ? 4 : daily ? 0 : monthly ? 1.8 : 2.4;
+          const radius = columns || model.point_markers === false ? 0 : point === group.points.at(-1) ? 4 : daily ? 0 : monthly ? 1.8 : 2.4;
           content += `<circle class="screen-point" data-series-id="${escape(group.id)}" ${period} data-value="${point.value}"
             cx="${x(position(point))}" cy="${y(point.value)}" r="${radius}" fill="${fill}"${stroke}
             tabindex="-1" aria-label="${escape(point.label || `${group.label} ${point.year}: ${point.value.toLocaleString("en-US")} ${model.unit}`)}"></circle>`;

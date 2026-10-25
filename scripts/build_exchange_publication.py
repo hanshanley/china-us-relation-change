@@ -169,6 +169,8 @@ def plot_model(svg, labels, observations):
         unit = svg.find("text", attrs={"x": "115", "y": "125"})
     model = {"title": svg.get("aria-label", ""), "description": svg.find("desc").text if svg.find("desc") else "",
              "unit": unit.text if unit else "Count", "groups": [], "kind": "line"}
+    if svg.get("data-point-markers") == "false":
+        model["point_markers"] = False
     if svg.select_one(".covid-band"):
         marker = svg.select_one(".covid-context[data-covid-measure]")
         context = covid_context_for(marker["data-covid-measure"]) if marker else COVID_CONTEXT

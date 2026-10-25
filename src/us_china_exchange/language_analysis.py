@@ -61,21 +61,21 @@ CHARTS = {
         "title": "Bachelor's degrees by language",
         "subtitle": "Nationwide IPEDS | Chinese, Japanese and Korean | academic year ending",
         "series": ["ipeds:bachelors", "ipeds_japanese:bachelors", "ipeds_korean:bachelors"],
-        "unit": "Awards", "mode": "levels",
+        "unit": "Awards", "mode": "levels", "point_markers": False,
         "note": "NCES IPEDS, U.S. degree-granting institutions. First-major language and literature degrees. "
         "Reporting definitions changed in 2001; 2025 is provisional."},
     "chinese-graduate-awards": {
         "title": "Master's degrees by language",
         "subtitle": "Nationwide IPEDS | Chinese, Japanese and Korean | academic year ending",
         "series": ["ipeds:masters", "ipeds_japanese:masters", "ipeds_korean:masters"],
-        "unit": "Awards", "mode": "levels",
+        "unit": "Awards", "mode": "levels", "point_markers": False,
         "note": "NCES IPEDS, U.S. degree-granting institutions. First-major language and literature degrees. "
         "Reporting definitions changed in 2001; 2025 is provisional."},
     "language-doctorates": {
         "title": "Doctoral degrees by language",
         "subtitle": "Nationwide IPEDS | Chinese, Japanese and Korean | academic year ending",
         "series": ["ipeds:doctorates", "ipeds_japanese:doctorates", "ipeds_korean:doctorates"],
-        "unit": "Awards", "mode": "levels",
+        "unit": "Awards", "mode": "levels", "point_markers": False,
         "note": "NCES IPEDS, U.S. degree-granting institutions. Language and literature doctorates. "
         "Reporting categories changed in 2001 and 2010; 2025 is provisional."},
     "school-program-inventories": {

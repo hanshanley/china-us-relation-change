@@ -300,6 +300,9 @@ directions; air-only estimates and visitor-arrival definitions belong in subtitl
 Study-abroad headings name U.S. college students and their destination.
 The course-credit requirement belongs in the subtitle; these are institutional
 participation counts, not a census of U.S. citizens studying overseas.
+Language-degree comparisons use lines without persistent point markers.
+Reporting-definition breaks remain separate; all observations, including
+isolated historical counts, remain in downloads and interactive value inspection.
 
 Only the current public edition's essay figures are versioned in
 `outputs/figures/`. After validating a publication build, run
