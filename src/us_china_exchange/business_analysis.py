@@ -23,14 +23,16 @@ COLORS = {"bea_affiliates:china": PARTNER_COLORS["CHN"], "bea_parents:china": PA
           "bundesbank_germany:china": "#79638A", "eurostat_germany:china": "#A397AC",
           "eurostat_netherlands:china": "#617C78",
           "tillvaxtanalys_sweden:china": "#526F76", "statfin_finland:china": "#6F7354",
-          "eurostat_france:china": "#8A6556", "eurostat_finland:china": "#999D7D"}
+          "eurostat_france:china": "#8A6556", "eurostat_finland:china": "#999D7D",
+          "eurostat_italy:china": "#7E6D7A", "eurostat_italy_legal:china": "#7E6D7A"}
 ORIGINS = {"bea_affiliates:china": "us", "bea_parents:china": "us",
            "eurostat_affiliates:china": "eu", "eurostat_historical_eu:china": "eu",
            "eurostat_uk:china": "uk", "eurostat_norway:china": "norway", "ssb_norway:china": "norway",
            "bundesbank_germany:china": "germany", "eurostat_germany:china": "germany",
            "eurostat_netherlands:china": "netherlands",
            "tillvaxtanalys_sweden:china": "sweden", "statfin_finland:china": "finland",
-           "eurostat_france:china": "france", "eurostat_finland:china": "finland"}
+           "eurostat_france:china": "france", "eurostat_finland:china": "finland",
+           "eurostat_italy:china": "italy", "eurostat_italy_legal:china": "italy"}
 CHARTS = {
     "us-affiliates-china": {
         "title": "U.S.-parent affiliates in China",
@@ -97,6 +99,13 @@ CHARTS = {
         "series": ["eurostat_finland:china"], "unit": "Enterprises", "mode": "levels",
         "note": "Eurostat, Finnish-UCI market producers. 2010 NACE, 2013 YTY system and 2021 EBS boundaries retained. "
         "The broader national affiliate/branch counts above are a different population, not a splice or a matched comparison."},
+    "italy-affiliates-china": {
+        "title": "Italian-controlled enterprises in China",
+        "subtitle": "China except Hong Kong | Since 2021 | Current enterprise definition",
+        "series": ["eurostat_italy:china"], "unit": "Enterprises", "mode": "levels",
+        "note": "Eurostat / ISTAT, Italy-resident ultimate control. Supplementary enterprise counts start in 2021. "
+        "The 2007-2020 estimated legal-unit observations remain separate in complete downloads, not joined "
+        "to this chart. No comparable 2019 change or unpublished 2024/2025 count is inferred."},
     BENCHMARK_CHART: {
         "title": "U.S. parent companies with China affiliates",
         "subtitle": "Supplementary benchmark observations | NOT an annual series",
@@ -109,7 +118,7 @@ def validate_business_data(data):
     if set(data) != {"version", "series", "observations", "sources", "coverage", "context"} or data["version"] != 1:
         raise ValueError("Invalid business-presence schema")
     units = {sid: "U.S. parents" if sid.startswith("bea_parents") else "affiliates" if sid.startswith("bea_affiliates")
-             else "enterprises" for sid in COLORS}
+             else "legal units" if sid == "eurostat_italy_legal:china" else "enterprises" for sid in COLORS}
     if not data["series"] or not data["sources"] or not isinstance(data["observations"], list):
         raise ValueError("Business definitions, observations and provenance required")
     for sid, definition in data["series"].items():
@@ -117,7 +126,8 @@ def validate_business_data(data):
             raise ValueError("Invalid business series identity")
         if not all(isinstance(v, str) and v for v in definition.values()) or definition["unit"] != units[sid]:
             raise ValueError("Business counting units and populations must remain explicit")
-        expected = ("controlled_enterprises", "annual", "reference year") if sid.startswith(
+        controlled_measure = "controlled_legal_units" if sid == "eurostat_italy_legal:china" else "controlled_enterprises"
+        expected = (controlled_measure, "annual", "reference year") if sid.startswith(
             ("eurostat", "ssb_", "bundesbank_", "tillvaxtanalys_", "statfin_")) else (
             ("parent_companies", "benchmark", "fiscal ending year") if sid.startswith("bea_parents")
             else ("majority_owned_affiliates", "annual", "fiscal ending year"))
@@ -134,6 +144,9 @@ def validate_business_data(data):
         if sid == "eurostat_netherlands:china" and not all(
                 token in definition["scope"] for token in ("Dutch-resident UCI", "China except Hong Kong")):
             raise ValueError("Dutch control and host-country scope must remain explicit")
+        if sid.startswith("eurostat_italy") and not all(
+                token in definition["scope"] for token in ("Italy-resident UCI", "China except Hong Kong")):
+            raise ValueError("Italian control and host-country scope must remain explicit")
     for item in data["sources"].values():
         if set(item) != {"name", "vintage", "assets", "locator", "notes"} or not item["assets"]:
             raise ValueError("Business source provenance incomplete")
@@ -182,7 +195,12 @@ def validate_business_data(data):
                                      "fats_out2_r2_FR" if r["year"] <= 2020 else "fats_out_part_FR"),
             "eurostat_finland:china": ("fats_out2_FI" if r["year"] <= 2009 else
                                       "fats_out2_r2_FI" if r["year"] <= 2020 else "fats_out_part_FI"),
+            "eurostat_italy_legal:china": "fats_out2_IT" if r["year"] <= 2009 else "fats_out2_r2_IT",
+            "eurostat_italy:china": "fats_out_part_IT",
         }
+        if ((r["series_id"] == "eurostat_italy_legal:china" and not 2007 <= r["year"] <= 2020)
+                or (r["series_id"] == "eurostat_italy:china" and r["year"] < 2021)):
+            raise ValueError("Italian legal-unit and enterprise populations must not be spliced")
         if r["series_id"].startswith("eurostat") and r["source_id"] != expected_source[r["series_id"]]:
             raise ValueError("European method/source boundary mismatch")
         if r["series_id"] == "ssb_norway:china" and r["source_id"] != "ssb_09827":

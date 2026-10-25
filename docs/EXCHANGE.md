@@ -720,6 +720,9 @@ Finland also has a separate Eurostat UCI history back to2007. Its market-
 producer population differs from the broader national count and is not
 spliced into it; the2013 YTY system break remains explicit alongside the
 classification and2021 EBS boundaries.
+Italy's supplementary enterprise chart starts in2021. Its fourteen estimated
+2007-2020 legal-unit observations remain in the complete downloads as a
+separate population, not a longer version of the current enterprise series.
 Earlier U.S., German and Norwegian count histories are explicitly labelled
 secondary references in a closed disclosure, not newly recovered current
 evidence. Stale EU/UK and parent-company benchmarks stay download-only.
@@ -735,6 +738,7 @@ evidence. Stale EU/UK and parent-company benchmarks stay download-only.
 | Finnish-UCI enterprises, Eurostat | Seventeen2007-2023 enterprise counts in China except Hong Kong, ending185. Legacy NACE C-O except L, then market producers B-S except O. The2010 classification,2013 YTY and2021 EBS boundaries are retained. Overlapping national counts differ; this is a separate annual-bar panel, not an extension or denominator for the national series. |
 | French-controlled enterprises | Sixteen reported2007-2023 counts and one missing2008 cell, ending2153. Eurostat's host category is China except Hong Kong. The 2007/2009,2010,2016 and2021 boundaries are not spliced or used for cross-regime growth. INSEE's rounded count remains a separate source finding. |
 | Dutch-controlled enterprises | Eighteen reported2007-2024 counts;2024=620 is provisional. Eurostat's seventeen earlier observations match original native TSVs; CBS's2023 control574 agrees. Dutch-resident UCI, financial/nonfinancial B-S except O. Preserve the2010 classification and2021 method boundaries; no comparable2019 change, pre-2007 history or2025 count is inferred. |
+| Italian-controlled business units | Seventeen Eurostat values independently match native TSVs. Fourteen2007-2020 estimated legal-unit counts are archive-only; three2021-2023 enterprise counts form a separate supplementary annual-bar chart. Italy-resident UCI, China except Hong Kong. The source explicitly rejects comparison across2021, so no2019 change is calculated and the older unit population is not refreshed by the newer one. The national2023 count1122 is not substituted for Eurostat669; the exact national scope difference remains unresolved. |
 | Supplementary U.S. parent-company benchmarks | Only 2004,2009,2014 and2019 are verified and remain archive-only, not an annual census. Foreign-affiliate ownership begins at10%, not necessarily majority control; reporting exclusions apply. No interpolation. |
 
 The U.S. affiliate reporting cutoff changes from $7 million through 2003 to

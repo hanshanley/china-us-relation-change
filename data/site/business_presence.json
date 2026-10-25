@@ -1,6 +1,6 @@
 {
   "context": {
-    "geography": "China is the host. U.S., German, Norwegian, Swedish and Finnish series retain their own control, sector, threshold and source definitions; these are not matched country rankings. UK history ends in 2019. National and overlapping EU27 membership aggregates are not summed. Netherlands is shown separately from the overlapping EU27 aggregate.",
+    "geography": "China is the host. U.S., German, Norwegian, Swedish and Finnish series retain their own control, sector, threshold and source definitions; these are not matched country rankings. UK history ends in 2019. National and overlapping EU27 membership aggregates are not summed. Netherlands is shown separately from the overlapping EU27 aggregate. Italian historical legal units and current enterprises remain separate, not a compatible splice.",
     "interpretation": "Company counts, affiliate entities and branch locations are distinct. U.S. parents and ultimately EU-controlled enterprises are not matched ownership populations; BEA and Eurostat levels must not be used to rank otherwise comparable business presence.",
     "question": "How has U.S. and European business presence in China changed over time?",
     "release_timing": "As checked October 22, 2026, BEA's latest activity release covers 2023. The published schedule puts the 2024 activity release on November 20, 2026; no 2024 value is inferred.",
@@ -75,6 +75,16 @@
     {
       "description": "Finnish-UCI controlled enterprises in China except Hong Kong, not unique parents or the broader all-industry national StatFin population. Keep the 2010 NACE transition, 2013 YTY system break and 2021 EBS boundary. Overlapping national counts differ; no splice, cross-regime growth rate or inferred 2000-2006/2024/2025 values.",
       "id": "eurostat_finland:china",
+      "status": "partial_history"
+    },
+    {
+      "description": "Italy explicitly changes the statistical unit in 2021: legal units through 2020, enterprises from 2021. These are separate populations, not a compatible historical splice. Keep the 2010 NACE boundary and original estimated flags. The different national ISTAT count is not substituted; no pre-2007 or 2019-baseline inference. Historical estimated legal units are download-only.",
+      "id": "eurostat_italy_legal:china",
+      "status": "partial_history"
+    },
+    {
+      "description": "Italy explicitly changes the statistical unit in 2021: legal units through 2020, enterprises from 2021. These are separate populations, not a compatible historical splice. Keep the 2010 NACE boundary and original estimated flags. The different national ISTAT count is not substituted; no pre-2007 or 2019-baseline inference. The current supplementary chart starts in 2021.",
+      "id": "eurostat_italy:china",
       "status": "partial_history"
     }
   ],
@@ -989,6 +999,159 @@
       "year": 2013
     },
     {
+      "comparability": "fats_out_part:IT:0",
+      "notes": "Italy explicitly changes the statistical unit in 2021: legal units through 2020, enterprises from 2021. These are separate populations, not a compatible historical splice. Keep the 2010 NACE boundary and original estimated flags. The different national ISTAT count is not substituted; no pre-2007 or 2019-baseline inference. Source flags: none",
+      "series_id": "eurostat_italy:china",
+      "source_id": "fats_out_part_IT",
+      "status": "observed",
+      "value": 675,
+      "year": 2021
+    },
+    {
+      "comparability": "fats_out_part:IT:0",
+      "notes": "Italy explicitly changes the statistical unit in 2021: legal units through 2020, enterprises from 2021. These are separate populations, not a compatible historical splice. Keep the 2010 NACE boundary and original estimated flags. The different national ISTAT count is not substituted; no pre-2007 or 2019-baseline inference. Source flags: none",
+      "series_id": "eurostat_italy:china",
+      "source_id": "fats_out_part_IT",
+      "status": "observed",
+      "value": 687,
+      "year": 2022
+    },
+    {
+      "comparability": "fats_out_part:IT:0",
+      "notes": "Italy explicitly changes the statistical unit in 2021: legal units through 2020, enterprises from 2021. These are separate populations, not a compatible historical splice. Keep the 2010 NACE boundary and original estimated flags. The different national ISTAT count is not substituted; no pre-2007 or 2019-baseline inference. Source flags: none",
+      "series_id": "eurostat_italy:china",
+      "source_id": "fats_out_part_IT",
+      "status": "observed",
+      "value": 669,
+      "year": 2023
+    },
+    {
+      "comparability": "fats_out2:IT:0",
+      "notes": "Italy explicitly changes the statistical unit in 2021: legal units through 2020, enterprises from 2021. These are separate populations, not a compatible historical splice. Keep the 2010 NACE boundary and original estimated flags. The different national ISTAT count is not substituted; no pre-2007 or 2019-baseline inference. Source flags: e",
+      "series_id": "eurostat_italy_legal:china",
+      "source_id": "fats_out2_IT",
+      "status": "estimated",
+      "value": 792,
+      "year": 2007
+    },
+    {
+      "comparability": "fats_out2:IT:0",
+      "notes": "Italy explicitly changes the statistical unit in 2021: legal units through 2020, enterprises from 2021. These are separate populations, not a compatible historical splice. Keep the 2010 NACE boundary and original estimated flags. The different national ISTAT count is not substituted; no pre-2007 or 2019-baseline inference. Source flags: e",
+      "series_id": "eurostat_italy_legal:china",
+      "source_id": "fats_out2_IT",
+      "status": "estimated",
+      "value": 816,
+      "year": 2008
+    },
+    {
+      "comparability": "fats_out2:IT:0",
+      "notes": "Italy explicitly changes the statistical unit in 2021: legal units through 2020, enterprises from 2021. These are separate populations, not a compatible historical splice. Keep the 2010 NACE boundary and original estimated flags. The different national ISTAT count is not substituted; no pre-2007 or 2019-baseline inference. Source flags: e",
+      "series_id": "eurostat_italy_legal:china",
+      "source_id": "fats_out2_IT",
+      "status": "estimated",
+      "value": 870,
+      "year": 2009
+    },
+    {
+      "comparability": "fats_out2_r2:IT:0",
+      "notes": "Italy explicitly changes the statistical unit in 2021: legal units through 2020, enterprises from 2021. These are separate populations, not a compatible historical splice. Keep the 2010 NACE boundary and original estimated flags. The different national ISTAT count is not substituted; no pre-2007 or 2019-baseline inference. Source flags: e",
+      "series_id": "eurostat_italy_legal:china",
+      "source_id": "fats_out2_r2_IT",
+      "status": "estimated",
+      "value": 923,
+      "year": 2010
+    },
+    {
+      "comparability": "fats_out2_r2:IT:0",
+      "notes": "Italy explicitly changes the statistical unit in 2021: legal units through 2020, enterprises from 2021. These are separate populations, not a compatible historical splice. Keep the 2010 NACE boundary and original estimated flags. The different national ISTAT count is not substituted; no pre-2007 or 2019-baseline inference. Source flags: e",
+      "series_id": "eurostat_italy_legal:china",
+      "source_id": "fats_out2_r2_IT",
+      "status": "estimated",
+      "value": 840,
+      "year": 2011
+    },
+    {
+      "comparability": "fats_out2_r2:IT:0",
+      "notes": "Italy explicitly changes the statistical unit in 2021: legal units through 2020, enterprises from 2021. These are separate populations, not a compatible historical splice. Keep the 2010 NACE boundary and original estimated flags. The different national ISTAT count is not substituted; no pre-2007 or 2019-baseline inference. Source flags: e",
+      "series_id": "eurostat_italy_legal:china",
+      "source_id": "fats_out2_r2_IT",
+      "status": "estimated",
+      "value": 894,
+      "year": 2012
+    },
+    {
+      "comparability": "fats_out2_r2:IT:0",
+      "notes": "Italy explicitly changes the statistical unit in 2021: legal units through 2020, enterprises from 2021. These are separate populations, not a compatible historical splice. Keep the 2010 NACE boundary and original estimated flags. The different national ISTAT count is not substituted; no pre-2007 or 2019-baseline inference. Source flags: e",
+      "series_id": "eurostat_italy_legal:china",
+      "source_id": "fats_out2_r2_IT",
+      "status": "estimated",
+      "value": 961,
+      "year": 2013
+    },
+    {
+      "comparability": "fats_out2_r2:IT:0",
+      "notes": "Italy explicitly changes the statistical unit in 2021: legal units through 2020, enterprises from 2021. These are separate populations, not a compatible historical splice. Keep the 2010 NACE boundary and original estimated flags. The different national ISTAT count is not substituted; no pre-2007 or 2019-baseline inference. Source flags: e",
+      "series_id": "eurostat_italy_legal:china",
+      "source_id": "fats_out2_r2_IT",
+      "status": "estimated",
+      "value": 975,
+      "year": 2014
+    },
+    {
+      "comparability": "fats_out2_r2:IT:0",
+      "notes": "Italy explicitly changes the statistical unit in 2021: legal units through 2020, enterprises from 2021. These are separate populations, not a compatible historical splice. Keep the 2010 NACE boundary and original estimated flags. The different national ISTAT count is not substituted; no pre-2007 or 2019-baseline inference. Source flags: e",
+      "series_id": "eurostat_italy_legal:china",
+      "source_id": "fats_out2_r2_IT",
+      "status": "estimated",
+      "value": 1071,
+      "year": 2015
+    },
+    {
+      "comparability": "fats_out2_r2:IT:0",
+      "notes": "Italy explicitly changes the statistical unit in 2021: legal units through 2020, enterprises from 2021. These are separate populations, not a compatible historical splice. Keep the 2010 NACE boundary and original estimated flags. The different national ISTAT count is not substituted; no pre-2007 or 2019-baseline inference. Source flags: e",
+      "series_id": "eurostat_italy_legal:china",
+      "source_id": "fats_out2_r2_IT",
+      "status": "estimated",
+      "value": 1061,
+      "year": 2016
+    },
+    {
+      "comparability": "fats_out2_r2:IT:0",
+      "notes": "Italy explicitly changes the statistical unit in 2021: legal units through 2020, enterprises from 2021. These are separate populations, not a compatible historical splice. Keep the 2010 NACE boundary and original estimated flags. The different national ISTAT count is not substituted; no pre-2007 or 2019-baseline inference. Source flags: e",
+      "series_id": "eurostat_italy_legal:china",
+      "source_id": "fats_out2_r2_IT",
+      "status": "estimated",
+      "value": 1150,
+      "year": 2017
+    },
+    {
+      "comparability": "fats_out2_r2:IT:0",
+      "notes": "Italy explicitly changes the statistical unit in 2021: legal units through 2020, enterprises from 2021. These are separate populations, not a compatible historical splice. Keep the 2010 NACE boundary and original estimated flags. The different national ISTAT count is not substituted; no pre-2007 or 2019-baseline inference. Source flags: e",
+      "series_id": "eurostat_italy_legal:china",
+      "source_id": "fats_out2_r2_IT",
+      "status": "estimated",
+      "value": 1145,
+      "year": 2018
+    },
+    {
+      "comparability": "fats_out2_r2:IT:0",
+      "notes": "Italy explicitly changes the statistical unit in 2021: legal units through 2020, enterprises from 2021. These are separate populations, not a compatible historical splice. Keep the 2010 NACE boundary and original estimated flags. The different national ISTAT count is not substituted; no pre-2007 or 2019-baseline inference. Source flags: e",
+      "series_id": "eurostat_italy_legal:china",
+      "source_id": "fats_out2_r2_IT",
+      "status": "estimated",
+      "value": 1141,
+      "year": 2019
+    },
+    {
+      "comparability": "fats_out2_r2:IT:0",
+      "notes": "Italy explicitly changes the statistical unit in 2021: legal units through 2020, enterprises from 2021. These are separate populations, not a compatible historical splice. Keep the 2010 NACE boundary and original estimated flags. The different national ISTAT count is not substituted; no pre-2007 or 2019-baseline inference. Source flags: e",
+      "series_id": "eurostat_italy_legal:china",
+      "source_id": "fats_out2_r2_IT",
+      "status": "estimated",
+      "value": 1133,
+      "year": 2020
+    },
+    {
       "comparability": "fats_out2:NL:0",
       "notes": "Eurostat source flags: none",
       "series_id": "eurostat_netherlands:china",
@@ -1872,6 +2035,24 @@
       "scope": "China except Hong Kong; EU27_2007 control, including the UK and excluding Croatia",
       "unit": "enterprises"
     },
+    "eurostat_italy:china": {
+      "cadence": "annual",
+      "label": "Italy (Eurostat enterprises)",
+      "measure": "controlled_enterprises",
+      "notes": "Italy explicitly changes the statistical unit in 2021: legal units through 2020, enterprises from 2021. These are separate populations, not a compatible historical splice. Keep the 2010 NACE boundary and original estimated flags. The different national ISTAT count is not substituted; no pre-2007 or 2019-baseline inference. The current supplementary chart starts in 2021.",
+      "period_basis": "reference year",
+      "scope": "Italy-resident UCI; China except Hong Kong; market producers in the selected NACE sectors; NACE B-S except O; enterprise statistical unit from 2021",
+      "unit": "enterprises"
+    },
+    "eurostat_italy_legal:china": {
+      "cadence": "annual",
+      "label": "Italy, historical legal units",
+      "measure": "controlled_legal_units",
+      "notes": "Italy explicitly changes the statistical unit in 2021: legal units through 2020, enterprises from 2021. These are separate populations, not a compatible historical splice. Keep the 2010 NACE boundary and original estimated flags. The different national ISTAT count is not substituted; no pre-2007 or 2019-baseline inference. Historical estimated legal units are download-only.",
+      "period_basis": "reference year",
+      "scope": "Italy-resident UCI; China except Hong Kong; market producers in the selected NACE sectors; NACE C-O except L before 2010, B-S except O thereafter; legal units",
+      "unit": "legal units"
+    },
     "eurostat_netherlands:china": {
       "cadence": "annual",
       "label": "Netherlands",
@@ -2464,6 +2645,26 @@
       "notes": "French-controlled enterprises in the source category China except Hong Kong; not unique parents, offices or INSEE's rounded broader count. Retain the 2007 pilot/2009 frame, 2010 NACE, 2016 source-flag and 2021 EBS boundaries; 2008 is unreported. No invented 2000-2006 history or growth across those population changes. Original country/category index and observation flags are retained.",
       "vintage": "fats_out2; France; source updated 2024-04-25T11:00:00+0200"
     },
+    "fats_out2_IT": {
+      "assets": [
+        {
+          "request_url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out2?lang=EN&freq=A&geo=IT&partner=CN_X_HK&indic_bp=ENT&nace_r1=C-O_X_L",
+          "retrieved_at": "2026-10-25T04:44:34+00:00",
+          "sha256": "df548552da98d41f7441cde0ba8c128eaa4e34e023c5b477b08dc4774b6d7596",
+          "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out2?lang=EN&freq=A&geo=IT&partner=CN_X_HK&indic_bp=ENT&nace_r1=C-O_X_L"
+        },
+        {
+          "request_url": "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_it.htm",
+          "retrieved_at": "2026-10-25T04:44:34+00:00",
+          "sha256": "cd9c72f2592124b576afa8c64b6db48a8cb0c80a4da133a0f9a33640d02648ef",
+          "url": "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_it.htm"
+        }
+      ],
+      "locator": "geo=IT; partner=CN_X_HK; indic_bp=ENT; nace_r1=C-O_X_L",
+      "name": "Eurostat / ISTAT",
+      "notes": "Italy explicitly changes the statistical unit in 2021: legal units through 2020, enterprises from 2021. These are separate populations, not a compatible historical splice. Keep the 2010 NACE boundary and original estimated flags. The different national ISTAT count is not substituted; no pre-2007 or 2019-baseline inference. Original Italy-specific metadata explicitly rejects comparison across 2021.",
+      "vintage": "fats_out2; Italy; source updated 2024-04-25T11:00:00+0200"
+    },
     "fats_out2_NL": {
       "assets": [
         {
@@ -2553,6 +2754,26 @@
       "name": "Eurostat",
       "notes": "French-controlled enterprises in the source category China except Hong Kong; not unique parents, offices or INSEE's rounded broader count. Retain the 2007 pilot/2009 frame, 2010 NACE, 2016 source-flag and 2021 EBS boundaries; 2008 is unreported. No invented 2000-2006 history or growth across those population changes. Original country/category index and observation flags are retained.",
       "vintage": "fats_out2_r2; France; source updated 2024-04-25T11:00:00+0200"
+    },
+    "fats_out2_r2_IT": {
+      "assets": [
+        {
+          "request_url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out2_r2?lang=EN&freq=A&geo=IT&partner=CN_X_HK&indic_bp=ENT&nace_r2=B-S_X_O",
+          "retrieved_at": "2026-10-25T04:44:35+00:00",
+          "sha256": "73718c4d30363822e0f919a938bb848f0b89454758c0d8df17fed9c41ff4a612",
+          "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out2_r2?lang=EN&freq=A&geo=IT&partner=CN_X_HK&indic_bp=ENT&nace_r2=B-S_X_O"
+        },
+        {
+          "request_url": "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_it.htm",
+          "retrieved_at": "2026-10-25T04:44:34+00:00",
+          "sha256": "cd9c72f2592124b576afa8c64b6db48a8cb0c80a4da133a0f9a33640d02648ef",
+          "url": "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_it.htm"
+        }
+      ],
+      "locator": "geo=IT; partner=CN_X_HK; indic_bp=ENT; nace_r2=B-S_X_O",
+      "name": "Eurostat / ISTAT",
+      "notes": "Italy explicitly changes the statistical unit in 2021: legal units through 2020, enterprises from 2021. These are separate populations, not a compatible historical splice. Keep the 2010 NACE boundary and original estimated flags. The different national ISTAT count is not substituted; no pre-2007 or 2019-baseline inference. Original Italy-specific metadata explicitly rejects comparison across 2021.",
+      "vintage": "fats_out2_r2; Italy; source updated 2024-04-25T11:00:00+0200"
     },
     "fats_out2_r2_NL": {
       "assets": [
@@ -2657,6 +2878,26 @@
       "name": "Eurostat",
       "notes": "French-controlled enterprises in the source category China except Hong Kong; not unique parents, offices or INSEE's rounded broader count. Retain the 2007 pilot/2009 frame, 2010 NACE, 2016 source-flag and 2021 EBS boundaries; 2008 is unreported. No invented 2000-2006 history or growth across those population changes. Original country/category index and observation flags are retained.",
       "vintage": "fats_out_part; France; source updated 2026-03-31T23:00:00+0200"
+    },
+    "fats_out_part_IT": {
+      "assets": [
+        {
+          "request_url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out_part?lang=EN&freq=A&geo=IT&partner=CN_X_HK&indic_sbs=ENT_NR&nace_r2=B-S_X_O",
+          "retrieved_at": "2026-10-25T04:44:35+00:00",
+          "sha256": "548fb835b531dcf26d9da40041bfb1e8a21a2bec26570501c7bd16bedf2b902c",
+          "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out_part?lang=EN&freq=A&geo=IT&partner=CN_X_HK&indic_sbs=ENT_NR&nace_r2=B-S_X_O"
+        },
+        {
+          "request_url": "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_it.htm",
+          "retrieved_at": "2026-10-25T04:44:34+00:00",
+          "sha256": "cd9c72f2592124b576afa8c64b6db48a8cb0c80a4da133a0f9a33640d02648ef",
+          "url": "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_it.htm"
+        }
+      ],
+      "locator": "geo=IT; partner=CN_X_HK; indic_sbs=ENT_NR; nace_r2=B-S_X_O",
+      "name": "Eurostat / ISTAT",
+      "notes": "Italy explicitly changes the statistical unit in 2021: legal units through 2020, enterprises from 2021. These are separate populations, not a compatible historical splice. Keep the 2010 NACE boundary and original estimated flags. The different national ISTAT count is not substituted; no pre-2007 or 2019-baseline inference. Original Italy-specific metadata explicitly rejects comparison across 2021.",
+      "vintage": "fats_out_part; Italy; source updated 2026-03-31T23:00:00+0200"
     },
     "fats_out_part_NL": {
       "assets": [
