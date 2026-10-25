@@ -105,8 +105,12 @@ def refresh(root, adapters=None, client=None):
                 raise ValueError("Adapter returned another source's observations")
             candidate = validate(candidate)
             # Rolling publication tables must not erase previously verified history.
+            fresh = {key(r): r for r in candidate}
+            if (notes and any(key(r) not in fresh for r in old)
+                    and prior.get("notes", "").startswith(notes + " ")):
+                notes = prior["notes"]
             merged = {key(r): r for r in old}
-            merged.update({key(r): r for r in candidate})
+            merged.update(fresh)
             candidate = validate(list(merged.values()))
             changed = stable_rows(candidate) != stable_rows(sorted(old, key=key))
             if not changed:

@@ -33,6 +33,58 @@ def test_unchanged_refresh_is_byte_identical_and_revision_replaces(tmp_path):
     assert json.loads(path.read_text())[0]["value"] == 125
 
 
+@pytest.mark.parametrize("value", [100, 125])
+def test_rolling_refresh_retains_archival_note_extension_with_omitted_history(tmp_path, value):
+    historical_notes = "Source notes Reviewed archive supplies the 2000 observation."
+
+    def historical(client):
+        recent, vintage, _ = adapter()(client)
+        archive, _, _ = adapter(75, year=2000)(client)
+        return archive + recent, vintage, historical_notes
+
+    refresh(tmp_path, {"sample": historical}, FakeClient())
+    output = tmp_path / "data/site"
+    before = {p.name: p.read_bytes() for p in output.iterdir()}
+    old_archive = json.loads((output / "observations.json").read_text())[0]
+    client = FakeClient()
+    client.now = "2026-10-22T00:00:00+00:00"
+    report = refresh(tmp_path, {"sample": adapter(value)}, client)
+    rows = json.loads((output / "observations.json").read_text())
+    manifest = json.loads((output / "sources.json").read_text())["sample"]
+    assert rows[0] == old_archive
+    assert rows[1]["value"] == value
+    assert manifest["notes"] == historical_notes
+    assert manifest["last_successful_retrieval"] == (
+        client.now if value != 100 else FakeClient.now)
+    assert report["publication_changed"] is (value != 100)
+    if value == 100:
+        assert before == {p.name: p.read_bytes() for p in output.iterdir()}
+
+
+@pytest.mark.parametrize("complete,notes", [
+    (True, "Source notes"),
+    (False, "Revised population and source notes"),
+    (False, "Source note"),
+    (False, ""),
+])
+def test_refresh_accepts_changed_notes_without_an_omitted_additive_extension(tmp_path, complete, notes):
+    def historical(client):
+        recent, vintage, _ = adapter()(client)
+        archive, _, _ = adapter(75, year=2000)(client)
+        return archive + recent, vintage, "Source notes Reviewed 2000 archive."
+
+    refresh(tmp_path, {"sample": historical}, FakeClient())
+
+    def replacement(client):
+        rows, vintage, _ = historical(client) if complete else adapter()(client)
+        return rows, vintage, notes
+
+    refresh(tmp_path, {"sample": replacement}, FakeClient())
+    manifest = json.loads((tmp_path / "data/site/sources.json").read_text())["sample"]
+    assert manifest["notes"] == notes
+    assert manifest["observations"] == 2
+
+
 @pytest.mark.parametrize("year", [2019, 2020])
 def test_unchanged_refresh_migrates_legacy_baseline_metadata_without_rewriting_source(tmp_path, year):
     fetch = adapter(year=year)
