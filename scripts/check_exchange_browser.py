@@ -181,10 +181,29 @@ def check():
         if (ROOT / "site/business-presence.html").exists():
             page.goto((ROOT / "site/business-presence.html").as_uri())
             expect(page.locator("header")).to_contain_text("Business links")
-            assert page.locator(".business-card").count() == 6
+            primary_ids = {
+                "us-investment-mainland", "us-investment-hong-kong",
+                "china-ubo-us-affiliates", "hong-kong-ubo-us-affiliates",
+                "sweden-affiliates-china", "finland-affiliates-china",
+                "france-affiliates-china", "us-company-decisions", "german-company-risk"}
+            reference_ids = {
+                "us-affiliates-china", "germany-affiliates-china",
+                "germany-affiliates-china-eurostat", "norway-affiliates-china"}
+            assert page.locator(".business-card:visible").count() == len(primary_ids)
+            assert set(page.locator(".business-card:visible").evaluate_all(
+                "nodes=>nodes.map(node=>node.id)")) == primary_ids
+            references = page.locator("#business-count-references")
+            assert references.get_attribute("open") is None
+            assert references.locator(".business-card").count() == len(reference_ids)
+            assert set(references.locator(".business-card").evaluate_all(
+                "nodes=>nodes.map(node=>node.id)")) == reference_ids
+            references.locator(":scope > summary").click()
+            assert page.locator(".business-card:visible").count() == len(primary_ids | reference_ids)
+            assert set(page.locator(".business-card:visible").evaluate_all(
+                "nodes=>nodes.map(node=>node.id)")) == primary_ids | reference_ids
             assert not page.locator("#annual-values,#business-benchmark-background").count()
             images = page.locator("img")
-            assert images.count() == 6
+            assert images.count() == len(primary_ids | reference_ids)
             for image in images.all():
                 image.scroll_into_view_if_needed()
                 expect(image).to_have_js_property("naturalWidth", PNG_WIDTH)
