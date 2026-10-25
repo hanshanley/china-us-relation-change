@@ -9,7 +9,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
-from us_china_exchange.business_sources import collect_business, finnish_eurostat_affiliates, french_affiliates, german_affiliates, italian_affiliates, netherlands_affiliates, norwegian_affiliates, nordic_affiliates, swedish_eurostat_affiliates, uk_early_affiliates
+from us_china_exchange.business_sources import collect_business, danish_affiliates, finnish_eurostat_affiliates, french_affiliates, german_affiliates, italian_affiliates, netherlands_affiliates, norwegian_affiliates, nordic_affiliates, spanish_affiliates, swedish_eurostat_affiliates, uk_early_affiliates
 from us_china_exchange.language_sources import ReviewClient
 from us_china_exchange.model import json_text
 from us_china_exchange.pipeline import write_atomic
@@ -152,6 +152,38 @@ def collect_sweden_history(client, prior):
     return data
 
 
+def collect_spain(client, prior):
+    data = copy.deepcopy(prior)
+    definitions, observations, sources = spanish_affiliates(client)
+    data["series"].update(definitions)
+    data["sources"].update(sources)
+    data["observations"] = sorted(
+        [r for r in data["observations"] if r["series_id"] not in definitions] + observations,
+        key=lambda r: (r["series_id"], r["year"]))
+    update_country_coverage(data, definitions)
+    if "Spain" not in data["context"]["geography"]:
+        data["context"]["geography"] += (
+            " Spain's Eurostat financial/nonfinancial history is separate from INE's national "
+            "nonfinancial population; Spain overlaps EU aggregates and is not added to them.")
+    return data
+
+
+def collect_denmark(client, prior):
+    data = copy.deepcopy(prior)
+    definitions, observations, sources = danish_affiliates(client)
+    data["series"].update(definitions)
+    data["sources"].update(sources)
+    data["observations"] = sorted(
+        [r for r in data["observations"] if r["series_id"] not in definitions] + observations,
+        key=lambda r: (r["series_id"], r["year"]))
+    update_country_coverage(data, definitions)
+    if "Denmark" not in data["context"]["geography"]:
+        data["context"]["geography"] += (
+            " Denmark's national resident-parent coverage includes foreign ultimate owners and excludes "
+            "branches; it is not spliced with Danish-UCI Eurostat counts or summed into EU aggregates.")
+    return data
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--refresh", action="store_true", help="Refetch reviewed public assets instead of the local checksummed cache")
@@ -172,11 +204,16 @@ if __name__ == "__main__":
                            help="Review Italian legal units and enterprises separately; preserve other countries")
     selection.add_argument("--sweden-history-only", action="store_true",
                            help="Review the separate older Swedish-UCI Eurostat history; preserve national counts")
+    selection.add_argument("--spain-only", action="store_true",
+                           help="Review Spanish-controlled Eurostat enterprises; preserve all other countries")
+    selection.add_argument("--denmark-only", action="store_true",
+                           help="Review subsidiaries controlled from Denmark; preserve other countries")
     args = parser.parse_args()
     client = ReviewClient(ROOT / "data/local/business-presence/raw", args.refresh)
     collector = (collect_italy if args.italy_only else collect_uk_history if args.uk_history_only else
-                 collect_netherlands if args.netherlands_only else
                  collect_sweden_history if args.sweden_history_only else
+                 collect_denmark if args.denmark_only else collect_spain if args.spain_only else
+                 collect_netherlands if args.netherlands_only else
                  collect_finland_history if args.finland_history_only else
                  collect_france if args.france_only else collect_nordic if args.nordic_only else
                  collect_norway if args.norway_only else collect_germany if args.germany_only else None)

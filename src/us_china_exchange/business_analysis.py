@@ -25,7 +25,8 @@ COLORS = {"bea_affiliates:china": PARTNER_COLORS["CHN"], "bea_parents:china": PA
           "tillvaxtanalys_sweden:china": "#526F76", "statfin_finland:china": "#6F7354",
           "eurostat_france:china": "#8A6556", "eurostat_finland:china": "#999D7D",
           "eurostat_sweden:china": "#97AAAE",
-          "eurostat_italy:china": "#7E6D7A", "eurostat_italy_legal:china": "#7E6D7A"}
+          "eurostat_italy:china": "#7E6D7A", "eurostat_italy_legal:china": "#7E6D7A",
+          "eurostat_spain:china": "#8B7656", "dst_denmark:china": "#756D7D"}
 ORIGINS = {"bea_affiliates:china": "us", "bea_parents:china": "us",
            "eurostat_affiliates:china": "eu", "eurostat_historical_eu:china": "eu",
            "eurostat_uk:china": "uk", "eurostat_norway:china": "norway", "ssb_norway:china": "norway",
@@ -34,7 +35,8 @@ ORIGINS = {"bea_affiliates:china": "us", "bea_parents:china": "us",
            "tillvaxtanalys_sweden:china": "sweden", "statfin_finland:china": "finland",
            "eurostat_france:china": "france", "eurostat_finland:china": "finland",
            "eurostat_sweden:china": "sweden",
-           "eurostat_italy:china": "italy", "eurostat_italy_legal:china": "italy"}
+           "eurostat_italy:china": "italy", "eurostat_italy_legal:china": "italy",
+           "eurostat_spain:china": "spain", "dst_denmark:china": "denmark"}
 CHARTS = {
     "us-affiliates-china": {
         "title": "U.S.-parent affiliates in China",
@@ -117,6 +119,21 @@ CHARTS = {
         "note": "Eurostat, Swedish ultimate control; official imputation can apply. 2009 confidential, not zero. "
         "Keep 2008 classification/2010 table, 2018 enterprise-unit/EGR and 2021 EBS boundaries. "
         "Not spliced into national subsidiary counts."},
+    "spain-affiliates-china": {
+        "title": "Spanish-controlled enterprises in China",
+        "subtitle": "China except Hong Kong | Reported counts from 2009",
+        "series": ["eurostat_spain:china"], "unit": "Enterprises", "mode": "levels",
+        "note": "Eurostat. 2007/2008 unreported; 2010 classification and 2021 statistical-enterprise boundaries. "
+        "Financial and nonfinancial activities; not unique Spanish parents. Source estimates are flagged. "
+        "Not spliced with INE's differently scoped national nonfinancial counts or summed with EU aggregates."},
+    "denmark-affiliates-china": {
+        "title": "Subsidiaries controlled from Denmark",
+        "subtitle": "China | National series from 2007",
+        "series": ["dst_denmark:china"], "unit": "Enterprises", "mode": "levels",
+        "note": "Statistics Denmark, OFATS4. Denmark-resident parents include foreign ultimate owners; "
+        "not Danish-UCI Eurostat counts. Subsidiary entities, not parents, plants or branches. "
+        "2010 DB03/DB07 classification transition; Hong Kong and Macao separate. "
+        "No pre-2007 values inferred; no sum with overlapping EU aggregates."},
     BENCHMARK_CHART: {
         "title": "U.S. parent companies with China affiliates",
         "subtitle": "Supplementary benchmark observations | NOT an annual series",
@@ -139,7 +156,7 @@ def validate_business_data(data):
             raise ValueError("Business counting units and populations must remain explicit")
         controlled_measure = "controlled_legal_units" if sid == "eurostat_italy_legal:china" else "controlled_enterprises"
         expected = (controlled_measure, "annual", "reference year") if sid.startswith(
-            ("eurostat", "ssb_", "bundesbank_", "tillvaxtanalys_", "statfin_")) else (
+            ("eurostat", "ssb_", "bundesbank_", "tillvaxtanalys_", "statfin_", "dst_")) else (
             ("parent_companies", "benchmark", "fiscal ending year") if sid.startswith("bea_parents")
             else ("majority_owned_affiliates", "annual", "fiscal ending year"))
         if tuple(definition[k] for k in ("measure", "cadence", "period_basis")) != expected:
@@ -158,6 +175,13 @@ def validate_business_data(data):
         if sid.startswith("eurostat_italy") and not all(
                 token in definition["scope"] for token in ("Italy-resident UCI", "China except Hong Kong")):
             raise ValueError("Italian control and host-country scope must remain explicit")
+        if sid == "eurostat_spain:china" and not all(
+                token in definition["scope"] for token in ("Spanish-resident UCI", "China except Hong Kong")):
+            raise ValueError("Spanish control and host-country scope must remain explicit")
+        if sid == "dst_denmark:china" and not all(
+                token in definition["scope"] for token in (
+                    "Denmark-resident parents", "Hong Kong and Macao separately", "foreign ultimate owners")):
+            raise ValueError("Danish resident-parent and host-country scope must remain explicit")
     for item in data["sources"].values():
         if set(item) != {"name", "vintage", "assets", "locator", "notes"} or not item["assets"]:
             raise ValueError("Business source provenance incomplete")
@@ -213,6 +237,8 @@ def validate_business_data(data):
             "eurostat_italy:china": "fats_out_part_IT",
             "eurostat_sweden:china": ("fats_out2_SE" if r["year"] <= 2009 else
                                      "fats_out2_r2_SE" if r["year"] <= 2020 else "fats_out_part_SE"),
+            "eurostat_spain:china": ("fats_out2_ES" if r["year"] <= 2009 else
+                                    "fats_out2_r2_ES" if r["year"] <= 2020 else "fats_out_part_ES"),
         }
         if ((r["series_id"] == "eurostat_italy_legal:china" and not 2007 <= r["year"] <= 2023)
                 or (r["series_id"] == "eurostat_italy:china" and r["year"] < 2021)):
@@ -227,6 +253,8 @@ def validate_business_data(data):
             raise ValueError("Swedish country table source mismatch")
         if r["series_id"] == "statfin_finland:china" and r["source_id"] != "finland_13k8":
             raise ValueError("Finnish country table source mismatch")
+        if r["series_id"] == "dst_denmark:china" and r["source_id"] != "dst_ofats4":
+            raise ValueError("Danish country table source mismatch")
     if not all(data["context"].get(k) for k in ("question", "interpretation", "geography", "rights")):
         raise ValueError("Business interpretation and coverage caveats required")
     if any(set(c) != {"id", "status", "description"} for c in data["coverage"]):

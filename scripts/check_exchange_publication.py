@@ -442,6 +442,8 @@ def check(site, url=None, screenshots=None):
                         "finland-affiliates-china-eurostat",
                         "italy-affiliates-china",
                         "sweden-affiliates-china-eurostat",
+                        "spain-affiliates-china",
+                        "denmark-affiliates-china",
                         "us-company-decisions", "german-company-risk"}
                     assert primary_cards.count() == len(primary_ids)
                     assert set(primary_cards.evaluate_all("nodes=>nodes.map(n=>n.id)")) == primary_ids
