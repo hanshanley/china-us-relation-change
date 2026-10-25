@@ -1,4 +1,4 @@
-.weibo-explorer {
+.weibo-explorer, .weibo-composition, .weibo-cohort, .weibo-methods {
   --weibo-current: #3d6f8c;
   --weibo-history: #9b733d;
   --weibo-ink: #171713;
@@ -11,13 +11,13 @@
 .publication-page main > .weibo-directory { margin-top: 18px; padding-top: 18px; }
 .weibo-overview { display: flex; flex-wrap: wrap; gap: 10px 32px; margin: 0 0 10px; }
 .weibo-overview p { display: flex; align-items: baseline; gap: 8px; margin: 0; }
-.weibo-overview strong { font: 500 24px/1.2 var(--serif, Georgia, serif); font-variant-numeric: tabular-nums; }
+.weibo-overview strong { font: 500 19px/1.2 var(--serif, Georgia, serif); font-variant-numeric: tabular-nums; }
 .weibo-overview span { color: var(--weibo-muted); font-size: 13px; }
 .weibo-intro { max-width: 850px; margin: 10px 0 6px; }
 .weibo-snapshot { max-width: 850px; margin: 0 0 18px; color: var(--weibo-muted); font-size: 12px; }
-.weibo-filters { display: grid; grid-template-columns: 1.6fr 2fr; gap: 12px 20px; margin: 20px 0 12px; }
+.weibo-filters { display: grid; grid-template-columns: minmax(0,1fr) auto; align-items: end; gap: 12px 20px; margin: 20px 0 12px; }
 .weibo-filters label { min-width: 0; font: 12px/1.5 Arial, sans-serif; color: var(--weibo-muted); }
-.weibo-filter-options { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px 20px; }
+.weibo-filter-options { display: grid; grid-column: 1 / -1; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px 20px; }
 .weibo-filter-toggle { min-height: 42px; padding: 8px 6px; border: 0; border-bottom: 1px solid var(--weibo-rule); background: none; color: var(--weibo-ink); font: 13px/1.5 Arial, sans-serif; cursor: pointer; }
 .weibo-filters input[type="search"], .weibo-filters select {
   display: block; box-sizing: border-box; width: 100%; min-width: 0; min-height: 42px;
@@ -27,27 +27,55 @@
 .weibo-filter-actions { grid-column: 1 / -1; display: flex; justify-content: space-between; align-items: center; gap: 12px; }
 .weibo-filter-actions label { display: inline-flex; align-items: center; gap: 7px; color: var(--weibo-muted); font: 12px/1.5 Arial, sans-serif; }
 .weibo-filter-actions input[type="checkbox"] { width: 15px; min-height: 15px; margin: 0; padding: 0; accent-color: var(--weibo-current); }
-.weibo-filter-actions button, .weibo-back {
+.weibo-filter-actions button, .weibo-close-publisher {
   min-height: 36px; border: 0; padding: 6px 0; background: none; color: var(--weibo-muted);
   font: 12px/1.5 Arial, sans-serif; text-decoration: underline; text-underline-offset: 3px; cursor: pointer;
 }
-.weibo-legend { display: flex; flex-wrap: wrap; gap: 8px 20px; margin: 12px 0 8px; color: var(--weibo-muted); font-size: 12px; }
-.weibo-legend > span { display: inline-flex; align-items: center; gap: 6px; }
-.weibo-legend i, .weibo-state-dot { width: 8px; height: 8px; border-radius: 50%; box-sizing: border-box; flex-shrink: 0; }
-.weibo-legend b { font-weight: 500; font-variant-numeric: tabular-nums; }
-.weibo-legend .current_evidence, .weibo-channel-link.current_evidence .weibo-state-dot { background: var(--weibo-current); }
-.weibo-legend .historical, .weibo-channel-link.historical .weibo-state-dot { border: 1.5px solid var(--weibo-history); }
-.weibo-legend .unknown, .weibo-channel-link.unknown .weibo-state-dot { background: var(--weibo-muted); }
+.weibo-state-filters { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 6px 18px; }
+.weibo-state-filters button { display: inline-flex; align-items: center; gap: 6px; min-height: 40px; padding: 7px 0; border: 0; border-bottom: 2px solid transparent; background: none; color: var(--weibo-muted); font: 12px/1.4 Arial,sans-serif; cursor: pointer; }
+.weibo-state-filters button[aria-pressed="true"] { border-bottom-color: var(--weibo-ink); color: var(--weibo-ink); }
+.weibo-state-filters button > span { font-variant-numeric: tabular-nums; }
+.weibo-state-filters i, .weibo-state-dot { width: 8px; height: 8px; border-radius: 50%; box-sizing: border-box; flex-shrink: 0; }
+.weibo-state-filters .profile, .weibo-channel-link.current_evidence .weibo-state-dot { background: var(--weibo-current); }
+.weibo-state-filters .historical, .weibo-channel-link.historical .weibo-state-dot { border: 1.5px solid var(--weibo-history); }
+.weibo-state-filters .mixed { background: linear-gradient(90deg,var(--weibo-current) 50%,var(--weibo-history) 50%); }
+.weibo-state-filters .unknown, .weibo-channel-link.unknown .weibo-state-dot { background: var(--weibo-muted); }
 .weibo-result-line { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 6px 16px; padding-bottom: 12px; border-bottom: 1px solid var(--weibo-rule); }
 .weibo-result-count { margin: 0; color: var(--weibo-muted); font-size: 12px; }
 .weibo-result-line > a { font-size: 12px; }
-.weibo-layout { display: grid; grid-template-columns: minmax(0,1fr) 350px; grid-template-areas: "results inspector"; gap: 30px; align-items: start; margin: 0 0 20px; }
-.weibo-results { grid-area: results; min-width: 0; }
-.weibo-map { display: block; }
-.weibo-brand { padding: 16px 0 10px; border-bottom: 1px solid var(--weibo-rule); }
-.weibo-brand h3 { margin: 0; font: 600 16px/1.4 var(--serif, Georgia, serif); overflow-wrap: anywhere; }
-.weibo-brand > p { margin: 3px 0 7px; color: var(--weibo-muted); font-size: 11px; }
-.weibo-dots { display: grid; gap: 3px; }
+.weibo-layout { margin: 16px 0 24px; }
+.weibo-results { min-width: 0; }
+.weibo-map { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 12px; }
+.weibo-brand { min-width: 0; border: 1px solid var(--weibo-rule); }
+.weibo-publisher-link {
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;
+  box-sizing: border-box; min-height: 174px; height: 100%; padding: 18px 12px 14px;
+  color: inherit; text-decoration: none !important; text-align: center;
+}
+.weibo-publisher-link:hover { background: #3d6f8c07; }
+.weibo-publisher-link[aria-current="true"] { background: #3d6f8c0b; outline: 1px solid var(--weibo-current); outline-offset: -1px; }
+.weibo-publisher-mark { display: flex; align-items: center; justify-content: center; min-height: 56px; width: 100%; }
+.weibo-publisher-mark img { display: block; width: 100%; max-width: 180px; height: 52px; object-fit: contain; }
+.weibo-brand[data-outlet-id="forbes"] .weibo-publisher-mark img { filter: brightness(0); }
+.weibo-wordmark { font: 600 22px/1.1 var(--serif, Georgia, serif); overflow-wrap: anywhere; }
+.weibo-brand .weibo-publisher-name { margin: 0; max-width: 100%; font: 400 12px/1.35 Arial,sans-serif; overflow-wrap: anywhere; }
+.weibo-publisher-state { display: inline-flex; align-items: center; justify-content: center; gap: 6px; color: var(--weibo-muted); font-size: 11px; line-height: 1.35; }
+.weibo-publisher-state i { display: inline-block; box-sizing: border-box; flex: 0 0 8px; width: 8px; height: 8px; border-radius: 50%; }
+.weibo-publisher-state.profile i { background: var(--weibo-current); }
+.weibo-publisher-state.historical i { border: 1.5px solid var(--weibo-history); }
+.weibo-publisher-state.mixed i { background: linear-gradient(90deg,var(--weibo-current) 50%,var(--weibo-history) 50%); }
+.weibo-publisher-state.unknown i { background: var(--weibo-muted); }
+.weibo-publisher-count { color: var(--weibo-muted); font-size: 11px; }
+.weibo-publisher-detail { grid-column: 1 / -1; padding: 22px 18px; border-top: 1px solid var(--weibo-current); border-bottom: 1px solid var(--weibo-rule); scroll-margin-top: 20px; min-width: 0; }
+.weibo-publisher-detail > h3 { margin: 0; font: 500 25px/1.2 var(--serif, Georgia, serif); overflow-wrap: anywhere; }
+.weibo-close-publisher { display: none; float: right; min-height: 40px; margin: -4px 0 8px 16px; }
+.weibo-interactive .weibo-close-publisher { display: block; }
+.weibo-publisher-summary { color: var(--weibo-muted); font-size: 12px; }
+.weibo-publisher-detail > h3:focus { outline: none; }
+.weibo-publisher-detail .weibo-dots { margin: 16px 0 20px; padding: 10px 0; border-top: 1px solid var(--weibo-rule); border-bottom: 1px solid var(--weibo-rule); }
+#weibo-empty { grid-column: 1 / -1; }
+.weibo-dots { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 3px 16px; }
+.weibo-interactive .weibo-dots { max-height: 220px; overflow-y: auto; }
 .weibo-channel-link {
   display: grid; grid-template-columns: 8px minmax(0,1fr) auto; align-items: center; gap: 9px;
   min-height: 44px; padding: 7px 10px; border-left: 2px solid transparent;
@@ -57,7 +85,7 @@
 .weibo-link-state { max-width: 125px; color: var(--weibo-muted); font-size: 11px; text-align: right; }
 .weibo-channel-link:hover { background: #3d6f8c08; }
 .weibo-channel-link[aria-current="true"] { border-left-color: var(--weibo-current); background: #3d6f8c0c; }
-.weibo-channel-link:focus-visible, .weibo-filters :focus-visible, .weibo-pagination button:focus-visible, .weibo-back:focus-visible {
+.weibo-publisher-link:focus-visible, .weibo-channel-link:focus-visible, .weibo-filters :focus-visible, .weibo-pagination button:focus-visible, .weibo-close-publisher:focus-visible {
   outline: 2px solid var(--weibo-current); outline-offset: 2px;
 }
 .weibo-pagination { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin: 18px 0; }
@@ -67,20 +95,19 @@
 }
 .weibo-pagination button:disabled { opacity: .4; cursor: default; }
 .weibo-pagination span { color: var(--weibo-muted); font-size: 12px; text-align: center; }
-.weibo-inspector { grid-area: inspector; min-width: 0; margin-top: 16px; padding: 0 0 0 22px; border-left: 1px solid var(--weibo-rule); }
-.weibo-interactive .weibo-inspector { position: sticky; top: 20px; max-height: calc(100dvh - 40px); overflow-y: auto; }
-.weibo-inspector-label { margin: 0 0 14px; color: var(--weibo-muted); font-size: 11px; }
-.weibo-back { display: none; min-height: 44px; margin-bottom: 12px; }
-.weibo-channel-detail { min-width: 0; scroll-margin-top: 20px; }
+.weibo-interactive .weibo-inspector { display: none; }
+.weibo-explorer:not(.weibo-interactive) .weibo-inspector { margin-top: 28px; }
+.weibo-channel-detail { min-width: 0; max-width: 820px; scroll-margin-top: 20px; }
 .weibo-channel-detail + .weibo-channel-detail { margin-top: 28px; }
 .weibo-interactive .weibo-channel-detail { margin-top: 0; }
 .weibo-category { margin: 0 0 5px; color: var(--weibo-muted); font-size: 11px; }
-.weibo-channel-detail h3 { margin: 0; font: 500 23px/1.2 var(--serif, Georgia, serif); letter-spacing: -.02em; overflow-wrap: anywhere; }
-.weibo-channel-detail h3:focus { outline: none; }
+.weibo-channel-detail h4 { margin: 0; font: 500 20px/1.3 var(--serif, Georgia, serif); overflow-wrap: anywhere; }
+.weibo-channel-detail h4:focus { outline: none; }
 .weibo-channel-name { margin: 10px 0 8px; font-size: 16px; overflow-wrap: anywhere; }
 .weibo-evidence-label { margin: 8px 0; font-size: 12px; }
 .weibo-evidence-label.current_evidence { color: var(--weibo-current); }
 .weibo-evidence-label.historical { color: #805b29; }
+.weibo-evidence-date { margin: -4px 0 12px; color: var(--weibo-muted); font-size: 12px; }
 .weibo-profile { display: flex; align-items: baseline; flex-wrap: wrap; gap: 6px 16px; }
 .weibo-uid { color: var(--weibo-muted); font: 11px/1.5 var(--mono, monospace); }
 .weibo-channel-detail > p, .weibo-channel-detail details p { font-size: 13px; overflow-wrap: anywhere; }
@@ -92,8 +119,18 @@
 .weibo-sources li { margin-bottom: 16px; overflow-wrap: anywhere; }
 .weibo-sources p { margin: 6px 0; }
 .weibo-sources small { color: var(--weibo-muted); font-size: 11px; }
+.weibo-leading-sources { display: flex; flex-wrap: wrap; gap: 10px 28px; padding: 0; margin: 16px 0; list-style: none; }
+.weibo-leading-sources li { font-size: 12px; overflow-wrap: anywhere; }
+.weibo-leading-sources small { display: block; margin-top: 3px; color: var(--weibo-muted); font-size: 11px; }
+.weibo-composition h2 { margin: 0 0 8px; font: 500 21px/1.3 var(--serif, Georgia, serif); }
+.weibo-composition > p { margin: 8px 0 14px; color: var(--weibo-muted); font-size: 13px; }
+.weibo-composition .coverage-bar { max-width: 780px; }
+.weibo-composition-key { display: flex; flex-wrap: wrap; gap: 8px 24px; margin: 12px 0; font-size: 12px; }
+.weibo-composition-key > span { display: inline-flex; align-items: center; gap: 6px; }
+.weibo-composition-key strong { font-weight: 500; font-variant-numeric: tabular-nums; }
+.weibo-composition .weibo-composition-note { max-width: 850px; margin-bottom: 22px; font-size: 12px; }
 .weibo-cohort, .weibo-methods { margin-top: 10px; border-top: 1px solid var(--weibo-rule); padding: 12px 0; }
-.weibo-cohort > summary, .weibo-methods > summary { font: 14px/1.5 Arial, sans-serif; cursor: pointer; }
+.weibo-cohort > summary, .weibo-methods > summary, .publication-page .weibo-cohort > summary, .publication-page .weibo-methods > summary { font: 500 19px/1.4 var(--serif, Georgia, serif); cursor: pointer; }
 .weibo-cohort p, .weibo-methods p { max-width: 850px; color: var(--weibo-muted); font-size: 13px; }
 .weibo-coverage, .weibo-recovery { color: #171713; font: 14px/1.5 Arial, sans-serif; }
 .publication-page main > .weibo-coverage, .publication-page main > .weibo-recovery { margin-top: 16px; padding-top: 16px; }
@@ -136,20 +173,23 @@
 .recovery-segment-labels { margin: 6px 0; color: #655f55; font-size: 11px; }
 .coverage-unmeasured { margin: 18px 0 6px; max-width: 850px; color: #655f55; font-size: 13px; }
 .coverage-unmeasured p { margin: 8px 0; }
+@media (max-width: 1000px) {
+  .weibo-map { grid-template-columns: repeat(3,minmax(0,1fr)); }
+}
 @media (max-width: 760px) {
   .weibo-overview { gap: 8px 20px; }
-  .weibo-overview strong { font-size: 22px; }
+  .weibo-overview strong { font-size: 18px; }
   .weibo-overview span { font-size: 12px; }
   .weibo-filters { grid-template-columns: minmax(0,1fr) auto; align-items: end; gap: 10px 14px; margin-top: 16px; }
   .weibo-filter-options { grid-column: 1 / -1; gap: 10px 14px; }
   .weibo-filters input[type="search"], .weibo-filters select { font-size: 16px; }
-  .weibo-layout { display: block; margin-bottom: 16px; }
-  .weibo-interactive:not(.weibo-detail-open) .weibo-inspector { display: none; }
-  .weibo-interactive.weibo-detail-open .weibo-results { display: none; }
-  .weibo-interactive .weibo-inspector { position: static; max-height: none; overflow: visible; }
-  .weibo-back { display: inline-block; }
-  .weibo-inspector { padding: 16px 0; border-left: 0; border-bottom: 1px solid var(--weibo-rule); }
-  .weibo-brand { padding-top: 14px; }
+  .weibo-map { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 10px; }
+  .weibo-publisher-link { min-height: 164px; padding: 15px 10px 12px; }
+  .weibo-publisher-detail { padding: 18px 10px; }
+  .weibo-publisher-detail > h3 { font-size: 22px; }
+  .weibo-dots { grid-template-columns: minmax(0,1fr); }
+  .weibo-state-filters { gap: 4px 14px; }
+  .weibo-wordmark { font-size: 19px; }
   .weibo-link-state { max-width: 100px; font-size: 10px; }
   .weibo-channel-link { gap: 7px; padding-right: 6px; padding-left: 6px; }
   .coverage-key { grid-template-columns: 1fr; gap: 0; }
@@ -157,6 +197,5 @@
   .coverage-category strong { grid-column: 3; }
 }
 @media print {
-  .weibo-filters, .weibo-pagination, .weibo-back { display: none; }
-  .weibo-interactive .weibo-inspector { position: static; max-height: none; overflow: visible; }
+  .weibo-filters, .weibo-pagination, .weibo-close-publisher { display: none; }
 }

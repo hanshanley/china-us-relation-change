@@ -64,6 +64,27 @@ def test_long_run_history_preserves_every_poll_and_selects_first_round_not_an_av
     assert min(r["year"] for group in panel for r in group["points"]) == 2020
 
 
+def test_plot_audit_reconciles_each_survey_round_instead_of_overwriting_its_year():
+    spec = importlib.util.spec_from_file_location("plot_audit", ROOT / "scripts/audit_exchange_plots.py")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    polls = [r for r in data()["observations"] if r["series_id"] == "gallup_us:favorable" and r["year"] == 2000]
+    assert len(polls) > 1
+    audit = module.Audit.__new__(module.Audit)
+    audit.datasets = {"opinions.html": {"observations": polls}}
+    audit.plotted = {"opinions.html": [
+        dict(series_id=r["series_id"], year=str(r["year"]), survey_id=r["survey_id"],
+             value=str(r["value"]), plotted_value=str(r["value"])) for r in polls]}
+    audit.weibo = {"accounts": []}
+    audit.issues = []
+    audit.reconcile_inputs()
+    assert audit.issues == []
+    row = audit.plotted["opinions.html"][0]
+    row["value"] = row["plotted_value"] = str(polls[0]["value"] + 1)
+    audit.reconcile_inputs()
+    assert [issue["kind"] for issue in audit.issues] == ["reported_value", "transformed_value"]
+
+
 def test_gallup_parser_keeps_distinct_polls_and_rejects_missing_or_wrong_country_data(monkeypatch):
     rows = ["2000 Jan 25-26 4 29 33 18 16 33 51",
             "2000 Mar 17-19 6 29 40 16 9 35 56",

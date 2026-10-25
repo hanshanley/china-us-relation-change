@@ -126,9 +126,9 @@ class Audit:
     def reconcile_inputs(self):
         for page, rows in self.plotted.items():
             data = self.datasets[page]
-            raw = {(r["series_id"], r["year"]): r for r in data["observations"]}
+            raw = {(r["series_id"], r.get("survey_id") or r["year"]): r for r in data["observations"]}
             for row in rows:
-                original = raw[(row["series_id"], int(row["year"]))]
+                original = raw[(row["series_id"], row.get("survey_id") or int(row["year"]))]
                 expected = original["value"]
                 if not close(row["value"], expected):
                     self.issue(page, "reported_value", row)

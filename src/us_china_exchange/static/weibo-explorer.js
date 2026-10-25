@@ -117,93 +117,124 @@
   const form = root.querySelector("#weibo-filters");
   const search = root.querySelector("#weibo-search");
   const category = root.querySelector("#weibo-category");
+  const relationship = root.querySelector("#weibo-relationship");
   const evidence = root.querySelector("#weibo-evidence");
   const followup = root.querySelector("#weibo-followup");
   const filterOptions = root.querySelector("#weibo-filter-options");
   const filterToggle = root.querySelector("#weibo-filter-toggle");
-  const mobileFilters = matchMedia("(max-width: 760px)");
   const links = [...root.querySelectorAll(".weibo-channel-link")];
   const cards = [...root.querySelectorAll(".weibo-brand")];
+  const publisherLinks = [...root.querySelectorAll(".weibo-publisher-link")];
+  const publisherDetails = [...root.querySelectorAll(".weibo-publisher-detail")];
   const details = [...root.querySelectorAll(".weibo-channel-detail")];
+  const map = root.querySelector("#weibo-map");
+  const detailList = root.querySelector("#weibo-detail-list");
+  const statusButtons = [...root.querySelectorAll("[data-publisher-filter]")];
   const pager = root.querySelector("#weibo-pagination");
   const previous = root.querySelector("#weibo-previous");
   const next = root.querySelector("#weibo-next");
-  const pageSize = 8;
+  const pageSize = 12;
   const normalize = value => String(value).normalize("NFKC").toLocaleLowerCase();
   const byId = new Map(accounts.map(account => [account.id, {...account, search: normalize(account.search)}]));
+  const publishers = payload.publishers.map(publisher => ({...publisher, search: normalize(publisher.search)}));
+  const byPublisher = new Map(publishers.map(publisher => [publisher.id, publisher]));
   const parameters = new URL(location.href).searchParams;
   search.value = parameters.get("q") || "";
-  for (const [select, parameter] of [[category, "category"], [evidence, "evidence"]]) {
+  for (const [select, parameter] of [[category, "category"], [relationship, "relationship"], [evidence, "evidence"]]) {
     if ([...select.options].some(option => option.value === parameters.get(parameter))) {
       select.value = parameters.get(parameter);
     }
   }
   followup.checked = parameters.get("followup") === "1";
-  let filtersExpanded = Boolean(category.value || evidence.value || followup.checked);
+  let filtersExpanded = Boolean(category.value || relationship.value || followup.checked);
   const layoutFilters = () => {
-    const expanded = !mobileFilters.matches || filtersExpanded;
-    filterOptions.hidden = !expanded;
-    filterToggle.hidden = !mobileFilters.matches;
-    filterToggle.setAttribute("aria-expanded", String(expanded));
-    const active = [category.value, evidence.value, followup.checked].filter(Boolean).length;
-    filterToggle.textContent = active ? `Filters (${active})` : "Filters";
+    filterOptions.hidden = !filtersExpanded;
+    filterToggle.hidden = false;
+    filterToggle.setAttribute("aria-expanded", String(filtersExpanded));
+    const active = [category.value, relationship.value, followup.checked].filter(Boolean).length;
+    filterToggle.textContent = active ? `More filters (${active})` : "More filters";
   };
   filterToggle.addEventListener("click", () => {
     filtersExpanded = !filtersExpanded;
     layoutFilters();
   });
-  mobileFilters.addEventListener("change", layoutFilters);
   let page = Math.max(1, Number.parseInt(parameters.get("page"), 10) || 1);
-  const hashId = () => {
+  const hashSelection = () => {
     try {
-      return location.hash.startsWith("#weibo-account-") ? decodeURIComponent(location.hash.slice(15)) : "";
-    } catch { return ""; }
+      if (location.hash.startsWith("#weibo-account-")) {
+        const account = byId.get(decodeURIComponent(location.hash.slice(15)));
+        return account ? {publisher: account.outlet, account: account.id} : null;
+      }
+      if (location.hash.startsWith("#weibo-publisher-")) {
+        const publisher = decodeURIComponent(location.hash.slice(17));
+        return byPublisher.has(publisher) ? {publisher, account: ""} : null;
+      }
+    } catch {}
+    return null;
   };
-  let selected = byId.has(hashId()) ? hashId() : "";
-  const matchingAccounts = () => {
+  const requested = hashSelection();
+  let selectedPublisher = requested?.publisher || "";
+  let selected = requested?.account || "";
+  const matchingPublishers = () => {
     const terms = normalize(search.value).trim().split(/\s+/).filter(Boolean);
-    return accounts.filter(account => {
-      const item = byId.get(account.id);
-      return (!category.value || item.category === category.value) &&
-        (!evidence.value || item.state === evidence.value) &&
-        (!followup.checked || item.needs_review) &&
-        terms.every(term => item.search.includes(term));
-    });
+    return publishers.filter(publisher =>
+      (!category.value || publisher.categories.includes(category.value)) &&
+      (!relationship.value || publisher.relationships.includes(relationship.value)) &&
+      (!evidence.value || publisher.state === evidence.value) &&
+      (!followup.checked || publisher.needs_review) &&
+      terms.every(term => publisher.search.includes(term)));
   };
   const clearFilters = () => {
-    search.value = category.value = evidence.value = "";
+    search.value = category.value = relationship.value = evidence.value = "";
     followup.checked = false;
     filtersExpanded = false;
   };
   const update = ({writeUrl = true, resetPage = false, revealSelection = false} = {}) => {
     layoutFilters();
-    const matching = matchingAccounts();
-    const ids = new Set(matching.map(account => account.id));
-    const outlets = new Set(matching.map(account => account.outlet));
-    const ordered = cards.map(card => card.dataset.outletId).filter(id => outlets.has(id));
-    if (!ids.has(selected)) selected = matching[0]?.id || "";
+    const matching = matchingPublishers();
+    const ordered = matching.map(publisher => publisher.id);
+    if (selectedPublisher && !ordered.includes(selectedPublisher)) selectedPublisher = selected = "";
     if (resetPage) page = 1;
-    if (revealSelection && selected) page = Math.floor(ordered.indexOf(byId.get(selected).outlet) / pageSize) + 1;
+    if (revealSelection && selectedPublisher) page = Math.floor(ordered.indexOf(selectedPublisher) / pageSize) + 1;
     const pages = Math.max(1, Math.ceil(ordered.length / pageSize));
     page = Math.max(1, Math.min(page, pages));
     const visible = new Set(ordered.slice((page - 1) * pageSize, page * pageSize));
-    if (selected && !visible.has(byId.get(selected).outlet)) {
-      selected = matching.find(account => visible.has(account.outlet))?.id || "";
+    if (selectedPublisher && !visible.has(selectedPublisher)) selectedPublisher = selected = "";
+    if (selectedPublisher && !byPublisher.get(selectedPublisher).accounts.includes(selected)) {
+      selected = byPublisher.get(selectedPublisher).accounts[0];
     }
     for (const link of links) {
-      link.hidden = !ids.has(link.dataset.accountId);
-      link.dataset.matched = String(ids.has(link.dataset.accountId));
       link.setAttribute("aria-current", String(link.dataset.accountId === selected));
     }
     for (const card of cards) card.hidden = !visible.has(card.dataset.outletId);
+    for (const link of publisherLinks) {
+      link.setAttribute("aria-current", String(link.dataset.outletId === selectedPublisher));
+      link.setAttribute("aria-expanded", String(link.dataset.outletId === selectedPublisher));
+    }
+    for (const detail of publisherDetails) {
+      detail.hidden = detail.dataset.outletId !== selectedPublisher;
+      if (detail.hidden && detail.parentElement === map) detailList.append(detail);
+    }
+    if (selectedPublisher) {
+      const activeCards = cards.filter(card => !card.hidden);
+      const index = activeCards.findIndex(card => card.dataset.outletId === selectedPublisher);
+      const columns = getComputedStyle(map).gridTemplateColumns.split(" ").length;
+      const rowEnd = activeCards[Math.min(activeCards.length - 1, Math.floor(index / columns) * columns + columns - 1)];
+      const detail = document.getElementById(`weibo-publisher-${selectedPublisher}`);
+      if (detail.previousElementSibling !== rowEnd) {
+        const focused = detail.contains(document.activeElement) ? document.activeElement : null;
+        rowEnd.after(detail);
+        focused?.focus({preventScroll: true});
+      }
+    }
     for (const detail of details) detail.hidden = detail.dataset.accountId !== selected;
     root.querySelector("#weibo-empty").hidden = matching.length !== 0;
-    root.querySelector("#weibo-empty-detail").hidden = matching.length !== 0;
+    root.classList.toggle("weibo-detail-open", !!selectedPublisher);
     root.querySelector("#weibo-result-count").textContent =
-      `${matching.length} matching channel${matching.length === 1 ? "" : "s"} across ` +
-      `${outlets.size} publisher / brand group${outlets.size === 1 ? "" : "s"}`;
-    for (const count of root.querySelectorAll("[data-state-count]")) {
-      count.textContent = matching.filter(account => account.state === count.dataset.stateCount).length;
+      (matching.length ? `Showing ${(page - 1) * pageSize + 1}–${Math.min(page * pageSize, matching.length)} of ` : "") +
+      `${matching.length} publisher${matching.length === 1 ? "" : "s"}`;
+    for (const button of statusButtons) {
+      button.setAttribute("aria-pressed", String(button.dataset.publisherFilter === evidence.value));
     }
     pager.hidden = pages === 1;
     previous.disabled = page === 1;
@@ -212,39 +243,43 @@
     if (writeUrl) {
       const url = new URL(location.href);
       for (const [key, value] of [["q", search.value.trim()], ["category", category.value],
+        ["relationship", relationship.value],
         ["evidence", evidence.value], ["followup", followup.checked ? "1" : ""],
         ["page", page > 1 ? String(page) : ""]]) {
         if (value) url.searchParams.set(key, value);
         else url.searchParams.delete(key);
       }
-      url.hash = root.classList.contains("weibo-detail-open") && selected ? `weibo-account-${selected}` : "";
+      url.hash = selectedPublisher ? `weibo-account-${selected}` : "";
       if (location.protocol === "file:") url.search = location.search;
       history.replaceState(null, "", url);
     }
   };
-  const reveal = (id, writeUrl = true) => {
-    if (!byId.has(id)) return;
-    selected = id;
-    if (!matchingAccounts().some(account => account.id === selected)) clearFilters();
-    root.classList.add("weibo-detail-open");
+  const reveal = (publisher, account = "", writeUrl = true) => {
+    if (!byPublisher.has(publisher)) return;
+    selectedPublisher = publisher;
+    selected = account || byPublisher.get(publisher).accounts[0];
+    if (!matchingPublishers().some(item => item.id === publisher)) clearFilters();
     update({writeUrl, revealSelection: true});
   };
   const backToList = () => {
-    root.classList.remove("weibo-detail-open");
-    update({revealSelection: true});
-    const link = links.find(node => node.dataset.accountId === selected);
+    const identity = selectedPublisher;
+    selectedPublisher = selected = "";
+    update();
+    const link = publisherLinks.find(node => node.dataset.outletId === identity);
     link?.focus({preventScroll: true});
     link?.scrollIntoView({block: "center", behavior: "auto"});
   };
-  const scrollToDetail = () => root.querySelector(".weibo-inspector").scrollIntoView({block: "start", behavior: "auto"});
+  const scrollToDetail = () => {
+    if (selectedPublisher) {
+      document.getElementById(`weibo-publisher-${selectedPublisher}`).scrollIntoView({block: "start", behavior: "auto"});
+    }
+  };
   root.classList.add("weibo-interactive");
   form.hidden = false;
-  const back = root.querySelector("#weibo-back");
-  back.hidden = false;
-  back.addEventListener("click", backToList);
+  for (const button of root.querySelectorAll(".weibo-close-publisher")) button.addEventListener("click", backToList);
   const changed = () => {
-    if (category.value || evidence.value || followup.checked) filtersExpanded = true;
-    root.classList.remove("weibo-detail-open");
+    if (category.value || relationship.value || followup.checked) filtersExpanded = true;
+    selectedPublisher = selected = "";
     update({resetPage: true});
   };
   form.addEventListener("submit", event => event.preventDefault());
@@ -255,24 +290,51 @@
     clearFilters();
     changed();
   });
+  for (const button of statusButtons) button.addEventListener("click", () => {
+    evidence.value = button.dataset.publisherFilter;
+    changed();
+  });
   for (const [button, direction] of [[previous, -1], [next, 1]]) {
     button.addEventListener("click", () => {
       page += direction;
-      root.classList.remove("weibo-detail-open");
+      selectedPublisher = selected = "";
       update();
-      const first = links.find(link => !link.hidden && !link.closest(".weibo-brand").hidden);
+      const first = publisherLinks.find(link => !link.closest(".weibo-brand").hidden);
       first?.focus({preventScroll: true});
       first?.scrollIntoView({block: "start", behavior: "auto"});
+    });
+  }
+  for (const link of publisherLinks) {
+    link.addEventListener("click", event => {
+      if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+      event.preventDefault();
+      if (selectedPublisher === link.dataset.outletId) {
+        backToList();
+        return;
+      }
+      reveal(link.dataset.outletId);
+      document.getElementById(`weibo-publisher-${selectedPublisher}`).querySelector("h3").focus({preventScroll: true});
+      scrollToDetail();
+    });
+    link.addEventListener("keydown", event => {
+      if (!["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown", "Home", "End"].includes(event.key)) return;
+      event.preventDefault();
+      const visible = publisherLinks.filter(item => !item.closest(".weibo-brand").hidden);
+      const columns = getComputedStyle(root.querySelector("#weibo-map")).gridTemplateColumns.split(" ").length;
+      const step = event.key === "ArrowUp" ? -columns : event.key === "ArrowDown" ? columns :
+        event.key === "ArrowLeft" ? -1 : 1;
+      const index = event.key === "Home" ? 0 : event.key === "End" ? visible.length - 1 :
+        Math.max(0, Math.min(visible.length - 1, visible.indexOf(link) + step));
+      visible[index]?.focus();
     });
   }
   for (const link of links) link.addEventListener("click", event => {
     if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
     event.preventDefault();
-    reveal(link.dataset.accountId);
-    document.getElementById(`weibo-account-${selected}`).querySelector("h3").focus({preventScroll: true});
-    if (matchMedia("(max-width: 760px)").matches) {
-      scrollToDetail();
-    }
+    reveal(byId.get(link.dataset.accountId).outlet, link.dataset.accountId);
+    const heading = document.getElementById(`weibo-account-${selected}`).querySelector("h4");
+    heading.focus({preventScroll: true});
+    heading.scrollIntoView({block: "nearest", behavior: "auto"});
   });
   root.addEventListener("keydown", event => {
     if (event.key === "Escape" && root.classList.contains("weibo-detail-open")) {
@@ -281,17 +343,19 @@
     }
   });
   window.addEventListener("hashchange", () => {
-    if (byId.has(hashId())) {
-      reveal(hashId(), false);
+    const target = hashSelection();
+    if (target) {
+      reveal(target.publisher, target.account, false);
       scrollToDetail();
     }
     else {
-      root.classList.remove("weibo-detail-open");
+      selectedPublisher = selected = "";
       update({writeUrl: false});
     }
   });
-  if (selected) {
-    reveal(selected);
+  window.addEventListener("resize", () => update({writeUrl: false}));
+  if (selectedPublisher) {
+    reveal(selectedPublisher, selected);
     requestAnimationFrame(scrollToDetail);
   } else {
     update({writeUrl: false});

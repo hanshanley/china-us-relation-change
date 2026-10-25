@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Check public account identity, complete pagination and compact coverage semantics."""
+"""Reconcile the publisher wall, account evidence, complete pagination and coverage."""
 
 import argparse
 import json
@@ -14,8 +14,8 @@ from us_china_exchange.weibo_analysis import validate_summary
 
 
 def visible_ids(page):
-    return set(page.locator(".weibo-channel-link:visible").evaluate_all(
-        "nodes=>nodes.map(n=>n.dataset.accountId)"))
+    return set(page.locator(".weibo-publisher-link:visible").evaluate_all(
+        "nodes=>nodes.map(n=>n.dataset.outletId)"))
 
 
 def all_pages(page):
@@ -24,8 +24,8 @@ def all_pages(page):
         page.locator("#weibo-previous").click()
     while True:
         current = visible_ids(page)
-        assert not seen.intersection(current), "Channel repeated on different result pages"
-        assert page.locator(".weibo-brand:visible").count() <= 8
+        assert not seen.intersection(current), "Publisher repeated on different result pages"
+        assert page.locator(".weibo-brand:visible").count() <= 12
         seen.update(current)
         if page.locator("#weibo-next").is_disabled():
             break
@@ -37,56 +37,98 @@ def all_pages(page):
 
 def check_page(page, summary):
     accounts = summary["accounts"]
-    ids = {a["account_id"] for a in accounts}
+    payload = json.loads(page.locator("#weibo-explorer-data").text_content())
+    publishers = {p["id"]: p for p in payload["publishers"]}
+    account_model = {a["id"]: a for a in payload["accounts"]}
+    groups = {}
+    for account in accounts:
+        groups.setdefault(account["outlet_id"], []).append(account)
+    def state(rows):
+        periods = {a["existence"] for a in rows}
+        return ("mixed" if {"current_evidence", "historical"} <= periods else
+                "unknown" if "unknown" in periods else "profile" if "current_evidence" in periods else "historical")
     expect(page.locator("#weibo-filters")).to_be_visible()
     assert page.locator("#weibo-directory").evaluate("n=>n.tagName") == "SECTION"
     assert not page.locator("#coverage-waffle,#coverage-percent").count()
     assert not page.locator("#module-chart,.native-chart,#monthly-posts,#publication-years").count()
     assert not page.locator("#weibo-recovery").evaluate("n=>n.open")
+    assert "%" not in page.locator("#weibo-directory").inner_text()
     assert page.locator(".weibo-channel-link").count() == len(accounts)
-    assert page.locator(".weibo-brand").count() == len({a["outlet_id"] for a in accounts})
+    assert page.locator(".weibo-brand").count() == len(groups)
+    assert page.locator(".weibo-publisher-link").count() == len(groups)
+    requested = [identity for identity in ("nyt", "wsj", "bloomberg", "forbes", "npr", "vogue") if identity in groups]
+    assert page.locator(".weibo-brand").evaluate_all(
+        "nodes=>nodes.slice(0,6).map(n=>n.dataset.outletId)")[:len(requested)] == requested
+    for identity, rows in groups.items():
+        assert set(publishers[identity]["research_categories"]) == {
+            a.get("category", "not_recorded") for a in rows}
+        assert set(publishers[identity]["categories"]) == {
+            account_model[a["account_id"]]["editorial_category"] for a in rows}
+        assert set(publishers[identity]["relationships"]) == {
+            account_model[a["account_id"]]["relationship"] for a in rows}
+        card = page.locator(f'.weibo-brand[data-outlet-id="{identity}"]')
+        expect(card).to_have_attribute("data-evidence-state", state(rows))
+        expect(card.locator(".weibo-publisher-state")).to_have_text({
+            "mixed": "Mixed evidence", "profile": "Profile evidence only",
+            "historical": "Historical evidence only", "unknown": "Evidence period incomplete"}[state(rows)])
+    assert page.locator(".weibo-publisher-mark img").evaluate_all(
+        "nodes=>nodes.every(n=>n.complete&&n.naturalWidth>0)"), "A publisher mark failed to load"
     for account in accounts:
         link = page.locator(f'.weibo-channel-link[data-account-id="{account["account_id"]}"]')
         expect(link.locator(".weibo-link-name")).to_have_text(account["display_name"] or account["outlet_name"])
-    first = page.locator(".weibo-channel-link:visible").first
-    assert first.bounding_box()["y"] < 1000, "Account browsing is buried below the primary content"
+        detail = page.locator(f'.weibo-channel-detail[data-account-id="{account["account_id"]}"]')
+        expect(detail.locator(".weibo-relationship")).to_have_text(account["relationship"])
+        if account.get("attribution_end"):
+            expect(detail.locator(".weibo-period")).to_contain_text(account["attribution_end"])
+    first = page.locator(".weibo-publisher-link:visible").first
+    assert first.bounding_box()["y"] < 1000, "Publisher browsing is buried below the primary content"
     assert first.bounding_box()["height"] >= 44
-    assert all_pages(page) == ids
-    expect(page.locator("#weibo-result-count")).to_contain_text(str(len(accounts)))
-    if not page.locator("#weibo-filter-options").is_visible():
-        page.locator("#weibo-filter-toggle").click()
-    page.select_option("#weibo-evidence", "historical")
-    if page.viewport_size["width"] <= 760:
-        page.locator("#weibo-filter-toggle").click()
+    assert all_pages(page) == set(groups)
+    expect(page.locator("#weibo-result-count")).to_contain_text(f"of {len(groups)} publishers")
+    expect(page.locator(".weibo-overview")).to_contain_text(str(len(accounts)))
+    expect(page.locator("#weibo-filter-options")).to_be_hidden()
+    for evidence in ("profile", "historical", "mixed"):
+        button = page.locator(f'[data-publisher-filter="{evidence}"]')
+        expect(button).to_be_visible()
+        button.click()
+        expect(button).to_have_attribute("aria-pressed", "true")
+        assert all_pages(page) == {identity for identity, rows in groups.items() if state(rows) == evidence}
         expect(page.locator("#weibo-filter-options")).to_be_hidden()
-        expect(page.locator("#weibo-filter-toggle")).to_have_text("Filters (1)")
-    assert all_pages(page) == {a["account_id"] for a in accounts if a["existence"] == "historical"}
+    page.locator('[data-publisher-filter=""]').click()
     if not page.locator("#weibo-filter-options").is_visible():
         page.locator("#weibo-filter-toggle").click()
-    page.select_option("#weibo-evidence", "")
     page.check("#weibo-followup")
-    assert all_pages(page) == {a["account_id"] for a in accounts
-                               if a.get("primary_audit_status") != "numeric_binding_rechecked"}
+    assert all_pages(page) == {identity for identity, rows in groups.items()
+                               if any(a.get("primary_audit_status") != "numeric_binding_rechecked" for a in rows)}
     page.locator("#weibo-filters button[type=reset]").click()
     if not page.locator("#weibo-filter-options").is_visible():
         page.locator("#weibo-filter-toggle").click()
-    for category in sorted({a.get("category", "not_recorded") for a in accounts}):
+    for category in sorted({c for p in publishers.values() for c in p["categories"]}):
         page.select_option("#weibo-category", category)
-        assert all_pages(page) == {a["account_id"] for a in accounts if a.get("category", "not_recorded") == category}
+        assert all_pages(page) == {identity for identity, p in publishers.items() if category in p["categories"]}
     page.select_option("#weibo-category", "")
+    for relationship in sorted({r for p in publishers.values() for r in p["relationships"]}):
+        page.select_option("#weibo-relationship", relationship)
+        assert all_pages(page) == {identity for identity, p in publishers.items() if relationship in p["relationships"]}
+    page.select_option("#weibo-relationship", "")
     target = next(a for a in accounts if a.get("uid"))
     page.fill("#weibo-search", target["uid"])
+    tile = page.locator(f'.weibo-publisher-link[data-outlet-id="{target["outlet_id"]}"]')
+    expect(tile).to_be_visible()
+    tile.press("Enter")
     link = page.locator(f'.weibo-channel-link[data-account-id="{target["account_id"]}"]')
-    expect(link).to_be_visible()
     link.press("Enter")
     detail = page.locator(".weibo-channel-detail:visible")
     expect(detail).to_have_count(1)
     expect(detail).to_have_attribute("data-account-id", target["account_id"])
     expect(detail.locator(".weibo-relationship")).to_have_text(target["relationship"])
     expect(detail.locator(".weibo-uid")).to_have_text(target["uid"])
-    expect(detail.locator("h3")).to_be_focused()
-    detail.locator("h3").press("Escape")
-    expect(link).to_be_focused()
+    expect(detail.locator("h4")).to_be_focused()
+    expect(page.locator("#weibo-map")).to_be_visible()
+    assert page.locator(".weibo-publisher-detail:visible").evaluate("n=>n.parentElement.id") == "weibo-map"
+    assert page.locator(".weibo-publisher-detail:visible").evaluate("n=>getComputedStyle(n).position") != "sticky"
+    detail.locator("h4").press("Escape")
+    expect(tile).to_be_focused()
     page.fill("#weibo-search", "__no_matching_media_channel__")
     assert visible_ids(page) == set()
     expect(page.locator("#weibo-empty")).to_be_visible()
@@ -94,9 +136,28 @@ def check_page(page, summary):
     if not page.locator("#weibo-filter-options").is_visible():
         page.locator("#weibo-filter-toggle").click()
     page.locator("#weibo-filters button[type=reset]").click()
-    assert all_pages(page) == ids
+    assert all_pages(page) == set(groups)
+    composition = page.locator("#weibo-channel-composition")
+    for evidence in ("current_evidence", "historical", "unknown"):
+        count = sum(a["existence"] == evidence for a in accounts)
+        segment = composition.locator(f'[data-state="{evidence}"]')
+        assert (int(segment.get_attribute("data-count")) if segment.count() else 0) == count
+        if count:
+            expect(composition).to_contain_text(f"{count:,} of {len(accounts):,}")
+            expect(composition).to_contain_text(f"{count / len(accounts) * 100:.1f}%")
+    first = page.locator(".weibo-publisher-link:visible").first
+    second = page.locator(".weibo-publisher-link:visible").nth(1)
+    first.focus()
+    first.press("ArrowRight")
+    expect(second).to_be_focused()
+    second.press("Enter")
+    expect(second).to_have_attribute("aria-expanded", "true")
+    page.locator(".weibo-publisher-detail:visible .weibo-close-publisher").click()
+    expect(second).to_have_attribute("aria-expanded", "false")
+    expect(second).to_be_focused()
     cohort = summary.get("cohort")
     if cohort:
+        page.locator(".weibo-cohort > summary").click()
         coverage = page.locator("#weibo-coverage")
         assert not coverage.evaluate("n=>n.open")
         coverage.evaluate("n=>n.open=true")
@@ -159,27 +220,25 @@ def check(site, url=None, screenshots=None):
             expect(page.locator(".weibo-channel-detail:visible")).to_have_attribute("data-account-id", last)
             expect(page.locator("#weibo-search")).to_have_value("")
             expect(page.locator(f'.weibo-channel-link[data-account-id="{last}"]')).to_have_attribute("aria-current", "true")
-            expect(page.locator(".weibo-channel-detail:visible h3")).to_be_in_viewport()
-            if width <= 760:
-                expect(page.locator("#weibo-back")).to_be_in_viewport()
-                page.locator("#weibo-back").click()
-            else:
-                page.locator(".weibo-channel-detail:visible h3").press("Escape")
-            expect(page.locator(f'.weibo-channel-link[data-account-id="{last}"]')).to_be_visible()
+            expect(page.locator(".weibo-channel-detail:visible h4")).to_be_in_viewport()
+            expect(page.locator(".weibo-publisher-detail:visible .weibo-close-publisher")).to_be_in_viewport()
+            page.locator(".weibo-publisher-detail:visible .weibo-close-publisher").click()
+            publisher = next(a["outlet_id"] for a in summary["accounts"] if a["account_id"] == last)
+            expect(page.locator(f'.weibo-publisher-link[data-outlet-id="{publisher}"]')).to_be_visible()
             assert not errors, errors
             page.close()
         touch = browser.new_context(has_touch=True, is_mobile=True, viewport={"width": 390, "height": 844})
         page = touch.new_page()
         page.goto(url)
-        target = page.locator(".weibo-channel-link:visible").first
-        identity = target.get_attribute("data-account-id")
+        target = page.locator(".weibo-publisher-link:visible").first
+        identity = target.get_attribute("data-outlet-id")
         target.tap()
-        expect(page.locator(".weibo-channel-detail:visible")).to_have_attribute("data-account-id", identity)
-        expect(page.locator("#weibo-back")).to_be_visible()
-        assert page.locator(".weibo-inspector").bounding_box()["height"] < 1000
+        expect(page.locator(".weibo-publisher-detail:visible")).to_have_attribute("data-outlet-id", identity)
+        expect(page.locator(".weibo-publisher-detail:visible .weibo-close-publisher")).to_be_visible()
+        assert page.locator(".weibo-publisher-detail:visible").bounding_box()["height"] < 1000
         if screenshots:
             page.screenshot(path=str(screenshots / "weibo-detail-touch.png"), full_page=True)
-        page.locator("#weibo-back").tap()
+        page.locator(".weibo-publisher-detail:visible .weibo-close-publisher").tap()
         expect(target).to_be_visible()
         touch.close()
         fallback = browser.new_context(java_script_enabled=False, viewport={"width": 390, "height": 844})
