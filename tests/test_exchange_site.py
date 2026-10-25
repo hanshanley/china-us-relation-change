@@ -9,7 +9,7 @@ import pytest
 from bs4 import BeautifulSoup
 from PIL import Image, ImageColor
 
-from us_china_exchange.model import change, observation
+from us_china_exchange.model import GEOGRAPHIES, MEASURES, change, observation
 from us_china_exchange.render import annual_table, build, regional_series, svg_chart, svg_comparison
 from us_china_exchange.theme import CHART_THEMES, COMPARISON_GEOGRAPHIES, PARTNER_COLORS, PNG_HEIGHT, PNG_WIDTH
 
@@ -25,7 +25,12 @@ def test_offline_build_download_round_trip_and_reproducibility(tmp_path):
     bundle = json.loads((site / "downloads/exchange.json").read_text())
     assert bundle["observations"] == canonical
     assert "iie" in bundle["source_policies"] and "macau_tourism" in bundle["source_policies"]
-    assert len(bundle["coverage"]) == 72
+    assert len(bundle["coverage"]) == (len(GEOGRAPHIES) - 1) * 2 * len(MEASURES)
+    assert {(row["origin"], row["destination"], row["measure"]) for row in bundle["coverage"]} == {
+        (origin, destination, measure)
+        for geo in GEOGRAPHIES if geo != "USA"
+        for origin, destination in ((geo, "USA"), ("USA", geo))
+        for measure in MEASURES}
     review_text = (ROOT / "data/site/gap_review.csv").read_text()
     assert (site / "downloads/gap-review.csv").read_text() == review_text
     assert bundle["gap_review"] == list(csv.DictReader(io.StringIO(review_text)))
@@ -58,7 +63,10 @@ def test_offline_build_download_round_trip_and_reproducibility(tmp_path):
         target = node.get("href") or node["src"]
         if not target.startswith(("https://", "#")):
             assert (site / target).is_file()
-    assert result["comparisons"] == 13
+    historical_panel = comparisons.select_one("#historical_students-to_us")
+    assert "coverage qualified" in historical_panel.h2.get_text()
+    assert len(historical_panel.select(".comparison-chart")) == 2
+    assert result["comparisons"] - 1 == 13
     before = {p.relative_to(tmp_path): p.read_bytes() for p in tmp_path.rglob("*") if p.is_file()}
     build(tmp_path)
     assert before == {p.relative_to(tmp_path): p.read_bytes() for p in tmp_path.rglob("*") if p.is_file()}
@@ -209,9 +217,15 @@ def test_published_comparisons_match_geography_colors_and_annual_points(tmp_path
     assert not obsolete.exists()
     rows = json.loads((ROOT / "data/site/observations.json").read_text())
     files = list((tmp_path / "outputs/figures").glob("*/comparisons/*/*.svg"))
-    assert len(files) == 96
+    historical = [path for path in files if "-historical_students-" in path.name]
+    assert {(path.parent.name, path.stem) for path in historical} == {
+        (theme, f"hkg-mac-to_us-historical_students-{scale}")
+        for theme in CHART_THEMES for scale in ("levels", "log")}
+    assert len(files) - len(historical) == 96
     for path in files:
         doc = ElementTree.fromstring(path.read_text())
+        if path in historical:
+            assert "coverage qualified" in " ".join(doc.itertext())
         geographies = doc.get("data-geographies", "CHN HKG MAC").split()
         prefix = "-".join(geo.lower() for geo in geographies)
         direction, measure, scale = path.stem.removeprefix(prefix + "-").split("-", 2)

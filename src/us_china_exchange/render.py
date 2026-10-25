@@ -1054,8 +1054,10 @@ def build(root):
                       for k, v in GEOGRAPHIES.items() if k != "USA")
     direction_options = "".join(f'<option value="{k}"{" selected" if k == selected_direction else ""}>{v}</option>'
                                 for k, v in [("to_us", "To U.S."), ("from_us", "From U.S.")])
+    control_measures = ({row["measure"] for row in rows if row["series_id"] in allowed}
+                        if public() else set(MEASURES))
     measure_options = "".join(f'<option value="{k}"{" selected" if k == current["measure"] else ""}>{esc(v)}</option>'
-                              for k, v in MEASURES.items())
+                              for k, v in MEASURES.items() if k in control_measures)
     theme_options = "".join(f'<option value="{k}">{esc(v["label"])}</option>' for k, v in CHART_THEMES.items())
     embedded = json_text(payload).replace("<", "\\u003c")
     document = f"""<!doctype html>

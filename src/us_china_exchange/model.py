@@ -11,6 +11,7 @@ GEOGRAPHIES = {"CHN": "Mainland China", "HKG": "Hong Kong",
 MEASURES = {
     "enrolled_students": "Enrolled international students (excluding OPT)",
     "degree_students": "Degree enrollment",
+    "historical_students": "Historical reported student totals (coverage qualified)",
     "international_students": "International students, including OPT",
     "study_abroad": "Academic-credit study abroad",
     "visitors": "Visitor trips",
@@ -178,6 +179,8 @@ def coverage(rows):
 
 
 def gap_reason(geo, origin, measure):
+    if measure == "historical_students":
+        return "No reviewed legacy UIS total for this route. Historical degree-seeking, non-degree and OPT coverage is unresolved; these facts are not a substitute for modern enrollment or OPT series."
     if measure == "air_visitors":
         return "Reviewed SIAT estimates cover U.S.-resident air travel to mainland China and Hong Kong only. Other directions are unverified; missing estimates are not zero or all-mode arrivals."
     if measure == "degree_students":

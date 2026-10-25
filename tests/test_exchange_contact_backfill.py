@@ -71,7 +71,7 @@ def test_uis_digest_backfill_preserves_existing_rows_and_a_separate_legacy_compa
     prior = [r for r in json.loads((ROOT / "data/site/observations.json").read_text())
              if not (r["source_id"] == "uis" and r["origin"] in {"HKG", "MAC"}
                      and r["destination"] == "USA" and r["year"] in {2004, 2008, 2009})]
-    result = contact_backfill.uis_degree_history(client, prior)
+    result = contact_backfill.uis_legacy_student_history(client, prior)
     before, after = {key(r): r for r in prior}, {key(r): r for r in result}
     assert len(after) == len(before) + 6
     assert all(after[k] == r for k, r in before.items())
@@ -85,13 +85,34 @@ def test_uis_digest_backfill_preserves_existing_rows_and_a_separate_legacy_compa
     assert all(r["period_basis"] == "reporting" and r["period_start"] is None and r["period_end"] is None
                and change(r, current[r["origin"]])["reason"] == "Definitions or periods differ" for r in additions)
     assert not any(r["origin"] == "CHN" for r in additions)
-    assert contact_backfill.uis_degree_history(client, result) == result
+    assert all(r["measure"] == "historical_students" and "not independently verified" in r["definition"]
+               for r in additions)
+    hong_kong = {r["year"]: r for r in additions if r["origin"] == "HKG"}
+    assert change(hong_kong[2009], hong_kong[2008])["reason"] == "Definitions or periods differ"
+    from us_china_exchange.public_freshness import annual_series
+    assert not {r["series_id"] for r in additions} & set(annual_series(result))
+    assert contact_backfill.uis_legacy_student_history(client, result) == result
+    legacy = [dict(r, series_id=r["series_id"].replace("historical_students", "degree_students"),
+                   measure="degree_students", comparability="uis:degree_students:legacy-isced97")
+              for r in additions]
+    migrated = contact_backfill.uis_legacy_student_history(client, prior + legacy)
+    assert len(migrated) == len(prior + legacy)
+    fields = ("origin", "destination", "year", "period", "period_basis", "frequency", "unit", "value",
+              "source_id", "source_url", "source_vintage", "raw_sha256", "retrieved_at")
+    for old in legacy:
+        match = next(r for r in migrated if r["measure"] == "historical_students"
+                     and r["origin"] == old["origin"] and r["year"] == old["year"])
+        assert all(match[field] == old[field] for field in fields)
+        assert key(old) not in {key(r) for r in migrated}
+    legacy[0]["raw_sha256"] = "unreviewed"
+    with pytest.raises(ValueError, match="conflicting provenance"):
+        contact_backfill.uis_legacy_student_history(client, prior + legacy)
     additions[0]["value"] += 1
     with pytest.raises(ValueError, match="conflicts"):
-        contact_backfill.uis_degree_history(client, result)
+        contact_backfill.uis_legacy_student_history(client, result)
     next(iter(assets.values()))["sha256"] = "unreviewed"
     with pytest.raises(ValueError, match="digest changed"):
-        contact_backfill.uis_degree_history(client, prior)
+        contact_backfill.uis_legacy_student_history(client, prior)
 
 
 def test_government_student_columns_are_counts_and_academic_ending_years():

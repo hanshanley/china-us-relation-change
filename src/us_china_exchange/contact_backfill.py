@@ -38,6 +38,7 @@ UIS_GED_2010 = (
     "https://forschungsnetzwerk.ams.at/dam/jcr%3Aeb9fabb4-ded0-423d-8d63-1f242fed24f5/"
     "Education%20data%202010.pdf")
 UIS_GED_2010_SHA256 = "a7b62067a359731688e0b6e03a7ef0a12556f2dd78b6140ad8b81fa8b1e8fe62"
+UIS_LEGACY_COMPARABILITY = "uis:degree_students:legacy-isced97"
 UIS_DIGESTS = {
     2006: {
         "url": "https://sel-gipes.com/uploads/1/2/3/3/12332890/2006_-_unesco_-_global_education_digest.pdf",
@@ -288,8 +289,12 @@ def parse_uis_digest(plain, year=2008):
     return values
 
 
-def uis_degree_history(client, prior):
+def uis_legacy_student_history(client, prior):
     existing = {key(r): r for r in prior}
+    if any(r.get("comparability") == UIS_LEGACY_COMPARABILITY
+           and (r["origin"] not in {"HKG", "MAC"} or r["destination"] != "USA"
+                or r["year"] not in {2004, 2008, 2009}) for r in prior):
+        raise ValueError("Unreviewed UIS legacy record cannot be reclassified")
     for edition, report in UIS_DIGESTS.items():
         body, asset = client.get(report["url"])
         if asset["sha256"] != report["sha256"]:
@@ -303,24 +308,40 @@ def uis_degree_history(client, prior):
         # Legacy "China" can aggregate mainland and Taiwan; never relabel it mainland-only.
         for geo in ("HKG", "MAC"):
             value = values[geo]
-            base = next(r for r in prior if r["source_id"] == "uis" and r["origin"] == geo
-                        and r["destination"] == "USA" and r["measure"] == "degree_students"
-                        and r["year"] == 2023)
             locator = (f"UNESCO Global Education Digest {edition}, table {report['table']}, "
                        f"PDF page {report['data_page']}; reporting year {year}")
             row = observation(
-                "uis", geo, "USA", "degree_students", year, value,
-                base["definition"] + "; historical ISCED 1997 levels 5 and 6",
-                period_basis="reporting", comparability="uis:degree_students:legacy-isced97",
+                "uis", geo, "USA", "historical_students", year, value,
+                "Historical UIS reported tertiary student totals; degree-seeking status and "
+                "non-degree/OPT coverage are not independently verified",
+                period_basis="reporting",
+                comparability=f"uis:historical_students:GED{edition}:population-unverified",
                 notes=locator + ". Original UNESCO report retained at the public source URL, "
                 "not a newly retrieved current UIS release. Exact country-specific U.S. destination "
                 "count in brackets, not worldwide outbound or all-origin host totals. The U.S. "
                 "cells carry no reference-year offset. Only separately identified Hong Kong/Macau "
                 "counts are imported; the historical China category is not verified mainland-only. "
-                "ISCED 1997 levels 5/6 retain a separate comparison identity: cross-definition "
-                "growth against current UIS is not assumed. No within-year dates invented. "
+                "ISCED 1997 levels 5/6 do not establish degree-seeking or non-degree/OPT coverage. "
+                "These are not verified degree-only or enrolled-only counts, nor verified "
+                "OPT-inclusive totals. Each edition retains a separate comparison identity; "
+                "growth across unverified editions or against modern series is not assumed. "
+                "No within-year dates invented. "
                 "Only selected numerical facts are retained; original reports are not redistributed.")
             row = attach([row], asset, locator)[0]
+            old_key = (f"uis:{geo}:USA:degree_students", str(year), "annual")
+            old = existing.get(old_key)
+            if old and old.get("comparability") == UIS_LEGACY_COMPARABILITY:
+                if (old["value"] != value or old["raw_sha256"] != asset["sha256"]
+                        or old["source_url"] != asset["url"] or old["unit"] != "students"
+                        or old["period_basis"] != "reporting"):
+                    raise ValueError("Cannot reclassify a UIS legacy record with conflicting provenance or value")
+                row = dict(old, **{field: row[field] for field in (
+                    "series_id", "measure", "definition", "comparability")})
+                row["notes"] = old["notes"] + (
+                    " Population qualification: degree-seeking, non-degree and OPT coverage "
+                    "are not independently resolved. This is not a verified degree-only or "
+                    "OPT-inclusive count. Editions are not assumed comparable.")
+                existing.pop(old_key)
             if key(row) in existing and existing[key(row)]["value"] != value:
                 raise ValueError("UIS historical fact conflicts with a retained observation")
             existing.setdefault(key(row), row)
