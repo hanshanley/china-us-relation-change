@@ -16,7 +16,7 @@ from PIL import Image, ImageColor
 from openpyxl import Workbook
 
 from us_china_exchange.business_analysis import BENCHMARK_CHART, CHARTS, COLORS, RETIRED_CHARTS, build_business, chart_groups, svg_business_chart, validate_business_data
-from us_china_exchange.business_sources import CBS_NETHERLANDS_METHODS, CBS_NETHERLANDS_REPORT, FINLAND_EUROSTAT_METHODS, NORDIC_QUERIES, SWEDEN_COUNTRIES, SWEDEN_EUROSTAT_METHODS, SWEDEN_QUALITY, count_cell, country_counts, parse_cbs_netherlands, parse_eurostat, parse_germany, parse_norway, parse_nordic, parse_ons
+from us_china_exchange.business_sources import CBS_NETHERLANDS_METHODS, CBS_NETHERLANDS_REPORT, DENMARK_METADATA, DENMARK_DATA, DENMARK_QUERY, FINLAND_EUROSTAT_METHODS, SPAIN_EUROSTAT_METHODS, NORDIC_QUERIES, SWEDEN_COUNTRIES, SWEDEN_EUROSTAT_METHODS, SWEDEN_QUALITY, count_cell, country_counts, parse_cbs_netherlands, parse_denmark, parse_eurostat, parse_germany, parse_norway, parse_nordic, parse_ons
 from us_china_exchange.render import build
 from us_china_exchange.theme import CHART_THEMES, PARTNER_COLORS
 
@@ -56,7 +56,8 @@ def test_distinct_parent_and_affiliate_checkpoints_remain_different_units():
     assert rows[("eurostat_uk:china", 2019)]["status"] == "estimated"
     assert rows[("eurostat_norway:china", 2023)]["value"] == 88
     assert len([r for r in rows.values() if not r["series_id"].startswith(
-        ("tillvaxtanalys_", "statfin_", "eurostat_france:", "eurostat_netherlands:", "eurostat_finland:", "eurostat_sweden:"))]) == 112
+        ("tillvaxtanalys_", "statfin_", "eurostat_france:", "eurostat_netherlands:", "eurostat_finland:",
+         "eurostat_sweden:", "eurostat_spain:", "dst_denmark:"))]) == 112
     assert rows[("ssb_norway:china", 2023)]["value"] == 89
     assert rows[("ssb_norway:china", 2024)]["value"] == 80
 
@@ -402,23 +403,201 @@ def test_selective_country_refreshes_preserve_coverage_order_across_modes(monkey
     monkeypatch.setattr(module, "uk_early_affiliates", early_uk)
     monkeypatch.setattr(module, "finnish_eurostat_affiliates", lambda client: selected(("eurostat_finland:",)))
     monkeypatch.setattr(module, "swedish_eurostat_affiliates", lambda client: selected(("eurostat_sweden:",)))
+    monkeypatch.setattr(module, "spanish_affiliates", lambda client: selected(("eurostat_spain:",)))
+    monkeypatch.setattr(module, "danish_affiliates", lambda client: selected(("dst_denmark:",)))
     assert module.collect_nordic(None, prior) == prior
     assert module.collect_france(None, prior) == prior
     assert module.collect_netherlands(None, prior) == prior
     assert module.collect_finland_history(None, prior) == prior
     assert module.collect_uk_history(None, prior) == prior
     assert module.collect_sweden_history(None, prior) == prior
+    assert module.collect_spain(None, prior) == prior
+    assert module.collect_denmark(None, prior) == prior
     for collectors in (
         (module.collect_uk_history, module.collect_netherlands, module.collect_nordic, module.collect_france,
-         module.collect_finland_history, module.collect_sweden_history),
-        (module.collect_sweden_history, module.collect_finland_history, module.collect_france,
-         module.collect_nordic, module.collect_netherlands,
-         module.collect_uk_history),
+         module.collect_finland_history, module.collect_sweden_history, module.collect_spain, module.collect_denmark),
+        (module.collect_denmark, module.collect_spain, module.collect_sweden_history, module.collect_finland_history,
+         module.collect_france, module.collect_nordic, module.collect_netherlands, module.collect_uk_history),
     ):
         refreshed = prior
         for collector in collectors:
             refreshed = collector(None, refreshed)
             assert refreshed == prior
+
+
+def test_spanish_selective_refresh_preserves_missingness_estimates_and_other_populations():
+    spec = importlib.util.spec_from_file_location("business_spain_collector", ROOT / "scripts/build_business_data.py")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+
+    class Client:
+        wrong_country = False
+        truncated_history = False
+
+        def get(self, url):
+            if url == SPAIN_EUROSTAT_METHODS:
+                body = b"Spanish UCI; 2021 statistical enterprise; financial activities from Bank of Spain"
+            else:
+                dataset = url.split("/data/")[1].split("?")[0]
+                indicator = "indic_sbs" if dataset == "fats_out_part" else "indic_bp"
+                activity = "nace_r1" if dataset == "fats_out2" else "nace_r2"
+                codes = {"freq": "A", activity: "C-O_X_L" if activity == "nace_r1" else "B-S_X_O",
+                         indicator: "ENT_NR" if indicator == "indic_sbs" else "ENT",
+                         "partner": "CN_X_HK", "geo": "FR" if self.wrong_country else "ES"}
+                values = ([(2007, None), (2008, None), (2009, 58)] if dataset == "fats_out2" else
+                          list(zip(range(2010, 2021), (59, 84, 87, 92, 112, 105, 111, 126, 132, 127, 126)))
+                          if dataset == "fats_out2_r2" else
+                          [(2021, 105), (2022, 102), (2023, 100)])
+                if self.truncated_history and dataset == "fats_out2_r2":
+                    values = values[1:]
+                data = {
+                    "id": list(codes) + ["time"], "size": [1] * len(codes) + [len(values)],
+                    "dimension": {key: {"category": {"index": {value: 0}}} for key, value in codes.items()},
+                    "extension": {"id": dataset},
+                    "value": {str(index): value for index, (_, value) in enumerate(values) if value is not None},
+                    "updated": "2026-03-31"}
+                data["dimension"]["time"] = {"category": {"index": {
+                    str(year): index for index, (year, _) in enumerate(values)}}}
+                if dataset == "fats_out_part":
+                    data["status"] = {"1": "e", "2": "e"}
+                body = json.dumps(data).encode()
+            return body, {"url": url, "request_url": url, "sha256": hashlib.sha256(body).hexdigest(),
+                          "retrieved_at": "2026-10-25T00:00:00+00:00"}
+
+    prior = published()
+    before = copy.deepcopy(prior)
+    result = validate_business_data(module.collect_spain(Client(), prior))
+    sid = "eurostat_spain:china"
+    assert prior == before
+    assert [row for row in result["observations"] if row["series_id"] != sid] == [
+        row for row in prior["observations"] if row["series_id"] != sid]
+    points = {row["year"]: row for row in result["observations"] if row["series_id"] == sid}
+    assert (points[2007]["value"], points[2008]["status"]) == (None, "missing")
+    assert (points[2023]["value"], points[2023]["status"]) == (100, "estimated")
+    assert points[2009]["comparability"] != points[2019]["comparability"]
+    assert points[2019]["comparability"] == points[2020]["comparability"]
+    assert points[2020]["comparability"] != points[2021]["comparability"]
+    assert any(asset["url"] == SPAIN_EUROSTAT_METHODS
+               for asset in result["sources"]["fats_out_part_ES"]["assets"])
+    assert module.collect_spain(Client(), result) == result
+    wrong = Client()
+    wrong.wrong_country = True
+    with pytest.raises(ValueError, match="different geography"):
+        module.collect_spain(wrong, prior)
+    incomplete = Client()
+    incomplete.truncated_history = True
+    with pytest.raises(ValueError, match="history is incomplete"):
+        module.collect_spain(incomplete, prior)
+
+
+def test_spanish_chart_retains_actual_years_and_rejects_a_cross_regime_source():
+    data = published()
+    points = chart_groups(data, "spain-affiliates-china")[0]["points"]
+    assert [point["year"] for point in points] == list(range(2009, 2024))
+    assert (points[0]["value"], points[-1]["value"], points[-1]["status"]) == (58, 100, "estimated")
+    for theme in CHART_THEMES:
+        chart = ElementTree.fromstring(svg_business_chart(data, "spain-affiliates-china", theme))
+        columns = [node for node in chart.iter() if node.get("class") == "annual-column"]
+        assert [int(node.get("data-year")) for node in columns] == list(range(2009, 2024))
+        assert not any(node.get("class") in {"data-line", "covid-band"} for node in chart.iter())
+    wrong = copy.deepcopy(data)
+    row = next(row for row in wrong["observations"] if row["series_id"] == "eurostat_spain:china"
+               and row["year"] == 2023)
+    row["source_id"] = "fats_out2_r2_ES"
+    with pytest.raises(ValueError, match="method/source boundary"):
+        validate_business_data(wrong)
+
+
+def denmark_fixture():
+    years = [str(year) for year in range(2007, 2025)]
+    metadata = {
+        "id": "OFATS4", "suppressedDataValue": "0",
+        "variables": [
+            {"id": "LAND", "values": [{"id": "CN", "text": "China"}, {"id": "HK", "text": "Hong Kong"},
+                                      {"id": "MO", "text": "Macao"}]},
+            {"id": "ENHED", "values": [{"id": "DSANTAL", "text": "Affiliates"},
+                                       {"id": "DSANSAT", "text": "Employees"}]},
+            {"id": "Tid", "values": [{"id": year, "text": year} for year in years]}]}
+    dimensions = {name: {"category": {"index": {code: 0}}}
+                  for name, code in (("LAND", "CN"), ("ENHED", "DSANTAL"), ("ContentsCode", "OFATS4"))}
+    dimensions["ContentsCode"]["category"]["unit"] = {"OFATS4": {"base": "Number", "decimals": 0}}
+    dimensions["Tid"] = {"category": {"index": {year: index for index, year in enumerate(years)}}}
+    dimensions.update(id=["LAND", "ENHED", "ContentsCode", "Tid"], size=[1, 1, 1, 18])
+    data = {"dataset": {
+        "dimension": dimensions, "extension": {"px": {"tableid": "OFATS4"}},
+        "updated": "2026-01-20T07:00:00Z",
+        "value": [217, 228, 272, 320, 353, 395, 417, 468, 487, 482, 468, 464,
+                  485, 488, 481, 466, 480, 460]}}
+    return data, metadata
+
+
+def test_denmark_parser_preserves_country_counts_and_masks_ambiguous_zero():
+    data, metadata = denmark_fixture()
+    points = parse_denmark(data, metadata)
+    assert [point[0] for point in points] == list(range(2007, 2025))
+    assert (points[0][1], points[12][1], points[-1][1]) == (217, 485, 460)
+    assert points[2][3] != points[3][3] and points[12][3] == points[-1][3]
+    ambiguous = copy.deepcopy(data)
+    ambiguous["dataset"]["value"][-1] = 0
+    assert parse_denmark(ambiguous, metadata)[-1][1:3] == (None, "missing")
+    for kind in ("country", "employees", "scaled_unit", "truncated", "quality_flag"):
+        wrong = copy.deepcopy(data)
+        if kind == "country":
+            wrong["dataset"]["dimension"]["LAND"]["category"]["index"] = {"HK": 0}
+        elif kind == "employees":
+            wrong["dataset"]["dimension"]["ENHED"]["category"]["index"] = {"DSANSAT": 0}
+        elif kind == "scaled_unit":
+            wrong["dataset"]["dimension"]["ContentsCode"]["category"]["unit"]["OFATS4"]["base"] = "Thousands"
+        elif kind == "truncated":
+            wrong["dataset"]["value"].pop()
+        else:
+            wrong["dataset"]["status"] = {"0": "p"}
+        with pytest.raises(ValueError):
+            parse_denmark(wrong, metadata)
+
+
+def test_danish_selective_refresh_preserves_other_countries_and_is_idempotent():
+    spec = importlib.util.spec_from_file_location("business_denmark_collector", ROOT / "scripts/build_business_data.py")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    data, metadata = denmark_fixture()
+
+    def response(url, payload):
+        body = json.dumps(payload).encode()
+        return body, {"url": url, "request_url": url, "sha256": hashlib.sha256(body).hexdigest(),
+                      "retrieved_at": "2026-10-25T00:00:00+00:00"}
+
+    def post(url, query):
+        if url == DENMARK_METADATA:
+            assert query == {"table": "OFATS4", "format": "JSON", "lang": "en"}
+            return response(url, metadata)
+        assert url == DENMARK_DATA and query == DENMARK_QUERY
+        return response(url, data)
+
+    client = SimpleNamespace(post_json=post, get=lambda url: response(url, "Reviewed national methodology"))
+    prior = published()
+    before = copy.deepcopy(prior)
+    result = validate_business_data(module.collect_denmark(client, prior))
+    assert prior == before
+    assert [row for row in result["observations"] if row["series_id"] != "dst_denmark:china"] == [
+        row for row in prior["observations"] if row["series_id"] != "dst_denmark:china"]
+    assert module.collect_denmark(client, result) == result
+
+
+def test_danish_chart_keeps_national_resident_parent_scope_and_all_years():
+    data = published()
+    points = chart_groups(data, "denmark-affiliates-china")[0]["points"]
+    assert [point["year"] for point in points] == list(range(2007, 2025))
+    assert (points[0]["value"], points[-1]["value"]) == (217, 460)
+    for theme in CHART_THEMES:
+        svg = ElementTree.fromstring(svg_business_chart(data, "denmark-affiliates-china", theme))
+        columns = [node for node in svg.iter() if node.get("class") == "annual-column"]
+        assert [int(node.get("data-year")) for node in columns] == list(range(2007, 2025))
+        assert not any(node.get("class") in {"data-line", "covid-band"} for node in svg.iter())
+    wrong = copy.deepcopy(data)
+    wrong["series"]["dst_denmark:china"]["scope"] = "Danish-UCI enterprises in China"
+    with pytest.raises(ValueError, match="resident-parent"):
+        validate_business_data(wrong)
 
 
 def test_finnish_eurostat_refresh_preserves_national_population_and_explicit_yty_break():
@@ -620,7 +799,7 @@ def test_complete_business_downloads_exact_points_backgrounds_and_stale_cleanup(
         (base / "substack").mkdir(parents=True)
         for chart_id in RETIRED_CHARTS:
             (base / "substack" / (chart_id + ".svg")).write_text("Obsolete wrong-destination chart")
-    assert build_business(tmp_path, data, defaultdict(list)) == 13
+    assert build_business(tmp_path, data, defaultdict(list)) == 15
     assert not any((tmp_path / "outputs/figures/business_presence/substack" / (cid + ".svg")).exists()
                    for cid in RETIRED_CHARTS)
     assert json.loads((tmp_path / "site/downloads/business-presence.json").read_text()) == data
@@ -685,7 +864,7 @@ def test_invalid_business_input_is_rejected_before_writes_and_deleted_input_with
     with pytest.raises(ValueError, match="current business evidence"):
         build(tmp_path)
     (path / "business_current.json").write_text((ROOT / "data/site/business_current.json").read_text())
-    assert build(tmp_path)["business_charts"] == 14
+    assert build(tmp_path)["business_charts"] == 16
     page = BeautifulSoup((tmp_path / "site/business-presence.html").read_text(), "html.parser")
     assert not page.select('a[href="language-learning.html"]')
     frozen.unlink()
@@ -705,10 +884,10 @@ def test_publication_is_business_only_with_complete_data_original_downloads_and_
     assert page.select_one('link[rel="canonical"]')["href"] == manifest["canonical_url"]
     assert "Interactive analysis" in page.select_one(".publication-header nav").text
     assert not page.select('a[href="language-learning.html"],iframe')
-    assert len(page.select("svg[role=img]")) == 16
+    assert len(page.select("svg[role=img]")) == 18
     assert not page.select("#business-controls,#annual-values,#module-chart,#uk-affiliates-china,#eu-affiliates-china")
-    assert len(page.select(".business-card.native-chart,.business-card .native-chart")) == 16
-    assert len(page.select(".business-count-card")) == 10
+    assert len(page.select(".business-card.native-chart,.business-card .native-chart")) == 18
+    assert len(page.select(".business-count-card")) == 12
     assert len(page.select("#business-inward-data table tbody tr")) == 25
     assert page.select_one("#business-data").get("open") is None
     assert set(p.name for p in (output / "downloads").iterdir()) == {
@@ -716,14 +895,14 @@ def test_publication_is_business_only_with_complete_data_original_downloads_and_
         "business-current-observations.csv", "business-current-chart-values.csv",
         "business-inward.json", "business-inward-observations.csv", "business-inward-chart-values.csv"}
     data = json.loads((output / "downloads/business-presence.json").read_text())
-    assert data == published() and manifest["historical_observations"] == 211
+    assert data == published() and manifest["historical_observations"] == 246
     assert manifest["observations"] == 59
     assert manifest["inward_observations"] == 50
     assert manifest["source_revision"] == "verified-source-revision"
     for name, checksum in manifest["files"].items():
         assert hashlib.sha256((output / name).read_bytes()).hexdigest() == checksum
     with (output / "downloads/business-observations.csv").open() as f:
-        assert len(list(csv.DictReader(f))) == 211
+        assert len(list(csv.DictReader(f))) == 246
     for link in page.select('a[href^="figures/"]'):
         assert link.has_attr("data-original-chart") and (output / link["href"].split("?")[0]).is_file()
     assert not (output / "business-presence.html").exists()

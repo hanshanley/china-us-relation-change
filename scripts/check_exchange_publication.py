@@ -434,7 +434,7 @@ def check(site, url=None, screenshots=None):
                     assert page.locator("#ap-language-standard-group").count() == 0
                 if name == "business-presence.html":
                     primary_cards = page.locator(".business-card:visible")
-                    assert primary_cards.count() == 12
+                    assert primary_cards.count() == 14
                     assert set(primary_cards.evaluate_all("nodes=>nodes.map(n=>n.id)")) == {
                         "us-investment-mainland", "us-investment-hong-kong",
                         "china-ubo-us-affiliates", "hong-kong-ubo-us-affiliates",
@@ -442,6 +442,8 @@ def check(site, url=None, screenshots=None):
                         "france-affiliates-china", "netherlands-affiliates-china",
                         "finland-affiliates-china-eurostat",
                         "sweden-affiliates-china-eurostat",
+                        "spain-affiliates-china",
+                        "denmark-affiliates-china",
                         "us-company-decisions", "german-company-risk"}
                     assert page.locator("#business-count-references").get_attribute("open") is None
                     assert page.locator("#business-count-references .business-card").count() == 4

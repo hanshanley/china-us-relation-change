@@ -1,6 +1,6 @@
 {
   "context": {
-    "geography": "China is the host. U.S., German, Norwegian, Swedish and Finnish series retain their own control, sector, threshold and source definitions; these are not matched country rankings. UK history ends in 2019. National and overlapping EU27 membership aggregates are not summed. Netherlands is shown separately from the overlapping EU27 aggregate.",
+    "geography": "China is the host. U.S., German, Norwegian, Swedish and Finnish series retain their own control, sector, threshold and source definitions; these are not matched country rankings. UK history ends in 2019. National and overlapping EU27 membership aggregates are not summed. Netherlands is shown separately from the overlapping EU27 aggregate. Spain's Eurostat financial/nonfinancial history is separate from INE's national nonfinancial population; Spain overlaps EU aggregates and is not added to them. Denmark's national resident-parent coverage includes foreign ultimate owners and excludes branches; it is not spliced with Danish-UCI Eurostat counts or summed into EU aggregates.",
     "interpretation": "Company counts, affiliate entities and branch locations are distinct. U.S. parents and ultimately EU-controlled enterprises are not matched ownership populations; BEA and Eurostat levels must not be used to rank otherwise comparable business presence.",
     "question": "How has U.S. and European business presence in China changed over time?",
     "release_timing": "As checked October 22, 2026, BEA's latest activity release covers 2023. The published schedule puts the 2024 activity release on November 20, 2026; no 2024 value is inferred.",
@@ -80,6 +80,16 @@
     {
       "description": "Swedish-UCI controlled enterprises in China except Hong Kong; a separate population from the national subsidiary table. Preserve the metadata's 2008 classification break and original legacy NACE label/2010 table transition, 2018 legal-unit-to-enterprise/EGR change and 2021 EBS boundary. Official compilation can include imputation. 2009 is confidential, not zero; no national-series splice or cross-regime growth.",
       "id": "eurostat_sweden:china",
+      "status": "partial_history"
+    },
+    {
+      "description": "Spanish-resident ultimate control; Eurostat's China except Hong Kong host category. Financial and nonfinancial activities, not unique Spanish parents. Counts are reported from 2009; 2007/2008 are unreported and no 2000-2006 values are inferred. Retain the 2010 classification transition and the 2021 change from legal units to statistical enterprises. Recent estimates retain their original flags. INE's national nonfinancial population is different and is not appended to this series.",
+      "id": "eurostat_spain:china",
+      "status": "partial_history"
+    },
+    {
+      "description": "Subsidiaries in China controlled from Denmark-resident parents, including parents under foreign ultimate control; not the narrower Danish-UCI Eurostat population. Autonomous subsidiary entities, not unique parents, plants or branches. Private non-agricultural activities, including finance; no lower activity threshold. Retain the 2010 DB03/DB07 classification transition. The source also uses zero for suppressed cells, so no zero is inferred. No pre-2007 values invented.",
+      "id": "dst_denmark:china",
       "status": "partial_history"
     }
   ],
@@ -370,6 +380,168 @@
       "source_id": "bundesbank_outward_fats",
       "status": "provisional",
       "value": 1911,
+      "year": 2024
+    },
+    {
+      "comparability": "dst_ofats4:DB03",
+      "notes": "Subsidiaries in China controlled from Denmark-resident parents, including parents under foreign ultimate control; not the narrower Danish-UCI Eurostat population. Autonomous subsidiary entities, not unique parents, plants or branches. Private non-agricultural activities, including finance; no lower activity threshold. Retain the 2010 DB03/DB07 classification transition. The source also uses zero for suppressed cells, so no zero is inferred. No pre-2007 values invented.",
+      "series_id": "dst_denmark:china",
+      "source_id": "dst_ofats4",
+      "status": "observed",
+      "value": 217,
+      "year": 2007
+    },
+    {
+      "comparability": "dst_ofats4:DB03",
+      "notes": "Subsidiaries in China controlled from Denmark-resident parents, including parents under foreign ultimate control; not the narrower Danish-UCI Eurostat population. Autonomous subsidiary entities, not unique parents, plants or branches. Private non-agricultural activities, including finance; no lower activity threshold. Retain the 2010 DB03/DB07 classification transition. The source also uses zero for suppressed cells, so no zero is inferred. No pre-2007 values invented.",
+      "series_id": "dst_denmark:china",
+      "source_id": "dst_ofats4",
+      "status": "observed",
+      "value": 228,
+      "year": 2008
+    },
+    {
+      "comparability": "dst_ofats4:DB03",
+      "notes": "Subsidiaries in China controlled from Denmark-resident parents, including parents under foreign ultimate control; not the narrower Danish-UCI Eurostat population. Autonomous subsidiary entities, not unique parents, plants or branches. Private non-agricultural activities, including finance; no lower activity threshold. Retain the 2010 DB03/DB07 classification transition. The source also uses zero for suppressed cells, so no zero is inferred. No pre-2007 values invented.",
+      "series_id": "dst_denmark:china",
+      "source_id": "dst_ofats4",
+      "status": "observed",
+      "value": 272,
+      "year": 2009
+    },
+    {
+      "comparability": "dst_ofats4:DB07",
+      "notes": "Subsidiaries in China controlled from Denmark-resident parents, including parents under foreign ultimate control; not the narrower Danish-UCI Eurostat population. Autonomous subsidiary entities, not unique parents, plants or branches. Private non-agricultural activities, including finance; no lower activity threshold. Retain the 2010 DB03/DB07 classification transition. The source also uses zero for suppressed cells, so no zero is inferred. No pre-2007 values invented.",
+      "series_id": "dst_denmark:china",
+      "source_id": "dst_ofats4",
+      "status": "observed",
+      "value": 320,
+      "year": 2010
+    },
+    {
+      "comparability": "dst_ofats4:DB07",
+      "notes": "Subsidiaries in China controlled from Denmark-resident parents, including parents under foreign ultimate control; not the narrower Danish-UCI Eurostat population. Autonomous subsidiary entities, not unique parents, plants or branches. Private non-agricultural activities, including finance; no lower activity threshold. Retain the 2010 DB03/DB07 classification transition. The source also uses zero for suppressed cells, so no zero is inferred. No pre-2007 values invented.",
+      "series_id": "dst_denmark:china",
+      "source_id": "dst_ofats4",
+      "status": "observed",
+      "value": 353,
+      "year": 2011
+    },
+    {
+      "comparability": "dst_ofats4:DB07",
+      "notes": "Subsidiaries in China controlled from Denmark-resident parents, including parents under foreign ultimate control; not the narrower Danish-UCI Eurostat population. Autonomous subsidiary entities, not unique parents, plants or branches. Private non-agricultural activities, including finance; no lower activity threshold. Retain the 2010 DB03/DB07 classification transition. The source also uses zero for suppressed cells, so no zero is inferred. No pre-2007 values invented.",
+      "series_id": "dst_denmark:china",
+      "source_id": "dst_ofats4",
+      "status": "observed",
+      "value": 395,
+      "year": 2012
+    },
+    {
+      "comparability": "dst_ofats4:DB07",
+      "notes": "Subsidiaries in China controlled from Denmark-resident parents, including parents under foreign ultimate control; not the narrower Danish-UCI Eurostat population. Autonomous subsidiary entities, not unique parents, plants or branches. Private non-agricultural activities, including finance; no lower activity threshold. Retain the 2010 DB03/DB07 classification transition. The source also uses zero for suppressed cells, so no zero is inferred. No pre-2007 values invented.",
+      "series_id": "dst_denmark:china",
+      "source_id": "dst_ofats4",
+      "status": "observed",
+      "value": 417,
+      "year": 2013
+    },
+    {
+      "comparability": "dst_ofats4:DB07",
+      "notes": "Subsidiaries in China controlled from Denmark-resident parents, including parents under foreign ultimate control; not the narrower Danish-UCI Eurostat population. Autonomous subsidiary entities, not unique parents, plants or branches. Private non-agricultural activities, including finance; no lower activity threshold. Retain the 2010 DB03/DB07 classification transition. The source also uses zero for suppressed cells, so no zero is inferred. No pre-2007 values invented.",
+      "series_id": "dst_denmark:china",
+      "source_id": "dst_ofats4",
+      "status": "observed",
+      "value": 468,
+      "year": 2014
+    },
+    {
+      "comparability": "dst_ofats4:DB07",
+      "notes": "Subsidiaries in China controlled from Denmark-resident parents, including parents under foreign ultimate control; not the narrower Danish-UCI Eurostat population. Autonomous subsidiary entities, not unique parents, plants or branches. Private non-agricultural activities, including finance; no lower activity threshold. Retain the 2010 DB03/DB07 classification transition. The source also uses zero for suppressed cells, so no zero is inferred. No pre-2007 values invented.",
+      "series_id": "dst_denmark:china",
+      "source_id": "dst_ofats4",
+      "status": "observed",
+      "value": 487,
+      "year": 2015
+    },
+    {
+      "comparability": "dst_ofats4:DB07",
+      "notes": "Subsidiaries in China controlled from Denmark-resident parents, including parents under foreign ultimate control; not the narrower Danish-UCI Eurostat population. Autonomous subsidiary entities, not unique parents, plants or branches. Private non-agricultural activities, including finance; no lower activity threshold. Retain the 2010 DB03/DB07 classification transition. The source also uses zero for suppressed cells, so no zero is inferred. No pre-2007 values invented.",
+      "series_id": "dst_denmark:china",
+      "source_id": "dst_ofats4",
+      "status": "observed",
+      "value": 482,
+      "year": 2016
+    },
+    {
+      "comparability": "dst_ofats4:DB07",
+      "notes": "Subsidiaries in China controlled from Denmark-resident parents, including parents under foreign ultimate control; not the narrower Danish-UCI Eurostat population. Autonomous subsidiary entities, not unique parents, plants or branches. Private non-agricultural activities, including finance; no lower activity threshold. Retain the 2010 DB03/DB07 classification transition. The source also uses zero for suppressed cells, so no zero is inferred. No pre-2007 values invented.",
+      "series_id": "dst_denmark:china",
+      "source_id": "dst_ofats4",
+      "status": "observed",
+      "value": 468,
+      "year": 2017
+    },
+    {
+      "comparability": "dst_ofats4:DB07",
+      "notes": "Subsidiaries in China controlled from Denmark-resident parents, including parents under foreign ultimate control; not the narrower Danish-UCI Eurostat population. Autonomous subsidiary entities, not unique parents, plants or branches. Private non-agricultural activities, including finance; no lower activity threshold. Retain the 2010 DB03/DB07 classification transition. The source also uses zero for suppressed cells, so no zero is inferred. No pre-2007 values invented.",
+      "series_id": "dst_denmark:china",
+      "source_id": "dst_ofats4",
+      "status": "observed",
+      "value": 464,
+      "year": 2018
+    },
+    {
+      "comparability": "dst_ofats4:DB07",
+      "notes": "Subsidiaries in China controlled from Denmark-resident parents, including parents under foreign ultimate control; not the narrower Danish-UCI Eurostat population. Autonomous subsidiary entities, not unique parents, plants or branches. Private non-agricultural activities, including finance; no lower activity threshold. Retain the 2010 DB03/DB07 classification transition. The source also uses zero for suppressed cells, so no zero is inferred. No pre-2007 values invented.",
+      "series_id": "dst_denmark:china",
+      "source_id": "dst_ofats4",
+      "status": "observed",
+      "value": 485,
+      "year": 2019
+    },
+    {
+      "comparability": "dst_ofats4:DB07",
+      "notes": "Subsidiaries in China controlled from Denmark-resident parents, including parents under foreign ultimate control; not the narrower Danish-UCI Eurostat population. Autonomous subsidiary entities, not unique parents, plants or branches. Private non-agricultural activities, including finance; no lower activity threshold. Retain the 2010 DB03/DB07 classification transition. The source also uses zero for suppressed cells, so no zero is inferred. No pre-2007 values invented.",
+      "series_id": "dst_denmark:china",
+      "source_id": "dst_ofats4",
+      "status": "observed",
+      "value": 488,
+      "year": 2020
+    },
+    {
+      "comparability": "dst_ofats4:DB07",
+      "notes": "Subsidiaries in China controlled from Denmark-resident parents, including parents under foreign ultimate control; not the narrower Danish-UCI Eurostat population. Autonomous subsidiary entities, not unique parents, plants or branches. Private non-agricultural activities, including finance; no lower activity threshold. Retain the 2010 DB03/DB07 classification transition. The source also uses zero for suppressed cells, so no zero is inferred. No pre-2007 values invented.",
+      "series_id": "dst_denmark:china",
+      "source_id": "dst_ofats4",
+      "status": "observed",
+      "value": 481,
+      "year": 2021
+    },
+    {
+      "comparability": "dst_ofats4:DB07",
+      "notes": "Subsidiaries in China controlled from Denmark-resident parents, including parents under foreign ultimate control; not the narrower Danish-UCI Eurostat population. Autonomous subsidiary entities, not unique parents, plants or branches. Private non-agricultural activities, including finance; no lower activity threshold. Retain the 2010 DB03/DB07 classification transition. The source also uses zero for suppressed cells, so no zero is inferred. No pre-2007 values invented.",
+      "series_id": "dst_denmark:china",
+      "source_id": "dst_ofats4",
+      "status": "observed",
+      "value": 466,
+      "year": 2022
+    },
+    {
+      "comparability": "dst_ofats4:DB07",
+      "notes": "Subsidiaries in China controlled from Denmark-resident parents, including parents under foreign ultimate control; not the narrower Danish-UCI Eurostat population. Autonomous subsidiary entities, not unique parents, plants or branches. Private non-agricultural activities, including finance; no lower activity threshold. Retain the 2010 DB03/DB07 classification transition. The source also uses zero for suppressed cells, so no zero is inferred. No pre-2007 values invented.",
+      "series_id": "dst_denmark:china",
+      "source_id": "dst_ofats4",
+      "status": "observed",
+      "value": 480,
+      "year": 2023
+    },
+    {
+      "comparability": "dst_ofats4:DB07",
+      "notes": "Subsidiaries in China controlled from Denmark-resident parents, including parents under foreign ultimate control; not the narrower Danish-UCI Eurostat population. Autonomous subsidiary entities, not unique parents, plants or branches. Private non-agricultural activities, including finance; no lower activity threshold. Retain the 2010 DB03/DB07 classification transition. The source also uses zero for suppressed cells, so no zero is inferred. No pre-2007 values invented.",
+      "series_id": "dst_denmark:china",
+      "source_id": "dst_ofats4",
+      "status": "observed",
+      "value": 460,
       "year": 2024
     },
     {
@@ -1282,6 +1454,159 @@
       "year": 2023
     },
     {
+      "comparability": "fats_out2:ES:0",
+      "notes": "Spanish-resident ultimate control; Eurostat's China except Hong Kong host category. Financial and nonfinancial activities, not unique Spanish parents. Counts are reported from 2009; 2007/2008 are unreported and no 2000-2006 values are inferred. Retain the 2010 classification transition and the 2021 change from legal units to statistical enterprises. Recent estimates retain their original flags. INE's national nonfinancial population is different and is not appended to this series. Source flags: ",
+      "series_id": "eurostat_spain:china",
+      "source_id": "fats_out2_ES",
+      "status": "missing",
+      "value": null,
+      "year": 2007
+    },
+    {
+      "comparability": "fats_out2:ES:0",
+      "notes": "Spanish-resident ultimate control; Eurostat's China except Hong Kong host category. Financial and nonfinancial activities, not unique Spanish parents. Counts are reported from 2009; 2007/2008 are unreported and no 2000-2006 values are inferred. Retain the 2010 classification transition and the 2021 change from legal units to statistical enterprises. Recent estimates retain their original flags. INE's national nonfinancial population is different and is not appended to this series. Source flags: ",
+      "series_id": "eurostat_spain:china",
+      "source_id": "fats_out2_ES",
+      "status": "missing",
+      "value": null,
+      "year": 2008
+    },
+    {
+      "comparability": "fats_out2:ES:0",
+      "notes": "Spanish-resident ultimate control; Eurostat's China except Hong Kong host category. Financial and nonfinancial activities, not unique Spanish parents. Counts are reported from 2009; 2007/2008 are unreported and no 2000-2006 values are inferred. Retain the 2010 classification transition and the 2021 change from legal units to statistical enterprises. Recent estimates retain their original flags. INE's national nonfinancial population is different and is not appended to this series. Source flags: ",
+      "series_id": "eurostat_spain:china",
+      "source_id": "fats_out2_ES",
+      "status": "observed",
+      "value": 58,
+      "year": 2009
+    },
+    {
+      "comparability": "fats_out2_r2:ES:0",
+      "notes": "Spanish-resident ultimate control; Eurostat's China except Hong Kong host category. Financial and nonfinancial activities, not unique Spanish parents. Counts are reported from 2009; 2007/2008 are unreported and no 2000-2006 values are inferred. Retain the 2010 classification transition and the 2021 change from legal units to statistical enterprises. Recent estimates retain their original flags. INE's national nonfinancial population is different and is not appended to this series. Source flags: ",
+      "series_id": "eurostat_spain:china",
+      "source_id": "fats_out2_r2_ES",
+      "status": "observed",
+      "value": 59,
+      "year": 2010
+    },
+    {
+      "comparability": "fats_out2_r2:ES:0",
+      "notes": "Spanish-resident ultimate control; Eurostat's China except Hong Kong host category. Financial and nonfinancial activities, not unique Spanish parents. Counts are reported from 2009; 2007/2008 are unreported and no 2000-2006 values are inferred. Retain the 2010 classification transition and the 2021 change from legal units to statistical enterprises. Recent estimates retain their original flags. INE's national nonfinancial population is different and is not appended to this series. Source flags: ",
+      "series_id": "eurostat_spain:china",
+      "source_id": "fats_out2_r2_ES",
+      "status": "observed",
+      "value": 84,
+      "year": 2011
+    },
+    {
+      "comparability": "fats_out2_r2:ES:0",
+      "notes": "Spanish-resident ultimate control; Eurostat's China except Hong Kong host category. Financial and nonfinancial activities, not unique Spanish parents. Counts are reported from 2009; 2007/2008 are unreported and no 2000-2006 values are inferred. Retain the 2010 classification transition and the 2021 change from legal units to statistical enterprises. Recent estimates retain their original flags. INE's national nonfinancial population is different and is not appended to this series. Source flags: ",
+      "series_id": "eurostat_spain:china",
+      "source_id": "fats_out2_r2_ES",
+      "status": "observed",
+      "value": 87,
+      "year": 2012
+    },
+    {
+      "comparability": "fats_out2_r2:ES:0",
+      "notes": "Spanish-resident ultimate control; Eurostat's China except Hong Kong host category. Financial and nonfinancial activities, not unique Spanish parents. Counts are reported from 2009; 2007/2008 are unreported and no 2000-2006 values are inferred. Retain the 2010 classification transition and the 2021 change from legal units to statistical enterprises. Recent estimates retain their original flags. INE's national nonfinancial population is different and is not appended to this series. Source flags: ",
+      "series_id": "eurostat_spain:china",
+      "source_id": "fats_out2_r2_ES",
+      "status": "observed",
+      "value": 92,
+      "year": 2013
+    },
+    {
+      "comparability": "fats_out2_r2:ES:0",
+      "notes": "Spanish-resident ultimate control; Eurostat's China except Hong Kong host category. Financial and nonfinancial activities, not unique Spanish parents. Counts are reported from 2009; 2007/2008 are unreported and no 2000-2006 values are inferred. Retain the 2010 classification transition and the 2021 change from legal units to statistical enterprises. Recent estimates retain their original flags. INE's national nonfinancial population is different and is not appended to this series. Source flags: ",
+      "series_id": "eurostat_spain:china",
+      "source_id": "fats_out2_r2_ES",
+      "status": "observed",
+      "value": 112,
+      "year": 2014
+    },
+    {
+      "comparability": "fats_out2_r2:ES:0",
+      "notes": "Spanish-resident ultimate control; Eurostat's China except Hong Kong host category. Financial and nonfinancial activities, not unique Spanish parents. Counts are reported from 2009; 2007/2008 are unreported and no 2000-2006 values are inferred. Retain the 2010 classification transition and the 2021 change from legal units to statistical enterprises. Recent estimates retain their original flags. INE's national nonfinancial population is different and is not appended to this series. Source flags: ",
+      "series_id": "eurostat_spain:china",
+      "source_id": "fats_out2_r2_ES",
+      "status": "observed",
+      "value": 105,
+      "year": 2015
+    },
+    {
+      "comparability": "fats_out2_r2:ES:0",
+      "notes": "Spanish-resident ultimate control; Eurostat's China except Hong Kong host category. Financial and nonfinancial activities, not unique Spanish parents. Counts are reported from 2009; 2007/2008 are unreported and no 2000-2006 values are inferred. Retain the 2010 classification transition and the 2021 change from legal units to statistical enterprises. Recent estimates retain their original flags. INE's national nonfinancial population is different and is not appended to this series. Source flags: ",
+      "series_id": "eurostat_spain:china",
+      "source_id": "fats_out2_r2_ES",
+      "status": "observed",
+      "value": 111,
+      "year": 2016
+    },
+    {
+      "comparability": "fats_out2_r2:ES:0",
+      "notes": "Spanish-resident ultimate control; Eurostat's China except Hong Kong host category. Financial and nonfinancial activities, not unique Spanish parents. Counts are reported from 2009; 2007/2008 are unreported and no 2000-2006 values are inferred. Retain the 2010 classification transition and the 2021 change from legal units to statistical enterprises. Recent estimates retain their original flags. INE's national nonfinancial population is different and is not appended to this series. Source flags: ",
+      "series_id": "eurostat_spain:china",
+      "source_id": "fats_out2_r2_ES",
+      "status": "observed",
+      "value": 126,
+      "year": 2017
+    },
+    {
+      "comparability": "fats_out2_r2:ES:0",
+      "notes": "Spanish-resident ultimate control; Eurostat's China except Hong Kong host category. Financial and nonfinancial activities, not unique Spanish parents. Counts are reported from 2009; 2007/2008 are unreported and no 2000-2006 values are inferred. Retain the 2010 classification transition and the 2021 change from legal units to statistical enterprises. Recent estimates retain their original flags. INE's national nonfinancial population is different and is not appended to this series. Source flags: ",
+      "series_id": "eurostat_spain:china",
+      "source_id": "fats_out2_r2_ES",
+      "status": "observed",
+      "value": 132,
+      "year": 2018
+    },
+    {
+      "comparability": "fats_out2_r2:ES:0",
+      "notes": "Spanish-resident ultimate control; Eurostat's China except Hong Kong host category. Financial and nonfinancial activities, not unique Spanish parents. Counts are reported from 2009; 2007/2008 are unreported and no 2000-2006 values are inferred. Retain the 2010 classification transition and the 2021 change from legal units to statistical enterprises. Recent estimates retain their original flags. INE's national nonfinancial population is different and is not appended to this series. Source flags: ",
+      "series_id": "eurostat_spain:china",
+      "source_id": "fats_out2_r2_ES",
+      "status": "observed",
+      "value": 127,
+      "year": 2019
+    },
+    {
+      "comparability": "fats_out2_r2:ES:0",
+      "notes": "Spanish-resident ultimate control; Eurostat's China except Hong Kong host category. Financial and nonfinancial activities, not unique Spanish parents. Counts are reported from 2009; 2007/2008 are unreported and no 2000-2006 values are inferred. Retain the 2010 classification transition and the 2021 change from legal units to statistical enterprises. Recent estimates retain their original flags. INE's national nonfinancial population is different and is not appended to this series. Source flags: ",
+      "series_id": "eurostat_spain:china",
+      "source_id": "fats_out2_r2_ES",
+      "status": "observed",
+      "value": 126,
+      "year": 2020
+    },
+    {
+      "comparability": "fats_out_part:ES:0",
+      "notes": "Spanish-resident ultimate control; Eurostat's China except Hong Kong host category. Financial and nonfinancial activities, not unique Spanish parents. Counts are reported from 2009; 2007/2008 are unreported and no 2000-2006 values are inferred. Retain the 2010 classification transition and the 2021 change from legal units to statistical enterprises. Recent estimates retain their original flags. INE's national nonfinancial population is different and is not appended to this series. Source flags: ",
+      "series_id": "eurostat_spain:china",
+      "source_id": "fats_out_part_ES",
+      "status": "observed",
+      "value": 105,
+      "year": 2021
+    },
+    {
+      "comparability": "fats_out_part:ES:0",
+      "notes": "Spanish-resident ultimate control; Eurostat's China except Hong Kong host category. Financial and nonfinancial activities, not unique Spanish parents. Counts are reported from 2009; 2007/2008 are unreported and no 2000-2006 values are inferred. Retain the 2010 classification transition and the 2021 change from legal units to statistical enterprises. Recent estimates retain their original flags. INE's national nonfinancial population is different and is not appended to this series. Source flags: e",
+      "series_id": "eurostat_spain:china",
+      "source_id": "fats_out_part_ES",
+      "status": "estimated",
+      "value": 102,
+      "year": 2022
+    },
+    {
+      "comparability": "fats_out_part:ES:0",
+      "notes": "Spanish-resident ultimate control; Eurostat's China except Hong Kong host category. Financial and nonfinancial activities, not unique Spanish parents. Counts are reported from 2009; 2007/2008 are unreported and no 2000-2006 values are inferred. Retain the 2010 classification transition and the 2021 change from legal units to statistical enterprises. Recent estimates retain their original flags. INE's national nonfinancial population is different and is not appended to this series. Source flags: e",
+      "series_id": "eurostat_spain:china",
+      "source_id": "fats_out_part_ES",
+      "status": "estimated",
+      "value": 100,
+      "year": 2023
+    },
+    {
       "comparability": "fats_out2:SE:0:classification2007",
       "notes": "Swedish-UCI controlled enterprises in China except Hong Kong; a separate population from the national subsidiary table. Preserve the metadata's 2008 classification break and original legacy NACE label/2010 table transition, 2018 legal-unit-to-enterprise/EGR change and 2021 EBS boundary. Official compilation can include imputation. 2009 is confidential, not zero; no national-series splice or cross-regime growth. Source flags: none",
       "series_id": "eurostat_sweden:china",
@@ -2012,6 +2337,15 @@
       "scope": "Foreign affiliates in China, excluding separately coded Hong Kong and Macao, ultimately controlled by German investors; NACE Rev. 2 BTSXO",
       "unit": "enterprises"
     },
+    "dst_denmark:china": {
+      "cadence": "annual",
+      "label": "Denmark (Statistics Denmark)",
+      "measure": "controlled_enterprises",
+      "notes": "Subsidiaries in China controlled from Denmark-resident parents, including parents under foreign ultimate control; not the narrower Danish-UCI Eurostat population. Autonomous subsidiary entities, not unique parents, plants or branches. Private non-agricultural activities, including finance; no lower activity threshold. Retain the 2010 DB03/DB07 classification transition. The source also uses zero for suppressed cells, so no zero is inferred. No pre-2007 values invented.",
+      "period_basis": "reference year",
+      "scope": "Denmark-resident parents; China; Hong Kong and Macao separately coded; foreign ultimate owners included; private non-agricultural subsidiary entities; branches excluded",
+      "unit": "enterprises"
+    },
     "eurostat_affiliates:china": {
       "cadence": "annual",
       "label": "EU27 (current members)",
@@ -2073,6 +2407,15 @@
       "notes": "Norway is outside the EU and is shown separately, not added to an all-Europe total. Eurostat's 2021 methodology boundary is disconnected.",
       "period_basis": "reference year",
       "scope": "Norwegian-controlled enterprises in China except Hong Kong; NACE B-S except O",
+      "unit": "enterprises"
+    },
+    "eurostat_spain:china": {
+      "cadence": "annual",
+      "label": "Spain (Eurostat)",
+      "measure": "controlled_enterprises",
+      "notes": "Spanish-resident ultimate control; Eurostat's China except Hong Kong host category. Financial and nonfinancial activities, not unique Spanish parents. Counts are reported from 2009; 2007/2008 are unreported and no 2000-2006 values are inferred. Retain the 2010 classification transition and the 2021 change from legal units to statistical enterprises. Recent estimates retain their original flags. INE's national nonfinancial population is different and is not appended to this series.",
+      "period_basis": "reference year",
+      "scope": "Spanish-resident UCI enterprises in China except Hong Kong; legacy NACE C-O except L, then NACE B-S except O; financial and nonfinancial activities",
       "unit": "enterprises"
     },
     "eurostat_sweden:china": {
@@ -2596,6 +2939,50 @@
       "notes": "Dutch-resident UCI; financial/nonfinancial B-S except O. Same OFATS population as the verified 2023 Eurostat overlap. This is a 2024 measurement, not 2026 data. The 2021 method is not one-to-one comparable with earlier years.",
       "vintage": "Nederland Handelsland 2026; 2024 preliminary"
     },
+    "dst_ofats4": {
+      "assets": [
+        {
+          "request_url": "https://api.statbank.dk/v1/data",
+          "retrieved_at": "2026-10-25T05:24:57+00:00",
+          "sha256": "80565ec751447182cc331ee99bc545f61f9a00c3be31317f6f5ff5dc8563c5ae",
+          "url": "https://api.statbank.dk/v1/data"
+        },
+        {
+          "request_url": "https://api.statbank.dk/v1/tableinfo",
+          "retrieved_at": "2026-10-25T05:24:53+00:00",
+          "sha256": "238483afa587e1d5093c4be037c6ce13972f70c7afe2f0805dcbd6635bdeff68",
+          "url": "https://api.statbank.dk/v1/tableinfo"
+        },
+        {
+          "request_url": "https://www.dst.dk/da/Statistik/dokumentation/statistikdokumentation/danske-datterselskaber-i-udlandet/indhold",
+          "retrieved_at": "2026-10-25T05:24:58+00:00",
+          "sha256": "b10da7c9223343435eb04d4597a89d292b20ae0462e569e5e655bf80b94d8c18",
+          "url": "https://www.dst.dk/da/Statistik/dokumentation/statistikdokumentation/danske-datterselskaber-i-udlandet/indhold"
+        },
+        {
+          "request_url": "https://www.dst.dk/da/Statistik/dokumentation/statistikdokumentation/danske-datterselskaber-i-udlandet/sammenlignelighed",
+          "retrieved_at": "2026-10-25T05:24:58+00:00",
+          "sha256": "eae3cc1ca9183c98a4b8346a00c14a11953479171f8fc9016a03bf743a7fe06d",
+          "url": "https://www.dst.dk/da/Statistik/dokumentation/statistikdokumentation/danske-datterselskaber-i-udlandet/sammenlignelighed"
+        },
+        {
+          "request_url": "https://www.dst.dk/da/Statistik/dokumentation/statistikdokumentation/danske-datterselskaber-i-udlandet/statistisk-behandling",
+          "retrieved_at": "2026-10-25T05:24:59+00:00",
+          "sha256": "c854e281c9042e164121c2e463d98af91878359532e21fde917c8a332ea6d286",
+          "url": "https://www.dst.dk/da/Statistik/dokumentation/statistikdokumentation/danske-datterselskaber-i-udlandet/statistisk-behandling"
+        },
+        {
+          "request_url": "https://www.dst.dk/da/Statistik/dokumentation/statistikdokumentation/danske-datterselskaber-i-udlandet/praecision-og-paalidelighed",
+          "retrieved_at": "2026-10-25T05:26:43+00:00",
+          "sha256": "293a925915bf606d37335e6d2fc5c3571fd8265b1ec7c88c82e72237ce012530",
+          "url": "https://www.dst.dk/da/Statistik/dokumentation/statistikdokumentation/danske-datterselskaber-i-udlandet/praecision-og-paalidelighed"
+        }
+      ],
+      "locator": "OFATS4; LAND=CN; ENHED=DSANTAL (Affiliates); Tid=all published years; JSONSTAT",
+      "name": "Statistics Denmark",
+      "notes": "Subsidiaries in China controlled from Denmark-resident parents, including parents under foreign ultimate control; not the narrower Danish-UCI Eurostat population. Autonomous subsidiary entities, not unique parents, plants or branches. Private non-agricultural activities, including finance; no lower activity threshold. Retain the 2010 DB03/DB07 classification transition. The source also uses zero for suppressed cells, so no zero is inferred. No pre-2007 values invented.",
+      "vintage": "OFATS4; source updated 2026-01-20T07:00:00Z"
+    },
     "eurostat_methods": {
       "assets": [
         {
@@ -2609,6 +2996,26 @@
       "name": "Eurostat",
       "notes": "",
       "vintage": "Reviewed source definitions"
+    },
+    "fats_out2_ES": {
+      "assets": [
+        {
+          "request_url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out2?lang=EN&freq=A&geo=ES&partner=CN_X_HK&indic_bp=ENT&nace_r1=C-O_X_L",
+          "retrieved_at": "2026-10-25T04:40:33+00:00",
+          "sha256": "d68f237935def4f7b9e7ddd8428f37a85250099cd3999827ed13fe680491e4ff",
+          "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out2?lang=EN&freq=A&geo=ES&partner=CN_X_HK&indic_bp=ENT&nace_r1=C-O_X_L"
+        },
+        {
+          "request_url": "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_es.htm",
+          "retrieved_at": "2026-10-25T04:40:33+00:00",
+          "sha256": "34b39d1e3c0bc563df9f3863c29e2f7fe74d7d6cd915bd6e64cc27c5e01871ec",
+          "url": "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_es.htm"
+        }
+      ],
+      "locator": "geo=ES; partner=CN_X_HK; indic_bp=ENT; nace_r1=C-O_X_L",
+      "name": "Eurostat",
+      "notes": "Spanish-resident ultimate control; Eurostat's China except Hong Kong host category. Financial and nonfinancial activities, not unique Spanish parents. Counts are reported from 2009; 2007/2008 are unreported and no 2000-2006 values are inferred. Retain the 2010 classification transition and the 2021 change from legal units to statistical enterprises. Recent estimates retain their original flags. INE's national nonfinancial population is different and is not appended to this series. Original reporter metadata and observation flags are retained.",
+      "vintage": "fats_out2; Spain; source updated 2024-04-25T11:00:00+0200"
     },
     "fats_out2_EU27_2007": {
       "assets": [
@@ -2733,6 +3140,26 @@
       "name": "Eurostat",
       "notes": "Separate source population/vintage from the Bundesbank workbook; overlapping counts are not forced to agree.",
       "vintage": "fats_out2_r2; Germany reporting country"
+    },
+    "fats_out2_r2_ES": {
+      "assets": [
+        {
+          "request_url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out2_r2?lang=EN&freq=A&geo=ES&partner=CN_X_HK&indic_bp=ENT&nace_r2=B-S_X_O",
+          "retrieved_at": "2026-10-25T04:40:34+00:00",
+          "sha256": "2945eeca138dc2a5f047881b43b0887de086c03b71c0a7c17299870587eded23",
+          "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out2_r2?lang=EN&freq=A&geo=ES&partner=CN_X_HK&indic_bp=ENT&nace_r2=B-S_X_O"
+        },
+        {
+          "request_url": "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_es.htm",
+          "retrieved_at": "2026-10-25T04:40:33+00:00",
+          "sha256": "34b39d1e3c0bc563df9f3863c29e2f7fe74d7d6cd915bd6e64cc27c5e01871ec",
+          "url": "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_es.htm"
+        }
+      ],
+      "locator": "geo=ES; partner=CN_X_HK; indic_bp=ENT; nace_r2=B-S_X_O",
+      "name": "Eurostat",
+      "notes": "Spanish-resident ultimate control; Eurostat's China except Hong Kong host category. Financial and nonfinancial activities, not unique Spanish parents. Counts are reported from 2009; 2007/2008 are unreported and no 2000-2006 values are inferred. Retain the 2010 classification transition and the 2021 change from legal units to statistical enterprises. Recent estimates retain their original flags. INE's national nonfinancial population is different and is not appended to this series. Original reporter metadata and observation flags are retained.",
+      "vintage": "fats_out2_r2; Spain; source updated 2024-04-25T11:00:00+0200"
     },
     "fats_out2_r2_EU27_2007": {
       "assets": [
@@ -2871,6 +3298,26 @@
       "name": "Eurostat",
       "notes": "Separate source population/vintage from the Bundesbank workbook; overlapping counts are not forced to agree.",
       "vintage": "fats_out_part; Germany reporting country"
+    },
+    "fats_out_part_ES": {
+      "assets": [
+        {
+          "request_url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out_part?lang=EN&freq=A&geo=ES&partner=CN_X_HK&indic_sbs=ENT_NR&nace_r2=B-S_X_O",
+          "retrieved_at": "2026-10-25T04:40:34+00:00",
+          "sha256": "55c5e56ed473822406b34e66fcc3cfdfa65bea6cf760a1d4e21d5a6a789ac0cd",
+          "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out_part?lang=EN&freq=A&geo=ES&partner=CN_X_HK&indic_sbs=ENT_NR&nace_r2=B-S_X_O"
+        },
+        {
+          "request_url": "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_es.htm",
+          "retrieved_at": "2026-10-25T04:40:33+00:00",
+          "sha256": "34b39d1e3c0bc563df9f3863c29e2f7fe74d7d6cd915bd6e64cc27c5e01871ec",
+          "url": "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_es.htm"
+        }
+      ],
+      "locator": "geo=ES; partner=CN_X_HK; indic_sbs=ENT_NR; nace_r2=B-S_X_O",
+      "name": "Eurostat",
+      "notes": "Spanish-resident ultimate control; Eurostat's China except Hong Kong host category. Financial and nonfinancial activities, not unique Spanish parents. Counts are reported from 2009; 2007/2008 are unreported and no 2000-2006 values are inferred. Retain the 2010 classification transition and the 2021 change from legal units to statistical enterprises. Recent estimates retain their original flags. INE's national nonfinancial population is different and is not appended to this series. Original reporter metadata and observation flags are retained.",
+      "vintage": "fats_out_part; Spain; source updated 2026-03-31T23:00:00+0200"
     },
     "fats_out_part_FI": {
       "assets": [
