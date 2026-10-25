@@ -26,7 +26,8 @@ COLORS = {"bea_affiliates:china": PARTNER_COLORS["CHN"], "bea_parents:china": PA
           "eurostat_france:china": "#8A6556", "eurostat_finland:china": "#999D7D",
           "eurostat_sweden:china": "#97AAAE",
           "eurostat_italy:china": "#7E6D7A", "eurostat_italy_legal:china": "#7E6D7A",
-          "eurostat_spain:china": "#8B7656", "dst_denmark:china": "#756D7D"}
+          "eurostat_spain:china": "#8B7656", "dst_denmark:china": "#756D7D",
+          "eurostat_poland:china": "#6D8176"}
 ORIGINS = {"bea_affiliates:china": "us", "bea_parents:china": "us",
            "eurostat_affiliates:china": "eu", "eurostat_historical_eu:china": "eu",
            "eurostat_uk:china": "uk", "eurostat_norway:china": "norway", "ssb_norway:china": "norway",
@@ -36,7 +37,8 @@ ORIGINS = {"bea_affiliates:china": "us", "bea_parents:china": "us",
            "eurostat_france:china": "france", "eurostat_finland:china": "finland",
            "eurostat_sweden:china": "sweden",
            "eurostat_italy:china": "italy", "eurostat_italy_legal:china": "italy",
-           "eurostat_spain:china": "spain", "dst_denmark:china": "denmark"}
+           "eurostat_spain:china": "spain", "dst_denmark:china": "denmark",
+           "eurostat_poland:china": "poland"}
 CHARTS = {
     "us-affiliates-china": {
         "title": "U.S.-parent affiliates in China",
@@ -134,6 +136,13 @@ CHARTS = {
         "not Danish-UCI Eurostat counts. Subsidiary entities, not parents, plants or branches. "
         "2010 DB03/DB07 classification transition; Hong Kong and Macao separate. "
         "No pre-2007 values inferred; no sum with overlapping EU aggregates."},
+    "poland-affiliates-china": {
+        "title": "Enterprises controlled from Poland",
+        "subtitle": "China except Hong Kong | Eurostat | Reported counts from 2008",
+        "series": ["eurostat_poland:china"], "unit": "Enterprises", "mode": "levels",
+        "note": "Eurostat / Statistics Poland. Ultimate control includes documented joint/minority cases. "
+        "2007 unreported; 2010 legacy NACE transition and 2018 legal-unit/enterprise break retained. "
+        "2021 changes dataset, not the Polish enterprise unit. Not the broader national foreign-equity survey."},
     BENCHMARK_CHART: {
         "title": "U.S. parent companies with China affiliates",
         "subtitle": "Supplementary benchmark observations | NOT an annual series",
@@ -182,6 +191,9 @@ def validate_business_data(data):
                 token in definition["scope"] for token in (
                     "Denmark-resident parents", "Hong Kong and Macao separately", "foreign ultimate owners")):
             raise ValueError("Danish resident-parent and host-country scope must remain explicit")
+        if sid == "eurostat_poland:china" and not all(
+                token in definition["scope"] for token in ("Polish-resident UCI", "China except Hong Kong")):
+            raise ValueError("Polish ultimate-control and host-country scope must remain explicit")
     for item in data["sources"].values():
         if set(item) != {"name", "vintage", "assets", "locator", "notes"} or not item["assets"]:
             raise ValueError("Business source provenance incomplete")
@@ -239,6 +251,8 @@ def validate_business_data(data):
                                      "fats_out2_r2_SE" if r["year"] <= 2020 else "fats_out_part_SE"),
             "eurostat_spain:china": ("fats_out2_ES" if r["year"] <= 2009 else
                                     "fats_out2_r2_ES" if r["year"] <= 2020 else "fats_out_part_ES"),
+            "eurostat_poland:china": ("fats_out2_PL" if r["year"] <= 2009 else
+                                     "fats_out2_r2_PL" if r["year"] <= 2020 else "fats_out_part_PL"),
         }
         if ((r["series_id"] == "eurostat_italy_legal:china" and not 2007 <= r["year"] <= 2023)
                 or (r["series_id"] == "eurostat_italy:china" and r["year"] < 2021)):
