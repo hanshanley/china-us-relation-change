@@ -17,7 +17,7 @@ from PIL import Image, ImageColor
 from openpyxl import Workbook
 
 from us_china_exchange.business_analysis import BENCHMARK_CHART, CHARTS, COLORS, RETIRED_CHARTS, build_business, chart_groups, svg_business_chart, validate_business_data
-from us_china_exchange.business_sources import CBS_NETHERLANDS_METHODS, CBS_NETHERLANDS_REPORT, FINLAND_EUROSTAT_METHODS, NORDIC_QUERIES, SWEDEN_COUNTRIES, SWEDEN_QUALITY, count_cell, country_counts, parse_cbs_netherlands, parse_eurostat, parse_germany, parse_norway, parse_nordic, parse_ons
+from us_china_exchange.business_sources import CBS_NETHERLANDS_METHODS, CBS_NETHERLANDS_REPORT, FINLAND_EUROSTAT_METHODS, NORDIC_QUERIES, SWEDEN_COUNTRIES, SWEDEN_EUROSTAT_METHODS, SWEDEN_QUALITY, count_cell, country_counts, parse_cbs_netherlands, parse_eurostat, parse_germany, parse_norway, parse_nordic, parse_ons
 from us_china_exchange.render import build
 from us_china_exchange.theme import CHART_THEMES, PARTNER_COLORS
 
@@ -58,7 +58,7 @@ def test_distinct_parent_and_affiliate_checkpoints_remain_different_units():
     assert rows[("eurostat_norway:china", 2023)]["value"] == 88
     assert len([r for r in rows.values() if not r["series_id"].startswith(
         ("tillvaxtanalys_", "statfin_", "eurostat_france:", "eurostat_netherlands:", "eurostat_finland:",
-         "eurostat_italy"))]) == 112
+         "eurostat_italy", "eurostat_sweden:"))]) == 112
     assert rows[("ssb_norway:china", 2023)]["value"] == 89
     assert rows[("ssb_norway:china", 2024)]["value"] == 80
 
@@ -543,15 +543,18 @@ def test_selective_country_refreshes_preserve_coverage_order_across_modes(monkey
 
     monkeypatch.setattr(module, "uk_early_affiliates", early_uk)
     monkeypatch.setattr(module, "finnish_eurostat_affiliates", lambda client: selected(("eurostat_finland:",)))
+    monkeypatch.setattr(module, "swedish_eurostat_affiliates", lambda client: selected(("eurostat_sweden:",)))
     assert module.collect_nordic(None, prior) == prior
     assert module.collect_france(None, prior) == prior
     assert module.collect_netherlands(None, prior) == prior
     assert module.collect_finland_history(None, prior) == prior
     assert module.collect_uk_history(None, prior) == prior
+    assert module.collect_sweden_history(None, prior) == prior
     for collectors in (
         (module.collect_uk_history, module.collect_netherlands, module.collect_nordic, module.collect_france,
-         module.collect_finland_history),
-        (module.collect_finland_history, module.collect_france, module.collect_nordic, module.collect_netherlands,
+         module.collect_finland_history, module.collect_sweden_history),
+        (module.collect_sweden_history, module.collect_finland_history, module.collect_france,
+         module.collect_nordic, module.collect_netherlands,
          module.collect_uk_history),
     ):
         refreshed = prior
@@ -614,6 +617,60 @@ def test_finnish_eurostat_bars_do_not_fill_national_history_or_cross_source_boun
     assert eurostat_group["points"][-1]["value"] != national_group["points"][-2]["value"]
     row = next(row for row in data["observations"] if row["series_id"] == "eurostat_finland:china")
     row["source_id"] = "finland_13k8"
+    with pytest.raises(ValueError, match="method/source"):
+        validate_business_data(data)
+
+
+def test_swedish_eurostat_refresh_preserves_confidentiality_and_country_specific_breaks():
+    spec = importlib.util.spec_from_file_location("swedish_business_collector", ROOT / "scripts/build_business_data.py")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    prior = published()
+    prior["observations"] = [row for row in prior["observations"] if row["series_id"] != "eurostat_sweden:china"]
+    before = copy.deepcopy(prior)
+
+    def get(url):
+        asset = dict(url=url, request_url=url, sha256="c" * 64, retrieved_at="2026-10-25T00:00:00+00:00")
+        if url == SWEDEN_EUROSTAT_METHODS:
+            return b"Reviewed Sweden country methodology", asset
+        dataset = urlsplit(url).path.split("/")[-1]
+        codes = {name: values[0] for name, values in parse_qs(urlsplit(url).query).items() if name != "lang"}
+        assert codes["geo"] == "SE" and codes["partner"] == "CN_X_HK"
+        points, flags = {
+            "fats_out2": ([(2007, 186), (2008, 320), (2009, 0)], {"2": "|C"}),
+            "fats_out2_r2": ([(2010, 407), (2017, 702), (2018, 665), (2020, 679)], {"2": "b"}),
+            "fats_out_part": ([(2021, 523), (2023, 602)], {}),
+        }[dataset]
+        data = {"id": list(codes) + ["time"], "size": [1] * len(codes) + [len(points)],
+                "extension": {"id": dataset.upper()}, "updated": "2026-03-31T23:00:00+0200",
+                "dimension": {name: {"category": {"index": {code: 0}}} for name, code in codes.items()},
+                "value": {str(index): value for index, (_, value) in enumerate(points)}, "status": flags}
+        data["dimension"]["time"] = {"category": {"index": {str(year): index for index, (year, _) in enumerate(points)}}}
+        return json.dumps(data).encode(), asset
+
+    client = SimpleNamespace(get=get)
+    result = validate_business_data(module.collect_sweden_history(client, prior))
+    assert prior == before
+    retained = {(row["series_id"], row["year"]): row for row in result["observations"]}
+    assert all(retained[row["series_id"], row["year"]] == row for row in prior["observations"])
+    rows = {row["year"]: row for row in result["observations"] if row["series_id"] == "eurostat_sweden:china"}
+    assert rows[2009]["value"] is None and rows[2009]["status"] == "suppressed"
+    for previous, current in [(2007, 2008), (2008, 2010), (2017, 2018), (2020, 2021)]:
+        assert rows[previous]["comparability"] != rows[current]["comparability"]
+    assert module.collect_sweden_history(client, result) == result
+
+
+def test_swedish_eurostat_bars_leave_confidential_year_empty_and_national_spike_unchanged():
+    data = published()
+    for theme in CHART_THEMES:
+        svg = ElementTree.fromstring(svg_business_chart(data, "sweden-affiliates-china-eurostat", theme))
+        bars = [node for node in svg.iter() if node.get("class") == "annual-column"]
+        assert [int(node.get("data-year")) for node in bars] == [year for year in range(2007, 2024) if year != 2009]
+        assert not any(node.get("class") == "data-line" for node in svg.iter())
+    assert next(row["value"] for row in data["observations"]
+                if row["series_id"] == "tillvaxtanalys_sweden:china" and row["year"] == 2022) == 1133
+    row = next(row for row in data["observations"] if row["series_id"] == "eurostat_sweden:china")
+    row["source_id"] = "sweden_country_table"
     with pytest.raises(ValueError, match="method/source"):
         validate_business_data(data)
 
@@ -705,7 +762,7 @@ def test_complete_business_downloads_exact_points_backgrounds_and_stale_cleanup(
         (base / "substack").mkdir(parents=True)
         for chart_id in RETIRED_CHARTS:
             (base / "substack" / (chart_id + ".svg")).write_text("Obsolete wrong-destination chart")
-    assert build_business(tmp_path, data, defaultdict(list)) == 13
+    assert build_business(tmp_path, data, defaultdict(list)) == 14
     assert not any((tmp_path / "outputs/figures/business_presence/substack" / (cid + ".svg")).exists()
                    for cid in RETIRED_CHARTS)
     assert json.loads((tmp_path / "site/downloads/business-presence.json").read_text()) == data
@@ -772,7 +829,7 @@ def test_invalid_business_input_is_rejected_before_writes_and_deleted_input_with
     with pytest.raises(ValueError, match="current business evidence"):
         build(tmp_path)
     (path / "business_current.json").write_text((ROOT / "data/site/business_current.json").read_text())
-    assert build(tmp_path)["business_charts"] == 14
+    assert build(tmp_path)["business_charts"] == 15
     page = BeautifulSoup((tmp_path / "site/business-presence.html").read_text(), "html.parser")
     assert not page.select('a[href="language-learning.html"]')
     frozen.unlink()
@@ -792,10 +849,10 @@ def test_publication_is_business_only_with_complete_data_original_downloads_and_
     assert page.select_one('link[rel="canonical"]')["href"] == manifest["canonical_url"]
     assert "Interactive analysis" in page.select_one(".publication-header nav").text
     assert not page.select('a[href="language-learning.html"],iframe')
-    assert len(page.select("svg[role=img]")) == 16
+    assert len(page.select("svg[role=img]")) == 17
     assert not page.select("#business-controls,#annual-values,#module-chart,#uk-affiliates-china,#eu-affiliates-china")
-    assert len(page.select(".business-card.native-chart,.business-card .native-chart")) == 16
-    assert len(page.select(".business-count-card")) == 10
+    assert len(page.select(".business-card.native-chart,.business-card .native-chart")) == 17
+    assert len(page.select(".business-count-card")) == 11
     assert len(page.select("#business-inward-data table tbody tr")) == 25
     assert page.select_one("#business-data").get("open") is None
     assert set(p.name for p in (output / "downloads").iterdir()) == {
@@ -803,14 +860,14 @@ def test_publication_is_business_only_with_complete_data_original_downloads_and_
         "business-current-observations.csv", "business-current-chart-values.csv",
         "business-inward.json", "business-inward-observations.csv", "business-inward-chart-values.csv"}
     data = json.loads((output / "downloads/business-presence.json").read_text())
-    assert data == published() and manifest["historical_observations"] == 214
+    assert data == published() and manifest["historical_observations"] == 231
     assert manifest["observations"] == 59
     assert manifest["inward_observations"] == 50
     assert manifest["source_revision"] == "verified-source-revision"
     for name, checksum in manifest["files"].items():
         assert hashlib.sha256((output / name).read_bytes()).hexdigest() == checksum
     with (output / "downloads/business-observations.csv").open() as f:
-        assert len(list(csv.DictReader(f))) == 214
+        assert len(list(csv.DictReader(f))) == 231
     for link in page.select('a[href^="figures/"]'):
         assert link.has_attr("data-original-chart") and (output / link["href"].split("?")[0]).is_file()
     assert not (output / "business-presence.html").exists()

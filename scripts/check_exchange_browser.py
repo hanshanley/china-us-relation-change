@@ -188,6 +188,7 @@ def check():
                 "france-affiliates-china", "netherlands-affiliates-china",
                 "finland-affiliates-china-eurostat",
                 "italy-affiliates-china",
+                "sweden-affiliates-china-eurostat",
                 "us-company-decisions", "german-company-risk"}
             reference_ids = {
                 "us-affiliates-china", "germany-affiliates-china",
