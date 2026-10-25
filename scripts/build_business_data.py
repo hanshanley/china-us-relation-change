@@ -9,7 +9,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
-from us_china_exchange.business_sources import collect_business, finnish_eurostat_affiliates, french_affiliates, german_affiliates, netherlands_affiliates, norwegian_affiliates, nordic_affiliates
+from us_china_exchange.business_sources import collect_business, finnish_eurostat_affiliates, french_affiliates, german_affiliates, netherlands_affiliates, norwegian_affiliates, nordic_affiliates, swedish_eurostat_affiliates
 from us_china_exchange.language_sources import ReviewClient
 from us_china_exchange.model import json_text
 from us_china_exchange.pipeline import write_atomic
@@ -109,6 +109,18 @@ def collect_finland_history(client, prior):
     return data
 
 
+def collect_sweden_history(client, prior):
+    data = copy.deepcopy(prior)
+    definitions, observations, sources = swedish_eurostat_affiliates(client)
+    data["series"].update(definitions)
+    data["sources"].update(sources)
+    data["observations"] = sorted(
+        [r for r in data["observations"] if r["series_id"] not in definitions] + observations,
+        key=lambda r: (r["series_id"], r["year"]))
+    update_country_coverage(data, definitions)
+    return data
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--refresh", action="store_true", help="Refetch reviewed public assets instead of the local checksummed cache")
@@ -123,9 +135,12 @@ if __name__ == "__main__":
                            help="Review French Eurostat affiliate counts; preserve other countries")
     selection.add_argument("--finland-history-only", action="store_true",
                            help="Review the separate longer Finnish-UCI Eurostat history; preserve national counts")
+    selection.add_argument("--sweden-history-only", action="store_true",
+                           help="Review the separate older Swedish-UCI Eurostat history; preserve national counts")
     args = parser.parse_args()
     client = ReviewClient(ROOT / "data/local/business-presence/raw", args.refresh)
     collector = (collect_netherlands if args.netherlands_only else
+                 collect_sweden_history if args.sweden_history_only else
                  collect_finland_history if args.finland_history_only else
                  collect_france if args.france_only else collect_nordic if args.nordic_only else
                  collect_norway if args.norway_only else collect_germany if args.germany_only else None)

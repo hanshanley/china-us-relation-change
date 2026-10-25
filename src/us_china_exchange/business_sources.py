@@ -52,6 +52,7 @@ FINLAND_COUNTRIES = "https://pxdata.stat.fi/PxWeb/api/v1/en/StatFin/stu/13k8.px"
 FINLAND_METHODS = "https://stat.fi/en/documentation/changes-in-statistics/clh08g97cga760bw05x4vrip0"
 FINLAND_DOCUMENTATION = "https://stat.fi/en/documentation/documentation-of-statistics/stu"
 FINLAND_EUROSTAT_METHODS = "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_fi.htm"
+SWEDEN_EUROSTAT_METHODS = "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_se.htm"
 NORDIC_QUERIES = {
     "sweden": {"query": [
         {"code": "Tid", "selection": {"filter": "item", "values": [str(y) for y in range(2000, 2025)]}},
@@ -226,6 +227,39 @@ def finnish_eurostat_affiliates(client):
             if first <= year <= last:
                 if dataset == "fats_out2_r2" and year >= 2013:
                     comparability += ":YTY2013"
+                observations.append(row(sid, year, value, source_id, status,
+                                        notes + " Source flags: " + (flag or "none"), comparability))
+    return definitions, observations, sources
+
+
+def swedish_eurostat_affiliates(client):
+    sid, observations, sources = "eurostat_sweden:china", [], {}
+    notes = ("Swedish-UCI controlled enterprises in China except Hong Kong; a separate population "
+             "from the national subsidiary table. Preserve the metadata's 2008 classification break "
+             "and original legacy NACE label/2010 table transition, 2018 legal-unit-to-enterprise/EGR "
+             "change and 2021 EBS boundary. Official compilation can include imputation. "
+             "2009 is confidential, not zero; no national-series splice or cross-regime growth.")
+    definitions = {sid: series(
+        "Sweden (Eurostat)", "controlled_enterprises", "enterprises",
+        "Swedish-UCI enterprises in China except Hong Kong; selected legacy NACE C-O except L, then market producers NACE B-S except O",
+        "annual", "reference year", notes)}
+    _, methodology = client.get(SWEDEN_EUROSTAT_METHODS)
+    for dataset, indicator, activity, first, last in [
+        ("fats_out2", "indic_bp=ENT", "nace_r1=C-O_X_L", 2007, 2009),
+        ("fats_out2_r2", "indic_bp=ENT", "nace_r2=B-S_X_O", 2010, 2020),
+        ("fats_out_part", "indic_sbs=ENT_NR", "nace_r2=B-S_X_O", 2021, 9999),
+    ]:
+        url = EUROSTAT + dataset + "?lang=EN&freq=A&geo=SE&partner=CN_X_HK&" + indicator + "&" + activity
+        body, asset = client.get(url)
+        data, source_id = json.loads(body), dataset + "_SE"
+        sources[source_id] = source(
+            "Eurostat / Statistics Sweden", dataset + "; Sweden; source updated " + data["updated"],
+            [asset, methodology], "geo=SE; partner=CN_X_HK; " + indicator + "; " + activity,
+            notes + " GGH is the source's UCI proxy. The original dataset dimensions and flags are retained.")
+        for year, value, status, flag, comparability in parse_eurostat(data, dataset, "SE"):
+            if first <= year <= last:
+                if dataset == "fats_out2":
+                    comparability += ":classification2007" if year == 2007 else ":classification2008"
                 observations.append(row(sid, year, value, source_id, status,
                                         notes + " Source flags: " + (flag or "none"), comparability))
     return definitions, observations, sources
@@ -572,6 +606,10 @@ def collect_business(client):
     definitions.update(finland_definitions)
     observations.extend(finland_observations)
     sources.update(finland_sources)
+    sweden_definitions, sweden_observations, sweden_sources = swedish_eurostat_affiliates(client)
+    definitions.update(sweden_definitions)
+    observations.extend(sweden_observations)
+    sources.update(sweden_sources)
     coverage = []
     for sid in definitions:
         selected = [r for r in observations if r["series_id"] == sid]
@@ -589,7 +627,7 @@ def collect_business(client):
         "context": {
             "question": "How has U.S. and European business presence in China changed over time?",
             "interpretation": "Company counts, affiliate entities and branch locations are distinct. U.S. parents and ultimately EU-controlled enterprises are not matched ownership populations; BEA and Eurostat levels must not be used to rank otherwise comparable business presence.",
-            "geography": "China is the host. European coverage includes current/historical EU groups, Germany, the UK, Norway, Sweden, Finland, France and the Netherlands. French, Finnish and Dutch Eurostat host categories are China except Hong Kong. Finland's Eurostat UCI history and broader national series remain separate. National series overlap EU aggregates and have different control/sector definitions; these are not summed into an all-Europe total. Other European origins remain unresolved.",
+            "geography": "China is the host. European coverage includes current/historical EU groups, Germany, the UK, Norway, Sweden, Finland, France and the Netherlands. French, Finnish, Swedish and Dutch Eurostat host categories are China except Hong Kong. Finnish and Swedish Eurostat UCI histories remain separate from their national series. National series overlap EU aggregates and have different control/sector definitions; these are not summed into an all-Europe total. Other European origins remain unresolved.",
             "rights": "Publish aggregate statistics and original charts only; raw workbooks and reports remain local. Sources and retrieval checksums accompany every observation.",
             "release_timing": "As checked October 22, 2026, BEA's latest activity release covers 2023. The published schedule puts the 2024 activity release on November 20, 2026; no 2024 value is inferred.",
         },
