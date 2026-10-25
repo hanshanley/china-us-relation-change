@@ -1072,6 +1072,9 @@ def test_portuguese_czech_refresh_preserves_countries_confidentiality_and_contro
                         "In 2020, some companies were added" if geo == "PT" else
                         "Czech National Bank; in 2007 due to the inclusion of the UCI principle; "
                         "Starting from 2008 NACE Rev. 2 was implemented; In reference year 2021 a new Regulation")
+                text += "; the statistical unit is the enterprise as defined in line with the Regulation"
+                if self.wrong == "unit":
+                    text = text.replace("is the enterprise as defined", "is the legal unit as defined")
                 return (b"Unreviewed methodology" if self.wrong == "methodology" else text.encode()), asset
             dataset = urlsplit(url).path.split("/")[-1]
             codes = {name: values[0] for name, values in parse_qs(urlsplit(url).query).items() if name != "lang"}
@@ -1126,7 +1129,7 @@ def test_portuguese_czech_refresh_preserves_countries_confidentiality_and_contro
         assert rows[2007]["comparability"] != rows[2008]["comparability"]
         assert rows[2020]["comparability"] != rows[2021]["comparability"]
     assert refresh(Client(), updated) == updated
-    for wrong in ("geo", "metric", "missing-year", "new-break", "methodology"):
+    for wrong in ("geo", "metric", "missing-year", "new-break", "methodology", "unit"):
         invalid = Client()
         invalid.wrong = wrong
         with pytest.raises(ValueError):

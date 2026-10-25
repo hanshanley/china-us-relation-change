@@ -656,6 +656,7 @@ def portuguese_affiliates(client):
     text = " ".join(BeautifulSoup(body, "html.parser").get_text(" ", strip=True).split())
     if not all(token in text for token in (
             "Banco de Portugal", "UCI approach first implemented for 2008 data",
+            "is the enterprise as defined in line with the Regulation",
             "In 2014, the source data for OFATS compilation was changed",
             "In 2020, some companies were added")):
         raise ValueError("Portuguese control/coverage methodology changed")
@@ -705,6 +706,7 @@ def czech_affiliates(client):
     text = " ".join(BeautifulSoup(body, "html.parser").get_text(" ", strip=True).split())
     if not all(token in text for token in (
             "Czech National Bank", "in 2007 due to the inclusion of the UCI principle",
+            "is the enterprise as defined in line with the Regulation",
             "Starting from 2008 NACE Rev. 2 was implemented", "In reference year 2021 a new Regulation")):
         raise ValueError("Czech control/coverage methodology changed")
     for dataset, indicator, activity, first, last in [
