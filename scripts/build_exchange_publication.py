@@ -620,16 +620,24 @@ def decorate(site, name, labels, revision):
             summary.string = "Chart notes"
             note.append(summary)
             p = None
+            note_suffix = ""
             if name == "business-presence.html":
-                p = next((candidate for candidate in block.parent.find_all(
-                    "p", class_="chart-note", recursive=False)
-                    if not candidate.has_attr("hidden") and
-                    " ".join(candidate.get_text(" ", strip=True).split()) == " ".join(footnote.split())), None)
+                normalized_footnote = " ".join(footnote.split())
+                for candidate in block.parent.find_all("p", class_="chart-note", recursive=False):
+                    candidate_text = " ".join(candidate.get_text(" ", strip=True).split())
+                    if not candidate.has_attr("hidden") and candidate_text and (
+                            normalized_footnote == candidate_text or
+                            normalized_footnote.startswith(candidate_text + " ")):
+                        p = candidate
+                        note_suffix = normalized_footnote[len(candidate_text):]
+                        break
             if p is None:
                 p = soup.new_tag("p")
                 p.string = footnote
             else:
                 p.extract()
+            if note_suffix:
+                p.append(note_suffix)
             note.append(p)
             block.insert_after(note)
         parent = block.find_parent("section")

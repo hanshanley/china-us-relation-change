@@ -24,8 +24,8 @@ def reviewed_snapshot():
     return json.loads((ROOT / "tests/fixtures/exchange_reviewed_2026-10-21.json").read_text())
 
 
-@pytest.mark.parametrize("same_note", [True, False])
-def test_business_notes_disclosure_preserves_one_note_and_distinct_caveats(tmp_path, same_note):
+@pytest.mark.parametrize("same_note,suffix", [(True, ""), (True, " 2024 provisional."), (False, "")])
+def test_business_notes_disclosure_preserves_one_note_and_distinct_caveats(tmp_path, same_note, suffix):
     spec = importlib.util.spec_from_file_location("business_note_publication", ROOT / "scripts/build_exchange_publication.py")
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
@@ -33,7 +33,7 @@ def test_business_notes_disclosure_preserves_one_note_and_distinct_caveats(tmp_p
     (tmp_path / "figures").mkdir()
     (tmp_path / "figures/count.svg").write_text(
         '<svg xmlns="http://www.w3.org/2000/svg"><text class="figure-source">'
-        'Reported enterprises. Source methods</text></svg>')
+        f'Reported enterprises. Source methods{suffix}</text></svg>')
     (tmp_path / "business-presence.html").write_text(
         '<html><head><title>Business</title></head><body><div class="page"><main>'
         '<section id="count" class="business-card"><h2>Enterprises</h2>'
@@ -48,11 +48,11 @@ def test_business_notes_disclosure_preserves_one_note_and_distinct_caveats(tmp_p
     assert disclosure.select_one("summary").text == "Chart notes"
     assert not disclosure.has_attr("open")
     assert len([p for p in card.select("p")
-                if p.get_text(" ", strip=True) == "Reported enterprises. Source methods"]) == 1
+                if " ".join(p.stripped_strings) == "Reported enterprises. Source methods" + suffix]) == 1
     original = card.select_one("#source-note")
     assert original.select_one("a")["href"] == "https://example.test/methods"
     assert original.find_parent("details") is disclosure if same_note else original.parent is card
-    assert " ".join(original.stripped_strings) == lead + " Source methods"
+    assert " ".join(original.stripped_strings) == lead + " Source methods" + (suffix if same_note else "")
 
 
 @pytest.mark.parametrize("origin,destination,measure,baseline,latest", [
