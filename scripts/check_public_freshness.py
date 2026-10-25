@@ -37,7 +37,7 @@ def model_current(model, definitions, identity):
         groups[bar["id"]].append(bar)
     assert groups, (identity, "unrecognized empty model")
     for sid, points in groups.items():
-        snapshot = "snapshot" in definitions.get(sid, {}).get("cadence", "").lower()
+        snapshot = bool(model.get("snapshots")) or "snapshot" in definitions.get(sid, {}).get("cadence", "").lower()
         assert_current(points, identity + ":" + sid, snapshot)
 
 
@@ -83,7 +83,7 @@ def check(site, url=None):
             if target.is_file():
                 identifier = query.split("#")[0].split("&")[0]
                 assert BeautifulSoup(target.read_text(), "html.parser").select_one("#" + identifier), link["href"]
-    exports = list((site / "figures").rglob("*.svg"))
+    exports = [site / name for name in manifest["files"] if name.startswith("figures/") and name.endswith(".svg")]
     for path in exports:
         soup = BeautifulSoup(path.read_text(), "html.parser")
         if soup.svg.get("data-state-map"):

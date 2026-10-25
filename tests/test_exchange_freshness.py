@@ -13,6 +13,21 @@ from us_china_exchange.public_freshness import current_groups, eligible, public,
 ROOT = Path(__file__).resolve().parents[1]
 
 
+@pytest.mark.parametrize("years,accepted", [([2020, 2025], False), ([2024, 2025], True)])
+def test_native_snapshot_metadata_checks_each_observation_not_just_the_latest(years, accepted):
+    spec = importlib.util.spec_from_file_location("freshness_checker", ROOT / "scripts/check_public_freshness.py")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    model = {"kind": "line", "snapshots": True, "groups": [
+        {"id": "reported_snapshots", "points": [{"year": year, "value": 10} for year in years]}]}
+    definitions = {"reported_snapshots": {"cadence": "annual"}}
+    if accepted:
+        module.model_current(model, definitions, "snapshot example")
+    else:
+        with pytest.raises(AssertionError, match="old snapshot"):
+            module.model_current(model, definitions, "snapshot example")
+
+
 def test_covid_band_uses_annual_bins_without_changing_observation_values():
     from xml.etree import ElementTree
     from us_china_exchange.covid_context import COVID_CONTEXT, svg_band
@@ -133,3 +148,7 @@ def test_publication_retires_all_stale_surfaces_but_keeps_complete_data(tmp_path
     for source, target in (("language_learning", "language-learning"), ("opinions", "opinions")):
         assert json.loads((tmp_path / f"downloads/{target}.json").read_text()) == json.loads(
             (ROOT / f"data/site/{source}.json").read_text())
+    spec = importlib.util.spec_from_file_location("freshness_checker", ROOT / "scripts/check_public_freshness.py")
+    checker = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(checker)
+    checker.check(tmp_path)
