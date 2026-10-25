@@ -8,6 +8,7 @@ from openpyxl import Workbook
 
 from us_china_exchange.sources import COUNTRIES, parse_bea, parse_ntto, parse_taiwan
 from us_china_exchange import sources
+from us_china_exchange import travel_sources
 from us_china_exchange.model import change, validate
 from us_china_exchange.travel_sources import parse_monitor_card
 
@@ -64,6 +65,71 @@ def test_siat_cards_guard_destination_annual_year_and_imported_partial_boundary(
     with pytest.raises(ValueError, match="vintage"):
         parse_monitor_card(partial.replace("06-Oct-2026", "07-Oct-2026"),
                            "China, People's Republic of", 2026, "ytd")
+
+
+def test_historical_siat_parser_keeps_mainland_hong_kong_units_and_missingness(monkeypatch):
+    header = "Region/Country " + " ".join(map(str, range(2000, 2010)))
+    china = "China (POC) 644 682 725 562 1,067 1,295 1,327 1,374 1,201 1,182"
+    hong_kong = "Hong Kong 832 732 749 489 738 921 904 968 924 788"
+    table = header + "\n2000 - 2009 Historical Outbound Visitation (one or more nights)\n"
+    table += china + "\n" + hong_kong + "\nTaiwan 671 656 632 489 629 662 693 687 647 576"
+    class Page:
+        def __init__(self, text):
+            self.text = text
+        def extract_text(self):
+            return self.text
+    class Reader:
+        pages = [Page("2009 United States Resident Travel Abroad (000)"), Page(table)]
+    monkeypatch.setattr(travel_sources, "PdfReader", lambda _: Reader())
+    rows = travel_sources.parse_historical_siat(b"source", 2009)
+    assert len(rows) == 20
+    assert {(row["destination"], row["year"]): row["value"] for row in rows
+            if row["year"] == 2000} == {("CHN", 2000): 644000, ("HKG", 2000): 832000}
+    Reader.pages[-1] = Page(table.replace("832 732", "** 732"))
+    missing = next(row for row in travel_sources.parse_historical_siat(b"source", 2009)
+                   if row["destination"] == "HKG" and row["year"] == 2000)
+    assert missing["value"] is None and missing["status"] == "missing"
+    for invalid in (table.replace("2000 2001", "1999 2001"),
+                    table.replace("644 682", "644"),
+                    table.replace(china, china + "\n" + china),
+                    table.replace("China (POC)", "China including Hong Kong")):
+        Reader.pages[-1] = Page(invalid)
+        with pytest.raises(ValueError):
+            travel_sources.parse_historical_siat(b"changed source", 2009)
+
+
+def test_historical_siat_requires_matching_releases_and_current_2012_overlap(monkeypatch):
+    from us_china_exchange.model import digest
+
+    modern = [{"destination": geo, "year": 2012, "frequency": "annual", "value": value}
+              for geo, value in (("CHN", 1140000), ("HKG", 627000))]
+    def parse(body, report_year):
+        return [{"destination": geo, "year": year, "value": value if year == 2012 else year * 1000,
+                 "status": "estimated"}
+                for geo, value in (("CHN", 1140000), ("HKG", 627000))
+                for year in range(report_year - 9, report_year + 1)]
+    def get(url):
+        body = url.encode()
+        return body, {"url": url, "sha256": digest(body), "retrieved_at": "2026-10-24T23:00:00+00:00"}
+    monkeypatch.setattr(travel_sources, "parse_historical_siat", parse)
+    rows = travel_sources.historical_siat(SimpleNamespace(get=get), modern)
+    assert len(rows) == 24
+    assert {(row["destination"], row["year"]) for row in rows} == {
+        (geo, year) for geo in ("CHN", "HKG") for year in range(2000, 2012)}
+    assert all(row["source_id"] == "ntto_siat" and row["unit"] == "trips" for row in rows)
+    assert all(row["source_url"].startswith("https://web.archive.org/web/") and row["raw_sha256"] for row in rows)
+    modern[0]["value"] += 1000
+    with pytest.raises(ValueError, match="2012 overlap"):
+        travel_sources.historical_siat(SimpleNamespace(get=get), modern)
+    modern[0]["value"] -= 1000
+    def conflicting(body, report_year):
+        rows = parse(body, report_year)
+        if report_year == 2011:
+            rows[0]["value"] += 1000
+        return rows
+    monkeypatch.setattr(travel_sources, "parse_historical_siat", conflicting)
+    with pytest.raises(ValueError, match="overlaps disagree"):
+        travel_sources.historical_siat(SimpleNamespace(get=get), modern)
 
 
 def test_nbs_arrivals_preserve_country_identity_units_and_excel_precision():

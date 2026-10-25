@@ -1,8 +1,11 @@
 """Manual review of the public NTTO resident-air-travel monitor."""
 
+import io
 import json
 import re
 from datetime import datetime, timezone
+
+from pypdf import PdfReader
 
 from .model import digest, json_text, observation, validate
 from .pipeline import write_atomic
@@ -13,6 +16,82 @@ MONITOR = "https://powerbi.trade.gov/#/workspace/IA-NTTO-PUBLIC/report/SIAT_Res_
 COUNTRIES = {"CHN": "China, People's Republic of", "HKG": "Hong Kong"}
 ANNUAL_YEARS = (*range(2012, 2021), 2022, 2023, 2024, 2025)
 PARTIAL_YEAR, PARTIAL_QUARTER = 2026, 2
+SIAT_DEFINITION = (
+    "NTTO SIAT estimates of U.S.-resident air travelers visiting the destination; all purposes, "
+    "including multi-destination trips; not all-mode border arrivals, unique people or U.S. citizenship counts")
+HISTORICAL_REPORTS = {
+    2009: ("20100701065448", "http://tinet.ita.doc.gov/outreachpages/download_data_table/2009_US_Travel_Abroad.pdf",
+           "China (POC)", "OTTI U.S. Resident Travel Abroad 2009; revised June 2010"),
+    2010: ("20120131080346", "http://tinet.ita.doc.gov:80/outreachpages/download_data_table/2010_US_Travel_Abroad.pdf",
+           "China (PRC)", "OTTI U.S. Resident Travel Abroad 2010; revised November 2011"),
+    2011: ("20120916084454", "http://tinet.ita.doc.gov:80/outreachpages/download_data_table/2011_US_Travel_Abroad.pdf",
+           "People's Republic of China", "OTTI U.S. Resident Travel Abroad 2011; released July 2012"),
+    2012: ("20161221124638", "http://tinet.ita.doc.gov/outreachpages/download_data_table/2012_US_Travel_Abroad.pdf",
+           "China", "NTTO U.S. Resident Travel Abroad 2012; released December 2013"),
+}
+
+
+def parse_historical_siat(body, report_year):
+    label = HISTORICAL_REPORTS[report_year][2]
+    years = list(range(report_year - 9, report_year + 1))
+    pages = [page.extract_text() for page in PdfReader(io.BytesIO(body)).pages]
+    normalize = lambda text: " ".join(text.split())
+    if ("United States Resident Travel Abroad" not in normalize(pages[0])
+            or str(report_year) not in pages[0] or "(000)" not in "".join(pages)):
+        raise ValueError("Historical SIAT report identity or thousands unit changed")
+    header = "Region/Country " + " ".join(map(str, years))
+    selected = [page for page in pages if header in normalize(page) and "Hong Kong" in page]
+    if len(selected) != 1 or "Historical Outbound Visitation (one or more nights)" not in normalize(selected[0]):
+        raise ValueError("Historical SIAT country/year table missing or ambiguous")
+    result = []
+    for geo, country in (("CHN", label), ("HKG", "Hong Kong")):
+        matches = [re.fullmatch(re.escape(country) + r"\s+(.+)", normalize(line))
+                   for line in selected[0].splitlines()]
+        matches = [match for match in matches if match]
+        if len(matches) != 1:
+            raise ValueError("Historical SIAT destination row missing or ambiguous: " + country)
+        cells = matches[0][1].split()
+        if len(cells) != len(years) or any(
+                not re.fullmatch(r"(?:\d{1,3}(?:,\d{3})*|\d+|\*\*|na)", cell) for cell in cells):
+            raise ValueError("Historical SIAT response columns or suppression markers changed")
+        for year, cell in zip(years, cells):
+            result.append({"destination": geo, "year": year,
+                           "value": None if cell in {"**", "na"} else int(cell.replace(",", "")) * 1000,
+                           "status": "missing" if cell in {"**", "na"} else "estimated"})
+    return result
+
+
+def historical_siat(client, modern_rows):
+    merged = {}
+    for report_year, (timestamp, original, _, vintage) in HISTORICAL_REPORTS.items():
+        url = "https://web.archive.org/web/" + timestamp + "id_/" + original
+        body, asset = client.get(url)
+        for row in parse_historical_siat(body, report_year):
+            identity = row["destination"], row["year"]
+            if identity in merged and merged[identity]["value"] != row["value"]:
+                raise ValueError("Historical SIAT report overlaps disagree; review the source vintages")
+            year = row["year"]
+            threshold = ("Source publication threshold: at least 100 respondents. " if year <= 2005 else
+                         "Source publication threshold: at least 400 respondents. " if year <= 2010 else "")
+            observation_row = observation(
+                "ntto_siat", "USA", row["destination"], "air_visitors", year, row["value"],
+                SIAT_DEFINITION, status=row["status"],
+                notes=f"Original {report_year} U.S. Resident Travel Abroad report, PDF page 7; "
+                      "separately reported mainland China/Hong Kong country estimates, in thousands. "
+                      "Historical Outbound Visitation (one or more nights); all travel purposes. "
+                      + threshold + "Exact destination sample size is not supplied. "
+                      "Every overlapping retained report agrees; the 2012 values also match the current monitor. "
+                      "Not the BTS combined China/Hong Kong total, citizenship counts or nonstop airport passengers. "
+                      "Original publisher URL: " + original)
+            merged[identity] = attach([observation_row], asset, vintage)[0]
+    current = {(row["destination"], row["year"]): row["value"] for row in modern_rows
+               if row["frequency"] == "annual"}
+    for geo in COUNTRIES:
+        if (geo, 2012) not in current or current[geo, 2012] != merged[geo, 2012]["value"]:
+            raise ValueError("Historical SIAT 2012 overlap differs from the current monitor")
+    if set(merged) != {(geo, year) for geo in COUNTRIES for year in range(2000, 2013)}:
+        raise ValueError("Historical SIAT 2000-2012 coverage is incomplete")
+    return validate([row for (_, year), row in merged.items() if year < 2012])
 
 
 def parse_monitor_card(text, country, year, frequency):
@@ -117,8 +196,7 @@ def collect_siat(client):
                              "retrieved_at": datetime.now(timezone.utc).isoformat(timespec="seconds")}
                     row = observation(
                         "ntto_siat", "USA", geo, "air_visitors", year, value,
-                        "NTTO SIAT estimates of U.S.-resident air travelers visiting the destination; all purposes, "
-                        "including multi-destination trips; not all-mode border arrivals, unique people or U.S. citizenship counts",
+                        SIAT_DEFINITION,
                         frequency=frequency, month=6 if frequency == "ytd" else None,
                         status="low_reliability" if sample < 100 else "estimated",
                         notes=f"Public monitor, all U.S.A. source filters; {country}; "
@@ -155,9 +233,13 @@ def siat(client, refresh=False):
             (geo, year, frequency) for geo in COUNTRIES for year, frequency in
             [(y, "annual") for y in ANNUAL_YEARS] + [(2026, "ytd"), (2025, "ytd")]}:
         raise ValueError("Reviewed SIAT destination/year coverage incomplete")
-    return rows, "NTTO SIAT public monitor, 6 October 2026; through 2026 Q2", (
+    rows = validate(historical_siat(client, rows) + rows)
+    return rows, "NTTO SIAT public monitor, 6 October 2026; original historical reports 2010-2013; through 2026 Q2", (
         "U.S.-resident air-travel destination estimates, kept separate from all-mode visitor arrivals. "
-        "Annual 2012–2020 and 2022–2025; separately selected Q1-Q2 observations in 2025 and 2026 support matched January–June comparisons. "
+        "Annual 2000–2020 and 2022–2025; 2000-2011 recovered from original resident-travel reports, with "
+        "all historical overlaps and both 2012 monitor values reconciled. Published thousands, country isolation "
+        "and original sample/suppression thresholds are retained. "
+        "Separately selected Q1-Q2 observations in 2025 and 2026 support matched January–June comparisons. "
         "Quarter checkboxes are selected directly, not inferred by subtracting rounded annual and half-year totals. "
         "Monitor total-traveler and respondent cards read from the public report with explicit year, quarter and destination filters; "
         "source checksums identify retained browser-visible report text, not API responses. "
