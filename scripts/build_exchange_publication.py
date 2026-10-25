@@ -473,10 +473,15 @@ def decorate(site, name, labels, revision):
         theme["hidden"] = ""
         for note in soup.select(".chart-scroll-hint"):
             note.decompose()
+        definition_notes = []
         for note in list(panel.select(":scope > .chart-note")):
             if (note.get("id") not in {"series-notes", "selection-note", "related-series", "series-continuity"}
                     and "travel-definition" not in note.get("class", [])):
-                soup.select_one("#selected-table").append(note.extract())
+                if name != "index.html" and "Academic-year labels" in note.text:
+                    note.decompose()
+                else:
+                    definition_notes.append(note.extract())
+        soup.select_one("#selected-table").decompose()
         definition = soup.new_tag("details", attrs={"class": "definition-details"})
         summary = soup.new_tag("summary")
         summary.string = "Sources, definitions & limits"
@@ -485,6 +490,12 @@ def decorate(site, name, labels, revision):
             definition.append(panel.select_one(".travel-definition").extract())
         for selector in ["#definition", "#series-source", "#series-notes"]:
             definition.append(soup.select_one(selector).extract())
+        for note in definition_notes:
+            definition.append(note)
+        definition.append(fragment(
+            '<p class="chart-note core-data-downloads">Complete data: '
+            '<a href="downloads/observations.csv" download>All observations (CSV)</a> · '
+            '<a href="downloads/exchange.json" download>Data, definitions &amp; sources (JSON)</a></p>'))
         panel.append(definition)
         export = soup.new_tag("details", attrs={"class": "chart-downloads"})
         summary = soup.new_tag("summary")

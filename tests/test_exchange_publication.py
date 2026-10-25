@@ -145,6 +145,15 @@ def test_collective_export_preserves_complete_inputs_and_native_plot_boundaries(
         assert github.text == "GitHub" and github["href"] == module.REPOSITORY
         assert not page.select("#downloads, #coverage, #sources, #all-values, .intro-notes")
         assert not page.select('.publication-footer a[href^="publication-manifest"]')
+        if name in {"index.html", "travel.html", "trade.html"}:
+            assert not page.select("#selected-table, #series-table")
+            assert "Exact values for this series" not in page.get_text()
+            assert page.select_one(".definition-details #definition")
+            assert page.select_one(".definition-details #series-source")
+            assert page.select_one(".definition-details #series-notes")
+            assert page.select_one('a[href^="downloads/observations.csv"]')
+            assert ("Academic-year labels use their ending year" in page.select_one(
+                ".definition-details").get_text()) == (name == "index.html")
         assert "Automatic refresh:" not in page.get_text()
         assert "Sources and recorded checks" not in page.get_text()
         assert page.select_one(".publication-footer a")["href"] == module.REPOSITORY

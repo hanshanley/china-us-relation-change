@@ -28,6 +28,8 @@ def check_exchange_toggles(page, data, screenshots=None):
                             ("CHN", "to_us", "goods"), ("CHN", "from_us", "services")]),
         ):
             page.goto(base + name)
+            assert not page.locator("#selected-table,#series-table").count()
+            assert page.locator('.definition-details a[href^="downloads/observations.csv"]').count() == 1
             if name == "trade.html":
                 page.locator(".individual-series").evaluate("node=>node.open=true")
             for geo, direction, measure in routes:
@@ -536,10 +538,18 @@ def check(site, url=None, screenshots=None):
         assert page.locator("#chart svg").count() == 1
         assert page.locator("#chart svg").bounding_box()["width"] >= 840
         assert page.locator("#chart").evaluate("node=>node.scrollWidth>node.clientWidth")
-        assert page.locator("#selected-table #series-table tbody tr").count() == len([
+        assert not page.locator("#selected-table,#series-table").count()
+        assert page.locator("#chart .annual-column").count() == len([
             row for row in data["observations"] if row["origin"] == "CHN" and row["destination"] == "USA"
             and row["measure"] == "international_students" and row["frequency"] == "annual"])
+        assert page.locator('a[href^="downloads/observations.csv"]').count()
         assert not page.evaluate("document.documentElement.scrollWidth>innerWidth")
+        for name in ["travel.html", "trade.html"]:
+            page.goto(url.rsplit("/", 1)[0] + "/" + name)
+            assert not page.locator("#selected-table,#series-table").count()
+            assert page.locator("#chart .annual-column").count()
+            assert page.locator('.definition-details a[href^="downloads/observations.csv"]').count() == 1
+            assert not page.evaluate("document.documentElement.scrollWidth>innerWidth")
         browser.close()
     print("Collective coverage, exact values, 2025/2026 periods, filters and mobile/no-JS checks passed.")
 
