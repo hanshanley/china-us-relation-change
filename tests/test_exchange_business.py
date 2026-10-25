@@ -60,7 +60,7 @@ def test_distinct_parent_and_affiliate_checkpoints_remain_different_units():
         ("tillvaxtanalys_", "statfin_", "eurostat_france:", "eurostat_netherlands:", "eurostat_finland:",
          "eurostat_italy", "eurostat_sweden:", "eurostat_spain:", "dst_denmark:", "eurostat_austria", "eurostat_poland:",
          "eurostat_portugal", "eurostat_czechia:", "eurostat_belgium",
-         "snb_swiss_liechtenstein:", "ine_spain"))]) == 119
+         "snb_swiss_liechtenstein:", "ine_spain", "eurostat_hungary"))]) == 119
     assert rows[("ssb_norway:china", 2023)]["value"] == 89
     assert rows[("ssb_norway:china", 2024)]["value"] == 80
 
@@ -75,7 +75,8 @@ def test_default_business_refresh_preserves_reviewed_context_coverage_and_unretu
     complete = published()
     prior = copy.deepcopy(complete)
     if new_populations:
-        removed = {"snb_swiss_liechtenstein:china", "ine_spain:china", "ine_spain_units:china"}
+        removed = {"snb_swiss_liechtenstein:china", "ine_spain:china", "ine_spain_units:china",
+                   "eurostat_hungary:china", "eurostat_hungary_legal:china"}
         prior["series"] = {key: value for key, value in prior["series"].items() if key not in removed}
         prior["observations"] = [row for row in prior["observations"] if row["series_id"] not in removed]
         prior["coverage"] = [row for row in prior["coverage"] if row["id"] not in removed]
@@ -744,6 +745,7 @@ def test_selective_country_refreshes_preserve_coverage_order_across_modes(monkey
     monkeypatch.setattr(module, "czech_affiliates", lambda client: selected(("eurostat_czechia:",)))
     monkeypatch.setattr(module, "belgian_affiliates", lambda client: selected(("eurostat_belgium",)))
     monkeypatch.setattr(module, "snb_affiliates", lambda client: selected(("snb_swiss_liechtenstein:",)))
+    monkeypatch.setattr(module, "hungarian_affiliates", lambda client: selected(("eurostat_hungary",)))
     assert module.collect_nordic(None, prior) == prior
     assert module.collect_france(None, prior) == prior
     assert module.collect_netherlands(None, prior) == prior
@@ -759,12 +761,15 @@ def test_selective_country_refreshes_preserve_coverage_order_across_modes(monkey
     assert module.collect_czechia(None, prior) == prior
     assert module.collect_belgium(None, prior) == prior
     assert module.collect_swiss_reporting_area(None, prior) == prior
+    assert module.collect_hungary(None, prior) == prior
     for collectors in (
         (module.collect_uk_history, module.collect_netherlands, module.collect_nordic, module.collect_france,
          module.collect_finland_history, module.collect_sweden_history, module.collect_spain, module.collect_denmark,
          module.collect_italy, module.collect_austria, module.collect_poland,
-         module.collect_portugal, module.collect_czechia, module.collect_belgium, module.collect_swiss_reporting_area),
-        (module.collect_swiss_reporting_area, module.collect_belgium, module.collect_czechia, module.collect_portugal, module.collect_poland,
+         module.collect_portugal, module.collect_czechia, module.collect_belgium, module.collect_swiss_reporting_area,
+         module.collect_hungary),
+        (module.collect_hungary, module.collect_swiss_reporting_area, module.collect_belgium,
+         module.collect_czechia, module.collect_portugal, module.collect_poland,
          module.collect_austria, module.collect_italy, module.collect_denmark, module.collect_spain,
          module.collect_sweden_history, module.collect_finland_history,
          module.collect_france, module.collect_nordic, module.collect_netherlands, module.collect_uk_history),
@@ -1235,6 +1240,136 @@ def test_belgian_refresh_preserves_other_countries_and_rejects_wrong_populations
         client.wrong = failure
         with pytest.raises(ValueError):
             module.collect_belgium(client, prior)
+
+
+def test_hungarian_refresh_preserves_history_confidentiality_and_producer_unit_rules(monkeypatch):
+    spec = importlib.util.spec_from_file_location("hungarian_collector", ROOT / "scripts/build_business_data.py")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    from us_china_exchange.business_sources import HUNGARY_CONTEXT_NOTE, HUNGARY_EUROSTAT_METHODS, HUNGARY_OUTWARD_METHODS, HUNGARY_OUTWARD_TABLE
+
+    class Client:
+        wrong = None
+
+        def get(self, url):
+            asset = dict(url=url, request_url=url, sha256="a" * 64, retrieved_at="2026-10-25T00:00:00+00:00")
+            if url == HUNGARY_EUROSTAT_METHODS:
+                text = ("ultimate controlling institutional unit; 2007-2009, 2010-2023; "
+                        "40.000 EUR; 10 percent; HUF 10 million; "
+                        "minority share provides enough control; no equally shared controlled enterprises; "
+                        "non-responding enterprises were not included")
+                if self.wrong == "window":
+                    text = text.replace("2010-2023", "2010-2024")
+                if self.wrong == "frame":
+                    text = text.replace("40.000 EUR", "40.001 EUR")
+                return text.encode(), asset
+            if url == HUNGARY_OUTWARD_METHODS:
+                text = ("legal unit level until reference year 2021; "
+                        "from reference year 2022 enterprise level; "
+                        "From reference year 2021; 2019/2152; "
+                        "reference population covers the market producers as defined by ESA 2010")
+                if self.wrong == "unit":
+                    text = text.replace("reference year 2022", "reference year 2018")
+                if self.wrong == "ebs":
+                    text = text.replace("reference year 2021", "reference year 2020")
+                return text.encode(), asset
+            if url == HUNGARY_OUTWARD_TABLE:
+                text = ("Business statistics on domestically controlled foreign affiliates. "
+                        "From reference year 2022 the statistical unit is enterprise")
+                if self.wrong == "table":
+                    text = text.replace("2022", "2021")
+                return text.encode(), asset
+            dataset = urlsplit(url).path.split("/")[-1]
+            codes = {name: values[0] for name, values in parse_qs(urlsplit(url).query).items() if name != "lang"}
+            assert codes["geo"] == "HU" and codes["partner"] == "CN_X_HK"
+            first, last = {"fats_out2": (2007, 2009), "fats_out2_r2": (2010, 2020),
+                           "fats_out_part": (2021, 2023)}[dataset]
+            counts = {2010: 4, 2018: 3, 2019: 4, 2020: 8, 2021: 9, 2022: 6, 2023: 6}
+            years = [year for year in range(first, last + 1)
+                     if not (self.wrong == "year-gap" and year == 2016)]
+            if self.wrong == "geo":
+                codes["geo"] = "AT"
+            if self.wrong == "partner":
+                codes["partner"] = "HK"
+            if self.wrong == "metric":
+                codes["indic_sbs" if dataset == "fats_out_part" else "indic_bp"] = "EMP"
+            data = {"id": list(codes) + ["time"], "size": [1] * len(codes) + [len(years)],
+                    "extension": {"id": dataset.upper()}, "updated": "2026-03-31T23:00:00+0200",
+                    "dimension": {name: {"category": {"index": {code: 0}}} for name, code in codes.items()},
+                    "value": {str(index): counts.get(year, 0) for index, year in enumerate(years)},
+                    "status": {str(index): "|C" for index, year in enumerate(years) if year not in counts}}
+            data["dimension"]["time"] = {"category": {"index": {
+                str(year): index for index, year in enumerate(years)}}}
+            if self.wrong == "new-break" and dataset == "fats_out2_r2":
+                data["status"][str(years.index(2018))] = "b"
+            return json.dumps(data).encode(), asset
+
+    prior = published()
+    prior["series"] = {sid: definition for sid, definition in prior["series"].items()
+                       if not sid.startswith("eurostat_hungary")}
+    prior["observations"] = [r for r in prior["observations"] if not r["series_id"].startswith("eurostat_hungary")]
+    prior["sources"] = {sid: source for sid, source in prior["sources"].items() if not sid.endswith("_HU")}
+    prior["coverage"] = [r for r in prior["coverage"] if not r["id"].startswith("eurostat_hungary")]
+    prior["context"]["geography"] = prior["context"]["geography"].replace(HUNGARY_CONTEXT_NOTE, "")
+    before = copy.deepcopy(prior)
+    result = validate_business_data(module.collect_hungary(Client(), prior))
+    assert prior == before
+    assert [r for r in result["observations"] if not r["series_id"].startswith("eurostat_hungary")] == [
+        r for r in prior["observations"] if not r["series_id"].startswith("eurostat_hungary")]
+    for key in ("series", "sources"):
+        for name, value in prior[key].items():
+            if not name.startswith("eurostat_hungary") and not name.endswith("_HU"):
+                assert result[key][name] == value
+    points = {r["year"]: r for r in result["observations"] if r["series_id"].startswith("eurostat_hungary")}
+    assert sorted(points) == list(range(2007, 2024))
+    assert [(year, r["value"]) for year, r in sorted(points.items()) if r["value"] is not None] == [
+        (2010, 4), (2018, 3), (2019, 4), (2020, 8), (2021, 9), (2022, 6), (2023, 6)]
+    assert sum(r["status"] == "suppressed" and r["value"] is None for r in points.values()) == 10
+    assert all(r["series_id"] == ("eurostat_hungary_legal:china" if year < 2022 else "eurostat_hungary:china")
+               for year, r in points.items())
+    assert len({points[year]["comparability"] for year in (2009, 2010, 2021, 2022)}) == 4
+    assert module.collect_hungary(Client(), result) == result
+    monkeypatch.setattr(module, "collect_business", lambda client: copy.deepcopy(result))
+    assert module.collect_all(None, prior) == result
+    for failure in ("unit", "ebs", "table", "window", "frame", "geo", "partner", "metric", "year-gap", "new-break"):
+        client = Client()
+        client.wrong = failure
+        with pytest.raises(ValueError):
+            module.collect_hungary(client, prior)
+
+
+def test_hungarian_current_bars_do_not_splice_legal_units_or_fill_confidential_counts():
+    data = published()
+    for theme in CHART_THEMES:
+        svg = ElementTree.fromstring(svg_business_chart(data, "hungary-affiliates-china", theme))
+        bars = [node for node in svg.iter() if node.get("class") == "annual-column"]
+        assert [(int(node.get("data-year")), int(node.get("data-value"))) for node in bars] == [(2022, 6), (2023, 6)]
+        assert not any(node.get("class") in {"data-line", "covid-band"} for node in svg.iter())
+        assert max(float(node.get("y")) for node in svg.iter()
+                   if node.tag.endswith("}text") and node.get("y") is not None) <= 590
+    assert not any("eurostat_hungary_legal:china" in chart["series"] for chart in CHARTS.values())
+    for year, wrong_sid in ((2004, "eurostat_hungary_legal:china"), (2021, "eurostat_hungary:china"),
+                            (2022, "eurostat_hungary_legal:china")):
+        wrong = copy.deepcopy(data)
+        point = next(r for r in wrong["observations"]
+                     if r["series_id"].startswith("eurostat_hungary") and r["year"] == (2007 if year == 2004 else year))
+        point.update(year=year, series_id=wrong_sid)
+        with pytest.raises(ValueError, match="must not be spliced"):
+            validate_business_data(wrong)
+    wrong = copy.deepcopy(data)
+    wrong["series"]["eurostat_hungary_legal:china"].update(unit="enterprises", measure="controlled_enterprises")
+    with pytest.raises(ValueError, match="counting units"):
+        validate_business_data(wrong)
+    wrong = copy.deepcopy(data)
+    wrong["series"]["eurostat_hungary:china"]["scope"] = "Hungary-resident UCI; China except Hong Kong; all firms"
+    with pytest.raises(ValueError, match="reporting-frame"):
+        validate_business_data(wrong)
+    wrong = copy.deepcopy(data)
+    point = next(r for r in wrong["observations"]
+                 if r["series_id"].startswith("eurostat_hungary") and r["status"] == "suppressed")
+    point.update(value=0, status="observed")
+    with pytest.raises(ValueError, match="confidential"):
+        validate_business_data(wrong)
 
 
 def test_belgian_current_bars_exclude_archives_and_reject_cross_unit_relabelling():
@@ -1761,7 +1896,7 @@ def test_complete_business_downloads_exact_points_backgrounds_and_stale_cleanup(
         (base / "substack").mkdir(parents=True)
         for chart_id in RETIRED_CHARTS:
             (base / "substack" / (chart_id + ".svg")).write_text("Obsolete wrong-destination chart")
-    assert build_business(tmp_path, data, defaultdict(list)) == 22
+    assert build_business(tmp_path, data, defaultdict(list)) == 23
     assert not any((tmp_path / "outputs/figures/business_presence/substack" / (cid + ".svg")).exists()
                    for cid in RETIRED_CHARTS)
     assert json.loads((tmp_path / "site/downloads/business-presence.json").read_text()) == data
@@ -1828,7 +1963,7 @@ def test_invalid_business_input_is_rejected_before_writes_and_deleted_input_with
     with pytest.raises(ValueError, match="current business evidence"):
         build(tmp_path)
     (path / "business_current.json").write_text((ROOT / "data/site/business_current.json").read_text())
-    assert build(tmp_path)["business_charts"] == 23
+    assert build(tmp_path)["business_charts"] == 24
     page = BeautifulSoup((tmp_path / "site/business-presence.html").read_text(), "html.parser")
     assert not page.select('a[href="language-learning.html"]')
     frozen.unlink()
@@ -1848,10 +1983,10 @@ def test_publication_is_business_only_with_complete_data_original_downloads_and_
     assert page.select_one('link[rel="canonical"]')["href"] == manifest["canonical_url"]
     assert "Interactive analysis" in page.select_one(".publication-header nav").text
     assert not page.select('a[href="language-learning.html"],iframe')
-    assert len(page.select("svg[role=img]")) == 25
+    assert len(page.select("svg[role=img]")) == 26
     assert not page.select("#business-controls,#annual-values,#module-chart,#uk-affiliates-china,#eu-affiliates-china")
-    assert len(page.select(".business-card.native-chart,.business-card .native-chart")) == 25
-    assert len(page.select(".business-count-card")) == 19
+    assert len(page.select(".business-card.native-chart,.business-card .native-chart")) == 26
+    assert len(page.select(".business-count-card")) == 20
     assert len(page.select("#business-inward-data table tbody tr")) == 25
     assert page.select_one("#business-data").get("open") is None
     assert set(p.name for p in (output / "downloads").iterdir()) == {

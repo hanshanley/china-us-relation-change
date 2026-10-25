@@ -789,6 +789,19 @@ As verified October 22, 2026, the latest BEA activity release covers 2023
 release and definitions are retained in the manifest. Later years are not
 invented or inferred from investment-position data.
 
+Hungarian ultimate-control counts use the original HCSO outward-FATS unit rule:
+legal units for 2007-2021 (five disclosed counts, ten confidential cells), then
+enterprises for 2022/2023 (six each). Only the enterprise population is plotted;
+the complete legal-unit archive remains in downloads. The national methods and
+table footnote qualify Eurostat's broader 2010-2023 comparability claim.
+Classification changes in 2010, EBS reference-population changes in 2021 and
+the 2022 unit change remain distinct; no cross-unit 2019 growth is calculated.
+The current EUR 40k/10% FDI screen, separate HUF 10m source wording,
+individual minority-control checks and excluded nonrespondents are not an
+all-firm census or proven unchanged historical frame. Unreported experimental
+2004-2006 cells are source evidence, not padded observations. National 2024
+EU/outside-EU/all-host totals do not supply a bilateral China count.
+
 The frozen input is `data/site/business_presence.json`; the page exports the
 complete JSON, every source observation in `business-observations.csv`, and
 every raw/derived chart point in `business-chart-values.csv`. Every displayed
@@ -810,6 +823,7 @@ Obsolete U.S.-in-Europe plots are withdrawn from both figure trees and catalogs.
 .venv/bin/python scripts/build_business_data.py --czechia-only --data-only
 .venv/bin/python scripts/build_business_data.py --belgium-only --data-only
 .venv/bin/python scripts/build_business_data.py --swiss-reporting-area-only --data-only
+.venv/bin/python scripts/build_business_data.py --hungary-only --data-only
 .venv/bin/python scripts/build_site.py
 PYTHONPATH=src .venv/bin/python -m pytest tests/test_exchange_business.py -q
 ```

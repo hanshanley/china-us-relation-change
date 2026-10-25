@@ -37,6 +37,7 @@ def check(site, url=None):
         "czechia-affiliates-china": "eurostat_czechia:china",
         "belgium-affiliates-china": "eurostat_belgium:china",
         "swiss-liechtenstein-affiliates-china": "snb_swiss_liechtenstein:china",
+        "hungary-affiliates-china": "eurostat_hungary:china",
     }
     counts = {
         chart: sorted((r for r in archive["observations"] if r["series_id"] == sid and r["value"] is not None),
@@ -52,7 +53,7 @@ def check(site, url=None):
                                "denmark-affiliates-china", "austria-affiliates-china", "poland-affiliates-china",
                                "portugal-affiliates-china", "czechia-affiliates-china",
                                "belgium-affiliates-china",
-                               "swiss-liechtenstein-affiliates-china"}}
+                               "swiss-liechtenstein-affiliates-china", "hungary-affiliates-china"}}
     visible_count = (6 if inward is not None else 4) + len(new_counts)
     if inward is not None:
         with (site / "downloads/business-inward-observations.csv").open() as stream:
@@ -170,7 +171,7 @@ def check(site, url=None):
                       "denmark-affiliates-china", "austria-affiliates-china", "poland-affiliates-china",
                       "portugal-affiliates-china", "czechia-affiliates-china",
                       "belgium-affiliates-china",
-                      "swiss-liechtenstein-affiliates-china"):
+                      "swiss-liechtenstein-affiliates-china", "hungary-affiliates-china"):
             if chart in counts:
                 page.locator(f"#{chart} .screen-column").last.tap()
                 tooltip_id = page.locator(f"#{chart} .native-chart").get_attribute("data-tooltip-id")
