@@ -41,6 +41,7 @@ CBS_NETHERLANDS_METHODS = "https://www.cbs.nl/nl-nl/onze-diensten/methoden/onder
 ONS_DATA = "https://www.ons.gov.uk/file?uri=/businessindustryandtrade/internationaltrade/datasets/ukoutwardforeignaffiliatestatisticsofats/2019/ofatspublicationfinal.xlsx"
 ONS_COVERAGE = "https://www.ons.gov.uk/aboutus/transparencyandgovernance/freedomofinformationfoi/ukoutwardforeignaffiliatestatisticsofats2015to2025"
 BUNDESBANK_FATS = "https://www.bundesbank.de/en/statistics/external-sector/direct-investments/foreign-affiliates-statistics-fats--795240"
+GERMANY_EUROSTAT_METHODS = "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_de.htm"
 GERMANY_FATS_2020 = (
     "https://web.archive.org/web/20250419145839id_/https://www.bundesbank.de/resource/blob/"
     "768898/57e1855ed8172f316354ab4b6d39f6d5/472B63F073F071307366337C94F8C870/statistik-outward-fats-data.pdf")
@@ -967,25 +968,43 @@ def german_affiliates(client):
         "bundesbank:BTSXO:CN:EUR3m") for year, value, status in parse_germany_history(body))
     definitions["eurostat_germany:china"] = series(
         "Germany (Eurostat)", "controlled_enterprises", "enterprises",
-        "German-controlled enterprises in China except Hong Kong; Eurostat NACE B-S except O",
+        "German-resident UCI; enterprises and branches in China except Hong Kong; "
+        "NACE C-O except L before 2010, B-S except O thereafter",
         "annual", "reference year",
         "Eurostat's reported history is retained separately from Bundesbank's current workbook. "
+        "Country metadata declares comparable country breakdowns since 2007; the collection frame "
+        "uses a balance-sheet threshold above EUR 3 million. No 2000-2006 value is inferred. "
         "Overlapping 2021-2023 counts differ; they are not spliced, averaged or treated as a matched revision. "
-        "The 2021 EBS methodology boundary is disconnected. Germany overlaps the EU27 aggregate.")
+        "The 2010 NACE classification and 2021 EBS dataset boundaries remain separate. "
+        "Germany overlaps the EU27 aggregate.")
     definitions["bundesbank_germany:china"]["label"] = "Germany (Bundesbank)"
-    for dataset, indicator in [("fats_out2_r2", "indic_bp=ENT"), ("fats_out_part", "indic_sbs=ENT_NR")]:
-        url = (EUROSTAT + dataset + "?lang=EN&freq=A&nace_r2=B-S_X_O&" + indicator
+    body, methodology = client.get(GERMANY_EUROSTAT_METHODS)
+    method = " ".join(BeautifulSoup(body, "html.parser").get_text(" ", strip=True).split())
+    if not all(token in method for token in (
+            "Compiling agency: Deutsche Bundesbank", "an enterprise or branch",
+            "ultimate (direct or indirect) control", "Comparable since 2007 for country breakdown",
+            "balance sheet over 3 million Euro")):
+        raise ValueError("German Eurostat country history or control/collection methodology changed")
+    for dataset, indicator, activity in [
+        ("fats_out2", "indic_bp=ENT", "nace_r1=C-O_X_L"),
+        ("fats_out2_r2", "indic_bp=ENT", "nace_r2=B-S_X_O"),
+        ("fats_out_part", "indic_sbs=ENT_NR", "nace_r2=B-S_X_O"),
+    ]:
+        url = (EUROSTAT + dataset + "?lang=EN&freq=A&" + activity + "&" + indicator
                + "&partner=CN_X_HK&geo=DE")
         body, asset = client.get(url)
         source_id = dataset + "_DE"
+        legacy = dataset == "fats_out2"
         sources[source_id] = source(
-            "Eurostat", dataset + "; Germany reporting country", [asset],
-            "geo=DE; partner=CN_X_HK; NACE B-S except O; enterprise counts",
+            "Eurostat", dataset + "; Germany reporting country", [asset, methodology] if legacy else [asset],
+            "geo=DE; partner=CN_X_HK; NACE " + ("C-O except L" if legacy else "B-S except O") + "; enterprise counts",
             "Separate source population/vintage from the Bundesbank workbook; overlapping counts are not forced to agree.")
+        points = parse_eurostat(json.loads(body), dataset, "DE")
+        if legacy and {point[0] for point in points} != set(range(2007, 2010)):
+            raise ValueError("German legacy country history must retain the reported 2007-2009 years")
         observations.extend(row("eurostat_germany:china", year, value, source_id, status,
                                 "Eurostat German reporting population; source flags: " + flag, comparability)
-                            for year, value, status, flag, comparability in parse_eurostat(
-                                json.loads(body), dataset, "DE"))
+                            for year, value, status, flag, comparability in points)
     return definitions, observations, sources
 
 
