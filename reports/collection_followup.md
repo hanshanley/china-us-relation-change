@@ -11,7 +11,24 @@ Asia/Shanghai day. The generated inventory, frozen aggregate JSON and refresh
 status report the latest live totals; historical checkpoint counts below are
 not rewritten as though they were the latest collection.
 
-## Latest prepared source checkpoint: discovery pass 85
+## Latest prepared source checkpoint: discovery passes 90-91
+
+Registry461; manual selected-domain reviews379; all87channels/62publisher
+groups and6,570live posts unchanged. All version5 calendar/rolling values,
+complete private exports and the separate immutable baseline are preserved.
+These are not representative adoption percentages.
+
+[Passes90-91](discovery_iteration91.md) document MRT's factual identity and
+own linked source-use hold, plus two dated government-record identity reviews
+for Danbury/Stamford without publisher-body requests. No current control,
+Weibo presence, account absence or parent/staff/sibling inheritance is implied.
+No publisher body or staff contact information is redistributed.
+
+Six actual startup failures, the last successful manual collection and
+October23 cutoff are unchanged. Candidate/source and actual website stages
+remain distinct; this preparation is not unattended collection or deployment.
+
+## Archived source checkpoint: discovery pass 85
 
 Registry458; recorded manual cohort reviews376; all87 documented channels,
 62publisher groups and6,570live records unchanged. Complete private exports,
