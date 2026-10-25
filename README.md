@@ -1,7 +1,7 @@
 <div align="center">
-  <h1>People, Trade, and Connections Between the United States and China</h1>
+  <h1>U.S.–China Exchange</h1>
   <p>
-    <a href="#us-china-connections-since-2000">Overview</a> ·
+    <a href="#tracking-change-since-2000">Overview</a> ·
     <a href="#explore-the-evidence">Analyses</a> ·
     <a href="#setup">Setup</a> ·
     <a href="https://www.themarginoferror.com/china-us-relations/">Live site</a>
@@ -10,10 +10,11 @@
 
 ---
 
-## U.S.-China connections since 2000
+## Tracking change since 2000
 
-An interactive study of how U.S.-China connections have changed since 2000:
-student exchanges, travel and tourism, migration, goods and services trade,
+U.S.–China Exchange is an interactive study of how ties between the United
+States and China have changed since 2000: student exchanges, travel and
+tourism, migration, goods and services trade,
 business presence, public opinion, language learning, institutions and media.
 The analyses follow these different dimensions of the relationship rather than
 reducing them to a single measure.
@@ -24,7 +25,7 @@ retained separately in the complete research data.
 
 <p align="center">
   <a href="https://www.themarginoferror.com/china-us-relations/">
-    <img src="https://www.themarginoferror.com/artifacts/china-us-relations/us-china-fractured-network.webp" width="1200" alt="U.S.-China connections illustrated as a fractured network">
+    <img src="https://www.themarginoferror.com/artifacts/china-us-relations/us-china-fractured-network.webp" width="1200" alt="U.S.–China Exchange illustrated as a fractured network">
   </a>
 </p>
 

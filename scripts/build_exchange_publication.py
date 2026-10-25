@@ -25,6 +25,7 @@ from us_china_exchange.public_freshness import POLICY, eligible, public_charts
 from us_china_exchange.covid_context import COVID_CONTEXT, context_for as covid_context_for
 
 
+PROJECT_NAME = "U.S.–China Exchange"
 CANONICAL = "https://www.themarginoferror.com/china-us-relations/"
 REPOSITORY = "https://github.com/hanshanley/china-us-relation-change"
 PAGES = {
@@ -347,7 +348,7 @@ def decorate(site, name, labels, revision):
                 latest[country] = max(latest.get(country, end), end)
         scope = " · ".join(label + " fieldwork through " + date.fromisoformat(latest[country]).strftime("%B %Y")
                            for country, label in (("USA", "U.S."), ("CHN", "China")))
-    soup.title.string = title + " | The Margin of Error"
+    soup.title.string = f"{title} | {PROJECT_NAME} | The Margin of Error"
     for old in soup.select('link[rel=canonical],meta[name=description]'):
         old.decompose()
     soup.head.append(soup.new_tag("link", attrs={"rel": "canonical", "href": CANONICAL + ("" if name == "index.html" else name)}))
@@ -362,7 +363,7 @@ def decorate(site, name, labels, revision):
     old_intro = [n.extract() for n in header.find_all(["p", "details"], recursive=False)] if header else []
     if header:
         header.decompose()
-    intro = fragment(f'<header class="analysis-heading"><p class="kicker">Interactive analysis</p>'
+    intro = fragment(f'<header class="analysis-heading"><p class="kicker">{PROJECT_NAME}</p>'
                      f'<h1>{title}</h1><p class="analysis-deck">{lead}</p><p class="analysis-scope">{scope}</p></header>')
     tabs = soup.new_tag("nav", attrs={"class": "analysis-tabs", "aria-label": "Analysis topics"})
     for target, label in TABS:
