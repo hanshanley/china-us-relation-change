@@ -154,6 +154,80 @@ def test_early_china_parser_uses_the_china_nets_and_both_original_methods(monkey
         documents[key][index] = original
 
 
+def test_beijing_archive_keeps_original_precision_and_unknown_population_details():
+    d = sources.validate_opinion_data(data())
+    rows = [row for row in d["observations"] if row["series_id"] == "bas_beijing:us_warmth"]
+    assert [(r["year"], r["value"]) for r in rows] == [
+        (1998, 62), (1999, 53), (2000, 57), (2001, 47), (2002, 52)]
+    assert d["sources"]["bas_beijing_history"]["published"] == "2003"
+    assert d["series"]["bas_beijing:us_warmth"]["age"] == "Not specified"
+    for row in rows:
+        survey = d["surveys"][row["survey_id"]]
+        assert survey["field_start"] is None and survey["field_end"] is None
+        assert survey["n_total"] == {2000: 757, 2001: 615, 2002: 662}.get(row["year"])
+        assert survey["n_item"] is None
+        assert ("Approximate mean" in row["notes"]) == (row["year"] in (1998, 1999, 2002))
+        assert row["comparability"] == "bas_beijing_coverage_" + str(row["year"])
+    assert all(not sid.startswith("bas_beijing:")
+               for chart in CHARTS.values() for sid in chart["series"])
+
+
+def test_beijing_parser_requires_the_original_wave_country_and_sample_evidence(monkeypatch):
+    methods = ("The Beijing Area Study Survey; survey of Beijing citizens; "
+               "probability proportional to size; face-to-face; December or January; "
+               "sample size was 757; 2001 sample size was 615; 2002 the sample size was 662.")
+    footnote = ("100 degree feeling thermometer towards the US: "
+                "1998 around 62; 1999 around 53; 57 in 2000; "
+                "2001 to 47, and rose in 2002 to around 52. This volatility")
+    class Page:
+        def __init__(self, text):
+            self.text = text
+        def extract_text(self, **kwargs):
+            return self.text
+    class Reader:
+        pages = [Page(methods), Page(footnote)]
+    monkeypatch.setattr(sources, "PdfReader", lambda _: Reader())
+    parsed = sources.parse_beijing_history(b"reviewed original")
+    assert [r["value"] for r in parsed] == [62, 53, 57, 47, 52]
+    assert [r["approximate"] for r in parsed] == [True, True, False, False, True]
+    for invalid in (
+            footnote.replace("towards the US", "towards Japan"),
+            footnote.replace("1999", "1998"),
+            footnote.replace("2002", "2003"),
+            footnote.replace("around 52", "around 101"),
+            footnote.replace("1999 around 53; ", ""),
+            footnote.replace("1998 around 62", "1998 around 62 63")):
+        Reader.pages = [Page(methods), Page(invalid)]
+        with pytest.raises(ValueError):
+            sources.parse_beijing_history(b"changed source")
+    Reader.pages = [Page(methods.replace("Beijing citizens", "national adults")), Page(footnote)]
+    with pytest.raises(ValueError):
+        sources.parse_beijing_history(b"wrong population")
+
+
+def test_beijing_archive_rejects_splicing_exactness_and_fabricated_dates():
+    for field, value in (("age", "All adults"), ("sampling", "National probability sample")):
+        d = data()
+        d["series"]["bas_beijing:us_warmth"][field] = value
+        with pytest.raises(ValueError):
+            sources.validate_opinion_data(d)
+    for target, field, value in (
+            ("observation", "source_id", "china_pulse"),
+            ("observation", "comparability", "china_pulse_october_2026_weights"),
+            ("observation", "notes", "Exact mean"),
+            ("survey", "n_total", 757),
+            ("survey", "n_item", 757),
+            ("survey", "field_start", "1998-12-01"),
+            ("source", "published", "2003-09-01"),
+            ("source", "url", sources.PULSE_REPORT)):
+        d = data()
+        row = next(r for r in d["observations"] if r["series_id"] == "bas_beijing:us_warmth")
+        item = row if target == "observation" else d["surveys"][row["survey_id"]] if target == "survey" else d["sources"][row["source_id"]]
+        item[field] = value
+        with pytest.raises(ValueError):
+            sources.validate_opinion_data(d)
+
+
 def test_gallup_parser_keeps_distinct_polls_and_rejects_missing_or_wrong_country_data(monkeypatch):
     rows = ["2000 Jan 25-26 4 29 33 18 16 33 51",
             "2000 Mar 17-19 6 29 40 16 9 35 56",

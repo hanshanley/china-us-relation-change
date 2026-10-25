@@ -7,6 +7,61 @@
   },
   "observations": [
     {
+      "comparability": "bas_beijing_coverage_1998",
+      "notes": "Approximate mean; source says around. Historical Beijing warmth only; not a national favorable percentage.",
+      "period": "1998 BAS wave",
+      "series_id": "bas_beijing:us_warmth",
+      "source_id": "bas_beijing_history",
+      "status": "observed",
+      "survey_id": "bas_beijing_1998",
+      "value": 62,
+      "year": 1998
+    },
+    {
+      "comparability": "bas_beijing_coverage_1999",
+      "notes": "Approximate mean; source says around. Historical Beijing warmth only; not a national favorable percentage.",
+      "period": "1999 BAS wave",
+      "series_id": "bas_beijing:us_warmth",
+      "source_id": "bas_beijing_history",
+      "status": "observed",
+      "survey_id": "bas_beijing_1999",
+      "value": 53,
+      "year": 1999
+    },
+    {
+      "comparability": "bas_beijing_coverage_2000",
+      "notes": "Reported integer mean. Historical Beijing warmth only; not a national favorable percentage.",
+      "period": "2000 BAS wave",
+      "series_id": "bas_beijing:us_warmth",
+      "source_id": "bas_beijing_history",
+      "status": "observed",
+      "survey_id": "bas_beijing_2000",
+      "value": 57,
+      "year": 2000
+    },
+    {
+      "comparability": "bas_beijing_coverage_2001",
+      "notes": "Reported integer mean. Historical Beijing warmth only; not a national favorable percentage.",
+      "period": "2001 BAS wave",
+      "series_id": "bas_beijing:us_warmth",
+      "source_id": "bas_beijing_history",
+      "status": "observed",
+      "survey_id": "bas_beijing_2001",
+      "value": 47,
+      "year": 2001
+    },
+    {
+      "comparability": "bas_beijing_coverage_2002",
+      "notes": "Approximate mean; source says around. Historical Beijing warmth only; not a national favorable percentage.",
+      "period": "2002 BAS wave",
+      "series_id": "bas_beijing:us_warmth",
+      "source_id": "bas_beijing_history",
+      "status": "observed",
+      "survey_id": "bas_beijing_2002",
+      "value": 52,
+      "year": 2002
+    },
+    {
       "comparability": "gallup_us_telephone",
       "notes": "Published net; not an annual average. ",
       "period": "Jan 25-26, 2000",
@@ -1680,6 +1735,17 @@
     }
   ],
   "series": {
+    "bas_beijing:us_warmth": {
+      "age": "Not specified",
+      "cadence": "survey_rounds",
+      "label": "Beijing respondents",
+      "measure": "warmth",
+      "notes": "Reported survey estimates; nonresponse is not a neutral opinion.",
+      "respondent_country": "CHN",
+      "sampling": "Beijing Area Study; not nationally representative. 2000-2002 face-to-face probability-proportional-to-size samples; earlier wave-specific methods and respondent ages are not verified.",
+      "target_country": "USA",
+      "unit": "rating_points"
+    },
     "gallup_us:favorable": {
       "age": "All adults",
       "cadence": "annual",
@@ -1968,6 +2034,21 @@
     }
   },
   "sources": {
+    "bas_beijing_history": {
+      "assets": [
+        {
+          "request_url": "https://www.rsis.edu.sg/wp-content/uploads/rsis-pubs/WP50.pdf",
+          "retrieved_at": "2026-10-25T08:35:55.184542+00:00",
+          "sha256": "f235a6f2f62b53eba37716ebe9cf1083fd9e59e7da5ccf89db0e1b05d51614bc",
+          "url": "https://www.rsis.edu.sg/wp-content/uploads/rsis-pubs/WP50.pdf"
+        }
+      ],
+      "locator": "Working Paper 50, printed/PDF page 13 footnote 33; page 8 footnote 20.",
+      "name": "Alastair Iain Johnston / RSIS, Beijing Area Study",
+      "notes": "Publication year only; no month/day verified. Historical Beijing respondents, not national China. Reported 0-100 warmth means, not favorable percentages. The source explicitly qualifies 1998, 1999 and 2002 as approximate. Exact field dates, age coverage, weighting and item bases are not recovered. No connection to Pew or China Pulse is inferred.",
+      "published": "2003",
+      "url": "https://www.rsis.edu.sg/wp-content/uploads/rsis-pubs/WP50.pdf"
+    },
     "china_pulse": {
       "assets": [
         {
@@ -2094,6 +2175,51 @@
     }
   },
   "surveys": {
+    "bas_beijing_1998": {
+      "field_end": null,
+      "field_start": null,
+      "n_item": null,
+      "n_total": null,
+      "notes": "Survey-wave label, not publication year. Exact field dates and ages unknown. 2000-2002 methods describe December/January interviews; full-wave samples are not item bases.",
+      "period": "1998 BAS wave",
+      "year": 1998
+    },
+    "bas_beijing_1999": {
+      "field_end": null,
+      "field_start": null,
+      "n_item": null,
+      "n_total": null,
+      "notes": "Survey-wave label, not publication year. Exact field dates and ages unknown. 2000-2002 methods describe December/January interviews; full-wave samples are not item bases.",
+      "period": "1999 BAS wave",
+      "year": 1999
+    },
+    "bas_beijing_2000": {
+      "field_end": null,
+      "field_start": null,
+      "n_item": null,
+      "n_total": 757,
+      "notes": "Survey-wave label, not publication year. Exact field dates and ages unknown. 2000-2002 methods describe December/January interviews; full-wave samples are not item bases.",
+      "period": "2000 BAS wave",
+      "year": 2000
+    },
+    "bas_beijing_2001": {
+      "field_end": null,
+      "field_start": null,
+      "n_item": null,
+      "n_total": 615,
+      "notes": "Survey-wave label, not publication year. Exact field dates and ages unknown. 2000-2002 methods describe December/January interviews; full-wave samples are not item bases.",
+      "period": "2001 BAS wave",
+      "year": 2001
+    },
+    "bas_beijing_2002": {
+      "field_end": null,
+      "field_start": null,
+      "n_item": null,
+      "n_total": 662,
+      "notes": "Survey-wave label, not publication year. Exact field dates and ages unknown. 2000-2002 methods describe December/January interviews; full-wave samples are not item bases.",
+      "period": "2002 BAS wave",
+      "year": 2002
+    },
     "gallup_us_2000-01-25": {
       "field_end": "2000-01-26",
       "field_start": "2000-01-25",

@@ -21,6 +21,7 @@ PEW_WARMTH = "https://www.pewresearch.org/wp-content/uploads/sites/20/2026/09/SR
 PEW_CHINA = "https://www.pewresearch.org/global/wp-content/uploads/sites/2/2016/10/Pew-Research-Center-China-Report-FINAL-October-5-2016.pdf"
 PEW_CHINA_EARLY = "https://www.pewresearch.org/global/wp-content/uploads/sites/2/2006/09/GAP-Asia-report-final-9-21-06.pdf"
 PEW_CHINA_2005_METHODS = "https://www.pewresearch.org/wp-content/uploads/sites/2/pdf/249.pdf"
+BAS_HISTORY = "https://www.rsis.edu.sg/wp-content/uploads/rsis-pubs/WP50.pdf"
 PULSE_REPORT = "https://uscnpm.org/wp-content/uploads/2026/10/CHINA.PULSE_.Chinese.Public.Supports.Trade_.and_.Security.Cooperation.Still_.Sees_.the_.United.States.as_.a.Threat.pdf"
 PULSE_DATA = "https://datawrapper.dwcdn.net/LU2Fb/1/dataset.csv"
 REVIEWED_PATH = "data/reviewed/opinion-warmth.json"
@@ -180,6 +181,33 @@ def parse_early_china_history(body, methods_body):
     return result
 
 
+def parse_beijing_history(body):
+    pages = [normalize(p.extract_text(extraction_mode="layout") or "") for p in PdfReader(io.BytesIO(body)).pages]
+    methods = [p for p in pages if "The Beijing Area Study Survey" in p]
+    footnotes = [p for p in pages if "100 degree feeling thermometer" in p]
+    if len(methods) != 1 or len(footnotes) != 1:
+        raise ValueError("Original Beijing survey methods and thermometer footnote required")
+    if not all(token in methods[0] for token in (
+            "survey of Beijing citizens", "probability proportional to size",
+            "face-to-face", "December or January", "sample size was 757",
+            "2001 sample size was 615", "2002 the sample size was 662")):
+        raise ValueError("Historical Beijing population, method or wave sample changed")
+    text = footnotes[0].split("100 degree feeling thermometer", 1)[1].split("This volatility", 1)[0]
+    if "towards the US" not in text:
+        raise ValueError("Beijing thermometer must concern the United States")
+    result = []
+    for clause in re.split(r";|,\s*and rose", text):
+        numbers = [int(n) for n in re.findall(r"\b\d+\b", clause)]
+        years = [n for n in numbers if 1998 <= n <= 2002]
+        values = [n for n in numbers if 0 <= n <= 100]
+        if len(years) != 1 or len(values) != 1 or len(numbers) != 2:
+            raise ValueError("Ambiguous historical Beijing thermometer observation")
+        result.append(dict(year=years[0], value=values[0], approximate="around" in clause))
+    if [r["year"] for r in result] != list(range(1998, 2003)):
+        raise ValueError("Five distinct original Beijing survey waves required")
+    return result
+
+
 def parse_pulse(body):
     reader = csv.DictReader(io.StringIO(body.decode("utf-8-sig")), delimiter="\t")
     if reader.fieldnames != ["Topic", "Fall/Winter 2025", "Spring/Summer 2026", "Demographic"]:
@@ -209,8 +237,8 @@ def validate_opinion_data(data):
         if ((s["respondent_country"], s["target_country"]) not in {("USA", "CHN"), ("CHN", "USA")}
                 or s["measure"] not in UNITS or s["unit"] != UNITS[s["measure"]]):
             raise ValueError("Opinion directions, percentages and rating points must remain distinct")
-        chinese = sid.startswith(("pulse:", "pulse_age:", "pew_china:", "pew_china_18_60:"))
-        warmth = sid.startswith(("pulse:", "pulse_age:", "pew_warmth:", "pew_warmth_age:"))
+        chinese = sid.startswith(("pulse:", "pulse_age:", "pew_china:", "pew_china_18_60:", "bas_beijing:"))
+        warmth = sid.startswith(("pulse:", "pulse_age:", "pew_warmth:", "pew_warmth_age:", "bas_beijing:"))
         if s["respondent_country"] != ("CHN" if chinese else "USA") or s["measure"] != ("warmth" if warmth else "favorability"):
             raise ValueError("Opinion series cannot change its respondent population or question scale")
         family = next((f for f in AGE_GROUPS if sid.startswith(f + ":")), None)
@@ -219,12 +247,17 @@ def validate_opinion_data(data):
             raise ValueError("Published age groups must not be relabelled or rebinned")
         if sid.startswith("pew_china_18_60:") and s["age"] != "18-60":
             raise ValueError("Early Pew China city-area samples cover ages 18-60, not all adults")
+        if sid.startswith("bas_beijing:") and (
+                sid != "bas_beijing:us_warmth" or s["age"] != "Not specified"
+                or "Beijing" not in s["sampling"] or "not nationally representative" not in s["sampling"]):
+            raise ValueError("Historical Beijing warmth is not a national or verified all-adult sample")
         if not all(isinstance(s[k], str) and s[k] for k in s):
             raise ValueError("Opinion population and method required")
-    for survey in data["surveys"].values():
+    for survey_id, survey in data["surveys"].items():
         if set(survey) != {"year", "period", "field_start", "field_end", "n_total", "n_item", "notes"}:
             raise ValueError("Invalid survey identity")
-        if not isinstance(survey["year"], int) or isinstance(survey["year"], bool) or not 2000 <= survey["year"] <= 9999:
+        first_year = 1998 if survey_id.startswith("bas_beijing_") else 2000
+        if not isinstance(survey["year"], int) or isinstance(survey["year"], bool) or not first_year <= survey["year"] <= 9999:
             raise ValueError("Invalid survey year")
         if (survey["field_start"] is None) != (survey["field_end"] is None):
             raise ValueError("Survey field dates are either both verified or both unknown")
@@ -242,7 +275,8 @@ def validate_opinion_data(data):
         if set(source) != {"name", "published", "url", "assets", "locator", "notes"} or not source["assets"]:
             raise ValueError("Opinion primary-source provenance incomplete")
         published = source["published"]
-        date.fromisoformat(published + "-01" if re.fullmatch(r"\d{4}-\d{2}", published) else published)
+        suffix = "-01-01" if re.fullmatch(r"\d{4}", published) else "-01" if re.fullmatch(r"\d{4}-\d{2}", published) else ""
+        date.fromisoformat(published + suffix)
         for asset in source["assets"]:
             if not re.fullmatch(r"[0-9a-f]{64}", asset["sha256"]):
                 raise ValueError("Invalid opinion source fingerprint")
@@ -285,6 +319,19 @@ def validate_opinion_data(data):
                 or row["comparability"] != "pew_china_18_60_coverage_" + str(row["year"])
                 or not survey["field_start"] or not survey["field_end"]):
             raise ValueError("Early Pew China rounds require their own source, dates and city-area coverage")
+        if row["series_id"].startswith("bas_beijing:"):
+            year = row["year"]
+            expected_n = {2000: 757, 2001: 615, 2002: 662}.get(year)
+            precision = "Approximate mean" if year in (1998, 1999, 2002) else "Reported integer mean"
+            if (row["source_id"] != "bas_beijing_history" or year not in range(1998, 2003)
+                    or row["survey_id"] != "bas_beijing_" + str(year)
+                    or row["comparability"] != "bas_beijing_coverage_" + str(year)
+                    or survey["field_start"] is not None or survey["field_end"] is not None
+                    or survey["n_total"] != expected_n or survey["n_item"] is not None
+                    or precision not in row["notes"]
+                    or data["sources"][row["source_id"]]["published"] != "2003"
+                    or data["sources"][row["source_id"]]["url"] != BAS_HISTORY):
+                raise ValueError("Historical Beijing waves require their own source, precision and unknown dates")
     return data
 
 
@@ -454,5 +501,25 @@ def collect(client, reviewed_body):
             observation("pew_china_18_60:" + response, wave, "pew_china_2005_2006", row[response],
                         "pew_china_18_60_coverage_" + str(year),
                         "Published Q2a net about the United States, not a sum of rounded components.")
+    body, asset = client.get(BAS_HISTORY)
+    source("bas_beijing_history", "Alastair Iain Johnston / RSIS, Beijing Area Study", "2003",
+           BAS_HISTORY, [asset], "Working Paper 50, printed/PDF page 13 footnote 33; page 8 footnote 20.",
+           "Publication year only; no month/day verified. Historical Beijing respondents, not national China. "
+           "Reported 0-100 warmth means, not favorable percentages. The source explicitly qualifies "
+           "1998, 1999 and 2002 as approximate. Exact field dates, age coverage, weighting and item bases "
+           "are not recovered. No connection to Pew or China Pulse is inferred.")
+    series("bas_beijing:us_warmth", "Beijing respondents", "CHN", "warmth", age="Not specified",
+           sampling="Beijing Area Study; not nationally representative. "
+           "2000-2002 face-to-face probability-proportional-to-size samples; "
+           "earlier wave-specific methods and respondent ages are not verified.")
+    for row in parse_beijing_history(body):
+        year, wave = row["year"], "bas_beijing_" + str(row["year"])
+        survey(wave, year, str(year) + " BAS wave", total={2000: 757, 2001: 615, 2002: 662}.get(year),
+               notes="Survey-wave label, not publication year. Exact field dates and ages unknown. "
+               "2000-2002 methods describe December/January interviews; full-wave samples are not item bases.")
+        precision = "Approximate mean; source says around." if row["approximate"] else "Reported integer mean."
+        observation("bas_beijing:us_warmth", wave, "bas_beijing_history", row["value"],
+                    "bas_beijing_coverage_" + str(year),
+                    precision + " Historical Beijing warmth only; not a national favorable percentage.")
     data["observations"].sort(key=lambda r: (r["series_id"], r["year"], r["period"]))
     return validate_opinion_data(data)
