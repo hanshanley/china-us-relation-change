@@ -25,6 +25,10 @@ UIS_DIGEST = (
 
 def test_uis_digest_selects_bilateral_counts_not_worldwide_totals_or_neighbouring_destinations():
     assert parse_uis_digest(UIS_DIGEST) == {"CHN": 110246, "HKG": 8295, "MAC": 421}
+    assert parse_uis_digest(UIS_DIGEST.replace("flows", "\ufb02ows").replace("five", "\ufb01ve")) == {
+        "CHN": 110246, "HKG": 8295, "MAC": 421}
+    assert parse_uis_digest(UIS_DIGEST.replace("destinations (", "destinations(")) == {
+        "CHN": 110246, "HKG": 8295, "MAC": 421}
     for invalid in (
             UIS_DIGEST.replace("/ 2008", "/ 2009"),
             UIS_DIGEST.replace("U.S.A. (421)", "U.S.A. (421) -1"),
@@ -40,31 +44,52 @@ def test_uis_digest_backfill_preserves_existing_rows_and_a_separate_legacy_compa
     from us_china_exchange import contact_backfill
     from us_china_exchange.model import key
 
-    pages = [SimpleNamespace(extract_text=lambda: "") for _ in range(177)]
-    pages[7] = SimpleNamespace(extract_text=lambda: UIS_DIGEST.splitlines()[0])
-    pages[176] = SimpleNamespace(extract_text=lambda: "\n".join(UIS_DIGEST.splitlines()[1:]))
-    monkeypatch.setattr(contact_backfill, "PdfReader", lambda _: SimpleNamespace(pages=pages))
-    asset = {"url": contact_backfill.UIS_GED_2010, "sha256": contact_backfill.UIS_GED_2010_SHA256,
-             "retrieved_at": "2026-10-25T00:47:44+00:00"}
-    client = SimpleNamespace(get=lambda _: (b"mocked PDF", asset))
+    fixtures = {
+        2006: UIS_DIGEST.replace("2008", "2004").replace("Hong Kong SAR of China", "Hong Kong (China), SAR")
+        .replace("110,246", "87,943").replace("8,295", "7,353").replace("(421)", "(374)"),
+        2010: UIS_DIGEST,
+        2011: UIS_DIGEST.replace("2008", "2009").replace("Hong Kong SAR of China", "China, Hong Kong SAR")
+        .replace("Macao, China", "China, Macao SAR").replace("110,246", "124,225")
+        .replace("8,295", "8,192").replace("(421)", "(422)"),
+    }
+    assets = {report["url"]: {"url": report["url"], "sha256": report["sha256"],
+                             "retrieved_at": "2026-10-25T00:47:44+00:00"}
+              for report in contact_backfill.UIS_DIGESTS.values()}
+
+    def reader(body):
+        edition = int(body.getvalue())
+        report, plain = contact_backfill.UIS_DIGESTS[edition], fixtures[edition]
+        pages = [SimpleNamespace(extract_text=lambda **_: "") for _ in range(203)]
+        pages[report["header_page"] - 1] = SimpleNamespace(extract_text=lambda: plain.splitlines()[0])
+        pages[report["data_page"] - 1] = SimpleNamespace(
+            extract_text=lambda **_: "\n".join(plain.splitlines()[1:]))
+        return SimpleNamespace(pages=pages)
+
+    monkeypatch.setattr(contact_backfill, "PdfReader", reader)
+    client = SimpleNamespace(get=lambda url: (
+        str(next(y for y, r in contact_backfill.UIS_DIGESTS.items() if r["url"] == url)).encode(), assets[url]))
     prior = [r for r in json.loads((ROOT / "data/site/observations.json").read_text())
-             if not (r["source_id"] == "uis" and r["destination"] == "USA" and r["year"] == 2008)]
+             if not (r["source_id"] == "uis" and r["origin"] in {"HKG", "MAC"}
+                     and r["destination"] == "USA" and r["year"] in {2004, 2008, 2009})]
     result = contact_backfill.uis_degree_history(client, prior)
     before, after = {key(r): r for r in prior}, {key(r): r for r in result}
-    assert len(after) == len(before) + 3
+    assert len(after) == len(before) + 6
     assert all(after[k] == r for k, r in before.items())
     additions = [r for k, r in after.items() if k not in before]
     assert {(r["origin"], r["destination"], r["year"], r["value"]) for r in additions} == {
-        ("CHN", "USA", 2008, 110246), ("HKG", "USA", 2008, 8295), ("MAC", "USA", 2008, 421)}
-    current = next(r for r in prior if r["source_id"] == "uis" and r["origin"] == "CHN"
-                   and r["destination"] == "USA" and r["year"] == 2020)
+        ("HKG", "USA", 2004, 7353), ("MAC", "USA", 2004, 374),
+        ("HKG", "USA", 2008, 8295), ("MAC", "USA", 2008, 421),
+        ("HKG", "USA", 2009, 8192), ("MAC", "USA", 2009, 422)}
+    current = {r["origin"]: r for r in prior if r["source_id"] == "uis"
+               and r["destination"] == "USA" and r["year"] == 2020}
     assert all(r["period_basis"] == "reporting" and r["period_start"] is None and r["period_end"] is None
-               and change(r, current)["percent"] is None for r in additions)
+               and change(r, current[r["origin"]])["reason"] == "Definitions or periods differ" for r in additions)
+    assert not any(r["origin"] == "CHN" for r in additions)
     assert contact_backfill.uis_degree_history(client, result) == result
     additions[0]["value"] += 1
     with pytest.raises(ValueError, match="conflicts"):
         contact_backfill.uis_degree_history(client, result)
-    asset["sha256"] = "unreviewed"
+    next(iter(assets.values()))["sha256"] = "unreviewed"
     with pytest.raises(ValueError, match="digest changed"):
         contact_backfill.uis_degree_history(client, prior)
 

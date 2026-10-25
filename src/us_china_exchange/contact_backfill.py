@@ -2,6 +2,7 @@
 
 import io
 import re
+import unicodedata
 from urllib.parse import urljoin
 
 import xlrd
@@ -37,6 +38,22 @@ UIS_GED_2010 = (
     "https://forschungsnetzwerk.ams.at/dam/jcr%3Aeb9fabb4-ded0-423d-8d63-1f242fed24f5/"
     "Education%20data%202010.pdf")
 UIS_GED_2010_SHA256 = "a7b62067a359731688e0b6e03a7ef0a12556f2dd78b6140ad8b81fa8b1e8fe62"
+UIS_DIGESTS = {
+    2006: {
+        "url": "https://sel-gipes.com/uploads/1/2/3/3/12332890/2006_-_unesco_-_global_education_digest.pdf",
+        "sha256": "86b49df4107b2fb0643b6985355ce28717f4a803adfc2271908969c0b7c520cb",
+        "year": 2004, "table": 10, "header_page": 55, "data_page": 133, "layout": True,
+    },
+    2010: {
+        "url": UIS_GED_2010, "sha256": UIS_GED_2010_SHA256,
+        "year": 2008, "table": 10, "header_page": 8, "data_page": 177, "layout": False,
+    },
+    2011: {
+        "url": "https://cisp.cachefly.net/assets/articles/attachments/35800_global_education_digest_2011_en.pdf",
+        "sha256": "0a079b1e443eaf48b430400192cd50dbdb6c53ce4fbce4e77c62b9e594f9c5e9",
+        "year": 2009, "table": 12, "header_page": 202, "data_page": 203, "layout": False,
+    },
+}
 ERIC_HISTORY_REPORTS = {
     2001: ("ED661491", "a4200bb40b8eae452c60c32a2ed93e0c8b7634edfb8fca8e880834aaf989d569"),
     2003: ("ED661496", "46e102a1dbcbc72363033d90afa9a1707518358013b4906a698c4aeef902a3c3"),
@@ -242,51 +259,71 @@ def government_credit_history(client, prior):
     return validate(list(existing.values()))
 
 
-def parse_uis_digest(plain):
+def parse_uis_digest(plain, year=2008):
+    plain = unicodedata.normalize("NFKC", plain)
     compact = " ".join(plain.split())
-    if (not re.search(r"International\s+flows\s+of\s+mobile\s+students\s*/\s*2008\b", compact)
-            or "Top five destinations (host countries)" not in compact):
-        raise ValueError("UIS historical mobility table or reporting year changed")
+    caption = (r"International\s+flows\s+of\s+mobile\s+students"
+               r"(?:\s+at\s+the\s+tertiary\s+level)?\s*/\s*" + str(year) + r"\b")
+    caption_found = bool(re.search(caption, compact, re.IGNORECASE))
+    destinations_found = "topfivedestinations(hostcountries)" in "".join(compact.lower().split())
+    if not caption_found or not destinations_found:
+        raise ValueError(f"UIS historical mobility table or reporting year changed: expected {year}; "
+                         f"caption={caption_found}; destinations={destinations_found}; "
+                         f"heading={compact[:180]!r}")
     values = {}
-    for label, geo in (("China", "CHN"), ("Hong Kong SAR of China", "HKG"), ("Macao, China", "MAC")):
+    countries = {
+        "CHN": ("China",),
+        "HKG": ("Hong Kong SAR of China", "China, Hong Kong SAR", "Hong Kong (China), SAR"),
+        "MAC": ("Macao, China", "China, Macao SAR"),
+    }
+    for geo, labels in countries.items():
         selected = [" ".join(line.split()) for line in plain.splitlines()
-                    if line.strip().startswith(label + " ")]
+                    if any(line.strip().startswith(label + " ") for label in labels)]
         if len(selected) != 1:
-            raise ValueError("UIS historical country row missing or ambiguous: " + label)
+            raise ValueError("UIS historical country row missing or ambiguous: " + geo)
         matches = re.findall(r"\bU\.S\.A\.\s+\((\d+(?:,\d{3})*)\)(?=,\s|$)", selected[0])
         if len(matches) != 1:
-            raise ValueError("UIS exact U.S. destination count or unshifted year missing: " + label)
+            raise ValueError("UIS exact U.S. destination count or unshifted year missing: " + geo)
         values[geo] = int(matches[0].replace(",", ""))
     return values
 
 
 def uis_degree_history(client, prior):
-    body, asset = client.get(UIS_GED_2010)
-    if asset["sha256"] != UIS_GED_2010_SHA256:
-        raise ValueError("Reviewed UIS historical digest changed")
-    reader = PdfReader(io.BytesIO(body))
-    values = parse_uis_digest(reader.pages[7].extract_text() + "\n" + reader.pages[176].extract_text())
     existing = {key(r): r for r in prior}
-    for geo, value in values.items():
-        base = next(r for r in prior if r["source_id"] == "uis" and r["origin"] == geo
-                    and r["destination"] == "USA" and r["measure"] == "degree_students"
-                    and r["year"] == 2023)
-        row = observation(
-            "uis", geo, "USA", "degree_students", 2008, value,
-            base["definition"] + "; historical ISCED 1997 levels 5 and 6",
-            period_basis="reporting", comparability="uis:degree_students:legacy-isced97",
-            notes="UNESCO Global Education Digest 2010, table 10, printed/PDF page 177; "
-            "original report publicly republished by Austria's Public Employment Service (AMS). "
-            "The table caption and contents identify reporting year 2008. Exact country-specific "
-            "U.S. destination count in brackets, not the worldwide outbound total or all-origin "
-            "host total. The U.S. cells carry no reference-year offset. Historical ISCED 1997 "
-            "levels 5/6 retain a separate comparison identity: cross-definition growth against "
-            "the current UIS release is not assumed. No within-year reference dates invented. "
-            "Only selected numerical facts are retained; the original report is not redistributed.")
-        row = attach([row], asset, "UIS Global Education Digest 2010; table 10; reporting year 2008")[0]
-        if key(row) in existing and existing[key(row)]["value"] != value:
-            raise ValueError("UIS historical fact conflicts with a retained observation")
-        existing.setdefault(key(row), row)
+    for edition, report in UIS_DIGESTS.items():
+        body, asset = client.get(report["url"])
+        if asset["sha256"] != report["sha256"]:
+            raise ValueError("Reviewed UIS historical digest changed")
+        reader = PdfReader(io.BytesIO(body))
+        heading = reader.pages[report["header_page"] - 1].extract_text()
+        plain = reader.pages[report["data_page"] - 1].extract_text(
+            **({"extraction_mode": "layout"} if report["layout"] else {}))
+        year = report["year"]
+        values = parse_uis_digest(heading + "\n" + plain, year)
+        # Legacy "China" can aggregate mainland and Taiwan; never relabel it mainland-only.
+        for geo in ("HKG", "MAC"):
+            value = values[geo]
+            base = next(r for r in prior if r["source_id"] == "uis" and r["origin"] == geo
+                        and r["destination"] == "USA" and r["measure"] == "degree_students"
+                        and r["year"] == 2023)
+            locator = (f"UNESCO Global Education Digest {edition}, table {report['table']}, "
+                       f"PDF page {report['data_page']}; reporting year {year}")
+            row = observation(
+                "uis", geo, "USA", "degree_students", year, value,
+                base["definition"] + "; historical ISCED 1997 levels 5 and 6",
+                period_basis="reporting", comparability="uis:degree_students:legacy-isced97",
+                notes=locator + ". Original UNESCO report retained at the public source URL, "
+                "not a newly retrieved current UIS release. Exact country-specific U.S. destination "
+                "count in brackets, not worldwide outbound or all-origin host totals. The U.S. "
+                "cells carry no reference-year offset. Only separately identified Hong Kong/Macau "
+                "counts are imported; the historical China category is not verified mainland-only. "
+                "ISCED 1997 levels 5/6 retain a separate comparison identity: cross-definition "
+                "growth against current UIS is not assumed. No within-year dates invented. "
+                "Only selected numerical facts are retained; original reports are not redistributed.")
+            row = attach([row], asset, locator)[0]
+            if key(row) in existing and existing[key(row)]["value"] != value:
+                raise ValueError("UIS historical fact conflicts with a retained observation")
+            existing.setdefault(key(row), row)
     return validate(list(existing.values()))
 
 
