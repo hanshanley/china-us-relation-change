@@ -728,7 +728,7 @@ evidence. Stale EU/UK and parent-company benchmarks stay download-only.
 |---|---|
 | U.S.-parent affiliates in China | All 24 annual fiscal-year observations, 2000-2023. Affiliate entities, including holding companies, not distinct parents, branch offices or annual openings. Nonbank coverage before 2009; reporting thresholds and benchmarks create breaks. |
 | EU-reporting groups in China | Historical EU27 membership (including UK, excluding Croatia) supplies 2009, 2011 and 2012. Current EU27 membership (excluding UK, including Croatia) supplies 2014-2022, with 2021 estimated. Different memberships/classifications are distinct traces, not a joined splice. Confidential and unavailable years remain gaps. |
-| UK-controlled enterprises in China | Ten annual values, 2010-2019. Eurostat history through 2017; ONS revised 2018 and 2019 estimates. The 2018 source/sector boundary is disconnected. ONS total activity includes agriculture. No outward-affiliate counts from 2020 onward verified; do not use newer inward-affiliate or FDI statistics as substitutes. |
+| UK-controlled enterprises in China | Eleven reported annual values, 2009-2019. Original Eurostat NACE Rev. 1.1 reports 691 for 2009; 2007/2008 are missing, not zero. The 2010 switch to NACE Rev. 2 is disconnected. Later Eurostat history runs through 2017; ONS revised 2018 and 2019 estimates remain separate across the 2018 source/sector boundary. ONS total activity includes agriculture. No outward-affiliate counts from 2020 onward verified; do not use newer inward-affiliate or FDI statistics as substitutes. |
 | Norwegian-controlled enterprises in China | Seventeen annual Statistics Norway observations, 2008-2024, all industries. The full SSB history is used, not spliced to the narrower Eurostat population. The fourteen old Eurostat observations remain in complete downloads. Norway is outside the EU and is not added to a Europe total. |
 | Swedish-group subsidiaries | Fifteen reported2010-2024 counts, ending885;2000-2009 remain explicitly missing. Subsidiary variable2 is not the longer parent-group variable0. The 2018 EGR/imputation,2019 frame and2021 ownership changes remain separate. |
 | Finnish-reported affiliates | All five2020-2024 country counts, ending242. Active subsidiaries and branches, all sizes/industries. The 2021 EBS boundary remains explicit; no earlier China count is inferred from regional aggregates. |
@@ -775,6 +775,7 @@ Obsolete U.S.-in-Europe plots are withdrawn from both figure trees and catalogs.
 .venv/bin/python scripts/build_business_data.py --data-only
 .venv/bin/python scripts/build_business_data.py --nordic-only --data-only
 .venv/bin/python scripts/build_business_data.py --france-only --data-only
+.venv/bin/python scripts/build_business_data.py --uk-history-only --data-only
 .venv/bin/python scripts/build_site.py
 PYTHONPATH=src .venv/bin/python -m pytest tests/test_exchange_business.py -q
 ```
