@@ -215,7 +215,7 @@ Only aggregate numerical facts and original visualizations are redistributed.
 
 ## COVID-period and travel-restriction annotations
 
-The shaded 2020–2022 interval denotes the main period of pandemic restrictions,
+On travel-linked charts, the shaded 2020–2022 interval denotes the main period of pandemic restrictions,
 not a prohibition on all travel. It is calendar context, not an estimate of
 how much any series was affected. Original notices are linked in the public
 `covid-context.json` download:
