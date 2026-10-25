@@ -133,6 +133,7 @@ stocks are not converted into annual flows.
 Some bilateral measures remain unverified, including comparable annual
 U.S.-to-mainland-China permanent immigration. Older national language-course
 counts are not made current by newer degree or program figures. The
-[project checklist](TASKS.md) records verified work and remaining gaps.
+[methods documentation](docs/EXCHANGE.md) describes source definitions and
+remaining coverage gaps.
 Public exports contain complete selected datasets, not metadata-only substitutes;
 they do not redistribute source reports or the private Weibo text corpus.
