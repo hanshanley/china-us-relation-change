@@ -295,6 +295,8 @@ Essay PNGs are **3000 pixels wide**, with height fitted to the SVG's content
 rather than a mandatory 3000-by-1800 frame. Both publication backgrounds use
 the same tight outer padding. The export step preserves every plotted value
 and qualification; it does not change the interactive plot's coordinate system.
+Travel headings consistently use "Travel from [origin] to [destination]" in both
+directions; air-only estimates and visitor-arrival definitions belong in subtitles and notes.
 
 `resvg-py` rasterizes the SVGs entirely offline using bundled, unmodified
 [DejaVu Serif 2.37](https://github.com/dejavu-fonts/dejavu-fonts/releases/tag/version_2_37)

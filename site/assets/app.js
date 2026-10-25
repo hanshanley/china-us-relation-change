@@ -127,8 +127,10 @@
         related.innerHTML += ' <a href="#student-estimates">Separate dated estimates through 2026, including reported bounds</a>.';
       }
     }
-    $("series-title").textContent = measure === "air_visitors" ?
-      `U.S. travel to ${geo === "CHN" ? "mainland China" : data.geographies[geo]}` :
+    const travelName = code => code === "USA" ? "the U.S." :
+      code === "CHN" ? "mainland China" : data.geographies[code];
+    $("series-title").textContent = ["visitors", "air_visitors", "leisure_visitors"].includes(measure) ?
+      `Travel from ${travelName(origin)} to ${travelName(destination)}` :
       `${data.geographies[origin]} \u2192 ${data.geographies[destination]}`;
     $("series-category").textContent = data.measures[measure];
     const population = $("series-population");

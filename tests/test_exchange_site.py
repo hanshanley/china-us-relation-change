@@ -26,7 +26,7 @@ def test_standalone_essay_crop_is_tight_and_preserves_data_not_interactive_frami
     original, essay = ElementTree.fromstring(raw), ElementTree.fromstring(compact)
     assert original.get("viewBox") == "0 0 1000 600"
     assert essay.get("data-presentation") == "essay"
-    assert "U.S. travel to mainland China" in "".join(essay.itertext())
+    assert "Travel from the U.S. to mainland China" in "".join(essay.itertext())
     assert "U.S. residents" in "".join(essay.itertext())
     assert "2019 baseline" not in "".join(essay.itertext())
     assert any(n.get("class") == "covid-band" for n in essay.iter())
@@ -63,6 +63,25 @@ def test_baseline_units_are_preserved_without_decorative_baseline_annotations(in
     for logarithmic in (False, True):
         comparison_svg = svg_comparison(rows, "air_visitors", "from_us", logarithmic=logarithmic)
         assert "2019 baseline" not in comparison_svg and 'stroke-dasharray="4 5"' not in comparison_svg
+
+
+@pytest.mark.parametrize("sid,title", [
+    ("ntto:CHN:USA:visitors", "Travel from mainland China to the U.S."),
+    ("ntto_siat:USA:CHN:air_visitors", "Travel from the U.S. to mainland China"),
+    ("ntto:HKG:USA:visitors", "Travel from Hong Kong to the U.S."),
+    ("hktb:USA:HKG:visitors", "Travel from the U.S. to Hong Kong"),
+])
+def test_travel_titles_follow_the_same_directional_format_across_measures(sid, title):
+    rows = [r for r in json.loads((ROOT / "data/site/observations.json").read_text())
+            if r["series_id"] == sid]
+    svg = ElementTree.fromstring(svg_chart(rows))
+    heading = next(n for n in svg.iter() if n.tag.endswith("text") and n.get("font-weight") == "bold")
+    assert heading.text == title
+    assert next(n for n in svg.iter() if n.tag.endswith("title")).text.startswith(title + ":")
+    points = [(int(n.get("data-year")), float(n.get("data-reported-value")))
+              for n in svg.iter() if n.tag.endswith("circle")]
+    assert points == [(r["year"], r["value"]) for r in sorted(rows, key=lambda r: r["year"])
+                      if r["frequency"] == "annual" and r["value"] is not None]
 
 
 @pytest.mark.parametrize("absolute,percent,expected", [

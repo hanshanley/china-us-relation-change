@@ -22,6 +22,11 @@ MEASURES = {
 }
 
 
+def travel_title(origin, destination):
+    labels = dict(GEOGRAPHIES, USA="the U.S.", CHN="mainland China")
+    return f"Travel from {labels[origin]} to {labels[destination]}"
+
+
 def json_text(value):
     return json.dumps(value, ensure_ascii=True, indent=2, sort_keys=True,
                       allow_nan=False) + "\n"

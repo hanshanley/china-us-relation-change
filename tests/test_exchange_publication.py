@@ -140,6 +140,8 @@ def test_collective_export_preserves_complete_inputs_and_native_plot_boundaries(
         page = BeautifulSoup((tmp_path / name).read_text(), "html.parser")
         if name in {"travel.html", "trade.html"}:
             assert not page.select("#student-estimates")
+        if name == "travel.html":
+            assert page.select_one("#series-title").text == "Travel from mainland China to the U.S."
         assert not page.select("#reverse-direction,.reverse-direction"), name
         assert len(page.select("h1")) == 1 and len(page.select(".analysis-tabs a")) == len(module.TABS) + 1
         assert not page.select("iframe")

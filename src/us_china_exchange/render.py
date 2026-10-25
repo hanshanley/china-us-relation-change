@@ -15,7 +15,7 @@ from xml.etree import ElementTree
 import resvg_py
 from PIL import Image
 
-from .model import START_YEAR, GEOGRAPHIES, MEASURES, change, coverage, gap_reason, json_text, primary_observations, primary_series, validate
+from .model import START_YEAR, GEOGRAPHIES, MEASURES, change, coverage, gap_reason, json_text, primary_observations, primary_series, travel_title, validate
 from .business_analysis import CHARTS as BUSINESS_CHARTS, RETIRED_CHARTS as BUSINESS_RETIRED_CHARTS, validate_business_data
 from .business_current import CHARTS as CURRENT_BUSINESS_CHARTS, build_current_business, validate as validate_current_business
 from .business_inward import CHARTS as INWARD_BUSINESS_CHARTS, validate as validate_inward_business
@@ -134,10 +134,12 @@ def svg_chart(rows, indexed=False, theme="themarginoferror"):
     color = FLOW_COLORS["from_us" if sample["origin"] == "USA" else "to_us"][partner]
     heading = MEASURES[sample["measure"]]
     direction = f"{GEOGRAPHIES[sample['origin']]} to {GEOGRAPHIES[sample['destination']]}"
-    if sample["measure"] == "air_visitors":
-        destination = GEOGRAPHIES[sample["destination"]]
-        heading = f"U.S. travel to {'mainland China' if sample['destination'] == 'CHN' else destination}"
-        direction = "Estimated air trips by U.S. residents"
+    if "visitors" in sample["measure"]:
+        heading = travel_title(sample["origin"], sample["destination"])
+        direction = ("Estimated air trips by U.S. residents" if sample["measure"] == "air_visitors" else
+                     "Leisure visitor trips" if sample["measure"] == "leisure_visitors" else
+                     "Overnight visitor arrivals by country of residence" if sample["source_id"] == "ntto" else
+                     "Visitor arrivals")
     title = f"{heading}: {direction}"
     description = (f"Annual snapshot for {first}."
                    if snapshot and len(present) == 1 else
@@ -297,7 +299,14 @@ def svg_comparison(rows, measure, direction, theme="themarginoferror", logarithm
         maximum, ticks = linear_axis(max(r["value"] for r in plotted))
         y = lambda value: 420 - value / maximum * 240
     direction_label = "To the United States" if direction == "to_us" else "From the United States"
-    title = MEASURES[measure] + ": " + direction_label
+    heading, subtitle = MEASURES[measure], direction_label
+    if "visitors" in measure:
+        heading = "Travel to the U.S." if direction == "to_us" else "Travel from the U.S."
+        if len(groups) == 1:
+            geo = next(iter(groups))
+            heading = travel_title(geo, "USA") if direction == "to_us" else travel_title("USA", geo)
+        subtitle = MEASURES[measure]
+    title = heading + ": " + subtitle
     split_panel = tuple(geographies) != tuple(COMPARISON_GEOGRAPHIES)
     metadata = ""
     if split_panel:
@@ -314,8 +323,8 @@ def svg_comparison(rows, measure, direction, theme="themarginoferror", logarithm
         f'<title>{esc(title)}</title><desc>{description}, shown separately.</desc>',
         f'<rect class="chart-background" width="{CHART_WIDTH}" height="{CHART_HEIGHT}" fill="{CHART_THEMES[theme]["background"]}"/>',
         f'<g font-family="{esc(FONT)}" font-size="20" fill="{MUTED}">',
-        f'<text x="115" y="40" font-size="28" font-weight="bold" fill="{TEXT}">{esc(MEASURES[measure])}</text>',
-        f'<text x="115" y="75" font-size="22">{esc(direction_label)}</text>',
+        f'<text x="115" y="40" font-size="28" font-weight="bold" fill="{TEXT}">{esc(heading)}</text>',
+        f'<text x="115" y="75" font-size="22">{esc(subtitle)}</text>',
     ]
     if covid_applies_to(measure):
         parts.append(svg_band(first, end, 115, 950, 180, 420, columns=columns, measure=measure))
@@ -810,6 +819,8 @@ def build(root):
             regional = regional_series(rows, measure, direction)
             label = "To the United States" if direction == "to_us" else "From the United States"
             heading = MEASURES[measure] + " · " + label
+            if "visitors" in measure:
+                heading = "Travel to the U.S." if direction == "to_us" else "Travel from the U.S."
             split_regions = measure in SPLIT_REGIONAL_MEASURES
             panels = (("CHN",), ("HKG", "MAC")) if split_regions else (COMPARISON_GEOGRAPHIES,)
             panel_labels = {"-".join(geo.lower() for geo in geographies):
@@ -876,7 +887,8 @@ def build(root):
             if "levels" in versions:
                 comparison_count += 1
                 if split_regions:
-                    body += '<p class="chart-context">Same year range; separate vertical scales.</p>'
+                    context = (MEASURES[measure] + " · " if "visitors" in measure else "")
+                    body += f'<p class="chart-context">{esc(context)}Same year range; separate vertical scales.</p>'
                 body += comparison_markup("levels")
                 if measure == "goods" and any(r["source_id"] == "comtrade" for r in available):
                     body += ('<p class="chart-note">Macau (dashed) uses customs accounting: exports FOB, imports CIF. '

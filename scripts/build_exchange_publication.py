@@ -16,7 +16,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
 from bs4 import BeautifulSoup
-from us_china_exchange.model import GEOGRAPHIES, json_text
+from us_china_exchange.model import GEOGRAPHIES, json_text, travel_title
 from us_china_exchange.language_analysis import RETIRED_CHARTS as LANGUAGE_RETIRED_CHARTS
 from us_china_exchange.render import SPLIT_REGIONAL_MEASURES, annual_table, build, figure_links, initial_panel, svg_chart
 from us_china_exchange.theme import figure_category
@@ -431,7 +431,8 @@ def decorate(site, name, labels, revision):
         selected = [r for r in payload["observations"] if r["origin"] == "CHN" and r["destination"] == "USA" and r["measure"] == initial_measure]
         current = max((r for r in selected if r["frequency"] == "annual" and r["value"] is not None), key=lambda r: r["year"])
         soup.select_one("#series-category").string = payload["measures"][initial_measure]
-        soup.select_one("#series-title").string = "Mainland China → United States"
+        soup.select_one("#series-title").string = (travel_title("CHN", "USA") if name == "travel.html" else
+                                                  "Mainland China → United States")
         for target, markup in [("#annual-headlines", initial_panel(selected)), ("#series-table", annual_table(selected)),
                                ("#chart", svg_chart(selected))]:
             node = soup.select_one(target)
