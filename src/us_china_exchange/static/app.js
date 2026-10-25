@@ -95,6 +95,7 @@
       $("selection-note").textContent = selectionNotes.join(" ");
       const related = $("related-series");
       related.hidden = true;
+      related.replaceChildren();
       let alternative, explanation;
       if (outgoing && measure === "visitors") {
         alternative = "air_visitors";

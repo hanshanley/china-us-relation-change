@@ -47,6 +47,15 @@ def check_exchange_toggles(page, data, screenshots=None):
                                  if (r["origin"], r["destination"], r["measure"], r["frequency"]) ==
                                  (origin, destination, measure, "annual") and r["value"] is not None),
                                 key=lambda r: r["year"])
+                expected_estimate_link = int(bool(page.locator("#student-estimates").count())
+                    and direction == "from_us" and geo == "CHN"
+                    and measure in {"international_students", "enrolled_students", "degree_students", "study_abroad"})
+                estimate_links = page.locator('#related-series a[href="#student-estimates"]').count()
+                assert estimate_links == expected_estimate_link, (
+                    repeat, geo, direction, measure, "dated-estimate links", estimate_links, expected_estimate_link)
+                if measure == "study_abroad":
+                    assert page.locator("#related-series .series-alternative").count() == 0, (
+                        repeat, geo, direction, measure, "stale alternative button")
                 points = page.locator("#chart .screen-point")
                 assert points.evaluate_all("nodes=>nodes.map(n=>[+n.dataset.year,+n.dataset.value])") == [
                     [r["year"], r["value"]] for r in annual], (repeat, geo, direction, measure)
