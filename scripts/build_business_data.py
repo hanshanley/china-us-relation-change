@@ -9,7 +9,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
-from us_china_exchange.business_sources import austrian_affiliates, belgian_affiliates, collect_business, czech_affiliates, danish_affiliates, finnish_eurostat_affiliates, french_affiliates, german_affiliates, italian_affiliates, netherlands_affiliates, norwegian_affiliates, nordic_affiliates, polish_affiliates, portuguese_affiliates, spanish_affiliates, swedish_eurostat_affiliates, uk_early_affiliates
+from us_china_exchange.business_sources import austrian_affiliates, belgian_affiliates, collect_business, czech_affiliates, danish_affiliates, finnish_eurostat_affiliates, french_affiliates, german_affiliates, hungarian_affiliates, italian_affiliates, netherlands_affiliates, norwegian_affiliates, nordic_affiliates, polish_affiliates, portuguese_affiliates, spanish_affiliates, swedish_eurostat_affiliates, uk_early_affiliates
 from us_china_exchange.language_sources import ReviewClient
 from us_china_exchange.model import json_text
 from us_china_exchange.pipeline import write_atomic
@@ -259,6 +259,25 @@ def collect_belgium(client, prior):
     return data
 
 
+def collect_hungary(client, prior):
+    data = copy.deepcopy(prior)
+    definitions, observations, sources = hungarian_affiliates(client)
+    data["series"].update(definitions)
+    data["sources"].update(sources)
+    data["observations"] = sorted(
+        [r for r in data["observations"] if r["series_id"] not in definitions] + observations,
+        key=lambda r: (r["series_id"], r["year"]))
+    update_country_coverage(data, definitions)
+    if "Hungarian legal units" not in data["context"]["geography"]:
+        data["context"]["geography"] += (
+            " Hungarian legal units through 2021 and enterprises from 2022 remain separate. "
+            "The national outward-FATS unit rule qualifies Eurostat's broader comparability claim; "
+            "no cross-unit 2019 growth or China counts from national 2024 aggregates. "
+            "Current FDI reporting cutoffs and nonresponse exclusions are not an all-firm census "
+            "or verified constant historical frame.")
+    return data
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--refresh", action="store_true", help="Refetch reviewed public assets instead of the local checksummed cache")
@@ -293,6 +312,8 @@ if __name__ == "__main__":
                            help="Review Czech-controlled China enterprises; preserve other countries")
     selection.add_argument("--belgium-only", action="store_true",
                            help="Review Belgian pre-UCI/legal/enterprise populations separately; preserve other countries")
+    selection.add_argument("--hungary-only", action="store_true",
+                           help="Review Hungarian legal units through 2021 and separate 2022+ enterprises")
     args = parser.parse_args()
     client = ReviewClient(ROOT / "data/local/business-presence/raw", args.refresh)
     collector = (collect_portugal if args.portugal_only else collect_czechia if args.czechia_only else
@@ -300,6 +321,7 @@ if __name__ == "__main__":
                  collect_uk_history if args.uk_history_only else
                  collect_sweden_history if args.sweden_history_only else
                  collect_belgium if args.belgium_only else
+                 collect_hungary if args.hungary_only else
                  collect_poland if args.poland_only else
                  collect_denmark if args.denmark_only else collect_spain if args.spain_only else
                  collect_netherlands if args.netherlands_only else

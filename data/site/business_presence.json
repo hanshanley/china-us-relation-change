@@ -1,6 +1,6 @@
 {
   "context": {
-    "geography": "China is the host. U.S., German, Norwegian, Swedish and Finnish series retain their own control, sector, threshold and source definitions; these are not matched country rankings. UK history ends in 2019. National and overlapping EU27 membership aggregates are not summed. Netherlands is shown separately from the overlapping EU27 aggregate. Spain's Eurostat financial/nonfinancial history is separate from INE's national nonfinancial population; Spain overlaps EU aggregates and is not added to them. Denmark's national resident-parent coverage includes foreign ultimate owners and excludes branches; it is not spliced with Danish-UCI Eurostat counts or summed into EU aggregates. Italian legal-unit history reaches 2023; grouped Eurostat enterprises remain a separate population. Austria is separate from overlapping EU27 membership and broader national counts; its older legal units are not spliced into current enterprise counts. Poland's ultimate-control population remains separate from the broader national foreign-equity survey and is not added to overlapping EU aggregates. Portuguese and Czech populations retain country-specific control/coverage breaks; Portugal's 2007 pre-UCI count is separate archive-only evidence. Belgium's pre-UCI legal units, UCI legal units and2022+enterprises remain separate; its current FDI reporting-frame cutoffs are not backdated or treated as all Belgian firms.",
+    "geography": "China is the host. U.S., German, Norwegian, Swedish and Finnish series retain their own control, sector, threshold and source definitions; these are not matched country rankings. UK history ends in 2019. National and overlapping EU27 membership aggregates are not summed. Netherlands is shown separately from the overlapping EU27 aggregate. Spain's Eurostat financial/nonfinancial history is separate from INE's national nonfinancial population; Spain overlaps EU aggregates and is not added to them. Denmark's national resident-parent coverage includes foreign ultimate owners and excludes branches; it is not spliced with Danish-UCI Eurostat counts or summed into EU aggregates. Italian legal-unit history reaches 2023; grouped Eurostat enterprises remain a separate population. Austria is separate from overlapping EU27 membership and broader national counts; its older legal units are not spliced into current enterprise counts. Poland's ultimate-control population remains separate from the broader national foreign-equity survey and is not added to overlapping EU aggregates. Portuguese and Czech populations retain country-specific control/coverage breaks; Portugal's 2007 pre-UCI count is separate archive-only evidence. Belgium's pre-UCI legal units, UCI legal units and2022+enterprises remain separate; its current FDI reporting-frame cutoffs are not backdated or treated as all Belgian firms. Hungarian legal units through 2021 and enterprises from 2022 remain separate. The national outward-FATS unit rule qualifies Eurostat's broader comparability claim; no cross-unit 2019 growth or China counts from national 2024 aggregates. Current FDI reporting cutoffs and nonresponse exclusions are not an all-firm census or verified constant historical frame.",
     "interpretation": "Company counts, affiliate entities and branch locations are distinct. U.S. parents and ultimately EU-controlled enterprises are not matched ownership populations; BEA and Eurostat levels must not be used to rank otherwise comparable business presence.",
     "question": "How has U.S. and European business presence in China changed over time?",
     "release_timing": "As checked October 22, 2026, BEA's latest activity release covers 2023. The published schedule puts the 2024 activity release on November 20, 2026; no 2024 value is inferred.",
@@ -145,6 +145,16 @@
     {
       "description": "Belgian UCI attribution starts 2009; 2007/2008 pre-UCI legal units remain separate. Legal units through 2021 and enterprise-level counts from 2022 are not spliced. Keep 2010 NACE, 2014 non-resident activity classification, 2016 declared window and 2021 EBS/source boundaries. Country comparable-window paragraphs differ; no cross-unit 2019 growth. Current metadata reports a thresholded FDI reporting-unit frame: EUR 30m equity, EUR 75m balance-sheet total or EUR 15m long-term investments, any criterion; these are not foreign-affiliate size cutoffs or verified unchanged historical thresholds. Control concept says more than half while the FDI screening frame says at least half; no extra 50/50 assumption. No unreported 2004-2006 experimental enterprise counts or 2024+ values inferred. Current supplement starts 2022.",
       "id": "eurostat_belgium:china",
+      "status": "partial_history"
+    },
+    {
+      "description": "Hungarian ultimate control; China except Hong Kong. HCSO outward-FATS methods and table footnote specify legal units through 2021 and enterprises from 2022. Eurostat's broader 2010-2023 comparable-window claim conflicts with this unit boundary; no harmonization or cross-unit 2019 growth. Keep 2010 NACE and 2021 EBS reference-population/source boundaries. Current FDI screening exceeds EUR 40k and 10% of capital; separate source wording says HUF 10m. These are reporting-frame limits, not verified constant historical cutoffs or an all-firm census. Individual minority-control checks apply; no equally shared control in the target population; nonrespondents are omitted. Primary/secondary confidentiality is retained. Unreported experimental 2004-2006 cells stay source-only. The national table's 2024 EU/outside-EU/all-host totals are not China counts. Historical legal units are download-only.",
+      "id": "eurostat_hungary_legal:china",
+      "status": "partial_history"
+    },
+    {
+      "description": "Hungarian ultimate control; China except Hong Kong. HCSO outward-FATS methods and table footnote specify legal units through 2021 and enterprises from 2022. Eurostat's broader 2010-2023 comparable-window claim conflicts with this unit boundary; no harmonization or cross-unit 2019 growth. Keep 2010 NACE and 2021 EBS reference-population/source boundaries. Current FDI screening exceeds EUR 40k and 10% of capital; separate source wording says HUF 10m. These are reporting-frame limits, not verified constant historical cutoffs or an all-firm census. Individual minority-control checks apply; no equally shared control in the target population; nonrespondents are omitted. Primary/secondary confidentiality is retained. Unreported experimental 2004-2006 cells stay source-only. The national table's 2024 EU/outside-EU/all-host totals are not China counts. Current supplement starts 2022.",
+      "id": "eurostat_hungary:china",
       "status": "partial_history"
     }
   ],
@@ -1714,6 +1724,159 @@
       "status": "suppressed",
       "value": null,
       "year": 2013
+    },
+    {
+      "comparability": "hungary:uci-enterprises:2022",
+      "notes": "Hungarian ultimate control; China except Hong Kong. HCSO outward-FATS methods and table footnote specify legal units through 2021 and enterprises from 2022. Eurostat's broader 2010-2023 comparable-window claim conflicts with this unit boundary; no harmonization or cross-unit 2019 growth. Keep 2010 NACE and 2021 EBS reference-population/source boundaries. Current FDI screening exceeds EUR 40k and 10% of capital; separate source wording says HUF 10m. These are reporting-frame limits, not verified constant historical cutoffs or an all-firm census. Individual minority-control checks apply; no equally shared control in the target population; nonrespondents are omitted. Primary/secondary confidentiality is retained. Unreported experimental 2004-2006 cells stay source-only. The national table's 2024 EU/outside-EU/all-host totals are not China counts. Source flags: none",
+      "series_id": "eurostat_hungary:china",
+      "source_id": "fats_out_part_HU",
+      "status": "observed",
+      "value": 6,
+      "year": 2022
+    },
+    {
+      "comparability": "hungary:uci-enterprises:2022",
+      "notes": "Hungarian ultimate control; China except Hong Kong. HCSO outward-FATS methods and table footnote specify legal units through 2021 and enterprises from 2022. Eurostat's broader 2010-2023 comparable-window claim conflicts with this unit boundary; no harmonization or cross-unit 2019 growth. Keep 2010 NACE and 2021 EBS reference-population/source boundaries. Current FDI screening exceeds EUR 40k and 10% of capital; separate source wording says HUF 10m. These are reporting-frame limits, not verified constant historical cutoffs or an all-firm census. Individual minority-control checks apply; no equally shared control in the target population; nonrespondents are omitted. Primary/secondary confidentiality is retained. Unreported experimental 2004-2006 cells stay source-only. The national table's 2024 EU/outside-EU/all-host totals are not China counts. Source flags: none",
+      "series_id": "eurostat_hungary:china",
+      "source_id": "fats_out_part_HU",
+      "status": "observed",
+      "value": 6,
+      "year": 2023
+    },
+    {
+      "comparability": "hungary:uci-legal:2007",
+      "notes": "Hungarian ultimate control; China except Hong Kong. HCSO outward-FATS methods and table footnote specify legal units through 2021 and enterprises from 2022. Eurostat's broader 2010-2023 comparable-window claim conflicts with this unit boundary; no harmonization or cross-unit 2019 growth. Keep 2010 NACE and 2021 EBS reference-population/source boundaries. Current FDI screening exceeds EUR 40k and 10% of capital; separate source wording says HUF 10m. These are reporting-frame limits, not verified constant historical cutoffs or an all-firm census. Individual minority-control checks apply; no equally shared control in the target population; nonrespondents are omitted. Primary/secondary confidentiality is retained. Unreported experimental 2004-2006 cells stay source-only. The national table's 2024 EU/outside-EU/all-host totals are not China counts. Source flags: |C",
+      "series_id": "eurostat_hungary_legal:china",
+      "source_id": "fats_out2_HU",
+      "status": "suppressed",
+      "value": null,
+      "year": 2007
+    },
+    {
+      "comparability": "hungary:uci-legal:2007",
+      "notes": "Hungarian ultimate control; China except Hong Kong. HCSO outward-FATS methods and table footnote specify legal units through 2021 and enterprises from 2022. Eurostat's broader 2010-2023 comparable-window claim conflicts with this unit boundary; no harmonization or cross-unit 2019 growth. Keep 2010 NACE and 2021 EBS reference-population/source boundaries. Current FDI screening exceeds EUR 40k and 10% of capital; separate source wording says HUF 10m. These are reporting-frame limits, not verified constant historical cutoffs or an all-firm census. Individual minority-control checks apply; no equally shared control in the target population; nonrespondents are omitted. Primary/secondary confidentiality is retained. Unreported experimental 2004-2006 cells stay source-only. The national table's 2024 EU/outside-EU/all-host totals are not China counts. Source flags: |C",
+      "series_id": "eurostat_hungary_legal:china",
+      "source_id": "fats_out2_HU",
+      "status": "suppressed",
+      "value": null,
+      "year": 2008
+    },
+    {
+      "comparability": "hungary:uci-legal:2007",
+      "notes": "Hungarian ultimate control; China except Hong Kong. HCSO outward-FATS methods and table footnote specify legal units through 2021 and enterprises from 2022. Eurostat's broader 2010-2023 comparable-window claim conflicts with this unit boundary; no harmonization or cross-unit 2019 growth. Keep 2010 NACE and 2021 EBS reference-population/source boundaries. Current FDI screening exceeds EUR 40k and 10% of capital; separate source wording says HUF 10m. These are reporting-frame limits, not verified constant historical cutoffs or an all-firm census. Individual minority-control checks apply; no equally shared control in the target population; nonrespondents are omitted. Primary/secondary confidentiality is retained. Unreported experimental 2004-2006 cells stay source-only. The national table's 2024 EU/outside-EU/all-host totals are not China counts. Source flags: |C",
+      "series_id": "eurostat_hungary_legal:china",
+      "source_id": "fats_out2_HU",
+      "status": "suppressed",
+      "value": null,
+      "year": 2009
+    },
+    {
+      "comparability": "hungary:uci-legal:2010",
+      "notes": "Hungarian ultimate control; China except Hong Kong. HCSO outward-FATS methods and table footnote specify legal units through 2021 and enterprises from 2022. Eurostat's broader 2010-2023 comparable-window claim conflicts with this unit boundary; no harmonization or cross-unit 2019 growth. Keep 2010 NACE and 2021 EBS reference-population/source boundaries. Current FDI screening exceeds EUR 40k and 10% of capital; separate source wording says HUF 10m. These are reporting-frame limits, not verified constant historical cutoffs or an all-firm census. Individual minority-control checks apply; no equally shared control in the target population; nonrespondents are omitted. Primary/secondary confidentiality is retained. Unreported experimental 2004-2006 cells stay source-only. The national table's 2024 EU/outside-EU/all-host totals are not China counts. Source flags: none",
+      "series_id": "eurostat_hungary_legal:china",
+      "source_id": "fats_out2_r2_HU",
+      "status": "observed",
+      "value": 4,
+      "year": 2010
+    },
+    {
+      "comparability": "hungary:uci-legal:2010",
+      "notes": "Hungarian ultimate control; China except Hong Kong. HCSO outward-FATS methods and table footnote specify legal units through 2021 and enterprises from 2022. Eurostat's broader 2010-2023 comparable-window claim conflicts with this unit boundary; no harmonization or cross-unit 2019 growth. Keep 2010 NACE and 2021 EBS reference-population/source boundaries. Current FDI screening exceeds EUR 40k and 10% of capital; separate source wording says HUF 10m. These are reporting-frame limits, not verified constant historical cutoffs or an all-firm census. Individual minority-control checks apply; no equally shared control in the target population; nonrespondents are omitted. Primary/secondary confidentiality is retained. Unreported experimental 2004-2006 cells stay source-only. The national table's 2024 EU/outside-EU/all-host totals are not China counts. Source flags: |C",
+      "series_id": "eurostat_hungary_legal:china",
+      "source_id": "fats_out2_r2_HU",
+      "status": "suppressed",
+      "value": null,
+      "year": 2011
+    },
+    {
+      "comparability": "hungary:uci-legal:2010",
+      "notes": "Hungarian ultimate control; China except Hong Kong. HCSO outward-FATS methods and table footnote specify legal units through 2021 and enterprises from 2022. Eurostat's broader 2010-2023 comparable-window claim conflicts with this unit boundary; no harmonization or cross-unit 2019 growth. Keep 2010 NACE and 2021 EBS reference-population/source boundaries. Current FDI screening exceeds EUR 40k and 10% of capital; separate source wording says HUF 10m. These are reporting-frame limits, not verified constant historical cutoffs or an all-firm census. Individual minority-control checks apply; no equally shared control in the target population; nonrespondents are omitted. Primary/secondary confidentiality is retained. Unreported experimental 2004-2006 cells stay source-only. The national table's 2024 EU/outside-EU/all-host totals are not China counts. Source flags: |C",
+      "series_id": "eurostat_hungary_legal:china",
+      "source_id": "fats_out2_r2_HU",
+      "status": "suppressed",
+      "value": null,
+      "year": 2012
+    },
+    {
+      "comparability": "hungary:uci-legal:2010",
+      "notes": "Hungarian ultimate control; China except Hong Kong. HCSO outward-FATS methods and table footnote specify legal units through 2021 and enterprises from 2022. Eurostat's broader 2010-2023 comparable-window claim conflicts with this unit boundary; no harmonization or cross-unit 2019 growth. Keep 2010 NACE and 2021 EBS reference-population/source boundaries. Current FDI screening exceeds EUR 40k and 10% of capital; separate source wording says HUF 10m. These are reporting-frame limits, not verified constant historical cutoffs or an all-firm census. Individual minority-control checks apply; no equally shared control in the target population; nonrespondents are omitted. Primary/secondary confidentiality is retained. Unreported experimental 2004-2006 cells stay source-only. The national table's 2024 EU/outside-EU/all-host totals are not China counts. Source flags: |C",
+      "series_id": "eurostat_hungary_legal:china",
+      "source_id": "fats_out2_r2_HU",
+      "status": "suppressed",
+      "value": null,
+      "year": 2013
+    },
+    {
+      "comparability": "hungary:uci-legal:2010",
+      "notes": "Hungarian ultimate control; China except Hong Kong. HCSO outward-FATS methods and table footnote specify legal units through 2021 and enterprises from 2022. Eurostat's broader 2010-2023 comparable-window claim conflicts with this unit boundary; no harmonization or cross-unit 2019 growth. Keep 2010 NACE and 2021 EBS reference-population/source boundaries. Current FDI screening exceeds EUR 40k and 10% of capital; separate source wording says HUF 10m. These are reporting-frame limits, not verified constant historical cutoffs or an all-firm census. Individual minority-control checks apply; no equally shared control in the target population; nonrespondents are omitted. Primary/secondary confidentiality is retained. Unreported experimental 2004-2006 cells stay source-only. The national table's 2024 EU/outside-EU/all-host totals are not China counts. Source flags: |C",
+      "series_id": "eurostat_hungary_legal:china",
+      "source_id": "fats_out2_r2_HU",
+      "status": "suppressed",
+      "value": null,
+      "year": 2014
+    },
+    {
+      "comparability": "hungary:uci-legal:2010",
+      "notes": "Hungarian ultimate control; China except Hong Kong. HCSO outward-FATS methods and table footnote specify legal units through 2021 and enterprises from 2022. Eurostat's broader 2010-2023 comparable-window claim conflicts with this unit boundary; no harmonization or cross-unit 2019 growth. Keep 2010 NACE and 2021 EBS reference-population/source boundaries. Current FDI screening exceeds EUR 40k and 10% of capital; separate source wording says HUF 10m. These are reporting-frame limits, not verified constant historical cutoffs or an all-firm census. Individual minority-control checks apply; no equally shared control in the target population; nonrespondents are omitted. Primary/secondary confidentiality is retained. Unreported experimental 2004-2006 cells stay source-only. The national table's 2024 EU/outside-EU/all-host totals are not China counts. Source flags: |C",
+      "series_id": "eurostat_hungary_legal:china",
+      "source_id": "fats_out2_r2_HU",
+      "status": "suppressed",
+      "value": null,
+      "year": 2015
+    },
+    {
+      "comparability": "hungary:uci-legal:2010",
+      "notes": "Hungarian ultimate control; China except Hong Kong. HCSO outward-FATS methods and table footnote specify legal units through 2021 and enterprises from 2022. Eurostat's broader 2010-2023 comparable-window claim conflicts with this unit boundary; no harmonization or cross-unit 2019 growth. Keep 2010 NACE and 2021 EBS reference-population/source boundaries. Current FDI screening exceeds EUR 40k and 10% of capital; separate source wording says HUF 10m. These are reporting-frame limits, not verified constant historical cutoffs or an all-firm census. Individual minority-control checks apply; no equally shared control in the target population; nonrespondents are omitted. Primary/secondary confidentiality is retained. Unreported experimental 2004-2006 cells stay source-only. The national table's 2024 EU/outside-EU/all-host totals are not China counts. Source flags: |C",
+      "series_id": "eurostat_hungary_legal:china",
+      "source_id": "fats_out2_r2_HU",
+      "status": "suppressed",
+      "value": null,
+      "year": 2016
+    },
+    {
+      "comparability": "hungary:uci-legal:2010",
+      "notes": "Hungarian ultimate control; China except Hong Kong. HCSO outward-FATS methods and table footnote specify legal units through 2021 and enterprises from 2022. Eurostat's broader 2010-2023 comparable-window claim conflicts with this unit boundary; no harmonization or cross-unit 2019 growth. Keep 2010 NACE and 2021 EBS reference-population/source boundaries. Current FDI screening exceeds EUR 40k and 10% of capital; separate source wording says HUF 10m. These are reporting-frame limits, not verified constant historical cutoffs or an all-firm census. Individual minority-control checks apply; no equally shared control in the target population; nonrespondents are omitted. Primary/secondary confidentiality is retained. Unreported experimental 2004-2006 cells stay source-only. The national table's 2024 EU/outside-EU/all-host totals are not China counts. Source flags: |C",
+      "series_id": "eurostat_hungary_legal:china",
+      "source_id": "fats_out2_r2_HU",
+      "status": "suppressed",
+      "value": null,
+      "year": 2017
+    },
+    {
+      "comparability": "hungary:uci-legal:2010",
+      "notes": "Hungarian ultimate control; China except Hong Kong. HCSO outward-FATS methods and table footnote specify legal units through 2021 and enterprises from 2022. Eurostat's broader 2010-2023 comparable-window claim conflicts with this unit boundary; no harmonization or cross-unit 2019 growth. Keep 2010 NACE and 2021 EBS reference-population/source boundaries. Current FDI screening exceeds EUR 40k and 10% of capital; separate source wording says HUF 10m. These are reporting-frame limits, not verified constant historical cutoffs or an all-firm census. Individual minority-control checks apply; no equally shared control in the target population; nonrespondents are omitted. Primary/secondary confidentiality is retained. Unreported experimental 2004-2006 cells stay source-only. The national table's 2024 EU/outside-EU/all-host totals are not China counts. Source flags: none",
+      "series_id": "eurostat_hungary_legal:china",
+      "source_id": "fats_out2_r2_HU",
+      "status": "observed",
+      "value": 3,
+      "year": 2018
+    },
+    {
+      "comparability": "hungary:uci-legal:2010",
+      "notes": "Hungarian ultimate control; China except Hong Kong. HCSO outward-FATS methods and table footnote specify legal units through 2021 and enterprises from 2022. Eurostat's broader 2010-2023 comparable-window claim conflicts with this unit boundary; no harmonization or cross-unit 2019 growth. Keep 2010 NACE and 2021 EBS reference-population/source boundaries. Current FDI screening exceeds EUR 40k and 10% of capital; separate source wording says HUF 10m. These are reporting-frame limits, not verified constant historical cutoffs or an all-firm census. Individual minority-control checks apply; no equally shared control in the target population; nonrespondents are omitted. Primary/secondary confidentiality is retained. Unreported experimental 2004-2006 cells stay source-only. The national table's 2024 EU/outside-EU/all-host totals are not China counts. Source flags: none",
+      "series_id": "eurostat_hungary_legal:china",
+      "source_id": "fats_out2_r2_HU",
+      "status": "observed",
+      "value": 4,
+      "year": 2019
+    },
+    {
+      "comparability": "hungary:uci-legal:2010",
+      "notes": "Hungarian ultimate control; China except Hong Kong. HCSO outward-FATS methods and table footnote specify legal units through 2021 and enterprises from 2022. Eurostat's broader 2010-2023 comparable-window claim conflicts with this unit boundary; no harmonization or cross-unit 2019 growth. Keep 2010 NACE and 2021 EBS reference-population/source boundaries. Current FDI screening exceeds EUR 40k and 10% of capital; separate source wording says HUF 10m. These are reporting-frame limits, not verified constant historical cutoffs or an all-firm census. Individual minority-control checks apply; no equally shared control in the target population; nonrespondents are omitted. Primary/secondary confidentiality is retained. Unreported experimental 2004-2006 cells stay source-only. The national table's 2024 EU/outside-EU/all-host totals are not China counts. Source flags: none",
+      "series_id": "eurostat_hungary_legal:china",
+      "source_id": "fats_out2_r2_HU",
+      "status": "observed",
+      "value": 8,
+      "year": 2020
+    },
+    {
+      "comparability": "hungary:uci-legal:2021",
+      "notes": "Hungarian ultimate control; China except Hong Kong. HCSO outward-FATS methods and table footnote specify legal units through 2021 and enterprises from 2022. Eurostat's broader 2010-2023 comparable-window claim conflicts with this unit boundary; no harmonization or cross-unit 2019 growth. Keep 2010 NACE and 2021 EBS reference-population/source boundaries. Current FDI screening exceeds EUR 40k and 10% of capital; separate source wording says HUF 10m. These are reporting-frame limits, not verified constant historical cutoffs or an all-firm census. Individual minority-control checks apply; no equally shared control in the target population; nonrespondents are omitted. Primary/secondary confidentiality is retained. Unreported experimental 2004-2006 cells stay source-only. The national table's 2024 EU/outside-EU/all-host totals are not China counts. Source flags: none",
+      "series_id": "eurostat_hungary_legal:china",
+      "source_id": "fats_out_part_HU",
+      "status": "observed",
+      "value": 9,
+      "year": 2021
     },
     {
       "comparability": "fats_out_part:IT:0",
@@ -3481,6 +3644,24 @@
       "scope": "China except Hong Kong; EU27_2007 control, including the UK and excluding Croatia",
       "unit": "enterprises"
     },
+    "eurostat_hungary:china": {
+      "cadence": "annual",
+      "label": "Hungary (enterprise definition)",
+      "measure": "controlled_enterprises",
+      "notes": "Hungarian ultimate control; China except Hong Kong. HCSO outward-FATS methods and table footnote specify legal units through 2021 and enterprises from 2022. Eurostat's broader 2010-2023 comparable-window claim conflicts with this unit boundary; no harmonization or cross-unit 2019 growth. Keep 2010 NACE and 2021 EBS reference-population/source boundaries. Current FDI screening exceeds EUR 40k and 10% of capital; separate source wording says HUF 10m. These are reporting-frame limits, not verified constant historical cutoffs or an all-firm census. Individual minority-control checks apply; no equally shared control in the target population; nonrespondents are omitted. Primary/secondary confidentiality is retained. Unreported experimental 2004-2006 cells stay source-only. The national table's 2024 EU/outside-EU/all-host totals are not China counts. Current supplement starts 2022.",
+      "period_basis": "reference year",
+      "scope": "Hungary-resident UCI; China except Hong Kong; thresholded FDI reporting-unit frame; NACE B-S except O; enterprise unit from 2022",
+      "unit": "enterprises"
+    },
+    "eurostat_hungary_legal:china": {
+      "cadence": "annual",
+      "label": "Hungary, historical UCI legal units",
+      "measure": "controlled_legal_units",
+      "notes": "Hungarian ultimate control; China except Hong Kong. HCSO outward-FATS methods and table footnote specify legal units through 2021 and enterprises from 2022. Eurostat's broader 2010-2023 comparable-window claim conflicts with this unit boundary; no harmonization or cross-unit 2019 growth. Keep 2010 NACE and 2021 EBS reference-population/source boundaries. Current FDI screening exceeds EUR 40k and 10% of capital; separate source wording says HUF 10m. These are reporting-frame limits, not verified constant historical cutoffs or an all-firm census. Individual minority-control checks apply; no equally shared control in the target population; nonrespondents are omitted. Primary/secondary confidentiality is retained. Unreported experimental 2004-2006 cells stay source-only. The national table's 2024 EU/outside-EU/all-host totals are not China counts. Historical legal units are download-only.",
+      "period_basis": "reference year",
+      "scope": "Hungary-resident UCI; China except Hong Kong; thresholded FDI reporting-unit frame; NACE C-O except L, then B-S except O",
+      "unit": "legal units"
+    },
     "eurostat_italy:china": {
       "cadence": "annual",
       "label": "Italy (Eurostat enterprises)",
@@ -4274,6 +4455,38 @@
       "notes": "French-controlled enterprises in the source category China except Hong Kong; not unique parents, offices or INSEE's rounded broader count. Retain the 2007 pilot/2009 frame, 2010 NACE, 2016 source-flag and 2021 EBS boundaries; 2008 is unreported. No invented 2000-2006 history or growth across those population changes. Original country/category index and observation flags are retained.",
       "vintage": "fats_out2; France; source updated 2024-04-25T11:00:00+0200"
     },
+    "fats_out2_HU": {
+      "assets": [
+        {
+          "request_url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out2?lang=EN&freq=A&geo=HU&partner=CN_X_HK&indic_bp=ENT&nace_r1=C-O_X_L",
+          "retrieved_at": "2026-10-25T08:55:56+00:00",
+          "sha256": "f637e80472d427bd36b6ba55a7782e9eaeedb20a32e72fca998223eefccdfa9e",
+          "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out2?lang=EN&freq=A&geo=HU&partner=CN_X_HK&indic_bp=ENT&nace_r1=C-O_X_L"
+        },
+        {
+          "request_url": "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_hu.htm",
+          "retrieved_at": "2026-10-25T08:55:55+00:00",
+          "sha256": "f1db610ad8c7e6417a996d95c61ae62a391cf04af64a0a05f64ceff57b078f9e",
+          "url": "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_hu.htm"
+        },
+        {
+          "request_url": "http://www.ksh.hu/docs/eng/modsz/gsz_meth.html",
+          "retrieved_at": "2026-10-25T09:04:19+00:00",
+          "sha256": "455dd1915380a0dced82f225b30fe792a12406ce973e2d3ccd1cb785f672814a",
+          "url": "https://www.ksh.hu/docs/eng/modsz/gsz_meth.html"
+        },
+        {
+          "request_url": "https://www.ksh.hu/stadat_files/gsz/en/gsz0034.html",
+          "retrieved_at": "2026-10-25T09:04:17+00:00",
+          "sha256": "4b04a0bb128df4d5a45379efadc75eaf7153e212162d7f43b4bd58950a0a67d6",
+          "url": "https://www.ksh.hu/stadat_files/gsz/en/gsz0034.html"
+        }
+      ],
+      "locator": "geo=HU; partner=CN_X_HK; indic_bp=ENT; nace_r1=C-O_X_L",
+      "name": "Eurostat / Hungarian Central Statistical Office / Hungarian National Bank",
+      "notes": "Hungarian ultimate control; China except Hong Kong. HCSO outward-FATS methods and table footnote specify legal units through 2021 and enterprises from 2022. Eurostat's broader 2010-2023 comparable-window claim conflicts with this unit boundary; no harmonization or cross-unit 2019 growth. Keep 2010 NACE and 2021 EBS reference-population/source boundaries. Current FDI screening exceeds EUR 40k and 10% of capital; separate source wording says HUF 10m. These are reporting-frame limits, not verified constant historical cutoffs or an all-firm census. Individual minority-control checks apply; no equally shared control in the target population; nonrespondents are omitted. Primary/secondary confidentiality is retained. Unreported experimental 2004-2006 cells stay source-only. The national table's 2024 EU/outside-EU/all-host totals are not China counts.",
+      "vintage": "fats_out2; Hungary; source updated 2024-04-25T11:00:00+0200"
+    },
     "fats_out2_IT": {
       "assets": [
         {
@@ -4538,6 +4751,38 @@
       "notes": "French-controlled enterprises in the source category China except Hong Kong; not unique parents, offices or INSEE's rounded broader count. Retain the 2007 pilot/2009 frame, 2010 NACE, 2016 source-flag and 2021 EBS boundaries; 2008 is unreported. No invented 2000-2006 history or growth across those population changes. Original country/category index and observation flags are retained.",
       "vintage": "fats_out2_r2; France; source updated 2024-04-25T11:00:00+0200"
     },
+    "fats_out2_r2_HU": {
+      "assets": [
+        {
+          "request_url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out2_r2?lang=EN&freq=A&geo=HU&partner=CN_X_HK&indic_bp=ENT&nace_r2=B-S_X_O",
+          "retrieved_at": "2026-10-25T08:55:57+00:00",
+          "sha256": "32718941f7b04c75cf0abe8c91ec8714bf14b3bc593710163c771a291a80a919",
+          "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out2_r2?lang=EN&freq=A&geo=HU&partner=CN_X_HK&indic_bp=ENT&nace_r2=B-S_X_O"
+        },
+        {
+          "request_url": "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_hu.htm",
+          "retrieved_at": "2026-10-25T08:55:55+00:00",
+          "sha256": "f1db610ad8c7e6417a996d95c61ae62a391cf04af64a0a05f64ceff57b078f9e",
+          "url": "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_hu.htm"
+        },
+        {
+          "request_url": "http://www.ksh.hu/docs/eng/modsz/gsz_meth.html",
+          "retrieved_at": "2026-10-25T09:04:19+00:00",
+          "sha256": "455dd1915380a0dced82f225b30fe792a12406ce973e2d3ccd1cb785f672814a",
+          "url": "https://www.ksh.hu/docs/eng/modsz/gsz_meth.html"
+        },
+        {
+          "request_url": "https://www.ksh.hu/stadat_files/gsz/en/gsz0034.html",
+          "retrieved_at": "2026-10-25T09:04:17+00:00",
+          "sha256": "4b04a0bb128df4d5a45379efadc75eaf7153e212162d7f43b4bd58950a0a67d6",
+          "url": "https://www.ksh.hu/stadat_files/gsz/en/gsz0034.html"
+        }
+      ],
+      "locator": "geo=HU; partner=CN_X_HK; indic_bp=ENT; nace_r2=B-S_X_O",
+      "name": "Eurostat / Hungarian Central Statistical Office / Hungarian National Bank",
+      "notes": "Hungarian ultimate control; China except Hong Kong. HCSO outward-FATS methods and table footnote specify legal units through 2021 and enterprises from 2022. Eurostat's broader 2010-2023 comparable-window claim conflicts with this unit boundary; no harmonization or cross-unit 2019 growth. Keep 2010 NACE and 2021 EBS reference-population/source boundaries. Current FDI screening exceeds EUR 40k and 10% of capital; separate source wording says HUF 10m. These are reporting-frame limits, not verified constant historical cutoffs or an all-firm census. Individual minority-control checks apply; no equally shared control in the target population; nonrespondents are omitted. Primary/secondary confidentiality is retained. Unreported experimental 2004-2006 cells stay source-only. The national table's 2024 EU/outside-EU/all-host totals are not China counts.",
+      "vintage": "fats_out2_r2; Hungary; source updated 2024-04-25T11:00:00+0200"
+    },
     "fats_out2_r2_IT": {
       "assets": [
         {
@@ -4801,6 +5046,38 @@
       "name": "Eurostat",
       "notes": "French-controlled enterprises in the source category China except Hong Kong; not unique parents, offices or INSEE's rounded broader count. Retain the 2007 pilot/2009 frame, 2010 NACE, 2016 source-flag and 2021 EBS boundaries; 2008 is unreported. No invented 2000-2006 history or growth across those population changes. Original country/category index and observation flags are retained.",
       "vintage": "fats_out_part; France; source updated 2026-03-31T23:00:00+0200"
+    },
+    "fats_out_part_HU": {
+      "assets": [
+        {
+          "request_url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out_part?lang=EN&freq=A&geo=HU&partner=CN_X_HK&indic_sbs=ENT_NR&nace_r2=B-S_X_O",
+          "retrieved_at": "2026-10-25T08:55:59+00:00",
+          "sha256": "c4de8817176f027e2cd1a9d385d32ae821bb9bb8fd363395530b873c1f2b81e3",
+          "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out_part?lang=EN&freq=A&geo=HU&partner=CN_X_HK&indic_sbs=ENT_NR&nace_r2=B-S_X_O"
+        },
+        {
+          "request_url": "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_hu.htm",
+          "retrieved_at": "2026-10-25T08:55:55+00:00",
+          "sha256": "f1db610ad8c7e6417a996d95c61ae62a391cf04af64a0a05f64ceff57b078f9e",
+          "url": "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_hu.htm"
+        },
+        {
+          "request_url": "http://www.ksh.hu/docs/eng/modsz/gsz_meth.html",
+          "retrieved_at": "2026-10-25T09:04:19+00:00",
+          "sha256": "455dd1915380a0dced82f225b30fe792a12406ce973e2d3ccd1cb785f672814a",
+          "url": "https://www.ksh.hu/docs/eng/modsz/gsz_meth.html"
+        },
+        {
+          "request_url": "https://www.ksh.hu/stadat_files/gsz/en/gsz0034.html",
+          "retrieved_at": "2026-10-25T09:04:17+00:00",
+          "sha256": "4b04a0bb128df4d5a45379efadc75eaf7153e212162d7f43b4bd58950a0a67d6",
+          "url": "https://www.ksh.hu/stadat_files/gsz/en/gsz0034.html"
+        }
+      ],
+      "locator": "geo=HU; partner=CN_X_HK; indic_sbs=ENT_NR; nace_r2=B-S_X_O",
+      "name": "Eurostat / Hungarian Central Statistical Office / Hungarian National Bank",
+      "notes": "Hungarian ultimate control; China except Hong Kong. HCSO outward-FATS methods and table footnote specify legal units through 2021 and enterprises from 2022. Eurostat's broader 2010-2023 comparable-window claim conflicts with this unit boundary; no harmonization or cross-unit 2019 growth. Keep 2010 NACE and 2021 EBS reference-population/source boundaries. Current FDI screening exceeds EUR 40k and 10% of capital; separate source wording says HUF 10m. These are reporting-frame limits, not verified constant historical cutoffs or an all-firm census. Individual minority-control checks apply; no equally shared control in the target population; nonrespondents are omitted. Primary/secondary confidentiality is retained. Unreported experimental 2004-2006 cells stay source-only. The national table's 2024 EU/outside-EU/all-host totals are not China counts.",
+      "vintage": "fats_out_part; Hungary; source updated 2026-03-31T23:00:00+0200"
     },
     "fats_out_part_IT": {
       "assets": [

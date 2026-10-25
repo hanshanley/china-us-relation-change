@@ -63,6 +63,9 @@ POLAND_EUROSTAT_METHODS = "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_
 PORTUGAL_EUROSTAT_METHODS = "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_pt.htm"
 CZECHIA_EUROSTAT_METHODS = "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_cz.htm"
 BELGIUM_EUROSTAT_METHODS = "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_be.htm"
+HUNGARY_EUROSTAT_METHODS = "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_hu.htm"
+HUNGARY_OUTWARD_METHODS = "http://www.ksh.hu/docs/eng/modsz/gsz_meth.html"
+HUNGARY_OUTWARD_TABLE = "https://www.ksh.hu/stadat_files/gsz/en/gsz0034.html"
 SPAIN_EUROSTAT_METHODS = "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_es.htm"
 DENMARK_METADATA = "https://api.statbank.dk/v1/tableinfo"
 DENMARK_DATA = "https://api.statbank.dk/v1/data"
@@ -800,6 +803,74 @@ def belgian_affiliates(client):
     return definitions, observations, sources
 
 
+def hungarian_affiliates(client):
+    legal, current = "eurostat_hungary_legal:china", "eurostat_hungary:china"
+    notes = (
+        "Hungarian ultimate control; China except Hong Kong. HCSO outward-FATS methods and table "
+        "footnote specify legal units through 2021 and enterprises from 2022. Eurostat's broader "
+        "2010-2023 comparable-window claim conflicts with this unit boundary; no harmonization or "
+        "cross-unit 2019 growth. Keep 2010 NACE and 2021 EBS reference-population/source boundaries. "
+        "Current FDI screening exceeds EUR 40k and 10% of capital; separate source wording says "
+        "HUF 10m. These are reporting-frame limits, not verified constant historical cutoffs or "
+        "an all-firm census. Individual minority-control checks apply; no equally shared control "
+        "in the target population; nonrespondents are omitted. Primary/secondary confidentiality "
+        "is retained. Unreported experimental 2004-2006 cells stay source-only. The national "
+        "table's 2024 EU/outside-EU/all-host totals are not China counts.")
+    common = "Hungary-resident UCI; China except Hong Kong; thresholded FDI reporting-unit frame"
+    definitions = {
+        legal: series("Hungary, historical UCI legal units", "controlled_legal_units", "legal units",
+                      common + "; NACE C-O except L, then B-S except O",
+                      "annual", "reference year", notes + " Historical legal units are download-only."),
+        current: series("Hungary (enterprise definition)", "controlled_enterprises", "enterprises",
+                        common + "; NACE B-S except O; enterprise unit from 2022",
+                        "annual", "reference year", notes + " Current supplement starts 2022."),
+    }
+    methods = []
+    for url, tokens in [
+        (HUNGARY_EUROSTAT_METHODS, (
+            "ultimate controlling institutional unit", "2007-2009", "2010-2023", "40.000 eur",
+            "10 percent", "huf 10 million", "minority share provides enough control",
+            "no equally shared controlled enterprises", "non-responding enterprises were not included")),
+        (HUNGARY_OUTWARD_METHODS, (
+            "legal unit level until reference year 2021", "from reference year 2022 enterprise level",
+            "from reference year 2021", "2019/2152",
+            "reference population covers the market producers as defined by esa 2010")),
+        (HUNGARY_OUTWARD_TABLE, (
+            "business statistics on domestically controlled foreign affiliates",
+            "from reference year 2022 the statistical unit is enterprise")),
+    ]:
+        body, asset = client.get(url)
+        text = " ".join(BeautifulSoup(body, "html.parser").get_text(" ", strip=True).split()).lower()
+        if not all(token in text for token in tokens):
+            raise ValueError("Hungarian outward control, unit, EBS or reporting-frame methodology changed")
+        methods.append(asset)
+    observations, sources = [], {}
+    for dataset, indicator, activity, first, last in [
+        ("fats_out2", "indic_bp=ENT", "nace_r1=C-O_X_L", 2007, 2009),
+        ("fats_out2_r2", "indic_bp=ENT", "nace_r2=B-S_X_O", 2010, 2020),
+        ("fats_out_part", "indic_sbs=ENT_NR", "nace_r2=B-S_X_O", 2021, 2023),
+    ]:
+        url = EUROSTAT + dataset + "?lang=EN&freq=A&geo=HU&partner=CN_X_HK&" + indicator + "&" + activity
+        body, asset = client.get(url)
+        data, source_id = json.loads(body), dataset + "_HU"
+        points = parse_eurostat(data, dataset, "HU")
+        if [point[0] for point in points] != list(range(first, last + 1)):
+            raise ValueError("Hungarian affiliate year coverage changed; preserve the reviewed snapshot")
+        sources[source_id] = source(
+            "Eurostat / Hungarian Central Statistical Office / Hungarian National Bank",
+            dataset + "; Hungary; source updated " + data["updated"], [asset] + methods,
+            "geo=HU; partner=CN_X_HK; " + indicator + "; " + activity, notes)
+        for year, value, status, flag, _ in points:
+            if set(re.sub(r"[|\s]", "", flag)) & {"b", "d"} and year not in {2007, 2010, 2021, 2022}:
+                raise ValueError("Hungarian method boundary changed; preserve the reviewed snapshot")
+            population = "uci-legal" if year < 2022 else "uci-enterprises"
+            phase = max(boundary for boundary in (2007, 2010, 2021, 2022) if boundary <= year)
+            observations.append(row(
+                legal if year < 2022 else current, year, value, source_id, status,
+                notes + " Source flags: " + (flag or "none"), f"hungary:{population}:{phase}"))
+    return definitions, observations, sources
+
+
 def country_counts(sheets, title):
     found = {}
     for sheet in sheets:
@@ -1216,6 +1287,10 @@ def collect_business(client):
     definitions.update(belgium_definitions)
     observations.extend(belgium_observations)
     sources.update(belgium_sources)
+    hungary_definitions, hungary_observations, hungary_sources = hungarian_affiliates(client)
+    definitions.update(hungary_definitions)
+    observations.extend(hungary_observations)
+    sources.update(hungary_sources)
     coverage = []
     for sid in definitions:
         selected = [r for r in observations if r["series_id"] == sid]
@@ -1225,7 +1300,7 @@ def collect_business(client):
                          "description": "Verified values: " + ", ".join(actual) +
                          (". Confidential: " + ", ".join(confidential) if confidential else "") +
                          ". All series concern businesses in China; definitions and gaps are retained."})
-    return {
+    result = {
         "version": 1, "series": definitions,
         "observations": sorted(observations, key=lambda r: (r["series_id"], r["year"])),
         "sources": sources,
@@ -1238,6 +1313,13 @@ def collect_business(client):
             "release_timing": "As checked October 22, 2026, BEA's latest activity release covers 2023. The published schedule puts the 2024 activity release on November 20, 2026; no 2024 value is inferred.",
         },
     }
+    result["context"]["geography"] += (
+        " Hungarian legal units through 2021 and enterprises from 2022 remain separate. "
+        "The national outward-FATS unit rule qualifies Eurostat's broader comparability claim; "
+        "no cross-unit 2019 growth or China counts from national 2024 aggregates. "
+        "Current FDI reporting cutoffs and nonresponse exclusions are not an all-firm census "
+        "or verified constant historical frame.")
+    return result
 
 
 def parse_cbs_netherlands(body):

@@ -32,7 +32,8 @@ COLORS = {"bea_affiliates:china": PARTNER_COLORS["CHN"], "bea_parents:china": PA
           "eurostat_portugal:china": "#8D756D", "eurostat_portugal_pre_uci:china": "#8D756D",
           "eurostat_czechia:china": "#73838A",
           "eurostat_belgium:china": "#7B7F60", "eurostat_belgium_legal:china": "#7B7F60",
-          "eurostat_belgium_preuci:china": "#7B7F60"}
+          "eurostat_belgium_preuci:china": "#7B7F60",
+          "eurostat_hungary:china": "#8A7377", "eurostat_hungary_legal:china": "#8A7377"}
 ORIGINS = {"bea_affiliates:china": "us", "bea_parents:china": "us",
            "eurostat_affiliates:china": "eu", "eurostat_historical_eu:china": "eu",
            "eurostat_uk:china": "uk", "eurostat_norway:china": "norway", "ssb_norway:china": "norway",
@@ -48,7 +49,8 @@ ORIGINS = {"bea_affiliates:china": "us", "bea_parents:china": "us",
            "eurostat_portugal:china": "portugal", "eurostat_portugal_pre_uci:china": "portugal",
            "eurostat_czechia:china": "czechia",
            "eurostat_belgium:china": "belgium", "eurostat_belgium_legal:china": "belgium",
-           "eurostat_belgium_preuci:china": "belgium"}
+           "eurostat_belgium_preuci:china": "belgium",
+           "eurostat_hungary:china": "hungary", "eurostat_hungary_legal:china": "hungary"}
 CHARTS = {
     "us-affiliates-china": {
         "title": "U.S.-parent affiliates in China",
@@ -187,6 +189,15 @@ CHARTS = {
         "and pre-UCI records remain separate in complete downloads. Reporting-unit frame cutoffs: "
         "EUR 30m equity, 75m assets or 15m long-term investments, any criterion; not all Belgian firms "
         "or verified constant historical limits. Method windows differ; no comparable 2019 change."},
+    "hungary-affiliates-china": {
+        "title": "Hungarian-controlled enterprises in China",
+        "subtitle": "China except Hong Kong | Since 2022 | Qualified short history",
+        "series": ["eurostat_hungary:china"], "unit": "Enterprises", "mode": "levels",
+        "note": "Eurostat / HCSO / MNB. Enterprises from 2022; separate 2007-2021 "
+        "legal-unit archive in downloads (10 confidential cells). Conflicting unit/comparability rules: "
+        "no 2019 growth. Current reporting frame: above EUR 40k/10% capital; separate HUF 10m wording. "
+        "Minority control reviewed; nonrespondents omitted. Not all firms or proven constant historical "
+        "cutoffs. National 2024 aggregates are not China counts."},
     BENCHMARK_CHART: {
         "title": "U.S. parent companies with China affiliates",
         "subtitle": "Supplementary benchmark observations | NOT an annual series",
@@ -200,7 +211,8 @@ def validate_business_data(data):
         raise ValueError("Invalid business-presence schema")
     units = {sid: "U.S. parents" if sid.startswith("bea_parents") else "affiliates" if sid.startswith("bea_affiliates")
              else "legal units" if sid in {"eurostat_italy_legal:china", "eurostat_austria_legal:china",
-                                          "eurostat_belgium_legal:china", "eurostat_belgium_preuci:china"}
+                                          "eurostat_belgium_legal:china", "eurostat_belgium_preuci:china",
+                                          "eurostat_hungary_legal:china"}
              else "enterprises" for sid in COLORS}
     if not data["series"] or not data["sources"] or not isinstance(data["observations"], list):
         raise ValueError("Business definitions, observations and provenance required")
@@ -212,7 +224,8 @@ def validate_business_data(data):
         controlled_measure = ("historical_affiliates" if sid == "eurostat_portugal_pre_uci:china"
                               else "controlled_legal_units" if sid in {
             "eurostat_italy_legal:china", "eurostat_austria_legal:china",
-            "eurostat_belgium_legal:china", "eurostat_belgium_preuci:china"} else "controlled_enterprises")
+            "eurostat_belgium_legal:china", "eurostat_belgium_preuci:china",
+            "eurostat_hungary_legal:china"} else "controlled_enterprises")
         expected = (controlled_measure, "annual", "reference year") if sid.startswith(
             ("eurostat", "ssb_", "bundesbank_", "tillvaxtanalys_", "statfin_", "dst_")) else (
             ("parent_companies", "benchmark", "fiscal ending year") if sid.startswith("bea_parents")
@@ -264,6 +277,10 @@ def validate_business_data(data):
                     raise ValueError("Belgian pre-UCI attribution must remain separate")
             elif "Belgium-resident UCI" not in definition["scope"]:
                 raise ValueError("Belgian ultimate-control scope must remain explicit")
+        if sid.startswith("eurostat_hungary") and not all(
+                token in definition["scope"] for token in (
+                    "Hungary-resident UCI", "China except Hong Kong", "thresholded FDI reporting-unit frame")):
+            raise ValueError("Hungarian ultimate-control, host and reporting-frame scope must remain explicit")
     for item in data["sources"].values():
         if set(item) != {"name", "vintage", "assets", "locator", "notes"} or not item["assets"]:
             raise ValueError("Business source provenance incomplete")
@@ -334,6 +351,9 @@ def validate_business_data(data):
             "eurostat_belgium_legal:china": ("fats_out2_BE" if r["year"] == 2009 else
                                            "fats_out2_r2_BE" if r["year"] <= 2020 else "fats_out_part_BE"),
             "eurostat_belgium:china": "fats_out_part_BE",
+            "eurostat_hungary_legal:china": ("fats_out2_HU" if r["year"] <= 2009 else
+                                           "fats_out2_r2_HU" if r["year"] <= 2020 else "fats_out_part_HU"),
+            "eurostat_hungary:china": "fats_out_part_HU",
         }
         if ((r["series_id"] == "eurostat_italy_legal:china" and not 2007 <= r["year"] <= 2023)
                 or (r["series_id"] == "eurostat_italy:china" and r["year"] < 2021)):
@@ -350,6 +370,13 @@ def validate_business_data(data):
                 or (r["series_id"] == "eurostat_belgium_legal:china" and not 2009 <= r["year"] <= 2021)
                 or (r["series_id"] == "eurostat_belgium:china" and r["year"] < 2022)):
             raise ValueError("Belgian pre-UCI, legal-unit and enterprise populations must not be spliced")
+        if ((r["series_id"] == "eurostat_hungary_legal:china" and not 2007 <= r["year"] <= 2021)
+                or (r["series_id"] == "eurostat_hungary:china" and r["year"] < 2022)):
+            raise ValueError("Hungarian legal-unit and enterprise populations must not be spliced")
+        if r["series_id"].startswith("eurostat_hungary"):
+            flag = r["notes"].rpartition("Source flags: ")[2]
+            if "C" in flag and r["status"] != "suppressed":
+                raise ValueError("Hungarian confidential cells must not become reported counts")
         if r["series_id"].startswith("eurostat") and r["source_id"] != expected_source[r["series_id"]]:
             raise ValueError("European method/source boundary mismatch")
         if r["series_id"] == "ssb_norway:china" and r["source_id"] != "ssb_09827":
