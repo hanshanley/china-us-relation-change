@@ -2930,6 +2930,30 @@
       "route": "Czechia to China except Hong Kong",
       "unresolved_or_scope_limit": "No pre2007or current-year padding;2008NACE/2010selected-table/2021EBSboundaries retained; no comparable current2019denominator across2021; not all minority FDI interests or an addition to EU totals",
       "verified_recovery": "All17source-year cells retained;16reported annual counts ending2023=7 and confidential2021notzero; national UCI/sector/EBS metadata verified"
+    },
+    {
+      "area": "Travel",
+      "checked_at": "2026-10-25",
+      "disposition": "unverified",
+      "gap_id": "mainland-arrivals-brics-origin-tables",
+      "measure": "All-mode visitor arrivals by nationality",
+      "period": "2019",
+      "primary_sources": "https://www.stats.gov.cn/zt_18555/ztsj/jzgj/jzsc2023/202404/P020240417553133577139.pdf;https://www.stats.gov.cn/sj/ndsj/2020/html/C1712.jpg;https://www.stats.gov.cn/sj/ndsj/2020/html/zb17.htm",
+      "route": "USA to CHN",
+      "unresolved_or_scope_limit": "No numerical U.S.2019 annual count recovered; Table17-12 groups sex age and purpose and includes border-resident entries; no allocation of all-foreign totals or annualization of the retained January-October2019 partial; previously reviewed WTA report and final MCT release direct captures now return403 without bypass",
+      "verified_recovery": "Original NBS BRICS2023 Tables15.2.4 and15.3.4 visibly mark the U.S.2019 cell missing although the overall foreign total is published; actual2020 yearbook Table17-12 and definitions inspected"
+    },
+    {
+      "area": "Students",
+      "checked_at": "2026-10-25",
+      "disposition": "unverified",
+      "gap_id": "macau-host-current-country-report",
+      "measure": "National registered students by U.S. origin",
+      "period": "Academic2016/17;2019/20;2025/26",
+      "primary_sources": "https://appl2.dsedj.gov.mo/usra/open/report_info.jsp?iscon=1&lang=C;https://mirror1.dsedj.gov.mo/dsedj/stati/2025/c/full_text_c.pdf;https://es.dsedj.gov.mo/doc/2019/2019statistics_en.pdf;https://es.dsedj.gov.mo/big5/book/stat2016/stat2016.pdf",
+      "route": "USA to MAC",
+      "unresolved_or_scope_limit": "North America cannot be allocated to the U.S.; local status means Macao identity-card holding rather than nationality; U.S. rows in overseas-study benefits or foreign-university programmes are not Americans enrolled in Macao; empty2024 archive response is not zero; no canonical import",
+      "verified_recovery": "Original DSEDJ2016 and2019 compendia plus2024 and2026 overviews inspected; complete69-row frozen2025/26 public origin report reconciles all67332 registered students but groups North America rather than publishing a U.S. category"
     }
   ],
   "geographies": {
