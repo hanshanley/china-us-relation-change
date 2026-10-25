@@ -33,7 +33,9 @@ COLORS = {"bea_affiliates:china": PARTNER_COLORS["CHN"], "bea_parents:china": PA
           "eurostat_czechia:china": "#73838A",
           "eurostat_belgium:china": "#7B7F60", "eurostat_belgium_legal:china": "#7B7F60",
           "eurostat_belgium_preuci:china": "#7B7F60", "snb_swiss_liechtenstein:china": "#6F7D89",
-          "ine_spain:china": "#8B7656", "ine_spain_units:china": "#8B7656"}
+          "ine_spain:china": "#8B7656", "ine_spain_units:china": "#8B7656",
+          "eurostat_ireland_legacy:china": MUTED, "eurostat_ireland:china": MUTED,
+          "eurostat_ireland_unreviewed:china": MUTED}
 ORIGINS = {"bea_affiliates:china": "us", "bea_parents:china": "us",
            "eurostat_affiliates:china": "eu", "eurostat_historical_eu:china": "eu",
            "eurostat_uk:china": "uk", "eurostat_norway:china": "norway", "ssb_norway:china": "norway",
@@ -50,6 +52,8 @@ ORIGINS = {"bea_affiliates:china": "us", "bea_parents:china": "us",
            "eurostat_czechia:china": "czechia",
            "eurostat_belgium:china": "belgium", "eurostat_belgium_legal:china": "belgium",
            "eurostat_belgium_preuci:china": "belgium",
+           "eurostat_ireland_legacy:china": "ireland", "eurostat_ireland:china": "ireland",
+           "eurostat_ireland_unreviewed:china": "ireland",
            "snb_swiss_liechtenstein:china": "switzerland_liechtenstein",
            "ine_spain:china": "spain", "ine_spain_units:china": "spain"}
 CHARTS = {
@@ -225,7 +229,8 @@ def validate_business_data(data):
             raise ValueError("Invalid business series identity")
         if not all(isinstance(v, str) and v for v in definition.values()) or definition["unit"] != units[sid]:
             raise ValueError("Business counting units and populations must remain explicit")
-        controlled_measure = ("historical_affiliates" if sid in {"eurostat_portugal_pre_uci:china", "ine_spain_units:china"}
+        controlled_measure = ("historical_affiliates" if sid in {
+            "eurostat_portugal_pre_uci:china", "ine_spain_units:china", "eurostat_ireland_legacy:china"}
                               else "controlled_legal_units" if sid in {
             "eurostat_italy_legal:china", "eurostat_austria_legal:china",
             "eurostat_belgium_legal:china", "eurostat_belgium_preuci:china"} else "controlled_enterprises")
@@ -286,6 +291,17 @@ def validate_business_data(data):
                     raise ValueError("Belgian pre-UCI attribution must remain separate")
             elif "Belgium-resident UCI" not in definition["scope"]:
                 raise ValueError("Belgian ultimate-control scope must remain explicit")
+        if sid.startswith("eurostat_ireland"):
+            if "China except Hong Kong" not in definition["scope"]:
+                raise ValueError("Irish host category must remain explicit")
+            if sid == "eurostat_ireland_legacy:china":
+                if not all(token in definition["scope"] for token in (
+                        "Ireland-reported", "pre-2010 UCI attribution unreviewed", "NACE C-O except L")):
+                    raise ValueError("Irish historical attribution and activity scope remain unreviewed")
+            elif not all(token in definition["scope"] for token in ("Irish-resident UCI", "NACE B-S except O")):
+                raise ValueError("Irish ultimate-control and selected-sector scope must remain explicit")
+            if sid == "eurostat_ireland_unreviewed:china" and "2023 continuity unreviewed" not in definition["scope"]:
+                raise ValueError("Irish2023 must not acquire an unreviewed historical bridge")
         if sid == "snb_swiss_liechtenstein:china" and not all(token in definition["scope"] for token in (
                 "Switzerland and Liechtenstein reporting area", "SNB-defined Swiss-controlled groups",
                 "direct/indirect majority subsidiaries", "unincorporated branches",
@@ -375,6 +391,9 @@ def validate_business_data(data):
             "eurostat_belgium_legal:china": ("fats_out2_BE" if r["year"] == 2009 else
                                            "fats_out2_r2_BE" if r["year"] <= 2020 else "fats_out_part_BE"),
             "eurostat_belgium:china": "fats_out_part_BE",
+            "eurostat_ireland_legacy:china": "fats_out2_IE",
+            "eurostat_ireland:china": "fats_out2_r2_IE" if r["year"] <= 2020 else "fats_out_part_IE",
+            "eurostat_ireland_unreviewed:china": "fats_out_part_IE",
         }
         if r["series_id"] == "eurostat_germany:china" and r["year"] < 2007:
             raise ValueError("German Eurostat country history begins in 2007")
@@ -393,6 +412,16 @@ def validate_business_data(data):
                 or (r["series_id"] == "eurostat_belgium_legal:china" and not 2009 <= r["year"] <= 2021)
                 or (r["series_id"] == "eurostat_belgium:china" and r["year"] < 2022)):
             raise ValueError("Belgian pre-UCI, legal-unit and enterprise populations must not be spliced")
+        if r["series_id"].startswith("eurostat_ireland"):
+            expected = ("eurostat_ireland_legacy:china" if 2007 <= r["year"] <= 2009 else
+                        "eurostat_ireland:china" if 2010 <= r["year"] <= 2022 else
+                        "eurostat_ireland_unreviewed:china" if r["year"] == 2023 else None)
+            segment = ("ireland:legacy_nace1" if r["year"] <= 2009 else
+                       "ireland:uci_nace2_2010_2022" if r["year"] <= 2022 else "ireland:2023_continuity_unreviewed")
+            if r["series_id"] != expected or r["comparability"] != segment:
+                raise ValueError("Irish legacy, declared comparable window and unreviewed2023 must not be spliced")
+            if r["series_id"] == "eurostat_ireland_legacy:china" and r["status"] != "suppressed":
+                raise ValueError("The reviewed Irish legacy cells are confidential, not reconstructed counts")
         if r["series_id"].startswith("eurostat") and r["source_id"] != expected_source[r["series_id"]]:
             raise ValueError("European method/source boundary mismatch")
         if r["series_id"] == "ssb_norway:china" and r["source_id"] != "ssb_09827":

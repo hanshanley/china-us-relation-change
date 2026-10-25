@@ -40,6 +40,36 @@ def eurostat():
     }
 
 
+def irish_fixture(dataset):
+    if dataset == "fats_out2":
+        activity, indicator, metric, code = "nace_r1", "indic_bp", "ENT", "C-O_X_L"
+        years, counts = list(range(2007, 2010)), [None] * 3
+    elif dataset == "fats_out2_r2":
+        activity, indicator, metric, code = "nace_r2", "indic_bp", "ENT", "B-S_X_O"
+        years = list(range(2010, 2021))
+        counts = [36, 27, 26, 27, 30, 36, 79, 93, 111, 109, 98]
+    else:
+        activity, indicator, metric, code = "nace_r2", "indic_sbs", "ENT_NR", "B-S_X_O"
+        years, counts = [2021, 2022, 2023], [101, 98, 122]
+    codes = {"freq": "A", activity: code, indicator: metric, "partner": "CN_X_HK", "geo": "IE"}
+    labels = {"geo": "Ireland", "partner": "China except Hong Kong",
+              indicator: "Enterprises - number" if dataset == "fats_out_part" else "Number of enterprises"}
+    data = {
+        "class": "dataset", "source": "ESTAT", "updated": "2026-10-25T00:00:00Z",
+        "id": [*codes, "time"], "size": [1] * len(codes) + [len(years)],
+        "dimension": {key: {"category": {"index": {value: 0}, "label": {value: labels.get(key, value)}}}
+                      for key, value in codes.items()},
+        "extension": {"id": dataset.upper()},
+        "value": {str(index): value for index, value in enumerate(counts) if value is not None},
+        "status": {str(index): "|C" for index, value in enumerate(counts) if value is None},
+    }
+    data["dimension"]["time"] = {"category": {"index": {str(year): index for index, year in enumerate(years)}}}
+    native = (",".join(codes) + "\\TIME_PERIOD\t" + "\t".join(map(str, years)) + "\n"
+              + ",".join(codes.values()) + "\t"
+              + "\t".join(": @C" if value is None else str(value) for value in counts) + "\n")
+    return data, native.encode()
+
+
 def test_distinct_parent_and_affiliate_checkpoints_remain_different_units():
     data = validate_business_data(published())
     rows = {(r["series_id"], r["year"]): r for r in data["observations"]}
@@ -60,9 +90,144 @@ def test_distinct_parent_and_affiliate_checkpoints_remain_different_units():
         ("tillvaxtanalys_", "statfin_", "eurostat_france:", "eurostat_netherlands:", "eurostat_finland:",
          "eurostat_italy", "eurostat_sweden:", "eurostat_spain:", "dst_denmark:", "eurostat_austria", "eurostat_poland:",
          "eurostat_portugal", "eurostat_czechia:", "eurostat_belgium",
-         "snb_swiss_liechtenstein:", "ine_spain"))]) == 119
+         "snb_swiss_liechtenstein:", "ine_spain", "eurostat_ireland"))]) == 119
     assert rows[("ssb_norway:china", 2023)]["value"] == 89
     assert rows[("ssb_norway:china", 2024)]["value"] == 80
+
+
+def test_irish_native_counts_reject_wrong_cubes_flags_and_confidential_reconstruction():
+    from us_china_exchange.business_sources import parse_irish_counts
+
+    for dataset, count in (("fats_out2", 3), ("fats_out2_r2", 11), ("fats_out_part", 3)):
+        data, native = irish_fixture(dataset)
+        assert len(parse_irish_counts(data, dataset, native)) == count
+    original, native = irish_fixture("fats_out2_r2")
+    mutations = (
+        lambda data: data["dimension"]["geo"]["category"].update(index={"LU": 0}),
+        lambda data: data["dimension"]["partner"]["category"].update(index={"HK": 0}),
+        lambda data: data["dimension"]["indic_bp"]["category"].update(index={"EMP": 0}),
+        lambda data: data["dimension"]["indic_bp"]["category"]["label"].update(ENT="Persons employed"),
+        lambda data: data["dimension"]["nace_r2"]["category"].update(index={"TOTAL": 0}),
+        lambda data: data["dimension"]["time"]["category"]["index"].update({"2011": 0}),
+        lambda data: data["dimension"]["time"]["category"]["index"].update({"2011": True}),
+        lambda data: data["extension"].update(id="fats_in2"),
+        lambda data: data["value"].update({"0": 36.5}),
+        lambda data: data["value"].update({"0": True}),
+        lambda data: data["status"].update({"0": "Z"}),
+        lambda data: data["status"].update({"0": "b"}),
+        lambda data: data["value"].update({"99": 1}),
+        lambda data: data["id"].append("time"),
+    )
+    for mutate in mutations:
+        changed = copy.deepcopy(original)
+        mutate(changed)
+        with pytest.raises(ValueError):
+            parse_irish_counts(changed, "fats_out2_r2", native)
+    for changed in (native.replace(b"CN_X_HK,IE", b"CN_X_HK,LU"),
+                    native.replace(b"\t36\t", b"\t37\t", 1)):
+        with pytest.raises(ValueError):
+            parse_irish_counts(original, "fats_out2_r2", changed)
+    confidential, native = irish_fixture("fats_out2")
+    confidential["value"]["0"] = 0
+    with pytest.raises(ValueError):
+        parse_irish_counts(confidential, "fats_out2", native)
+
+
+def test_irish_collector_preserves_foreign_data_and_keeps_2023_outside_the_comparable_window(monkeypatch):
+    from us_china_exchange import business_sources
+
+    background = ("FATS data are compiled according to the UCI concept; 51% or greater; "
+                  "Irish resident institutional unit.")
+    quality = (
+        "The unit of observation is the foreign affiliate. 2022 is directly comparable "
+        "with 2021, 2020, 2019, 2018, 2017, 2016, 2015, 2014, 2013, 2012, 2011 and 2010. "
+        "Exclude zero employment and zero turnover and ownership less than 50 per cent. "
+        "The response rate for OFATS was 52% in 2022; data was received from UCIs in a previous year. "
+        "The number of foreign affiliates controlled by Irish multinationals is underestimated.")
+    monkeypatch.setattr(business_sources, "pdf_text", lambda _: [quality])
+
+    class Client:
+        def get(self, url):
+            if url == business_sources.IRELAND_BACKGROUND:
+                content = ("<p>" + background + "</p>").encode()
+            elif url == business_sources.IRELAND_QUALITY:
+                content = b"original quality report"
+            else:
+                dataset = next(dataset for dataset in ("fats_out2_r2", "fats_out_part", "fats_out2")
+                               if dataset + "/" in url or dataset + "?" in url)
+                data, native = irish_fixture(dataset)
+                content = native if "/sdmx/" in url else json.dumps(data).encode()
+            return content, dict(url=url, request_url=url, sha256=hashlib.sha256(content).hexdigest(),
+                                 retrieved_at="2026-10-25T00:00:00+00:00")
+
+    spec = importlib.util.spec_from_file_location("irish_collector", ROOT / "scripts/build_business_data.py")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    old = published()
+    refreshed = module.collect_ireland(Client(), old)
+    validate_business_data(refreshed)
+    assert module.collect_ireland(Client(), refreshed) == refreshed
+    foreign = lambda data: [row for row in data["observations"]
+                            if not row["series_id"].startswith("eurostat_ireland")]
+    assert foreign(refreshed) == foreign(old)
+    for identity, definition in old["series"].items():
+        if not identity.startswith("eurostat_ireland"):
+            assert refreshed["series"][identity] == definition
+    for identity, source in old["sources"].items():
+        if identity not in {"fats_out2_IE", "fats_out2_r2_IE", "fats_out_part_IE"}:
+            assert refreshed["sources"][identity] == source
+    rows = [row for row in refreshed["observations"] if row["series_id"].startswith("eurostat_ireland")]
+    assert len(rows) == 17 and sum(row["value"] is not None for row in rows) == 14
+    assert [row["year"] for row in rows if row["status"] == "suppressed"] == [2007, 2008, 2009]
+    comparable = [row for row in rows if row["series_id"] == "eurostat_ireland:china"]
+    assert [row["year"] for row in comparable] == list(range(2010, 2023))
+    assert len({row["comparability"] for row in comparable}) == 1
+    assert next(row for row in rows if row["year"] == 2023)["series_id"] == "eurostat_ireland_unreviewed:china"
+    assert refreshed["context"]["geography"].count(business_sources.IRELAND_CONTEXT) == 1
+    prior = copy.deepcopy(refreshed)
+    prior["series"] = {key: value for key, value in prior["series"].items()
+                       if not key.startswith("eurostat_ireland")}
+    prior["sources"] = {key: value for key, value in prior["sources"].items()
+                        if key not in {"fats_out2_IE", "fats_out2_r2_IE", "fats_out_part_IE"}}
+    prior["observations"] = foreign(prior)
+    prior["coverage"] = [row for row in prior["coverage"] if not row["id"].startswith("eurostat_ireland")]
+    prior["context"]["geography"] = prior["context"]["geography"].replace(business_sources.IRELAND_CONTEXT, "")
+    monkeypatch.setattr(module, "collect_business", lambda _: refreshed)
+    assert module.collect_all(Client(), prior) == refreshed
+    assert module.collect_all(Client(), refreshed) == refreshed
+    for changed in (background.replace("UCI concept", "resident-parent concept"),
+                    background.replace("51% or greater", "any shareholding")):
+        with pytest.raises(ValueError):
+            business_sources.verify_irish_methods(changed, quality)
+    with pytest.raises(ValueError):
+        business_sources.verify_irish_methods(background, quality.replace("2022 is directly comparable", "unreviewed"))
+
+
+def test_irish_archive_cannot_be_relabelled_or_spliced_into_current_comparisons():
+    data = validate_business_data(published())
+    assert all(not sid.startswith("eurostat_ireland") for chart in CHARTS.values() for sid in chart["series"])
+    for change in ("join2023", "generic2021break", "zero_confidential", "wrong_source", "all_parents", "wrong_host"):
+        changed = copy.deepcopy(data)
+        if change == "join2023":
+            row = next(row for row in changed["observations"] if row["series_id"] == "eurostat_ireland_unreviewed:china")
+            row["series_id"] = "eurostat_ireland:china"
+        elif change == "generic2021break":
+            row = next(row for row in changed["observations"]
+                       if row["series_id"] == "eurostat_ireland:china" and row["year"] == 2021)
+            row["comparability"] = "fats_out_part:IE:0"
+        elif change == "zero_confidential":
+            row = next(row for row in changed["observations"] if row["series_id"] == "eurostat_ireland_legacy:china")
+            row.update(value=0, status="observed")
+        elif change == "wrong_source":
+            row = next(row for row in changed["observations"] if row["series_id"] == "eurostat_ireland:china")
+            row["source_id"] = "fats_out2_r2_FR"
+        else:
+            scope = changed["series"]["eurostat_ireland:china"]["scope"]
+            changed["series"]["eurostat_ireland:china"]["scope"] = scope.replace(
+                "Irish-resident UCI", "all Irish parents") if change == "all_parents" else scope.replace(
+                    "China except Hong Kong", "China including Hong Kong")
+        with pytest.raises(ValueError):
+            validate_business_data(changed)
 
 
 @pytest.mark.parametrize("new_populations", [False, True])
@@ -75,7 +240,8 @@ def test_default_business_refresh_preserves_reviewed_context_coverage_and_unretu
     complete = published()
     prior = copy.deepcopy(complete)
     if new_populations:
-        removed = {"snb_swiss_liechtenstein:china", "ine_spain:china", "ine_spain_units:china"}
+        removed = {"snb_swiss_liechtenstein:china", "ine_spain:china", "ine_spain_units:china",
+                   "eurostat_ireland_legacy:china", "eurostat_ireland:china", "eurostat_ireland_unreviewed:china"}
         prior["series"] = {key: value for key, value in prior["series"].items() if key not in removed}
         prior["observations"] = [row for row in prior["observations"] if row["series_id"] not in removed]
         prior["coverage"] = [row for row in prior["coverage"] if row["id"] not in removed]

@@ -159,9 +159,9 @@ institution-level workbook, report artwork or exam questions are redistributed.
 
 ## Business-presence sources
 
-`data/site/business_presence.json` retains 385 China-hosted observations, including
-all 355 prior records, three earlier German counts, eleven qualified SNB counts
-and sixteen separately defined INE national observations,
+`data/site/business_presence.json` retains 402 China-hosted observations, including
+all 385 prior records and seventeen separately qualified Irish source cells
+(fourteen reported counts and three confidential nulls),
 explicit confidential/unavailable cells, series definitions, source URLs,
 selected table members, retrieval timestamps and SHA-256 checksums.
 
@@ -251,6 +251,33 @@ that release is still in the future as of October25,2026.
 
 | Portuguese counts, `geo=PT`, `partner=CN_X_HK`; [national methods](https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_pt.htm) | Three exact Eurostat datasets retain every 2007-2023 source cell. The 2007 count of 3 predates the documented 2008 UCI implementation and is a separate qualified archive, not a Portuguese-UCI observation. The 2008-2023 UCI population has fifteen counts, ending at 41, and a confidential 2012 null. Keep the selected 2010 classification transition, 2014 sample-to-IES source change and 2020 coverage expansion. The national producer declares 2020-2023 comparable; the 2021 dataset change is not a fabricated extra unit break. No current 2019 denominator across the 2020 boundary or allocation from an EU total. |
 | Czech counts, `geo=CZ`, `partner=CN_X_HK`; [national methods](https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_cz.htm) | Three exact Eurostat datasets retain seventeen 2007-2023 source cells: sixteen counts, ending at 7, and a confidential 2021 null. Czech National Bank metadata identifies UCI introduction in 2007, NACE Rev. 2 in 2008 and EBS coverage/definition changes in 2021. Preserve the selected 2010 legacy-dataset transition too. These are controlled enterprises/branches, not a count of all minority FDI interests. No cross-2021 comparison to 2019, pre-2007 padding, unreported later year or sum with overlapping EU aggregates. |
+
+Irish archive-only observations select `geo=IE`, `partner=CN_X_HK` and the
+enterprise-count metric in all three original Eurostat collections. All
+17 source cells independently match native TSVs: confidential 2007-2009
+nulls, thirteen reported 2010-2022 counts, and a separately retained 2023
+count of 122. The older NACE C-O-except-L cells have their own historical
+attribution qualification; they are not backdated Irish-UCI observations.
+The NACE B-S-except-O series follows the
+[CSO 2022 quality report](https://www.cso.ie/en/media/csoie/methods/outwardforeignaffiliatessurvey/Standard_SIMS_Report_Outward_Foreign_Affiliates_Survey_2022.pdf),
+page 14, which expressly compares 2010-2022. The 2021 collection change is
+not a fabricated statistical-unit break. Independently unreviewed 2023
+continuity remains in a separate archive population, not a new endpoint
+or 2019 growth.
+
+The unit is a foreign affiliate enterprise, not a surveyed Irish parent,
+office or census of Irish-incorporated firms. Preserve the
+[background's](https://www.cso.ie/en/methods/surveybackgroundnotes/outwardforeignaffiliatessurvey/)
+Irish-resident UCI and 51%-capital wording alongside the compilation
+exclusion below 50%, without silently reconciling or backdating them.
+Inactive zero-employment/zero-turnover affiliates are excluded. The 2022
+parent-survey response was 52%; limited prior-response imputation does not
+cover newly nonresponding units. Consolidated returns may understate the
+number of affiliates. National agriculture-inclusive descriptions do not
+replace the narrower selected Eurostat NACE total. All source flags and
+both JSON/native fingerprints remain in complete downloads. No new
+current Irish model, unreported 2000-2006/2024 value, growth comparison or
+addition to overlapping EU aggregates is implied.
 
 Raw source archives, workbooks, publication text and artwork remain local.
 Only numerical aggregates, original definitions and our figures are published.

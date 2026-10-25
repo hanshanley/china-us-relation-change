@@ -9,7 +9,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
-from us_china_exchange.business_sources import SNB_CONTEXT_NOTE, austrian_affiliates, belgian_affiliates, collect_business, czech_affiliates, danish_affiliates, finnish_eurostat_affiliates, french_affiliates, german_affiliates, italian_affiliates, netherlands_affiliates, norwegian_affiliates, nordic_affiliates, polish_affiliates, portuguese_affiliates, snb_affiliates, spanish_affiliates, spanish_national_affiliates, swedish_eurostat_affiliates, uk_early_affiliates
+from us_china_exchange.business_sources import IRELAND_CONTEXT, SNB_CONTEXT_NOTE, austrian_affiliates, belgian_affiliates, collect_business, czech_affiliates, danish_affiliates, finnish_eurostat_affiliates, french_affiliates, german_affiliates, irish_affiliates, italian_affiliates, netherlands_affiliates, norwegian_affiliates, nordic_affiliates, polish_affiliates, portuguese_affiliates, snb_affiliates, spanish_affiliates, spanish_national_affiliates, swedish_eurostat_affiliates, uk_early_affiliates
 from us_china_exchange.language_sources import ReviewClient
 from us_china_exchange.model import json_text
 from us_china_exchange.pipeline import write_atomic
@@ -37,6 +37,8 @@ def collect_all(client, prior):
         "pre2021 affiliate units from consolidated enterprises; neither regime is a Eurostat extension.")
     if "ine_spain:china" in refreshed["series"] and national_note not in data["context"]["geography"]:
         data["context"]["geography"] += national_note
+    if "eurostat_ireland:china" in refreshed["series"] and IRELAND_CONTEXT not in data["context"]["geography"]:
+        data["context"]["geography"] += IRELAND_CONTEXT
     return data
 
 
@@ -300,6 +302,20 @@ def collect_belgium(client, prior):
     return data
 
 
+def collect_ireland(client, prior):
+    data = copy.deepcopy(prior)
+    definitions, observations, sources = irish_affiliates(client)
+    data["series"].update(definitions)
+    data["sources"].update(sources)
+    data["observations"] = sorted(
+        [record for record in data["observations"] if record["series_id"] not in definitions] + observations,
+        key=lambda record: (record["series_id"], record["year"]))
+    update_country_coverage(data, definitions)
+    if IRELAND_CONTEXT not in data["context"]["geography"]:
+        data["context"]["geography"] += IRELAND_CONTEXT
+    return data
+
+
 def collect_swiss_reporting_area(client, prior):
     data = copy.deepcopy(prior)
     definitions, observations, sources = snb_affiliates(client)
@@ -350,11 +366,14 @@ if __name__ == "__main__":
                            help="Review Czech-controlled China enterprises; preserve other countries")
     selection.add_argument("--belgium-only", action="store_true",
                            help="Review Belgian pre-UCI/legal/enterprise populations separately; preserve other countries")
+    selection.add_argument("--ireland-only", action="store_true",
+                           help="Review Irish archive-only source cells; preserve all other countries")
     selection.add_argument("--swiss-reporting-area-only", action="store_true",
                            help="Review the combined Switzerland/Liechtenstein supplement; preserve other populations")
     args = parser.parse_args()
     client = ReviewClient(ROOT / "data/local/business-presence/raw", args.refresh)
-    collector = (collect_swiss_reporting_area if args.swiss_reporting_area_only else
+    collector = (collect_ireland if args.ireland_only else
+                 collect_swiss_reporting_area if args.swiss_reporting_area_only else
                  collect_spain_national if args.spain_national_only else
                  collect_portugal if args.portugal_only else collect_czechia if args.czechia_only else
                  collect_austria if args.austria_only else collect_italy if args.italy_only else
