@@ -23,9 +23,11 @@ CHARTS = {
         "series": ["ohss_nationality:new_arrivals"],
         "unit": "People per fiscal year", "mode": "levels",
         "covid_context": True,
-        "figure_note": "DHS/OHSS preliminary Q4 releases. New arrivals by nationality, not birthplace; "
+        "figure_note": "DHS/OHSS Q4 tables. FY2016-2018 tables corrected to nationality in September 2019. "
+        "New arrivals by nationality, not birthplace; "
         "excludes in-country adjustments. Fiscal years end September 30; later counts rounded to ten.",
-        "note": "DHS/OHSS Table 1A, each year's preliminary Q4 release. "
+        "note": "DHS/OHSS Table 1A, reviewed Q4 report versions. FY2016-FY2018 tables were corrected "
+        "from birthplace to nationality in September 2019; the observation fiscal years are unchanged. "
         "New arrivals enter as permanent residents; adjustments concern people "
         "already in the U.S. Nationality is not birthplace or previous residence. Later releases round to ten; "
         "earlier releases retain reported counts. "
@@ -36,7 +38,9 @@ CHARTS = {
         "series": ["ohss_nationality:adjustments"], "unit": "People per fiscal year", "mode": "levels",
         "pandemic_note": True,
         "note": "DHS/OHSS. These people were already in the U.S.; the year of permanent-residency approval "
-        "is not their year of arrival. Do not add them to a chart labelled new arrivals."},
+        "is not their year of arrival. Do not add them to a chart labelled new arrivals. "
+        "FY2016-FY2018 tables were corrected from birthplace to nationality in September 2019; "
+        "the observation fiscal years are unchanged."},
     "migrant-stock-to-us": {
         "title": "China- and Hong Kong-born residents in the U.S.", "subtitle": "UN estimates | actual 1 July benchmarks, 2000–2024",
         "series": ["un_stock:CHN:USA", "un_stock:HKG:USA"], "unit": "Estimated residents", "mode": "levels",

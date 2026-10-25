@@ -32,6 +32,10 @@ ADMISSION_ASSETS = {
     2025: ASSETS[2025],
 }
 ADMISSION_YEARS = tuple(sorted(ADMISSION_ASSETS))
+ADMISSION_VINTAGES_NOTE = (
+    "Nationality counts retain the reviewed Q4 report-table versions, not a harmonized final-yearbook series. "
+    "The FY2016-FY2018 Table 1A assets explicitly record a September 2019 correction from birthplace "
+    "to nationality; their observation fiscal years are unchanged.")
 BIRTH_YEARS = tuple(range(1989, 2025))
 COUNTRIES = {"China, People's Republic": "CHN", "Hong Kong": "HKG", "Macau": "MAC"}
 UN_STOCK = "https://www.un.org/development/desa/pd/sites/www.un.org.development.desa.pd/files/undesa_pd_2024_ims_stock_by_sex_destination_and_origin.xlsx"
@@ -290,15 +294,27 @@ def admissions(client):
         records = list(matches[0].values)
         values = parse_admissions(records, year)
         rounded = admission_rounding(records)
+        correction = ""
+        if year in (2016, 2017, 2018):
+            text = re.sub(r"\s+", " ", " ".join(str(v) for r in records for v in r if v)).lower()
+            if ("previously published numbers in this table were computed using country of birth." not in text
+                    or "on september 2019, numbers in this table were updated to account for country of nationality." not in text):
+                raise ValueError("Early report nationality correction changed")
+            correction = (
+                "Table 1A was corrected from Country of Birth to Country of Nationality in September 2019. ")
         source_id = f"ohss_nationality_{year}"
         sources[source_id] = source(
             "U.S. Department of Homeland Security / OHSS",
-            f"Legal Immigration and Adjustment of Status Report, FY{year} Q4", [asset],
+            f"Legal Immigration and Adjustment of Status Report, FY{year} Q4"
+            + ("; nationality corrected September 2019" if correction else ""), [asset],
             "Table 1A; China, People's Republic; full-fiscal-year totals for all grants, adjustments and new arrivals.",
             "Country of nationality, not birthplace or previous residence. "
             + ("Rounded to nearest ten. " if rounded else "Exact counts as published in this release. ") +
-            "Each fiscal year retains its Q4 preliminary administrative-report vintage, not final yearbook revisions. "
-            "New arrivals enter as permanent residents; adjustments concern people already in the U.S. "
+            correction
+            + ("Each fiscal year retains its reviewed Q4 report-table version, not final yearbook revisions. "
+               if correction else
+               "Each fiscal year retains its Q4 preliminary administrative-report vintage, not final yearbook revisions. ")
+            + "New arrivals enter as permanent residents; adjustments concern people already in the U.S. "
             "Total grants include both and are not all physical moves from mainland China.")
         for kind, value in values.items():
             sid = "ohss_nationality:" + kind
@@ -381,7 +397,7 @@ def collect(client):
         "context": {"definition": "The OHSS series count grants of U.S. permanent-resident status; the UN series count resident stocks. Neither is a measure of net migration. Grants include adjustments by people already in the United States, not only new physical arrivals. Birthplace is not a departure country.",
                     "periods": "U.S. fiscal years end September 30. Macau approvals use calendar years. UN stocks use 1 July benchmarks. Birthplace, nationality and source-country categories remain separate.",
                     "macau_approvals": "DSEC counts newly approved people in its U.S. country category, not verified U.S. citizens, U.S. departures or permanent-resident grants.",
-                    "admissions_vintages": "Nationality counts retain each fiscal year's published Q4 preliminary administrative-report vintage, not a harmonized final-yearbook revision.",
+                    "admissions_vintages": ADMISSION_VINTAGES_NOTE,
                     "rounding": "FY2015-2024 birthplace counts and FY2023-2025 nationality counts are rounded to the nearest ten. Earlier source vintages retain their published exact counts.",
                     "resident_stocks": "UN stocks refer to 1 July in actual published benchmark years. China destination estimates use foreign citizenship; Hong Kong and U.S. destination estimates use foreign birth. Refugee adjustments are included where flagged R. These are not new immigration or net migration. No annual observations are invented between benchmarks.",
                     "rights": "Selected statistical aggregates and original figures only; no source workbooks are redistributed. UN estimates: United Nations DESA, Population Division, International Migrant Stock 2024, adapted under CC BY 3.0 IGO."},

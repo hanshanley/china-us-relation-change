@@ -1125,8 +1125,12 @@ ten rather than presented as exact counts.
 A separate nationality/admission-type history covers every FY2016-FY2025.
 The FY2025 DHS China category reports 65,670 total grants, 27,020 new arrivals
 and 38,650 adjustments. These are each report's full-year Total columns, not
-sums of quarterly values. Each year retains its preliminary Q4 administrative
-vintage; it is not a harmonized final-yearbook revision. FY2016-FY2022 counts
+sums of quarterly values. Each year retains the reviewed Q4 report-table
+version, not a harmonized final-yearbook series. The FY2016-FY2018 tables
+explicitly say they were corrected from country of birth to country of
+nationality in September 2019. That correction date does not change their
+observation fiscal years or establish an earlier nationality history.
+FY2016-FY2022 counts
 are exact as published; FY2023-FY2025 are rounded to ten. Nationality is not
 birthplace or previous residence, so the two populations are never spliced.
 The actual plotted years determine each caption. U.S. fiscal years end September 30.
