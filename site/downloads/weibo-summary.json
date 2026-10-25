@@ -4837,11 +4837,11 @@
     }
   ],
   "cohort": {
-    "assessment_sha256": "5b872370d48a8f2c20842176584b0fbd1b720b3149e70095f708efe68ca7d6b6",
+    "assessment_sha256": "a17d61f86f072b9e8c235086d1ab42fef0a33538176bfbc333864cf725842329",
     "candidate_domains": 0,
     "current_identity_domains": 5,
     "historical_only_domains": 7,
-    "manually_reviewed_domains": 380,
+    "manually_reviewed_domains": 382,
     "ranking_basis": "SCImago U.S.-classified digital reputation, not website traffic",
     "ranking_source": "https://www.scimagomedia.com/rankings.php?country=United+States",
     "selected_domains": 1000,
@@ -24962,7 +24962,7 @@
         "uid": "1686203097"
       }
     ],
-    "audited_at": "2026-10-25T06:23:47.702919+00:00",
+    "audited_at": "2026-10-25T07:22:24.001644+00:00",
     "canonical_posts_sha256": "71200e519e64affcbb60235f21227df6a86a47b90ffe1f04359245530b015020",
     "corpus": {
       "archived_sources_checked": 46,
@@ -24976,7 +24976,7 @@
       "primary_text_matches": 6570
     },
     "post_manifest_sha256": "4e4ee506c35d73f523ae74ae0b4ede01675ae16503e64fb6d3b9bc04f597abe7",
-    "registry_sha256": "9af2021366a61c33b646224dda30dbbed56701b15af027afedefebfbe6b60b52",
+    "registry_sha256": "da5da1ad6ff09892f695e44ec988bd81ad9fa37559c54707c906a1fb40ffef0f",
     "scope": "Institutional profile/UID evidence and canonical text/date/source consistency; not current corporate control, continuing U.S. licensing, exhaustive account discovery or complete timelines.",
     "version": 1
   },
@@ -44914,9 +44914,9 @@
   "roster": {
     "confirmed_accounts": 87,
     "confirmed_outlets": 62,
-    "outlets": 462,
+    "outlets": 464,
     "resolved_numeric_accounts": 86,
-    "reviewed_outlets": 462,
+    "reviewed_outlets": 464,
     "unresolved_numeric_accounts": 1
   },
   "source": {
@@ -44924,9 +44924,9 @@
     "excluded_attribution_posts": 0,
     "excluded_unconfirmed_posts": 0,
     "latest_collection_at": "2026-10-23T17:05:13.766559+00:00",
-    "primary_audit_sha256": "d5a6457d83e55c391b6a2f1cdd4c0478846ae1adf11c449aa1e1aebd19ddd0ee",
+    "primary_audit_sha256": "b02dcdb094368c4319d2e493a8c53ce23c49279bac5a78acabab382ca2ccd86d",
     "publication_timezone": "Asia/Shanghai",
-    "registry_sha256": "9af2021366a61c33b646224dda30dbbed56701b15af027afedefebfbe6b60b52",
+    "registry_sha256": "da5da1ad6ff09892f695e44ec988bd81ad9fa37559c54707c906a1fb40ffef0f",
     "requested_windows": [
       {
         "end": "2026-10-21T16:00:00+00:00",

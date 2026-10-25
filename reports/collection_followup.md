@@ -11,7 +11,18 @@ Asia/Shanghai day. The generated inventory, frozen aggregate JSON and refresh
 status report the latest live totals; historical checkpoint counts below are
 not rewritten as though they were the latest collection.
 
-## Latest prepared source checkpoint: discovery pass96
+## Latest prepared source checkpoint: discovery passes 101 and 103
+
+The [dated identity reviews](discovery_iteration103.md) cover the 2013
+Register-Herald government directory and Middletown's 2021 directory /
+2023 publisher testimony. Candidate: 464 registry entries / 382 manual
+reviews; no new account, post, negative or current-control claim.
+Canonical synchronization, main and actual website have separate receipts.
+All 87 channels / 62 groups / 6,570 posts, complete private exports,
+version 5 arrays and six-failure health remain unchanged. No publisher
+body or staff contacts are redistributed; no unattended success is implied.
+
+## Archived source checkpoint: discovery pass96
 
 The dated [Greenwich review](discovery_iteration96.md) adds one factual
 identity, no Weibo account or negative. Source462registry/380manual;
