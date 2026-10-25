@@ -137,7 +137,7 @@ def reviewed_snapshot(bea_client, survey_client):
             "interpretation": "Company decisions and investment are separate measures. Neither is a census of businesses or offices.",
             "survey_comparison": "Different member populations and questions: these are not matched U.S.-European estimates. Germany is not an EU-wide sample.",
             "investment": "U.S. outward direct investment only, on a historical-cost basis and by immediate host. Includes equity and net intercompany debt, not just new projects. Position changes are not investment flows.",
-            "archive": "Earlier affiliate and enterprise counts are retained only as historical data downloads, not primary charts."},
+            "archive": "Affiliate/enterprise counts form a separate complete dataset. Newly recovered Swedish/Finnish/French histories are distinct from earlier U.S./German/Norwegian reference series; stale counts remain download-only."},
         "sources": {
             "amcham_2026": source("AmCham Shanghai / PwC China, 2026 China Business Report public release",
                                   "2026-09-10", [us_asset], "Public findings and methodology paragraph.",
@@ -286,8 +286,9 @@ def csv_text(rows):
 
 def build_current_business(root, archive, gallery):
     from . import business_inward
-    from .business_analysis import CHARTS as OLD_CHARTS, RETIRED_CHARTS, validate_business_data
-    from .render import esc, export_figure, figure_links, remove_figure
+    from .business_analysis import CHARTS as COUNT_CHARTS, build_business, validate_business_data
+    from .public_freshness import public_charts
+    from .render import esc, export_figure, figure_links
 
     path = root / "data/site/business_current.json"
     if not path.is_file():
@@ -301,16 +302,55 @@ def build_current_business(root, archive, gallery):
         inward_section, inward_count = business_inward.build(root, inward, gallery)
     else:
         business_inward.withdraw(root)
+    with public_charts():
+        count_charts = build_business(root, archive, gallery)
+    counts_page = BeautifulSoup((root / "site/business-presence.html").read_text(), "html.parser")
+    count_cards, reference_cards = [], []
+    for section in counts_page.select("main > section.series-panel"):
+        if not section.select_one(".comparison-chart"):
+            continue
+        section["class"] = ["comparison-pane", "business-card", "business-count-card"]
+        section.h2.name = "h3"
+        context = counts_page.new_tag("p", attrs={"class": "chart-context"})
+        context.string = COUNT_CHARTS[section["id"]]["subtitle"]
+        section.h3.insert_after(context)
+        if section["id"] in {"sweden-affiliates-china", "finland-affiliates-china", "france-affiliates-china"}:
+            count_cards.append(str(section))
+        else:
+            config = COUNT_CHARTS[section["id"]]
+            latest = max((row for row in archive["observations"]
+                          if row["series_id"] in config["series"] and row["value"] is not None),
+                         key=lambda row: row["year"])
+            source = archive["sources"][latest["source_id"]]
+            vintage = counts_page.new_tag("p", attrs={"class": "business-source"})
+            vintage.string = (f'Previously available reference: latest period {latest["year"]}. '
+                              f'{source["name"]}; {source["vintage"]}.')
+            section.h3.insert_after(vintage)
+            reference_cards.append(str(section))
+    count_section = (
+        '<section class="series-panel" id="affiliate-presence"><h2>Affiliates operating in China</h2>'
+        '<p class="chart-context">Newly recovered Swedish/Finnish 2024 and French 2023 counts, with every reported historical year. '
+        'These count subsidiary or affiliate '
+        'entities, not unique parent companies or offices. Country sources have different ownership, sector '
+        'and reporting thresholds: they are not a matched ranking or a total to add together. '
+        'Shorter histories and methodology changes remain explicit.</p>'
+        '<div class="comparison-panels business-counts">' + "".join(count_cards) + '</div></section>'
+    ) if count_cards else ""
+    reference_section = (
+        '<details class="series-panel" id="business-count-references">'
+        '<summary>Earlier U.S., German and Norwegian count references</summary>'
+        '<p class="chart-context">Previously available source histories, not newly recovered current evidence. '
+        'The U.S. outward count still ends in 2023 and does not supply 2024/2025 counts. '
+        'German sources have different reporting populations and remain separate. '
+        'These reference histories are not a matched country ranking.</p>'
+        '<div class="comparison-panels business-counts">' + "".join(reference_cards) + '</div></details>'
+    ) if reference_cards else ""
     write_atomic(root / "site/downloads/business-presence.json", json_text(archive))
     historical = [dict(r, **{k: v for k, v in archive["series"][r["series_id"]].items() if k != "notes"},
                        definition_notes=archive["series"][r["series_id"]]["notes"],
                        source_provenance=json.dumps(archive["sources"][r["source_id"]], sort_keys=True))
                   for r in archive["observations"]]
     write_atomic(root / "site/downloads/business-observations.csv", csv_text(historical))
-    (root / "site/downloads/business-chart-values.csv").unlink(missing_ok=True)
-    for chart in set(OLD_CHARTS) | RETIRED_CHARTS:
-        for theme in CHART_THEMES:
-            remove_figure(root, Path("business_presence") / theme / chart)
     cards, plotted = {}, []
     for cid, config in CHARTS.items():
         paths = {theme: export_figure(root, Path("business_presence") / theme / cid, svg_current_chart(data, cid, theme))
@@ -358,23 +398,26 @@ def build_current_business(root, archive, gallery):
         'These are nominal dollar positions, not annual flows or company counts. Mainland China and Hong Kong are separate, with independent vertical scales. '
         'Changes can reflect transactions, exchange rates and other valuation adjustments.</p>'
         '<div class="comparison-panels business-investment">' + cards["us-investment-mainland"] + cards["us-investment-hong-kong"] + '</div></section>'
-        + inward_section +
+        + inward_section + count_section +
         '<section class="series-panel" id="company-decisions"><h2>What companies are saying now</h2>'
         '<p class="chart-context">Recent member-company findings, not a count of every foreign business. '
         'The American and German chambers ask different questions and must not be read as a country ranking.</p>'
         '<div class="comparison-panels business-surveys">' + cards["us-company-decisions"] + cards["german-company-risk"] + '</div>'
         '<p class="chart-note">The German finding is not an EU-wide survey. Its full report is scheduled for 7 December 2026; '
         'only the published preliminary question is shown here.</p></section>'
+        + reference_section +
         '<details id="business-data"><summary>Data, sources & historical archive</summary>'
         '<p><a href="downloads/business-current.json" download>Complete current evidence and provenance · JSON</a> · '
         '<a href="downloads/business-current-observations.csv" download>Every current observation · CSV</a> · '
         '<a href="downloads/business-current-chart-values.csv" download>Every plotted value · CSV</a></p>'
         '<div class="table-scroll"><table><thead><tr><th>Measure</th><th>Reference period</th><th>Reported value</th><th>Unit</th></tr></thead><tbody>' +
         exact + '</tbody></table></div><h3>Primary sources</h3><ul>' + sources +
-        '</ul><h3>Historical company-count archive</h3><p>The former affiliate and enterprise graphs have been removed. '
-        'Their complete historical data and definitions remain available, but are not a current business census.</p>'
-        '<p><a href="downloads/business-presence.json" download>Historical counts and provenance · JSON</a> · '
-        '<a href="downloads/business-observations.csv" download>All historical count observations · CSV</a></p>'
+        '</ul><h3>Complete company-count data</h3><p>The new country histories and earlier reference histories remain distinct. '
+        'Older UK/EU and parent-company benchmarks remain download-only; they are not a current business census. '
+        'Missing years and source/ownership changes remain explicit.</p>'
+        '<p><a href="downloads/business-presence.json" download>All count data and provenance · JSON</a> · '
+        '<a href="downloads/business-observations.csv" download>Every count observation · CSV</a> · '
+        '<a href="downloads/business-chart-values.csv" download>Every plotted count · CSV</a></p>'
         '</details></main></div></body></html>')
     write_atomic(root / "site/business-presence.html", document)
-    return len(CHARTS) + inward_count
+    return len(CHARTS) + inward_count + count_charts

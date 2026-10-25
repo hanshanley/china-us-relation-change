@@ -1,6 +1,6 @@
 {
   "context": {
-    "geography": "China is the host in every chart. Germany is shown separately from the overlapping EU27 aggregate. Historical EU membership, UK and Norwegian populations remain distinct; no all-Europe total is calculated.",
+    "geography": "China is the host. U.S., German, Norwegian, Swedish and Finnish series retain their own control, sector, threshold and source definitions; these are not matched country rankings. UK history ends in 2019. National and overlapping EU27 membership aggregates are not summed.",
     "interpretation": "Company counts, affiliate entities and branch locations are distinct. U.S. parents and ultimately EU-controlled enterprises are not matched ownership populations; BEA and Eurostat levels must not be used to rank otherwise comparable business presence.",
     "question": "How has U.S. and European business presence in China changed over time?",
     "release_timing": "As checked October 22, 2026, BEA's latest activity release covers 2023. The published schedule puts the 2024 activity release on November 20, 2026; no 2024 value is inferred.",
@@ -58,8 +58,13 @@
       "status": "partial_history"
     },
     {
-      "description": "Active affiliates controlled by Finland-resident enterprises, not unique Finnish parents or a physical-office census; source financial-year reporting. The 2021 EBS methodology boundary remains separate. This supplementary country table starts in 2020; earlier national regional aggregates are not allocated to China. Not matched to other countries' thresholds.",
+      "description": "Active affiliates and branches controlled by Finland-resident enterprises; an affiliate has >50% direct/indirect voting control. All size classes and industries; not unique parents or a physical-office census. Financial years ending within the reference calendar year. The 2021 EBS methodology boundary remains separate. This supplementary country table starts in 2020; earlier national regional aggregates are not allocated to China. Not matched to other countries' thresholds.",
       "id": "statfin_finland:china",
+      "status": "partial_history"
+    },
+    {
+      "description": "French-controlled enterprises in the source category China except Hong Kong; not unique parents, offices or INSEE's rounded broader count. Retain the 2007 pilot/2009 frame, 2010 NACE, 2016 source-flag and 2021 EBS boundaries; 2008 is unreported. No invented 2000-2006 history or growth across those population changes.",
+      "id": "eurostat_france:china",
       "status": "partial_history"
     }
   ],
@@ -476,6 +481,159 @@
       "source_id": "fats_out_part",
       "status": "suppressed",
       "value": null,
+      "year": 2023
+    },
+    {
+      "comparability": "fats_out2:FR:0:pilot2007",
+      "notes": "French-controlled enterprises in the source category China except Hong Kong; not unique parents, offices or INSEE's rounded broader count. Retain the 2007 pilot/2009 frame, 2010 NACE, 2016 source-flag and 2021 EBS boundaries; 2008 is unreported. No invented 2000-2006 history or growth across those population changes. Source flags: ",
+      "series_id": "eurostat_france:china",
+      "source_id": "fats_out2_FR",
+      "status": "observed",
+      "value": 764,
+      "year": 2007
+    },
+    {
+      "comparability": "fats_out2:FR:0:unreported2008",
+      "notes": "French-controlled enterprises in the source category China except Hong Kong; not unique parents, offices or INSEE's rounded broader count. Retain the 2007 pilot/2009 frame, 2010 NACE, 2016 source-flag and 2021 EBS boundaries; 2008 is unreported. No invented 2000-2006 history or growth across those population changes. Source flags: ",
+      "series_id": "eurostat_france:china",
+      "source_id": "fats_out2_FR",
+      "status": "missing",
+      "value": null,
+      "year": 2008
+    },
+    {
+      "comparability": "fats_out2:FR:0:annual2009",
+      "notes": "French-controlled enterprises in the source category China except Hong Kong; not unique parents, offices or INSEE's rounded broader count. Retain the 2007 pilot/2009 frame, 2010 NACE, 2016 source-flag and 2021 EBS boundaries; 2008 is unreported. No invented 2000-2006 history or growth across those population changes. Source flags: ",
+      "series_id": "eurostat_france:china",
+      "source_id": "fats_out2_FR",
+      "status": "observed",
+      "value": 1279,
+      "year": 2009
+    },
+    {
+      "comparability": "fats_out2_r2:FR:0",
+      "notes": "French-controlled enterprises in the source category China except Hong Kong; not unique parents, offices or INSEE's rounded broader count. Retain the 2007 pilot/2009 frame, 2010 NACE, 2016 source-flag and 2021 EBS boundaries; 2008 is unreported. No invented 2000-2006 history or growth across those population changes. Source flags: ",
+      "series_id": "eurostat_france:china",
+      "source_id": "fats_out2_r2_FR",
+      "status": "observed",
+      "value": 1345,
+      "year": 2010
+    },
+    {
+      "comparability": "fats_out2_r2:FR:0",
+      "notes": "French-controlled enterprises in the source category China except Hong Kong; not unique parents, offices or INSEE's rounded broader count. Retain the 2007 pilot/2009 frame, 2010 NACE, 2016 source-flag and 2021 EBS boundaries; 2008 is unreported. No invented 2000-2006 history or growth across those population changes. Source flags: ",
+      "series_id": "eurostat_france:china",
+      "source_id": "fats_out2_r2_FR",
+      "status": "observed",
+      "value": 1588,
+      "year": 2011
+    },
+    {
+      "comparability": "fats_out2_r2:FR:0",
+      "notes": "French-controlled enterprises in the source category China except Hong Kong; not unique parents, offices or INSEE's rounded broader count. Retain the 2007 pilot/2009 frame, 2010 NACE, 2016 source-flag and 2021 EBS boundaries; 2008 is unreported. No invented 2000-2006 history or growth across those population changes. Source flags: ",
+      "series_id": "eurostat_france:china",
+      "source_id": "fats_out2_r2_FR",
+      "status": "observed",
+      "value": 1835,
+      "year": 2012
+    },
+    {
+      "comparability": "fats_out2_r2:FR:0",
+      "notes": "French-controlled enterprises in the source category China except Hong Kong; not unique parents, offices or INSEE's rounded broader count. Retain the 2007 pilot/2009 frame, 2010 NACE, 2016 source-flag and 2021 EBS boundaries; 2008 is unreported. No invented 2000-2006 history or growth across those population changes. Source flags: ",
+      "series_id": "eurostat_france:china",
+      "source_id": "fats_out2_r2_FR",
+      "status": "observed",
+      "value": 1808,
+      "year": 2013
+    },
+    {
+      "comparability": "fats_out2_r2:FR:0",
+      "notes": "French-controlled enterprises in the source category China except Hong Kong; not unique parents, offices or INSEE's rounded broader count. Retain the 2007 pilot/2009 frame, 2010 NACE, 2016 source-flag and 2021 EBS boundaries; 2008 is unreported. No invented 2000-2006 history or growth across those population changes. Source flags: ",
+      "series_id": "eurostat_france:china",
+      "source_id": "fats_out2_r2_FR",
+      "status": "observed",
+      "value": 1918,
+      "year": 2014
+    },
+    {
+      "comparability": "fats_out2_r2:FR:0",
+      "notes": "French-controlled enterprises in the source category China except Hong Kong; not unique parents, offices or INSEE's rounded broader count. Retain the 2007 pilot/2009 frame, 2010 NACE, 2016 source-flag and 2021 EBS boundaries; 2008 is unreported. No invented 2000-2006 history or growth across those population changes. Source flags: ",
+      "series_id": "eurostat_france:china",
+      "source_id": "fats_out2_r2_FR",
+      "status": "observed",
+      "value": 1722,
+      "year": 2015
+    },
+    {
+      "comparability": "fats_out2_r2:FR:1",
+      "notes": "French-controlled enterprises in the source category China except Hong Kong; not unique parents, offices or INSEE's rounded broader count. Retain the 2007 pilot/2009 frame, 2010 NACE, 2016 source-flag and 2021 EBS boundaries; 2008 is unreported. No invented 2000-2006 history or growth across those population changes. Source flags: b",
+      "series_id": "eurostat_france:china",
+      "source_id": "fats_out2_r2_FR",
+      "status": "observed",
+      "value": 2098,
+      "year": 2016
+    },
+    {
+      "comparability": "fats_out2_r2:FR:1",
+      "notes": "French-controlled enterprises in the source category China except Hong Kong; not unique parents, offices or INSEE's rounded broader count. Retain the 2007 pilot/2009 frame, 2010 NACE, 2016 source-flag and 2021 EBS boundaries; 2008 is unreported. No invented 2000-2006 history or growth across those population changes. Source flags: ",
+      "series_id": "eurostat_france:china",
+      "source_id": "fats_out2_r2_FR",
+      "status": "observed",
+      "value": 1914,
+      "year": 2017
+    },
+    {
+      "comparability": "fats_out2_r2:FR:1",
+      "notes": "French-controlled enterprises in the source category China except Hong Kong; not unique parents, offices or INSEE's rounded broader count. Retain the 2007 pilot/2009 frame, 2010 NACE, 2016 source-flag and 2021 EBS boundaries; 2008 is unreported. No invented 2000-2006 history or growth across those population changes. Source flags: ",
+      "series_id": "eurostat_france:china",
+      "source_id": "fats_out2_r2_FR",
+      "status": "observed",
+      "value": 1984,
+      "year": 2018
+    },
+    {
+      "comparability": "fats_out2_r2:FR:1",
+      "notes": "French-controlled enterprises in the source category China except Hong Kong; not unique parents, offices or INSEE's rounded broader count. Retain the 2007 pilot/2009 frame, 2010 NACE, 2016 source-flag and 2021 EBS boundaries; 2008 is unreported. No invented 2000-2006 history or growth across those population changes. Source flags: ",
+      "series_id": "eurostat_france:china",
+      "source_id": "fats_out2_r2_FR",
+      "status": "observed",
+      "value": 2104,
+      "year": 2019
+    },
+    {
+      "comparability": "fats_out2_r2:FR:1",
+      "notes": "French-controlled enterprises in the source category China except Hong Kong; not unique parents, offices or INSEE's rounded broader count. Retain the 2007 pilot/2009 frame, 2010 NACE, 2016 source-flag and 2021 EBS boundaries; 2008 is unreported. No invented 2000-2006 history or growth across those population changes. Source flags: ",
+      "series_id": "eurostat_france:china",
+      "source_id": "fats_out2_r2_FR",
+      "status": "observed",
+      "value": 2085,
+      "year": 2020
+    },
+    {
+      "comparability": "fats_out_part:FR:0",
+      "notes": "French-controlled enterprises in the source category China except Hong Kong; not unique parents, offices or INSEE's rounded broader count. Retain the 2007 pilot/2009 frame, 2010 NACE, 2016 source-flag and 2021 EBS boundaries; 2008 is unreported. No invented 2000-2006 history or growth across those population changes. Source flags: ",
+      "series_id": "eurostat_france:china",
+      "source_id": "fats_out_part_FR",
+      "status": "observed",
+      "value": 2110,
+      "year": 2021
+    },
+    {
+      "comparability": "fats_out_part:FR:0",
+      "notes": "French-controlled enterprises in the source category China except Hong Kong; not unique parents, offices or INSEE's rounded broader count. Retain the 2007 pilot/2009 frame, 2010 NACE, 2016 source-flag and 2021 EBS boundaries; 2008 is unreported. No invented 2000-2006 history or growth across those population changes. Source flags: ",
+      "series_id": "eurostat_france:china",
+      "source_id": "fats_out_part_FR",
+      "status": "observed",
+      "value": 2147,
+      "year": 2022
+    },
+    {
+      "comparability": "fats_out_part:FR:0",
+      "notes": "French-controlled enterprises in the source category China except Hong Kong; not unique parents, offices or INSEE's rounded broader count. Retain the 2007 pilot/2009 frame, 2010 NACE, 2016 source-flag and 2021 EBS boundaries; 2008 is unreported. No invented 2000-2006 history or growth across those population changes. Source flags: ",
+      "series_id": "eurostat_france:china",
+      "source_id": "fats_out_part_FR",
+      "status": "observed",
+      "value": 2153,
       "year": 2023
     },
     {
@@ -1047,7 +1205,7 @@
     },
     {
       "comparability": "finland:CN:affiliates:pre2021",
-      "notes": "Active affiliates controlled by Finland-resident enterprises, not unique Finnish parents or a physical-office census; source financial-year reporting. The 2021 EBS methodology boundary remains separate. This supplementary country table starts in 2020; earlier national regional aggregates are not allocated to China. Not matched to other countries' thresholds.",
+      "notes": "Active affiliates and branches controlled by Finland-resident enterprises; an affiliate has >50% direct/indirect voting control. All size classes and industries; not unique parents or a physical-office census. Financial years ending within the reference calendar year. The 2021 EBS methodology boundary remains separate. This supplementary country table starts in 2020; earlier national regional aggregates are not allocated to China. Not matched to other countries' thresholds.",
       "series_id": "statfin_finland:china",
       "source_id": "finland_13k8",
       "status": "observed",
@@ -1056,7 +1214,7 @@
     },
     {
       "comparability": "finland:CN:affiliates:EBS2021",
-      "notes": "Active affiliates controlled by Finland-resident enterprises, not unique Finnish parents or a physical-office census; source financial-year reporting. The 2021 EBS methodology boundary remains separate. This supplementary country table starts in 2020; earlier national regional aggregates are not allocated to China. Not matched to other countries' thresholds.",
+      "notes": "Active affiliates and branches controlled by Finland-resident enterprises; an affiliate has >50% direct/indirect voting control. All size classes and industries; not unique parents or a physical-office census. Financial years ending within the reference calendar year. The 2021 EBS methodology boundary remains separate. This supplementary country table starts in 2020; earlier national regional aggregates are not allocated to China. Not matched to other countries' thresholds.",
       "series_id": "statfin_finland:china",
       "source_id": "finland_13k8",
       "status": "observed",
@@ -1065,7 +1223,7 @@
     },
     {
       "comparability": "finland:CN:affiliates:EBS2021",
-      "notes": "Active affiliates controlled by Finland-resident enterprises, not unique Finnish parents or a physical-office census; source financial-year reporting. The 2021 EBS methodology boundary remains separate. This supplementary country table starts in 2020; earlier national regional aggregates are not allocated to China. Not matched to other countries' thresholds.",
+      "notes": "Active affiliates and branches controlled by Finland-resident enterprises; an affiliate has >50% direct/indirect voting control. All size classes and industries; not unique parents or a physical-office census. Financial years ending within the reference calendar year. The 2021 EBS methodology boundary remains separate. This supplementary country table starts in 2020; earlier national regional aggregates are not allocated to China. Not matched to other countries' thresholds.",
       "series_id": "statfin_finland:china",
       "source_id": "finland_13k8",
       "status": "observed",
@@ -1074,7 +1232,7 @@
     },
     {
       "comparability": "finland:CN:affiliates:EBS2021",
-      "notes": "Active affiliates controlled by Finland-resident enterprises, not unique Finnish parents or a physical-office census; source financial-year reporting. The 2021 EBS methodology boundary remains separate. This supplementary country table starts in 2020; earlier national regional aggregates are not allocated to China. Not matched to other countries' thresholds.",
+      "notes": "Active affiliates and branches controlled by Finland-resident enterprises; an affiliate has >50% direct/indirect voting control. All size classes and industries; not unique parents or a physical-office census. Financial years ending within the reference calendar year. The 2021 EBS methodology boundary remains separate. This supplementary country table starts in 2020; earlier national regional aggregates are not allocated to China. Not matched to other countries' thresholds.",
       "series_id": "statfin_finland:china",
       "source_id": "finland_13k8",
       "status": "observed",
@@ -1083,7 +1241,7 @@
     },
     {
       "comparability": "finland:CN:affiliates:EBS2021",
-      "notes": "Active affiliates controlled by Finland-resident enterprises, not unique Finnish parents or a physical-office census; source financial-year reporting. The 2021 EBS methodology boundary remains separate. This supplementary country table starts in 2020; earlier national regional aggregates are not allocated to China. Not matched to other countries' thresholds.",
+      "notes": "Active affiliates and branches controlled by Finland-resident enterprises; an affiliate has >50% direct/indirect voting control. All size classes and industries; not unique parents or a physical-office census. Financial years ending within the reference calendar year. The 2021 EBS methodology boundary remains separate. This supplementary country table starts in 2020; earlier national regional aggregates are not allocated to China. Not matched to other countries' thresholds.",
       "series_id": "statfin_finland:china",
       "source_id": "finland_13k8",
       "status": "observed",
@@ -1353,6 +1511,15 @@
       "scope": "China except Hong Kong; ultimately controlled from fixed EU27_2020 membership, excluding the UK; market producers NACE B-S except O",
       "unit": "enterprises"
     },
+    "eurostat_france:china": {
+      "cadence": "annual",
+      "label": "France (Eurostat)",
+      "measure": "controlled_enterprises",
+      "notes": "French-controlled enterprises in the source category China except Hong Kong; not unique parents, offices or INSEE's rounded broader count. Retain the 2007 pilot/2009 frame, 2010 NACE, 2016 source-flag and 2021 EBS boundaries; 2008 is unreported. No invented 2000-2006 history or growth across those population changes.",
+      "period_basis": "reference year",
+      "scope": "French-controlled enterprises in China except Hong Kong; legacy NACE C-O except L, then NACE B-S except O",
+      "unit": "enterprises"
+    },
     "eurostat_germany:china": {
       "cadence": "annual",
       "label": "Germany (Eurostat)",
@@ -1402,7 +1569,7 @@
       "cadence": "annual",
       "label": "Finland",
       "measure": "controlled_enterprises",
-      "notes": "Active affiliates controlled by Finland-resident enterprises, not unique Finnish parents or a physical-office census; source financial-year reporting. The 2021 EBS methodology boundary remains separate. This supplementary country table starts in 2020; earlier national regional aggregates are not allocated to China. Not matched to other countries' thresholds.",
+      "notes": "Active affiliates and branches controlled by Finland-resident enterprises; an affiliate has >50% direct/indirect voting control. All size classes and industries; not unique parents or a physical-office census. Financial years ending within the reference calendar year. The 2021 EBS methodology boundary remains separate. This supplementary country table starts in 2020; earlier national regional aggregates are not allocated to China. Not matched to other countries' thresholds.",
       "period_basis": "reference year",
       "scope": "Finland-reported foreign affiliates and branches operating in China (156); Hong Kong and Macao separately coded",
       "unit": "enterprises"
@@ -1900,6 +2067,20 @@
       "notes": "Keep each control geography, membership and activity classification explicit. Preserve estimated, break and confidential flags; methodology boundaries remain disconnected. No reconstruction of confidential totals from member-country values.",
       "vintage": "Outward FATS - main variables (2007-2009); updated 2024-04-25T11:00:00+0200"
     },
+    "fats_out2_FR": {
+      "assets": [
+        {
+          "request_url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out2?lang=EN&freq=A&geo=FR&partner=CN_X_HK&indic_bp=ENT&nace_r1=C-O_X_L",
+          "retrieved_at": "2026-10-25T02:45:57+00:00",
+          "sha256": "c6799975bc8922b43092af21e3772df9d781fc0097bebf15710133c4cb13a5c6",
+          "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out2?lang=EN&freq=A&geo=FR&partner=CN_X_HK&indic_bp=ENT&nace_r1=C-O_X_L"
+        }
+      ],
+      "locator": "geo=FR; partner=CN_X_HK; indic_bp=ENT; nace_r1=C-O_X_L",
+      "name": "Eurostat",
+      "notes": "French-controlled enterprises in the source category China except Hong Kong; not unique parents, offices or INSEE's rounded broader count. Retain the 2007 pilot/2009 frame, 2010 NACE, 2016 source-flag and 2021 EBS boundaries; 2008 is unreported. No invented 2000-2006 history or growth across those population changes. Original country/category index and observation flags are retained.",
+      "vintage": "fats_out2; France; source updated 2024-04-25T11:00:00+0200"
+    },
     "fats_out2_r2": {
       "assets": [
         {
@@ -1941,6 +2122,20 @@
       "name": "Eurostat",
       "notes": "Keep each control geography, membership and activity classification explicit. Preserve estimated, break and confidential flags; methodology boundaries remain disconnected. No reconstruction of confidential totals from member-country values.",
       "vintage": "Outward FATS, main variables - NACE Rev. 2 activity (2010-2020); updated 2024-04-25T11:00:00+0200"
+    },
+    "fats_out2_r2_FR": {
+      "assets": [
+        {
+          "request_url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out2_r2?lang=EN&freq=A&geo=FR&partner=CN_X_HK&indic_bp=ENT&nace_r2=B-S_X_O",
+          "retrieved_at": "2026-10-25T02:43:39+00:00",
+          "sha256": "11fb0ee339cd2035eaba18211df5143336a9e834d5141125c6d386a8e454afe2",
+          "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out2_r2?lang=EN&freq=A&geo=FR&partner=CN_X_HK&indic_bp=ENT&nace_r2=B-S_X_O"
+        }
+      ],
+      "locator": "geo=FR; partner=CN_X_HK; indic_bp=ENT; nace_r2=B-S_X_O",
+      "name": "Eurostat",
+      "notes": "French-controlled enterprises in the source category China except Hong Kong; not unique parents, offices or INSEE's rounded broader count. Retain the 2007 pilot/2009 frame, 2010 NACE, 2016 source-flag and 2021 EBS boundaries; 2008 is unreported. No invented 2000-2006 history or growth across those population changes. Original country/category index and observation flags are retained.",
+      "vintage": "fats_out2_r2; France; source updated 2024-04-25T11:00:00+0200"
     },
     "fats_out2_r2_NO": {
       "assets": [
@@ -1998,6 +2193,20 @@
       "notes": "Separate source population/vintage from the Bundesbank workbook; overlapping counts are not forced to agree.",
       "vintage": "fats_out_part; Germany reporting country"
     },
+    "fats_out_part_FR": {
+      "assets": [
+        {
+          "request_url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out_part?lang=EN&freq=A&geo=FR&partner=CN_X_HK&indic_sbs=ENT_NR&nace_r2=B-S_X_O",
+          "retrieved_at": "2026-10-25T02:43:37+00:00",
+          "sha256": "f6cf1e013af7fe917e24b5ef54bdb08cbc3da849fbed83dbedf9f789ee4e22b3",
+          "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out_part?lang=EN&freq=A&geo=FR&partner=CN_X_HK&indic_sbs=ENT_NR&nace_r2=B-S_X_O"
+        }
+      ],
+      "locator": "geo=FR; partner=CN_X_HK; indic_sbs=ENT_NR; nace_r2=B-S_X_O",
+      "name": "Eurostat",
+      "notes": "French-controlled enterprises in the source category China except Hong Kong; not unique parents, offices or INSEE's rounded broader count. Retain the 2007 pilot/2009 frame, 2010 NACE, 2016 source-flag and 2021 EBS boundaries; 2008 is unreported. No invented 2000-2006 history or growth across those population changes. Original country/category index and observation flags are retained.",
+      "vintage": "fats_out_part; France; source updated 2026-03-31T23:00:00+0200"
+    },
     "fats_out_part_NO": {
       "assets": [
         {
@@ -2025,11 +2234,17 @@
           "retrieved_at": "2026-10-25T02:20:58+00:00",
           "sha256": "e4cffef2a00b358863e3c174e9bdd440b862e8609c51629776de656855f5ea1c",
           "url": "https://stat.fi/en/documentation/changes-in-statistics/clh08g97cga760bw05x4vrip0"
+        },
+        {
+          "request_url": "https://stat.fi/en/documentation/documentation-of-statistics/stu",
+          "retrieved_at": "2026-10-25T02:17:39+00:00",
+          "sha256": "20cb2c3b9cd7d7591524f3bfce09aa80c900b606d6356dd89d7380df5ad1841b",
+          "url": "https://stat.fi/en/documentation/documentation-of-statistics/stu"
         }
       ],
       "locator": "13k8; country156 (China); contentscode=ofats_count; all reported years; 2021 methodology-change notice",
       "name": "Statistics Finland",
-      "notes": "Active affiliates controlled by Finland-resident enterprises, not unique Finnish parents or a physical-office census; source financial-year reporting. The 2021 EBS methodology boundary remains separate. This supplementary country table starts in 2020; earlier national regional aggregates are not allocated to China. Not matched to other countries' thresholds.",
+      "notes": "Active affiliates and branches controlled by Finland-resident enterprises; an affiliate has >50% direct/indirect voting control. All size classes and industries; not unique parents or a physical-office census. Financial years ending within the reference calendar year. The 2021 EBS methodology boundary remains separate. This supplementary country table starts in 2020; earlier national regional aggregates are not allocated to China. Not matched to other countries' thresholds.",
       "vintage": "StatFin 13k8; reference years 2020-2024"
     },
     "ons_2019": {

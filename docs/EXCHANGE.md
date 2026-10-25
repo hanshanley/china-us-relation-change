@@ -712,10 +712,13 @@ source notes and figure footnotes; publication backgrounds do not grant rights.
 
 ### Business presence
 
-Open `site/business-presence.html`. **China is the host in every chart.**
-The page leads with annual U.S. and European business-presence histories and
-a full year-by-year table, not two endpoint counts. It does not chart U.S.
-businesses located in Europe.
+Open `site/business-presence.html`. Investment positions, reverse-direction
+U.S. affiliate counts and company surveys remain distinct from foreign
+business counts in China. The new Swedish, Finnish and French histories
+are separate annual bar panels, with their actual reporting windows.
+Earlier U.S., German and Norwegian count histories are explicitly labelled
+secondary references in a closed disclosure, not newly recovered current
+evidence. Stale EU/UK and parent-company benchmarks stay download-only.
 
 | Measure | Verified history and definition |
 |---|---|
@@ -723,17 +726,21 @@ businesses located in Europe.
 | EU-reporting groups in China | Historical EU27 membership (including UK, excluding Croatia) supplies 2009, 2011 and 2012. Current EU27 membership (excluding UK, including Croatia) supplies 2014-2022, with 2021 estimated. Different memberships/classifications are distinct traces, not a joined splice. Confidential and unavailable years remain gaps. |
 | UK-controlled enterprises in China | Ten annual values, 2010-2019. Eurostat history through 2017; ONS revised 2018 and 2019 estimates. The 2018 source/sector boundary is disconnected. ONS total activity includes agriculture. No outward-affiliate counts from 2020 onward verified; do not use newer inward-affiliate or FDI statistics as substitutes. |
 | Norwegian-controlled enterprises in China | Seventeen annual Statistics Norway observations, 2008-2024, all industries. The full SSB history is used, not spliced to the narrower Eurostat population. The fourteen old Eurostat observations remain in complete downloads. Norway is outside the EU and is not added to a Europe total. |
-| Supplementary U.S. parent-company benchmarks | Only 2004, 2009, 2014 and 2019 are verified. They appear in a collapsed background section, not as the main time series or an annual census. Foreign-affiliate ownership begins at 10%, not necessarily majority control; reporting exclusions apply. No interpolation. |
+| Swedish-group subsidiaries | Fifteen reported2010-2024 counts, ending885;2000-2009 remain explicitly missing. Subsidiary variable2 is not the longer parent-group variable0. The 2018 EGR/imputation,2019 frame and2021 ownership changes remain separate. |
+| Finnish-reported affiliates | All five2020-2024 country counts, ending242. Active subsidiaries and branches, all sizes/industries. The 2021 EBS boundary remains explicit; no earlier China count is inferred from regional aggregates. |
+| French-controlled enterprises | Sixteen reported2007-2023 counts and one missing2008 cell, ending2153. Eurostat's host category is China except Hong Kong. The 2007/2009,2010,2016 and2021 boundaries are not spliced or used for cross-regime growth. INSEE's rounded count remains a separate source finding. |
+| Supplementary U.S. parent-company benchmarks | Only 2004,2009,2014 and2019 are verified and remain archive-only, not an annual census. Foreign-affiliate ownership begins at10%, not necessarily majority control; reporting exclusions apply. No interpolation. |
 
 The U.S. affiliate reporting cutoff changes from $7 million through 2003 to
 $10 million in 2004-2008 and $25 million from 2009, based on assets, sales or
 net income/loss. These are nominal, not inflation-adjusted, cutoffs.
-Benchmark remeasurement and coverage can create level changes; chart lines
-break in 2004, 2009, 2014 and 2019. Parent benchmark observations are isolated.
+Benchmark remeasurement and coverage can create level changes; boundaries
+in 2004,2009,2014 and2019 remain explicit. Parent benchmark observations are isolated.
 No incompatible full-history percentage is calculated.
 
-European origins are not destinations: the EU, UK and Norway series all refer
-to enterprises operating **in China**. This is selected European coverage,
+European origins are not destinations: these national series concern
+enterprises in their reported China host category, not U.S. businesses in Europe.
+This is selected European coverage,
 not a comprehensive all-Europe total; Switzerland and other unverified origins
 are not invented or allocated. Eurostat uses ultimate control and different
 unit/sector coverage from BEA's size-qualified affiliates. U.S. and European
@@ -749,16 +756,19 @@ invented or inferred from investment-position data.
 
 The frozen input is `data/site/business_presence.json`; the page exports the
 complete JSON, every source observation in `business-observations.csv`, and
-every raw/derived chart point in `business-chart-values.csv`. All five chart
-families have 3000-by-1800 PNGs and SVGs under
+every raw/derived chart point in `business-chart-values.csv`. Every displayed
+count chart has 3000-by-1800 PNGs and SVGs under
 `outputs/figures/business_presence/<background>/` and the mirrored site tree.
-Colors identify investor origins consistently: U.S. deep red, current EU blue,
-historical EU grey, UK gold and Norway green. The four annual chart families
-lead the page; the fifth is the supplementary U.S. benchmark panel.
+Annual count charts use bars, including separate Eurostat/Bundesbank German
+source panels. The nine primary panels retain the six investment/reverse-count/
+survey panels and add the three new country histories; earlier reference bars
+remain secondary and no source population is summed into an all-Europe total.
 Obsolete U.S.-in-Europe plots are withdrawn from both figure trees and catalogs.
 
 ```sh
 .venv/bin/python scripts/build_business_data.py --data-only
+.venv/bin/python scripts/build_business_data.py --nordic-only --data-only
+.venv/bin/python scripts/build_business_data.py --france-only --data-only
 .venv/bin/python scripts/build_site.py
 PYTHONPATH=src .venv/bin/python -m pytest tests/test_exchange_business.py -q
 ```

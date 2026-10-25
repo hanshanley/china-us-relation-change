@@ -106,9 +106,12 @@ class Audit:
                 ("language-learning.html", "language", "language-learning"),
                 ("business-presence.html", "business-current", "business-current"),
                 ("business-presence.html", "business-inward", "business-inward"),
+                ("business-presence.html", "business", "business-presence"),
                 ("immigration.html", "immigration", "immigration"),
                 ("opinions.html", "opinion", "opinions")]:
             if not (site / f"downloads/{source}.json").is_file():
+                continue
+            if source == "business-presence" and not (site / "downloads/business-chart-values.csv").is_file():
                 continue
             data = json.loads((site / f"downloads/{source}.json").read_text())
             combined = self.datasets.setdefault(page, {"series": {}, "observations": []})

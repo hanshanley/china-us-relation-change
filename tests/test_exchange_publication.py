@@ -194,8 +194,19 @@ def test_collective_export_preserves_complete_inputs_and_native_plot_boundaries(
     business = BeautifulSoup((tmp_path / "business-presence.html").read_text(), "html.parser")
     assert "business-current" in manifest["datasets"]
     assert "business-inward" in manifest["datasets"]
-    assert len(business.select(".business-card")) == 6
-    assert not business.select("#module-chart,#us-parent-companies-china,#us-affiliates-china,.covid-band,.covid-context")
+    cards = business.select(".business-card")
+    assert len(cards) == 13
+    references = business.select_one("#business-count-references")
+    assert references.get("open") is None and len(references.select(".business-card")) == 4
+    assert len([card for card in cards if card.find_parent(id="business-count-references") is None]) == 9
+    assert business.select_one("#us-affiliates-china").find_parent("details")["id"] == "business-count-references"
+    assert not business.select("#module-chart,#us-parent-companies-china,#uk-affiliates-china,#eu-affiliates-china,.covid-band,.covid-context")
+    for chart, years in [("sweden-affiliates-china", range(2010, 2025)),
+                         ("finland-affiliates-china", range(2020, 2025)),
+                         ("france-affiliates-china", [y for y in range(2007, 2024) if y != 2008])]:
+        country = json.loads(business.select_one(f"#{chart} .plot-data").string)
+        assert country["columns"] and [p["year"] for p in country["groups"][0]["points"]] == list(years)
+        assert (country["first"], country["last"]) == (min(years), max(years))
     model = json.loads(business.select_one("#us-investment-mainland .plot-data").string)
     assert len(model["groups"][0]["points"]) == 26
     assert model["columns"]
