@@ -33,6 +33,8 @@ def check(site, url=None):
         "denmark-affiliates-china": "dst_denmark:china",
         "austria-affiliates-china": "eurostat_austria:china",
         "poland-affiliates-china": "eurostat_poland:china",
+        "portugal-affiliates-china": "eurostat_portugal:china",
+        "czechia-affiliates-china": "eurostat_czechia:china",
     }
     counts = {
         chart: sorted((r for r in archive["observations"] if r["series_id"] == sid and r["value"] is not None),
@@ -45,7 +47,8 @@ def check(site, url=None):
                   if chart in {"sweden-affiliates-china", "finland-affiliates-china", "france-affiliates-china",
                                "netherlands-affiliates-china", "finland-affiliates-china-eurostat",
                                "italy-affiliates-china", "sweden-affiliates-china-eurostat", "spain-affiliates-china",
-                               "denmark-affiliates-china", "austria-affiliates-china", "poland-affiliates-china"}}
+                               "denmark-affiliates-china", "austria-affiliates-china", "poland-affiliates-china",
+                               "portugal-affiliates-china", "czechia-affiliates-china"}}
     visible_count = (6 if inward is not None else 4) + len(new_counts)
     if inward is not None:
         with (site / "downloads/business-inward-observations.csv").open() as stream:
@@ -160,7 +163,8 @@ def check(site, url=None):
         for chart in ("sweden-affiliates-china", "finland-affiliates-china", "france-affiliates-china",
                       "netherlands-affiliates-china", "finland-affiliates-china-eurostat",
                       "italy-affiliates-china", "sweden-affiliates-china-eurostat", "spain-affiliates-china",
-                      "denmark-affiliates-china", "austria-affiliates-china", "poland-affiliates-china"):
+                      "denmark-affiliates-china", "austria-affiliates-china", "poland-affiliates-china",
+                      "portugal-affiliates-china", "czechia-affiliates-china"):
             if chart in counts:
                 page.locator(f"#{chart} .screen-column").last.tap()
                 tooltip_id = page.locator(f"#{chart} .native-chart").get_attribute("data-tooltip-id")

@@ -1,6 +1,6 @@
 {
   "context": {
-    "geography": "China is the host. U.S., German, Norwegian, Swedish and Finnish series retain their own control, sector, threshold and source definitions; these are not matched country rankings. UK history ends in 2019. National and overlapping EU27 membership aggregates are not summed. Netherlands is shown separately from the overlapping EU27 aggregate. Spain's Eurostat financial/nonfinancial history is separate from INE's national nonfinancial population; Spain overlaps EU aggregates and is not added to them. Denmark's national resident-parent coverage includes foreign ultimate owners and excludes branches; it is not spliced with Danish-UCI Eurostat counts or summed into EU aggregates. Italian legal-unit history reaches 2023; grouped Eurostat enterprises remain a separate population. Austria is separate from overlapping EU27 membership and broader national counts; its older legal units are not spliced into current enterprise counts. Poland's ultimate-control population remains separate from the broader national foreign-equity survey and is not added to overlapping EU aggregates.",
+    "geography": "China is the host. U.S., German, Norwegian, Swedish and Finnish series retain their own control, sector, threshold and source definitions; these are not matched country rankings. UK history ends in 2019. National and overlapping EU27 membership aggregates are not summed. Netherlands is shown separately from the overlapping EU27 aggregate. Spain's Eurostat financial/nonfinancial history is separate from INE's national nonfinancial population; Spain overlaps EU aggregates and is not added to them. Denmark's national resident-parent coverage includes foreign ultimate owners and excludes branches; it is not spliced with Danish-UCI Eurostat counts or summed into EU aggregates. Italian legal-unit history reaches 2023; grouped Eurostat enterprises remain a separate population. Austria is separate from overlapping EU27 membership and broader national counts; its older legal units are not spliced into current enterprise counts. Poland's ultimate-control population remains separate from the broader national foreign-equity survey and is not added to overlapping EU aggregates. Portuguese and Czech populations retain country-specific control/coverage breaks; Portugal's 2007 pre-UCI count is separate archive-only evidence.",
     "interpretation": "Company counts, affiliate entities and branch locations are distinct. U.S. parents and ultimately EU-controlled enterprises are not matched ownership populations; BEA and Eurostat levels must not be used to rank otherwise comparable business presence.",
     "question": "How has U.S. and European business presence in China changed over time?",
     "release_timing": "As checked October 22, 2026, BEA's latest activity release covers 2023. The published schedule puts the 2024 activity release on November 20, 2026; no 2024 value is inferred.",
@@ -115,6 +115,21 @@
     {
       "description": "Polish-resident ultimate control of enterprises/branches in China except Hong Kong, not the broader national survey of all foreign equity interests. Enterprise-unit implementation breaks the series in 2018. Preserve the selected legacy NACE2010 transition; 2021 is source-dataset lineage, not a second Polish unit break. Joint 50/50 and documented de-facto minority control can qualify; no size cutoff. 2007 is unreported, not zero. No pre2008 or unreported current-year counts inferred.",
       "id": "eurostat_poland:china",
+      "status": "partial_history"
+    },
+    {
+      "description": "Portugal first implemented UCI in 2008; the 2007 count has a separately qualified control basis. The selected legacy NACE table changes in 2010. In 2014 the annual FDI sample was replaced by mandatory IES reporting; additional companies entered the compilation in 2020. Preserve those coverage boundaries and the confidential 2012 cell. The 2021 dataset transition does not override Portugal's documented 2020-onward comparable block. No current 2019 change, pre-2007 count, regional total or unreported current-year count is inferred. The single 2007 count is archive-only, not a Portuguese-UCI point.",
+      "id": "eurostat_portugal_pre_uci:china",
+      "status": "partial_history"
+    },
+    {
+      "description": "Portugal first implemented UCI in 2008; the 2007 count has a separately qualified control basis. The selected legacy NACE table changes in 2010. In 2014 the annual FDI sample was replaced by mandatory IES reporting; additional companies entered the compilation in 2020. Preserve those coverage boundaries and the confidential 2012 cell. The 2021 dataset transition does not override Portugal's documented 2020-onward comparable block. No current 2019 change, pre-2007 count, regional total or unreported current-year count is inferred.",
+      "id": "eurostat_portugal:china",
+      "status": "partial_history"
+    },
+    {
+      "description": "Czech-resident UCI; enterprises/branches in China except Hong Kong, not minority FDI interests. The UCI principle starts in 2007. Preserve the national 2008 NACE revision, the selected 2010 legacy-table transition and the 2021 EBS coverage/characteristic-definition boundary. 2021 is confidential, not zero. No comparable current 2019 change, pre-2007 or unreported current-year count is inferred; not added to overlapping EU aggregates.",
+      "id": "eurostat_czechia:china",
       "status": "partial_history"
     }
   ],
@@ -847,6 +862,159 @@
       "status": "observed",
       "value": 152,
       "year": 2020
+    },
+    {
+      "comparability": "czechia:uci2007:nace-r1",
+      "notes": "Czech-resident UCI; enterprises/branches in China except Hong Kong, not minority FDI interests. The UCI principle starts in 2007. Preserve the national 2008 NACE revision, the selected 2010 legacy-table transition and the 2021 EBS coverage/characteristic-definition boundary. 2021 is confidential, not zero. No comparable current 2019 change, pre-2007 or unreported current-year count is inferred; not added to overlapping EU aggregates. Source flags: none",
+      "series_id": "eurostat_czechia:china",
+      "source_id": "fats_out2_CZ",
+      "status": "observed",
+      "value": 4,
+      "year": 2007
+    },
+    {
+      "comparability": "czechia:nace-r2:legacy-table",
+      "notes": "Czech-resident UCI; enterprises/branches in China except Hong Kong, not minority FDI interests. The UCI principle starts in 2007. Preserve the national 2008 NACE revision, the selected 2010 legacy-table transition and the 2021 EBS coverage/characteristic-definition boundary. 2021 is confidential, not zero. No comparable current 2019 change, pre-2007 or unreported current-year count is inferred; not added to overlapping EU aggregates. Source flags: none",
+      "series_id": "eurostat_czechia:china",
+      "source_id": "fats_out2_CZ",
+      "status": "observed",
+      "value": 5,
+      "year": 2008
+    },
+    {
+      "comparability": "czechia:nace-r2:legacy-table",
+      "notes": "Czech-resident UCI; enterprises/branches in China except Hong Kong, not minority FDI interests. The UCI principle starts in 2007. Preserve the national 2008 NACE revision, the selected 2010 legacy-table transition and the 2021 EBS coverage/characteristic-definition boundary. 2021 is confidential, not zero. No comparable current 2019 change, pre-2007 or unreported current-year count is inferred; not added to overlapping EU aggregates. Source flags: none",
+      "series_id": "eurostat_czechia:china",
+      "source_id": "fats_out2_CZ",
+      "status": "observed",
+      "value": 5,
+      "year": 2009
+    },
+    {
+      "comparability": "czechia:nace-r2",
+      "notes": "Czech-resident UCI; enterprises/branches in China except Hong Kong, not minority FDI interests. The UCI principle starts in 2007. Preserve the national 2008 NACE revision, the selected 2010 legacy-table transition and the 2021 EBS coverage/characteristic-definition boundary. 2021 is confidential, not zero. No comparable current 2019 change, pre-2007 or unreported current-year count is inferred; not added to overlapping EU aggregates. Source flags: none",
+      "series_id": "eurostat_czechia:china",
+      "source_id": "fats_out2_r2_CZ",
+      "status": "observed",
+      "value": 7,
+      "year": 2010
+    },
+    {
+      "comparability": "czechia:nace-r2",
+      "notes": "Czech-resident UCI; enterprises/branches in China except Hong Kong, not minority FDI interests. The UCI principle starts in 2007. Preserve the national 2008 NACE revision, the selected 2010 legacy-table transition and the 2021 EBS coverage/characteristic-definition boundary. 2021 is confidential, not zero. No comparable current 2019 change, pre-2007 or unreported current-year count is inferred; not added to overlapping EU aggregates. Source flags: none",
+      "series_id": "eurostat_czechia:china",
+      "source_id": "fats_out2_r2_CZ",
+      "status": "observed",
+      "value": 7,
+      "year": 2011
+    },
+    {
+      "comparability": "czechia:nace-r2",
+      "notes": "Czech-resident UCI; enterprises/branches in China except Hong Kong, not minority FDI interests. The UCI principle starts in 2007. Preserve the national 2008 NACE revision, the selected 2010 legacy-table transition and the 2021 EBS coverage/characteristic-definition boundary. 2021 is confidential, not zero. No comparable current 2019 change, pre-2007 or unreported current-year count is inferred; not added to overlapping EU aggregates. Source flags: none",
+      "series_id": "eurostat_czechia:china",
+      "source_id": "fats_out2_r2_CZ",
+      "status": "observed",
+      "value": 8,
+      "year": 2012
+    },
+    {
+      "comparability": "czechia:nace-r2",
+      "notes": "Czech-resident UCI; enterprises/branches in China except Hong Kong, not minority FDI interests. The UCI principle starts in 2007. Preserve the national 2008 NACE revision, the selected 2010 legacy-table transition and the 2021 EBS coverage/characteristic-definition boundary. 2021 is confidential, not zero. No comparable current 2019 change, pre-2007 or unreported current-year count is inferred; not added to overlapping EU aggregates. Source flags: none",
+      "series_id": "eurostat_czechia:china",
+      "source_id": "fats_out2_r2_CZ",
+      "status": "observed",
+      "value": 10,
+      "year": 2013
+    },
+    {
+      "comparability": "czechia:nace-r2",
+      "notes": "Czech-resident UCI; enterprises/branches in China except Hong Kong, not minority FDI interests. The UCI principle starts in 2007. Preserve the national 2008 NACE revision, the selected 2010 legacy-table transition and the 2021 EBS coverage/characteristic-definition boundary. 2021 is confidential, not zero. No comparable current 2019 change, pre-2007 or unreported current-year count is inferred; not added to overlapping EU aggregates. Source flags: none",
+      "series_id": "eurostat_czechia:china",
+      "source_id": "fats_out2_r2_CZ",
+      "status": "observed",
+      "value": 10,
+      "year": 2014
+    },
+    {
+      "comparability": "czechia:nace-r2",
+      "notes": "Czech-resident UCI; enterprises/branches in China except Hong Kong, not minority FDI interests. The UCI principle starts in 2007. Preserve the national 2008 NACE revision, the selected 2010 legacy-table transition and the 2021 EBS coverage/characteristic-definition boundary. 2021 is confidential, not zero. No comparable current 2019 change, pre-2007 or unreported current-year count is inferred; not added to overlapping EU aggregates. Source flags: none",
+      "series_id": "eurostat_czechia:china",
+      "source_id": "fats_out2_r2_CZ",
+      "status": "observed",
+      "value": 5,
+      "year": 2015
+    },
+    {
+      "comparability": "czechia:nace-r2",
+      "notes": "Czech-resident UCI; enterprises/branches in China except Hong Kong, not minority FDI interests. The UCI principle starts in 2007. Preserve the national 2008 NACE revision, the selected 2010 legacy-table transition and the 2021 EBS coverage/characteristic-definition boundary. 2021 is confidential, not zero. No comparable current 2019 change, pre-2007 or unreported current-year count is inferred; not added to overlapping EU aggregates. Source flags: none",
+      "series_id": "eurostat_czechia:china",
+      "source_id": "fats_out2_r2_CZ",
+      "status": "observed",
+      "value": 5,
+      "year": 2016
+    },
+    {
+      "comparability": "czechia:nace-r2",
+      "notes": "Czech-resident UCI; enterprises/branches in China except Hong Kong, not minority FDI interests. The UCI principle starts in 2007. Preserve the national 2008 NACE revision, the selected 2010 legacy-table transition and the 2021 EBS coverage/characteristic-definition boundary. 2021 is confidential, not zero. No comparable current 2019 change, pre-2007 or unreported current-year count is inferred; not added to overlapping EU aggregates. Source flags: none",
+      "series_id": "eurostat_czechia:china",
+      "source_id": "fats_out2_r2_CZ",
+      "status": "observed",
+      "value": 8,
+      "year": 2017
+    },
+    {
+      "comparability": "czechia:nace-r2",
+      "notes": "Czech-resident UCI; enterprises/branches in China except Hong Kong, not minority FDI interests. The UCI principle starts in 2007. Preserve the national 2008 NACE revision, the selected 2010 legacy-table transition and the 2021 EBS coverage/characteristic-definition boundary. 2021 is confidential, not zero. No comparable current 2019 change, pre-2007 or unreported current-year count is inferred; not added to overlapping EU aggregates. Source flags: none",
+      "series_id": "eurostat_czechia:china",
+      "source_id": "fats_out2_r2_CZ",
+      "status": "observed",
+      "value": 6,
+      "year": 2018
+    },
+    {
+      "comparability": "czechia:nace-r2",
+      "notes": "Czech-resident UCI; enterprises/branches in China except Hong Kong, not minority FDI interests. The UCI principle starts in 2007. Preserve the national 2008 NACE revision, the selected 2010 legacy-table transition and the 2021 EBS coverage/characteristic-definition boundary. 2021 is confidential, not zero. No comparable current 2019 change, pre-2007 or unreported current-year count is inferred; not added to overlapping EU aggregates. Source flags: none",
+      "series_id": "eurostat_czechia:china",
+      "source_id": "fats_out2_r2_CZ",
+      "status": "observed",
+      "value": 10,
+      "year": 2019
+    },
+    {
+      "comparability": "czechia:nace-r2",
+      "notes": "Czech-resident UCI; enterprises/branches in China except Hong Kong, not minority FDI interests. The UCI principle starts in 2007. Preserve the national 2008 NACE revision, the selected 2010 legacy-table transition and the 2021 EBS coverage/characteristic-definition boundary. 2021 is confidential, not zero. No comparable current 2019 change, pre-2007 or unreported current-year count is inferred; not added to overlapping EU aggregates. Source flags: none",
+      "series_id": "eurostat_czechia:china",
+      "source_id": "fats_out2_r2_CZ",
+      "status": "observed",
+      "value": 7,
+      "year": 2020
+    },
+    {
+      "comparability": "czechia:ebs2021",
+      "notes": "Czech-resident UCI; enterprises/branches in China except Hong Kong, not minority FDI interests. The UCI principle starts in 2007. Preserve the national 2008 NACE revision, the selected 2010 legacy-table transition and the 2021 EBS coverage/characteristic-definition boundary. 2021 is confidential, not zero. No comparable current 2019 change, pre-2007 or unreported current-year count is inferred; not added to overlapping EU aggregates. Source flags: |C",
+      "series_id": "eurostat_czechia:china",
+      "source_id": "fats_out_part_CZ",
+      "status": "suppressed",
+      "value": null,
+      "year": 2021
+    },
+    {
+      "comparability": "czechia:ebs2021",
+      "notes": "Czech-resident UCI; enterprises/branches in China except Hong Kong, not minority FDI interests. The UCI principle starts in 2007. Preserve the national 2008 NACE revision, the selected 2010 legacy-table transition and the 2021 EBS coverage/characteristic-definition boundary. 2021 is confidential, not zero. No comparable current 2019 change, pre-2007 or unreported current-year count is inferred; not added to overlapping EU aggregates. Source flags: none",
+      "series_id": "eurostat_czechia:china",
+      "source_id": "fats_out_part_CZ",
+      "status": "observed",
+      "value": 9,
+      "year": 2022
+    },
+    {
+      "comparability": "czechia:ebs2021",
+      "notes": "Czech-resident UCI; enterprises/branches in China except Hong Kong, not minority FDI interests. The UCI principle starts in 2007. Preserve the national 2008 NACE revision, the selected 2010 legacy-table transition and the 2021 EBS coverage/characteristic-definition boundary. 2021 is confidential, not zero. No comparable current 2019 change, pre-2007 or unreported current-year count is inferred; not added to overlapping EU aggregates. Source flags: none",
+      "series_id": "eurostat_czechia:china",
+      "source_id": "fats_out_part_CZ",
+      "status": "observed",
+      "value": 7,
+      "year": 2023
     },
     {
       "comparability": "fats_out2:FI:0",
@@ -1965,6 +2133,159 @@
       "year": 2023
     },
     {
+      "comparability": "portugal:uci2008:nace-r1",
+      "notes": "Portugal first implemented UCI in 2008; the 2007 count has a separately qualified control basis. The selected legacy NACE table changes in 2010. In 2014 the annual FDI sample was replaced by mandatory IES reporting; additional companies entered the compilation in 2020. Preserve those coverage boundaries and the confidential 2012 cell. The 2021 dataset transition does not override Portugal's documented 2020-onward comparable block. No current 2019 change, pre-2007 count, regional total or unreported current-year count is inferred. Source flags: none",
+      "series_id": "eurostat_portugal:china",
+      "source_id": "fats_out2_PT",
+      "status": "observed",
+      "value": 3,
+      "year": 2008
+    },
+    {
+      "comparability": "portugal:uci2008:nace-r1",
+      "notes": "Portugal first implemented UCI in 2008; the 2007 count has a separately qualified control basis. The selected legacy NACE table changes in 2010. In 2014 the annual FDI sample was replaced by mandatory IES reporting; additional companies entered the compilation in 2020. Preserve those coverage boundaries and the confidential 2012 cell. The 2021 dataset transition does not override Portugal's documented 2020-onward comparable block. No current 2019 change, pre-2007 count, regional total or unreported current-year count is inferred. Source flags: none",
+      "series_id": "eurostat_portugal:china",
+      "source_id": "fats_out2_PT",
+      "status": "observed",
+      "value": 4,
+      "year": 2009
+    },
+    {
+      "comparability": "portugal:uci2008:nace-r2",
+      "notes": "Portugal first implemented UCI in 2008; the 2007 count has a separately qualified control basis. The selected legacy NACE table changes in 2010. In 2014 the annual FDI sample was replaced by mandatory IES reporting; additional companies entered the compilation in 2020. Preserve those coverage boundaries and the confidential 2012 cell. The 2021 dataset transition does not override Portugal's documented 2020-onward comparable block. No current 2019 change, pre-2007 count, regional total or unreported current-year count is inferred. Source flags: none",
+      "series_id": "eurostat_portugal:china",
+      "source_id": "fats_out2_r2_PT",
+      "status": "observed",
+      "value": 4,
+      "year": 2010
+    },
+    {
+      "comparability": "portugal:uci2008:nace-r2",
+      "notes": "Portugal first implemented UCI in 2008; the 2007 count has a separately qualified control basis. The selected legacy NACE table changes in 2010. In 2014 the annual FDI sample was replaced by mandatory IES reporting; additional companies entered the compilation in 2020. Preserve those coverage boundaries and the confidential 2012 cell. The 2021 dataset transition does not override Portugal's documented 2020-onward comparable block. No current 2019 change, pre-2007 count, regional total or unreported current-year count is inferred. Source flags: none",
+      "series_id": "eurostat_portugal:china",
+      "source_id": "fats_out2_r2_PT",
+      "status": "observed",
+      "value": 3,
+      "year": 2011
+    },
+    {
+      "comparability": "portugal:uci2008:nace-r2",
+      "notes": "Portugal first implemented UCI in 2008; the 2007 count has a separately qualified control basis. The selected legacy NACE table changes in 2010. In 2014 the annual FDI sample was replaced by mandatory IES reporting; additional companies entered the compilation in 2020. Preserve those coverage boundaries and the confidential 2012 cell. The 2021 dataset transition does not override Portugal's documented 2020-onward comparable block. No current 2019 change, pre-2007 count, regional total or unreported current-year count is inferred. Source flags: |C",
+      "series_id": "eurostat_portugal:china",
+      "source_id": "fats_out2_r2_PT",
+      "status": "suppressed",
+      "value": null,
+      "year": 2012
+    },
+    {
+      "comparability": "portugal:uci2008:nace-r2",
+      "notes": "Portugal first implemented UCI in 2008; the 2007 count has a separately qualified control basis. The selected legacy NACE table changes in 2010. In 2014 the annual FDI sample was replaced by mandatory IES reporting; additional companies entered the compilation in 2020. Preserve those coverage boundaries and the confidential 2012 cell. The 2021 dataset transition does not override Portugal's documented 2020-onward comparable block. No current 2019 change, pre-2007 count, regional total or unreported current-year count is inferred. Source flags: none",
+      "series_id": "eurostat_portugal:china",
+      "source_id": "fats_out2_r2_PT",
+      "status": "observed",
+      "value": 6,
+      "year": 2013
+    },
+    {
+      "comparability": "portugal:ies2014",
+      "notes": "Portugal first implemented UCI in 2008; the 2007 count has a separately qualified control basis. The selected legacy NACE table changes in 2010. In 2014 the annual FDI sample was replaced by mandatory IES reporting; additional companies entered the compilation in 2020. Preserve those coverage boundaries and the confidential 2012 cell. The 2021 dataset transition does not override Portugal's documented 2020-onward comparable block. No current 2019 change, pre-2007 count, regional total or unreported current-year count is inferred. Source flags: none",
+      "series_id": "eurostat_portugal:china",
+      "source_id": "fats_out2_r2_PT",
+      "status": "observed",
+      "value": 7,
+      "year": 2014
+    },
+    {
+      "comparability": "portugal:ies2014",
+      "notes": "Portugal first implemented UCI in 2008; the 2007 count has a separately qualified control basis. The selected legacy NACE table changes in 2010. In 2014 the annual FDI sample was replaced by mandatory IES reporting; additional companies entered the compilation in 2020. Preserve those coverage boundaries and the confidential 2012 cell. The 2021 dataset transition does not override Portugal's documented 2020-onward comparable block. No current 2019 change, pre-2007 count, regional total or unreported current-year count is inferred. Source flags: none",
+      "series_id": "eurostat_portugal:china",
+      "source_id": "fats_out2_r2_PT",
+      "status": "observed",
+      "value": 8,
+      "year": 2015
+    },
+    {
+      "comparability": "portugal:ies2014",
+      "notes": "Portugal first implemented UCI in 2008; the 2007 count has a separately qualified control basis. The selected legacy NACE table changes in 2010. In 2014 the annual FDI sample was replaced by mandatory IES reporting; additional companies entered the compilation in 2020. Preserve those coverage boundaries and the confidential 2012 cell. The 2021 dataset transition does not override Portugal's documented 2020-onward comparable block. No current 2019 change, pre-2007 count, regional total or unreported current-year count is inferred. Source flags: none",
+      "series_id": "eurostat_portugal:china",
+      "source_id": "fats_out2_r2_PT",
+      "status": "observed",
+      "value": 11,
+      "year": 2016
+    },
+    {
+      "comparability": "portugal:ies2014",
+      "notes": "Portugal first implemented UCI in 2008; the 2007 count has a separately qualified control basis. The selected legacy NACE table changes in 2010. In 2014 the annual FDI sample was replaced by mandatory IES reporting; additional companies entered the compilation in 2020. Preserve those coverage boundaries and the confidential 2012 cell. The 2021 dataset transition does not override Portugal's documented 2020-onward comparable block. No current 2019 change, pre-2007 count, regional total or unreported current-year count is inferred. Source flags: none",
+      "series_id": "eurostat_portugal:china",
+      "source_id": "fats_out2_r2_PT",
+      "status": "observed",
+      "value": 10,
+      "year": 2017
+    },
+    {
+      "comparability": "portugal:ies2014",
+      "notes": "Portugal first implemented UCI in 2008; the 2007 count has a separately qualified control basis. The selected legacy NACE table changes in 2010. In 2014 the annual FDI sample was replaced by mandatory IES reporting; additional companies entered the compilation in 2020. Preserve those coverage boundaries and the confidential 2012 cell. The 2021 dataset transition does not override Portugal's documented 2020-onward comparable block. No current 2019 change, pre-2007 count, regional total or unreported current-year count is inferred. Source flags: none",
+      "series_id": "eurostat_portugal:china",
+      "source_id": "fats_out2_r2_PT",
+      "status": "observed",
+      "value": 11,
+      "year": 2018
+    },
+    {
+      "comparability": "portugal:ies2014",
+      "notes": "Portugal first implemented UCI in 2008; the 2007 count has a separately qualified control basis. The selected legacy NACE table changes in 2010. In 2014 the annual FDI sample was replaced by mandatory IES reporting; additional companies entered the compilation in 2020. Preserve those coverage boundaries and the confidential 2012 cell. The 2021 dataset transition does not override Portugal's documented 2020-onward comparable block. No current 2019 change, pre-2007 count, regional total or unreported current-year count is inferred. Source flags: none",
+      "series_id": "eurostat_portugal:china",
+      "source_id": "fats_out2_r2_PT",
+      "status": "observed",
+      "value": 16,
+      "year": 2019
+    },
+    {
+      "comparability": "portugal:coverage2020",
+      "notes": "Portugal first implemented UCI in 2008; the 2007 count has a separately qualified control basis. The selected legacy NACE table changes in 2010. In 2014 the annual FDI sample was replaced by mandatory IES reporting; additional companies entered the compilation in 2020. Preserve those coverage boundaries and the confidential 2012 cell. The 2021 dataset transition does not override Portugal's documented 2020-onward comparable block. No current 2019 change, pre-2007 count, regional total or unreported current-year count is inferred. Source flags: none",
+      "series_id": "eurostat_portugal:china",
+      "source_id": "fats_out2_r2_PT",
+      "status": "observed",
+      "value": 11,
+      "year": 2020
+    },
+    {
+      "comparability": "portugal:coverage2020",
+      "notes": "Portugal first implemented UCI in 2008; the 2007 count has a separately qualified control basis. The selected legacy NACE table changes in 2010. In 2014 the annual FDI sample was replaced by mandatory IES reporting; additional companies entered the compilation in 2020. Preserve those coverage boundaries and the confidential 2012 cell. The 2021 dataset transition does not override Portugal's documented 2020-onward comparable block. No current 2019 change, pre-2007 count, regional total or unreported current-year count is inferred. Source flags: none",
+      "series_id": "eurostat_portugal:china",
+      "source_id": "fats_out_part_PT",
+      "status": "observed",
+      "value": 12,
+      "year": 2021
+    },
+    {
+      "comparability": "portugal:coverage2020",
+      "notes": "Portugal first implemented UCI in 2008; the 2007 count has a separately qualified control basis. The selected legacy NACE table changes in 2010. In 2014 the annual FDI sample was replaced by mandatory IES reporting; additional companies entered the compilation in 2020. Preserve those coverage boundaries and the confidential 2012 cell. The 2021 dataset transition does not override Portugal's documented 2020-onward comparable block. No current 2019 change, pre-2007 count, regional total or unreported current-year count is inferred. Source flags: none",
+      "series_id": "eurostat_portugal:china",
+      "source_id": "fats_out_part_PT",
+      "status": "observed",
+      "value": 20,
+      "year": 2022
+    },
+    {
+      "comparability": "portugal:coverage2020",
+      "notes": "Portugal first implemented UCI in 2008; the 2007 count has a separately qualified control basis. The selected legacy NACE table changes in 2010. In 2014 the annual FDI sample was replaced by mandatory IES reporting; additional companies entered the compilation in 2020. Preserve those coverage boundaries and the confidential 2012 cell. The 2021 dataset transition does not override Portugal's documented 2020-onward comparable block. No current 2019 change, pre-2007 count, regional total or unreported current-year count is inferred. Source flags: none",
+      "series_id": "eurostat_portugal:china",
+      "source_id": "fats_out_part_PT",
+      "status": "observed",
+      "value": 41,
+      "year": 2023
+    },
+    {
+      "comparability": "portugal:pre-uci2007",
+      "notes": "Portugal first implemented UCI in 2008; the 2007 count has a separately qualified control basis. The selected legacy NACE table changes in 2010. In 2014 the annual FDI sample was replaced by mandatory IES reporting; additional companies entered the compilation in 2020. Preserve those coverage boundaries and the confidential 2012 cell. The 2021 dataset transition does not override Portugal's documented 2020-onward comparable block. No current 2019 change, pre-2007 count, regional total or unreported current-year count is inferred. Source flags: none",
+      "series_id": "eurostat_portugal_pre_uci:china",
+      "source_id": "fats_out2_PT",
+      "status": "observed",
+      "value": 3,
+      "year": 2007
+    },
+    {
       "comparability": "fats_out2:ES:0",
       "notes": "Spanish-resident ultimate control; Eurostat's China except Hong Kong host category. Financial and nonfinancial activities, not unique Spanish parents. Counts are reported from 2009; 2007/2008 are unreported and no 2000-2006 values are inferred. Retain the 2010 classification transition and the 2021 change from legal units to statistical enterprises. Recent estimates retain their original flags. INE's national nonfinancial population is different and is not appended to this series. Source flags: ",
       "series_id": "eurostat_spain:china",
@@ -2884,6 +3205,15 @@
       "scope": "Austria-resident UCI; China except Hong Kong; market producers in the selected NACE sectors; NACE C-O except L before 2010, B-S except O thereafter; legal units",
       "unit": "legal units"
     },
+    "eurostat_czechia:china": {
+      "cadence": "annual",
+      "label": "Czechia",
+      "measure": "controlled_enterprises",
+      "notes": "Czech-resident UCI; enterprises/branches in China except Hong Kong, not minority FDI interests. The UCI principle starts in 2007. Preserve the national 2008 NACE revision, the selected 2010 legacy-table transition and the 2021 EBS coverage/characteristic-definition boundary. 2021 is confidential, not zero. No comparable current 2019 change, pre-2007 or unreported current-year count is inferred; not added to overlapping EU aggregates.",
+      "period_basis": "reference year",
+      "scope": "Czech-resident UCI; China except Hong Kong; selected legacy NACE C-O except L, then B-S except O",
+      "unit": "enterprises"
+    },
     "eurostat_finland:china": {
       "cadence": "annual",
       "label": "Finland (Eurostat)",
@@ -2963,6 +3293,24 @@
       "notes": "Polish-resident ultimate control of enterprises/branches in China except Hong Kong, not the broader national survey of all foreign equity interests. Enterprise-unit implementation breaks the series in 2018. Preserve the selected legacy NACE2010 transition; 2021 is source-dataset lineage, not a second Polish unit break. Joint 50/50 and documented de-facto minority control can qualify; no size cutoff. 2007 is unreported, not zero. No pre2008 or unreported current-year counts inferred.",
       "period_basis": "reference year",
       "scope": "Polish-resident UCI; enterprises/branches in China except Hong Kong; selected legacy NACE C-O except L, then NACE B-S except O",
+      "unit": "enterprises"
+    },
+    "eurostat_portugal:china": {
+      "cadence": "annual",
+      "label": "Portugal",
+      "measure": "controlled_enterprises",
+      "notes": "Portugal first implemented UCI in 2008; the 2007 count has a separately qualified control basis. The selected legacy NACE table changes in 2010. In 2014 the annual FDI sample was replaced by mandatory IES reporting; additional companies entered the compilation in 2020. Preserve those coverage boundaries and the confidential 2012 cell. The 2021 dataset transition does not override Portugal's documented 2020-onward comparable block. No current 2019 change, pre-2007 count, regional total or unreported current-year count is inferred.",
+      "period_basis": "reference year",
+      "scope": "Portuguese-resident UCI; China except Hong Kong; selected legacy NACE C-O except L, then B-S except O",
+      "unit": "enterprises"
+    },
+    "eurostat_portugal_pre_uci:china": {
+      "cadence": "annual",
+      "label": "Portugal, historical control basis qualified",
+      "measure": "historical_affiliates",
+      "notes": "Portugal first implemented UCI in 2008; the 2007 count has a separately qualified control basis. The selected legacy NACE table changes in 2010. In 2014 the annual FDI sample was replaced by mandatory IES reporting; additional companies entered the compilation in 2020. Preserve those coverage boundaries and the confidential 2012 cell. The 2021 dataset transition does not override Portugal's documented 2020-onward comparable block. No current 2019 change, pre-2007 count, regional total or unreported current-year count is inferred. The single 2007 count is archive-only, not a Portuguese-UCI point.",
+      "period_basis": "reference year",
+      "scope": "Portugal-reported affiliates; China except Hong Kong; 2007 UCI not established; NACE C-O except L",
       "unit": "enterprises"
     },
     "eurostat_spain:china": {
@@ -3573,6 +3921,26 @@
       "notes": "Austria changes the statistical unit in 2021: legal units through 2020, enterprises from 2021. Foreign legal-unit data remain an imperfect enterprise proxy; the official metadata retains limited comparability. Preserve the 2010 NACE boundary. Older legal units are not joined to the short current enterprise series. Broader national resident-parent counts and the separate national 2024 control snapshot are not substituted; no pre-2007 or 2019-baseline inference. Original country-specific metadata and source flags are retained.",
       "vintage": "fats_out2; Austria; source updated 2024-04-25T11:00:00+0200"
     },
+    "fats_out2_CZ": {
+      "assets": [
+        {
+          "request_url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out2?lang=EN&freq=A&geo=CZ&partner=CN_X_HK&indic_bp=ENT&nace_r1=C-O_X_L",
+          "retrieved_at": "2026-10-25T07:32:37.740809+00:00",
+          "sha256": "0d6f73c67119fbc55027ca5b4b172e602f4000e84bac2c258301825e2f5b009b",
+          "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out2?lang=EN&freq=A&geo=CZ&partner=CN_X_HK&indic_bp=ENT&nace_r1=C-O_X_L"
+        },
+        {
+          "request_url": "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_cz.htm",
+          "retrieved_at": "2026-10-25T07:32:38.814240+00:00",
+          "sha256": "2ca56ffa4da0f05d12337e8cae421e036bc51b05232b6c6b906474fd3a554409",
+          "url": "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_cz.htm"
+        }
+      ],
+      "locator": "geo=CZ; partner=CN_X_HK; indic_bp=ENT; nace_r1=C-O_X_L",
+      "name": "Eurostat / Czech National Bank",
+      "notes": "Czech-resident UCI; enterprises/branches in China except Hong Kong, not minority FDI interests. The UCI principle starts in 2007. Preserve the national 2008 NACE revision, the selected 2010 legacy-table transition and the 2021 EBS coverage/characteristic-definition boundary. 2021 is confidential, not zero. No comparable current 2019 change, pre-2007 or unreported current-year count is inferred; not added to overlapping EU aggregates.",
+      "vintage": "fats_out2; Czechia; source updated 2024-04-25T11:00:00+0200"
+    },
     "fats_out2_ES": {
       "assets": [
         {
@@ -3695,6 +4063,26 @@
       "notes": "Polish-resident ultimate control of enterprises/branches in China except Hong Kong, not the broader national survey of all foreign equity interests. Enterprise-unit implementation breaks the series in 2018. Preserve the selected legacy NACE2010 transition; 2021 is source-dataset lineage, not a second Polish unit break. Joint 50/50 and documented de-facto minority control can qualify; no size cutoff. 2007 is unreported, not zero. No pre2008 or unreported current-year counts inferred.",
       "vintage": "fats_out2; Poland; source updated 2024-04-25T11:00:00+0200"
     },
+    "fats_out2_PT": {
+      "assets": [
+        {
+          "request_url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out2?lang=EN&freq=A&geo=PT&partner=CN_X_HK&indic_bp=ENT&nace_r1=C-O_X_L",
+          "retrieved_at": "2026-10-25T07:32:36.488417+00:00",
+          "sha256": "2ff83eaf4f8eebaed8ce68d51a64ab67d0334aa2af3e35d58dcda8797998d7fe",
+          "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out2?lang=EN&freq=A&geo=PT&partner=CN_X_HK&indic_bp=ENT&nace_r1=C-O_X_L"
+        },
+        {
+          "request_url": "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_pt.htm",
+          "retrieved_at": "2026-10-25T07:32:37.728677+00:00",
+          "sha256": "4d06032679c3010b2002f277fcacf5a4ff0cada890286c46d3896bc589d0d5be",
+          "url": "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_pt.htm"
+        }
+      ],
+      "locator": "geo=PT; partner=CN_X_HK; indic_bp=ENT; nace_r1=C-O_X_L",
+      "name": "Eurostat / Banco de Portugal",
+      "notes": "Portugal first implemented UCI in 2008; the 2007 count has a separately qualified control basis. The selected legacy NACE table changes in 2010. In 2014 the annual FDI sample was replaced by mandatory IES reporting; additional companies entered the compilation in 2020. Preserve those coverage boundaries and the confidential 2012 cell. The 2021 dataset transition does not override Portugal's documented 2020-onward comparable block. No current 2019 change, pre-2007 count, regional total or unreported current-year count is inferred.",
+      "vintage": "fats_out2; Portugal; source updated 2024-04-25T11:00:00+0200"
+    },
     "fats_out2_SE": {
       "assets": [
         {
@@ -3762,6 +4150,26 @@
       "name": "Eurostat / Statistics Austria",
       "notes": "Austria changes the statistical unit in 2021: legal units through 2020, enterprises from 2021. Foreign legal-unit data remain an imperfect enterprise proxy; the official metadata retains limited comparability. Preserve the 2010 NACE boundary. Older legal units are not joined to the short current enterprise series. Broader national resident-parent counts and the separate national 2024 control snapshot are not substituted; no pre-2007 or 2019-baseline inference. Original country-specific metadata and source flags are retained.",
       "vintage": "fats_out2_r2; Austria; source updated 2024-04-25T11:00:00+0200"
+    },
+    "fats_out2_r2_CZ": {
+      "assets": [
+        {
+          "request_url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out2_r2?lang=EN&freq=A&geo=CZ&partner=CN_X_HK&indic_bp=ENT&nace_r2=B-S_X_O",
+          "retrieved_at": "2026-10-25T07:32:37.753337+00:00",
+          "sha256": "7a299ababb71e24e6d3b2349780fe76358684789376e7bcb41eaa38f49c5b0a8",
+          "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out2_r2?lang=EN&freq=A&geo=CZ&partner=CN_X_HK&indic_bp=ENT&nace_r2=B-S_X_O"
+        },
+        {
+          "request_url": "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_cz.htm",
+          "retrieved_at": "2026-10-25T07:32:38.814240+00:00",
+          "sha256": "2ca56ffa4da0f05d12337e8cae421e036bc51b05232b6c6b906474fd3a554409",
+          "url": "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_cz.htm"
+        }
+      ],
+      "locator": "geo=CZ; partner=CN_X_HK; indic_bp=ENT; nace_r2=B-S_X_O",
+      "name": "Eurostat / Czech National Bank",
+      "notes": "Czech-resident UCI; enterprises/branches in China except Hong Kong, not minority FDI interests. The UCI principle starts in 2007. Preserve the national 2008 NACE revision, the selected 2010 legacy-table transition and the 2021 EBS coverage/characteristic-definition boundary. 2021 is confidential, not zero. No comparable current 2019 change, pre-2007 or unreported current-year count is inferred; not added to overlapping EU aggregates.",
+      "vintage": "fats_out2_r2; Czechia; source updated 2024-04-25T11:00:00+0200"
     },
     "fats_out2_r2_DE": {
       "assets": [
@@ -3913,6 +4321,26 @@
       "notes": "Polish-resident ultimate control of enterprises/branches in China except Hong Kong, not the broader national survey of all foreign equity interests. Enterprise-unit implementation breaks the series in 2018. Preserve the selected legacy NACE2010 transition; 2021 is source-dataset lineage, not a second Polish unit break. Joint 50/50 and documented de-facto minority control can qualify; no size cutoff. 2007 is unreported, not zero. No pre2008 or unreported current-year counts inferred.",
       "vintage": "fats_out2_r2; Poland; source updated 2024-04-25T11:00:00+0200"
     },
+    "fats_out2_r2_PT": {
+      "assets": [
+        {
+          "request_url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out2_r2?lang=EN&freq=A&geo=PT&partner=CN_X_HK&indic_bp=ENT&nace_r2=B-S_X_O",
+          "retrieved_at": "2026-10-25T07:32:36.488864+00:00",
+          "sha256": "8806d5ec72fa9dc8e2d6eb725ea77667ab9f1d1f977d46817ce5e26d5c2bc363",
+          "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out2_r2?lang=EN&freq=A&geo=PT&partner=CN_X_HK&indic_bp=ENT&nace_r2=B-S_X_O"
+        },
+        {
+          "request_url": "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_pt.htm",
+          "retrieved_at": "2026-10-25T07:32:37.728677+00:00",
+          "sha256": "4d06032679c3010b2002f277fcacf5a4ff0cada890286c46d3896bc589d0d5be",
+          "url": "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_pt.htm"
+        }
+      ],
+      "locator": "geo=PT; partner=CN_X_HK; indic_bp=ENT; nace_r2=B-S_X_O",
+      "name": "Eurostat / Banco de Portugal",
+      "notes": "Portugal first implemented UCI in 2008; the 2007 count has a separately qualified control basis. The selected legacy NACE table changes in 2010. In 2014 the annual FDI sample was replaced by mandatory IES reporting; additional companies entered the compilation in 2020. Preserve those coverage boundaries and the confidential 2012 cell. The 2021 dataset transition does not override Portugal's documented 2020-onward comparable block. No current 2019 change, pre-2007 count, regional total or unreported current-year count is inferred.",
+      "vintage": "fats_out2_r2; Portugal; source updated 2024-04-25T11:00:00+0200"
+    },
     "fats_out2_r2_SE": {
       "assets": [
         {
@@ -3980,6 +4408,26 @@
       "name": "Eurostat / Statistics Austria",
       "notes": "Austria changes the statistical unit in 2021: legal units through 2020, enterprises from 2021. Foreign legal-unit data remain an imperfect enterprise proxy; the official metadata retains limited comparability. Preserve the 2010 NACE boundary. Older legal units are not joined to the short current enterprise series. Broader national resident-parent counts and the separate national 2024 control snapshot are not substituted; no pre-2007 or 2019-baseline inference. Original country-specific metadata and source flags are retained.",
       "vintage": "fats_out_part; Austria; source updated 2026-03-31T23:00:00+0200"
+    },
+    "fats_out_part_CZ": {
+      "assets": [
+        {
+          "request_url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out_part?lang=EN&freq=A&geo=CZ&partner=CN_X_HK&indic_sbs=ENT_NR&nace_r2=B-S_X_O",
+          "retrieved_at": "2026-10-25T07:32:38.427355+00:00",
+          "sha256": "1327c93b38f5325f2543d9dba11183e12d419e14954db71c2e05bf131e5c46a0",
+          "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out_part?lang=EN&freq=A&geo=CZ&partner=CN_X_HK&indic_sbs=ENT_NR&nace_r2=B-S_X_O"
+        },
+        {
+          "request_url": "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_cz.htm",
+          "retrieved_at": "2026-10-25T07:32:38.814240+00:00",
+          "sha256": "2ca56ffa4da0f05d12337e8cae421e036bc51b05232b6c6b906474fd3a554409",
+          "url": "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_cz.htm"
+        }
+      ],
+      "locator": "geo=CZ; partner=CN_X_HK; indic_sbs=ENT_NR; nace_r2=B-S_X_O",
+      "name": "Eurostat / Czech National Bank",
+      "notes": "Czech-resident UCI; enterprises/branches in China except Hong Kong, not minority FDI interests. The UCI principle starts in 2007. Preserve the national 2008 NACE revision, the selected 2010 legacy-table transition and the 2021 EBS coverage/characteristic-definition boundary. 2021 is confidential, not zero. No comparable current 2019 change, pre-2007 or unreported current-year count is inferred; not added to overlapping EU aggregates.",
+      "vintage": "fats_out_part; Czechia; source updated 2026-03-31T23:00:00+0200"
     },
     "fats_out_part_DE": {
       "assets": [
@@ -4116,6 +4564,26 @@
       "name": "Eurostat / Statistics Poland",
       "notes": "Polish-resident ultimate control of enterprises/branches in China except Hong Kong, not the broader national survey of all foreign equity interests. Enterprise-unit implementation breaks the series in 2018. Preserve the selected legacy NACE2010 transition; 2021 is source-dataset lineage, not a second Polish unit break. Joint 50/50 and documented de-facto minority control can qualify; no size cutoff. 2007 is unreported, not zero. No pre2008 or unreported current-year counts inferred.",
       "vintage": "fats_out_part; Poland; source updated 2026-03-31T23:00:00+0200"
+    },
+    "fats_out_part_PT": {
+      "assets": [
+        {
+          "request_url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out_part?lang=EN&freq=A&geo=PT&partner=CN_X_HK&indic_sbs=ENT_NR&nace_r2=B-S_X_O",
+          "retrieved_at": "2026-10-25T07:32:36.488985+00:00",
+          "sha256": "86fc84bba6d29ed1682df305ae5154b7556eb2ab6a356c4ec6f17c36c47678bc",
+          "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out_part?lang=EN&freq=A&geo=PT&partner=CN_X_HK&indic_sbs=ENT_NR&nace_r2=B-S_X_O"
+        },
+        {
+          "request_url": "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_pt.htm",
+          "retrieved_at": "2026-10-25T07:32:37.728677+00:00",
+          "sha256": "4d06032679c3010b2002f277fcacf5a4ff0cada890286c46d3896bc589d0d5be",
+          "url": "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_pt.htm"
+        }
+      ],
+      "locator": "geo=PT; partner=CN_X_HK; indic_sbs=ENT_NR; nace_r2=B-S_X_O",
+      "name": "Eurostat / Banco de Portugal",
+      "notes": "Portugal first implemented UCI in 2008; the 2007 count has a separately qualified control basis. The selected legacy NACE table changes in 2010. In 2014 the annual FDI sample was replaced by mandatory IES reporting; additional companies entered the compilation in 2020. Preserve those coverage boundaries and the confidential 2012 cell. The 2021 dataset transition does not override Portugal's documented 2020-onward comparable block. No current 2019 change, pre-2007 count, regional total or unreported current-year count is inferred.",
+      "vintage": "fats_out_part; Portugal; source updated 2026-03-31T23:00:00+0200"
     },
     "fats_out_part_SE": {
       "assets": [

@@ -57,6 +57,8 @@ FINLAND_EUROSTAT_METHODS = "https://ec.europa.eu/eurostat/cache/metadata/EN/fats
 SWEDEN_EUROSTAT_METHODS = "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_se.htm"
 AUSTRIA_EUROSTAT_METHODS = "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_at.htm"
 POLAND_EUROSTAT_METHODS = "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_pl.htm"
+PORTUGAL_EUROSTAT_METHODS = "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_pt.htm"
+CZECHIA_EUROSTAT_METHODS = "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_cz.htm"
 SPAIN_EUROSTAT_METHODS = "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_es.htm"
 DENMARK_METADATA = "https://api.statbank.dk/v1/tableinfo"
 DENMARK_DATA = "https://api.statbank.dk/v1/data"
@@ -631,6 +633,107 @@ def polish_affiliates(client):
     return definitions, observations, sources
 
 
+def portuguese_affiliates(client):
+    legacy, current = "eurostat_portugal_pre_uci:china", "eurostat_portugal:china"
+    notes = (
+        "Portugal first implemented UCI in 2008; the 2007 count has a separately qualified control basis. "
+        "The selected legacy NACE table changes in 2010. In 2014 the annual FDI sample was replaced by "
+        "mandatory IES reporting; additional companies entered the compilation in 2020. "
+        "Preserve those coverage boundaries and the confidential 2012 cell. The 2021 dataset transition "
+        "does not override Portugal's documented 2020-onward comparable block. No current 2019 change, "
+        "pre-2007 count, regional total or unreported current-year count is inferred.")
+    definitions = {
+        legacy: series(
+            "Portugal, historical control basis qualified", "historical_affiliates", "enterprises",
+            "Portugal-reported affiliates; China except Hong Kong; 2007 UCI not established; NACE C-O except L",
+            "annual", "reference year", notes + " The single 2007 count is archive-only, not a Portuguese-UCI point."),
+        current: series(
+            "Portugal", "controlled_enterprises", "enterprises",
+            "Portuguese-resident UCI; China except Hong Kong; selected legacy NACE C-O except L, then B-S except O",
+            "annual", "reference year", notes),
+    }
+    body, methodology = client.get(PORTUGAL_EUROSTAT_METHODS)
+    text = " ".join(BeautifulSoup(body, "html.parser").get_text(" ", strip=True).split())
+    if not all(token in text for token in (
+            "Banco de Portugal", "UCI approach first implemented for 2008 data",
+            "In 2014, the source data for OFATS compilation was changed",
+            "In 2020, some companies were added")):
+        raise ValueError("Portuguese control/coverage methodology changed")
+    observations, sources = [], {}
+    for dataset, indicator, activity, first, last in [
+        ("fats_out2", "indic_bp=ENT", "nace_r1=C-O_X_L", 2007, 2009),
+        ("fats_out2_r2", "indic_bp=ENT", "nace_r2=B-S_X_O", 2010, 2020),
+        ("fats_out_part", "indic_sbs=ENT_NR", "nace_r2=B-S_X_O", 2021, None),
+    ]:
+        url = EUROSTAT + dataset + "?lang=EN&freq=A&geo=PT&partner=CN_X_HK&" + indicator + "&" + activity
+        body, asset = client.get(url)
+        data, source_id = json.loads(body), dataset + "_PT"
+        points = parse_eurostat(data, dataset, "PT")
+        years = [point[0] for point in points]
+        if (not years or years != list(range(first, (last or max(years)) + 1))
+                or (last is None and max(years) < 2023)):
+            raise ValueError("Portuguese affiliate year coverage changed")
+        sources[source_id] = source(
+            "Eurostat / Banco de Portugal", dataset + "; Portugal; source updated " + data["updated"],
+            [asset, methodology], "geo=PT; partner=CN_X_HK; " + indicator + "; " + activity, notes)
+        for year, value, status, flag, _ in points:
+            if set(re.sub(r"[|\s]", "", flag)) & {"b", "d"} and year not in {2008, 2010, 2014, 2020}:
+                raise ValueError("Portuguese methodology break changed")
+            sid = legacy if year == 2007 else current
+            comparability = ("portugal:pre-uci2007" if year == 2007 else
+                             "portugal:uci2008:nace-r1" if year < 2010 else
+                             "portugal:uci2008:nace-r2" if year < 2014 else
+                             "portugal:ies2014" if year < 2020 else "portugal:coverage2020")
+            observations.append(row(sid, year, value, source_id, status,
+                                    notes + " Source flags: " + (flag or "none"), comparability))
+    return definitions, observations, sources
+
+
+def czech_affiliates(client):
+    sid, observations, sources = "eurostat_czechia:china", [], {}
+    notes = (
+        "Czech-resident UCI; enterprises/branches in China except Hong Kong, not minority FDI interests. "
+        "The UCI principle starts in 2007. Preserve the national 2008 NACE revision, the selected 2010 "
+        "legacy-table transition and the 2021 EBS coverage/characteristic-definition boundary. "
+        "2021 is confidential, not zero. No comparable current 2019 change, pre-2007 or unreported "
+        "current-year count is inferred; not added to overlapping EU aggregates.")
+    definitions = {sid: series(
+        "Czechia", "controlled_enterprises", "enterprises",
+        "Czech-resident UCI; China except Hong Kong; selected legacy NACE C-O except L, then B-S except O",
+        "annual", "reference year", notes)}
+    body, methodology = client.get(CZECHIA_EUROSTAT_METHODS)
+    text = " ".join(BeautifulSoup(body, "html.parser").get_text(" ", strip=True).split())
+    if not all(token in text for token in (
+            "Czech National Bank", "in 2007 due to the inclusion of the UCI principle",
+            "Starting from 2008 NACE Rev. 2 was implemented", "In reference year 2021 a new Regulation")):
+        raise ValueError("Czech control/coverage methodology changed")
+    for dataset, indicator, activity, first, last in [
+        ("fats_out2", "indic_bp=ENT", "nace_r1=C-O_X_L", 2007, 2009),
+        ("fats_out2_r2", "indic_bp=ENT", "nace_r2=B-S_X_O", 2010, 2020),
+        ("fats_out_part", "indic_sbs=ENT_NR", "nace_r2=B-S_X_O", 2021, None),
+    ]:
+        url = EUROSTAT + dataset + "?lang=EN&freq=A&geo=CZ&partner=CN_X_HK&" + indicator + "&" + activity
+        body, asset = client.get(url)
+        data, source_id = json.loads(body), dataset + "_CZ"
+        points = parse_eurostat(data, dataset, "CZ")
+        years = [point[0] for point in points]
+        if (not years or years != list(range(first, (last or max(years)) + 1))
+                or (last is None and max(years) < 2023)):
+            raise ValueError("Czech affiliate year coverage changed")
+        sources[source_id] = source(
+            "Eurostat / Czech National Bank", dataset + "; Czechia; source updated " + data["updated"],
+            [asset, methodology], "geo=CZ; partner=CN_X_HK; " + indicator + "; " + activity, notes)
+        for year, value, status, flag, _ in points:
+            if set(re.sub(r"[|\s]", "", flag)) & {"b", "d"} and year not in {2007, 2008, 2010, 2021}:
+                raise ValueError("Czech methodology break changed")
+            comparability = ("czechia:uci2007:nace-r1" if year == 2007 else
+                             "czechia:nace-r2:legacy-table" if year < 2010 else
+                             "czechia:nace-r2" if year < 2021 else "czechia:ebs2021")
+            observations.append(row(sid, year, value, source_id, status,
+                                    notes + " Source flags: " + (flag or "none"), comparability))
+    return definitions, observations, sources
+
+
 def country_counts(sheets, title):
     found = {}
     for sheet in sheets:
@@ -993,6 +1096,14 @@ def collect_business(client):
     definitions.update(poland_definitions)
     observations.extend(poland_observations)
     sources.update(poland_sources)
+    portugal_definitions, portugal_observations, portugal_sources = portuguese_affiliates(client)
+    definitions.update(portugal_definitions)
+    observations.extend(portugal_observations)
+    sources.update(portugal_sources)
+    czech_definitions, czech_observations, czech_sources = czech_affiliates(client)
+    definitions.update(czech_definitions)
+    observations.extend(czech_observations)
+    sources.update(czech_sources)
     coverage = []
     for sid in definitions:
         selected = [r for r in observations if r["series_id"] == sid]
@@ -1010,7 +1121,7 @@ def collect_business(client):
         "context": {
             "question": "How has U.S. and European business presence in China changed over time?",
             "interpretation": "Company counts, affiliate entities and branch locations are distinct. U.S. parents and ultimately EU-controlled enterprises are not matched ownership populations; BEA and Eurostat levels must not be used to rank otherwise comparable business presence.",
-            "geography": "China is the host. European coverage includes current/historical EU groups, Germany, the UK, Norway, Sweden, Finland, France, the Netherlands, Spain, Denmark, Italy, Austria and Poland. French, Finnish, Swedish, Dutch, Spanish, Italian, Austrian and Polish Eurostat host categories are China except Hong Kong. Denmark separately codes Hong Kong/Macao; its resident-parent population includes foreign ultimate owners, unlike Eurostat's Danish-UCI population. Finnish and Swedish Eurostat UCI histories remain separate from their national series. Spain's Eurostat financial/nonfinancial history is not spliced with INE's national nonfinancial counts. Italian legal-unit history reaches 2023; grouped Eurostat enterprises remain a separate population. Austrian legal units before 2021 are not spliced into current enterprise counts or broader national populations. Poland's UCI population is not the broader national foreign-equity survey. National series overlap EU aggregates and have different control/sector definitions; these are not summed into an all-Europe total. Other European origins remain unresolved.",
+            "geography": "China is the host. European coverage includes current/historical EU groups, Germany, the UK, Norway, Sweden, Finland, France, the Netherlands, Spain, Denmark, Italy, Austria, Poland, Portugal and Czechia. French, Finnish, Swedish, Dutch, Spanish, Italian, Austrian, Polish, Portuguese and Czech Eurostat host categories are China except Hong Kong. Denmark separately codes Hong Kong/Macao; its resident-parent population includes foreign ultimate owners, unlike Eurostat's Danish-UCI population. Finnish and Swedish Eurostat UCI histories remain separate from their national series. Spain's Eurostat financial/nonfinancial history is not spliced with INE's national nonfinancial counts. Italian legal-unit history reaches 2023; grouped Eurostat enterprises remain a separate population. Austrian legal units before 2021 are not spliced into current enterprise counts or broader national populations. Poland's UCI population is not the broader national foreign-equity survey. Portuguese and Czech populations retain country-specific control/coverage breaks; Portugal's 2007 pre-UCI count is separate archive-only evidence. National series overlap EU aggregates and have different control/sector definitions; these are not summed into an all-Europe total. Other European origins remain unresolved.",
             "rights": "Publish aggregate statistics and original charts only; raw workbooks and reports remain local. Sources and retrieval checksums accompany every observation.",
             "release_timing": "As checked October 22, 2026, BEA's latest activity release covers 2023. The published schedule puts the 2024 activity release on November 20, 2026; no 2024 value is inferred.",
         },
