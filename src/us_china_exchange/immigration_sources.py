@@ -4,7 +4,7 @@ import io
 import json
 import re
 import zipfile
-from pathlib import PurePosixPath
+from pathlib import Path, PurePosixPath
 from urllib.parse import urljoin
 
 import xlrd
@@ -37,6 +37,31 @@ ADMISSION_VINTAGES_NOTE = (
     "The FY2016-FY2018 Table 1A assets explicitly record a September 2019 correction from birthplace "
     "to nationality; their observation fiscal years are unchanged.")
 BIRTH_YEARS = tuple(range(1989, 2025))
+ARRIVAL_YEARS = tuple(range(2000, 2025))
+ARRIVAL_GAPS = {2003, 2004, 2005}
+ARRIVAL_ASSETS = {
+    year: f"https://ohss.dhs.gov/sites/default/files/2023-12/fy{year}_tables8-11newadj_d.xlsx"
+    for year in range(2006, 2019)}
+ARRIVAL_ASSETS.update({
+    2014: "https://ohss.dhs.gov/sites/default/files/2023-12/fy2014_tables8-11newadj_d_0.xlsx",
+    2015: "https://ohss.dhs.gov/sites/default/files/2023-12/fy2015_tables8-11newadj_d_0.xlsx",
+    2019: "https://ohss.dhs.gov/sites/default/files/2023-12/fy2019_tables8-11_newadj_d.xlsx",
+    2020: "https://ohss.dhs.gov/sites/default/files/2023-12/2021_0920_plcy_tables8-11newadj_fy2020_d.xlsx",
+    2021: "https://ohss.dhs.gov/sites/default/files/2023-12/2202_0405_plcy_tables8-11newadj_fy2021_d.xlsx",
+    2022: "https://ohss.dhs.gov/sites/default/files/2023-12/plcy_tables8-11newadj_fy2022_d.xlsx",
+    2023: "https://ohss.dhs.gov/system/files/2026-07/2025_0828_ohss_tables8-11newadj_fy2023_v2.xlsx",
+    2024: "https://ohss.dhs.gov/data/profiles/lpr/2024/fy2024cobbook51.xlsx",
+})
+ARRIVAL_SOURCE = "ohss_birth_arrivals_history"
+ARRIVAL_SERIES = "ohss_birth_arrivals:CHN"
+ARRIVAL_NOTE = (
+    "Country of birth, not nationality or previous residence; excludes in-country adjustments. "
+    "FY2003-2005 have no verified arrivals breakdown in the reviewed tables and remain missing, not zero. "
+    "Original annual source vintages are retained; no imputation or visa-issuance proxy is used.")
+ROUNDING_NOTE = (
+    "Birthplace all-grant counts for FY2015-2024 and nationality counts for FY2023-2025 are rounded to ten. "
+    "Birthplace new-arrival counts retain exact published values through FY2022; FY2023-2024 use ten-person precision. "
+    "Earlier source vintages retain their published exact counts.")
 COUNTRIES = {"China, People's Republic": "CHN", "Hong Kong": "HKG", "Macau": "MAC"}
 UN_STOCK = "https://www.un.org/development/desa/pd/sites/www.un.org.development.desa.pd/files/undesa_pd_2024_ims_stock_by_sex_destination_and_origin.xlsx"
 STOCK_YEARS = [2000, 2005, 2010, 2015, 2020, 2024]
@@ -283,6 +308,90 @@ def parse_latest(records):
     return parse_admissions(records, 2025, rounded=True)
 
 
+def parse_birth_arrivals(records, year, profile=False):
+    records = [[re.sub(r"\s+", " ", v).strip() if isinstance(v, str) else v for v in r] for r in records]
+    text = re.sub(r"\s+", " ", " ".join(str(v) for r in records[:8] for v in r if v)).lower()
+    if ("country of birth" not in text.replace("region/country", "country") or f"fiscal year {year}" not in text
+            or "country of last residence" in text or "country of nationality" in text):
+        raise ValueError("Arrival birthplace/fiscal-year population changed")
+    rounded = admission_rounding(records) or (profile and year == 2024)
+    if profile:
+        if "region/country: china, people's republic" not in text:
+            raise ValueError("Arrival profile country changed")
+        headers = [r for r in records if r[:2] == ["Characteristic", "Total"]]
+        matches = [r for r in records if str(r[0]).strip() == "New arrivals"]
+        if len(headers) != 1 or len(matches) != 1:
+            raise ValueError("Arrival profile requires a separate new-arrivals total")
+        return count(matches[0][1], rounded=rounded)
+    matches = [r for r in records if str(r[0]).strip() == "China, People's Republic"]
+    headers = [i for i, r in enumerate(records) if r[0] == "Region and country of birth"]
+    if len(matches) != 1 or len(headers) != 1:
+        raise ValueError("Arrival birthplace country/header missing or ambiguous")
+    header = headers[0]
+    if records[header][1] == "Adjustments of status" and records[header][8] == "New arrivals":
+        column = 8
+        if records[header + 1][column] != "Total":
+            raise ValueError("Arrival table requires the all-class total")
+    elif records[header][1] == "Total" and "new arrivals -" in text:
+        column = 1
+    else:
+        raise ValueError("Arrival type must be new arrivals, not adjustments or all grants")
+    value, status = count(matches[0][column], rounded=rounded)
+    components = [count(v, rounded=rounded)[0] for v in matches[0][column + 1:column + 7]]
+    if value is None or (None not in components and abs(value - sum(components)) > (30 if rounded else 0)):
+        raise ValueError("Arrival classes do not reconcile to their total")
+    return value, status
+
+
+def birth_arrivals(client):
+    seed = json.loads((Path(__file__).resolve().parents[2] / "data/reviewed/immigration-arrivals-early.json").read_text())
+    assets, observations = [], []
+    for table in seed["tables"]:
+        record, year = table["row"], table["year"]
+        if (year not in (2000, 2001, 2002) or record[0] != "China, People's Republic"
+                or record[1] != sum(record[2:])):
+            raise ValueError("Reviewed early arrival population or admission totals changed")
+        assets.append(dict(
+            url=seed["archive_url"], request_url=seed["archive_url"], sha256=table["sha256"],
+            retrieved_at=table["retrieved_at"], member_path=table["member_path"],
+            crc32=table["crc32"], checksum_scope="extracted XLS member, not the complete ZIP",
+            dataset=seed["dataset"], licence=seed["licence"]))
+        observations.append(row(ARRIVAL_SERIES, year, record[2], ARRIVAL_SOURCE,
+                                notes="INS Table 11, country of birth; exact new-arrivals column. " + ARRIVAL_NOTE))
+    for year, url in sorted(ARRIVAL_ASSETS.items()):
+        body, asset = client.get(url)
+        book = load_workbook(io.BytesIO(body), read_only=True, data_only=True)
+        names = [s for s in book if year == 2024 or s.title.replace(" ", "").lower().startswith("table10new")]
+        if len(names) != 1:
+            raise ValueError(f"FY{year} expanded country-of-birth arrivals worksheet missing or ambiguous")
+        value, status = parse_birth_arrivals(list(names[0].iter_rows(max_col=15, values_only=True)), year, profile=year == 2024)
+        assets.append(asset)
+        observations.append(row(ARRIVAL_SERIES, year, value, ARRIVAL_SOURCE, status,
+                                ("China birthplace profile, New arrivals row. " if year == 2024 else
+                                 "Expanded Table 10, New arrivals total. ") + ARRIVAL_NOTE))
+    for year, file in [(2003, "COBBook63.xls"), (2004, "COBBook63.xls"), (2005, "COBBook60.xls")]:
+        body, asset = client.get(f"https://ohss.dhs.gov/data/profiles/lpr/{year}/{file}")
+        sheet = xlrd.open_workbook(file_contents=body).sheet_by_index(0)
+        records = [sheet.row_values(i) for i in range(sheet.nrows)]
+        text = " ".join(str(v) for r in records for v in r if v).lower()
+        if (f"fiscal year {year}" not in text or "region/country of birth" not in text
+                or "region/country: china" not in text or "new arrivals" in text):
+            raise ValueError("Early profile coverage changed; review the arrival gap")
+        assets.append(asset)
+        observations.append(row(ARRIVAL_SERIES, year, None, ARRIVAL_SOURCE, "missing", ARRIVAL_NOTE))
+    definition = series(
+        "Mainland China-born new arrivals", "permanent_resident_arrivals", "people",
+        "U.S. new lawful permanent-resident arrivals; country of birth: China, People's Republic",
+        "annual", basis="fiscal ending year", notes=ARRIVAL_NOTE)
+    provenance = source(
+        "U.S. INS / DHS / OHSS", "Reviewed fiscal-year arrivals tables, 2000-2024", assets,
+        "FY2000-2002 INS Table 11 originals in Mendeley r2r444tpzs v2; FY2006-2023 expanded Table 10; "
+        "FY2024 China birthplace profile, New arrivals row. FY2003-2005 profiles lack that breakdown.",
+        ARRIVAL_NOTE + " Early XLS member SHA256/CRC32 are verified, not the complete research ZIP. "
+        "The authors' grouped/imputed series is not used. FY2023-2024 counts are rounded to ten.")
+    return {ARRIVAL_SERIES: definition}, sorted(observations, key=lambda r: r["year"]), {ARRIVAL_SOURCE: provenance}
+
+
 def admissions(client):
     observations, sources = [], {}
     for year, url in ADMISSION_ASSETS.items():
@@ -359,6 +468,10 @@ def birthplace(client):
 
 def collect(client):
     definitions, observations, sources = birthplace(client)
+    arrival_definitions, arrival_rows, arrival_sources = birth_arrivals(client)
+    definitions.update(arrival_definitions)
+    observations.extend(arrival_rows)
+    sources.update(arrival_sources)
     admission_rows, admission_sources = admissions(client)
     sources.update(admission_sources)
     observations.extend(admission_rows)
@@ -393,12 +506,15 @@ def collect(client):
              "description": f"DSEC U.S.-category residence approvals for every calendar year "
              f"{MACAU_ABODE_YEARS[0]}-{MACAU_ABODE_YEARS[-1]}. "
              "Separate from U.S. permanent-resident grants and UN resident stocks; not a permanent-residency classification."},
+            {"id": "to_us_birthplace_arrivals", "status": "partial", "description":
+             "Mainland China-born new permanent-resident arrivals, FY2000-2024. "
+             "FY2003-2005 remain missing, not zero or imputed; nationality counts remain separate."},
         ],
         "context": {"definition": "The OHSS series count grants of U.S. permanent-resident status; the UN series count resident stocks. Neither is a measure of net migration. Grants include adjustments by people already in the United States, not only new physical arrivals. Birthplace is not a departure country.",
                     "periods": "U.S. fiscal years end September 30. Macau approvals use calendar years. UN stocks use 1 July benchmarks. Birthplace, nationality and source-country categories remain separate.",
                     "macau_approvals": "DSEC counts newly approved people in its U.S. country category, not verified U.S. citizens, U.S. departures or permanent-resident grants.",
                     "admissions_vintages": ADMISSION_VINTAGES_NOTE,
-                    "rounding": "FY2015-2024 birthplace counts and FY2023-2025 nationality counts are rounded to the nearest ten. Earlier source vintages retain their published exact counts.",
+                    "rounding": ROUNDING_NOTE,
                     "resident_stocks": "UN stocks refer to 1 July in actual published benchmark years. China destination estimates use foreign citizenship; Hong Kong and U.S. destination estimates use foreign birth. Refugee adjustments are included where flagged R. These are not new immigration or net migration. No annual observations are invented between benchmarks.",
                     "rights": "Selected statistical aggregates and original figures only; no source workbooks are redistributed. UN estimates: United Nations DESA, Population Division, International Migrant Stock 2024, adapted under CC BY 3.0 IGO."},
     }

@@ -245,8 +245,12 @@ def test_collective_export_preserves_complete_inputs_and_native_plot_boundaries(
     assert points[-1]["value"] == 71470
     assert not immigration.select('#annual-china-to-us, #module-chart option[value="annual-china-to-us"]')
     arrivals = json.loads(immigration.select_one("#new-permanent-resident-arrivals .plot-data").string)
-    assert arrivals["groups"][0]["id"] == "ohss_nationality:new_arrivals"
-    assert [point["year"] for point in arrivals["groups"][0]["points"]] == list(range(2016, 2026))
+    assert arrivals["groups"][0]["id"] == "ohss_birth_arrivals:CHN"
+    assert [point["year"] for point in arrivals["groups"][0]["points"]] == [
+        2000, 2001, 2002, *range(2006, 2025)]
+    nationality = json.loads(immigration.select_one("#new-permanent-resident-arrivals-nationality .plot-data").string)
+    assert nationality["groups"][0]["id"] == "ohss_nationality:new_arrivals"
+    assert [point["year"] for point in nationality["groups"][0]["points"]] == list(range(2016, 2026))
     assert len(immigration.select("#state-china-map .state-shape")) == 51
     assert immigration.select_one('#state-china-map [data-map-metric="count"]')
     assert immigration.select_one('#state-china-map [data-map-metric="share"]')

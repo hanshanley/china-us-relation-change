@@ -24,6 +24,53 @@ def published():
     return json.loads((ROOT / "data/site/immigration.json").read_text())
 
 
+def test_arrivals_history_reaches_2000_without_splicing_or_imputing():
+    from us_china_exchange.immigration_analysis import chart_groups
+
+    data = validate_immigration_data(published())
+    rows = {r["year"]: r for r in data["observations"] if r["series_id"] == "ohss_birth_arrivals:CHN"}
+    assert [rows[y]["value"] for y in (2000, 2001, 2002, 2006, 2019, 2024)] == [
+        28360, 23763, 31833, 37321, 26395, 24140]
+    assert [rows[y]["status"] for y in (2003, 2004, 2005)] == ["missing"] * 3
+    assert all(rows[y]["value"] is None for y in (2003, 2004, 2005))
+    assert rows[2024]["status"] == "rounded"
+    assert len([r for r in data["observations"] if r["series_id"] != "ohss_birth_arrivals:CHN"]) == 181
+    groups = chart_groups(data, "new-permanent-resident-arrivals")
+    assert groups[0]["id"] == "ohss_birth_arrivals:CHN"
+    assert [p["year"] for p in groups[0]["points"]] == [2000, 2001, 2002, *range(2006, 2025)]
+    assert chart_groups(data, "new-permanent-resident-arrivals-nationality")[0]["id"] == "ohss_nationality:new_arrivals"
+    rows[2004].update(value=0, status="observed")
+    with pytest.raises(ValueError, match="not imputed or zero"):
+        validate_immigration_data(data)
+
+
+def test_arrivals_parser_requires_birthplace_new_arrivals_and_full_class_total():
+    parse = immigration_sources.parse_birth_arrivals
+    rows = [
+        ["PERSONS OBTAINING LAWFUL PERMANENT RESIDENT STATUS BY COUNTRY OF BIRTH: FISCAL YEAR 2006"],
+        ["Region and country of birth", "Adjustments of status", None, None, None, None, None, None, "  New arrivals  "],
+        [None, "Total", None, None, None, None, None, None, "Total"],
+        ["China, People's Republic", 49986, 1594, 7865, 13036, 7, 27454, 30, 37321, 14979, 1619, 20699, 13, "-", 11],
+    ]
+    assert parse(rows, 2006) == (37321, "observed")
+    changed = copy.deepcopy(rows)
+    changed[0][0] = changed[0][0].replace("COUNTRY OF BIRTH", "COUNTRY OF LAST RESIDENCE")
+    with pytest.raises(ValueError, match="birthplace"):
+        parse(changed, 2006)
+    changed = copy.deepcopy(rows)
+    changed[1][8] = "Total grants"
+    with pytest.raises(ValueError, match="new arrivals"):
+        parse(changed, 2006)
+    changed = copy.deepcopy(rows)
+    changed[2][8] = "Employment-based preferences"
+    with pytest.raises(ValueError, match="all-class"):
+        parse(changed, 2006)
+    changed = copy.deepcopy(rows)
+    changed[3][8] = 87307
+    with pytest.raises(ValueError, match="reconcile"):
+        parse(changed, 2006)
+
+
 def test_regional_panels_keep_an_unavailable_population_missing(tmp_path):
     data = published()
     for row in data["observations"]:
@@ -31,6 +78,9 @@ def test_regional_panels_keep_an_unavailable_population_missing(tmp_path):
             row.update(value=None, status="missing")
     build_immigration(tmp_path, data, defaultdict(list))
     page = BeautifulSoup((tmp_path / "site/immigration.html").read_text(), "html.parser")
+    archive = page.select('a[href="https://doi.org/10.17632/r2r444tpzs.2"]')
+    assert len(archive) == 3
+    assert all("Original table:" in a.text and "extracted XLS member" in a.parent.text for a in archive)
     panes = page.select("#migrant-stock-to-us > .comparison-panels > .comparison-pane")
     assert len(panes) == 2
     assert "No reported observations" in panes[0].select_one(".gap").text
@@ -43,7 +93,7 @@ def test_regional_panels_keep_an_unavailable_population_missing(tmp_path):
 def test_birthplace_and_nationality_counts_are_separate_fiscal_populations():
     data = validate_immigration_data(published())
     rows = {(r["series_id"], r["year"]): r for r in data["observations"]}
-    assert len(rows) == 181
+    assert len(rows) == 206
     assert [rows[(f"ohss_birth:{geo}", 1989)]["value"] for geo in ("CHN", "HKG", "MAC")] == [32272, 9740, 246]
     assert [rows[("ohss_birth:CHN", year)]["value"] for year in (2000, 2014, 2024)] == [45652, 76089, 71470]
     assert rows[("ohss_birth:HKG", 2024)]["value"] == 1950
@@ -173,13 +223,13 @@ def test_extended_histories_preserve_supported_prior_vintages_but_reject_new_gap
     data = published()
     data["observations"] = [r for r in data["observations"]
                             if (r["series_id"], r["year"]) != ("dsec_abode:USA:MAC", 2007)]
-    assert len(validate_immigration_data(data)["observations"]) == 180
+    assert len(validate_immigration_data(data)["observations"]) == 205
     data["observations"] = [
         r for r in data["observations"]
         if not (r["series_id"].startswith("ohss_nationality:") and r["year"] < 2020)
         and not (r["series_id"].startswith("ohss_birth:") and r["year"] < 2000)
         and not (r["series_id"] == "dsec_abode:USA:MAC" and r["year"] < 2010)]
-    assert len(validate_immigration_data(data)["observations"]) == 133
+    assert len(validate_immigration_data(data)["observations"]) == 158
     data["observations"] = [r for r in data["observations"]
                             if (r["series_id"], r["year"]) != ("ohss_nationality:total", 2022)]
     with pytest.raises(ValueError, match="complete reviewed annual history"):
@@ -255,17 +305,23 @@ def test_immigration_exports_include_all_counts_and_fiscal_dates(tmp_path):
     assert json.loads((tmp_path / "site/downloads/immigration.json").read_text()) == data
     with (tmp_path / "site/downloads/immigration-observations.csv").open() as stream:
         raw = list(csv.DictReader(stream))
-    assert len(raw) == len(data["observations"]) == 181
+    assert len(raw) == len(data["observations"]) == 206
     row = next(r for r in raw if r["series_id"] == "ohss_nationality:total" and r["year"] == "2025")
     assert row["fiscal_period_start"] == "2024-10-01" and row["fiscal_period_end"] == "2025-09-30"
     assert row["value"] == "65670"
     assert row["notes"] != row["definition_notes"]
+    arrival_rows = {int(r["year"]): r for r in raw if r["series_id"] == "ohss_birth_arrivals:CHN"}
+    assert arrival_rows[2000]["fiscal_period_start"] == "1999-10-01"
+    assert arrival_rows[2000]["fiscal_period_end"] == "2000-09-30"
+    assert arrival_rows[2000]["value"] == "28360"
+    assert all(arrival_rows[y]["value"] == "" and arrival_rows[y]["status"] == "missing"
+               for y in (2003, 2004, 2005))
     page = BeautifulSoup((tmp_path / "site/immigration.html").read_text(), "html.parser")
     assert "nationality" in page.select_one("#latest-admissions").text.lower()
-    assert "September 2019" in page.select_one("#new-permanent-resident-arrivals > .chart-note").text
+    assert "September 2019" in page.select_one("#new-permanent-resident-arrivals-nationality > .chart-note").text
     for theme in CHART_THEMES:
         annual = ElementTree.fromstring(
-            (tmp_path / f"site/figures/immigration/{theme}/new-permanent-resident-arrivals.svg").read_text())
+            (tmp_path / f"site/figures/immigration/{theme}/new-permanent-resident-arrivals-nationality.svg").read_text())
         assert "FY2016-2018 tables corrected to nationality" in " ".join(annual.itertext())
     assert "not_verified" in page.text
     svg = ElementTree.fromstring((tmp_path / "site/figures/immigration/themarginoferror/green-card-grants.svg").read_text())
@@ -315,6 +371,7 @@ def test_covid_context_covers_immigration_flows_but_not_stocks_or_snapshots(tmp_
     flows = {
         "new-permanent-resident-arrivals", "annual-china-adjustments", "green-card-grants",
         "hong-kong-green-cards", "macau-green-cards", "macau-residence-approvals",
+        "new-permanent-resident-arrivals-nationality",
     }
     for chart_id in CHARTS:
         section = page.select_one("#" + chart_id)
@@ -329,12 +386,13 @@ def test_covid_context_covers_immigration_flows_but_not_stocks_or_snapshots(tmp_
             assert paths
             for path in paths:
                 svg = BeautifulSoup(path.read_text(), "html.parser")
-                assert bool(svg.select(".covid-band")) == (chart_id == "new-permanent-resident-arrivals")
+                assert bool(svg.select(".covid-band")) == (chart_id.startswith("new-permanent-resident-arrivals"))
                 if chart_id in flows:
                     footnote = " ".join(node.text for node in svg.select(".figure-source"))
                     assert "universal ban" in footnote
                     assert "In-country status adjustments are not border arrivals" in svg.find("desc").text
                     assert all(float(node["y"]) <= 580 for node in svg.select(".figure-source"))
-        if chart_id in flows - {"new-permanent-resident-arrivals", "macau-residence-approvals"}:
+        if chart_id in flows - {"new-permanent-resident-arrivals", "new-permanent-resident-arrivals-nationality",
+                                "macau-residence-approvals"}:
             assert "March 18, 2020" in note.text and "June 4, 2020" in note.text
     assert json.loads((tmp_path / "site/downloads/immigration.json").read_text()) == data

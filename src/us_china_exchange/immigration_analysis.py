@@ -13,7 +13,10 @@ from .public_freshness import current_groups
 from .model import GEOGRAPHIES, json_text
 from .pipeline import write_atomic
 from .theme import CHART_THEMES, MUTED, PARTNER_COLORS
-from .immigration_sources import ADMISSION_YEARS, BIRTH_YEARS, MACAU_ABODE_YEARS, STOCK_PAIRS, STOCK_YEARS
+from .immigration_sources import (
+    ADMISSION_YEARS, ARRIVAL_GAPS, ARRIVAL_NOTE, ARRIVAL_SERIES, ARRIVAL_SOURCE, ARRIVAL_YEARS,
+    BIRTH_YEARS, MACAU_ABODE_YEARS, STOCK_PAIRS, STOCK_YEARS,
+)
 
 
 CHARTS = {
@@ -24,6 +27,16 @@ CHARTS = {
         "note": "DHS/OHSS, country of birth, not nationality. Includes people already in the U.S. adjusting status. Fiscal years end September 30. FY2015–2024 rounded to nearest ten; earlier source vintages use exact counts."},
     "new-permanent-resident-arrivals": {
         "title": "New U.S. permanent-resident arrivals",
+        "subtitle": "Mainland China-born | U.S. fiscal years",
+        "series": [ARRIVAL_SERIES],
+        "unit": "People per fiscal year", "mode": "levels", "covid_context": True,
+        "figure_note": "INS/DHS/OHSS. Country of birth, not nationality or departure country. "
+        "Excludes adjustments. FY2003-2005 unverified; gaps retained. FY2023-2024 rounded to ten.",
+        "note": "INS/DHS/OHSS original arrivals tables and China birthplace profile. " + ARRIVAL_NOTE
+        + " Fiscal years end September 30. FY2023-2024 rounded to ten. "
+        "The separately labelled nationality series extends through FY2025; it is not appended here."},
+    "new-permanent-resident-arrivals-nationality": {
+        "title": "New U.S. arrivals: Chinese nationals",
         "subtitle": "Chinese nationality | U.S. fiscal years",
         "series": ["ohss_nationality:new_arrivals"],
         "unit": "People per fiscal year", "mode": "levels",
@@ -105,9 +118,15 @@ def validate_immigration_data(data):
         "ohss_nationality:total", "ohss_nationality:new_arrivals", "ohss_nationality:adjustments"}
     expected |= {f"un_stock:{origin}:{destination}" for origin, destination in STOCK_PAIRS}
     expected.add("dsec_abode:USA:MAC")
+    expected.add(ARRIVAL_SERIES)
     if set(data["series"]) != expected:
         raise ValueError("Immigration populations must remain explicit")
     for sid, definition in data["series"].items():
+        if sid == ARRIVAL_SERIES:
+            if (definition["measure"], definition["unit"], definition["period_basis"], definition["cadence"]) != (
+                    "permanent_resident_arrivals", "people", "fiscal ending year", "annual") or "country of birth" not in definition["scope"].lower():
+                raise ValueError("Arrival birthplace population must exclude adjustments and nationality")
+            continue
         if sid == "dsec_abode:USA:MAC":
             if (definition["measure"], definition["unit"], definition["period_basis"], definition["cadence"]) != (
                     "residence_authorizations", "people approved", "calendar", "annual"):
@@ -132,7 +151,8 @@ def validate_immigration_data(data):
                 raise ValueError("Immigration source checksum or retrieval timestamp invalid")
             for field in ("url", "request_url"):
                 url = urlsplit(asset[field])
-                host = ("www.un.org" if source_id == "un_stock_2024" else
+                host = ("data.mendeley.com" if source_id == ARRIVAL_SOURCE and asset.get("member_path") else
+                        "www.un.org" if source_id == "un_stock_2024" else
                         "www.dsec.gov.mo" if source_id.startswith("dsec_abode_") else "ohss.dhs.gov")
                 if url.scheme != "https" or url.netloc != host:
                     raise ValueError("Immigration values require the reviewed official source")
@@ -144,7 +164,8 @@ def validate_immigration_data(data):
         if key in seen or r["series_id"] not in expected or r["source_id"] not in data["sources"]:
             raise ValueError("Invalid or duplicate immigration observation")
         seen.add(key)
-        expected_source = ("un_stock_2024" if r["series_id"].startswith("un_stock:") else
+        expected_source = (ARRIVAL_SOURCE if r["series_id"] == ARRIVAL_SERIES else
+                           "un_stock_2024" if r["series_id"].startswith("un_stock:") else
                            f"ohss_birth_{2004 if r['year'] <= 2004 else 2014 if r['year'] <= 2014 else 2024}"
                            if r["series_id"].startswith("ohss_birth") else f"ohss_nationality_{r['year']}")
         if ((r["series_id"].startswith("dsec_abode:") and not r["source_id"].startswith("dsec_abode_"))
@@ -156,8 +177,14 @@ def validate_immigration_data(data):
             raise ValueError("Invalid immigration count")
         if r["status"] == "rounded" and r["value"] % 10:
             raise ValueError("Rounded immigration counts must be multiples of ten")
+        if r["series_id"] == ARRIVAL_SERIES and (r["year"] in ARRIVAL_GAPS) != (r["status"] == "missing"):
+            raise ValueError("Unverified arrival years must remain missing, not imputed or zero")
     for sid in expected:
         years = {year for identity, year in seen if identity == sid}
+        if sid == ARRIVAL_SERIES:
+            if years != set(ARRIVAL_YEARS):
+                raise ValueError("Arrivals require the full reviewed historical window and explicit gaps")
+            continue
         if sid.startswith("ohss_nationality:"):
             if years not in ({2025}, set(range(2020, 2026)), set(ADMISSION_YEARS)):
                 raise ValueError("Nationality admissions require a complete reviewed annual history")
@@ -216,7 +243,8 @@ def build_immigration(root, data, gallery, state_data=None, state_geometry=None)
         groups = chart_groups(data, chart_id)
         if not groups:
             continue
-        if chart_id in {"new-permanent-resident-arrivals", "annual-china-adjustments", "macau-residence-approvals",
+        if chart_id in {"new-permanent-resident-arrivals", "new-permanent-resident-arrivals-nationality",
+                        "annual-china-adjustments", "macau-residence-approvals",
                         "green-card-grants", "hong-kong-green-cards", "macau-green-cards"}:
             years = [p["year"] for g in groups for p in g["points"]]
             config = dict(config, subtitle=f"{config['subtitle']} {min(years)}-{max(years)}")
@@ -299,10 +327,12 @@ def build_immigration(root, data, gallery, state_data=None, state_geometry=None)
             birthplace_years = [r["year"] for r in data["observations"]
                                if r["series_id"] == "ohss_birth:CHN" and r["value"] is not None]
             history_link = (
-                '<p class="immigration-history-link">Long-run history: '
+                '<p class="immigration-history-link">Separate measure: '
                 '<a href="immigration.html?indicator=green-card-grants">U.S. green-card grants by birthplace, '
                 f'FY{min(birthplace_years)}-FY{max(birthplace_years)}</a>. '
-                'Includes new arrivals and in-country status adjustments, not new arrivals alone.</p>')
+                'Includes new arrivals and in-country status adjustments, not new arrivals alone. '
+                '<a href="immigration.html?indicator=new-permanent-resident-arrivals-nationality">'
+                'Chinese-nationality arrivals, FY2016-FY2025</a>, use a different population.</p>')
         cards.append(f'<section class="series-panel" id="{chart_id}"><h2>{esc(config["title"])}</h2>'
                      + history_link + chart_markup + f'<p class="chart-note">{esc(config["note"])}</p>'
                      + (f'<p class="chart-note immigration-covid-note">{esc(covid_note)}</p>'
@@ -344,7 +374,10 @@ def build_immigration(root, data, gallery, state_data=None, state_geometry=None)
         write_atomic(root / "site/downloads" / (name + ".csv"), stream.getvalue())
     coverage = "".join(f'<tr><th>{esc(c["id"])}</th><td>{esc(c["status"])}</td><td>{esc(c["description"])}</td></tr>' for c in data["coverage"])
     sources = "".join(f'<li>{esc(s["name"])} · {esc(s["vintage"])}. {esc(s["locator"])}. {esc(s["notes"])}'
-                      + "".join(f'<p><a href="{esc(a["url"])}">Official source</a> · SHA-256 <code>{a["sha256"]}</code> · '
+                      + "".join(f'<p><a href="{esc("https://doi.org/" + a["dataset"] if a.get("member_path") else a["url"])}">'
+                                + (f'Original table: {esc(a["member_path"])} (research archive)' if a.get("member_path") else "Official source")
+                                + '</a> · SHA-256 ' + ("(extracted XLS member) " if a.get("member_path") else "")
+                                + f'<code>{a["sha256"]}</code> · '
                                 f'retrieved {esc(a["retrieved_at"])}</p>' for a in s["assets"]) + '</li>' for s in data["sources"].values())
     html = ('<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">'
             '<title>Immigration | U.S.–China connections</title><link rel="stylesheet" href="assets/style.css">'

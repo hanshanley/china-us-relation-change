@@ -53,7 +53,7 @@ def check(site, url=None):
     observations = json.loads((site / "downloads/observations.json").read_text())
     immigration = json.loads((site / "downloads/immigration.json").read_text())
     arrivals = sorted((r for r in immigration["observations"]
-                       if r["series_id"] == "ohss_nationality:new_arrivals"), key=lambda r: r["year"])
+                       if r["series_id"] == "ohss_birth_arrivals:CHN" and r["value"] is not None), key=lambda r: r["year"])
     birthplace = sorted((r for r in immigration["observations"]
                          if r["series_id"] == "ohss_birth:CHN" and r["value"] is not None),
                         key=lambda r: r["year"])

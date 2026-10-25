@@ -398,7 +398,7 @@ def check(site, url=None, screenshots=None):
                 if name == "immigration.html":
                     immigration = json.loads((site / "downloads/immigration.json").read_text())
                     present = [r for r in immigration["observations"] if r["value"] is not None]
-                    arrivals = [r for r in present if r["series_id"] == "ohss_nationality:new_arrivals"]
+                    arrivals = [r for r in present if r["series_id"] == "ohss_birth_arrivals:CHN"]
                     birthplace = [r for r in present if r["series_id"].startswith("ohss_birth:")]
                     stock_from_us = [r for r in present if r["series_id"].startswith("un_stock:USA:")]
                     approvals = [r for r in present if r["series_id"] == "dsec_abode:USA:MAC"]
@@ -412,6 +412,11 @@ def check(site, url=None, screenshots=None):
                     page.select_option("#module-chart", "new-permanent-resident-arrivals")
                     assert page.locator("#new-permanent-resident-arrivals .screen-point").count() == len(arrivals)
                     assert page.locator("#new-permanent-resident-arrivals .screen-column").count() == len(arrivals)
+                    assert page.locator('#new-permanent-resident-arrivals .screen-column[data-year="2000"]').get_attribute("data-value") == "28360"
+                    assert not page.locator('#new-permanent-resident-arrivals .screen-column[data-year="2003"],'
+                                            '#new-permanent-resident-arrivals .screen-column[data-year="2004"],'
+                                            '#new-permanent-resident-arrivals .screen-column[data-year="2005"]').count()
+                    expect(page.locator("#new-permanent-resident-arrivals > .chart-note").first).to_contain_text("FY2003-2005")
                     assert page.locator("#new-permanent-resident-arrivals .screen-year").all_text_contents()[-1] == str(max(r["year"] for r in arrivals))
                     page.select_option("#module-chart", "migrant-stock-from-us")
                     assert page.locator("#migrant-stock-from-us .screen-point").count() == len(stock_from_us)

@@ -1146,9 +1146,26 @@ The interactive plotting area is proportional to its width rather than fixed
 at a shallow desktop height. Desktop axes use 17px type, phone axes 14px, and
 large-value ticks use one declared scale (for example, trips in millions).
 
-`data/site/immigration.json` freezes 181 observations from 23 reviewed sources:
+`data/site/immigration.json` freezes 206 observations from 24 reviewed source groups:
 three OHSS birthplace workbooks/archives, ten OHSS nationality/admission reports,
 the UN DESA International Migrant Stock 2024 workbook and nine DSEC yearbooks.
+The additional arrivals-history group retains original INS/DHS/OHSS tables.
+It adds 22 reported mainland-China birthplace counts across FY2000-2024,
+plus three explicitly missing FY2003-2005 cells. All 181 older observations
+remain unchanged. This is genuinely new-arrivals history, not total grants:
+FY2000 is 28,360, FY2019 is 26,395 and FY2024 is 24,140.
+
+FY2000-2002 use original INS Table 11 files retained in the licensed research
+archive `10.17632/r2r444tpzs.2`. The reviewed seed records each complete
+selected China row and the extracted XLS member's SHA256/CRC32, not a claimed
+hash of the entire 3.3 GB archive. The authors' grouped, geography-changing,
+partly imputed series is rejected. FY2006-2023 use original expanded Table 10
+workbooks; FY2024 uses the producer's China birthplace profile. The separately
+reviewed FY2003-2005 profiles have no arrival-type breakdown; their all-grant
+counts are not used as arrivals. Those three gaps remain open for recovery,
+never interpolated or replaced by visa issuance. Birthplace identifies neither
+nationality nor the country immediately departed. FY2023-2024 precision is ten
+people, consistent with the reviewed OHSS privacy-rounding policy.
 UN stocks cover six published 1 July benchmarks (2000, 2005, 2010,
 2015, 2020 and 2024), in both directions for mainland China/Hong Kong.
 Mainland-China destination uses U.S. citizenship; the other reviewed routes
@@ -1188,7 +1205,7 @@ earlier years; this remains residence approval, not a verified permanent-
 resident legal classification or a count of physical U.S. departures.
 The extension adds 47 observations while preserving all 133 prior observation
 dictionaries exactly. Selective cached review uses `--birthplace-only`,
-`--admissions-only` or `--macau-only`; complete previously reviewed vintages
+`--admissions-only`, `--arrivals-only` or `--macau-only`; complete previously reviewed vintages
 remain valid during staged updates.
 
 No comparable annual U.S.-to-mainland-China permanent-residency series has been
@@ -1283,9 +1300,12 @@ U.S.-to-mainland-China count remains unverified; UN resident stocks are never
 differenced or relabelled as yearly arrivals.
 The old broad `annual-china-to-us` query link now falls back to the long-run
 grants default rather than reopening the short series after a refresh.
-The separately labelled nationality-arrivals view uses the explicit
-`new-permanent-resident-arrivals` identifier. Its link to the longer,
-separately defined birthplace-grants history remains visible.
+The `new-permanent-resident-arrivals` route now shows the actual birthplace-based
+arrivals history from FY2000 through FY2024, with FY2003-2005 visibly missing.
+The preserved nationality series uses `new-permanent-resident-arrivals-nationality`
+and still covers FY2016-2025. Different populations are never appended to one
+another. Links to both the nationality view and the separately defined
+birthplace-grants history remain visible.
 
 Travel-linked time-series charts covering 2020–2022 shade the principal COVID travel-restriction
 years. This is context, **not a universal travel ban or causal attribution**.

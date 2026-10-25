@@ -1,0 +1,33 @@
+{
+  "dataset": "10.17632/r2r444tpzs.2",
+  "archive_url": "https://data.mendeley.com/public-files/datasets/r2r444tpzs/files/23642639-3e55-494a-ae63-2a0b76b35484/file_downloaded",
+  "licence": "CC BY 4.0",
+  "review": "Original INS Table 11 files retained in Boustan, Cai and Tseng's replication archive. These are country-of-birth new arrivals, not the authors' derived Chinese series, which includes Hong Kong/Taiwan, changes geography basis and imputes 2003-2005. Selected ZIP members were extracted using public HTTP byte ranges, with uncompressed length and CRC32 verified. SHA256 values below identify individual extracted XLS members, NOT the complete 3.3 GB archive. The full archive hash was not verified.",
+  "columns": ["Country of birth", "Total grants", "New arrivals", "Adjustment entry cohort 1", "Adjustment entry cohort 2", "Adjustment entry cohort 3", "Adjustment entry cohort 4", "Adjustment entry cohort 5", "Adjustment entry cohort 6", "Adjustment entry cohort 7", "Adjustment entry cohort 8", "Adjustment entry cohort 9", "Adjustment entry cohort 10", "Adjustment entry cohort 11", "Other adjustment entry years"],
+  "tables": [
+    {
+      "year": 2000,
+      "member_path": "data/input/Homeland Security/Table11_2000.xls",
+      "sha256": "8dd25f4754df63e2f4080e9d0a2a662e398ab465c31efda77c9ebdfa6befe7ca",
+      "crc32": 3315302185,
+      "retrieved_at": "2026-10-25T16:09:53.734112+00:00",
+      "row": ["China, People's Republic", 45652, 28360, 4860, 1230, 1430, 1661, 1582, 1263, 1066, 863, 720, 302, 126, 2189]
+    },
+    {
+      "year": 2001,
+      "member_path": "data/input/Homeland Security/Table11_2001.xls",
+      "sha256": "719ca40242905c593d3a7333435c45ad21dc6ccd43a540bd997544a9d9e16dff",
+      "crc32": 1650975882,
+      "retrieved_at": "2026-10-25T16:09:54.362489+00:00",
+      "row": ["China, People's Republic", 56426, 23763, 10810, 2743, 2075, 2163, 2475, 2148, 1630, 1270, 997, 808, 506, 5038]
+    },
+    {
+      "year": 2002,
+      "member_path": "data/input/Homeland Security/Table11_2002.xls",
+      "sha256": "40eed9fc4bd2e066375f532aed9722718ed6326f34313e99f33ece9b2e6a0d0d",
+      "crc32": 1415105731,
+      "retrieved_at": "2026-10-25T16:09:54.993075+00:00",
+      "row": ["China, People's Republic", 61282, 31833, 10724, 2911, 1987, 1698, 1659, 1609, 1234, 782, 533, 432, 628, 5252]
+    }
+  ]
+}
