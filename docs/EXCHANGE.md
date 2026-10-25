@@ -467,6 +467,14 @@ remain recovered-sample lower bounds, never a census of active/inactive accounts
 
 ### Automatic private Weibo refresh
 
+The dated publisher-identity metadata checkpoint does not change refresh
+status: the published snapshot still records six blocked scheduled starts.
+Its attempted-at/note, successful manual collection and cutoff are retained
+byte-for-byte. The operational chronology below describes earlier
+checkpoints; it is not new collection or a replacement for that snapshot.
+Database/journal synchronization, source promotion and actual publication
+require their own approvals; this metadata preparation establishes none.
+
 The GitHub exchange workflow rebuilds frozen Weibo aggregates; hosted runners
 do not have the private corpus. Actual collection runs on the collection Mac:
 
