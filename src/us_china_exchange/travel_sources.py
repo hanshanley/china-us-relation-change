@@ -4,7 +4,9 @@ import io
 import json
 import re
 from datetime import datetime, timezone
+from decimal import Decimal, ROUND_HALF_UP
 
+from openpyxl import load_workbook
 from pypdf import PdfReader
 
 from .model import digest, json_text, observation, validate
@@ -16,6 +18,8 @@ MONITOR = "https://powerbi.trade.gov/#/workspace/IA-NTTO-PUBLIC/report/SIAT_Res_
 COUNTRIES = {"CHN": "China, People's Republic of", "HKG": "Hong Kong"}
 ANNUAL_YEARS = (*range(2012, 2021), 2022, 2023, 2024, 2025)
 PARTIAL_YEAR, PARTIAL_QUARTER = 2026, 2
+CHINA_2021_PROFILE = "https://trade.gov/sites/default/files/2022-10/U.S.%20Outbound%20China%20-%202021.xlsx"
+CHINA_2021_SHA256 = "f637faa552c2370e6baadf9629b06ff99c409aba382451e09350ed4a034e2d73"
 SIAT_DEFINITION = (
     "NTTO SIAT estimates of U.S.-resident air travelers visiting the destination; all purposes, "
     "including multi-destination trips; not all-mode border arrivals, unique people or U.S. citizenship counts")
@@ -92,6 +96,59 @@ def historical_siat(client, modern_rows):
     if set(merged) != {(geo, year) for geo in COUNTRIES for year in range(2000, 2013)}:
         raise ValueError("Historical SIAT 2000-2012 coverage is incomplete")
     return validate([row for (_, year), row in merged.items() if year < 2012])
+
+
+def parse_china_2021_profile(body):
+    book = load_workbook(io.BytesIO(body), read_only=True, data_only=True)
+    if book.sheetnames != ["CHINA"]:
+        raise ValueError("2021 SIAT profile country identity changed")
+    sheet = book["CHINA"]
+    if (sheet["C5"].value != "CHINA"
+            or "U.S. resident travel to China" not in str(sheet["C14"].value)
+            or sheet["C63"].value != "Volume Trends (in thousands)"
+            or sheet["C66"].value != "Total Departures"
+            or sheet["C94"].value != "Respondents"):
+        raise ValueError("2021 SIAT profile population, volume unit or row identity changed")
+    if [sheet.cell(64, column).value for column in range(6, 28)] != list(range(2000, 2022)):
+        raise ValueError("2021 SIAT profile chronological year columns changed")
+    values = {}
+    for column, year in enumerate(range(2000, 2022), 6):
+        cell = sheet.cell(66, column)
+        raw = cell.value
+        if (isinstance(raw, bool) or not isinstance(raw, (int, float))
+                or cell.number_format != "#,##0"):
+            raise ValueError("2021 SIAT profile estimate missing or published precision changed")
+        value = Decimal(str(raw))
+        if not value.is_finite() or value <= 0:
+            raise ValueError("2021 SIAT profile estimate requires clarification, not an inferred zero")
+        values[year] = int(value.quantize(Decimal("1"), rounding=ROUND_HALF_UP)) * 1000
+    sample = sheet["AA94"].value
+    if isinstance(sample, bool) or not isinstance(sample, int) or sample <= 0:
+        raise ValueError("2021 SIAT profile respondent count missing")
+    return values, sample
+
+
+def china_2021_siat(client, retained_rows):
+    body, asset = client.get(CHINA_2021_PROFILE)
+    if digest(body) != CHINA_2021_SHA256:
+        raise ValueError("2021 SIAT profile changed; review the original published vintage")
+    values, sample = parse_china_2021_profile(body)
+    retained = {r["year"]: r["value"] for r in retained_rows
+                if r["destination"] == "CHN" and r["frequency"] == "annual"}
+    if any(retained.get(year) != values[year] for year in range(2000, 2021)):
+        raise ValueError("2021 SIAT profile 2000-2020 overlaps differ or are incomplete")
+    result = observation(
+        "ntto_siat", "USA", "CHN", "air_visitors", 2021, values[2021], SIAT_DEFINITION,
+        status="low_reliability" if sample < 100 else "estimated",
+        notes="Original NTTO 2021 China market profile; CHINA!AA64/AA66 and AA94. "
+              f"Published 5 thousand trips; {sample} survey respondents; rounded to 1,000, not an exact census. "
+              "Chronological year columns F:AA exclude the narrow AB duplicate-year template helper. "
+              "All 21 reported 2000-2020 overlaps match the retained series at published precision. "
+              "The profile describes U.S.-resident destination estimates calibrated to APIS/I-92, "
+              "not a substituted direct-airport or all-mode arrival count. "
+              "Its 1 August 2023 archived copy is byte-identical to the reviewed original. "
+              "The current monitor's contradictory zero is not used; Hong Kong 2021 remains unreported.")
+    return validate(attach([result], asset, "NTTO U.S. Outbound China 2021 market profile; archived 1 August 2023"))
 
 
 def parse_monitor_card(text, country, year, frequency):
@@ -234,9 +291,11 @@ def siat(client, refresh=False):
             [(y, "annual") for y in ANNUAL_YEARS] + [(2026, "ytd"), (2025, "ytd")]}:
         raise ValueError("Reviewed SIAT destination/year coverage incomplete")
     rows = validate(historical_siat(client, rows) + rows)
-    return rows, "NTTO SIAT public monitor, 6 October 2026; original historical reports 2010-2013; through 2026 Q2", (
+    rows = validate(rows + china_2021_siat(client, rows))
+    return rows, "NTTO SIAT public monitor, 6 October 2026; historical reports and original 2021 China profile; through 2026 Q2", (
         "U.S.-resident air-travel destination estimates, kept separate from all-mode visitor arrivals. "
-        "Annual 2000–2020 and 2022–2025; 2000-2011 recovered from original resident-travel reports, with "
+        "Mainland annual 2000-2025; Hong Kong 2000-2020 and 2022-2025. "
+        "2000-2011 recovered from original resident-travel reports, with "
         "all historical overlaps and both 2012 monitor values reconciled. Published thousands, country isolation "
         "and original sample/suppression thresholds are retained. "
         "Separately selected Q1-Q2 observations in 2025 and 2026 support matched January–June comparisons. "
@@ -246,4 +305,7 @@ def siat(client, refresh=False):
         "Estimates are rounded to 1,000; respondent counts appear in each observation's notes. "
         "Under-100 respondent bases are conservatively flagged low reliability. "
         "The 2021 monitor cards show zero volume despite positive respondent counts (China 267; Hong Kong 44); "
-        "these contradictory volume outputs are not interpreted as zero actual travel. No aggregation across destinations.")
+        "these contradictory volume outputs are not interpreted as zero actual travel. "
+        "Mainland 2021 is separately recovered as the original profile's published 5,000-trip estimate, "
+        "with its checksum-pinned chronological columns and all 21 retained overlaps verified. "
+        "Hong Kong 2021 remains unreported. No aggregation across destinations.")

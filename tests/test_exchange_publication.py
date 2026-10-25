@@ -157,7 +157,11 @@ def test_collective_export_preserves_complete_inputs_and_native_plot_boundaries(
     assert payload["public_display"]
     assert {r["year"] for r in payload["observations"] if
             r["series_id"] == "ntto_siat:USA:CHN:air_visitors" and r["frequency"] == "annual"} == {
-                *range(2000, 2021), *range(2022, 2026)}
+                *range(2000, 2026)}
+    assert next(r["value"] for r in payload["observations"] if
+                r["series_id"] == "ntto_siat:USA:CHN:air_visitors" and r["year"] == 2021) == 5000
+    assert not any(r["year"] == 2021 and r["series_id"] == "ntto_siat:USA:HKG:air_visitors"
+                   for r in payload["observations"])
     assert {(r["destination"], r["value"]) for r in payload["observations"] if
             r["source_id"] == "ntto_siat" and r["year"] == 2000} == {("CHN", 644000), ("HKG", 832000)}
     assert {o["value"] for o in travel.select("#measure option")} <= {"visitors", "leisure_visitors", "air_visitors"}
