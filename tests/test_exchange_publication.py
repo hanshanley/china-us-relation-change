@@ -15,6 +15,50 @@ from us_china_exchange.model import validate
 ROOT = Path(__file__).resolve().parents[1]
 
 
+def test_published_figure_sync_retires_archives_and_copies_the_actual_published_version(tmp_path):
+    spec = importlib.util.spec_from_file_location("figure_sync", ROOT / "scripts/sync_published_figures.py")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    root, site = tmp_path / "repo", tmp_path / "publication"
+    target = root / "outputs/figures/students/themarginoferror"
+    source = site / "figures/students/themarginoferror"
+    target.mkdir(parents=True)
+    source.mkdir(parents=True)
+    (target / "used.svg").write_text("Older research version")
+    (target / "unused.png").write_bytes(b"Unused chart")
+    (target / "source-notes.json").write_text('{"retained": true}')
+    (source / "used.svg").write_text("<svg>Published version</svg>")
+    manifest = {"files": {"figures/students/themarginoferror/used.svg":
+                         hashlib.sha256((source / "used.svg").read_bytes()).hexdigest()}}
+    (site / "publication-manifest.json").write_text(json.dumps(manifest))
+    result = module.sync_published_figures(root, site)
+    assert result["removed"] == ["students/themarginoferror/unused.png"]
+    assert (target / "used.svg").read_bytes() == (source / "used.svg").read_bytes()
+    assert (target / "source-notes.json").read_text() == '{"retained": true}'
+    assert "!/students/themarginoferror/used.svg" in (root / "outputs/figures/.gitignore").read_text()
+    assert module.sync_published_figures(root, site)["removed"] == []
+
+
+@pytest.mark.parametrize("problem", ["empty", "checksum", "escape"])
+def test_invalid_published_figure_manifest_cannot_delete_existing_graphs(tmp_path, problem):
+    spec = importlib.util.spec_from_file_location("invalid_figure_sync", ROOT / "scripts/sync_published_figures.py")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    root, site = tmp_path / "repo", tmp_path / "publication"
+    target = root / "outputs/figures"
+    target.mkdir(parents=True)
+    (target / "keep.png").write_bytes(b"Existing graph")
+    (site / "figures").mkdir(parents=True)
+    (site / "figures/test.svg").write_text("<svg/>")
+    files = ({} if problem == "empty" else
+             {"figures/test.svg": "0" * 64} if problem == "checksum" else
+             {"figures/../../escape.svg": "0" * 64})
+    (site / "publication-manifest.json").write_text(json.dumps({"files": files}))
+    with pytest.raises(ValueError):
+        module.sync_published_figures(root, site)
+    assert (target / "keep.png").read_bytes() == b"Existing graph"
+
+
 def published():
     return json.loads((ROOT / "data/site/observations.json").read_text())
 

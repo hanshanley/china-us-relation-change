@@ -298,6 +298,16 @@ and qualification; it does not change the interactive plot's coordinate system.
 Travel headings consistently use "Travel from [origin] to [destination]" in both
 directions; air-only estimates and visitor-arrival definitions belong in subtitles and notes.
 
+Only the current public edition's essay figures are versioned in
+`outputs/figures/`. After validating a publication build, run
+`python scripts/sync_published_figures.py --site data/local/publication`
+before staging figure changes. This copies the actual published PNG/SVG
+versions, removes unreferenced archive exports and updates the generated
+Git allow-list. The refresh workflow runs the same curation step.
+Duplicate `site/figures/` copies are generated locally and ignored by Git.
+Complete research figures can still be rebuilt with `scripts/build_site.py`;
+source observations and full numerical downloads are retained.
+
 `resvg-py` rasterizes the SVGs entirely offline using bundled, unmodified
 [DejaVu Serif 2.37](https://github.com/dejavu-fonts/dejavu-fonts/releases/tag/version_2_37)
 regular, bold and italic fonts. Their license is retained in
