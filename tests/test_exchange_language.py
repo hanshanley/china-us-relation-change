@@ -69,6 +69,79 @@ def published():
     return json.loads((ROOT / "data/site/language_learning.json").read_text())
 
 
+def test_us_annual_ap_parser_selects_national_counts_and_the_actual_reporting_year(monkeypatch):
+    caption = ("Advanced Placement (AP) Examinations and Scores, by Subject, "
+               "Texas and the United States, ")
+    page = (caption + "2021-22\nExam Texas exams (N) U.S. exams (N)\n"
+            "Chinese Language and Culture 741 13,186 0.1 0.3 85.2 85.2 3.9 3.9\n"
+            "Japanese Language and Culture 149 2,450 <0.1 0.1 53.7 72.8 2.9 3.5\n"
+            "Note. Data are based on public and nonpublic school examinees.")
+    pages = ["Contents\n" + caption + "2021-22 ........ 9",
+             page.replace("2021-22", "2020-21").replace("13,186", "11,256"), page]
+    monkeypatch.setattr(language_sources, "pdf_text", lambda body: pages)
+    assert language_sources.parse_ap_us_annual(b"fixture", 2022) == [
+        ("chinese", 13186, 3), ("japanese", 2450, 3)]
+    pages[-1] = page.replace("public and nonpublic", "public")
+    with pytest.raises(ValueError, match="population"):
+        language_sources.parse_ap_us_annual(b"fixture", 2022)
+    pages[-1] = page.replace("Texas exams (N) U.S. exams (N)", "U.S. exams (N) Texas exams (N)")
+    with pytest.raises(ValueError, match="columns"):
+        language_sources.parse_ap_us_annual(b"fixture", 2022)
+    pages[-1] = page.replace("741 13,186", "13,186 741")
+    with pytest.raises(ValueError, match="smaller than Texas"):
+        language_sources.parse_ap_us_annual(b"fixture", 2022)
+    pages[-1] = page + "\nChinese Language and Culture 741 13,186 0.1 0.3 85.2 85.2 3.9 3.9"
+    with pytest.raises(ValueError, match="ambiguous"):
+        language_sources.parse_ap_us_annual(b"fixture", 2022)
+    pages[-1] = page.replace("Japanese Language and Culture", "Other languages")
+    with pytest.raises(ValueError, match="missing"):
+        language_sources.parse_ap_us_annual(b"fixture", 2022)
+
+
+def test_combined_us_annual_ap_report_keeps_year_sections_across_page_breaks(monkeypatch):
+    header = ("Advanced Placement (AP) Examinations and Scores, by Subject, "
+              "Texas and the United States, 2012-13 and 2013-14\n"
+              "Examination Texas U.S. Texas U.S. Texas U.S. Texas U.S.\n")
+    note = "\nNote. Data are based on public and nonpublic school examinees."
+    pages = [
+        header + "2012-13\nChinese Language and Culture 498 8,078 0.1 0.2 94.6 93.9 4.5 4.4" + note,
+        header + "Japanese Language and Culture 94 1,855 <0.1 <0.1 62.8 72.9 3.1 3.4\n"
+        "2013-14\nChinese Language and Culture 549 8,669 0.1 0.2 95.1 93.4 4.4 4.4" + note,
+        header + "Japanese Language and Culture 134 1,942 <0.1 <0.1 56.7 72.7 2.9 3.4" + note]
+    monkeypatch.setattr(language_sources, "pdf_text", lambda body: pages)
+    assert language_sources.parse_ap_us_annual(b"fixture", 2013) == [
+        ("chinese", 8078, 1), ("japanese", 1855, 2)]
+    assert language_sources.parse_ap_us_annual(b"fixture", 2014) == [
+        ("chinese", 8669, 2), ("japanese", 1942, 3)]
+
+
+def test_us_annual_ap_counts_preserve_separate_populations_and_cannot_exceed_global_totals():
+    data = validate_language_data(published())
+    values = {(r["series_id"], r["year"]): r["value"] for r in data["observations"]}
+    assert [values["ap_us_annual:chinese", year] for year in (2019, 2022)] == [12153, 13186]
+    assert [values["ap_us_annual:japanese", year] for year in (2019, 2022)] == [2113, 2450]
+    assert not any(sid.startswith("ap_us_annual:") for chart in CHARTS.values() for sid in chart["series"])
+    data["series"]["ap_us_annual:chinese"]["scope"] = "Global annual participants"
+    with pytest.raises(ValueError, match="all-school"):
+        validate_language_data(data)
+    data = published()
+    next(r for r in data["observations"] if r["series_id"] == "ap_us_annual:chinese" and r["year"] == 2022)["value"] = values["ap:global_total", 2022] + 1
+    with pytest.raises(ValueError, match="global total"):
+        validate_language_data(data)
+
+
+def test_selective_us_annual_ap_refresh_preserves_global_cohort_and_other_records(monkeypatch):
+    spec = importlib.util.spec_from_file_location("language_builder", ROOT / "scripts/build_language_data.py")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    prior = published()
+    definitions = {sid: definition for sid, definition in prior["series"].items() if sid.startswith("ap_us_annual:")}
+    observations = [r for r in prior["observations"] if r["series_id"] in definitions]
+    sources = {r["source_id"]: prior["sources"][r["source_id"]] for r in observations}
+    monkeypatch.setattr(module, "ap_us_annual", lambda client: (definitions, observations, sources))
+    assert module.collect_ap_us_annual(None, prior) == prior
+
+
 def test_article_snapshot_preserves_the_matched_sample_and_requires_rechecking_changed_pdf(monkeypatch):
     selected = json.loads((ROOT / "data/reviewed/language-snapshot-2020.json").read_text())
     content = b"snapshot fixture"

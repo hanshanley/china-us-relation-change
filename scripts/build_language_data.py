@@ -12,7 +12,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
 from us_china_exchange.language_analysis import validate_language_data
-from us_china_exchange.language_sources import AP_GROUP_CONTEXT, ReviewClient, ap_global, ap_us_cohorts, hesa_bacs, ipeds, mla, mla_snapshot, schools, school_comparisons, school_pulse
+from us_china_exchange.language_sources import AP_GROUP_CONTEXT, ReviewClient, ap_global, ap_us_annual, ap_us_cohorts, hesa_bacs, ipeds, mla, mla_snapshot, schools, school_comparisons, school_pulse
 from us_china_exchange.model import json_text
 from us_china_exchange.pipeline import write_atomic
 
@@ -22,7 +22,7 @@ def collect(client, last_degree_year=2025):
         raise ValueError("The final degree year must be between 2000 and the current year")
     result = {"version": 1, "series": {}, "observations": [], "sources": {}, "coverage": [], "context": {}}
     for name, fetch in [("MLA", mla), ("MLA pandemic snapshot", mla_snapshot), ("HESA/BACS", hesa_bacs),
-                        ("AP", ap_global), ("AP U.S. cohorts", ap_us_cohorts),
+                        ("AP", ap_global), ("AP U.S. annual exams", ap_us_annual), ("AP U.S. cohorts", ap_us_cohorts),
                         ("IPEDS", lambda c: ipeds(c, range(2000, last_degree_year + 1))),
                         ("Schools", schools), ("School language comparisons", school_comparisons),
                         ("National School Pulse Panel", school_pulse)]:
@@ -74,7 +74,32 @@ def collect(client, last_degree_year=2025):
     }
     result["context"]["ap_groups"] = AP_GROUP_CONTEXT
     result["observations"].sort(key=lambda r: (r["series_id"], r["year"]))
-    return update_school_context(update_article_context(result))
+    return update_school_context(update_article_context(update_ap_us_annual_context(result)))
+
+
+def update_ap_us_annual_context(result):
+    result["coverage"] = [item for item in result["coverage"] if item["id"] != "ap_us_annual"] + [{
+        "id": "ap_us_annual", "status": "historical_only",
+        "description": "Verified U.S.-only Chinese/Japanese annual exam administrations, 2007-2022; "
+        "public and nonpublic schools, all grades. Newer national subject counts remain unverified. "
+        "Not global totals, graduating cohorts or all language learners."}]
+    result["context"]["ap_us_annual"] = {
+        "series": ["ap_us_annual:chinese", "ap_us_annual:japanese"],
+        "note": "Historical national annual administrations remain in complete downloads, separately "
+        "from global participation and public-school graduating cohorts. These histories do not meet "
+        "the current public-chart freshness threshold; no stale-only chart is added."}
+    return result
+
+
+def collect_ap_us_annual(client, prior):
+    result = copy.deepcopy(prior)
+    definitions, observations, sources = ap_us_annual(client)
+    result["series"].update(definitions)
+    result["sources"].update(sources)
+    result["observations"] = sorted(
+        [r for r in result["observations"] if r["series_id"] not in definitions] + observations,
+        key=lambda r: (r["series_id"], r["year"]))
+    return validate_language_data(update_ap_us_annual_context(result))
 
 
 def update_article_context(result):
@@ -189,6 +214,7 @@ if __name__ == "__main__":
     parser.add_argument("--data-only", action="store_true")
     selection = parser.add_mutually_exclusive_group()
     selection.add_argument("--ap-only", action="store_true", help="Review only AP sources; preserve all non-AP observations and definitions")
+    selection.add_argument("--ap-us-annual-only", action="store_true", help="Review historical U.S.-only annual AP administrations; preserve global, cohort and other observations")
     selection.add_argument("--schools-only", action="store_true", help="Add reviewed school language comparisons; preserve all other observations")
     selection.add_argument("--school-pulse-only", action="store_true", help="Review national January 2024 availability estimates; preserve historical observations")
     selection.add_argument("--article-sources-only", action="store_true", help="Review the distinct MLA pandemic snapshot and HESA/BACS history; preserve all other data")
@@ -196,7 +222,10 @@ if __name__ == "__main__":
     selection.add_argument("--ipeds-history", action="store_true", help="Review Chinese, Japanese and Korean degree histories from 2000; preserve non-degree observations")
     args = parser.parse_args()
     client = ReviewClient(ROOT / "data/local/language-learning/raw", args.refresh)
-    if args.ipeds_only or args.ipeds_history:
+    if args.ap_us_annual_only:
+        prior = json.loads((ROOT / "data/site/language_learning.json").read_text())
+        data = collect_ap_us_annual(client, prior)
+    elif args.ipeds_only or args.ipeds_history:
         prior = json.loads((ROOT / "data/site/language_learning.json").read_text())
         data = collect_ipeds(client, prior, args.last_degree_year, args.ipeds_history)
     elif args.article_sources_only:

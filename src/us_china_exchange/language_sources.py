@@ -29,6 +29,24 @@ BACS_REPORT = "https://bacsuk.org.uk/wp-content/uploads/2015/05/BACS-State-of-th
 BACS_EARLY_REPORT = "https://bacsuk.org.uk/wp-content/uploads/2023/04/BACS-report-on-China-Studies-2016.pdf"
 AP_ARCHIVE = "https://reports.collegeboard.org/ap-program-results/data-archive"
 AP_COURSES = "https://apstudents.collegeboard.org/courses"
+AP_US_REPORTS = {
+    2007: "AP_IB_2006-07.pdf",
+    2008: "AP_IB_2007-08.pdf",
+    2009: "AP_IB_2008-09.pdf",
+    2010: "AP_IB_2009-10.pdf",
+    2011: "AP_tx_and_us_2010-11.pdf",
+    2012: "AP_tx_and_us_2011-12.pdf",
+    2013: "ap_tx_and_us_12-13_13-14.pdf",
+    2014: "ap_tx_and_us_12-13_13-14.pdf",
+    2015: "ap_tx_and_us_2014-15.pdf",
+    2016: "ap_tx_and_us_2015-16.pdf",
+    2017: "ap_tx_and_us_2016-17.pdf",
+    2018: "ap_tx_and_us_2017-18.pdf",
+    2019: "ap_tx_and_us_2018-19.pdf",
+    2020: "ap-tx-and-us-2019-20.pdf",
+    2021: "ap-tx-and-us-2020-21.pdf",
+    2022: "ap-tx-and-us-2021-22.pdf",
+}
 AP_GROUP_CONTEXT = {
     "all_participants": "Everyone taking that language's AP exam, including the standard-group subset.",
     "standard_group": "A subset whose answers did not report regularly speaking or hearing the exam language, or living for at least one month where it is spoken. Generally school-trained, but not a U.S.-only or ancestry group.",
@@ -726,6 +744,74 @@ def ap_global(client):
     definitions.update(extra_definitions)
     observations.extend(extra_observations)
     sources.update(extra_sources)
+    return definitions, observations, sources
+
+
+def parse_ap_us_annual(content, year):
+    period = f"{year - 1}-{year % 100:02d}"
+    combined = year in {2013, 2014}
+    caption = ("Advanced Placement (AP) Examinations and Scores, by Subject, "
+               "Texas and the United States, " + ("2012-13 and 2013-14" if combined else period))
+    result, active_period = {}, None
+    for page_number, page in enumerate(pdf_text(content), 1):
+        text = re.sub(r"\s+", " ", page)
+        if caption not in text or not re.search(
+                r"(?m)^\s*(?:Chinese|Japanese) Language and Culture\s+\d", page):
+            continue
+        if (not re.search(r"public and nonpublic (?:school )?examinees", text)
+                or not re.search(r"Examination Texas U\.S\.|Exam Texas exams \(N\) U\.S\. exams \(N\)", text)):
+            raise ValueError("AP U.S. annual population or Texas/U.S. count columns changed")
+        for line in page.splitlines():
+            if combined and line.strip() in {"2012-13", "2013-14"}:
+                active_period = line.strip()
+            for language in ("Chinese", "Japanese"):
+                match = re.fullmatch(r"\s*" + language + r" Language and Culture\s+(.+?)\s*", line)
+                if match is None or (combined and active_period != period):
+                    continue
+                cells = match[1].split()
+                if (language in result or len(cells) != 8
+                        or not all(re.fullmatch(r"\d+(?:,\d{3})*", value) for value in cells[:2])
+                        or not all(re.fullmatch(r"<?\d+(?:\.\d+)?", value) for value in cells[2:])):
+                    raise ValueError("AP U.S. annual subject row missing or ambiguous")
+                texas, national = [int(value.replace(",", "")) for value in cells[:2]]
+                if texas > national:
+                    raise ValueError("AP U.S. annual national count is smaller than Texas")
+                result[language] = (national, page_number)
+    if set(result) != {"Chinese", "Japanese"}:
+        raise ValueError("AP U.S. annual subject table missing for reporting year " + str(year))
+    return [(language.lower(), *result[language]) for language in ("Chinese", "Japanese")]
+
+
+def ap_us_annual(client):
+    definitions = {
+        "ap_us_annual:" + language: series(
+            language.capitalize() + " - U.S. annual exams", "annual_exam_administrations", "exams",
+            "U.S. public and nonpublic school examinees, all grades; national annual AP language exams",
+            "annual", "academic ending year",
+            "TEA's national U.S. count, not its Texas count, global participation, a graduating cohort, "
+            "citizenship, unique learners or all language-course enrollments. Historical 2007-2022 "
+            "evidence only; newer U.S.-only subject counts remain unverified.")
+        for language in ("chinese", "japanese")}
+    observations, sources = [], {}
+    for year, filename in AP_US_REPORTS.items():
+        body, asset = client.get("https://tea.texas.gov/sites/default/files/" + filename)
+        values = parse_ap_us_annual(body, year)
+        source_id = f"tea_ap_us_{year}"
+        period = f"{year - 1}-{year % 100:02d}"
+        sources[source_id] = source(
+            "Texas Education Agency; original College Board national aggregates",
+            "Reporting school year " + period + "; original national subject table",
+            [asset], "AP Examinations and Scores, by Subject, Texas and the United States; "
+            "U.S. number of examinations; PDF pages " + ", ".join(str(p) for p in sorted({r[2] for r in values})),
+            "Public and nonpublic school examinees combined, all grades. Only selected numerical "
+            "facts are republished, not original reports. Reporting year is not publication year. "
+            "Newer national summary reports omit these subject cells; aggregate national growth "
+            "and worldwide language counts cannot be used to estimate them.")
+        for language, value, page in values:
+            observations.append(row(
+                "ap_us_annual:" + language, year, value, source_id,
+                notes=f"Reporting school year {period}; U.S. number of examinations, PDF page {page}. "
+                "Not the adjacent Texas count, score percentage or mean score."))
     return definitions, observations, sources
 
 

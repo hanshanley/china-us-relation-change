@@ -174,8 +174,23 @@ def validate_language_data(data):
                 "U.S. public-school graduating" not in definitions[r["series_id"]]["scope"]
                 or definitions[r["series_id"]]["period_basis"] != "graduating class"):
             raise ValueError("AP U.S. public-school cohorts must retain their graduating-class population")
+        if r["series_id"].startswith("ap_us_annual:") and (
+                r["series_id"] not in {"ap_us_annual:chinese", "ap_us_annual:japanese"}
+                or r["source_id"] != f"tea_ap_us_{r['year']}" or r["year"] < 2007
+                or definitions[r["series_id"]]["period_basis"] != "academic ending year"
+                or definitions[r["series_id"]]["measure"] != "annual_exam_administrations"
+                or definitions[r["series_id"]]["unit"] != "exams"
+                or definitions[r["series_id"]]["cadence"] != "annual"
+                or definitions[r["series_id"]]["scope"] !=
+                "U.S. public and nonpublic school examinees, all grades; national annual AP language exams"):
+            raise ValueError("AP U.S. annual exams must retain their national all-school administration population")
     by_key = {(r["series_id"], r["year"]): r for r in data["observations"]}
     for r in data["observations"]:
+        if r["series_id"].startswith("ap_us_annual:") and r["value"] is not None:
+            global_id = "ap:global_total" if r["series_id"].endswith(":chinese") else "ap:japanese_total"
+            total = by_key.get((global_id, r["year"]))
+            if total is not None and total["value"] is not None and r["value"] > total["value"]:
+                raise ValueError("AP U.S. annual count exceeds the separately retained global total")
         if r["series_id"] in {"ap:standard_group", "ap:japanese_standard_group"} and r["value"] is not None:
             total_id = "ap:global_total" if r["series_id"] == "ap:standard_group" else "ap:japanese_total"
             total = by_key.get((total_id, r["year"]))
