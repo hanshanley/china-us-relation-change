@@ -117,6 +117,37 @@ available separately. Run `scripts/check_state_immigration_map.py --site PATH`
 for the independent identity/colour/value/export, desktop/phone, keyboard,
 touch and no-JavaScript checks.
 
+### Public modelled migration supplement
+
+Gaskin and Abel's *Deep learning four decades of human migration* (Nature,
+2026; DOI `10.1038/s41586-026-10611-7`) supplies a public annual bilateral
+estimate when comparable administrative arrivals are unavailable. The
+supplement remains **separate from `immigration.json` and its official charts**:
+
+| File in `data/reviewed/` | Contents |
+|---|---|
+| `modelled-migration-us-china.csv` | All 68 annual previous-residence flow estimates, both directions, 1990-2023, with original standard deviations and source-row indices |
+| `modelled-migration-us-china-full-query.csv` | All 70 selected source rows and every original field, including birthplace flows, stocks and the two stock-only 2024 rows |
+| `modelled-migration-us-china.json` | All 70 source rows and 68 flow estimates, definitions, pinned publisher URL/revision, checksums, scope and limitations |
+| `modelled-migration-us-china.LICENSE.txt` | Unchanged upstream GPL-3.0 licence for the supplementary data |
+
+`mig_prev` means estimated moves by **previous residence**, regardless of
+birthplace or citizenship; `mig_brth` instead uses birthplace as origin.
+The CHN country code is separate from Hong Kong, Macao and Taiwan. These
+are model estimates, **not permanent-residence grants, first permanent
+admissions or counts of U.S. citizens**. Uncertainty can be substantial:
+the supplied standard deviations are not 95% confidence intervals.
+The 2024 rows have resident stocks but **no flow estimates**; blanks stay
+blank, never zero. Annual model estimates must not fill the missing
+FY2003-2005 official arrivals or be spliced into the fiscal-year LPR series.
+
+Reproduce with `python scripts/extract_public_migration.py`. It downloads
+the complete 144 MB public CSV if not cached, verifies its pinned publisher
+SHA-256, and writes both complete numerical downloads and provenance.
+`--source-csv PATH` reuses a retained full source file; `--output PATH`
+allows a separate destination. No additional dependencies are required.
+The 144 MB global source is kept under ignored `data/local/`, not in Git.
+
 | Location | Purpose |
 |---|---|
 | `src/us_china_exchange/` | Model, source parsers, refresh orchestration, static rendering |

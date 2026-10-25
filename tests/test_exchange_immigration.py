@@ -1,6 +1,7 @@
 import copy
 import csv
 import hashlib
+import importlib.util
 import io
 import json
 from collections import defaultdict
@@ -18,6 +19,86 @@ from us_china_exchange.theme import CHART_THEMES
 
 
 ROOT = Path(__file__).resolve().parents[1]
+
+
+def public_model_extractor():
+    spec = importlib.util.spec_from_file_location(
+        "public_migration_extractor", ROOT / "scripts/extract_public_migration.py")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def model_query():
+    with (ROOT / "data/reviewed/modelled-migration-us-china-full-query.csv").open(newline="") as stream:
+        return list(csv.DictReader(stream))
+
+
+@pytest.mark.parametrize("cached", [True, False])
+def test_public_model_extract_preserves_all_source_fields_and_terminal_missingness(tmp_path, monkeypatch, cached):
+    module = public_model_extractor()
+    source = ROOT / "data/reviewed/modelled-migration-us-china-full-query.csv"
+    source_path = source if cached else tmp_path / "cache/source.csv"
+    output = tmp_path / "output"
+    monkeypatch.setattr(module, "SOURCE_SHA256", module.sha256(source))
+    monkeypatch.setattr(module, "urlopen", lambda url, timeout: io.BytesIO(source.read_bytes()))
+    monkeypatch.setattr("sys.argv", ["extract", "--source-csv", str(source_path), "--output", str(output)])
+    module.main()
+    with (output / source.name).open(newline="") as stream:
+        assert list(csv.DictReader(stream)) == model_query()
+    with (output / "modelled-migration-us-china.csv").open(newline="") as stream:
+        flows = list(csv.DictReader(stream))
+    original = {(r["Origin ISO"], r["Destination ISO"], r["Year"]): r for r in model_query()}
+    assert len(original) == 70
+    assert {(r["origin"], r["destination"], int(r["year"])) for r in flows} == {
+        (o, d, y) for o, d in module.PAIRS for y in range(1990, 2024)}
+    for row in flows:
+        native = original[(row["origin"], row["destination"], row["year"])]
+        assert (row["mean"], row["standard_deviation"], row["source_row_index"]) == (
+            native["mig_prev"], native["mig_prev_std"], native[""])
+        assert row["status"] == "modelled_estimate"
+    for origin, destination in module.PAIRS:
+        assert all(original[(origin, destination, "2024")][f] == "" for f in module.NUMERIC if f.startswith("mig_"))
+    metadata = json.loads((output / "modelled-migration-us-china.json").read_text())
+    assert metadata["source_rows"] == model_query()
+    assert metadata["observations"] == flows
+    for filename, digest in metadata["derived_files_sha256"].items():
+        assert module.sha256(output / filename) == digest
+    assert module.sha256(output / module.LICENSE_NAME) == module.LICENSE_SHA256
+
+
+@pytest.mark.parametrize("cached", [True, False])
+def test_public_model_extract_rejects_bad_source_before_writing_outputs(tmp_path, monkeypatch, cached):
+    module = public_model_extractor()
+    source = tmp_path / "bad-source.csv"
+    if cached:
+        source.write_bytes(b"not the pinned numerical dataset")
+    monkeypatch.setattr(module, "urlopen", lambda url, timeout: io.BytesIO(b"bad download"))
+    monkeypatch.setattr("sys.argv", ["extract", "--source-csv", str(source), "--output", str(tmp_path / "output")])
+    with pytest.raises(ValueError, match="checksum"):
+        module.main()
+    assert not (tmp_path / "output").exists()
+    assert not source.with_suffix(".csv.part").exists()
+    assert source.exists() == cached
+
+
+@pytest.mark.parametrize("change", ["missing_year", "duplicate", "invented_2024", "blank_flow", "negative_std", "infinite_mean"])
+def test_public_model_extract_rejects_incomplete_or_invented_flows(change):
+    rows = model_query()
+    module = public_model_extractor()
+    if change == "missing_year":
+        rows.pop(0)
+    elif change == "duplicate":
+        rows.append(rows[0].copy())
+    elif change == "invented_2024":
+        next(r for r in rows if r["Year"] == "2024")["mig_prev"] = "0"
+    else:
+        field, value = {"blank_flow": ("mig_prev", ""),
+                        "negative_std": ("mig_prev_std", "-1"),
+                        "infinite_mean": ("mig_prev", "inf")}[change]
+        rows[0][field] = value
+    with pytest.raises(ValueError):
+        module.extract(rows)
 
 
 def published():
