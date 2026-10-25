@@ -37,14 +37,9 @@ def collect_germany(client, prior):
     data["observations"] = sorted(
         [r for r in data["observations"] if r["series_id"] not in definitions] + observations,
         key=lambda r: (r["series_id"], r["year"]))
-    data["coverage"] = [r for r in data["coverage"] if r["id"] not in definitions] + [
-        {"id": sid, "status": "annual",
-         "description": "German-controlled China enterprises; Eurostat and Bundesbank source histories stay "
-         "separate because overlapping counts differ. Not added to EU27 or relabelled parent companies."}
-        for sid in definitions]
-    data["context"]["geography"] = (
-        "China is the host in every chart. Germany is shown separately from the overlapping EU27 aggregate. "
-        "Historical EU membership, UK and Norwegian populations remain distinct; no all-Europe total is calculated.")
+    update_country_coverage(data, definitions)
+    if "German" not in data["context"]["geography"]:
+        data["context"]["geography"] += " Germany remains separate from the overlapping EU27 aggregate."
     return data
 
 

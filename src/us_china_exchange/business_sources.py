@@ -41,6 +41,9 @@ CBS_NETHERLANDS_METHODS = "https://www.cbs.nl/nl-nl/onze-diensten/methoden/onder
 ONS_DATA = "https://www.ons.gov.uk/file?uri=/businessindustryandtrade/internationaltrade/datasets/ukoutwardforeignaffiliatestatisticsofats/2019/ofatspublicationfinal.xlsx"
 ONS_COVERAGE = "https://www.ons.gov.uk/aboutus/transparencyandgovernance/freedomofinformationfoi/ukoutwardforeignaffiliatestatisticsofats2015to2025"
 BUNDESBANK_FATS = "https://www.bundesbank.de/en/statistics/external-sector/direct-investments/foreign-affiliates-statistics-fats--795240"
+GERMANY_FATS_2020 = (
+    "https://web.archive.org/web/20250419145839id_/https://www.bundesbank.de/resource/blob/"
+    "768898/57e1855ed8172f316354ab4b6d39f6d5/472B63F073F071307366337C94F8C870/statistik-outward-fats-data.pdf")
 SSB_COUNTRIES = "https://data.ssb.no/api/v0/en/table/09827"
 SWEDEN_COUNTRIES = (
     "https://statistik.tillvaxtanalys.se/PxWeb/api/v1/sv/"
@@ -697,6 +700,35 @@ def norwegian_affiliates(client):
     return definitions, observations, sources
 
 
+def parse_germany_history(content):
+    if not content.startswith(b"%PDF"):
+        raise ValueError("Archived German count report is not the reviewed PDF")
+    pages = pdf_text(content)
+    text = " ".join(" ".join(pages).split())
+    if (not all(token in text for token in (
+            "November 2020", "ultimately controlled by German investors", "more than 50%",
+            "exceed \u20ac3 million", "branches", "permanent establishments",
+            "latest figures must in all cases be regarded as provisional"))
+            or not re.search(r"NACE\s+Rev\s*\.?\s*2", text)
+            or not re.search(r"do not in[- ]*clude Section A:", text)
+            or "Section O:" not in text):
+        raise ValueError("Archived German publication, control or reporting scope changed")
+    tables = [page for page in pages if "1.1. Number of the affiliates abroad" in page
+              and "China, People's Republic" in page]
+    if (len(tables) != 1
+            or not re.search(r"Countries of investment\s+2015\s+2016\s+2017\s+2018", tables[0])
+            or not re.search(r"1\s+Excluding Hong Kong\.", tables[0])):
+        raise ValueError("Archived German reference years or host-country definition changed")
+    counts = re.findall(
+        r"China, People's Republic of 1\)\s+"
+        r"(\d{1,3} \d{3})\s+(\d{1,3} \d{3})\s+(\d{1,3} \d{3})\s+(\d{1,3} \d{3})\s+Hong Kong",
+        tables[0])
+    if len(counts) != 1:
+        raise ValueError("Archived German China count row missing or ambiguous")
+    return [(year, int(value.replace(" ", "")), "provisional" if year == 2018 else "observed")
+            for year, value in zip(range(2015, 2019), counts[0])]
+
+
 def parse_germany(content):
     book = load_workbook(io.BytesIO(content), read_only=True, data_only=True)
     method = " ".join(str(v) for r in book["Methodology"].values for v in r if v is not None)
@@ -754,6 +786,19 @@ def german_affiliates(client):
     observations = [row("bundesbank_germany:china", year, value, "bundesbank_outward_fats", status,
                         "Above EUR 3 million in assets; German ultimate control. Latest year provisional.",
                         "bundesbank:BTSXO:CN:EUR3m") for year, value, status in points]
+    body, historical = client.get(GERMANY_FATS_2020)
+    sources["bundesbank_outward_fats_2020"] = source(
+        "Deutsche Bundesbank", "Outward FATS, November 2020; reference years 2015-2018",
+        [historical], "Page 7; II.1.1; China, People's Republic; Number of the affiliates abroad",
+        "Archived original publication, not the archive-capture year. German ultimate control above 50%, "
+        "assets above EUR 3m, NACE Rev.2; branches and permanent establishments included. "
+        "Original latest-year note makes 2018 provisional. Later historical revisions and 2019/2020 "
+        "counts are not inferred. Not spliced with the different Eurostat population.")
+    observations.extend(row(
+        "bundesbank_germany:china", year, value, "bundesbank_outward_fats_2020", status,
+        "November 2020 publication vintage; 2018 provisional under the original latest-year note. "
+        "German ultimate control; assets above EUR 3m. No 2019/2020 value is inferred.",
+        "bundesbank:BTSXO:CN:EUR3m") for year, value, status in parse_germany_history(body))
     definitions["eurostat_germany:china"] = series(
         "Germany (Eurostat)", "controlled_enterprises", "enterprises",
         "German-controlled enterprises in China except Hong Kong; Eurostat NACE B-S except O",
