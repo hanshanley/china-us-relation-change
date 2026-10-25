@@ -958,7 +958,7 @@
       "uid": "1686203097"
     }
   ],
-  "audited_at": "2026-10-25T02:58:53.484321+00:00",
+  "audited_at": "2026-10-25T03:45:34.488921+00:00",
   "canonical_posts_sha256": "71200e519e64affcbb60235f21227df6a86a47b90ffe1f04359245530b015020",
   "corpus": {
     "archived_sources_checked": 46,
@@ -972,7 +972,7 @@
     "primary_text_matches": 6570
   },
   "post_manifest_sha256": "4e4ee506c35d73f523ae74ae0b4ede01675ae16503e64fb6d3b9bc04f597abe7",
-  "registry_sha256": "3dd3fa01a5340506078f94398b1c0c59d6d1b6921ad85226f8e2b8143bd3433a",
+  "registry_sha256": "dac755670fffe5b1a2232f384f856e1cbb7f5c44b740baa018e4eb23318f49b8",
   "scope": "Institutional profile/UID evidence and canonical text/date/source consistency; not current corporate control, continuing U.S. licensing, exhaustive account discovery or complete timelines.",
   "version": 1
 }

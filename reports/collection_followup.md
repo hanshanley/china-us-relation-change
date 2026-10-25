@@ -11,7 +11,23 @@ Asia/Shanghai day. The generated inventory, frozen aggregate JSON and refresh
 status report the latest live totals; historical checkpoint counts below are
 not rewritten as though they were the latest collection.
 
-## Latest source checkpoint: discovery pass 83
+## Latest prepared source checkpoint: discovery pass 85
+
+Registry458; recorded manual cohort reviews376; all87 documented channels,
+62publisher groups and6,570live records unchanged. Complete private exports,
+version5 calendars/rolling windows and the separate immutable baseline remain
+intact. These are not representative adoption percentages.
+
+[Pass85](discovery_iteration85.md) records factual Gwinnett publisher identity.
+Its actual root-linked Terms returned429: no later route/client request or
+publisher-use prohibition is inferred. No fresh local body/hash was retained,
+no parent/sibling handle inherited and no account/post/negative added.
+
+The exact six natural scheduler failures, last successful bounded manual
+collection and October23 cutoff are unchanged. This prepared checkpoint is
+not a website deployment or proof of unattended collection.
+
+## Archived source checkpoint: discovery pass 83
 
 Registry457; recorded manual cohort reviews375, not a representative adoption
 estimate. All87 documented channels/62publisher groups and6,570live recovered
