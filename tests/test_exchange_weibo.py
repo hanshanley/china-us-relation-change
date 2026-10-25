@@ -11,7 +11,7 @@ from us_china_exchange.render import build, build_weibo
 from us_china_exchange.model import digest, json_text
 from us_china_exchange.weibo_analysis import create_summary, svg_weibo, validate_summary
 from us_china_exchange.weibo_activity import rolling_activity
-from us_china_exchange.weibo_explorer import coverage_model, explorer_page
+from us_china_exchange.weibo_explorer import coverage_model, explorer_page, publisher_state
 from weibo_media.registry import load
 from weibo_media.storage import connect
 
@@ -433,6 +433,10 @@ def test_weibo_outputs_publish_only_complete_aggregates_and_both_backgrounds(tmp
     published = json.loads((tmp_path / "site/downloads/weibo-summary.json").read_text())
     assert published == summary
     assert "PRIVATE_BODY" not in (tmp_path / "site/weibo.html").read_text()
+    logo_assets = tmp_path / "site/assets/weibo-logos"
+    assert (logo_assets / "credits.json").is_file()
+    assert {p.name for p in logo_assets.glob("*.svg")} == {
+        "nyt.svg", "wsj.svg", "bloomberg.svg", "forbes.svg", "npr.svg", "vogue.svg"}
     assert len(list((tmp_path / "outputs/figures/weibo").glob("*/*.png"))) == 20
     catalog = (tmp_path / "site/figures/index.html").read_text()
     assert "monthly-posts.png" in catalog and "monthly-accounts.png" in catalog
@@ -463,6 +467,7 @@ def test_weibo_outputs_publish_only_complete_aggregates_and_both_backgrounds(tmp
     assert not (tmp_path / "site/weibo.html").exists()
     assert not list((tmp_path / "site/downloads").glob("weibo-*"))
     assert not (tmp_path / "site/assets/weibo-explorer.js").exists()
+    assert not list(logo_assets.glob("*"))
 
 
 def test_account_map_keeps_distinct_channels_grouped_without_recovery_weights(tmp_path):
@@ -567,3 +572,82 @@ def test_public_directory_names_are_readable_and_precede_research_coverage(tmp_p
     detail = page.select_one("#weibo-account-" + ended["account_id"])
     assert ended["attribution_end"] in detail.select_one(".weibo-period").text
     assert detail.select_one(".weibo-period").find_parent("details") is None
+
+
+@pytest.mark.parametrize("states,expected", [
+    (["current_evidence", "current_evidence"], "profile"),
+    (["historical", "historical"], "historical"),
+    (["current_evidence", "historical"], "mixed"),
+    (["current_evidence", "unknown"], "unknown"),
+])
+def test_publisher_evidence_state_is_not_current_posting_or_a_single_channel_status(states, expected):
+    assert publisher_state([{"existence": state} for state in states]) == expected
+
+
+def test_logo_wall_prioritizes_requested_publishers_and_keeps_all_account_evidence():
+    from bs4 import BeautifulSoup
+
+    summary = json.loads((ROOT / "data/site/weibo_summary.json").read_text())
+    summary["accounts"].reverse()
+    page = BeautifulSoup(explorer_page(summary), "html.parser")
+    cards = page.select("#weibo-map .weibo-brand")
+    assert [card["data-outlet-id"] for card in cards[:6]] == [
+        "nyt", "wsj", "bloomberg", "forbes", "npr", "vogue"]
+    assert len(cards) == len({a["outlet_id"] for a in summary["accounts"]})
+    assert "%" not in page.select_one("#weibo-directory").get_text()
+    for card in cards:
+        accounts = [a for a in summary["accounts"] if a["outlet_id"] == card["data-outlet-id"]]
+        states = {a["existence"] for a in accounts}
+        expected = ("mixed" if len(states) == 2 else "profile" if "current_evidence" in states else "historical")
+        assert card["data-evidence-state"] == expected
+        assert card.select_one(".weibo-publisher-state").text.strip()
+    for card in cards[:6]:
+        assert card.select_one(".weibo-publisher-mark img")["src"].endswith(card["data-outlet-id"] + ".svg")
+    assert {n["data-account-id"] for n in page.select(".weibo-channel-detail")} == {
+        a["account_id"] for a in summary["accounts"]}
+
+
+def test_atlas_keeps_relationship_editorial_type_and_evidence_period_independent():
+    from bs4 import BeautifulSoup
+
+    summary = json.loads((ROOT / "data/site/weibo_summary.json").read_text())
+    page = BeautifulSoup(explorer_page(summary), "html.parser")
+    payload = json.loads(page.select_one("#weibo-explorer-data").string)
+    accounts = {a["id"]: a for a in payload["accounts"]}
+    publishers = {p["id"]: p for p in payload["publishers"]}
+    assert publishers["nyt"]["state"] == "mixed"
+    assert set(publishers["nyt"]["relationships"]) == {"publisher_linked", "edition_partner"}
+    assert accounts["nyt-chinese-historical"]["relationship"] == "publisher_linked"
+    assert accounts["nyt-t-china"]["relationship"] == "edition_partner"
+    assert accounts["nyt-t-china"]["state"] == "current_evidence"
+    assert accounts["npr-china-historical"]["relationship"] == "publisher_linked"
+    assert accounts["npr-china-historical"]["editorial_category"] == "broadcast"
+    assert accounts["npr-china-historical"]["state"] == "historical"
+    assert accounts["china-press-weibo"]["relationship"] == "us_chinese"
+    assert accounts["china-press-weibo"]["editorial_category"] == "chinese_language"
+    for account in summary["accounts"]:
+        assert accounts[account["account_id"]]["category"] == account["category"]
+        assert account["category"] in publishers[account["outlet_id"]]["research_categories"]
+    assert page.select_one("#weibo-evidence").has_attr("hidden")
+    assert {b["data-publisher-filter"] for b in page.select("[data-publisher-filter]")} >= {
+        "", "profile", "historical", "mixed"}
+
+
+def test_atlas_channel_composition_and_progressive_sources_use_actual_records(tmp_path):
+    from bs4 import BeautifulSoup
+
+    database, registry = snapshot_inputs(tmp_path)
+    summary = create_summary(database, registry)
+    page = BeautifulSoup(explorer_page(summary), "html.parser")
+    composition = page.select_one("#weibo-channel-composition")
+    assert {n["data-state"]: int(n["data-count"]) for n in composition.select("[data-state]")} == {
+        "current_evidence": 1, "historical": 1}
+    assert "1 of 2" in composition.text and "50.0%" in composition.text
+    assert composition.find_parent(id="weibo-directory") is None
+    assert "%" not in page.select_one("#weibo-directory").get_text()
+    for account in summary["accounts"]:
+        detail = page.select_one("#weibo-account-" + account["account_id"])
+        assert account["evidence"][0]["observed_at"][:10] in detail.select_one(".weibo-evidence-date").text
+        assert detail.select_one(".weibo-leading-sources a")["href"] == account["evidence"][0]["source_url"]
+        assert detail.select_one(".weibo-uid").find_parent("details") is not None
+        assert detail.select_one(".weibo-profile").find_parent("details") is None

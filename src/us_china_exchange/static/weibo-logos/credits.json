@@ -1,0 +1,71 @@
+{
+  "usage": "Publisher identification; no endorsement or account activity implied. Names and marks belong to their respective owners.",
+  "assets": [
+    {
+      "publisher_id": "nyt",
+      "file": "nyt.svg",
+      "source": "https://commons.wikimedia.org/wiki/File:The_New_York_Times_Logo.svg",
+      "download_url": "https://upload.wikimedia.org/wikipedia/commons/0/02/The_New_York_Times_Logo.svg",
+      "author": "Ed Benguiat / The New York Times",
+      "license": "CC BY-SA 4.0; also marked PD-textlogo",
+      "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "sha256": "65c40b06e12061694b0baf9c8474465e4a6f7d45d891b28044e702a48c15861b",
+      "changes": "None; original SVG retained."
+    },
+    {
+      "publisher_id": "wsj",
+      "file": "wsj.svg",
+      "source": "https://commons.wikimedia.org/wiki/File:WSJ_Logo.svg",
+      "download_url": "https://upload.wikimedia.org/wikipedia/commons/4/4a/WSJ_Logo.svg",
+      "author": "Dow Jones",
+      "license": "PD-textlogo",
+      "license_url": "https://commons.wikimedia.org/wiki/Template:PD-textlogo",
+      "sha256": "db28b8c1c5c9feb1b72482072a8c5bceb860bc4eb62c3078afbf489c9c0bf6b1",
+      "changes": "None; original SVG retained."
+    },
+    {
+      "publisher_id": "bloomberg",
+      "file": "bloomberg.svg",
+      "source": "https://commons.wikimedia.org/wiki/File:New_Bloomberg_Logo.svg",
+      "download_url": "https://upload.wikimedia.org/wikipedia/commons/5/5d/New_Bloomberg_Logo.svg",
+      "author": "Bloomberg L.P.",
+      "license": "PD-textlogo",
+      "license_url": "https://commons.wikimedia.org/wiki/Template:PD-textlogo",
+      "sha256": "f0b47416265be96363b6ad26bf18d1ce6c43892ae16b54a816d3376568939c2e",
+      "changes": "None; original SVG retained."
+    },
+    {
+      "publisher_id": "forbes",
+      "file": "forbes.svg",
+      "source": "https://commons.wikimedia.org/wiki/File:Forbes.svg",
+      "download_url": "https://upload.wikimedia.org/wikipedia/commons/d/d2/Forbes.svg",
+      "author": "Stake aired / Forbes",
+      "license": "PD-textlogo",
+      "license_url": "https://commons.wikimedia.org/wiki/Template:PD-textlogo",
+      "sha256": "ebf299e7ab8c95ab70c71a64093a0a12a3d721389cc3a9cd19f8d10f5c187d84",
+      "changes": "None; original SVG retained."
+    },
+    {
+      "publisher_id": "npr",
+      "file": "npr.svg",
+      "source": "https://commons.wikimedia.org/wiki/File:NPR_new_logo.svg",
+      "download_url": "https://upload.wikimedia.org/wikipedia/commons/1/18/NPR_new_logo.svg",
+      "author": "National Public Radio",
+      "license": "PD-textlogo",
+      "license_url": "https://commons.wikimedia.org/wiki/Template:PD-textlogo",
+      "sha256": "b0ccadfdf5ccc39dc3b49a6415aaba54c99d1537c0510e4c514b19c64378a1e7",
+      "changes": "None; original SVG retained."
+    },
+    {
+      "publisher_id": "vogue",
+      "file": "vogue.svg",
+      "source": "https://commons.wikimedia.org/wiki/File:VOGUE_LOGO.svg",
+      "download_url": "https://upload.wikimedia.org/wikipedia/commons/f/f8/VOGUE_LOGO.svg",
+      "author": "Conde Nast / Pajam",
+      "license": "PD-textlogo; structured metadata also lists CC BY-SA 3.0",
+      "license_url": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "sha256": "cf30889c2765e33b1696c7c5ad3f2eaae1ff34078b13d83cef376ea2e78efb19",
+      "changes": "None; original SVG retained."
+    }
+  ]
+}

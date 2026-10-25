@@ -3455,6 +3455,20 @@
       "aliases": ["InStyle优家", "InStyle优家画报", "优家画报"], "us_basis": "U.S.-origin magazine brand; Time Inc.'s first-party May3,2017 announcement documents its licensed Chinese weekly with Modern Media.",
       "source_url": "https://www.instyle.com/", "research_status": "reviewed",
       "notes": "Current Sina institutional tag explicitly names Instyle 优家画报官方微博 under UID1666485652, and bio identifies InStyle's simplified-Chinese edition. The publisher's archived corporate announcement establishes the 2017 edition/partner relationship; exact current contract renewal and legal account owner are not independently verified. Specialist lifestyle media, not a general-news newsroom. Review date: 2026-10-21."
+    },
+    {
+      "id": "lewiston-sun-journal",
+      "name": "Lewiston Sun-Journal",
+      "category": "newspaper",
+      "aliases": [
+        "Lewiston Sun Journal",
+        "Sun Journal",
+        "SunJournal.com"
+      ],
+      "us_basis": "United States-classified source position374. Independent corporate About explicitly identifies SunJournal.com as Lewiston Sun Journal's digital home, covering Androscoggin and Western Maine. Publisher self-description, not an independently audited current legal-control finding.",
+      "source_url": "https://www.sunjournal.com/",
+      "research_status": "reviewed",
+      "notes": "Prior newspaper HTTP403 retained with zero newspaper/alias/route/alternate-client requests. The already saved independent METLN root and its actual linked About designate SunJournal.com and Lewiston/Western Maine; the supplied newspaper link was not followed. Corporate self-description is not independent current ownership or an institutional Sina binding. New Bern's different Sun Journal, staff, board, parent and sibling profiles are not inherited. No account, numeric binding, post or verified negative added. Unknown, not absent. Review date: 2026-10-24 UTC."
     }
   ],
   "accounts": [

@@ -27,7 +27,7 @@ from .confucius_sources import validate as validate_confucius
 from .state_immigration_sources import validate as validate_state_immigration
 from .sources import SOURCE_PAGES, SOURCE_POLICIES
 from .weibo_analysis import WEIBO_CHARTS, svg_weibo, validate_summary
-from .weibo_explorer import explorer_page
+from .weibo_explorer import LOGO_FILES, explorer_page
 from .weibo_activity import DAILY_FIELDS, ROLLING_FIELDS
 from .theme import (CHART_HEIGHT, CHART_THEMES, CHART_WIDTH, COMPARISON_GEOGRAPHIES, FIGURE_CATEGORIES, FONT,
                     FONT_FILES, GRID, MUTED, PARTNER_COLORS, PNG_HEIGHT, PNG_WIDTH,
@@ -473,6 +473,10 @@ def build_weibo(root, summary, gallery):
     write_atomic(root / "site/weibo.html", explorer_page(summary))
     for name in ("weibo-explorer.css", "weibo-explorer.js"):
         write_atomic(root / "site/assets" / name, (Path(__file__).parent / "static" / name).read_text())
+    for name in LOGO_FILES:
+        asset = Path(__file__).parent / "static/weibo-logos" / name
+        if asset.is_file():
+            write_atomic(root / "site/assets/weibo-logos" / asset.name, asset.read_bytes())
 
 
 def build_languages(root, data, gallery):
@@ -881,6 +885,8 @@ def build(root):
             path = site / relative
             if path.is_file():
                 path.unlink()
+        for name in LOGO_FILES:
+            (site / "assets/weibo-logos" / name).unlink(missing_ok=True)
     language_count = build_languages(root, language_data, gallery) if language_data is not None else 0
     confucius_count = build_confucius(root, confucius_data, gallery) if confucius_data is not None else 0
     if confucius_data is None:
