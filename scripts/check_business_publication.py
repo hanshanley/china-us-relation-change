@@ -25,6 +25,7 @@ def check(site, url=None):
         "sweden-affiliates-china": "tillvaxtanalys_sweden:china",
         "finland-affiliates-china": "statfin_finland:china",
         "france-affiliates-china": "eurostat_france:china",
+        "netherlands-affiliates-china": "eurostat_netherlands:china",
     }
     counts = {
         chart: sorted((r for r in archive["observations"] if r["series_id"] == sid and r["value"] is not None),
@@ -34,7 +35,8 @@ def check(site, url=None):
               if len(rows) > 1 and max(r["year"] for r in rows) >= 2023}
     chart_count = (6 if inward is not None else 4) + len(counts)
     new_counts = {chart: rows for chart, rows in counts.items()
-                  if chart in {"sweden-affiliates-china", "finland-affiliates-china", "france-affiliates-china"}}
+                  if chart in {"sweden-affiliates-china", "finland-affiliates-china", "france-affiliates-china",
+                               "netherlands-affiliates-china"}}
     visible_count = (6 if inward is not None else 4) + len(new_counts)
     if inward is not None:
         with (site / "downloads/business-inward-observations.csv").open() as stream:
