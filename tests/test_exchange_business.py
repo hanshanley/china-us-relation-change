@@ -52,13 +52,71 @@ def test_distinct_parent_and_affiliate_checkpoints_remain_different_units():
     assert ("bea_parents:china", 2023) not in rows
     assert all(sid.endswith(":china") for sid in data["series"])
     assert [rows[("eurostat_historical_eu:china", y)]["value"] for y in (2009, 2011, 2012)] == [5688, 6607, 6860]
-    assert [rows[("eurostat_uk:china", y)]["value"] for y in (2010, 2018, 2019)] == [681, 709, 531]
+    assert [rows[("eurostat_uk:china", y)]["value"] for y in (2009, 2010, 2018, 2019)] == [691, 681, 709, 531]
     assert rows[("eurostat_uk:china", 2019)]["status"] == "estimated"
     assert rows[("eurostat_norway:china", 2023)]["value"] == 88
     assert len([r for r in rows.values() if not r["series_id"].startswith(
-        ("tillvaxtanalys_", "statfin_", "eurostat_france:", "eurostat_netherlands:", "eurostat_finland:"))]) == 109
+        ("tillvaxtanalys_", "statfin_", "eurostat_france:", "eurostat_netherlands:", "eurostat_finland:"))]) == 112
     assert rows[("ssb_norway:china", 2023)]["value"] == 89
     assert rows[("ssb_norway:china", 2024)]["value"] == 80
+
+
+def test_uk_early_refresh_preserves_later_observations_and_classification_boundaries():
+    spec = importlib.util.spec_from_file_location("business_uk_history_cli", ROOT / "scripts/build_business_data.py")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+
+    class Client:
+        wrong_country = False
+        wrong_unit = False
+        wrong_year = False
+
+        def get(self, url):
+            assert "/fats_out2?" in url and "geo=UK" in url and "indic_bp=ENT" in url
+            codes = {"freq": "A", "nace_r1": "C-O_X_L", "indic_bp": "EMP" if self.wrong_unit else "ENT",
+                     "partner": "CN_X_HK", "geo": "FR" if self.wrong_country else "UK"}
+            years = [2007, 2008, 2010 if self.wrong_year else 2009]
+            data = {
+                "id": list(codes) + ["time"], "size": [1] * len(codes) + [3],
+                "dimension": {key: {"category": {"index": {value: 0}}} for key, value in codes.items()},
+                "extension": {"id": "FATS_OUT2"}, "value": {"2": 691},
+                "label": "Outward FATS - main variables (2007-2009)", "updated": "2024-10-14"}
+            data["dimension"]["time"] = {"category": {"index": {str(year): i for i, year in enumerate(years)}}}
+            body = json.dumps(data).encode()
+            return body, {"url": url, "request_url": url, "sha256": hashlib.sha256(body).hexdigest(),
+                          "retrieved_at": "2026-10-25T00:00:00+00:00"}
+
+    sid = "eurostat_uk:china"
+    prior = published()
+    prior["observations"] = [row for row in prior["observations"]
+                             if row["series_id"] != sid or row["year"] >= 2010]
+    prior["sources"].pop("fats_out2_UK", None)
+    before = copy.deepcopy(prior)
+    updated = validate_business_data(module.collect_uk_history(Client(), prior))
+    assert prior == before
+    old_rows = {(row["series_id"], row["year"]): row for row in prior["observations"]}
+    new_rows = {(row["series_id"], row["year"]): row for row in updated["observations"]}
+    assert all(new_rows[key] == value for key, value in old_rows.items())
+    assert len(new_rows) == len(old_rows) + 3
+    assert new_rows[(sid, 2009)]["value"] == 691
+    assert all(new_rows[(sid, year)]["value"] is None
+               and new_rows[(sid, year)]["status"] == "missing" for year in (2007, 2008))
+    assert new_rows[(sid, 2009)]["comparability"] != new_rows[(sid, 2010)]["comparability"]
+    assert all(updated["series"][key] == value for key, value in prior["series"].items() if key != sid)
+    assert all(updated["sources"][key] == value for key, value in prior["sources"].items())
+    assert updated["context"] == prior["context"]
+    assert module.collect_uk_history(Client(), updated) == updated
+    for attribute in ("wrong_country", "wrong_unit", "wrong_year"):
+        client = Client()
+        setattr(client, attribute, True)
+        with pytest.raises(ValueError):
+            module.collect_uk_history(client, prior)
+    for year, wrong_source in ((2009, "fats_out2_r2_UK"), (2010, "fats_out2_UK")):
+        invalid = copy.deepcopy(updated)
+        next(row for row in invalid["observations"]
+             if row["series_id"] == sid and row["year"] == year)["source_id"] = wrong_source
+        with pytest.raises(ValueError, match="method/source boundary"):
+            validate_business_data(invalid)
 
 
 def cbs_netherlands():
@@ -337,14 +395,22 @@ def test_selective_country_refreshes_preserve_coverage_order_across_modes(monkey
     monkeypatch.setattr(module, "nordic_affiliates", lambda client: selected(("tillvaxtanalys_", "statfin_")))
     monkeypatch.setattr(module, "french_affiliates", lambda client: selected(("eurostat_france:",)))
     monkeypatch.setattr(module, "netherlands_affiliates", lambda client: selected(("eurostat_netherlands:",)))
+    def early_uk(client):
+        definitions, observations, sources = selected(("eurostat_uk:",))
+        return definitions, [row for row in observations if row["year"] <= 2009], sources
+
+    monkeypatch.setattr(module, "uk_early_affiliates", early_uk)
     monkeypatch.setattr(module, "finnish_eurostat_affiliates", lambda client: selected(("eurostat_finland:",)))
     assert module.collect_nordic(None, prior) == prior
     assert module.collect_france(None, prior) == prior
     assert module.collect_netherlands(None, prior) == prior
     assert module.collect_finland_history(None, prior) == prior
+    assert module.collect_uk_history(None, prior) == prior
     for collectors in (
-        (module.collect_netherlands, module.collect_nordic, module.collect_france, module.collect_finland_history),
-        (module.collect_finland_history, module.collect_france, module.collect_nordic, module.collect_netherlands),
+        (module.collect_uk_history, module.collect_netherlands, module.collect_nordic, module.collect_france,
+         module.collect_finland_history),
+        (module.collect_finland_history, module.collect_france, module.collect_nordic, module.collect_netherlands,
+         module.collect_uk_history),
     ):
         refreshed = prior
         for collector in collectors:
@@ -482,7 +548,7 @@ def test_annual_histories_and_method_boundaries_are_not_endpoint_snapshots():
     assert len([n for n in doc.iter() if n.get("class") == "annual-column"]) == 24
     assert len(chart_groups(data, "us-affiliates-china")[0]["points"]) == 24
     assert sum(len(g["points"]) for g in chart_groups(data, "eu-affiliates-china")) == 12
-    assert len(chart_groups(data, "uk-affiliates-china")[0]["points"]) == 10
+    assert len(chart_groups(data, "uk-affiliates-china")[0]["points"]) == 11
     assert len(chart_groups(data, "norway-affiliates-china")[0]["points"]) == 17
     doc = ElementTree.fromstring(svg_business_chart(data, "eu-affiliates-china"))
     path = next(n for n in doc.iter() if n.get("class") == "data-line" and n.get("data-series-id") == "eurostat_affiliates:china")
@@ -593,14 +659,14 @@ def test_publication_is_business_only_with_complete_data_original_downloads_and_
         "business-current-observations.csv", "business-current-chart-values.csv",
         "business-inward.json", "business-inward-observations.csv", "business-inward-chart-values.csv"}
     data = json.loads((output / "downloads/business-presence.json").read_text())
-    assert data == published() and manifest["historical_observations"] == 191
+    assert data == published() and manifest["historical_observations"] == 194
     assert manifest["observations"] == 59
     assert manifest["inward_observations"] == 50
     assert manifest["source_revision"] == "verified-source-revision"
     for name, checksum in manifest["files"].items():
         assert hashlib.sha256((output / name).read_bytes()).hexdigest() == checksum
     with (output / "downloads/business-observations.csv").open() as f:
-        assert len(list(csv.DictReader(f))) == 191
+        assert len(list(csv.DictReader(f))) == 194
     for link in page.select('a[href^="figures/"]'):
         assert link.has_attr("data-original-chart") and (output / link["href"].split("?")[0]).is_file()
     assert not (output / "business-presence.html").exists()

@@ -167,6 +167,37 @@ def nordic_affiliates(client):
     return definitions, observations, sources
 
 
+def uk_early_affiliates(client):
+    url = (EUROSTAT + "fats_out2?lang=EN&geo=UK&partner=CN_X_HK&"
+           "indic_bp=ENT&nace_r1=C-O_X_L")
+    body, asset = client.get(url)
+    data = json.loads(body)
+    points = parse_eurostat(data, "fats_out2", "UK")
+    if [point[0] for point in points] != [2007, 2008, 2009]:
+        raise ValueError("Earlier UK outward-affiliate year coverage changed")
+    sid, source_id = "eurostat_uk:china", "fats_out2_UK"
+    notes = (
+        "Earlier Eurostat UK NACE Rev. 1.1 history is separate from NACE Rev. 2 from 2010; "
+        "missing source cells are not zero. Later Eurostat history and revised ONS 2018/2019 "
+        "estimates remain distinct. The 2018 source/sector boundary is disconnected; ONS "
+        "total activity includes agriculture. The 2018 China count agrees across both sources. "
+        "No UK outward affiliate statistics from 2020 onward verified; investment flows are not substituted.")
+    definitions = {sid: series(
+        "United Kingdom", "controlled_enterprises", "enterprises",
+        "UK-controlled enterprises in China except Hong Kong; NACE C-O except L in 2009, "
+        "NACE B-S except O in 2010-2017, ONS total published activity in 2018-2019",
+        "annual", "reference year", notes)}
+    sources = {source_id: source(
+        "Eurostat", data["label"] + "; updated " + data["updated"], [asset],
+        "A; UK; CN_X_HK; nace_r1=C-O_X_L; indic_bp=ENT",
+        "Original 2007-2009 outward table; enterprise counts, not parent groups or inward affiliates. "
+        "Preserve missing cells and the 2010 classification boundary.")}
+    observations = [row(sid, year, value, source_id, status,
+                        "Eurostat source flags: " + (flag or "none"), comparability)
+                    for year, value, status, flag, comparability in points]
+    return definitions, observations, sources
+
+
 def french_affiliates(client):
     sid, observations, sources = "eurostat_france:china", [], {}
     notes = ("French-controlled enterprises in the source category China except Hong Kong; not unique "
@@ -482,13 +513,10 @@ def collect_business(client):
         "annual", "reference year",
         "Historical EU membership, not the current EU27. NACE Rev. 1.1 through 2009 and Rev. 2 from 2010; "
         "both classification and membership boundaries remain disconnected. No splice into current-membership counts.")
-    definitions["eurostat_uk:china"] = series(
-        "United Kingdom", "controlled_enterprises", "enterprises",
-        "UK-controlled enterprises in China; Eurostat NACE B-S except O through 2017, ONS total published activity in 2018-2019",
-        "annual", "reference year",
-        "Eurostat historical UK series and revised ONS 2018/2019 estimates. Source and sector boundary in 2018 is disconnected; "
-        "ONS total activity includes agriculture. The 2018 China count agrees across both sources. "
-        "No UK outward affiliate statistics from 2020 onward verified; investment flows are not substituted.")
+    uk_definitions, uk_observations, uk_sources = uk_early_affiliates(client)
+    definitions.update(uk_definitions)
+    observations.extend(uk_observations)
+    sources.update(uk_sources)
     definitions["eurostat_norway:china"] = series(
         "Norway", "controlled_enterprises", "enterprises",
         "Norwegian-controlled enterprises in China except Hong Kong; NACE B-S except O",
