@@ -76,6 +76,11 @@
       "description": "Finnish-UCI controlled enterprises in China except Hong Kong, not unique parents or the broader all-industry national StatFin population. Keep the 2010 NACE transition, 2013 YTY system break and 2021 EBS boundary. Overlapping national counts differ; no splice, cross-regime growth rate or inferred 2000-2006/2024/2025 values.",
       "id": "eurostat_finland:china",
       "status": "partial_history"
+    },
+    {
+      "description": "Swedish-UCI controlled enterprises in China except Hong Kong; a separate population from the national subsidiary table. Preserve the metadata's 2008 classification break and original legacy NACE label/2010 table transition, 2018 legal-unit-to-enterprise/EGR change and 2021 EBS boundary. Official compilation can include imputation. 2009 is confidential, not zero; no national-series splice or cross-regime growth.",
+      "id": "eurostat_sweden:china",
+      "status": "partial_history"
     }
   ],
   "observations": [
@@ -1277,6 +1282,159 @@
       "year": 2023
     },
     {
+      "comparability": "fats_out2:SE:0:classification2007",
+      "notes": "Swedish-UCI controlled enterprises in China except Hong Kong; a separate population from the national subsidiary table. Preserve the metadata's 2008 classification break and original legacy NACE label/2010 table transition, 2018 legal-unit-to-enterprise/EGR change and 2021 EBS boundary. Official compilation can include imputation. 2009 is confidential, not zero; no national-series splice or cross-regime growth. Source flags: none",
+      "series_id": "eurostat_sweden:china",
+      "source_id": "fats_out2_SE",
+      "status": "observed",
+      "value": 186,
+      "year": 2007
+    },
+    {
+      "comparability": "fats_out2:SE:0:classification2008",
+      "notes": "Swedish-UCI controlled enterprises in China except Hong Kong; a separate population from the national subsidiary table. Preserve the metadata's 2008 classification break and original legacy NACE label/2010 table transition, 2018 legal-unit-to-enterprise/EGR change and 2021 EBS boundary. Official compilation can include imputation. 2009 is confidential, not zero; no national-series splice or cross-regime growth. Source flags: none",
+      "series_id": "eurostat_sweden:china",
+      "source_id": "fats_out2_SE",
+      "status": "observed",
+      "value": 320,
+      "year": 2008
+    },
+    {
+      "comparability": "fats_out2:SE:0:classification2008",
+      "notes": "Swedish-UCI controlled enterprises in China except Hong Kong; a separate population from the national subsidiary table. Preserve the metadata's 2008 classification break and original legacy NACE label/2010 table transition, 2018 legal-unit-to-enterprise/EGR change and 2021 EBS boundary. Official compilation can include imputation. 2009 is confidential, not zero; no national-series splice or cross-regime growth. Source flags: |C",
+      "series_id": "eurostat_sweden:china",
+      "source_id": "fats_out2_SE",
+      "status": "suppressed",
+      "value": null,
+      "year": 2009
+    },
+    {
+      "comparability": "fats_out2_r2:SE:0",
+      "notes": "Swedish-UCI controlled enterprises in China except Hong Kong; a separate population from the national subsidiary table. Preserve the metadata's 2008 classification break and original legacy NACE label/2010 table transition, 2018 legal-unit-to-enterprise/EGR change and 2021 EBS boundary. Official compilation can include imputation. 2009 is confidential, not zero; no national-series splice or cross-regime growth. Source flags: none",
+      "series_id": "eurostat_sweden:china",
+      "source_id": "fats_out2_r2_SE",
+      "status": "observed",
+      "value": 407,
+      "year": 2010
+    },
+    {
+      "comparability": "fats_out2_r2:SE:0",
+      "notes": "Swedish-UCI controlled enterprises in China except Hong Kong; a separate population from the national subsidiary table. Preserve the metadata's 2008 classification break and original legacy NACE label/2010 table transition, 2018 legal-unit-to-enterprise/EGR change and 2021 EBS boundary. Official compilation can include imputation. 2009 is confidential, not zero; no national-series splice or cross-regime growth. Source flags: none",
+      "series_id": "eurostat_sweden:china",
+      "source_id": "fats_out2_r2_SE",
+      "status": "observed",
+      "value": 540,
+      "year": 2011
+    },
+    {
+      "comparability": "fats_out2_r2:SE:0",
+      "notes": "Swedish-UCI controlled enterprises in China except Hong Kong; a separate population from the national subsidiary table. Preserve the metadata's 2008 classification break and original legacy NACE label/2010 table transition, 2018 legal-unit-to-enterprise/EGR change and 2021 EBS boundary. Official compilation can include imputation. 2009 is confidential, not zero; no national-series splice or cross-regime growth. Source flags: none",
+      "series_id": "eurostat_sweden:china",
+      "source_id": "fats_out2_r2_SE",
+      "status": "observed",
+      "value": 472,
+      "year": 2012
+    },
+    {
+      "comparability": "fats_out2_r2:SE:0",
+      "notes": "Swedish-UCI controlled enterprises in China except Hong Kong; a separate population from the national subsidiary table. Preserve the metadata's 2008 classification break and original legacy NACE label/2010 table transition, 2018 legal-unit-to-enterprise/EGR change and 2021 EBS boundary. Official compilation can include imputation. 2009 is confidential, not zero; no national-series splice or cross-regime growth. Source flags: none",
+      "series_id": "eurostat_sweden:china",
+      "source_id": "fats_out2_r2_SE",
+      "status": "observed",
+      "value": 492,
+      "year": 2013
+    },
+    {
+      "comparability": "fats_out2_r2:SE:0",
+      "notes": "Swedish-UCI controlled enterprises in China except Hong Kong; a separate population from the national subsidiary table. Preserve the metadata's 2008 classification break and original legacy NACE label/2010 table transition, 2018 legal-unit-to-enterprise/EGR change and 2021 EBS boundary. Official compilation can include imputation. 2009 is confidential, not zero; no national-series splice or cross-regime growth. Source flags: none",
+      "series_id": "eurostat_sweden:china",
+      "source_id": "fats_out2_r2_SE",
+      "status": "observed",
+      "value": 594,
+      "year": 2014
+    },
+    {
+      "comparability": "fats_out2_r2:SE:0",
+      "notes": "Swedish-UCI controlled enterprises in China except Hong Kong; a separate population from the national subsidiary table. Preserve the metadata's 2008 classification break and original legacy NACE label/2010 table transition, 2018 legal-unit-to-enterprise/EGR change and 2021 EBS boundary. Official compilation can include imputation. 2009 is confidential, not zero; no national-series splice or cross-regime growth. Source flags: none",
+      "series_id": "eurostat_sweden:china",
+      "source_id": "fats_out2_r2_SE",
+      "status": "observed",
+      "value": 619,
+      "year": 2015
+    },
+    {
+      "comparability": "fats_out2_r2:SE:0",
+      "notes": "Swedish-UCI controlled enterprises in China except Hong Kong; a separate population from the national subsidiary table. Preserve the metadata's 2008 classification break and original legacy NACE label/2010 table transition, 2018 legal-unit-to-enterprise/EGR change and 2021 EBS boundary. Official compilation can include imputation. 2009 is confidential, not zero; no national-series splice or cross-regime growth. Source flags: none",
+      "series_id": "eurostat_sweden:china",
+      "source_id": "fats_out2_r2_SE",
+      "status": "observed",
+      "value": 670,
+      "year": 2016
+    },
+    {
+      "comparability": "fats_out2_r2:SE:0",
+      "notes": "Swedish-UCI controlled enterprises in China except Hong Kong; a separate population from the national subsidiary table. Preserve the metadata's 2008 classification break and original legacy NACE label/2010 table transition, 2018 legal-unit-to-enterprise/EGR change and 2021 EBS boundary. Official compilation can include imputation. 2009 is confidential, not zero; no national-series splice or cross-regime growth. Source flags: none",
+      "series_id": "eurostat_sweden:china",
+      "source_id": "fats_out2_r2_SE",
+      "status": "observed",
+      "value": 702,
+      "year": 2017
+    },
+    {
+      "comparability": "fats_out2_r2:SE:1",
+      "notes": "Swedish-UCI controlled enterprises in China except Hong Kong; a separate population from the national subsidiary table. Preserve the metadata's 2008 classification break and original legacy NACE label/2010 table transition, 2018 legal-unit-to-enterprise/EGR change and 2021 EBS boundary. Official compilation can include imputation. 2009 is confidential, not zero; no national-series splice or cross-regime growth. Source flags: b",
+      "series_id": "eurostat_sweden:china",
+      "source_id": "fats_out2_r2_SE",
+      "status": "observed",
+      "value": 665,
+      "year": 2018
+    },
+    {
+      "comparability": "fats_out2_r2:SE:1",
+      "notes": "Swedish-UCI controlled enterprises in China except Hong Kong; a separate population from the national subsidiary table. Preserve the metadata's 2008 classification break and original legacy NACE label/2010 table transition, 2018 legal-unit-to-enterprise/EGR change and 2021 EBS boundary. Official compilation can include imputation. 2009 is confidential, not zero; no national-series splice or cross-regime growth. Source flags: none",
+      "series_id": "eurostat_sweden:china",
+      "source_id": "fats_out2_r2_SE",
+      "status": "observed",
+      "value": 681,
+      "year": 2019
+    },
+    {
+      "comparability": "fats_out2_r2:SE:1",
+      "notes": "Swedish-UCI controlled enterprises in China except Hong Kong; a separate population from the national subsidiary table. Preserve the metadata's 2008 classification break and original legacy NACE label/2010 table transition, 2018 legal-unit-to-enterprise/EGR change and 2021 EBS boundary. Official compilation can include imputation. 2009 is confidential, not zero; no national-series splice or cross-regime growth. Source flags: none",
+      "series_id": "eurostat_sweden:china",
+      "source_id": "fats_out2_r2_SE",
+      "status": "observed",
+      "value": 679,
+      "year": 2020
+    },
+    {
+      "comparability": "fats_out_part:SE:0",
+      "notes": "Swedish-UCI controlled enterprises in China except Hong Kong; a separate population from the national subsidiary table. Preserve the metadata's 2008 classification break and original legacy NACE label/2010 table transition, 2018 legal-unit-to-enterprise/EGR change and 2021 EBS boundary. Official compilation can include imputation. 2009 is confidential, not zero; no national-series splice or cross-regime growth. Source flags: none",
+      "series_id": "eurostat_sweden:china",
+      "source_id": "fats_out_part_SE",
+      "status": "observed",
+      "value": 523,
+      "year": 2021
+    },
+    {
+      "comparability": "fats_out_part:SE:0",
+      "notes": "Swedish-UCI controlled enterprises in China except Hong Kong; a separate population from the national subsidiary table. Preserve the metadata's 2008 classification break and original legacy NACE label/2010 table transition, 2018 legal-unit-to-enterprise/EGR change and 2021 EBS boundary. Official compilation can include imputation. 2009 is confidential, not zero; no national-series splice or cross-regime growth. Source flags: none",
+      "series_id": "eurostat_sweden:china",
+      "source_id": "fats_out_part_SE",
+      "status": "observed",
+      "value": 589,
+      "year": 2022
+    },
+    {
+      "comparability": "fats_out_part:SE:0",
+      "notes": "Swedish-UCI controlled enterprises in China except Hong Kong; a separate population from the national subsidiary table. Preserve the metadata's 2008 classification break and original legacy NACE label/2010 table transition, 2018 legal-unit-to-enterprise/EGR change and 2021 EBS boundary. Official compilation can include imputation. 2009 is confidential, not zero; no national-series splice or cross-regime growth. Source flags: none",
+      "series_id": "eurostat_sweden:china",
+      "source_id": "fats_out_part_SE",
+      "status": "observed",
+      "value": 602,
+      "year": 2023
+    },
+    {
       "comparability": "fats_out2:UK:0",
       "notes": "Eurostat source flags: none",
       "series_id": "eurostat_uk:china",
@@ -1917,6 +2075,15 @@
       "scope": "Norwegian-controlled enterprises in China except Hong Kong; NACE B-S except O",
       "unit": "enterprises"
     },
+    "eurostat_sweden:china": {
+      "cadence": "annual",
+      "label": "Sweden (Eurostat)",
+      "measure": "controlled_enterprises",
+      "notes": "Swedish-UCI controlled enterprises in China except Hong Kong; a separate population from the national subsidiary table. Preserve the metadata's 2008 classification break and original legacy NACE label/2010 table transition, 2018 legal-unit-to-enterprise/EGR change and 2021 EBS boundary. Official compilation can include imputation. 2009 is confidential, not zero; no national-series splice or cross-regime growth.",
+      "period_basis": "reference year",
+      "scope": "Swedish-UCI enterprises in China except Hong Kong; selected legacy NACE C-O except L, then market producers NACE B-S except O",
+      "unit": "enterprises"
+    },
     "eurostat_uk:china": {
       "cadence": "annual",
       "label": "United Kingdom",
@@ -2505,6 +2672,26 @@
       "notes": "Dutch control and China except Hong Kong. Preserve NACE, source flags and the 2021 method boundary.",
       "vintage": "Outward FATS - main variables (2007-2009); updated 2024-04-25T11:00:00+0200"
     },
+    "fats_out2_SE": {
+      "assets": [
+        {
+          "request_url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out2?lang=EN&freq=A&geo=SE&partner=CN_X_HK&indic_bp=ENT&nace_r1=C-O_X_L",
+          "retrieved_at": "2026-10-25T04:22:29+00:00",
+          "sha256": "474f01bf2b035bda552e9f8130914ac9d7a842eb7a6c01e475a5c37d465ed424",
+          "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out2?lang=EN&freq=A&geo=SE&partner=CN_X_HK&indic_bp=ENT&nace_r1=C-O_X_L"
+        },
+        {
+          "request_url": "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_se.htm",
+          "retrieved_at": "2026-10-25T04:22:33+00:00",
+          "sha256": "62fe7919eb8dd4f0de3bfaafc5b314c8b25160c230b7e2258ad9a369921df408",
+          "url": "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_se.htm"
+        }
+      ],
+      "locator": "geo=SE; partner=CN_X_HK; indic_bp=ENT; nace_r1=C-O_X_L",
+      "name": "Eurostat / Statistics Sweden",
+      "notes": "Swedish-UCI controlled enterprises in China except Hong Kong; a separate population from the national subsidiary table. Preserve the metadata's 2008 classification break and original legacy NACE label/2010 table transition, 2018 legal-unit-to-enterprise/EGR change and 2021 EBS boundary. Official compilation can include imputation. 2009 is confidential, not zero; no national-series splice or cross-regime growth. GGH is the source's UCI proxy. The original dataset dimensions and flags are retained.",
+      "vintage": "fats_out2; Sweden; source updated 2024-04-25T11:00:00+0200"
+    },
     "fats_out2_UK": {
       "assets": [
         {
@@ -2623,6 +2810,26 @@
       "notes": "Keep each control geography, membership and activity classification explicit. Preserve estimated, break and confidential flags; methodology boundaries remain disconnected. No reconstruction of confidential totals from member-country values.",
       "vintage": "Outward FATS, main variables - NACE Rev. 2 activity (2010-2020); updated 2024-04-25T11:00:00+0200"
     },
+    "fats_out2_r2_SE": {
+      "assets": [
+        {
+          "request_url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out2_r2?lang=EN&freq=A&geo=SE&partner=CN_X_HK&indic_bp=ENT&nace_r2=B-S_X_O",
+          "retrieved_at": "2026-10-25T04:22:31+00:00",
+          "sha256": "3ba85e64c4e74b4127f44d0c1ed618dd328e5c3680396c43bc492b1e1c86f1fb",
+          "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out2_r2?lang=EN&freq=A&geo=SE&partner=CN_X_HK&indic_bp=ENT&nace_r2=B-S_X_O"
+        },
+        {
+          "request_url": "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_se.htm",
+          "retrieved_at": "2026-10-25T04:22:33+00:00",
+          "sha256": "62fe7919eb8dd4f0de3bfaafc5b314c8b25160c230b7e2258ad9a369921df408",
+          "url": "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_se.htm"
+        }
+      ],
+      "locator": "geo=SE; partner=CN_X_HK; indic_bp=ENT; nace_r2=B-S_X_O",
+      "name": "Eurostat / Statistics Sweden",
+      "notes": "Swedish-UCI controlled enterprises in China except Hong Kong; a separate population from the national subsidiary table. Preserve the metadata's 2008 classification break and original legacy NACE label/2010 table transition, 2018 legal-unit-to-enterprise/EGR change and 2021 EBS boundary. Official compilation can include imputation. 2009 is confidential, not zero; no national-series splice or cross-regime growth. GGH is the source's UCI proxy. The original dataset dimensions and flags are retained.",
+      "vintage": "fats_out2_r2; Sweden; source updated 2024-04-25T11:00:00+0200"
+    },
     "fats_out2_r2_UK": {
       "assets": [
         {
@@ -2726,6 +2933,26 @@
       "name": "Eurostat",
       "notes": "Keep each control geography, membership and activity classification explicit. Preserve estimated, break and confidential flags; methodology boundaries remain disconnected. No reconstruction of confidential totals from member-country values.",
       "vintage": "Foreign affiliates of the EU enterprises by detailed breakdown of country of the affiliates (from 2021 onwards); updated 2026-03-31T23:00:00+0200"
+    },
+    "fats_out_part_SE": {
+      "assets": [
+        {
+          "request_url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out_part?lang=EN&freq=A&geo=SE&partner=CN_X_HK&indic_sbs=ENT_NR&nace_r2=B-S_X_O",
+          "retrieved_at": "2026-10-25T04:22:32+00:00",
+          "sha256": "bcbe6f9fa947ad911ac3de0bb930bf97956fa0588b92291b7660c501c63a357d",
+          "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out_part?lang=EN&freq=A&geo=SE&partner=CN_X_HK&indic_sbs=ENT_NR&nace_r2=B-S_X_O"
+        },
+        {
+          "request_url": "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_se.htm",
+          "retrieved_at": "2026-10-25T04:22:33+00:00",
+          "sha256": "62fe7919eb8dd4f0de3bfaafc5b314c8b25160c230b7e2258ad9a369921df408",
+          "url": "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_se.htm"
+        }
+      ],
+      "locator": "geo=SE; partner=CN_X_HK; indic_sbs=ENT_NR; nace_r2=B-S_X_O",
+      "name": "Eurostat / Statistics Sweden",
+      "notes": "Swedish-UCI controlled enterprises in China except Hong Kong; a separate population from the national subsidiary table. Preserve the metadata's 2008 classification break and original legacy NACE label/2010 table transition, 2018 legal-unit-to-enterprise/EGR change and 2021 EBS boundary. Official compilation can include imputation. 2009 is confidential, not zero; no national-series splice or cross-regime growth. GGH is the source's UCI proxy. The original dataset dimensions and flags are retained.",
+      "vintage": "fats_out_part; Sweden; source updated 2026-03-31T23:00:00+0200"
     },
     "finland_13k8": {
       "assets": [
