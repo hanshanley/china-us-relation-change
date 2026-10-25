@@ -6,14 +6,14 @@ import math
 import re
 import zipfile
 from pathlib import PurePosixPath
-from urllib.parse import urljoin
+from urllib.parse import urljoin, urlsplit
 
 import xlrd
 from bs4 import BeautifulSoup
 from openpyxl import load_workbook
 from openpyxl.utils.datetime import from_excel
 
-from .language_sources import row, series, source
+from .language_sources import pdf_text, row, series, source
 
 
 BEA_CURRENT = "https://www.bea.gov/sites/default/files/2025-08/selected-mofas-cntry.xls"
@@ -35,6 +35,7 @@ PARENT_BOOKS = {
 }
 EUROSTAT = "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/"
 ITALY_EUROSTAT_METHODS = "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_it.htm"
+ISTAT_ITALY_REPORT = "https://www.istat.it/wp-content/uploads/2025/11/Report_Imprese-multinazionali_Anno-2023.pdf"
 CBS_NETHERLANDS_REPORT = "https://longreads.cbs.nl/nederland-handelsland-2026/buitenlandse-investeringen-en-multinationals/"
 CBS_NETHERLANDS_METHODS = "https://www.cbs.nl/nl-nl/onze-diensten/methoden/onderzoeksomschrijvingen/korte-onderzoeksbeschrijvingen/outward-fats-statistiek-over-nederlandse-zeggenschappen-over-buitenlandse-bedrijven"
 ONS_DATA = "https://www.ons.gov.uk/file?uri=/businessindustryandtrade/internationaltrade/datasets/ukoutwardforeignaffiliatestatisticsofats/2019/ofatspublicationfinal.xlsx"
@@ -263,20 +264,53 @@ def finnish_eurostat_affiliates(client):
     return definitions, observations, sources
 
 
+def parse_istat_italy(content, year):
+    book = xlrd.open_workbook(file_contents=content)
+    counts = {}
+    for name in ("Totale", "Industria", "Servizi"):
+        sheets = [sheet for sheet in book.sheets() if sheet.name.strip().casefold() == name.casefold()]
+        if len(sheets) != 1:
+            raise ValueError("Italian national total/industry/services sheets changed")
+        sheet = sheets[0]
+        heading = " ".join(str(cell) for i in range(min(5, sheet.nrows)) for cell in sheet.row_values(i))
+        if (not re.search(rf"\bAnno\s+{year}\b", heading)
+                or not all(token in heading for token in ("controllo nazionale", "residenti"))):
+            raise ValueError("Italian national reference year or control population changed")
+        headers = [i for i in range(sheet.nrows)
+                   if [str(v).strip() for v in sheet.row_values(i)[:2]] == ["PAESI", "Imprese"]]
+        if not headers:
+            raise ValueError("Italian national country/count column changed")
+        start = headers[0]
+        ends = [i for i in range(start + 1, sheet.nrows)
+                if str(sheet.cell_value(i, 0)).strip().startswith("Totale primi")]
+        if not ends:
+            raise ValueError("Italian absolute-count table boundary changed")
+        rows = [i for i in range(start + 1, ends[0]) if str(sheet.cell_value(i, 0)).strip() == "Cina"]
+        if len(rows) != 1:
+            raise ValueError("Italian national China count is missing or ambiguous")
+        value, status = count_cell(sheet.cell_value(rows[0], 1))
+        if status != "observed":
+            raise ValueError("Italian national China count is unavailable")
+        counts[name] = value
+    if counts["Totale"] != counts["Industria"] + counts["Servizi"]:
+        raise ValueError("Italian national industry/services totals do not reconcile")
+    return counts["Totale"]
+
+
 def italian_affiliates(client):
     legacy, current = "eurostat_italy_legal:china", "eurostat_italy:china"
     scope = "Italy-resident UCI; China except Hong Kong; market producers in the selected NACE sectors"
-    notes = ("Italy explicitly changes the statistical unit in 2021: legal units through 2020, "
-             "enterprises from 2021. These are separate populations, not a compatible historical splice. "
-             "Keep the 2010 NACE boundary and original estimated flags. "
-             "The different national ISTAT count is not substituted; no pre-2007 or 2019-baseline inference.")
+    notes = ("Eurostat changes from legal units to grouped enterprises in 2021; ISTAT national reports "
+             "continue counting legal units. The national 2019/2020 controls match both older Eurostat values. "
+             "Keep the 2010 NACE and 2021 source boundaries, original estimated flags and separate enterprise "
+             "population. No pre-2007 count or cross-source 2019 change is inferred.")
     definitions = {
-        legacy: series("Italy, historical legal units", "controlled_legal_units", "legal units",
+        legacy: series("Italy, legal units (Eurostat / ISTAT)", "controlled_legal_units", "legal units",
                        scope + "; NACE C-O except L before 2010, B-S except O thereafter; legal units",
-                       "annual", "reference year", notes + " Historical estimated legal units are download-only."),
+                       "annual", "reference year", notes + " National host label: Cina. Legal-unit history, 2007-2023."),
         current: series("Italy (Eurostat enterprises)", "controlled_enterprises", "enterprises",
                         scope + "; NACE B-S except O; enterprise statistical unit from 2021",
-                        "annual", "reference year", notes + " The current supplementary chart starts in 2021."),
+                        "annual", "reference year", notes + " Separate 2021-onward enterprise counts remain download-only."),
     }
     body, methodology = client.get(ITALY_EUROSTAT_METHODS)
     text = BeautifulSoup(body, "html.parser").get_text(" ", strip=True)
@@ -302,6 +336,46 @@ def italian_affiliates(client):
                 sid = legacy if year < 2021 else current
                 observations.append(row(sid, year, value, source_id, status,
                                         notes + " Source flags: " + (flag or "none"), comparability))
+    body, national_methods = client.get(ISTAT_ITALY_REPORT)
+    text = " ".join(" ".join(pdf_text(body)).split())
+    if (not all(token in text for token in (
+            "Nel caso del presente Report \u00e8 sempre l\u2019unit\u00e0 giuridica",
+            "sottoposte a controllo ultimo nazionale"))
+            or not re.search(r"Outward.{0,120}primi dati.{0,120}2021", text)
+            or not re.search(r"settori da B a N e P\s*-\s*Q\s*-\s*R\s*-\s*S", text)):
+        raise ValueError("Italian national legal-unit/control/sector methodology changed")
+    national, evidence = {}, {}
+    for edition, year in ((2022, 2019), (2023, 2020), (2024, 2021), (2025, 2022), (2026, 2023)):
+        page_url = f"https://annuarioistatice.istat.it/epo/{edition}/attiv_intern/attivita.html"
+        body, catalogue = client.get(page_url)
+        soup = BeautifulSoup(body, "html.parser")
+        tables = [tr for tr in soup.select("tr") if all(
+            token in " ".join(tr.get_text(" ", strip=True).split())
+            for token in ("controllo nazionale residenti", "principali paesi", "macro-settore"))]
+        if (len(tables) != 1 or f"Anno {year}" not in tables[0].get_text(" ", strip=True)
+                or tables[0].find("a", href=True) is None):
+            raise ValueError("Italian yearbook reference year or outward table changed")
+        url = urljoin(page_url, tables[0].find("a", href=True)["href"])
+        parsed = urlsplit(url)
+        if parsed.scheme != "https" or parsed.netloc != "annuarioistatice.istat.it" or not parsed.path.endswith(".xls"):
+            raise ValueError("Italian yearbook workbook identity changed")
+        body, workbook = client.get(url)
+        national[year] = parse_istat_italy(body, year)
+        evidence[year] = [catalogue, workbook, national_methods]
+    older = {r["year"]: r["value"] for r in observations if r["series_id"] == legacy}
+    if any(national[year] != older.get(year) for year in (2019, 2020)):
+        raise ValueError("Italian national/Eurostat legal-unit overlaps no longer reconcile")
+    for year in (2021, 2022, 2023):
+        source_id = f"istat_italy_legal_{year}"
+        sources[source_id] = source(
+            "ISTAT / ICE", f"ISTAT-ICE {year + 3} yearbook; reference {year}", evidence[year],
+            f"Outward control; Totale; PAESI=Cina; Imprese; reference {year}; industry+services checked",
+            notes + " National report pages10/12 document legal units, Italian ultimate control and B-N/P-S. "
+            "Published census-survey estimates; no Eurostat observation flag is assigned.")
+        observations.append(row(
+            legacy, year, national[year], source_id, "estimated",
+            notes + " ISTAT national legal-unit estimate, not the Eurostat enterprise count.",
+            "NACE2:ISTAT_LEGAL"))
     return definitions, observations, sources
 
 

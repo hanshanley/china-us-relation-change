@@ -27,7 +27,7 @@ def check(site, url=None):
         "france-affiliates-china": "eurostat_france:china",
         "netherlands-affiliates-china": "eurostat_netherlands:china",
         "finland-affiliates-china-eurostat": "eurostat_finland:china",
-        "italy-affiliates-china": "eurostat_italy:china",
+        "italy-affiliates-china": "eurostat_italy_legal:china",
     }
     counts = {
         chart: sorted((r for r in archive["observations"] if r["series_id"] == sid and r["value"] is not None),

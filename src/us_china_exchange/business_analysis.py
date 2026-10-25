@@ -100,12 +100,13 @@ CHARTS = {
         "note": "Eurostat, Finnish-UCI market producers. 2010 NACE, 2013 YTY system and 2021 EBS boundaries retained. "
         "The broader national affiliate/branch counts above are a different population, not a splice or a matched comparison."},
     "italy-affiliates-china": {
-        "title": "Italian-controlled enterprises in China",
-        "subtitle": "China except Hong Kong | Since 2021 | Current enterprise definition",
-        "series": ["eurostat_italy:china"], "unit": "Enterprises", "mode": "levels",
-        "note": "Eurostat / ISTAT, Italy-resident ultimate control. Supplementary enterprise counts start in 2021. "
-        "The 2007-2020 estimated legal-unit observations remain separate in complete downloads, not joined "
-        "to this chart. No comparable 2019 change or unpublished 2024/2025 count is inferred."},
+        "title": "Italian-controlled legal units in China",
+        "subtitle": "Legal-unit history, 2007-2023 | Eurostat / ISTAT",
+        "series": ["eurostat_italy_legal:china"], "unit": "Legal units", "mode": "levels",
+        "note": "Italian ultimate control. Eurostat legal units through 2020; ISTAT continues the same unit "
+        "through 2023 (national label: Cina), with matching 2019/2020 controls. Keep the 2010 NACE and "
+        "2021 source boundaries. Grouped enterprise counts are separate in downloads, never spliced here. "
+        "No pre-2007, cross-source 2019 change or unpublished 2024/2025 count is inferred."},
     BENCHMARK_CHART: {
         "title": "U.S. parent companies with China affiliates",
         "subtitle": "Supplementary benchmark observations | NOT an annual series",
@@ -196,10 +197,12 @@ def validate_business_data(data):
                                      "fats_out2_r2_FR" if r["year"] <= 2020 else "fats_out_part_FR"),
             "eurostat_finland:china": ("fats_out2_FI" if r["year"] <= 2009 else
                                       "fats_out2_r2_FI" if r["year"] <= 2020 else "fats_out_part_FI"),
-            "eurostat_italy_legal:china": "fats_out2_IT" if r["year"] <= 2009 else "fats_out2_r2_IT",
+            "eurostat_italy_legal:china": (
+                "fats_out2_IT" if r["year"] <= 2009 else "fats_out2_r2_IT" if r["year"] <= 2020
+                else f"istat_italy_legal_{r['year']}"),
             "eurostat_italy:china": "fats_out_part_IT",
         }
-        if ((r["series_id"] == "eurostat_italy_legal:china" and not 2007 <= r["year"] <= 2020)
+        if ((r["series_id"] == "eurostat_italy_legal:china" and not 2007 <= r["year"] <= 2023)
                 or (r["series_id"] == "eurostat_italy:china" and r["year"] < 2021)):
             raise ValueError("Italian legal-unit and enterprise populations must not be spliced")
         if r["series_id"].startswith("eurostat") and r["source_id"] != expected_source[r["series_id"]]:

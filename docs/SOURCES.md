@@ -159,7 +159,7 @@ institution-level workbook, report artwork or exam questions are redistributed.
 
 ## Business-presence sources
 
-`data/site/business_presence.json` retains all 211 China-hosted observations, including
+`data/site/business_presence.json` retains all 214 China-hosted observations, including
 explicit confidential/unavailable cells, series definitions, source URLs,
 selected table members, retrieval timestamps and SHA-256 checksums.
 
@@ -189,12 +189,24 @@ indicators in `fats_out2`, `fats_out2_r2` and `fats_out_part`.
 All seventeen2007-2023 values independently reconcile to original native TSVs.
 [Italy-specific metadata](https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_it.htm)
 explicitly distinguishes legal units through2020 from enterprises since2021
-and rejects a cross-boundary comparison. The fourteen older values retain
-their original estimated flags and form an archive-only legal-unit series;
-the separate current enterprise chart contains only2021-2023.
-The national2026 yearbook's reference2023 count1122 differs from Eurostat669;
-it is not spliced, added or used as a replacement. No compatible2019 change,
-pre-2007 count or unreported2024/2025 observation is inferred.
+and rejects a cross-unit comparison. The fourteen older values retain
+their original estimated flags. The original
+[national2023 report](https://www.istat.it/wp-content/uploads/2025/11/Report_Imprese-multinazionali_Anno-2023.pdf),
+pages10/12, explicitly retains legal units in national dissemination, Italian
+ultimate control and B-N/P-S activity. Catalogue-linked ISTAT-ICE2022-2026
+workbooks select the absolute `Cina` row and `Imprese` column on `Totale`,
+not the repeated percentage row. Industry+services sums reconcile for all
+five years;2019=1141 and2020=1133 match the older Eurostat legal units.
+The national continuation is2021=1113,2022=1169,2023=1122, making a genuine
+2007-2023 legal-unit chart. The2010 classification and2021 source boundaries
+remain explicit. These census-survey estimates receive no invented Eurostat
+flag. Separate Eurostat enterprises675/687/669 remain download-only:
+1122legal units and669grouped enterprises are different counting units,
+not competing measurements or an unexplained numerical discrepancy.
+No pre-2007, cross-source2019 change or unreported2024/2025 count is inferred.
+The official [2026 release calendar](https://www.istat.it/wp-content/uploads/2026/01/CALENDARIO-COMUNICATI-2026_10.11.pdf)
+schedules reference2024 multinational statistics for November10,2026;
+that release is still in the future as of October25,2026.
 
 Raw source archives, workbooks, publication text and artwork remain local.
 Only numerical aggregates, original definitions and our figures are published.

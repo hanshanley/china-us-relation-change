@@ -134,6 +134,9 @@ def collect_italy(client, prior):
     if "Italian" not in data["context"]["geography"]:
         data["context"]["geography"] += (
             " Italian historical legal units and current enterprises remain separate, not a compatible splice.")
+    data["context"]["geography"] = data["context"]["geography"].replace(
+        "Italian historical legal units and current enterprises remain separate, not a compatible splice.",
+        "Italian legal-unit history reaches 2023; grouped Eurostat enterprises remain a separate population.")
     return data
 
 

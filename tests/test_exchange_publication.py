@@ -220,7 +220,7 @@ def test_collective_export_preserves_complete_inputs_and_native_plot_boundaries(
                          ("france-affiliates-china", [y for y in range(2007, 2024) if y != 2008]),
                          ("netherlands-affiliates-china", range(2007, 2025)),
                          ("finland-affiliates-china-eurostat", range(2007, 2024)),
-                         ("italy-affiliates-china", range(2021, 2024))]:
+                         ("italy-affiliates-china", range(2007, 2024))]:
         country = json.loads(business.select_one(f"#{chart} .plot-data").string)
         assert country["columns"] and [p["year"] for p in country["groups"][0]["points"]] == list(years)
         assert (country["first"], country["last"]) == (min(years), max(years))
