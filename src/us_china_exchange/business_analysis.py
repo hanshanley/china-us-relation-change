@@ -44,9 +44,9 @@ CHARTS = {
         "note": "Eurostat. EU27 2023 is confidential; 2022 is the latest disclosed value. Historical EU27 includes UK, excludes Croatia; current EU27 reverses those members. Membership, NACE and 2021 method breaks stay disconnected. Not matched to BEA coverage."},
     "uk-affiliates-china": {
         "title": "UK-controlled enterprises in China",
-        "subtitle": "Annual observations, 2010-2019 | not UK investment flows",
+        "subtitle": "Annual observations, 2009-2019 | not UK investment flows",
         "series": ["eurostat_uk:china"], "unit": "Enterprises", "mode": "levels",
-        "note": "Eurostat history; ONS revised 2018/2019 estimates. Survey breaks and 2018 source/sector boundary disconnected. ONS total activity includes agriculture. No later outward-affiliate counts verified; do not fill with inward or FDI data."},
+        "note": "Eurostat history; NACE Rev. 1.1 in 2009 and Rev. 2 from 2010 stay disconnected. ONS revised 2018/2019 estimates; survey breaks and 2018 source/sector boundary disconnected. ONS total activity includes agriculture. No later outward-affiliate counts verified; do not fill with inward or FDI data."},
     "norway-affiliates-china": {
         "title": "Norwegian-controlled enterprises in China",
         "subtitle": "Earlier reference | From 2008 | Statistics Norway",
@@ -171,7 +171,8 @@ def validate_business_data(data):
         expected_source = {
             "eurostat_affiliates:china": "fats_out2_r2" if r["year"] <= 2020 else "fats_out_part",
             "eurostat_historical_eu:china": "fats_out2_EU27_2007" if r["year"] <= 2009 else "fats_out2_r2_EU27_2007",
-            "eurostat_uk:china": "ons_2019" if r["year"] in {2018, 2019} else "fats_out2_r2_UK",
+            "eurostat_uk:china": ("fats_out2_UK" if r["year"] <= 2009 else
+                                 "ons_2019" if r["year"] in {2018, 2019} else "fats_out2_r2_UK"),
             "eurostat_norway:china": "fats_out2_r2_NO" if r["year"] <= 2020 else "fats_out_part_NO",
             "eurostat_germany:china": "fats_out2_r2_DE" if r["year"] <= 2020 else "fats_out_part_DE",
             "eurostat_netherlands:china": (
