@@ -159,7 +159,7 @@ institution-level workbook, report artwork or exam questions are redistributed.
 
 ## Business-presence sources
 
-`data/site/business_presence.json` retains all 174 China-hosted observations, including
+`data/site/business_presence.json` retains all 266 China-hosted observations, including
 explicit confidential/unavailable cells, series definitions, source URLs,
 selected table members, retrieval timestamps and SHA-256 checksums.
 
@@ -186,6 +186,30 @@ selected table members, retrieval timestamps and SHA-256 checksums.
 | [Statistics Denmark OFATS4](https://www.statbank.dk/OFATS4); [definitions](https://www.dst.dk/da/Statistik/dokumentation/statistikdokumentation/danske-datterselskaber-i-udlandet/indhold); [comparability](https://www.dst.dk/da/Statistik/dokumentation/statistikdokumentation/danske-datterselskaber-i-udlandet/sammenlignelighed) | Complete18-country/year cells2007-2024 independently reconcile CSV and JSONSTAT:2007=217,2019=485,2023=480,2024=460. Select `LAND=CN`, `ENHED=DSANTAL` (affiliates, not employees), all published years; HK/MO are separately coded. The national resident-parent population includes foreign ultimate owners and excludes branches; it is not Eurostat's Danish-UCI population (2023=335). Private non-agricultural activities include finance; no lower activity threshold. Preserve2010 classification. Source metadata also uses zero for suppression, so zero is not automatically an observed count. Only actual national subsidiary values extend this chart; no country allocation, UCI splice or pre2007 invention. |
 | Eurostat French country history, `geo=FR`, `partner=CN_X_HK` | Seventeen 2007-2023 cells, including unreported2008; latest2153. `fats_out2`/NACE C-O except L before2010, `fats_out2_r2`/B-S except O for2010-2020, `fats_out_part`/`ENT_NR` from2021. Retain the 2007 pilot/2009 frame, 2010 NACE, 2016 `b` flag and 2021 EBS boundaries. The host category is explicitly China except Hong Kong. Not a splice to INSEE's rounded, differently scoped2.8-thousand count. |
 | Eurostat Dutch country history, `geo=NL`, `partner=CN_X_HK`; [CBS Nederland Handelsland2026, figure5.4.1](https://longreads.cbs.nl/nederland-handelsland-2026/buitenlandse-investeringen-en-multinationals/); [CBS OFATS methods](https://www.cbs.nl/nl-nl/onze-diensten/methoden/onderzoeksomschrijvingen/korte-onderzoeksbeschrijvingen/outward-fats-statistiek-over-nederlandse-zeggenschappen-over-buitenlandse-bedrijven) | Seventeen Eurostat enterprise counts2007-2023 independently match native TSV exports. The original CBS HTML outward table, not the inward China row or digitized PDF, reports2024*=620 and2023=574;2023 reconciles. Star means provisional, and the reference year is2024, not the2026 publication. Dutch-resident UCI; financial/nonfinancial B-S except O with nonresponse weighting. Keep2010 NACE and2021 methodology boundaries; do not compare2024 with2019 across that break or add Netherlands to its overlapping EU aggregate. |
+
+Italian Eurostat queries select `geo=IT`, `partner=CN_X_HK` and enterprise
+indicators in `fats_out2`, `fats_out2_r2` and `fats_out_part`.
+All seventeen2007-2023 values independently reconcile to original native TSVs.
+[Italy-specific metadata](https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_it.htm)
+explicitly distinguishes legal units through2020 from enterprises since2021
+and rejects a cross-unit comparison. The fourteen older values retain
+their original estimated flags. The original
+[national2023 report](https://www.istat.it/wp-content/uploads/2025/11/Report_Imprese-multinazionali_Anno-2023.pdf),
+pages10/12, explicitly retains legal units in national dissemination, Italian
+ultimate control and B-N/P-S activity. Catalogue-linked ISTAT-ICE2022-2026
+workbooks select the absolute `Cina` row and `Imprese` column on `Totale`,
+not the repeated percentage row. Industry+services sums reconcile for all
+five years;2019=1141 and2020=1133 match the older Eurostat legal units.
+The national continuation is2021=1113,2022=1169,2023=1122, making a genuine
+2007-2023 legal-unit chart. The2010 classification and2021 source boundaries
+remain explicit. These census-survey estimates receive no invented Eurostat
+flag. Separate Eurostat enterprises675/687/669 remain download-only:
+1122legal units and669grouped enterprises are different counting units,
+not competing measurements or an unexplained numerical discrepancy.
+No pre-2007, cross-source2019 change or unreported2024/2025 count is inferred.
+The official [2026 release calendar](https://www.istat.it/wp-content/uploads/2026/01/CALENDARIO-COMUNICATI-2026_10.11.pdf)
+schedules reference2024 multinational statistics for November10,2026;
+that release is still in the future as of October25,2026.
 
 Raw source archives, workbooks, publication text and artwork remain local.
 Only numerical aggregates, original definitions and our figures are published.

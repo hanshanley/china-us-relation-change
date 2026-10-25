@@ -720,6 +720,11 @@ Finland also has a separate Eurostat UCI history back to2007. Its market-
 producer population differs from the broader national count and is not
 spliced into it; the2013 YTY system break remains explicit alongside the
 classification and2021 EBS boundaries.
+Italy's legal-unit chart runs from2007 to2023. Original national ISTAT tables
+continue the legal-unit definition after Eurostat switches to grouped
+enterprises in2021; both2019/2020 controls match. The2010 classification and
+2021 source boundaries remain explicit. The three differently counted
+Eurostat enterprise observations stay separate in the complete downloads.
 Earlier U.S., German and Norwegian count histories are explicitly labelled
 secondary references in a closed disclosure, not newly recovered current
 evidence. Stale EU/UK and parent-company benchmarks stay download-only.
@@ -738,6 +743,7 @@ evidence. Stale EU/UK and parent-company benchmarks stay download-only.
 | Subsidiaries controlled from Denmark | Eighteen actual2007-2024 national OFATS4 counts, ending460. Denmark-resident parents include foreign ultimate owners; no lower activity threshold. Autonomous subsidiary entities in private non-agricultural activities, including finance; branches excluded. China/Hong Kong/Macao are separately coded. Preserve2010 DB03/DB07 classification. Different from the Danish-UCI Eurostat population; no pre2007 padding, employee substitution, ambiguous-zero inference or sum with EU aggregates. |
 | French-controlled enterprises | Sixteen reported2007-2023 counts and one missing2008 cell, ending2153. Eurostat's host category is China except Hong Kong. The 2007/2009,2010,2016 and2021 boundaries are not spliced or used for cross-regime growth. INSEE's rounded count remains a separate source finding. |
 | Dutch-controlled enterprises | Eighteen reported2007-2024 counts;2024=620 is provisional. Eurostat's seventeen earlier observations match original native TSVs; CBS's2023 control574 agrees. Dutch-resident UCI, financial/nonfinancial B-S except O. Preserve the2010 classification and2021 method boundaries; no comparable2019 change, pre-2007 history or2025 count is inferred. |
+| Italian-controlled legal units | Seventeen annual2007-2023 legal-unit counts, Italy-resident ultimate control. Fourteen original Eurostat values retain estimated flags; ISTAT's national legal-unit continuation reports1113/1169/1122 for2021/22/23. Original2019=1141 and2020=1133 controls match, and every national industry+services sum reconciles. National report pages10/12 confirm legal units and the B-N/P-S sector scope; national host label is Cina, Eurostat's is China except Hong Kong. Keep the2010 NACE and2021 source boundaries. The three Eurostat grouped-enterprise counts675/687/669 remain separate in downloads, not mixed into this chart or used for cross-unit changes. No pre-2007 or unreported2024/2025 count is inferred. |
 | Supplementary U.S. parent-company benchmarks | Only 2004,2009,2014 and2019 are verified and remain archive-only, not an annual census. Foreign-affiliate ownership begins at10%, not necessarily majority control; reporting exclusions apply. No interpolation. |
 
 The U.S. affiliate reporting cutoff changes from $7 million through 2003 to

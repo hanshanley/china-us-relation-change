@@ -187,6 +187,7 @@ def check():
                 "sweden-affiliates-china", "finland-affiliates-china",
                 "france-affiliates-china", "netherlands-affiliates-china",
                 "finland-affiliates-china-eurostat",
+                "italy-affiliates-china",
                 "sweden-affiliates-china-eurostat",
                 "spain-affiliates-china",
                 "denmark-affiliates-china",

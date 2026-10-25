@@ -4,6 +4,7 @@ import io
 import importlib.util
 import hashlib
 import json
+import re
 from collections import defaultdict
 from pathlib import Path
 from types import SimpleNamespace
@@ -57,9 +58,149 @@ def test_distinct_parent_and_affiliate_checkpoints_remain_different_units():
     assert rows[("eurostat_norway:china", 2023)]["value"] == 88
     assert len([r for r in rows.values() if not r["series_id"].startswith(
         ("tillvaxtanalys_", "statfin_", "eurostat_france:", "eurostat_netherlands:", "eurostat_finland:",
-         "eurostat_sweden:", "eurostat_spain:", "dst_denmark:"))]) == 112
+         "eurostat_italy", "eurostat_sweden:", "eurostat_spain:", "dst_denmark:"))]) == 112
     assert rows[("ssb_norway:china", 2023)]["value"] == 89
     assert rows[("ssb_norway:china", 2024)]["value"] == 80
+
+
+def test_italian_collection_preserves_other_countries_and_separates_statistical_units(monkeypatch):
+    from us_china_exchange import business_sources
+    from us_china_exchange.business_sources import ITALY_EUROSTAT_METHODS, ISTAT_ITALY_REPORT
+
+    spec = importlib.util.spec_from_file_location("italian_collector", ROOT / "scripts/build_business_data.py")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+
+    def workbook(file_contents):
+        data = json.loads(file_contents)
+        counts = {"Totale": data["count"], "Industria": 500,
+                  "Servizi": data["count"] - 500 + int(data["wrong_sector_sum"])}
+        sheets = []
+        for name, count in counts.items():
+            rows = [[f"Imprese a controllo nazionale residenti all'estero - Anno {data['year']}"],
+                    ["PAESI", "Addetti" if data["wrong_national_unit"] else "Imprese"],
+                    ["Hong Kong" if data["wrong_national_country"] else "Cina", count],
+                    ["Totale primi 40 paesi", count], ["Cina", 4.4]]
+            sheets.append(SimpleNamespace(name=name, nrows=len(rows), row_values=lambda i, rows=rows: rows[i],
+                                          cell_value=lambda i, j, rows=rows: rows[i][j]))
+        return SimpleNamespace(sheets=lambda: sheets)
+
+    monkeypatch.setattr(business_sources.xlrd, "open_workbook", workbook)
+    monkeypatch.setattr(business_sources, "pdf_text", lambda content: [content.decode()])
+
+    class Client:
+        wrong_country = False
+        wrong_methods = False
+        wrong_national_methods = False
+        wrong_workbook_year = False
+        wrong_national_unit = False
+        wrong_national_country = False
+        wrong_sector_sum = False
+        wrong_overlap_2019 = False
+        wrong_overlap_2020 = False
+
+        def get(self, url):
+            if url == ITALY_EUROSTAT_METHODS:
+                body = (b"Unrelated methods" if self.wrong_methods else
+                        b"ISTAT-Italian National Statistical Institute. "
+                        b"In previous years the legal unit was used. 2021 onwards")
+            elif url == ISTAT_ITALY_REPORT:
+                text = ("Nel caso del presente Report \u00e8 sempre l\u2019unit\u00e0 giuridica. "
+                        "Outward, i primi dati sono relativi al 2021. "
+                        "sottoposte a controllo ultimo nazionale; settori da B a N e P -Q-R-S")
+                body = ("Enterprises only" if self.wrong_national_methods else text).encode()
+            elif "annuarioistatice.istat.it" in url:
+                edition = int(re.search(r"/(?:epo|tavole)/(\d{4})/", url).group(1))
+                year = edition - 3
+                if url.endswith(".html"):
+                    body = (f'<table><tr><td>Imprese a controllo nazionale residenti all\'estero per '
+                            f'principali paesi e macro-settore - Anno {year}</td>'
+                            f'<td><a href="/tavole/{edition}/italy.xls">XLS</a></td></tr></table>').encode()
+                else:
+                    count = {2019: 1141, 2020: 1133, 2021: 1113, 2022: 1169, 2023: 1122}[year]
+                    count += int(getattr(self, f"wrong_overlap_{year}", False))
+                    body = json.dumps({"year": year + int(self.wrong_workbook_year), "count": count,
+                                       "wrong_national_unit": self.wrong_national_unit,
+                                       "wrong_national_country": self.wrong_national_country,
+                                       "wrong_sector_sum": self.wrong_sector_sum}).encode()
+            else:
+                dataset = url.split("/data/")[1].split("?")[0]
+                indicator = "indic_sbs" if dataset == "fats_out_part" else "indic_bp"
+                activity = "nace_r1" if dataset == "fats_out2" else "nace_r2"
+                codes = {"freq": "A", activity: "C-O_X_L" if activity == "nace_r1" else "B-S_X_O",
+                         indicator: "ENT_NR" if indicator == "indic_sbs" else "ENT",
+                         "partner": "CN_X_HK", "geo": "FR" if self.wrong_country else "IT"}
+                values = ({2007: 792} if dataset == "fats_out2" else
+                          {2010: 923, 2019: 1141, 2020: 1133} if dataset == "fats_out2_r2" else {2023: 669})
+                data = {"id": list(codes) + ["time"], "size": [1] * len(codes) + [len(values)],
+                        "dimension": {k: {"category": {"index": {v: 0}}} for k, v in codes.items()},
+                        "extension": {"id": dataset}, "value": {str(i): v for i, v in enumerate(values.values())},
+                        "updated": "2026-10-25"}
+                data["dimension"]["time"] = {"category": {"index": {str(y): i for i, y in enumerate(values)}}}
+                if dataset != "fats_out_part":
+                    data["status"] = {str(i): "e" for i in range(len(values))}
+                body = json.dumps(data).encode()
+            return body, {"url": url, "request_url": url, "sha256": hashlib.sha256(body).hexdigest(),
+                          "retrieved_at": "2026-10-25T00:00:00+00:00"}
+
+    prior = published()
+    prior["series"] = {k: v for k, v in prior["series"].items() if not k.startswith("eurostat_italy")}
+    prior["observations"] = [r for r in prior["observations"] if not r["series_id"].startswith("eurostat_italy")]
+    prior["sources"] = {k: v for k, v in prior["sources"].items()
+                        if not k.endswith("_IT") and not k.startswith("istat_italy_legal_")}
+    prior["coverage"] = [r for r in prior["coverage"] if not r["id"].startswith("eurostat_italy")]
+    before = copy.deepcopy(prior)
+    updated = validate_business_data(module.collect_italy(Client(), prior))
+    assert prior == before
+    actual = {(r["series_id"], r["year"]): r for r in updated["observations"]}
+    assert all(actual[r["series_id"], r["year"]] == r for r in prior["observations"])
+    assert all(updated["series"][k] == v for k, v in prior["series"].items())
+    assert all(updated["sources"][k] == v for k, v in prior["sources"].items())
+    assert actual["eurostat_italy_legal:china", 2007]["status"] == "estimated"
+    assert actual["eurostat_italy:china", 2023]["status"] == "observed"
+    assert updated["series"]["eurostat_italy_legal:china"]["unit"] == "legal units"
+    assert updated["series"]["eurostat_italy:china"]["unit"] == "enterprises"
+    assert [actual["eurostat_italy_legal:china", y]["value"] for y in (2021, 2022, 2023)] == [1113, 1169, 1122]
+    assert all(actual["eurostat_italy_legal:china", y]["source_id"] == f"istat_italy_legal_{y}"
+               for y in (2021, 2022, 2023))
+    assert module.collect_italy(Client(), updated) == updated
+    for attribute in ("wrong_country", "wrong_methods", "wrong_national_methods", "wrong_workbook_year",
+                      "wrong_national_unit", "wrong_national_country", "wrong_sector_sum",
+                      "wrong_overlap_2019", "wrong_overlap_2020"):
+        client = Client()
+        setattr(client, attribute, True)
+        with pytest.raises(ValueError):
+            module.collect_italy(client, prior)
+
+
+def test_italian_legal_unit_history_uses_national_continuation_not_enterprise_counts():
+    data = published()
+    points = chart_groups(data, "italy-affiliates-china")[0]["points"]
+    assert [point["year"] for point in points] == list(range(2007, 2024))
+    assert [point["value"] for point in points[-3:]] == [1113, 1169, 1122]
+    legacy = [r for r in data["observations"] if r["series_id"] == "eurostat_italy_legal:china"]
+    assert [r["year"] for r in legacy] == list(range(2007, 2024))
+    assert all(r["status"] == "estimated" for r in legacy)
+    assert not any("eurostat_italy:china" in chart["series"] for chart in CHARTS.values())
+    for sid, year in (("eurostat_italy_legal:china", 2024), ("eurostat_italy:china", 2020)):
+        invalid = copy.deepcopy(data)
+        next(r for r in invalid["observations"] if r["series_id"] == sid)["year"] = year
+        with pytest.raises(ValueError, match="must not be spliced"):
+            validate_business_data(invalid)
+    invalid = copy.deepcopy(data)
+    next(r for r in invalid["observations"]
+         if r["series_id"] == "eurostat_italy_legal:china" and r["year"] == 2023)["source_id"] = "fats_out_part_IT"
+    with pytest.raises(ValueError, match="method/source boundary"):
+        validate_business_data(invalid)
+    invalid = copy.deepcopy(data)
+    invalid["series"]["eurostat_italy_legal:china"]["unit"] = "enterprises"
+    with pytest.raises(ValueError, match="counting units"):
+        validate_business_data(invalid)
+    for theme in CHART_THEMES:
+        svg = ElementTree.fromstring(svg_business_chart(data, "italy-affiliates-china", theme))
+        bars = [node for node in svg.iter() if node.get("class") == "annual-column"]
+        assert [int(node.get("data-year")) for node in bars] == list(range(2007, 2024))
+        assert [int(node.get("data-value")) for node in bars[-3:]] == [1113, 1169, 1122]
 
 
 def test_uk_early_refresh_preserves_later_observations_and_classification_boundaries():
@@ -799,13 +940,15 @@ def test_complete_business_downloads_exact_points_backgrounds_and_stale_cleanup(
         (base / "substack").mkdir(parents=True)
         for chart_id in RETIRED_CHARTS:
             (base / "substack" / (chart_id + ".svg")).write_text("Obsolete wrong-destination chart")
-    assert build_business(tmp_path, data, defaultdict(list)) == 15
+    assert build_business(tmp_path, data, defaultdict(list)) == 16
     assert not any((tmp_path / "outputs/figures/business_presence/substack" / (cid + ".svg")).exists()
                    for cid in RETIRED_CHARTS)
     assert json.loads((tmp_path / "site/downloads/business-presence.json").read_text()) == data
     with (tmp_path / "site/downloads/business-observations.csv").open() as f:
         raw = list(csv.DictReader(f))
     assert len(raw) == len(data["observations"])
+    legal = [r for r in raw if r["series_id"] == "eurostat_italy_legal:china"]
+    assert len(legal) == 17 and all(r["unit"] == "legal units" and r["status"] == "estimated" for r in legal)
     for actual, expected in zip(raw, data["observations"]):
         assert all(actual[k] == ("" if v is None else str(v)) for k, v in expected.items())
         assert actual["unit"] == data["series"][expected["series_id"]]["unit"]
@@ -864,7 +1007,7 @@ def test_invalid_business_input_is_rejected_before_writes_and_deleted_input_with
     with pytest.raises(ValueError, match="current business evidence"):
         build(tmp_path)
     (path / "business_current.json").write_text((ROOT / "data/site/business_current.json").read_text())
-    assert build(tmp_path)["business_charts"] == 16
+    assert build(tmp_path)["business_charts"] == 17
     page = BeautifulSoup((tmp_path / "site/business-presence.html").read_text(), "html.parser")
     assert not page.select('a[href="language-learning.html"]')
     frozen.unlink()
@@ -884,10 +1027,10 @@ def test_publication_is_business_only_with_complete_data_original_downloads_and_
     assert page.select_one('link[rel="canonical"]')["href"] == manifest["canonical_url"]
     assert "Interactive analysis" in page.select_one(".publication-header nav").text
     assert not page.select('a[href="language-learning.html"],iframe')
-    assert len(page.select("svg[role=img]")) == 18
+    assert len(page.select("svg[role=img]")) == 19
     assert not page.select("#business-controls,#annual-values,#module-chart,#uk-affiliates-china,#eu-affiliates-china")
-    assert len(page.select(".business-card.native-chart,.business-card .native-chart")) == 18
-    assert len(page.select(".business-count-card")) == 12
+    assert len(page.select(".business-card.native-chart,.business-card .native-chart")) == 19
+    assert len(page.select(".business-count-card")) == 13
     assert len(page.select("#business-inward-data table tbody tr")) == 25
     assert page.select_one("#business-data").get("open") is None
     assert set(p.name for p in (output / "downloads").iterdir()) == {
@@ -895,14 +1038,14 @@ def test_publication_is_business_only_with_complete_data_original_downloads_and_
         "business-current-observations.csv", "business-current-chart-values.csv",
         "business-inward.json", "business-inward-observations.csv", "business-inward-chart-values.csv"}
     data = json.loads((output / "downloads/business-presence.json").read_text())
-    assert data == published() and manifest["historical_observations"] == 246
+    assert data == published() and manifest["historical_observations"] == 266
     assert manifest["observations"] == 59
     assert manifest["inward_observations"] == 50
     assert manifest["source_revision"] == "verified-source-revision"
     for name, checksum in manifest["files"].items():
         assert hashlib.sha256((output / name).read_bytes()).hexdigest() == checksum
     with (output / "downloads/business-observations.csv").open() as f:
-        assert len(list(csv.DictReader(f))) == 246
+        assert len(list(csv.DictReader(f))) == 266
     for link in page.select('a[href^="figures/"]'):
         assert link.has_attr("data-original-chart") and (output / link["href"].split("?")[0]).is_file()
     assert not (output / "business-presence.html").exists()
