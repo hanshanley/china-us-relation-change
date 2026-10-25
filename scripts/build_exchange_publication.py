@@ -556,6 +556,12 @@ def decorate(site, name, labels, revision):
         for details in main.find_all("details", recursive=False):
             if name != "confucius.html" and not details.select_one(".comparison-chart"):
                 details.decompose()
+    if name == "language-learning.html":
+        main.insert(1, fragment(
+            '<p class="chart-note language-data-downloads">Complete language data: '
+            '<a href="downloads/language-observations.csv" download>All observations (CSV)</a> · '
+            '<a href="downloads/language-learning.json" download>Data, definitions &amp; sources (JSON)</a>'
+            '</p>'))
     observation_path = site / "downloads/observations.json"
     observations = {(r["series_id"], r["period"]): r for r in
                     (json.loads(observation_path.read_text()) if observation_path.is_file() else [])

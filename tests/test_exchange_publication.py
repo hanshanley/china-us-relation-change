@@ -117,6 +117,11 @@ def test_collective_export_preserves_complete_inputs_and_native_plot_boundaries(
         assert "Automatic refresh:" not in page.get_text()
         assert "Sources and recorded checks" not in page.get_text()
         assert page.select_one(".publication-footer a")["href"] == module.REPOSITORY
+        if name == "language-learning.html":
+            links = page.select(".language-data-downloads a")
+            assert {urlsplit(link["href"]).path for link in links} == {
+                "downloads/language-observations.csv", "downloads/language-learning.json"}
+            assert all(link.has_attr("download") for link in links)
         for a in page.select('a[href^="figures/"]'):
             assert a.has_attr("data-original-chart") and (tmp_path / urlsplit(a["href"]).path).is_file()
     page = BeautifulSoup((tmp_path / "index.html").read_text(), "html.parser")
