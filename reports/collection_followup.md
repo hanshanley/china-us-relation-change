@@ -11,6 +11,21 @@ Asia/Shanghai day. The generated inventory, frozen aggregate JSON and refresh
 status report the latest live totals; historical checkpoint counts below are
 not rewritten as though they were the latest collection.
 
+## Latest operational checkpoint: seventh scheduled Python-startup failure
+
+The actual October 25, 2026 stderr modification at 07:35:03.785821 UTC
+records another denied Python startup before site initialization. Read-only
+launchctl and the final traceback establish seven natural runs/failures.
+No collector code or feeds ran. Zero new posts does not establish inactivity.
+The successful bounded manual collection and October 23 cutoff, all 6,570
+posts, complete private exports and version 5 arrays remain unchanged.
+Manual user-approved OS access is still required; no permissions, launcher,
+restart, login or network bypass was attempted.
+
+This source checkpoint changes only attempted-at/note refresh metadata.
+Main promotion and actual website publication require separate receipts.
+It does not integrate pending publisher reviews or certify collection.
+
 ## Latest prepared source checkpoint: discovery pass96
 
 The dated [Greenwich review](discovery_iteration96.md) adds one factual
@@ -155,15 +170,15 @@ separate presentation task and this discovery integration does not claim it is
 deployed. Complete recovery datasets and archival exports remain available for
 audit, not as comparable historical posting trends.
 
-**Unattended collection is currently blocked:** five natural OS-scheduled
+**Archived fifth-failure operational note:** five natural OS-scheduled
 invocations, at 15:35 and 21:35 Mac local time on October23 and 03:35 and
 09:35 and 15:35 on October24, failed before Python initialized because the
 Documents-hosted virtual environment was not accessible to that process.
 No new scheduled collection occurred. The earlier bounded manual success and
 successful GitHub aggregate rebuild do not establish unattended collection.
 The [operations note](../docs/EXCHANGE.md#automatic-private-weibo-refresh)
-records the actual failure and user-approved-access requirement. Published
-refresh health now records the fifth startup block and zero attempted feeds, retaining
+records the actual failure and user-approved-access requirement. That checkpoint's
+refresh health recorded the fifth startup block and zero attempted feeds, retaining
 the last successful collection time, cutoff, corpus and all rolling data.
 The fifth failure was observed after iteration75's discovery publication; actual
 stderr modification time is `2026-10-24T19:35:05.213988+00:00`, not a feed-request

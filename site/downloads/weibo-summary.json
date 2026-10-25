@@ -24982,7 +24982,7 @@
   },
   "refresh": {
     "accounts_attempted": 0,
-    "attempted_at": "2026-10-25T01:35:05.101180+00:00",
+    "attempted_at": "2026-10-25T07:35:03.785821+00:00",
     "errors": [
       {
         "account_id": "local-scheduler",
@@ -24991,7 +24991,7 @@
     ],
     "mode": "daily_local",
     "new_posts": 0,
-    "note": "Unattended collection is blocked before Python startup by file-access permissions. Attempt time is the actual stderr modification time, not a feed-request start. No feeds were attempted and zero new records does not establish inactivity. Last successful bounded manual collection and its cutoff are retained. No privacy bypass or alternate launcher was attempted. Six natural OS-scheduled startup failures are now directly observed.",
+    "note": "Unattended collection is blocked before Python startup by file-access permissions. Attempt time is the actual stderr modification time, not a feed-request start. No feeds were attempted and zero new records does not establish inactivity. Last successful bounded manual collection and its cutoff are retained. No privacy bypass or alternate launcher was attempted. Seven natural OS-scheduled startup failures are now directly observed.",
     "readable_feeds": 0,
     "status": "blocked",
     "successful_collection_at": "2026-10-23T17:05:14.193645+00:00",
