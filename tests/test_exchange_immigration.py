@@ -10,6 +10,7 @@ from bs4 import BeautifulSoup
 
 from us_china_exchange.immigration_analysis import CHARTS, build_immigration, validate_immigration_data
 from us_china_exchange.immigration_sources import count, parse_admissions, parse_birth, parse_latest, parse_macau_abode, parse_macau_abode_2008, parse_stock, STOCK_YEARS
+from us_china_exchange.theme import CHART_THEMES
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -241,3 +242,33 @@ def test_bilateral_stocks_retain_source_populations_and_actual_benchmark_years()
     next(r for r in changed["observations"] if r["series_id"] == "un_stock:USA:CHN")["year"] = 2001
     with pytest.raises(ValueError, match="invented years"):
         validate_immigration_data(changed)
+
+
+def test_covid_context_covers_immigration_flows_but_not_stocks_or_snapshots(tmp_path):
+    data = published()
+    build_immigration(tmp_path, data, defaultdict(list))
+    page = BeautifulSoup((tmp_path / "site/immigration.html").read_text(), "html.parser")
+    flows = {
+        "annual-china-to-us", "annual-china-adjustments", "green-card-grants",
+        "hong-kong-green-cards", "macau-green-cards", "macau-residence-approvals",
+    }
+    for chart_id in CHARTS:
+        section = page.select_one("#" + chart_id)
+        note = section.select_one(".immigration-covid-note")
+        assert bool(note) == (chart_id in flows)
+        if note:
+            assert "not a universal ban" in note.text
+            assert "fiscal years" in note.text and "not border arrivals" in note.text
+            assert section.select(".immigration-covid-sources a")
+        for theme in CHART_THEMES:
+            paths = list((tmp_path / "site/figures/immigration" / theme).glob(chart_id + "*.svg"))
+            assert paths
+            for path in paths:
+                svg = BeautifulSoup(path.read_text(), "html.parser")
+                assert bool(svg.select(".covid-band")) == (chart_id in flows)
+                if chart_id in flows:
+                    footnote = " ".join(node.text for node in svg.select(".figure-source"))
+                    assert "not a universal ban" in footnote
+                    assert "In-country status adjustments are not border arrivals" in svg.find("desc").text
+                    assert all(float(node["y"]) <= 580 for node in svg.select(".figure-source"))
+    assert json.loads((tmp_path / "site/downloads/immigration.json").read_text()) == data

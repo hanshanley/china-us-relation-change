@@ -8,6 +8,7 @@ from pathlib import Path
 from urllib.parse import urlsplit
 
 from .indicator_charts import svg_indicator_chart
+from .covid_context import COVID_CONTEXT, overlaps as covid_overlaps
 from .public_freshness import current_groups
 from .model import GEOGRAPHIES, json_text
 from .pipeline import write_atomic
@@ -21,6 +22,9 @@ CHARTS = {
         "subtitle": "Chinese nationality | U.S. fiscal years",
         "series": ["ohss_nationality:new_arrivals"],
         "unit": "People per fiscal year", "mode": "levels",
+        "covid_context": True,
+        "figure_note": "DHS/OHSS preliminary Q4 releases. New arrivals by nationality, not birthplace; "
+        "excludes in-country adjustments. Fiscal years end September 30; later counts rounded to ten.",
         "note": "DHS/OHSS Table 1A, each year's preliminary Q4 release. "
         "New arrivals enter as permanent residents; adjustments concern people "
         "already in the U.S. Nationality is not birthplace or previous residence. Later releases round to ten; "
@@ -30,6 +34,7 @@ CHARTS = {
         "title": "Chinese nationals gaining residency while in the U.S.",
         "subtitle": "Status adjustments | U.S. fiscal years",
         "series": ["ohss_nationality:adjustments"], "unit": "People per fiscal year", "mode": "levels",
+        "covid_context": True,
         "note": "DHS/OHSS. These people were already in the U.S.; the year of permanent-residency approval "
         "is not their year of arrival. Do not add them to a chart labelled new arrivals."},
     "migrant-stock-to-us": {
@@ -43,18 +48,25 @@ CHARTS = {
     "green-card-grants": {
         "title": "U.S. green-card grants by birthplace", "subtitle": "Arrivals and adjustments | fiscal years",
         "series": ["ohss_birth:CHN", "ohss_birth:HKG", "ohss_birth:MAC"], "unit": "Status grants", "mode": "levels",
+        "covid_context": True,
         "note": "DHS/OHSS, country of birth, not nationality. Includes people already in the U.S. adjusting status. Fiscal years end September 30. FY2015–2024 rounded to nearest ten; earlier source vintages use exact counts."},
     "hong-kong-green-cards": {
         "title": "Green-card grants to Hong Kong-born people", "subtitle": "U.S. permanent residency | fiscal years",
         "series": ["ohss_birth:HKG"], "unit": "Status grants", "mode": "levels",
+        "covid_context": True,
         "note": "DHS/OHSS birthplace category. Includes arrivals and adjustments, not just new departures from Hong Kong. FY2015–2024 rounded to nearest ten. No visa or visitor counts substituted."},
     "macau-green-cards": {
         "title": "Green-card grants to Macau-born people", "subtitle": "U.S. permanent residency | fiscal years",
         "series": ["ohss_birth:MAC"], "unit": "Status grants", "mode": "levels",
+        "covid_context": True,
         "note": "DHS/OHSS birthplace category. Includes arrivals and adjustments. FY2015–2024 rounded to nearest ten; confidential/missing values are not zero."},
     "macau-residence-approvals": {
         "title": "Macau residence approvals: U.S. category", "subtitle": "People newly approved | calendar years",
         "series": ["dsec_abode:USA:MAC"], "unit": "People approved", "mode": "levels",
+        "covid_context": True,
+        "figure_note": "DSEC annual yearbooks, table 2.10. U.S.-category residence approvals in Macau, "
+        "calendar years; not verified citizenship, permanent-resident status or physical departures. "
+        "Revised compilation from 2007.",
         "note": "DSEC annual yearbooks, table 2.10. People in the U.S. country category newly approved for residence "
         "in Macau. Calendar-year approvals, not resident stocks, U.S. departures or U.S. green-card grants. "
         "The source category does not establish citizenship or a permanent-resident legal status. "
@@ -64,6 +76,21 @@ CHARTS = {
         "series": ["ohss_nationality:new_arrivals", "ohss_nationality:adjustments"], "unit": "Status grants", "mode": "bars",
         "note": "DHS/OHSS reports 65,670 total FY2025 China-nationality grants: 27,020 new arrivals and 38,650 adjustments within the U.S. Rounded to nearest ten. Nationality differs from birthplace: do not splice this into the historical line."},
 }
+
+IMMIGRATION_COVID_NOTE = (
+    "COVID-19 context: shading marks 2020-2022, a broad period of travel restrictions and "
+    "disruption to immigration services, not a universal ban or an estimate of COVID's effect. "
+    "Rules, exemptions and reopening dates varied by destination and category. "
+    "U.S. fiscal years run October-September; Macau approvals use calendar years. "
+    "In-country status adjustments are not border arrivals."
+)
+COVID_FIGURE_NOTE = "COVID context: restrictions and processing varied; not a universal ban."
+IMMIGRATION_COVID_SOURCES = [
+    ("U.S. immigrant-entry suspension revoked February 24, 2021",
+     "https://www.govinfo.gov/content/pkg/DCPD-202100169/html/DCPD-202100169.htm"),
+    ("USCIS in-person service suspension and reopening, March-June 2020",
+     "https://public-inspection.federalregister.gov/2021-05872.pdf"),
+]
 
 
 def validate_immigration_data(data):
@@ -190,8 +217,14 @@ def build_immigration(root, data, gallery, state_data=None, state_geometry=None)
             config = dict(config, subtitle=f"{config['subtitle']} {min(years)}-{max(years)}")
         stock_chart = chart_id.startswith("migrant-stock")
         basis = groups[0]["period_basis"]
+        years = [p["year"] for g in groups for p in g["points"]]
+        covid = config.get("covid_context", False) and covid_overlaps(min(years), max(years))
+        figure_config = dict(config, note=config.get("figure_note", config["note"]) + " " + COVID_FIGURE_NOTE) if covid else config
+        description = "Resident stocks and status grants have distinct periods and populations; not all physical arrivals."
+        if covid:
+            description += " " + IMMIGRATION_COVID_NOTE
         paths = {theme: export_figure(root, Path("immigration") / theme / chart_id, svg_indicator_chart(
-            config, groups, theme, "Resident stocks and status grants have distinct periods and populations; not all physical arrivals.", "immigration-point"))
+            figure_config, groups, theme, description, "immigration-point"))
                  for theme in CHART_THEMES}
         regional = any(g["geography"] == "CHN" for g in groups) and any(
             g["geography"] in {"HKG", "MAC"} for g in groups)
@@ -209,14 +242,14 @@ def build_immigration(root, data, gallery, state_data=None, state_geometry=None)
                 actual_geographies = [g["geography"] for g in selected]
                 if len(actual_geographies) == 1:
                     label = GEOGRAPHIES[actual_geographies[0]]
-                panel_config = dict(config, subtitle=label + " | " + config["subtitle"],
+                panel_config = dict(figure_config, subtitle=label + " | " + config["subtitle"],
                                     first_year=year_range[0], last_year=year_range[1],
                                     geographies=actual_geographies)
                 panel_paths = {theme: export_figure(
                     root, Path("immigration") / theme / (chart_id + "-" + "-".join(geographies).lower()),
                     svg_indicator_chart(panel_config, selected, theme,
                                         "Same observation years; separate vertical scales. "
-                                        "Resident stocks and status grants retain their source populations and periods.",
+                                        + description,
                                         "immigration-point")) for theme in CHART_THEMES}
                 panes.append(f'<div class="comparison-pane" data-geographies="{" ".join(actual_geographies)}" '
                              f'role="group" aria-label="{label}"><h3 class="comparison-region-title">{label}</h3>'
@@ -247,7 +280,13 @@ def build_immigration(root, data, gallery, state_data=None, state_geometry=None)
                              f'<td>{point["value"]:,}</td><td>{point["status"]}</td></tr>')
         cards.append(f'<section class="series-panel" id="{chart_id}"><h2>{esc(config["title"])}</h2>'
                      + chart_markup + f'<p class="chart-note">{esc(config["note"])}</p>'
-                     '<details><summary>Exact reported values</summary><div class="table-scroll"><table>'
+                     + (f'<p class="chart-note immigration-covid-note">{esc(IMMIGRATION_COVID_NOTE)}</p>'
+                        '<p class="chart-note immigration-covid-sources">'
+                        + " · ".join(f'<a href="{esc(url)}">{esc(label)}</a>' for label, url in (
+                            IMMIGRATION_COVID_SOURCES if basis == "fiscal ending year" else
+                            [(item["name"], item["url"]) for item in COVID_CONTEXT["sources"] if item["name"].startswith("Macau")]))
+                        + '</p>' if covid else '')
+                     + '<details><summary>Exact reported values</summary><div class="table-scroll"><table>'
                      f'<thead><tr><th>Population</th><th>Period</th><th>{esc(config["unit"])}</th><th>Precision</th></tr></thead>'
                      '<tbody>' + "".join(exact) + '</tbody></table></div></details></section>')
         if chart_id == "annual-china-to-us":
