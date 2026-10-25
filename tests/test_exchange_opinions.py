@@ -40,7 +40,81 @@ def test_primary_source_checkpoints_keep_two_directions_and_scales_separate():
     assert d["surveys"]["pew_phone_2010"]["field_start"] is None
 
 
-@pytest.mark.parametrize("kind", ["scale", "direction", "age", "infinite", "missing", "survey_date", "sample"])
+def test_long_run_history_preserves_every_poll_and_selects_first_round_not_an_average():
+    d = sources.validate_opinion_data(data())
+    rounds = [r for r in d["observations"] if r["series_id"] == "gallup_us:favorable"]
+    assert len(rounds) == 29
+    assert {r["year"] for r in rounds} == set(range(2000, 2027))
+    assert sorted((d["surveys"][r["survey_id"]]["field_start"], r["value"])
+                  for r in rounds if r["year"] == 2000) == [
+                      ("2000-01-25", 33), ("2000-03-17", 35), ("2000-11-13", 36)]
+    groups = chart_groups(d, "us-china-favorability")
+    assert [len(group["points"]) for group in groups] == [27, 27]
+    assert [group["points"][0]["value"] for group in groups] == [33, 51]
+    assert [group["points"][-1]["value"] for group in groups] == [34, 61]
+    latest = d["surveys"][groups[0]["points"][-1]["survey_id"]]
+    assert latest["field_start"] == "2026-02-02" and latest["field_end"] == "2026-02-16"
+    assert latest["n_total"] == 1001 and latest["n_item"] is None
+    assert all(r["comparability"] == "gallup_us_telephone"
+               for group in groups for r in group["points"])
+    assert min(r["year"] for r in d["observations"] if r["series_id"] == "pew_us_phone:favorable") == 2005
+    assert min(r["year"] for r in d["observations"] if r["series_id"] == "pew_china:favorable") == 2007
+    panel = chart_groups(d, "us-china-panel-favorability")
+    assert [group["points"][-1]["value"] for group in panel] == [27, 71]
+    assert min(r["year"] for group in panel for r in group["points"]) == 2020
+
+
+def test_gallup_parser_keeps_distinct_polls_and_rejects_missing_or_wrong_country_data(monkeypatch):
+    rows = ["2000 Jan 25-26 4 29 33 18 16 33 51",
+            "2000 Mar 17-19 6 29 40 16 9 35 56",
+            "2000 Nov 13-15 5 31 39 18 7 36 57"]
+    rows += [f"{year} Feb 2-16 5 29 37 24 * 34 61" for year in range(2001, 2027)]
+    table = "D. China\nTotal favorable Total unfavorable\n" + "\n".join(rows) + "\nAsked of half sample"
+    class Page:
+        def __init__(self, text):
+            self.text = text
+        def extract_text(self):
+            return self.text
+    class Reader:
+        pages = [Page("telephone interviews conducted February 2-16, 2026"),
+                 Page(table.replace("D. China", "C. Canada").replace("34 61", "80 15")), Page(table)]
+    monkeypatch.setattr(sources, "PdfReader", lambda _: Reader())
+    result = sources.parse_gallup_history(b"source")
+    assert len(result) == 29 and result[0]["favorable"] == 33 and result[-1]["unfavorable"] == 61
+    for invalid in (table.replace(rows[3] + "\n", ""),
+                    table.replace("34 61", "* 61"),
+                    table.replace(rows[0], rows[0] + "\n" + rows[0]),
+                    table.replace("2000 Mar 17-19", "2000 Mar 17-Apr 1")):
+        Reader.pages[-1] = Page(invalid)
+        with pytest.raises(ValueError):
+            sources.parse_gallup_history(b"changed source")
+
+
+def test_opinion_charts_never_have_travel_restriction_context():
+    for chart_id in CHARTS:
+        for theme in ("themarginoferror", "substack"):
+            svg = BeautifulSoup(svg_opinion_chart(data(), chart_id, theme), "html.parser")
+            assert not svg.select(".covid-context,.covid-band,.covid-label")
+
+
+def test_generic_indicator_travel_context_requires_explicit_opt_in():
+    from us_china_exchange.indicator_charts import svg_indicator_chart
+
+    config = {"title": "Arrivals", "subtitle": "Reported arrivals", "mode": "levels",
+              "unit": "Trips", "note": ""}
+    group = {"id": "arrivals", "label": "Arrivals", "color": "#39748F", "cadence": "annual",
+             "scheduled_years": [2019, 2020], "points": [
+                 {"year": year, "value": 10, "plotted_value": 10, "comparability": "same"}
+                 for year in (2019, 2020)]}
+    for enabled in (False, True):
+        configured = dict(config, covid_context=True) if enabled else config
+        svg = BeautifulSoup(svg_indicator_chart(configured, [group], "substack", "", "travel-point"),
+                            "html.parser")
+        assert bool(svg.select(".covid-band")) == enabled
+
+
+@pytest.mark.parametrize("kind", ["scale", "direction", "age", "infinite", "missing", "survey_date", "sample",
+                                 "gallup_source", "gallup_dates"])
 def test_invalid_survey_semantics_fail_before_publication(kind):
     d = data()
     if kind == "scale":
@@ -55,8 +129,13 @@ def test_invalid_survey_semantics_fail_before_publication(kind):
         d["observations"][0]["value"] = None
     elif kind == "survey_date":
         d["surveys"]["pulse_2025"]["field_start"] = "2027-01-01"
-    else:
+    elif kind == "sample":
         d["surveys"]["pew_warmth_2026"]["n_item"] = 5194
+    elif kind == "gallup_source":
+        next(r for r in d["observations"] if r["series_id"] == "gallup_us:favorable")["comparability"] = "pew_us_atp"
+    else:
+        survey = d["surveys"]["gallup_us_2000-01-25"]
+        survey.update(field_start=None, field_end=None)
     with pytest.raises(ValueError):
         sources.validate_opinion_data(d)
 

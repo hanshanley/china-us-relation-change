@@ -190,11 +190,12 @@ average or social-media sample is substituted.
 
 | Primary source | Contract |
 |---|---|
-| Pew Research Center, April 14, 2026 U.S. China analysis | Embedded favorable/unfavorable table, 2010 onward. Retain phone, summer-phone and American Trends Panel observations separately. The March 1 dates used for chart positioning are not actual fieldwork dates. |
+| Gallup, March 12, 2026 country-ratings release and original final topline, page 4, Q17 D | All 29 China survey rounds in 2000-2026, including three in 2000; 58 favorable/unfavorable net percentages. The main history explicitly uses the first reported poll per year, never an annual average. All rounds remain in complete downloads. Telephone interviews, separate from Pew; sampling frames and weights evolved. Latest fieldwork February 2-16, 2026, full n=1,001; each country item approximately 800, not an exact item sample of 800. Retain the 2001 half-sample note and published rounded nets. |
+| Pew Research Center, April 14, 2026 U.S. China analysis | Embedded favorable/unfavorable table, 2005 onward. Retain phone, summer-phone and American Trends Panel observations separately. The March 1 dates used for chart positioning are not actual fieldwork dates. |
 | Pew, July 15, 2026 *Views of China and Xi Are Improving Globally*, PDF appendix page 20 | U.S. favorable/unfavorable percentages for ages 18-34, 35-49 and 50+. Read the left-hand U.S. column, not adjacent Australia. Actual U.S. fieldwork was March 23-29, n=3,507, not a July poll. |
 | Pew, September 23, 2026 U.S. warmth article and linked topline | Published means 39, 42, 28 and 37 in 2016/2018/2021/2026. Current age means 42 for 18-49 and 31 for 50+. Means are reviewed article facts, not computed from rounded bins in the topline. Direct article retrieval returned 403; no access restriction was bypassed. The separately published PDF verifies the question and field dates. The China-specific base is 1,168, not the full 5,193 sample. |
 | The Carter Center / Emory University, October 2026 China Pulse report and its published Datawrapper LU2Fb dataset | Means on a 0-100 cold-to-warm scale, not percent favorable. Fieldwork October 27, 2025-January 1, 2026 (2,506) and April 16-June 26, 2026 (2,500). Both waves are reweighted in this release, yielding overall means 33 and 32. Keep original Chinese age bands and do not claim a matched U.S. probability sample. The PDF supplies a publication month, not an exact day. |
-| Pew, October 5, 2016 China report, page 13, Q10a | Direct published net favorable/unfavorable percentages, 2010-2016. Do not sum separately rounded component percentages. Sample coverage varied historically; disconnected bars do not imply a continuous current national trend. |
+| Pew, October 5, 2016 China report, page 13, Q10a | Direct published net favorable/unfavorable percentages, 2007-2016. Do not sum separately rounded component percentages. Sample coverage varied historically; disconnected bars do not imply a continuous current national trend. |
 
 The 2025 Pew age figure relevant to the cited social-media commentary uses ages
 **18-34**, not "under 34." It displays 17 statistically significant age gaps
@@ -203,7 +204,7 @@ It is not the full set of countries polled. The dashboard uses the newer verifie
 U.S. data and does not treat the existence or motivation of a social-media trend
 as something an opinion survey establishes.
 
-Complete public CSV/JSON retain all 74 estimates, not just favorable observations
+Complete public CSV/JSON retain all 148 estimates, not just favorable observations
 or the default chart, plus source fingerprints, actual or explicitly unknown
 field dates, original age bands and question-specific sample bases. Reviewed
 transcription checksums are distinguished from publisher download checksums.
@@ -228,6 +229,10 @@ how much any series was affected. Original notices are linked in the public
   exemptions; conditional entry followed before January 8, 2023.
 
 Neither chart shading nor publication year makes an older observation current.
+Travel-restriction context is only appropriate for directly travel-linked
+measures. Generic indicator charts must explicitly opt in; opinion, business,
+language-learning, Confucius programs, goods trade and resident stocks must not
+receive a travel-restriction band merely because their dates overlap 2020-2022.
 The public recency rule uses the reference/measurement period and preserves all
 historical records in complete archival downloads.
 

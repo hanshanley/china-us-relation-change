@@ -15,6 +15,7 @@ from .model import digest
 
 
 PEW_TREND = "https://www.pewresearch.org/short-reads/2026/04/14/americans-views-of-china-have-grown-somewhat-more-positive-in-recent-years/"
+GALLUP_HISTORY = "https://news.gallup.com/file/poll/703046/260312CountryRatings.pdf"
 PEW_AGE = "https://www.pewresearch.org/wp-content/uploads/sites/20/2026/07/pg_2026.06.15_global-views-china-2026_report.pdf"
 PEW_WARMTH = "https://www.pewresearch.org/wp-content/uploads/sites/20/2026/09/SR_26.09.23_views-of-china_topline.pdf"
 PEW_CHINA = "https://www.pewresearch.org/global/wp-content/uploads/sites/2/2016/10/Pew-Research-Center-China-Report-FINAL-October-5-2016.pdf"
@@ -44,8 +45,6 @@ def parse_pew_trend(body):
         if len(cells) != 6 or not re.fullmatch(r"\d{1,2}/\d{1,2}/\d{4}", cells[0]):
             raise ValueError("Pew opinion trend columns changed")
         year = int(cells[0].split("/")[-1])
-        if year < 2010:
-            continue
         for mode, columns in (("phone", (2, 3)), ("atp", (4, 5))):
             values = [cells[i] for i in columns]
             if not any(values):
@@ -57,6 +56,44 @@ def parse_pew_trend(body):
     if not result or {r["mode"] for r in result} != {"phone", "atp"}:
         raise ValueError("Separate Pew phone and panel histories required")
     return result
+
+
+def parse_gallup_history(body):
+    pages = [page.extract_text() for page in PdfReader(io.BytesIO(body)).pages]
+    if not any("telephone interviews conducted February 2-16, 2026" in page for page in pages):
+        raise ValueError("Gallup survey mode or reference dates changed")
+    selected = [page for page in pages if re.search(r"\bD\.\s+China\b", page)]
+    if len(selected) != 1 or not all(label in normalize(selected[0]) for label in
+                                   ("Total favorable", "Total unfavorable", "Asked of half sample")):
+        raise ValueError("Gallup China history table missing or ambiguous")
+    result = []
+    pattern = (r"^(\d{4})\s+([A-Z][a-z]{2})\s+(\d{1,2})-(\d{1,2})\s*(\^)?\s+"
+               r"((?:(?:\d+|\*)\s+){6}(?:\d+|\*))\s*$")
+    for line in selected[0].splitlines():
+        match = re.fullmatch(pattern, line.strip())
+        if not match:
+            if re.match(r"^20\d{2}\b", line.strip()):
+                raise ValueError("Gallup historical date or response columns changed")
+            continue
+        year = int(match[1])
+        if year < 2000:
+            continue
+        values = match[6].split()
+        if not all(value.isdigit() for value in values[-2:]):
+            raise ValueError("Gallup net percentages must be reported, not inferred")
+        start = datetime.strptime(f"{year} {match[2]} {match[3]}", "%Y %b %d").date()
+        end = datetime.strptime(f"{year} {match[2]} {match[4]}", "%Y %b %d").date()
+        if start > end or any(not 0 <= int(value) <= 100 for value in values if value != "*"):
+            raise ValueError("Invalid Gallup survey dates or percentages")
+        result.append({"year": year, "period": f"{match[2]} {match[3]}-{match[4]}, {year}",
+                       "field_start": start.isoformat(), "field_end": end.isoformat(),
+                       "favorable": int(values[-2]), "unfavorable": int(values[-1]),
+                       "half_sample": bool(match[5])})
+    dates = [row["field_start"] for row in result]
+    if (not result or len(set(dates)) != len(dates)
+            or not set(range(2000, 2027)).issubset(row["year"] for row in result)):
+        raise ValueError("Gallup history requires distinct polls and every year from 2000 to 2026")
+    return sorted(result, key=lambda row: row["field_start"])
 
 
 def parse_pew_age(body):
@@ -85,7 +122,7 @@ def parse_china_history(body):
     if years != list(range(2007, 2017)):
         raise ValueError("Historical China survey rounds changed")
     return [{"year": year, "favorable": values[i], "unfavorable": values[i + 10]}
-            for i, year in enumerate(years) if year >= 2010]
+            for i, year in enumerate(years)]
 
 
 def parse_pulse(body):
@@ -130,7 +167,7 @@ def validate_opinion_data(data):
     for survey in data["surveys"].values():
         if set(survey) != {"year", "period", "field_start", "field_end", "n_total", "n_item", "notes"}:
             raise ValueError("Invalid survey identity")
-        if not isinstance(survey["year"], int) or isinstance(survey["year"], bool) or not 2010 <= survey["year"] <= 9999:
+        if not isinstance(survey["year"], int) or isinstance(survey["year"], bool) or not 2000 <= survey["year"] <= 9999:
             raise ValueError("Invalid survey year")
         if (survey["field_start"] is None) != (survey["field_end"] is None):
             raise ValueError("Survey field dates are either both verified or both unknown")
@@ -182,6 +219,10 @@ def validate_opinion_data(data):
             raise ValueError("Opinion comparability and notes required")
         if row["series_id"].startswith("pulse") and row["comparability"] != "china_pulse_october_2026_weights":
             raise ValueError("Do not splice unweighted and reweighted China Pulse releases")
+        if row["series_id"].startswith("gallup_us:") and (
+                row["source_id"] != "gallup_us_history" or row["comparability"] != "gallup_us_telephone"
+                or not survey["field_start"] or not survey["field_end"]):
+            raise ValueError("Gallup telephone polls require their own source, dates and comparability")
     return data
 
 
@@ -209,6 +250,28 @@ def collect(client, reviewed_body):
         data["observations"].append(dict(series_id=sid, survey_id=survey_id, source_id=source_id,
                                          year=wave["year"], period=wave["period"], value=value,
                                          status="observed", comparability=comparability, notes=notes))
+
+    body, asset = client.get(GALLUP_HISTORY)
+    source("gallup_us_history", "Gallup", "2026-03-12",
+           "https://news.gallup.com/poll/703040/americans-views-canada-great-britain-drop-new-lows.aspx",
+           [asset], "Country ratings final topline, PDF page 4, Q17 D: China, all 2000-2026 rounds; pages 1-2 methods.",
+           "Telephone surveys of U.S. adults, not Pew's panel. Sampling frames and weights evolved. "
+           "2026 fieldwork February 2-16; full sample 1,001, each country item approximately 800. "
+           "Published net percentages are retained despite rounding; every reported 2000 round is kept.")
+    for response in ("favorable", "unfavorable"):
+        series("gallup_us:" + response, response.title(), "USA", "favorability", cadence="annual",
+               sampling="Gallup telephone surveys; current random-digit-dial landline/cellular sample. "
+               "Earlier sampling frames and weights evolved; separate from Pew phone and panel surveys.")
+    for row in parse_gallup_history(body):
+        wave = "gallup_us_" + row["field_start"]
+        notes = "Asked of half the sample." if row["half_sample"] else ""
+        if row["year"] == 2026:
+            notes = "Full n=1,001; country items approximately 800, so no exact item base is inferred."
+        survey(wave, row["year"], row["period"], row["field_start"], row["field_end"],
+               1001 if row["year"] == 2026 else None, notes=notes)
+        for response in ("favorable", "unfavorable"):
+            observation("gallup_us:" + response, wave, "gallup_us_history", row[response],
+                        "gallup_us_telephone", "Published net; not an annual average. " + notes)
 
     body, asset = client.get(PEW_TREND)
     source("pew_us_trend", "Pew Research Center", "2026-04-14", PEW_TREND, [asset],

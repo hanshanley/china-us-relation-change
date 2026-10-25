@@ -16,6 +16,14 @@ from .theme import BLUE, CHART_THEMES, MUTED, PARTNER_COLORS
 CHARTS = {
     "us-china-favorability": {
         "title": "U.S. views of China",
+        "subtitle": "Gallup | telephone surveys, 2000-2026",
+        "series": ["gallup_us:favorable", "gallup_us:unfavorable"], "mode": "levels",
+        "first_survey_per_year": True,
+        "unit": "Percent of U.S. adults",
+        "summary": "The first reported poll in each year, not annual averages. Every survey round is retained in the complete downloads.",
+        "note": "Gallup, March 2026 topline. First poll per year; 2000 uses January 25-26, 2026 February 2-16. Telephone sampling and weights evolved. Not joined to Pew's separate panel."},
+    "us-china-panel-favorability": {
+        "title": "U.S. views of China: Pew panel",
         "subtitle": "Pew Research Center | American Trends Panel, 2020-2026",
         "series": ["pew_us_atp:favorable", "pew_us_atp:unfavorable"], "mode": "levels",
         "unit": "Percent of U.S. adults",
@@ -58,14 +66,14 @@ CHARTS = {
         "note": "Pew Research Center, September 2026. Published mean ratings, with 50 neutral. This question and its age bands differ from the March favorability question. The figures do not measure participation in a social-media trend."},
     "us-china-earlier-favorability": {
         "title": "Earlier U.S. views of China",
-        "subtitle": "Pew Research Center | telephone surveys, 2010-2020",
+        "subtitle": "Pew Research Center | telephone surveys, 2005-2020",
         "series": ["pew_us_phone:favorable", "pew_us_phone:unfavorable"],
         "mode": "levels", "unit": "Percent of U.S. adults",
         "summary": "Earlier telephone surveys are shown separately from the American Trends Panel.",
         "note": "Pew's April 2026 retrospective table, spring survey rounds. Telephone and panel answers differ even in the overlapping 2020 year, so they are not spliced. The separately reported summer 2020 phone results are retained in the full data download."},
     "china-us-earlier-favorability": {
         "title": "Earlier Chinese views of the U.S.",
-        "subtitle": "Pew Research Center | historical survey rounds, 2010-2016",
+        "subtitle": "Pew Research Center | historical survey rounds, 2007-2016",
         "series": ["pew_china:favorable"], "mode": "bars", "by_period": True,
         "unit": "Percent favorable",
         "summary": "Historical Pew favorable opinions. These are not current readings or warmth scores.",
@@ -77,7 +85,13 @@ def chart_groups(data, chart_id):
     config, result = CHARTS[chart_id], []
     for sid in config["series"]:
         definition = data["series"][sid]
-        rows = sorted((r for r in data["observations"] if r["series_id"] == sid), key=lambda r: r["year"])
+        rows = sorted((r for r in data["observations"] if r["series_id"] == sid),
+                      key=lambda r: (r["year"], data["surveys"][r["survey_id"]]["field_start"] or ""))
+        if config.get("first_survey_per_year"):
+            annual = {}
+            for row in rows:
+                annual.setdefault(row["year"], row)
+            rows = list(annual.values())
         if config.get("latest"):
             rows = [r for r in rows if r["year"] == max(p["year"] for p in rows)]
         color = (MUTED if sid.endswith(":unfavorable") else

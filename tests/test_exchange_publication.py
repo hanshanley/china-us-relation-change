@@ -159,7 +159,12 @@ def test_collective_export_preserves_complete_inputs_and_native_plot_boundaries(
     assert "September 2026" in opinions.select_one(".analysis-scope").text
     for model in opinions.select(".plot-data"):
         assert json.loads(model.string)["axis_max"] == 100
-    assert len(opinions.select(".native-chart")) == 6
+    assert len(opinions.select(".native-chart")) == len(opinions.select("#module-chart option"))
+    long_run = json.loads(opinions.select_one("#us-china-favorability .plot-data").string)
+    assert (long_run["first"], long_run["last"]) == (2000, 2026)
+    assert {group["id"] for group in long_run["groups"]} == {"gallup_us:favorable", "gallup_us:unfavorable"}
+    assert opinions.select_one("#us-china-panel-favorability .plot-data")
+    assert not any(json.loads(model.string).get("covid_context") for model in opinions.select(".plot-data"))
     assert immigration.select_one('#module-chart option[selected]')["value"] == "annual-china-to-us"
     assert len(immigration.select("#state-china-map .state-shape")) == 51
     assert immigration.select_one('#state-china-map [data-map-metric="count"]')

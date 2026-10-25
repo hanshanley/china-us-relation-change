@@ -53,7 +53,7 @@ def svg_indicator_chart(config, groups, theme, description, point_class):
         f'<text x="115" y="77" font-size="18">{esc(config["subtitle"])}</text>',
         f'<text class="axis-unit" x="115" y="145" font-size="18">{esc(config["unit"])}</text>',
     ]
-    if not bars:
+    if not bars and config.get("covid_context", False):
         parts.append(svg_band(first, last, 115, 950, 170, 420, columns=columns))
     if not bars:
         for i, group in enumerate(groups):
