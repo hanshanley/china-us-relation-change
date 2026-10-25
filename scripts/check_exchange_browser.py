@@ -151,9 +151,18 @@ def check():
                            a.y + a.height <= b.y || b.y + b.height <= a.y;
                   }))"""), (str(path), "overlapping indicator legend or year labels")
         page.goto((ROOT / "site/comparisons.html").as_uri())
-        assert page.locator(".series-panel").count() == 18
+        measures = {cell["measure"] for cell in matrix}
+        assert set(page.locator(".series-panel").evaluate_all("nodes=>nodes.map(n=>n.id)")) == {
+            f"{measure}-{direction}" for measure in measures for direction in ("to_us", "from_us")}
         images = page.locator('img[src$="-levels.png"]')
-        assert images.count() == 24
+        expected_images = sum(
+            any(row["measure"] == measure and row["frequency"] == "annual" and row["value"] is not None
+                and row["origin" if direction == "from_us" else "destination"] == "USA"
+                and row["destination" if direction == "from_us" else "origin"] in geographies
+                for row in rows)
+            for measure in measures for direction in ("to_us", "from_us")
+            for geographies in (("CHN",), ("HKG", "MAC")))
+        assert images.count() == expected_images
         for image in images.all():
             image.scroll_into_view_if_needed()
             expect(image).to_have_js_property("naturalWidth", PNG_WIDTH)

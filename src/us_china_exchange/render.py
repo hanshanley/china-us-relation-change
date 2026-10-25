@@ -8,6 +8,7 @@ import math
 import textwrap
 from collections import defaultdict
 from datetime import timedelta
+from decimal import Decimal, ROUND_HALF_UP
 from pathlib import Path
 
 import resvg_py
@@ -93,8 +94,10 @@ def comparison(result, unit):
     absolute = result["absolute"]
     sign = "+" if absolute > 0 else "\u2212" if absolute < 0 else ""
     percent = result["percent"]
+    if percent is not None:
+        rounded = Decimal(percent).quantize(Decimal("0.1"), rounding=ROUND_HALF_UP)
     return (sign + number(abs(absolute), unit) +
-            (f" ({'+' if percent > 0 else ''}{percent:.1f}%)" if percent is not None
+            (f" ({'+' if percent > 0 else ''}{rounded:.1f}%)" if percent is not None
              else " \u00b7 " + result["reason"]))
 
 

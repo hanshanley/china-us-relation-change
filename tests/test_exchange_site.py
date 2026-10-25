@@ -10,11 +10,21 @@ from bs4 import BeautifulSoup
 from PIL import Image, ImageColor
 
 from us_china_exchange.model import GEOGRAPHIES, MEASURES, change, observation
-from us_china_exchange.render import annual_table, baseline, build, initial_panel, regional_series, svg_chart, svg_comparison
+from us_china_exchange.render import annual_table, baseline, build, comparison, initial_panel, regional_series, svg_chart, svg_comparison
 from us_china_exchange.theme import CHART_THEMES, COMPARISON_GEOGRAPHIES, FLOW_COLORS, PARTNER_COLORS, PNG_HEIGHT, PNG_WIDTH
 
 
 ROOT = Path(__file__).resolve().parents[1]
+
+
+@pytest.mark.parametrize("absolute,percent,expected", [
+    (17, 106.25, "+17 (+106.3%)"),
+    (-49, -12.25, "\u221249 (-12.3%)"),
+    (1.15, 1.15, "+1.15 (+1.1%)"),
+    (0.01, 0.01, "+0.01 (+0.0%)"),
+])
+def test_comparison_percentage_ties_match_browser_rounding(absolute, percent, expected):
+    assert comparison({"absolute": absolute, "percent": percent, "reason": ""}, "students") == expected
 
 
 def test_offline_build_download_round_trip_and_reproducibility(tmp_path):
