@@ -10,9 +10,9 @@ class FakeClient:
     now = "2026-10-21T00:00:00+00:00"
 
 
-def adapter(value=100, vintage="Release 1", source="sample"):
+def adapter(value=100, vintage="Release 1", source="sample", year=2020):
     def fetch(client):
-        row = observation(source, "CHN", "USA", "visitors", 2020, value, "Test scope")
+        row = observation(source, "CHN", "USA", "visitors", year, value, "Test scope")
         row.update(source_url="https://example.org/official.csv", raw_sha256="a" * 64,
                    retrieved_at=client.now, source_vintage=vintage)
         return [row], vintage, "Source notes"
@@ -31,6 +31,31 @@ def test_unchanged_refresh_is_byte_identical_and_revision_replaces(tmp_path):
     refresh(tmp_path, {"sample": adapter(125, "Release 2")}, client)
     assert len(json.loads(path.read_text())) == 1
     assert json.loads(path.read_text())[0]["value"] == 125
+
+
+@pytest.mark.parametrize("year", [2019, 2020])
+def test_unchanged_refresh_migrates_legacy_baseline_metadata_without_rewriting_source(tmp_path, year):
+    fetch = adapter(year=year)
+    refresh(tmp_path, {"sample": fetch}, FakeClient())
+    output = tmp_path / "data/site"
+    unchanged = {name: (output / name).read_bytes()
+                 for name in ("observations.json", "sources.json")}
+    coverage_path = output / "coverage.json"
+    legacy = json.loads(coverage_path.read_text())
+    for cell in legacy:
+        cell.pop("baseline_2019", None)
+        cell["baseline_2020"] = 2020 in cell["available_years"]
+    coverage_path.write_text(json.dumps(legacy, indent=2, sort_keys=True) + "\n")
+    client = FakeClient()
+    client.now = "2026-10-22T00:00:00+00:00"
+    assert refresh(tmp_path, {"sample": fetch}, client)["publication_changed"]
+    matrix = json.loads(coverage_path.read_text())
+    cell = next(row for row in matrix if (row["origin"], row["destination"], row["measure"])
+                == ("CHN", "USA", "visitors"))
+    assert cell["baseline_2019"] is (year == 2019)
+    assert all("baseline_2020" not in row for row in matrix)
+    assert unchanged == {name: (output / name).read_bytes() for name in unchanged}
+    assert not refresh(tmp_path, {"sample": fetch}, client)["publication_changed"]
 
 
 def test_outage_retains_data_and_recovery_updates_health(tmp_path):
