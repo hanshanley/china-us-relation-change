@@ -44,8 +44,8 @@ PAGES = {
                               "AP exams through 2025 · Degree awards through 2024 · College census through 2021"),
     "confucius.html": ("Confucius Institutes & Classrooms", "U.S. institutes, school programs and documented replacements, counted separately.",
                        "Dated historical reports · Operator listings are not an operating census"),
-    "business-presence.html": ("Businesses in mainland China", "Annual affiliate and enterprise counts—not trade flows, offices or a combined European total.",
-                             "Annual affiliate histories · Latest available year varies by origin"),
+    "business-presence.html": ("Business links", "U.S. investment abroad, China-linked affiliates in the U.S., and recent company decisions. Each measure and geography kept separate.",
+                             "Year-end investment positions: 2000-2025 · Company surveys: 2026"),
     "weibo.html": ("U.S. media on Weibo", "Documented accounts and Chinese-language editions, with sources for each association.",
                    "Account identity evidence, not a measure of posting activity"),
 }
@@ -299,6 +299,11 @@ def decorate(site, name, labels, revision):
         rows = json.loads((site / "downloads/language-learning.json").read_text())["observations"]
         latest = lambda prefix: max(r["year"] for r in rows if r["series_id"].startswith(prefix) and r["value"] is not None)
         scope = f"Degree awards through {latest('ipeds:')} · AP exams through {latest('ap:')} · School offerings: January 2024"
+    elif name == "business-presence.html":
+        inward_path = site / "downloads/business-inward.json"
+        if inward_path.is_file():
+            rows = json.loads(inward_path.read_text())["observations"]
+            scope += f' · U.S. affiliate counts: {min(row["year"] for row in rows)}–{max(row["year"] for row in rows)}'
     elif name == "immigration.html" and (site / "downloads/state-immigration.json").is_file():
         state_data = json.loads((site / "downloads/state-immigration.json").read_text())
         immigration = json.loads((site / "downloads/immigration.json").read_text())
@@ -525,6 +530,9 @@ def decorate(site, name, labels, revision):
     elif name == "weibo.html":
         for node in old_intro:
             node.decompose()
+    elif name == "business-presence.html":
+        for node in old_intro:
+            node.decompose()
     else:
         for node in old_intro:
             node.decompose()
@@ -536,9 +544,7 @@ def decorate(site, name, labels, revision):
         if charts:
             preferred = {"language-learning.html": "chinese-bachelors", "comparisons.html": "goods-to_us",
                          "immigration.html": "annual-china-to-us", "opinions.html": "us-china-favorability"}.get(name)
-            groups = ({section["id"]: ("U.S. affiliates" if section["id"].startswith("us-") else
-                                      "European enterprise series") for section in charts}
-                      if name == "business-presence.html" else None)
+            groups = None
             if name == "immigration.html":
                 groups = {section["id"]: (
                     "Where people live" if section["id"].startswith(("state-", "migrant-stock")) else
@@ -550,8 +556,10 @@ def decorate(site, name, labels, revision):
         for details in main.find_all("details", recursive=False):
             if name != "confucius.html" and not details.select_one(".comparison-chart"):
                 details.decompose()
+    observation_path = site / "downloads/observations.json"
     observations = {(r["series_id"], r["period"]): r for r in
-                    json.loads((site / "downloads/observations.json").read_text()) if r["frequency"] == "annual"}
+                    (json.loads(observation_path.read_text()) if observation_path.is_file() else [])
+                    if r["frequency"] == "annual"}
     if name == "language-learning.html":
         history = soup.select_one("#college-enrollments")
         if history is not None:
@@ -675,7 +683,7 @@ def build_publication(source, output, revision):
         site = root / "site"
         prepare_topic_pages(site)
         definitions = {}
-        for name in ["language_learning", "business_presence", "immigration", "opinions"]:
+        for name in ["language_learning", "business_current", "business_inward", "immigration", "opinions"]:
             if not (root / f"data/site/{name}.json").is_file():
                 continue
             data = json.loads((root / f"data/site/{name}.json").read_text())
@@ -698,7 +706,7 @@ def build_publication(source, output, revision):
                     "scope": "Collective exchanges, immigration, public opinion, language, business and public Weibo research aggregates; no raw posts or source reports",
                     "observations": result["observations"], "files": files, "chart_freshness": POLICY,
                     "datasets": {name: files[f"downloads/{name}.json"] for name in
-                                 ["exchange", "language-learning", "business-presence", "weibo-summary", "immigration",
+                                 ["exchange", "language-learning", "business-presence", "business-current", "business-inward", "weibo-summary", "immigration",
                                   "student-estimates", "state-immigration", "confucius-programs", "opinions"]
                                  if f"downloads/{name}.json" in files}}
         (site / "publication-manifest.json").write_text(json_text(manifest), encoding="utf-8")
@@ -715,6 +723,9 @@ def build_publication(source, output, revision):
                     (output / "figures/language_learning" / theme / f"{chart_id}.{extension}").unlink(missing_ok=True)
         for old in ["business-publication.css", "business-publication.js"]:
             (output / "assets" / old).unlink(missing_ok=True)
+        if "business-inward" not in manifest["datasets"]:
+            for name in ("business-inward.json", "business-inward-observations.csv", "business-inward-chart-values.csv"):
+                (output / "downloads" / name).unlink(missing_ok=True)
         if "opinions" not in manifest["datasets"]:
             from us_china_exchange.opinion_analysis import CHARTS as OPINION_CHARTS
 

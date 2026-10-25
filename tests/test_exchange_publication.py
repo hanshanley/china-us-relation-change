@@ -98,6 +98,8 @@ def test_collective_export_preserves_complete_inputs_and_native_plot_boundaries(
     for path, checksum in manifest["files"].items():
         assert hashlib.sha256((tmp_path / path).read_bytes()).hexdigest() == checksum
     for input_name, output_name in [("language_learning", "language-learning"), ("business_presence", "business-presence"),
+                                    ("business_current", "business-current"),
+                                    ("business_inward", "business-inward"),
                                     ("weibo_summary", "weibo-summary"), ("immigration", "immigration"),
                                     ("state_immigration", "state-immigration"), ("confucius_programs", "confucius-programs"),
                                     ("opinions", "opinions")]:
@@ -180,13 +182,19 @@ def test_collective_export_preserves_complete_inputs_and_native_plot_boundaries(
     assert [p["period"] for p in approvals["groups"][0]["points"]] == [str(y) for y in range(2007, 2026)]
     assert all("FY" not in p["label"] for p in approvals["groups"][0]["points"])
     business = BeautifulSoup((tmp_path / "business-presence.html").read_text(), "html.parser")
-    assert business.select_one('#module-chart optgroup[label="European enterprise series"] option[value="norway-affiliates-china"]')
-    assert not business.select_one('#module-chart option[value="us-parent-companies-china"]')
-    assert not business.select_one("#us-parent-companies-china")
-    model = json.loads(business.select_one("#us-affiliates-china .plot-data").string)
-    assert len(model["groups"][0]["points"]) == 24
+    assert "business-current" in manifest["datasets"]
+    assert "business-inward" in manifest["datasets"]
+    assert len(business.select(".business-card")) == 6
+    assert not business.select("#module-chart,#us-parent-companies-china,#us-affiliates-china,.covid-band,.covid-context")
+    model = json.loads(business.select_one("#us-investment-mainland .plot-data").string)
+    assert len(model["groups"][0]["points"]) == 26
     assert model["columns"]
-    assert [p["year"] for p in model["groups"][0]["points"]] == list(range(2000, 2024))
+    assert [p["year"] for p in model["groups"][0]["points"]] == list(range(2000, 2026))
+    survey = json.loads(business.select_one("#german-company-risk .plot-data").string)
+    assert survey["axis_max"] == 100 and [p["value"] for p in survey["bars"]] == [33, 47, 14]
+    inward = json.loads(business.select_one("#china-ubo-us-affiliates .plot-data").string)
+    assert [point["year"] for point in inward["groups"][0]["points"]] == list(range(2012, 2025))
+    assert len(business.select("#business-inward-data table tbody tr")) == 25
     language = BeautifulSoup((tmp_path / "language-learning.html").read_text(), "html.parser")
     assert language.select_one("#module-chart option[selected]")["value"] == "chinese-bachelors"
     assert not language.select_one("#college-enrollments")
