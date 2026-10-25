@@ -10,10 +10,10 @@ proof manifest and aggregate JSON expose the updated corpus counts. These
 incremental checks do not imply another live account-identity sweep, and do not
 replace the archived October 21 baseline.
 
-The registry-bound manifest was refreshed October 25 UTC after 260 additional
+The registry-bound manifest was refreshed October 25 UTC after 263 additional
 ranked-domain reviews. Account/post captures and identity decisions are retained.
-The new dated Greenwich publication identity adds no account, post or current
-control finding. No numeric-profile sweep is implied; see discovery_iteration96.md.
+Three dated publication identities add no account, post or current-control finding.
+No numeric-profile sweep is implied; see discovery_iteration108.md.
 
 This is a source-level recheck, not just a reconciliation of registry flags.
 It establishes documented institutional/profile associations and consistency
