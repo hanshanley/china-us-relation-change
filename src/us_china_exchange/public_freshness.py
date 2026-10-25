@@ -1,4 +1,4 @@
-"""One measurement-period rule for public charts; archive data remain complete."""
+"""Public chart eligibility; retired choices and older data remain in the archive."""
 
 import math
 from collections import defaultdict
@@ -7,6 +7,7 @@ from contextvars import ContextVar
 
 
 POLICY = {"history_since": 2023, "snapshot_from": 2024, "snapshot_through": 2026}
+RETIRED_STUDENT_MEASURES = {"enrolled_students", "degree_students"}
 _PUBLIC = ContextVar("public_chart_freshness", default=False)
 
 
@@ -41,7 +42,8 @@ def reported(row):
 
 
 def eligible(rows, snapshot=None):
-    rows = [row for row in rows if reported(row) and measurement_year(row) is not None]
+    rows = [row for row in rows if row.get("measure") not in RETIRED_STUDENT_MEASURES
+            and reported(row) and measurement_year(row) is not None]
     if not rows:
         return False
     periods = {(measurement_year(row), row.get("reference", row.get("period", ""))) for row in rows}

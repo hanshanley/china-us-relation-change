@@ -163,7 +163,7 @@ def test_collective_export_preserves_complete_inputs_and_native_plot_boundaries(
         r for r in expected if r["series_id"] == "iie:CHN:USA:international_students"
         and r["frequency"] == "annual" and r["value"] is not None])
     assert {o["value"] for o in page.select("#measure option")} == {
-        "enrolled_students", "degree_students", "international_students", "study_abroad"}
+        "international_students", "study_abroad"}
     tabs = [(a["href"], a.text) for a in page.select(".analysis-tabs a")]
     assert tabs.count(("trade.html", "Trade")) == 1
     assert not any(href == "comparisons.html" for href, _ in tabs)

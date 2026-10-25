@@ -65,6 +65,28 @@ def test_actual_measurement_dates_missingness_and_thresholds(rows, snapshot, exp
     assert eligible(rows, snapshot) is expected
 
 
+@pytest.mark.parametrize("measure,visible", [
+    ("enrolled_students", False), ("degree_students", False),
+    ("international_students", True), ("study_abroad", True),
+])
+def test_student_choices_are_retired_only_from_public_charts(measure, visible):
+    from us_china_exchange.model import observation
+    from us_china_exchange.public_freshness import annual_series
+    from us_china_exchange.render import regional_series, svg_chart, svg_comparison
+
+    rows = [observation("test", "CHN", "USA", measure, year, value, "Student population")
+            for year, value in ((2000, 10), (2019, 20), (2025, 30))]
+    assert eligible(rows) is visible
+    assert bool(annual_series(rows)) is visible
+    assert "<svg" in svg_chart(rows)
+    assert regional_series(rows, measure, "to_us")["CHN"] == rows
+    with public_charts():
+        assert ("<svg" in svg_chart(rows)) is visible
+        assert ("<svg" in svg_comparison(rows, measure, "to_us")) is visible
+        assert bool(regional_series(rows, measure, "to_us")["CHN"]) is visible
+    assert "<svg" in svg_chart(rows)
+
+
 def test_scope_preserves_archive_and_history_but_not_unrelated_old_snapshots():
     groups = [
         {"id": "current", "cadence": "annual", "points": [{"year": 2010, "value": 1}, {"year": 2023, "value": 2}]},
@@ -96,13 +118,43 @@ def test_publication_retires_all_stale_surfaces_but_keeps_complete_data(tmp_path
     old.write_text("Previously published old graph")
     custom = tmp_path / "figures/custom.svg"
     custom.write_text("Unrelated user graphic")
-    (tmp_path / "publication-manifest.json").write_text(json.dumps({"files": {stale: "old-sha"}}))
+    previous = {stale: "old-sha"}
+    for series in ("iie-CHN-USA-enrolled_students", "uis-CHN-USA-degree_students"):
+        for theme in ("substack", "themarginoferror"):
+            for extension in ("svg", "png"):
+                path = tmp_path / f"figures/students/{theme}/{series}.{extension}"
+                path.parent.mkdir(parents=True, exist_ok=True)
+                path.write_text("Previously published retired graph")
+                previous[str(path.relative_to(tmp_path))] = "old-sha"
+    (tmp_path / "publication-manifest.json").write_text(json.dumps({"files": previous}))
     manifest = module.build_publication(ROOT, tmp_path, "freshness-test")
     assert not old.exists() and custom.read_text() == "Unrelated user graphic"
+    assert all(not (tmp_path / path).exists() for path in previous)
     assert stale not in manifest["files"]
     assert manifest["chart_freshness"] == {"history_since": 2023, "snapshot_from": 2024, "snapshot_through": 2026}
     raw = json.loads((tmp_path / "downloads/exchange.json").read_text())
     assert raw["observations"] == json.loads((ROOT / "data/site/observations.json").read_text())
+    retired = {"degree_students", "enrolled_students"}
+    retired_ids = {r["series_id"] for r in raw["observations"] if r["measure"] in retired}
+    assert retired <= raw["measures"].keys()
+    assert retired_ids and not retired_ids.intersection(raw["visible_series"])
+    for path in manifest["files"]:
+        if path.startswith("figures/students/"):
+            assert not any(measure in path for measure in retired), path
+    students = BeautifulSoup((tmp_path / "index.html").read_text(), "html.parser")
+    assert {o["value"] for o in students.select("#measure option")} == {
+        "international_students", "study_abroad"}
+    assert students.select_one('#measure option[value="international_students"]').text == "Enrolled + OPT"
+    assert {o["value"] for o in students.select("#module-chart option")} == {
+        "international_students-to_us", "study_abroad-from_us"}
+    for measure in retired:
+        assert not students.select(f'[id^="{measure}-"]')
+    for script in students.select(".plot-data"):
+        model = json.loads(script.string)
+        assert not retired_ids.intersection(group["id"] for group in model.get("groups", []))
+    directory = BeautifulSoup((tmp_path / "comparisons.html").read_text(), "html.parser")
+    routes = json.loads(directory.select_one("#regional-topic-routes").string)
+    assert not any(route.startswith(tuple(measure + "-" for measure in retired)) for route in routes)
     assert any(r["series_id"] == "moe:USA:CHN:enrolled_students" and r["year"] == 2018
                for r in raw["observations"])
     for name in ("index", "travel", "trade"):

@@ -314,8 +314,8 @@ def decorate(site, name, labels, revision):
         state_data = json.loads((site / "downloads/state-immigration.json").read_text())
         immigration = json.loads((site / "downloads/immigration.json").read_text())
         approval_year = max(r["year"] for r in immigration["observations"] if not r["series_id"].startswith("un_stock:"))
-        scope = (f"State estimates: {state_data['start_year']}–{state_data['end_year']} ACS"
-                 f" · Residence approvals through {approval_year}")
+        scope = (f"Annual residence grants through {approval_year}"
+                 f" · State populations: {state_data['start_year']}–{state_data['end_year']} ACS")
     elif name == "confucius.html":
         program_data = json.loads((site / "downloads/confucius-programs.json").read_text())
         snapshot = next(r["reference"] for r in program_data["observations"] if r["id"] == "cief_institutes")
@@ -386,7 +386,7 @@ def decorate(site, name, labels, revision):
         display.string = "Display"
         display.append(soup.select_one("#chart-mode").extract())
         form.append(display)
-        short_labels = {"international_students": "Students + OPT", "enrolled_students": "Enrolled students",
+        short_labels = {"international_students": "Enrolled + OPT", "enrolled_students": "Enrolled students",
                         "degree_students": "Degree students", "study_abroad": "Credit study abroad",
                         "visitors": "Visitor trips", "leisure_visitors": "Leisure trips",
                         "air_visitors": "U.S. air estimates",

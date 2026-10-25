@@ -19,9 +19,9 @@ def check_exchange_toggles(page, data, screenshots=None):
     base = page.url.rsplit("/", 1)[0] + "/"
     for repeat in range(3):
         for name, routes in (
-            ("index.html", [("CHN", "to_us", "enrolled_students"), ("CHN", "from_us", "enrolled_students"),
+            ("index.html", [("CHN", "to_us", "international_students"), ("CHN", "from_us", "study_abroad"),
                             ("HKG", "to_us", "international_students"), ("CHN", "from_us", "study_abroad"),
-                            ("CHN", "to_us", "international_students"), ("CHN", "to_us", "enrolled_students")]),
+                            ("CHN", "to_us", "international_students"), ("MAC", "to_us", "international_students")]),
             ("travel.html", [("CHN", "from_us", "air_visitors"), ("CHN", "to_us", "visitors"),
                              ("MAC", "from_us", "visitors"), ("HKG", "to_us", "visitors")]),
             ("trade.html", [("CHN", "from_us", "goods"), ("CHN", "to_us", "services"),
@@ -49,7 +49,7 @@ def check_exchange_toggles(page, data, screenshots=None):
                                 key=lambda r: r["year"])
                 expected_estimate_link = int(bool(page.locator("#student-estimates").count())
                     and direction == "from_us" and geo == "CHN"
-                    and measure in {"international_students", "enrolled_students", "degree_students", "study_abroad"})
+                    and measure in {"international_students", "study_abroad"})
                 estimate_links = page.locator('#related-series a[href="#student-estimates"]').count()
                 assert estimate_links == expected_estimate_link, (
                     repeat, geo, direction, measure, "dated-estimate links", estimate_links, expected_estimate_link)
@@ -103,9 +103,9 @@ def check_exchange_toggles(page, data, screenshots=None):
                 expect(tip).to_be_hidden()
                 svg.evaluate("node=>node.blur()")
                 assert not page.evaluate("document.documentElement.scrollWidth>innerWidth")
-                if repeat == 2 and measure == "enrolled_students" and direction == "to_us" and screenshots:
+                if repeat == 2 and measure == "international_students" and direction == "to_us" and screenshots:
                     page.locator(".exchange-panel").screenshot(
-                        path=str(screenshots / f"enrolled-student-bars-{page.viewport_size['width']}.png"))
+                        path=str(screenshots / f"enrolled-opt-student-bars-{geo}-{page.viewport_size['width']}.png"))
                 index_option = page.locator('#chart-mode option[value="index"]')
                 if not index_option.evaluate("node=>node.disabled"):
                     reference_year = 2019
@@ -119,7 +119,7 @@ def check_exchange_toggles(page, data, screenshots=None):
                         assert math.isclose(value, row["value"] / reference["value"] * 100, rel_tol=1e-10, abs_tol=1e-8)
                     assert not page.locator("#chart .screen-column,#chart .screen-snapshot").count()
     page.goto(base + "index.html")
-    page.select_option("#measure", "enrolled_students")
+    page.select_option("#measure", "international_students")
     assert page.locator("#reverse-direction,.reverse-direction").count() == 0
     page.select_option("#direction", "from_us")
     expect(page.locator("#direction")).to_have_value("from_us")
@@ -267,9 +267,9 @@ def check(site, url=None, screenshots=None):
             page.select_option("#measure", "international_students")
             expect(page.locator("#chart-mode")).to_have_value("levels")
             assert page.locator("#chart .screen-point").count() == 26
-            page.select_option("#measure", "enrolled_students")
-            page.locator("#related-series button").click()
-            expect(page.locator("#measure")).to_have_value("international_students")
+            assert not page.locator('#measure option[value="enrolled_students"],'
+                                    '#measure option[value="degree_students"]').count()
+            assert not page.locator("#related-series .series-alternative").count()
             if data.get("student_estimates"):
                 page.select_option("#direction", "from_us")
                 expect(page.locator("#student-estimates")).to_be_visible()
@@ -318,7 +318,8 @@ def check(site, url=None, screenshots=None):
             page.select_option("#chart-mode", "levels")
             assert page.locator("#related-series button").count() == 0
             assert page.locator('#measure option[value="visitors"]').evaluate("o=>o.disabled&&o.hidden")
-            page.locator("#measure").evaluate("n=>{n.value='visitors';n.dispatchEvent(new Event('change',{bubbles:true}));}")
+            page.locator("#measure").evaluate(
+                "n=>{n.value='visitors';n.dispatchEvent(new Event('change',{bubbles:true}));}")
             expect(page.locator("#measure")).to_have_value("air_visitors")
             assert page.locator("#chart .screen-point").count() == len(air)
             if screenshots:
@@ -402,6 +403,7 @@ def check(site, url=None, screenshots=None):
                     expect(page.locator("#module-chart")).to_have_value("annual-china-to-us")
                     assert page.locator("#annual-china-to-us .screen-point").count() == len(arrivals)
                     assert page.locator("#annual-china-to-us .screen-column").count() == len(arrivals)
+                    assert page.locator("#annual-china-to-us .screen-year").all_text_contents()[-1] == str(max(r["year"] for r in arrivals))
                     page.select_option("#module-chart", "migrant-stock-from-us")
                     assert page.locator("#migrant-stock-from-us .screen-point").count() == len(stock_from_us)
                     expect(page.locator("#migrant-stock-from-us")).to_contain_text("citizenship")

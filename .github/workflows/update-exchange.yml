@@ -111,15 +111,16 @@ jobs:
         run: |
           python scripts/build_site.py
           PYTHONPATH=src python -m pytest tests/test_exchange_*.py tests/test_weibo_activity.py tests/test_weibo_refresh.py tests/test_pipeline.py -q
+          python scripts/build_site.py
           python scripts/check_exchange_browser.py
           python scripts/build_exchange_publication.py --output data/local/collective-publication
           python scripts/check_exchange_publication.py --site data/local/collective-publication
           python scripts/check_business_publication.py --site data/local/collective-publication
           python scripts/check_public_freshness.py --site data/local/collective-publication
           python scripts/check_state_immigration_map.py --site data/local/collective-publication
+          python scripts/check_opinion_publication.py --site data/local/collective-publication
           python scripts/check_confucius_publication.py --site data/local/collective-publication
           python scripts/check_weibo_publication.py --site data/local/collective-publication
-          python scripts/check_opinion_publication.py --site data/local/collective-publication
           python scripts/audit_exchange_plots.py --site data/local/collective-publication --output data/local/plot-audit
           git diff --check
       - name: Record actual check status
@@ -143,16 +144,16 @@ jobs:
             cat data/local/state-immigration/check.json >> "$GITHUB_STEP_SUMMARY"
             echo '```' >> "$GITHUB_STEP_SUMMARY"
           fi
-          if test -f data/local/confucius/check.json; then
-            echo '### Confucius-program source check' >> "$GITHUB_STEP_SUMMARY"
-            echo '```json' >> "$GITHUB_STEP_SUMMARY"
-            cat data/local/confucius/check.json >> "$GITHUB_STEP_SUMMARY"
-            echo '```' >> "$GITHUB_STEP_SUMMARY"
-          fi
           if test -f data/local/opinions/check.json; then
             echo '### Reviewed public-opinion source check' >> "$GITHUB_STEP_SUMMARY"
             echo '```json' >> "$GITHUB_STEP_SUMMARY"
             cat data/local/opinions/check.json >> "$GITHUB_STEP_SUMMARY"
+            echo '```' >> "$GITHUB_STEP_SUMMARY"
+          fi
+          if test -f data/local/confucius/check.json; then
+            echo '### Confucius-program source check' >> "$GITHUB_STEP_SUMMARY"
+            echo '```json' >> "$GITHUB_STEP_SUMMARY"
+            cat data/local/confucius/check.json >> "$GITHUB_STEP_SUMMARY"
             echo '```' >> "$GITHUB_STEP_SUMMARY"
           fi
       - name: Retain check log and candidate site
@@ -164,8 +165,8 @@ jobs:
             data/local/exchange/check.json
             data/local/language-release-check.json
             data/local/state-immigration/check.json
-            data/local/confucius/check.json
             data/local/opinions/check.json
+            data/local/confucius/check.json
             data/local/plot-audit/audit.json
             site/
           retention-days: 30

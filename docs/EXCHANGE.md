@@ -867,6 +867,13 @@ grouped by measure and direction; its individual-series controls are secondary.
 Legacy `comparisons.html?indicator=...` links lead to the appropriate topic,
 and a readable directory remains available without JavaScript.
 
+The public Students view uses enrolled students plus OPT as its sole enrollment
+measure. Academic-credit study abroad remains separately labeled participation,
+not reverse-direction OPT-inclusive enrollment. Enrolled-only and degree-only
+observations and definitions remain in complete downloads, but not public
+selectors, individual charts, regional comparisons or themed figure exports.
+The internal research renderer retains those archival measures.
+
 Regional comparisons use mainland China in one panel and Hong Kong/Macau in
 the other, side by side on wide screens and stacked on narrow screens.
 They share the year range but use separately labeled vertical scales.

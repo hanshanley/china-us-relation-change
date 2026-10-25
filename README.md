@@ -36,9 +36,10 @@ interchangeable annual observations.
 **Movement and exchange:** [student enrollment and study abroad](https://www.themarginoferror.com/china-us-relations/),
 [travel and tourism](https://www.themarginoferror.com/china-us-relations/travel.html),
 and [goods and services trade](https://www.themarginoferror.com/china-us-relations/trade.html).
-Both directions are available where verified. Enrollment excludes OPT when
-labelled enrolled-only; visitor trips are not unique people or necessarily
-leisure travel; goods and services remain separate.
+Both directions are available where verified. Student-enrollment charts show
+enrolled students plus OPT; academic-credit study abroad remains separate.
+Visitor trips are not unique people or necessarily leisure travel; goods and
+services remain separate.
 
 **Migration and attitudes:** [immigration](https://www.themarginoferror.com/china-us-relations/immigration.html)
 distinguishes annual permanent-resident admissions from resident stocks and
