@@ -446,6 +446,7 @@ def check(site, url=None, screenshots=None):
                         "denmark-affiliates-china",
                         "austria-affiliates-china",
                         "poland-affiliates-china",
+                        "luxembourg-affiliates-china",
                         "portugal-affiliates-china", "czechia-affiliates-china",
                         "belgium-affiliates-china",
                         "us-company-decisions", "german-company-risk"}

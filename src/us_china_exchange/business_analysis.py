@@ -29,6 +29,7 @@ COLORS = {"bea_affiliates:china": PARTNER_COLORS["CHN"], "bea_parents:china": PA
           "eurostat_spain:china": "#8B7656", "dst_denmark:china": "#756D7D",
           "eurostat_austria:china": "#8A6F64", "eurostat_austria_legal:china": "#8A6F64",
           "eurostat_poland:china": "#6D8176",
+          "eurostat_luxembourg:china": "#74858C",
           "eurostat_portugal:china": "#8D756D", "eurostat_portugal_pre_uci:china": "#8D756D",
           "eurostat_czechia:china": "#73838A",
           "eurostat_belgium:china": "#7B7F60", "eurostat_belgium_legal:china": "#7B7F60",
@@ -45,6 +46,7 @@ ORIGINS = {"bea_affiliates:china": "us", "bea_parents:china": "us",
            "eurostat_spain:china": "spain", "dst_denmark:china": "denmark",
            "eurostat_austria:china": "austria", "eurostat_austria_legal:china": "austria",
            "eurostat_poland:china": "poland",
+           "eurostat_luxembourg:china": "luxembourg",
            "eurostat_portugal:china": "portugal", "eurostat_portugal_pre_uci:china": "portugal",
            "eurostat_czechia:china": "czechia",
            "eurostat_belgium:china": "belgium", "eurostat_belgium_legal:china": "belgium",
@@ -163,6 +165,14 @@ CHARTS = {
         "note": "Eurostat / Statistics Poland. Ultimate control includes documented joint/minority cases. "
         "2007 unreported; 2010 legacy NACE transition and 2018 legal-unit/enterprise break retained. "
         "2021 changes dataset, not the Polish enterprise unit. Not the broader national foreign-equity survey."},
+    "luxembourg-affiliates-china": {
+        "title": "Luxembourg-controlled enterprises in China",
+        "subtitle": "China except Hong Kong | Eurostat | 2009-2023",
+        "series": ["eurostat_luxembourg:china"], "unit": "Enterprises", "mode": "levels",
+        "note": "Eurostat, Luxembourg-resident ultimate control; statistical enterprises or branches, "
+        "not unique parents. SPEs excluded; all large/medium enterprises and many small entities, not a census. "
+        "Country-declared comparability since 2009; 2010/2021 change source tables, not a declared country-unit break. "
+        "2007/2008 unreported; no pre-2009 or unpublished later values. Overlaps EU aggregates; do not sum."},
     "portugal-affiliates-china": {
         "title": "Portuguese-controlled enterprises in China",
         "subtitle": "China except Hong Kong | Ultimate control from 2008",
@@ -246,6 +256,12 @@ def validate_business_data(data):
         if sid == "eurostat_poland:china" and not all(
                 token in definition["scope"] for token in ("Polish-resident UCI", "China except Hong Kong")):
             raise ValueError("Polish ultimate-control and host-country scope must remain explicit")
+        if sid == "eurostat_luxembourg:china" and not (
+                all(token in definition["scope"] for token in (
+                    "Luxembourg-resident UCI", "enterprises/branches", "China except Hong Kong"))
+                and all(token in definition["notes"] for token in (
+                    "SPEs are excluded", "many small entities", "comparability from 2009"))):
+            raise ValueError("Luxembourg control, host and non-census frame must remain explicit")
         if sid == "eurostat_portugal:china" and not all(
                 token in definition["scope"] for token in ("Portuguese-resident UCI", "China except Hong Kong")):
             raise ValueError("Portuguese ultimate-control and host-country scope must remain explicit")
@@ -325,6 +341,8 @@ def validate_business_data(data):
             "eurostat_austria:china": "fats_out_part_AT",
             "eurostat_poland:china": ("fats_out2_PL" if r["year"] <= 2009 else
                                      "fats_out2_r2_PL" if r["year"] <= 2020 else "fats_out_part_PL"),
+            "eurostat_luxembourg:china": ("fats_out2_LU" if r["year"] <= 2009 else
+                                        "fats_out2_r2_LU" if r["year"] <= 2020 else "fats_out_part_LU"),
             "eurostat_portugal_pre_uci:china": "fats_out2_PT",
             "eurostat_portugal:china": ("fats_out2_PT" if r["year"] <= 2009 else
                                        "fats_out2_r2_PT" if r["year"] <= 2020 else "fats_out_part_PT"),
@@ -335,6 +353,9 @@ def validate_business_data(data):
                                            "fats_out2_r2_BE" if r["year"] <= 2020 else "fats_out_part_BE"),
             "eurostat_belgium:china": "fats_out_part_BE",
         }
+        if r["series_id"] == "eurostat_luxembourg:china" and (
+                r["year"] < 2009 or r["comparability"] != "luxembourg:uci2009:continuous"):
+            raise ValueError("Luxembourg historical coverage or declared continuity changed")
         if ((r["series_id"] == "eurostat_italy_legal:china" and not 2007 <= r["year"] <= 2023)
                 or (r["series_id"] == "eurostat_italy:china" and r["year"] < 2021)):
             raise ValueError("Italian legal-unit and enterprise populations must not be spliced")
@@ -492,7 +513,8 @@ def build_business(root, data, gallery, publication=False):
                ("bundesbank_germany:china", "Germany (Bundesbank; assets above EUR 3m)"),
                ("tillvaxtanalys_sweden:china", "Swedish-group subsidiaries"),
                ("statfin_finland:china", "Finnish-reported affiliates"),
-               ("eurostat_france:china", "France (Eurostat; China except Hong Kong)")]
+               ("eurostat_france:china", "France (Eurostat; China except Hong Kong)"),
+               ("eurostat_luxembourg:china", "Luxembourg (Eurostat; China except Hong Kong)")]
     observations = {(r["series_id"], r["year"]): r for r in data["observations"]}
     annual = [r for r in data["observations"] if data["series"][r["series_id"]]["cadence"] == "annual"]
     first = min((r["year"] for r in annual), default=2000)
@@ -523,7 +545,7 @@ def build_business(root, data, gallery, publication=False):
                 '<label>Investor origin<select id="business-origin"><option value="all">All reported origins</option>'
                 '<option value="us">United States</option><option value="eu">EU reporting groups</option>'
                 '<option value="uk">United Kingdom</option><option value="norway">Norway</option>'
-                '<option value="germany">Germany</option></select></label>'
+                '<option value="germany">Germany</option><option value="luxembourg">Luxembourg</option></select></label>'
                 f'<label>Table start year<input id="business-start" type="number" min="{first}" max="{last}" value="{first}" step="1"></label>'
                 f'<label>Table end year<input id="business-end" type="number" min="{first}" max="{last}" value="{last}" step="1"></label>'
                 '<p id="business-filter-status" role="status" aria-live="polite">'
