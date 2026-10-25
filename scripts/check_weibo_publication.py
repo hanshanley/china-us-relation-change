@@ -88,6 +88,13 @@ def check_entry_switching(page, touch=False):
     page.locator(".weibo-publisher-detail:visible .weibo-close-publisher").click()
     expect(billboard).to_be_focused()
     assert not page.locator(".weibo-publisher-detail:visible").count()
+    billboard.evaluate("n => n.scrollIntoView({block: 'end'})")
+    billboard.click()
+    expect(page.locator(".weibo-publisher-detail:visible > h3")).to_be_in_viewport()
+    expect(billboard).to_be_in_viewport()
+    expect(neighbor).to_be_in_viewport()
+    neighbor.click()
+    expect(page.locator(".weibo-publisher-detail:visible")).to_have_attribute("data-outlet-id", "business-wire")
     assert not page.evaluate("document.documentElement.scrollWidth > innerWidth")
 
 

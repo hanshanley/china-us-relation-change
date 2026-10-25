@@ -329,6 +329,8 @@
         scrollToDetail();
       } else {
         link.focus({preventScroll: true});
+        document.getElementById(`weibo-publisher-${selectedPublisher}`).querySelector("h3")
+          .scrollIntoView({block: "nearest", behavior: "auto"});
       }
     });
     link.addEventListener("keydown", event => {
