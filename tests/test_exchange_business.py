@@ -223,6 +223,25 @@ def test_new_nordic_histories_retain_missing_years_and_source_definition_boundar
         assert not any(node.get("class") == "data-line" for node in doc.iter())
 
 
+def test_selective_country_refreshes_preserve_coverage_order_across_modes(monkeypatch):
+    spec = importlib.util.spec_from_file_location("business_refresh_collector", ROOT / "scripts/build_business_data.py")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    prior = published()
+
+    def selected(prefixes):
+        definitions = {sid: value for sid, value in prior["series"].items() if sid.startswith(prefixes)}
+        observations = [row for row in prior["observations"] if row["series_id"] in definitions]
+        source_ids = {row["source_id"] for row in observations}
+        return definitions, observations, {sid: prior["sources"][sid] for sid in source_ids}
+
+    monkeypatch.setattr(module, "nordic_affiliates", lambda client: selected(("tillvaxtanalys_", "statfin_")))
+    monkeypatch.setattr(module, "french_affiliates", lambda client: selected(("eurostat_france:",)))
+    assert module.collect_nordic(None, prior) == prior
+    assert module.collect_france(None, prior) == prior
+    assert module.collect_france(None, module.collect_nordic(None, prior)) == prior
+
+
 def test_ons_parser_uses_enterprises_not_employment_and_verifies_year():
     book = Workbook()
     book.remove(book.active)
