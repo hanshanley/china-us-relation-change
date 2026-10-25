@@ -2537,15 +2537,15 @@
     },
     {
       "area": "Trade",
-      "checked_at": "2026-10-24",
+      "checked_at": "2026-10-25",
       "disposition": "unverified",
       "gap_id": "macau-services-before-2018",
       "measure": "Cross-border services",
       "period": "2000-2017",
-      "primary_sources": "https://www.bea.gov/coverage-expanded-237-countries-and-areas-and-other-updates-international-services-trade-statistics;https://apps.bea.gov/scb/issues/2019/10-october/pdf/1019-international-services-tables.pdf;https://web.archive.org/web/20180206191623/https://ustr.gov/countries-regions/china-mongolia-taiwan/macau;https://sdmx.oecd.org/public/rest/v1/data/OECD.SDD.TPS,DSD_BOP@DF_TIS,1.0/USA.MAC.S.C+D..A.USD_EXC.?startPeriod=1999&endPeriod=2025&dimensionAtObservation=AllDimensions&format=csvfile",
+      "primary_sources": "https://www.bea.gov/coverage-expanded-237-countries-and-areas-and-other-updates-international-services-trade-statistics;https://apps.bea.gov/scb/issues/2019/10-october/pdf/1019-international-services-tables.pdf;https://web.archive.org/web/20180206191623/https://ustr.gov/countries-regions/china-mongolia-taiwan/macau;https://sdmx.oecd.org/public/rest/v1/data/OECD.SDD.TPS,DSD_BOP@DF_TIS,1.0/USA.MAC.S.C+D..A.USD_EXC.?startPeriod=1999&endPeriod=2025&dimensionAtObservation=AllDimensions&format=csvfile;https://sdmx.oecd.org/public/rest/data/OECD.SDD.TPS,DSD_BATIS@DF_BATIS,1.0/MAC.USA.M+X..S.A.USD_EXC.B?startPeriod=2005&endPeriod=2024&dimensionAtObservation=AllDimensions;https://sdmx.oecd.org/public/rest/data/OECD.SDD.TPS,DSD_BATIS@DF_BATIS,1.0/USA.MAC.M+X..S.A.USD_EXC.B?startPeriod=2005&endPeriod=2024&dimensionAtObservation=AllDimensions;https://www.wto.org/english/res_e/statis_e/trade_datasets_e.htm;https://doi.org/10.1787/c321a7a7-en",
       "route": "Both directions for MAC",
-      "unresolved_or_scope_limit": "No earlier numeric bilateral observation recovered; neither a missing result nor a suppressed affiliate value is zero trade; affiliate sales and FDI positions cannot replace cross-border services; no regional residual or modelled estimate is allocated",
-      "verified_recovery": "BEA introduced Table 2.4 with a 2018 start; original October 2019 Tables 2.2/2.3 do not separately report Macau; five 2015-2019 USTR captures explicitly state that services data are unavailable; valid reported OECD queries return 16 Macau observations for 2018-2025 while the Hong Kong control reaches 1999"
+      "unresolved_or_scope_limit": "No earlier reported BEA bilateral observation recovered; balanced estimates are a distinct analytical alternative and are not spliced into the reported series; query end cap 2024 is not proof of 2025 absence; the 2025 technical paper describes the prior 2005-2023 edition; BPM5 and BPM6 editions must not be joined; HTTP Last-Modified is not a release date; no missing value is zero trade and no affiliate sales or regional residual replaces cross-border services",
+      "verified_recovery": "BEA introduced Table 2.4 with a 2018 start; original October 2019 Tables 2.2/2.3 do not separately report Macau; five 2015-2019 USTR captures explicitly state that services data are unavailable; previously verified reported OECD queries return 16 Macau observations for 2018-2025 while the Hong Kong control reaches 1999; a separate OECD-WTO BaTIS balanced pair query actually returns 80 complete native rows representing 40 unique annual direction-year estimates for 2005-2024 with exact mirror agreement; 26 balanced estimates precede 2018; adjustment B and raw status I remain explicit"
     },
     {
       "area": "Immigration",
@@ -2906,6 +2906,30 @@
       "route": "DHS China-nationality category to USA",
       "unresolved_or_scope_limit": "Dated transfer instructions are not actual accession/current custody/public-use release or nationality/admission-schema proof. The accession index covers onlyFY2023; one catalog query is not exhaustive. Exact OHSS2015PDF403 held. No restricted records/contact/fee/authentication; current FY2016 start and every value unchanged.",
       "verified_recovery": "Zero observations recovered. June2009 NARA schedule N1-563-09-003 item3/PDF3 describes lawful-immigrant records from2005 including adjustments; item7c/PDF5 describes manipulable published tables from1998. Original public metadata saved."
+    },
+    {
+      "area": "Business",
+      "checked_at": "2026-10-25",
+      "disposition": "partial",
+      "gap_id": "business-portugal-enterprises",
+      "measure": "Portuguese-UCI controlled enterprises plus separate pre-UCI archive",
+      "period": "2007-2023",
+      "primary_sources": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out2?lang=EN&freq=A&geo=PT&partner=CN_X_HK&indic_bp=ENT&nace_r1=C-O_X_L;https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out2_r2?lang=EN&freq=A&geo=PT&partner=CN_X_HK&indic_bp=ENT&nace_r2=B-S_X_O;https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out_part?lang=EN&freq=A&geo=PT&partner=CN_X_HK&indic_sbs=ENT_NR&nace_r2=B-S_X_O;https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_pt.htm",
+      "route": "Portugal to China except Hong Kong",
+      "unresolved_or_scope_limit": "No2007Portuguese-UCI claim;2008UCI introduction and2010NACE/2014source/2020coverage boundaries retained;2021is dataset lineage within the national2020-onward comparable block; no comparable current2019change or unreported earlier/later count; not summed with EU totals",
+      "verified_recovery": "All17source-year cells retained; modern2008-2023UCI population has15reported counts ending2023=41 and confidential2012; the2007count3is separately qualified archive evidence"
+    },
+    {
+      "area": "Business",
+      "checked_at": "2026-10-25",
+      "disposition": "partial",
+      "gap_id": "business-czechia-enterprises",
+      "measure": "Czech-UCI controlled enterprises",
+      "period": "2007-2023",
+      "primary_sources": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out2?lang=EN&freq=A&geo=CZ&partner=CN_X_HK&indic_bp=ENT&nace_r1=C-O_X_L;https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out2_r2?lang=EN&freq=A&geo=CZ&partner=CN_X_HK&indic_bp=ENT&nace_r2=B-S_X_O;https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out_part?lang=EN&freq=A&geo=CZ&partner=CN_X_HK&indic_sbs=ENT_NR&nace_r2=B-S_X_O;https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_cz.htm",
+      "route": "Czechia to China except Hong Kong",
+      "unresolved_or_scope_limit": "No pre2007or current-year padding;2008NACE/2010selected-table/2021EBSboundaries retained; no comparable current2019denominator across2021; not all minority FDI interests or an addition to EU totals",
+      "verified_recovery": "All17source-year cells retained;16reported annual counts ending2023=7 and confidential2021notzero; national UCI/sector/EBS metadata verified"
     }
   ],
   "geographies": {
