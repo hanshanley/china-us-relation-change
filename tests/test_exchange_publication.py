@@ -209,10 +209,10 @@ def test_collective_export_preserves_complete_inputs_and_native_plot_boundaries(
     assert "business-current" in manifest["datasets"]
     assert "business-inward" in manifest["datasets"]
     cards = business.select(".business-card")
-    assert len(cards) == 20
+    assert len(cards) == 21
     references = business.select_one("#business-count-references")
     assert references.get("open") is None and len(references.select(".business-card")) == 4
-    assert len([card for card in cards if card.find_parent(id="business-count-references") is None]) == 16
+    assert len([card for card in cards if card.find_parent(id="business-count-references") is None]) == 17
     assert business.select_one("#us-affiliates-china").find_parent("details")["id"] == "business-count-references"
     assert not business.select("#module-chart,#us-parent-companies-china,#uk-affiliates-china,#eu-affiliates-china,.covid-band,.covid-context")
     for chart, years in [("sweden-affiliates-china", range(2010, 2025)),
@@ -224,12 +224,19 @@ def test_collective_export_preserves_complete_inputs_and_native_plot_boundaries(
                          ("sweden-affiliates-china-eurostat", [year for year in range(2007, 2024) if year != 2009]),
                          ("spain-affiliates-china", range(2009, 2024)),
                          ("denmark-affiliates-china", range(2007, 2025)),
-                         ("austria-affiliates-china", range(2021, 2024))]:
+                         ("austria-affiliates-china", range(2021, 2024)),
+                         ("poland-affiliates-china", range(2008, 2024))]:
         country = json.loads(business.select_one(f"#{chart} .plot-data").string)
         assert country["columns"] and [p["year"] for p in country["groups"][0]["points"]] == list(years)
         assert (country["first"], country["last"]) == (min(years), max(years))
         if chart == "spain-affiliates-china":
             assert country["groups"][0]["points"][-1]["status"] == "estimated"
+        if chart == "poland-affiliates-china":
+            points = {point["year"]: point for point in country["groups"][0]["points"]}
+            assert points[2008]["reported_value"] == 13 and points[2023]["reported_value"] == 32
+            assert {point["reported_unit"].lower() for point in points.values()} == {"enterprises"}
+            assert "2018 legal-unit/enterprise break" in business.select_one(
+                "#poland-affiliates-china").get_text(" ", strip=True)
     model = json.loads(business.select_one("#us-investment-mainland .plot-data").string)
     assert len(model["groups"][0]["points"]) == 26
     assert model["columns"]
