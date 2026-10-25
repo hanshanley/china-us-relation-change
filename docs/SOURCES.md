@@ -213,7 +213,7 @@ field dates, original age bands and question-specific sample bases. Reviewed
 transcription checksums are distinguished from publisher download checksums.
 Only aggregate numerical facts and original visualizations are redistributed.
 
-## COVID travel-restriction annotations
+## COVID-period and travel-restriction annotations
 
 The shaded 2020–2022 interval denotes the main period of pandemic restrictions,
 not a prohibition on all travel. It is calendar context, not an estimate of
@@ -236,6 +236,11 @@ Travel-restriction context is only appropriate for directly travel-linked
 measures. Generic indicator charts must explicitly opt in; opinion, business,
 language-learning, Confucius programs, goods trade and resident stocks must not
 receive a travel-restriction band merely because their dates overlap 2020-2022.
+Goods-trade charts instead carry an explicitly separate **COVID-19 period,
+2020-22** marker, as requested. Its note does not claim a goods-trade suspension
+or a causal effect; it does not reuse the destination-specific entry rules
+above. Native modes, regional comparisons, no-JS and both export themes use
+that same goods context. Services trade remains unshaded.
 The public recency rule uses the reference/measurement period and preserves all
 historical records in complete archival downloads.
 

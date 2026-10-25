@@ -164,8 +164,18 @@ def test_collective_export_preserves_complete_inputs_and_native_plot_boundaries(
     assert travel.select_one(".covid-context")
     assert any(json.loads(model.string).get("covid_context") for model in travel.select(".plot-data"))
     trade = BeautifulSoup((tmp_path / "trade.html").read_text(), "html.parser")
-    assert not trade.select(".covid-context,.covid-band")
-    assert not any(json.loads(model.string).get("covid_context") for model in trade.select(".plot-data"))
+    assert trade.select(".covid-band")
+    trade_models = [json.loads(model.string) for model in trade.select(".plot-data")]
+    assert any(model["title"].startswith("Goods trade") for model in trade_models)
+    assert any(model["title"].startswith("Services trade") for model in trade_models)
+    for model in trade_models:
+        if model["title"].startswith("Goods trade"):
+            assert model["covid_context"]["label"] == "COVID-19 period, 2020-22"
+        else:
+            assert not model.get("covid_context")
+    note = trade.select_one("details.covid-context").text
+    assert "does not indicate a suspension of goods trade" in note
+    assert "country-specific entry restrictions" not in note
     immigration = BeautifulSoup((tmp_path / "immigration.html").read_text(), "html.parser")
     opinions = BeautifulSoup((tmp_path / "opinions.html").read_text(), "html.parser")
     assert "opinions" in manifest["datasets"]

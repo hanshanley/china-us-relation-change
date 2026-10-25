@@ -22,7 +22,7 @@ from us_china_exchange.render import SPLIT_REGIONAL_MEASURES, annual_table, buil
 from us_china_exchange.theme import figure_category
 from us_china_exchange.confucius_analysis import CHARTS as CONFUCIUS_CHARTS
 from us_china_exchange.public_freshness import POLICY, eligible, public_charts
-from us_china_exchange.covid_context import COVID_CONTEXT
+from us_china_exchange.covid_context import COVID_CONTEXT, context_for as covid_context_for
 
 
 CANONICAL = "https://www.themarginoferror.com/china-us-relations/"
@@ -166,7 +166,11 @@ def plot_model(svg, labels, observations):
     model = {"title": svg.get("aria-label", ""), "description": svg.find("desc").text if svg.find("desc") else "",
              "unit": unit.text if unit else "Count", "groups": [], "kind": "line"}
     if svg.select_one(".covid-band"):
-        model["covid_context"] = COVID_CONTEXT
+        marker = svg.select_one(".covid-context[data-covid-measure]")
+        context = covid_context_for(marker["data-covid-measure"]) if marker else COVID_CONTEXT
+        if context is None:
+            raise ValueError("Unsupported COVID context measure")
+        model["covid_context"] = context
     if svg.get("data-axis-max"):
         model["axis_max"] = float(svg["data-axis-max"])
     if svg.get("data-plot-style") == "columns" or svg.select_one(".snapshot-bar"):
@@ -667,9 +671,12 @@ def decorate(site, name, labels, revision):
     footer = fragment('<footer class="publication-footer"><span>The Margin of Error · Hans W. A. Hanley</span>'
                       f'<span><a href="{REPOSITORY}">Data & methods on GitHub</a></span></footer>')
     if soup.select_one(".covid-band") or (soup.select_one("#exchange-data") and name in {"index.html", "travel.html"}):
-        sources = "".join(f'<li><a href="{item["url"]}">{item["name"]}</a></li>' for item in COVID_CONTEXT["sources"])
-        page.append(fragment('<details class="covid-context"><summary>About the COVID shading</summary>'
-                             f'<p>{COVID_CONTEXT["note"]}</p><ul>{sources}</ul></details>'))
+        context = covid_context_for("goods") if name == "trade.html" else COVID_CONTEXT
+        sources = "".join(f'<li><a href="{item["url"]}">{item["name"]}</a></li>' for item in context["sources"])
+        links = f"<ul>{sources}</ul>" if sources else ""
+        summary = "COVID context on goods trade" if name == "trade.html" else "About the COVID shading"
+        page.append(fragment(f'<details class="covid-context"><summary>{summary}</summary>'
+                             f'<p>{context["note"]}</p>{links}</details>'))
     page.append(footer)
     script = soup.new_tag("script", attrs={"src": f"assets/publication.js?v={revision[:12]}", "defer": ""})
     soup.body.append(script)

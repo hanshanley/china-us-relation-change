@@ -188,15 +188,33 @@ def test_bilateral_direction_colors_and_covid_band_match_the_annual_calendar(the
 
 
 @pytest.mark.parametrize("theme", ["substack", "themarginoferror"])
+@pytest.mark.parametrize("direction", ["to_us", "from_us"])
 @pytest.mark.parametrize("measure,expected", [
-    ("goods", False), ("services", False), ("enrolled_students", True), ("visitors", True),
+    ("goods", True), ("services", False), ("enrolled_students", True), ("visitors", True),
 ])
-def test_covid_travel_context_is_limited_to_mobility_in_both_export_layouts(theme, measure, expected):
-    rows = [observation("test", "CHN", "USA", measure, year, 100, "Reported annual level")
+def test_covid_context_distinguishes_goods_from_travel_in_both_export_layouts(theme, direction, measure, expected):
+    origin, destination = ("CHN", "USA") if direction == "to_us" else ("USA", "CHN")
+    rows = [observation("test", origin, destination, measure, year, 100, "Reported annual level")
             for year in range(2019, 2024)]
-    for markup in (svg_chart(rows, theme=theme), svg_comparison(rows, measure, "to_us", theme=theme)):
+    for markup in (svg_chart(rows, theme=theme), svg_chart(rows, theme=theme, indexed=True),
+                   svg_comparison(rows, measure, direction, theme=theme),
+                   svg_comparison(rows, measure, direction, theme=theme, logarithmic=True)):
         doc = ElementTree.fromstring(markup)
         assert any(n.get("class") == "covid-band" for n in doc.iter()) is expected
+        labels = [n.text for n in doc.iter() if n.get("class") == "covid-label"]
+        if measure == "goods":
+            assert labels == ["COVID-19 period, 2020-22"]
+            band = next(n for n in doc.iter() if n.get("class") == "covid-band")
+            assert (band.get("data-start-year"), band.get("data-end-year")) == ("2020", "2022")
+            low, high = ((2018.5, 2023.5) if doc.get("data-plot-style") == "columns"
+                         else (2019, 2023))
+            assert float(band.get("x")) == pytest.approx(
+                115 + (2019.5 - low) / (high - low) * 835, abs=.01)
+            assert float(band.get("width")) == pytest.approx(3 / (high - low) * 835, abs=.01)
+            assert "travel" not in next(n for n in doc.iter() if n.get("class") == "covid-context").find(
+                "{http://www.w3.org/2000/svg}title").text
+        elif expected:
+            assert labels == ["COVID travel restrictions, 2020-22"]
 
 
 def test_export_axes_preserve_fractional_thousands_instead_of_repeating_rounded_ticks():

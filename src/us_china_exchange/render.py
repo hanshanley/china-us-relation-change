@@ -151,7 +151,8 @@ def svg_chart(rows, indexed=False, theme="themarginoferror"):
              f'<text x="115" y="45" font-size="28" font-weight="bold" fill="{TEXT}">{esc(heading)}</text>',
              f'<text x="115" y="80" font-size="22">{esc(direction)}</text>']
     if covid_applies_to(sample["measure"]):
-        parts.append(svg_band(first, end, 115, 950, 150, 435, columns=columns or snapshot))
+        parts.append(svg_band(first, end, 115, 950, 150, 435, columns=columns or snapshot,
+                              measure=sample["measure"]))
     for value in ticks:
         label = axis_label(value, "" if indexed else unit)
         parts.append(f'<path d="M115 {y(value):.2f}H950" stroke="{GRID}" stroke-opacity="0.6" stroke-width="0.5"/>'
@@ -312,7 +313,7 @@ def svg_comparison(rows, measure, direction, theme="themarginoferror", logarithm
         f'<text x="115" y="75" font-size="22">{esc(direction_label)}</text>',
     ]
     if covid_applies_to(measure):
-        parts.append(svg_band(first, end, 115, 950, 180, 420, columns=columns))
+        parts.append(svg_band(first, end, 115, 950, 180, 420, columns=columns, measure=measure))
     missing = []
     for i, geo in enumerate(groups):
         color = FLOW_COLORS[direction][geo]

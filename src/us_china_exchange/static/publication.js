@@ -486,7 +486,8 @@
         const route = `${data.geographies[origin]} \u2192 ${data.geographies[destination]}`;
         const model = {kind: "line", annual: true, period_basis: present[0].period_basis,
           title: `${data.measures[measure]}: ${route}`,
-          covid_context: data.covid_context?.measures?.includes(measure) ? data.covid_context : null,
+          covid_context: data.covid_context?.measure_contexts?.[measure] ||
+            (data.covid_context?.measures?.includes(measure) ? data.covid_context : null),
           description: snapshots ? "Separately reported snapshots, not a connected trend." :
             "Every reported annual value is shown. Blank years are unreported, not zero; population definitions remain in the table.",
           columns: !indexed && !snapshots,

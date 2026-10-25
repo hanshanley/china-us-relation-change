@@ -1170,14 +1170,18 @@ Neither is a count of departures from mainland China. The reverse annual
 U.S.-to-mainland-China count remains unverified; UN resident stocks are never
 differenced or relabelled as yearly arrivals.
 
-Time-series charts covering 2020–2022 shade the principal COVID travel-restriction
+Travel-linked time-series charts covering 2020–2022 shade the principal COVID travel-restriction
 years. This is context, **not a universal travel ban or causal attribution**.
 The public explanation and `downloads/covid-context.json` link original U.S.,
 mainland, Hong Kong and Macau notices. Country-specific U.S. restrictions ended
 November 8, 2021; mainland quarantine measures changed January 8, 2023.
 Hong Kong and Macau nonresident restrictions had different dates and exemptions.
-The same annotation appears in both export backgrounds without altering data,
-filling missing years or changing the chart scale.
+Goods-trade charts use the same 2020–2022 visual window with a separate
+**COVID-19 period** label, not the travel-restriction explanation. This does
+not indicate a suspension of goods trade or estimate the pandemic's causal
+effect. Services trade remains unshaded. Each applicable annotation appears
+in both export backgrounds without altering data, filling missing years,
+changing the chart scale or moving the 2019 comparison baseline.
 
 `scripts/check_public_freshness.py --site PATH` examines every public plot model,
 SVG export and enabled individual route, including retired deep links. The plot
