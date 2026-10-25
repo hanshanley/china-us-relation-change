@@ -82,10 +82,11 @@ CHARTS = {
         "2019 change inferred. Eurostat is a different population, shown separately."},
     "germany-affiliates-china-eurostat": {
         "title": "German enterprises: the longer Eurostat history",
-        "subtitle": "Earlier reference | Eurostat | 2010-2023",
+        "subtitle": "Earlier reference | Eurostat | 2007-2023",
         "series": ["eurostat_germany:china"], "unit": "Enterprises", "mode": "levels",
-        "note": "Eurostat, NACE B-S except O; China except Hong Kong. "
-        "The 2021 methodology boundary is retained. Not spliced with the Bundesbank counts; Germany overlaps EU27."},
+        "note": "Eurostat; China except Hong Kong. NACE C-O except L in 2007-2009, B-S except O thereafter. "
+        "Keep the 2010 classification and 2021 EBS dataset boundaries separate. "
+        "No 2000-2006 values inferred. Not spliced with Bundesbank; Germany overlaps EU27."},
     "sweden-affiliates-china": {
         "title": "Swedish-group subsidiaries in China",
         "subtitle": "National annual observations, 2010-2024",
@@ -304,7 +305,8 @@ def validate_business_data(data):
             "eurostat_uk:china": ("fats_out2_UK" if r["year"] <= 2009 else
                                  "ons_2019" if r["year"] in {2018, 2019} else "fats_out2_r2_UK"),
             "eurostat_norway:china": "fats_out2_r2_NO" if r["year"] <= 2020 else "fats_out_part_NO",
-            "eurostat_germany:china": "fats_out2_r2_DE" if r["year"] <= 2020 else "fats_out_part_DE",
+            "eurostat_germany:china": ("fats_out2_DE" if r["year"] <= 2009 else
+                                     "fats_out2_r2_DE" if r["year"] <= 2020 else "fats_out_part_DE"),
             "eurostat_netherlands:china": (
                 "fats_out2_NL" if r["year"] <= 2009 else "fats_out2_r2_NL" if r["year"] <= 2020
                 else "cbs_netherlands_2026" if r["year"] == 2024 and r["source_id"] == "cbs_netherlands_2026"
@@ -335,6 +337,8 @@ def validate_business_data(data):
                                            "fats_out2_r2_BE" if r["year"] <= 2020 else "fats_out_part_BE"),
             "eurostat_belgium:china": "fats_out_part_BE",
         }
+        if r["series_id"] == "eurostat_germany:china" and r["year"] < 2007:
+            raise ValueError("German Eurostat country history begins in 2007")
         if ((r["series_id"] == "eurostat_italy_legal:china" and not 2007 <= r["year"] <= 2023)
                 or (r["series_id"] == "eurostat_italy:china" and r["year"] < 2021)):
             raise ValueError("Italian legal-unit and enterprise populations must not be spliced")

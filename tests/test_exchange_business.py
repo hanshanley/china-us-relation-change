@@ -59,7 +59,7 @@ def test_distinct_parent_and_affiliate_checkpoints_remain_different_units():
     assert len([r for r in rows.values() if not r["series_id"].startswith(
         ("tillvaxtanalys_", "statfin_", "eurostat_france:", "eurostat_netherlands:", "eurostat_finland:",
          "eurostat_italy", "eurostat_sweden:", "eurostat_spain:", "dst_denmark:", "eurostat_austria", "eurostat_poland:",
-         "eurostat_portugal", "eurostat_czechia:", "eurostat_belgium"))]) == 116
+         "eurostat_portugal", "eurostat_czechia:", "eurostat_belgium"))]) == 119
     assert rows[("ssb_norway:china", 2023)]["value"] == 89
     assert rows[("ssb_norway:china", 2024)]["value"] == 80
 
@@ -387,9 +387,11 @@ def test_german_workbook_counts_entities_not_employment_and_does_not_splice_othe
               + chart_groups(published(), "germany-affiliates-china"))
     assert [g["id"] for g in groups] == ["eurostat_germany:china", "bundesbank_germany:china"]
     assert [[p["year"] for p in g["points"]] for g in groups] == [
-        list(range(2010, 2024)), list(range(2015, 2019)) + list(range(2021, 2025))]
+        list(range(2007, 2024)), list(range(2015, 2019)) + list(range(2021, 2025))]
     assert [next(p["value"] for p in g["points"] if p["year"] == 2023) for g in groups] == [1921, 1929]
-    assert groups[0]["points"][10]["comparability"] != groups[0]["points"][11]["comparability"]
+    eurostat_years = {p["year"]: p for p in groups[0]["points"]}
+    assert eurostat_years[2009]["comparability"] != eurostat_years[2010]["comparability"]
+    assert eurostat_years[2020]["comparability"] != eurostat_years[2021]["comparability"]
 
 
 def test_german_archived_report_rejects_other_years_units_and_control_populations(monkeypatch):
@@ -420,6 +422,88 @@ def test_german_archived_report_rejects_other_years_units_and_control_population
             business_sources.parse_germany_history(b"%PDF-test")
 
 
+def test_german_legacy_eurostat_collection_keeps_country_method_and_native_populations(monkeypatch):
+    from us_china_exchange import business_sources
+
+    prior = published()
+    native = [r for r in prior["observations"] if r["series_id"] == "bundesbank_germany:china"]
+    monkeypatch.setattr(business_sources, "parse_germany", lambda _: [
+        (r["year"], r["value"], r["status"]) for r in native if r["year"] >= 2021])
+    monkeypatch.setattr(business_sources, "parse_germany_history", lambda _: [
+        (r["year"], r["value"], r["status"]) for r in native if r["year"] <= 2018])
+
+    class Client:
+        wrong = None
+
+        def get(self, url):
+            if url == business_sources.BUNDESBANK_FATS:
+                body = b'<a href="/statistik-outward-fats-data.xlsx">Workbook</a>'
+            elif "fats_out_simsofat_de.htm" in url:
+                body = (
+                    b"Compiling agency: Deutsche Bundesbank. "
+                    b"an enterprise or branch; ultimate (direct or indirect) control. "
+                    b"Comparable since 2007 for country breakdown. "
+                    b"Collection system covers all companies with a balance sheet over 3 million Euro.")
+                if self.wrong == "method":
+                    body = body.replace(b"2007", b"2010")
+            elif "eurostat/api/" in url:
+                dataset = url.split("/data/")[1].split("?")[0]
+                legacy = dataset == "fats_out2"
+                codes = {
+                    "freq": "A", "nace_r1" if legacy else "nace_r2": "C-O_X_L" if legacy else "B-S_X_O",
+                    "indic_sbs" if dataset == "fats_out_part" else "indic_bp":
+                        "ENT_NR" if dataset == "fats_out_part" else "ENT",
+                    "partner": "CN_X_HK", "geo": "DE",
+                }
+                values = {2007: 847, 2008: 987, 2009: 1043} if legacy else {
+                    r["year"]: r["value"] for r in prior["observations"]
+                    if r["series_id"] == "eurostat_germany:china"
+                    and r["year"] >= 2010
+                    and (r["year"] <= 2020) == (dataset == "fats_out2_r2")}
+                if legacy:
+                    if self.wrong == "year":
+                        values[2004] = values.pop(2007)
+                    elif self.wrong == "truncated":
+                        values.pop(2007)
+                    elif self.wrong in {"partner", "geo", "indic_bp"}:
+                        codes[self.wrong] = {
+                            "partner": "CN", "geo": "FR", "indic_bp": "EMP"}[self.wrong]
+                data = {
+                    "extension": {"id": dataset}, "id": list(codes) + ["time"],
+                    "size": [1] * len(codes) + [len(values)],
+                    "dimension": {k: {"category": {"index": {v: 0}}} for k, v in codes.items()},
+                    "value": {str(i): v for i, v in enumerate(values.values())},
+                }
+                data["dimension"]["time"] = {"category": {"index": {
+                    str(year): i for i, year in enumerate(values)}}}
+                body = json.dumps(data).encode()
+            else:
+                body = b"Native source is exercised by the separate workbook/PDF tests."
+            return body, {
+                "url": url, "request_url": url, "sha256": hashlib.sha256(body).hexdigest(),
+                "retrieved_at": "2026-10-25T00:00:00+00:00"}
+
+    client = Client()
+    definitions, observations, sources = business_sources.german_affiliates(client)
+    history = sorted((r for r in observations if r["series_id"] == "eurostat_germany:china"),
+                     key=lambda r: r["year"])
+    assert [(r["year"], r["value"]) for r in history[:3]] == [(2007, 847), (2008, 987), (2009, 1043)]
+    assert [r["source_id"] for r in history[:3]] == ["fats_out2_DE"] * 3
+    by_year = {r["year"]: r for r in history}
+    assert by_year[2009]["comparability"] != by_year[2010]["comparability"]
+    assert by_year[2020]["comparability"] != by_year[2021]["comparability"]
+    assert "NACE C-O except L before 2010" in definitions["eurostat_germany:china"]["scope"]
+    assert any("fats_out_simsofat_de.htm" in a["url"] for a in sources["fats_out2_DE"]["assets"])
+    actual_native = {r["year"]: r for r in observations if r["series_id"] == "bundesbank_germany:china"}
+    assert set(actual_native) == {r["year"] for r in native}
+    assert all(actual_native[r["year"]]["value"] == r["value"]
+               and actual_native[r["year"]]["status"] == r["status"] for r in native)
+    for wrong in ("partner", "geo", "indic_bp", "year", "truncated", "method"):
+        client.wrong = wrong
+        with pytest.raises(ValueError):
+            business_sources.german_affiliates(client)
+
+
 def test_german_refresh_retains_all_other_country_context_and_release_vintages(monkeypatch):
     spec = importlib.util.spec_from_file_location("german_history_cli", ROOT / "scripts/build_business_data.py")
     module = importlib.util.module_from_spec(spec)
@@ -444,6 +528,16 @@ def test_german_refresh_retains_all_other_country_context_and_release_vintages(m
     invalid = copy.deepcopy(updated)
     next(r for r in invalid["observations"] if r["series_id"] == "bundesbank_germany:china")["year"] = 2019
     with pytest.raises(ValueError, match="year/source"):
+        validate_business_data(invalid)
+    invalid = copy.deepcopy(updated)
+    next(r for r in invalid["observations"] if r["series_id"] == "eurostat_germany:china"
+         and r["year"] == 2007)["source_id"] = "fats_out2_r2_DE"
+    with pytest.raises(ValueError, match="boundary"):
+        validate_business_data(invalid)
+    invalid = copy.deepcopy(updated)
+    next(r for r in invalid["observations"] if r["series_id"] == "eurostat_germany:china"
+         and r["year"] == 2007)["year"] = 2004
+    with pytest.raises(ValueError, match="begins in 2007"):
         validate_business_data(invalid)
 
 
