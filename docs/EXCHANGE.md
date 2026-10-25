@@ -744,6 +744,7 @@ evidence. Stale EU/UK and parent-company benchmarks stay download-only.
 | French-controlled enterprises | Sixteen reported2007-2023 counts and one missing2008 cell, ending2153. Eurostat's host category is China except Hong Kong. The 2007/2009,2010,2016 and2021 boundaries are not spliced or used for cross-regime growth. INSEE's rounded count remains a separate source finding. |
 | Dutch-controlled enterprises | Eighteen reported2007-2024 counts;2024=620 is provisional. Eurostat's seventeen earlier observations match original native TSVs; CBS's2023 control574 agrees. Dutch-resident UCI, financial/nonfinancial B-S except O. Preserve the2010 classification and2021 method boundaries; no comparable2019 change, pre-2007 history or2025 count is inferred. |
 | Italian-controlled legal units | Seventeen annual2007-2023 legal-unit counts, Italy-resident ultimate control. Fourteen original Eurostat values retain estimated flags; ISTAT's national legal-unit continuation reports1113/1169/1122 for2021/22/23. Original2019=1141 and2020=1133 controls match, and every national industry+services sum reconciles. National report pages10/12 confirm legal units and the B-N/P-S sector scope; national host label is Cina, Eurostat's is China except Hong Kong. Keep the2010 NACE and2021 source boundaries. The three Eurostat grouped-enterprise counts675/687/669 remain separate in downloads, not mixed into this chart or used for cross-unit changes. No pre-2007 or unreported2024/2025 count is inferred. |
+| Austrian-controlled units, Eurostat | Seventeen 2007-2023 observations. Fourteen 2007-2020 legal-unit counts remain download-only; only the separately defined 2021-2023 enterprise observations appear in the short supplementary chart, ending at 175. Foreign legal units remain an imperfect enterprise proxy under the official methods. Keep the 2010 NACE and 2021 unit boundaries. Neither broader national resident-parent counts nor the different national 2024 control snapshot is spliced into the UCI population. No 2000/current-history completion or 2019 growth is claimed. |
 | Supplementary U.S. parent-company benchmarks | Only 2004,2009,2014 and2019 are verified and remain archive-only, not an annual census. Foreign-affiliate ownership begins at10%, not necessarily majority control; reporting exclusions apply. No interpolation. |
 
 The U.S. affiliate reporting cutoff changes from $7 million through 2003 to
@@ -785,6 +786,7 @@ Obsolete U.S.-in-Europe plots are withdrawn from both figure trees and catalogs.
 .venv/bin/python scripts/build_business_data.py --nordic-only --data-only
 .venv/bin/python scripts/build_business_data.py --france-only --data-only
 .venv/bin/python scripts/build_business_data.py --uk-history-only --data-only
+.venv/bin/python scripts/build_business_data.py --austria-only --data-only
 .venv/bin/python scripts/build_site.py
 PYTHONPATH=src .venv/bin/python -m pytest tests/test_exchange_business.py -q
 ```

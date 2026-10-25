@@ -211,6 +211,8 @@ The official [2026 release calendar](https://www.istat.it/wp-content/uploads/202
 schedules reference2024 multinational statistics for November10,2026;
 that release is still in the future as of October25,2026.
 
+| Eurostat Austrian-UCI counts, `geo=AT`, `partner=CN_X_HK`; [Austria-specific methods](https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_at.htm) | All seventeen 2007-2023 counts independently match native TSV exports. Keep fourteen 2007-2020 legal-unit observations separate from three 2021-2023 enterprise observations, ending at 175. Methods 3.5 explicitly acknowledge that foreign legal units remain an imperfect enterprise proxy; 15.2.2 retains limited comparability across 2021. Preserve the 2010 NACE transition. Broader national resident-parent counts and the separate all-industry 2024 control subset are different populations, not extensions of this UCI series. No earlier/current count or 2019 comparison is inferred. |
+
 Raw source archives, workbooks, publication text and artwork remain local.
 Only numerical aggregates, original definitions and our figures are published.
 All indicators are business-presence stocks, not border crossings, investment

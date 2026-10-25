@@ -209,10 +209,10 @@ def test_collective_export_preserves_complete_inputs_and_native_plot_boundaries(
     assert "business-current" in manifest["datasets"]
     assert "business-inward" in manifest["datasets"]
     cards = business.select(".business-card")
-    assert len(cards) == 19
+    assert len(cards) == 20
     references = business.select_one("#business-count-references")
     assert references.get("open") is None and len(references.select(".business-card")) == 4
-    assert len([card for card in cards if card.find_parent(id="business-count-references") is None]) == 15
+    assert len([card for card in cards if card.find_parent(id="business-count-references") is None]) == 16
     assert business.select_one("#us-affiliates-china").find_parent("details")["id"] == "business-count-references"
     assert not business.select("#module-chart,#us-parent-companies-china,#uk-affiliates-china,#eu-affiliates-china,.covid-band,.covid-context")
     for chart, years in [("sweden-affiliates-china", range(2010, 2025)),
@@ -223,7 +223,8 @@ def test_collective_export_preserves_complete_inputs_and_native_plot_boundaries(
                          ("italy-affiliates-china", range(2007, 2024)),
                          ("sweden-affiliates-china-eurostat", [year for year in range(2007, 2024) if year != 2009]),
                          ("spain-affiliates-china", range(2009, 2024)),
-                         ("denmark-affiliates-china", range(2007, 2025))]:
+                         ("denmark-affiliates-china", range(2007, 2025)),
+                         ("austria-affiliates-china", range(2021, 2024))]:
         country = json.loads(business.select_one(f"#{chart} .plot-data").string)
         assert country["columns"] and [p["year"] for p in country["groups"][0]["points"]] == list(years)
         assert (country["first"], country["last"]) == (min(years), max(years))
