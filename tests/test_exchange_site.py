@@ -228,19 +228,23 @@ def test_export_axes_preserve_fractional_thousands_instead_of_repeating_rounded_
             if node.tag.endswith("circle")] == [(r["year"], r["value"]) for r in rows]
 
 
-def test_air_travel_uses_its_own_history_and_pre_pandemic_index():
+@pytest.mark.parametrize("geo,segments", [("CHN", 1), ("HKG", 2)])
+def test_air_travel_uses_its_own_history_and_pre_pandemic_index(geo, segments):
     rows = [r for r in json.loads((ROOT / "data/site/observations.json").read_text())
-            if r["series_id"] == "ntto_siat:USA:CHN:air_visitors" and r["frequency"] == "annual"]
-    assert {r["year"] for r in rows} == {*range(2000, 2021), *range(2022, 2026)}
-    assert next(r for r in rows if r["year"] == 2018)["value"] == 1_587_000
-    assert next(r for r in rows if r["year"] == 2020)["value"] == 89_000
+            if r["series_id"] == f"ntto_siat:USA:{geo}:air_visitors" and r["frequency"] == "annual"]
+    assert {r["year"] for r in rows} == set(range(2000, 2026)) - ({2021} if geo == "HKG" else set())
+    if geo == "CHN":
+        assert next(r for r in rows if r["year"] == 2018)["value"] == 1_587_000
+        assert next(r for r in rows if r["year"] == 2020)["value"] == 89_000
+        assert next(r for r in rows if r["year"] == 2021)["value"] == 5_000
     doc = ElementTree.fromstring(svg_chart(rows, indexed=True))
     text = " ".join(doc.itertext())
     assert "2019 = 100" in text and "2020 baseline" not in text
     path = next(n for n in doc.iter() if n.get("class") == "data-line")
-    assert path.get("d").count("M") == 2
-    label = next(n for n in doc.iter() if n.get("class") == "end-label")
-    assert label.text == "54"
+    assert path.get("d").count("M") == segments
+    if geo == "CHN":
+        label = next(n for n in doc.iter() if n.get("class") == "end-label")
+        assert label.text == "54"
 
 
 def test_comparison_colors_gaps_and_taiwan_exclusion():

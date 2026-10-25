@@ -437,6 +437,7 @@
       2018,
       2019,
       2020,
+      2021,
       2022,
       2023,
       2024,
@@ -447,7 +448,7 @@
     "first_year": 2000,
     "last_year": 2025,
     "measure": "air_visitors",
-    "observations": 27,
+    "observations": 28,
     "origin": "USA",
     "reason": "",
     "source_ids": [

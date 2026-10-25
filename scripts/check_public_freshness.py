@@ -129,7 +129,7 @@ def check(site, url=None):
                            if row["series_id"] == "ntto_siat:USA:CHN:air_visitors"
                            and row["frequency"] == "annual" and row["value"] is not None]
                     assert page.locator("#chart .screen-column").count() == len(air)
-                    assert page.locator('#chart .screen-column[data-year="2021"]').count() == 0
+                    assert float(page.locator('#chart .screen-column[data-year="2021"]').get_attribute("data-value")) == 5000
                     expect(page.locator("#chart .covid-label")).to_have_text("COVID travel restrictions, 2020-22")
                     page.select_option("#direction", "to_us")
                     expect(page.locator("#direction")).to_have_value("to_us")

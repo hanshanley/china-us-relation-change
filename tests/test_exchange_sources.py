@@ -132,6 +132,65 @@ def test_historical_siat_requires_matching_releases_and_current_2012_overlap(mon
         travel_sources.historical_siat(SimpleNamespace(get=get), modern)
 
 
+@pytest.fixture
+def china_2021_profile():
+    book = Workbook()
+    sheet = book.active
+    sheet.title = "CHINA"
+    for cell, value in {"C5": "CHINA", "C14": "U.S. resident travel to China",
+                        "C63": "Volume Trends (in thousands)", "C66": "Total Departures",
+                        "C94": "Respondents", "AA94": 267}.items():
+        sheet[cell] = value
+    for column, year in enumerate(range(2000, 2022), 6):
+        sheet.cell(64, column, year)
+        sheet.cell(66, column, 5 if year == 2021 else year - 1999).number_format = "#,##0"
+    sheet["AB64"] = 2021
+    sheet["AB66"] = 1568
+    def content():
+        stream = io.BytesIO()
+        book.save(stream)
+        return stream.getvalue()
+    return sheet, content
+
+
+def test_2021_profile_uses_chronological_column_not_stale_duplicate_year_helper(china_2021_profile):
+    sheet, content = china_2021_profile
+    values, sample = travel_sources.parse_china_2021_profile(content())
+    assert values[2021] == 5000 and values[2000] == 1000 and sample == 267
+    for cell, invalid in [("C5", "China including Hong Kong"), ("C14", "U.S. citizen direct flights"),
+                          ("C63", "Volume Trends (in millions)"), ("AA64", 2020),
+                          ("AA66", None), ("AA66", 0), ("AA66", True), ("AA94", 0)]:
+        previous = sheet[cell].value
+        sheet[cell] = invalid
+        with pytest.raises(ValueError):
+            travel_sources.parse_china_2021_profile(content())
+        sheet[cell] = previous
+
+
+def test_2021_profile_requires_all_historical_controls_and_original_vintage(
+        china_2021_profile, monkeypatch):
+    sheet, content = china_2021_profile
+    body = content()
+    checksum = travel_sources.digest(body)
+    monkeypatch.setattr(travel_sources, "CHINA_2021_SHA256", checksum)
+    asset = {"url": travel_sources.CHINA_2021_PROFILE, "sha256": checksum,
+             "retrieved_at": "2026-10-25T02:30:08+00:00"}
+    client = SimpleNamespace(get=lambda url: (body, asset))
+    retained = [{"destination": "CHN", "frequency": "annual", "year": year,
+                 "value": (year - 1999) * 1000} for year in range(2000, 2021)]
+    rows = travel_sources.china_2021_siat(client, retained)
+    assert len(rows) == 1 and rows[0]["value"] == 5000 and rows[0]["year"] == 2021
+    assert rows[0]["series_id"] == "ntto_siat:USA:CHN:air_visitors"
+    assert rows[0]["status"] == "estimated" and rows[0]["raw_sha256"] == checksum
+    with pytest.raises(ValueError, match="overlaps"):
+        travel_sources.china_2021_siat(client, retained[1:])
+    retained[0]["value"] += 1000
+    with pytest.raises(ValueError, match="overlaps"):
+        travel_sources.china_2021_siat(client, retained)
+    with pytest.raises(ValueError, match="vintage"):
+        travel_sources.china_2021_siat(SimpleNamespace(get=lambda url: (body + b"changed", asset)), retained)
+
+
 def test_nbs_arrivals_preserve_country_identity_units_and_excel_precision():
     records = [
         ["Number of Oversea Visitor Arrivals by Country/Region"],

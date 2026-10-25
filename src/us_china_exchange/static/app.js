@@ -144,8 +144,12 @@
     }
     const continuity = $("series-continuity");
     if (continuity) {
-      continuity.hidden = measure !== "air_visitors";
-      continuity.textContent = data.public_display ? "A comparable 2021 estimate is unavailable from this source." :
+      const reported2021 = annual.find(r => r.year === 2021 && r.value !== null);
+      const profile2021 = reported2021 && (reported2021.source_vintage || "").includes("2021 market profile");
+      continuity.hidden = measure !== "air_visitors" || (!!reported2021 && !profile2021);
+      continuity.textContent = continuity.hidden ? "" : profile2021 ?
+        "2021 uses NTTO's original profile estimate, rounded to 1,000 trips." :
+        data.public_display ? "A comparable 2021 estimate is unavailable from this source." :
         "2021 is not plotted: the monitor reports zero volume despite positive survey responses. That is not treated as zero actual travel.";
     }
     $("partial-panel").hidden = true;
