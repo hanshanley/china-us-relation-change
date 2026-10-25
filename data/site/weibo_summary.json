@@ -4837,11 +4837,11 @@
     }
   ],
   "cohort": {
-    "assessment_sha256": "648fe434f0b7c9289ae62563d7edef6ba80ebcf5df7c91c44af6e71fd1c03c5f",
+    "assessment_sha256": "1ea0b8a0d5f882166793a0a87d777c137d1ee68621a29f68b303ced3ffbba3c2",
     "candidate_domains": 0,
     "current_identity_domains": 5,
     "historical_only_domains": 7,
-    "manually_reviewed_domains": 374,
+    "manually_reviewed_domains": 375,
     "ranking_basis": "SCImago U.S.-classified digital reputation, not website traffic",
     "ranking_source": "https://www.scimagomedia.com/rankings.php?country=United+States",
     "selected_domains": 1000,
@@ -24962,7 +24962,7 @@
         "uid": "1686203097"
       }
     ],
-    "audited_at": "2026-10-25T00:18:42.998591+00:00",
+    "audited_at": "2026-10-25T02:58:53.484321+00:00",
     "canonical_posts_sha256": "71200e519e64affcbb60235f21227df6a86a47b90ffe1f04359245530b015020",
     "corpus": {
       "archived_sources_checked": 46,
@@ -24976,13 +24976,13 @@
       "primary_text_matches": 6570
     },
     "post_manifest_sha256": "4e4ee506c35d73f523ae74ae0b4ede01675ae16503e64fb6d3b9bc04f597abe7",
-    "registry_sha256": "fd4c899ae399c50ba89f22afb90b1b5b373a075b9fdedc22ac8a7506030d0b3b",
+    "registry_sha256": "3dd3fa01a5340506078f94398b1c0c59d6d1b6921ad85226f8e2b8143bd3433a",
     "scope": "Institutional profile/UID evidence and canonical text/date/source consistency; not current corporate control, continuing U.S. licensing, exhaustive account discovery or complete timelines.",
     "version": 1
   },
   "refresh": {
     "accounts_attempted": 0,
-    "attempted_at": "2026-10-24T19:35:05.213988+00:00",
+    "attempted_at": "2026-10-25T01:35:05.101180+00:00",
     "errors": [
       {
         "account_id": "local-scheduler",
@@ -24991,7 +24991,7 @@
     ],
     "mode": "daily_local",
     "new_posts": 0,
-    "note": "Unattended collection is blocked before Python startup by file-access permissions. Attempt time is the actual stderr modification time, not a feed-request start. No feeds were attempted and zero new records does not establish inactivity. Last successful bounded manual collection and its cutoff are retained. No privacy bypass or alternate launcher was attempted. Five natural OS-scheduled startup failures are now directly observed.",
+    "note": "Unattended collection is blocked before Python startup by file-access permissions. Attempt time is the actual stderr modification time, not a feed-request start. No feeds were attempted and zero new records does not establish inactivity. Last successful bounded manual collection and its cutoff are retained. No privacy bypass or alternate launcher was attempted. Six natural OS-scheduled startup failures are now directly observed.",
     "readable_feeds": 0,
     "status": "blocked",
     "successful_collection_at": "2026-10-23T17:05:14.193645+00:00",
@@ -44914,9 +44914,9 @@
   "roster": {
     "confirmed_accounts": 87,
     "confirmed_outlets": 62,
-    "outlets": 456,
+    "outlets": 457,
     "resolved_numeric_accounts": 86,
-    "reviewed_outlets": 456,
+    "reviewed_outlets": 457,
     "unresolved_numeric_accounts": 1
   },
   "source": {
@@ -44924,9 +44924,9 @@
     "excluded_attribution_posts": 0,
     "excluded_unconfirmed_posts": 0,
     "latest_collection_at": "2026-10-23T17:05:13.766559+00:00",
-    "primary_audit_sha256": "c1ac258086e6541b910f64540d282644c041f718edb3cce481894a00bf85b81b",
+    "primary_audit_sha256": "14f15e96ad28d904f024d48e69122d609defd45cdcee924c9e38962d4aaa6bed",
     "publication_timezone": "Asia/Shanghai",
-    "registry_sha256": "fd4c899ae399c50ba89f22afb90b1b5b373a075b9fdedc22ac8a7506030d0b3b",
+    "registry_sha256": "3dd3fa01a5340506078f94398b1c0c59d6d1b6921ad85226f8e2b8143bd3433a",
     "requested_windows": [
       {
         "end": "2026-10-21T16:00:00+00:00",

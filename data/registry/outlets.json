@@ -3469,6 +3469,19 @@
       "source_url": "https://www.sunjournal.com/",
       "research_status": "reviewed",
       "notes": "Prior newspaper HTTP403 retained with zero newspaper/alias/route/alternate-client requests. The already saved independent METLN root and its actual linked About designate SunJournal.com and Lewiston/Western Maine; the supplied newspaper link was not followed. Corporate self-description is not independent current ownership or an institutional Sina binding. New Bern's different Sun Journal, staff, board, parent and sibling profiles are not inherited. No account, numeric binding, post or verified negative added. Unknown, not absent. Review date: 2026-10-24 UTC."
+    },
+    {
+      "id": "midland-daily-news",
+      "name": "Midland Daily News",
+      "category": "newspaper",
+      "aliases": [
+        "OurMidland",
+        "Midland Daily News (Michigan)"
+      ],
+      "us_basis": "SCImago U.S.-classified cohort position380. First-party Contact identifies the Michigan publication and Midland Publishing Company LLC; cached publisher self-description, not an independent current legal-control audit.",
+      "source_url": "https://www.ourmidland.com/contact/",
+      "research_status": "reviewed",
+      "notes": "Factual-metadata-only review. Actual Contact-linked Terms section6 restricts extraction, copying/archiving and AI use without express permission; no further publisher/AI-policy/alias/client requests. Web provider reported Contact cached2days and Terms cached1.2years (revised2021-10-21), not a fresh origin or redirect/robots proof. No fresh local body retained or hash available; older captures untouched. No parent, sibling, staff or namesake account inherited. Weibo account remains unknown, not absent. No account, post or verified negative added."
     }
   ],
   "accounts": [

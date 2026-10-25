@@ -1,6 +1,6 @@
 # Account verification and post-collection follow-up
 
-Snapshot updated October 24, 2026 UTC. The [generated inventory](weibo_media_inventory.md)
+Snapshot updated October 25, 2026 UTC. The [generated inventory](weibo_media_inventory.md)
 contains the authoritative per-account post totals. A verified identity is not
 a guarantee of current ownership, current posting, or complete historical recovery.
 
@@ -11,7 +11,28 @@ Asia/Shanghai day. The generated inventory, frozen aggregate JSON and refresh
 status report the latest live totals; historical checkpoint counts below are
 not rewritten as though they were the latest collection.
 
-## Accepted research snapshot: discovery pass 78
+## Latest source checkpoint: discovery pass 83
+
+Registry457; recorded manual cohort reviews375, not a representative adoption
+estimate. All87 documented channels/62publisher groups and6,570live recovered
+records are unchanged. The full private corpus and version5 calendars/rolling
+windows remain intact; the immutable October21 baseline is separate.
+
+[Pass83](discovery_iteration83.md) adds a factual-only Midland Daily News review.
+The actual Contact-linked Terms require a new specific no-further-body hold:
+no fresh local body was retained, no policy body is published and cached
+provider views are not called fresh origin/robots proof. No Weibo account or
+negative is established; parent/sibling/staff/namesake handles are not inherited.
+The next permitted cohort frontier is381. Provider failures375-378 and prior
+Newark379403 remain held and do not become new manual reviews or negatives.
+
+Refresh health now records the actual sixth natural scheduled Python-startup
+failure, not a collector/feed attempt. User-approved access is still needed;
+the last successful manual collection and moving live cutoff are not reset.
+This checkpoint is source/data publication, not claimed website deployment
+or successful unattended collection.
+
+## Archived accepted source checkpoint: discovery pass 78
 
 This source/data integration does not itself establish deployment of the
 website or a successful unattended collection run.
