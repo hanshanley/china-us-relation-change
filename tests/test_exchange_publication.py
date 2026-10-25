@@ -224,7 +224,20 @@ def test_collective_export_preserves_complete_inputs_and_native_plot_boundaries(
     assert {group["id"] for group in long_run["groups"]} == {"gallup_us:favorable", "gallup_us:unfavorable"}
     assert opinions.select_one("#us-china-panel-favorability .plot-data")
     assert not any(json.loads(model.string).get("covid_context") for model in opinions.select(".plot-data"))
-    assert immigration.select_one('#module-chart option[selected]')["value"] == "annual-china-to-us"
+    assert immigration.select_one('#module-chart option[selected]')["value"] == "green-card-grants"
+    assert "1989-2024" in immigration.select_one(".analysis-scope").text
+    assert "including" in immigration.select_one(".analysis-deck").text
+    lead = json.loads(immigration.select_one(
+        '#green-card-grants .comparison-pane[data-geographies="CHN"] .plot-data').string)
+    points = lead["groups"][0]["points"]
+    assert lead["groups"][0]["id"] == "ohss_birth:CHN"
+    assert [point["year"] for point in points] == list(range(1989, 2025))
+    assert next(point["value"] for point in points if point["year"] == 2000) == 45652
+    assert points[-1]["value"] == 71470
+    assert not immigration.select('#annual-china-to-us, #module-chart option[value="annual-china-to-us"]')
+    arrivals = json.loads(immigration.select_one("#new-permanent-resident-arrivals .plot-data").string)
+    assert arrivals["groups"][0]["id"] == "ohss_nationality:new_arrivals"
+    assert [point["year"] for point in arrivals["groups"][0]["points"]] == list(range(2016, 2026))
     assert len(immigration.select("#state-china-map .state-shape")) == 51
     assert immigration.select_one('#state-china-map [data-map-metric="count"]')
     assert immigration.select_one('#state-china-map [data-map-metric="share"]')

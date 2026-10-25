@@ -400,10 +400,17 @@ def check(site, url=None, screenshots=None):
                     birthplace = [r for r in present if r["series_id"].startswith("ohss_birth:")]
                     stock_from_us = [r for r in present if r["series_id"].startswith("un_stock:USA:")]
                     approvals = [r for r in present if r["series_id"] == "dsec_abode:USA:MAC"]
-                    expect(page.locator("#module-chart")).to_have_value("annual-china-to-us")
-                    assert page.locator("#annual-china-to-us .screen-point").count() == len(arrivals)
-                    assert page.locator("#annual-china-to-us .screen-column").count() == len(arrivals)
-                    assert page.locator("#annual-china-to-us .screen-year").all_text_contents()[-1] == str(max(r["year"] for r in arrivals))
+                    expect(page.locator("#module-chart")).to_have_value("green-card-grants")
+                    assert page.locator("#green-card-grants .screen-point").count() == len(birthplace)
+                    mainland = page.locator('#green-card-grants .comparison-pane[data-geographies="CHN"]')
+                    assert mainland.locator(".screen-column").evaluate_all(
+                        "nodes=>nodes.map(n=>[+n.dataset.year,+n.dataset.value])") == sorted([
+                            [r["year"], r["value"]] for r in birthplace if r["series_id"] == "ohss_birth:CHN"])
+                    assert float(mainland.locator('.screen-column[data-year="2000"]').get_attribute("data-value")) == 45652
+                    page.select_option("#module-chart", "new-permanent-resident-arrivals")
+                    assert page.locator("#new-permanent-resident-arrivals .screen-point").count() == len(arrivals)
+                    assert page.locator("#new-permanent-resident-arrivals .screen-column").count() == len(arrivals)
+                    assert page.locator("#new-permanent-resident-arrivals .screen-year").all_text_contents()[-1] == str(max(r["year"] for r in arrivals))
                     page.select_option("#module-chart", "migrant-stock-from-us")
                     assert page.locator("#migrant-stock-from-us .screen-point").count() == len(stock_from_us)
                     expect(page.locator("#migrant-stock-from-us")).to_contain_text("citizenship")

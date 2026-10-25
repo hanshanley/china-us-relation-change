@@ -224,6 +224,12 @@ def test_immigration_exports_include_all_counts_and_fiscal_dates(tmp_path):
     assert approvals[-1]["calendar_period_start"] == "2025-01-01"
     assert approvals[-1]["calendar_period_end"] == "2025-12-31"
     assert approvals[-1]["value"] == "34"
+    assert page.select_one("main > section[id]")["id"] == "green-card-grants"
+    arrival_title = page.select_one("#new-permanent-resident-arrivals h2").text
+    assert "New" in arrival_title and "arrivals" in arrival_title
+    history_link = page.select_one("#new-permanent-resident-arrivals .immigration-history-link")
+    assert history_link.a["href"] == "immigration.html?indicator=green-card-grants"
+    assert "FY1989-FY2024" in history_link.text and "not new arrivals alone" in history_link.text
 
 
 def test_bilateral_stocks_retain_source_populations_and_actual_benchmark_years():
@@ -249,7 +255,7 @@ def test_covid_context_covers_immigration_flows_but_not_stocks_or_snapshots(tmp_
     build_immigration(tmp_path, data, defaultdict(list))
     page = BeautifulSoup((tmp_path / "site/immigration.html").read_text(), "html.parser")
     flows = {
-        "annual-china-to-us", "annual-china-adjustments", "green-card-grants",
+        "new-permanent-resident-arrivals", "annual-china-adjustments", "green-card-grants",
         "hong-kong-green-cards", "macau-green-cards", "macau-residence-approvals",
     }
     for chart_id in CHARTS:
@@ -265,12 +271,12 @@ def test_covid_context_covers_immigration_flows_but_not_stocks_or_snapshots(tmp_
             assert paths
             for path in paths:
                 svg = BeautifulSoup(path.read_text(), "html.parser")
-                assert bool(svg.select(".covid-band")) == (chart_id == "annual-china-to-us")
+                assert bool(svg.select(".covid-band")) == (chart_id == "new-permanent-resident-arrivals")
                 if chart_id in flows:
                     footnote = " ".join(node.text for node in svg.select(".figure-source"))
                     assert "universal ban" in footnote
                     assert "In-country status adjustments are not border arrivals" in svg.find("desc").text
                     assert all(float(node["y"]) <= 580 for node in svg.select(".figure-source"))
-        if chart_id in flows - {"annual-china-to-us", "macau-residence-approvals"}:
+        if chart_id in flows - {"new-permanent-resident-arrivals", "macau-residence-approvals"}:
             assert "March 18, 2020" in note.text and "June 4, 2020" in note.text
     assert json.loads((tmp_path / "site/downloads/immigration.json").read_text()) == data
