@@ -1,6 +1,6 @@
 {
   "context": {
-    "geography": "China is the host. U.S., German, Norwegian, Swedish and Finnish series retain their own control, sector, threshold and source definitions; these are not matched country rankings. UK history ends in 2019. National and overlapping EU27 membership aggregates are not summed. Netherlands is shown separately from the overlapping EU27 aggregate. Spain's Eurostat financial/nonfinancial history is separate from INE's national nonfinancial population; Spain overlaps EU aggregates and is not added to them. Denmark's national resident-parent coverage includes foreign ultimate owners and excludes branches; it is not spliced with Danish-UCI Eurostat counts or summed into EU aggregates.",
+    "geography": "China is the host. U.S., German, Norwegian, Swedish and Finnish series retain their own control, sector, threshold and source definitions; these are not matched country rankings. UK history ends in 2019. National and overlapping EU27 membership aggregates are not summed. Netherlands is shown separately from the overlapping EU27 aggregate. Spain's Eurostat financial/nonfinancial history is separate from INE's national nonfinancial population; Spain overlaps EU aggregates and is not added to them. Denmark's national resident-parent coverage includes foreign ultimate owners and excludes branches; it is not spliced with Danish-UCI Eurostat counts or summed into EU aggregates. Poland's ultimate-control population remains separate from the broader national foreign-equity survey and is not added to overlapping EU aggregates.",
     "interpretation": "Company counts, affiliate entities and branch locations are distinct. U.S. parents and ultimately EU-controlled enterprises are not matched ownership populations; BEA and Eurostat levels must not be used to rank otherwise comparable business presence.",
     "question": "How has U.S. and European business presence in China changed over time?",
     "release_timing": "As checked October 22, 2026, BEA's latest activity release covers 2023. The published schedule puts the 2024 activity release on November 20, 2026; no 2024 value is inferred.",
@@ -90,6 +90,11 @@
     {
       "description": "Subsidiaries in China controlled from Denmark-resident parents, including parents under foreign ultimate control; not the narrower Danish-UCI Eurostat population. Autonomous subsidiary entities, not unique parents, plants or branches. Private non-agricultural activities, including finance; no lower activity threshold. Retain the 2010 DB03/DB07 classification transition. The source also uses zero for suppressed cells, so no zero is inferred. No pre-2007 values invented.",
       "id": "dst_denmark:china",
+      "status": "partial_history"
+    },
+    {
+      "description": "Polish-resident ultimate control of enterprises/branches in China except Hong Kong, not the broader national survey of all foreign equity interests. Enterprise-unit implementation breaks the series in 2018. Preserve the selected legacy NACE2010 transition; 2021 is source-dataset lineage, not a second Polish unit break. Joint 50/50 and documented de-facto minority control can qualify; no size cutoff. 2007 is unreported, not zero. No pre2008 or unreported current-year counts inferred.",
+      "id": "eurostat_poland:china",
       "status": "partial_history"
     }
   ],
@@ -1454,6 +1459,159 @@
       "year": 2023
     },
     {
+      "comparability": "poland:legacy-nace-r1",
+      "notes": "Polish-resident ultimate control of enterprises/branches in China except Hong Kong, not the broader national survey of all foreign equity interests. Enterprise-unit implementation breaks the series in 2018. Preserve the selected legacy NACE2010 transition; 2021 is source-dataset lineage, not a second Polish unit break. Joint 50/50 and documented de-facto minority control can qualify; no size cutoff. 2007 is unreported, not zero. No pre2008 or unreported current-year counts inferred. Source flags: none",
+      "series_id": "eurostat_poland:china",
+      "source_id": "fats_out2_PL",
+      "status": "missing",
+      "value": null,
+      "year": 2007
+    },
+    {
+      "comparability": "poland:legacy-nace-r1",
+      "notes": "Polish-resident ultimate control of enterprises/branches in China except Hong Kong, not the broader national survey of all foreign equity interests. Enterprise-unit implementation breaks the series in 2018. Preserve the selected legacy NACE2010 transition; 2021 is source-dataset lineage, not a second Polish unit break. Joint 50/50 and documented de-facto minority control can qualify; no size cutoff. 2007 is unreported, not zero. No pre2008 or unreported current-year counts inferred. Source flags: none",
+      "series_id": "eurostat_poland:china",
+      "source_id": "fats_out2_PL",
+      "status": "observed",
+      "value": 13,
+      "year": 2008
+    },
+    {
+      "comparability": "poland:legacy-nace-r1",
+      "notes": "Polish-resident ultimate control of enterprises/branches in China except Hong Kong, not the broader national survey of all foreign equity interests. Enterprise-unit implementation breaks the series in 2018. Preserve the selected legacy NACE2010 transition; 2021 is source-dataset lineage, not a second Polish unit break. Joint 50/50 and documented de-facto minority control can qualify; no size cutoff. 2007 is unreported, not zero. No pre2008 or unreported current-year counts inferred. Source flags: none",
+      "series_id": "eurostat_poland:china",
+      "source_id": "fats_out2_PL",
+      "status": "observed",
+      "value": 20,
+      "year": 2009
+    },
+    {
+      "comparability": "poland:nace-r2:legal-units",
+      "notes": "Polish-resident ultimate control of enterprises/branches in China except Hong Kong, not the broader national survey of all foreign equity interests. Enterprise-unit implementation breaks the series in 2018. Preserve the selected legacy NACE2010 transition; 2021 is source-dataset lineage, not a second Polish unit break. Joint 50/50 and documented de-facto minority control can qualify; no size cutoff. 2007 is unreported, not zero. No pre2008 or unreported current-year counts inferred. Source flags: none",
+      "series_id": "eurostat_poland:china",
+      "source_id": "fats_out2_r2_PL",
+      "status": "observed",
+      "value": 22,
+      "year": 2010
+    },
+    {
+      "comparability": "poland:nace-r2:legal-units",
+      "notes": "Polish-resident ultimate control of enterprises/branches in China except Hong Kong, not the broader national survey of all foreign equity interests. Enterprise-unit implementation breaks the series in 2018. Preserve the selected legacy NACE2010 transition; 2021 is source-dataset lineage, not a second Polish unit break. Joint 50/50 and documented de-facto minority control can qualify; no size cutoff. 2007 is unreported, not zero. No pre2008 or unreported current-year counts inferred. Source flags: none",
+      "series_id": "eurostat_poland:china",
+      "source_id": "fats_out2_r2_PL",
+      "status": "observed",
+      "value": 25,
+      "year": 2011
+    },
+    {
+      "comparability": "poland:nace-r2:legal-units",
+      "notes": "Polish-resident ultimate control of enterprises/branches in China except Hong Kong, not the broader national survey of all foreign equity interests. Enterprise-unit implementation breaks the series in 2018. Preserve the selected legacy NACE2010 transition; 2021 is source-dataset lineage, not a second Polish unit break. Joint 50/50 and documented de-facto minority control can qualify; no size cutoff. 2007 is unreported, not zero. No pre2008 or unreported current-year counts inferred. Source flags: none",
+      "series_id": "eurostat_poland:china",
+      "source_id": "fats_out2_r2_PL",
+      "status": "observed",
+      "value": 33,
+      "year": 2012
+    },
+    {
+      "comparability": "poland:nace-r2:legal-units",
+      "notes": "Polish-resident ultimate control of enterprises/branches in China except Hong Kong, not the broader national survey of all foreign equity interests. Enterprise-unit implementation breaks the series in 2018. Preserve the selected legacy NACE2010 transition; 2021 is source-dataset lineage, not a second Polish unit break. Joint 50/50 and documented de-facto minority control can qualify; no size cutoff. 2007 is unreported, not zero. No pre2008 or unreported current-year counts inferred. Source flags: none",
+      "series_id": "eurostat_poland:china",
+      "source_id": "fats_out2_r2_PL",
+      "status": "observed",
+      "value": 24,
+      "year": 2013
+    },
+    {
+      "comparability": "poland:nace-r2:legal-units",
+      "notes": "Polish-resident ultimate control of enterprises/branches in China except Hong Kong, not the broader national survey of all foreign equity interests. Enterprise-unit implementation breaks the series in 2018. Preserve the selected legacy NACE2010 transition; 2021 is source-dataset lineage, not a second Polish unit break. Joint 50/50 and documented de-facto minority control can qualify; no size cutoff. 2007 is unreported, not zero. No pre2008 or unreported current-year counts inferred. Source flags: none",
+      "series_id": "eurostat_poland:china",
+      "source_id": "fats_out2_r2_PL",
+      "status": "observed",
+      "value": 28,
+      "year": 2014
+    },
+    {
+      "comparability": "poland:nace-r2:legal-units",
+      "notes": "Polish-resident ultimate control of enterprises/branches in China except Hong Kong, not the broader national survey of all foreign equity interests. Enterprise-unit implementation breaks the series in 2018. Preserve the selected legacy NACE2010 transition; 2021 is source-dataset lineage, not a second Polish unit break. Joint 50/50 and documented de-facto minority control can qualify; no size cutoff. 2007 is unreported, not zero. No pre2008 or unreported current-year counts inferred. Source flags: none",
+      "series_id": "eurostat_poland:china",
+      "source_id": "fats_out2_r2_PL",
+      "status": "observed",
+      "value": 34,
+      "year": 2015
+    },
+    {
+      "comparability": "poland:nace-r2:legal-units",
+      "notes": "Polish-resident ultimate control of enterprises/branches in China except Hong Kong, not the broader national survey of all foreign equity interests. Enterprise-unit implementation breaks the series in 2018. Preserve the selected legacy NACE2010 transition; 2021 is source-dataset lineage, not a second Polish unit break. Joint 50/50 and documented de-facto minority control can qualify; no size cutoff. 2007 is unreported, not zero. No pre2008 or unreported current-year counts inferred. Source flags: none",
+      "series_id": "eurostat_poland:china",
+      "source_id": "fats_out2_r2_PL",
+      "status": "observed",
+      "value": 35,
+      "year": 2016
+    },
+    {
+      "comparability": "poland:nace-r2:legal-units",
+      "notes": "Polish-resident ultimate control of enterprises/branches in China except Hong Kong, not the broader national survey of all foreign equity interests. Enterprise-unit implementation breaks the series in 2018. Preserve the selected legacy NACE2010 transition; 2021 is source-dataset lineage, not a second Polish unit break. Joint 50/50 and documented de-facto minority control can qualify; no size cutoff. 2007 is unreported, not zero. No pre2008 or unreported current-year counts inferred. Source flags: none",
+      "series_id": "eurostat_poland:china",
+      "source_id": "fats_out2_r2_PL",
+      "status": "observed",
+      "value": 32,
+      "year": 2017
+    },
+    {
+      "comparability": "poland:nace-r2:enterprise2018",
+      "notes": "Polish-resident ultimate control of enterprises/branches in China except Hong Kong, not the broader national survey of all foreign equity interests. Enterprise-unit implementation breaks the series in 2018. Preserve the selected legacy NACE2010 transition; 2021 is source-dataset lineage, not a second Polish unit break. Joint 50/50 and documented de-facto minority control can qualify; no size cutoff. 2007 is unreported, not zero. No pre2008 or unreported current-year counts inferred. Source flags: b",
+      "series_id": "eurostat_poland:china",
+      "source_id": "fats_out2_r2_PL",
+      "status": "observed",
+      "value": 31,
+      "year": 2018
+    },
+    {
+      "comparability": "poland:nace-r2:enterprise2018",
+      "notes": "Polish-resident ultimate control of enterprises/branches in China except Hong Kong, not the broader national survey of all foreign equity interests. Enterprise-unit implementation breaks the series in 2018. Preserve the selected legacy NACE2010 transition; 2021 is source-dataset lineage, not a second Polish unit break. Joint 50/50 and documented de-facto minority control can qualify; no size cutoff. 2007 is unreported, not zero. No pre2008 or unreported current-year counts inferred. Source flags: none",
+      "series_id": "eurostat_poland:china",
+      "source_id": "fats_out2_r2_PL",
+      "status": "observed",
+      "value": 29,
+      "year": 2019
+    },
+    {
+      "comparability": "poland:nace-r2:enterprise2018",
+      "notes": "Polish-resident ultimate control of enterprises/branches in China except Hong Kong, not the broader national survey of all foreign equity interests. Enterprise-unit implementation breaks the series in 2018. Preserve the selected legacy NACE2010 transition; 2021 is source-dataset lineage, not a second Polish unit break. Joint 50/50 and documented de-facto minority control can qualify; no size cutoff. 2007 is unreported, not zero. No pre2008 or unreported current-year counts inferred. Source flags: none",
+      "series_id": "eurostat_poland:china",
+      "source_id": "fats_out2_r2_PL",
+      "status": "observed",
+      "value": 35,
+      "year": 2020
+    },
+    {
+      "comparability": "poland:nace-r2:enterprise2018",
+      "notes": "Polish-resident ultimate control of enterprises/branches in China except Hong Kong, not the broader national survey of all foreign equity interests. Enterprise-unit implementation breaks the series in 2018. Preserve the selected legacy NACE2010 transition; 2021 is source-dataset lineage, not a second Polish unit break. Joint 50/50 and documented de-facto minority control can qualify; no size cutoff. 2007 is unreported, not zero. No pre2008 or unreported current-year counts inferred. Source flags: none",
+      "series_id": "eurostat_poland:china",
+      "source_id": "fats_out_part_PL",
+      "status": "observed",
+      "value": 42,
+      "year": 2021
+    },
+    {
+      "comparability": "poland:nace-r2:enterprise2018",
+      "notes": "Polish-resident ultimate control of enterprises/branches in China except Hong Kong, not the broader national survey of all foreign equity interests. Enterprise-unit implementation breaks the series in 2018. Preserve the selected legacy NACE2010 transition; 2021 is source-dataset lineage, not a second Polish unit break. Joint 50/50 and documented de-facto minority control can qualify; no size cutoff. 2007 is unreported, not zero. No pre2008 or unreported current-year counts inferred. Source flags: none",
+      "series_id": "eurostat_poland:china",
+      "source_id": "fats_out_part_PL",
+      "status": "observed",
+      "value": 42,
+      "year": 2022
+    },
+    {
+      "comparability": "poland:nace-r2:enterprise2018",
+      "notes": "Polish-resident ultimate control of enterprises/branches in China except Hong Kong, not the broader national survey of all foreign equity interests. Enterprise-unit implementation breaks the series in 2018. Preserve the selected legacy NACE2010 transition; 2021 is source-dataset lineage, not a second Polish unit break. Joint 50/50 and documented de-facto minority control can qualify; no size cutoff. 2007 is unreported, not zero. No pre2008 or unreported current-year counts inferred. Source flags: none",
+      "series_id": "eurostat_poland:china",
+      "source_id": "fats_out_part_PL",
+      "status": "observed",
+      "value": 32,
+      "year": 2023
+    },
+    {
       "comparability": "fats_out2:ES:0",
       "notes": "Spanish-resident ultimate control; Eurostat's China except Hong Kong host category. Financial and nonfinancial activities, not unique Spanish parents. Counts are reported from 2009; 2007/2008 are unreported and no 2000-2006 values are inferred. Retain the 2010 classification transition and the 2021 change from legal units to statistical enterprises. Recent estimates retain their original flags. INE's national nonfinancial population is different and is not appended to this series. Source flags: ",
       "series_id": "eurostat_spain:china",
@@ -2409,6 +2567,15 @@
       "scope": "Norwegian-controlled enterprises in China except Hong Kong; NACE B-S except O",
       "unit": "enterprises"
     },
+    "eurostat_poland:china": {
+      "cadence": "annual",
+      "label": "Poland",
+      "measure": "controlled_enterprises",
+      "notes": "Polish-resident ultimate control of enterprises/branches in China except Hong Kong, not the broader national survey of all foreign equity interests. Enterprise-unit implementation breaks the series in 2018. Preserve the selected legacy NACE2010 transition; 2021 is source-dataset lineage, not a second Polish unit break. Joint 50/50 and documented de-facto minority control can qualify; no size cutoff. 2007 is unreported, not zero. No pre2008 or unreported current-year counts inferred.",
+      "period_basis": "reference year",
+      "scope": "Polish-resident UCI; enterprises/branches in China except Hong Kong; selected legacy NACE C-O except L, then NACE B-S except O",
+      "unit": "enterprises"
+    },
     "eurostat_spain:china": {
       "cadence": "annual",
       "label": "Spain (Eurostat)",
@@ -3079,6 +3246,26 @@
       "notes": "Dutch control and China except Hong Kong. Preserve NACE, source flags and the 2021 method boundary.",
       "vintage": "Outward FATS - main variables (2007-2009); updated 2024-04-25T11:00:00+0200"
     },
+    "fats_out2_PL": {
+      "assets": [
+        {
+          "request_url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out2?lang=EN&freq=A&geo=PL&partner=CN_X_HK&indic_bp=ENT&nace_r1=C-O_X_L",
+          "retrieved_at": "2026-10-25T06:03:07+00:00",
+          "sha256": "665a526e1434d28a488d5ec234d5bb08a10b92e9408537c75b9ea35a9c425d1a",
+          "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out2?lang=EN&freq=A&geo=PL&partner=CN_X_HK&indic_bp=ENT&nace_r1=C-O_X_L"
+        },
+        {
+          "request_url": "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_pl.htm",
+          "retrieved_at": "2026-10-25T06:04:02+00:00",
+          "sha256": "ce1ca4897c606d7fabec9ce1ed5b903fdb24b971b2a213a04d34158b9f5d17f2",
+          "url": "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_pl.htm"
+        }
+      ],
+      "locator": "geo=PL; partner=CN_X_HK; indic_bp=ENT; nace_r1=C-O_X_L",
+      "name": "Eurostat / Statistics Poland",
+      "notes": "Polish-resident ultimate control of enterprises/branches in China except Hong Kong, not the broader national survey of all foreign equity interests. Enterprise-unit implementation breaks the series in 2018. Preserve the selected legacy NACE2010 transition; 2021 is source-dataset lineage, not a second Polish unit break. Joint 50/50 and documented de-facto minority control can qualify; no size cutoff. 2007 is unreported, not zero. No pre2008 or unreported current-year counts inferred.",
+      "vintage": "fats_out2; Poland; source updated 2024-04-25T11:00:00+0200"
+    },
     "fats_out2_SE": {
       "assets": [
         {
@@ -3237,6 +3424,26 @@
       "notes": "Keep each control geography, membership and activity classification explicit. Preserve estimated, break and confidential flags; methodology boundaries remain disconnected. No reconstruction of confidential totals from member-country values.",
       "vintage": "Outward FATS, main variables - NACE Rev. 2 activity (2010-2020); updated 2024-04-25T11:00:00+0200"
     },
+    "fats_out2_r2_PL": {
+      "assets": [
+        {
+          "request_url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out2_r2?lang=EN&freq=A&geo=PL&partner=CN_X_HK&indic_bp=ENT&nace_r2=B-S_X_O",
+          "retrieved_at": "2026-10-25T06:03:07+00:00",
+          "sha256": "5dd3e2d3f4c55b35fca6918585d23d348412225778758fa6a76f50797664266f",
+          "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out2_r2?lang=EN&freq=A&geo=PL&partner=CN_X_HK&indic_bp=ENT&nace_r2=B-S_X_O"
+        },
+        {
+          "request_url": "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_pl.htm",
+          "retrieved_at": "2026-10-25T06:04:02+00:00",
+          "sha256": "ce1ca4897c606d7fabec9ce1ed5b903fdb24b971b2a213a04d34158b9f5d17f2",
+          "url": "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_pl.htm"
+        }
+      ],
+      "locator": "geo=PL; partner=CN_X_HK; indic_bp=ENT; nace_r2=B-S_X_O",
+      "name": "Eurostat / Statistics Poland",
+      "notes": "Polish-resident ultimate control of enterprises/branches in China except Hong Kong, not the broader national survey of all foreign equity interests. Enterprise-unit implementation breaks the series in 2018. Preserve the selected legacy NACE2010 transition; 2021 is source-dataset lineage, not a second Polish unit break. Joint 50/50 and documented de-facto minority control can qualify; no size cutoff. 2007 is unreported, not zero. No pre2008 or unreported current-year counts inferred.",
+      "vintage": "fats_out2_r2; Poland; source updated 2024-04-25T11:00:00+0200"
+    },
     "fats_out2_r2_SE": {
       "assets": [
         {
@@ -3380,6 +3587,26 @@
       "name": "Eurostat",
       "notes": "Keep each control geography, membership and activity classification explicit. Preserve estimated, break and confidential flags; methodology boundaries remain disconnected. No reconstruction of confidential totals from member-country values.",
       "vintage": "Foreign affiliates of the EU enterprises by detailed breakdown of country of the affiliates (from 2021 onwards); updated 2026-03-31T23:00:00+0200"
+    },
+    "fats_out_part_PL": {
+      "assets": [
+        {
+          "request_url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out_part?lang=EN&freq=A&geo=PL&partner=CN_X_HK&indic_sbs=ENT_NR&nace_r2=B-S_X_O",
+          "retrieved_at": "2026-10-25T06:03:07+00:00",
+          "sha256": "17d82beaacf26027bf74bf0cff402e7f7fe2fde168c4d4956870064daee3aa3d",
+          "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out_part?lang=EN&freq=A&geo=PL&partner=CN_X_HK&indic_sbs=ENT_NR&nace_r2=B-S_X_O"
+        },
+        {
+          "request_url": "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_pl.htm",
+          "retrieved_at": "2026-10-25T06:04:02+00:00",
+          "sha256": "ce1ca4897c606d7fabec9ce1ed5b903fdb24b971b2a213a04d34158b9f5d17f2",
+          "url": "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_pl.htm"
+        }
+      ],
+      "locator": "geo=PL; partner=CN_X_HK; indic_sbs=ENT_NR; nace_r2=B-S_X_O",
+      "name": "Eurostat / Statistics Poland",
+      "notes": "Polish-resident ultimate control of enterprises/branches in China except Hong Kong, not the broader national survey of all foreign equity interests. Enterprise-unit implementation breaks the series in 2018. Preserve the selected legacy NACE2010 transition; 2021 is source-dataset lineage, not a second Polish unit break. Joint 50/50 and documented de-facto minority control can qualify; no size cutoff. 2007 is unreported, not zero. No pre2008 or unreported current-year counts inferred.",
+      "vintage": "fats_out_part; Poland; source updated 2026-03-31T23:00:00+0200"
     },
     "fats_out_part_SE": {
       "assets": [
