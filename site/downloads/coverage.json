@@ -1,6 +1,18 @@
 [
   {
     "available_years": [
+      2007,
+      2008,
+      2009,
+      2010,
+      2011,
+      2012,
+      2013,
+      2014,
+      2015,
+      2016,
+      2017,
+      2018,
       2019,
       2020,
       2021,
@@ -9,12 +21,12 @@
       2024,
       2025
     ],
-    "baseline_2020": true,
+    "baseline_2019": true,
     "destination": "USA",
-    "first_year": 2019,
+    "first_year": 2007,
     "last_year": 2025,
     "measure": "enrolled_students",
-    "observations": 7,
+    "observations": 19,
     "origin": "CHN",
     "reason": "",
     "source_ids": [
@@ -34,7 +46,7 @@
       2021,
       2023
     ],
-    "baseline_2020": true,
+    "baseline_2019": false,
     "destination": "USA",
     "first_year": 2005,
     "last_year": 2023,
@@ -45,6 +57,18 @@
     "source_ids": [
       "uis"
     ]
+  },
+  {
+    "available_years": [],
+    "baseline_2019": false,
+    "destination": "USA",
+    "first_year": null,
+    "last_year": null,
+    "measure": "historical_students",
+    "observations": 0,
+    "origin": "CHN",
+    "reason": "No reviewed legacy UIS total for this route. Historical degree-seeking, non-degree and OPT coverage is unresolved; these facts are not a substitute for modern enrollment or OPT series.",
+    "source_ids": []
   },
   {
     "available_years": [
@@ -75,7 +99,7 @@
       2024,
       2025
     ],
-    "baseline_2020": true,
+    "baseline_2019": true,
     "destination": "USA",
     "first_year": 2000,
     "last_year": 2025,
@@ -89,7 +113,7 @@
   },
   {
     "available_years": [],
-    "baseline_2020": false,
+    "baseline_2019": false,
     "destination": "USA",
     "first_year": null,
     "last_year": null,
@@ -128,7 +152,7 @@
       2024,
       2025
     ],
-    "baseline_2020": true,
+    "baseline_2019": true,
     "destination": "USA",
     "first_year": 2000,
     "last_year": 2025,
@@ -142,7 +166,7 @@
   },
   {
     "available_years": [],
-    "baseline_2020": false,
+    "baseline_2019": false,
     "destination": "USA",
     "first_year": null,
     "last_year": null,
@@ -154,7 +178,7 @@
   },
   {
     "available_years": [],
-    "baseline_2020": false,
+    "baseline_2019": false,
     "destination": "USA",
     "first_year": null,
     "last_year": null,
@@ -193,7 +217,7 @@
       2024,
       2025
     ],
-    "baseline_2020": true,
+    "baseline_2019": true,
     "destination": "USA",
     "first_year": 2000,
     "last_year": 2025,
@@ -234,7 +258,7 @@
       2024,
       2025
     ],
-    "baseline_2020": true,
+    "baseline_2019": true,
     "destination": "USA",
     "first_year": 2000,
     "last_year": 2025,
@@ -248,6 +272,12 @@
   },
   {
     "available_years": [
+      2000,
+      2001,
+      2002,
+      2003,
+      2004,
+      2005,
       2006,
       2007,
       2008,
@@ -259,14 +289,15 @@
       2014,
       2015,
       2016,
+      2017,
       2018
     ],
-    "baseline_2020": false,
+    "baseline_2019": false,
     "destination": "CHN",
-    "first_year": 2006,
+    "first_year": 2000,
     "last_year": 2018,
     "measure": "enrolled_students",
-    "observations": 12,
+    "observations": 19,
     "origin": "USA",
     "reason": "",
     "source_ids": [
@@ -275,7 +306,7 @@
   },
   {
     "available_years": [],
-    "baseline_2020": false,
+    "baseline_2019": false,
     "destination": "CHN",
     "first_year": null,
     "last_year": null,
@@ -287,7 +318,19 @@
   },
   {
     "available_years": [],
-    "baseline_2020": false,
+    "baseline_2019": false,
+    "destination": "CHN",
+    "first_year": null,
+    "last_year": null,
+    "measure": "historical_students",
+    "observations": 0,
+    "origin": "USA",
+    "reason": "No reviewed legacy UIS total for this route. Historical degree-seeking, non-degree and OPT coverage is unresolved; these facts are not a substitute for modern enrollment or OPT series.",
+    "source_ids": []
+  },
+  {
+    "available_years": [],
+    "baseline_2019": false,
     "destination": "CHN",
     "first_year": null,
     "last_year": null,
@@ -299,7 +342,20 @@
   },
   {
     "available_years": [
+      2000,
+      2001,
+      2002,
+      2003,
+      2004,
+      2005,
+      2006,
+      2007,
       2008,
+      2009,
+      2010,
+      2011,
+      2012,
+      2013,
       2014,
       2015,
       2016,
@@ -312,12 +368,12 @@
       2023,
       2024
     ],
-    "baseline_2020": true,
+    "baseline_2019": true,
     "destination": "CHN",
-    "first_year": 2008,
+    "first_year": 2000,
     "last_year": 2024,
     "measure": "study_abroad",
-    "observations": 12,
+    "observations": 25,
     "origin": "USA",
     "reason": "",
     "source_ids": [
@@ -346,7 +402,7 @@
       2017,
       2018
     ],
-    "baseline_2020": false,
+    "baseline_2019": false,
     "destination": "CHN",
     "first_year": 2000,
     "last_year": 2018,
@@ -360,6 +416,18 @@
   },
   {
     "available_years": [
+      2000,
+      2001,
+      2002,
+      2003,
+      2004,
+      2005,
+      2006,
+      2007,
+      2008,
+      2009,
+      2010,
+      2011,
       2012,
       2013,
       2014,
@@ -369,17 +437,18 @@
       2018,
       2019,
       2020,
+      2021,
       2022,
       2023,
       2024,
       2025
     ],
-    "baseline_2020": true,
+    "baseline_2019": true,
     "destination": "CHN",
-    "first_year": 2012,
+    "first_year": 2000,
     "last_year": 2025,
     "measure": "air_visitors",
-    "observations": 15,
+    "observations": 28,
     "origin": "USA",
     "reason": "",
     "source_ids": [
@@ -388,7 +457,7 @@
   },
   {
     "available_years": [],
-    "baseline_2020": false,
+    "baseline_2019": false,
     "destination": "CHN",
     "first_year": null,
     "last_year": null,
@@ -427,7 +496,7 @@
       2024,
       2025
     ],
-    "baseline_2020": true,
+    "baseline_2019": true,
     "destination": "CHN",
     "first_year": 2000,
     "last_year": 2025,
@@ -468,7 +537,7 @@
       2024,
       2025
     ],
-    "baseline_2020": true,
+    "baseline_2019": true,
     "destination": "CHN",
     "first_year": 2000,
     "last_year": 2025,
@@ -482,6 +551,18 @@
   },
   {
     "available_years": [
+      2007,
+      2008,
+      2009,
+      2010,
+      2011,
+      2012,
+      2013,
+      2014,
+      2015,
+      2016,
+      2017,
+      2018,
       2019,
       2020,
       2021,
@@ -490,12 +571,12 @@
       2024,
       2025
     ],
-    "baseline_2020": true,
+    "baseline_2019": true,
     "destination": "USA",
-    "first_year": 2019,
+    "first_year": 2007,
     "last_year": 2025,
     "measure": "enrolled_students",
-    "observations": 7,
+    "observations": 19,
     "origin": "HKG",
     "reason": "",
     "source_ids": [
@@ -515,12 +596,30 @@
       2021,
       2023
     ],
-    "baseline_2020": true,
+    "baseline_2019": false,
     "destination": "USA",
     "first_year": 2005,
     "last_year": 2023,
     "measure": "degree_students",
     "observations": 10,
+    "origin": "HKG",
+    "reason": "",
+    "source_ids": [
+      "uis"
+    ]
+  },
+  {
+    "available_years": [
+      2004,
+      2008,
+      2009
+    ],
+    "baseline_2019": false,
+    "destination": "USA",
+    "first_year": 2004,
+    "last_year": 2009,
+    "measure": "historical_students",
+    "observations": 3,
     "origin": "HKG",
     "reason": "",
     "source_ids": [
@@ -556,7 +655,7 @@
       2024,
       2025
     ],
-    "baseline_2020": true,
+    "baseline_2019": true,
     "destination": "USA",
     "first_year": 2000,
     "last_year": 2025,
@@ -570,7 +669,7 @@
   },
   {
     "available_years": [],
-    "baseline_2020": false,
+    "baseline_2019": false,
     "destination": "USA",
     "first_year": null,
     "last_year": null,
@@ -609,7 +708,7 @@
       2024,
       2025
     ],
-    "baseline_2020": true,
+    "baseline_2019": true,
     "destination": "USA",
     "first_year": 2000,
     "last_year": 2025,
@@ -623,7 +722,7 @@
   },
   {
     "available_years": [],
-    "baseline_2020": false,
+    "baseline_2019": false,
     "destination": "USA",
     "first_year": null,
     "last_year": null,
@@ -635,7 +734,7 @@
   },
   {
     "available_years": [],
-    "baseline_2020": false,
+    "baseline_2019": false,
     "destination": "USA",
     "first_year": null,
     "last_year": null,
@@ -674,7 +773,7 @@
       2024,
       2025
     ],
-    "baseline_2020": true,
+    "baseline_2019": true,
     "destination": "USA",
     "first_year": 2000,
     "last_year": 2025,
@@ -715,7 +814,7 @@
       2024,
       2025
     ],
-    "baseline_2020": true,
+    "baseline_2019": true,
     "destination": "USA",
     "first_year": 2000,
     "last_year": 2025,
@@ -729,7 +828,7 @@
   },
   {
     "available_years": [],
-    "baseline_2020": false,
+    "baseline_2019": false,
     "destination": "HKG",
     "first_year": null,
     "last_year": null,
@@ -766,7 +865,7 @@
       2023,
       2024
     ],
-    "baseline_2020": true,
+    "baseline_2019": true,
     "destination": "HKG",
     "first_year": 2001,
     "last_year": 2024,
@@ -780,7 +879,19 @@
   },
   {
     "available_years": [],
-    "baseline_2020": false,
+    "baseline_2019": false,
+    "destination": "HKG",
+    "first_year": null,
+    "last_year": null,
+    "measure": "historical_students",
+    "observations": 0,
+    "origin": "USA",
+    "reason": "No reviewed legacy UIS total for this route. Historical degree-seeking, non-degree and OPT coverage is unresolved; these facts are not a substitute for modern enrollment or OPT series.",
+    "source_ids": []
+  },
+  {
+    "available_years": [],
+    "baseline_2019": false,
     "destination": "HKG",
     "first_year": null,
     "last_year": null,
@@ -792,6 +903,20 @@
   },
   {
     "available_years": [
+      2000,
+      2001,
+      2002,
+      2003,
+      2004,
+      2005,
+      2006,
+      2007,
+      2008,
+      2009,
+      2010,
+      2011,
+      2012,
+      2013,
       2014,
       2015,
       2016,
@@ -804,12 +929,12 @@
       2023,
       2024
     ],
-    "baseline_2020": true,
+    "baseline_2019": true,
     "destination": "HKG",
-    "first_year": 2014,
+    "first_year": 2000,
     "last_year": 2024,
     "measure": "study_abroad",
-    "observations": 11,
+    "observations": 25,
     "origin": "USA",
     "reason": "",
     "source_ids": [
@@ -845,7 +970,7 @@
       2024,
       2025
     ],
-    "baseline_2020": true,
+    "baseline_2019": true,
     "destination": "HKG",
     "first_year": 2000,
     "last_year": 2025,
@@ -859,6 +984,18 @@
   },
   {
     "available_years": [
+      2000,
+      2001,
+      2002,
+      2003,
+      2004,
+      2005,
+      2006,
+      2007,
+      2008,
+      2009,
+      2010,
+      2011,
       2012,
       2013,
       2014,
@@ -873,12 +1010,12 @@
       2024,
       2025
     ],
-    "baseline_2020": true,
+    "baseline_2019": true,
     "destination": "HKG",
-    "first_year": 2012,
+    "first_year": 2000,
     "last_year": 2025,
     "measure": "air_visitors",
-    "observations": 15,
+    "observations": 27,
     "origin": "USA",
     "reason": "",
     "source_ids": [
@@ -887,7 +1024,7 @@
   },
   {
     "available_years": [],
-    "baseline_2020": false,
+    "baseline_2019": false,
     "destination": "HKG",
     "first_year": null,
     "last_year": null,
@@ -926,7 +1063,7 @@
       2024,
       2025
     ],
-    "baseline_2020": true,
+    "baseline_2019": true,
     "destination": "HKG",
     "first_year": 2000,
     "last_year": 2025,
@@ -967,7 +1104,7 @@
       2024,
       2025
     ],
-    "baseline_2020": true,
+    "baseline_2019": true,
     "destination": "HKG",
     "first_year": 2000,
     "last_year": 2025,
@@ -981,6 +1118,18 @@
   },
   {
     "available_years": [
+      2007,
+      2008,
+      2009,
+      2010,
+      2011,
+      2012,
+      2013,
+      2014,
+      2015,
+      2016,
+      2017,
+      2018,
       2019,
       2020,
       2021,
@@ -989,12 +1138,12 @@
       2024,
       2025
     ],
-    "baseline_2020": true,
+    "baseline_2019": true,
     "destination": "USA",
-    "first_year": 2019,
+    "first_year": 2007,
     "last_year": 2025,
     "measure": "enrolled_students",
-    "observations": 7,
+    "observations": 19,
     "origin": "MAC",
     "reason": "",
     "source_ids": [
@@ -1014,7 +1163,7 @@
       2021,
       2023
     ],
-    "baseline_2020": true,
+    "baseline_2019": false,
     "destination": "USA",
     "first_year": 2005,
     "last_year": 2023,
@@ -1028,6 +1177,39 @@
   },
   {
     "available_years": [
+      2004,
+      2008,
+      2009
+    ],
+    "baseline_2019": false,
+    "destination": "USA",
+    "first_year": 2004,
+    "last_year": 2009,
+    "measure": "historical_students",
+    "observations": 3,
+    "origin": "MAC",
+    "reason": "",
+    "source_ids": [
+      "uis"
+    ]
+  },
+  {
+    "available_years": [
+      2000,
+      2001,
+      2002,
+      2003,
+      2004,
+      2005,
+      2006,
+      2007,
+      2008,
+      2009,
+      2010,
+      2011,
+      2012,
+      2013,
+      2014,
       2015,
       2016,
       2017,
@@ -1040,12 +1222,12 @@
       2024,
       2025
     ],
-    "baseline_2020": true,
+    "baseline_2019": true,
     "destination": "USA",
-    "first_year": 2015,
+    "first_year": 2000,
     "last_year": 2025,
     "measure": "international_students",
-    "observations": 11,
+    "observations": 26,
     "origin": "MAC",
     "reason": "",
     "source_ids": [
@@ -1054,7 +1236,7 @@
   },
   {
     "available_years": [],
-    "baseline_2020": false,
+    "baseline_2019": false,
     "destination": "USA",
     "first_year": null,
     "last_year": null,
@@ -1093,7 +1275,7 @@
       2024,
       2025
     ],
-    "baseline_2020": true,
+    "baseline_2019": true,
     "destination": "USA",
     "first_year": 2000,
     "last_year": 2025,
@@ -1107,7 +1289,7 @@
   },
   {
     "available_years": [],
-    "baseline_2020": false,
+    "baseline_2019": false,
     "destination": "USA",
     "first_year": null,
     "last_year": null,
@@ -1119,7 +1301,7 @@
   },
   {
     "available_years": [],
-    "baseline_2020": false,
+    "baseline_2019": false,
     "destination": "USA",
     "first_year": null,
     "last_year": null,
@@ -1158,7 +1340,7 @@
       2024,
       2025
     ],
-    "baseline_2020": true,
+    "baseline_2019": true,
     "destination": "USA",
     "first_year": 2000,
     "last_year": 2025,
@@ -1181,7 +1363,7 @@
       2024,
       2025
     ],
-    "baseline_2020": true,
+    "baseline_2019": true,
     "destination": "USA",
     "first_year": 2018,
     "last_year": 2025,
@@ -1196,7 +1378,7 @@
   },
   {
     "available_years": [],
-    "baseline_2020": false,
+    "baseline_2019": false,
     "destination": "MAC",
     "first_year": null,
     "last_year": null,
@@ -1231,7 +1413,7 @@
       2023,
       2024
     ],
-    "baseline_2020": true,
+    "baseline_2019": true,
     "destination": "MAC",
     "first_year": 2003,
     "last_year": 2024,
@@ -1245,7 +1427,19 @@
   },
   {
     "available_years": [],
-    "baseline_2020": false,
+    "baseline_2019": false,
+    "destination": "MAC",
+    "first_year": null,
+    "last_year": null,
+    "measure": "historical_students",
+    "observations": 0,
+    "origin": "USA",
+    "reason": "No reviewed legacy UIS total for this route. Historical degree-seeking, non-degree and OPT coverage is unresolved; these facts are not a substitute for modern enrollment or OPT series.",
+    "source_ids": []
+  },
+  {
+    "available_years": [],
+    "baseline_2019": false,
     "destination": "MAC",
     "first_year": null,
     "last_year": null,
@@ -1257,6 +1451,20 @@
   },
   {
     "available_years": [
+      2000,
+      2001,
+      2002,
+      2003,
+      2004,
+      2005,
+      2006,
+      2007,
+      2008,
+      2009,
+      2010,
+      2011,
+      2012,
+      2013,
       2014,
       2015,
       2016,
@@ -1269,12 +1477,12 @@
       2023,
       2024
     ],
-    "baseline_2020": true,
+    "baseline_2019": true,
     "destination": "MAC",
-    "first_year": 2014,
+    "first_year": 2000,
     "last_year": 2024,
     "measure": "study_abroad",
-    "observations": 11,
+    "observations": 25,
     "origin": "USA",
     "reason": "",
     "source_ids": [
@@ -1283,6 +1491,7 @@
   },
   {
     "available_years": [
+      2000,
       2001,
       2002,
       2003,
@@ -1309,12 +1518,12 @@
       2024,
       2025
     ],
-    "baseline_2020": true,
+    "baseline_2019": true,
     "destination": "MAC",
-    "first_year": 2001,
+    "first_year": 2000,
     "last_year": 2025,
     "measure": "visitors",
-    "observations": 67,
+    "observations": 68,
     "origin": "USA",
     "reason": "",
     "source_ids": [
@@ -1323,7 +1532,7 @@
   },
   {
     "available_years": [],
-    "baseline_2020": false,
+    "baseline_2019": false,
     "destination": "MAC",
     "first_year": null,
     "last_year": null,
@@ -1335,7 +1544,7 @@
   },
   {
     "available_years": [],
-    "baseline_2020": false,
+    "baseline_2019": false,
     "destination": "MAC",
     "first_year": null,
     "last_year": null,
@@ -1374,7 +1583,7 @@
       2024,
       2025
     ],
-    "baseline_2020": true,
+    "baseline_2019": true,
     "destination": "MAC",
     "first_year": 2000,
     "last_year": 2025,
@@ -1397,7 +1606,7 @@
       2024,
       2025
     ],
-    "baseline_2020": true,
+    "baseline_2019": true,
     "destination": "MAC",
     "first_year": 2018,
     "last_year": 2025,
@@ -1412,6 +1621,18 @@
   },
   {
     "available_years": [
+      2007,
+      2008,
+      2009,
+      2010,
+      2011,
+      2012,
+      2013,
+      2014,
+      2015,
+      2016,
+      2017,
+      2018,
       2019,
       2020,
       2021,
@@ -1420,12 +1641,12 @@
       2024,
       2025
     ],
-    "baseline_2020": true,
+    "baseline_2019": true,
     "destination": "USA",
-    "first_year": 2019,
+    "first_year": 2007,
     "last_year": 2025,
     "measure": "enrolled_students",
-    "observations": 7,
+    "observations": 19,
     "origin": "TWN",
     "reason": "",
     "source_ids": [
@@ -1434,7 +1655,7 @@
   },
   {
     "available_years": [],
-    "baseline_2020": false,
+    "baseline_2019": false,
     "destination": "USA",
     "first_year": null,
     "last_year": null,
@@ -1442,6 +1663,18 @@
     "observations": 0,
     "origin": "TWN",
     "reason": "Taiwan is not separately listed in UIS bilateral tertiary-mobility indicators; IIE counts have a different scope.",
+    "source_ids": []
+  },
+  {
+    "available_years": [],
+    "baseline_2019": false,
+    "destination": "USA",
+    "first_year": null,
+    "last_year": null,
+    "measure": "historical_students",
+    "observations": 0,
+    "origin": "TWN",
+    "reason": "No reviewed legacy UIS total for this route. Historical degree-seeking, non-degree and OPT coverage is unresolved; these facts are not a substitute for modern enrollment or OPT series.",
     "source_ids": []
   },
   {
@@ -1473,7 +1706,7 @@
       2024,
       2025
     ],
-    "baseline_2020": true,
+    "baseline_2019": true,
     "destination": "USA",
     "first_year": 2000,
     "last_year": 2025,
@@ -1487,7 +1720,7 @@
   },
   {
     "available_years": [],
-    "baseline_2020": false,
+    "baseline_2019": false,
     "destination": "USA",
     "first_year": null,
     "last_year": null,
@@ -1526,7 +1759,7 @@
       2024,
       2025
     ],
-    "baseline_2020": true,
+    "baseline_2019": true,
     "destination": "USA",
     "first_year": 2000,
     "last_year": 2025,
@@ -1540,7 +1773,7 @@
   },
   {
     "available_years": [],
-    "baseline_2020": false,
+    "baseline_2019": false,
     "destination": "USA",
     "first_year": null,
     "last_year": null,
@@ -1552,7 +1785,7 @@
   },
   {
     "available_years": [],
-    "baseline_2020": false,
+    "baseline_2019": false,
     "destination": "USA",
     "first_year": null,
     "last_year": null,
@@ -1591,7 +1824,7 @@
       2024,
       2025
     ],
-    "baseline_2020": true,
+    "baseline_2019": true,
     "destination": "USA",
     "first_year": 2000,
     "last_year": 2025,
@@ -1632,7 +1865,7 @@
       2024,
       2025
     ],
-    "baseline_2020": true,
+    "baseline_2019": true,
     "destination": "USA",
     "first_year": 2000,
     "last_year": 2025,
@@ -1646,7 +1879,7 @@
   },
   {
     "available_years": [],
-    "baseline_2020": false,
+    "baseline_2019": false,
     "destination": "TWN",
     "first_year": null,
     "last_year": null,
@@ -1658,7 +1891,7 @@
   },
   {
     "available_years": [],
-    "baseline_2020": false,
+    "baseline_2019": false,
     "destination": "TWN",
     "first_year": null,
     "last_year": null,
@@ -1670,7 +1903,19 @@
   },
   {
     "available_years": [],
-    "baseline_2020": false,
+    "baseline_2019": false,
+    "destination": "TWN",
+    "first_year": null,
+    "last_year": null,
+    "measure": "historical_students",
+    "observations": 0,
+    "origin": "USA",
+    "reason": "No reviewed legacy UIS total for this route. Historical degree-seeking, non-degree and OPT coverage is unresolved; these facts are not a substitute for modern enrollment or OPT series.",
+    "source_ids": []
+  },
+  {
+    "available_years": [],
+    "baseline_2019": false,
     "destination": "TWN",
     "first_year": null,
     "last_year": null,
@@ -1682,6 +1927,20 @@
   },
   {
     "available_years": [
+      2000,
+      2001,
+      2002,
+      2003,
+      2004,
+      2005,
+      2006,
+      2007,
+      2008,
+      2009,
+      2010,
+      2011,
+      2012,
+      2013,
       2014,
       2015,
       2016,
@@ -1694,12 +1953,12 @@
       2023,
       2024
     ],
-    "baseline_2020": true,
+    "baseline_2019": true,
     "destination": "TWN",
-    "first_year": 2014,
+    "first_year": 2000,
     "last_year": 2024,
     "measure": "study_abroad",
-    "observations": 11,
+    "observations": 25,
     "origin": "USA",
     "reason": "",
     "source_ids": [
@@ -1723,7 +1982,7 @@
       2024,
       2025
     ],
-    "baseline_2020": true,
+    "baseline_2019": true,
     "destination": "TWN",
     "first_year": 2012,
     "last_year": 2025,
@@ -1737,7 +1996,7 @@
   },
   {
     "available_years": [],
-    "baseline_2020": false,
+    "baseline_2019": false,
     "destination": "TWN",
     "first_year": null,
     "last_year": null,
@@ -1764,7 +2023,7 @@
       2024,
       2025
     ],
-    "baseline_2020": true,
+    "baseline_2019": true,
     "destination": "TWN",
     "first_year": 2012,
     "last_year": 2025,
@@ -1805,7 +2064,7 @@
       2024,
       2025
     ],
-    "baseline_2020": true,
+    "baseline_2019": true,
     "destination": "TWN",
     "first_year": 2000,
     "last_year": 2025,
@@ -1846,7 +2105,7 @@
       2024,
       2025
     ],
-    "baseline_2020": true,
+    "baseline_2019": true,
     "destination": "TWN",
     "first_year": 2000,
     "last_year": 2025,

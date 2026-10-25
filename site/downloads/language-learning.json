@@ -7,6 +7,13 @@
       "standard_group": "A subset whose answers did not report regularly speaking or hearing the exam language, or living for at least one month where it is spoken. Generally school-trained, but not a U.S.-only or ancestry group.",
       "years": "Years are annual exam administrations, not graduating classes. Verified counts run from 2007 through 2025. The 2026 score-percentage rows do not provide participant counts."
     },
+    "ap_us_annual": {
+      "note": "Historical national annual administrations remain in complete downloads, separately from global participation and public-school graduating cohorts. These histories do not meet the current public-chart freshness threshold; no stale-only chart is added.",
+      "series": [
+        "ap_us_annual:chinese",
+        "ap_us_annual:japanese"
+      ]
+    },
     "economist": {
       "date": "2023-08-24",
       "interpretation": "Employment incentives, geopolitical tensions, competing cultural attractions and translation technology are proposed explanations, not a demonstrated causal decomposition.",
@@ -73,11 +80,6 @@
       "status": "historical_only"
     },
     {
-      "description": "A current U.S.-only annual administration series remains unverified. Global reports, their standard group and historical graduating cohorts cannot substitute for that population.",
-      "id": "ap_us_annual",
-      "status": "not_verified"
-    },
-    {
       "description": "Annual Chinese, Japanese and Korean IPEDS awards from academic year ending 2000 through 2025; first major from 2001, 50 states/DC and Title IV degree-granting institutions.",
       "id": "degree_awards",
       "status": "available"
@@ -111,6 +113,11 @@
       "description": "January 2024 national public-school availability estimates: Chinese 3%, Japanese 1%; Korean below reporting standards. Not student enrollments or a continuation of 2014-15 program counts.",
       "id": "school_pulse_availability",
       "status": "survey_snapshot"
+    },
+    {
+      "description": "Verified U.S.-only Chinese/Japanese annual exam administrations, 2007-2022; public and nonpublic schools, all grades. Newer national subject counts remain unverified. Not global totals, graduating cohorts or all language learners.",
+      "id": "ap_us_annual",
+      "status": "historical_only"
     }
   ],
   "observations": [
@@ -860,6 +867,294 @@
       "status": "observed",
       "value": 5684,
       "year": 2013
+    },
+    {
+      "comparability": "ap_us_annual:chinese",
+      "notes": "Reporting school year 2006-07; U.S. number of examinations, PDF page 87. Not the adjacent Texas count, score percentage or mean score.",
+      "series_id": "ap_us_annual:chinese",
+      "source_id": "tea_ap_us_2007",
+      "status": "observed",
+      "value": 2460,
+      "year": 2007
+    },
+    {
+      "comparability": "ap_us_annual:chinese",
+      "notes": "Reporting school year 2007-08; U.S. number of examinations, PDF page 103. Not the adjacent Texas count, score percentage or mean score.",
+      "series_id": "ap_us_annual:chinese",
+      "source_id": "tea_ap_us_2008",
+      "status": "observed",
+      "value": 3290,
+      "year": 2008
+    },
+    {
+      "comparability": "ap_us_annual:chinese",
+      "notes": "Reporting school year 2008-09; U.S. number of examinations, PDF page 108. Not the adjacent Texas count, score percentage or mean score.",
+      "series_id": "ap_us_annual:chinese",
+      "source_id": "tea_ap_us_2009",
+      "status": "observed",
+      "value": 3735,
+      "year": 2009
+    },
+    {
+      "comparability": "ap_us_annual:chinese",
+      "notes": "Reporting school year 2009-10; U.S. number of examinations, PDF page 108. Not the adjacent Texas count, score percentage or mean score.",
+      "series_id": "ap_us_annual:chinese",
+      "source_id": "tea_ap_us_2010",
+      "status": "observed",
+      "value": 4832,
+      "year": 2010
+    },
+    {
+      "comparability": "ap_us_annual:chinese",
+      "notes": "Reporting school year 2010-11; U.S. number of examinations, PDF page 6. Not the adjacent Texas count, score percentage or mean score.",
+      "series_id": "ap_us_annual:chinese",
+      "source_id": "tea_ap_us_2011",
+      "status": "observed",
+      "value": 6203,
+      "year": 2011
+    },
+    {
+      "comparability": "ap_us_annual:chinese",
+      "notes": "Reporting school year 2011-12; U.S. number of examinations, PDF page 6. Not the adjacent Texas count, score percentage or mean score.",
+      "series_id": "ap_us_annual:chinese",
+      "source_id": "tea_ap_us_2012",
+      "status": "observed",
+      "value": 7274,
+      "year": 2012
+    },
+    {
+      "comparability": "ap_us_annual:chinese",
+      "notes": "Reporting school year 2012-13; U.S. number of examinations, PDF page 8. Not the adjacent Texas count, score percentage or mean score.",
+      "series_id": "ap_us_annual:chinese",
+      "source_id": "tea_ap_us_2013",
+      "status": "observed",
+      "value": 8078,
+      "year": 2013
+    },
+    {
+      "comparability": "ap_us_annual:chinese",
+      "notes": "Reporting school year 2013-14; U.S. number of examinations, PDF page 9. Not the adjacent Texas count, score percentage or mean score.",
+      "series_id": "ap_us_annual:chinese",
+      "source_id": "tea_ap_us_2014",
+      "status": "observed",
+      "value": 8669,
+      "year": 2014
+    },
+    {
+      "comparability": "ap_us_annual:chinese",
+      "notes": "Reporting school year 2014-15; U.S. number of examinations, PDF page 7. Not the adjacent Texas count, score percentage or mean score.",
+      "series_id": "ap_us_annual:chinese",
+      "source_id": "tea_ap_us_2015",
+      "status": "observed",
+      "value": 9366,
+      "year": 2015
+    },
+    {
+      "comparability": "ap_us_annual:chinese",
+      "notes": "Reporting school year 2015-16; U.S. number of examinations, PDF page 8. Not the adjacent Texas count, score percentage or mean score.",
+      "series_id": "ap_us_annual:chinese",
+      "source_id": "tea_ap_us_2016",
+      "status": "observed",
+      "value": 10256,
+      "year": 2016
+    },
+    {
+      "comparability": "ap_us_annual:chinese",
+      "notes": "Reporting school year 2016-17; U.S. number of examinations, PDF page 8. Not the adjacent Texas count, score percentage or mean score.",
+      "series_id": "ap_us_annual:chinese",
+      "source_id": "tea_ap_us_2017",
+      "status": "observed",
+      "value": 11071,
+      "year": 2017
+    },
+    {
+      "comparability": "ap_us_annual:chinese",
+      "notes": "Reporting school year 2017-18; U.S. number of examinations, PDF page 9. Not the adjacent Texas count, score percentage or mean score.",
+      "series_id": "ap_us_annual:chinese",
+      "source_id": "tea_ap_us_2018",
+      "status": "observed",
+      "value": 11802,
+      "year": 2018
+    },
+    {
+      "comparability": "ap_us_annual:chinese",
+      "notes": "Reporting school year 2018-19; U.S. number of examinations, PDF page 9. Not the adjacent Texas count, score percentage or mean score.",
+      "series_id": "ap_us_annual:chinese",
+      "source_id": "tea_ap_us_2019",
+      "status": "observed",
+      "value": 12153,
+      "year": 2019
+    },
+    {
+      "comparability": "ap_us_annual:chinese",
+      "notes": "Reporting school year 2019-20; U.S. number of examinations, PDF page 9. Not the adjacent Texas count, score percentage or mean score.",
+      "series_id": "ap_us_annual:chinese",
+      "source_id": "tea_ap_us_2020",
+      "status": "observed",
+      "value": 12815,
+      "year": 2020
+    },
+    {
+      "comparability": "ap_us_annual:chinese",
+      "notes": "Reporting school year 2020-21; U.S. number of examinations, PDF page 9. Not the adjacent Texas count, score percentage or mean score.",
+      "series_id": "ap_us_annual:chinese",
+      "source_id": "tea_ap_us_2021",
+      "status": "observed",
+      "value": 11256,
+      "year": 2021
+    },
+    {
+      "comparability": "ap_us_annual:chinese",
+      "notes": "Reporting school year 2021-22; U.S. number of examinations, PDF page 9. Not the adjacent Texas count, score percentage or mean score.",
+      "series_id": "ap_us_annual:chinese",
+      "source_id": "tea_ap_us_2022",
+      "status": "observed",
+      "value": 13186,
+      "year": 2022
+    },
+    {
+      "comparability": "ap_us_annual:japanese",
+      "notes": "Reporting school year 2006-07; U.S. number of examinations, PDF page 87. Not the adjacent Texas count, score percentage or mean score.",
+      "series_id": "ap_us_annual:japanese",
+      "source_id": "tea_ap_us_2007",
+      "status": "observed",
+      "value": 1328,
+      "year": 2007
+    },
+    {
+      "comparability": "ap_us_annual:japanese",
+      "notes": "Reporting school year 2007-08; U.S. number of examinations, PDF page 103. Not the adjacent Texas count, score percentage or mean score.",
+      "series_id": "ap_us_annual:japanese",
+      "source_id": "tea_ap_us_2008",
+      "status": "observed",
+      "value": 1256,
+      "year": 2008
+    },
+    {
+      "comparability": "ap_us_annual:japanese",
+      "notes": "Reporting school year 2008-09; U.S. number of examinations, PDF page 108. Not the adjacent Texas count, score percentage or mean score.",
+      "series_id": "ap_us_annual:japanese",
+      "source_id": "tea_ap_us_2009",
+      "status": "observed",
+      "value": 1626,
+      "year": 2009
+    },
+    {
+      "comparability": "ap_us_annual:japanese",
+      "notes": "Reporting school year 2009-10; U.S. number of examinations, PDF page 108. Not the adjacent Texas count, score percentage or mean score.",
+      "series_id": "ap_us_annual:japanese",
+      "source_id": "tea_ap_us_2010",
+      "status": "observed",
+      "value": 1676,
+      "year": 2010
+    },
+    {
+      "comparability": "ap_us_annual:japanese",
+      "notes": "Reporting school year 2010-11; U.S. number of examinations, PDF page 6. Not the adjacent Texas count, score percentage or mean score.",
+      "series_id": "ap_us_annual:japanese",
+      "source_id": "tea_ap_us_2011",
+      "status": "observed",
+      "value": 1839,
+      "year": 2011
+    },
+    {
+      "comparability": "ap_us_annual:japanese",
+      "notes": "Reporting school year 2011-12; U.S. number of examinations, PDF page 6. Not the adjacent Texas count, score percentage or mean score.",
+      "series_id": "ap_us_annual:japanese",
+      "source_id": "tea_ap_us_2012",
+      "status": "observed",
+      "value": 1799,
+      "year": 2012
+    },
+    {
+      "comparability": "ap_us_annual:japanese",
+      "notes": "Reporting school year 2012-13; U.S. number of examinations, PDF page 9. Not the adjacent Texas count, score percentage or mean score.",
+      "series_id": "ap_us_annual:japanese",
+      "source_id": "tea_ap_us_2013",
+      "status": "observed",
+      "value": 1855,
+      "year": 2013
+    },
+    {
+      "comparability": "ap_us_annual:japanese",
+      "notes": "Reporting school year 2013-14; U.S. number of examinations, PDF page 10. Not the adjacent Texas count, score percentage or mean score.",
+      "series_id": "ap_us_annual:japanese",
+      "source_id": "tea_ap_us_2014",
+      "status": "observed",
+      "value": 1942,
+      "year": 2014
+    },
+    {
+      "comparability": "ap_us_annual:japanese",
+      "notes": "Reporting school year 2014-15; U.S. number of examinations, PDF page 8. Not the adjacent Texas count, score percentage or mean score.",
+      "series_id": "ap_us_annual:japanese",
+      "source_id": "tea_ap_us_2015",
+      "status": "observed",
+      "value": 2139,
+      "year": 2015
+    },
+    {
+      "comparability": "ap_us_annual:japanese",
+      "notes": "Reporting school year 2015-16; U.S. number of examinations, PDF page 8. Not the adjacent Texas count, score percentage or mean score.",
+      "series_id": "ap_us_annual:japanese",
+      "source_id": "tea_ap_us_2016",
+      "status": "observed",
+      "value": 2150,
+      "year": 2016
+    },
+    {
+      "comparability": "ap_us_annual:japanese",
+      "notes": "Reporting school year 2016-17; U.S. number of examinations, PDF page 8. Not the adjacent Texas count, score percentage or mean score.",
+      "series_id": "ap_us_annual:japanese",
+      "source_id": "tea_ap_us_2017",
+      "status": "observed",
+      "value": 2144,
+      "year": 2017
+    },
+    {
+      "comparability": "ap_us_annual:japanese",
+      "notes": "Reporting school year 2017-18; U.S. number of examinations, PDF page 9. Not the adjacent Texas count, score percentage or mean score.",
+      "series_id": "ap_us_annual:japanese",
+      "source_id": "tea_ap_us_2018",
+      "status": "observed",
+      "value": 2166,
+      "year": 2018
+    },
+    {
+      "comparability": "ap_us_annual:japanese",
+      "notes": "Reporting school year 2018-19; U.S. number of examinations, PDF page 9. Not the adjacent Texas count, score percentage or mean score.",
+      "series_id": "ap_us_annual:japanese",
+      "source_id": "tea_ap_us_2019",
+      "status": "observed",
+      "value": 2113,
+      "year": 2019
+    },
+    {
+      "comparability": "ap_us_annual:japanese",
+      "notes": "Reporting school year 2019-20; U.S. number of examinations, PDF page 9. Not the adjacent Texas count, score percentage or mean score.",
+      "series_id": "ap_us_annual:japanese",
+      "source_id": "tea_ap_us_2020",
+      "status": "observed",
+      "value": 2272,
+      "year": 2020
+    },
+    {
+      "comparability": "ap_us_annual:japanese",
+      "notes": "Reporting school year 2020-21; U.S. number of examinations, PDF page 9. Not the adjacent Texas count, score percentage or mean score.",
+      "series_id": "ap_us_annual:japanese",
+      "source_id": "tea_ap_us_2021",
+      "status": "observed",
+      "value": 1946,
+      "year": 2021
+    },
+    {
+      "comparability": "ap_us_annual:japanese",
+      "notes": "Reporting school year 2021-22; U.S. number of examinations, PDF page 9. Not the adjacent Texas count, score percentage or mean score.",
+      "series_id": "ap_us_annual:japanese",
+      "source_id": "tea_ap_us_2022",
+      "status": "observed",
+      "value": 2450,
+      "year": 2022
     },
     {
       "comparability": "hesa_chinese_studies:quoted_legacy_population",
@@ -3617,6 +3912,24 @@
       "scope": "U.S. public-school graduating classes; Chinese AP exams taken during high school; not private-school or global totals",
       "unit": "exams"
     },
+    "ap_us_annual:chinese": {
+      "cadence": "annual",
+      "label": "Chinese - U.S. annual exams",
+      "measure": "annual_exam_administrations",
+      "notes": "TEA's national U.S. count, not its Texas count, global participation, a graduating cohort, citizenship, unique learners or all language-course enrollments. Historical 2007-2022 evidence only; newer U.S.-only subject counts remain unverified.",
+      "period_basis": "academic ending year",
+      "scope": "U.S. public and nonpublic school examinees, all grades; national annual AP language exams",
+      "unit": "exams"
+    },
+    "ap_us_annual:japanese": {
+      "cadence": "annual",
+      "label": "Japanese - U.S. annual exams",
+      "measure": "annual_exam_administrations",
+      "notes": "TEA's national U.S. count, not its Texas count, global participation, a graduating cohort, citizenship, unique learners or all language-course enrollments. Historical 2007-2022 evidence only; newer U.S.-only subject counts remain unverified.",
+      "period_basis": "academic ending year",
+      "scope": "U.S. public and nonpublic school examinees, all grades; national annual AP language exams",
+      "unit": "exams"
+    },
     "hesa_chinese_studies:quoted_2012": {
       "cadence": "historical snapshot",
       "label": "Chinese studies (UK, quoted early endpoint)",
@@ -4824,6 +5137,230 @@
       "name": "Nexus Mandarin",
       "notes": "103 responses include one in Hong Kong; 34,341 response-associated students are NOT published here as U.S. enrollment. All source-state inventory counts reconcile to 335.",
       "vintage": "2025 survey and directory; published 2026"
+    },
+    "tea_ap_us_2007": {
+      "assets": [
+        {
+          "request_url": "https://tea.texas.gov/sites/default/files/AP_IB_2006-07.pdf",
+          "retrieved_at": "2026-10-25T01:56:38+00:00",
+          "sha256": "835ffff4e7d430f1a2cd431e61f4ce819c3eaac705ad0baed8ccc2b56cea66ef",
+          "url": "https://tea.texas.gov/data-reports/school-performance/accountability-research/ap-ib-2006-07.pdf"
+        }
+      ],
+      "locator": "AP Examinations and Scores, by Subject, Texas and the United States; U.S. number of examinations; PDF pages 87",
+      "name": "Texas Education Agency; original College Board national aggregates",
+      "notes": "Public and nonpublic school examinees combined, all grades. Only selected numerical facts are republished, not original reports. Reporting year is not publication year. Newer national summary reports omit these subject cells; aggregate national growth and worldwide language counts cannot be used to estimate them.",
+      "vintage": "Reporting school year 2006-07; original national subject table"
+    },
+    "tea_ap_us_2008": {
+      "assets": [
+        {
+          "request_url": "https://tea.texas.gov/sites/default/files/AP_IB_2007-08.pdf",
+          "retrieved_at": "2026-10-25T01:56:40+00:00",
+          "sha256": "d922c8e9fcc789d0bcc5577df3e761a78c01320b0bb404846967be9e37ca176c",
+          "url": "https://tea.texas.gov/data-reports/school-performance/accountability-research/ap-ib-2007-08.pdf"
+        }
+      ],
+      "locator": "AP Examinations and Scores, by Subject, Texas and the United States; U.S. number of examinations; PDF pages 103",
+      "name": "Texas Education Agency; original College Board national aggregates",
+      "notes": "Public and nonpublic school examinees combined, all grades. Only selected numerical facts are republished, not original reports. Reporting year is not publication year. Newer national summary reports omit these subject cells; aggregate national growth and worldwide language counts cannot be used to estimate them.",
+      "vintage": "Reporting school year 2007-08; original national subject table"
+    },
+    "tea_ap_us_2009": {
+      "assets": [
+        {
+          "request_url": "https://tea.texas.gov/sites/default/files/AP_IB_2008-09.pdf",
+          "retrieved_at": "2026-10-25T01:53:52+00:00",
+          "sha256": "7adffadf1cc4615f1041cfdea0fb4f461a1c27c5ee64a3c0c8e4776a87edc56e",
+          "url": "https://tea.texas.gov/data-reports/school-performance/accountability-research/ap-ib-2008-09.pdf"
+        }
+      ],
+      "locator": "AP Examinations and Scores, by Subject, Texas and the United States; U.S. number of examinations; PDF pages 108",
+      "name": "Texas Education Agency; original College Board national aggregates",
+      "notes": "Public and nonpublic school examinees combined, all grades. Only selected numerical facts are republished, not original reports. Reporting year is not publication year. Newer national summary reports omit these subject cells; aggregate national growth and worldwide language counts cannot be used to estimate them.",
+      "vintage": "Reporting school year 2008-09; original national subject table"
+    },
+    "tea_ap_us_2010": {
+      "assets": [
+        {
+          "request_url": "https://tea.texas.gov/sites/default/files/AP_IB_2009-10.pdf",
+          "retrieved_at": "2026-10-25T01:57:23+00:00",
+          "sha256": "a130e83f9d1a96e2d65c9e7903fcbdcc5e475c85fcdf3590209b9d2267854554",
+          "url": "https://tea.texas.gov/data-reports/school-performance/accountability-research/ap-ib-2009-10.pdf"
+        }
+      ],
+      "locator": "AP Examinations and Scores, by Subject, Texas and the United States; U.S. number of examinations; PDF pages 108",
+      "name": "Texas Education Agency; original College Board national aggregates",
+      "notes": "Public and nonpublic school examinees combined, all grades. Only selected numerical facts are republished, not original reports. Reporting year is not publication year. Newer national summary reports omit these subject cells; aggregate national growth and worldwide language counts cannot be used to estimate them.",
+      "vintage": "Reporting school year 2009-10; original national subject table"
+    },
+    "tea_ap_us_2011": {
+      "assets": [
+        {
+          "request_url": "https://tea.texas.gov/sites/default/files/AP_tx_and_us_2010-11.pdf",
+          "retrieved_at": "2026-10-25T01:57:26+00:00",
+          "sha256": "d14ff7185ec07ad76bca2ddf08174ee3bae2be4eef51f346973c4e984dcce5e1",
+          "url": "https://tea.texas.gov/data-reports/school-performance/accountability-research/ap-tx-and-us-2010-11.pdf"
+        }
+      ],
+      "locator": "AP Examinations and Scores, by Subject, Texas and the United States; U.S. number of examinations; PDF pages 6",
+      "name": "Texas Education Agency; original College Board national aggregates",
+      "notes": "Public and nonpublic school examinees combined, all grades. Only selected numerical facts are republished, not original reports. Reporting year is not publication year. Newer national summary reports omit these subject cells; aggregate national growth and worldwide language counts cannot be used to estimate them.",
+      "vintage": "Reporting school year 2010-11; original national subject table"
+    },
+    "tea_ap_us_2012": {
+      "assets": [
+        {
+          "request_url": "https://tea.texas.gov/sites/default/files/AP_tx_and_us_2011-12.pdf",
+          "retrieved_at": "2026-10-25T01:57:27+00:00",
+          "sha256": "7cf9dab61120f60ed4263f1932b850225fac1ef5d57ec91b3cf1c92a74dd3a1e",
+          "url": "https://tea.texas.gov/data-reports/school-performance/accountability-research/ap-tx-and-us-2011-12.pdf"
+        }
+      ],
+      "locator": "AP Examinations and Scores, by Subject, Texas and the United States; U.S. number of examinations; PDF pages 6",
+      "name": "Texas Education Agency; original College Board national aggregates",
+      "notes": "Public and nonpublic school examinees combined, all grades. Only selected numerical facts are republished, not original reports. Reporting year is not publication year. Newer national summary reports omit these subject cells; aggregate national growth and worldwide language counts cannot be used to estimate them.",
+      "vintage": "Reporting school year 2011-12; original national subject table"
+    },
+    "tea_ap_us_2013": {
+      "assets": [
+        {
+          "request_url": "https://tea.texas.gov/sites/default/files/ap_tx_and_us_12-13_13-14.pdf",
+          "retrieved_at": "2026-10-25T01:57:27+00:00",
+          "sha256": "fbdee23c413c381556954f3b58a9288ab4843facc82e996f4d8432efe7acc33d",
+          "url": "https://tea.texas.gov/data-reports/school-performance/accountability-research/ap-tx-and-us-12-13-13-14.pdf"
+        }
+      ],
+      "locator": "AP Examinations and Scores, by Subject, Texas and the United States; U.S. number of examinations; PDF pages 8, 9",
+      "name": "Texas Education Agency; original College Board national aggregates",
+      "notes": "Public and nonpublic school examinees combined, all grades. Only selected numerical facts are republished, not original reports. Reporting year is not publication year. Newer national summary reports omit these subject cells; aggregate national growth and worldwide language counts cannot be used to estimate them.",
+      "vintage": "Reporting school year 2012-13; original national subject table"
+    },
+    "tea_ap_us_2014": {
+      "assets": [
+        {
+          "request_url": "https://tea.texas.gov/sites/default/files/ap_tx_and_us_12-13_13-14.pdf",
+          "retrieved_at": "2026-10-25T01:57:27+00:00",
+          "sha256": "fbdee23c413c381556954f3b58a9288ab4843facc82e996f4d8432efe7acc33d",
+          "url": "https://tea.texas.gov/data-reports/school-performance/accountability-research/ap-tx-and-us-12-13-13-14.pdf"
+        }
+      ],
+      "locator": "AP Examinations and Scores, by Subject, Texas and the United States; U.S. number of examinations; PDF pages 9, 10",
+      "name": "Texas Education Agency; original College Board national aggregates",
+      "notes": "Public and nonpublic school examinees combined, all grades. Only selected numerical facts are republished, not original reports. Reporting year is not publication year. Newer national summary reports omit these subject cells; aggregate national growth and worldwide language counts cannot be used to estimate them.",
+      "vintage": "Reporting school year 2013-14; original national subject table"
+    },
+    "tea_ap_us_2015": {
+      "assets": [
+        {
+          "request_url": "https://tea.texas.gov/sites/default/files/ap_tx_and_us_2014-15.pdf",
+          "retrieved_at": "2026-10-25T01:58:10+00:00",
+          "sha256": "516231e69e8c13f84a8548a77212273178def498a93036cfa930c09dd3d7c7a9",
+          "url": "https://tea.texas.gov/data-reports/school-performance/accountability-research/ap-tx-and-us-2014-15.pdf"
+        }
+      ],
+      "locator": "AP Examinations and Scores, by Subject, Texas and the United States; U.S. number of examinations; PDF pages 7, 8",
+      "name": "Texas Education Agency; original College Board national aggregates",
+      "notes": "Public and nonpublic school examinees combined, all grades. Only selected numerical facts are republished, not original reports. Reporting year is not publication year. Newer national summary reports omit these subject cells; aggregate national growth and worldwide language counts cannot be used to estimate them.",
+      "vintage": "Reporting school year 2014-15; original national subject table"
+    },
+    "tea_ap_us_2016": {
+      "assets": [
+        {
+          "request_url": "https://tea.texas.gov/sites/default/files/ap_tx_and_us_2015-16.pdf",
+          "retrieved_at": "2026-10-25T01:58:11+00:00",
+          "sha256": "ce3c3c5073e68785b59542c663a742add752d2559721eec0e6a0f7762fec29f1",
+          "url": "https://tea.texas.gov/data-reports/school-performance/accountability-research/ap-tx-and-us-2015-16.pdf"
+        }
+      ],
+      "locator": "AP Examinations and Scores, by Subject, Texas and the United States; U.S. number of examinations; PDF pages 8",
+      "name": "Texas Education Agency; original College Board national aggregates",
+      "notes": "Public and nonpublic school examinees combined, all grades. Only selected numerical facts are republished, not original reports. Reporting year is not publication year. Newer national summary reports omit these subject cells; aggregate national growth and worldwide language counts cannot be used to estimate them.",
+      "vintage": "Reporting school year 2015-16; original national subject table"
+    },
+    "tea_ap_us_2017": {
+      "assets": [
+        {
+          "request_url": "https://tea.texas.gov/sites/default/files/ap_tx_and_us_2016-17.pdf",
+          "retrieved_at": "2026-10-25T01:58:11+00:00",
+          "sha256": "f87ade21e3e1c959a7b0c77cffd244fdb2d0e41eb3918c5657b1a94e7b805ffe",
+          "url": "https://tea.texas.gov/data-reports/school-performance/accountability-research/ap-tx-and-us-2016-17.pdf"
+        }
+      ],
+      "locator": "AP Examinations and Scores, by Subject, Texas and the United States; U.S. number of examinations; PDF pages 8",
+      "name": "Texas Education Agency; original College Board national aggregates",
+      "notes": "Public and nonpublic school examinees combined, all grades. Only selected numerical facts are republished, not original reports. Reporting year is not publication year. Newer national summary reports omit these subject cells; aggregate national growth and worldwide language counts cannot be used to estimate them.",
+      "vintage": "Reporting school year 2016-17; original national subject table"
+    },
+    "tea_ap_us_2018": {
+      "assets": [
+        {
+          "request_url": "https://tea.texas.gov/sites/default/files/ap_tx_and_us_2017-18.pdf",
+          "retrieved_at": "2026-10-25T01:58:12+00:00",
+          "sha256": "959c12e8920adfa5ad2c9eed7aa3e7fefc92096c3684894cbc9d96397f3c7ac9",
+          "url": "https://tea.texas.gov/data-reports/school-performance/accountability-research/ap-tx-and-us-2017-18.pdf"
+        }
+      ],
+      "locator": "AP Examinations and Scores, by Subject, Texas and the United States; U.S. number of examinations; PDF pages 9",
+      "name": "Texas Education Agency; original College Board national aggregates",
+      "notes": "Public and nonpublic school examinees combined, all grades. Only selected numerical facts are republished, not original reports. Reporting year is not publication year. Newer national summary reports omit these subject cells; aggregate national growth and worldwide language counts cannot be used to estimate them.",
+      "vintage": "Reporting school year 2017-18; original national subject table"
+    },
+    "tea_ap_us_2019": {
+      "assets": [
+        {
+          "request_url": "https://tea.texas.gov/sites/default/files/ap_tx_and_us_2018-19.pdf",
+          "retrieved_at": "2026-10-25T01:53:51+00:00",
+          "sha256": "8ed8bc0a535628f42ca38431c1978f34eeeb1e6b02de1e00becf0e59a0ac7cee",
+          "url": "https://tea.texas.gov/data-reports/school-performance/accountability-research/ap-tx-and-us-2018-19.pdf"
+        }
+      ],
+      "locator": "AP Examinations and Scores, by Subject, Texas and the United States; U.S. number of examinations; PDF pages 9",
+      "name": "Texas Education Agency; original College Board national aggregates",
+      "notes": "Public and nonpublic school examinees combined, all grades. Only selected numerical facts are republished, not original reports. Reporting year is not publication year. Newer national summary reports omit these subject cells; aggregate national growth and worldwide language counts cannot be used to estimate them.",
+      "vintage": "Reporting school year 2018-19; original national subject table"
+    },
+    "tea_ap_us_2020": {
+      "assets": [
+        {
+          "request_url": "https://tea.texas.gov/sites/default/files/ap-tx-and-us-2019-20.pdf",
+          "retrieved_at": "2026-10-25T01:58:13+00:00",
+          "sha256": "661d32238708591aa5ba63253e601eb96f32be6344877fcdc32318e91c03b387",
+          "url": "https://tea.texas.gov/data-reports/school-performance/accountability-research/ap-tx-and-us-2019-20.pdf"
+        }
+      ],
+      "locator": "AP Examinations and Scores, by Subject, Texas and the United States; U.S. number of examinations; PDF pages 9",
+      "name": "Texas Education Agency; original College Board national aggregates",
+      "notes": "Public and nonpublic school examinees combined, all grades. Only selected numerical facts are republished, not original reports. Reporting year is not publication year. Newer national summary reports omit these subject cells; aggregate national growth and worldwide language counts cannot be used to estimate them.",
+      "vintage": "Reporting school year 2019-20; original national subject table"
+    },
+    "tea_ap_us_2021": {
+      "assets": [
+        {
+          "request_url": "https://tea.texas.gov/sites/default/files/ap-tx-and-us-2020-21.pdf",
+          "retrieved_at": "2026-10-25T01:58:13+00:00",
+          "sha256": "4df0ae949a093bce7840e37ec5cfacf9c3a34df3da8f55bcd1c9bda325821b0b",
+          "url": "https://tea.texas.gov/data-reports/school-performance/accountability-research/ap-tx-and-us-2020-21.pdf"
+        }
+      ],
+      "locator": "AP Examinations and Scores, by Subject, Texas and the United States; U.S. number of examinations; PDF pages 9",
+      "name": "Texas Education Agency; original College Board national aggregates",
+      "notes": "Public and nonpublic school examinees combined, all grades. Only selected numerical facts are republished, not original reports. Reporting year is not publication year. Newer national summary reports omit these subject cells; aggregate national growth and worldwide language counts cannot be used to estimate them.",
+      "vintage": "Reporting school year 2020-21; original national subject table"
+    },
+    "tea_ap_us_2022": {
+      "assets": [
+        {
+          "request_url": "https://tea.texas.gov/sites/default/files/ap-tx-and-us-2021-22.pdf",
+          "retrieved_at": "2026-10-25T01:53:51+00:00",
+          "sha256": "8891730b5d55a63ac5518d44d511070e22c3ff86f4fe357e5bf7b2ab75fc68eb",
+          "url": "https://tea.texas.gov/data-reports/school-performance/accountability-research/ap-tx-and-us-2021-22.pdf"
+        }
+      ],
+      "locator": "AP Examinations and Scores, by Subject, Texas and the United States; U.S. number of examinations; PDF pages 9",
+      "name": "Texas Education Agency; original College Board national aggregates",
+      "notes": "Public and nonpublic school examinees combined, all grades. Only selected numerical facts are republished, not original reports. Reporting year is not publication year. Newer national summary reports omit these subject cells; aggregate national growth and worldwide language counts cannot be used to estimate them.",
+      "vintage": "Reporting school year 2021-22; original national subject table"
     }
   },
   "version": 1

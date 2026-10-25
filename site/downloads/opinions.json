@@ -7,6 +7,644 @@
   },
   "observations": [
     {
+      "comparability": "gallup_us_telephone",
+      "notes": "Published net; not an annual average. ",
+      "period": "Jan 25-26, 2000",
+      "series_id": "gallup_us:favorable",
+      "source_id": "gallup_us_history",
+      "status": "observed",
+      "survey_id": "gallup_us_2000-01-25",
+      "value": 33,
+      "year": 2000
+    },
+    {
+      "comparability": "gallup_us_telephone",
+      "notes": "Published net; not an annual average. ",
+      "period": "Mar 17-19, 2000",
+      "series_id": "gallup_us:favorable",
+      "source_id": "gallup_us_history",
+      "status": "observed",
+      "survey_id": "gallup_us_2000-03-17",
+      "value": 35,
+      "year": 2000
+    },
+    {
+      "comparability": "gallup_us_telephone",
+      "notes": "Published net; not an annual average. ",
+      "period": "Nov 13-15, 2000",
+      "series_id": "gallup_us:favorable",
+      "source_id": "gallup_us_history",
+      "status": "observed",
+      "survey_id": "gallup_us_2000-11-13",
+      "value": 36,
+      "year": 2000
+    },
+    {
+      "comparability": "gallup_us_telephone",
+      "notes": "Published net; not an annual average. Asked of half the sample.",
+      "period": "Feb 1-4, 2001",
+      "series_id": "gallup_us:favorable",
+      "source_id": "gallup_us_history",
+      "status": "observed",
+      "survey_id": "gallup_us_2001-02-01",
+      "value": 45,
+      "year": 2001
+    },
+    {
+      "comparability": "gallup_us_telephone",
+      "notes": "Published net; not an annual average. ",
+      "period": "Feb 4-6, 2002",
+      "series_id": "gallup_us:favorable",
+      "source_id": "gallup_us_history",
+      "status": "observed",
+      "survey_id": "gallup_us_2002-02-04",
+      "value": 44,
+      "year": 2002
+    },
+    {
+      "comparability": "gallup_us_telephone",
+      "notes": "Published net; not an annual average. ",
+      "period": "Feb 3-6, 2003",
+      "series_id": "gallup_us:favorable",
+      "source_id": "gallup_us_history",
+      "status": "observed",
+      "survey_id": "gallup_us_2003-02-03",
+      "value": 45,
+      "year": 2003
+    },
+    {
+      "comparability": "gallup_us_telephone",
+      "notes": "Published net; not an annual average. ",
+      "period": "Feb 9-12, 2004",
+      "series_id": "gallup_us:favorable",
+      "source_id": "gallup_us_history",
+      "status": "observed",
+      "survey_id": "gallup_us_2004-02-09",
+      "value": 41,
+      "year": 2004
+    },
+    {
+      "comparability": "gallup_us_telephone",
+      "notes": "Published net; not an annual average. ",
+      "period": "Feb 7-10, 2005",
+      "series_id": "gallup_us:favorable",
+      "source_id": "gallup_us_history",
+      "status": "observed",
+      "survey_id": "gallup_us_2005-02-07",
+      "value": 47,
+      "year": 2005
+    },
+    {
+      "comparability": "gallup_us_telephone",
+      "notes": "Published net; not an annual average. ",
+      "period": "Feb 6-9, 2006",
+      "series_id": "gallup_us:favorable",
+      "source_id": "gallup_us_history",
+      "status": "observed",
+      "survey_id": "gallup_us_2006-02-06",
+      "value": 44,
+      "year": 2006
+    },
+    {
+      "comparability": "gallup_us_telephone",
+      "notes": "Published net; not an annual average. ",
+      "period": "Feb 1-4, 2007",
+      "series_id": "gallup_us:favorable",
+      "source_id": "gallup_us_history",
+      "status": "observed",
+      "survey_id": "gallup_us_2007-02-01",
+      "value": 48,
+      "year": 2007
+    },
+    {
+      "comparability": "gallup_us_telephone",
+      "notes": "Published net; not an annual average. ",
+      "period": "Feb 11-14, 2008",
+      "series_id": "gallup_us:favorable",
+      "source_id": "gallup_us_history",
+      "status": "observed",
+      "survey_id": "gallup_us_2008-02-11",
+      "value": 42,
+      "year": 2008
+    },
+    {
+      "comparability": "gallup_us_telephone",
+      "notes": "Published net; not an annual average. ",
+      "period": "Feb 9-12, 2009",
+      "series_id": "gallup_us:favorable",
+      "source_id": "gallup_us_history",
+      "status": "observed",
+      "survey_id": "gallup_us_2009-02-09",
+      "value": 41,
+      "year": 2009
+    },
+    {
+      "comparability": "gallup_us_telephone",
+      "notes": "Published net; not an annual average. ",
+      "period": "Feb 1-3, 2010",
+      "series_id": "gallup_us:favorable",
+      "source_id": "gallup_us_history",
+      "status": "observed",
+      "survey_id": "gallup_us_2010-02-01",
+      "value": 42,
+      "year": 2010
+    },
+    {
+      "comparability": "gallup_us_telephone",
+      "notes": "Published net; not an annual average. ",
+      "period": "Feb 2-5, 2011",
+      "series_id": "gallup_us:favorable",
+      "source_id": "gallup_us_history",
+      "status": "observed",
+      "survey_id": "gallup_us_2011-02-02",
+      "value": 47,
+      "year": 2011
+    },
+    {
+      "comparability": "gallup_us_telephone",
+      "notes": "Published net; not an annual average. ",
+      "period": "Feb 2-5, 2012",
+      "series_id": "gallup_us:favorable",
+      "source_id": "gallup_us_history",
+      "status": "observed",
+      "survey_id": "gallup_us_2012-02-02",
+      "value": 41,
+      "year": 2012
+    },
+    {
+      "comparability": "gallup_us_telephone",
+      "notes": "Published net; not an annual average. ",
+      "period": "Feb 7-10, 2013",
+      "series_id": "gallup_us:favorable",
+      "source_id": "gallup_us_history",
+      "status": "observed",
+      "survey_id": "gallup_us_2013-02-07",
+      "value": 43,
+      "year": 2013
+    },
+    {
+      "comparability": "gallup_us_telephone",
+      "notes": "Published net; not an annual average. ",
+      "period": "Feb 6-9, 2014",
+      "series_id": "gallup_us:favorable",
+      "source_id": "gallup_us_history",
+      "status": "observed",
+      "survey_id": "gallup_us_2014-02-06",
+      "value": 43,
+      "year": 2014
+    },
+    {
+      "comparability": "gallup_us_telephone",
+      "notes": "Published net; not an annual average. ",
+      "period": "Feb 8-11, 2015",
+      "series_id": "gallup_us:favorable",
+      "source_id": "gallup_us_history",
+      "status": "observed",
+      "survey_id": "gallup_us_2015-02-08",
+      "value": 44,
+      "year": 2015
+    },
+    {
+      "comparability": "gallup_us_telephone",
+      "notes": "Published net; not an annual average. ",
+      "period": "Feb 3-7, 2016",
+      "series_id": "gallup_us:favorable",
+      "source_id": "gallup_us_history",
+      "status": "observed",
+      "survey_id": "gallup_us_2016-02-03",
+      "value": 44,
+      "year": 2016
+    },
+    {
+      "comparability": "gallup_us_telephone",
+      "notes": "Published net; not an annual average. ",
+      "period": "Feb 1-5, 2017",
+      "series_id": "gallup_us:favorable",
+      "source_id": "gallup_us_history",
+      "status": "observed",
+      "survey_id": "gallup_us_2017-02-01",
+      "value": 50,
+      "year": 2017
+    },
+    {
+      "comparability": "gallup_us_telephone",
+      "notes": "Published net; not an annual average. ",
+      "period": "Feb 1-10, 2018",
+      "series_id": "gallup_us:favorable",
+      "source_id": "gallup_us_history",
+      "status": "observed",
+      "survey_id": "gallup_us_2018-02-01",
+      "value": 53,
+      "year": 2018
+    },
+    {
+      "comparability": "gallup_us_telephone",
+      "notes": "Published net; not an annual average. ",
+      "period": "Feb 1-10, 2019",
+      "series_id": "gallup_us:favorable",
+      "source_id": "gallup_us_history",
+      "status": "observed",
+      "survey_id": "gallup_us_2019-02-01",
+      "value": 41,
+      "year": 2019
+    },
+    {
+      "comparability": "gallup_us_telephone",
+      "notes": "Published net; not an annual average. ",
+      "period": "Feb 3-16, 2020",
+      "series_id": "gallup_us:favorable",
+      "source_id": "gallup_us_history",
+      "status": "observed",
+      "survey_id": "gallup_us_2020-02-03",
+      "value": 33,
+      "year": 2020
+    },
+    {
+      "comparability": "gallup_us_telephone",
+      "notes": "Published net; not an annual average. ",
+      "period": "Feb 3-18, 2021",
+      "series_id": "gallup_us:favorable",
+      "source_id": "gallup_us_history",
+      "status": "observed",
+      "survey_id": "gallup_us_2021-02-03",
+      "value": 20,
+      "year": 2021
+    },
+    {
+      "comparability": "gallup_us_telephone",
+      "notes": "Published net; not an annual average. ",
+      "period": "Feb 1-17, 2022",
+      "series_id": "gallup_us:favorable",
+      "source_id": "gallup_us_history",
+      "status": "observed",
+      "survey_id": "gallup_us_2022-02-01",
+      "value": 20,
+      "year": 2022
+    },
+    {
+      "comparability": "gallup_us_telephone",
+      "notes": "Published net; not an annual average. ",
+      "period": "Feb 1-23, 2023",
+      "series_id": "gallup_us:favorable",
+      "source_id": "gallup_us_history",
+      "status": "observed",
+      "survey_id": "gallup_us_2023-02-01",
+      "value": 15,
+      "year": 2023
+    },
+    {
+      "comparability": "gallup_us_telephone",
+      "notes": "Published net; not an annual average. ",
+      "period": "Feb 1-20, 2024",
+      "series_id": "gallup_us:favorable",
+      "source_id": "gallup_us_history",
+      "status": "observed",
+      "survey_id": "gallup_us_2024-02-01",
+      "value": 20,
+      "year": 2024
+    },
+    {
+      "comparability": "gallup_us_telephone",
+      "notes": "Published net; not an annual average. ",
+      "period": "Feb 3-16, 2025",
+      "series_id": "gallup_us:favorable",
+      "source_id": "gallup_us_history",
+      "status": "observed",
+      "survey_id": "gallup_us_2025-02-03",
+      "value": 29,
+      "year": 2025
+    },
+    {
+      "comparability": "gallup_us_telephone",
+      "notes": "Published net; not an annual average. Full n=1,001; country items approximately 800, so no exact item base is inferred.",
+      "period": "Feb 2-16, 2026",
+      "series_id": "gallup_us:favorable",
+      "source_id": "gallup_us_history",
+      "status": "observed",
+      "survey_id": "gallup_us_2026-02-02",
+      "value": 34,
+      "year": 2026
+    },
+    {
+      "comparability": "gallup_us_telephone",
+      "notes": "Published net; not an annual average. ",
+      "period": "Jan 25-26, 2000",
+      "series_id": "gallup_us:unfavorable",
+      "source_id": "gallup_us_history",
+      "status": "observed",
+      "survey_id": "gallup_us_2000-01-25",
+      "value": 51,
+      "year": 2000
+    },
+    {
+      "comparability": "gallup_us_telephone",
+      "notes": "Published net; not an annual average. ",
+      "period": "Mar 17-19, 2000",
+      "series_id": "gallup_us:unfavorable",
+      "source_id": "gallup_us_history",
+      "status": "observed",
+      "survey_id": "gallup_us_2000-03-17",
+      "value": 56,
+      "year": 2000
+    },
+    {
+      "comparability": "gallup_us_telephone",
+      "notes": "Published net; not an annual average. ",
+      "period": "Nov 13-15, 2000",
+      "series_id": "gallup_us:unfavorable",
+      "source_id": "gallup_us_history",
+      "status": "observed",
+      "survey_id": "gallup_us_2000-11-13",
+      "value": 57,
+      "year": 2000
+    },
+    {
+      "comparability": "gallup_us_telephone",
+      "notes": "Published net; not an annual average. Asked of half the sample.",
+      "period": "Feb 1-4, 2001",
+      "series_id": "gallup_us:unfavorable",
+      "source_id": "gallup_us_history",
+      "status": "observed",
+      "survey_id": "gallup_us_2001-02-01",
+      "value": 48,
+      "year": 2001
+    },
+    {
+      "comparability": "gallup_us_telephone",
+      "notes": "Published net; not an annual average. ",
+      "period": "Feb 4-6, 2002",
+      "series_id": "gallup_us:unfavorable",
+      "source_id": "gallup_us_history",
+      "status": "observed",
+      "survey_id": "gallup_us_2002-02-04",
+      "value": 49,
+      "year": 2002
+    },
+    {
+      "comparability": "gallup_us_telephone",
+      "notes": "Published net; not an annual average. ",
+      "period": "Feb 3-6, 2003",
+      "series_id": "gallup_us:unfavorable",
+      "source_id": "gallup_us_history",
+      "status": "observed",
+      "survey_id": "gallup_us_2003-02-03",
+      "value": 46,
+      "year": 2003
+    },
+    {
+      "comparability": "gallup_us_telephone",
+      "notes": "Published net; not an annual average. ",
+      "period": "Feb 9-12, 2004",
+      "series_id": "gallup_us:unfavorable",
+      "source_id": "gallup_us_history",
+      "status": "observed",
+      "survey_id": "gallup_us_2004-02-09",
+      "value": 54,
+      "year": 2004
+    },
+    {
+      "comparability": "gallup_us_telephone",
+      "notes": "Published net; not an annual average. ",
+      "period": "Feb 7-10, 2005",
+      "series_id": "gallup_us:unfavorable",
+      "source_id": "gallup_us_history",
+      "status": "observed",
+      "survey_id": "gallup_us_2005-02-07",
+      "value": 47,
+      "year": 2005
+    },
+    {
+      "comparability": "gallup_us_telephone",
+      "notes": "Published net; not an annual average. ",
+      "period": "Feb 6-9, 2006",
+      "series_id": "gallup_us:unfavorable",
+      "source_id": "gallup_us_history",
+      "status": "observed",
+      "survey_id": "gallup_us_2006-02-06",
+      "value": 49,
+      "year": 2006
+    },
+    {
+      "comparability": "gallup_us_telephone",
+      "notes": "Published net; not an annual average. ",
+      "period": "Feb 1-4, 2007",
+      "series_id": "gallup_us:unfavorable",
+      "source_id": "gallup_us_history",
+      "status": "observed",
+      "survey_id": "gallup_us_2007-02-01",
+      "value": 47,
+      "year": 2007
+    },
+    {
+      "comparability": "gallup_us_telephone",
+      "notes": "Published net; not an annual average. ",
+      "period": "Feb 11-14, 2008",
+      "series_id": "gallup_us:unfavorable",
+      "source_id": "gallup_us_history",
+      "status": "observed",
+      "survey_id": "gallup_us_2008-02-11",
+      "value": 55,
+      "year": 2008
+    },
+    {
+      "comparability": "gallup_us_telephone",
+      "notes": "Published net; not an annual average. ",
+      "period": "Feb 9-12, 2009",
+      "series_id": "gallup_us:unfavorable",
+      "source_id": "gallup_us_history",
+      "status": "observed",
+      "survey_id": "gallup_us_2009-02-09",
+      "value": 51,
+      "year": 2009
+    },
+    {
+      "comparability": "gallup_us_telephone",
+      "notes": "Published net; not an annual average. ",
+      "period": "Feb 1-3, 2010",
+      "series_id": "gallup_us:unfavorable",
+      "source_id": "gallup_us_history",
+      "status": "observed",
+      "survey_id": "gallup_us_2010-02-01",
+      "value": 53,
+      "year": 2010
+    },
+    {
+      "comparability": "gallup_us_telephone",
+      "notes": "Published net; not an annual average. ",
+      "period": "Feb 2-5, 2011",
+      "series_id": "gallup_us:unfavorable",
+      "source_id": "gallup_us_history",
+      "status": "observed",
+      "survey_id": "gallup_us_2011-02-02",
+      "value": 50,
+      "year": 2011
+    },
+    {
+      "comparability": "gallup_us_telephone",
+      "notes": "Published net; not an annual average. ",
+      "period": "Feb 2-5, 2012",
+      "series_id": "gallup_us:unfavorable",
+      "source_id": "gallup_us_history",
+      "status": "observed",
+      "survey_id": "gallup_us_2012-02-02",
+      "value": 56,
+      "year": 2012
+    },
+    {
+      "comparability": "gallup_us_telephone",
+      "notes": "Published net; not an annual average. ",
+      "period": "Feb 7-10, 2013",
+      "series_id": "gallup_us:unfavorable",
+      "source_id": "gallup_us_history",
+      "status": "observed",
+      "survey_id": "gallup_us_2013-02-07",
+      "value": 52,
+      "year": 2013
+    },
+    {
+      "comparability": "gallup_us_telephone",
+      "notes": "Published net; not an annual average. ",
+      "period": "Feb 6-9, 2014",
+      "series_id": "gallup_us:unfavorable",
+      "source_id": "gallup_us_history",
+      "status": "observed",
+      "survey_id": "gallup_us_2014-02-06",
+      "value": 53,
+      "year": 2014
+    },
+    {
+      "comparability": "gallup_us_telephone",
+      "notes": "Published net; not an annual average. ",
+      "period": "Feb 8-11, 2015",
+      "series_id": "gallup_us:unfavorable",
+      "source_id": "gallup_us_history",
+      "status": "observed",
+      "survey_id": "gallup_us_2015-02-08",
+      "value": 50,
+      "year": 2015
+    },
+    {
+      "comparability": "gallup_us_telephone",
+      "notes": "Published net; not an annual average. ",
+      "period": "Feb 3-7, 2016",
+      "series_id": "gallup_us:unfavorable",
+      "source_id": "gallup_us_history",
+      "status": "observed",
+      "survey_id": "gallup_us_2016-02-03",
+      "value": 52,
+      "year": 2016
+    },
+    {
+      "comparability": "gallup_us_telephone",
+      "notes": "Published net; not an annual average. ",
+      "period": "Feb 1-5, 2017",
+      "series_id": "gallup_us:unfavorable",
+      "source_id": "gallup_us_history",
+      "status": "observed",
+      "survey_id": "gallup_us_2017-02-01",
+      "value": 48,
+      "year": 2017
+    },
+    {
+      "comparability": "gallup_us_telephone",
+      "notes": "Published net; not an annual average. ",
+      "period": "Feb 1-10, 2018",
+      "series_id": "gallup_us:unfavorable",
+      "source_id": "gallup_us_history",
+      "status": "observed",
+      "survey_id": "gallup_us_2018-02-01",
+      "value": 45,
+      "year": 2018
+    },
+    {
+      "comparability": "gallup_us_telephone",
+      "notes": "Published net; not an annual average. ",
+      "period": "Feb 1-10, 2019",
+      "series_id": "gallup_us:unfavorable",
+      "source_id": "gallup_us_history",
+      "status": "observed",
+      "survey_id": "gallup_us_2019-02-01",
+      "value": 57,
+      "year": 2019
+    },
+    {
+      "comparability": "gallup_us_telephone",
+      "notes": "Published net; not an annual average. ",
+      "period": "Feb 3-16, 2020",
+      "series_id": "gallup_us:unfavorable",
+      "source_id": "gallup_us_history",
+      "status": "observed",
+      "survey_id": "gallup_us_2020-02-03",
+      "value": 67,
+      "year": 2020
+    },
+    {
+      "comparability": "gallup_us_telephone",
+      "notes": "Published net; not an annual average. ",
+      "period": "Feb 3-18, 2021",
+      "series_id": "gallup_us:unfavorable",
+      "source_id": "gallup_us_history",
+      "status": "observed",
+      "survey_id": "gallup_us_2021-02-03",
+      "value": 79,
+      "year": 2021
+    },
+    {
+      "comparability": "gallup_us_telephone",
+      "notes": "Published net; not an annual average. ",
+      "period": "Feb 1-17, 2022",
+      "series_id": "gallup_us:unfavorable",
+      "source_id": "gallup_us_history",
+      "status": "observed",
+      "survey_id": "gallup_us_2022-02-01",
+      "value": 79,
+      "year": 2022
+    },
+    {
+      "comparability": "gallup_us_telephone",
+      "notes": "Published net; not an annual average. ",
+      "period": "Feb 1-23, 2023",
+      "series_id": "gallup_us:unfavorable",
+      "source_id": "gallup_us_history",
+      "status": "observed",
+      "survey_id": "gallup_us_2023-02-01",
+      "value": 84,
+      "year": 2023
+    },
+    {
+      "comparability": "gallup_us_telephone",
+      "notes": "Published net; not an annual average. ",
+      "period": "Feb 1-20, 2024",
+      "series_id": "gallup_us:unfavorable",
+      "source_id": "gallup_us_history",
+      "status": "observed",
+      "survey_id": "gallup_us_2024-02-01",
+      "value": 77,
+      "year": 2024
+    },
+    {
+      "comparability": "gallup_us_telephone",
+      "notes": "Published net; not an annual average. ",
+      "period": "Feb 3-16, 2025",
+      "series_id": "gallup_us:unfavorable",
+      "source_id": "gallup_us_history",
+      "status": "observed",
+      "survey_id": "gallup_us_2025-02-03",
+      "value": 67,
+      "year": 2025
+    },
+    {
+      "comparability": "gallup_us_telephone",
+      "notes": "Published net; not an annual average. Full n=1,001; country items approximately 800, so no exact item base is inferred.",
+      "period": "Feb 2-16, 2026",
+      "series_id": "gallup_us:unfavorable",
+      "source_id": "gallup_us_history",
+      "status": "observed",
+      "survey_id": "gallup_us_2026-02-02",
+      "value": 61,
+      "year": 2026
+    },
+    {
       "comparability": "pew_us_atp",
       "notes": "Age-group sample size is not inferred from the full survey of 3,507.",
       "period": "Spring 2026",
@@ -71,6 +709,39 @@
       "survey_id": "pew_atp_2026",
       "value": 79,
       "year": 2026
+    },
+    {
+      "comparability": "pew_china_coverage_2007",
+      "notes": "",
+      "period": "Spring 2007",
+      "series_id": "pew_china:favorable",
+      "source_id": "pew_china_history",
+      "status": "observed",
+      "survey_id": "pew_china_2007",
+      "value": 34,
+      "year": 2007
+    },
+    {
+      "comparability": "pew_china_coverage_2008",
+      "notes": "",
+      "period": "Spring 2008",
+      "series_id": "pew_china:favorable",
+      "source_id": "pew_china_history",
+      "status": "observed",
+      "survey_id": "pew_china_2008",
+      "value": 41,
+      "year": 2008
+    },
+    {
+      "comparability": "pew_china_coverage_2009",
+      "notes": "",
+      "period": "Spring 2009",
+      "series_id": "pew_china:favorable",
+      "source_id": "pew_china_history",
+      "status": "observed",
+      "survey_id": "pew_china_2009",
+      "value": 47,
+      "year": 2009
     },
     {
       "comparability": "pew_china_coverage_2010",
@@ -150,6 +821,39 @@
       "year": 2016
     },
     {
+      "comparability": "pew_china_coverage_2007",
+      "notes": "",
+      "period": "Spring 2007",
+      "series_id": "pew_china:unfavorable",
+      "source_id": "pew_china_history",
+      "status": "observed",
+      "survey_id": "pew_china_2007",
+      "value": 57,
+      "year": 2007
+    },
+    {
+      "comparability": "pew_china_coverage_2008",
+      "notes": "",
+      "period": "Spring 2008",
+      "series_id": "pew_china:unfavorable",
+      "source_id": "pew_china_history",
+      "status": "observed",
+      "survey_id": "pew_china_2008",
+      "value": 48,
+      "year": 2008
+    },
+    {
+      "comparability": "pew_china_coverage_2009",
+      "notes": "",
+      "period": "Spring 2009",
+      "series_id": "pew_china:unfavorable",
+      "source_id": "pew_china_history",
+      "status": "observed",
+      "survey_id": "pew_china_2009",
+      "value": 46,
+      "year": 2009
+    },
+    {
       "comparability": "pew_china_coverage_2010",
       "notes": "",
       "period": "Spring 2010",
@@ -225,6 +929,50 @@
       "survey_id": "pew_china_2016",
       "value": 44,
       "year": 2016
+    },
+    {
+      "comparability": "pew_china_18_60_coverage_2005",
+      "notes": "Published Q2a net about the United States, not a sum of rounded components.",
+      "period": "May 21-31, 2005",
+      "series_id": "pew_china_18_60:favorable",
+      "source_id": "pew_china_2005_2006",
+      "status": "observed",
+      "survey_id": "pew_china_2005",
+      "value": 42,
+      "year": 2005
+    },
+    {
+      "comparability": "pew_china_18_60_coverage_2006",
+      "notes": "Published Q2a net about the United States, not a sum of rounded components.",
+      "period": "April 7-18, 2006",
+      "series_id": "pew_china_18_60:favorable",
+      "source_id": "pew_china_2005_2006",
+      "status": "observed",
+      "survey_id": "pew_china_2006",
+      "value": 47,
+      "year": 2006
+    },
+    {
+      "comparability": "pew_china_18_60_coverage_2005",
+      "notes": "Published Q2a net about the United States, not a sum of rounded components.",
+      "period": "May 21-31, 2005",
+      "series_id": "pew_china_18_60:unfavorable",
+      "source_id": "pew_china_2005_2006",
+      "status": "observed",
+      "survey_id": "pew_china_2005",
+      "value": 53,
+      "year": 2005
+    },
+    {
+      "comparability": "pew_china_18_60_coverage_2006",
+      "notes": "Published Q2a net about the United States, not a sum of rounded components.",
+      "period": "April 7-18, 2006",
+      "series_id": "pew_china_18_60:unfavorable",
+      "source_id": "pew_china_2005_2006",
+      "status": "observed",
+      "survey_id": "pew_china_2006",
+      "value": 43,
+      "year": 2006
     },
     {
       "comparability": "pew_us_atp",
@@ -383,6 +1131,61 @@
     {
       "comparability": "pew_us_phone",
       "notes": "",
+      "period": "Spring 2005",
+      "series_id": "pew_us_phone:favorable",
+      "source_id": "pew_us_trend",
+      "status": "observed",
+      "survey_id": "pew_phone_2005",
+      "value": 43,
+      "year": 2005
+    },
+    {
+      "comparability": "pew_us_phone",
+      "notes": "",
+      "period": "Spring 2006",
+      "series_id": "pew_us_phone:favorable",
+      "source_id": "pew_us_trend",
+      "status": "observed",
+      "survey_id": "pew_phone_2006",
+      "value": 52,
+      "year": 2006
+    },
+    {
+      "comparability": "pew_us_phone",
+      "notes": "",
+      "period": "Spring 2007",
+      "series_id": "pew_us_phone:favorable",
+      "source_id": "pew_us_trend",
+      "status": "observed",
+      "survey_id": "pew_phone_2007",
+      "value": 42,
+      "year": 2007
+    },
+    {
+      "comparability": "pew_us_phone",
+      "notes": "",
+      "period": "Spring 2008",
+      "series_id": "pew_us_phone:favorable",
+      "source_id": "pew_us_trend",
+      "status": "observed",
+      "survey_id": "pew_phone_2008",
+      "value": 40,
+      "year": 2008
+    },
+    {
+      "comparability": "pew_us_phone",
+      "notes": "",
+      "period": "Spring 2009",
+      "series_id": "pew_us_phone:favorable",
+      "source_id": "pew_us_trend",
+      "status": "observed",
+      "survey_id": "pew_phone_2009",
+      "value": 49,
+      "year": 2009
+    },
+    {
+      "comparability": "pew_us_phone",
+      "notes": "",
       "period": "Spring 2010",
       "series_id": "pew_us_phone:favorable",
       "source_id": "pew_us_trend",
@@ -500,6 +1303,61 @@
       "survey_id": "pew_phone_2020",
       "value": 27,
       "year": 2020
+    },
+    {
+      "comparability": "pew_us_phone",
+      "notes": "",
+      "period": "Spring 2005",
+      "series_id": "pew_us_phone:unfavorable",
+      "source_id": "pew_us_trend",
+      "status": "observed",
+      "survey_id": "pew_phone_2005",
+      "value": 35,
+      "year": 2005
+    },
+    {
+      "comparability": "pew_us_phone",
+      "notes": "",
+      "period": "Spring 2006",
+      "series_id": "pew_us_phone:unfavorable",
+      "source_id": "pew_us_trend",
+      "status": "observed",
+      "survey_id": "pew_phone_2006",
+      "value": 29,
+      "year": 2006
+    },
+    {
+      "comparability": "pew_us_phone",
+      "notes": "",
+      "period": "Spring 2007",
+      "series_id": "pew_us_phone:unfavorable",
+      "source_id": "pew_us_trend",
+      "status": "observed",
+      "survey_id": "pew_phone_2007",
+      "value": 40,
+      "year": 2007
+    },
+    {
+      "comparability": "pew_us_phone",
+      "notes": "",
+      "period": "Spring 2008",
+      "series_id": "pew_us_phone:unfavorable",
+      "source_id": "pew_us_trend",
+      "status": "observed",
+      "survey_id": "pew_phone_2008",
+      "value": 42,
+      "year": 2008
+    },
+    {
+      "comparability": "pew_us_phone",
+      "notes": "",
+      "period": "Spring 2009",
+      "series_id": "pew_us_phone:unfavorable",
+      "source_id": "pew_us_trend",
+      "status": "observed",
+      "survey_id": "pew_phone_2009",
+      "value": 38,
+      "year": 2009
     },
     {
       "comparability": "pew_us_phone",
@@ -718,7 +1576,7 @@
       "source_id": "china_pulse",
       "status": "observed",
       "survey_id": "pulse_2025",
-      "value": 33.0,
+      "value": 33,
       "year": 2025
     },
     {
@@ -729,7 +1587,7 @@
       "source_id": "china_pulse",
       "status": "observed",
       "survey_id": "pulse_2026",
-      "value": 32.0,
+      "value": 32,
       "year": 2026
     },
     {
@@ -740,7 +1598,7 @@
       "source_id": "china_pulse",
       "status": "observed",
       "survey_id": "pulse_2025",
-      "value": 39.0,
+      "value": 39,
       "year": 2025
     },
     {
@@ -751,7 +1609,7 @@
       "source_id": "china_pulse",
       "status": "observed",
       "survey_id": "pulse_2026",
-      "value": 32.0,
+      "value": 32,
       "year": 2026
     },
     {
@@ -762,7 +1620,7 @@
       "source_id": "china_pulse",
       "status": "observed",
       "survey_id": "pulse_2025",
-      "value": 35.0,
+      "value": 35,
       "year": 2025
     },
     {
@@ -773,7 +1631,7 @@
       "source_id": "china_pulse",
       "status": "observed",
       "survey_id": "pulse_2026",
-      "value": 29.0,
+      "value": 29,
       "year": 2026
     },
     {
@@ -784,7 +1642,7 @@
       "source_id": "china_pulse",
       "status": "observed",
       "survey_id": "pulse_2025",
-      "value": 30.0,
+      "value": 30,
       "year": 2025
     },
     {
@@ -795,7 +1653,7 @@
       "source_id": "china_pulse",
       "status": "observed",
       "survey_id": "pulse_2026",
-      "value": 32.0,
+      "value": 32,
       "year": 2026
     },
     {
@@ -806,7 +1664,7 @@
       "source_id": "china_pulse",
       "status": "observed",
       "survey_id": "pulse_2025",
-      "value": 32.0,
+      "value": 32,
       "year": 2025
     },
     {
@@ -817,11 +1675,33 @@
       "source_id": "china_pulse",
       "status": "observed",
       "survey_id": "pulse_2026",
-      "value": 33.0,
+      "value": 33,
       "year": 2026
     }
   ],
   "series": {
+    "gallup_us:favorable": {
+      "age": "All adults",
+      "cadence": "annual",
+      "label": "Favorable",
+      "measure": "favorability",
+      "notes": "Reported survey estimates; nonresponse is not a neutral opinion.",
+      "respondent_country": "USA",
+      "sampling": "Gallup telephone surveys; current random-digit-dial landline/cellular sample. Earlier sampling frames and weights evolved; separate from Pew phone and panel surveys.",
+      "target_country": "CHN",
+      "unit": "percent"
+    },
+    "gallup_us:unfavorable": {
+      "age": "All adults",
+      "cadence": "annual",
+      "label": "Unfavorable",
+      "measure": "favorability",
+      "notes": "Reported survey estimates; nonresponse is not a neutral opinion.",
+      "respondent_country": "USA",
+      "sampling": "Gallup telephone surveys; current random-digit-dial landline/cellular sample. Earlier sampling frames and weights evolved; separate from Pew phone and panel surveys.",
+      "target_country": "CHN",
+      "unit": "percent"
+    },
     "pew_age:18-34:favorable": {
       "age": "18-34",
       "cadence": "survey_rounds",
@@ -907,6 +1787,28 @@
       "notes": "Reported survey estimates; nonresponse is not a neutral opinion.",
       "respondent_country": "CHN",
       "sampling": "Historical Pew face-to-face surveys; sample coverage varies by round.",
+      "target_country": "USA",
+      "unit": "percent"
+    },
+    "pew_china_18_60:favorable": {
+      "age": "18-60",
+      "cadence": "survey_rounds",
+      "label": "Favorable",
+      "measure": "favorability",
+      "notes": "Reported survey estimates; nonresponse is not a neutral opinion.",
+      "respondent_country": "CHN",
+      "sampling": "Face-to-face probability samples within six city areas and surrounding rural areas; disproportionately urban, not nationally representative; city sets vary by round.",
+      "target_country": "USA",
+      "unit": "percent"
+    },
+    "pew_china_18_60:unfavorable": {
+      "age": "18-60",
+      "cadence": "survey_rounds",
+      "label": "Unfavorable",
+      "measure": "favorability",
+      "notes": "Reported survey estimates; nonresponse is not a neutral opinion.",
+      "respondent_country": "CHN",
+      "sampling": "Face-to-face probability samples within six city areas and surrounding rural areas; disproportionately urban, not nationally representative; city sets vary by round.",
       "target_country": "USA",
       "unit": "percent"
     },
@@ -1087,6 +1989,42 @@
       "published": "2026-10",
       "url": "https://uscnpm.org/china-pulse/chinese-public-supports-trade-and-security-cooperation-still-sees-the-united-states-as-a-threat/"
     },
+    "gallup_us_history": {
+      "assets": [
+        {
+          "request_url": "https://news.gallup.com/file/poll/703046/260312CountryRatings.pdf",
+          "retrieved_at": "2026-10-25T00:15:36+00:00",
+          "sha256": "55a53f241fce1f5dfa2e533bd090a2c1f9ff25166ed5179cfc03447388cceaa8",
+          "url": "https://news.gallup.com/file/poll/703046/260312CountryRatings.pdf"
+        }
+      ],
+      "locator": "Country ratings final topline, PDF page 4, Q17 D: China, all 2000-2026 rounds; pages 1-2 methods.",
+      "name": "Gallup",
+      "notes": "Telephone surveys of U.S. adults, not Pew's panel. Sampling frames and weights evolved. 2026 fieldwork February 2-16; full sample 1,001, each country item approximately 800. Published net percentages are retained despite rounding; every reported 2000 round is kept.",
+      "published": "2026-03-12",
+      "url": "https://news.gallup.com/poll/703040/americans-views-canada-great-britain-drop-new-lows.aspx"
+    },
+    "pew_china_2005_2006": {
+      "assets": [
+        {
+          "request_url": "https://www.pewresearch.org/global/wp-content/uploads/sites/2/2006/09/GAP-Asia-report-final-9-21-06.pdf",
+          "retrieved_at": "2026-10-25T02:16:26+00:00",
+          "sha256": "680ee2b6ef729408297bc444335eb6a81401c0462560c9f7d2aceda9a6ce2199",
+          "url": "https://www.pewresearch.org/global/wp-content/uploads/sites/2/2006/09/GAP-Asia-report-final-9-21-06.pdf"
+        },
+        {
+          "request_url": "https://www.pewresearch.org/wp-content/uploads/sites/2/pdf/249.pdf",
+          "retrieved_at": "2026-10-25T02:16:26+00:00",
+          "sha256": "bed54a101762b97680d24524e303e364525d7dc614c96bd8004297a04d0b94e9",
+          "url": "https://www.pewresearch.org/wp-content/uploads/sites/2/pdf/249.pdf"
+        }
+      ],
+      "locator": "2006 report PDF page 12, Q2a China rows: published favorable/unfavorable nets; page 11 methods. November 2005 report PDF pages 6-7: China sampling and fieldwork.",
+      "name": "Pew Research Center",
+      "notes": "Ages 18-60 in six city areas and surrounding rural areas, disproportionately urban, not nationally representative. City sets differ between rounds. Neither round is joined to the later all-adult series or to China Pulse warmth scores.",
+      "published": "2006-09-21",
+      "url": "https://www.pewresearch.org/global/wp-content/uploads/sites/2/2006/09/GAP-Asia-report-final-9-21-06.pdf"
+    },
     "pew_china_history": {
       "assets": [
         {
@@ -1142,7 +2080,7 @@
         },
         {
           "request_url": "https://www.pewresearch.org/short-reads/2026/09/23/americans-views-of-china-have-warmed-in-recent-years/",
-          "retrieved_at": "2026-10-24T20:35:10+00:00",
+          "retrieved_at": "2026-10-25T02:16:25+00:00",
           "sha256": "c847efeb20901a978ab9a76b9a6c938d944d35a2ad67a6d71706ac91fdc5f516",
           "sha256_scope": "The reviewed numerical transcription, not the publisher's article or PDF",
           "url": "https://github.com/hanshanley/china-us-relation-change/blob/main/data/reviewed/opinion-warmth.json"
@@ -1156,6 +2094,267 @@
     }
   },
   "surveys": {
+    "gallup_us_2000-01-25": {
+      "field_end": "2000-01-26",
+      "field_start": "2000-01-25",
+      "n_item": null,
+      "n_total": null,
+      "notes": "",
+      "period": "Jan 25-26, 2000",
+      "year": 2000
+    },
+    "gallup_us_2000-03-17": {
+      "field_end": "2000-03-19",
+      "field_start": "2000-03-17",
+      "n_item": null,
+      "n_total": null,
+      "notes": "",
+      "period": "Mar 17-19, 2000",
+      "year": 2000
+    },
+    "gallup_us_2000-11-13": {
+      "field_end": "2000-11-15",
+      "field_start": "2000-11-13",
+      "n_item": null,
+      "n_total": null,
+      "notes": "",
+      "period": "Nov 13-15, 2000",
+      "year": 2000
+    },
+    "gallup_us_2001-02-01": {
+      "field_end": "2001-02-04",
+      "field_start": "2001-02-01",
+      "n_item": null,
+      "n_total": null,
+      "notes": "Asked of half the sample.",
+      "period": "Feb 1-4, 2001",
+      "year": 2001
+    },
+    "gallup_us_2002-02-04": {
+      "field_end": "2002-02-06",
+      "field_start": "2002-02-04",
+      "n_item": null,
+      "n_total": null,
+      "notes": "",
+      "period": "Feb 4-6, 2002",
+      "year": 2002
+    },
+    "gallup_us_2003-02-03": {
+      "field_end": "2003-02-06",
+      "field_start": "2003-02-03",
+      "n_item": null,
+      "n_total": null,
+      "notes": "",
+      "period": "Feb 3-6, 2003",
+      "year": 2003
+    },
+    "gallup_us_2004-02-09": {
+      "field_end": "2004-02-12",
+      "field_start": "2004-02-09",
+      "n_item": null,
+      "n_total": null,
+      "notes": "",
+      "period": "Feb 9-12, 2004",
+      "year": 2004
+    },
+    "gallup_us_2005-02-07": {
+      "field_end": "2005-02-10",
+      "field_start": "2005-02-07",
+      "n_item": null,
+      "n_total": null,
+      "notes": "",
+      "period": "Feb 7-10, 2005",
+      "year": 2005
+    },
+    "gallup_us_2006-02-06": {
+      "field_end": "2006-02-09",
+      "field_start": "2006-02-06",
+      "n_item": null,
+      "n_total": null,
+      "notes": "",
+      "period": "Feb 6-9, 2006",
+      "year": 2006
+    },
+    "gallup_us_2007-02-01": {
+      "field_end": "2007-02-04",
+      "field_start": "2007-02-01",
+      "n_item": null,
+      "n_total": null,
+      "notes": "",
+      "period": "Feb 1-4, 2007",
+      "year": 2007
+    },
+    "gallup_us_2008-02-11": {
+      "field_end": "2008-02-14",
+      "field_start": "2008-02-11",
+      "n_item": null,
+      "n_total": null,
+      "notes": "",
+      "period": "Feb 11-14, 2008",
+      "year": 2008
+    },
+    "gallup_us_2009-02-09": {
+      "field_end": "2009-02-12",
+      "field_start": "2009-02-09",
+      "n_item": null,
+      "n_total": null,
+      "notes": "",
+      "period": "Feb 9-12, 2009",
+      "year": 2009
+    },
+    "gallup_us_2010-02-01": {
+      "field_end": "2010-02-03",
+      "field_start": "2010-02-01",
+      "n_item": null,
+      "n_total": null,
+      "notes": "",
+      "period": "Feb 1-3, 2010",
+      "year": 2010
+    },
+    "gallup_us_2011-02-02": {
+      "field_end": "2011-02-05",
+      "field_start": "2011-02-02",
+      "n_item": null,
+      "n_total": null,
+      "notes": "",
+      "period": "Feb 2-5, 2011",
+      "year": 2011
+    },
+    "gallup_us_2012-02-02": {
+      "field_end": "2012-02-05",
+      "field_start": "2012-02-02",
+      "n_item": null,
+      "n_total": null,
+      "notes": "",
+      "period": "Feb 2-5, 2012",
+      "year": 2012
+    },
+    "gallup_us_2013-02-07": {
+      "field_end": "2013-02-10",
+      "field_start": "2013-02-07",
+      "n_item": null,
+      "n_total": null,
+      "notes": "",
+      "period": "Feb 7-10, 2013",
+      "year": 2013
+    },
+    "gallup_us_2014-02-06": {
+      "field_end": "2014-02-09",
+      "field_start": "2014-02-06",
+      "n_item": null,
+      "n_total": null,
+      "notes": "",
+      "period": "Feb 6-9, 2014",
+      "year": 2014
+    },
+    "gallup_us_2015-02-08": {
+      "field_end": "2015-02-11",
+      "field_start": "2015-02-08",
+      "n_item": null,
+      "n_total": null,
+      "notes": "",
+      "period": "Feb 8-11, 2015",
+      "year": 2015
+    },
+    "gallup_us_2016-02-03": {
+      "field_end": "2016-02-07",
+      "field_start": "2016-02-03",
+      "n_item": null,
+      "n_total": null,
+      "notes": "",
+      "period": "Feb 3-7, 2016",
+      "year": 2016
+    },
+    "gallup_us_2017-02-01": {
+      "field_end": "2017-02-05",
+      "field_start": "2017-02-01",
+      "n_item": null,
+      "n_total": null,
+      "notes": "",
+      "period": "Feb 1-5, 2017",
+      "year": 2017
+    },
+    "gallup_us_2018-02-01": {
+      "field_end": "2018-02-10",
+      "field_start": "2018-02-01",
+      "n_item": null,
+      "n_total": null,
+      "notes": "",
+      "period": "Feb 1-10, 2018",
+      "year": 2018
+    },
+    "gallup_us_2019-02-01": {
+      "field_end": "2019-02-10",
+      "field_start": "2019-02-01",
+      "n_item": null,
+      "n_total": null,
+      "notes": "",
+      "period": "Feb 1-10, 2019",
+      "year": 2019
+    },
+    "gallup_us_2020-02-03": {
+      "field_end": "2020-02-16",
+      "field_start": "2020-02-03",
+      "n_item": null,
+      "n_total": null,
+      "notes": "",
+      "period": "Feb 3-16, 2020",
+      "year": 2020
+    },
+    "gallup_us_2021-02-03": {
+      "field_end": "2021-02-18",
+      "field_start": "2021-02-03",
+      "n_item": null,
+      "n_total": null,
+      "notes": "",
+      "period": "Feb 3-18, 2021",
+      "year": 2021
+    },
+    "gallup_us_2022-02-01": {
+      "field_end": "2022-02-17",
+      "field_start": "2022-02-01",
+      "n_item": null,
+      "n_total": null,
+      "notes": "",
+      "period": "Feb 1-17, 2022",
+      "year": 2022
+    },
+    "gallup_us_2023-02-01": {
+      "field_end": "2023-02-23",
+      "field_start": "2023-02-01",
+      "n_item": null,
+      "n_total": null,
+      "notes": "",
+      "period": "Feb 1-23, 2023",
+      "year": 2023
+    },
+    "gallup_us_2024-02-01": {
+      "field_end": "2024-02-20",
+      "field_start": "2024-02-01",
+      "n_item": null,
+      "n_total": null,
+      "notes": "",
+      "period": "Feb 1-20, 2024",
+      "year": 2024
+    },
+    "gallup_us_2025-02-03": {
+      "field_end": "2025-02-16",
+      "field_start": "2025-02-03",
+      "n_item": null,
+      "n_total": null,
+      "notes": "",
+      "period": "Feb 3-16, 2025",
+      "year": 2025
+    },
+    "gallup_us_2026-02-02": {
+      "field_end": "2026-02-16",
+      "field_start": "2026-02-02",
+      "n_item": null,
+      "n_total": 1001,
+      "notes": "Full n=1,001; country items approximately 800, so no exact item base is inferred.",
+      "period": "Feb 2-16, 2026",
+      "year": 2026
+    },
     "pew_atp_2020": {
       "field_end": null,
       "field_start": null,
@@ -1219,6 +2418,51 @@
       "period": "Spring 2026",
       "year": 2026
     },
+    "pew_china_2005": {
+      "field_end": "2005-05-31",
+      "field_start": "2005-05-21",
+      "n_item": null,
+      "n_total": 2191,
+      "notes": "Ages 18-60; Beijing, Chengdu, Guangzhou, Shanghai, Shenyang and Wuhan and surrounding rural areas. Disproportionately urban, not nationally representative. Full survey sample; an exact question-specific base is not supplied.",
+      "period": "May 21-31, 2005",
+      "year": 2005
+    },
+    "pew_china_2006": {
+      "field_end": "2006-04-18",
+      "field_start": "2006-04-07",
+      "n_item": null,
+      "n_total": 2180,
+      "notes": "Ages 18-60; Shanghai, Beijing, Guangzhou, Xinxiang, Jinzhong and Luzhou and surrounding rural areas. Disproportionately urban, not nationally representative. Full survey sample; an exact question-specific base is not supplied.",
+      "period": "April 7-18, 2006",
+      "year": 2006
+    },
+    "pew_china_2007": {
+      "field_end": null,
+      "field_start": null,
+      "n_item": null,
+      "n_total": null,
+      "notes": "The retrospective figure does not give historical field dates or subgroup sample sizes.",
+      "period": "Spring 2007",
+      "year": 2007
+    },
+    "pew_china_2008": {
+      "field_end": null,
+      "field_start": null,
+      "n_item": null,
+      "n_total": null,
+      "notes": "The retrospective figure does not give historical field dates or subgroup sample sizes.",
+      "period": "Spring 2008",
+      "year": 2008
+    },
+    "pew_china_2009": {
+      "field_end": null,
+      "field_start": null,
+      "n_item": null,
+      "n_total": null,
+      "notes": "The retrospective figure does not give historical field dates or subgroup sample sizes.",
+      "period": "Spring 2009",
+      "year": 2009
+    },
     "pew_china_2010": {
       "field_end": null,
       "field_start": null,
@@ -1281,6 +2525,51 @@
       "notes": "The retrospective figure does not give historical field dates or subgroup sample sizes.",
       "period": "Spring 2016",
       "year": 2016
+    },
+    "pew_phone_2005": {
+      "field_end": null,
+      "field_start": null,
+      "n_item": null,
+      "n_total": null,
+      "notes": "",
+      "period": "Spring 2005",
+      "year": 2005
+    },
+    "pew_phone_2006": {
+      "field_end": null,
+      "field_start": null,
+      "n_item": null,
+      "n_total": null,
+      "notes": "",
+      "period": "Spring 2006",
+      "year": 2006
+    },
+    "pew_phone_2007": {
+      "field_end": null,
+      "field_start": null,
+      "n_item": null,
+      "n_total": null,
+      "notes": "",
+      "period": "Spring 2007",
+      "year": 2007
+    },
+    "pew_phone_2008": {
+      "field_end": null,
+      "field_start": null,
+      "n_item": null,
+      "n_total": null,
+      "notes": "",
+      "period": "Spring 2008",
+      "year": 2008
+    },
+    "pew_phone_2009": {
+      "field_end": null,
+      "field_start": null,
+      "n_item": null,
+      "n_total": null,
+      "notes": "",
+      "period": "Spring 2009",
+      "year": 2009
     },
     "pew_phone_2010": {
       "field_end": null,
