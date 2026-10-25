@@ -33,6 +33,10 @@ HKTDC = "https://research.hktdc.com/en/article/MzIwNjY2NTgx"
 CAU_HISTORY = "https://libwx.cau.edu.cn/oldweb/gxyxkfz/gqyd/12_qw.pdf"
 NCES_CREDIT = "https://nces.ed.gov/pubs2010/2010028.pdf"
 EDUCATIONUSA_2021 = "https://educationusa.state.gov/sites/default/files/educationusa/2021_EAP_COMBINED_SMFF.pdf"
+UIS_GED_2010 = (
+    "https://forschungsnetzwerk.ams.at/dam/jcr%3Aeb9fabb4-ded0-423d-8d63-1f242fed24f5/"
+    "Education%20data%202010.pdf")
+UIS_GED_2010_SHA256 = "a7b62067a359731688e0b6e03a7ef0a12556f2dd78b6140ad8b81fa8b1e8fe62"
 ERIC_HISTORY_REPORTS = {
     2001: ("ED661491", "a4200bb40b8eae452c60c32a2ed93e0c8b7634edfb8fca8e880834aaf989d569"),
     2003: ("ED661496", "46e102a1dbcbc72363033d90afa9a1707518358013b4906a698c4aeef902a3c3"),
@@ -235,6 +239,54 @@ def government_credit_history(client, prior):
     if key(row) in existing and existing[key(row)]["value"] != value:
         raise ValueError("NCES credit-history backfill conflicts with a retained observation")
     existing.setdefault(key(row), row)
+    return validate(list(existing.values()))
+
+
+def parse_uis_digest(plain):
+    compact = " ".join(plain.split())
+    if (not re.search(r"International\s+flows\s+of\s+mobile\s+students\s*/\s*2008\b", compact)
+            or "Top five destinations (host countries)" not in compact):
+        raise ValueError("UIS historical mobility table or reporting year changed")
+    values = {}
+    for label, geo in (("China", "CHN"), ("Hong Kong SAR of China", "HKG"), ("Macao, China", "MAC")):
+        selected = [" ".join(line.split()) for line in plain.splitlines()
+                    if line.strip().startswith(label + " ")]
+        if len(selected) != 1:
+            raise ValueError("UIS historical country row missing or ambiguous: " + label)
+        matches = re.findall(r"\bU\.S\.A\.\s+\((\d+(?:,\d{3})*)\)(?=,\s|$)", selected[0])
+        if len(matches) != 1:
+            raise ValueError("UIS exact U.S. destination count or unshifted year missing: " + label)
+        values[geo] = int(matches[0].replace(",", ""))
+    return values
+
+
+def uis_degree_history(client, prior):
+    body, asset = client.get(UIS_GED_2010)
+    if asset["sha256"] != UIS_GED_2010_SHA256:
+        raise ValueError("Reviewed UIS historical digest changed")
+    reader = PdfReader(io.BytesIO(body))
+    values = parse_uis_digest(reader.pages[7].extract_text() + "\n" + reader.pages[176].extract_text())
+    existing = {key(r): r for r in prior}
+    for geo, value in values.items():
+        base = next(r for r in prior if r["source_id"] == "uis" and r["origin"] == geo
+                    and r["destination"] == "USA" and r["measure"] == "degree_students"
+                    and r["year"] == 2023)
+        row = observation(
+            "uis", geo, "USA", "degree_students", 2008, value,
+            base["definition"] + "; historical ISCED 1997 levels 5 and 6",
+            period_basis="reporting", comparability="uis:degree_students:legacy-isced97",
+            notes="UNESCO Global Education Digest 2010, table 10, printed/PDF page 177; "
+            "original report publicly republished by Austria's Public Employment Service (AMS). "
+            "The table caption and contents identify reporting year 2008. Exact country-specific "
+            "U.S. destination count in brackets, not the worldwide outbound total or all-origin "
+            "host total. The U.S. cells carry no reference-year offset. Historical ISCED 1997 "
+            "levels 5/6 retain a separate comparison identity: cross-definition growth against "
+            "the current UIS release is not assumed. No within-year reference dates invented. "
+            "Only selected numerical facts are retained; the original report is not redistributed.")
+        row = attach([row], asset, "UIS Global Education Digest 2010; table 10; reporting year 2008")[0]
+        if key(row) in existing and existing[key(row)]["value"] != value:
+            raise ValueError("UIS historical fact conflicts with a retained observation")
+        existing.setdefault(key(row), row)
     return validate(list(existing.values()))
 
 

@@ -6,12 +6,67 @@ import pytest
 from us_china_exchange.contact_backfill import (
     parse_cau_history, parse_educationusa_levels, parse_eric_academic_levels,
     parse_eric_country_history, parse_eric_legacy_levels, parse_hktdc, parse_nces, parse_nces_credit,
+    parse_uis_digest,
 )
 from us_china_exchange.sources import SOURCE_POLICIES
 from us_china_exchange.model import change
 
 
 ROOT = Path(__file__).resolve().parents[1]
+
+
+UIS_DIGEST = (
+    "International flows of mobile students / 2008\n"
+    "Top five destinations (host countries)\n"
+    "China 441,186 1.7 0.4 U.S.A. (110,246), Japan (77,916) 51,038 -390,148 -1.5\n"
+    "Hong Kong SAR of China 33,107 20.7 -1 7.3 Australia (13,334), U.S.A. (8,295), Canada (1,110) -2\n"
+    "Macao, China 1,324 5.2 2.9 Australia (566), U.S.A. (421), U.K. (165) 12,648 11,324 44.6\n")
+
+
+def test_uis_digest_selects_bilateral_counts_not_worldwide_totals_or_neighbouring_destinations():
+    assert parse_uis_digest(UIS_DIGEST) == {"CHN": 110246, "HKG": 8295, "MAC": 421}
+    for invalid in (
+            UIS_DIGEST.replace("/ 2008", "/ 2009"),
+            UIS_DIGEST.replace("U.S.A. (421)", "U.S.A. (421) -1"),
+            UIS_DIGEST.replace("U.S.A. (8,295)", "U.S.A. (...)"),
+            UIS_DIGEST.replace("Macao, China", "Unspecified origin"),
+            UIS_DIGEST + UIS_DIGEST.splitlines()[-1] + "\n"):
+        with pytest.raises(ValueError):
+            parse_uis_digest(invalid)
+
+
+def test_uis_digest_backfill_preserves_existing_rows_and_a_separate_legacy_comparison(monkeypatch):
+    from types import SimpleNamespace
+    from us_china_exchange import contact_backfill
+    from us_china_exchange.model import key
+
+    pages = [SimpleNamespace(extract_text=lambda: "") for _ in range(177)]
+    pages[7] = SimpleNamespace(extract_text=lambda: UIS_DIGEST.splitlines()[0])
+    pages[176] = SimpleNamespace(extract_text=lambda: "\n".join(UIS_DIGEST.splitlines()[1:]))
+    monkeypatch.setattr(contact_backfill, "PdfReader", lambda _: SimpleNamespace(pages=pages))
+    asset = {"url": contact_backfill.UIS_GED_2010, "sha256": contact_backfill.UIS_GED_2010_SHA256,
+             "retrieved_at": "2026-10-25T00:47:44+00:00"}
+    client = SimpleNamespace(get=lambda _: (b"mocked PDF", asset))
+    prior = [r for r in json.loads((ROOT / "data/site/observations.json").read_text())
+             if not (r["source_id"] == "uis" and r["destination"] == "USA" and r["year"] == 2008)]
+    result = contact_backfill.uis_degree_history(client, prior)
+    before, after = {key(r): r for r in prior}, {key(r): r for r in result}
+    assert len(after) == len(before) + 3
+    assert all(after[k] == r for k, r in before.items())
+    additions = [r for k, r in after.items() if k not in before]
+    assert {(r["origin"], r["destination"], r["year"], r["value"]) for r in additions} == {
+        ("CHN", "USA", 2008, 110246), ("HKG", "USA", 2008, 8295), ("MAC", "USA", 2008, 421)}
+    current = next(r for r in prior if r["source_id"] == "uis" and r["origin"] == "CHN"
+                   and r["destination"] == "USA" and r["year"] == 2020)
+    assert all(r["period_basis"] == "reporting" and r["period_start"] is None and r["period_end"] is None
+               and change(r, current)["percent"] is None for r in additions)
+    assert contact_backfill.uis_degree_history(client, result) == result
+    additions[0]["value"] += 1
+    with pytest.raises(ValueError, match="conflicts"):
+        contact_backfill.uis_degree_history(client, result)
+    asset["sha256"] = "unreviewed"
+    with pytest.raises(ValueError, match="digest changed"):
+        contact_backfill.uis_degree_history(client, prior)
 
 
 def test_government_student_columns_are_counts_and_academic_ending_years():
