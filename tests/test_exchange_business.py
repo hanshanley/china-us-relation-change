@@ -741,6 +741,28 @@ def test_danish_chart_keeps_national_resident_parent_scope_and_all_years():
         validate_business_data(wrong)
 
 
+@pytest.mark.parametrize("chart,axis_labels", [
+    ("spain-affiliates-china", ["0", "75", "150"]),
+    ("italy-affiliates-china", ["0", "750", "1.5k"]),
+])
+def test_static_annual_count_axis_uses_house_headroom_without_changing_points(chart, axis_labels):
+    data = published()
+    expected = chart_groups(data, chart)[0]["points"]
+    for theme in CHART_THEMES:
+        svg = ElementTree.fromstring(svg_business_chart(data, chart, theme))
+        labels = [node.text for node in svg.iter()
+                  if node.get("x") == "100" and node.get("text-anchor") == "end"]
+        assert labels == axis_labels
+        columns = [node for node in svg.iter() if node.get("class") == "annual-column"]
+        points = [node for node in svg.iter() if node.get("class") == "business-point"]
+        assert [(int(node.get("data-year")), float(node.get("data-reported-value")),
+                 node.get("data-status")) for node in points] == [
+                     (point["year"], point["value"], point["status"]) for point in expected]
+        assert len(columns) == len(expected)
+        assert all(float(node.get("y")) + float(node.get("height")) == pytest.approx(420)
+                   for node in columns)
+
+
 def test_finnish_eurostat_refresh_preserves_national_population_and_explicit_yty_break():
     spec = importlib.util.spec_from_file_location("finnish_business_collector", ROOT / "scripts/build_business_data.py")
     module = importlib.util.module_from_spec(spec)
