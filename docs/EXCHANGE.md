@@ -714,7 +714,7 @@ source notes and figure footnotes; publication backgrounds do not grant rights.
 
 Open `site/business-presence.html`. Investment positions, reverse-direction
 U.S. affiliate counts and company surveys remain distinct from foreign
-business counts in China. The new Swedish, Finnish and French histories
+business counts in China. The new Swedish, Finnish, French and Dutch histories
 are separate annual bar panels, with their actual reporting windows.
 Earlier U.S., German and Norwegian count histories are explicitly labelled
 secondary references in a closed disclosure, not newly recovered current
@@ -729,6 +729,7 @@ evidence. Stale EU/UK and parent-company benchmarks stay download-only.
 | Swedish-group subsidiaries | Fifteen reported2010-2024 counts, ending885;2000-2009 remain explicitly missing. Subsidiary variable2 is not the longer parent-group variable0. The 2018 EGR/imputation,2019 frame and2021 ownership changes remain separate. |
 | Finnish-reported affiliates | All five2020-2024 country counts, ending242. Active subsidiaries and branches, all sizes/industries. The 2021 EBS boundary remains explicit; no earlier China count is inferred from regional aggregates. |
 | French-controlled enterprises | Sixteen reported2007-2023 counts and one missing2008 cell, ending2153. Eurostat's host category is China except Hong Kong. The 2007/2009,2010,2016 and2021 boundaries are not spliced or used for cross-regime growth. INSEE's rounded count remains a separate source finding. |
+| Dutch-controlled enterprises | Eighteen reported2007-2024 counts;2024=620 is provisional. Eurostat's seventeen earlier observations match original native TSVs; CBS's2023 control574 agrees. Dutch-resident UCI, financial/nonfinancial B-S except O. Preserve the2010 classification and2021 method boundaries; no comparable2019 change, pre-2007 history or2025 count is inferred. |
 | Supplementary U.S. parent-company benchmarks | Only 2004,2009,2014 and2019 are verified and remain archive-only, not an annual census. Foreign-affiliate ownership begins at10%, not necessarily majority control; reporting exclusions apply. No interpolation. |
 
 The U.S. affiliate reporting cutoff changes from $7 million through 2003 to

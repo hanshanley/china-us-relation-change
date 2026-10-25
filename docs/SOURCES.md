@@ -159,7 +159,7 @@ institution-level workbook, report artwork or exam questions are redistributed.
 
 ## Business-presence sources
 
-`data/site/business_presence.json` retains all 156 China-hosted observations, including
+`data/site/business_presence.json` retains all 174 China-hosted observations, including
 explicit confidential/unavailable cells, series definitions, source URLs,
 selected table members, retrieval timestamps and SHA-256 checksums.
 
@@ -181,6 +181,7 @@ selected table members, retrieval timestamps and SHA-256 checksums.
 | [Swedish country database](https://statistik.tillvaxtanalys.se/PxWeb/pxweb/sv/) | `Etableringsland=cn`, `variabel=2` (subsidiaries), not `0` (parent groups). Fifteen reported 2010-2024 counts; ten 2000-2009 cells remain null. Swedish-headed groups, subsidiaries under >50% ownership or dominant influence; all industries. Preserve 2018 EGR/imputation, 2019 frame-repair and 2021 ownership-concept boundaries. The 2024 quality declaration is checksum-pinned; the API's year9999 timestamp is not a release. |
 | [Statistics Finland table13k8](https://pxdata.stat.fi/PxWeb/pxweb/en/StatFin/StatFin__stu/13k8.px/) | Country156=China, `ofats_count`, 2020-2024:250/249/256/239/242. Active affiliates and branches controlled by Finland-resident enterprises, all size classes/industries; financial years ending within the reference calendar year. Hong Kong/Macao remain separately coded. Preserve the 2021 EBS boundary; older regional aggregates are not allocated to China. |
 | Eurostat French country history, `geo=FR`, `partner=CN_X_HK` | Seventeen 2007-2023 cells, including unreported2008; latest2153. `fats_out2`/NACE C-O except L before2010, `fats_out2_r2`/B-S except O for2010-2020, `fats_out_part`/`ENT_NR` from2021. Retain the 2007 pilot/2009 frame, 2010 NACE, 2016 `b` flag and 2021 EBS boundaries. The host category is explicitly China except Hong Kong. Not a splice to INSEE's rounded, differently scoped2.8-thousand count. |
+| Eurostat Dutch country history, `geo=NL`, `partner=CN_X_HK`; [CBS Nederland Handelsland2026, figure5.4.1](https://longreads.cbs.nl/nederland-handelsland-2026/buitenlandse-investeringen-en-multinationals/); [CBS OFATS methods](https://www.cbs.nl/nl-nl/onze-diensten/methoden/onderzoeksomschrijvingen/korte-onderzoeksbeschrijvingen/outward-fats-statistiek-over-nederlandse-zeggenschappen-over-buitenlandse-bedrijven) | Seventeen Eurostat enterprise counts2007-2023 independently match native TSV exports. The original CBS HTML outward table, not the inward China row or digitized PDF, reports2024*=620 and2023=574;2023 reconciles. Star means provisional, and the reference year is2024, not the2026 publication. Dutch-resident UCI; financial/nonfinancial B-S except O with nonresponse weighting. Keep2010 NACE and2021 methodology boundaries; do not compare2024 with2019 across that break or add Netherlands to its overlapping EU aggregate. |
 
 Raw source archives, workbooks, publication text and artwork remain local.
 Only numerical aggregates, original definitions and our figures are published.

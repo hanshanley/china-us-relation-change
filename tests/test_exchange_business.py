@@ -335,9 +335,18 @@ def test_selective_country_refreshes_preserve_coverage_order_across_modes(monkey
 
     monkeypatch.setattr(module, "nordic_affiliates", lambda client: selected(("tillvaxtanalys_", "statfin_")))
     monkeypatch.setattr(module, "french_affiliates", lambda client: selected(("eurostat_france:",)))
+    monkeypatch.setattr(module, "netherlands_affiliates", lambda client: selected(("eurostat_netherlands:",)))
     assert module.collect_nordic(None, prior) == prior
     assert module.collect_france(None, prior) == prior
-    assert module.collect_france(None, module.collect_nordic(None, prior)) == prior
+    assert module.collect_netherlands(None, prior) == prior
+    for collectors in (
+        (module.collect_netherlands, module.collect_nordic, module.collect_france),
+        (module.collect_france, module.collect_nordic, module.collect_netherlands),
+    ):
+        refreshed = prior
+        for collector in collectors:
+            refreshed = collector(None, refreshed)
+            assert refreshed == prior
 
 
 def test_ons_parser_uses_enterprises_not_employment_and_verifies_year():
