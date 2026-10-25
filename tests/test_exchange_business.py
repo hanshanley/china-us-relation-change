@@ -60,7 +60,7 @@ def test_distinct_parent_and_affiliate_checkpoints_remain_different_units():
         ("tillvaxtanalys_", "statfin_", "eurostat_france:", "eurostat_netherlands:", "eurostat_finland:",
          "eurostat_italy", "eurostat_sweden:", "eurostat_spain:", "dst_denmark:", "eurostat_austria", "eurostat_poland:",
          "eurostat_portugal", "eurostat_czechia:", "eurostat_belgium",
-         "snb_swiss_liechtenstein:", "ine_spain"))]) == 119
+         "snb_swiss_liechtenstein:", "ine_spain", "bsi_slovenia:", "eurostat_slovenia:"))]) == 119
     assert rows[("ssb_norway:china", 2023)]["value"] == 89
     assert rows[("ssb_norway:china", 2024)]["value"] == 80
 
@@ -75,7 +75,8 @@ def test_default_business_refresh_preserves_reviewed_context_coverage_and_unretu
     complete = published()
     prior = copy.deepcopy(complete)
     if new_populations:
-        removed = {"snb_swiss_liechtenstein:china", "ine_spain:china", "ine_spain_units:china"}
+        removed = {"snb_swiss_liechtenstein:china", "ine_spain:china", "ine_spain_units:china",
+                   "bsi_slovenia:china", "eurostat_slovenia:china"}
         prior["series"] = {key: value for key, value in prior["series"].items() if key not in removed}
         prior["observations"] = [row for row in prior["observations"] if row["series_id"] not in removed]
         prior["coverage"] = [row for row in prior["coverage"] if row["id"] not in removed]
@@ -744,6 +745,7 @@ def test_selective_country_refreshes_preserve_coverage_order_across_modes(monkey
     monkeypatch.setattr(module, "czech_affiliates", lambda client: selected(("eurostat_czechia:",)))
     monkeypatch.setattr(module, "belgian_affiliates", lambda client: selected(("eurostat_belgium",)))
     monkeypatch.setattr(module, "snb_affiliates", lambda client: selected(("snb_swiss_liechtenstein:",)))
+    monkeypatch.setattr(module, "slovenian_affiliates", lambda client: selected(("bsi_slovenia:", "eurostat_slovenia:")))
     assert module.collect_nordic(None, prior) == prior
     assert module.collect_france(None, prior) == prior
     assert module.collect_netherlands(None, prior) == prior
@@ -759,15 +761,18 @@ def test_selective_country_refreshes_preserve_coverage_order_across_modes(monkey
     assert module.collect_czechia(None, prior) == prior
     assert module.collect_belgium(None, prior) == prior
     assert module.collect_swiss_reporting_area(None, prior) == prior
+    assert module.collect_slovenia(None, prior) == prior
     for collectors in (
         (module.collect_uk_history, module.collect_netherlands, module.collect_nordic, module.collect_france,
          module.collect_finland_history, module.collect_sweden_history, module.collect_spain, module.collect_denmark,
          module.collect_italy, module.collect_austria, module.collect_poland,
-         module.collect_portugal, module.collect_czechia, module.collect_belgium, module.collect_swiss_reporting_area),
+         module.collect_portugal, module.collect_czechia, module.collect_belgium, module.collect_swiss_reporting_area,
+         module.collect_slovenia),
         (module.collect_swiss_reporting_area, module.collect_belgium, module.collect_czechia, module.collect_portugal, module.collect_poland,
          module.collect_austria, module.collect_italy, module.collect_denmark, module.collect_spain,
          module.collect_sweden_history, module.collect_finland_history,
-         module.collect_france, module.collect_nordic, module.collect_netherlands, module.collect_uk_history),
+         module.collect_france, module.collect_nordic, module.collect_netherlands, module.collect_uk_history,
+         module.collect_slovenia),
     ):
         refreshed = prior
         for collector in collectors:
@@ -1331,6 +1336,133 @@ def snb_native_fixture(data):
     return stream.getvalue().encode()
 
 
+def slovenia_fixture(overrides=None):
+    from us_china_exchange import business_sources as module
+
+    overrides = overrides or {}
+    counts = dict(zip(range(2009, 2026), (7, 5, 6, 7, 7, 7, 7, 7, 8, 20, 12, 12, 11, 13, 13, 9, 11)))
+    countries = ["Total world (W1)", "China (CN)"] + [f"Other country {i}" for i in range(55)]
+    quoted = lambda values: ",".join(json.dumps(value) for value in values)
+    header = (
+        'CODEPAGE="utf-8";\nMATRIX="6";\nSUBJECT-AREA="EOT_OFATS";\nUNITS="number";\n'
+        'TITLE="Foreign companies ultimately controled by Slovenian companies";\n'
+        'STUB="Date","Breakdown","Code of breakdown";\nHEADING="Items";\n'
+        'LAST-UPDATED="20260907 09:42";\n'
+        'NOTEX="reporters interest exceeds 50%; In 2017 reporting threshold EUR 2 million; '
+        'in 2023 reporting threshold was set at EUR 5 million";\n')
+    for name, values in (("Date", [str(year) for year in counts]), ("Breakdown", ["Countries"]),
+                         ("Code of breakdown", countries),
+                         ("Items", ["Number of enterprises*", "Number of persons employed"])):
+        header += f'VALUES("{name}")={quoted(values)};\n'
+    cells = []
+    for year in counts:
+        for country in countries:
+            cells.append(str(overrides.get(year, counts[year])) + " 123" if country == "China (CN)" else "1 2.25")
+    native = (header + "DATA=\n" + "\n".join(cells) + ";\n").encode()
+    bodies = {module.SLOVENIA_COUNTS: native, module.SLOVENIA_METHODS: b"Reviewed national methods",
+              module.SLOVENIA_REPORT: b"%PDF Reviewed current report"}
+    hashes = {"national": hashlib.sha256(native).hexdigest(),
+              "methods": hashlib.sha256(bodies[module.SLOVENIA_METHODS]).hexdigest(),
+              "report": hashlib.sha256(bodies[module.SLOVENIA_REPORT]).hexdigest()}
+    for dataset, years, activity, indicator in (
+            ("fats_out2", range(2007, 2010), ("nace_r1", "C-O_X_L"), ("indic_bp", "ENT")),
+            ("fats_out2_r2", range(2010, 2021), ("nace_r2", "B-S_X_O"), ("indic_bp", "ENT")),
+            ("fats_out_part", range(2021, 2024), ("nace_r2", "B-S_X_O"), ("indic_sbs", "ENT_NR"))):
+        codes = {"freq": "A", activity[0]: activity[1], indicator[0]: indicator[1], "partner": "CN_X_HK", "geo": "SI"}
+        values = [4 if year == 2007 else 6 if year == 2008 else None if year == 2009 else counts[year] for year in years]
+        flags = {str(i): "|C" if year == 2009 else "b" for i, year in enumerate(years) if year in {2009, 2017}}
+        data = {"id": list(codes) + ["time"], "size": [1] * 5 + [len(years)],
+                "dimension": {name: {"category": {"index": {code: 0}}} for name, code in codes.items()},
+                "extension": {"id": dataset}, "value": {str(i): value for i, value in enumerate(values) if value is not None},
+                "status": flags, "updated": "2026-03-31"}
+        data["dimension"]["time"] = {"category": {"index": {str(year): i for i, year in enumerate(years)}}}
+        url = module.EUROSTAT + dataset + "?lang=EN&freq=A&geo=SI&partner=CN_X_HK&" + "=".join(indicator) + "&" + "=".join(activity)
+        body = json.dumps(data).encode()
+        bodies[url], hashes[dataset] = body, hashlib.sha256(body).hexdigest()
+        key = ".".join(codes.values())
+        native_url = "https://ec.europa.eu/eurostat/api/dissemination/sdmx/2.1/data/" + dataset + "/" + key + "?format=TSV&compressed=false"
+        cells = [": @C" if value is None else str(value) + (" b" if year == 2017 else "") for year, value in zip(years, values)]
+        tsv = (",".join(codes) + "\\TIME_PERIOD\t" + "\t".join(map(str, years)) + "\n"
+               + ",".join(codes.values()) + "\t" + "\t".join(cells) + "\n").encode()
+        bodies[native_url], hashes[dataset + "-native"] = tsv, hashlib.sha256(tsv).hexdigest()
+    return bodies, hashes
+
+
+def test_slovenia_national_parser_preserves_full_query_precision_and_masks_without_unit_substitution():
+    from us_china_exchange import business_sources as module
+
+    bodies, _ = slovenia_fixture()
+    body = bodies[module.SLOVENIA_COUNTS]
+    points = module.parse_slovenia_national(body)
+    assert [point[0] for point in points] == list(range(2009, 2026))
+    assert [point[1] for point in points][-2:] == [9, 11]
+    assert points[2019 - 2009][4] != points[2025 - 2009][4]
+    masked, _ = slovenia_fixture({2009: '"..."'})
+    assert module.parse_slovenia_national(masked[module.SLOVENIA_COUNTS])[0][1:4] == (None, "missing", '"..."')
+    for old, new in ((b'UNITS="number"', b'UNITS="EUR"'),
+                     (b'"China (CN)"', b'"Hong Kong (HK)"'),
+                     (b'"Number of enterprises*"', b'"Employees"'),
+                     (b'"2025"', b'"2026"'), (b"EUR 5 million", b"EUR 2 million")):
+        with pytest.raises(ValueError):
+            module.parse_slovenia_national(body.replace(old, new))
+    for count in (-1, 1.5):
+        changed, _ = slovenia_fixture({2025: count})
+        with pytest.raises(ValueError, match="Slovenian"):
+            module.parse_slovenia_national(changed[module.SLOVENIA_COUNTS])
+
+
+def test_slovenia_refresh_preserves_other_populations_and_rejects_changed_originals(monkeypatch):
+    from us_china_exchange import business_sources as sources
+
+    spec = importlib.util.spec_from_file_location("slovenia_collector", ROOT / "scripts/build_business_data.py")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    bodies, hashes = slovenia_fixture()
+    monkeypatch.setattr(sources, "SLOVENIA_REVIEWED_ASSETS", hashes)
+
+    class Client:
+        def get(self, url):
+            body = bodies[url]
+            return body, dict(url=url, request_url=url, sha256=hashlib.sha256(body).hexdigest(),
+                              retrieved_at="2026-10-25T00:00:00+00:00")
+
+    prior, before = published(), copy.deepcopy(published())
+    result = validate_business_data(module.collect_slovenia(Client(), prior))
+    assert prior == before
+    selected = {"bsi_slovenia:china", "eurostat_slovenia:china"}
+    assert [row for row in result["observations"] if row["series_id"] not in selected] == [
+        row for row in prior["observations"] if row["series_id"] not in selected]
+    assert len([row for row in result["observations"] if row["series_id"] in selected]) == 34
+    assert next(row for row in result["observations"] if row["series_id"] == "eurostat_slovenia:china" and row["year"] == 2009)["value"] is None
+    assert module.collect_slovenia(Client(), result) == result
+    bodies[sources.SLOVENIA_COUNTS] += b"\nChanged original"
+    with pytest.raises(ValueError, match="source asset"):
+        module.collect_slovenia(Client(), prior)
+
+
+def test_slovenia_chart_keeps_national_thresholds_and_archive_confidentiality_separate():
+    data = validate_business_data(published())
+    groups = chart_groups(data, "slovenia-affiliates-china")
+    assert len(groups) == 1 and groups[0]["id"] == "bsi_slovenia:china"
+    assert [point["year"] for point in groups[0]["points"]] == list(range(2009, 2026))
+    assert [point["value"] for point in groups[0]["points"]][-2:] == [9, 11]
+    assert all(point["denominator"] is None for point in groups[0]["points"])
+    for theme in CHART_THEMES:
+        svg = ElementTree.fromstring(svg_business_chart(data, "slovenia-affiliates-china", theme))
+        bars = [node for node in svg.iter() if node.tag.endswith("rect") and node.get("data-year")]
+        assert [int(node.get("data-year")) for node in bars] == list(range(2009, 2026))
+    wrong = copy.deepcopy(data)
+    point = next(row for row in wrong["observations"] if row["series_id"] == "bsi_slovenia:china" and row["year"] == 2025)
+    point["comparability"] = "bsi:SN11:CN:EUR2m2017:levels-only"
+    with pytest.raises(ValueError, match="threshold"):
+        validate_business_data(wrong)
+    wrong = copy.deepcopy(data)
+    point = next(row for row in wrong["observations"] if row["series_id"] == "eurostat_slovenia:china" and row["year"] == 2009)
+    point.update(value=0, status="observed")
+    with pytest.raises(ValueError, match="confidentiality"):
+        validate_business_data(wrong)
+
+
 def snb_fixture():
     from us_china_exchange import business_sources as module
 
@@ -1761,7 +1893,7 @@ def test_complete_business_downloads_exact_points_backgrounds_and_stale_cleanup(
         (base / "substack").mkdir(parents=True)
         for chart_id in RETIRED_CHARTS:
             (base / "substack" / (chart_id + ".svg")).write_text("Obsolete wrong-destination chart")
-    assert build_business(tmp_path, data, defaultdict(list)) == 22
+    assert build_business(tmp_path, data, defaultdict(list)) == 23
     assert not any((tmp_path / "outputs/figures/business_presence/substack" / (cid + ".svg")).exists()
                    for cid in RETIRED_CHARTS)
     assert json.loads((tmp_path / "site/downloads/business-presence.json").read_text()) == data
@@ -1800,7 +1932,7 @@ def test_complete_business_downloads_exact_points_backgrounds_and_stale_cleanup(
     assert "different counting units" in page.header.text
     assert "EU27" in page.header.text and "not matched" in page.header.text
     table = page.select("#annual-values tbody tr")
-    assert len(table) == 25 and table[0].th.text == "2000" and table[-1].th.text == "2024"
+    assert len(table) == 26 and table[0].th.text == "2000" and table[-1].th.text == "2025"
     assert page.select_one("#business-benchmark-background").get("open") is None
     assert page.select_one("#" + BENCHMARK_CHART).find_parent("details")["id"] == "business-benchmark-background"
     assert not page.select('#us-affiliates-europe,#us-affiliates-index,#us-parent-companies')
@@ -1828,7 +1960,7 @@ def test_invalid_business_input_is_rejected_before_writes_and_deleted_input_with
     with pytest.raises(ValueError, match="current business evidence"):
         build(tmp_path)
     (path / "business_current.json").write_text((ROOT / "data/site/business_current.json").read_text())
-    assert build(tmp_path)["business_charts"] == 23
+    assert build(tmp_path)["business_charts"] == 24
     page = BeautifulSoup((tmp_path / "site/business-presence.html").read_text(), "html.parser")
     assert not page.select('a[href="language-learning.html"]')
     frozen.unlink()
@@ -1848,10 +1980,10 @@ def test_publication_is_business_only_with_complete_data_original_downloads_and_
     assert page.select_one('link[rel="canonical"]')["href"] == manifest["canonical_url"]
     assert "Interactive analysis" in page.select_one(".publication-header nav").text
     assert not page.select('a[href="language-learning.html"],iframe')
-    assert len(page.select("svg[role=img]")) == 25
+    assert len(page.select("svg[role=img]")) == 26
     assert not page.select("#business-controls,#annual-values,#module-chart,#uk-affiliates-china,#eu-affiliates-china")
-    assert len(page.select(".business-card.native-chart,.business-card .native-chart")) == 25
-    assert len(page.select(".business-count-card")) == 19
+    assert len(page.select(".business-card.native-chart,.business-card .native-chart")) == 26
+    assert len(page.select(".business-count-card")) == 20
     assert len(page.select("#business-inward-data table tbody tr")) == 25
     assert page.select_one("#business-data").get("open") is None
     assert set(p.name for p in (output / "downloads").iterdir()) == {

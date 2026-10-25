@@ -320,7 +320,7 @@ def build_current_business(root, archive, gallery):
                              "denmark-affiliates-china", "austria-affiliates-china", "poland-affiliates-china",
                              "portugal-affiliates-china", "czechia-affiliates-china",
                              "belgium-affiliates-china",
-                             "swiss-liechtenstein-affiliates-china"}:
+                             "swiss-liechtenstein-affiliates-china", "slovenia-affiliates-china"}:
             count_cards.append(str(section))
         else:
             config = COUNT_CHARTS[section["id"]]
@@ -335,7 +335,7 @@ def build_current_business(root, archive, gallery):
             reference_cards.append(str(section))
     count_section = (
         '<section class="series-panel" id="affiliate-presence"><h2>Affiliates operating in China</h2>'
-        '<p class="chart-context">Swedish/Finnish/Danish 2024, provisional Dutch 2024 and French/Spanish 2023 counts, with every reported historical year. '
+        '<p class="chart-context">Slovenian 2025, Swedish/Finnish/Danish 2024, provisional Dutch 2024 and French/Spanish 2023 counts, with every reported historical year. '
         'Separate Finnish- and Swedish-UCI Eurostat histories reach 2007; neither is spliced into the broader national counts. '
         'Italian legal-unit counts run from 2007 to 2023; newer grouped-enterprise counts remain separate in downloads. '
         'Portuguese-UCI counts start in 2008 and Czech-UCI counts in 2007; their coverage changes and confidential gaps remain explicit. '

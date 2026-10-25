@@ -112,13 +112,13 @@ def test_component_exports_complete_counts_and_current_evidence_without_stale_ch
     stale.parent.mkdir(parents=True)
     stale.write_text("Rejected stale chart")
     gallery = defaultdict(list)
-    assert business_current.build_current_business(tmp_path, archive, gallery) == 23
+    assert business_current.build_current_business(tmp_path, archive, gallery) == 24
     assert not stale.exists()
     page = BeautifulSoup((tmp_path / "site/business-presence.html").read_text(), "html.parser")
     assert not page.select("#business-controls,#annual-values,#eu-affiliates-china")
-    assert len(page.select(".business-card")) == 23
+    assert len(page.select(".business-card")) == 24
     count_cards = page.select(".business-count-card")
-    assert len(count_cards) == 19
+    assert len(count_cards) == 20
     for card in count_cards:
         figure = tmp_path / "site" / card.img["src"].replace(".png", ".svg")
         svg = BeautifulSoup(figure.read_text(), "html.parser")

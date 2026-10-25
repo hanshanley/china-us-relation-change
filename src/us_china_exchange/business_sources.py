@@ -68,6 +68,26 @@ POLAND_EUROSTAT_METHODS = "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_
 PORTUGAL_EUROSTAT_METHODS = "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_pt.htm"
 CZECHIA_EUROSTAT_METHODS = "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_cz.htm"
 BELGIUM_EUROSTAT_METHODS = "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_be.htm"
+SLOVENIA_METHODS = "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_si.htm"
+SLOVENIA_COUNTS = "https://px.bsi.si/Resources/PX/Databases/serije_ang/30_EOT/60_KAZALCI_POSLOVANJA/oc-fatse.px"
+SLOVENIA_REPORT = (
+    "https://www.bsi.si/storage/uploads/d014bd85-80f5-4790-b0f5-bc121ac89983/"
+    "Direct-Investment-2025_ENG_kon%C4%8Dna.pdf")
+SLOVENIA_REVIEWED_ASSETS = {
+    "methods": "46d5b20f023369263eeafbc673b7e6fe02a73bb9bc6e8bf781ee5e24876846fe",
+    "national": "948ec7ac5f06d7fabbf3e7c4118ebf829374404389a8ea5fb6dce4d2451f1f75",
+    "report": "a58c39f09aa1691646be4ca7d80757af82ff475a0204508f9b78de02cff2f210",
+    "fats_out2": "3c26ee99ca64a3bf045e72346893f24b3cd612f0003f3f89a71226bdf44bdb18",
+    "fats_out2-native": "db522fb5a7eccad85051dfb79a975fcb550f4859de969bc45c865f6ab9123863",
+    "fats_out2_r2": "8689db3a9bad65b9c0d3554922282d2f8929bb5e022bd0e47147308ef44a1077",
+    "fats_out2_r2-native": "53b6056073c4c3d6739ce38db8754749e8fe9e755a0f8f579e1cbd81b383bf8d",
+    "fats_out_part": "baec919b40ae4bde6046d230795294ac99c67efa56b2c4dc1ece987e6d71fed3",
+    "fats_out_part-native": "3294038e9c16fb5f03ca6fd678d59e844eb67601bd17c011253685898be201b4",
+}
+SLOVENIA_CONTEXT_NOTE = (
+    " Slovenia's national China (CN) counts and separate Eurostat China-except-Hong-Kong archive "
+    "are not spliced. Resident-reporter balance-sheet cutoffs change in 2017 and 2023; "
+    "the current national population has no comparable 2019 denominator.")
 SNB_CUBE = "opanmuausuland"
 SNB_API = "https://data.snb.ch/api/cube/" + SNB_CUBE + "/"
 SNB_METHODS = "https://data.snb.ch/de/topics/aube/doc/explanations_aube_amne"
@@ -942,6 +962,151 @@ def belgian_affiliates(client):
     return definitions, observations, sources
 
 
+def parse_slovenia_national(content):
+    text = content.decode("utf-8-sig")
+
+    def field(pattern):
+        matches = re.findall(pattern, text, re.S | re.M)
+        if len(matches) != 1:
+            raise ValueError("Slovenian national table structure changed")
+        return matches[0]
+
+    if (field(r'^CODEPAGE="([^"]+)";') != "utf-8"
+            or field(r'^MATRIX="([^"]+)";') != "6"
+            or field(r'^SUBJECT-AREA="([^"]+)";') != "EOT_OFATS"
+            or field(r'^UNITS="([^"]+)";') != "number"
+            or field(r'^STUB=(.*?);') != '"Date","Breakdown","Code of breakdown"'
+            or field(r'^HEADING=(.*?);') != '"Items"'
+            or field(r'^LAST-UPDATED="([^"]+)";') != "20260907 09:42"
+            or "ultimately controled by Slovenian companies" not in field(r'^TITLE="([^"]+)";')):
+        raise ValueError("Slovenian national identity, unit or reviewed vintage changed")
+    axes = [
+        re.findall(r'"([^"]*)"', field(r'^VALUES\("' + re.escape(name) + r'"\)=(.*?);'))
+        for name in ("Date", "Breakdown", "Code of breakdown", "Items")]
+    if (axes[0] != [str(year) for year in range(2009, 2026)] or axes[1] != ["Countries"]
+            or len(axes[2]) != 57 or len(set(axes[2])) != 57 or "China (CN)" not in axes[2]
+            or axes[3] != ["Number of enterprises*", "Number of persons employed"]):
+        raise ValueError("Slovenian national country, period or count measure changed")
+    notes = "".join(re.findall(r'"([^"]*)"', field(r'^NOTEX=((?:"[^"]*"\s*)+);')))
+    if not all(token in notes for token in (
+            "reporters interest exceeds 50%", "In 2017 reporting threshold", "EUR 2 million",
+            "in 2023 reporting threshold was set at EUR 5 million")):
+        raise ValueError("Slovenian control or reporting-threshold definitions changed")
+    tokens = re.findall(r'"[^"]*"|[^\s;]+', field(r'^DATA=(.*?);'))
+    if len(tokens) != 1938:
+        raise ValueError("Slovenian full national query is incomplete")
+    values = []
+    for token in tokens:
+        if token in {'".."', '"..."'}:
+            values.append(None)
+            continue
+        try:
+            number = Decimal(token)
+        except InvalidOperation as exc:
+            raise ValueError("Unknown Slovenian native missingness or numeric value") from exc
+        if not number.is_finite() or number < 0:
+            raise ValueError("Invalid Slovenian national value")
+        values.append(number)
+    points = []
+    for position, year in enumerate(range(2009, 2026)):
+        index = (position * 57 + axes[2].index("China (CN)")) * 2
+        value = values[index]
+        if value is not None and value != value.to_integral_value():
+            raise ValueError("Slovenian China enterprises must be integer counts")
+        phase = "pre2017" if year < 2017 else "EUR2m2017" if year < 2023 else "EUR5m2023"
+        points.append((year, None if value is None else int(value),
+                       "missing" if value is None else "observed", tokens[index], phase))
+    return points
+
+
+def slovenian_affiliates(client):
+    def fetch(name, url):
+        body, asset = client.get(url)
+        checksum = SLOVENIA_REVIEWED_ASSETS[name]
+        if (digest(body) != checksum or asset.get("sha256") != checksum
+                or asset.get("request_url") != url or asset.get("url") != url):
+            raise ValueError("Reviewed Slovenian source asset changed; review the new release first")
+        return body, asset
+
+    _, method = fetch("methods", SLOVENIA_METHODS)
+    native, national_asset = fetch("national", SLOVENIA_COUNTS)
+    _, report = fetch("report", SLOVENIA_REPORT)
+    notes = (
+        "Banka Slovenije SN11/FATS; source item Number of enterprises*. Direct/indirect control exceeds "
+        "50%, not unique Slovenian parents or all Chinese registrations. National China (CN), not a "
+        "certified CN_X_HK equivalent. Resident-reporter balance-sheet cutoff EUR2m from 2017 and EUR5m "
+        "from 2023; no comparable current 2019 change. Pre-2017 coverage is not backdated. Source "
+        "revision/estimate flags are not supplied; published counts do not establish final/census status. "
+        "Native '..' and '...' are unclassified masked values, never zero or an assumed confidentiality "
+        "reason. Other native fractional cells retain their precision. Eurostat's separate 2007-2023 "
+        "archive is downloadable, not spliced into this national series; no 2000-2008 or 2026 padding.")
+    archive_notes = (
+        "Download-only Slovenian-resident UCI enterprises/branches in China except Hong Kong. "
+        "Keep the 2010 NACE transition, 2017 source break flag and 2021 EBS dataset lineage distinct; "
+        "no unverified legal-unit conversion is invented. 2009 is confidential, not replaced by the "
+        "separate national count. Numerical overlap does not establish identical geography/populations. "
+        "Current national reporting cutoffs are not assumed historically constant; no pre-2007 count.")
+    definitions = {
+        "bsi_slovenia:china": series(
+            "Slovenia, national controlled enterprises", "controlled_enterprises", "enterprises",
+            "Slovenia-resident ultimate control; direct/indirect majority enterprises/branches; "
+            "thresholded SN11 resident balance-sheet reporting frame; national China (CN); "
+            "CN_X_HK equivalence not established", "annual", "reference year", notes),
+        "eurostat_slovenia:china": series(
+            "Slovenia, separate Eurostat archive", "controlled_enterprises", "enterprises",
+            "Slovenia-resident UCI; enterprises/branches; China except Hong Kong; legacy NACE C-O "
+            "except L then B-S except O; separate archive, not a national-series extension",
+            "annual", "reference year", archive_notes),
+    }
+    source_id = "bsi_oc_fatse_20260907"
+    sources = {source_id: source(
+        "Banka Slovenije", "Native table updated 2026-09-07 09:42; reference years 2009-2025",
+        [national_asset, method, report],
+        "oc-fatse; China (CN); Number of enterprises*; full 17x1x57x2 native query reviewed; "
+        "SN11 threshold notes and Direct Investment 2025 methods", notes)}
+    observations = [
+        row("bsi_slovenia:china", year, value, source_id, status,
+            notes + " Source count literal: " + literal + ".",
+            "bsi:SN11:CN:" + phase + ":levels-only")
+        for year, value, status, literal, phase in parse_slovenia_national(native)]
+    for dataset, indicator, activity, years in (
+            ("fats_out2", "indic_bp=ENT", "nace_r1=C-O_X_L", range(2007, 2010)),
+            ("fats_out2_r2", "indic_bp=ENT", "nace_r2=B-S_X_O", range(2010, 2021)),
+            ("fats_out_part", "indic_sbs=ENT_NR", "nace_r2=B-S_X_O", range(2021, 2024))):
+        url = EUROSTAT + dataset + "?lang=EN&freq=A&geo=SI&partner=CN_X_HK&" + indicator + "&" + activity
+        body, asset = fetch(dataset, url)
+        data = json.loads(body)
+        points = parse_eurostat(data, dataset, "SI")
+        key = ".".join(next(iter(data["dimension"][name]["category"]["index"]))
+                       for name in data["id"] if name != "time")
+        native_url = ("https://ec.europa.eu/eurostat/api/dissemination/sdmx/2.1/data/"
+                      + dataset + "/" + key + "?format=TSV&compressed=false")
+        native_body, native_asset = fetch(dataset + "-native", native_url)
+        records = list(csv.reader(io.StringIO(native_body.decode()), delimiter="\t"))
+        if (len(records) != 2 or len(records[0]) != len(points) + 1
+                or len(records[1]) != len(records[0])
+                or [point[0] for point in points] != list(years)
+                or [int(value.strip()) for value in records[0][1:]] != list(years)
+                or records[1][0].replace(",", ".") != key):
+            raise ValueError("Slovenian Eurostat native count query changed")
+        for point, cell in zip(points, records[1][1:]):
+            parts = cell.strip().split()
+            native_value = None if parts[0] == ":" else Decimal(parts[0])
+            flags = set(re.sub(r"[|@\s]", "", "".join(parts[1:])))
+            if native_value != point[1] or flags != set(re.sub(r"[|\s]", "", point[3])):
+                raise ValueError("Slovenian Eurostat count or confidentiality does not reconcile")
+        source_id = dataset + "_SI"
+        sources[source_id] = source(
+            "Eurostat / Banka Slovenije", dataset + "; Slovenia; source updated " + data["updated"],
+            [asset, native_asset, method], "geo=SI; partner=CN_X_HK; " + indicator + "; " + activity,
+            archive_notes)
+        observations.extend(row(
+            "eurostat_slovenia:china", year, value, source_id, status,
+            archive_notes + " Source flags: " + flags, comparability)
+            for year, value, status, flags, comparability in points)
+    return definitions, observations, sources
+
+
 def parse_snb_counts(metadata, data, native):
     if (metadata.get("cubeId") != SNB_CUBE or len(metadata.get("dimensions", [])) != 1
             or metadata["dimensions"][0].get("id") != "d0"):
@@ -1528,6 +1693,10 @@ def collect_business(client):
     definitions.update(snb_definitions)
     observations.extend(snb_observations)
     sources.update(snb_sources)
+    slovenia_definitions, slovenia_observations, slovenia_sources = slovenian_affiliates(client)
+    definitions.update(slovenia_definitions)
+    observations.extend(slovenia_observations)
+    sources.update(slovenia_sources)
     coverage = []
     for sid in definitions:
         selected = [r for r in observations if r["series_id"] == sid]
@@ -1555,6 +1724,7 @@ def collect_business(client):
     data["context"]["geography"] += (
         " INE national nonfinancial counts retain the reported host label China and separate "
         "pre2021 affiliate units from consolidated enterprises; neither regime is a Eurostat extension.")
+    data["context"]["geography"] += SLOVENIA_CONTEXT_NOTE
     return data
 
 

@@ -714,7 +714,7 @@ source notes and figure footnotes; publication backgrounds do not grant rights.
 
 Open `site/business-presence.html`. Investment positions, reverse-direction
 U.S. affiliate counts and company surveys remain distinct from foreign
-business counts in China. The Swedish, Finnish, French, Dutch, Spanish and Danish histories
+business counts in China. The Swedish, Finnish, French, Dutch, Spanish, Danish and Slovenian histories
 are separate annual bar panels, with their actual reporting windows.
 Finland also has a separate Eurostat UCI history back to2007. Its market-
 producer population differs from the broader national count and is not
@@ -762,6 +762,7 @@ No pre2009or2025+count is invented.
 | Austrian-controlled units, Eurostat | Seventeen 2007-2023 observations. Fourteen 2007-2020 legal-unit counts remain download-only; only the separately defined 2021-2023 enterprise observations appear in the short supplementary chart, ending at 175. Foreign legal units remain an imperfect enterprise proxy under the official methods. Keep the 2010 NACE and 2021 unit boundaries. Neither broader national resident-parent counts nor the different national 2024 control snapshot is spliced into the UCI population. No 2000/current-history completion or 2019 growth is claimed. |
 | Belgian-controlled units, Eurostat | Seventeen reported 2007-2023 counts remain THREE populations: two 2007/08 pre-UCI legal units, thirteen 2009-2021 UCI legal units and two 2022/23 current enterprises 72/80. Only the short 2022+ enterprise supplement renders. Earlier experimental 2004-2006 ENT cells are missing; EMP/TUR are not replacements. Preserve 2010 NACE/2014 non-resident activity/2016 declared-window/2021 EBS-source/2022 unit boundaries and conflicting country comparability paragraphs; no cross-unit 2019 growth. Current reporting-unit cutoffs are EUR 30m equity/75m assets/15m long-term investments (any criterion), not all Belgian firms or verified constant historical limits. No fabricated 2000/full-current trend. |
 | Switzerland + Liechtenstein reporting-area affiliates | Eleven year-end 2014-2024 SNB China counts, ending 792. This explicitly combined reporting area is NOT a pure-Switzerland population. Direct/indirect majority subsidiaries include unincorporated branches, not unique parents. Current groupwide cross-border-capital reporting frame exceeds CHF10m; not each affiliate's size, all firms or proven historically constant. Native CN/HK/MO definitions remain separate. Per-observation revision/estimate flags are not supplied, so status is reported, not final/census. No pre-2014, 2025 observation or default 2019 growth claim. |
+| Slovenian-controlled enterprises, national series | Seventeen China (CN) counts for 2009-2025, including 2024=9 and 2025=11. Resident-reporter assets exceed EUR2m from 2017 and EUR5m from 2023; no default current 2019 comparison. The separate Eurostat 2007-2023 archive remains complete in downloads, including confidential 2009. National CN/CN_X_HK equivalence is not assumed, and no source populations are joined. Source enterprise label, majority/ultimate control, branches, masked literals and unavailable revision flags remain explicit. No pre-2007/national pre-2009 or 2026 padding. |
 | Supplementary U.S. parent-company benchmarks | Only 2004,2009,2014 and2019 are verified and remain archive-only, not an annual census. Foreign-affiliate ownership begins at10%, not necessarily majority control; reporting exclusions apply. No interpolation. |
 
 The U.S. affiliate reporting cutoff changes from $7 million through 2003 to
@@ -827,6 +828,10 @@ An HTTP failure, changed frame/unit/country definition, new release or incomplet
 count history fails closed. The complete 1,012-cell source query retains eight
 fractional values outside China exactly; they are never rounded into the
 integer China series or substituted for another population.
+`--slovenia-only --data-only` reviews only the Slovenian populations while
+preserving all other records and coverage order. Its nine original body hashes
+are pinned, the full native count table is validated, and every Eurostat
+count/flag reconciles with an independent native TSV before any write.
 Daily exchange jobs only rebuild these indicators offline; they do not fetch
 new business data. The shared indicator SVG renderer preserves the existing
 language figures byte-for-byte. Removing a frozen input withdraws its known

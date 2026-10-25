@@ -159,9 +159,8 @@ institution-level workbook, report artwork or exam questions are redistributed.
 
 ## Business-presence sources
 
-`data/site/business_presence.json` retains 385 China-hosted observations, including
-all 355 prior records, three earlier German counts, eleven qualified SNB counts
-and sixteen separately defined INE national observations,
+`data/site/business_presence.json` retains 419 China-hosted observations, including
+all 385 prior records and 34 separately defined Slovenian national/Eurostat observations,
 explicit confidential/unavailable cells, series definitions, source URLs,
 selected table members, retrieval timestamps and SHA-256 checksums.
 
@@ -222,6 +221,28 @@ Eurostat geonomenclature. Missing row-specific flags do not establish finality:
 the canonical status is `reported`. The 2025-12-12 publication describes
 reference years through 2024, not a 2025 observation. No pre-2014 history,
 pure-Swiss equivalence, unique-parent count or default 2019 growth is inferred.
+
+The [Banka Slovenije national country table](https://px.bsi.si/Resources/PX/Databases/serije_ang/30_EOT/60_KAZALCI_POSLOVANJA/oc-fatse.px)
+supplies seventeen China (CN) enterprise counts for 2009-2025, ending 11.
+Its exact `Number of enterprises*` item is not a parent-company count or
+employee measure. Direct/indirect control exceeds 50%; the source uses
+Slovenia-resident ultimate control and a thresholded SN11 reporting frame.
+Resident-reporter balance-sheet assets exceed EUR2m from 2017 and EUR5m
+from 2023. Both cutoffs remain explicit; no default 2019-to-2025 change is
+computed. The complete 1,938-cell native query retains fractional values
+outside the selected enterprise counts and literal `..`/`...` masking symbols.
+Individual revision flags and the reason for each masked cell are not supplied.
+[National reporter metadata](https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_si.htm)
+and the original 2025 report accompany the national observations.
+
+Seventeen separate 2007-2023 Slovenian Eurostat observations independently
+reconcile to three native TSVs and stay download-only. The confidential 2009
+cell is not filled with the national value. Preserve the 2010 classification,
+2017 source break and 2021 EBS lineage without inventing a legal-unit change.
+Fourteen overlapping count values agree, but this does not certify equivalence
+between national CN and Eurostat CN_X_HK populations or authorize a splice.
+All nine selected original body checksums are pinned; a changed release requires
+review before replacement. No pre-2007, national pre-2009 or 2026 count is inferred.
 
 Italian Eurostat queries select `geo=IT`, `partner=CN_X_HK` and enterprise
 indicators in `fats_out2`, `fats_out2_r2` and `fats_out_part`.

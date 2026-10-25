@@ -33,7 +33,8 @@ COLORS = {"bea_affiliates:china": PARTNER_COLORS["CHN"], "bea_parents:china": PA
           "eurostat_czechia:china": "#73838A",
           "eurostat_belgium:china": "#7B7F60", "eurostat_belgium_legal:china": "#7B7F60",
           "eurostat_belgium_preuci:china": "#7B7F60", "snb_swiss_liechtenstein:china": "#6F7D89",
-          "ine_spain:china": "#8B7656", "ine_spain_units:china": "#8B7656"}
+          "ine_spain:china": "#8B7656", "ine_spain_units:china": "#8B7656",
+          "bsi_slovenia:china": "#697D78", "eurostat_slovenia:china": "#8FA19B"}
 ORIGINS = {"bea_affiliates:china": "us", "bea_parents:china": "us",
            "eurostat_affiliates:china": "eu", "eurostat_historical_eu:china": "eu",
            "eurostat_uk:china": "uk", "eurostat_norway:china": "norway", "ssb_norway:china": "norway",
@@ -51,7 +52,8 @@ ORIGINS = {"bea_affiliates:china": "us", "bea_parents:china": "us",
            "eurostat_belgium:china": "belgium", "eurostat_belgium_legal:china": "belgium",
            "eurostat_belgium_preuci:china": "belgium",
            "snb_swiss_liechtenstein:china": "switzerland_liechtenstein",
-           "ine_spain:china": "spain", "ine_spain_units:china": "spain"}
+           "ine_spain:china": "spain", "ine_spain_units:china": "spain",
+           "bsi_slovenia:china": "slovenia", "eurostat_slovenia:china": "slovenia"}
 CHARTS = {
     "us-affiliates-china": {
         "title": "U.S.-parent affiliates in China",
@@ -201,6 +203,16 @@ CHARTS = {
         "Direct/indirect majority subsidiaries include unincorporated branches. CHF10m groupwide "
         "cross-border capital frame; not each affiliate's size, all firms or verified constant historical "
         "limits. Source revision/estimate flags are not supplied; no default 2019 growth or pre-2014 count."},
+    "slovenia-affiliates-china": {
+        "title": "Slovenian-controlled enterprises in China",
+        "subtitle": "National China (CN) | 2009-2025 | Thresholded reporting frame",
+        "series": ["bsi_slovenia:china"], "unit": "Enterprises", "mode": "levels",
+        "description": "Banka Slovenije counts foreign enterprises ultimately controlled from Slovenia; "
+        "not unique parents, all firms or an extension of the separate Eurostat archive.",
+        "note": "Banka Slovenije, SN11/FATS. Majority control exceeds 50%; enterprises/branches, not "
+        "unique parents. Resident-reporter asset cutoff EUR2m from 2017 and EUR5m from 2023. "
+        "Earlier Eurostat 2007-2023 counts stay separate in downloads; CN/CN_X_HK equivalence "
+        "unverified. No comparable 2019 change or pre-2009 count; revision flags unavailable."},
     BENCHMARK_CHART: {
         "title": "U.S. parent companies with China affiliates",
         "subtitle": "Supplementary benchmark observations | NOT an annual series",
@@ -231,7 +243,7 @@ def validate_business_data(data):
             "eurostat_belgium_legal:china", "eurostat_belgium_preuci:china"} else "controlled_enterprises")
         expected = ("controlled_affiliate_units", "annual", "year-end") if sid == "snb_swiss_liechtenstein:china" else (
             (controlled_measure, "annual", "reference year") if sid.startswith(
-            ("eurostat", "ssb_", "bundesbank_", "tillvaxtanalys_", "statfin_", "dst_", "ine_spain")) else (
+            ("eurostat", "ssb_", "bundesbank_", "tillvaxtanalys_", "statfin_", "dst_", "ine_spain", "bsi_")) else (
             ("parent_companies", "benchmark", "fiscal ending year") if sid.startswith("bea_parents")
             else ("majority_owned_affiliates", "annual", "fiscal ending year")))
         if tuple(definition[k] for k in ("measure", "cadence", "period_basis")) != expected:
@@ -265,6 +277,17 @@ def validate_business_data(data):
                 token in definition["scope"] for token in (
                     "Denmark-resident parents", "Hong Kong and Macao separately", "foreign ultimate owners")):
             raise ValueError("Danish resident-parent and host-country scope must remain explicit")
+        if sid == "bsi_slovenia:china" and not all(token in definition["scope"] for token in (
+                "Slovenia-resident ultimate control", "enterprises/branches",
+                "thresholded SN11 resident balance-sheet reporting frame", "national China (CN)",
+                "CN_X_HK equivalence not established")):
+            raise ValueError("Slovenian national control, reporting frame and host qualification must remain explicit")
+        if sid == "bsi_slovenia:china" and not all(token in definition["notes"] for token in (
+                "Number of enterprises*", "EUR2m", "2017", "EUR5m", "2023")):
+            raise ValueError("Slovenian count label and both reporting cutoffs must remain explicit")
+        if sid == "eurostat_slovenia:china" and not all(token in definition["scope"] for token in (
+                "Slovenia-resident UCI", "China except Hong Kong", "separate archive")):
+            raise ValueError("Slovenian Eurostat archive must remain a separate population")
         if sid == "eurostat_poland:china" and not all(
                 token in definition["scope"] for token in ("Polish-resident UCI", "China except Hong Kong")):
             raise ValueError("Polish ultimate-control and host-country scope must remain explicit")
@@ -314,6 +337,15 @@ def validate_business_data(data):
             "explanations_aube_amne", "explanations_aube_fdi", "explanations_aube_laend"))
         if {asset["url"] for asset in snb_source.get("assets", [])} != expected_assets:
             raise ValueError("SNB source provenance must retain full native count queries and reporting-frame methods")
+    if "bsi_slovenia:china" in data["series"]:
+        source = data["sources"].get("bsi_oc_fatse_20260907", {})
+        expected_assets = {
+            "https://px.bsi.si/Resources/PX/Databases/serije_ang/30_EOT/60_KAZALCI_POSLOVANJA/oc-fatse.px",
+            "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_si.htm",
+            "https://www.bsi.si/storage/uploads/d014bd85-80f5-4790-b0f5-bc121ac89983/"
+            "Direct-Investment-2025_ENG_kon%C4%8Dna.pdf"}
+        if {asset["url"] for asset in source.get("assets", [])} != expected_assets:
+            raise ValueError("Slovenian native count and reporting-threshold source provenance required")
     seen = set()
     for r in data["observations"]:
         if set(r) != {"series_id", "year", "value", "source_id", "status", "notes", "comparability"}:
@@ -375,7 +407,14 @@ def validate_business_data(data):
             "eurostat_belgium_legal:china": ("fats_out2_BE" if r["year"] == 2009 else
                                            "fats_out2_r2_BE" if r["year"] <= 2020 else "fats_out_part_BE"),
             "eurostat_belgium:china": "fats_out_part_BE",
+            "eurostat_slovenia:china": ("fats_out2_SI" if r["year"] <= 2009 else
+                                       "fats_out2_r2_SI" if r["year"] <= 2020 else "fats_out_part_SI"),
         }
+        if r["series_id"] == "eurostat_slovenia:china" and not 2007 <= r["year"] <= 2023:
+            raise ValueError("Slovenian archive cannot extend the national population")
+        if r["series_id"] == "eurostat_slovenia:china" and r["year"] == 2009 and (
+                r["value"] is not None or r["status"] != "suppressed"):
+            raise ValueError("Slovenian Eurostat 2009 confidentiality must not be filled from the national population")
         if r["series_id"] == "eurostat_germany:china" and r["year"] < 2007:
             raise ValueError("German Eurostat country history begins in 2007")
         if ((r["series_id"] == "eurostat_italy_legal:china" and not 2007 <= r["year"] <= 2023)
@@ -412,6 +451,12 @@ def validate_business_data(data):
                 not 2014 <= r["year"] <= 2024 or r["source_id"] != "snb_opanmuausuland_20251212"
                 or r["comparability"] != "snb:opanmuausuland:CN:source-levels-only"):
             raise ValueError("SNB reviewed source, period and levels-only eligibility must remain explicit")
+        if r["series_id"] == "bsi_slovenia:china":
+            phase = "pre2017" if r["year"] < 2017 else "EUR2m2017" if r["year"] < 2023 else "EUR5m2023"
+            if (not 2009 <= r["year"] <= 2025 or r["source_id"] != "bsi_oc_fatse_20260907"
+                    or r["comparability"] != "bsi:SN11:CN:" + phase + ":levels-only"
+                    or r["status"] not in {"observed", "missing"}):
+                raise ValueError("Slovenian reviewed period, source and threshold boundaries must remain explicit")
         if r["series_id"].startswith("ine_spain"):
             limits = (2009, 2020) if r["series_id"] == "ine_spain_units:china" else (2021, 2024)
             if not limits[0] <= r["year"] <= limits[1]:
