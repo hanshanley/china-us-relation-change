@@ -11,7 +11,10 @@ Asia/Shanghai day. The generated inventory, frozen aggregate JSON and refresh
 status report the latest live totals; historical checkpoint counts below are
 not rewritten as though they were the latest collection.
 
-## Published snapshot: October 24, 2026 UTC
+## Prepared research snapshot: discovery pass 78
+
+This source/data integration does not itself establish deployment of the
+website or a successful unattended collection run.
 
 The [primary-source recheck](weibo_primary_source_audit.md) now reports
 **85 numeric bindings rechecked, one historical numeric recheck pending,
@@ -35,9 +38,21 @@ The selected **1,000 SCImago U.S.-classified domains** are ranked by digital
 reputation, not traffic; their present ownership/nationality was not independently
 audited. **Five have current-profile evidence, seven historical-only evidence,
 988 remain unknown, and zero are verified negatives.** All underwent homepage
-screening, but only 373 have recorded manual review.
+screening, but only 374 have recorded manual review.
 
-The [latest scheduled pass](discovery_iteration77.md) adds five reviews:
+The [latest bounded pass](discovery_iteration78.md) adds one review:
+Lewiston Sun-Journal / `sunjournal.com`. Its account remains unknown. The
+newspaper's prior HTTP403 was held with no newspaper, alias or alternate-client
+request. Two previously saved independent METLN corporate captures were
+rechecked offline: the actual linked About page explicitly designates
+SunJournal.com as Lewiston Sun Journal's digital home and describes
+Androscoggin/Western Maine coverage. The newspaper link was not followed.
+This is corporate self-description, not independently audited current legal
+control or an institutional Sina binding. New Bern namesakes, staff, board,
+parent and sibling accounts were not inherited. No account, post, verified
+negative or new access/retention hold was added.
+
+The [preceding pass](discovery_iteration77.md) added five reviews:
 Kingston Freeman, Herald-Tribune, Mattoon Times-Courier, North Platte Telegraph
 and Eugene Register-Guard. All remain unknown, not verified negatives.
 Daily Freeman's own root reservation and North Platte's actual automated-
@@ -61,19 +76,18 @@ No parent/sibling handle was inherited.
 Shared catalogs are not edited.
 The live 6,570-post corpus, original archived baseline and all rolling data
 remain unchanged by discovery.
-Discovery is not exhausted: 627 selected domains still lack a recorded
+Discovery is not exhausted: 626 selected domains still lack a recorded
 manual review. A bounded recurring prompt is active every 30 minutes; later
 passes must advance the frontier rather than repeatedly probing exhausted leads.
 
-The main Weibo view now makes coverage gaps explicit: a 1,000-domain
-unit field shows 98.8% unresolved account decisions, with a review-progress
-switch showing 62.7% not yet manually reviewed. Unknown is not absent.
-Separate recovery bars report channels without recovered in-window posts
-and truncated texts within the recovered sample; the share of all historical
-posts missing is not estimable. The sourced publisher/account directory is
-secondary and collapsible. Recovery volumes and publication dates do not
-determine its layout or rankings. Complete historical recovery datasets
-and archival exports remain available for audit, not as primary posting trends.
+The data retain explicit coverage context: 98.8% of the separate selected-domain
+cohort has unresolved account decisions, and 62.6% is not yet manually reviewed.
+Neither is an estimate of U.S.-media adoption. Account presence, corpus recovery
+and source completeness have different denominators; the share of all
+historical posts missing is not estimable. The publisher-first atlas is a
+separate presentation task and this discovery integration does not claim it is
+deployed. Complete recovery datasets and archival exports remain available for
+audit, not as comparable historical posting trends.
 
 **Unattended collection is currently blocked:** five natural OS-scheduled
 invocations, at 15:35 and 21:35 Mac local time on October23 and 03:35 and
