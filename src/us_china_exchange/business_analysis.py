@@ -62,10 +62,12 @@ CHARTS = {
         "Norway is outside the EU; counts are enterprises, not Norwegian parents or office locations."},
     "germany-affiliates-china": {
         "title": "German-controlled enterprises in China",
-        "subtitle": "Earlier reference | Bundesbank | 2021-2024",
+        "subtitle": "Bundesbank | 2015-2018 and 2021-2024 | Missing years stay gaps",
         "series": ["bundesbank_germany:china"], "unit": "Enterprises", "mode": "levels",
         "note": "Bundesbank: German majority control, assets above EUR 3m; includes branches. "
-        "Hong Kong and Macau are separate. The longer Eurostat history has a different population and is shown separately."},
+        "Hong Kong and Macau are separate. 2015-2018 uses the original November 2020 release; 2018 remains "
+        "provisional in that vintage, as does 2024 in the current workbook. No 2019/2020 count or cross-vintage "
+        "2019 change inferred. Eurostat is a different population, shown separately."},
     "germany-affiliates-china-eurostat": {
         "title": "German enterprises: the longer Eurostat history",
         "subtitle": "Earlier reference | Eurostat | 2010-2023",
@@ -247,8 +249,11 @@ def validate_business_data(data):
             raise ValueError("European method/source boundary mismatch")
         if r["series_id"] == "ssb_norway:china" and r["source_id"] != "ssb_09827":
             raise ValueError("Norwegian country table source mismatch")
-        if r["series_id"] == "bundesbank_germany:china" and r["source_id"] != "bundesbank_outward_fats":
-            raise ValueError("German country table source mismatch")
+        if r["series_id"] == "bundesbank_germany:china":
+            expected = ("bundesbank_outward_fats_2020" if 2015 <= r["year"] <= 2018 else
+                        "bundesbank_outward_fats" if r["year"] >= 2021 else None)
+            if expected is None or r["source_id"] != expected:
+                raise ValueError("German country table year/source mismatch")
         if r["series_id"] == "tillvaxtanalys_sweden:china" and r["source_id"] != "sweden_country_table":
             raise ValueError("Swedish country table source mismatch")
         if r["series_id"] == "statfin_finland:china" and r["source_id"] != "finland_13k8":
