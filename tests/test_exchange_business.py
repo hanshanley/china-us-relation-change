@@ -58,7 +58,7 @@ def test_distinct_parent_and_affiliate_checkpoints_remain_different_units():
     assert rows[("eurostat_norway:china", 2023)]["value"] == 88
     assert len([r for r in rows.values() if not r["series_id"].startswith(
         ("tillvaxtanalys_", "statfin_", "eurostat_france:", "eurostat_netherlands:", "eurostat_finland:",
-         "eurostat_italy", "eurostat_sweden:", "eurostat_spain:", "dst_denmark:", "eurostat_austria", "eurostat_poland:"))]) == 112
+         "eurostat_italy", "eurostat_sweden:", "eurostat_spain:", "dst_denmark:", "eurostat_austria", "eurostat_poland:"))]) == 116
     assert rows[("ssb_norway:china", 2023)]["value"] == 89
     assert rows[("ssb_norway:china", 2024)]["value"] == 80
 
@@ -386,9 +386,64 @@ def test_german_workbook_counts_entities_not_employment_and_does_not_splice_othe
               + chart_groups(published(), "germany-affiliates-china"))
     assert [g["id"] for g in groups] == ["eurostat_germany:china", "bundesbank_germany:china"]
     assert [[p["year"] for p in g["points"]] for g in groups] == [
-        list(range(2010, 2024)), list(range(2021, 2025))]
+        list(range(2010, 2024)), list(range(2015, 2019)) + list(range(2021, 2025))]
     assert [next(p["value"] for p in g["points"] if p["year"] == 2023) for g in groups] == [1921, 1929]
     assert groups[0]["points"][10]["comparability"] != groups[0]["points"][11]["comparability"]
+
+
+def test_german_archived_report_rejects_other_years_units_and_control_populations(monkeypatch):
+    from us_china_exchange import business_sources
+
+    method = ("November 2020; ultimately controlled by German investors; more than 50%; "
+              "total assets exceed \u20ac3 million; branches and permanent establishments; NACE Rev. 2; "
+              "FATS do not include Section A: Agriculture and Section O: Public administration; "
+              "latest figures must in all cases be regarded as provisional")
+    table = ("1.1. Number of the affiliates abroad\nCountries of investment 2015 2016 2017 2018\n"
+             "China, People's Republic of 1)\n1 646 1 688 1 735 1 735\nHong Kong\n1 Excluding Hong Kong.")
+    monkeypatch.setattr(business_sources, "pdf_text", lambda _: [method, table])
+    assert business_sources.parse_germany_history(b"%PDF-test") == [
+        (2015, 1646, "observed"), (2016, 1688, "observed"),
+        (2017, 1735, "observed"), (2018, 1735, "provisional")]
+    with pytest.raises(ValueError, match="reviewed PDF"):
+        business_sources.parse_germany_history(b"PK-current-workbook")
+    for wrong_method, wrong_table in (
+            (method.replace("more than 50%", "more than 10%"), table),
+            (method.replace("3 million", "30 million"), table),
+            (method.replace("Section O:", "Section P:"), table),
+            (method, table.replace("Number of the affiliates abroad", "Employees of the affiliates abroad")),
+            (method, table.replace("2015 2016 2017 2018", "2014 2015 2016 2017")),
+            (method, table.replace("China, People's Republic", "Japan")),
+            (method, table.replace("1 Excluding Hong Kong.", "Including Hong Kong."))):
+        monkeypatch.setattr(business_sources, "pdf_text", lambda _, m=wrong_method, t=wrong_table: [m, t])
+        with pytest.raises(ValueError):
+            business_sources.parse_germany_history(b"%PDF-test")
+
+
+def test_german_refresh_retains_all_other_country_context_and_release_vintages(monkeypatch):
+    spec = importlib.util.spec_from_file_location("german_history_cli", ROOT / "scripts/build_business_data.py")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    prior = published()
+    before = copy.deepcopy(prior)
+    german = {"bundesbank_germany:china", "eurostat_germany:china"}
+    points = [r for r in prior["observations"] if r["series_id"] in german]
+    source_ids = {r["source_id"] for r in points}
+    monkeypatch.setattr(module, "german_affiliates", lambda _: (
+        {k: prior["series"][k] for k in german}, copy.deepcopy(points),
+        {k: prior["sources"][k] for k in source_ids}))
+    updated = validate_business_data(module.collect_germany(None, prior))
+    assert prior == before
+    assert updated["observations"] == prior["observations"]
+    assert updated["series"] == prior["series"] and updated["sources"] == prior["sources"]
+    assert updated["context"] == prior["context"]
+    assert module.collect_germany(None, updated) == updated
+    native = {r["year"]: r for r in points if r["series_id"] == "bundesbank_germany:china"}
+    assert native[2018]["status"] == native[2024]["status"] == "provisional"
+    assert set(native) == {*range(2015, 2019), *range(2021, 2025)}
+    invalid = copy.deepcopy(updated)
+    next(r for r in invalid["observations"] if r["series_id"] == "bundesbank_germany:china")["year"] = 2019
+    with pytest.raises(ValueError, match="year/source"):
+        validate_business_data(invalid)
 
 
 def test_eurostat_confidential_zero_is_not_published_and_wrong_populations_fail():
