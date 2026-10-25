@@ -173,7 +173,16 @@ def check(site, url=None, screenshots=None):
             expect(page.locator(".analysis-tabs a").last).to_have_attribute(
                 "href", "https://github.com/hanshanley/china-us-relation-change")
             assert page.locator("#geography option").count() == 3
-            assert page.locator("#chart").bounding_box()["y"] < 680
+            chart_top = page.locator("#chart").bounding_box()["y"]
+            assert chart_top < 680, (width, chart_top)
+            if width == 320:
+                for serif in ("Georgia,serif", '"Times New Roman",serif', '"DejaVu Serif",serif'):
+                    fallback = page.add_style_tag(
+                        content=f".publication-page{{--serif:{serif};--sans:Arial,sans-serif}}")
+                    page.evaluate("document.fonts.ready")
+                    fallback_top = page.locator("#chart").bounding_box()["y"]
+                    assert fallback_top < 680, (width, serif, fallback_top)
+                    fallback.evaluate("node=>node.remove()")
             assert page.locator("#chart").evaluate("node=>node.scrollWidth<=node.clientWidth")
             for geo in ("CHN", "HKG", "MAC"):
                 for direction in ("to_us", "from_us"):

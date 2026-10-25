@@ -28,7 +28,7 @@ from us_china_exchange.covid_context import COVID_CONTEXT, context_for as covid_
 CANONICAL = "https://www.themarginoferror.com/china-us-relations/"
 REPOSITORY = "https://github.com/hanshanley/china-us-relation-change"
 PAGES = {
-    "index.html": ("Student exchanges", "Enrollment and study abroad between the U.S., mainland China, Hong Kong and Macau.",
+    "index.html": ("Student exchanges", "Enrollment and study abroad.",
                    "Academic-year series · Enrollment and participation kept separate"),
     "trade.html": ("Trade", "Goods and services exchanged with the U.S., with mainland China separate from Hong Kong and Macau.",
                    "Annual reported values · Separate regional scales"),
