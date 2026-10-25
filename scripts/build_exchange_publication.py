@@ -44,7 +44,7 @@ PAGES = {
                               "AP exams through 2025 · Degree awards through 2024 · College census through 2021"),
     "confucius.html": ("Confucius Institutes & Classrooms", "U.S. institutes, school programs and documented replacements, counted separately.",
                        "Dated historical reports · Operator listings are not an operating census"),
-    "business-presence.html": ("Business links", "U.S. investment abroad, China-linked affiliates in the U.S., and recent company decisions. Each measure and geography kept separate.",
+    "business-presence.html": ("Business links", "U.S. and European affiliates in China, China-linked affiliates in the U.S., investment and recent company decisions. Each measure and geography kept separate.",
                              "Year-end investment positions: 2000-2025 · Company surveys: 2026"),
     "weibo.html": ("U.S. media on Weibo", "Documented accounts and Chinese-language editions, with sources for each association.",
                    "Account identity evidence, not a measure of posting activity"),
@@ -698,7 +698,7 @@ def build_publication(source, output, revision):
         site = root / "site"
         prepare_topic_pages(site)
         definitions = {}
-        for name in ["language_learning", "business_current", "business_inward", "immigration", "opinions"]:
+        for name in ["language_learning", "business_presence", "business_current", "business_inward", "immigration", "opinions"]:
             if not (root / f"data/site/{name}.json").is_file():
                 continue
             data = json.loads((root / f"data/site/{name}.json").read_text())

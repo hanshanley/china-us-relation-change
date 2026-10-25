@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Check full investment histories, separate survey bars and complete downloads."""
+"""Check country affiliate counts, investment histories and complete downloads."""
 
 import argparse
 import csv
@@ -17,7 +17,25 @@ def check(site, url=None):
     data = json.loads((site / "downloads/business-current.json").read_text())
     inward_path = site / "downloads/business-inward.json"
     inward = json.loads(inward_path.read_text()) if inward_path.is_file() else None
-    chart_count = 6 if inward is not None else 4
+    count_series = {
+        "us-affiliates-china": "bea_affiliates:china",
+        "germany-affiliates-china": "bundesbank_germany:china",
+        "germany-affiliates-china-eurostat": "eurostat_germany:china",
+        "norway-affiliates-china": "ssb_norway:china",
+        "sweden-affiliates-china": "tillvaxtanalys_sweden:china",
+        "finland-affiliates-china": "statfin_finland:china",
+        "france-affiliates-china": "eurostat_france:china",
+    }
+    counts = {
+        chart: sorted((r for r in archive["observations"] if r["series_id"] == sid and r["value"] is not None),
+                      key=lambda r: r["year"])
+        for chart, sid in count_series.items()}
+    counts = {chart: rows for chart, rows in counts.items()
+              if len(rows) > 1 and max(r["year"] for r in rows) >= 2023}
+    chart_count = (6 if inward is not None else 4) + len(counts)
+    new_counts = {chart: rows for chart, rows in counts.items()
+                  if chart in {"sweden-affiliates-china", "finland-affiliates-china", "france-affiliates-china"}}
+    visible_count = (6 if inward is not None else 4) + len(new_counts)
     if inward is not None:
         with (site / "downloads/business-inward-observations.csv").open() as stream:
             rows = list(csv.DictReader(stream))
@@ -40,10 +58,41 @@ def check(site, url=None):
             page.on("pageerror", lambda error: errors.append(str(error)))
             page.goto(url)
             page.evaluate("document.fonts.ready")
-            expect(page.locator(".business-card:visible")).to_have_count(chart_count)
-            expect(page.locator(".screen-chart")).to_have_count(chart_count)
+            expect(page.locator(".business-card:visible")).to_have_count(visible_count)
+            expect(page.locator(".native-chart")).to_have_count(chart_count)
+            expect(page.locator(".screen-chart")).to_have_count(visible_count)
             assert not page.locator("#module-chart,#business-controls,#annual-values,.covid-band,.covid-context").count()
+            assert not page.locator("#uk-affiliates-china,#eu-affiliates-china,#us-parent-companies-china").count()
             assert not page.evaluate("document.documentElement.scrollWidth > innerWidth")
+            if counts.keys() - new_counts.keys():
+                references = page.locator("#business-count-references")
+                assert references.get_attribute("open") is None
+                references.locator(":scope > summary").click()
+                expect(page.locator(".business-card:visible")).to_have_count(chart_count)
+                expect(page.locator(".screen-chart")).to_have_count(chart_count)
+            for chart, expected in counts.items():
+                assert page.locator(f"#{chart} .screen-point").evaluate_all(
+                    "nodes => nodes.map(n => [+n.dataset.year,+n.dataset.value])") == [
+                        [r["year"], r["value"]] for r in expected]
+                expect(page.locator(f"#{chart} .screen-column")).to_have_count(len(expected))
+                svg = page.locator(f"#{chart} .screen-chart")
+                svg.focus()
+                svg.press("End")
+                tooltip_id = page.locator(f"#{chart} .native-chart").get_attribute("data-tooltip-id")
+                expect(page.locator("#" + tooltip_id)).to_contain_text(str(expected[-1]["year"]))
+                expect(page.locator("#" + tooltip_id)).to_contain_text(f'{expected[-1]["value"]:,}')
+                svg.press("Escape")
+            if counts.keys() - new_counts.keys():
+                summary = page.locator("#business-count-references > summary")
+                for _ in range(2):
+                    summary.click()
+                    expect(page.locator(".business-card:visible")).to_have_count(visible_count)
+                    for chart, rows in new_counts.items():
+                        expect(page.locator(f"#{chart} .screen-column:visible")).to_have_count(len(rows))
+                    summary.focus()
+                    summary.press("Enter")
+                    expect(page.locator(".business-card:visible")).to_have_count(chart_count)
+                assert not page.evaluate("document.documentElement.scrollWidth > innerWidth")
             for chart, sid in [("us-investment-mainland", "bea_position:CHN"),
                                ("us-investment-hong-kong", "bea_position:HKG")]:
                 expected = sorted((r for r in data["observations"] if r["series_id"] == sid), key=lambda r: r["year"])
@@ -97,12 +146,22 @@ def check(site, url=None):
         column.tap()
         tooltip_id = page.locator("#us-investment-mainland .native-chart").get_attribute("data-tooltip-id")
         expect(page.locator("#" + tooltip_id)).to_contain_text("2000")
+        for chart in ("sweden-affiliates-china", "finland-affiliates-china", "france-affiliates-china"):
+            if chart in counts:
+                page.locator(f"#{chart} .screen-column").last.tap()
+                tooltip_id = page.locator(f"#{chart} .native-chart").get_attribute("data-tooltip-id")
+                expect(page.locator("#" + tooltip_id)).to_contain_text(f'{counts[chart][-1]["value"]:,}')
         touch.close()
         context = browser.new_context(java_script_enabled=False, viewport={"width": 390, "height": 900})
         page = context.new_page()
         page.goto(url)
-        expect(page.locator(".business-card:visible")).to_have_count(chart_count)
+        expect(page.locator(".business-card:visible")).to_have_count(visible_count)
+        if counts.keys() - new_counts.keys():
+            page.locator("#business-count-references > summary").click()
+            expect(page.locator(".business-card:visible")).to_have_count(chart_count)
         expect(page.locator("#us-investment-mainland .annual-column")).to_have_count(26)
+        for chart, rows in counts.items():
+            expect(page.locator(f"#{chart} .annual-column")).to_have_count(len(rows))
         assert not page.locator(".covid-band").count()
         assert not page.evaluate("document.documentElement.scrollWidth > innerWidth")
         assert page.locator("a[data-original-chart]").count() == chart_count * 4

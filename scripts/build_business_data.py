@@ -9,7 +9,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
-from us_china_exchange.business_sources import collect_business, german_affiliates, netherlands_affiliates, norwegian_affiliates
+from us_china_exchange.business_sources import collect_business, french_affiliates, german_affiliates, netherlands_affiliates, norwegian_affiliates, nordic_affiliates
 from us_china_exchange.language_sources import ReviewClient
 from us_china_exchange.model import json_text
 from us_china_exchange.pipeline import write_atomic
@@ -48,6 +48,41 @@ def collect_germany(client, prior):
     return data
 
 
+def update_country_coverage(data, definitions):
+    updated = {sid: {"id": sid, "status": "partial_history", "description": definition["notes"]}
+               for sid, definition in definitions.items()}
+    data["coverage"] = [updated.pop(row["id"], row) for row in data["coverage"]]
+    data["coverage"].extend(updated.values())
+
+
+def collect_nordic(client, prior):
+    data = copy.deepcopy(prior)
+    definitions, observations, sources = nordic_affiliates(client)
+    data["series"].update(definitions)
+    data["sources"].update(sources)
+    data["observations"] = sorted(
+        [r for r in data["observations"] if r["series_id"] not in definitions] + observations,
+        key=lambda r: (r["series_id"], r["year"]))
+    update_country_coverage(data, definitions)
+    if not all(country in data["context"]["geography"] for country in ("Swedish", "Finnish")):
+        data["context"]["geography"] += (
+            " Swedish and Finnish series retain their own control, sector and source definitions; "
+            "national and overlapping EU27 membership aggregates are not summed.")
+    return data
+
+
+def collect_france(client, prior):
+    data = copy.deepcopy(prior)
+    definitions, observations, sources = french_affiliates(client)
+    data["series"].update(definitions)
+    data["sources"].update(sources)
+    data["observations"] = sorted(
+        [r for r in data["observations"] if r["series_id"] not in definitions] + observations,
+        key=lambda r: (r["series_id"], r["year"]))
+    update_country_coverage(data, definitions)
+    return data
+
+
 def collect_netherlands(client, prior):
     data = copy.deepcopy(prior)
     definitions, observations, sources = netherlands_affiliates(client)
@@ -56,10 +91,7 @@ def collect_netherlands(client, prior):
     data["observations"] = sorted(
         [r for r in data["observations"] if r["series_id"] not in definitions] + observations,
         key=lambda r: (r["series_id"], r["year"]))
-    data["coverage"] = [r for r in data["coverage"] if r["id"] not in definitions] + [{
-        "id": "eurostat_netherlands:china", "status": "annual",
-        "description": "Dutch-controlled China affiliates, 2007-2024; 2024 provisional. "
-        "2010 classification and 2021 methodology boundaries; earlier history and 2025 unreported."}]
+    update_country_coverage(data, definitions)
     if "Netherlands" not in data["context"]["geography"]:
         data["context"]["geography"] += " Netherlands is shown separately from the overlapping EU27 aggregate."
     return data
@@ -73,13 +105,17 @@ if __name__ == "__main__":
     selection.add_argument("--norway-only", action="store_true", help="Review Statistics Norway; preserve all other observations")
     selection.add_argument("--germany-only", action="store_true", help="Review Bundesbank; preserve all other observations")
     selection.add_argument("--netherlands-only", action="store_true", help="Review Dutch-controlled China affiliates; preserve all other observations")
+    selection.add_argument("--nordic-only", action="store_true",
+                           help="Review Swedish and Finnish China affiliates; preserve other countries")
+    selection.add_argument("--france-only", action="store_true",
+                           help="Review French Eurostat affiliate counts; preserve other countries")
     args = parser.parse_args()
     client = ReviewClient(ROOT / "data/local/business-presence/raw", args.refresh)
-    collector = (collect_norway if args.norway_only else
-                 collect_germany if args.germany_only else collect_netherlands)
-    data = (collector(
-        client, json.loads((ROOT / "data/site/business_presence.json").read_text()))
-        if args.norway_only or args.germany_only or args.netherlands_only else collect_business(client))
+    collector = (collect_netherlands if args.netherlands_only else
+                 collect_france if args.france_only else collect_nordic if args.nordic_only else
+                 collect_norway if args.norway_only else collect_germany if args.germany_only else None)
+    data = (collector(client, json.loads((ROOT / "data/site/business_presence.json").read_text()))
+            if collector else collect_business(client))
     from us_china_exchange.business_analysis import validate_business_data
     validate_business_data(data)
     write_atomic(ROOT / "data/site/business_presence.json", json_text(data))

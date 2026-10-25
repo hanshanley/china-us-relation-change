@@ -102,7 +102,7 @@ def test_full_position_history_preserves_reported_years_units_and_each_workbook(
         business_current.parse_positions(stream.getvalue(), all_industries=True)
 
 
-def test_component_exports_complete_current_and_historical_data_without_old_charts(tmp_path):
+def test_component_exports_complete_counts_and_current_evidence_without_stale_charts(tmp_path):
     data = current()
     folder = tmp_path / "data/site"
     folder.mkdir(parents=True)
@@ -112,11 +112,18 @@ def test_component_exports_complete_current_and_historical_data_without_old_char
     stale.parent.mkdir(parents=True)
     stale.write_text("Rejected stale chart")
     gallery = defaultdict(list)
-    assert business_current.build_current_business(tmp_path, archive, gallery) == 4
+    assert business_current.build_current_business(tmp_path, archive, gallery) == 11
     assert not stale.exists()
     page = BeautifulSoup((tmp_path / "site/business-presence.html").read_text(), "html.parser")
     assert not page.select("#business-controls,#annual-values,#eu-affiliates-china")
-    assert len(page.select(".business-card")) == 4
+    assert len(page.select(".business-card")) == 11
+    count_cards = page.select(".business-count-card")
+    assert len(count_cards) == 7
+    for card in count_cards:
+        figure = tmp_path / "site" / card.img["src"].replace(".png", ".svg")
+        svg = BeautifulSoup(figure.read_text(), "html.parser")
+        assert svg.select_one(".annual-column") and not svg.select(".data-line")
+    assert not page.select("#uk-affiliates-china,#eu-affiliates-china,#us-parent-companies-china")
     assert json.loads((tmp_path / "site/downloads/business-current.json").read_text()) == data
     assert json.loads((tmp_path / "site/downloads/business-presence.json").read_text()) == archive
     records = list(csv.DictReader((tmp_path / "site/downloads/business-current-observations.csv").open()))
