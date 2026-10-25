@@ -85,6 +85,75 @@ def test_plot_audit_reconciles_each_survey_round_instead_of_overwriting_its_year
     assert [issue["kind"] for issue in audit.issues] == ["reported_value", "transformed_value"]
 
 
+def test_early_china_rounds_retain_their_age_city_and_fieldwork_limits():
+    from us_china_exchange.public_freshness import public_charts
+
+    d = sources.validate_opinion_data(data())
+    rows = [r for r in d["observations"] if r["series_id"].startswith("pew_china_18_60:")]
+    assert {(r["year"], r["series_id"].split(":")[-1]): r["value"] for r in rows} == {
+        (2005, "favorable"): 42, (2005, "unfavorable"): 53,
+        (2006, "favorable"): 47, (2006, "unfavorable"): 43}
+    for row in rows:
+        definition, survey = d["series"][row["series_id"]], d["surveys"][row["survey_id"]]
+        assert definition["age"] == "18-60" and definition["respondent_country"] == "CHN"
+        assert "not nationally representative" in definition["sampling"]
+        assert survey["n_item"] is None
+        assert row["comparability"] == f'pew_china_18_60_coverage_{row["year"]}'
+    first, second = (d["surveys"][f"pew_china_{year}"] for year in (2005, 2006))
+    assert (first["field_start"], first["field_end"], first["n_total"]) == ("2005-05-21", "2005-05-31", 2191)
+    assert (second["field_start"], second["field_end"], second["n_total"]) == ("2006-04-07", "2006-04-18", 2180)
+    assert "Chengdu" in first["notes"] and "Xinxiang" not in first["notes"]
+    assert "Xinxiang" in second["notes"] and "Chengdu" not in second["notes"]
+    assert d["series"]["pew_china:favorable"]["age"] == "All adults"
+    with public_charts():
+        assert not chart_groups(d, "china-us-earlier-favorability")
+    assert all(not sid.startswith("pew_china_18_60:")
+               for config in CHARTS.values() for sid in config["series"])
+
+
+def test_early_china_parser_uses_the_china_nets_and_both_original_methods(monkeypatch):
+    table = ("Pew Global Attitudes Project: Spring 2006 Survey\nQ.2\n"
+             "FAVORABLE UNFAVORABLE\na. The United States\n"
+             " United States 77 49 28 17 7 10 5=99\n May, 2005 83 50 33 14 4 10 3=100\n"
+             " China 47 9 38 43 6 37 10=100\n May, 2005 42 5 37 53 13 40 5=100\n"
+             " Japan 63 8 55 35 6 29 3=101\n")
+    current = ("Methodological Appendix\nCountry: China\n"
+               "Probability sample in six cities and surrounding rural areas - "
+               "Shanghai, Beijing, Guangzhou, Xinxiang, Jinzhong, and Luzhou\n"
+               "Face-to-face adults 18 to 60\nApril 7-18, 2006\n"
+               "Sample size: 2180\nDisproportionately urban\nCountry: India\n"
+               "Face-to-face adults 18 to 60\n")
+    earlier = ("ABOUT THE SURVEY\nMay 21-3 1, 2005\nprobability sample of 2,191\n"
+               "six major cities and their surrounding rural areas "
+               "(Beijing, Chengdu, Guangzhou, Shanghai, Shenyang, and Wuhan)\n"
+               "not representative of the entire country\nadults ages 18-60")
+    dates = "Spring 2005 Survey\nChina: May 21\u201331, 2005 (N=2,191)"
+    documents = {b"2006": [table, current], b"2005": [earlier, dates]}
+    class Page:
+        def __init__(self, text):
+            self.text = text
+        def extract_text(self):
+            return self.text
+    class Reader:
+        def __init__(self, body):
+            self.pages = [Page(text) for text in documents[body.getvalue()]]
+    monkeypatch.setattr(sources, "PdfReader", Reader)
+    result = sources.parse_early_china_history(b"2006", b"2005")
+    assert [(r["year"], r["favorable"], r["unfavorable"]) for r in result] == [
+        (2005, 42, 53), (2006, 47, 43)]
+    for key, index, original, changed in (
+            (b"2006", 0, table, table.replace("a. The United States", "a. China")),
+            (b"2006", 0, table, table.replace(" China 47", " Russia 47")),
+            (b"2006", 0, table, table.replace("42 5 37 53", "42 5 37 *")),
+            (b"2006", 1, current, current.replace("adults 18 to 60", "adults 18 plus", 1)),
+            (b"2005", 0, earlier, earlier.replace("Shenyang", "Xinxiang")),
+            (b"2005", 1, dates, dates.replace("21\u201331", "21\u201330"))):
+        documents[key][index] = changed
+        with pytest.raises(ValueError):
+            sources.parse_early_china_history(b"2006", b"2005")
+        documents[key][index] = original
+
+
 def test_gallup_parser_keeps_distinct_polls_and_rejects_missing_or_wrong_country_data(monkeypatch):
     rows = ["2000 Jan 25-26 4 29 33 18 16 33 51",
             "2000 Mar 17-19 6 29 40 16 9 35 56",
@@ -135,7 +204,8 @@ def test_generic_indicator_travel_context_requires_explicit_opt_in():
 
 
 @pytest.mark.parametrize("kind", ["scale", "direction", "age", "infinite", "missing", "survey_date", "sample",
-                                 "gallup_source", "gallup_dates"])
+                                 "gallup_source", "gallup_dates", "early_china_age",
+                                 "early_china_coverage", "early_china_dates"])
 def test_invalid_survey_semantics_fail_before_publication(kind):
     d = data()
     if kind == "scale":
@@ -154,9 +224,16 @@ def test_invalid_survey_semantics_fail_before_publication(kind):
         d["surveys"]["pew_warmth_2026"]["n_item"] = 5194
     elif kind == "gallup_source":
         next(r for r in d["observations"] if r["series_id"] == "gallup_us:favorable")["comparability"] = "pew_us_atp"
-    else:
+    elif kind == "gallup_dates":
         survey = d["surveys"]["gallup_us_2000-01-25"]
         survey.update(field_start=None, field_end=None)
+    elif kind == "early_china_age":
+        d["series"]["pew_china_18_60:favorable"]["age"] = "All adults"
+    elif kind == "early_china_coverage":
+        next(r for r in d["observations"] if r["series_id"] == "pew_china_18_60:favorable")[
+            "comparability"] = "pew_china_coverage_2005"
+    else:
+        d["surveys"]["pew_china_2005"].update(field_start=None, field_end=None)
     with pytest.raises(ValueError):
         sources.validate_opinion_data(d)
 

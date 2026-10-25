@@ -198,6 +198,7 @@ average or social-media sample is substituted.
 | Pew, September 23, 2026 U.S. warmth article and linked topline | Published means 39, 42, 28 and 37 in 2016/2018/2021/2026. Current age means 42 for 18-49 and 31 for 50+. Means are reviewed article facts, not computed from rounded bins in the topline. Direct article retrieval returned 403; no access restriction was bypassed. The separately published PDF verifies the question and field dates. The China-specific base is 1,168, not the full 5,193 sample. |
 | The Carter Center / Emory University, October 2026 China Pulse report and its published Datawrapper LU2Fb dataset | Means on a 0-100 cold-to-warm scale, not percent favorable. Fieldwork October 27, 2025-January 1, 2026 (2,506) and April 16-June 26, 2026 (2,500). Both waves are reweighted in this release, yielding overall means 33 and 32. Keep original Chinese age bands and do not claim a matched U.S. probability sample. The PDF supplies a publication month, not an exact day. |
 | Pew, October 5, 2016 China report, page 13, Q10a | Direct published net favorable/unfavorable percentages, 2007-2016. Do not sum separately rounded component percentages. Sample coverage varied historically; disconnected bars do not imply a continuous current national trend. |
+| Pew, September 21, 2006 Asia report, PDF pages 11-12, Q2a; November 16, 2005 China report, PDF pages 6-7 | Published favorable/unfavorable nets: 42/53 in 2005 and 47/43 in 2006. Ages 18-60 in six city areas and surrounding rural areas, disproportionately urban, not nationally representative. Fieldwork May 21-31, 2005 (n=2,191) and April 7-18, 2006 (n=2,180). Keep the differing city sets, exact dates, unknown question-specific bases and separate per-round coverage keys. Archive in complete downloads, not the later all-adult series, current charts or China Pulse warmth scale. |
 
 The 2025 Pew age figure relevant to the cited social-media commentary uses ages
 **18-34**, not "under 34." It displays 17 statistically significant age gaps
@@ -206,7 +207,7 @@ It is not the full set of countries polled. The dashboard uses the newer verifie
 U.S. data and does not treat the existence or motivation of a social-media trend
 as something an opinion survey establishes.
 
-Complete public CSV/JSON retain all 148 estimates, not just favorable observations
+Complete public CSV/JSON retain all 152 estimates, not just favorable observations
 or the default chart, plus source fingerprints, actual or explicitly unknown
 field dates, original age bands and question-specific sample bases. Reviewed
 transcription checksums are distinguished from publisher download checksums.

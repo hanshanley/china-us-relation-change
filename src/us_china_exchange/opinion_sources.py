@@ -19,6 +19,8 @@ GALLUP_HISTORY = "https://news.gallup.com/file/poll/703046/260312CountryRatings.
 PEW_AGE = "https://www.pewresearch.org/wp-content/uploads/sites/20/2026/07/pg_2026.06.15_global-views-china-2026_report.pdf"
 PEW_WARMTH = "https://www.pewresearch.org/wp-content/uploads/sites/20/2026/09/SR_26.09.23_views-of-china_topline.pdf"
 PEW_CHINA = "https://www.pewresearch.org/global/wp-content/uploads/sites/2/2016/10/Pew-Research-Center-China-Report-FINAL-October-5-2016.pdf"
+PEW_CHINA_EARLY = "https://www.pewresearch.org/global/wp-content/uploads/sites/2/2006/09/GAP-Asia-report-final-9-21-06.pdf"
+PEW_CHINA_2005_METHODS = "https://www.pewresearch.org/wp-content/uploads/sites/2/pdf/249.pdf"
 PULSE_REPORT = "https://uscnpm.org/wp-content/uploads/2026/10/CHINA.PULSE_.Chinese.Public.Supports.Trade_.and_.Security.Cooperation.Still_.Sees_.the_.United.States.as_.a.Threat.pdf"
 PULSE_DATA = "https://datawrapper.dwcdn.net/LU2Fb/1/dataset.csv"
 REVIEWED_PATH = "data/reviewed/opinion-warmth.json"
@@ -125,6 +127,59 @@ def parse_china_history(body):
             for i, year in enumerate(years)]
 
 
+def parse_early_china_history(body, methods_body):
+    def pages(content):
+        return [(p.extract_text() or "").replace("\u2013", "-").replace("\u2014", "-")
+                for p in PdfReader(io.BytesIO(content)).pages]
+
+    report, methods = pages(body), pages(methods_body)
+    tables = [p for p in report if all(t in normalize(p) for t in
+              ("Spring 2006 Survey", "Q.2", "a. The United States", "FAVORABLE", "UNFAVORABLE"))]
+    if len(tables) != 1:
+        raise ValueError("Early Pew China estimates require the original U.S.-opinion topline")
+    numbers = r"(\d+(?:[ \t]+\d+){6})=100"
+    matches = re.findall(r"^[ \t]*China[ \t]+" + numbers
+                         + r"[ \t]*\n[ \t]*May,[ \t]*2005[ \t]+" + numbers
+                         + r"[ \t]*(?:\n|$)", tables[0], re.M)
+    if len(matches) != 1:
+        raise ValueError("Early Pew China response rows missing or ambiguous")
+    responses = {year: list(map(int, text.split()))
+                 for year, text in zip((2006, 2005), matches[0])}
+    if any(not 0 <= value <= 100 for values in responses.values() for value in values):
+        raise ValueError("Invalid early Pew response percentages")
+
+    current = [normalize(p) for p in report
+               if "Methodological Appendix" in p and "Country: China" in p]
+    earlier = [normalize(p) for p in methods if "ABOUT THE SURVEY" in p]
+    if len(current) != 1 or len(earlier) != 1:
+        raise ValueError("Both early Pew China sampling methods are required")
+    china = current[0].split("Country: China", 1)[1].split("Country: India", 1)[0]
+    if not all(t in china for t in (
+            "Probability sample in six cities and surrounding rural areas",
+            "Shanghai, Beijing, Guangzhou, Xinxiang, Jinzhong, and Luzhou",
+            "Face-to-face adults 18 to 60", "April 7-18, 2006",
+            "Sample size: 2180", "Disproportionately urban")):
+        raise ValueError("Pew 2006 China age, coverage, dates or sample changed")
+    if not all(t in earlier[0] for t in (
+            "probability sample of 2,191", "six major cities and their surrounding rural areas",
+            "Beijing, Chengdu, Guangzhou, Shanghai, Shenyang, and Wuhan",
+            "not representative of the entire country", "adults ages 18-60")):
+        raise ValueError("Pew 2005 China age, coverage or sample changed")
+    if not any("China: May 21-31, 2005 (N=2,191)" in normalize(p) for p in methods):
+        raise ValueError("Pew 2005 China fieldwork must match the original topline")
+
+    result = []
+    for year, start, end, n, cities in (
+            (2005, "2005-05-21", "2005-05-31", 2191,
+             "Beijing, Chengdu, Guangzhou, Shanghai, Shenyang and Wuhan"),
+            (2006, "2006-04-07", "2006-04-18", 2180,
+             "Shanghai, Beijing, Guangzhou, Xinxiang, Jinzhong and Luzhou")):
+        values = responses[year]
+        result.append(dict(year=year, field_start=start, field_end=end, n_total=n,
+                           cities=cities, favorable=values[0], unfavorable=values[3]))
+    return result
+
+
 def parse_pulse(body):
     reader = csv.DictReader(io.StringIO(body.decode("utf-8-sig")), delimiter="\t")
     if reader.fieldnames != ["Topic", "Fall/Winter 2025", "Spring/Summer 2026", "Demographic"]:
@@ -154,7 +209,7 @@ def validate_opinion_data(data):
         if ((s["respondent_country"], s["target_country"]) not in {("USA", "CHN"), ("CHN", "USA")}
                 or s["measure"] not in UNITS or s["unit"] != UNITS[s["measure"]]):
             raise ValueError("Opinion directions, percentages and rating points must remain distinct")
-        chinese = sid.startswith(("pulse:", "pulse_age:", "pew_china:"))
+        chinese = sid.startswith(("pulse:", "pulse_age:", "pew_china:", "pew_china_18_60:"))
         warmth = sid.startswith(("pulse:", "pulse_age:", "pew_warmth:", "pew_warmth_age:"))
         if s["respondent_country"] != ("CHN" if chinese else "USA") or s["measure"] != ("warmth" if warmth else "favorability"):
             raise ValueError("Opinion series cannot change its respondent population or question scale")
@@ -162,6 +217,8 @@ def validate_opinion_data(data):
         if family and (s["age"] not in AGE_GROUPS[family] or s["age"] != sid.split(":")[1]
                        or s["label"] != s["age"]):
             raise ValueError("Published age groups must not be relabelled or rebinned")
+        if sid.startswith("pew_china_18_60:") and s["age"] != "18-60":
+            raise ValueError("Early Pew China city-area samples cover ages 18-60, not all adults")
         if not all(isinstance(s[k], str) and s[k] for k in s):
             raise ValueError("Opinion population and method required")
     for survey in data["surveys"].values():
@@ -223,6 +280,11 @@ def validate_opinion_data(data):
                 row["source_id"] != "gallup_us_history" or row["comparability"] != "gallup_us_telephone"
                 or not survey["field_start"] or not survey["field_end"]):
             raise ValueError("Gallup telephone polls require their own source, dates and comparability")
+        if row["series_id"].startswith("pew_china_18_60:") and (
+                row["source_id"] != "pew_china_2005_2006" or row["year"] not in (2005, 2006)
+                or row["comparability"] != "pew_china_18_60_coverage_" + str(row["year"])
+                or not survey["field_start"] or not survey["field_end"]):
+            raise ValueError("Early Pew China rounds require their own source, dates and city-area coverage")
     return data
 
 
@@ -367,5 +429,30 @@ def collect(client, reviewed_body):
         for response in ("favorable", "unfavorable"):
             observation("pew_china:" + response, wave, "pew_china_history", row[response],
                         "pew_china_coverage_" + str(row["year"]))
+
+    body, asset = client.get(PEW_CHINA_EARLY)
+    methods_body, methods_asset = client.get(PEW_CHINA_2005_METHODS)
+    source("pew_china_2005_2006", "Pew Research Center", "2006-09-21", PEW_CHINA_EARLY,
+           [asset, methods_asset],
+           "2006 report PDF page 12, Q2a China rows: published favorable/unfavorable nets; "
+           "page 11 methods. November 2005 report PDF pages 6-7: China sampling and fieldwork.",
+           "Ages 18-60 in six city areas and surrounding rural areas, disproportionately urban, "
+           "not nationally representative. City sets differ between rounds. Neither round is "
+           "joined to the later all-adult series or to China Pulse warmth scores.")
+    for response in ("favorable", "unfavorable"):
+        series("pew_china_18_60:" + response, response.title(), "CHN", "favorability", age="18-60",
+               sampling="Face-to-face probability samples within six city areas and surrounding rural areas; "
+               "disproportionately urban, not nationally representative; city sets vary by round.")
+    for row in parse_early_china_history(body, methods_body):
+        year, wave = row["year"], "pew_china_" + str(row["year"])
+        survey(wave, year, "May 21-31, 2005" if year == 2005 else "April 7-18, 2006",
+               row["field_start"], row["field_end"], row["n_total"],
+               notes="Ages 18-60; " + row["cities"] + " and surrounding rural areas. "
+               "Disproportionately urban, not nationally representative. Full survey sample; "
+               "an exact question-specific base is not supplied.")
+        for response in ("favorable", "unfavorable"):
+            observation("pew_china_18_60:" + response, wave, "pew_china_2005_2006", row[response],
+                        "pew_china_18_60_coverage_" + str(year),
+                        "Published Q2a net about the United States, not a sum of rounded components.")
     data["observations"].sort(key=lambda r: (r["series_id"], r["year"], r["period"]))
     return validate_opinion_data(data)
