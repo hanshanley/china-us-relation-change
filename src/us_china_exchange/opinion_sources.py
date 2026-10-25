@@ -21,6 +21,8 @@ PEW_WARMTH = "https://www.pewresearch.org/wp-content/uploads/sites/20/2026/09/SR
 PEW_CHINA = "https://www.pewresearch.org/global/wp-content/uploads/sites/2/2016/10/Pew-Research-Center-China-Report-FINAL-October-5-2016.pdf"
 PEW_CHINA_EARLY = "https://www.pewresearch.org/global/wp-content/uploads/sites/2/2006/09/GAP-Asia-report-final-9-21-06.pdf"
 PEW_CHINA_2005_METHODS = "https://www.pewresearch.org/wp-content/uploads/sites/2/pdf/249.pdf"
+BAS_HISTORY = "https://www.rsis.edu.sg/wp-content/uploads/rsis-pubs/WP50.pdf"
+C100_CHINA_2007 = "https://www.committee100.org/wp-content/uploads/2017/01/2007-C-100_EN_Survey.pdf"
 PULSE_REPORT = "https://uscnpm.org/wp-content/uploads/2026/10/CHINA.PULSE_.Chinese.Public.Supports.Trade_.and_.Security.Cooperation.Still_.Sees_.the_.United.States.as_.a.Threat.pdf"
 PULSE_DATA = "https://datawrapper.dwcdn.net/LU2Fb/1/dataset.csv"
 REVIEWED_PATH = "data/reviewed/opinion-warmth.json"
@@ -180,6 +182,71 @@ def parse_early_china_history(body, methods_body):
     return result
 
 
+def parse_beijing_history(body):
+    pages = [normalize(p.extract_text(extraction_mode="layout") or "") for p in PdfReader(io.BytesIO(body)).pages]
+    methods = [p for p in pages if "The Beijing Area Study Survey" in p]
+    footnotes = [p for p in pages if "100 degree feeling thermometer" in p]
+    if len(methods) != 1 or len(footnotes) != 1:
+        raise ValueError("Original Beijing survey methods and thermometer footnote required")
+    if not all(token in methods[0] for token in (
+            "survey of Beijing citizens", "probability proportional to size",
+            "face-to-face", "December or January", "sample size was 757",
+            "2001 sample size was 615", "2002 the sample size was 662")):
+        raise ValueError("Historical Beijing population, method or wave sample changed")
+    text = footnotes[0].split("100 degree feeling thermometer", 1)[1].split("This volatility", 1)[0]
+    if "towards the US" not in text:
+        raise ValueError("Beijing thermometer must concern the United States")
+    result = []
+    for clause in re.split(r";|,\s*and rose", text):
+        numbers = [int(n) for n in re.findall(r"\b\d+\b", clause)]
+        years = [n for n in numbers if 1998 <= n <= 2002]
+        values = [n for n in numbers if 0 <= n <= 100]
+        if len(years) != 1 or len(values) != 1 or len(numbers) != 2:
+            raise ValueError("Ambiguous historical Beijing thermometer observation")
+        result.append(dict(year=years[0], value=values[0], approximate="around" in clause))
+    if [r["year"] for r in result] != list(range(1998, 2003)):
+        raise ValueError("Five distinct original Beijing survey waves required")
+    return result
+
+
+def parse_c100_china_2007(body):
+    pages = [normalize(p.extract_text() or "") for p in PdfReader(io.BytesIO(body)).pages]
+    tables = [p for p in pages if all(token in p for token in (
+        "General Feelings", "(CHINA SURVEY) How would you describe your impressions of the U.S.?",
+        "US Survey China Survey", "Congressional Staffers",
+    ))]
+    methods = [p for p in pages if "The survey of China was self-sponsored" in p]
+    if len(tables) != 1 or len(methods) != 1 or not any("December 10, 2007" in p for p in pages):
+        raise ValueError("Original C100 2007 country-opinion table, release and Chinese methods required")
+    header = tables[0].split("US Survey China Survey", 1)[1].split("Very Favorable", 1)[0]
+    populations = ("General Public Opinion Leaders Business Leaders Congressional Staffers "
+                   "General Public Opinion Leaders Business Leaders")
+    if not header.strip().startswith(populations) or re.findall(r"[\u2018'](07|05)", header) != ["07", "05"] * 4 + ["07"] * 3:
+        raise ValueError("C100 country, respondent-group or wave columns changed")
+    current = methods[0].split("(a) General Public:", 1)
+    if len(current) != 2:
+        raise ValueError("Chinese general-public sampling paragraph missing")
+    current = current[1].split("(b) Opinion Leaders:", 1)[0]
+    if not all(token in current for token in (
+        "August 18 and September 7, 2007", "face-to-face interviews",
+        "4,104 Chinese adults (18-60 years old)", "multi-stage random sampling",
+        "seven cities, seven towns, and ten villages", "nationwide, statistically representative",
+    )):
+        raise ValueError("C100 Chinese general-public dates, age, sample or geography changed")
+    responses = {}
+    for label, response in (("FAVORABLE", "favorable"), ("UNFAVORABLE", "unfavorable"),
+                            ("Not Sure", "not_sure")):
+        match = re.search(r"(?<![A-Za-z])" + re.escape(label)
+                          + r"\s+((?:\d+\s+){10}\d+)(?!\d)", tables[0])
+        if not match:
+            raise ValueError("C100 published response totals missing; do not derive a remainder")
+        values = list(map(int, match[1].split()))
+        if any(not 0 <= value <= 100 for value in values):
+            raise ValueError("Invalid C100 response percentage")
+        responses[response] = values[8]
+    return responses
+
+
 def parse_pulse(body):
     reader = csv.DictReader(io.StringIO(body.decode("utf-8-sig")), delimiter="\t")
     if reader.fieldnames != ["Topic", "Fall/Winter 2025", "Spring/Summer 2026", "Demographic"]:
@@ -209,8 +276,9 @@ def validate_opinion_data(data):
         if ((s["respondent_country"], s["target_country"]) not in {("USA", "CHN"), ("CHN", "USA")}
                 or s["measure"] not in UNITS or s["unit"] != UNITS[s["measure"]]):
             raise ValueError("Opinion directions, percentages and rating points must remain distinct")
-        chinese = sid.startswith(("pulse:", "pulse_age:", "pew_china:", "pew_china_18_60:"))
-        warmth = sid.startswith(("pulse:", "pulse_age:", "pew_warmth:", "pew_warmth_age:"))
+        chinese = sid.startswith(("pulse:", "pulse_age:", "pew_china:", "pew_china_18_60:",
+                                  "bas_beijing:", "c100_china_18_60:"))
+        warmth = sid.startswith(("pulse:", "pulse_age:", "pew_warmth:", "pew_warmth_age:", "bas_beijing:"))
         if s["respondent_country"] != ("CHN" if chinese else "USA") or s["measure"] != ("warmth" if warmth else "favorability"):
             raise ValueError("Opinion series cannot change its respondent population or question scale")
         family = next((f for f in AGE_GROUPS if sid.startswith(f + ":")), None)
@@ -219,12 +287,22 @@ def validate_opinion_data(data):
             raise ValueError("Published age groups must not be relabelled or rebinned")
         if sid.startswith("pew_china_18_60:") and s["age"] != "18-60":
             raise ValueError("Early Pew China city-area samples cover ages 18-60, not all adults")
+        if sid.startswith("bas_beijing:") and (
+                sid != "bas_beijing:us_warmth" or s["age"] != "Not specified"
+                or "Beijing" not in s["sampling"] or "not nationally representative" not in s["sampling"]):
+            raise ValueError("Historical Beijing warmth is not a national or verified all-adult sample")
+        if sid.startswith("c100_china_18_60:") and (
+                sid.split(":")[-1] not in {"favorable", "unfavorable", "not_sure"}
+                or s["age"] != "18-60" or not all(token in s["sampling"] for token in
+                    ("publisher-described national", "seven cities", "seven towns", "ten villages"))):
+            raise ValueError("C100 2007 requires its qualified national ages18-60 general-public frame")
         if not all(isinstance(s[k], str) and s[k] for k in s):
             raise ValueError("Opinion population and method required")
-    for survey in data["surveys"].values():
+    for survey_id, survey in data["surveys"].items():
         if set(survey) != {"year", "period", "field_start", "field_end", "n_total", "n_item", "notes"}:
             raise ValueError("Invalid survey identity")
-        if not isinstance(survey["year"], int) or isinstance(survey["year"], bool) or not 2000 <= survey["year"] <= 9999:
+        first_year = 1998 if survey_id.startswith("bas_beijing_") else 2000
+        if not isinstance(survey["year"], int) or isinstance(survey["year"], bool) or not first_year <= survey["year"] <= 9999:
             raise ValueError("Invalid survey year")
         if (survey["field_start"] is None) != (survey["field_end"] is None):
             raise ValueError("Survey field dates are either both verified or both unknown")
@@ -242,7 +320,8 @@ def validate_opinion_data(data):
         if set(source) != {"name", "published", "url", "assets", "locator", "notes"} or not source["assets"]:
             raise ValueError("Opinion primary-source provenance incomplete")
         published = source["published"]
-        date.fromisoformat(published + "-01" if re.fullmatch(r"\d{4}-\d{2}", published) else published)
+        suffix = "-01-01" if re.fullmatch(r"\d{4}", published) else "-01" if re.fullmatch(r"\d{4}-\d{2}", published) else ""
+        date.fromisoformat(published + suffix)
         for asset in source["assets"]:
             if not re.fullmatch(r"[0-9a-f]{64}", asset["sha256"]):
                 raise ValueError("Invalid opinion source fingerprint")
@@ -285,6 +364,29 @@ def validate_opinion_data(data):
                 or row["comparability"] != "pew_china_18_60_coverage_" + str(row["year"])
                 or not survey["field_start"] or not survey["field_end"]):
             raise ValueError("Early Pew China rounds require their own source, dates and city-area coverage")
+        if row["series_id"].startswith("bas_beijing:") or row["source_id"] == "bas_beijing_history":
+            year = row["year"]
+            expected_n = {2000: 757, 2001: 615, 2002: 662}.get(year)
+            precision = "Approximate mean" if year in (1998, 1999, 2002) else "Reported integer mean"
+            if (row["series_id"] != "bas_beijing:us_warmth" or row["source_id"] != "bas_beijing_history"
+                    or year not in range(1998, 2003)
+                    or row["survey_id"] != "bas_beijing_" + str(year)
+                    or row["comparability"] != "bas_beijing_coverage_" + str(year)
+                    or survey["field_start"] is not None or survey["field_end"] is not None
+                    or survey["n_total"] != expected_n or survey["n_item"] is not None
+                    or precision not in row["notes"]
+                    or data["sources"][row["source_id"]]["published"] != "2003"
+                    or data["sources"][row["source_id"]]["url"] != BAS_HISTORY):
+                raise ValueError("Historical Beijing waves require their own source, precision and unknown dates")
+        if row["series_id"].startswith("c100_china_18_60:") or row["source_id"] == "c100_china_2007":
+            if (not row["series_id"].startswith("c100_china_18_60:")
+                    or row["source_id"] != "c100_china_2007" or row["survey_id"] != "c100_china_2007"
+                    or row["year"] != 2007 or row["comparability"] != "c100_china_18_60_2007_coverage"
+                    or survey["field_start"] != "2007-08-18" or survey["field_end"] != "2007-09-07"
+                    or survey["n_total"] != 4104 or survey["n_item"] is not None
+                    or data["sources"][row["source_id"]]["published"] != "2007-12-10"
+                    or data["sources"][row["source_id"]]["url"] != C100_CHINA_2007):
+                raise ValueError("C100 general-public totals cannot acquire a different wave, source or population")
     return data
 
 
@@ -454,5 +556,48 @@ def collect(client, reviewed_body):
             observation("pew_china_18_60:" + response, wave, "pew_china_2005_2006", row[response],
                         "pew_china_18_60_coverage_" + str(year),
                         "Published Q2a net about the United States, not a sum of rounded components.")
+    body, asset = client.get(BAS_HISTORY)
+    source("bas_beijing_history", "Alastair Iain Johnston / RSIS, Beijing Area Study", "2003",
+           BAS_HISTORY, [asset], "Working Paper 50, printed/PDF page 13 footnote 33; page 8 footnote 20.",
+           "Publication year only; no month/day verified. Historical Beijing respondents, not national China. "
+           "Reported 0-100 warmth means, not favorable percentages. The source explicitly qualifies "
+           "1998, 1999 and 2002 as approximate. Exact field dates, age coverage, weighting and item bases "
+           "are not recovered. No connection to Pew or China Pulse is inferred.")
+    series("bas_beijing:us_warmth", "Beijing respondents", "CHN", "warmth", age="Not specified",
+           sampling="Beijing Area Study; not nationally representative. "
+           "2000-2002 face-to-face probability-proportional-to-size samples; "
+           "earlier wave-specific methods and respondent ages are not verified.")
+    for row in parse_beijing_history(body):
+        year, wave = row["year"], "bas_beijing_" + str(row["year"])
+        survey(wave, year, str(year) + " BAS wave", total={2000: 757, 2001: 615, 2002: 662}.get(year),
+               notes="Survey-wave label, not publication year. Exact field dates and ages unknown. "
+               "2000-2002 methods describe December/January interviews; full-wave samples are not item bases.")
+        precision = "Approximate mean; source says around." if row["approximate"] else "Reported integer mean."
+        observation("bas_beijing:us_warmth", wave, "bas_beijing_history", row["value"],
+                    "bas_beijing_coverage_" + str(year),
+                    precision + " Historical Beijing warmth only; not a national favorable percentage.")
+    body, asset = client.get(C100_CHINA_2007)
+    responses = parse_c100_china_2007(body)
+    source("c100_china_2007", "Committee of 100 / Horizon Research, 2007 Chinese general public",
+           "2007-12-10", C100_CHINA_2007, [asset],
+           "Original report PDF page 14 / printed12, Q1 Chinese general-public column; "
+           "PDF page62 / printed60 country sampling; PDF page3 release date.",
+           "Published totals about the United States as a country, not its people or government. "
+           "Publisher describes a national sample of ages18-60, drawn from seven cities, seven towns "
+           "and ten villages. Not an unrestricted all-adult sample or the elite groups. "
+           "Keep separate from Pew and 0-100 warmth means; archive-only, not a continuous national trend.")
+    survey("c100_china_2007", 2007, "Aug 18-Sep 7, 2007", "2007-08-18", "2007-09-07", 4104,
+           notes="Chinese general public ages18-60, face-to-face multistage sampling in seven cities, "
+           "seven towns and ten villages. Publisher-described national coverage within that age frame. "
+           "4,104 is the whole-wave sample; an exact item denominator is not supplied.")
+    for response, label in (("favorable", "Favorable"), ("unfavorable", "Unfavorable"), ("not_sure", "Not sure")):
+        sid = "c100_china_18_60:" + response
+        series(sid, label, "CHN", "favorability", age="18-60",
+               sampling="Face-to-face, multistage, publisher-described national ages18-60 sample; "
+               "seven cities, seven towns and ten villages. Separate from unrestricted all-adult populations.")
+        observation(sid, "c100_china_2007", "c100_china_2007", responses[response],
+                    "c100_china_18_60_2007_coverage",
+                    "Published Q1 response total from the Chinese general-public column, "
+                    "not an elite response, rounded-component sum or inferred remainder.")
     data["observations"].sort(key=lambda r: (r["series_id"], r["year"], r["period"]))
     return validate_opinion_data(data)
