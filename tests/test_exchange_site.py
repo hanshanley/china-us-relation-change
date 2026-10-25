@@ -11,7 +11,7 @@ from PIL import Image, ImageColor
 
 from us_china_exchange.model import GEOGRAPHIES, MEASURES, change, observation
 from us_china_exchange.render import annual_table, baseline, build, initial_panel, regional_series, svg_chart, svg_comparison
-from us_china_exchange.theme import CHART_THEMES, COMPARISON_GEOGRAPHIES, PARTNER_COLORS, PNG_HEIGHT, PNG_WIDTH
+from us_china_exchange.theme import CHART_THEMES, COMPARISON_GEOGRAPHIES, FLOW_COLORS, PARTNER_COLORS, PNG_HEIGHT, PNG_WIDTH
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -83,8 +83,7 @@ def test_single_verified_year_is_a_labelled_snapshot_not_a_left_edge_trend(value
     text = " ".join(doc.itertext())
     assert label in text and "no historical trend inferred" in text
     assert "2026" not in text
-    line = next(n for n in doc.iter() if n.get("class") == "data-line")
-    assert "L" not in line.get("d")
+    assert not any(n.get("class") == "data-line" for n in doc.iter())
 
 
 def test_charts_break_missing_years_and_definition_changes():
@@ -101,7 +100,8 @@ def test_charts_break_missing_years_and_definition_changes():
     assert "Definitions differ" in svg_chart([row(2019)] + rows, indexed=True)
 
 
-@pytest.mark.parametrize("measure", ["goods", "services", "visitors", "air_visitors", "international_students", "enrolled_students", "study_abroad"])
+@pytest.mark.parametrize("measure", ["goods", "services", "visitors", "air_visitors",
+                                     "international_students", "enrolled_students", "study_abroad", "degree_students"])
 def test_annual_trade_columns_preserve_calendar_gaps_zero_values_and_index_lines(measure):
     rows = [observation("test", "CHN", "USA", measure, year, value, "Annual trade",
                         status="missing" if value is None else "observed")
@@ -156,6 +156,37 @@ def test_missing_zero_or_incompatible_2019_does_not_fall_back_to_2020(reference,
     assert panel.select_one("#baseline-label").text == "Change since 2019"
     assert reason in panel.select_one("#baseline-change").text
     assert "<svg" not in svg_chart(rows, indexed=True)
+
+
+@pytest.mark.parametrize("theme", ["substack", "themarginoferror"])
+def test_bilateral_direction_colors_and_covid_band_match_the_annual_calendar(theme):
+    def chart(origin, destination, years):
+        rows = [observation("test", origin, destination, "enrolled_students", year, 100,
+                            "Annual students") for year in years]
+        return ElementTree.fromstring(svg_chart(rows, theme=theme))
+    inbound = chart("CHN", "USA", [2019, 2020, 2021, 2022, 2023])
+    outbound = chart("USA", "CHN", [2019, 2020, 2021, 2022, 2023])
+    marks = lambda doc, cls: [n for n in doc.iter() if n.get("class") == cls]
+    assert {n.get("fill") for n in marks(inbound, "annual-column")} == {"#7B2D26"}
+    assert {n.get("fill") for n in marks(outbound, "annual-column")} == {"#3D6F8C"}
+    band = marks(inbound, "covid-band")[0]
+    assert float(band.get("x")) == pytest.approx(115 + 835 / 5, abs=.01)
+    assert float(band.get("width")) == pytest.approx(835 * 3 / 5, abs=.01)
+    assert "not a universal travel ban" in "".join(inbound.itertext())
+    assert not marks(chart("USA", "CHN", [2016, 2018]), "covid-band")
+    assert not marks(chart("USA", "CHN", [2024, 2025]), "covid-band")
+
+
+@pytest.mark.parametrize("theme", ["substack", "themarginoferror"])
+@pytest.mark.parametrize("measure,expected", [
+    ("goods", False), ("services", False), ("enrolled_students", True), ("visitors", True),
+])
+def test_covid_travel_context_is_limited_to_mobility_in_both_export_layouts(theme, measure, expected):
+    rows = [observation("test", "CHN", "USA", measure, year, 100, "Reported annual level")
+            for year in range(2019, 2024)]
+    for markup in (svg_chart(rows, theme=theme), svg_comparison(rows, measure, "to_us", theme=theme)):
+        doc = ElementTree.fromstring(markup)
+        assert any(n.get("class") == "covid-band" for n in doc.iter()) is expected
 
 
 def test_export_axes_preserve_fractional_thousands_instead_of_repeating_rounded_ticks():
@@ -270,7 +301,7 @@ def test_published_comparisons_match_geography_colors_and_annual_points(tmp_path
             expected = {r["period"] for r in annual if r["value"] is not None and
                         (scale != "log" or r["value"] > 0)}
             assert {x.get("data-period") for x in points} == expected
-            assert all(x.get("fill") == PARTNER_COLORS[geo] for x in points)
+            assert all(x.get("fill") == FLOW_COLORS[direction][geo] for x in points)
         assert all(x.get("data-geography") != "TWN" for x in doc.iter())
         assert {x.get("data-geography") for x in doc.iter() if x.tag.endswith("circle")} <= set(geographies)
         assert path.with_suffix(".png").read_bytes() == (
@@ -325,8 +356,8 @@ def test_figure_background_variants_preserve_data_and_foreground(tmp_path):
         sid = next(r["series_id"] for r in data if r["series_id"].replace(":", "-") == original.stem)
         first = min(r["year"] for r in data if r["series_id"] == sid and r["frequency"] == "annual" and r["value"] is not None)
         assert any(x.text == str(first) for x in doc.iter())
-        line_color = (next(x.get("fill") for x in doc.iter() if x.get("class") == "annual-column")
-                      if doc.get("data-plot-style") == "columns" else
+        bars = [x for x in doc.iter() if x.get("class") in {"annual-column", "snapshot-bar"}]
+        line_color = (bars[0].get("fill") if bars else
                       next(x.get("stroke") for x in doc.iter() if x.get("class") == "data-line"))
         for theme, spec in CHART_THEMES.items():
             path = original.parent.parent / theme / original.name

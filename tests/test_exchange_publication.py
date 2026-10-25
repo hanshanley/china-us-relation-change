@@ -161,6 +161,11 @@ def test_collective_export_preserves_complete_inputs_and_native_plot_boundaries(
     assert {(r["destination"], r["value"]) for r in payload["observations"] if
             r["source_id"] == "ntto_siat" and r["year"] == 2000} == {("CHN", 644000), ("HKG", 832000)}
     assert {o["value"] for o in travel.select("#measure option")} <= {"visitors", "leisure_visitors", "air_visitors"}
+    assert travel.select_one(".covid-context")
+    assert any(json.loads(model.string).get("covid_context") for model in travel.select(".plot-data"))
+    trade = BeautifulSoup((tmp_path / "trade.html").read_text(), "html.parser")
+    assert not trade.select(".covid-context,.covid-band")
+    assert not any(json.loads(model.string).get("covid_context") for model in trade.select(".plot-data"))
     immigration = BeautifulSoup((tmp_path / "immigration.html").read_text(), "html.parser")
     opinions = BeautifulSoup((tmp_path / "opinions.html").read_text(), "html.parser")
     assert "opinions" in manifest["datasets"]

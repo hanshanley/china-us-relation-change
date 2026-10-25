@@ -28,7 +28,7 @@ from us_china_exchange.covid_context import COVID_CONTEXT
 CANONICAL = "https://www.themarginoferror.com/china-us-relations/"
 REPOSITORY = "https://github.com/hanshanley/china-us-relation-change"
 PAGES = {
-    "index.html": ("Student exchanges", "Students and study-abroad participation between the U.S., mainland China, Hong Kong and Macau.",
+    "index.html": ("Student exchanges", "Enrollment and study abroad between the U.S., mainland China, Hong Kong and Macau.",
                    "Academic-year series · Enrollment and participation kept separate"),
     "trade.html": ("Trade", "Goods and services exchanged with the U.S., with mainland China separate from Hong Kong and Macau.",
                    "Annual reported values · Separate regional scales"),
@@ -169,7 +169,7 @@ def plot_model(svg, labels, observations):
         model["covid_context"] = COVID_CONTEXT
     if svg.get("data-axis-max"):
         model["axis_max"] = float(svg["data-axis-max"])
-    if svg.get("data-plot-style") == "columns":
+    if svg.get("data-plot-style") == "columns" or svg.select_one(".snapshot-bar"):
         from collections import defaultdict
 
         groups = defaultdict(list)
@@ -190,7 +190,9 @@ def plot_model(svg, labels, observations):
         if not groups:
             raise ValueError("Column chart requires reported point metadata")
         all_years = [p["year"] for group in groups.values() for p in group]
-        model.update(columns=True, first=int(svg.get("data-first-year", min(all_years))),
+        model.update(columns=svg.get("data-plot-style") == "columns",
+                     snapshots=bool(svg.select_one(".snapshot-bar")),
+                     first=int(svg.get("data-first-year", min(all_years))),
                      last=int(svg.get("data-last-year", max(years + all_years))))
         if svg.get("data-geographies"):
             model["geographies"] = svg["data-geographies"].split()
@@ -664,7 +666,7 @@ def decorate(site, name, labels, revision):
     soup.body.insert(0, skip.extract())
     footer = fragment('<footer class="publication-footer"><span>The Margin of Error · Hans W. A. Hanley</span>'
                       f'<span><a href="{REPOSITORY}">Data & methods on GitHub</a></span></footer>')
-    if soup.select_one(".covid-band") or soup.select_one("#exchange-data"):
+    if soup.select_one(".covid-band") or (soup.select_one("#exchange-data") and name in {"index.html", "travel.html"}):
         sources = "".join(f'<li><a href="{item["url"]}">{item["name"]}</a></li>' for item in COVID_CONTEXT["sources"])
         page.append(fragment('<details class="covid-context"><summary>About the COVID shading</summary>'
                              f'<p>{COVID_CONTEXT["note"]}</p><ul>{sources}</ul></details>'))

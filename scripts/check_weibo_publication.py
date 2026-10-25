@@ -78,6 +78,12 @@ def check_page(page, summary):
         expect(link.locator(".weibo-link-name")).to_have_text(account["display_name"] or account["outlet_name"])
         detail = page.locator(f'.weibo-channel-detail[data-account-id="{account["account_id"]}"]')
         expect(detail.locator(".weibo-relationship")).to_have_text(account["relationship"])
+        evidence = account.get("evidence", [])
+        assert detail.locator(".weibo-sources a").evaluate_all(
+            "nodes=>nodes.map(n=>n.getAttribute('href'))") == [e["source_url"] for e in evidence]
+        assert detail.locator(".weibo-sources small").all_text_contents() == [
+            "Observed " + e["observed_at"][:10]
+            + (" · Claim date " + e["claim_date"][:10] if e.get("claim_date") else "") for e in evidence]
         if account.get("attribution_end"):
             expect(detail.locator(".weibo-period")).to_contain_text(account["attribution_end"])
     first = page.locator(".weibo-publisher-link:visible").first
@@ -111,6 +117,12 @@ def check_page(page, summary):
         page.select_option("#weibo-relationship", relationship)
         assert all_pages(page) == {identity for identity, p in publishers.items() if relationship in p["relationships"]}
     page.select_option("#weibo-relationship", "")
+    for term in ("The New York Times", "侨报美西", "彭博Bloomberg"):
+        page.fill("#weibo-search", term)
+        terms = term.casefold().split()
+        assert all_pages(page) == {
+            identity for identity, p in publishers.items() if all(t in p["search"].casefold() for t in terms)}
+    page.fill("#weibo-search", "")
     target = next(a for a in accounts if a.get("uid"))
     page.fill("#weibo-search", target["uid"])
     tile = page.locator(f'.weibo-publisher-link[data-outlet-id="{target["outlet_id"]}"]')
@@ -225,6 +237,10 @@ def check(site, url=None, screenshots=None):
             page.locator(".weibo-publisher-detail:visible .weibo-close-publisher").click()
             publisher = next(a["outlet_id"] for a in summary["accounts"] if a["account_id"] == last)
             expect(page.locator(f'.weibo-publisher-link[data-outlet-id="{publisher}"]')).to_be_visible()
+            page.goto(base + "?q=__conflicting_filter__&evidence=profile#weibo-publisher-nyt")
+            expect(page.locator(".weibo-publisher-detail:visible")).to_have_attribute("data-outlet-id", "nyt")
+            expect(page.locator("#weibo-search")).to_have_value("")
+            expect(page.locator("#weibo-evidence")).to_have_value("")
             assert not errors, errors
             page.close()
         touch = browser.new_context(has_touch=True, is_mobile=True, viewport={"width": 390, "height": 844})

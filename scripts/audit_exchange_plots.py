@@ -20,7 +20,7 @@ from playwright.sync_api import expect, sync_playwright
 
 from us_china_exchange.language_analysis import CHARTS as LANGUAGE_CHARTS
 from us_china_exchange.model import GEOGRAPHIES
-from us_china_exchange.theme import PARTNER_COLORS
+from us_china_exchange.theme import FLOW_COLORS
 
 
 def close(a, b):
@@ -206,7 +206,8 @@ class Audit:
                 for group in model["groups"]:
                     _, origin, destination, _ = group["id"].split(":")
                     partner = destination if origin == "USA" else origin
-                    if group["color"].lower() != PARTNER_COLORS[partner].lower() or group["label"] != GEOGRAPHIES[partner]:
+                    direction = "from_us" if origin == "USA" else "to_us"
+                    if group["color"].lower() != FLOW_COLORS[direction][partner].lower() or group["label"] != GEOGRAPHIES[partner]:
                         self.issue(key, "wrong_geography_legend", group["id"])
             actual = {g["id"]: g["points"] for g in model["groups"]}
             if set(actual) != {sid for sid, rows in expected.items() if rows}:
@@ -498,12 +499,17 @@ class Audit:
         tip = page.locator("#" + container.get_attribute("data-tooltip-id"))
         expect(tip).to_be_visible()
         if len(periods) > 1:
-            svg.press("ArrowRight")
+            for _ in range(periods[1] - periods[0] if model.get("annual") else 1):
+                svg.press("ArrowRight")
             second = model["bars"][1] if bars else next(
                 p for g in model["groups"] for p in g["points"] if p[field] == periods[1])
             if not close(tip.locator(".plot-tooltip-value").first.get_attribute("data-value"), second["value"]):
                 self.issue(key, "keyboard_wrong_step", second)
         svg.press("End")
+        if model.get("annual") and model["last"] > periods[-1]:
+            expect(tip.locator(".plot-tooltip-missing")).to_have_count(len(model["groups"]))
+            for _ in range(model["last"] - periods[-1]):
+                svg.press("ArrowLeft")
         last_point = model["bars"][-1] if bars else next(
             p for g in model["groups"] for p in g["points"] if p[field] == periods[-1])
         last_value = tip.locator(".plot-tooltip-value").first.get_attribute("data-value")
@@ -616,13 +622,15 @@ class Audit:
                 if mode == "index" and not data["charts"][sid]["index"].startswith("<svg"):
                     continue
                 page.select_option("#chart-mode", mode)
-                ref = next((r for r in rows if r["year"] == (2019 if sample["measure"] == "air_visitors" else 2020)), None)
+                ref = next((r for r in rows if r["year"] == 2019), None)
                 points = [dict(year=r["year"], period=r["period"], reported_value=r["value"],
                                value=r["value"] if mode == "levels" else r["value"] / ref["value"] * 100)
                           for r in rows]
                 snapshots = len(rows) == 1 or (len(rows) == 2 and sample["source_id"] == "ustr"
                     and len({r["comparability"] for r in rows}) == 2)
-                model = {"kind": "line", "columns": mode == "levels" and not snapshots,
+                all_rows = [r for r in self.primary_exchange if r["series_id"] == sid and r["frequency"] == "annual"]
+                model = {"kind": "line", "columns": mode == "levels" and not snapshots, "annual": True,
+                         "last": max(r["year"] for r in all_rows),
                          "groups": [{"id": sid, "points": points}]}
                 key = f"exchange:{sid}:{mode}:{width}"
                 geometry = page.locator("#chart .screen-chart").evaluate(LABEL_GEOMETRY)

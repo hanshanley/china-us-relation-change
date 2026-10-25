@@ -62,7 +62,9 @@
           .find(value => available.has(value) && [...$("measure").options].some(o => o.value === value));
         if (replacement) {
           $("measure").value = replacement;
-          selectionNotes.push(`${data.measures[selected]} has no verified annual series for this route. Showing ${data.measures[replacement]} instead; its population is defined below.`);
+          selectionNotes.push(data.freshness_policy ?
+            `Showing ${data.measures[replacement]}; its population is defined below.` :
+            `${data.measures[selected]} has no verified annual series for this route. Showing ${data.measures[replacement]} instead; its population is defined below.`);
         }
       }
     }
@@ -75,6 +77,12 @@
     if (estimatePanel) estimatePanel.hidden = !showEstimates;
     const annual = rows.filter(r => r.frequency === "annual").sort((a, b) => a.year - b.year);
     const current = annual.filter(r => r.value !== null).at(-1);
+    const publishChart = () => {
+      const chart = $("chart");
+      chart.exchangeState = {annual, origin, destination, measure, current,
+        indexed: $("chart-mode").value === "index"};
+      chart.dispatchEvent(new CustomEvent("exchange:render", {bubbles: true}));
+    };
     if (data.restrict_to_available) {
       const indexOption = $("chart-mode").querySelector('option[value="index"]');
       const canIndex = !!current && data.charts[current.series_id].index.trimStart().startsWith("<svg");
@@ -152,6 +160,7 @@
       $("series-source").textContent = "Missing coverage is retained explicitly in the complete dataset.";
       $("series-notes").textContent = "";
       $("chart-mode").disabled = true;
+      publishChart();
       return;
     }
     $("chart-mode").disabled = false;
@@ -183,8 +192,13 @@
       ` \u00b7 ${escape(current.source_vintage)}` + (data.public_display ? "." :
         ` \u00b7 ${escape(manifest.status)}. Published retrieval: ${escape(current.retrieved_at)}. ${escape(manifest.notes || "")}`);
     const breaks = annual.filter((row, i) => i && row.comparability !== annual[i - 1].comparability).map(row => row.period);
+    const presentYears = new Set(annual.filter(r => r.value !== null).map(r => r.year));
+    const missingYears = Array.from({length: current.year - annual[0].year + 1}, (_, i) => annual[0].year + i)
+      .filter(year => !presentYears.has(year));
     $("series-notes").textContent = data.public_display ?
-      (breaks.length ? `Coverage changes in ${breaks.join(", ")}. Separate line segments preserve these boundaries.` : "") : current.notes;
+      [(breaks.length ? `Population definitions change in ${breaks.join(", ")}; all reported annual values remain visible.` : ""),
+       (missingYears.length ? `Not reported: ${missingYears.join(", ")}. Blank years are not zero.` : "")]
+        .filter(Boolean).join(" ") : current.notes;
     $("figure-link").innerHTML = "<p>Download reported values as a high-resolution PNG or editable SVG:</p><ul>" +
       Object.entries(data.figures[current.series_id]).map(([theme, files]) =>
         `<li>${escape(data.chart_themes[theme].label)}: ` +
@@ -206,6 +220,7 @@
         <p>${escape(partial.definition)}. ${escape(partial.notes)}</p>
         <p>Source vintage: ${escape(partial.source_vintage)}. No annualization or full-year comparison.</p>`;
     }
+    publishChart();
   }
   for (const id of ["geography", "direction", "measure", "chart-mode", "chart-theme"]) {
     $(id).addEventListener("change", render);

@@ -3,6 +3,7 @@
 
 import argparse
 import json
+import math
 import re
 import sys
 from pathlib import Path
@@ -12,6 +13,134 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 from playwright.sync_api import expect, sync_playwright
 
 from us_china_exchange.model import primary_observations
+
+
+def check_exchange_toggles(page, data, screenshots=None):
+    base = page.url.rsplit("/", 1)[0] + "/"
+    for repeat in range(3):
+        for name, routes in (
+            ("index.html", [("CHN", "to_us", "enrolled_students"), ("CHN", "from_us", "enrolled_students"),
+                            ("HKG", "to_us", "international_students"), ("CHN", "from_us", "study_abroad"),
+                            ("CHN", "to_us", "international_students"), ("CHN", "to_us", "enrolled_students")]),
+            ("travel.html", [("CHN", "from_us", "air_visitors"), ("CHN", "to_us", "visitors"),
+                             ("MAC", "from_us", "visitors"), ("HKG", "to_us", "visitors")]),
+            ("trade.html", [("CHN", "from_us", "goods"), ("CHN", "to_us", "services"),
+                            ("CHN", "to_us", "goods"), ("CHN", "from_us", "services")]),
+        ):
+            page.goto(base + name)
+            if name == "trade.html":
+                page.locator(".individual-series").evaluate("node=>node.open=true")
+            for geo, direction, measure in routes:
+                old_tip = page.locator("#chart").get_attribute("data-tooltip-id")
+                page.select_option("#geography", geo)
+                page.select_option("#direction", direction)
+                option = page.locator(f'#measure option[value="{measure}"]')
+                if option.evaluate("node=>node.disabled"):
+                    assert option.evaluate("node=>node.hidden"), (geo, direction, measure, "stale choice still exposed")
+                    assert page.locator("#measure").input_value() != measure
+                    measure = page.locator("#measure").input_value()
+                else:
+                    page.select_option("#measure", measure)
+                page.select_option("#chart-mode", "levels")
+                origin, destination = (geo, "USA") if direction == "to_us" else ("USA", geo)
+                annual = sorted((r for r in primary_observations(data["observations"])
+                                 if (r["origin"], r["destination"], r["measure"], r["frequency"]) ==
+                                 (origin, destination, measure, "annual") and r["value"] is not None),
+                                key=lambda r: r["year"])
+                points = page.locator("#chart .screen-point")
+                assert points.evaluate_all("nodes=>nodes.map(n=>[+n.dataset.year,+n.dataset.value])") == [
+                    [r["year"], r["value"]] for r in annual], (repeat, geo, direction, measure)
+                columns = page.locator("#chart .screen-column")
+                assert columns.count() == len(annual)
+                assert page.locator("#chart .screen-line").count() == 0
+                expected_color = data["flow_colors"][direction][geo]
+                assert set(columns.evaluate_all("nodes=>nodes.map(n=>n.getAttribute('fill'))")) == {expected_color}
+                assert set(points.evaluate_all("nodes=>nodes.map(n=>n.getAttribute('fill'))")) == {expected_color}
+                svg = page.locator("#chart .screen-chart")
+                assert data["geographies"][origin] in svg.get_attribute("aria-label")
+                assert data["geographies"][destination] in svg.get_attribute("aria-label")
+                if old_tip:
+                    assert not page.locator("#" + old_tip).count(), "stale tooltip survived a toggle"
+                assert svg.evaluate("""svg=>{
+                  const v=svg.viewBox.baseVal;
+                  return [...svg.querySelectorAll('text')].every(n=>{
+                    const b=n.getBBox();return b.x>=-1&&b.y>=-1&&b.x+b.width<=v.width+1&&b.y+b.height<=v.height+1;
+                  })&&![...svg.querySelectorAll('[x],[cx],[width],[height],[d]')].some(n=>/NaN|Infinity/.test(n.outerHTML));
+                }"""), (repeat, geo, direction, measure, "invalid chart geometry")
+                mobility = measure in data["covid_context"]["measures"]
+                if mobility and annual[0]["year"] <= 2022 and annual[-1]["year"] >= 2020:
+                    assert svg.evaluate("""svg=>{
+                      const band=svg.querySelector('.covid-band');
+                      const ticks=[...svg.querySelectorAll('.screen-year')];
+                      if(!band||ticks.length<2)return false;
+                      const first=ticks[0],last=ticks.at(-1),a=Number(first.textContent),b=Number(last.textContent);
+                      const left=Number(first.getAttribute('x')),right=Number(last.getAttribute('x'));
+                      const step=(right-left)/(b-a);
+                      const start=left+(Math.max(a-.5,2019.5)-a)*step;
+                      const end=left+(Math.min(b+.5,2022.5)-a)*step;
+                      return Math.abs(Number(band.getAttribute('x'))-start)<.02&&
+                        Math.abs(Number(band.getAttribute('width'))-(end-start))<.02;
+                    }"""), (geo, direction, measure, "COVID band not aligned with annual bins")
+                else:
+                    assert not page.locator("#chart .covid-band").count(), (geo, direction, measure)
+                svg.focus()
+                svg.press("Home")
+                tip = page.locator("#" + page.locator("#chart").get_attribute("data-tooltip-id"))
+                expect(tip.locator(".plot-tooltip-value")).to_have_attribute("data-value", str(annual[0]["value"]))
+                expect(tip.locator(".plot-tooltip-label")).to_contain_text(data["geographies"][origin])
+                svg.press("Escape")
+                expect(tip).to_be_hidden()
+                svg.evaluate("node=>node.blur()")
+                assert not page.evaluate("document.documentElement.scrollWidth>innerWidth")
+                if repeat == 2 and measure == "enrolled_students" and direction == "to_us" and screenshots:
+                    page.locator(".exchange-panel").screenshot(
+                        path=str(screenshots / f"enrolled-student-bars-{page.viewport_size['width']}.png"))
+                index_option = page.locator('#chart-mode option[value="index"]')
+                if not index_option.evaluate("node=>node.disabled"):
+                    reference_year = 2019
+                    reference = next(r for r in annual if r["year"] == reference_year)
+                    page.select_option("#chart-mode", "index")
+                    actual = page.locator("#chart .screen-point").evaluate_all(
+                        "nodes=>nodes.map(n=>[+n.dataset.year,+n.dataset.value])")
+                    assert len(actual) == len(annual)
+                    for (year, value), row in zip(actual, annual):
+                        assert year == row["year"]
+                        assert math.isclose(value, row["value"] / reference["value"] * 100, rel_tol=1e-10, abs_tol=1e-8)
+                    assert not page.locator("#chart .screen-column,#chart .screen-snapshot").count()
+    page.goto(base + "index.html")
+    page.select_option("#measure", "enrolled_students")
+    assert page.locator("#reverse-direction,.reverse-direction").count() == 0
+    page.select_option("#direction", "from_us")
+    expect(page.locator("#direction")).to_have_value("from_us")
+    expect(page.locator("#measure")).to_have_value("study_abroad")
+    page.select_option("#direction", "to_us")
+    expect(page.locator("#direction")).to_have_value("to_us")
+    expect(page.locator("#chart .screen-column")).not_to_have_count(0)
+    page.select_option("#direction", "from_us")
+    page.select_option("#measure", "study_abroad")
+    annual = sorted((r for r in primary_observations(data["observations"])
+                     if (r["origin"], r["destination"], r["measure"], r["frequency"]) ==
+                     ("USA", "CHN", "study_abroad", "annual")), key=lambda r: r["year"])
+    first, last = annual[0]["year"], annual[-1]["year"]
+    reported = {r["year"]: r for r in annual if r["value"] is not None}
+    missing = next((year for year in range(first, last + 1) if year not in reported), None)
+    if missing is None:
+        return
+    labels = {r["year"]: r["period"] for r in annual}
+    svg = page.locator("#chart .screen-chart")
+    svg.focus()
+    svg.press("Home")
+    for _ in range(missing - first):
+        svg.press("ArrowRight")
+    tip = page.locator("#" + page.locator("#chart").get_attribute("data-tooltip-id"))
+    expect(tip).to_contain_text(labels.get(missing, f"{missing - 1}/{str(missing)[-2:]}"))
+    expect(tip.locator(".plot-tooltip-missing")).to_have_text("Not reported")
+    assert page.locator(f"#chart .screen-column[data-year='{missing}']").count() == 0
+    neighbour = min(reported, key=lambda year: abs(year - missing))
+    for _ in range(abs(neighbour - missing)):
+        svg.press("ArrowLeft" if neighbour < missing else "ArrowRight")
+    assert float(tip.locator(".plot-tooltip-value").get_attribute("data-value")) == reported[neighbour]["value"]
+    svg.press("Escape")
 
 
 def check_weibo_explorer(page, summary):
@@ -25,12 +154,14 @@ def check(site, url=None, screenshots=None):
     data = json.loads((site / "downloads/exchange.json").read_text())
     with sync_playwright() as playwright:
         browser = playwright.chromium.launch()
-        for width in (1360, 390):
+        for width in (1360, 390, 320):
             page = browser.new_page(viewport={"width": width, "height": 900})
             errors = []
             page.on("pageerror", lambda error: errors.append(str(error)))
             page.goto(url)
             page.evaluate("document.fonts.ready")
+            check_exchange_toggles(page, data, screenshots)
+            page.goto(url)
             payload = json.loads(page.locator("#exchange-data").text_content())
             visible = set(payload.get("visible_series", {r["series_id"] for r in data["observations"]}))
             expect(page.locator("form.controls")).to_be_visible()
@@ -111,7 +242,7 @@ def check(site, url=None, screenshots=None):
               return b.x>=-1&&b.y>=-1&&b.x+b.width<=v.width+1&&b.y+b.height<=v.height+1;
             })""")
             page.select_option("#chart-mode", "index")
-            assert float(page.locator("#chart .screen-point[data-year='2020']").get_attribute("data-value")) == 100
+            assert float(page.locator("#chart .screen-point[data-year='2019']").get_attribute("data-value")) == 100
             page.goto(url)
             page.select_option("#measure", "international_students")
             expect(page.locator("#chart-mode")).to_have_value("levels")
@@ -160,7 +291,7 @@ def check(site, url=None, screenshots=None):
             chart_bounds = page.locator("#chart svg").bounding_box()
             assert chart_bounds["height"] >= chart_bounds["width"] * .5
             assert page.locator("#chart .screen-y-tick").evaluate_all(
-                f"nodes=>nodes.every(n=>Number(n.getAttribute('font-size'))>={14 if width == 390 else 17})")
+                f"nodes=>nodes.every(n=>Number(n.getAttribute('font-size'))>={14 if width <= 390 else 17})")
             expect(page.locator("#baseline-label")).to_contain_text("2019 (pre-pandemic)")
             page.select_option("#chart-mode", "index")
             assert float(page.locator("#chart .screen-point[data-year='2019']").get_attribute("data-value")) == 100
@@ -186,7 +317,7 @@ def check(site, url=None, screenshots=None):
             page.select_option("#measure", "air_visitors")
             page.select_option("#direction", "to_us")
             expect(page.locator("#measure")).to_have_value("visitors")
-            expect(page.locator("#selection-note")).to_contain_text("no verified annual series for this route")
+            expect(page.locator("#selection-note")).to_contain_text("Showing Visitor trips; its population is defined below.")
             assert page.locator("#chart .screen-point").count() == 26
             for name in ["immigration.html", "trade.html", "language-learning.html", "confucius.html", "business-presence.html", "weibo.html", "opinions.html"]:
                 if not (site / name).is_file():
@@ -222,7 +353,7 @@ def check(site, url=None, screenshots=None):
                         assert panels.nth(0).get_attribute("data-geographies") == "CHN"
                         assert panels.nth(1).get_attribute("data-geographies") == "HKG MAC"
                         bounds = [panels.nth(i).bounding_box() for i in range(2)]
-                        if width == 390:
+                        if width <= 390:
                             assert bounds[1]["y"] >= bounds[0]["y"] + bounds[0]["height"]
                         else:
                             assert bounds[0]["x"] + bounds[0]["width"] <= bounds[1]["x"]

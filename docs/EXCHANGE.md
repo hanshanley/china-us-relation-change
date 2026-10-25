@@ -240,9 +240,15 @@ microdata, project counts or investment values substitute for affiliate counts.
 Charts follow the `uk_decline` project's `vizstyle` house settings: serif type,
 near-black ink, muted grey labels, light horizontal gridlines (0.6 opacity),
 0.8-width left/bottom axes, no top/right frame, and italic collecting-source
-notes. Mainland China retains its deep-red country identity (`#7B2D26`);
-Hong Kong, Macau and Taiwan use distinct blue, gold and green house-palette
-colours. Both bilateral directions retain the same partner colour.
+notes. Bilateral charts use `FLOW_COLORS`: mainland China to the U.S. is
+maroon (`#7B2D26`) and the reverse is blue. Hong Kong uses blue inbound and
+maroon outbound; Macau and Taiwan retain distinct direction-specific house
+colours. Native charts and both export themes use the same mapping.
+
+COVID travel shading marks 2020-2022 only on student and travel measures, not
+goods/services trade, opinions, language, business, Confucius programs or
+resident stocks. It is context, not a universal-ban or causal claim. Irrelevant
+plots also omit the explanatory shading note.
 
 `src/us_china_exchange/theme.py` translates the reference settings into native
 SVG so the offline build does not depend on another checkout or Matplotlib.
@@ -327,7 +333,7 @@ check covers touch, redraw cleanup and the no-JavaScript fallback.
 
 ### Combined regional comparisons
 
-Single-series goods and services level charts use vertical annual columns,
+Single-series annual reported-value charts use vertical annual columns,
 not connected lines. Only reported years get a bar; true zeros and missing
 observations remain different, and partial-year updates are not annualized.
 Indexed views and multi-series comparisons retain lines. The same style is
@@ -337,8 +343,8 @@ hover, touch and keyboard values retain full reported precision.
 Open `site/comparisons.html`, linked from the dashboard. These new comparisons
 include **mainland China, Hong Kong and Macau only**; Taiwan is excluded, while
 the existing individual series and source dataset are retained. The same
-`PARTNER_COLORS` mapping drives every individual and combined chart: China deep
-red, Hong Kong blue and Macau gold.
+`FLOW_COLORS` mapping drives individual and regional bilateral charts, including
+the distinct mainland-China-to-U.S. and reverse-direction colours.
 
 Comparisons are separated by measure and direction; student populations,
 visitor definitions, goods and services are never combined into one total.
@@ -353,7 +359,9 @@ use separately labelled vertical scales so smaller routes remain readable.
 The panels stack on phones. This applies in both directions and to the
 separate resident-air estimates; missing Macau air estimates remain unavailable,
 not zero. Each panel retains exact-value hover, keyboard and touch interaction.
-Trade and student comparisons retain their existing three-series layout.
+Trade and student comparisons use the same split layout where eligible series
+exist. Multi-series panels retain comparison lines; single-series levels use
+annual columns.
 
 Combined PNG/SVG exports live under
 `outputs/figures/<category>/comparisons/<background>/` and the matching site

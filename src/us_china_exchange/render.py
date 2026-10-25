@@ -23,7 +23,7 @@ from . import student_estimates
 from .opinion_analysis import CHARTS as OPINION_CHARTS, build_opinions
 from .opinion_sources import validate_opinion_data
 from .public_freshness import annual_series, eligible, public
-from .covid_context import COVID_CONTEXT, svg_band
+from .covid_context import COVID_CONTEXT, applies_to as covid_applies_to, svg_band
 from .confucius_analysis import CHARTS as CONFUCIUS_CHARTS, build_confucius
 from .confucius_sources import validate as validate_confucius
 from .state_immigration_sources import validate as validate_state_immigration
@@ -32,7 +32,7 @@ from .weibo_analysis import WEIBO_CHARTS, svg_weibo, validate_summary
 from .weibo_explorer import LOGO_FILES, explorer_page
 from .weibo_activity import DAILY_FIELDS, ROLLING_FIELDS
 from .theme import (CHART_HEIGHT, CHART_THEMES, CHART_WIDTH, COMPARISON_GEOGRAPHIES, FIGURE_CATEGORIES, FONT,
-                    FONT_FILES, GRID, MUTED, PARTNER_COLORS, PNG_HEIGHT, PNG_WIDTH,
+                    FLOW_COLORS, FONT_FILES, GRID, MUTED, PARTNER_COLORS, PNG_HEIGHT, PNG_WIDTH,
                     TEXT, axis_label, figure_category, linear_axis)
 
 
@@ -126,7 +126,7 @@ def svg_chart(rows, indexed=False, theme="themarginoferror"):
     y = lambda value: 435 - value / maximum * 285
     sample = present[0]
     partner = sample["destination"] if sample["origin"] == "USA" else sample["origin"]
-    color = PARTNER_COLORS[partner]
+    color = FLOW_COLORS["from_us" if sample["origin"] == "USA" else "to_us"][partner]
     heading = MEASURES[sample["measure"]]
     direction = f"{GEOGRAPHIES[sample['origin']]} to {GEOGRAPHIES[sample['destination']]}"
     title = f"{heading}: {direction}"
@@ -147,7 +147,8 @@ def svg_chart(rows, indexed=False, theme="themarginoferror"):
              f'<g font-family="{esc(FONT)}" font-size="20" fill="{MUTED}">',
              f'<text x="115" y="45" font-size="28" font-weight="bold" fill="{TEXT}">{esc(heading)}</text>',
              f'<text x="115" y="80" font-size="22">{esc(direction)}</text>']
-    parts.append(svg_band(first, end, 115, 950, 150, 435, columns=columns or snapshot))
+    if covid_applies_to(sample["measure"]):
+        parts.append(svg_band(first, end, 115, 950, 150, 435, columns=columns or snapshot))
     for value in ticks:
         label = axis_label(value, "" if indexed else unit)
         parts.append(f'<path d="M115 {y(value):.2f}H950" stroke="{GRID}" stroke-opacity="0.6" stroke-width="0.5"/>'
@@ -168,7 +169,7 @@ def svg_chart(rows, indexed=False, theme="themarginoferror"):
         parts.append(f'<text x="115" y="125" fill="{TEXT}">{ref["year"]} = 100</text>')
     else:
         parts.append(f'<text x="115" y="125" fill="{TEXT}">{esc("Nominal USD" if unit == "USD" else unit.capitalize())}</text>')
-    if not columns:
+    if not columns and not snapshot:
         path, previous, previous_definition = [], None, None
         for year, value in sorted(values.items()):
             definition = next(r["comparability"] for r in present if r["year"] == year)
@@ -307,10 +308,11 @@ def svg_comparison(rows, measure, direction, theme="themarginoferror", logarithm
         f'<text x="115" y="40" font-size="28" font-weight="bold" fill="{TEXT}">{esc(MEASURES[measure])}</text>',
         f'<text x="115" y="75" font-size="22">{esc(direction_label)}</text>',
     ]
-    parts.append(svg_band(first, end, 115, 950, 180, 420, columns=columns))
+    if covid_applies_to(measure):
+        parts.append(svg_band(first, end, 115, 950, 180, 420, columns=columns))
     missing = []
     for i, geo in enumerate(groups):
-        color = PARTNER_COLORS[geo]
+        color = FLOW_COLORS[direction][geo]
         available = any(r["value"] is not None for r in groups[geo])
         if not available:
             missing.append(GEOGRAPHIES[geo])
@@ -344,7 +346,7 @@ def svg_comparison(rows, measure, direction, theme="themarginoferror", logarithm
         dash = ' stroke-dasharray="7 4"' if data[0]["source_id"] == "comtrade" else ""
         if not columns:
             parts.append(f'<path class="data-line" data-geography="{geo}" data-series-id="{esc(data[0]["series_id"])}" '
-                         f'd="{" ".join(path)}" fill="none" stroke="{PARTNER_COLORS[geo]}" stroke-width="3.2" stroke-linejoin="round"{dash}/>')
+                         f'd="{" ".join(path)}" fill="none" stroke="{FLOW_COLORS[direction][geo]}" stroke-width="3.2" stroke-linejoin="round"{dash}/>')
         for row in data:
             label = GEOGRAPHIES[geo] + " · " + row["period"] + ": " + number(row["value"], row["unit"])
             if columns:
@@ -352,11 +354,11 @@ def svg_comparison(rows, measure, direction, theme="themarginoferror", logarithm
                 parts.append(f'<rect class="annual-column" data-series-id="{esc(row["series_id"])}" '
                              f'data-year="{row["year"]}" data-value="{row["value"]}" '
                              f'x="{x(row["year"]) - width / 2:.2f}" y="{y(row["value"]):.2f}" '
-                             f'width="{width:.2f}" height="{420 - y(row["value"]):.2f}" fill="{PARTNER_COLORS[geo]}"/>')
+                             f'width="{width:.2f}" height="{420 - y(row["value"]):.2f}" fill="{FLOW_COLORS[direction][geo]}"/>')
             parts.append(f'<circle data-geography="{geo}" data-series-id="{esc(row["series_id"])}" data-year="{row["year"]}" '
                          f'data-value="{row["value"]}" data-period="{esc(row["period"])}" '
                          f'data-status="{esc(row["status"])}" cx="{x(row["year"]):.2f}" '
-                         f'cy="{y(row["value"]):.2f}" r="{0 if columns else 3}" fill="{PARTNER_COLORS[geo]}"><title>{esc(label)}</title></circle>')
+                         f'cy="{y(row["value"]):.2f}" r="{0 if columns else 3}" fill="{FLOW_COLORS[direction][geo]}"><title>{esc(label)}</title></circle>')
     note = "Sources: " + "; ".join(SOURCE_NAMES.get(s, s) for s in sorted({r["source_id"] for r in present})) + ". "
     if measure == "goods" and any(r["source_id"] == "comtrade" for r in present):
         note += "Macau dashed: customs exports FOB/imports CIF; others: BEA balance-of-payments. Accounting differs. "
@@ -951,7 +953,7 @@ def build(root):
             if path.is_file():
                 path.unlink()
     payload = {"observations": rows, "sources": sources, "coverage": matrix,
-               "covid_context": COVID_CONTEXT,
+               "flow_colors": FLOW_COLORS, "covid_context": COVID_CONTEXT,
                "primary_series": primary_series(rows),
                "geographies": GEOGRAPHIES, "measures": MEASURES,
                "prefer_current_travel": True,

@@ -130,7 +130,7 @@ def check(site, url=None):
                            and row["frequency"] == "annual" and row["value"] is not None]
                     assert page.locator("#chart .screen-column").count() == len(air)
                     assert page.locator('#chart .screen-column[data-year="2021"]').count() == 0
-                    expect(page.locator("#chart .covid-label")).to_have_text("COVID travel restrictions")
+                    expect(page.locator("#chart .covid-label")).to_have_text("COVID travel restrictions, 2020-22")
                     page.select_option("#direction", "to_us")
                     expect(page.locator("#direction")).to_have_value("to_us")
                     expect(page.locator("#measure")).to_have_value("visitors")

@@ -215,6 +215,7 @@
       const daily = model.frequency === "daily";
       const dated = monthly || daily;
       const columns = !!model.columns && !dated && model.groups.length === 1 && model.scale !== "log";
+      const covid = !dated && model.covid_context && model.first <= 2022 && model.last >= 2020;
       const periodValue = point => daily ? point.date : point.month;
       const position = point => daily ? point.date_index : monthly ? point.month_index : point.year;
       const axis = model.axis_max ? {maximum: model.axis_max, ticks: [0, .25, .5, .75, 1].map(f => f * model.axis_max)} :
@@ -253,20 +254,21 @@
         else unitLines[unitLines.length - 1] = candidate;
       }
       margin.top = Math.max(margin.top, 16 + unitLines.length * (font + 4));
-      if (!dated && model.covid_context && first <= 2022 && model.last >= 2020) margin.top += 18;
       content += `<text class="screen-unit" x="${margin.left}" y="${font + 3}" font-size="${font}" fill="#655f55">${unitLines.map((line, i) =>
         `<tspan x="${margin.left}" dy="${i ? font + 4 : 0}">${escape(line)}</tspan>`).join("")}</text>`;
-      if (!dated && model.covid_context && first <= 2022 && model.last >= 2020) {
+      if (covid) {
+        margin.top += 24;
         const low = columns || snapshot ? first - .5 : first;
         const high = columns || snapshot ? model.last + .5 : last;
         const bandX = year => margin.left + (year - low) / (high - low) * plotWidth;
         const start = bandX(Math.max(low, 2019.5)), stop = bandX(Math.min(high, 2022.5));
-        const centre = Math.max(margin.left + 70, Math.min(width - margin.right - 70, (start + stop) / 2));
-        content += `<rect class="covid-band" data-start-year="2020" data-end-year="2022"
+        const centre = Math.max(margin.left + 85, Math.min(width - margin.right - 85, (start + stop) / 2));
+        content += `<g class="covid-context" pointer-events="none"><title>${escape(model.covid_context.note)}</title>
+          <rect class="covid-band" data-start-year="2020" data-end-year="2022"
           x="${start}" y="${margin.top}" width="${stop - start}" height="${height - margin.bottom - margin.top}"
-          fill="#d6d3cc" fill-opacity=".3" pointer-events="none"></rect>
+          fill="#d6d3cc" fill-opacity=".3"></rect>
           <text class="covid-label" x="${centre}" y="${margin.top - 9}" text-anchor="middle"
-          font-size="${mobile ? 10 : 12}" fill="#6b6b6b">COVID travel restrictions</text>`;
+          font-size="${mobile ? 10 : 12}" fill="#6b6b6b">${escape(model.covid_context.label)}</text></g>`;
       }
       const ticks = logarithmic ? Array.from({length: high - low + 1}, (_, i) => 10 ** (low + i)) : axis.ticks;
       for (const value of ticks) {
@@ -337,7 +339,7 @@
           previous = point;
           return `${command}${x(position(point)).toFixed(2)},${y(point.value).toFixed(2)}`;
         }).join(" ");
-        if (!columns) content += `<path class="screen-line" data-series-id="${escape(group.id)}" d="${path}" fill="none"
+        if (!columns && !snapshot) content += `<path class="screen-line" data-series-id="${escape(group.id)}" d="${path}" fill="none"
           stroke="${color(group.color)}" stroke-width="${mobile ? 2.5 : 3}" stroke-linecap="round" stroke-linejoin="round"${group.dash ? ` stroke-dasharray="${escape(group.dash)}"` : ""}/>`;
         if (dated) {
           for (let i = 1; i < group.points.length; i++) {
@@ -377,10 +379,15 @@
         }
       }
       const indexedGroups = model.groups.map(group => ({group, points: new Map(group.points.map(point => [position(point), point]))}));
-      selections = [...new Set(points.map(position))].sort((a, b) => a - b).map(period => {
+      const periods = model.annual ? Array.from({length: model.last - first + 1}, (_, i) => first + i) :
+        [...new Set(points.map(position))].sort((a, b) => a - b);
+      selections = periods.map(period => {
         const rows = indexedGroups.map(({group, points}) => ({
           id: group.id, label: group.label || model.title, color: group.color, point: points.get(period)}));
-        return {position: x(period), heading: periodLabel(rows.find(row => row.point).point), rows,
+        const reported = rows.find(row => row.point)?.point;
+        const heading = reported ? periodLabel(reported) : model.period_basis === "academic" ?
+          `${period - 1}/${String(period).slice(-2)}` : String(period);
+        return {position: x(period), heading, rows,
           markers: rows.filter(row => row.point).map(row => ({
             id: row.id, x: x(period), y: y(row.point.value), color: row.color}))};
       });
@@ -450,20 +457,17 @@
     const data = JSON.parse(embedded.textContent);
     const get = id => document.getElementById(id);
     const update = () => {
-      const geo = get("geography").value;
-      const outgoing = get("direction").value === "from_us";
-      const origin = outgoing ? "USA" : geo, destination = outgoing ? geo : "USA";
-      const preferred = data.primary_series?.[`${origin}:${destination}:${get("measure").value}`];
-      const rows = data.observations.filter(r => r.origin === origin && r.destination === destination &&
-        r.measure === get("measure").value && r.frequency === "annual" &&
-        (!data.visible_series || data.visible_series.includes(r.series_id)) &&
-        (!preferred || r.series_id === preferred)).sort((a, b) => a.year - b.year);
-      const present = rows.filter(r => r.value !== null);
       const chart = get("chart");
-      if (chart.querySelector("svg") && present.length) {
-        const sourceSVG = chart.querySelector("svg");
-        const indexed = get("chart-mode").value === "index";
+      const state = chart.exchangeState;
+      if (!state) return;
+      const {annual: rows, origin, destination, measure, indexed} = state;
+      const outgoing = origin === "USA", geo = outgoing ? destination : origin;
+      const present = rows.filter(r => r.value !== null);
+      if (present.length) {
         const reference = present.find(r => r.year === 2019);
+        if (indexed && (!reference?.value || !data.charts[present[0].series_id].index.trimStart().startsWith("<svg"))) {
+          throw new Error("Incompatible baseline index escaped the chart selection guard");
+        }
         let previous;
         const points = present.map(row => {
           const value = indexed ? row.value / reference.value * 100 : row.value;
@@ -476,18 +480,21 @@
           previous = row;
           return point;
         });
-        const colors = {CHN: "#7B2D26", HKG: "#3D6F8C", MAC: "#C2993E"};
-        const snapshots = present.length === 2 && present[0].source_id === "ustr" &&
-          new Set(present.map(row => row.comparability)).size === 2;
-        const model = {kind: "line", title: `${data.measures[get("measure").value]}: ${data.geographies[origin]} to ${data.geographies[destination]}`,
-          covid_context: data.covid_context,
-          description: sourceSVG.querySelector("desc")?.textContent || (snapshots ? "Separate annual snapshots; release vintages are not connected or used for growth." :
-            "Reported observations only. Missing years and changes in definition break the line. Exact values and complete downloads follow."),
-          columns: !indexed && sourceSVG.dataset.plotStyle === "columns",
+        const snapshots = (present.length === 1 && rows[0].year === rows.at(-1).year) ||
+          (present.length === 2 && present[0].source_id === "ustr" &&
+          new Set(present.map(row => row.comparability)).size === 2);
+        const route = `${data.geographies[origin]} \u2192 ${data.geographies[destination]}`;
+        const model = {kind: "line", annual: true, period_basis: present[0].period_basis,
+          title: `${data.measures[measure]}: ${route}`,
+          covid_context: data.covid_context?.measures?.includes(measure) ? data.covid_context : null,
+          description: snapshots ? "Separately reported snapshots, not a connected trend." :
+            "Every reported annual value is shown. Blank years are unreported, not zero; population definitions remain in the table.",
+          columns: !indexed && !snapshots,
           snapshots,
           unit: indexed ? `${reference.year} = 100` : present[0].unit === "USD" ? "Nominal USD" : present[0].unit,
           first: Math.min(...rows.map(r => r.year)), last: Math.max(...rows.map(r => r.year)),
-          groups: [{id: present[0].series_id, label: data.geographies[geo], color: colors[geo], points}]};
+          groups: [{id: present[0].series_id, label: route,
+            color: data.flow_colors[outgoing ? "from_us" : "to_us"][geo], points}]};
         models.set(chart, model);
         draw(chart, model);
         observe.observe(chart);
@@ -526,7 +533,7 @@
         }
       }
     };
-    for (const id of ["geography", "direction", "measure", "chart-mode", "chart-theme"]) get(id).addEventListener("change", update);
+    get("chart").addEventListener("exchange:render", update);
     update();
     document.querySelector("form.controls").hidden = false;
   }

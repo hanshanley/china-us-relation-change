@@ -80,8 +80,7 @@ def test_archival_services_are_not_compared_with_a_newer_revision_vintage():
         assert change(selected[2025], selected[2024])["percent"] is None
         assert "/20251218202809/" in selected[2024]["source_url"]
         chart = BeautifulSoup(svg_chart(list(selected.values())), "html.parser")
-        assert chart.select_one(".data-line")["d"].count("M") == 2
-        assert "L" not in chart.select_one(".data-line")["d"]
+        assert chart.select_one(".data-line") is None
         bars = chart.select(".snapshot-bar")
         assert len(bars) == 2
         assert all(115 < float(bar["x"]) < 950 - float(bar["width"]) for bar in bars)
