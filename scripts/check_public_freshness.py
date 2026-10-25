@@ -136,12 +136,24 @@ def check(site, url=None):
                     expect(page.locator("#measure")).to_have_value("visitors")
                     assert page.locator("#chart .screen-column").count() == 26
                 if name == "index.html":
+                    assert not page.locator('#measure option[value="enrolled_students"],'
+                                            '#measure option[value="degree_students"]').count()
                     page.select_option("#geography", "CHN")
-                    page.select_option("#direction", "from_us")
-                    page.locator("#measure").evaluate(
-                        "n=>{n.value='enrolled_students';n.dispatchEvent(new Event('change',{bubbles:true}));}")
-                    expect(page.locator("#measure")).to_have_value("study_abroad")
-                    expect(page.locator("#latest-period")).to_contain_text("2023/24")
+                    for direction, replacement in (("to_us", "international_students"), ("from_us", "study_abroad")):
+                        page.select_option("#direction", direction)
+                        for retired in ("enrolled_students", "degree_students"):
+                            page.locator("#measure").evaluate(
+                                "(n,value)=>{n.value=value;n.dispatchEvent(new Event('change',{bubbles:true}));}", retired)
+                            expect(page.locator("#measure")).to_have_value(replacement)
+                            assert page.locator("#chart .screen-point").count()
+                    base = page.url.split("?")[0].split("#")[0]
+                    for retired in ("enrolled_students", "degree_students"):
+                        for suffix in (f"?indicator={retired}-to_us", f"#{retired}-to_us"):
+                            page.goto(base + suffix)
+                            expect(page.locator("#module-chart")).to_have_value("international_students-to_us")
+                            expect(page.locator("#measure")).to_have_value("international_students")
+                            assert not page.locator(f'[data-module-chart^="{retired}-"]').count()
+                            assert page.locator("#chart .screen-point").count()
                 assert not page.evaluate("document.documentElement.scrollWidth>innerWidth")
             page.close()
             page = browser.new_page(viewport={"width": width, "height": 1000})

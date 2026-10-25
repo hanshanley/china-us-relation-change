@@ -386,7 +386,7 @@ def decorate(site, name, labels, revision):
         display.string = "Display"
         display.append(soup.select_one("#chart-mode").extract())
         form.append(display)
-        short_labels = {"international_students": "Students + OPT", "enrolled_students": "Enrolled students",
+        short_labels = {"international_students": "Enrolled + OPT", "enrolled_students": "Enrolled students",
                         "degree_students": "Degree students", "study_abroad": "Credit study abroad",
                         "visitors": "Visitor trips", "leisure_visitors": "Leisure trips",
                         "air_visitors": "U.S. air estimates",
