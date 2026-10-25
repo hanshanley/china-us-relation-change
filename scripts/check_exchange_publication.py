@@ -305,9 +305,9 @@ def check(site, url=None, screenshots=None):
                 f'{air[0]["year"]}\u2013{air[-1]["year"]}')
             expect(page.locator("#partial-panel")).to_contain_text("2026")
             assert float(page.locator("#chart .screen-point[data-year='2020']").get_attribute("data-value")) == 89000
-            assert page.locator("#chart .screen-point[data-year='2021']").count() == 0
+            assert float(page.locator("#chart .screen-point[data-year='2021']").get_attribute("data-value")) == 5000
             expect(page.locator("#chart .screen-unit")).to_have_text("Trips (millions)")
-            expect(page.locator("#series-continuity")).to_contain_text("2021 estimate is unavailable")
+            expect(page.locator("#series-continuity")).to_contain_text("original profile estimate")
             chart_bounds = page.locator("#chart svg").bounding_box()
             assert chart_bounds["height"] >= chart_bounds["width"] * .5
             assert page.locator("#chart .screen-y-tick").evaluate_all(
@@ -325,6 +325,11 @@ def check(site, url=None, screenshots=None):
                 page.locator(".exchange-panel").screenshot(path=str(screenshots / f"tourism-current-{width}.png"))
             for geo in ("CHN", "HKG"):
                 page.select_option("#geography", geo)
+                if geo == "HKG":
+                    assert page.locator("#chart .screen-point[data-year='2021']").count() == 0
+                    expect(page.locator("#series-continuity")).to_contain_text("2021 estimate is unavailable")
+                else:
+                    expect(page.locator("#series-continuity")).to_contain_text("original profile estimate")
                 expect(page.locator("#latest-period")).to_contain_text("2025")
                 expect(page.locator("#partial-panel")).to_contain_text("2026")
                 expect(page.locator("#partial-panel")).to_contain_text(
