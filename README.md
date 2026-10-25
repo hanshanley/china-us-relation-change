@@ -74,23 +74,6 @@ Single-series annual levels use bars, with missing years left blank. Shading
 marks the principal **2020-2022 COVID travel-restriction years**, not a universal
 ban or an explanation of every change.
 
-## Automatic updates
-
-The [exchange refresh workflow](.github/workflows/update-exchange.yml) is scheduled
-daily at **11:23 UTC**. It checks supported sources, preserves last-known-good
-data on retrieval failures, and validates candidate data and charts before
-committing meaningful updates. Some reviewed sources require manual checks or
-permission and are not automatically downloaded.
-
-The separate host, [`hanshanley/margin_of_error`](https://github.com/hanshanley/margin_of_error),
-builds the public edition from this repository's `main` branch and is scheduled
-to republish at **09:20 and 21:20 UTC**. Scheduled times are not guarantees of
-new data or immediate publication.
-
-Private Weibo collection is a separate process. Its unattended operation remains
-blocked by local file-access authorization; scheduled chart builds do not prove
-that new posts were collected. See [collection operation](docs/EXCHANGE.md#automatic-private-weibo-refresh).
-
 ## Setup
 
 Python 3.9+:
