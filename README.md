@@ -58,22 +58,6 @@ not an exhaustive census or a measure of popularity. See the
 [research inventory](reports/weibo_media_inventory.md) and
 [collector guide](docs/WEIBO.md) for identity evidence and recovery limits.
 
-## Working with the charts
-
-Charts provide source notes, exact values through hover, touch or keyboard,
-and complete CSV/JSON downloads. The research figure collection is in
-[`outputs/figures/`](outputs/figures), organized by topic. Editable SVG and
-high-resolution PNG versions use the same house style as `uk_decline`, with
-**The Margin of Error** (`#F7F5F0`) and **Substack** (`#F5F5F5`) backgrounds.
-
-The public edition shows histories reaching at least **2023** and standalone
-snapshots from **2024-2026**, using measurement dates rather than upload dates.
-Complete downloads and the offline research edition retain older observations;
-the archive is not the current public chart selection.
-Single-series annual levels use bars, with missing years left blank. Shading
-marks the principal **2020-2022 COVID travel-restriction years**, not a universal
-ban or an explanation of every change.
-
 ## Setup
 
 Python 3.9+:
