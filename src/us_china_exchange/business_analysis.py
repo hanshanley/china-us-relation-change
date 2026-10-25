@@ -12,7 +12,7 @@ from .indicator_charts import svg_indicator_chart
 from .public_freshness import current_groups
 from .model import json_text
 from .pipeline import write_atomic
-from .theme import BLUE, CHART_THEMES, GOLD, GREEN, MUTED, PARTNER_COLORS
+from .theme import BLUE, CHART_THEMES, GOLD, GREEN, MUTED, PARTNER_COLORS, linear_axis
 
 
 RETIRED_CHARTS = {"us-parent-companies", "us-affiliates-europe", "us-affiliates-index"}
@@ -320,6 +320,9 @@ def chart_groups(data, chart_id):
 def svg_business_chart(data, chart_id, theme="themarginoferror"):
     config = dict(CHARTS[chart_id])
     groups = chart_groups(data, chart_id)
+    if (config["mode"] == "levels" and len(groups) == 1
+            and groups[0]["cadence"] == "annual" and groups[0]["points"]):
+        config["y_max"] = linear_axis(max(point["plotted_value"] for point in groups[0]["points"]))[0]
     selected = [r for r in data["observations"] if r["series_id"] in config["series"]]
     if selected:
         last_year = max(r["year"] for r in selected)
