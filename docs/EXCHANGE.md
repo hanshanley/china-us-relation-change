@@ -736,6 +736,7 @@ evidence. Stale EU/UK and parent-company benchmarks stay download-only.
 | Finnish-UCI enterprises, Eurostat | Seventeen2007-2023 enterprise counts in China except Hong Kong, ending185. Legacy NACE C-O except L, then market producers B-S except O. The2010 classification,2013 YTY and2021 EBS boundaries are retained. Overlapping national counts differ; this is a separate annual-bar panel, not an extension or denominator for the national series. |
 | French-controlled enterprises | Sixteen reported2007-2023 counts and one missing2008 cell, ending2153. Eurostat's host category is China except Hong Kong. The 2007/2009,2010,2016 and2021 boundaries are not spliced or used for cross-regime growth. INSEE's rounded count remains a separate source finding. |
 | Dutch-controlled enterprises | Eighteen reported2007-2024 counts;2024=620 is provisional. Eurostat's seventeen earlier observations match original native TSVs; CBS's2023 control574 agrees. Dutch-resident UCI, financial/nonfinancial B-S except O. Preserve the2010 classification and2021 method boundaries; no comparable2019 change, pre-2007 history or2025 count is inferred. |
+| Austrian-controlled units, Eurostat | Seventeen2007-2023 observations. Fourteen2007-2020 legal-unit counts remain download-only; only the separately defined2021-2023enterprise observations appear in the short supplementary chart, ending175. Foreign legal units remain an imperfect enterprise proxy under the official methods. Keep the2010 NACE and2021unit boundaries. Neither broader national resident-parent counts nor the different national2024control snapshot is spliced into the UCI population. No2000/current-history completion or2019growth is claimed. |
 | Supplementary U.S. parent-company benchmarks | Only 2004,2009,2014 and2019 are verified and remain archive-only, not an annual census. Foreign-affiliate ownership begins at10%, not necessarily majority control; reporting exclusions apply. No interpolation. |
 
 The U.S. affiliate reporting cutoff changes from $7 million through 2003 to
@@ -777,6 +778,7 @@ Obsolete U.S.-in-Europe plots are withdrawn from both figure trees and catalogs.
 .venv/bin/python scripts/build_business_data.py --nordic-only --data-only
 .venv/bin/python scripts/build_business_data.py --france-only --data-only
 .venv/bin/python scripts/build_business_data.py --uk-history-only --data-only
+.venv/bin/python scripts/build_business_data.py --austria-only --data-only
 .venv/bin/python scripts/build_site.py
 PYTHONPATH=src .venv/bin/python -m pytest tests/test_exchange_business.py -q
 ```

@@ -316,7 +316,7 @@ def build_current_business(root, archive, gallery):
         section.h3.insert_after(context)
         if section["id"] in {"sweden-affiliates-china", "finland-affiliates-china", "france-affiliates-china",
                              "netherlands-affiliates-china", "finland-affiliates-china-eurostat",
-                             "sweden-affiliates-china-eurostat"}:
+                             "sweden-affiliates-china-eurostat", "austria-affiliates-china"}:
             count_cards.append(str(section))
         else:
             config = COUNT_CHARTS[section["id"]]

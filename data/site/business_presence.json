@@ -1,6 +1,6 @@
 {
   "context": {
-    "geography": "China is the host. U.S., German, Norwegian, Swedish and Finnish series retain their own control, sector, threshold and source definitions; these are not matched country rankings. UK history ends in 2019. National and overlapping EU27 membership aggregates are not summed. Netherlands is shown separately from the overlapping EU27 aggregate.",
+    "geography": "China is the host. U.S., German, Norwegian, Swedish and Finnish series retain their own control, sector, threshold and source definitions; these are not matched country rankings. UK history ends in 2019. National and overlapping EU27 membership aggregates are not summed. Netherlands is shown separately from the overlapping EU27 aggregate. Austria is separate from overlapping EU27 membership and broader national counts; its older legal units are not spliced into current enterprise counts.",
     "interpretation": "Company counts, affiliate entities and branch locations are distinct. U.S. parents and ultimately EU-controlled enterprises are not matched ownership populations; BEA and Eurostat levels must not be used to rank otherwise comparable business presence.",
     "question": "How has U.S. and European business presence in China changed over time?",
     "release_timing": "As checked October 22, 2026, BEA's latest activity release covers 2023. The published schedule puts the 2024 activity release on November 20, 2026; no 2024 value is inferred.",
@@ -80,6 +80,16 @@
     {
       "description": "Swedish-UCI controlled enterprises in China except Hong Kong; a separate population from the national subsidiary table. Preserve the metadata's 2008 classification break and original legacy NACE label/2010 table transition, 2018 legal-unit-to-enterprise/EGR change and 2021 EBS boundary. Official compilation can include imputation. 2009 is confidential, not zero; no national-series splice or cross-regime growth.",
       "id": "eurostat_sweden:china",
+      "status": "partial_history"
+    },
+    {
+      "description": "Austria changes the statistical unit in 2021: legal units through 2020, enterprises from 2021. Foreign legal-unit data remain an imperfect enterprise proxy; the official metadata retains limited comparability. Preserve the 2010 NACE boundary. Older legal units are not joined to the short current enterprise series. Broader national resident-parent counts and the separate national 2024 control snapshot are not substituted; no pre-2007 or 2019-baseline inference. Historical legal-unit observations are download-only.",
+      "id": "eurostat_austria_legal:china",
+      "status": "partial_history"
+    },
+    {
+      "description": "Austria changes the statistical unit in 2021: legal units through 2020, enterprises from 2021. Foreign legal-unit data remain an imperfect enterprise proxy; the official metadata retains limited comparability. Preserve the 2010 NACE boundary. Older legal units are not joined to the short current enterprise series. Broader national resident-parent counts and the separate national 2024 control snapshot are not substituted; no pre-2007 or 2019-baseline inference. The current supplementary chart starts in 2021.",
+      "id": "eurostat_austria:china",
       "status": "partial_history"
     }
   ],
@@ -497,6 +507,159 @@
       "status": "suppressed",
       "value": null,
       "year": 2023
+    },
+    {
+      "comparability": "fats_out_part:AT:0",
+      "notes": "Austria changes the statistical unit in 2021: legal units through 2020, enterprises from 2021. Foreign legal-unit data remain an imperfect enterprise proxy; the official metadata retains limited comparability. Preserve the 2010 NACE boundary. Older legal units are not joined to the short current enterprise series. Broader national resident-parent counts and the separate national 2024 control snapshot are not substituted; no pre-2007 or 2019-baseline inference. Source flags: none",
+      "series_id": "eurostat_austria:china",
+      "source_id": "fats_out_part_AT",
+      "status": "observed",
+      "value": 155,
+      "year": 2021
+    },
+    {
+      "comparability": "fats_out_part:AT:0",
+      "notes": "Austria changes the statistical unit in 2021: legal units through 2020, enterprises from 2021. Foreign legal-unit data remain an imperfect enterprise proxy; the official metadata retains limited comparability. Preserve the 2010 NACE boundary. Older legal units are not joined to the short current enterprise series. Broader national resident-parent counts and the separate national 2024 control snapshot are not substituted; no pre-2007 or 2019-baseline inference. Source flags: none",
+      "series_id": "eurostat_austria:china",
+      "source_id": "fats_out_part_AT",
+      "status": "observed",
+      "value": 166,
+      "year": 2022
+    },
+    {
+      "comparability": "fats_out_part:AT:0",
+      "notes": "Austria changes the statistical unit in 2021: legal units through 2020, enterprises from 2021. Foreign legal-unit data remain an imperfect enterprise proxy; the official metadata retains limited comparability. Preserve the 2010 NACE boundary. Older legal units are not joined to the short current enterprise series. Broader national resident-parent counts and the separate national 2024 control snapshot are not substituted; no pre-2007 or 2019-baseline inference. Source flags: none",
+      "series_id": "eurostat_austria:china",
+      "source_id": "fats_out_part_AT",
+      "status": "observed",
+      "value": 175,
+      "year": 2023
+    },
+    {
+      "comparability": "fats_out2:AT:0",
+      "notes": "Austria changes the statistical unit in 2021: legal units through 2020, enterprises from 2021. Foreign legal-unit data remain an imperfect enterprise proxy; the official metadata retains limited comparability. Preserve the 2010 NACE boundary. Older legal units are not joined to the short current enterprise series. Broader national resident-parent counts and the separate national 2024 control snapshot are not substituted; no pre-2007 or 2019-baseline inference. Source flags: none",
+      "series_id": "eurostat_austria_legal:china",
+      "source_id": "fats_out2_AT",
+      "status": "observed",
+      "value": 59,
+      "year": 2007
+    },
+    {
+      "comparability": "fats_out2:AT:0",
+      "notes": "Austria changes the statistical unit in 2021: legal units through 2020, enterprises from 2021. Foreign legal-unit data remain an imperfect enterprise proxy; the official metadata retains limited comparability. Preserve the 2010 NACE boundary. Older legal units are not joined to the short current enterprise series. Broader national resident-parent counts and the separate national 2024 control snapshot are not substituted; no pre-2007 or 2019-baseline inference. Source flags: none",
+      "series_id": "eurostat_austria_legal:china",
+      "source_id": "fats_out2_AT",
+      "status": "observed",
+      "value": 77,
+      "year": 2008
+    },
+    {
+      "comparability": "fats_out2:AT:0",
+      "notes": "Austria changes the statistical unit in 2021: legal units through 2020, enterprises from 2021. Foreign legal-unit data remain an imperfect enterprise proxy; the official metadata retains limited comparability. Preserve the 2010 NACE boundary. Older legal units are not joined to the short current enterprise series. Broader national resident-parent counts and the separate national 2024 control snapshot are not substituted; no pre-2007 or 2019-baseline inference. Source flags: none",
+      "series_id": "eurostat_austria_legal:china",
+      "source_id": "fats_out2_AT",
+      "status": "observed",
+      "value": 80,
+      "year": 2009
+    },
+    {
+      "comparability": "fats_out2_r2:AT:0",
+      "notes": "Austria changes the statistical unit in 2021: legal units through 2020, enterprises from 2021. Foreign legal-unit data remain an imperfect enterprise proxy; the official metadata retains limited comparability. Preserve the 2010 NACE boundary. Older legal units are not joined to the short current enterprise series. Broader national resident-parent counts and the separate national 2024 control snapshot are not substituted; no pre-2007 or 2019-baseline inference. Source flags: none",
+      "series_id": "eurostat_austria_legal:china",
+      "source_id": "fats_out2_r2_AT",
+      "status": "observed",
+      "value": 79,
+      "year": 2010
+    },
+    {
+      "comparability": "fats_out2_r2:AT:0",
+      "notes": "Austria changes the statistical unit in 2021: legal units through 2020, enterprises from 2021. Foreign legal-unit data remain an imperfect enterprise proxy; the official metadata retains limited comparability. Preserve the 2010 NACE boundary. Older legal units are not joined to the short current enterprise series. Broader national resident-parent counts and the separate national 2024 control snapshot are not substituted; no pre-2007 or 2019-baseline inference. Source flags: none",
+      "series_id": "eurostat_austria_legal:china",
+      "source_id": "fats_out2_r2_AT",
+      "status": "observed",
+      "value": 98,
+      "year": 2011
+    },
+    {
+      "comparability": "fats_out2_r2:AT:0",
+      "notes": "Austria changes the statistical unit in 2021: legal units through 2020, enterprises from 2021. Foreign legal-unit data remain an imperfect enterprise proxy; the official metadata retains limited comparability. Preserve the 2010 NACE boundary. Older legal units are not joined to the short current enterprise series. Broader national resident-parent counts and the separate national 2024 control snapshot are not substituted; no pre-2007 or 2019-baseline inference. Source flags: none",
+      "series_id": "eurostat_austria_legal:china",
+      "source_id": "fats_out2_r2_AT",
+      "status": "observed",
+      "value": 108,
+      "year": 2012
+    },
+    {
+      "comparability": "fats_out2_r2:AT:0",
+      "notes": "Austria changes the statistical unit in 2021: legal units through 2020, enterprises from 2021. Foreign legal-unit data remain an imperfect enterprise proxy; the official metadata retains limited comparability. Preserve the 2010 NACE boundary. Older legal units are not joined to the short current enterprise series. Broader national resident-parent counts and the separate national 2024 control snapshot are not substituted; no pre-2007 or 2019-baseline inference. Source flags: none",
+      "series_id": "eurostat_austria_legal:china",
+      "source_id": "fats_out2_r2_AT",
+      "status": "observed",
+      "value": 113,
+      "year": 2013
+    },
+    {
+      "comparability": "fats_out2_r2:AT:0",
+      "notes": "Austria changes the statistical unit in 2021: legal units through 2020, enterprises from 2021. Foreign legal-unit data remain an imperfect enterprise proxy; the official metadata retains limited comparability. Preserve the 2010 NACE boundary. Older legal units are not joined to the short current enterprise series. Broader national resident-parent counts and the separate national 2024 control snapshot are not substituted; no pre-2007 or 2019-baseline inference. Source flags: none",
+      "series_id": "eurostat_austria_legal:china",
+      "source_id": "fats_out2_r2_AT",
+      "status": "observed",
+      "value": 121,
+      "year": 2014
+    },
+    {
+      "comparability": "fats_out2_r2:AT:0",
+      "notes": "Austria changes the statistical unit in 2021: legal units through 2020, enterprises from 2021. Foreign legal-unit data remain an imperfect enterprise proxy; the official metadata retains limited comparability. Preserve the 2010 NACE boundary. Older legal units are not joined to the short current enterprise series. Broader national resident-parent counts and the separate national 2024 control snapshot are not substituted; no pre-2007 or 2019-baseline inference. Source flags: none",
+      "series_id": "eurostat_austria_legal:china",
+      "source_id": "fats_out2_r2_AT",
+      "status": "observed",
+      "value": 127,
+      "year": 2015
+    },
+    {
+      "comparability": "fats_out2_r2:AT:0",
+      "notes": "Austria changes the statistical unit in 2021: legal units through 2020, enterprises from 2021. Foreign legal-unit data remain an imperfect enterprise proxy; the official metadata retains limited comparability. Preserve the 2010 NACE boundary. Older legal units are not joined to the short current enterprise series. Broader national resident-parent counts and the separate national 2024 control snapshot are not substituted; no pre-2007 or 2019-baseline inference. Source flags: none",
+      "series_id": "eurostat_austria_legal:china",
+      "source_id": "fats_out2_r2_AT",
+      "status": "observed",
+      "value": 134,
+      "year": 2016
+    },
+    {
+      "comparability": "fats_out2_r2:AT:0",
+      "notes": "Austria changes the statistical unit in 2021: legal units through 2020, enterprises from 2021. Foreign legal-unit data remain an imperfect enterprise proxy; the official metadata retains limited comparability. Preserve the 2010 NACE boundary. Older legal units are not joined to the short current enterprise series. Broader national resident-parent counts and the separate national 2024 control snapshot are not substituted; no pre-2007 or 2019-baseline inference. Source flags: none",
+      "series_id": "eurostat_austria_legal:china",
+      "source_id": "fats_out2_r2_AT",
+      "status": "observed",
+      "value": 135,
+      "year": 2017
+    },
+    {
+      "comparability": "fats_out2_r2:AT:0",
+      "notes": "Austria changes the statistical unit in 2021: legal units through 2020, enterprises from 2021. Foreign legal-unit data remain an imperfect enterprise proxy; the official metadata retains limited comparability. Preserve the 2010 NACE boundary. Older legal units are not joined to the short current enterprise series. Broader national resident-parent counts and the separate national 2024 control snapshot are not substituted; no pre-2007 or 2019-baseline inference. Source flags: none",
+      "series_id": "eurostat_austria_legal:china",
+      "source_id": "fats_out2_r2_AT",
+      "status": "observed",
+      "value": 137,
+      "year": 2018
+    },
+    {
+      "comparability": "fats_out2_r2:AT:0",
+      "notes": "Austria changes the statistical unit in 2021: legal units through 2020, enterprises from 2021. Foreign legal-unit data remain an imperfect enterprise proxy; the official metadata retains limited comparability. Preserve the 2010 NACE boundary. Older legal units are not joined to the short current enterprise series. Broader national resident-parent counts and the separate national 2024 control snapshot are not substituted; no pre-2007 or 2019-baseline inference. Source flags: none",
+      "series_id": "eurostat_austria_legal:china",
+      "source_id": "fats_out2_r2_AT",
+      "status": "observed",
+      "value": 138,
+      "year": 2019
+    },
+    {
+      "comparability": "fats_out2_r2:AT:0",
+      "notes": "Austria changes the statistical unit in 2021: legal units through 2020, enterprises from 2021. Foreign legal-unit data remain an imperfect enterprise proxy; the official metadata retains limited comparability. Preserve the 2010 NACE boundary. Older legal units are not joined to the short current enterprise series. Broader national resident-parent counts and the separate national 2024 control snapshot are not substituted; no pre-2007 or 2019-baseline inference. Source flags: none",
+      "series_id": "eurostat_austria_legal:china",
+      "source_id": "fats_out2_r2_AT",
+      "status": "observed",
+      "value": 152,
+      "year": 2020
     },
     {
       "comparability": "fats_out2:FI:0",
@@ -2021,6 +2184,24 @@
       "scope": "China except Hong Kong; ultimately controlled from fixed EU27_2020 membership, excluding the UK; market producers NACE B-S except O",
       "unit": "enterprises"
     },
+    "eurostat_austria:china": {
+      "cadence": "annual",
+      "label": "Austria (Eurostat enterprises)",
+      "measure": "controlled_enterprises",
+      "notes": "Austria changes the statistical unit in 2021: legal units through 2020, enterprises from 2021. Foreign legal-unit data remain an imperfect enterprise proxy; the official metadata retains limited comparability. Preserve the 2010 NACE boundary. Older legal units are not joined to the short current enterprise series. Broader national resident-parent counts and the separate national 2024 control snapshot are not substituted; no pre-2007 or 2019-baseline inference. The current supplementary chart starts in 2021.",
+      "period_basis": "reference year",
+      "scope": "Austria-resident UCI; China except Hong Kong; market producers in the selected NACE sectors; NACE B-S except O; enterprise statistical unit from 2021",
+      "unit": "enterprises"
+    },
+    "eurostat_austria_legal:china": {
+      "cadence": "annual",
+      "label": "Austria, historical legal units",
+      "measure": "controlled_legal_units",
+      "notes": "Austria changes the statistical unit in 2021: legal units through 2020, enterprises from 2021. Foreign legal-unit data remain an imperfect enterprise proxy; the official metadata retains limited comparability. Preserve the 2010 NACE boundary. Older legal units are not joined to the short current enterprise series. Broader national resident-parent counts and the separate national 2024 control snapshot are not substituted; no pre-2007 or 2019-baseline inference. Historical legal-unit observations are download-only.",
+      "period_basis": "reference year",
+      "scope": "Austria-resident UCI; China except Hong Kong; market producers in the selected NACE sectors; NACE C-O except L before 2010, B-S except O thereafter; legal units",
+      "unit": "legal units"
+    },
     "eurostat_finland:china": {
       "cadence": "annual",
       "label": "Finland (Eurostat)",
@@ -2610,6 +2791,26 @@
       "notes": "",
       "vintage": "Reviewed source definitions"
     },
+    "fats_out2_AT": {
+      "assets": [
+        {
+          "request_url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out2?lang=EN&freq=A&geo=AT&partner=CN_X_HK&indic_bp=ENT&nace_r1=C-O_X_L",
+          "retrieved_at": "2026-10-25T04:42:33.654491+00:00",
+          "sha256": "b25303e4d7b237294d6620eebfecf9f594120ed81adfcfef4748a839feda4855",
+          "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out2?lang=EN&freq=A&geo=AT&partner=CN_X_HK&indic_bp=ENT&nace_r1=C-O_X_L"
+        },
+        {
+          "request_url": "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_at.htm",
+          "retrieved_at": "2026-10-25T04:55:04.866347+00:00",
+          "sha256": "383ecfae8e02f27813e48b6b01a93dfd2a0f500229666c4aaaa1ecd0b46a90c0",
+          "url": "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_at.htm"
+        }
+      ],
+      "locator": "geo=AT; partner=CN_X_HK; indic_bp=ENT; nace_r1=C-O_X_L",
+      "name": "Eurostat / Statistics Austria",
+      "notes": "Austria changes the statistical unit in 2021: legal units through 2020, enterprises from 2021. Foreign legal-unit data remain an imperfect enterprise proxy; the official metadata retains limited comparability. Preserve the 2010 NACE boundary. Older legal units are not joined to the short current enterprise series. Broader national resident-parent counts and the separate national 2024 control snapshot are not substituted; no pre-2007 or 2019-baseline inference. Original country-specific metadata and source flags are retained.",
+      "vintage": "fats_out2; Austria; source updated 2024-04-25T11:00:00+0200"
+    },
     "fats_out2_EU27_2007": {
       "assets": [
         {
@@ -2719,6 +2920,26 @@
       "name": "Eurostat",
       "notes": "Keep each control geography, membership and activity classification explicit. Preserve estimated, break and confidential flags; methodology boundaries remain disconnected. No reconstruction of confidential totals from member-country values.",
       "vintage": "Outward FATS, main variables - NACE Rev. 2 activity (2010-2020); updated 2024-04-25T11:00:00+0200"
+    },
+    "fats_out2_r2_AT": {
+      "assets": [
+        {
+          "request_url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out2_r2?lang=EN&freq=A&geo=AT&partner=CN_X_HK&indic_bp=ENT&nace_r2=B-S_X_O",
+          "retrieved_at": "2026-10-25T04:42:33.654376+00:00",
+          "sha256": "ce7647c7e224c9bd69ee29afb54dcb19f55f7058259a7dbed7ff1436c970f160",
+          "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out2_r2?lang=EN&freq=A&geo=AT&partner=CN_X_HK&indic_bp=ENT&nace_r2=B-S_X_O"
+        },
+        {
+          "request_url": "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_at.htm",
+          "retrieved_at": "2026-10-25T04:55:04.866347+00:00",
+          "sha256": "383ecfae8e02f27813e48b6b01a93dfd2a0f500229666c4aaaa1ecd0b46a90c0",
+          "url": "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_at.htm"
+        }
+      ],
+      "locator": "geo=AT; partner=CN_X_HK; indic_bp=ENT; nace_r2=B-S_X_O",
+      "name": "Eurostat / Statistics Austria",
+      "notes": "Austria changes the statistical unit in 2021: legal units through 2020, enterprises from 2021. Foreign legal-unit data remain an imperfect enterprise proxy; the official metadata retains limited comparability. Preserve the 2010 NACE boundary. Older legal units are not joined to the short current enterprise series. Broader national resident-parent counts and the separate national 2024 control snapshot are not substituted; no pre-2007 or 2019-baseline inference. Original country-specific metadata and source flags are retained.",
+      "vintage": "fats_out2_r2; Austria; source updated 2024-04-25T11:00:00+0200"
     },
     "fats_out2_r2_DE": {
       "assets": [
@@ -2857,6 +3078,26 @@
       "name": "Eurostat",
       "notes": "Keep each control geography, membership and activity classification explicit. Preserve estimated, break and confidential flags; methodology boundaries remain disconnected. No reconstruction of confidential totals from member-country values.",
       "vintage": "Foreign affiliates of the EU enterprises by detailed breakdown of country of the affiliates (from 2021 onwards); updated 2026-03-31T23:00:00+0200"
+    },
+    "fats_out_part_AT": {
+      "assets": [
+        {
+          "request_url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out_part?lang=EN&freq=A&geo=AT&partner=CN_X_HK&indic_sbs=ENT_NR&nace_r2=B-S_X_O",
+          "retrieved_at": "2026-10-25T04:42:33.654584+00:00",
+          "sha256": "60c77d1506c6b39999789d9bcd318cc455586f8ccf8f3271bf8174b683f6daf5",
+          "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out_part?lang=EN&freq=A&geo=AT&partner=CN_X_HK&indic_sbs=ENT_NR&nace_r2=B-S_X_O"
+        },
+        {
+          "request_url": "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_at.htm",
+          "retrieved_at": "2026-10-25T04:55:04.866347+00:00",
+          "sha256": "383ecfae8e02f27813e48b6b01a93dfd2a0f500229666c4aaaa1ecd0b46a90c0",
+          "url": "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_at.htm"
+        }
+      ],
+      "locator": "geo=AT; partner=CN_X_HK; indic_sbs=ENT_NR; nace_r2=B-S_X_O",
+      "name": "Eurostat / Statistics Austria",
+      "notes": "Austria changes the statistical unit in 2021: legal units through 2020, enterprises from 2021. Foreign legal-unit data remain an imperfect enterprise proxy; the official metadata retains limited comparability. Preserve the 2010 NACE boundary. Older legal units are not joined to the short current enterprise series. Broader national resident-parent counts and the separate national 2024 control snapshot are not substituted; no pre-2007 or 2019-baseline inference. Original country-specific metadata and source flags are retained.",
+      "vintage": "fats_out_part; Austria; source updated 2026-03-31T23:00:00+0200"
     },
     "fats_out_part_DE": {
       "assets": [

@@ -442,6 +442,7 @@ def check(site, url=None, screenshots=None):
                         "france-affiliates-china", "netherlands-affiliates-china",
                         "finland-affiliates-china-eurostat",
                         "sweden-affiliates-china-eurostat",
+                        "austria-affiliates-china",
                         "us-company-decisions", "german-company-risk"}
                     assert page.locator("#business-count-references").get_attribute("open") is None
                     assert page.locator("#business-count-references .business-card").count() == 4
