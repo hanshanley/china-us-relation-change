@@ -29,7 +29,7 @@ PROJECT_NAME = "U.S.–China Exchange"
 CANONICAL = "https://www.themarginoferror.com/china-us-relations/"
 REPOSITORY = "https://github.com/hanshanley/china-us-relation-change"
 PAGES = {
-    "index.html": ("Student exchanges", "Enrollment and study abroad.",
+    "index.html": ("Student exchanges", "Student enrollment, Optional Practical Training (OPT), and study abroad for academic credit.",
                    "Academic-year series · Enrollment and participation kept separate"),
     "trade.html": ("Trade", "Goods and services exchanged with the U.S., with mainland China separate from Hong Kong and Macau.",
                    "Annual reported values · Separate regional scales"),
@@ -41,7 +41,7 @@ PAGES = {
                       "Reported survey rounds · Different questions kept separate"),
     "comparisons.html": ("Regional comparisons", "Comparisons are organized within Students, Travel and Trade.",
                          "Existing chart links lead to their topic"),
-    "language-learning.html": ("Language learning", "Chinese, Japanese and Korean across degree awards and school offerings. Separate AP exams; historical enrollments in downloads.",
+    "language-learning.html": ("Language learning", "Chinese, Japanese and Korean language learning: degrees, school classes, and Advanced Placement (AP) exams.",
                               "AP exams through 2025 · Degree awards through 2024 · College census through 2021"),
     "confucius.html": ("Confucius Institutes & Classrooms", "U.S. institutes, school programs and documented replacements, counted separately.",
                        "Dated historical reports · Operator listings are not an operating census"),
@@ -97,6 +97,9 @@ def prepare_topic_pages(site):
     routes = {}
     for name in ("index.html", "travel.html", "trade.html"):
         page = BeautifulSoup(source, "html.parser")
+        if name != "index.html":
+            for node in page.select("#student-estimates,#student-estimate-data"):
+                node.decompose()
         selected = [section for section in sections
                     if regional_topic(section["id"].rsplit("-", 1)[0]) == name]
         details = page.new_tag("details", attrs={"id": "regional-comparisons", "class": "regional-explorer"})
@@ -393,9 +396,9 @@ def decorate(site, name, labels, revision):
         display.append(soup.select_one("#chart-mode").extract())
         form.append(display)
         short_labels = {"international_students": "Enrolled + OPT", "enrolled_students": "Enrolled students",
-                        "degree_students": "Degree students", "study_abroad": "Credit study abroad",
+                        "degree_students": "Degree students", "study_abroad": "Study abroad for credit",
                         "visitors": "Visitor trips", "leisure_visitors": "Leisure trips",
-                        "air_visitors": "U.S. air estimates",
+                        "air_visitors": "U.S. air travel",
                         "goods": "Goods trade", "services": "Services trade"}
         for option in soup.select("#measure option"):
             option.string = short_labels[option["value"]]
@@ -420,7 +423,7 @@ def decorate(site, name, labels, revision):
                 if option["value"] not in available:
                     option.decompose()
                 elif option["value"] == "visitors":
-                    option.string = "All-purpose arrivals"
+                    option.string = "Visitor arrivals"
         for option in soup.select("#measure option"):
             option.attrs.pop("selected", None)
             if option["value"] == initial_measure:
@@ -669,12 +672,12 @@ def decorate(site, name, labels, revision):
             if download_parent is None:
                 download_parent = parent
             for p in download_parent.find_all("p", recursive=False):
-                if p.text.startswith("Download reported values"):
+                if p.text.startswith(("Download reported values", "Standalone essay graphics")):
                     p.decompose()
             for ul in list(download_parent.find_all("ul", recursive=False)):
                 details = soup.new_tag("details", attrs={"class": "chart-downloads"})
                 summary = soup.new_tag("summary")
-                summary.string = "Download PNG / SVG"
+                summary.string = "Download essay PNG / SVG"
                 details.append(summary)
                 ul.replace_with(details)
                 details.append(ul)

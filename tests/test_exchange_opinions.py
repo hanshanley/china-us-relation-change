@@ -8,6 +8,7 @@ import json
 from pathlib import Path
 
 import pytest
+from us_china_exchange.theme import png_dimensions
 from bs4 import BeautifulSoup
 
 from us_china_exchange import opinion_sources as sources
@@ -155,6 +156,7 @@ def test_plot_audit_reconciles_each_survey_round_instead_of_overwriting_its_year
     polls = [r for r in data()["observations"] if r["series_id"] == "gallup_us:favorable" and r["year"] == 2000]
     assert len(polls) > 1
     audit = module.Audit.__new__(module.Audit)
+    audit.exclude_weibo = False
     audit.datasets = {"opinions.html": {"observations": polls}}
     audit.plotted = {"opinions.html": [
         dict(series_id=r["series_id"], year=str(r["year"]), survey_id=r["survey_id"],
@@ -609,7 +611,8 @@ def test_complete_downloads_and_bounded_graphics(tmp_path):
             assert len(svg.select("circle.opinion-point,rect.opinion-point")) == sum(
                 len(g["points"]) for g in chart_groups(d, chart))
             with Image.open(tmp_path / f"site/figures/opinions/{theme}/{chart}.png") as png:
-                assert png.size == (3000, 1800)
+                assert png.size == png_dimensions(
+                    (tmp_path / f"site/figures/opinions/{theme}/{chart}.svg").read_text())
 
 
 def test_source_checks_are_noops_for_metadata_only_changes_and_preserve_data_on_failure(tmp_path, monkeypatch):

@@ -6,6 +6,7 @@ import json
 from pathlib import Path
 
 import pytest
+from us_china_exchange.theme import png_dimensions
 from bs4 import BeautifulSoup
 
 from us_china_exchange.state_immigration_map import build_state_map, fill, map_paths
@@ -147,7 +148,7 @@ def test_map_exports_and_downloads_preserve_every_state_and_both_measures(tmp_pa
                 value = row["share_percent"] if metric == "share" else row["china_born"]
                 assert mark["fill"] == fill(value, metric)
             png = path.with_suffix(".png").read_bytes()
-            assert (int.from_bytes(png[16:20], "big"), int.from_bytes(png[20:24], "big")) == (3000, 1800)
+            assert (int.from_bytes(png[16:20], "big"), int.from_bytes(png[20:24], "big")) == png_dimensions(path.read_text())
 
 
 def test_simplified_map_retains_all_states_and_the_dateline_inset():

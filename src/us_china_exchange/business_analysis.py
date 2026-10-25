@@ -67,167 +67,119 @@ CHARTS = {
         "title": "U.S.-parent affiliates in China",
         "subtitle": "Earlier reference | 2000-2023 | fiscal year ending",
         "series": ["bea_affiliates:china"], "unit": "Affiliates", "mode": "levels",
-        "note": "BEA. Nonbank coverage before 2009; reporting cutoffs $7m through 2003, $10m in 2004-08, $25m from 2009. Benchmark boundaries disconnected. Entity counts include holding companies, not all firms or offices."},
+        "note": "BEA. Nonbank coverage before 2009; reporting cutoffs $7m through 2003, $10m in 2004-08, $25m from 2009. Entity counts include holding companies."},
     "eu-affiliates-china": {
         "title": "EU-reporting groups in China",
-        "subtitle": "Annual observations | different memberships kept separate",
+        "subtitle": "Annual enterprise counts | EU membership varies by source",
         "series": ["eurostat_historical_eu:china", "eurostat_affiliates:china"], "unit": "Enterprises", "mode": "levels",
-        "note": "Eurostat. EU27 2023 is confidential; 2022 is the latest disclosed value. Historical EU27 includes UK, excludes Croatia; current EU27 reverses those members. Membership, NACE and 2021 method breaks stay disconnected. Not matched to BEA coverage."},
+        "note": "Eurostat. Historical EU27 includes the UK and excludes Croatia; current EU27 reverses those members. Coverage and methods differ between releases."},
     "uk-affiliates-china": {
         "title": "UK-controlled enterprises in China",
         "subtitle": "Annual observations, 2009-2019 | not UK investment flows",
         "series": ["eurostat_uk:china"], "unit": "Enterprises", "mode": "levels",
-        "note": "Eurostat history; NACE Rev. 1.1 in 2009 and Rev. 2 from 2010 stay disconnected. ONS revised 2018/2019 estimates; survey breaks and 2018 source/sector boundary disconnected. ONS total activity includes agriculture. No later outward-affiliate counts verified; do not fill with inward or FDI data."},
+        "note": "Eurostat and ONS. Industry classification changed in 2010; survey and sector coverage changed in 2018. ONS revised the 2018/2019 estimates."},
     "norway-affiliates-china": {
         "title": "Norwegian-controlled enterprises in China",
         "subtitle": "Earlier reference | From 2008 | Statistics Norway",
         "series": ["ssb_norway:china"], "unit": "Enterprises", "mode": "levels",
-        "note": "Statistics Norway, all industries. Direct or indirect Norwegian control; Hong Kong and Macao reported separately. "
-        "This full source history replaces the narrower Eurostat view, not just its last year. "
-        "Norway is outside the EU; counts are enterprises, not Norwegian parents or office locations."},
+        "note": "Statistics Norway, all industries. Enterprises under direct or indirect Norwegian control; Hong Kong and Macao reported separately."},
     "germany-affiliates-china": {
         "title": "German-controlled enterprises in China",
-        "subtitle": "Bundesbank | 2015-2018 and 2021-2024 | Missing years stay gaps",
+        "subtitle": "Bundesbank | Reported enterprise counts, 2015-2024",
         "series": ["bundesbank_germany:china"], "unit": "Enterprises", "mode": "levels",
-        "note": "Bundesbank: German majority control, assets above EUR 3m; includes branches. "
-        "Hong Kong and Macau are separate. 2015-2018 uses the original November 2020 release; 2018 remains "
-        "provisional in that vintage, as does 2024 in the current workbook. No 2019/2020 count or cross-vintage "
-        "2019 change inferred. Eurostat is a different population, shown separately."},
+        "note": "Bundesbank. German majority control, assets above EUR 3m; includes branches. Hong Kong and Macau are separate. The 2018 and 2024 observations are provisional in their source releases."},
     "germany-affiliates-china-eurostat": {
         "title": "German enterprises: the longer Eurostat history",
         "subtitle": "Earlier reference | Eurostat | 2007-2023",
         "series": ["eurostat_germany:china"], "unit": "Enterprises", "mode": "levels",
-        "note": "Eurostat; China except Hong Kong. NACE C-O except L in 2007-2009, B-S except O thereafter. "
-        "Keep the 2010 classification and 2021 EBS dataset boundaries separate. "
-        "No 2000-2006 values inferred. Not spliced with Bundesbank; Germany overlaps EU27."},
+        "note": "Eurostat; China except Hong Kong. Industry coverage changed in 2010 and the reporting framework changed in 2021."},
     "sweden-affiliates-china": {
         "title": "Swedish-group subsidiaries in China",
         "subtitle": "National annual observations, 2010-2024",
         "series": ["tillvaxtanalys_sweden:china"], "unit": "Enterprises", "mode": "levels",
-        "note": "Swedish Agency for Growth Policy Analysis. Subsidiaries, not parents; this national history starts in 2010. "
-        "2018: EGR coverage/imputation; 2019: frame repair; 2021: ownership-concept change. "
-        "The longer Eurostat population is separate. Hong Kong and Macau separate."},
+        "note": "Swedish Agency for Growth Policy Analysis. Subsidiaries of Swedish groups; Hong Kong and Macau are separate. Coverage changed in 2018-2019 and the ownership definition changed in 2021."},
     "finland-affiliates-china": {
         "title": "Finnish-reported affiliates in China",
         "subtitle": "Supplementary annual history, 2020-2024",
         "series": ["statfin_finland:china"], "unit": "Enterprises", "mode": "levels",
-        "note": "Statistics Finland. Active affiliates and branches, all sizes/industries; not unique parents. "
-        "2021: EBS methodology boundary. Earlier matching national counts unavailable; the longer Eurostat population is separate. Hong Kong and Macau separate."},
+        "note": "Statistics Finland. Active affiliates and branches across industries and sizes; Hong Kong and Macau are separate. The statistical framework changed in 2021."},
     "france-affiliates-china": {
         "title": "French-controlled enterprises in China",
         "subtitle": "China except Hong Kong | Eurostat, 2007-2023",
         "series": ["eurostat_france:china"], "unit": "Enterprises", "mode": "levels",
-        "note": "Eurostat. 2008 unreported; 2007 pilot/2009 frame, 2010 NACE, 2016 source and 2021 EBS breaks. "
-        "Not spliced with rounded INSEE counts. The reported host category is China except Hong Kong."},
+        "note": "Eurostat; China except Hong Kong. Survey coverage, industry classification and reporting methods changed in 2009, 2010, 2016 and 2021."},
     "netherlands-affiliates-china": {
         "title": "Dutch-controlled enterprises in China",
         "subtitle": "China except Hong Kong | 2007-2024 | 2024 provisional",
         "series": ["eurostat_netherlands:china"], "unit": "Enterprises", "mode": "levels",
-        "note": "Eurostat and CBS. Dutch-resident ultimate control; financial/nonfinancial affiliates, not parents. "
-        "NACE changes in 2010; the 2021 method is not directly comparable with earlier years. "
-        "No comparable 2019 change or pre-2007 count inferred. Netherlands overlaps EU27; do not sum them."},
+        "note": "Eurostat and CBS. Financial and nonfinancial enterprises under Dutch ultimate control. Industry classification changed in 2010 and methods changed in 2021."},
     "finland-affiliates-china-eurostat": {
         "title": "Finnish-controlled enterprises: the longer history",
         "subtitle": "China except Hong Kong | Eurostat, 2007-2023",
         "series": ["eurostat_finland:china"], "unit": "Enterprises", "mode": "levels",
-        "note": "Eurostat, Finnish-UCI market producers. 2010 NACE, 2013 YTY system and 2021 EBS boundaries retained. "
-        "The broader national affiliate/branch counts above are a different population, not a splice or a matched comparison."},
+        "note": "Eurostat. Market producers under Finnish ultimate control. Classification, business-register and reporting methods changed in 2010, 2013 and 2021."},
     "italy-affiliates-china": {
         "title": "Italian-controlled legal units in China",
         "subtitle": "Legal-unit history, 2007-2023 | Eurostat / ISTAT",
         "series": ["eurostat_italy_legal:china"], "unit": "Legal units", "mode": "levels",
-        "note": "Italian ultimate control. Eurostat legal units through 2020; ISTAT continues the same unit "
-        "through 2023 (national label: Cina), with matching 2019/2020 controls. Keep the 2010 NACE and "
-        "2021 source boundaries. Grouped enterprise counts are separate in downloads, never spliced here. "
-        "No pre-2007, cross-source 2019 change or unpublished 2024/2025 count is inferred."},
+        "note": "Eurostat through 2020; ISTAT thereafter. Legal units under Italian ultimate control. Industry classification changed in 2010 and the source changed in 2021."},
     "sweden-affiliates-china-eurostat": {
         "title": "Swedish-controlled enterprises: the longer history",
         "subtitle": "China except Hong Kong | Eurostat, 2007-2023",
         "series": ["eurostat_sweden:china"], "unit": "Enterprises", "mode": "levels",
-        "note": "Eurostat, Swedish ultimate control; official imputation can apply. 2009 confidential, not zero. "
-        "Keep 2008 classification/2010 table, 2018 enterprise-unit/EGR and 2021 EBS boundaries. "
-        "Not spliced into national subsidiary counts."},
+        "note": "Eurostat. Enterprises under Swedish ultimate control; includes official estimates. Classification, enterprise coverage and reporting methods changed during the series."},
     "spain-affiliates-china": {
         "title": "Spanish-controlled enterprises in China",
         "subtitle": "China except Hong Kong | Reported counts from 2009",
         "series": ["eurostat_spain:china"], "unit": "Enterprises", "mode": "levels",
-        "note": "Eurostat. 2007/2008 unreported; 2010 classification and 2021 statistical-enterprise boundaries. "
-        "Financial and nonfinancial activities; not unique Spanish parents. Source estimates are flagged. "
-        "Not spliced with INE's differently scoped national nonfinancial counts or summed with EU aggregates."},
+        "note": "Eurostat. Financial and nonfinancial enterprises under Spanish control. Industry classification changed in 2010 and the enterprise definition changed in 2021."},
     "denmark-affiliates-china": {
         "title": "Subsidiaries controlled from Denmark",
         "subtitle": "China | National series from 2007",
         "series": ["dst_denmark:china"], "unit": "Enterprises", "mode": "levels",
-        "note": "Statistics Denmark, OFATS4. Denmark-resident parents include foreign ultimate owners; "
-        "not Danish-UCI Eurostat counts. Subsidiary entities, not parents, plants or branches. "
-        "2010 DB03/DB07 classification transition; Hong Kong and Macao separate. "
-        "No pre-2007 values inferred; no sum with overlapping EU aggregates."},
+        "note": "Statistics Denmark, OFATS4. Subsidiaries of Denmark-resident parents, including foreign-owned groups. Industry classification changed in 2010. Hong Kong and Macao are separate."},
     "austria-affiliates-china": {
         "title": "Austrian-controlled enterprises in China",
         "subtitle": "China except Hong Kong | Since 2021 | Current enterprise definition",
         "series": ["eurostat_austria:china"], "unit": "Enterprises", "mode": "levels",
-        "note": "Eurostat / Statistics Austria, Austria-resident ultimate control. Supplementary enterprise "
-        "counts start in 2021. The 2007-2020 legal-unit history remains separate in complete downloads, "
-        "not joined here. Foreign legal units remain an imperfect enterprise proxy. Broader national "
-        "resident-parent counts and the 2024 control snapshot are not spliced into this population."},
+        "note": "Eurostat / Statistics Austria. Enterprises under Austrian ultimate control, using the definition introduced in 2021."},
     "poland-affiliates-china": {
         "title": "Enterprises controlled from Poland",
         "subtitle": "China except Hong Kong | Eurostat | Reported counts from 2008",
         "series": ["eurostat_poland:china"], "unit": "Enterprises", "mode": "levels",
-        "note": "Eurostat / Statistics Poland. Ultimate control includes documented joint/minority cases. "
-        "2007 unreported; 2010 legacy NACE transition and 2018 legal-unit/enterprise break retained. "
-        "2021 changes dataset, not the Polish enterprise unit. Not the broader national foreign-equity survey."},
+        "note": "Eurostat / Statistics Poland. Ultimate control includes documented joint and minority-control cases. Industry classification changed in 2010 and the counting unit changed in 2018."},
     "luxembourg-affiliates-china": {
         "title": "Luxembourg-controlled enterprises in China",
         "subtitle": "China except Hong Kong | Eurostat | 2009-2023",
         "series": ["eurostat_luxembourg:china"], "unit": "Enterprises", "mode": "levels",
-        "note": "Eurostat, Luxembourg-resident ultimate control; statistical enterprises or branches, "
-        "not unique parents. SPEs excluded; all large/medium enterprises and many small entities, not a census. "
-        "Country-declared comparability since 2009; 2010/2021 change source tables, not a declared country-unit break. "
-        "2007/2008 unreported; no pre-2009 or unpublished later values. Overlaps EU aggregates; do not sum."},
+        "note": "Eurostat. Enterprises and branches under Luxembourg ultimate control. Special-purpose entities are excluded; coverage is not a census of all firms."},
     "portugal-affiliates-china": {
         "title": "Portuguese-controlled enterprises in China",
         "subtitle": "China except Hong Kong | Ultimate control from 2008",
         "series": ["eurostat_portugal:china"], "unit": "Enterprises", "mode": "levels",
-        "note": "Eurostat / Banco de Portugal. The pre-UCI 2007 count is separate in complete downloads. "
-        "2012 confidential, not zero. Keep the 2010 NACE transition, 2014 sample-to-IES source change "
-        "and 2020 coverage expansion. No comparable current 2019 change or unpublished later count. "
-        "Enterprises, not unique Portuguese parents; not summed with EU aggregates."},
+        "note": "Eurostat / Banco de Portugal. Enterprises under Portuguese ultimate control. Classification, reporting sources and coverage changed in 2010, 2014 and 2020."},
     "czechia-affiliates-china": {
         "title": "Czech-controlled enterprises in China",
         "subtitle": "China except Hong Kong | Ultimate control from 2007",
         "series": ["eurostat_czechia:china"], "unit": "Enterprises", "mode": "levels",
-        "note": "Eurostat / Czech National Bank. Preserve the 2008 NACE revision, 2010 selected-table "
-        "transition and 2021 EBS coverage/definition break. 2021 confidential, not zero. "
-        "No comparable current 2019 change or pre-2007 count inferred. Enterprises/branches under "
-        "ultimate control, not all FDI interests or an addition to overlapping EU totals."},
+        "note": "Eurostat / Czech National Bank. Enterprises and branches under Czech ultimate control. Industry classification, tables and coverage changed in 2008, 2010 and 2021."},
     "belgium-affiliates-china": {
         "title": "Belgian-controlled enterprises in China",
         "subtitle": "China except Hong Kong | Since 2022 | Thresholded reporting frame",
         "series": ["eurostat_belgium:china"], "unit": "Enterprises", "mode": "levels",
-        "note": "Eurostat / National Bank of Belgium. Enterprise counts start 2022; older UCI legal units "
-        "and pre-UCI records remain separate in complete downloads. Reporting-unit frame cutoffs: "
-        "EUR 30m equity, 75m assets or 15m long-term investments, any criterion; not all Belgian firms "
-        "or verified constant historical limits. Method windows differ; no comparable 2019 change."},
+        "note": "Eurostat / National Bank of Belgium. Reporting units meet at least one threshold: EUR 30m equity, EUR 75m assets or EUR 15m long-term investments."},
     "swiss-liechtenstein-affiliates-china": {
         "title": "Switzerland + Liechtenstein: China affiliates",
         "subtitle": "SNB reporting area | Year-end affiliates and branches, 2014-2024",
         "series": ["snb_swiss_liechtenstein:china"], "unit": "Affiliates and branches", "mode": "levels",
         "description": "Swiss-controlled foreign subsidiaries and branches in China; the reporting area "
         "includes Switzerland and Liechtenstein, not a pure-Switzerland company census.",
-        "note": "SNB. Combined Switzerland/Liechtenstein reporting area, not a pure-Swiss count. "
-        "Direct/indirect majority subsidiaries include unincorporated branches. CHF10m groupwide "
-        "cross-border capital frame; not each affiliate's size, all firms or verified constant historical "
-        "limits. Source revision/estimate flags are not supplied; no default 2019 growth or pre-2014 count."},
+        "note": "Swiss National Bank. Combined Switzerland/Liechtenstein reporting area. Majority-owned subsidiaries and branches of groups meeting the CHF 10m cross-border capital threshold."},
     "hungary-affiliates-china": {
         "title": "Hungarian-controlled enterprises in China",
-        "subtitle": "China except Hong Kong | Since 2022 | Qualified short history",
+        "subtitle": "China except Hong Kong | Enterprise counts from 2022",
         "series": ["eurostat_hungary:china"], "unit": "Enterprises", "mode": "levels",
-        "note": "Eurostat / HCSO / MNB. Enterprises from 2022; separate 2007-2021 "
-        "legal-unit archive in downloads (10 confidential cells). Conflicting unit/comparability rules: "
-        "no 2019 growth. Current reporting frame: above EUR 40k/10% capital; separate HUF 10m wording. "
-        "Minority control reviewed; nonrespondents omitted. Not all firms or proven constant historical "
-        "cutoffs. National 2024 aggregates are not China counts."},
+        "note": "Eurostat / Hungarian statistical and central-bank sources. Enterprise counts from 2022; earlier figures use legal units. Reporting thresholds apply and nonrespondents are omitted."},
     "slovenia-affiliates-china": {
         "title": "Slovenian-controlled enterprises in China",
         "subtitle": "National China (CN) | 2009-2025 | Thresholded reporting frame",

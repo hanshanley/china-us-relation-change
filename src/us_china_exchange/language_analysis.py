@@ -18,7 +18,7 @@ CHARTS = {
         "title": "College language-course enrollments",
         "subtitle": "U.S. colleges and universities | fall census rounds",
         "series": ["mla:chinese", "mla:japanese", "mla:korean"], "unit": "Course registrations", "mode": "levels",
-        "note": "MLA 2021-report vintage, U.S. institutions. Course registrations, not unique learners or U.S. citizenship counts. Dots are observed census rounds; no annual observations are invented. Commercial reuse permission unverified."},
+        "note": "MLA 2021-report vintage, U.S. institutions. Course registrations, not unique learners or U.S. citizenship counts. Commercial reuse permission unverified."},
     "school-language-enrollments": {
         "title": "K-12 language-enrollment estimates", "subtitle": "2014–15-era reference period | published in 2017",
         "series": ["schools:k12_estimate", "schools:k12_japanese_estimate"], "unit": "Enrollments", "mode": "bars",
@@ -29,7 +29,7 @@ CHARTS = {
         "unit": "Percent", "mode": "bars",
         "note": "NCES School Pulse Panel, January 2024; experimental national estimates. All U.S. public schools "
         "are the denominator; Chinese includes Mandarin or Cantonese. Standard errors: Chinese 0.4pp, "
-        "Japanese 0.3pp. Korean is below reporting standards, not zero. Course offerings are not student enrollments."},
+        "Japanese 0.3pp. Korean estimates are not reportable. Course offerings are not student enrollments."},
     "college-share": {
         "title": "Each language's share of college language study",
         "subtitle": "Share of all non-English language course registrations",
@@ -40,15 +40,15 @@ CHARTS = {
         "subtitle": "U.S. college course enrollments | 2013 = 100",
         "series": ["mla:chinese", "mla:japanese", "mla:korean"],
         "unit": "2013 = 100", "mode": "index", "baseline": 2013,
-        "note": "Each language uses its own 2013 baseline. MLA 2021-report vintage, not annual estimates. Population totals vary across census rounds; this is not a causal estimate."},
+        "note": "MLA 2021-report vintage. Each language is indexed to its 2013 course registrations."},
     "matched-college-benchmarks": {
         "title": "The same responding institutions",
         "subtitle": "Matched 2013/2021 respondents | 2013 = 100",
         "series": ["mla_matched:chinese", "mla_matched:japanese", "mla_matched:korean"],
         "unit": "2013 = 100", "mode": "index", "baseline": 2013,
-        "note": "Same institution IDs with complete reported language-count rows in both rounds; nonresponse excluded, explicit zero-language respondents retained. Selected cohort, not a national total or a causal estimate."},
+        "note": "MLA. Institutions reporting complete language counts in both 2013 and 2021; a selected cohort, not a national total."},
     "ap-chinese-global": {
-        "title": "AP Chinese and Japanese participation",
+        "title": "AP Chinese and Japanese test takers",
         "subtitle": "All participants | global administrations, not U.S.-only",
         "series": ["ap:global_total", "ap:japanese_total"], "unit": "Exam participants", "mode": "levels",
         "note": "College Board global exam totals, not U.S.-only counts or all language learners. No AP Korean exam is listed; Korean college enrollments are a separate comparison. No verified 2026 participant counts."},
@@ -56,36 +56,33 @@ CHARTS = {
         "title": "AP Chinese in U.S. public-school cohorts",
         "subtitle": "Graduating classes 2007-2013 | exams taken during high school",
         "series": ["ap_cohort:us_public"], "unit": "Exams", "mode": "levels",
-        "note": "College Board Report to the Nation. Year is graduating class, not exam administration. Public schools only; not all U.S. schools or unique learners. Historical cohorts are not spliced into global annual totals."},
+        "note": "College Board Report to the Nation. Year is graduating class, not exam administration. U.S. public-school cohorts, distinct from global annual exam totals."},
     "chinese-bachelors": {
-        "title": "Bachelor's awards by language",
+        "title": "Bachelor's degrees by language",
         "subtitle": "Nationwide IPEDS | Chinese, Japanese and Korean | academic year ending",
         "series": ["ipeds:bachelors", "ipeds_japanese:bachelors", "ipeds_korean:bachelors"],
         "unit": "Awards", "mode": "levels",
-        "note": "NCES IPEDS; 50 states/DC, Title IV degree-granting institutions. Chinese 16.0301, Japanese 16.0302, "
-        "Korean 16.0303; language/literature first-major awards from 2001. Not enrollment or unique people. "
-        "2025 is provisional. The 2000 major-coding boundary breaks the lines."},
+        "note": "NCES IPEDS, U.S. degree-granting institutions. First-major language and literature degrees. "
+        "Reporting definitions changed in 2001; 2025 is provisional."},
     "chinese-graduate-awards": {
-        "title": "Master's awards by language",
+        "title": "Master's degrees by language",
         "subtitle": "Nationwide IPEDS | Chinese, Japanese and Korean | academic year ending",
         "series": ["ipeds:masters", "ipeds_japanese:masters", "ipeds_korean:masters"],
         "unit": "Awards", "mode": "levels",
-        "note": "NCES IPEDS; 50 states/DC, Title IV degree-granting institutions. Separate Chinese, Japanese and "
-        "Korean language/literature codes; first-major awards from 2001. Not enrollment or unique people. "
-        "2025 is provisional; the 2000 major-coding boundary breaks the lines."},
+        "note": "NCES IPEDS, U.S. degree-granting institutions. First-major language and literature degrees. "
+        "Reporting definitions changed in 2001; 2025 is provisional."},
     "language-doctorates": {
-        "title": "Doctoral awards by language",
+        "title": "Doctoral degrees by language",
         "subtitle": "Nationwide IPEDS | Chinese, Japanese and Korean | academic year ending",
         "series": ["ipeds:doctorates", "ipeds_japanese:doctorates", "ipeds_korean:doctorates"],
         "unit": "Awards", "mode": "levels",
-        "note": "NCES IPEDS; 50 states/DC, Title IV degree-granting institutions. First-major language/literature "
-        "awards, not enrollment. 2025 is provisional. Lines break at major coding in 2001 and at the switch "
-        "from the old doctoral category to research/scholarship doctorates in 2010."},
+        "note": "NCES IPEDS, U.S. degree-granting institutions. Language and literature doctorates. "
+        "Reporting categories changed in 2001 and 2010; 2025 is provisional."},
     "school-program-inventories": {
-        "title": "Mandarin immersion program inventories",
+        "title": "Mandarin immersion programs",
         "subtitle": "Different coverage definitions - not a comparable growth series",
         "series": ["schools:cal_directory", "schools:arc_public", "schools:nexus_all"], "unit": "Programs", "mode": "bars",
-        "note": "CAL: immersion directory. ARC: public-school DLI canvass. Nexus: compiled inventory including private schools. Different universes and methods; no growth rate or connecting trend is calculated."},
+        "note": "CAL: immersion directory. ARC: public-school dual-language survey. Nexus: compiled inventory including private schools. The inventories cover different types of programs."},
 }
 
 
@@ -287,7 +284,7 @@ def svg_language_chart(data, chart_id, theme="themarginoferror"):
     groups = chart_points(data, chart_id)
     points = [r for group in groups for r in group["points"]]
     if public() and chart_id == "school-program-inventories":
-        config.update(title="Mandarin immersion program inventory",
+        config.update(title="Mandarin immersion programs",
                       subtitle="Nexus compiled inventory | 2025 snapshot",
                       note="Nexus compiled inventory including private schools. A program count, not enrolled students. "
                            "Older inventories used different universes and are retained only in the complete data archive.")
@@ -295,5 +292,5 @@ def svg_language_chart(data, chart_id, theme="themarginoferror"):
         config["note"] += " MLA commercial reuse permission unverified."
     return svg_indicator_chart(
         config, groups, theme,
-        "Distinct educational indicators, not border crossings or a count of all learners. Exact observations and provenance accompany this figure.",
+        "U.S. language-learning indicators, with source-specific units and populations.",
         "language-point")

@@ -15,6 +15,7 @@ sys.path.insert(0, str(ROOT / "src"))
 
 from playwright.sync_api import expect, sync_playwright
 from us_china_exchange.state_immigration_sources import validate
+from us_china_exchange.theme import png_dimensions
 
 
 def expected_color(value, metric):
@@ -43,7 +44,7 @@ def check_export(path, data):
     png = path.with_suffix(".png")
     content = png.read_bytes()
     assert content[:8] == b"\x89PNG\r\n\x1a\n"
-    assert (int.from_bytes(content[16:20], "big"), int.from_bytes(content[20:24], "big")) == (3000, 1800)
+    assert (int.from_bytes(content[16:20], "big"), int.from_bytes(content[20:24], "big")) == png_dimensions(path.read_text())
 
 
 def check_page(page, data, exhaustive=False):

@@ -15,7 +15,7 @@ MEASURES = {
     "international_students": "International students, including OPT",
     "study_abroad": "Academic-credit study abroad",
     "visitors": "Visitor trips",
-    "air_visitors": "U.S.-resident air-travel destination estimates",
+    "air_visitors": "U.S. air travel",
     "leisure_visitors": "Leisure visitor trips",
     "goods": "Goods trade",
     "services": "Services trade",

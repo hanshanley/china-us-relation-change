@@ -116,7 +116,7 @@ def panel(data):
         f'<tr><th scope="row">{row["statement_date"]}</th><td>{esc(reported(row))}</td>'
         f'<td>{esc(row["reference_period"])}</td><td><a href="{esc(data["sources"][row["source_id"]]["asset"]["request_url"])}">'
         f'{esc(data["sources"][row["source_id"]]["name"])}</a></td></tr>' for row in visible)
-    return ('<section class="series-panel" id="student-estimates"><h2>Recent reported student estimates</h2>'
+    return ('<section class="series-panel" id="student-estimates"><h2>Recent student estimates</h2>'
             '<p>Separate evidence for Americans studying in China—not an extension of the annual enrollment line. '
             'Dates identify the statement or publication, not a verified census date. “&lt;” and “&gt;” remain bounds.</p>'
             f'<p>{esc(data["comparability"])}</p><div class="table-scroll"><table>'

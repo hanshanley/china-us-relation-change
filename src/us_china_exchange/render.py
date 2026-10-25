@@ -10,8 +10,10 @@ from collections import defaultdict
 from datetime import timedelta
 from decimal import Decimal, ROUND_HALF_UP
 from pathlib import Path
+from xml.etree import ElementTree
 
 import resvg_py
+from PIL import Image
 
 from .model import START_YEAR, GEOGRAPHIES, MEASURES, change, coverage, gap_reason, json_text, primary_observations, primary_series, validate
 from .business_analysis import CHARTS as BUSINESS_CHARTS, RETIRED_CHARTS as BUSINESS_RETIRED_CHARTS, validate_business_data
@@ -33,8 +35,8 @@ from .weibo_analysis import WEIBO_CHARTS, svg_weibo, validate_summary
 from .weibo_explorer import LOGO_FILES, explorer_page
 from .weibo_activity import DAILY_FIELDS, ROLLING_FIELDS
 from .theme import (CHART_HEIGHT, CHART_THEMES, CHART_WIDTH, COMPARISON_GEOGRAPHIES, FIGURE_CATEGORIES, FONT,
-                    FLOW_COLORS, FONT_FILES, GRID, MUTED, PARTNER_COLORS, PNG_HEIGHT, PNG_WIDTH,
-                    TEXT, axis_label, figure_category, linear_axis)
+                    FLOW_COLORS, FONT_FILES, GRID, MUTED, PARTNER_COLORS, PNG_WIDTH,
+                    TEXT, axis_label, figure_category, linear_axis, png_dimensions)
 
 
 SOURCE_NAMES = {
@@ -132,13 +134,16 @@ def svg_chart(rows, indexed=False, theme="themarginoferror"):
     color = FLOW_COLORS["from_us" if sample["origin"] == "USA" else "to_us"][partner]
     heading = MEASURES[sample["measure"]]
     direction = f"{GEOGRAPHIES[sample['origin']]} to {GEOGRAPHIES[sample['destination']]}"
+    if sample["measure"] == "air_visitors":
+        destination = GEOGRAPHIES[sample["destination"]]
+        heading = f"U.S. travel to {'mainland China' if sample['destination'] == 'CHN' else destination}"
+        direction = "Estimated air trips by U.S. residents"
     title = f"{heading}: {direction}"
-    description = (f"Single verified annual snapshot for {first}; no historical trend inferred."
+    description = (f"Annual snapshot for {first}."
                    if snapshot and len(present) == 1 else
-                   f"Separate annual snapshots for {first} and {end}; release vintages are not connected or used for growth."
+                   f"Annual snapshots for {first} and {end}."
                    if snapshot else
-                   "Annual reported totals shown as columns. Missing years are left blank. Exact values are in the complete data download."
-                   if columns else f"Annual history from {first} where available. Missing years and definition changes break the line. Exact values are in the complete data download.")
+                   f"Annual {unit} from {first} to {end}.")
     if columns and sample["source_id"] == "iie":
         description = ("Reported student counts shown as columns, with academic years labeled by ending year. "
                        "Population definitions vary; exact periods, values and definitions accompany the chart.")
@@ -163,12 +168,6 @@ def svg_chart(rows, indexed=False, theme="themarginoferror"):
     for year in years:
         parts.append(f'<text x="{x(year):.2f}" y="472" text-anchor="middle">{year}</text>')
     parts.append(f'<path d="M115 150V435H950" stroke="{GRID}" stroke-width="0.8" fill="none"/>')
-    if ref is not None:
-        reference_x = x(ref["year"])
-        anchor = "start" if reference_x < 400 else "end"
-        label_x = max(260, reference_x + 8) if anchor == "start" else reference_x - 8
-        parts.append(f'<path d="M{reference_x:.2f} 150V435" stroke="{MUTED}" stroke-width="0.8" stroke-dasharray="4 5"/>')
-        parts.append(f'<text x="{label_x:.2f}" y="125" text-anchor="{anchor}">{ref["year"]} baseline</text>')
     if indexed:
         parts.append(f'<text x="115" y="125" fill="{TEXT}">{ref["year"]} = 100</text>')
     else:
@@ -217,22 +216,28 @@ def svg_chart(rows, indexed=False, theme="themarginoferror"):
     source = SOURCE_NAMES.get(sample["source_id"], sample["source_id"])
     breaks = [current["period"] for previous, current in zip(annual, annual[1:])
               if current["comparability"] != previous["comparability"]]
-    note = f"Source: {source}. Annual observations; missing years and definition changes are not connected."
+    note = f"Source: {source}."
     if snapshot and len(present) == 1:
         kind = "estimate" if sample["status"] == "estimated" else "observation"
-        note = f"Source: {source}. Single verified annual {kind}; no historical trend inferred."
+        note = f"Source: {source}. Annual {kind} for {first}."
     if breaks:
         kind = "Release-vintage" if sample["source_id"] == "ustr" else "Population-definition"
-        note = (f"Source: {source}. {kind} breaks: " + ", ".join(breaks) +
-                ". Missing years and definition changes are not connected.")
+        note = f"Source: {source}. {kind} changes: " + ", ".join(breaks) + "."
         if sample["source_id"] == "ustr":
             note += " Archival 2024 estimates are not used for growth against the newer 2025 vintage."
     if sample["period_basis"] == "academic":
         note += " Academic years use ending years."
     if sample["period_basis"] == "reporting":
         note += " Reporting years, not physical-presence counts."
+    if sample["measure"] == "international_students":
+        note += " Includes Optional Practical Training (OPT)."
+    if sample["measure"] == "air_visitors":
+        note = (f"Source: {source}. Air-trip survey estimates for U.S. residents, "
+                "not all-mode arrivals or unique people.")
+        if breaks:
+            note += " Definition breaks: " + ", ".join(breaks) + "."
     if sample["source_id"] in SOURCE_POLICIES:
-        note += " " + SOURCE_POLICIES[sample["source_id"]]["figure_notice"]
+        note += " " + SOURCE_POLICIES[sample["source_id"]]["figure_notice"].replace("automatic refresh paused; ", "")
     for line, text in enumerate(textwrap.wrap(note, width=110)):
         parts.append(f'<text class="figure-source" x="115" y="{510 + line * 18}" font-size="13" font-style="italic">{esc(text)}</text>')
     parts.append("</g></svg>")
@@ -306,7 +311,7 @@ def svg_comparison(rows, measure, direction, theme="themarginoferror", logarithm
         unit += " (log scale)"
     parts = [
         f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {CHART_WIDTH} {CHART_HEIGHT}" role="img" aria-label="{esc(title)}"{metadata}>',
-        f'<title>{esc(title)}</title><desc>{description}, not a regional total. Missing observations and definition changes are not connected.</desc>',
+        f'<title>{esc(title)}</title><desc>{description}, shown separately.</desc>',
         f'<rect class="chart-background" width="{CHART_WIDTH}" height="{CHART_HEIGHT}" fill="{CHART_THEMES[theme]["background"]}"/>',
         f'<g font-family="{esc(FONT)}" font-size="20" fill="{MUTED}">',
         f'<text x="115" y="40" font-size="28" font-weight="bold" fill="{TEXT}">{esc(MEASURES[measure])}</text>',
@@ -331,12 +336,6 @@ def svg_comparison(rows, measure, direction, theme="themarginoferror", logarithm
     for year in sorted({first, end} | {year for year in range((first // 5 + 1) * 5, end, 5) if year - first >= 2 and end - year >= 2}):
         parts.append(f'<text x="{x(year):.2f}" y="455" font-size="18" text-anchor="middle">{year}</text>')
     parts.append(f'<path d="M115 180V420H950" stroke="{GRID}" stroke-width="0.8" fill="none"/>')
-    if any(r["year"] == 2019 for r in present):
-        reference_x = x(2019)
-        anchor = "start" if reference_x < 550 else "end"
-        label_x = max(400, reference_x + 8) if anchor == "start" else reference_x - 8
-        parts.append(f'<path d="M{reference_x:.2f} 180V420" stroke="{MUTED}" stroke-width="0.8" stroke-dasharray="4 5"/>'
-                     f'<text x="{label_x:.2f}" y="153" text-anchor="{anchor}">2019 baseline</text>')
     for geo, annual in groups.items():
         data = [r for r in annual if r["value"] is not None and (not logarithmic or r["value"] > 0)]
         if not data:
@@ -363,7 +362,7 @@ def svg_comparison(rows, measure, direction, theme="themarginoferror", logarithm
                          f'data-value="{row["value"]}" data-period="{esc(row["period"])}" '
                          f'data-status="{esc(row["status"])}" cx="{x(row["year"]):.2f}" '
                          f'cy="{y(row["value"]):.2f}" r="{0 if columns else 3}" fill="{FLOW_COLORS[direction][geo]}"><title>{esc(label)}</title></circle>')
-    note = "Sources: " + "; ".join(SOURCE_NAMES.get(s, s) for s in sorted({r["source_id"] for r in present})) + ". "
+    note = "Sources: " + "; ".join(sorted({SOURCE_NAMES.get(r["source_id"], r["source_id"]) for r in present})) + ". "
     if measure == "goods" and any(r["source_id"] == "comtrade" for r in present):
         note += "Macau dashed: customs exports FOB/imports CIF; others: BEA balance-of-payments. Accounting differs. "
     if measure == "services" and any(r["source_id"] == "ustr" and r["year"] == 2024 for r in present):
@@ -381,41 +380,87 @@ def svg_comparison(rows, measure, direction, theme="themarginoferror", logarithm
         note += "Academic years use ending years. "
     if present[0]["period_basis"] == "reporting":
         note += "Reporting years; not physical-presence counts. "
+    if measure == "international_students":
+        note += "Includes Optional Practical Training (OPT). "
     if missing:
         note += "*No verified series: " + ", ".join(missing) + ". "
-    note += "Missing years and definition changes stay unconnected."
-    if logarithmic:
-        note += " Log scale: zeros are omitted, never replaced."
+    if measure == "air_visitors":
+        note += " Survey estimates of air trips by U.S. residents, not all-mode travel or unique people."
     for sid in sorted({r["source_id"] for r in present} & SOURCE_POLICIES.keys()):
-        note += " " + SOURCE_POLICIES[sid]["figure_notice"]
+        note += " " + SOURCE_POLICIES[sid]["figure_notice"].replace("automatic refresh paused; ", "")
     for line, text in enumerate(textwrap.wrap(note, width=108)):
         parts.append(f'<text class="figure-source" x="115" y="{500 + line * 20}" font-size="14" font-style="italic">{esc(text)}</text>')
     parts.append("</g></svg>")
     return "".join(parts)
 
 
-def png_chart(svg):
+def rasterize_svg(svg, width, height):
     fonts = Path(__file__).parent / "static/fonts"
     # This renderer release sizes the PNG from intrinsic SVG dimensions, not width/height options.
-    svg = svg.replace("<svg ", f'<svg width="{PNG_WIDTH}" height="{PNG_HEIGHT}" ', 1)
-    png = resvg_py.svg_to_bytes(
+    svg = svg.replace("<svg ", f'<svg width="{width}" height="{height}" ', 1)
+    return resvg_py.svg_to_bytes(
         svg_string=svg, skip_system_fonts=True,
         font_files=[str(fonts / name) for name in FONT_FILES],
         font_family="DejaVu Serif", serif_family="DejaVu Serif")
-    if (int.from_bytes(png[16:20], "big"), int.from_bytes(png[20:24], "big")) != (PNG_WIDTH, PNG_HEIGHT):
+
+
+def essay_svg(svg):
+    """Fit standalone exports to their content without changing interactive geometry."""
+    ElementTree.register_namespace("", "http://www.w3.org/2000/svg")
+    root = ElementTree.fromstring(svg)
+    left, top, width, height = map(float, root.attrib["viewBox"].split())
+    backgrounds = []
+    for parent in root.iter():
+        for index, node in enumerate(list(parent)):
+            tag = node.tag.rsplit("}", 1)[-1]
+            if tag == "rect" and (node.get("class") == "chart-background" or
+                    (parent is root and float(node.get("width", 0)) == width
+                     and float(node.get("height", 0)) == height)):
+                backgrounds.append((parent, index, node))
+                parent.remove(node)
+            elif tag == "text" and node.get("x") == "115" and (
+                    float(node.get("y", 1000)) <= 80 or node.get("class") == "figure-source"):
+                node.set("x", "40")
+    measurement = (left - 200, top - 100, width + 600, height + 400)
+    root.set("viewBox", " ".join(str(value) for value in measurement))
+    root.attrib.pop("width", None)
+    root.attrib.pop("height", None)
+    rendered = rasterize_svg(ElementTree.tostring(root, encoding="unicode"),
+                             round(measurement[2]), round(measurement[3]))
+    with Image.open(io.BytesIO(rendered)) as image:
+        bounds = image.getchannel("A").getbbox()
+    if bounds is None:
+        raise ValueError("Essay graphic has no visible foreground")
+    padding = 14
+    x, y = measurement[0] + bounds[0] - padding, measurement[1] + bounds[1] - padding
+    w, h = bounds[2] - bounds[0] + padding * 2, bounds[3] - bounds[1] + padding * 2
+    root.set("viewBox", f"{x:g} {y:g} {w:g} {h:g}")
+    root.set("data-presentation", "essay")
+    for parent, index, node in backgrounds:
+        node.attrib.update(x=f"{x - 1:g}", y=f"{y - 1:g}", width=f"{w + 2:g}", height=f"{h + 2:g}")
+        parent.insert(index, node)
+    return ElementTree.tostring(root, encoding="unicode")
+
+
+def png_chart(svg):
+    dimensions = png_dimensions(svg)
+    png = rasterize_svg(svg, *dimensions)
+    if (int.from_bytes(png[16:20], "big"), int.from_bytes(png[20:24], "big")) != dimensions:
         raise ValueError("PNG renderer did not preserve the required export dimensions")
     return png
 
 
 def figure_links(paths):
-    return ('<p>Download reported values as a high-resolution PNG or editable SVG:</p><ul>' +
+    return ('<p>Standalone essay graphics, with titles and sources:</p><ul>' +
             "".join(f'<li>{esc(CHART_THEMES[theme]["label"])}: '
-                    f'<a href="{esc(files["png"])}" download>PNG (3000 \u00d7 1800)</a> \u00b7 '
+                    f'<a href="{esc(files["png"])}" download>Essay PNG (3000 px wide)</a> \u00b7 '
                     f'<a href="{esc(files["svg"])}" download>SVG</a></li>'
                     for theme, files in paths.items()) + '</ul>')
 
 
 def export_figure(root, relative, svg):
+    if Path(relative).parts[0] != "weibo":
+        svg = essay_svg(svg)
     png = png_chart(svg)
     files = {}
     for suffix, content in (("svg", svg + "\n"), ("png", png)):

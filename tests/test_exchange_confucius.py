@@ -6,6 +6,7 @@ import json
 from pathlib import Path
 
 import pytest
+from us_china_exchange.theme import png_dimensions
 from bs4 import BeautifulSoup
 
 from us_china_exchange.confucius_analysis import CHARTS, build_confucius, chart_rows, svg_counts
@@ -228,7 +229,7 @@ def test_complete_exports_include_nonplotted_values_and_all_supporting_records(t
             assert len(svg.select(".confucius-mark")) == len(chart_rows(data, chart_id))
             assert not svg.select(".covid-band,.covid-label")
             png = figure.with_suffix(".png").read_bytes()
-            assert (int.from_bytes(png[16:20], "big"), int.from_bytes(png[20:24], "big")) == (3000, 1800)
+            assert (int.from_bytes(png[16:20], "big"), int.from_bytes(png[20:24], "big")) == png_dimensions(figure.read_text())
 
 
 def test_reference_precision_is_not_changed_to_invented_end_of_year_dates():

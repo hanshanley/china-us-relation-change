@@ -283,10 +283,18 @@ plots also omit the explanatory shading note.
 
 `src/us_china_exchange/theme.py` translates the reference settings into native
 SVG so the offline build does not depend on another checkout or Matplotlib.
-SVGs remain the interactive/vector representation, but **PNG is the primary
-publication download**. Each PNG is **3000 by 1800 pixels**, with larger titles,
-axes and source text, not merely the previous tiny image upscaled. Titles and
-source notes are part of both downloadable formats, not only the website.
+The **interactive analysis and standalone essay graphics have distinct layouts**.
+Interactive pages use responsive plots, HTML headings, hover/touch/keyboard
+values and separate source notes. **Essay PNGs and editable SVGs** include their
+own concise title, population subtitle, axes, relevant COVID context and source
+line, so they remain interpretable when embedded in a Substack or The Margin of
+Error essay. Decorative 2019 baseline lines and callouts are omitted; indexed
+charts still state the reference used by their scale.
+
+Essay PNGs are **3000 pixels wide**, with height fitted to the SVG's content
+rather than a mandatory 3000-by-1800 frame. Both publication backgrounds use
+the same tight outer padding. The export step preserves every plotted value
+and qualification; it does not change the interactive plot's coordinate system.
 
 `resvg-py` rasterizes the SVGs entirely offline using bundled, unmodified
 [DejaVu Serif 2.37](https://github.com/dejavu-fonts/dejavu-fonts/releases/tag/version_2_37)
@@ -625,7 +633,7 @@ private database are not modified by the chart integration.
 Open `site/language-learning.html`. The chart families address the college
 boom/reversal, comparison with other languages, school-age pipeline and narrow
 specialist-degree pipeline. They use the existing house typography, stable
-language colours and both publication backgrounds. PNGs are 3000 by 1800;
+language colours and both publication backgrounds. Essay PNGs are 3000 pixels wide with content-fitted height;
 PNG/SVG exports live in `outputs/figures/language_learning/<background>/`
 and the matching `site/figures/` directory.
 
@@ -852,7 +860,7 @@ EU/outside-EU/all-host totals do not supply a bilateral China count.
 The frozen input is `data/site/business_presence.json`; the page exports the
 complete JSON, every source observation in `business-observations.csv`, and
 every raw/derived chart point in `business-chart-values.csv`. Every displayed
-count chart has 3000-by-1800 PNGs and SVGs under
+count chart has 3000-pixel-wide, content-fitted essay PNGs and SVGs under
 `outputs/figures/business_presence/<background>/` and the mirrored site tree.
 Annual count charts use bars, including separate Eurostat/Bundesbank German
 source panels. The nine primary panels retain the six investment/reverse-count/
@@ -911,7 +919,8 @@ Weibo research aggregates. It never publishes raw posts or source reports.
 The masthead, topic navigation, responsive charts and indicator selectors share
 one publication layout. Screen-sized charts preserve reported values, gaps,
 method boundaries, regional colours and the dashed Macau customs distinction.
-Original 3000-by-1800 PNGs and SVGs in both backgrounds remain unchanged.
+Standalone essay PNGs and SVGs in both backgrounds retain their own headings
+and source notes, with compact content-fitted margins rather than the interactive layout.
 
 Annual exchange data extend through 2025 where available, with separately
 labelled 2026 partial-year observations; these are not annualized or inserted

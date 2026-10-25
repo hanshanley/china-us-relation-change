@@ -43,7 +43,8 @@ LABEL_GEOMETRY = """svg => {
     return {text:n.textContent,kind:n.getAttribute("class")||"",
       x:b.x,y:b.y,w:b.width,h:b.height,font:parseFloat(getComputedStyle(n).fontSize)};
   }).filter(b=>b.w>0&&b.h>0);
-  const clipped=texts.filter(b=>b.x < -1 || b.y < -1 || b.x+b.w>box.width+1 || b.y+b.h>box.height+1);
+  const clipped=texts.filter(b=>b.x < box.x-1 || b.y < box.y-1 ||
+    b.x+b.w>box.x+box.width+1 || b.y+b.h>box.y+box.height+1);
   const overlaps=[];
   for(let i=0;i<texts.length;i++) for(let j=i+1;j<texts.length;j++){
     const a=texts[i],b=texts[j];
@@ -89,8 +90,9 @@ LABEL_GEOMETRY = """svg => {
 
 
 class Audit:
-    def __init__(self, site, output):
+    def __init__(self, site, output, exclude_weibo=False):
         self.site, self.output = site, output
+        self.exclude_weibo = exclude_weibo
         self.issues, self.charts, self.pictures = [], [], defaultdict(list)
         self.fonts = {}
         self.hover_checks = 0
@@ -148,6 +150,8 @@ class Audit:
                         expected = expected / raw[(config["denominator"], int(row["year"]))]["value"] * 100
                 if not close(row["plotted_value"], expected):
                     self.issue(page, "transformed_value", row)
+        if self.exclude_weibo:
+            return
         daily = {date.fromisoformat(r["date"]): r for r in self.weibo.get("daily", [])}
         outlets = {r["account_id"]: r["outlet_id"] for r in self.weibo["accounts"]}
         for row in self.weibo.get("rolling_30d", []):
@@ -527,6 +531,8 @@ class Audit:
         page = browser.new_page(viewport={"width": width, "height": 1000})
         program_pages = ["confucius.html"] if (self.site / "confucius.html").is_file() else []
         for filename in ["index.html", "travel.html", "trade.html", *self.datasets, "weibo.html", *program_pages]:
+            if self.exclude_weibo and filename == "weibo.html":
+                continue
             soup = BeautifulSoup((self.site / filename).read_text(), "html.parser")
             scripts = soup.select(".native-chart script.plot-data")
             page.goto(url + filename)
@@ -653,6 +659,8 @@ class Audit:
     def exports(self, browser, root):
         page = browser.new_page()
         for path in sorted(root.rglob("*.svg")):
+            if self.exclude_weibo and path.relative_to(root).parts[0] == "weibo":
+                continue
             key = "export:" + str(path.relative_to(root))
             page.goto(path.resolve().as_uri())
             soup = BeautifulSoup(path.read_text(), "html.parser")
@@ -767,7 +775,9 @@ class Audit:
             bounds = font.getbbox(text, anchor="ls")
             texts.append({"text": text, "x": left + bounds[0], "y": y + bounds[1],
                           "right": left + bounds[2], "bottom": y + bounds[3]})
-        clipped = [t for t in texts if t["x"] < -1 or t["y"] < -1 or t["right"] > 1001 or t["bottom"] > 601]
+        left, top, width, height = map(float, soup.svg.get("viewbox", "0 0 1000 600").split())
+        clipped = [t for t in texts if t["x"] < left - 1 or t["y"] < top - 1
+                   or t["right"] > left + width + 1 or t["bottom"] > top + height + 1]
         if clipped:
             self.issue(key, "raster_font_clipping", clipped)
         overlaps = [[a["text"], b["text"]] for i, a in enumerate(texts) for b in texts[i + 1:]
@@ -799,10 +809,11 @@ def main():
     parser.add_argument("--url")
     parser.add_argument("--widths", type=int, nargs="+", default=[1360, 390, 320])
     parser.add_argument("--screenshots", action="store_true")
+    parser.add_argument("--exclude-weibo", action="store_true")
     args = parser.parse_args()
     args.output.mkdir(parents=True, exist_ok=True)
     (args.output / "screens").mkdir(exist_ok=True)
-    audit = Audit(args.site, args.output)
+    audit = Audit(args.site, args.output, exclude_weibo=args.exclude_weibo)
     audit.reconcile_inputs()
     url = args.url or args.site.resolve().as_uri() + "/"
     with sync_playwright() as playwright:

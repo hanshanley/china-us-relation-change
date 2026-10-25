@@ -30,13 +30,13 @@ CHARTS = {
         "subtitle": "Mainland China-born | U.S. fiscal years",
         "series": [ARRIVAL_SERIES],
         "unit": "People per fiscal year", "mode": "levels", "covid_context": True,
-        "figure_note": "INS/DHS/OHSS. Country of birth, not nationality or departure country. "
-        "Excludes adjustments. FY2003-2005 unverified; gaps retained. FY2023-2024 rounded to ten.",
+        "figure_note": "INS/DHS/OHSS. China-born new permanent residents; excludes status adjustments. "
+        "Fiscal years; FY2023-2024 rounded to ten.",
         "note": "INS/DHS/OHSS original arrivals tables and China birthplace profile. " + ARRIVAL_NOTE
         + " Fiscal years end September 30. FY2023-2024 rounded to ten. "
         "The separately labelled nationality series extends through FY2025; it is not appended here."},
     "new-permanent-resident-arrivals-nationality": {
-        "title": "New U.S. arrivals: Chinese nationals",
+        "title": "New permanent residents: Chinese nationals",
         "subtitle": "Chinese nationality | U.S. fiscal years",
         "series": ["ohss_nationality:new_arrivals"],
         "unit": "People per fiscal year", "mode": "levels",
@@ -51,18 +51,18 @@ CHARTS = {
         "earlier releases retain reported counts. "
         "No comparable annual U.S.-to-mainland-China count has been verified; resident stocks are separate."},
     "annual-china-adjustments": {
-        "title": "Chinese nationals gaining residency while in the U.S.",
-        "subtitle": "Status adjustments | U.S. fiscal years",
+        "title": "Permanent residency granted within the U.S.",
+        "subtitle": "Chinese nationals | status adjustments | U.S. fiscal years",
         "series": ["ohss_nationality:adjustments"], "unit": "People per fiscal year", "mode": "levels",
         "pandemic_note": True,
-        "note": "DHS/OHSS. These people were already in the U.S.; the year of permanent-residency approval "
-        "is not their year of arrival. Do not add them to a chart labelled new arrivals. "
+        "note": "DHS/OHSS. Chinese nationals already in the U.S. gaining permanent residency; "
+        "fiscal years refer to approval, not arrival. "
         "FY2016-FY2018 tables were corrected from birthplace to nationality in September 2019; "
         "the observation fiscal years are unchanged."},
     "migrant-stock-to-us": {
         "title": "China- and Hong Kong-born residents in the U.S.", "subtitle": "UN estimates | actual 1 July benchmarks, 2000–2024",
         "series": ["un_stock:CHN:USA", "un_stock:HKG:USA"], "unit": "Estimated residents", "mode": "levels",
-        "note": "UN DESA, International Migrant Stock 2024, Table 1 (CC BY 3.0 IGO). Foreign-born resident stocks, not annual arrivals, green-card grants or net migration. Only published benchmark years are shown; no invented annual counts."},
+        "note": "UN DESA, International Migrant Stock 2024, Table 1 (CC BY 3.0 IGO). Foreign-born residents at each July 1 benchmark, not annual arrivals."},
     "migrant-stock-from-us": {
         "title": "U.S. citizens in China; U.S.-born in Hong Kong", "subtitle": "UN estimates | distinct citizenship and birthplace populations",
         "series": ["un_stock:USA:CHN", "un_stock:USA:HKG"], "unit": "Estimated residents", "mode": "levels",
@@ -76,7 +76,7 @@ CHARTS = {
         "title": "Green-card grants to Macau-born people", "subtitle": "U.S. permanent residency | fiscal years",
         "series": ["ohss_birth:MAC"], "unit": "Status grants", "mode": "levels",
         "pandemic_note": True,
-        "note": "DHS/OHSS birthplace category. Includes arrivals and adjustments. FY2015–2024 rounded to nearest ten; confidential/missing values are not zero."},
+        "note": "DHS/OHSS birthplace category. Includes arrivals and adjustments. FY2015–2024 rounded to nearest ten."},
     "macau-residence-approvals": {
         "title": "Macau residence approvals: U.S. category", "subtitle": "People newly approved | calendar years",
         "series": ["dsec_abode:USA:MAC"], "unit": "People approved", "mode": "levels",
@@ -89,9 +89,9 @@ CHARTS = {
         "The source category does not establish citizenship or a permanent-resident legal status. "
         "The revised compilation begins in 2007; earlier-method figures are not joined."},
     "latest-admissions": {
-        "title": "FY2025: arrivals and status adjustments", "subtitle": "DHS China-nationality category | NOT the birthplace series",
+        "title": "2025 green cards: arrivals and adjustments", "subtitle": "Chinese nationals | U.S. fiscal year",
         "series": ["ohss_nationality:new_arrivals", "ohss_nationality:adjustments"], "unit": "Status grants", "mode": "bars",
-        "note": "DHS/OHSS reports 65,670 total FY2025 China-nationality grants: 27,020 new arrivals and 38,650 adjustments within the U.S. Rounded to nearest ten. Nationality differs from birthplace: do not splice this into the historical line."},
+        "note": "DHS/OHSS. Chinese nationality: 27,020 new arrivals and 38,650 adjustments within the U.S. in FY2025. Rounded to nearest ten; nationality, not birthplace."},
 }
 
 IMMIGRATION_COVID_NOTE = (

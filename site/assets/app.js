@@ -130,7 +130,7 @@
     $("series-title").textContent = measure === "air_visitors" ?
       `U.S. travel to ${geo === "CHN" ? "mainland China" : data.geographies[geo]}` :
       `${data.geographies[origin]} \u2192 ${data.geographies[destination]}`;
-    $("series-category").textContent = measure === "air_visitors" ? "Air-travel estimates" : data.measures[measure];
+    $("series-category").textContent = data.measures[measure];
     const population = $("series-population");
     if (population) {
       const travel = ["visitors", "air_visitors", "leisure_visitors"].includes(measure) && !!current;
@@ -201,13 +201,13 @@
     const missingYears = Array.from({length: current.year - annual[0].year + 1}, (_, i) => annual[0].year + i)
       .filter(year => !presentYears.has(year));
     $("series-notes").textContent = data.public_display ?
-      [(breaks.length ? `Population definitions change in ${breaks.join(", ")}; all reported annual values remain visible.` : ""),
-       (missingYears.length ? `Not reported: ${missingYears.join(", ")}. Blank years are not zero.` : "")]
+      [(breaks.length ? `Population definitions change in ${breaks.join(", ")}.` : ""),
+       (missingYears.length ? `Not reported: ${missingYears.join(", ")}.` : "")]
         .filter(Boolean).join(" ") : current.notes;
-    $("figure-link").innerHTML = "<p>Download reported values as a high-resolution PNG or editable SVG:</p><ul>" +
+    $("figure-link").innerHTML = "<p>Standalone essay graphics, with titles and sources:</p><ul>" +
       Object.entries(data.figures[current.series_id]).map(([theme, files]) =>
         `<li>${escape(data.chart_themes[theme].label)}: ` +
-        `<a href="${escape(files.png)}" download>PNG (3000 \u00d7 1800)</a> \u00b7 ` +
+        `<a href="${escape(files.png)}" download>Essay PNG (3000 px wide)</a> \u00b7 ` +
         `<a href="${escape(files.svg)}" download>SVG</a></li>`).join("") + "</ul>";
     const partials = rows.filter(r => r.frequency === "ytd" && r.value !== null)
       .sort((a, b) => a.period.localeCompare(b.period));

@@ -1,6 +1,7 @@
 """SVG equivalents of uk_decline's vizstyle house style, without a runtime dependency."""
 
 import math
+from xml.etree import ElementTree
 
 BG = "#F7F5F0"
 TEXT = "#1A1A1A"
@@ -57,3 +58,10 @@ def figure_category(measure):
     if measure in {"goods", "services"}:
         return measure + "_trade"
     return "visitors" if "visitors" in measure else "students"
+
+
+def png_dimensions(svg):
+    _, _, width, height = map(float, ElementTree.fromstring(svg).attrib["viewBox"].split())
+    if width <= 0 or height <= 0:
+        raise ValueError("Export viewBox must have positive dimensions")
+    return PNG_WIDTH, round(PNG_WIDTH * height / width)

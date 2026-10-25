@@ -12,7 +12,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 from us_china_exchange.model import change
 from us_china_exchange.render import comparison, number
-from us_china_exchange.theme import CHART_THEMES, PNG_HEIGHT, PNG_WIDTH
+from us_china_exchange.theme import CHART_THEMES, PNG_WIDTH, png_dimensions
 
 
 def check():
@@ -128,7 +128,8 @@ def check():
         png_link = page.locator('#figure-link a[href$=".png"]').first.get_attribute("href")
         page.goto((ROOT / "site" / png_link).as_uri())
         image = page.locator("img")
-        assert image.evaluate("img => [img.naturalWidth, img.naturalHeight]") == [PNG_WIDTH, PNG_HEIGHT]
+        assert image.evaluate("img => [img.naturalWidth, img.naturalHeight]") == list(
+            png_dimensions((ROOT / "site" / png_link).with_suffix(".svg").read_text()))
         page.go_back()
         assert not page.evaluate("document.documentElement.scrollWidth > innerWidth")
         page.goto((ROOT / "site/index.html").as_uri())
@@ -141,7 +142,8 @@ def check():
             page.locator("#chart").evaluate("(node, svg) => node.innerHTML = svg", path.read_text())
             assert page.locator("#chart svg text").evaluate_all("""nodes => nodes.every(node => {
               const box = node.getBBox(), bounds = node.ownerSVGElement.viewBox.baseVal;
-              return box.x >= 0 && box.y >= 0 && box.x + box.width <= bounds.width && box.y + box.height <= bounds.height;
+              return box.x >= bounds.x && box.y >= bounds.y &&
+                box.x + box.width <= bounds.x + bounds.width && box.y + box.height <= bounds.y + bounds.height;
             })"""), (str(path), "clipped publication text")
             if path.parent.parent.name in {"language_learning", "business_presence"}:
                 assert page.locator("#chart .legend-label,#chart .year-tick").evaluate_all("""nodes =>
@@ -166,7 +168,8 @@ def check():
         for image in images.all():
             image.scroll_into_view_if_needed()
             expect(image).to_have_js_property("naturalWidth", PNG_WIDTH)
-            expect(image).to_have_js_property("naturalHeight", PNG_HEIGHT)
+            expect(image).to_have_js_property("naturalHeight", png_dimensions(
+                (ROOT / "site" / image.get_attribute("src")).with_suffix(".svg").read_text())[1])
         assert not page.evaluate("document.documentElement.scrollWidth > innerWidth")
         if (ROOT / "site/language-learning.html").exists():
             page.goto((ROOT / "site/language-learning.html").as_uri())
@@ -176,7 +179,8 @@ def check():
             for image in images.all():
                 image.scroll_into_view_if_needed()
                 expect(image).to_have_js_property("naturalWidth", PNG_WIDTH)
-                expect(image).to_have_js_property("naturalHeight", PNG_HEIGHT)
+                expect(image).to_have_js_property("naturalHeight", png_dimensions(
+                    (ROOT / "site" / image.get_attribute("src")).with_suffix(".svg").read_text())[1])
             assert not page.evaluate("document.documentElement.scrollWidth > innerWidth")
         if (ROOT / "site/business-presence.html").exists():
             page.goto((ROOT / "site/business-presence.html").as_uri())
@@ -221,7 +225,8 @@ def check():
             for image in images.all():
                 image.scroll_into_view_if_needed()
                 expect(image).to_have_js_property("naturalWidth", PNG_WIDTH)
-                expect(image).to_have_js_property("naturalHeight", PNG_HEIGHT)
+                expect(image).to_have_js_property("naturalHeight", png_dimensions(
+                    (ROOT / "site" / image.get_attribute("src")).with_suffix(".svg").read_text())[1])
             assert not page.evaluate("document.documentElement.scrollWidth > innerWidth")
         if (ROOT / "site/weibo.html").exists():
             page.goto((ROOT / "site/weibo.html").as_uri())

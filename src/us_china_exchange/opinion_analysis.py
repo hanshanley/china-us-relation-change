@@ -21,9 +21,9 @@ CHARTS = {
         "first_survey_per_year": True,
         "unit": "Percent of U.S. adults",
         "summary": "The first reported poll in each year, not annual averages. Every survey round is retained in the complete downloads.",
-        "note": "Gallup, March 2026 topline. First poll per year; 2000 uses January 25-26, 2026 February 2-16. Telephone sampling and weights evolved. Not joined to Pew's separate panel."},
+        "note": "Gallup, March 2026 topline. First poll per year; 2000 uses January 25-26, 2026 February 2-16. Telephone sampling and weights evolved."},
     "us-china-panel-favorability": {
-        "title": "U.S. views of China: Pew panel",
+        "title": "U.S. views of China: Pew Research",
         "subtitle": "Pew Research Center | American Trends Panel, 2020-2026",
         "series": ["pew_us_atp:favorable", "pew_us_atp:unfavorable"], "mode": "levels",
         "unit": "Percent of U.S. adults",
@@ -35,7 +35,7 @@ CHARTS = {
         "series": ["pulse:all"], "mode": "bars", "by_period": True,
         "unit": "Mean warmth (0-100)",
         "summary": "Zero is cold, 50 is neutral and 100 is warm. These scores are not percentages.",
-        "note": "The Carter Center / Emory University, October 2026. Quota respondent panel; 2,506 and 2,500 adults. Both waves use the new release's demographic weights. These means must not be joined to Pew's historical favorable percentages."},
+        "note": "The Carter Center / Emory University, October 2026. Quota respondent panel; 2,506 and 2,500 adults. Both waves use the release's demographic weights."},
     "us-china-age": {
         "title": "U.S. views of China by age",
         "subtitle": "Pew Research Center | March 23-29, 2026 | favorable opinion",
@@ -56,9 +56,9 @@ CHARTS = {
         "series": ["pew_warmth:all"], "mode": "bars", "by_period": True,
         "unit": "Mean warmth (0-100)",
         "summary": "Published mean ratings. The latest survey was conducted September 14-20, 2026.",
-        "note": "Pew Research Center, September 2026. Probability panel; 1,168 respondents received the China item, out of 5,193 in the full survey. Means are reported by Pew, not calculated from rounded response bins. No annual values are filled between these four polls."},
+        "note": "Pew Research Center, September 2026. Mean ratings among 1,168 respondents asked about China; the full survey included 5,193."},
     "us-china-age-warmth": {
-        "title": "U.S. warmth toward China by age",
+        "title": "Americans' feelings toward China by age",
         "subtitle": "Pew Research Center | September 14-20, 2026",
         "series": ["pew_warmth_age:18-49", "pew_warmth_age:50+"],
         "mode": "bars", "unit": "Mean warmth (0-100)",
@@ -70,7 +70,7 @@ CHARTS = {
         "series": ["pew_us_phone:favorable", "pew_us_phone:unfavorable"],
         "mode": "levels", "unit": "Percent of U.S. adults",
         "summary": "Earlier telephone surveys are shown separately from the American Trends Panel.",
-        "note": "Pew's April 2026 retrospective table, spring survey rounds. Telephone and panel answers differ even in the overlapping 2020 year, so they are not spliced. The separately reported summer 2020 phone results are retained in the full data download."},
+        "note": "Pew Research Center, April 2026 retrospective table. Spring telephone surveys; the American Trends Panel uses a different survey method."},
     "china-us-earlier-favorability": {
         "title": "Earlier Chinese views of the U.S.",
         "subtitle": "Pew Research Center | historical survey rounds, 2007-2016",

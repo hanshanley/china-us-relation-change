@@ -11,6 +11,7 @@ from types import SimpleNamespace
 from xml.etree import ElementTree
 
 import pytest
+from us_china_exchange.theme import png_dimensions
 from bs4 import BeautifulSoup
 from openpyxl import Workbook
 from PIL import Image
@@ -406,7 +407,7 @@ def test_all_language_exports_and_complete_csv_round_trip(tmp_path):
     for path in figures.glob("*/*.svg"):
         assert path.read_bytes() == (tmp_path / "site/figures/language_learning" / path.relative_to(figures)).read_bytes()
         with Image.open(path.with_suffix(".png")) as image:
-            assert image.size == (3000, 1800)
+            assert image.size == png_dimensions(path.read_text())
         doc = ElementTree.fromstring(path.read_text())
         points = [n for n in doc.iter() if n.get("class") == "language-point"]
         wanted = {(group["id"], p["year"]): p for group in chart_points(data, path.stem) for p in group["points"]}

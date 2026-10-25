@@ -17,25 +17,25 @@ from .theme import CHART_THEMES, FONT, GRID, MUTED, PARTNER_COLORS, TEXT, linear
 
 CHARTS = {
     "confucius-institutes": {
-        "title": "Confucius Institutes: reported U.S. counts",
-        "subtitle": "Reported observations by year | unreported years remain blank",
+        "title": "Confucius Institutes in the U.S.",
+        "subtitle": "Reported U.S. institute counts",
         "layout": "timeline", "unit": "Institutes",
         "series": ["institutes_reported"],
-        "note": "Different sources, not a harmonized annual census. The June 2023 roster includes non-university hosts and one paused institute. Announced closures are not effective closure dates."},
+        "note": "Sources use different coverage definitions. The June 2023 roster includes non-university hosts and one paused institute. Announced closures may take effect later."},
     "confucius-campus": {
-        "title": "Institutes at U.S. colleges and universities",
-        "subtitle": "Campus-only counts | bounds remain bounds",
+        "title": "Confucius Institutes on U.S. campuses",
+        "subtitle": "Institutes at college and university campuses",
         "layout": "timeline", "unit": "Institutes",
         "series": ["institutes_campus"],
-        "note": "Campus-only reports, not the all-host roster. GAO reports fewer than five as of July 2023, not exactly five. The December 2022 figure is approximate. No current total is inferred."},
+        "note": "Campus-only reports. GAO reports fewer than five as of July 2023. The December 2022 figure is approximate."},
     "confucius-classrooms": {
-        "title": "Confucius Classrooms: historical U.S. reports",
+        "title": "Confucius Classrooms in the U.S.",
         "subtitle": "Reported programs or school sites | not physical rooms",
         "layout": "timeline", "unit": "Reported programs / sites",
         "series": ["classrooms_reported"],
-        "note": "National reports use different program/site counting rules. The 2024 inventory and today's directory listings are not appended as active-classroom totals. No decline rate is calculated."},
+        "note": "National reports use different program/site counting rules. Reported programs are distinct from current directory listings."},
     "confucius-successors": {
-        "title": "Documented replacements after institute closures",
+        "title": "Documented successors to Confucius Institutes",
         "subtitle": "Institutions identified by NAS | not a census of programs open now",
         "layout": "timeline", "unit": "Institutions",
         "series": ["successors_documented"],

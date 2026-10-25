@@ -19,7 +19,7 @@ from openpyxl import Workbook
 from us_china_exchange.business_analysis import BENCHMARK_CHART, CHARTS, COLORS, RETIRED_CHARTS, build_business, chart_groups, svg_business_chart, validate_business_data
 from us_china_exchange.business_sources import CBS_NETHERLANDS_METHODS, CBS_NETHERLANDS_REPORT, DENMARK_METADATA, DENMARK_DATA, DENMARK_QUERY, FINLAND_EUROSTAT_METHODS, POLAND_EUROSTAT_METHODS, SPAIN_EUROSTAT_METHODS, NORDIC_QUERIES, SWEDEN_COUNTRIES, SWEDEN_EUROSTAT_METHODS, SWEDEN_QUALITY, count_cell, country_counts, parse_cbs_netherlands, parse_denmark, parse_eurostat, parse_germany, parse_norway, parse_nordic, parse_ons
 from us_china_exchange.render import build
-from us_china_exchange.theme import CHART_THEMES, PARTNER_COLORS
+from us_china_exchange.theme import CHART_THEMES, PARTNER_COLORS, png_dimensions
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -2240,7 +2240,7 @@ def test_complete_business_downloads_exact_points_backgrounds_and_stale_cleanup(
             p = path.with_suffix(suffix)
             assert p.read_bytes() == (tmp_path / "site/figures/business_presence" / p.relative_to(base)).read_bytes()
         with Image.open(path.with_suffix(".png")) as image:
-            assert image.size == (3000, 1800)
+            assert image.size == png_dimensions(path.read_text())
             assert image.getpixel((0, 0)) == (*ImageColor.getrgb(CHART_THEMES[path.parent.name]["background"]), 255)
     page = BeautifulSoup((tmp_path / "site/business-presence.html").read_text(), "html.parser")
     assert "different counting units" in page.header.text

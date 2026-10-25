@@ -31,13 +31,13 @@ US_RELEASE = "https://www.amcham-shanghai.org/en/article/amcham-shanghai-release
 GERMAN_RELEASE = "https://china.ahk.de/en/media-centre"
 CHARTS = {
     "us-company-decisions": {
-        "title": "AmCham Shanghai respondents",
+        "title": "American Chamber in Shanghai: company survey",
         "subtitle": "AmCham Shanghai / PwC | September 2026 publication",
         "series": ["amcham:profitable", "amcham:optimistic", "amcham:redirecting", "amcham:increased"],
         "unit": "Percent of respondents", "mode": "bars", "source_id": "amcham_2026",
         "note": "262 survey respondents; item-level bases and fieldwork dates are not stated in the public release. Separate questions, not parts of one total."},
     "german-company-risk": {
-        "title": "German member-company trade exposure",
+        "title": "Trade risks for German Chamber members",
         "subtitle": "German Chamber | Preliminary release, 6 October 2026",
         "series": ["ahk:significant", "ahk:moderate", "ahk:none"],
         "unit": "Percent of respondents", "mode": "bars", "source_id": "ahk_2026",
@@ -457,7 +457,7 @@ def build_current_business(root, archive, gallery):
         '<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">'
         '<title>Business links across China and the U.S.</title><link rel="stylesheet" href="assets/style.css"></head>'
         '<body><div class="page"><header><h1>Business links across China and the U.S.</h1></header><main>'
-        '<section class="series-panel" id="investment-positions"><h2>U.S. investment already on the books</h2>'
+        '<section class="series-panel" id="investment-positions"><h2>U.S. direct investment</h2>'
         '<p class="chart-context">Year-end positions from 2000 through 2025, the latest year in BEA&#39;s July 2026 release. '
         'These are nominal dollar positions, not annual flows or company counts. Mainland China and Hong Kong are separate, with independent vertical scales. '
         'Changes can reflect transactions, exchange rates and other valuation adjustments.</p>'

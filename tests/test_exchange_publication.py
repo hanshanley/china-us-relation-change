@@ -138,6 +138,8 @@ def test_collective_export_preserves_complete_inputs_and_native_plot_boundaries(
             (ROOT / f"data/site/{input_name}.json").read_text())
     for name in module.PAGES:
         page = BeautifulSoup((tmp_path / name).read_text(), "html.parser")
+        if name in {"travel.html", "trade.html"}:
+            assert not page.select("#student-estimates")
         assert not page.select("#reverse-direction,.reverse-direction"), name
         assert len(page.select("h1")) == 1 and len(page.select(".analysis-tabs a")) == len(module.TABS) + 1
         assert not page.select("iframe")
@@ -306,7 +308,7 @@ def test_collective_export_preserves_complete_inputs_and_native_plot_boundaries(
             points = {point["year"]: point for point in country["groups"][0]["points"]}
             assert points[2008]["reported_value"] == 13 and points[2023]["reported_value"] == 32
             assert {point["reported_unit"].lower() for point in points.values()} == {"enterprises"}
-            assert "2018 legal-unit/enterprise break" in business.select_one(
+            assert "counting unit changed in 2018" in business.select_one(
                 "#poland-affiliates-china").get_text(" ", strip=True)
         if chart == "swiss-liechtenstein-affiliates-china":
             assert "Switzerland + Liechtenstein" in country["title"]

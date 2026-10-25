@@ -15,6 +15,7 @@ sys.path.insert(0, str(ROOT / "src"))
 from bs4 import BeautifulSoup
 from playwright.sync_api import expect, sync_playwright
 from us_china_exchange.confucius_sources import validate
+from us_china_exchange.theme import png_dimensions
 
 
 SERIES_BY_CHART = {
@@ -84,7 +85,7 @@ def check_export(path, data):
             assert math.isclose(x, 94 + (year - first + .6) / (last - first + 1.2) * 848, abs_tol=.02)
     png = path.with_suffix(".png").read_bytes()
     assert png[:8] == b"\x89PNG\r\n\x1a\n"
-    assert (int.from_bytes(png[16:20], "big"), int.from_bytes(png[20:24], "big")) == (3000, 1800)
+    assert (int.from_bytes(png[16:20], "big"), int.from_bytes(png[20:24], "big")) == png_dimensions(path.read_text())
 
 
 def check_page(page, data, exhaustive=True):

@@ -187,7 +187,8 @@ def chart_groups(data, geo):
     points = [dict(row, plotted_value=row["value"], reported_unit="affiliates", plotted_unit="Affiliates",
                    period=f'Fiscal year ending {row["year"]}')
               for row in rows if row["comparability"] == latest["comparability"] and row["value"] is not None]
-    return [{"id": sid, "label": data["series"][sid]["label"], "color": PARTNER_COLORS[geo],
+    label = "Ultimate owner: " + ("mainland China" if geo == "CHN" else GEOGRAPHIES[geo])
+    return [{"id": sid, "label": label, "color": PARTNER_COLORS[geo],
              "cadence": "annual", "period_basis": "fiscal ending year",
              "scheduled_years": [row["year"] for row in rows if row["comparability"] == latest["comparability"]],
              "points": points}]
@@ -201,11 +202,12 @@ def svg_count_chart(data, chart_id, theme):
     years = [point["year"] for point in groups[0]["points"]]
     latest = max((row for row in data["observations"] if row["series_id"] == groups[0]["id"]),
                  key=lambda row: row["year"])
-    config = {"title": "U.S. affiliates: " + data["series"]["bea_mousa:" + geo]["label"],
+    owner = "mainland China" if geo == "CHN" else GEOGRAPHIES[geo]
+    config = {"title": f"U.S. affiliates with {owner} ultimate owners",
               "subtitle": f"BEA | Fiscal years ending {min(years)}-{max(years)}",
               "mode": "levels", "unit": "Affiliates", "covid_context": False,
               "first_year": min(groups[0]["scheduled_years"]), "last_year": max(groups[0]["scheduled_years"]),
-              "note": "BEA majority-owned U.S. affiliates by UBO; above $20m. Includes banks; not every firm or office. "
+              "note": "BEA majority-owned U.S. affiliates by ultimate beneficial owner; above $20m. Includes banks; not every firm or office. "
                       f'Benchmark frames can change; {latest["year"]} is {latest["status"]}. Earlier populations are separate.'}
     return svg_indicator_chart(config, groups, theme, data["context"]["comparability"], "business-point")
 
@@ -235,7 +237,7 @@ def build(root, data, gallery):
         source = data["sources"][last["source_id"]]
         paths = {theme: export_figure(root, Path("business_presence") / theme / chart_id,
                                      svg_count_chart(data, chart_id, theme)) for theme in CHART_THEMES}
-        label = data["series"]["bea_mousa:" + geo]["label"]
+        label = groups[0]["label"]
         cards.append(
             f'<section class="comparison-pane business-card" id="{chart_id}"><h3>{esc(label)}</h3>'
             '<p class="chart-context">Majority-owned U.S. affiliates · Country of ultimate beneficial owner</p>'
@@ -284,7 +286,7 @@ def build(root, data, gallery):
         '<p><a href="downloads/business-inward.json" download>Every reported count and source · JSON</a> · '
         '<a href="downloads/business-inward-observations.csv" download>All 50 country-year observations · CSV</a> · '
         '<a href="downloads/business-inward-chart-values.csv" download>Current-definition plotted values · CSV</a></p>'
-        '<div class="table-scroll"><table><thead><tr><th>Fiscal year ending</th><th>Mainland China UBO</th>'
-        '<th>Hong Kong UBO</th><th>Count coverage</th></tr></thead><tbody>' + "".join(table) +
+        '<div class="table-scroll"><table><thead><tr><th>Fiscal year ending</th><th>Mainland China ultimate owner</th>'
+        '<th>Hong Kong ultimate owner</th><th>Count coverage</th></tr></thead><tbody>' + "".join(table) +
         '</tbody></table></div><h3>Original annual tables</h3><ul>' + sources +
         '</ul></details></section>', len(CHARTS))
