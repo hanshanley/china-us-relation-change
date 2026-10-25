@@ -161,10 +161,10 @@ CHARTS = {
         "title": "Belgian-controlled enterprises in China",
         "subtitle": "China except Hong Kong | Since 2022 | Thresholded reporting frame",
         "series": ["eurostat_belgium:china"], "unit": "Enterprises", "mode": "levels",
-        "note": "Eurostat / National Bank of Belgium. Enterprise counts start2022; older UCI legal units "
+        "note": "Eurostat / National Bank of Belgium. Enterprise counts start 2022; older UCI legal units "
         "and pre-UCI records remain separate in complete downloads. Reporting-unit frame cutoffs: "
-        "EUR30m equity,75m assets or15m long-term investments, any criterion; not all Belgian firms "
-        "or verified constant historical limits. Method windows differ; no comparable2019 change."},
+        "EUR 30m equity, 75m assets or 15m long-term investments, any criterion; not all Belgian firms "
+        "or verified constant historical limits. Method windows differ; no comparable 2019 change."},
     BENCHMARK_CHART: {
         "title": "U.S. parent companies with China affiliates",
         "subtitle": "Supplementary benchmark observations | NOT an annual series",

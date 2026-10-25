@@ -190,20 +190,20 @@ selected table members, retrieval timestamps and SHA-256 checksums.
 
 Belgian Eurostat queries select `geo=BE`, `partner=CN_X_HK` and exact
 enterprise indicators in `fats_out2`, `fats_out2_r2` and `fats_out_part`.
-All seventeen2007-2023 count cells match independent native TSVs.
+All seventeen 2007-2023 count cells match independent native TSVs.
 [Belgian reporter metadata](https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_be.htm)
-starts UCI attribution in2009 and enterprise-level counting in2022, not2021.
+starts UCI attribution in 2009 and enterprise-level counting in 2022, not 2021.
 Two pre-UCI legal units and thirteen UCI legal units remain separate archives;
-only2022=72/2023=80 enter the short current-enterprise chart. Keep2010NACE,
-2014non-resident activity,2016declared-window and2021EBS-source boundaries.
-The3.8/15.2.1comparable-window paragraphs differ; the explicit2022unit rule
-does not authorize cross-regime2019growth. Current metadata's FDI reporting-unit
-frame uses EUR30m equity/75m assets/15m long-term investments (any criterion);
+only 2022=72/2023=80 enter the short current-enterprise chart. Keep 2010 NACE,
+2014 non-resident activity, 2016 declared-window and 2021 EBS-source boundaries.
+The 3.8/15.2.1 comparable-window paragraphs differ; the explicit 2022 unit rule
+does not authorize cross-regime 2019 growth. Current metadata's FDI reporting-unit
+frame uses EUR 30m equity/75m assets/15m long-term investments (any criterion);
 historical stability is unverified. Control-concept wording is greater than
-half, while the screening frame says at least half; no extra50/50population
-is inferred. Original experimental2004-2006responses contain employment and
+half, while the screening frame says at least half; no extra 50/50 population
+is inferred. Original experimental 2004-2006 responses contain employment and
 turnover but no enterprise-count cells for this pair, not zeros to backfill.
-No national dissemination or unreported2024+country count is substituted.
+No national dissemination or unreported 2024+ country count is substituted.
 
 Italian Eurostat queries select `geo=IT`, `partner=CN_X_HK` and enterprise
 indicators in `fats_out2`, `fats_out2_r2` and `fats_out_part`.

@@ -636,15 +636,15 @@ def belgian_affiliates(client):
     pre, legal, current = ("eurostat_belgium_preuci:china", "eurostat_belgium_legal:china",
                            "eurostat_belgium:china")
     notes = (
-        "Belgian UCI attribution starts2009;2007/2008 pre-UCI legal units remain separate. "
-        "Legal units through2021 and enterprise-level counts from2022 are not spliced. "
-        "Keep2010 NACE,2014 non-resident activity classification,2016 declared window and2021 "
-        "EBS/source boundaries. Country comparable-window paragraphs differ; no cross-unit2019 growth. "
-        "Current metadata reports a thresholded FDI reporting-unit frame: EUR30m equity, EUR75m "
-        "balance-sheet total or EUR15m long-term investments, any criterion; these are not foreign-"
+        "Belgian UCI attribution starts 2009; 2007/2008 pre-UCI legal units remain separate. "
+        "Legal units through 2021 and enterprise-level counts from 2022 are not spliced. "
+        "Keep 2010 NACE, 2014 non-resident activity classification, 2016 declared window and 2021 "
+        "EBS/source boundaries. Country comparable-window paragraphs differ; no cross-unit 2019 growth. "
+        "Current metadata reports a thresholded FDI reporting-unit frame: EUR 30m equity, EUR 75m "
+        "balance-sheet total or EUR 15m long-term investments, any criterion; these are not foreign-"
         "affiliate size cutoffs or verified unchanged historical thresholds. Control concept says "
-        "more than half while the FDI screening frame says at least half; no extra50/50 assumption. "
-        "No unreported2004-2006 experimental enterprise counts or2024+ values inferred.")
+        "more than half while the FDI screening frame says at least half; no extra 50/50 assumption. "
+        "No unreported 2004-2006 experimental enterprise counts or 2024+ values inferred.")
     common = "China except Hong Kong; thresholded FDI reporting-unit frame"
     definitions = {
         pre: series("Belgium, pre-UCI legal units", "controlled_legal_units", "legal units",
@@ -654,8 +654,8 @@ def belgian_affiliates(client):
                       "Belgium-resident UCI; " + common + "; NACE C-O except L, then B-S except O",
                       "annual", "reference year", notes + " Historical legal units are download-only."),
         current: series("Belgium (enterprise definition)", "controlled_enterprises", "enterprises",
-                        "Belgium-resident UCI; " + common + "; NACE B-S except O; enterprise unit from2022",
-                        "annual", "reference year", notes + " Current supplement starts2022."),
+                        "Belgium-resident UCI; " + common + "; NACE B-S except O; enterprise unit from 2022",
+                        "annual", "reference year", notes + " Current supplement starts 2022."),
     }
     body, methodology = client.get(BELGIUM_EUROSTAT_METHODS)
     text = " ".join(BeautifulSoup(body, "html.parser").get_text(" ", strip=True).split()).lower()
