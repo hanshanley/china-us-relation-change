@@ -104,7 +104,7 @@ class Audit:
         self.datasets, self.plotted = {}, {}
         for page, stem, source in [
                 ("language-learning.html", "language", "language-learning"),
-                ("business-presence.html", "business", "business-presence"),
+                ("business-presence.html", "business-current", "business-current"),
                 ("immigration.html", "immigration", "immigration"),
                 ("opinions.html", "opinion", "opinions")]:
             if not (site / f"downloads/{source}.json").is_file():

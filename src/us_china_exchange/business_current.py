@@ -9,6 +9,7 @@ import re
 from datetime import date, datetime
 from pathlib import Path
 
+import xlrd
 from bs4 import BeautifulSoup
 from openpyxl import load_workbook
 
@@ -20,6 +21,12 @@ from .theme import BLUE, CHART_THEMES, FONT, GRID, MUTED, PARTNER_COLORS, TEXT
 
 BEA_RELEASE = "https://www.bea.gov/news/2026/direct-investment-country-and-industry-2025"
 BEA_POSITIONS = "https://apps.bea.gov/international/xls/usdia-current/usdia-positionbyaccountforselectedcountries-2020-2025.xlsx"
+BEA_DIRECTORY = "https://www.bea.gov/international/di1usdbal"
+BEA_POSITION_HISTORY = (
+    "https://apps.bea.gov/international/xls/Position%20Abroad%202000-2009.xls",
+    "https://apps.bea.gov/international/xls/usdia-current/usdia-position-2010-2019.xlsx",
+    "https://apps.bea.gov/international/xls/usdia-current/usdia-position-2020-2025.xlsx",
+)
 US_RELEASE = "https://www.amcham-shanghai.org/en/article/amcham-shanghai-releases-2026-report-business-climate-china"
 GERMAN_RELEASE = "https://china.ahk.de/en/media-centre"
 CHARTS = {
@@ -37,28 +44,34 @@ CHARTS = {
         "note": "381 answers to this question; 488 interim survey respondents overall, 1-29 September 2026. Conditional expectations, not realized losses. Published categories are not exhaustive."},
     "us-investment-mainland": {
         "title": "U.S. investment in mainland China",
-        "subtitle": "BEA | Year-end positions, 2020-2025",
+        "subtitle": "BEA | Year-end positions, 2000-2025",
         "series": ["bea_position:CHN"], "unit": "USD", "mode": "levels", "columns": True, "source_id": "bea_2025",
         "note": "Historical-cost direct investment position. Immediate host country, not ultimate operating exposure. Dollars on the books, not company counts, sales or annual investment flows."},
     "us-investment-hong-kong": {
         "title": "U.S. investment in Hong Kong",
-        "subtitle": "BEA | Year-end positions, 2020-2025",
+        "subtitle": "BEA | Year-end positions, 2000-2025",
         "series": ["bea_position:HKG"], "unit": "USD", "mode": "levels", "columns": True, "source_id": "bea_2025",
         "note": "Historical-cost direct investment position. Hong Kong is separate from mainland China; holding-company routing matters. Macau is not supplied in this selected-country extract."},
 }
 
 
-def parse_positions(content):
-    book = load_workbook(io.BytesIO(content), read_only=True, data_only=True)
+def parse_positions(content, all_industries=False):
+    if content.startswith(b"PK"):
+        book = load_workbook(io.BytesIO(content), read_only=True, data_only=True)
+        tables = [(sheet.title, list(sheet.values)) for sheet in book if re.fullmatch(r"\d{4}", sheet.title)]
+        book.close()
+    else:
+        book = xlrd.open_workbook(file_contents=content)
+        tables = [(sheet.name, [sheet.row_values(i) for i in range(sheet.nrows)])
+                  for sheet in book.sheets() if re.fullmatch(r"\d{4}", sheet.name)]
+        book.release_resources()
     result = []
-    for sheet in book:
-        if not re.fullmatch(r"\d{4}", sheet.title):
-            continue
-        year = int(sheet.title)
-        rows = list(sheet.values)
+    for title, rows in tables:
+        year = int(title)
         if (not str(rows[0][0]).startswith("U.S. Direct Investment Position Abroad on a Historical-Cost Basis")
                 or not str(rows[0][0]).endswith(str(year))
-                or rows[1][0] != "[Millions of dollars]" or rows[2][1] != "Total"):
+                or rows[1][0] != "[Millions of dollars]"
+                or rows[2][1] != ("All industries" if all_industries else "Total")):
             raise ValueError("Unexpected BEA position, units or year header")
         for country, geo in (("China", "CHN"), ("Hong Kong", "HKG")):
             matches = [(i, r) for i, r in enumerate(rows, 1) if r[0] == country]
@@ -66,6 +79,8 @@ def parse_positions(content):
                 raise ValueError("BEA country must have exactly one row")
             row_number, row = matches[0]
             value = row[1]
+            if isinstance(value, str) and re.fullmatch(r"-?(?:\d+|\d{1,3}(?:,\d{3})+)", value):
+                value = int(value.replace(",", ""))
             if isinstance(value, bool) or not isinstance(value, (int, float)) or not math.isfinite(value):
                 raise ValueError("BEA missing, suppressed or ranged values require review, not zero")
             if value != int(value):
@@ -82,6 +97,25 @@ def parse_positions(content):
 def reviewed_snapshot(bea_client, survey_client):
     release, release_asset = bea_client.get(BEA_RELEASE)
     workbook, position_asset = bea_client.get(BEA_POSITIONS)
+    directory, directory_asset = bea_client.get(BEA_DIRECTORY)
+    linked = {a["href"] for a in BeautifulSoup(directory, "html.parser").select("a[href]")}
+    if not set(BEA_POSITION_HISTORY) <= linked:
+        raise ValueError("BEA historical position links require review")
+    positions, history_assets = [], []
+    for url in BEA_POSITION_HISTORY:
+        body, asset = bea_client.get(url)
+        history_assets.append(asset)
+        for row in parse_positions(body, all_industries=True):
+            row.update(source_url=asset["url"], raw_sha256=asset["sha256"],
+                       retrieved_at=asset["retrieved_at"],
+                       source_vintage="BEA linked historical-cost position table: " + url.rsplit("/", 1)[1])
+            positions.append(row)
+    expected = {(f"bea_position:{geo}", year) for geo in ("CHN", "HKG") for year in range(2000, 2026)}
+    if len(positions) != len(expected) or {(r["series_id"], r["year"]) for r in positions} != expected:
+        raise ValueError("BEA history must contain every reported country-year, without duplicates")
+    recent = {(r["series_id"], r["year"]): r["value"] for r in parse_positions(workbook)}
+    if {k: r["value"] for r in positions if (k := (r["series_id"], r["year"])) in recent} != recent:
+        raise ValueError("BEA detailed and selected-country position totals disagree")
     us, us_asset = survey_client.get(US_RELEASE)
     german, german_asset = survey_client.get(GERMAN_RELEASE)
     text = lambda body: " ".join(BeautifulSoup(body, "html.parser").get_text(" ", strip=True).split())
@@ -98,7 +132,7 @@ def reviewed_snapshot(bea_client, survey_client):
     source = lambda name, release_date, assets, locator, notes: dict(
         name=name, release_date=release_date, assets=assets, locator=locator, notes=notes)
     data = {
-        "version": 1, "as_of": "2026-10-24",
+        "version": 1, "as_of": "2026-10-25",
         "context": {
             "interpretation": "Company decisions and investment are separate measures. Neither is a census of businesses or offices.",
             "survey_comparison": "Different member populations and questions: these are not matched U.S.-European estimates. Germany is not an EU-wide sample.",
@@ -112,14 +146,15 @@ def reviewed_snapshot(bea_client, survey_client):
                                "2026-10-06", [german_asset], "Pre-Result, 6 October 2026: result and methodology.",
                                "Interim responses through 29 September, not the completed survey. German findings translated into English. Full release announced for 7 December 2026, still future at review."),
             "bea_2025": source("U.S. Bureau of Economic Analysis, Direct Investment by Country and Industry, 2025",
-                               "2026-07-21", [release_asset, position_asset], "Annual worksheets 2020-2025; China and Hong Kong rows, Total column B.",
-                               "One downloaded vintage throughout, including revisions. Source millions converted to nominal USD. Not BEA affiliate-count statistics; no 2026 investment observation inferred.")},
+                               "2026-07-21", [release_asset, directory_asset, *history_assets, position_asset],
+                               "Annual worksheets 2000-2025; China and Hong Kong rows, All industries column B. Recent totals independently matched to the selected-country Total column.",
+                               "Historical blocks use BEA's currently linked 2000-2009, 2010-2019 and 2020-2025 workbooks, with the exact asset and locator on each observation. The July 2026 release date describes the latest block, not a claim that every historical year was revised then. Source millions converted to nominal USD. Not affiliate counts or annual flows; no 2026 year-end value inferred.")},
         "surveys": {
             "amcham_2026": {"overall_n": 262, "item_n": None, "field_start": None, "field_end": None,
                             "preliminary": False, "fieldwork_note": "Exact fieldwork dates and item-level bases are not stated in the public release."},
             "ahk_2026": {"overall_n": 488, "item_n": 381, "field_start": "2026-09-01", "field_end": "2026-09-29",
                          "preliminary": True, "fieldwork_note": "Interim cutoff only. Survey scheduled through 7 October; full release scheduled 7 December 2026."}},
-        "series": {}, "observations": parse_positions(workbook)}
+        "series": {}, "observations": positions}
     for geo, label in (("CHN", "Mainland China"), ("HKG", "Hong Kong")):
         data["series"]["bea_position:" + geo] = {
             "label": label, "measure": "direct_investment_position", "unit": "USD",
@@ -189,6 +224,11 @@ def validate(data):
                 raise ValueError("Investment positions cannot be relabelled counts or flows")
             if date(row["year"], 12, 31) > cutoff:
                 raise ValueError("Investment reference year has not ended")
+            assets = data["sources"][row["source_id"]]["assets"]
+            if (not row.get("source_vintage") or not any(
+                    row.get("source_url") == asset["url"] and row.get("raw_sha256") == asset["sha256"]
+                    and row.get("retrieved_at") == asset["retrieved_at"] for asset in assets)):
+                raise ValueError("Investment history requires per-observation workbook provenance")
     return data
 
 
@@ -304,16 +344,17 @@ def build_current_business(root, archive, gallery):
         '<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">'
         '<title>Business in China: decisions and investment</title><link rel="stylesheet" href="assets/style.css"></head>'
         '<body><div class="page"><header><h1>Business in China</h1></header><main>'
-        '<section class="series-panel" id="company-decisions"><h2>What companies are saying</h2>'
+        '<section class="series-panel" id="investment-positions"><h2>U.S. investment already on the books</h2>'
+        '<p class="chart-context">Year-end positions from 2000 through 2025, the latest year in BEA&#39;s July 2026 release. '
+        'These are nominal dollar positions, not annual flows or company counts. Mainland China and Hong Kong are separate, with independent vertical scales. '
+        'Changes can reflect transactions, exchange rates and other valuation adjustments.</p>'
+        '<div class="comparison-panels business-investment">' + cards["us-investment-mainland"] + cards["us-investment-hong-kong"] + '</div></section>'
+        '<section class="series-panel" id="company-decisions"><h2>What companies are saying now</h2>'
         '<p class="chart-context">Recent member-company findings, not a count of every foreign business. '
         'The American and German chambers ask different questions and must not be read as a country ranking.</p>'
         '<div class="comparison-panels business-surveys">' + cards["us-company-decisions"] + cards["german-company-risk"] + '</div>'
         '<p class="chart-note">The German finding is not an EU-wide survey. Its full report is scheduled for 7 December 2026; '
         'only the published preliminary question is shown here.</p></section>'
-        '<section class="series-panel" id="investment-positions"><h2>U.S. investment already on the books</h2>'
-        '<p class="chart-context">2025 is the latest year in BEA&#39;s July 2026 direct-investment release. '
-        'These are year-end dollar positions, not annual flows or company counts. Mainland China and Hong Kong are separate, with independent vertical scales.</p>'
-        '<div class="comparison-panels business-investment">' + cards["us-investment-mainland"] + cards["us-investment-hong-kong"] + '</div></section>'
         '<details id="business-data"><summary>Data, sources & historical archive</summary>'
         '<p><a href="downloads/business-current.json" download>Complete current evidence and provenance · JSON</a> · '
         '<a href="downloads/business-current-observations.csv" download>Every current observation · CSV</a> · '

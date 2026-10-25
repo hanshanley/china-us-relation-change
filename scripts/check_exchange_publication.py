@@ -268,11 +268,13 @@ def check(site, url=None, screenshots=None):
                     assert page.locator('#module-chart option[value="ap-language-standard-group"]').count() == 0
                     assert page.locator("#ap-language-standard-group").count() == 0
                 if name == "business-presence.html":
-                    page.select_option("#module-chart", "germany-affiliates-china")
-                    assert page.locator("#germany-affiliates-china .screen-point").count() == 18
-                    expect(page.locator("#germany-affiliates-china .plot-legend")).to_contain_text("Bundesbank")
+                    assert page.locator(".business-card:visible").count() == 4
+                    assert page.locator("#us-investment-mainland .screen-column").count() == 26
+                    assert page.locator("#us-investment-hong-kong .screen-column").count() == 26
+                    assert page.locator("#german-company-risk .screen-bar").count() == 3
+                    assert not page.locator("#module-chart,.covid-band").count()
                     if screenshots:
-                        page.locator("#germany-affiliates-china").screenshot(path=str(screenshots / f"german-businesses-{width}.png"))
+                        page.locator("#investment-positions").screenshot(path=str(screenshots / f"business-investment-{width}.png"))
                 for option in page.locator("#module-chart option").all():
                     page.select_option("#module-chart", option.get_attribute("value"))
                     assert page.locator("[data-module-chart]:visible").count() == 1

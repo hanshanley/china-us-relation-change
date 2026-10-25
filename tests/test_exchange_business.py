@@ -272,7 +272,10 @@ def test_invalid_business_input_is_rejected_before_writes_and_deleted_input_with
         build(tmp_path)
     assert before == {p.relative_to(tmp_path): p.read_bytes() for p in tmp_path.rglob("*") if p.is_file()}
     frozen.write_text(json.dumps(published()))
-    assert build(tmp_path)["business_charts"] == 6
+    with pytest.raises(ValueError, match="current business evidence"):
+        build(tmp_path)
+    (path / "business_current.json").write_text((ROOT / "data/site/business_current.json").read_text())
+    assert build(tmp_path)["business_charts"] == 4
     page = BeautifulSoup((tmp_path / "site/business-presence.html").read_text(), "html.parser")
     assert not page.select('a[href="language-learning.html"]')
     frozen.unlink()
@@ -290,24 +293,25 @@ def test_publication_is_business_only_with_complete_data_original_downloads_and_
     manifest = module.build_publication(ROOT, output, "verified-source-revision")
     page = BeautifulSoup((output / "index.html").read_text(), "html.parser")
     assert page.select_one('link[rel="canonical"]')["href"] == manifest["canonical_url"]
-    assert page.select_one(".publication-header nav").text == "LatestArchiveInteractive analysisAbout"
-    assert not page.select('a[href="index.html"],a[href="language-learning.html"],iframe')
-    assert len(page.select("svg[role=img]")) == 6
-    assert len(page.select("#annual-values [data-business-year]")) == 25
-    assert page.select_one("#business-controls").has_attr("hidden")
-    assert {n["data-business-origin"] for n in page.select("section[data-business-origin]")} == {"us", "eu", "uk", "norway", "germany"}
-    assert page.select_one("#business-benchmark-background").get("open") is None
+    assert "Interactive analysis" in page.select_one(".publication-header nav").text
+    assert not page.select('a[href="language-learning.html"],iframe')
+    assert len(page.select("svg[role=img]")) == 4
+    assert not page.select("#business-controls,#annual-values,#module-chart,#us-affiliates-china")
+    assert len(page.select(".business-card.native-chart,.business-card .native-chart")) == 4
+    assert page.select_one("#business-data").get("open") is None
     assert set(p.name for p in (output / "downloads").iterdir()) == {
-        "business-presence.json", "business-observations.csv", "business-chart-values.csv"}
+        "business-presence.json", "business-observations.csv", "business-current.json",
+        "business-current-observations.csv", "business-current-chart-values.csv"}
     data = json.loads((output / "downloads/business-presence.json").read_text())
-    assert data == published() and manifest["observations"] == 109
+    assert data == published() and manifest["historical_observations"] == 109
+    assert manifest["observations"] == 59
     assert manifest["source_revision"] == "verified-source-revision"
     for name, checksum in manifest["files"].items():
         assert hashlib.sha256((output / name).read_bytes()).hexdigest() == checksum
     with (output / "downloads/business-observations.csv").open() as f:
         assert len(list(csv.DictReader(f))) == 109
     for link in page.select('a[href^="figures/"]'):
-        assert link.has_attr("data-original-chart") and (output / link["href"]).is_file()
+        assert link.has_attr("data-original-chart") and (output / link["href"].split("?")[0]).is_file()
     assert not (output / "business-presence.html").exists()
     assert not any("weibo" in str(p.relative_to(output)) or "language" in str(p.relative_to(output))
                    for p in output.rglob("*"))
@@ -319,6 +323,7 @@ def test_publication_is_business_only_with_complete_data_original_downloads_and_
     (source / "src/us_china_exchange/static").symlink_to(ROOT / "src/us_china_exchange/static", target_is_directory=True)
     data["observations"] = [r for r in data["observations"] if not r["series_id"].startswith("eurostat")]
     (source / "data/site/business_presence.json").write_text(json.dumps(data))
+    (source / "data/site/business_current.json").write_text((ROOT / "data/site/business_current.json").read_text())
     module.build_publication(source, output, "next-revision")
     assert not list((output / "figures/business_presence").glob("*/eu-affiliates-china.*"))
     assert custom.read_text() == "User-owned"

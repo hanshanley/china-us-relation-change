@@ -45,7 +45,7 @@ def check(site, url=None):
     manifest = json.loads((site / "publication-manifest.json").read_text())
     assert manifest["chart_freshness"] == {"history_since": 2023, "snapshot_from": 2024, "snapshot_through": 2026}
     definitions = {}
-    for name in ("language-learning", "business-presence", "immigration", "opinions"):
+    for name in ("language-learning", "business-current", "immigration", "opinions"):
         data = json.loads((site / f"downloads/{name}.json").read_text())
         definitions.update(data["series"])
     observations = json.loads((site / "downloads/observations.json").read_text())

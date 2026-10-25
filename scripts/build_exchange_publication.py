@@ -44,8 +44,8 @@ PAGES = {
                               "AP exams through 2025 · Degree awards through 2024 · College census through 2021"),
     "confucius.html": ("Confucius Institutes & Classrooms", "U.S. institutes, school programs and documented replacements, counted separately.",
                        "Dated historical reports · Operator listings are not an operating census"),
-    "business-presence.html": ("Businesses in mainland China", "Annual affiliate and enterprise counts—not trade flows, offices or a combined European total.",
-                             "Annual affiliate histories · Latest available year varies by origin"),
+    "business-presence.html": ("Business in China", "U.S. investment over time and recent member-company decisions, with mainland China and Hong Kong kept separate.",
+                             "Year-end investment positions: 2000-2025 · Company surveys: 2026"),
     "weibo.html": ("U.S. media on Weibo", "Documented accounts and Chinese-language editions, with sources for each association.",
                    "Account identity evidence, not a measure of posting activity"),
 }
@@ -525,6 +525,9 @@ def decorate(site, name, labels, revision):
     elif name == "weibo.html":
         for node in old_intro:
             node.decompose()
+    elif name == "business-presence.html":
+        for node in old_intro:
+            node.decompose()
     else:
         for node in old_intro:
             node.decompose()
@@ -536,9 +539,7 @@ def decorate(site, name, labels, revision):
         if charts:
             preferred = {"language-learning.html": "chinese-bachelors", "comparisons.html": "goods-to_us",
                          "immigration.html": "annual-china-to-us", "opinions.html": "us-china-favorability"}.get(name)
-            groups = ({section["id"]: ("U.S. affiliates" if section["id"].startswith("us-") else
-                                      "European enterprise series") for section in charts}
-                      if name == "business-presence.html" else None)
+            groups = None
             if name == "immigration.html":
                 groups = {section["id"]: (
                     "Where people live" if section["id"].startswith(("state-", "migrant-stock")) else
@@ -550,8 +551,10 @@ def decorate(site, name, labels, revision):
         for details in main.find_all("details", recursive=False):
             if name != "confucius.html" and not details.select_one(".comparison-chart"):
                 details.decompose()
+    observation_path = site / "downloads/observations.json"
     observations = {(r["series_id"], r["period"]): r for r in
-                    json.loads((site / "downloads/observations.json").read_text()) if r["frequency"] == "annual"}
+                    (json.loads(observation_path.read_text()) if observation_path.is_file() else [])
+                    if r["frequency"] == "annual"}
     if name == "language-learning.html":
         history = soup.select_one("#college-enrollments")
         if history is not None:
@@ -675,7 +678,7 @@ def build_publication(source, output, revision):
         site = root / "site"
         prepare_topic_pages(site)
         definitions = {}
-        for name in ["language_learning", "business_presence", "immigration", "opinions"]:
+        for name in ["language_learning", "business_current", "immigration", "opinions"]:
             if not (root / f"data/site/{name}.json").is_file():
                 continue
             data = json.loads((root / f"data/site/{name}.json").read_text())
@@ -698,7 +701,7 @@ def build_publication(source, output, revision):
                     "scope": "Collective exchanges, immigration, public opinion, language, business and public Weibo research aggregates; no raw posts or source reports",
                     "observations": result["observations"], "files": files, "chart_freshness": POLICY,
                     "datasets": {name: files[f"downloads/{name}.json"] for name in
-                                 ["exchange", "language-learning", "business-presence", "weibo-summary", "immigration",
+                                 ["exchange", "language-learning", "business-presence", "business-current", "weibo-summary", "immigration",
                                   "student-estimates", "state-immigration", "confucius-programs", "opinions"]
                                  if f"downloads/{name}.json" in files}}
         (site / "publication-manifest.json").write_text(json_text(manifest), encoding="utf-8")
