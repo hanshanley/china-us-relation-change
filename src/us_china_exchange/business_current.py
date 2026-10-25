@@ -316,7 +316,7 @@ def build_current_business(root, archive, gallery):
         section.h3.insert_after(context)
         if section["id"] in {"sweden-affiliates-china", "finland-affiliates-china", "france-affiliates-china",
                              "netherlands-affiliates-china", "finland-affiliates-china-eurostat",
-                             "spain-affiliates-china"}:
+                             "spain-affiliates-china", "denmark-affiliates-china"}:
             count_cards.append(str(section))
         else:
             config = COUNT_CHARTS[section["id"]]
@@ -331,7 +331,7 @@ def build_current_business(root, archive, gallery):
             reference_cards.append(str(section))
     count_section = (
         '<section class="series-panel" id="affiliate-presence"><h2>Affiliates operating in China</h2>'
-        '<p class="chart-context">Swedish/Finnish 2024, provisional Dutch 2024 and French/Spanish 2023 counts, with every reported historical year. '
+        '<p class="chart-context">Swedish/Finnish/Danish 2024, provisional Dutch 2024 and French/Spanish 2023 counts, with every reported historical year. '
         'The separate Finnish-UCI Eurostat history reaches 2007; it is not spliced into the broader national counts. '
         'These count subsidiary or affiliate '
         'entities, not unique parent companies or offices. Country sources have different ownership, sector '
