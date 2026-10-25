@@ -54,6 +54,9 @@ def check(site, url=None):
     immigration = json.loads((site / "downloads/immigration.json").read_text())
     arrivals = sorted((r for r in immigration["observations"]
                        if r["series_id"] == "ohss_nationality:new_arrivals"), key=lambda r: r["year"])
+    birthplace = sorted((r for r in immigration["observations"]
+                         if r["series_id"] == "ohss_birth:CHN" and r["value"] is not None),
+                        key=lambda r: r["year"])
     lookup = {(r["series_id"], r["period"]): r for r in observations}
     spec = importlib.util.spec_from_file_location("freshness_plot_decoder", ROOT / "scripts/build_exchange_publication.py")
     builder = importlib.util.module_from_spec(spec)
@@ -146,7 +149,13 @@ def check(site, url=None):
             page.close()
             page = browser.new_page(viewport={"width": width, "height": 1000})
             page.goto(url.rstrip("/") + "/immigration.html" if url else (site.resolve() / "immigration.html").as_uri())
-            expect(page.locator("#module-chart")).to_have_value("annual-china-to-us")
+            expect(page.locator("#module-chart")).to_have_value("green-card-grants")
+            mainland = page.locator('#green-card-grants .comparison-pane[data-geographies="CHN"]')
+            assert mainland.locator(".screen-column").evaluate_all(
+                "nodes=>nodes.map(n=>[+n.dataset.year,+n.dataset.value])") == [
+                    [r["year"], r["value"]] for r in birthplace]
+            assert mainland.locator('.screen-column[data-year="2000"]').get_attribute("data-value") == "45652"
+            page.select_option("#module-chart", "annual-china-to-us")
             assert page.locator("#annual-china-to-us .screen-column").evaluate_all(
                 "nodes=>nodes.map(n=>[+n.dataset.year,+n.dataset.value])") == [
                     [r["year"], r["value"]] for r in arrivals]

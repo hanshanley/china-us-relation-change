@@ -34,8 +34,8 @@ PAGES = {
                    "Annual reported values · Separate regional scales"),
     "travel.html": ("Travel & tourism", "Visitor trips between the U.S., mainland China, Hong Kong and Macau.",
                     "Arrivals are trips, not unique people or necessarily leisure tourists"),
-    "immigration.html": ("Immigration", "Annual permanent immigration and separate views of where people live.",
-                         "Resident stocks through 2024 · U.S. grants and Macau approvals through 2025"),
+    "immigration.html": ("Immigration", "Annual U.S. green-card grants, including status adjustments by people already in the U.S. New arrivals and resident stocks are shown separately.",
+                         "Birthplace grants: 1989-2024 · Nationality new arrivals: 2016-2025"),
     "opinions.html": ("Public opinion", "How Americans view China, how Chinese respondents view the U.S., and the differences by age.",
                       "Reported survey rounds · Different questions kept separate"),
     "comparisons.html": ("Regional comparisons", "Comparisons are organized within Students, Travel and Trade.",
@@ -310,12 +310,17 @@ def decorate(site, name, labels, revision):
         if inward_path.is_file():
             rows = json.loads(inward_path.read_text())["observations"]
             scope += f' · U.S. affiliate counts: {min(row["year"] for row in rows)}–{max(row["year"] for row in rows)}'
-    elif name == "immigration.html" and (site / "downloads/state-immigration.json").is_file():
-        state_data = json.loads((site / "downloads/state-immigration.json").read_text())
+    elif name == "immigration.html":
         immigration = json.loads((site / "downloads/immigration.json").read_text())
-        approval_year = max(r["year"] for r in immigration["observations"] if not r["series_id"].startswith("un_stock:"))
-        scope = (f"State estimates: {state_data['start_year']}–{state_data['end_year']} ACS"
-                 f" · Residence approvals through {approval_year}")
+        birthplace_years = [r["year"] for r in immigration["observations"]
+                           if r["series_id"] == "ohss_birth:CHN" and r["value"] is not None]
+        arrival_years = [r["year"] for r in immigration["observations"]
+                        if r["series_id"] == "ohss_nationality:new_arrivals" and r["value"] is not None]
+        scope = (f"Birthplace grants: {min(birthplace_years)}-{max(birthplace_years)}"
+                 f" · Nationality new arrivals: {min(arrival_years)}-{max(arrival_years)}")
+        if (site / "downloads/state-immigration.json").is_file():
+            state_data = json.loads((site / "downloads/state-immigration.json").read_text())
+            scope += f" · State estimates: {state_data['start_year']}–{state_data['end_year']} ACS"
     elif name == "confucius.html":
         program_data = json.loads((site / "downloads/confucius-programs.json").read_text())
         snapshot = next(r["reference"] for r in program_data["observations"] if r["id"] == "cief_institutes")
@@ -549,12 +554,13 @@ def decorate(site, name, labels, revision):
                 section.decompose()
         if charts:
             preferred = {"language-learning.html": "chinese-bachelors", "comparisons.html": "goods-to_us",
-                         "immigration.html": "annual-china-to-us", "opinions.html": "us-china-favorability"}.get(name)
+                         "immigration.html": "green-card-grants", "opinions.html": "us-china-favorability"}.get(name)
             groups = None
             if name == "immigration.html":
                 groups = {section["id"]: (
                     "Where people live" if section["id"].startswith(("state-", "migrant-stock")) else
-                    "Annual permanent immigration" if section["id"] == "annual-china-to-us" else
+                    "Long-run green-card grants" if section["id"] == "green-card-grants" else
+                    "New arrivals and adjustments" if section["id"] in {"annual-china-to-us", "annual-china-adjustments"} else
                     "Single-region reference" if section["id"] in {"hong-kong-green-cards", "macau-green-cards"} else
                     "Macau residence approvals" if section["id"] == "macau-residence-approvals" else
                     "U.S. permanent-residency grants") for section in charts}

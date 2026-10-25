@@ -399,7 +399,14 @@ def check(site, url=None, screenshots=None):
                     birthplace = [r for r in present if r["series_id"].startswith("ohss_birth:")]
                     stock_from_us = [r for r in present if r["series_id"].startswith("un_stock:USA:")]
                     approvals = [r for r in present if r["series_id"] == "dsec_abode:USA:MAC"]
-                    expect(page.locator("#module-chart")).to_have_value("annual-china-to-us")
+                    expect(page.locator("#module-chart")).to_have_value("green-card-grants")
+                    assert page.locator("#green-card-grants .screen-point").count() == len(birthplace)
+                    mainland = page.locator('#green-card-grants .comparison-pane[data-geographies="CHN"]')
+                    assert mainland.locator(".screen-column").evaluate_all(
+                        "nodes=>nodes.map(n=>[+n.dataset.year,+n.dataset.value])") == sorted([
+                            [r["year"], r["value"]] for r in birthplace if r["series_id"] == "ohss_birth:CHN"])
+                    assert mainland.locator('.screen-column[data-year="2000"]').get_attribute("data-value") == "45652"
+                    page.select_option("#module-chart", "annual-china-to-us")
                     assert page.locator("#annual-china-to-us .screen-point").count() == len(arrivals)
                     assert page.locator("#annual-china-to-us .screen-column").count() == len(arrivals)
                     page.select_option("#module-chart", "migrant-stock-from-us")

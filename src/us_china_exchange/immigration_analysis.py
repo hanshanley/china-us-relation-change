@@ -17,8 +17,13 @@ from .immigration_sources import ADMISSION_YEARS, BIRTH_YEARS, MACAU_ABODE_YEARS
 
 
 CHARTS = {
+    "green-card-grants": {
+        "title": "U.S. green-card grants by birthplace", "subtitle": "Arrivals and adjustments | fiscal years",
+        "series": ["ohss_birth:CHN", "ohss_birth:HKG", "ohss_birth:MAC"], "unit": "Status grants", "mode": "levels",
+        "pandemic_note": True,
+        "note": "DHS/OHSS, country of birth, not nationality. Includes people already in the U.S. adjusting status. Fiscal years end September 30. FY2015–2024 rounded to nearest ten; earlier source vintages use exact counts."},
     "annual-china-to-us": {
-        "title": "China to the U.S.: annual permanent immigration",
+        "title": "New U.S. permanent-resident arrivals",
         "subtitle": "Chinese nationality | U.S. fiscal years",
         "series": ["ohss_nationality:new_arrivals"],
         "unit": "People per fiscal year", "mode": "levels",
@@ -45,11 +50,6 @@ CHARTS = {
         "title": "U.S. citizens in China; U.S.-born in Hong Kong", "subtitle": "UN estimates | distinct citizenship and birthplace populations",
         "series": ["un_stock:USA:CHN", "un_stock:USA:HKG"], "unit": "Estimated residents", "mode": "levels",
         "note": "UN DESA, International Migrant Stock 2024 (CC BY 3.0 IGO). Mainland China uses U.S. citizenship (C R); Hong Kong uses U.S. birthplace (B R). Stocks on 1 July, not new immigrants, permanent-residency grants or U.S. departures. Do not add the two populations."},
-    "green-card-grants": {
-        "title": "U.S. green-card grants by birthplace", "subtitle": "Arrivals and adjustments | fiscal years",
-        "series": ["ohss_birth:CHN", "ohss_birth:HKG", "ohss_birth:MAC"], "unit": "Status grants", "mode": "levels",
-        "pandemic_note": True,
-        "note": "DHS/OHSS, country of birth, not nationality. Includes people already in the U.S. adjusting status. Fiscal years end September 30. FY2015–2024 rounded to nearest ten; earlier source vintages use exact counts."},
     "hong-kong-green-cards": {
         "title": "Green-card grants to Hong Kong-born people", "subtitle": "U.S. permanent residency | fiscal years",
         "series": ["ohss_birth:HKG"], "unit": "Status grants", "mode": "levels",
@@ -290,8 +290,17 @@ def build_immigration(root, data, gallery, state_data=None, state_geometry=None)
                           f'FY{point["year"]}' if basis == "fiscal ending year" else str(point["year"]))
                 exact.append(f'<tr><td>{esc(group["label"])}</td><th scope="row">{period}</th>'
                              f'<td>{point["value"]:,}</td><td>{point["status"]}</td></tr>')
+        history_link = ""
+        if chart_id == "annual-china-to-us":
+            birthplace_years = [r["year"] for r in data["observations"]
+                               if r["series_id"] == "ohss_birth:CHN" and r["value"] is not None]
+            history_link = (
+                '<p class="chart-note immigration-history-link">Long-run history: '
+                '<a href="immigration.html?indicator=green-card-grants">U.S. green-card grants by birthplace, '
+                f'FY{min(birthplace_years)}-FY{max(birthplace_years)}</a>. '
+                'Includes new arrivals and in-country status adjustments, not new arrivals alone.</p>')
         cards.append(f'<section class="series-panel" id="{chart_id}"><h2>{esc(config["title"])}</h2>'
-                     + chart_markup + f'<p class="chart-note">{esc(config["note"])}</p>'
+                     + history_link + chart_markup + f'<p class="chart-note">{esc(config["note"])}</p>'
                      + (f'<p class="chart-note immigration-covid-note">{esc(covid_note)}</p>'
                         '<p class="chart-note immigration-covid-sources">'
                         + " · ".join(f'<a href="{esc(url)}">{esc(label)}</a>' for label, url in (

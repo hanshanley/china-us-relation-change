@@ -208,6 +208,12 @@ def test_immigration_exports_include_all_counts_and_fiscal_dates(tmp_path):
     assert row["value"] == "65670"
     assert row["notes"] != row["definition_notes"]
     page = BeautifulSoup((tmp_path / "site/immigration.html").read_text(), "html.parser")
+    assert page.select_one("main > section[id]")["id"] == "green-card-grants"
+    arrival_title = page.select_one("#annual-china-to-us h2").text
+    assert "New" in arrival_title and "arrivals" in arrival_title
+    history_link = page.select_one("#annual-china-to-us .immigration-history-link")
+    assert history_link.a["href"] == "immigration.html?indicator=green-card-grants"
+    assert "FY1989-FY2024" in history_link.text and "not new arrivals alone" in history_link.text
     assert "nationality" in page.select_one("#latest-admissions").text.lower()
     assert "not_verified" in page.text
     svg = ElementTree.fromstring((tmp_path / "site/figures/immigration/themarginoferror/green-card-grants.svg").read_text())

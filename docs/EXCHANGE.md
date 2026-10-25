@@ -79,7 +79,7 @@ The full plot audit also checks the new page and each export.
 
 ### China-born residents by U.S. state
 
-The immigration page opens with an interactive 50-state/DC map, switching between
+The immigration page also provides an interactive 50-state/DC map, switching between
 resident counts and the share of each state's foreign-born residents. Both values,
 the denominator and the Census count margins of error are available on hover,
 focus, touch or the state selector. Alaska and Hawaii have independently scaled
@@ -1225,11 +1225,19 @@ retain zero-height bars. Multi-series comparisons and baseline indices retain
 lines. Reverse-direction controls and chart links expose available two-way
 histories without substituting an incompatible measure.
 
-Immigration opens with FY2016-2025 new permanent-resident arrivals for Chinese
-nationals. Status adjustments for people already in the U.S. are separate.
-Neither is a count of departures from mainland China. The reverse annual
+Immigration opens with annual U.S. green-card grants by country of birth,
+FY1989-2024, including every year since 2000. Mainland China has its own
+scale, separate from Hong Kong and Macau. These grants include new arrivals
+and status adjustments by people already in the U.S.; they are not all new
+border arrivals or a Chinese-nationality series. The separate, explicitly
+labelled nationality/new-arrivals and adjustment views retain FY2016-2025.
+No pre-2016 nationality observations have been recovered or spliced into
+those views, and the FY2025 nationality count is not appended to the
+birthplace history. Neither measure counts departures from mainland China. The reverse annual
 U.S.-to-mainland-China count remains unverified; UN resident stocks are never
 differenced or relabelled as yearly arrivals.
+Existing new-arrivals deep links remain valid and offer an explicit link to
+the longer, separately defined birthplace-grants history.
 
 Travel-linked time-series charts covering 2020–2022 shade the principal COVID travel-restriction
 years. This is context, **not a universal travel ban or causal attribution**.
