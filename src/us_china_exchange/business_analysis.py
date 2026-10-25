@@ -68,6 +68,7 @@ def validate_business_data(data):
         raise ValueError("Invalid business-presence schema")
     units = {sid: "U.S. parents" if sid.startswith("bea_parents") else "affiliates" if sid.startswith("bea_affiliates")
              else "enterprises" for sid in COLORS}
+    units.update({sid: "enterprises" for sid in ("tillvaxtanalys_sweden:china", "statfin_finland:china")})
     if not data["series"] or not data["sources"] or not isinstance(data["observations"], list):
         raise ValueError("Business definitions, observations and provenance required")
     for sid, definition in data["series"].items():
@@ -75,7 +76,8 @@ def validate_business_data(data):
             raise ValueError("Invalid business series identity")
         if not all(isinstance(v, str) and v for v in definition.values()) or definition["unit"] != units[sid]:
             raise ValueError("Business counting units and populations must remain explicit")
-        expected = ("controlled_enterprises", "annual", "reference year") if sid.startswith(("eurostat", "ssb_", "bundesbank_")) else (
+        expected = ("controlled_enterprises", "annual", "reference year") if sid.startswith(
+            ("eurostat", "ssb_", "bundesbank_", "tillvaxtanalys_", "statfin_")) else (
             ("parent_companies", "benchmark", "fiscal ending year") if sid.startswith("bea_parents")
             else ("majority_owned_affiliates", "annual", "fiscal ending year"))
         if tuple(definition[k] for k in ("measure", "cadence", "period_basis")) != expected:
@@ -135,6 +137,10 @@ def validate_business_data(data):
             raise ValueError("Norwegian country table source mismatch")
         if r["series_id"] == "bundesbank_germany:china" and r["source_id"] != "bundesbank_outward_fats":
             raise ValueError("German country table source mismatch")
+        if r["series_id"] == "tillvaxtanalys_sweden:china" and r["source_id"] != "sweden_country_table":
+            raise ValueError("Swedish country table source mismatch")
+        if r["series_id"] == "statfin_finland:china" and r["source_id"] != "finland_13k8":
+            raise ValueError("Finnish country table source mismatch")
     if not all(data["context"].get(k) for k in ("question", "interpretation", "geography", "rights")):
         raise ValueError("Business interpretation and coverage caveats required")
     if any(set(c) != {"id", "status", "description"} for c in data["coverage"]):

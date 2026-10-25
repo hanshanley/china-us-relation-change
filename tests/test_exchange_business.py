@@ -15,7 +15,7 @@ from PIL import Image, ImageColor
 from openpyxl import Workbook
 
 from us_china_exchange.business_analysis import BENCHMARK_CHART, CHARTS, COLORS, RETIRED_CHARTS, build_business, chart_groups, svg_business_chart, validate_business_data
-from us_china_exchange.business_sources import count_cell, country_counts, parse_eurostat, parse_germany, parse_norway, parse_ons
+from us_china_exchange.business_sources import NORDIC_QUERIES, SWEDEN_COUNTRIES, SWEDEN_QUALITY, count_cell, country_counts, parse_eurostat, parse_germany, parse_norway, parse_nordic, parse_ons
 from us_china_exchange.render import build
 from us_china_exchange.theme import CHART_THEMES, PARTNER_COLORS
 
@@ -54,7 +54,7 @@ def test_distinct_parent_and_affiliate_checkpoints_remain_different_units():
     assert [rows[("eurostat_uk:china", y)]["value"] for y in (2010, 2018, 2019)] == [681, 709, 531]
     assert rows[("eurostat_uk:china", 2019)]["status"] == "estimated"
     assert rows[("eurostat_norway:china", 2023)]["value"] == 88
-    assert len(rows) == 109
+    assert len([r for r in rows.values() if not r["series_id"].startswith(("tillvaxtanalys_", "statfin_"))]) == 109
     assert rows[("ssb_norway:china", 2023)]["value"] == 89
     assert rows[("ssb_norway:china", 2024)]["value"] == 80
 
@@ -136,6 +136,88 @@ def test_norwegian_history_uses_own_full_population_not_a_eurostat_endpoint_spli
     groups = chart_groups(published(), "norway-affiliates-china")
     assert len(groups) == 1 and groups[0]["id"] == "ssb_norway:china"
     assert [p["year"] for p in groups[0]["points"]] == list(range(2008, 2025))
+
+
+def nordic_fixture(country):
+    if country == "sweden":
+        dimensions = ["Tid", "Etableringsland", "variabel"]
+        years, geo, metric, label = ["2009", "2010", "2024"], "cn", "2", "Antal dotterbolag"
+        publisher = "Myndigheten f\u00f6r tillv\u00e4xtpolitiska utv\u00e4rderingar och analyser"
+        values, flags = [None, 433, 885], {"0": ".."}
+    else:
+        dimensions = ["timeperiod_y", "valtio_27_20180101", "contentscode"]
+        years, geo, metric, label = ["2020", "2021", "2024"], "156", "ofats_count", "Number of affiliates"
+        publisher = "Statistics Finland, finnish affiliates abroad"
+        values, flags = [250, 249, 242], {}
+    return {
+        "class": "dataset", "source": publisher, "id": dimensions, "size": [3, 1, 1],
+        "dimension": {
+            dimensions[0]: {"category": {"index": {year: i for i, year in enumerate(years)}}},
+            dimensions[1]: {"category": {"index": {geo: 0}}},
+            dimensions[2]: {"category": {"index": {metric: 0}, "label": {metric: label}}},
+        }, "value": values, "status": flags,
+    }
+
+
+@pytest.mark.parametrize("country,values", [("sweden", [None, 433, 885]), ("finland", [250, 249, 242])])
+def test_nordic_parsers_keep_reported_counts_and_reject_wrong_country_or_unit(country, values):
+    data = nordic_fixture(country)
+    assert [point[1] for point in parse_nordic(data, country)] == values
+    if country == "sweden":
+        assert parse_nordic(data, country)[0][2] == "missing"
+    else:
+        assert parse_nordic(data, country)[0][3] != parse_nordic(data, country)[1][3]
+    for dimension, replacement in [(1, "hk"), (2, "parent_groups")]:
+        changed = copy.deepcopy(data)
+        changed["dimension"][changed["id"][dimension]]["category"]["index"] = {replacement: 0}
+        with pytest.raises(ValueError, match="country or affiliate counting unit"):
+            parse_nordic(changed, country)
+    data["status"]["1"] = "unreviewed"
+    with pytest.raises(ValueError, match="Unreviewed"):
+        parse_nordic(data, country)
+
+
+def test_nordic_selective_collection_preserves_every_other_country_and_is_idempotent():
+    spec = importlib.util.spec_from_file_location("business_collector", ROOT / "scripts/build_business_data.py")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    prior = published()
+    prior["observations"] = [r for r in prior["observations"]
+                             if not r["series_id"].startswith(("tillvaxtanalys_", "statfin_"))]
+    before = copy.deepcopy(prior)
+
+    def asset(url, checksum="b" * 64):
+        return dict(url=url, request_url=url, sha256=checksum, retrieved_at="2026-10-25T00:00:00+00:00")
+
+    def post(url, query):
+        country = "sweden" if url == SWEDEN_COUNTRIES else "finland"
+        assert query == NORDIC_QUERIES[country]
+        return json.dumps(nordic_fixture(country)).encode(), asset(url)
+
+    client = SimpleNamespace(post_json=post, get=lambda url: (
+        b"Reviewed methodology", asset(url, "5d7b77577caf3a9fb159c106bd7fe4e9196ef50f8e09b903b7cbb678d5301289")
+        if url == SWEDEN_QUALITY else asset(url)))
+    result = module.collect_nordic(client, prior)
+    retained = {(r["series_id"], r["year"]): r for r in result["observations"]}
+    assert len(prior["observations"]) == 109 and len(retained) == 115
+    assert all(retained[r["series_id"], r["year"]] == r for r in prior["observations"])
+    assert prior == before
+    validate_business_data(result)
+    assert module.collect_nordic(client, result) == result
+
+
+def test_new_nordic_histories_retain_missing_years_and_source_definition_boundaries():
+    data = published()
+    sweden = {r["year"]: r for r in data["observations"] if r["series_id"] == "tillvaxtanalys_sweden:china"}
+    assert set(sweden) == set(range(2000, 2025))
+    assert all(sweden[y]["value"] is None and sweden[y]["status"] == "missing" for y in range(2000, 2010))
+    assert sum(row["value"] is not None for row in sweden.values()) == 15
+    for previous, current in [(2017, 2018), (2018, 2019), (2020, 2021)]:
+        assert sweden[previous]["comparability"] != sweden[current]["comparability"]
+    finland = {r["year"]: r for r in data["observations"] if r["series_id"] == "statfin_finland:china"}
+    assert set(finland) == set(range(2020, 2025))
+    assert finland[2020]["comparability"] != finland[2021]["comparability"]
+    assert all(r["value"] is not None for r in finland.values())
 
 
 def test_ons_parser_uses_enterprises_not_employment_and_verifies_year():
@@ -305,14 +387,14 @@ def test_publication_is_business_only_with_complete_data_original_downloads_and_
         "business-current-observations.csv", "business-current-chart-values.csv",
         "business-inward.json", "business-inward-observations.csv", "business-inward-chart-values.csv"}
     data = json.loads((output / "downloads/business-presence.json").read_text())
-    assert data == published() and manifest["historical_observations"] == 109
+    assert data == published() and manifest["historical_observations"] == 139
     assert manifest["observations"] == 59
     assert manifest["inward_observations"] == 50
     assert manifest["source_revision"] == "verified-source-revision"
     for name, checksum in manifest["files"].items():
         assert hashlib.sha256((output / name).read_bytes()).hexdigest() == checksum
     with (output / "downloads/business-observations.csv").open() as f:
-        assert len(list(csv.DictReader(f))) == 109
+        assert len(list(csv.DictReader(f))) == 139
     for link in page.select('a[href^="figures/"]'):
         assert link.has_attr("data-original-chart") and (output / link["href"].split("?")[0]).is_file()
     assert not (output / "business-presence.html").exists()

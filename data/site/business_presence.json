@@ -51,6 +51,16 @@
       "description": "German-controlled China enterprises; Eurostat and Bundesbank source histories stay separate because overlapping counts differ. Not added to EU27 or relabelled parent companies.",
       "id": "eurostat_germany:china",
       "status": "annual"
+    },
+    {
+      "description": "Swedish owners hold at least 50% of group voting rights; a subsidiary has >50% ownership or dominant influence. Counts at balance-sheet date, not unique parents or offices. Subsidiary counts began in 2010; 2000-2009 source '..' cells remain missing. 2018 EGR coverage/imputation, 2019 frame repair and 2021 GDC-to-GGH ownership boundaries remain separate. The API's 9999 update sentinel is not a publication date.",
+      "id": "tillvaxtanalys_sweden:china",
+      "status": "partial_history"
+    },
+    {
+      "description": "Active affiliates controlled by Finland-resident enterprises, not unique Finnish parents or a physical-office census; source financial-year reporting. The 2021 EBS methodology boundary remains separate. This supplementary country table starts in 2020; earlier national regional aggregates are not allocated to China. Not matched to other countries' thresholds.",
+      "id": "statfin_finland:china",
+      "status": "partial_history"
     }
   ],
   "observations": [
@@ -1034,6 +1044,276 @@
       "status": "observed",
       "value": 80,
       "year": 2024
+    },
+    {
+      "comparability": "finland:CN:affiliates:pre2021",
+      "notes": "Active affiliates controlled by Finland-resident enterprises, not unique Finnish parents or a physical-office census; source financial-year reporting. The 2021 EBS methodology boundary remains separate. This supplementary country table starts in 2020; earlier national regional aggregates are not allocated to China. Not matched to other countries' thresholds.",
+      "series_id": "statfin_finland:china",
+      "source_id": "finland_13k8",
+      "status": "observed",
+      "value": 250,
+      "year": 2020
+    },
+    {
+      "comparability": "finland:CN:affiliates:EBS2021",
+      "notes": "Active affiliates controlled by Finland-resident enterprises, not unique Finnish parents or a physical-office census; source financial-year reporting. The 2021 EBS methodology boundary remains separate. This supplementary country table starts in 2020; earlier national regional aggregates are not allocated to China. Not matched to other countries' thresholds.",
+      "series_id": "statfin_finland:china",
+      "source_id": "finland_13k8",
+      "status": "observed",
+      "value": 249,
+      "year": 2021
+    },
+    {
+      "comparability": "finland:CN:affiliates:EBS2021",
+      "notes": "Active affiliates controlled by Finland-resident enterprises, not unique Finnish parents or a physical-office census; source financial-year reporting. The 2021 EBS methodology boundary remains separate. This supplementary country table starts in 2020; earlier national regional aggregates are not allocated to China. Not matched to other countries' thresholds.",
+      "series_id": "statfin_finland:china",
+      "source_id": "finland_13k8",
+      "status": "observed",
+      "value": 256,
+      "year": 2022
+    },
+    {
+      "comparability": "finland:CN:affiliates:EBS2021",
+      "notes": "Active affiliates controlled by Finland-resident enterprises, not unique Finnish parents or a physical-office census; source financial-year reporting. The 2021 EBS methodology boundary remains separate. This supplementary country table starts in 2020; earlier national regional aggregates are not allocated to China. Not matched to other countries' thresholds.",
+      "series_id": "statfin_finland:china",
+      "source_id": "finland_13k8",
+      "status": "observed",
+      "value": 239,
+      "year": 2023
+    },
+    {
+      "comparability": "finland:CN:affiliates:EBS2021",
+      "notes": "Active affiliates controlled by Finland-resident enterprises, not unique Finnish parents or a physical-office census; source financial-year reporting. The 2021 EBS methodology boundary remains separate. This supplementary country table starts in 2020; earlier national regional aggregates are not allocated to China. Not matched to other countries' thresholds.",
+      "series_id": "statfin_finland:china",
+      "source_id": "finland_13k8",
+      "status": "observed",
+      "value": 242,
+      "year": 2024
+    },
+    {
+      "comparability": "sweden:CN:affiliates:pre2010",
+      "notes": "Swedish owners hold at least 50% of group voting rights; a subsidiary has >50% ownership or dominant influence. Counts at balance-sheet date, not unique parents or offices. Subsidiary counts began in 2010; 2000-2009 source '..' cells remain missing. 2018 EGR coverage/imputation, 2019 frame repair and 2021 GDC-to-GGH ownership boundaries remain separate. The API's 9999 update sentinel is not a publication date.",
+      "series_id": "tillvaxtanalys_sweden:china",
+      "source_id": "sweden_country_table",
+      "status": "missing",
+      "value": null,
+      "year": 2000
+    },
+    {
+      "comparability": "sweden:CN:affiliates:pre2010",
+      "notes": "Swedish owners hold at least 50% of group voting rights; a subsidiary has >50% ownership or dominant influence. Counts at balance-sheet date, not unique parents or offices. Subsidiary counts began in 2010; 2000-2009 source '..' cells remain missing. 2018 EGR coverage/imputation, 2019 frame repair and 2021 GDC-to-GGH ownership boundaries remain separate. The API's 9999 update sentinel is not a publication date.",
+      "series_id": "tillvaxtanalys_sweden:china",
+      "source_id": "sweden_country_table",
+      "status": "missing",
+      "value": null,
+      "year": 2001
+    },
+    {
+      "comparability": "sweden:CN:affiliates:pre2010",
+      "notes": "Swedish owners hold at least 50% of group voting rights; a subsidiary has >50% ownership or dominant influence. Counts at balance-sheet date, not unique parents or offices. Subsidiary counts began in 2010; 2000-2009 source '..' cells remain missing. 2018 EGR coverage/imputation, 2019 frame repair and 2021 GDC-to-GGH ownership boundaries remain separate. The API's 9999 update sentinel is not a publication date.",
+      "series_id": "tillvaxtanalys_sweden:china",
+      "source_id": "sweden_country_table",
+      "status": "missing",
+      "value": null,
+      "year": 2002
+    },
+    {
+      "comparability": "sweden:CN:affiliates:pre2010",
+      "notes": "Swedish owners hold at least 50% of group voting rights; a subsidiary has >50% ownership or dominant influence. Counts at balance-sheet date, not unique parents or offices. Subsidiary counts began in 2010; 2000-2009 source '..' cells remain missing. 2018 EGR coverage/imputation, 2019 frame repair and 2021 GDC-to-GGH ownership boundaries remain separate. The API's 9999 update sentinel is not a publication date.",
+      "series_id": "tillvaxtanalys_sweden:china",
+      "source_id": "sweden_country_table",
+      "status": "missing",
+      "value": null,
+      "year": 2003
+    },
+    {
+      "comparability": "sweden:CN:affiliates:pre2010",
+      "notes": "Swedish owners hold at least 50% of group voting rights; a subsidiary has >50% ownership or dominant influence. Counts at balance-sheet date, not unique parents or offices. Subsidiary counts began in 2010; 2000-2009 source '..' cells remain missing. 2018 EGR coverage/imputation, 2019 frame repair and 2021 GDC-to-GGH ownership boundaries remain separate. The API's 9999 update sentinel is not a publication date.",
+      "series_id": "tillvaxtanalys_sweden:china",
+      "source_id": "sweden_country_table",
+      "status": "missing",
+      "value": null,
+      "year": 2004
+    },
+    {
+      "comparability": "sweden:CN:affiliates:pre2010",
+      "notes": "Swedish owners hold at least 50% of group voting rights; a subsidiary has >50% ownership or dominant influence. Counts at balance-sheet date, not unique parents or offices. Subsidiary counts began in 2010; 2000-2009 source '..' cells remain missing. 2018 EGR coverage/imputation, 2019 frame repair and 2021 GDC-to-GGH ownership boundaries remain separate. The API's 9999 update sentinel is not a publication date.",
+      "series_id": "tillvaxtanalys_sweden:china",
+      "source_id": "sweden_country_table",
+      "status": "missing",
+      "value": null,
+      "year": 2005
+    },
+    {
+      "comparability": "sweden:CN:affiliates:pre2010",
+      "notes": "Swedish owners hold at least 50% of group voting rights; a subsidiary has >50% ownership or dominant influence. Counts at balance-sheet date, not unique parents or offices. Subsidiary counts began in 2010; 2000-2009 source '..' cells remain missing. 2018 EGR coverage/imputation, 2019 frame repair and 2021 GDC-to-GGH ownership boundaries remain separate. The API's 9999 update sentinel is not a publication date.",
+      "series_id": "tillvaxtanalys_sweden:china",
+      "source_id": "sweden_country_table",
+      "status": "missing",
+      "value": null,
+      "year": 2006
+    },
+    {
+      "comparability": "sweden:CN:affiliates:pre2010",
+      "notes": "Swedish owners hold at least 50% of group voting rights; a subsidiary has >50% ownership or dominant influence. Counts at balance-sheet date, not unique parents or offices. Subsidiary counts began in 2010; 2000-2009 source '..' cells remain missing. 2018 EGR coverage/imputation, 2019 frame repair and 2021 GDC-to-GGH ownership boundaries remain separate. The API's 9999 update sentinel is not a publication date.",
+      "series_id": "tillvaxtanalys_sweden:china",
+      "source_id": "sweden_country_table",
+      "status": "missing",
+      "value": null,
+      "year": 2007
+    },
+    {
+      "comparability": "sweden:CN:affiliates:pre2010",
+      "notes": "Swedish owners hold at least 50% of group voting rights; a subsidiary has >50% ownership or dominant influence. Counts at balance-sheet date, not unique parents or offices. Subsidiary counts began in 2010; 2000-2009 source '..' cells remain missing. 2018 EGR coverage/imputation, 2019 frame repair and 2021 GDC-to-GGH ownership boundaries remain separate. The API's 9999 update sentinel is not a publication date.",
+      "series_id": "tillvaxtanalys_sweden:china",
+      "source_id": "sweden_country_table",
+      "status": "missing",
+      "value": null,
+      "year": 2008
+    },
+    {
+      "comparability": "sweden:CN:affiliates:pre2010",
+      "notes": "Swedish owners hold at least 50% of group voting rights; a subsidiary has >50% ownership or dominant influence. Counts at balance-sheet date, not unique parents or offices. Subsidiary counts began in 2010; 2000-2009 source '..' cells remain missing. 2018 EGR coverage/imputation, 2019 frame repair and 2021 GDC-to-GGH ownership boundaries remain separate. The API's 9999 update sentinel is not a publication date.",
+      "series_id": "tillvaxtanalys_sweden:china",
+      "source_id": "sweden_country_table",
+      "status": "missing",
+      "value": null,
+      "year": 2009
+    },
+    {
+      "comparability": "sweden:CN:affiliates:2010-population",
+      "notes": "Swedish owners hold at least 50% of group voting rights; a subsidiary has >50% ownership or dominant influence. Counts at balance-sheet date, not unique parents or offices. Subsidiary counts began in 2010; 2000-2009 source '..' cells remain missing. 2018 EGR coverage/imputation, 2019 frame repair and 2021 GDC-to-GGH ownership boundaries remain separate. The API's 9999 update sentinel is not a publication date.",
+      "series_id": "tillvaxtanalys_sweden:china",
+      "source_id": "sweden_country_table",
+      "status": "observed",
+      "value": 433,
+      "year": 2010
+    },
+    {
+      "comparability": "sweden:CN:affiliates:2010-population",
+      "notes": "Swedish owners hold at least 50% of group voting rights; a subsidiary has >50% ownership or dominant influence. Counts at balance-sheet date, not unique parents or offices. Subsidiary counts began in 2010; 2000-2009 source '..' cells remain missing. 2018 EGR coverage/imputation, 2019 frame repair and 2021 GDC-to-GGH ownership boundaries remain separate. The API's 9999 update sentinel is not a publication date.",
+      "series_id": "tillvaxtanalys_sweden:china",
+      "source_id": "sweden_country_table",
+      "status": "observed",
+      "value": 542,
+      "year": 2011
+    },
+    {
+      "comparability": "sweden:CN:affiliates:2010-population",
+      "notes": "Swedish owners hold at least 50% of group voting rights; a subsidiary has >50% ownership or dominant influence. Counts at balance-sheet date, not unique parents or offices. Subsidiary counts began in 2010; 2000-2009 source '..' cells remain missing. 2018 EGR coverage/imputation, 2019 frame repair and 2021 GDC-to-GGH ownership boundaries remain separate. The API's 9999 update sentinel is not a publication date.",
+      "series_id": "tillvaxtanalys_sweden:china",
+      "source_id": "sweden_country_table",
+      "status": "observed",
+      "value": 473,
+      "year": 2012
+    },
+    {
+      "comparability": "sweden:CN:affiliates:2010-population",
+      "notes": "Swedish owners hold at least 50% of group voting rights; a subsidiary has >50% ownership or dominant influence. Counts at balance-sheet date, not unique parents or offices. Subsidiary counts began in 2010; 2000-2009 source '..' cells remain missing. 2018 EGR coverage/imputation, 2019 frame repair and 2021 GDC-to-GGH ownership boundaries remain separate. The API's 9999 update sentinel is not a publication date.",
+      "series_id": "tillvaxtanalys_sweden:china",
+      "source_id": "sweden_country_table",
+      "status": "observed",
+      "value": 493,
+      "year": 2013
+    },
+    {
+      "comparability": "sweden:CN:affiliates:2010-population",
+      "notes": "Swedish owners hold at least 50% of group voting rights; a subsidiary has >50% ownership or dominant influence. Counts at balance-sheet date, not unique parents or offices. Subsidiary counts began in 2010; 2000-2009 source '..' cells remain missing. 2018 EGR coverage/imputation, 2019 frame repair and 2021 GDC-to-GGH ownership boundaries remain separate. The API's 9999 update sentinel is not a publication date.",
+      "series_id": "tillvaxtanalys_sweden:china",
+      "source_id": "sweden_country_table",
+      "status": "observed",
+      "value": 595,
+      "year": 2014
+    },
+    {
+      "comparability": "sweden:CN:affiliates:2010-population",
+      "notes": "Swedish owners hold at least 50% of group voting rights; a subsidiary has >50% ownership or dominant influence. Counts at balance-sheet date, not unique parents or offices. Subsidiary counts began in 2010; 2000-2009 source '..' cells remain missing. 2018 EGR coverage/imputation, 2019 frame repair and 2021 GDC-to-GGH ownership boundaries remain separate. The API's 9999 update sentinel is not a publication date.",
+      "series_id": "tillvaxtanalys_sweden:china",
+      "source_id": "sweden_country_table",
+      "status": "observed",
+      "value": 619,
+      "year": 2015
+    },
+    {
+      "comparability": "sweden:CN:affiliates:2010-population",
+      "notes": "Swedish owners hold at least 50% of group voting rights; a subsidiary has >50% ownership or dominant influence. Counts at balance-sheet date, not unique parents or offices. Subsidiary counts began in 2010; 2000-2009 source '..' cells remain missing. 2018 EGR coverage/imputation, 2019 frame repair and 2021 GDC-to-GGH ownership boundaries remain separate. The API's 9999 update sentinel is not a publication date.",
+      "series_id": "tillvaxtanalys_sweden:china",
+      "source_id": "sweden_country_table",
+      "status": "observed",
+      "value": 670,
+      "year": 2016
+    },
+    {
+      "comparability": "sweden:CN:affiliates:2010-population",
+      "notes": "Swedish owners hold at least 50% of group voting rights; a subsidiary has >50% ownership or dominant influence. Counts at balance-sheet date, not unique parents or offices. Subsidiary counts began in 2010; 2000-2009 source '..' cells remain missing. 2018 EGR coverage/imputation, 2019 frame repair and 2021 GDC-to-GGH ownership boundaries remain separate. The API's 9999 update sentinel is not a publication date.",
+      "series_id": "tillvaxtanalys_sweden:china",
+      "source_id": "sweden_country_table",
+      "status": "observed",
+      "value": 704,
+      "year": 2017
+    },
+    {
+      "comparability": "sweden:CN:affiliates:2018-EGR",
+      "notes": "Swedish owners hold at least 50% of group voting rights; a subsidiary has >50% ownership or dominant influence. Counts at balance-sheet date, not unique parents or offices. Subsidiary counts began in 2010; 2000-2009 source '..' cells remain missing. 2018 EGR coverage/imputation, 2019 frame repair and 2021 GDC-to-GGH ownership boundaries remain separate. The API's 9999 update sentinel is not a publication date.",
+      "series_id": "tillvaxtanalys_sweden:china",
+      "source_id": "sweden_country_table",
+      "status": "observed",
+      "value": 666,
+      "year": 2018
+    },
+    {
+      "comparability": "sweden:CN:affiliates:2019-frame",
+      "notes": "Swedish owners hold at least 50% of group voting rights; a subsidiary has >50% ownership or dominant influence. Counts at balance-sheet date, not unique parents or offices. Subsidiary counts began in 2010; 2000-2009 source '..' cells remain missing. 2018 EGR coverage/imputation, 2019 frame repair and 2021 GDC-to-GGH ownership boundaries remain separate. The API's 9999 update sentinel is not a publication date.",
+      "series_id": "tillvaxtanalys_sweden:china",
+      "source_id": "sweden_country_table",
+      "status": "observed",
+      "value": 682,
+      "year": 2019
+    },
+    {
+      "comparability": "sweden:CN:affiliates:2019-frame",
+      "notes": "Swedish owners hold at least 50% of group voting rights; a subsidiary has >50% ownership or dominant influence. Counts at balance-sheet date, not unique parents or offices. Subsidiary counts began in 2010; 2000-2009 source '..' cells remain missing. 2018 EGR coverage/imputation, 2019 frame repair and 2021 GDC-to-GGH ownership boundaries remain separate. The API's 9999 update sentinel is not a publication date.",
+      "series_id": "tillvaxtanalys_sweden:china",
+      "source_id": "sweden_country_table",
+      "status": "observed",
+      "value": 679,
+      "year": 2020
+    },
+    {
+      "comparability": "sweden:CN:affiliates:2021-GGH",
+      "notes": "Swedish owners hold at least 50% of group voting rights; a subsidiary has >50% ownership or dominant influence. Counts at balance-sheet date, not unique parents or offices. Subsidiary counts began in 2010; 2000-2009 source '..' cells remain missing. 2018 EGR coverage/imputation, 2019 frame repair and 2021 GDC-to-GGH ownership boundaries remain separate. The API's 9999 update sentinel is not a publication date.",
+      "series_id": "tillvaxtanalys_sweden:china",
+      "source_id": "sweden_country_table",
+      "status": "observed",
+      "value": 752,
+      "year": 2021
+    },
+    {
+      "comparability": "sweden:CN:affiliates:2021-GGH",
+      "notes": "Swedish owners hold at least 50% of group voting rights; a subsidiary has >50% ownership or dominant influence. Counts at balance-sheet date, not unique parents or offices. Subsidiary counts began in 2010; 2000-2009 source '..' cells remain missing. 2018 EGR coverage/imputation, 2019 frame repair and 2021 GDC-to-GGH ownership boundaries remain separate. The API's 9999 update sentinel is not a publication date.",
+      "series_id": "tillvaxtanalys_sweden:china",
+      "source_id": "sweden_country_table",
+      "status": "observed",
+      "value": 1133,
+      "year": 2022
+    },
+    {
+      "comparability": "sweden:CN:affiliates:2021-GGH",
+      "notes": "Swedish owners hold at least 50% of group voting rights; a subsidiary has >50% ownership or dominant influence. Counts at balance-sheet date, not unique parents or offices. Subsidiary counts began in 2010; 2000-2009 source '..' cells remain missing. 2018 EGR coverage/imputation, 2019 frame repair and 2021 GDC-to-GGH ownership boundaries remain separate. The API's 9999 update sentinel is not a publication date.",
+      "series_id": "tillvaxtanalys_sweden:china",
+      "source_id": "sweden_country_table",
+      "status": "observed",
+      "value": 793,
+      "year": 2023
+    },
+    {
+      "comparability": "sweden:CN:affiliates:2021-GGH",
+      "notes": "Swedish owners hold at least 50% of group voting rights; a subsidiary has >50% ownership or dominant influence. Counts at balance-sheet date, not unique parents or offices. Subsidiary counts began in 2010; 2000-2009 source '..' cells remain missing. 2018 EGR coverage/imputation, 2019 frame repair and 2021 GDC-to-GGH ownership boundaries remain separate. The API's 9999 update sentinel is not a publication date.",
+      "series_id": "tillvaxtanalys_sweden:china",
+      "source_id": "sweden_country_table",
+      "status": "observed",
+      "value": 885,
+      "year": 2024
     }
   ],
   "series": {
@@ -1116,6 +1396,24 @@
       "notes": "Statistics Norway's own complete country history. All-industry coverage is broader than the old Eurostat B-S except O series; those values are preserved separately, not spliced. Counts are subsidiary enterprises, not unique Norwegian parents or physical offices.",
       "period_basis": "reference year",
       "scope": "Subsidiary enterprises in China, separately from Hong Kong and Macao, under direct or indirect Norwegian control; all industries",
+      "unit": "enterprises"
+    },
+    "statfin_finland:china": {
+      "cadence": "annual",
+      "label": "Finland",
+      "measure": "controlled_enterprises",
+      "notes": "Active affiliates controlled by Finland-resident enterprises, not unique Finnish parents or a physical-office census; source financial-year reporting. The 2021 EBS methodology boundary remains separate. This supplementary country table starts in 2020; earlier national regional aggregates are not allocated to China. Not matched to other countries' thresholds.",
+      "period_basis": "reference year",
+      "scope": "Finland-reported foreign affiliates and branches operating in China (156); Hong Kong and Macao separately coded",
+      "unit": "enterprises"
+    },
+    "tillvaxtanalys_sweden:china": {
+      "cadence": "annual",
+      "label": "Sweden",
+      "measure": "controlled_enterprises",
+      "notes": "Swedish owners hold at least 50% of group voting rights; a subsidiary has >50% ownership or dominant influence. Counts at balance-sheet date, not unique parents or offices. Subsidiary counts began in 2010; 2000-2009 source '..' cells remain missing. 2018 EGR coverage/imputation, 2019 frame repair and 2021 GDC-to-GGH ownership boundaries remain separate. The API's 9999 update sentinel is not a publication date.",
+      "period_basis": "reference year",
+      "scope": "Subsidiary companies in China (CN) of Swedish-headed groups; all industries; Hong Kong and Macao separately coded",
       "unit": "enterprises"
     }
   },
@@ -1714,6 +2012,26 @@
       "notes": "Keep each control geography, membership and activity classification explicit. Preserve estimated, break and confidential flags; methodology boundaries remain disconnected. No reconstruction of confidential totals from member-country values.",
       "vintage": "Foreign affiliates of the EU enterprises by detailed breakdown of country of the affiliates (from 2021 onwards); updated 2026-03-31T23:00:00+0200"
     },
+    "finland_13k8": {
+      "assets": [
+        {
+          "request_url": "https://pxdata.stat.fi/PxWeb/api/v1/en/StatFin/stu/13k8.px",
+          "retrieved_at": "2026-10-25T02:24:58+00:00",
+          "sha256": "3e4eb68cb7ccb9e07bc02da5f93ee260d78c8ef4b3dd4152b742d877ce8c70aa",
+          "url": "https://pxdata.stat.fi/PxWeb/api/v1/en/StatFin/stu/13k8.px"
+        },
+        {
+          "request_url": "https://stat.fi/en/documentation/changes-in-statistics/clh08g97cga760bw05x4vrip0",
+          "retrieved_at": "2026-10-25T02:20:58+00:00",
+          "sha256": "e4cffef2a00b358863e3c174e9bdd440b862e8609c51629776de656855f5ea1c",
+          "url": "https://stat.fi/en/documentation/changes-in-statistics/clh08g97cga760bw05x4vrip0"
+        }
+      ],
+      "locator": "13k8; country156 (China); contentscode=ofats_count; all reported years; 2021 methodology-change notice",
+      "name": "Statistics Finland",
+      "notes": "Active affiliates controlled by Finland-resident enterprises, not unique Finnish parents or a physical-office census; source financial-year reporting. The 2021 EBS methodology boundary remains separate. This supplementary country table starts in 2020; earlier national regional aggregates are not allocated to China. Not matched to other countries' thresholds.",
+      "vintage": "StatFin 13k8; reference years 2020-2024"
+    },
     "ons_2019": {
       "assets": [
         {
@@ -1755,6 +2073,26 @@
       "name": "Statistics Norway",
       "notes": "Subsidiary enterprises under direct or indirect control by norwegian own enterprises. The quality of the statistic is affected by the quality of the data that is reported. The variables employee benefits expense and gross investments where first reported for the reference year 2021. There may be an uncertain amount as it is the first time reporting. Hong Kong and Macao are separately coded countries. The original Eurostat population is not silently extended with this broader population.",
       "vintage": "Table 09827; updated 2025-12-17T07:00:00Z"
+    },
+    "sweden_country_table": {
+      "assets": [
+        {
+          "request_url": "https://statistik.tillvaxtanalys.se/PxWeb/api/v1/sv/Tillv%C3%A4xtanalys%20statistikdatabas/Svenska%20koncerner%20med%20dotterbolag%20i%20utlandet/internationella_foretag_koncerner_etableringsland_1996_2024.px",
+          "retrieved_at": "2026-10-25T02:24:43+00:00",
+          "sha256": "93beb38165122807155e79eb0f770038f0fea411bc87e5cc5c0aca40aa607678",
+          "url": "https://statistik.tillvaxtanalys.se/PxWeb/api/v1/sv/Tillv%C3%A4xtanalys%20statistikdatabas/Svenska%20koncerner%20med%20dotterbolag%20i%20utlandet/internationella_foretag_koncerner_etableringsland_1996_2024.px"
+        },
+        {
+          "request_url": "https://www.tillvaxtanalys.se/download/18.2c8ee5971a08641ad00c03e9/1789409959340/NV1501_Kvalitetsdeklaration_2024.pdf",
+          "retrieved_at": "2026-10-25T02:16:29+00:00",
+          "sha256": "5d7b77577caf3a9fb159c106bd7fe4e9196ef50f8e09b903b7cbb678d5301289",
+          "url": "https://www.tillvaxtanalys.se/download/18.2c8ee5971a08641ad00c03e9/1789409959340/NV1501_Kvalitetsdeklaration_2024.pdf"
+        }
+      ],
+      "locator": "Country table; Tid=2000-2024; Etableringsland=cn; variabel=2 (subsidiaries), not 0 (groups); quality declaration pp3-4,9-11",
+      "name": "Swedish Agency for Growth Policy Analysis",
+      "notes": "Swedish owners hold at least 50% of group voting rights; a subsidiary has >50% ownership or dominant influence. Counts at balance-sheet date, not unique parents or offices. Subsidiary counts began in 2010; 2000-2009 source '..' cells remain missing. 2018 EGR coverage/imputation, 2019 frame repair and 2021 GDC-to-GGH ownership boundaries remain separate. The API's 9999 update sentinel is not a publication date.",
+      "vintage": "2024 survey; published 15 September 2026; quality declaration 14 September 2026"
     }
   },
   "version": 1

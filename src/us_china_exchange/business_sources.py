@@ -38,6 +38,28 @@ ONS_DATA = "https://www.ons.gov.uk/file?uri=/businessindustryandtrade/internatio
 ONS_COVERAGE = "https://www.ons.gov.uk/aboutus/transparencyandgovernance/freedomofinformationfoi/ukoutwardforeignaffiliatestatisticsofats2015to2025"
 BUNDESBANK_FATS = "https://www.bundesbank.de/en/statistics/external-sector/direct-investments/foreign-affiliates-statistics-fats--795240"
 SSB_COUNTRIES = "https://data.ssb.no/api/v0/en/table/09827"
+SWEDEN_COUNTRIES = (
+    "https://statistik.tillvaxtanalys.se/PxWeb/api/v1/sv/"
+    "Tillv%C3%A4xtanalys%20statistikdatabas/"
+    "Svenska%20koncerner%20med%20dotterbolag%20i%20utlandet/"
+    "internationella_foretag_koncerner_etableringsland_1996_2024.px")
+SWEDEN_QUALITY = (
+    "https://www.tillvaxtanalys.se/download/18.2c8ee5971a08641ad00c03e9/"
+    "1789409959340/NV1501_Kvalitetsdeklaration_2024.pdf")
+FINLAND_COUNTRIES = "https://pxdata.stat.fi/PxWeb/api/v1/en/StatFin/stu/13k8.px"
+FINLAND_METHODS = "https://stat.fi/en/documentation/changes-in-statistics/clh08g97cga760bw05x4vrip0"
+NORDIC_QUERIES = {
+    "sweden": {"query": [
+        {"code": "Tid", "selection": {"filter": "item", "values": [str(y) for y in range(2000, 2025)]}},
+        {"code": "Etableringsland", "selection": {"filter": "item", "values": ["cn"]}},
+        {"code": "variabel", "selection": {"filter": "item", "values": ["2"]}},
+    ], "response": {"format": "json-stat2"}},
+    "finland": {"query": [
+        {"code": "timeperiod_y", "selection": {"filter": "all", "values": ["*"]}},
+        {"code": "valtio_27_20180101", "selection": {"filter": "item", "values": ["156"]}},
+        {"code": "contentscode", "selection": {"filter": "item", "values": ["ofats_count"]}},
+    ], "response": {"format": "json-stat2"}},
+}
 SSB_CHINA_QUERY = {
     "query": [
         {"code": "Land", "selection": {"filter": "item", "values": ["CN"]}},
@@ -56,6 +78,84 @@ def count_cell(value):
     if isinstance(value, bool) or not isinstance(value, (int, float)) or not math.isfinite(value) or value < 0 or value != int(value):
         raise ValueError("Invalid business entity count")
     return int(value), "observed"
+
+
+def parse_nordic(data, country):
+    schemas = {
+        "sweden": (["Tid", "Etableringsland", "variabel"], "cn", "2",
+                   "Myndigheten f\u00f6r tillv\u00e4xtpolitiska utv\u00e4rderingar och analyser",
+                   "Antal dotterbolag", {None, ".."}),
+        "finland": (["timeperiod_y", "valtio_27_20180101", "contentscode"], "156", "ofats_count",
+                    "Statistics Finland, finnish affiliates abroad", "Number of affiliates", {None, ".", "..."}),
+    }
+    dimensions, geo, metric, publisher, label, flags = schemas[country]
+    if data.get("class") != "dataset" or data.get("source") != publisher or data.get("id") != dimensions:
+        raise ValueError("Nordic affiliate dataset identity changed")
+    time, location, information = [data["dimension"][code]["category"] for code in dimensions]
+    if (location["index"] != {geo: 0} or information["index"] != {metric: 0}
+            or information["label"].get(metric) != label):
+        raise ValueError("Nordic country or affiliate counting unit changed")
+    years, values = time["index"], data.get("value")
+    statuses = data.get("status", {})
+    if (not years or data.get("size") != [len(years), 1, 1] or not isinstance(values, list)
+            or len(values) != len(years) or set(years.values()) != set(range(len(years)))
+            or any(not isinstance(year, str) or not re.fullmatch(r"\d{4}", year) for year in years)
+            or set(statuses) - {str(i) for i in range(len(years))}):
+        raise ValueError("Nordic periods, dimensions or source flags changed")
+    result = []
+    for year, position in sorted(years.items()):
+        value, flag = values[position], statuses.get(str(position))
+        if flag not in flags or (flag is not None and value is not None):
+            raise ValueError("Unreviewed Nordic source flag or flagged numeric value")
+        count, status = count_cell(value)
+        if flag == "...":
+            status = "suppressed"
+        y = int(year)
+        if country == "sweden":
+            boundary = ("pre2010" if y < 2010 else "2010-population" if y < 2018 else
+                        "2018-EGR" if y == 2018 else "2019-frame" if y < 2021 else "2021-GGH")
+        else:
+            boundary = "pre2021" if y < 2021 else "EBS2021"
+        result.append((y, count, status, f"{country}:CN:affiliates:{boundary}"))
+    return result
+
+
+def nordic_affiliates(client):
+    definitions, observations, sources = {}, [], {}
+    for country, api, methodology in [
+        ("sweden", SWEDEN_COUNTRIES, SWEDEN_QUALITY),
+        ("finland", FINLAND_COUNTRIES, FINLAND_METHODS),
+    ]:
+        body, asset = client.post_json(api, NORDIC_QUERIES[country])
+        points = parse_nordic(json.loads(body), country)
+        _, method_asset = client.get(methodology)
+        if country == "sweden":
+            if method_asset["sha256"] != "5d7b77577caf3a9fb159c106bd7fe4e9196ef50f8e09b903b7cbb678d5301289":
+                raise ValueError("Reviewed Swedish affiliate methodology changed")
+            sid, source_id, publisher = "tillvaxtanalys_sweden:china", "sweden_country_table", "Swedish Agency for Growth Policy Analysis"
+            scope = "Subsidiary companies in China (CN) of Swedish-headed groups; all industries; Hong Kong and Macao separately coded"
+            notes = ("Swedish owners hold at least 50% of group voting rights; a subsidiary has >50% ownership "
+                     "or dominant influence. Counts at balance-sheet date, not unique parents or offices. "
+                     "Subsidiary counts began in 2010; 2000-2009 source '..' cells remain missing. "
+                     "2018 EGR coverage/imputation, 2019 frame repair and 2021 GDC-to-GGH ownership boundaries "
+                     "remain separate. The API's 9999 update sentinel is not a publication date.")
+            vintage = "2024 survey; published 15 September 2026; quality declaration 14 September 2026"
+            locator = "Country table; Tid=2000-2024; Etableringsland=cn; variabel=2 (subsidiaries), not 0 (groups); quality declaration pp3-4,9-11"
+        else:
+            sid, source_id, publisher = "statfin_finland:china", "finland_13k8", "Statistics Finland"
+            scope = "Finland-reported foreign affiliates and branches operating in China (156); Hong Kong and Macao separately coded"
+            notes = ("Active affiliates controlled by Finland-resident enterprises, not unique Finnish parents "
+                     "or a physical-office census; source financial-year reporting. The 2021 EBS methodology "
+                     "boundary remains separate. This supplementary country table starts in 2020; earlier "
+                     "national regional aggregates are not allocated to China. Not matched to other countries' thresholds.")
+            vintage = f"StatFin 13k8; reference years {points[0][0]}-{points[-1][0]}"
+            locator = "13k8; country156 (China); contentscode=ofats_count; all reported years; 2021 methodology-change notice"
+        definitions[sid] = series(country.title(), "controlled_enterprises", "enterprises",
+                                  scope, "annual", "reference year", notes)
+        sources[source_id] = source(publisher, vintage, [asset, method_asset], locator, notes)
+        observations.extend(row(sid, year, value, source_id, status, notes, comparability)
+                            for year, value, status, comparability in points if year >= 2000)
+    return definitions, observations, sources
 
 
 def country_counts(sheets, title):
@@ -383,6 +483,10 @@ def collect_business(client):
     definitions.update(germany_definitions)
     observations.extend(germany_observations)
     sources.update(germany_sources)
+    nordic_definitions, nordic_observations, nordic_sources = nordic_affiliates(client)
+    definitions.update(nordic_definitions)
+    observations.extend(nordic_observations)
+    sources.update(nordic_sources)
     coverage = []
     for sid in definitions:
         selected = [r for r in observations if r["series_id"] == sid]
