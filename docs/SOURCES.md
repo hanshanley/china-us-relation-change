@@ -159,7 +159,8 @@ institution-level workbook, report artwork or exam questions are redistributed.
 
 ## Business-presence sources
 
-`data/site/business_presence.json` retains all 304 China-hosted observations, including
+`data/site/business_presence.json` retains 315 China-hosted observations, including
+all 304 prior records and the eleven separately qualified SNB observations,
 explicit confidential/unavailable cells, series definitions, source URLs,
 selected table members, retrieval timestamps and SHA-256 checksums.
 

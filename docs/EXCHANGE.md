@@ -760,8 +760,10 @@ No incompatible full-history percentage is calculated.
 European origins are not destinations: these national series concern
 enterprises in their reported China host category, not U.S. businesses in Europe.
 This is selected European coverage,
-not a comprehensive all-Europe total; Switzerland and other unverified origins
-are not invented or allocated. Eurostat uses ultimate control and different
+not a comprehensive all-Europe total. A pure-Switzerland split and other
+unverified origins are not invented or allocated; the SNB supplement retains
+its explicit combined Switzerland/Liechtenstein reporting area.
+Eurostat uses ultimate control and different
 unit/sector coverage from BEA's size-qualified affiliates. U.S. and European
 levels are in separate panels, not a matched ranking or ratio. NACE revisions,
 membership changes, source changes and the 2021 EBS boundary stay disconnected.
