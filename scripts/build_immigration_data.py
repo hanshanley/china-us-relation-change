@@ -12,7 +12,7 @@ sys.path.insert(0, str(ROOT / "src"))
 
 from us_china_exchange.immigration_analysis import validate_immigration_data
 from us_china_exchange.immigration_sources import (
-    ADMISSION_YEARS, BIRTH_YEARS, MACAU_ABODE_YEARS, admissions, birthplace, collect, macau_abode,
+    ADMISSION_VINTAGES_NOTE, ADMISSION_YEARS, BIRTH_YEARS, MACAU_ABODE_YEARS, admissions, birthplace, collect, macau_abode,
 )
 from us_china_exchange.language_sources import ReviewClient
 from us_china_exchange.model import json_text
@@ -55,9 +55,7 @@ def collect_admissions(client, prior):
     data["context"]["rounding"] = (
         "FY2015-2024 birthplace counts and FY2023-2025 nationality counts are rounded to the nearest ten. "
         "Earlier source vintages retain their published exact counts.")
-    data["context"]["admissions_vintages"] = (
-        "Nationality counts retain each fiscal year's published Q4 preliminary administrative-report vintage, "
-        "not a harmonized final-yearbook revision.")
+    data["context"]["admissions_vintages"] = ADMISSION_VINTAGES_NOTE
     for coverage in data["coverage"]:
         if coverage["id"] == "to_us_nationality":
             coverage["description"] = (

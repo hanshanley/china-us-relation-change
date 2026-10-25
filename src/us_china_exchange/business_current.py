@@ -318,9 +318,10 @@ def build_current_business(root, archive, gallery):
                              "netherlands-affiliates-china", "finland-affiliates-china-eurostat",
                              "italy-affiliates-china", "sweden-affiliates-china-eurostat", "spain-affiliates-china",
                              "denmark-affiliates-china", "austria-affiliates-china", "poland-affiliates-china",
+                             "luxembourg-affiliates-china",
                              "portugal-affiliates-china", "czechia-affiliates-china",
                              "belgium-affiliates-china",
-                             "swiss-liechtenstein-affiliates-china"}:
+                             "swiss-liechtenstein-affiliates-china", "hungary-affiliates-china"}:
             count_cards.append(str(section))
         else:
             config = COUNT_CHARTS[section["id"]]
@@ -339,6 +340,7 @@ def build_current_business(root, archive, gallery):
         'Separate Finnish- and Swedish-UCI Eurostat histories reach 2007; neither is spliced into the broader national counts. '
         'Italian legal-unit counts run from 2007 to 2023; newer grouped-enterprise counts remain separate in downloads. '
         'Portuguese-UCI counts start in 2008 and Czech-UCI counts in 2007; their coverage changes and confidential gaps remain explicit. '
+        'Hungarian enterprise counts start only in 2022; the older legal-unit archive remains separate in downloads. '
         'These count subsidiary or affiliate '
         'entities, not unique parent companies or offices. Country sources have different ownership, sector '
         'and reporting thresholds: they are not a matched ranking or a total to add together. '

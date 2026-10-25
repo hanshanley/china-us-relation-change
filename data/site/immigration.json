@@ -1,6 +1,6 @@
 {
   "context": {
-    "admissions_vintages": "Nationality counts retain each fiscal year's published Q4 preliminary administrative-report vintage, not a harmonized final-yearbook revision.",
+    "admissions_vintages": "Nationality counts retain the reviewed Q4 report-table versions, not a harmonized final-yearbook series. The FY2016-FY2018 Table 1A assets explicitly record a September 2019 correction from birthplace to nationality; their observation fiscal years are unchanged.",
     "definition": "The OHSS series count grants of U.S. permanent-resident status; the UN series count resident stocks. Neither is a measure of net migration. Grants include adjustments by people already in the United States, not only new physical arrivals. Birthplace is not a departure country.",
     "macau_approvals": "DSEC's Macau series counts newly approved people in its U.S. country category, not verified U.S. citizens, U.S. departures or permanent-resident grants.",
     "periods": "U.S. grant series use fiscal years ending September 30. Macau approvals use January-December calendar years. UN resident stocks use 1 July benchmarks. Birthplace, citizenship and source-country categories remain separate.",
@@ -1964,8 +1964,8 @@
       ],
       "locator": "Table 1A; China, People's Republic; full-fiscal-year totals for all grants, adjustments and new arrivals.",
       "name": "U.S. Department of Homeland Security / OHSS",
-      "notes": "Country of nationality, not birthplace or previous residence. Exact counts as published in this release. Each fiscal year retains its Q4 preliminary administrative-report vintage, not final yearbook revisions. New arrivals enter as permanent residents; adjustments concern people already in the U.S. Total grants include both and are not all physical moves from mainland China.",
-      "vintage": "Legal Immigration and Adjustment of Status Report, FY2016 Q4"
+      "notes": "Country of nationality, not birthplace or previous residence. Exact counts as published in this release. Table 1A was corrected from Country of Birth to Country of Nationality in September 2019. Each fiscal year retains its reviewed Q4 report-table version, not final yearbook revisions. New arrivals enter as permanent residents; adjustments concern people already in the U.S. Total grants include both and are not all physical moves from mainland China.",
+      "vintage": "Legal Immigration and Adjustment of Status Report, FY2016 Q4; nationality corrected September 2019"
     },
     "ohss_nationality_2017": {
       "assets": [
@@ -1978,8 +1978,8 @@
       ],
       "locator": "Table 1A; China, People's Republic; full-fiscal-year totals for all grants, adjustments and new arrivals.",
       "name": "U.S. Department of Homeland Security / OHSS",
-      "notes": "Country of nationality, not birthplace or previous residence. Exact counts as published in this release. Each fiscal year retains its Q4 preliminary administrative-report vintage, not final yearbook revisions. New arrivals enter as permanent residents; adjustments concern people already in the U.S. Total grants include both and are not all physical moves from mainland China.",
-      "vintage": "Legal Immigration and Adjustment of Status Report, FY2017 Q4"
+      "notes": "Country of nationality, not birthplace or previous residence. Exact counts as published in this release. Table 1A was corrected from Country of Birth to Country of Nationality in September 2019. Each fiscal year retains its reviewed Q4 report-table version, not final yearbook revisions. New arrivals enter as permanent residents; adjustments concern people already in the U.S. Total grants include both and are not all physical moves from mainland China.",
+      "vintage": "Legal Immigration and Adjustment of Status Report, FY2017 Q4; nationality corrected September 2019"
     },
     "ohss_nationality_2018": {
       "assets": [
@@ -1992,8 +1992,8 @@
       ],
       "locator": "Table 1A; China, People's Republic; full-fiscal-year totals for all grants, adjustments and new arrivals.",
       "name": "U.S. Department of Homeland Security / OHSS",
-      "notes": "Country of nationality, not birthplace or previous residence. Exact counts as published in this release. Each fiscal year retains its Q4 preliminary administrative-report vintage, not final yearbook revisions. New arrivals enter as permanent residents; adjustments concern people already in the U.S. Total grants include both and are not all physical moves from mainland China.",
-      "vintage": "Legal Immigration and Adjustment of Status Report, FY2018 Q4"
+      "notes": "Country of nationality, not birthplace or previous residence. Exact counts as published in this release. Table 1A was corrected from Country of Birth to Country of Nationality in September 2019. Each fiscal year retains its reviewed Q4 report-table version, not final yearbook revisions. New arrivals enter as permanent residents; adjustments concern people already in the U.S. Total grants include both and are not all physical moves from mainland China.",
+      "vintage": "Legal Immigration and Adjustment of Status Report, FY2018 Q4; nationality corrected September 2019"
     },
     "ohss_nationality_2019": {
       "assets": [

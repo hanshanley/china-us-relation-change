@@ -112,17 +112,21 @@ def test_component_exports_complete_counts_and_current_evidence_without_stale_ch
     stale.parent.mkdir(parents=True)
     stale.write_text("Rejected stale chart")
     gallery = defaultdict(list)
-    assert business_current.build_current_business(tmp_path, archive, gallery) == 23
+    assert business_current.build_current_business(tmp_path, archive, gallery) == 25
     assert not stale.exists()
     page = BeautifulSoup((tmp_path / "site/business-presence.html").read_text(), "html.parser")
     assert not page.select("#business-controls,#annual-values,#eu-affiliates-china")
-    assert len(page.select(".business-card")) == 23
+    assert len(page.select(".business-card")) == 25
     count_cards = page.select(".business-count-card")
-    assert len(count_cards) == 19
+    assert len(count_cards) == 21
     for card in count_cards:
         figure = tmp_path / "site" / card.img["src"].replace(".png", ".svg")
         svg = BeautifulSoup(figure.read_text(), "html.parser")
         assert svg.select_one(".annual-column") and not svg.select(".data-line")
+        if card["id"] == "luxembourg-affiliates-china":
+            assert len(svg.select(".annual-column")) == 15
+        if card["id"] == "hungary-affiliates-china":
+            assert len(svg.select(".annual-column")) == 2
     assert not page.select("#uk-affiliates-china,#eu-affiliates-china,#us-parent-companies-china")
     assert json.loads((tmp_path / "site/downloads/business-current.json").read_text()) == data
     assert json.loads((tmp_path / "site/downloads/business-presence.json").read_text()) == archive

@@ -467,6 +467,14 @@ remain recovered-sample lower bounds, never a census of active/inactive accounts
 
 ### Automatic private Weibo refresh
 
+The dated publisher-identity metadata checkpoint does not change refresh
+status: the published snapshot still records six blocked scheduled starts.
+Its attempted-at/note, successful manual collection and cutoff are retained
+byte-for-byte. The operational chronology below describes earlier
+checkpoints; it is not new collection or a replacement for that snapshot.
+Database/journal synchronization, source promotion and actual publication
+require their own approvals; this metadata preparation establishes none.
+
 The GitHub exchange workflow rebuilds frozen Weibo aggregates; hosted runners
 do not have the private corpus. Actual collection runs on the collection Mac:
 
@@ -755,6 +763,7 @@ No pre2009or2025+count is invented.
 | Subsidiaries controlled from Denmark | Eighteen actual2007-2024 national OFATS4 counts, ending460. Denmark-resident parents include foreign ultimate owners; no lower activity threshold. Autonomous subsidiary entities in private non-agricultural activities, including finance; branches excluded. China/Hong Kong/Macao are separately coded. Preserve2010 DB03/DB07 classification. Different from the Danish-UCI Eurostat population; no pre2007 padding, employee substitution, ambiguous-zero inference or sum with EU aggregates. |
 | French-controlled enterprises | Sixteen reported2007-2023 counts and one missing2008 cell, ending2153. Eurostat's host category is China except Hong Kong. The 2007/2009,2010,2016 and2021 boundaries are not spliced or used for cross-regime growth. INSEE's rounded count remains a separate source finding. |
 | Enterprises controlled from Poland | Sixteen reported2008-2023 counts in China except Hong Kong, ending32;2007 remains unreported. Polish-resident UCI, including documented joint/de-facto minority control, not the broader foreign-equity survey. Preserve the legacy NACE2010 transition and2018 legal-unit/enterprise break. The2021 change is source-dataset lineage, not a second Polish unit break; the reporter declares2018-2023 comparable. No2000-2007 padding or unreported current-year count. |
+| Luxembourg-controlled enterprises | Fifteen reported 2009-2023 enterprise/branch counts in China except Hong Kong, ending at 11. Luxembourg-resident ultimate control; SPEs excluded from the underlying FDI survey, which covers all large/medium enterprises and many small entities, not a census of every firm. The country report declares comparability from 2009 and no methodological break; retain the 2010 NACE and 2021 source-table lineage without inventing a country-unit break. This is the producer's continuity declaration, not an independent audit of all historical vintages. 2007/08 remain unreported; no pre-2009, unpublished later observation or pooled EU total is inferred. |
 | Portuguese-controlled enterprises | Sixteen source years from 2008 to 2023, with 15 reported counts ending at 41 and a confidential 2012 gap. The separate 2007 count of 3 predates verified UCI implementation and is archive-only, never joined to the Portuguese-UCI chart. Preserve the selected 2010 NACE transition, 2014 sample-to-IES change and 2020 compilation expansion. No 2019-baseline growth across that later coverage break or invented pre-2007/current counts. |
 | Czech-controlled enterprises | Seventeen source years from 2007 to 2023, with 16 reported counts ending at 7 and a confidential 2021 gap. Preserve the 2007 UCI introduction, national 2008 NACE revision, selected 2010 dataset transition and 2021 EBS coverage/definition break. No comparable current 2019 change or pre-2007 padding. These are controlled foreign enterprises/branches, not all Czech FDI interests or a sum with EU aggregates. |
 | Dutch-controlled enterprises | Eighteen reported2007-2024 counts;2024=620 is provisional. Eurostat's seventeen earlier observations match original native TSVs; CBS's2023 control574 agrees. Dutch-resident UCI, financial/nonfinancial B-S except O. Preserve the2010 classification and2021 method boundaries; no comparable2019 change, pre-2007 history or2025 count is inferred. |
@@ -789,6 +798,19 @@ As verified October 22, 2026, the latest BEA activity release covers 2023
 release and definitions are retained in the manifest. Later years are not
 invented or inferred from investment-position data.
 
+Hungarian ultimate-control counts use the original HCSO outward-FATS unit rule:
+legal units for 2007-2021 (five disclosed counts, ten confidential cells), then
+enterprises for 2022/2023 (six each). Only the enterprise population is plotted;
+the complete legal-unit archive remains in downloads. The national methods and
+table footnote qualify Eurostat's broader 2010-2023 comparability claim.
+Classification changes in 2010, EBS reference-population changes in 2021 and
+the 2022 unit change remain distinct; no cross-unit 2019 growth is calculated.
+The current EUR 40k/10% FDI screen, separate HUF 10m source wording,
+individual minority-control checks and excluded nonrespondents are not an
+all-firm census or proven unchanged historical frame. Unreported experimental
+2004-2006 cells are source evidence, not padded observations. National 2024
+EU/outside-EU/all-host totals do not supply a bilateral China count.
+
 The frozen input is `data/site/business_presence.json`; the page exports the
 complete JSON, every source observation in `business-observations.csv`, and
 every raw/derived chart point in `business-chart-values.csv`. Every displayed
@@ -810,6 +832,7 @@ Obsolete U.S.-in-Europe plots are withdrawn from both figure trees and catalogs.
 .venv/bin/python scripts/build_business_data.py --czechia-only --data-only
 .venv/bin/python scripts/build_business_data.py --belgium-only --data-only
 .venv/bin/python scripts/build_business_data.py --swiss-reporting-area-only --data-only
+.venv/bin/python scripts/build_business_data.py --hungary-only --data-only
 .venv/bin/python scripts/build_site.py
 PYTHONPATH=src .venv/bin/python -m pytest tests/test_exchange_business.py -q
 ```
@@ -1125,8 +1148,12 @@ ten rather than presented as exact counts.
 A separate nationality/admission-type history covers every FY2016-FY2025.
 The FY2025 DHS China category reports 65,670 total grants, 27,020 new arrivals
 and 38,650 adjustments. These are each report's full-year Total columns, not
-sums of quarterly values. Each year retains its preliminary Q4 administrative
-vintage; it is not a harmonized final-yearbook revision. FY2016-FY2022 counts
+sums of quarterly values. Each year retains the reviewed Q4 report-table
+version, not a harmonized final-yearbook series. The FY2016-FY2018 tables
+explicitly say they were corrected from country of birth to country of
+nationality in September 2019. That correction date does not change their
+observation fiscal years or establish an earlier nationality history.
+FY2016-FY2022 counts
 are exact as published; FY2023-FY2025 are rounded to ten. Nationality is not
 birthplace or previous residence, so the two populations are never spliced.
 The actual plotted years determine each caption. U.S. fiscal years end September 30.

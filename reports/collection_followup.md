@@ -11,7 +11,18 @@ Asia/Shanghai day. The generated inventory, frozen aggregate JSON and refresh
 status report the latest live totals; historical checkpoint counts below are
 not rewritten as though they were the latest collection.
 
-## Latest prepared source checkpoint: discovery pass96
+## Latest prepared source checkpoint: discovery passes 101, 103 and 108
+
+The [dated publisher identities](discovery_iteration108.md) retain distinct
+2013 Register-Herald and 2021/2023 Middletown/Norwalk evidence. Candidate:
+465 registry records / 383 manual cohort reviews, not new account holders.
+All 87 channels / 62 groups / 6,570 posts, complete private full-text exports,
+v5 arrays and successful manual cutoff remain exact. The published six-failure
+refresh snapshot is unchanged; health correction and actual collection are
+outside this identity-only preparation. Canonical synchronization, source
+promotion and website publication require separate approvals and receipts.
+
+## Archived source checkpoint: discovery pass96
 
 The dated [Greenwich review](discovery_iteration96.md) adds one factual
 identity, no Weibo account or negative. Source462registry/380manual;

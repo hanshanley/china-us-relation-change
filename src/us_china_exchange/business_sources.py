@@ -65,6 +65,7 @@ FINLAND_EUROSTAT_METHODS = "https://ec.europa.eu/eurostat/cache/metadata/EN/fats
 SWEDEN_EUROSTAT_METHODS = "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_se.htm"
 AUSTRIA_EUROSTAT_METHODS = "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_at.htm"
 POLAND_EUROSTAT_METHODS = "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_pl.htm"
+LUXEMBOURG_EUROSTAT_METHODS = "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_lu.htm"
 PORTUGAL_EUROSTAT_METHODS = "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_pt.htm"
 CZECHIA_EUROSTAT_METHODS = "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_cz.htm"
 BELGIUM_EUROSTAT_METHODS = "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_be.htm"
@@ -78,6 +79,15 @@ SNB_CONTEXT_NOTE = (
     " The SNB Switzerland/Liechtenstein reporting area is a separate qualified supplement, "
     "not a pure-Switzerland population; majority subsidiaries include unincorporated branches "
     "and the current groupwide CHF10m reporting frame is not backdated or treated as all firms.")
+HUNGARY_EUROSTAT_METHODS = "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_hu.htm"
+HUNGARY_OUTWARD_METHODS = "http://www.ksh.hu/docs/eng/modsz/gsz_meth.html"
+HUNGARY_OUTWARD_TABLE = "https://www.ksh.hu/stadat_files/gsz/en/gsz0034.html"
+HUNGARY_CONTEXT_NOTE = (
+    " Hungarian legal units through 2021 and enterprises from 2022 remain separate. "
+    "The national outward-FATS unit rule qualifies Eurostat's broader comparability claim; "
+    "no cross-unit 2019 growth or China counts from national 2024 aggregates. "
+    "Current FDI reporting cutoffs and nonresponse exclusions are not an all-firm census "
+    "or verified constant historical frame.")
 SPAIN_EUROSTAT_METHODS = "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_es.htm"
 SPAIN_NATIONAL_METHODS = (
     "https://ine.es/dynt3/metadatos/es/RespuestaDatos.html?oe=30082",
@@ -302,6 +312,62 @@ def french_affiliates(client):
                     comparability += {2007: ":pilot2007", 2008: ":unreported2008", 2009: ":annual2009"}[year]
                 observations.append(row(sid, year, value, source_id, status,
                                         notes + " Source flags: " + flag, comparability))
+    return definitions, observations, sources
+
+
+def luxembourg_affiliates(client):
+    sid, observations, sources = "eurostat_luxembourg:china", [], {}
+    notes = (
+        "Luxembourg-resident ultimate control; enterprises or branches in China except Hong Kong, "
+        "not all resident immediate parents or an all-firm census. SPEs are excluded from the underlying "
+        "FDI survey; the frame covers all large and medium enterprises and many small entities. "
+        "The country report declares comparability from 2009 with no methodological break, not an "
+        "independent audit of every historical vintage. Retain the 2010 NACE and 2021 dataset lineage "
+        "without inventing a country-unit break. 2007/2008 are unreported, not zero; no earlier or "
+        "unpublished current-year observations are inferred. Luxembourg overlaps EU aggregates.")
+    body, methodology = client.get(LUXEMBOURG_EUROSTAT_METHODS)
+    text = " ".join(BeautifulSoup(body, "html.parser").get_text(" ", strip=True).split())
+    if not all(token in text for token in (
+            "National reference metadata Luxembourg", "LU - Grand Duchy of Luxembourg",
+            "statistical unit of FATS is the enterprise as defined",
+            "SPEs are not covered by our FDI survey",
+            "All large and medium sized enterprises and many small entities are covered",
+            "There is no break in series since there were no changes in the methodology",
+            "Length of comparable time series: from 2009 up to now",
+            "Number of enterprises and employment variables are recorded in absolute figures",
+            "We apply the UCI approach")):
+        raise ValueError("Luxembourg country unit, frame or declared continuity changed")
+    definitions = {sid: series(
+        "Luxembourg", "controlled_enterprises", "enterprises",
+        "Luxembourg-resident UCI; statistical enterprises/branches in China except Hong Kong; "
+        "selected legacy NACE C-O except L, then market producers in NACE B-N and P-S",
+        "annual", "reference year", notes)}
+    for dataset, indicator, activity, first, last in [
+        ("fats_out2", "indic_bp=ENT", "nace_r1=C-O_X_L", 2007, 2009),
+        ("fats_out2_r2", "indic_bp=ENT", "nace_r2=B-S_X_O", 2010, 2020),
+        ("fats_out_part", "indic_sbs=ENT_NR", "nace_r2=B-S_X_O", 2021, None),
+    ]:
+        url = EUROSTAT + dataset + "?lang=EN&freq=A&geo=LU&partner=CN_X_HK&" + indicator + "&" + activity
+        body, asset = client.get(url)
+        data, source_id = json.loads(body), dataset + "_LU"
+        points = parse_eurostat(data, dataset, "LU")
+        years = [point[0] for point in points]
+        if (not years or years != list(range(first, (last or max(years)) + 1))
+                or (last is None and max(years) < 2023)):
+            raise ValueError("Luxembourg affiliate history is incomplete")
+        sources[source_id] = source(
+            "Eurostat (Luxembourg reporting)", dataset + "; source updated " + data["updated"],
+            [asset, methodology], "geo=LU; partner=CN_X_HK; " + indicator + "; " + activity, notes)
+        for year, value, status, flag, _ in points:
+            if any(marker in flag for marker in ("b", "d")):
+                raise ValueError("Luxembourg observation flags contradict declared continuity")
+            if year < 2009:
+                if value is not None or status != "missing":
+                    raise ValueError("Luxembourg pre-2009 population is not the reviewed history")
+                continue
+            observations.append(row(
+                sid, year, value, source_id, status, notes + " Source flags: " + (flag or "none"),
+                "luxembourg:uci2009:continuous"))
     return definitions, observations, sources
 
 
@@ -1086,6 +1152,74 @@ def snb_affiliates(client):
     return definitions, observations, sources
 
 
+def hungarian_affiliates(client):
+    legal, current = "eurostat_hungary_legal:china", "eurostat_hungary:china"
+    notes = (
+        "Hungarian ultimate control; China except Hong Kong. HCSO outward-FATS methods and table "
+        "footnote specify legal units through 2021 and enterprises from 2022. Eurostat's broader "
+        "2010-2023 comparable-window claim conflicts with this unit boundary; no harmonization or "
+        "cross-unit 2019 growth. Keep 2010 NACE and 2021 EBS reference-population/source boundaries. "
+        "Current FDI screening exceeds EUR 40k and 10% of capital; separate source wording says "
+        "HUF 10m. These are reporting-frame limits, not verified constant historical cutoffs or "
+        "an all-firm census. Individual minority-control checks apply; no equally shared control "
+        "in the target population; nonrespondents are omitted. Primary/secondary confidentiality "
+        "is retained. Unreported experimental 2004-2006 cells stay source-only. The national "
+        "table's 2024 EU/outside-EU/all-host totals are not China counts.")
+    common = "Hungary-resident UCI; China except Hong Kong; thresholded FDI reporting-unit frame"
+    definitions = {
+        legal: series("Hungary, historical UCI legal units", "controlled_legal_units", "legal units",
+                      common + "; NACE C-O except L, then B-S except O",
+                      "annual", "reference year", notes + " Historical legal units are download-only."),
+        current: series("Hungary (enterprise definition)", "controlled_enterprises", "enterprises",
+                        common + "; NACE B-S except O; enterprise unit from 2022",
+                        "annual", "reference year", notes + " Current supplement starts 2022."),
+    }
+    methods = []
+    for url, tokens in [
+        (HUNGARY_EUROSTAT_METHODS, (
+            "ultimate controlling institutional unit", "2007-2009", "2010-2023", "40.000 eur",
+            "10 percent", "huf 10 million", "minority share provides enough control",
+            "no equally shared controlled enterprises", "non-responding enterprises were not included")),
+        (HUNGARY_OUTWARD_METHODS, (
+            "legal unit level until reference year 2021", "from reference year 2022 enterprise level",
+            "from reference year 2021", "2019/2152",
+            "reference population covers the market producers as defined by esa 2010")),
+        (HUNGARY_OUTWARD_TABLE, (
+            "business statistics on domestically controlled foreign affiliates",
+            "from reference year 2022 the statistical unit is enterprise")),
+    ]:
+        body, asset = client.get(url)
+        text = " ".join(BeautifulSoup(body, "html.parser").get_text(" ", strip=True).split()).lower()
+        if not all(token in text for token in tokens):
+            raise ValueError("Hungarian outward control, unit, EBS or reporting-frame methodology changed")
+        methods.append(asset)
+    observations, sources = [], {}
+    for dataset, indicator, activity, first, last in [
+        ("fats_out2", "indic_bp=ENT", "nace_r1=C-O_X_L", 2007, 2009),
+        ("fats_out2_r2", "indic_bp=ENT", "nace_r2=B-S_X_O", 2010, 2020),
+        ("fats_out_part", "indic_sbs=ENT_NR", "nace_r2=B-S_X_O", 2021, 2023),
+    ]:
+        url = EUROSTAT + dataset + "?lang=EN&freq=A&geo=HU&partner=CN_X_HK&" + indicator + "&" + activity
+        body, asset = client.get(url)
+        data, source_id = json.loads(body), dataset + "_HU"
+        points = parse_eurostat(data, dataset, "HU")
+        if [point[0] for point in points] != list(range(first, last + 1)):
+            raise ValueError("Hungarian affiliate year coverage changed; preserve the reviewed snapshot")
+        sources[source_id] = source(
+            "Eurostat / Hungarian Central Statistical Office / Hungarian National Bank",
+            dataset + "; Hungary; source updated " + data["updated"], [asset] + methods,
+            "geo=HU; partner=CN_X_HK; " + indicator + "; " + activity, notes)
+        for year, value, status, flag, _ in points:
+            if set(re.sub(r"[|\s]", "", flag)) & {"b", "d"} and year not in {2007, 2010, 2021, 2022}:
+                raise ValueError("Hungarian method boundary changed; preserve the reviewed snapshot")
+            population = "uci-legal" if year < 2022 else "uci-enterprises"
+            phase = max(boundary for boundary in (2007, 2010, 2021, 2022) if boundary <= year)
+            observations.append(row(
+                legal if year < 2022 else current, year, value, source_id, status,
+                notes + " Source flags: " + (flag or "none"), f"hungary:{population}:{phase}"))
+    return definitions, observations, sources
+
+
 def country_counts(sheets, title):
     found = {}
     for sheet in sheets:
@@ -1512,6 +1646,10 @@ def collect_business(client):
     definitions.update(poland_definitions)
     observations.extend(poland_observations)
     sources.update(poland_sources)
+    lu_definitions, lu_observations, lu_sources = luxembourg_affiliates(client)
+    definitions.update(lu_definitions)
+    observations.extend(lu_observations)
+    sources.update(lu_sources)
     portugal_definitions, portugal_observations, portugal_sources = portuguese_affiliates(client)
     definitions.update(portugal_definitions)
     observations.extend(portugal_observations)
@@ -1528,6 +1666,10 @@ def collect_business(client):
     definitions.update(snb_definitions)
     observations.extend(snb_observations)
     sources.update(snb_sources)
+    hungary_definitions, hungary_observations, hungary_sources = hungarian_affiliates(client)
+    definitions.update(hungary_definitions)
+    observations.extend(hungary_observations)
+    sources.update(hungary_sources)
     coverage = []
     for sid in definitions:
         selected = [r for r in observations if r["series_id"] == sid]
@@ -1555,6 +1697,8 @@ def collect_business(client):
     data["context"]["geography"] += (
         " INE national nonfinancial counts retain the reported host label China and separate "
         "pre2021 affiliate units from consolidated enterprises; neither regime is a Eurostat extension.")
+    data["context"]["geography"] += " Luxembourg remains separate from overlapping EU aggregates."
+    data["context"]["geography"] += HUNGARY_CONTEXT_NOTE
     return data
 
 

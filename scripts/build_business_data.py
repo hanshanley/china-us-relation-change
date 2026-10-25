@@ -9,7 +9,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
-from us_china_exchange.business_sources import SNB_CONTEXT_NOTE, austrian_affiliates, belgian_affiliates, collect_business, czech_affiliates, danish_affiliates, finnish_eurostat_affiliates, french_affiliates, german_affiliates, italian_affiliates, netherlands_affiliates, norwegian_affiliates, nordic_affiliates, polish_affiliates, portuguese_affiliates, snb_affiliates, spanish_affiliates, spanish_national_affiliates, swedish_eurostat_affiliates, uk_early_affiliates
+from us_china_exchange.business_sources import HUNGARY_CONTEXT_NOTE, SNB_CONTEXT_NOTE, austrian_affiliates, belgian_affiliates, collect_business, czech_affiliates, danish_affiliates, finnish_eurostat_affiliates, french_affiliates, german_affiliates, hungarian_affiliates, italian_affiliates, luxembourg_affiliates, netherlands_affiliates, norwegian_affiliates, nordic_affiliates, polish_affiliates, portuguese_affiliates, snb_affiliates, spanish_affiliates, spanish_national_affiliates, swedish_eurostat_affiliates, uk_early_affiliates
 from us_china_exchange.language_sources import ReviewClient
 from us_china_exchange.model import json_text
 from us_china_exchange.pipeline import write_atomic
@@ -37,6 +37,13 @@ def collect_all(client, prior):
         "pre2021 affiliate units from consolidated enterprises; neither regime is a Eurostat extension.")
     if "ine_spain:china" in refreshed["series"] and national_note not in data["context"]["geography"]:
         data["context"]["geography"] += national_note
+    luxembourg_note = " Luxembourg remains separate from overlapping EU aggregates."
+    if ("eurostat_luxembourg:china" in refreshed["series"]
+            and luxembourg_note not in data["context"]["geography"]):
+        data["context"]["geography"] += luxembourg_note
+    if ("eurostat_hungary:china" in refreshed["series"]
+            and HUNGARY_CONTEXT_NOTE not in data["context"]["geography"]):
+        data["context"]["geography"] += HUNGARY_CONTEXT_NOTE
     return data
 
 
@@ -100,6 +107,20 @@ def collect_france(client, prior):
         [r for r in data["observations"] if r["series_id"] not in definitions] + observations,
         key=lambda r: (r["series_id"], r["year"]))
     update_country_coverage(data, definitions)
+    return data
+
+
+def collect_luxembourg(client, prior):
+    data = copy.deepcopy(prior)
+    definitions, observations, sources = luxembourg_affiliates(client)
+    data["series"].update(definitions)
+    data["sources"].update(sources)
+    data["observations"] = sorted(
+        [r for r in data["observations"] if r["series_id"] not in definitions] + observations,
+        key=lambda r: (r["series_id"], r["year"]))
+    update_country_coverage(data, definitions)
+    if "Luxembourg" not in data["context"]["geography"]:
+        data["context"]["geography"] += " Luxembourg remains separate from overlapping EU aggregates."
     return data
 
 
@@ -314,6 +335,20 @@ def collect_swiss_reporting_area(client, prior):
     return data
 
 
+def collect_hungary(client, prior):
+    data = copy.deepcopy(prior)
+    definitions, observations, sources = hungarian_affiliates(client)
+    data["series"].update(definitions)
+    data["sources"].update(sources)
+    data["observations"] = sorted(
+        [r for r in data["observations"] if r["series_id"] not in definitions] + observations,
+        key=lambda r: (r["series_id"], r["year"]))
+    update_country_coverage(data, definitions)
+    if HUNGARY_CONTEXT_NOTE not in data["context"]["geography"]:
+        data["context"]["geography"] += HUNGARY_CONTEXT_NOTE
+    return data
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--refresh", action="store_true", help="Refetch reviewed public assets instead of the local checksummed cache")
@@ -344,6 +379,8 @@ if __name__ == "__main__":
                            help="Review separate Austrian legal-unit/enterprise cohorts; preserve other countries")
     selection.add_argument("--poland-only", action="store_true",
                            help="Review Polish-resident-UCI China enterprises; preserve other countries")
+    selection.add_argument("--luxembourg-only", action="store_true",
+                           help="Review Luxembourg-UCI China enterprises; preserve other countries")
     selection.add_argument("--portugal-only", action="store_true",
                            help="Review Portuguese China counts; retain the separate pre-UCI archive")
     selection.add_argument("--czechia-only", action="store_true",
@@ -352,15 +389,19 @@ if __name__ == "__main__":
                            help="Review Belgian pre-UCI/legal/enterprise populations separately; preserve other countries")
     selection.add_argument("--swiss-reporting-area-only", action="store_true",
                            help="Review the combined Switzerland/Liechtenstein supplement; preserve other populations")
+    selection.add_argument("--hungary-only", action="store_true",
+                           help="Review Hungarian legal units through 2021 and separate 2022+ enterprises")
     args = parser.parse_args()
     client = ReviewClient(ROOT / "data/local/business-presence/raw", args.refresh)
-    collector = (collect_swiss_reporting_area if args.swiss_reporting_area_only else
+    collector = (collect_luxembourg if args.luxembourg_only else
+                 collect_swiss_reporting_area if args.swiss_reporting_area_only else
                  collect_spain_national if args.spain_national_only else
                  collect_portugal if args.portugal_only else collect_czechia if args.czechia_only else
                  collect_austria if args.austria_only else collect_italy if args.italy_only else
                  collect_uk_history if args.uk_history_only else
                  collect_sweden_history if args.sweden_history_only else
                  collect_belgium if args.belgium_only else
+                 collect_hungary if args.hungary_only else
                  collect_poland if args.poland_only else
                  collect_denmark if args.denmark_only else collect_spain if args.spain_only else
                  collect_netherlands if args.netherlands_only else
