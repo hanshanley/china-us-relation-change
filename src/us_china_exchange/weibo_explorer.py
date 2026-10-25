@@ -376,7 +376,7 @@ def explorer_page(summary):
         historical_count = sum(a["existence"] == "historical" for a in group)
         details.append(
             f'<section class="weibo-publisher-detail" id="weibo-publisher-{esc(identity)}" data-outlet-id="{esc(identity)}">'
-            '<button type="button" class="weibo-close-publisher">Close details</button>'
+            '<button type="button" class="weibo-close-publisher">Back to publishers</button>'
             f'<h3 tabindex="-1">{esc(name)}</h3>'
             f'<p class="weibo-publisher-summary">{profile_count} with profile evidence · '
             f'{historical_count} historical-only</p>'

@@ -3,6 +3,7 @@
 
 import argparse
 import json
+import re
 import sys
 from pathlib import Path
 
@@ -33,6 +34,83 @@ def all_pages(page):
     while not page.locator("#weibo-previous").is_disabled():
         page.locator("#weibo-previous").click()
     return seen
+
+
+def check_entry_switching(page, touch=False):
+    billboard = page.locator('.weibo-publisher-link[data-outlet-id="billboard"]')
+    neighbor = page.locator('.weibo-publisher-link[data-outlet-id="business-wire"]')
+    billboard.scroll_into_view_if_needed()
+    positions = {}
+    for identity, link in (("billboard", billboard), ("business-wire", neighbor)):
+        expect(link).to_be_in_viewport()
+        box = link.bounding_box()
+        positions[identity] = (box["x"] + box["width"] / 2, box["y"] + box["height"] / 2)
+    click = page.touchscreen.tap if touch else page.mouse.click
+    for identity in ("billboard", "business-wire", "billboard", "business-wire"):
+        click(*positions[identity])
+        expect(page.locator(".weibo-publisher-detail:visible")).to_have_attribute("data-outlet-id", identity)
+        expect(billboard).to_be_in_viewport()
+        expect(neighbor).to_be_in_viewport()
+    page.evaluate("""() => {
+      window.weiboHistoryWrites = 0;
+      const replace = history.replaceState.bind(history);
+      history.replaceState = (...args) => {
+        window.weiboHistoryWrites++;
+        return replace(...args);
+      };
+      const links = ['billboard', 'business-wire'].map(id =>
+        document.querySelector(`.weibo-publisher-link[data-outlet-id="${id}"]`));
+      for (let i = 0; i < 140; i++) {
+        links[i % 2].dispatchEvent(new MouseEvent('click',
+          {bubbles: true, cancelable: true, detail: 1}));
+      }
+    }""")
+    expect(page.locator(".weibo-publisher-detail:visible")).to_have_attribute("data-outlet-id", "business-wire")
+    account = page.locator(".weibo-channel-detail:visible").get_attribute("data-account-id")
+    expect(page).to_have_url(re.compile(r"#weibo-account-" + re.escape(account) + r"$"))
+    page.wait_for_timeout(250)
+    assert page.evaluate("window.weiboHistoryWrites") <= 2, "Rapid selections flood the browser history API"
+    for link in (billboard, neighbor):
+        expect(link).to_be_in_viewport()
+    billboard.click()
+    page.evaluate("location.hash = '#weibo-publisher-npr'")
+    expect(page.locator(".weibo-publisher-detail:visible")).to_have_attribute("data-outlet-id", "npr")
+    page.wait_for_timeout(250)
+    expect(page).to_have_url(re.compile(r"#weibo-publisher-npr$"))
+    billboard.focus()
+    billboard.press("Enter")
+    expect(page.locator(".weibo-publisher-detail:visible > h3")).to_be_focused()
+    expect(page.locator(".weibo-publisher-detail:visible > h3")).to_be_in_viewport()
+    page.locator(".weibo-publisher-detail:visible > h3").press("Escape")
+    expect(billboard).to_be_focused()
+    expect(billboard).to_be_in_viewport()
+    billboard.click()
+    page.locator(".weibo-publisher-detail:visible .weibo-close-publisher").click()
+    expect(billboard).to_be_focused()
+    assert not page.locator(".weibo-publisher-detail:visible").count()
+    assert not page.evaluate("document.documentElement.scrollWidth > innerWidth")
+
+
+def check_interactions(url, engine="chromium", screenshots=None):
+    if screenshots:
+        screenshots.mkdir(parents=True, exist_ok=True)
+    with sync_playwright() as playwright:
+        browser = getattr(playwright, engine).launch()
+        for width in (1360, 768, 390, 320):
+            touch = width < 760
+            page = browser.new_page(viewport={"width": width, "height": 900},
+                                    has_touch=touch, is_mobile=touch)
+            errors = []
+            page.on("pageerror", lambda exc: errors.append(str(exc)))
+            page.goto(url)
+            page.evaluate("document.fonts.ready")
+            check_entry_switching(page, touch)
+            assert not errors, errors
+            if screenshots:
+                page.screenshot(path=str(screenshots / f"weibo-clicks-{engine}-{width}.png"), full_page=True)
+            page.close()
+        browser.close()
+    print(f"Weibo clicks ({engine}): Billboard/neighbor physical clicks, rapid switching, keyboard and return navigation passed at four widths.")
 
 
 def check_page(page, summary):
@@ -221,6 +299,8 @@ def check(site, url=None, screenshots=None):
             page.on("pageerror", lambda exc: errors.append(str(exc)))
             page.goto(url)
             page.evaluate("document.fonts.ready")
+            check_entry_switching(page)
+            page.goto(url)
             check_page(page, summary)
             if screenshots:
                 page.goto(url)
@@ -275,5 +355,11 @@ if __name__ == "__main__":
     parser.add_argument("--site", type=Path, required=True)
     parser.add_argument("--url")
     parser.add_argument("--screenshots", type=Path)
+    parser.add_argument("--interaction-only", action="store_true")
+    parser.add_argument("--browser", choices=("chromium", "webkit"), default="chromium")
     args = parser.parse_args()
-    check(args.site, args.url, args.screenshots)
+    if args.interaction_only:
+        check_interactions(args.url or (args.site.resolve() / "weibo.html").as_uri(),
+                           args.browser, args.screenshots)
+    else:
+        check(args.site, args.url, args.screenshots)

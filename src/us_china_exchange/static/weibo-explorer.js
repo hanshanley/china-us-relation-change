@@ -5,6 +5,17 @@
   if (!root || !data) return;
   const payload = JSON.parse(data.textContent);
   const accounts = payload.accounts;
+  let pendingUrl = null, urlTimer = 0;
+  const currentUrl = () => new URL(pendingUrl || location.href);
+  // Keep rapid browsing below browser history-write limits.
+  const replaceUrl = url => {
+    pendingUrl = url;
+    clearTimeout(urlTimer);
+    urlTimer = setTimeout(() => {
+      if (pendingUrl.href !== location.href) history.replaceState(null, "", pendingUrl);
+      pendingUrl = null;
+    }, 200);
+  };
   const coverage = document.querySelector("#weibo-coverage");
   if (coverage && payload.coverage) {
     const total = payload.coverage.total;
@@ -75,10 +86,10 @@
       }
       explanation.textContent = mode.explanation;
       if (writeUrl && location.protocol !== "file:") {
-        const url = new URL(location.href);
+        const url = currentUrl();
         if (modeId === "evidence") url.searchParams.delete("coverage");
         else url.searchParams.set("coverage", modeId);
-        history.replaceState(null, "", url);
+        replaceUrl(url);
       }
     };
     coverage.querySelector(".coverage-modes").hidden = false;
@@ -241,7 +252,7 @@
     next.disabled = page === pages;
     root.querySelector("#weibo-page-label").textContent = `Page ${page} of ${pages}`;
     if (writeUrl) {
-      const url = new URL(location.href);
+      const url = currentUrl();
       for (const [key, value] of [["q", search.value.trim()], ["category", category.value],
         ["relationship", relationship.value],
         ["evidence", evidence.value], ["followup", followup.checked ? "1" : ""],
@@ -251,7 +262,7 @@
       }
       url.hash = selectedPublisher ? `weibo-account-${selected}` : "";
       if (location.protocol === "file:") url.search = location.search;
-      history.replaceState(null, "", url);
+      replaceUrl(url);
     }
   };
   const reveal = (publisher, account = "", writeUrl = true) => {
@@ -313,8 +324,12 @@
         return;
       }
       reveal(link.dataset.outletId);
-      document.getElementById(`weibo-publisher-${selectedPublisher}`).querySelector("h3").focus({preventScroll: true});
-      scrollToDetail();
+      if (event.detail === 0) {
+        document.getElementById(`weibo-publisher-${selectedPublisher}`).querySelector("h3").focus({preventScroll: true});
+        scrollToDetail();
+      } else {
+        link.focus({preventScroll: true});
+      }
     });
     link.addEventListener("keydown", event => {
       if (!["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown", "Home", "End"].includes(event.key)) return;
@@ -343,6 +358,8 @@
     }
   });
   window.addEventListener("hashchange", () => {
+    clearTimeout(urlTimer);
+    pendingUrl = null;
     const target = hashSelection();
     if (target) {
       reveal(target.publisher, target.account, false);
