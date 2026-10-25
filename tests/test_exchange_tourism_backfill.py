@@ -128,6 +128,28 @@ def test_early_macau_uses_residence_totals_not_mode_counts_shares_or_nationality
         parse_early_macau(header, row.replace("United States of America", "Canada"))
 
 
+def test_earlier_macau_report_reads_the_2000_count_and_reconciles_the_retained_2001_overlap():
+    header = ("TABLE 1 : VISITOR ARRIVALS BY PLACE OF RESIDENCE\n"
+              "2000 2001 2000 2001 2000 2001 2000 2001")
+    row = ("US  52,708  51,379  16,550  16,998  5,095  5,230  74,353  0.81  73,607  0.72  -1.00\n"
+           "Estados Unidos da America\nUnited States of America")
+    assert parse_early_macau(header, row, years=(2000, 2001)) == {2000: 74353, 2001: 73607}
+    with pytest.raises(ValueError, match="paired year"):
+        parse_early_macau(header, row)
+    with pytest.raises(ValueError, match="reconcile"):
+        parse_early_macau(header, row.replace("74,353", "74,354"), years=(2000, 2001))
+    with pytest.raises(ValueError, match="counts"):
+        parse_early_macau(header, row.replace("74,353", "74,35"), years=(2000, 2001))
+    rows = json.loads((ROOT / "data/site/observations.json").read_text())
+    annual = {r["year"]: r for r in rows if r["source_id"] == "macau_tourism"
+              and r["frequency"] == "annual" and r["measure"] == "visitors"}
+    assert set(annual) == set(range(2000, 2026))
+    assert annual[2000]["value"] == 74353 and annual[2001]["value"] == 73607
+    assert "2001_Y.aspx" in annual[2000]["source_url"]
+    assert "2002_Y.aspx" in annual[2001]["source_url"]
+    assert change(annual[2025], annual[2000])["reason"] == "Definitions or periods differ"
+
+
 def test_early_hong_kong_preserves_seven_digit_count_and_residence_columns():
     plain = (
         "Visitor Arrivals by Country/Territory of Residence\n"

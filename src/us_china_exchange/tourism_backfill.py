@@ -20,6 +20,9 @@ USTR_MACAU_ARCHIVE = (
     "https://web.archive.org/web/20251218202809/"
     "https://ustr.gov/countries-regions/china-mongolia-taiwan/macau")
 HK_DIGEST = "https://www.statistics.gov.hk/pub/B10100032003AN03B0600.pdf"
+MACAU_2001 = (
+    "https://www.dsec.gov.mo/getAttachment/536cc867-adab-455f-bc63-df3c8d3a31ea/"
+    "P_TUR_PUB_2001_Y.aspx?disposition=attachment")
 MACAU_2002 = (
     "https://www.dsec.gov.mo/getAttachment/8c86dc19-36cc-4a05-8133-5470c143c09b/"
     "P_TUR_PUB_2002_Y.aspx")
@@ -357,10 +360,10 @@ def parse_macau_months(plain):
     return result
 
 
-def parse_early_macau(header, continuation):
+def parse_early_macau(header, continuation, years=(2001, 2002)):
     compact = " ".join(header.split())
     if ("TABLE 1 : VISITOR ARRIVALS BY PLACE OF RESIDENCE" not in compact
-            or "2001 2002 2001 2002 2001 2002 2001 2002" not in compact):
+            or " ".join(map(str, years * 4)) not in compact):
         raise ValueError("DSEC residence table or paired year columns changed")
     lines = continuation.splitlines()
     matches = [i for i, line in enumerate(lines) if line.strip() == "United States of America"]
@@ -369,13 +372,13 @@ def parse_early_macau(header, continuation):
     fields = re.split(r"\s{2,}", lines[matches[0] - 2].strip())
     columns = (1, 2, 3, 4, 5, 6, 7, 9)
     if len(fields) != 12 or any(
-            not re.fullmatch(r"\d{1,3}(?: \d{3})*", fields[i]) for i in columns):
+            not re.fullmatch(r"\d{1,3}(?:[ ,]\d{3})*", fields[i]) for i in columns):
         raise ValueError("DSEC country counts, shares or transport columns changed")
-    counts = [int(fields[i].replace(" ", "")) for i in columns]
+    counts = [int(fields[i].replace(" ", "").replace(",", "")) for i in columns]
     for i in (0, 1):
         if sum(counts[i:6:2]) != counts[6 + i]:
             raise ValueError("DSEC sea, land and air arrivals do not reconcile with total")
-    return {2001: counts[6], 2002: counts[7]}
+    return dict(zip(years, counts[6:]))
 
 
 def macau_history(client):
@@ -392,7 +395,23 @@ def macau_history(client):
         "nationality counts, sea-only arrivals, package tours, or combined U.S./Canada hotel "
         "guests. This pre-2008 population includes non-resident workers and students.")
         for year, value in values.items()]
-    return attach(rows, asset, "DSEC Tourism Statistics 2002, table 1; 2001 and 2002")
+    rows = attach(rows, asset, "DSEC Tourism Statistics 2002, table 1; 2001 and 2002")
+    body, asset = client.get(MACAU_2001)
+    if asset["sha256"] != "4e5b552ed0e07c87ff0244b4953ae38d761e0f090165a93320e8712719d0ee22":
+        raise ValueError("Reviewed DSEC Tourism Statistics 2001 report changed")
+    page = PdfReader(io.BytesIO(body)).pages[54]
+    earlier = parse_early_macau(page.extract_text(), page.extract_text(extraction_mode="layout"),
+                                years=(2000, 2001))
+    if earlier[2001] != values[2001]:
+        raise ValueError("Independent DSEC annual reports disagree on the 2001 residence total")
+    row = macau_observation(
+        2000, earlier[2000],
+        "DSEC Tourism Statistics 2001, table 1, PDF/printed page 55; directly reported "
+        "U.S.-resident all-mode arrivals. Sea 52708 + land 16550 + air 5095 equals total "
+        "74353. The 2001 overlap 73607 reconciles with the independent 2002 report. "
+        "Not nationality, package tours, overnight-only arrivals or combined U.S./Canada "
+        "hotel guests. This pre-2008 population includes non-resident workers and students.")
+    return rows + attach([row], asset, "DSEC Tourism Statistics 2001, table 1; 2000 with independent 2001 overlap")
 
 
 def macau_recent(client):
@@ -450,10 +469,10 @@ def macau_recent(client):
     december = next((r["value"] for r in rows if r["period"] == "2025-12" and r["frequency"] == "ytd"), None)
     if len(complete) != 12 or sum(complete.values()) != december:
         raise ValueError("Complete 2025 Macau monthly counts must reconcile with December cumulative total")
-    return rows, "DSEC 2001-2002; full monthly 2025; " + current_vintage, (
+    return rows, "DSEC 2000-2002; full monthly 2025; " + current_vintage, (
         "Direct 2025/2026 monthly and cumulative source-market tables, supplemented by complete U.S. "
         "first-half profiles when a monthly top-ten row is absent; travel-document issuing place, "
         "not U.S. residence. All twelve 2025 monthly counts reconcile with the December cumulative total. "
         f"{current_notes} "
-        "Original DSEC 2002 table 1 restores 2001/2002 all-mode residence "
+        "Original DSEC 2001/2002 table 1 restores 2000-2002 all-mode residence "
         "arrivals before the 2008 worker/student exclusion. Other annual history retained.")
