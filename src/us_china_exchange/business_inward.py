@@ -123,8 +123,9 @@ def validate(data):
         if ((row["value"] is None) != (row["status"] == "suppressed")
                 or row["value"] is not None and (type(row["value"]) is not int or row["value"] < 0)):
             raise ValueError("Affiliate missingness or count changed")
-    if not seen:
-        raise ValueError("No reported affiliate evidence")
+    expected = {(sid, source_id) for sid in data["series"] for source_id in data["sources"]}
+    if not seen or {(row["series_id"], row["source_id"]) for row in data["observations"]} != expected:
+        raise ValueError("Every source year requires both country count records")
     return data
 
 

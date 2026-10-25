@@ -75,6 +75,7 @@ def test_history_retains_all_years_and_four_actual_population_blocks():
         lambda d: d["series"]["bea_mousa:CHN"].update(unit="companies"),
         lambda d: d["observations"][0].update(size_threshold_usd=30_000_000),
         lambda d: d["observations"][0].update(comparability="all years are comparable"),
+        lambda d: d["observations"].pop(),
     ]:
         invalid = copy.deepcopy(data)
         mutate(invalid)
