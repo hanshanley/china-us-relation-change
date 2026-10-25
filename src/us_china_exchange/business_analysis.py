@@ -23,14 +23,16 @@ COLORS = {"bea_affiliates:china": PARTNER_COLORS["CHN"], "bea_parents:china": PA
           "bundesbank_germany:china": "#79638A", "eurostat_germany:china": "#A397AC",
           "eurostat_netherlands:china": "#617C78",
           "tillvaxtanalys_sweden:china": "#526F76", "statfin_finland:china": "#6F7354",
-          "eurostat_france:china": "#8A6556", "eurostat_finland:china": "#999D7D"}
+          "eurostat_france:china": "#8A6556", "eurostat_finland:china": "#999D7D",
+          "eurostat_sweden:china": "#97AAAE"}
 ORIGINS = {"bea_affiliates:china": "us", "bea_parents:china": "us",
            "eurostat_affiliates:china": "eu", "eurostat_historical_eu:china": "eu",
            "eurostat_uk:china": "uk", "eurostat_norway:china": "norway", "ssb_norway:china": "norway",
            "bundesbank_germany:china": "germany", "eurostat_germany:china": "germany",
            "eurostat_netherlands:china": "netherlands",
            "tillvaxtanalys_sweden:china": "sweden", "statfin_finland:china": "finland",
-           "eurostat_france:china": "france", "eurostat_finland:china": "finland"}
+           "eurostat_france:china": "france", "eurostat_finland:china": "finland",
+           "eurostat_sweden:china": "sweden"}
 CHARTS = {
     "us-affiliates-china": {
         "title": "U.S.-parent affiliates in China",
@@ -68,10 +70,11 @@ CHARTS = {
         "The 2021 methodology boundary is retained. Not spliced with the Bundesbank counts; Germany overlaps EU27."},
     "sweden-affiliates-china": {
         "title": "Swedish-group subsidiaries in China",
-        "subtitle": "Annual observations, 2010-2024 | Earlier counts unavailable",
+        "subtitle": "National annual observations, 2010-2024",
         "series": ["tillvaxtanalys_sweden:china"], "unit": "Enterprises", "mode": "levels",
-        "note": "Swedish Agency for Growth Policy Analysis. Subsidiaries, not parents; counts start in 2010. "
-        "2018: EGR coverage/imputation; 2019: frame repair; 2021: ownership-concept change. Hong Kong and Macau separate."},
+        "note": "Swedish Agency for Growth Policy Analysis. Subsidiaries, not parents; this national history starts in 2010. "
+        "2018: EGR coverage/imputation; 2019: frame repair; 2021: ownership-concept change. "
+        "The longer Eurostat population is separate. Hong Kong and Macau separate."},
     "finland-affiliates-china": {
         "title": "Finnish-reported affiliates in China",
         "subtitle": "Supplementary annual history, 2020-2024",
@@ -97,6 +100,13 @@ CHARTS = {
         "series": ["eurostat_finland:china"], "unit": "Enterprises", "mode": "levels",
         "note": "Eurostat, Finnish-UCI market producers. 2010 NACE, 2013 YTY system and 2021 EBS boundaries retained. "
         "The broader national affiliate/branch counts above are a different population, not a splice or a matched comparison."},
+    "sweden-affiliates-china-eurostat": {
+        "title": "Swedish-controlled enterprises: the longer history",
+        "subtitle": "China except Hong Kong | Eurostat, 2007-2023",
+        "series": ["eurostat_sweden:china"], "unit": "Enterprises", "mode": "levels",
+        "note": "Eurostat, Swedish ultimate control; official imputation can apply. 2009 confidential, not zero. "
+        "Keep 2008 classification/2010 table, 2018 enterprise-unit/EGR and 2021 EBS boundaries. "
+        "Not spliced into national subsidiary counts."},
     BENCHMARK_CHART: {
         "title": "U.S. parent companies with China affiliates",
         "subtitle": "Supplementary benchmark observations | NOT an annual series",
@@ -183,6 +193,8 @@ def validate_business_data(data):
                                      "fats_out2_r2_FR" if r["year"] <= 2020 else "fats_out_part_FR"),
             "eurostat_finland:china": ("fats_out2_FI" if r["year"] <= 2009 else
                                       "fats_out2_r2_FI" if r["year"] <= 2020 else "fats_out_part_FI"),
+            "eurostat_sweden:china": ("fats_out2_SE" if r["year"] <= 2009 else
+                                     "fats_out2_r2_SE" if r["year"] <= 2020 else "fats_out_part_SE"),
         }
         if r["series_id"].startswith("eurostat") and r["source_id"] != expected_source[r["series_id"]]:
             raise ValueError("European method/source boundary mismatch")
