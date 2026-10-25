@@ -127,6 +127,7 @@ def check_page(page, data, exhaustive=True):
                       return Math.abs(Number(bar.getAttribute('width'))-value/maximum*(v.width-22))<.01;
                     }""", row["value"]), (chart_id, row["id"], "incorrect bar width")
                 if exhaustive or row["bound"] is not None:
+                    page.mouse.move(0, 0)
                     mark.focus()
                     tip = page.locator(f'.confucius-tooltip[data-observation-id="{row["id"]}"]')
                     expect(tip).to_be_visible()
