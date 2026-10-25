@@ -10,8 +10,6 @@
 
 ---
 
-## Tracking change since 2000
-
 U.S.–China Exchange is an interactive study of how ties between the United
 States and China have changed since 2000: student exchanges, travel and
 tourism, migration, goods and services trade,
