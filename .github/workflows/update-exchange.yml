@@ -82,6 +82,7 @@ jobs:
       - name: Check existing publication and parsers
         run: |
           PYTHONPATH=src python -m pytest tests/test_exchange_*.py tests/test_weibo_activity.py tests/test_weibo_refresh.py tests/test_pipeline.py -q
+          python scripts/build_site.py
           python scripts/check_exchange_browser.py
       - name: Check for newer nationwide language-enrollment releases
         if: always()
