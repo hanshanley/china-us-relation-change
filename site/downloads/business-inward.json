@@ -1,0 +1,1244 @@
+{
+  "as_of": "2026-10-25",
+  "context": {
+    "comparability": "Four populations, never one uniform 2000-2024 growth rate: nonbank >$3m (2000-01); nonbank >$10m (2002-06); including banks >$15m (2007-11); including banks >$20m (2012-24). Thresholds use assets, sales, or net income/loss and are nominal USD. Benchmark survey frames can also change, including 2017 and 2022. Changes are not necessarily new firms or exits.",
+    "count_threshold_not_annual_sample_threshold": "The 2000 published count cutoff is $3m, not the $30m annual-reporting sample cutoff. Very small affiliates can contribute to other estimated financial totals while being excluded from published affiliate counts.",
+    "geography": "United States host. Mainland China and Hong Kong UBO locations remain separate. Macau is not supplied by these count tables and is not assigned zero.",
+    "ownership": "More than 50 percent foreign ownership; country of ultimate beneficial owner (UBO), not the immediate foreign parent. Counts are consolidated affiliate reporting units, not unique foreign parents, every legal company or establishments.",
+    "period": "Fiscal reporting year ending in the stated calendar year, not a current-year estimate. 2024 is the latest released inward activity year as reviewed; its figures are preliminary.",
+    "question": "How have majority-owned U.S. affiliates with mainland China and Hong Kong ultimate beneficial owners changed?",
+    "rights": "Aggregate original government statistics and exact source references only. Raw tables and reports remain private."
+  },
+  "observations": [
+    {
+      "bank_coverage": "nonbank_only",
+      "comparability": "nonbank_only:USD3000000",
+      "period": "2000",
+      "series_id": "bea_mousa:CHN",
+      "size_threshold_usd": 3000000,
+      "source_id": "bea_mousa_2000",
+      "status": "observed",
+      "value": 25,
+      "year": 2000
+    },
+    {
+      "bank_coverage": "nonbank_only",
+      "comparability": "nonbank_only:USD3000000",
+      "period": "2000",
+      "series_id": "bea_mousa:HKG",
+      "size_threshold_usd": 3000000,
+      "source_id": "bea_mousa_2000",
+      "status": "observed",
+      "value": 172,
+      "year": 2000
+    },
+    {
+      "bank_coverage": "nonbank_only",
+      "comparability": "nonbank_only:USD3000000",
+      "period": "2001",
+      "series_id": "bea_mousa:CHN",
+      "size_threshold_usd": 3000000,
+      "source_id": "bea_mousa_2001",
+      "status": "observed",
+      "value": 28,
+      "year": 2001
+    },
+    {
+      "bank_coverage": "nonbank_only",
+      "comparability": "nonbank_only:USD3000000",
+      "period": "2001",
+      "series_id": "bea_mousa:HKG",
+      "size_threshold_usd": 3000000,
+      "source_id": "bea_mousa_2001",
+      "status": "observed",
+      "value": 155,
+      "year": 2001
+    },
+    {
+      "bank_coverage": "nonbank_only",
+      "comparability": "nonbank_only:USD10000000",
+      "period": "2002",
+      "series_id": "bea_mousa:CHN",
+      "size_threshold_usd": 10000000,
+      "source_id": "bea_mousa_2002",
+      "status": "observed",
+      "value": 11,
+      "year": 2002
+    },
+    {
+      "bank_coverage": "nonbank_only",
+      "comparability": "nonbank_only:USD10000000",
+      "period": "2002",
+      "series_id": "bea_mousa:HKG",
+      "size_threshold_usd": 10000000,
+      "source_id": "bea_mousa_2002",
+      "status": "observed",
+      "value": 64,
+      "year": 2002
+    },
+    {
+      "bank_coverage": "nonbank_only",
+      "comparability": "nonbank_only:USD10000000",
+      "period": "2003",
+      "series_id": "bea_mousa:CHN",
+      "size_threshold_usd": 10000000,
+      "source_id": "bea_mousa_2003",
+      "status": "observed",
+      "value": 10,
+      "year": 2003
+    },
+    {
+      "bank_coverage": "nonbank_only",
+      "comparability": "nonbank_only:USD10000000",
+      "period": "2003",
+      "series_id": "bea_mousa:HKG",
+      "size_threshold_usd": 10000000,
+      "source_id": "bea_mousa_2003",
+      "status": "observed",
+      "value": 64,
+      "year": 2003
+    },
+    {
+      "bank_coverage": "nonbank_only",
+      "comparability": "nonbank_only:USD10000000",
+      "period": "2004",
+      "series_id": "bea_mousa:CHN",
+      "size_threshold_usd": 10000000,
+      "source_id": "bea_mousa_2004",
+      "status": "observed",
+      "value": 12,
+      "year": 2004
+    },
+    {
+      "bank_coverage": "nonbank_only",
+      "comparability": "nonbank_only:USD10000000",
+      "period": "2004",
+      "series_id": "bea_mousa:HKG",
+      "size_threshold_usd": 10000000,
+      "source_id": "bea_mousa_2004",
+      "status": "observed",
+      "value": 66,
+      "year": 2004
+    },
+    {
+      "bank_coverage": "nonbank_only",
+      "comparability": "nonbank_only:USD10000000",
+      "period": "2005",
+      "series_id": "bea_mousa:CHN",
+      "size_threshold_usd": 10000000,
+      "source_id": "bea_mousa_2005",
+      "status": "observed",
+      "value": 14,
+      "year": 2005
+    },
+    {
+      "bank_coverage": "nonbank_only",
+      "comparability": "nonbank_only:USD10000000",
+      "period": "2005",
+      "series_id": "bea_mousa:HKG",
+      "size_threshold_usd": 10000000,
+      "source_id": "bea_mousa_2005",
+      "status": "observed",
+      "value": 69,
+      "year": 2005
+    },
+    {
+      "bank_coverage": "nonbank_only",
+      "comparability": "nonbank_only:USD10000000",
+      "period": "2006",
+      "series_id": "bea_mousa:CHN",
+      "size_threshold_usd": 10000000,
+      "source_id": "bea_mousa_2006",
+      "status": "observed",
+      "value": 11,
+      "year": 2006
+    },
+    {
+      "bank_coverage": "nonbank_only",
+      "comparability": "nonbank_only:USD10000000",
+      "period": "2006",
+      "series_id": "bea_mousa:HKG",
+      "size_threshold_usd": 10000000,
+      "source_id": "bea_mousa_2006",
+      "status": "observed",
+      "value": 71,
+      "year": 2006
+    },
+    {
+      "bank_coverage": "including_banks",
+      "comparability": "including_banks:USD15000000",
+      "period": "2007",
+      "series_id": "bea_mousa:CHN",
+      "size_threshold_usd": 15000000,
+      "source_id": "bea_mousa_2007",
+      "status": "observed",
+      "value": 14,
+      "year": 2007
+    },
+    {
+      "bank_coverage": "including_banks",
+      "comparability": "including_banks:USD15000000",
+      "period": "2007",
+      "series_id": "bea_mousa:HKG",
+      "size_threshold_usd": 15000000,
+      "source_id": "bea_mousa_2007",
+      "status": "observed",
+      "value": 76,
+      "year": 2007
+    },
+    {
+      "bank_coverage": "including_banks",
+      "comparability": "including_banks:USD15000000",
+      "period": "2008",
+      "series_id": "bea_mousa:CHN",
+      "size_threshold_usd": 15000000,
+      "source_id": "bea_mousa_2008",
+      "status": "observed",
+      "value": 27,
+      "year": 2008
+    },
+    {
+      "bank_coverage": "including_banks",
+      "comparability": "including_banks:USD15000000",
+      "period": "2008",
+      "series_id": "bea_mousa:HKG",
+      "size_threshold_usd": 15000000,
+      "source_id": "bea_mousa_2008",
+      "status": "observed",
+      "value": 76,
+      "year": 2008
+    },
+    {
+      "bank_coverage": "including_banks",
+      "comparability": "including_banks:USD15000000",
+      "period": "2009",
+      "series_id": "bea_mousa:CHN",
+      "size_threshold_usd": 15000000,
+      "source_id": "bea_mousa_2009",
+      "status": "observed",
+      "value": 36,
+      "year": 2009
+    },
+    {
+      "bank_coverage": "including_banks",
+      "comparability": "including_banks:USD15000000",
+      "period": "2009",
+      "series_id": "bea_mousa:HKG",
+      "size_threshold_usd": 15000000,
+      "source_id": "bea_mousa_2009",
+      "status": "observed",
+      "value": 79,
+      "year": 2009
+    },
+    {
+      "bank_coverage": "including_banks",
+      "comparability": "including_banks:USD15000000",
+      "period": "2010",
+      "series_id": "bea_mousa:CHN",
+      "size_threshold_usd": 15000000,
+      "source_id": "bea_mousa_2010",
+      "status": "observed",
+      "value": 45,
+      "year": 2010
+    },
+    {
+      "bank_coverage": "including_banks",
+      "comparability": "including_banks:USD15000000",
+      "period": "2010",
+      "series_id": "bea_mousa:HKG",
+      "size_threshold_usd": 15000000,
+      "source_id": "bea_mousa_2010",
+      "status": "observed",
+      "value": 76,
+      "year": 2010
+    },
+    {
+      "bank_coverage": "including_banks",
+      "comparability": "including_banks:USD15000000",
+      "period": "2011",
+      "series_id": "bea_mousa:CHN",
+      "size_threshold_usd": 15000000,
+      "source_id": "bea_mousa_2011",
+      "status": "observed",
+      "value": 57,
+      "year": 2011
+    },
+    {
+      "bank_coverage": "including_banks",
+      "comparability": "including_banks:USD15000000",
+      "period": "2011",
+      "series_id": "bea_mousa:HKG",
+      "size_threshold_usd": 15000000,
+      "source_id": "bea_mousa_2011",
+      "status": "observed",
+      "value": 78,
+      "year": 2011
+    },
+    {
+      "bank_coverage": "including_banks",
+      "comparability": "including_banks:USD20000000",
+      "period": "2012",
+      "series_id": "bea_mousa:CHN",
+      "size_threshold_usd": 20000000,
+      "source_id": "bea_mousa_2012",
+      "status": "observed",
+      "value": 65,
+      "year": 2012
+    },
+    {
+      "bank_coverage": "including_banks",
+      "comparability": "including_banks:USD20000000",
+      "period": "2012",
+      "series_id": "bea_mousa:HKG",
+      "size_threshold_usd": 20000000,
+      "source_id": "bea_mousa_2012",
+      "status": "observed",
+      "value": 67,
+      "year": 2012
+    },
+    {
+      "bank_coverage": "including_banks",
+      "comparability": "including_banks:USD20000000",
+      "period": "2013",
+      "series_id": "bea_mousa:CHN",
+      "size_threshold_usd": 20000000,
+      "source_id": "bea_mousa_2013",
+      "status": "observed",
+      "value": 72,
+      "year": 2013
+    },
+    {
+      "bank_coverage": "including_banks",
+      "comparability": "including_banks:USD20000000",
+      "period": "2013",
+      "series_id": "bea_mousa:HKG",
+      "size_threshold_usd": 20000000,
+      "source_id": "bea_mousa_2013",
+      "status": "observed",
+      "value": 63,
+      "year": 2013
+    },
+    {
+      "bank_coverage": "including_banks",
+      "comparability": "including_banks:USD20000000",
+      "period": "2014",
+      "series_id": "bea_mousa:CHN",
+      "size_threshold_usd": 20000000,
+      "source_id": "bea_mousa_2014",
+      "status": "observed",
+      "value": 105,
+      "year": 2014
+    },
+    {
+      "bank_coverage": "including_banks",
+      "comparability": "including_banks:USD20000000",
+      "period": "2014",
+      "series_id": "bea_mousa:HKG",
+      "size_threshold_usd": 20000000,
+      "source_id": "bea_mousa_2014",
+      "status": "observed",
+      "value": 72,
+      "year": 2014
+    },
+    {
+      "bank_coverage": "including_banks",
+      "comparability": "including_banks:USD20000000",
+      "period": "2015",
+      "series_id": "bea_mousa:CHN",
+      "size_threshold_usd": 20000000,
+      "source_id": "bea_mousa_2015",
+      "status": "observed",
+      "value": 122,
+      "year": 2015
+    },
+    {
+      "bank_coverage": "including_banks",
+      "comparability": "including_banks:USD20000000",
+      "period": "2015",
+      "series_id": "bea_mousa:HKG",
+      "size_threshold_usd": 20000000,
+      "source_id": "bea_mousa_2015",
+      "status": "observed",
+      "value": 72,
+      "year": 2015
+    },
+    {
+      "bank_coverage": "including_banks",
+      "comparability": "including_banks:USD20000000",
+      "period": "2016",
+      "series_id": "bea_mousa:CHN",
+      "size_threshold_usd": 20000000,
+      "source_id": "bea_mousa_2016",
+      "status": "observed",
+      "value": 150,
+      "year": 2016
+    },
+    {
+      "bank_coverage": "including_banks",
+      "comparability": "including_banks:USD20000000",
+      "period": "2016",
+      "series_id": "bea_mousa:HKG",
+      "size_threshold_usd": 20000000,
+      "source_id": "bea_mousa_2016",
+      "status": "observed",
+      "value": 73,
+      "year": 2016
+    },
+    {
+      "bank_coverage": "including_banks",
+      "comparability": "including_banks:USD20000000",
+      "period": "2017",
+      "series_id": "bea_mousa:CHN",
+      "size_threshold_usd": 20000000,
+      "source_id": "bea_mousa_2017",
+      "status": "observed",
+      "value": 244,
+      "year": 2017
+    },
+    {
+      "bank_coverage": "including_banks",
+      "comparability": "including_banks:USD20000000",
+      "period": "2017",
+      "series_id": "bea_mousa:HKG",
+      "size_threshold_usd": 20000000,
+      "source_id": "bea_mousa_2017",
+      "status": "observed",
+      "value": 95,
+      "year": 2017
+    },
+    {
+      "bank_coverage": "including_banks",
+      "comparability": "including_banks:USD20000000",
+      "period": "2018",
+      "series_id": "bea_mousa:CHN",
+      "size_threshold_usd": 20000000,
+      "source_id": "bea_mousa_2018",
+      "status": "observed",
+      "value": 269,
+      "year": 2018
+    },
+    {
+      "bank_coverage": "including_banks",
+      "comparability": "including_banks:USD20000000",
+      "period": "2018",
+      "series_id": "bea_mousa:HKG",
+      "size_threshold_usd": 20000000,
+      "source_id": "bea_mousa_2018",
+      "status": "observed",
+      "value": 113,
+      "year": 2018
+    },
+    {
+      "bank_coverage": "including_banks",
+      "comparability": "including_banks:USD20000000",
+      "period": "2019",
+      "series_id": "bea_mousa:CHN",
+      "size_threshold_usd": 20000000,
+      "source_id": "bea_mousa_2019",
+      "status": "observed",
+      "value": 285,
+      "year": 2019
+    },
+    {
+      "bank_coverage": "including_banks",
+      "comparability": "including_banks:USD20000000",
+      "period": "2019",
+      "series_id": "bea_mousa:HKG",
+      "size_threshold_usd": 20000000,
+      "source_id": "bea_mousa_2019",
+      "status": "observed",
+      "value": 117,
+      "year": 2019
+    },
+    {
+      "bank_coverage": "including_banks",
+      "comparability": "including_banks:USD20000000",
+      "period": "2020",
+      "series_id": "bea_mousa:CHN",
+      "size_threshold_usd": 20000000,
+      "source_id": "bea_mousa_2020",
+      "status": "observed",
+      "value": 284,
+      "year": 2020
+    },
+    {
+      "bank_coverage": "including_banks",
+      "comparability": "including_banks:USD20000000",
+      "period": "2020",
+      "series_id": "bea_mousa:HKG",
+      "size_threshold_usd": 20000000,
+      "source_id": "bea_mousa_2020",
+      "status": "observed",
+      "value": 115,
+      "year": 2020
+    },
+    {
+      "bank_coverage": "including_banks",
+      "comparability": "including_banks:USD20000000",
+      "period": "2021",
+      "series_id": "bea_mousa:CHN",
+      "size_threshold_usd": 20000000,
+      "source_id": "bea_mousa_2021",
+      "status": "observed",
+      "value": 286,
+      "year": 2021
+    },
+    {
+      "bank_coverage": "including_banks",
+      "comparability": "including_banks:USD20000000",
+      "period": "2021",
+      "series_id": "bea_mousa:HKG",
+      "size_threshold_usd": 20000000,
+      "source_id": "bea_mousa_2021",
+      "status": "observed",
+      "value": 115,
+      "year": 2021
+    },
+    {
+      "bank_coverage": "including_banks",
+      "comparability": "including_banks:USD20000000",
+      "period": "2022",
+      "series_id": "bea_mousa:CHN",
+      "size_threshold_usd": 20000000,
+      "source_id": "bea_mousa_2022",
+      "status": "observed",
+      "value": 355,
+      "year": 2022
+    },
+    {
+      "bank_coverage": "including_banks",
+      "comparability": "including_banks:USD20000000",
+      "period": "2022",
+      "series_id": "bea_mousa:HKG",
+      "size_threshold_usd": 20000000,
+      "source_id": "bea_mousa_2022",
+      "status": "observed",
+      "value": 132,
+      "year": 2022
+    },
+    {
+      "bank_coverage": "including_banks",
+      "comparability": "including_banks:USD20000000",
+      "period": "2023",
+      "series_id": "bea_mousa:CHN",
+      "size_threshold_usd": 20000000,
+      "source_id": "bea_mousa_2023",
+      "status": "observed",
+      "value": 359,
+      "year": 2023
+    },
+    {
+      "bank_coverage": "including_banks",
+      "comparability": "including_banks:USD20000000",
+      "period": "2023",
+      "series_id": "bea_mousa:HKG",
+      "size_threshold_usd": 20000000,
+      "source_id": "bea_mousa_2023",
+      "status": "observed",
+      "value": 133,
+      "year": 2023
+    },
+    {
+      "bank_coverage": "including_banks",
+      "comparability": "including_banks:USD20000000",
+      "period": "2024",
+      "series_id": "bea_mousa:CHN",
+      "size_threshold_usd": 20000000,
+      "source_id": "bea_mousa_2024",
+      "status": "provisional",
+      "value": 360,
+      "year": 2024
+    },
+    {
+      "bank_coverage": "including_banks",
+      "comparability": "including_banks:USD20000000",
+      "period": "2024",
+      "series_id": "bea_mousa:HKG",
+      "size_threshold_usd": 20000000,
+      "source_id": "bea_mousa_2024",
+      "status": "provisional",
+      "value": 137,
+      "year": 2024
+    }
+  ],
+  "series": {
+    "bea_mousa:CHN": {
+      "cadence": "annual",
+      "country_basis": "UBO",
+      "destination": "USA",
+      "label": "Mainland China UBO",
+      "measure": "majority_owned_us_affiliates",
+      "origin": "CHN",
+      "period_basis": "fiscal ending year",
+      "unit": "affiliates"
+    },
+    "bea_mousa:HKG": {
+      "cadence": "annual",
+      "country_basis": "UBO",
+      "destination": "USA",
+      "label": "Hong Kong UBO",
+      "measure": "majority_owned_us_affiliates",
+      "origin": "HKG",
+      "period_basis": "fiscal ending year",
+      "unit": "affiliates"
+    }
+  },
+  "sources": {
+    "bea_mousa_2000": {
+      "asset": {
+        "request_url": "https://apps.bea.gov/international/zip/FDIUS00XLS.zip",
+        "retrieved_at": "2026-10-25T00:41:12+00:00",
+        "sha256": "0f228665b5e97097eed040bcde97f71fa36d9b170e525e59bfd3bf67ae563033",
+        "url": "https://apps.bea.gov/international/zip/FDIUS00XLS.zip"
+      },
+      "bank_coverage": "nonbank_only",
+      "cells": {
+        "CHN": "B62",
+        "HKG": "B63"
+      },
+      "definition_member": "Text.pdf",
+      "page_asset": null,
+      "scope": "Majority-owned nonbank U.S. affiliates",
+      "size_threshold_usd": 3000000,
+      "status": "observed",
+      "table_member": "TabJ3.xls",
+      "vintage": "BEA official archived annual tables: reference year 2000",
+      "worksheet": "TablePage",
+      "year": 2000
+    },
+    "bea_mousa_2001": {
+      "asset": {
+        "request_url": "https://apps.bea.gov/international/zip/FDIUS01XLS.zip",
+        "retrieved_at": "2026-10-25T00:47:19+00:00",
+        "sha256": "c646a10b031c08413f27ade6f27686855eb1dd6143117d9dd09777c50149644f",
+        "url": "https://apps.bea.gov/international/zip/FDIUS01XLS.zip"
+      },
+      "bank_coverage": "nonbank_only",
+      "cells": {
+        "CHN": "B62",
+        "HKG": "B63"
+      },
+      "definition_member": "Text.pdf",
+      "page_asset": null,
+      "scope": "Majority-owned nonbank U.S. affiliates",
+      "size_threshold_usd": 3000000,
+      "status": "observed",
+      "table_member": "TabJ3.xls",
+      "vintage": "BEA official archived annual tables: reference year 2001",
+      "worksheet": "TablePage",
+      "year": 2001
+    },
+    "bea_mousa_2002": {
+      "asset": {
+        "request_url": "https://apps.bea.gov/international/zip/FDIUS02XLS.zip",
+        "retrieved_at": "2026-10-25T00:47:21+00:00",
+        "sha256": "c4890bd741373250f4ff31856eea4a0fc0a21b020f8496d0c72f42b3946c1f19",
+        "url": "https://apps.bea.gov/international/zip/FDIUS02XLS.zip"
+      },
+      "bank_coverage": "nonbank_only",
+      "cells": {
+        "CHN": "B96",
+        "HKG": "B97"
+      },
+      "definition_member": "Text.pdf",
+      "page_asset": null,
+      "scope": "Majority-owned nonbank U.S. affiliates",
+      "size_threshold_usd": 10000000,
+      "status": "observed",
+      "table_member": "Tab III.A5.xls",
+      "vintage": "BEA official archived annual tables: reference year 2002",
+      "worksheet": "TablePage",
+      "year": 2002
+    },
+    "bea_mousa_2003": {
+      "asset": {
+        "request_url": "https://apps.bea.gov/international/zip/FDIUS03XLS.zip",
+        "retrieved_at": "2026-10-25T00:47:22+00:00",
+        "sha256": "1b048f6efed6b441f431fa6eeda977ea536b2bd8507113bad12489325b3454eb",
+        "url": "https://apps.bea.gov/international/zip/FDIUS03XLS.zip"
+      },
+      "bank_coverage": "nonbank_only",
+      "cells": {
+        "CHN": "B92",
+        "HKG": "B93"
+      },
+      "definition_member": "Text.pdf",
+      "page_asset": null,
+      "scope": "Majority-owned nonbank U.S. affiliates",
+      "size_threshold_usd": 10000000,
+      "status": "observed",
+      "table_member": "Tab III.A5.xls",
+      "vintage": "BEA official archived annual tables: reference year 2003",
+      "worksheet": "TablePage",
+      "year": 2003
+    },
+    "bea_mousa_2004": {
+      "asset": {
+        "request_url": "https://apps.bea.gov/international/zip/fdius2004rev_xls.zip",
+        "retrieved_at": "2026-10-25T00:50:57+00:00",
+        "sha256": "300f07bbe97d68bedf2864d2c9a58cc1fa7d80fe49102144665ec41bfe113a31",
+        "url": "https://apps.bea.gov/international/zip/fdius2004rev_xls.zip"
+      },
+      "bank_coverage": "nonbank_only",
+      "cells": {
+        "CHN": "B93",
+        "HKG": "B94"
+      },
+      "definition_member": "Text.pdf",
+      "page_asset": {
+        "request_url": "https://bea.gov/international/foreign-direct-investment-united-states-fdius-revised-2004-data",
+        "retrieved_at": "2026-10-25T00:47:24+00:00",
+        "sha256": "1d75e386ad04c3c684943634559f5cebd898ad9f2afc5ff0a237822551c43f09",
+        "url": "https://bea.gov/international/foreign-direct-investment-united-states-fdius-revised-2004-data"
+      },
+      "scope": "Part III: Majority-Owned Nonbank Affiliates",
+      "size_threshold_usd": 10000000,
+      "status": "observed",
+      "table_member": "Tab III.A5.xls",
+      "vintage": "Foreign Direct Investment in the United States (FDIUS): Revised 2004 Data",
+      "worksheet": "TablePage",
+      "year": 2004
+    },
+    "bea_mousa_2005": {
+      "asset": {
+        "request_url": "https://apps.bea.gov/international/zip/fdius_2005r.zip",
+        "retrieved_at": "2026-10-25T00:50:59+00:00",
+        "sha256": "1aa0207527bce5b27cc3187ff2bf18c0b78fffa9d766b277038be3422372bac4",
+        "url": "https://apps.bea.gov/international/zip/fdius_2005r.zip"
+      },
+      "bank_coverage": "nonbank_only",
+      "cells": {
+        "CHN": "B89",
+        "HKG": "B90"
+      },
+      "definition_member": "Text.pdf",
+      "page_asset": {
+        "request_url": "https://bea.gov/international/foreign-direct-investment-united-states-fdius-revised-2005-data",
+        "retrieved_at": "2026-10-25T00:47:25+00:00",
+        "sha256": "cfa1561b5b64aeff831ebf56a0a9e3bcb01d00b2baeb692494ea1c16f90ffcf9",
+        "url": "https://bea.gov/international/foreign-direct-investment-united-states-fdius-revised-2005-data"
+      },
+      "scope": "Part III: Majority-Owned Nonbank Affiliates",
+      "size_threshold_usd": 10000000,
+      "status": "observed",
+      "table_member": "TAB III.A5.xls",
+      "vintage": "Foreign Direct Investment in the United States (FDIUS): Revised 2005 Data",
+      "worksheet": "TablePage",
+      "year": 2005
+    },
+    "bea_mousa_2006": {
+      "asset": {
+        "request_url": "https://apps.bea.gov/international/zip/fdius_2006r.zip",
+        "retrieved_at": "2026-10-25T00:51:57+00:00",
+        "sha256": "880dd14c17ddff9ba9ba62fb1b33d89beddbb3f3b08ea91b501cf8ce9b535d10",
+        "url": "https://apps.bea.gov/international/zip/fdius_2006r.zip"
+      },
+      "bank_coverage": "nonbank_only",
+      "cells": {
+        "CHN": "B89",
+        "HKG": "B90"
+      },
+      "definition_member": "Text_BE15_2006R.pdf",
+      "page_asset": {
+        "request_url": "https://bea.gov/international/foreign-direct-investment-united-states-fdius-2006-data-tables",
+        "retrieved_at": "2026-10-25T00:45:47+00:00",
+        "sha256": "7d3805ec1a1ac46573166c809242f5674b909475fb8dd789adbba668f514fbe8",
+        "url": "https://bea.gov/international/foreign-direct-investment-united-states-fdius-2006-data-tables"
+      },
+      "scope": "Part III: Majority-Owned Nonbank Affiliates",
+      "size_threshold_usd": 10000000,
+      "status": "observed",
+      "table_member": "Tab III.A5.xls",
+      "vintage": "Foreign Direct Investment in the United States (FDIUS): 2006 Data Tables",
+      "worksheet": "TablePage",
+      "year": 2006
+    },
+    "bea_mousa_2007": {
+      "asset": {
+        "request_url": "https://apps.bea.gov/international/xls/fdius_2007/Part%20II%20A1-A9.xls",
+        "retrieved_at": "2026-10-25T00:41:10+00:00",
+        "sha256": "78f616cbe395e727e011556362daffb7469bbd4bcd9686cacff290da3be1aec6",
+        "url": "https://apps.bea.gov/international/xls/fdius_2007/Part%20II%20A1-A9.xls"
+      },
+      "bank_coverage": "including_banks",
+      "cells": {
+        "CHN": "B92",
+        "HKG": "B93"
+      },
+      "definition_member": null,
+      "page_asset": {
+        "request_url": "https://bea.gov/international/foreign-direct-investment-united-states-fdius-final-results-2007-benchmark-survey",
+        "retrieved_at": "2026-10-25T00:47:28+00:00",
+        "sha256": "2e3522af738c81a89b8d70d107b2d36d72eac01ea29e0d83b981a4b459191164",
+        "url": "https://bea.gov/international/foreign-direct-investment-united-states-fdius-final-results-2007-benchmark-survey"
+      },
+      "scope": "Part II: Majority-Owned Affiliates",
+      "size_threshold_usd": 15000000,
+      "status": "observed",
+      "table_member": null,
+      "vintage": "Foreign Direct Investment in the United States (FDIUS): Final Results from the 2007 Benchmark Survey",
+      "worksheet": "II.A5",
+      "year": 2007
+    },
+    "bea_mousa_2008": {
+      "asset": {
+        "request_url": "https://apps.bea.gov/international/xls/fdius_2008/Part%20II%20A1-A9.xls",
+        "retrieved_at": "2026-10-25T00:47:29+00:00",
+        "sha256": "04cf6cb5beb3c583c546ef80e0fd7120277fc4286823232401c8474a69105977",
+        "url": "https://apps.bea.gov/international/xls/fdius_2008/Part%20II%20A1-A9.xls"
+      },
+      "bank_coverage": "including_banks",
+      "cells": {
+        "CHN": "B93",
+        "HKG": "B94"
+      },
+      "definition_member": null,
+      "page_asset": {
+        "request_url": "https://bea.gov/international/foreign-direct-investment-united-states-fdius-revised-2008-data",
+        "retrieved_at": "2026-10-25T00:45:48+00:00",
+        "sha256": "b06cbc69794761c1fc3beca47f6397cd7976124928e8b27c1d637e833c2a08b6",
+        "url": "https://bea.gov/international/foreign-direct-investment-united-states-fdius-revised-2008-data"
+      },
+      "scope": "Part II: Majority-Owned Affiliates",
+      "size_threshold_usd": 15000000,
+      "status": "observed",
+      "table_member": null,
+      "vintage": "Foreign Direct Investment in the United States (FDIUS): Revised 2008 Data",
+      "worksheet": "II.A5",
+      "year": 2008
+    },
+    "bea_mousa_2009": {
+      "asset": {
+        "request_url": "https://apps.bea.gov/international/xls/fdius_2009r/Part%20II%20A1-A9.xls",
+        "retrieved_at": "2026-10-25T00:47:32+00:00",
+        "sha256": "3fc0c652dc9c3dfb4df8fa1fc7cbc46ac4412001d0ae952b323f6e8b2c6d287c",
+        "url": "https://apps.bea.gov/international/xls/fdius_2009r/Part%20II%20A1-A9.xls"
+      },
+      "bank_coverage": "including_banks",
+      "cells": {
+        "CHN": "B97",
+        "HKG": "B98"
+      },
+      "definition_member": null,
+      "page_asset": {
+        "request_url": "https://bea.gov/international/foreign-direct-investment-united-states-fdius-revised-2009-data",
+        "retrieved_at": "2026-10-25T00:47:31+00:00",
+        "sha256": "01e65e74ced80c5fffac5f1f6612d114b6c3ab4fb8c3db807ba5cf549a4121cf",
+        "url": "https://bea.gov/international/foreign-direct-investment-united-states-fdius-revised-2009-data"
+      },
+      "scope": "Part II: Majority-Owned Affiliates",
+      "size_threshold_usd": 15000000,
+      "status": "observed",
+      "table_member": null,
+      "vintage": "Foreign Direct Investment in the United States (FDIUS): Revised 2009 Data",
+      "worksheet": "II.A5",
+      "year": 2009
+    },
+    "bea_mousa_2010": {
+      "asset": {
+        "request_url": "https://apps.bea.gov/international/xls/fdius_2010r/Part%20II%20A1-A9.xls",
+        "retrieved_at": "2026-10-25T00:47:35+00:00",
+        "sha256": "c3de88942c4e25691bd62a971cae57cf08a3e2dda063058cf3cadb15bb2debfe",
+        "url": "https://apps.bea.gov/international/xls/fdius_2010r/Part%20II%20A1-A9.xls"
+      },
+      "bank_coverage": "including_banks",
+      "cells": {
+        "CHN": "B95",
+        "HKG": "B96"
+      },
+      "definition_member": null,
+      "page_asset": {
+        "request_url": "https://bea.gov/international/foreign-direct-investment-united-states-fdius-revised-2010-data",
+        "retrieved_at": "2026-10-25T00:47:33+00:00",
+        "sha256": "37dd4367d75cb66d44e652e09d8467672a81d182ae2b9d5331032ee85d5271e8",
+        "url": "https://bea.gov/international/foreign-direct-investment-united-states-fdius-revised-2010-data"
+      },
+      "scope": "Part II: Majority-Owned Affiliates",
+      "size_threshold_usd": 15000000,
+      "status": "observed",
+      "table_member": null,
+      "vintage": "Foreign Direct Investment in the United States (FDIUS): Revised 2010 Data",
+      "worksheet": "II.A5",
+      "year": 2010
+    },
+    "bea_mousa_2011": {
+      "asset": {
+        "request_url": "https://apps.bea.gov/international/xls/fdius_2011r/PartII_A1_A9.xls",
+        "retrieved_at": "2026-10-25T00:47:38+00:00",
+        "sha256": "7ef6fdec5ec49af86277dc4c72d66c7bad9cd00ef8387b33d6f145d5da4b70d3",
+        "url": "https://apps.bea.gov/international/xls/fdius_2011r/PartII_A1_A9.xls"
+      },
+      "bank_coverage": "including_banks",
+      "cells": {
+        "CHN": "B97",
+        "HKG": "B98"
+      },
+      "definition_member": null,
+      "page_asset": {
+        "request_url": "https://bea.gov/international/foreign-direct-investment-united-states-fdius-revised-2011-data",
+        "retrieved_at": "2026-10-25T00:47:36+00:00",
+        "sha256": "7a96210d966697e0ecc61ebfb6f8fc45cab7590a6ddd28477819122129503819",
+        "url": "https://bea.gov/international/foreign-direct-investment-united-states-fdius-revised-2011-data"
+      },
+      "scope": "Part II: Majority-Owned Affiliates",
+      "size_threshold_usd": 15000000,
+      "status": "observed",
+      "table_member": null,
+      "vintage": "Foreign Direct Investment in the United States (FDIUS): Revised 2011 Data",
+      "worksheet": "II.A5",
+      "year": 2011
+    },
+    "bea_mousa_2012": {
+      "asset": {
+        "request_url": "https://apps.bea.gov/international/xls/fdius_2012f/Part%20II%20A1-A9.xls",
+        "retrieved_at": "2026-10-25T00:47:39+00:00",
+        "sha256": "c095472a2c65fefe99f7ab2bc641633733060980b5be41d44c8900150609ec1f",
+        "url": "https://apps.bea.gov/international/xls/fdius_2012f/Part%20II%20A1-A9.xls"
+      },
+      "bank_coverage": "including_banks",
+      "cells": {
+        "CHN": "B97",
+        "HKG": "B98"
+      },
+      "definition_member": null,
+      "page_asset": {
+        "request_url": "https://bea.gov/international/foreign-direct-investment-united-states-fdius-final-results-2012-benchmark-survey",
+        "retrieved_at": "2026-10-25T00:45:49+00:00",
+        "sha256": "68cacc6ebe1732335fd8b870c692f2b400ae4790ad80682ce779f837868afc1c",
+        "url": "https://www.bea.gov/international/activities-us-affiliates-foreign-multinational-enterprises-revised-2012-statistics"
+      },
+      "scope": "Part II: Majority-Owned Affiliates",
+      "size_threshold_usd": 20000000,
+      "status": "observed",
+      "table_member": null,
+      "vintage": "Foreign Direct Investment in the United States (FDIUS): Final Results from the 2012 Benchmark Survey",
+      "worksheet": "II.A5",
+      "year": 2012
+    },
+    "bea_mousa_2013": {
+      "asset": {
+        "request_url": "https://apps.bea.gov/international/xls/fdius_2013r/Part%20II%20A1-A9.xls",
+        "retrieved_at": "2026-10-25T00:47:42+00:00",
+        "sha256": "8d4ef89c372fada03666e3f2350f7525dad5ce3be2a365bde612fef53386a752",
+        "url": "https://apps.bea.gov/international/xls/fdius_2013r/Part%20II%20A1-A9.xls"
+      },
+      "bank_coverage": "including_banks",
+      "cells": {
+        "CHN": "B96",
+        "HKG": "B97"
+      },
+      "definition_member": null,
+      "page_asset": {
+        "request_url": "https://bea.gov/international/activities-us-affiliates-foreign-multinational-enterprises-revised-2013-statistics",
+        "retrieved_at": "2026-10-25T00:47:40+00:00",
+        "sha256": "d46fcbec454aee31a257a6a744a849b41c35c3452d357350ebc032d00ebff0e0",
+        "url": "https://bea.gov/international/activities-us-affiliates-foreign-multinational-enterprises-revised-2013-statistics"
+      },
+      "scope": "Part II: Majority-Owned Affiliates",
+      "size_threshold_usd": 20000000,
+      "status": "observed",
+      "table_member": null,
+      "vintage": "Activities of U.S. Affiliates of Foreign Multinational Enterprises: Revised 2013 Statistics",
+      "worksheet": "II.A5",
+      "year": 2013
+    },
+    "bea_mousa_2014": {
+      "asset": {
+        "request_url": "https://apps.bea.gov/international/xls/fdius-2014r/PartII-A1-A9.xls",
+        "retrieved_at": "2026-10-25T00:52:47+00:00",
+        "sha256": "678cfa680bb819c6853bd931c94d83528282df69382e38b205c61219751597ce",
+        "url": "https://apps.bea.gov/international/xls/fdius-2014r/PartII-A1-A9.xls"
+      },
+      "bank_coverage": "including_banks",
+      "cells": {
+        "CHN": "B31",
+        "HKG": "B32"
+      },
+      "definition_member": null,
+      "page_asset": {
+        "request_url": "https://bea.gov/international/activities-us-affiliates-foreign-multinational-enterprises-revised-2014-statistics",
+        "retrieved_at": "2026-10-25T00:52:45+00:00",
+        "sha256": "131a9346d532737a8ad447cd78dad9be47148edc0dc27d1fd19b973412148c0d",
+        "url": "https://bea.gov/international/activities-us-affiliates-foreign-multinational-enterprises-revised-2014-statistics"
+      },
+      "scope": "Part II: Majority-Owned Affiliates",
+      "size_threshold_usd": 20000000,
+      "status": "observed",
+      "table_member": null,
+      "vintage": "Activities of U.S. Affiliates of Foreign Multinational Enterprises: Revised 2014 Statistics",
+      "worksheet": "II.A5(2)",
+      "year": 2014
+    },
+    "bea_mousa_2015": {
+      "asset": {
+        "request_url": "https://bea.gov/sites/default/files/2018-10/2015r-Part-II-A1-A9.xls",
+        "retrieved_at": "2026-10-25T00:47:53+00:00",
+        "sha256": "209cc2ba4fc307158800ebea1325e7688705fc23f604d8d0268d8c305fb2033c",
+        "url": "https://bea.gov/sites/default/files/2018-10/2015r-Part-II-A1-A9.xls"
+      },
+      "bank_coverage": "including_banks",
+      "cells": {
+        "CHN": "B30",
+        "HKG": "B31"
+      },
+      "definition_member": null,
+      "page_asset": {
+        "request_url": "https://bea.gov/international/activities-us-affiliates-foreign-multinational-enterprises-revised-2015-statistics",
+        "retrieved_at": "2026-10-25T00:47:52+00:00",
+        "sha256": "877c27965f71dbf4f506d4825b39f5322f5554a58716d4b2810d2ded684de6dd",
+        "url": "https://bea.gov/international/activities-us-affiliates-foreign-multinational-enterprises-revised-2015-statistics"
+      },
+      "scope": "Part II. Majority-Owned Affiliates",
+      "size_threshold_usd": 20000000,
+      "status": "observed",
+      "table_member": null,
+      "vintage": "Activities of U.S. Affiliates of Foreign Multinational Enterprises: Revised 2015 Statistics",
+      "worksheet": "II.A5(2)",
+      "year": 2015
+    },
+    "bea_mousa_2016": {
+      "asset": {
+        "request_url": "https://www.bea.gov/sites/default/files/2019-10/2016r-PartII-A1-A9.xls",
+        "retrieved_at": "2026-10-25T00:47:57+00:00",
+        "sha256": "3e4aefdeb3a89bcb52f78134eb2fc45de592fa2b4c6aec263e94f598d61dc0b2",
+        "url": "https://www.bea.gov/sites/default/files/2019-10/2016r-PartII-A1-A9.xls"
+      },
+      "bank_coverage": "including_banks",
+      "cells": {
+        "CHN": "B30",
+        "HKG": "B31"
+      },
+      "definition_member": null,
+      "page_asset": {
+        "request_url": "https://bea.gov/international/activities-us-affiliates-foreign-multinational-enterprises-revised-2016-statistics",
+        "retrieved_at": "2026-10-25T00:47:55+00:00",
+        "sha256": "ee1a428840f072ed8b041a0ce7fd526a0db2869a05432bd2f35964f02658d297",
+        "url": "https://bea.gov/international/activities-us-affiliates-foreign-multinational-enterprises-revised-2016-statistics"
+      },
+      "scope": "Part II. Majority-Owned U.S. Affiliates",
+      "size_threshold_usd": 20000000,
+      "status": "observed",
+      "table_member": null,
+      "vintage": "Activities of U.S. Affiliates of Foreign Multinational Enterprises: Revised 2016 Statistics",
+      "worksheet": "II.A5(2)",
+      "year": 2016
+    },
+    "bea_mousa_2017": {
+      "asset": {
+        "request_url": "https://www.bea.gov/sites/default/files/2020-11/2017r-PartII-A1-A11.xls",
+        "retrieved_at": "2026-10-25T00:48:00+00:00",
+        "sha256": "17beb038f2d61b42411e919cea93a986453ec04e92f7bb4132eb2f77d05656bf",
+        "url": "https://www.bea.gov/sites/default/files/2020-11/2017r-PartII-A1-A11.xls"
+      },
+      "bank_coverage": "including_banks",
+      "cells": {
+        "CHN": "B36",
+        "HKG": "B37"
+      },
+      "definition_member": null,
+      "page_asset": {
+        "request_url": "https://bea.gov/international/activities-us-affiliates-foreign-multinational-enterprises-revised-2017-statistics",
+        "retrieved_at": "2026-10-25T00:47:59+00:00",
+        "sha256": "590c375e3f47f3838512bd42057c25d34792b6b81a060d683f6ffe1a676bc263",
+        "url": "https://bea.gov/international/activities-us-affiliates-foreign-multinational-enterprises-revised-2017-statistics"
+      },
+      "scope": "Part II. Majority-Owned U.S. Affiliates",
+      "size_threshold_usd": 20000000,
+      "status": "observed",
+      "table_member": null,
+      "vintage": "Activities of U.S. Affiliates of Foreign Multinational Enterprises: Revised 2017 Statistics",
+      "worksheet": "II.A5(2)",
+      "year": 2017
+    },
+    "bea_mousa_2018": {
+      "asset": {
+        "request_url": "https://bea.gov/sites/default/files/2021-08/2018r-PartII-A1-A11.xls",
+        "retrieved_at": "2026-10-25T00:48:03+00:00",
+        "sha256": "20fd50561189aceca6e068a8bdd28d5716d17c588207f1cef957e95005977fa5",
+        "url": "https://bea.gov/sites/default/files/2021-08/2018r-PartII-A1-A11.xls"
+      },
+      "bank_coverage": "including_banks",
+      "cells": {
+        "CHN": "B35",
+        "HKG": "B36"
+      },
+      "definition_member": null,
+      "page_asset": {
+        "request_url": "https://bea.gov/international/activities-us-affiliates-foreign-multinational-enterprises-revised-2018-statistics",
+        "retrieved_at": "2026-10-25T00:48:02+00:00",
+        "sha256": "f238f06cb586bc6a6ff20ec0d797928468e5287471a4c5757a5450b1726ed87e",
+        "url": "https://bea.gov/international/activities-us-affiliates-foreign-multinational-enterprises-revised-2018-statistics"
+      },
+      "scope": "Part II. Majority-Owned U.S. Affiliates",
+      "size_threshold_usd": 20000000,
+      "status": "observed",
+      "table_member": null,
+      "vintage": "Activities of U.S. Affiliates of Foreign Multinational Enterprises: Revised 2018 Statistics",
+      "worksheet": "II.A5(2)",
+      "year": 2018
+    },
+    "bea_mousa_2019": {
+      "asset": {
+        "request_url": "https://bea.gov/sites/default/files/2022-08/2019r-PartII-A1-A11.xls",
+        "retrieved_at": "2026-10-25T00:48:07+00:00",
+        "sha256": "cefa937e8ca0a7bd2dcbc578e4cb27002da8e377c3281de1aafab4ba31411ec2",
+        "url": "https://bea.gov/sites/default/files/2022-08/2019r-PartII-A1-A11.xls"
+      },
+      "bank_coverage": "including_banks",
+      "cells": {
+        "CHN": "B35",
+        "HKG": "B36"
+      },
+      "definition_member": null,
+      "page_asset": {
+        "request_url": "https://bea.gov/international/activities-us-affiliates-foreign-multinational-enterprises-revised-2019-statistics",
+        "retrieved_at": "2026-10-25T00:48:05+00:00",
+        "sha256": "f1dcc4f642d526c10e8c703cb3ea5d2f2338d4328a23e4cd1901f10b42bff02e",
+        "url": "https://bea.gov/international/activities-us-affiliates-foreign-multinational-enterprises-revised-2019-statistics"
+      },
+      "scope": "Part II. Majority-Owned U.S. Affiliates",
+      "size_threshold_usd": 20000000,
+      "status": "observed",
+      "table_member": null,
+      "vintage": "Activities of U.S. Affiliates of Foreign Multinational Enterprises: Revised 2019 Statistics",
+      "worksheet": "II.A5(2)",
+      "year": 2019
+    },
+    "bea_mousa_2020": {
+      "asset": {
+        "request_url": "https://bea.gov/sites/default/files/2023-08/2020r-PartII-A1-A11.xls",
+        "retrieved_at": "2026-10-25T00:48:10+00:00",
+        "sha256": "d2c51809ef910367bab3c26ba406eb42e0d034809bf1bc4096a03f3046a0f7bd",
+        "url": "https://bea.gov/sites/default/files/2023-08/2020r-PartII-A1-A11.xls"
+      },
+      "bank_coverage": "including_banks",
+      "cells": {
+        "CHN": "B34",
+        "HKG": "B35"
+      },
+      "definition_member": null,
+      "page_asset": {
+        "request_url": "https://bea.gov/international/activities-us-affiliates-foreign-multinational-enterprises-revised-2020-statistics",
+        "retrieved_at": "2026-10-25T00:48:08+00:00",
+        "sha256": "b6a48cfbeef3842f39cbbded68a04d3b90ba277b9b9b76779103f49860e479b6",
+        "url": "https://bea.gov/international/activities-us-affiliates-foreign-multinational-enterprises-revised-2020-statistics"
+      },
+      "scope": "Part II. Majority-Owned U.S. Affiliates",
+      "size_threshold_usd": 20000000,
+      "status": "observed",
+      "table_member": null,
+      "vintage": "Activities of U.S. Affiliates of Foreign Multinational Enterprises: Revised 2020 Statistics",
+      "worksheet": "II.A5(2)",
+      "year": 2020
+    },
+    "bea_mousa_2021": {
+      "asset": {
+        "request_url": "https://bea.gov/sites/default/files/2024-10/2021r-PartII-A1-A11.xls",
+        "retrieved_at": "2026-10-25T00:48:11+00:00",
+        "sha256": "4b3d8f5fc13fc10d35b474490f4279634db35aefd27d4d28d47e1970fe4b2da1",
+        "url": "https://bea.gov/sites/default/files/2024-10/2021r-PartII-A1-A11.xls"
+      },
+      "bank_coverage": "including_banks",
+      "cells": {
+        "CHN": "B35",
+        "HKG": "B36"
+      },
+      "definition_member": null,
+      "page_asset": {
+        "request_url": "https://bea.gov/international/activities-us-affiliates-foreign-multinational-enterprises-revised-2021-statistics",
+        "retrieved_at": "2026-10-25T00:45:51+00:00",
+        "sha256": "850eb02200b6f2f8c37bff3d7208af63860abe605be9f0440e4f2e2f8abac6f5",
+        "url": "https://bea.gov/international/activities-us-affiliates-foreign-multinational-enterprises-revised-2021-statistics"
+      },
+      "scope": "Part II. Majority-Owned U.S. Affiliates",
+      "size_threshold_usd": 20000000,
+      "status": "observed",
+      "table_member": null,
+      "vintage": "Activities of U.S. Affiliates of Foreign Multinational Enterprises: Revised 2021 Statistics",
+      "worksheet": "II.A5(2)",
+      "year": 2021
+    },
+    "bea_mousa_2022": {
+      "asset": {
+        "request_url": "https://bea.gov/sites/default/files/2025-12/2022r-PartII-A1-A11.xls",
+        "retrieved_at": "2026-10-25T00:48:17+00:00",
+        "sha256": "9bc64336ece508b1547cc11ad2f049d3b0ce59be0d5e822bd09d5974257b9d0f",
+        "url": "https://bea.gov/sites/default/files/2025-12/2022r-PartII-A1-A11.xls"
+      },
+      "bank_coverage": "including_banks",
+      "cells": {
+        "CHN": "B36",
+        "HKG": "B37"
+      },
+      "definition_member": null,
+      "page_asset": {
+        "request_url": "https://bea.gov/international/activities-us-affiliates-foreign-multinational-enterprises-preliminary-2022-statistics",
+        "retrieved_at": "2026-10-25T00:48:14+00:00",
+        "sha256": "fdf743d3e0ed93e66fa825d0e9460fbbc2c7f73c391a22694c6a83221ddd3569",
+        "url": "https://www.bea.gov/activities-us-affiliates-foreign-multinational-enterprises-revised-2022-statistics-1"
+      },
+      "scope": "Part II. Majority-Owned U.S. Affiliates",
+      "size_threshold_usd": 20000000,
+      "status": "observed",
+      "table_member": null,
+      "vintage": "Activities of U.S. Affiliates of Foreign Multinational Enterprises: Revised 2022 Statistics",
+      "worksheet": "II.A5(2)",
+      "year": 2022
+    },
+    "bea_mousa_2023": {
+      "asset": {
+        "request_url": "https://bea.gov/sites/default/files/2026-07/2023r-PartII-A1-A11.xls",
+        "retrieved_at": "2026-10-25T00:41:11+00:00",
+        "sha256": "879e8f82d20cae6f8101ae4dbbfb8b3a25d4d167b7deffddfdc01732b3a2c999",
+        "url": "https://bea.gov/sites/default/files/2026-07/2023r-PartII-A1-A11.xls"
+      },
+      "bank_coverage": "including_banks",
+      "cells": {
+        "CHN": "B38",
+        "HKG": "B39"
+      },
+      "definition_member": null,
+      "page_asset": {
+        "request_url": "https://bea.gov/activities-us-affiliates-foreign-multinational-enterprises-revised-2023-statistics",
+        "retrieved_at": "2026-10-25T00:48:18+00:00",
+        "sha256": "6a2ca7f8034c9072047b4c7e3441d597df1d751e990d34afc5a9c330feb91a71",
+        "url": "https://bea.gov/activities-us-affiliates-foreign-multinational-enterprises-revised-2023-statistics"
+      },
+      "scope": "Part II. Majority-Owned U.S. Affiliates",
+      "size_threshold_usd": 20000000,
+      "status": "observed",
+      "table_member": null,
+      "vintage": "Activities of U.S. Affiliates of Foreign Multinational Enterprises: Revised 2023 Statistics",
+      "worksheet": "II.A5",
+      "year": 2023
+    },
+    "bea_mousa_2024": {
+      "asset": {
+        "request_url": "https://bea.gov/sites/default/files/2026-07/2024p-PartII-A1-A11.xls",
+        "retrieved_at": "2026-10-25T00:39:02+00:00",
+        "sha256": "4b33bbd4a489312c3a8d5282f28b9ca231b1707ec8021873aa9c9b32f95bc203",
+        "url": "https://bea.gov/sites/default/files/2026-07/2024p-PartII-A1-A11.xls"
+      },
+      "bank_coverage": "including_banks",
+      "cells": {
+        "CHN": "B38",
+        "HKG": "B39"
+      },
+      "definition_member": null,
+      "page_asset": {
+        "request_url": "https://bea.gov/activities-us-affiliates-foreign-multinational-enterprises-preliminary-2024-statistics",
+        "retrieved_at": "2026-10-25T00:48:20+00:00",
+        "sha256": "f0abc331f4abc5cfaae8cad93d4c400a3d53686d1ab7dcc87c6d7aa636f2738f",
+        "url": "https://bea.gov/activities-us-affiliates-foreign-multinational-enterprises-preliminary-2024-statistics"
+      },
+      "scope": "Part II. Majority-Owned U.S. Affiliates",
+      "size_threshold_usd": 20000000,
+      "status": "provisional",
+      "table_member": null,
+      "vintage": "Activities of U.S. Affiliates of Foreign Multinational Enterprises: Preliminary 2024 Statistics",
+      "worksheet": "II.A5",
+      "year": 2024
+    }
+  },
+  "version": 1
+}

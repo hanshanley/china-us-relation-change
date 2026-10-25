@@ -31,9 +31,6 @@
   function render(event) {
     const geo = $("geography").value;
     const outgoing = $("direction").value === "from_us";
-    const reverse = $("reverse-direction");
-    if (reverse) reverse.textContent = "View " + (outgoing ?
-      `${data.geographies[geo]} \u2192 United States` : `United States \u2192 ${data.geographies[geo]}`);
     const origin = outgoing ? "USA" : geo, destination = outgoing ? geo : "USA";
     const selectionNotes = [];
     if (data.prefer_current_travel && outgoing && geo === "CHN" &&
@@ -65,7 +62,9 @@
           .find(value => available.has(value) && [...$("measure").options].some(o => o.value === value));
         if (replacement) {
           $("measure").value = replacement;
-          selectionNotes.push(`${data.measures[selected]} has no verified annual series for this route. Showing ${data.measures[replacement]} instead; its population is defined below.`);
+          selectionNotes.push(data.freshness_policy ?
+            `Showing ${data.measures[replacement]}; its population is defined below.` :
+            `${data.measures[selected]} has no verified annual series for this route. Showing ${data.measures[replacement]} instead; its population is defined below.`);
         }
       }
     }
@@ -78,6 +77,12 @@
     if (estimatePanel) estimatePanel.hidden = !showEstimates;
     const annual = rows.filter(r => r.frequency === "annual").sort((a, b) => a.year - b.year);
     const current = annual.filter(r => r.value !== null).at(-1);
+    const publishChart = () => {
+      const chart = $("chart");
+      chart.exchangeState = {annual, origin, destination, measure, current,
+        indexed: $("chart-mode").value === "index"};
+      chart.dispatchEvent(new CustomEvent("exchange:render", {bubbles: true}));
+    };
     if (data.restrict_to_available) {
       const indexOption = $("chart-mode").querySelector('option[value="index"]');
       const canIndex = !!current && data.charts[current.series_id].index.trimStart().startsWith("<svg");
@@ -90,6 +95,7 @@
       $("selection-note").textContent = selectionNotes.join(" ");
       const related = $("related-series");
       related.hidden = true;
+      related.replaceChildren();
       let alternative, explanation;
       if (outgoing && measure === "visitors") {
         alternative = "air_visitors";
@@ -139,8 +145,12 @@
     }
     const continuity = $("series-continuity");
     if (continuity) {
-      continuity.hidden = measure !== "air_visitors";
-      continuity.textContent = data.public_display ? "A comparable 2021 estimate is unavailable from this source." :
+      const reported2021 = annual.find(r => r.year === 2021 && r.value !== null);
+      const profile2021 = reported2021 && (reported2021.source_vintage || "").includes("2021 market profile");
+      continuity.hidden = measure !== "air_visitors" || (!!reported2021 && !profile2021);
+      continuity.textContent = continuity.hidden ? "" : profile2021 ?
+        "2021 uses NTTO's original profile estimate, rounded to 1,000 trips." :
+        data.public_display ? "A comparable 2021 estimate is unavailable from this source." :
         "2021 is not plotted: the monitor reports zero volume despite positive survey responses. That is not treated as zero actual travel.";
     }
     $("partial-panel").hidden = true;
@@ -155,10 +165,11 @@
       $("series-source").textContent = "Missing coverage is retained explicitly in the complete dataset.";
       $("series-notes").textContent = "";
       $("chart-mode").disabled = true;
+      publishChart();
       return;
     }
     $("chart-mode").disabled = false;
-    const referenceYear = measure === "air_visitors" ? 2019 : 2020;
+    const referenceYear = 2019;
     const reference = find(annual, referenceYear), previous = find(annual, current.year - 1);
     $("annual-headlines").innerHTML = `<div class="headline-grid"><div>
       <p class="label">Latest complete annual observation</p>
@@ -186,8 +197,13 @@
       ` \u00b7 ${escape(current.source_vintage)}` + (data.public_display ? "." :
         ` \u00b7 ${escape(manifest.status)}. Published retrieval: ${escape(current.retrieved_at)}. ${escape(manifest.notes || "")}`);
     const breaks = annual.filter((row, i) => i && row.comparability !== annual[i - 1].comparability).map(row => row.period);
+    const presentYears = new Set(annual.filter(r => r.value !== null).map(r => r.year));
+    const missingYears = Array.from({length: current.year - annual[0].year + 1}, (_, i) => annual[0].year + i)
+      .filter(year => !presentYears.has(year));
     $("series-notes").textContent = data.public_display ?
-      (breaks.length ? `Coverage changes in ${breaks.join(", ")}. Separate line segments preserve these boundaries.` : "") : current.notes;
+      [(breaks.length ? `Population definitions change in ${breaks.join(", ")}; all reported annual values remain visible.` : ""),
+       (missingYears.length ? `Not reported: ${missingYears.join(", ")}. Blank years are not zero.` : "")]
+        .filter(Boolean).join(" ") : current.notes;
     $("figure-link").innerHTML = "<p>Download reported values as a high-resolution PNG or editable SVG:</p><ul>" +
       Object.entries(data.figures[current.series_id]).map(([theme, files]) =>
         `<li>${escape(data.chart_themes[theme].label)}: ` +
@@ -204,18 +220,15 @@
       $("partial-panel").hidden = false;
       $("partial-panel").innerHTML = `<h3>Latest partial year \u00b7 ${escape(label)}</h3>
         <p><strong>${escape(format(partial.value, partial.unit))}</strong> \u00b7 ${escape(partial.status)}</p>
-        <p>Same interval in 2020: ${escape(difference(partial, find(matched, 2020)))}</p>
+        <p>Same interval in 2019: ${escape(difference(partial, find(matched, 2019)))}</p>
         <p>Same interval in ${partial.year - 1}: ${escape(difference(partial, find(matched, partial.year - 1)))}</p>
         <p>${escape(partial.definition)}. ${escape(partial.notes)}</p>
         <p>Source vintage: ${escape(partial.source_vintage)}. No annualization or full-year comparison.</p>`;
     }
+    publishChart();
   }
   for (const id of ["geography", "direction", "measure", "chart-mode", "chart-theme"]) {
     $(id).addEventListener("change", render);
   }
-  $("reverse-direction")?.addEventListener("click", () => {
-    $("direction").value = $("direction").value === "from_us" ? "to_us" : "from_us";
-    $("direction").dispatchEvent(new Event("change", {bubbles: true}));
-  });
   render();
 })();

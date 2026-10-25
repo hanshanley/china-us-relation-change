@@ -35,15 +35,15 @@
     "last_recorded_check": "2026-10-23T11:15:26+00:00",
     "last_successful_retrieval": "2026-10-21T17:01:48+00:00",
     "notes": "IIE automatic retrieval is paused: its terms prohibit automated downloading and analysis. Previously reviewed IIE-hosted observations are retained, not newly checked. Historical aggregates are independently reviewed in government republications; exact retrieved URLs, checksums, vintages and dates remain on those rows. Separate direct retrieval and reuse permission has not been verified; public access is not commercial-use clearance.",
-    "observations": 166,
+    "observations": 284,
     "status": "permission_required",
     "vintage": "Open Doors 2025"
   },
   "macau_tourism": {
-    "last_recorded_check": "2026-10-24T03:44:42+00:00",
-    "last_successful_retrieval": "2026-10-24T02:43:50+00:00",
+    "last_recorded_check": "2026-10-25T04:40:45+00:00",
+    "last_successful_retrieval": "2026-10-24T23:22:54+00:00",
     "notes": "Selected-market PDFs; unlisted U.S. values are missing, never zero. Latest complete annual market profile fills selected-market omissions. Arrivals exclude non-resident workers/students from 2008. Residence classification changed to issuing place of travel document in April 2015; transition is not comparable. Direct monthly and January-to-month counts for U.S.-issued travel documents, not U.S. residents. The current DSEC country workbook takes priority over a stale MGTO latest-report endpoint. Matched prior/current-year periods and two independent component controls are verified. MGTO site terms limit use to noncommercial purposes. Commercial reuse permission has not been verified; these exports do not grant publication rights.",
-    "observations": 67,
+    "observations": 68,
     "status": "available",
     "vintage": "MGTO annual highlights through 2025; Market Performance 2008, 2010, 2015, 2024; DSEC Visitor Arrivals 2026-09, tables 1-5 and 9"
   },
@@ -51,7 +51,7 @@
     "last_recorded_check": "2026-10-23T07:06:18+00:00",
     "last_successful_retrieval": "2026-10-23T07:06:18+00:00",
     "notes": "Reported U.S.-nationality degree and non-degree students, not U.S. credit-program participants or tertiary degree-only counts. Historical snapshots do not establish later enrollment. CAU's original yearbook/MOE research table restores seven earlier/intermediate years; 2011, 2012 and 2014 overlap exactly with retained ministry reports. The reviewed 2017 ministry briefing ranks source countries without a U.S. count, so no number is inferred. Original statistical aggregates only; reports are not redistributed.",
-    "observations": 12,
+    "observations": 19,
     "status": "available",
     "vintage": "MOE reporting years 2006-2016 and 2018; original and explicitly attributed republications"
   },
@@ -72,12 +72,12 @@
     "vintage": "Workbook modified 2026-03-24 14:05:25; Workbook modified 2026-10-20 13:51:14"
   },
   "ntto_siat": {
-    "last_recorded_check": "2026-10-23T16:42:59+00:00",
-    "last_successful_retrieval": "2026-10-23T16:42:59+00:00",
-    "notes": "U.S.-resident air-travel destination estimates, kept separate from all-mode visitor arrivals. Annual 2012\u20132020 and 2022\u20132025; separately selected Q1-Q2 observations in 2025 and 2026 support matched January\u2013June comparisons. Quarter checkboxes are selected directly, not inferred by subtracting rounded annual and half-year totals. Monitor total-traveler and respondent cards read from the public report with explicit year, quarter and destination filters; source checksums identify retained browser-visible report text, not API responses. Estimates are rounded to 1,000; respondent counts appear in each observation's notes. Under-100 respondent bases are conservatively flagged low reliability. The 2021 monitor cards show zero volume despite positive respondent counts (China 267; Hong Kong 44); these contradictory volume outputs are not interpreted as zero actual travel. No aggregation across destinations.",
-    "observations": 30,
+    "last_recorded_check": "2026-10-25T03:00:28+00:00",
+    "last_successful_retrieval": "2026-10-25T03:00:28+00:00",
+    "notes": "U.S.-resident air-travel destination estimates, kept separate from all-mode visitor arrivals. Mainland annual 2000-2025; Hong Kong 2000-2020 and 2022-2025. 2000-2011 recovered from original resident-travel reports, with all historical overlaps and both 2012 monitor values reconciled. Published thousands, country isolation and original sample/suppression thresholds are retained. Separately selected Q1-Q2 observations in 2025 and 2026 support matched January\u2013June comparisons. Quarter checkboxes are selected directly, not inferred by subtracting rounded annual and half-year totals. Monitor total-traveler and respondent cards read from the public report with explicit year, quarter and destination filters; source checksums identify retained browser-visible report text, not API responses. Estimates are rounded to 1,000; respondent counts appear in each observation's notes. Under-100 respondent bases are conservatively flagged low reliability. The 2021 monitor cards show zero volume despite positive respondent counts (China 267; Hong Kong 44); these contradictory volume outputs are not interpreted as zero actual travel. Mainland 2021 is separately recovered as the original profile's published 5,000-trip estimate, with its checksum-pinned chronological columns and all 21 retained overlaps verified. Hong Kong 2021 remains unreported. No aggregation across destinations.",
+    "observations": 55,
     "status": "available",
-    "vintage": "NTTO SIAT public monitor, 6 October 2026; through 2026 Q2"
+    "vintage": "NTTO SIAT public monitor, 6 October 2026; historical reports and original 2021 China profile; through 2026 Q2"
   },
   "taiwan_tourism": {
     "last_recorded_check": "2026-10-21T14:43:03+00:00",
@@ -91,7 +91,7 @@
     "last_recorded_check": "2026-10-22T01:27:39+00:00",
     "last_successful_retrieval": "2026-10-22T01:27:39+00:00",
     "notes": "Taiwan not separately listed; U.S.-to-mainland records may be absent.",
-    "observations": 76,
+    "observations": 82,
     "status": "available",
     "vintage": "February 2026 Data Release"
   },
