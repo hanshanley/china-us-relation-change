@@ -123,7 +123,10 @@ def check(site, url=None):
                     page.select_option("#direction", "from_us")
                     expect(page.locator("#direction")).to_have_value("from_us")
                     expect(page.locator("#measure")).to_have_value("air_visitors")
-                    assert page.locator("#chart .screen-column").count() == 13
+                    air = [row for row in observations
+                           if row["series_id"] == "ntto_siat:USA:CHN:air_visitors"
+                           and row["frequency"] == "annual" and row["value"] is not None]
+                    assert page.locator("#chart .screen-column").count() == len(air)
                     assert page.locator('#chart .screen-column[data-year="2021"]').count() == 0
                     expect(page.locator("#chart .covid-label")).to_have_text("COVID travel restrictions")
                     page.select_option("#direction", "to_us")
