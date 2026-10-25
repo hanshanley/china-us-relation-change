@@ -21,6 +21,37 @@ def current():
     return json.loads((ROOT / "data/site/business_current.json").read_text())
 
 
+@pytest.mark.parametrize("case", ["unchanged", "no_uk", "current_uk", "missing_uk"])
+def test_uk_coverage_keeps_historical_missingness_without_a_stale_or_duplicate_chart(case):
+    archive = json.loads((ROOT / "data/site/business_presence.json").read_text())
+    if case == "no_uk":
+        archive["observations"] = [r for r in archive["observations"] if r["series_id"] != "eurostat_uk:china"]
+    elif case == "current_uk":
+        prior = next(r for r in archive["observations"] if r["series_id"] == "eurostat_uk:china" and r["year"] == 2019)
+        archive["observations"].append(dict(prior, year=2023))
+    elif case == "missing_uk":
+        for row in archive["observations"]:
+            if row["series_id"] == "eurostat_uk:china":
+                row.update(value=None, status="missing")
+    before = copy.deepcopy(archive)
+    markup = business_current.uk_historical_coverage(archive)
+    assert archive == before
+    if case in {"no_uk", "current_uk"}:
+        assert markup == ""
+    else:
+        page = BeautifulSoup(markup, "html.parser")
+        assert len(page.select("tbody tr")) == 14
+        assert not page.select("svg,img,.plot-data,.comparison-chart")
+        if case == "missing_uk":
+            assert "No UK enterprise counts are reported" in page.text
+            assert all(cell["data-uk-value"] == "" for cell in page.select("[data-uk-value]"))
+        else:
+            assert page.select_one('[data-uk-year="2019"] [data-uk-value]').text == "531"
+            assert page.select_one('[data-uk-year="2007"] [data-uk-value]').text == "Not reported"
+            assert [int(row["data-uk-year"]) for row in page.select('[data-uk-break="true"]')] == [
+                2010, 2013, 2014, 2015, 2018]
+
+
 def test_position_parser_preserves_direction_units_and_missingness():
     book = Workbook()
     sheet = book.active
@@ -112,18 +143,37 @@ def test_component_exports_complete_counts_and_current_evidence_without_stale_ch
     stale.parent.mkdir(parents=True)
     stale.write_text("Rejected stale chart")
     gallery = defaultdict(list)
-    assert business_current.build_current_business(tmp_path, archive, gallery) == 23
+    assert business_current.build_current_business(tmp_path, archive, gallery) == 26
     assert not stale.exists()
     page = BeautifulSoup((tmp_path / "site/business-presence.html").read_text(), "html.parser")
     assert not page.select("#business-controls,#annual-values,#eu-affiliates-china")
-    assert len(page.select(".business-card")) == 23
+    assert len(page.select(".business-card")) == 26
     count_cards = page.select(".business-count-card")
-    assert len(count_cards) == 19
+    assert len(count_cards) == 22
     for card in count_cards:
         figure = tmp_path / "site" / card.img["src"].replace(".png", ".svg")
         svg = BeautifulSoup(figure.read_text(), "html.parser")
         assert svg.select_one(".annual-column") and not svg.select(".data-line")
+        if card["id"] == "luxembourg-affiliates-china":
+            assert len(svg.select(".annual-column")) == 15
+        if card["id"] == "hungary-affiliates-china":
+            assert len(svg.select(".annual-column")) == 2
     assert not page.select("#uk-affiliates-china,#eu-affiliates-china,#us-parent-companies-china")
+    uk = page.select_one("#uk-business-coverage")
+    assert uk is not None and uk.find_parent(id="affiliate-presence")
+    assert "United Kingdom" in uk.h3.text and "historical" in uk.h3.text.lower()
+    assert "2019" in uk.select_one(".chart-context").text
+    assert not uk.select("svg,img,.comparison-chart,.plot-data")
+    uk_rows = sorted((r for r in archive["observations"] if r["series_id"] == "eurostat_uk:china"),
+                     key=lambda r: r["year"])
+    assert [(int(row["data-uk-year"]), row.select_one("[data-uk-value]")["data-uk-value"])
+            for row in uk.select("tbody tr")] == [
+                (row["year"], "" if row["value"] is None else str(row["value"])) for row in uk_rows]
+    assert [int(row["data-uk-year"]) for row in uk.select("tbody tr")
+            if row.select_one("[data-uk-value]").text == "Not reported"] == [2007, 2008, 2020]
+    assert {a["href"] for a in uk.select("a[download]")} == {
+        "downloads/business-presence.json", "downloads/business-observations.csv"}
+    assert "agriculture" in uk.text and "like-for-like" in uk.text
     assert json.loads((tmp_path / "site/downloads/business-current.json").read_text()) == data
     assert json.loads((tmp_path / "site/downloads/business-presence.json").read_text()) == archive
     records = list(csv.DictReader((tmp_path / "site/downloads/business-current-observations.csv").open()))

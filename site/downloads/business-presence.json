@@ -1,6 +1,6 @@
 {
   "context": {
-    "geography": "China is the host. U.S., German, Norwegian, Swedish and Finnish series retain their own control, sector, threshold and source definitions; these are not matched country rankings. UK history ends in 2019. National and overlapping EU27 membership aggregates are not summed. Netherlands is shown separately from the overlapping EU27 aggregate. Spain's Eurostat financial/nonfinancial history is separate from INE's national nonfinancial population; Spain overlaps EU aggregates and is not added to them. Denmark's national resident-parent coverage includes foreign ultimate owners and excludes branches; it is not spliced with Danish-UCI Eurostat counts or summed into EU aggregates. Italian legal-unit history reaches 2023; grouped Eurostat enterprises remain a separate population. Austria is separate from overlapping EU27 membership and broader national counts; its older legal units are not spliced into current enterprise counts. Poland's ultimate-control population remains separate from the broader national foreign-equity survey and is not added to overlapping EU aggregates. Portuguese and Czech populations retain country-specific control/coverage breaks; Portugal's 2007 pre-UCI count is separate archive-only evidence. Belgium's pre-UCI legal units, UCI legal units and2022+enterprises remain separate; its current FDI reporting-frame cutoffs are not backdated or treated as all Belgian firms. The SNB Switzerland/Liechtenstein reporting area is a separate qualified supplement, not a pure-Switzerland population; majority subsidiaries include unincorporated branches and the current groupwide CHF10m reporting frame is not backdated or treated as all firms. INE national nonfinancial counts retain the reported host label China and separate pre2021 affiliate units from consolidated enterprises; neither regime is a Eurostat extension.",
+    "geography": "China is the host. U.S., German, Norwegian, Swedish and Finnish series retain their own control, sector, threshold and source definitions; these are not matched country rankings. UK history ends in 2019. National and overlapping EU27 membership aggregates are not summed. Netherlands is shown separately from the overlapping EU27 aggregate. Spain's Eurostat financial/nonfinancial history is separate from INE's national nonfinancial population; Spain overlaps EU aggregates and is not added to them. Denmark's national resident-parent coverage includes foreign ultimate owners and excludes branches; it is not spliced with Danish-UCI Eurostat counts or summed into EU aggregates. Italian legal-unit history reaches 2023; grouped Eurostat enterprises remain a separate population. Austria is separate from overlapping EU27 membership and broader national counts; its older legal units are not spliced into current enterprise counts. Poland's ultimate-control population remains separate from the broader national foreign-equity survey and is not added to overlapping EU aggregates. Portuguese and Czech populations retain country-specific control/coverage breaks; Portugal's 2007 pre-UCI count is separate archive-only evidence. Belgium's pre-UCI legal units, UCI legal units and2022+enterprises remain separate; its current FDI reporting-frame cutoffs are not backdated or treated as all Belgian firms. The SNB Switzerland/Liechtenstein reporting area is a separate qualified supplement, not a pure-Switzerland population; majority subsidiaries include unincorporated branches and the current groupwide CHF10m reporting frame is not backdated or treated as all firms. INE national nonfinancial counts retain the reported host label China and separate pre2021 affiliate units from consolidated enterprises; neither regime is a Eurostat extension. Luxembourg remains separate from overlapping EU aggregates. Hungarian legal units through 2021 and enterprises from 2022 remain separate. The national outward-FATS unit rule qualifies Eurostat's broader comparability claim; no cross-unit 2019 growth or China counts from national 2024 aggregates. Current FDI reporting cutoffs and nonresponse exclusions are not an all-firm census or verified constant historical frame. Additional archive-only Irish source cells retain China except Hong Kong and selected NACE scope. CSO expressly compares 2010-2022; 2023 continuity and pre-2010 UCI attribution remain separately unreviewed. Consolidation/nonresponse can understate affiliates; no current Irish chart or 2019 growth is implied. Slovenia's national China (CN) counts and separate Eurostat China-except-Hong-Kong archive are not spliced. Resident-reporter balance-sheet cutoffs change in 2017 and 2023; the current national population has no comparable 2019 denominator.",
     "interpretation": "Company counts, affiliate entities and branch locations are distinct. U.S. parents and ultimately EU-controlled enterprises are not matched ownership populations; BEA and Eurostat levels must not be used to rank otherwise comparable business presence.",
     "question": "How has U.S. and European business presence in China changed over time?",
     "release_timing": "As checked October 22, 2026, BEA's latest activity release covers 2023. The published schedule puts the 2024 activity release on November 20, 2026; no 2024 value is inferred.",
@@ -160,6 +160,46 @@
     {
       "description": "Download-only 2021-2024 consolidated affiliate enterprises; earlier units remain separate. INE national nonfinancial population, not Eurostat's financial/nonfinancial aggregate or unique Spanish parents. Sections 3.1/3.5 describe consolidation of affiliate units into statistical enterprises from 2021; section 15.2 also claims temporal continuity. Both statements are retained without assuming retrospective harmonization or a comparable current 2019 denominator. The national host label China is not silently relabelled China except Hong Kong. Reference 2009 was first published in 2011; no pre-2009 or 2025+ count inferred. Reported numbers do not establish census coverage or final revision status.",
       "id": "ine_spain:china",
+      "status": "partial_history"
+    },
+    {
+      "description": "Luxembourg-resident ultimate control; enterprises or branches in China except Hong Kong, not all resident immediate parents or an all-firm census. SPEs are excluded from the underlying FDI survey; the frame covers all large and medium enterprises and many small entities. The country report declares comparability from 2009 with no methodological break, not an independent audit of every historical vintage. Retain the 2010 NACE and 2021 dataset lineage without inventing a country-unit break. 2007/2008 are unreported, not zero; no earlier or unpublished current-year observations are inferred. Luxembourg overlaps EU aggregates.",
+      "id": "eurostat_luxembourg:china",
+      "status": "partial_history"
+    },
+    {
+      "description": "Hungarian ultimate control; China except Hong Kong. HCSO outward-FATS methods and table footnote specify legal units through 2021 and enterprises from 2022. Eurostat's broader 2010-2023 comparable-window claim conflicts with this unit boundary; no harmonization or cross-unit 2019 growth. Keep 2010 NACE and 2021 EBS reference-population/source boundaries. Current FDI screening exceeds EUR 40k and 10% of capital; separate source wording says HUF 10m. These are reporting-frame limits, not verified constant historical cutoffs or an all-firm census. Individual minority-control checks apply; no equally shared control in the target population; nonrespondents are omitted. Primary/secondary confidentiality is retained. Unreported experimental 2004-2006 cells stay source-only. The national table's 2024 EU/outside-EU/all-host totals are not China counts. Historical legal units are download-only.",
+      "id": "eurostat_hungary_legal:china",
+      "status": "partial_history"
+    },
+    {
+      "description": "Hungarian ultimate control; China except Hong Kong. HCSO outward-FATS methods and table footnote specify legal units through 2021 and enterprises from 2022. Eurostat's broader 2010-2023 comparable-window claim conflicts with this unit boundary; no harmonization or cross-unit 2019 growth. Keep 2010 NACE and 2021 EBS reference-population/source boundaries. Current FDI screening exceeds EUR 40k and 10% of capital; separate source wording says HUF 10m. These are reporting-frame limits, not verified constant historical cutoffs or an all-firm census. Individual minority-control checks apply; no equally shared control in the target population; nonrespondents are omitted. Primary/secondary confidentiality is retained. Unreported experimental 2004-2006 cells stay source-only. The national table's 2024 EU/outside-EU/all-host totals are not China counts. Current supplement starts 2022.",
+      "id": "eurostat_hungary:china",
+      "status": "partial_history"
+    },
+    {
+      "description": "Reported foreign affiliate enterprises, not unique Irish parents or office locations. CSO expressly compares 2010-2022; no generic 2021 unit break is invented. 2023 continuity remains independently unreviewed and is not a merged endpoint. Background 51% capital wording and compilation exclusion below 50% remain distinct published rules, not silently reconciled or backdated. Inactive zero-employment/zero-turnover affiliates are excluded. 2022 parent-survey response was 52%; prior responders may be imputed, newly nonresponding units are not. Consolidated returns can understate affiliate counts; this is not a census of all Irish firms. National agriculture-inclusive descriptions do not replace selected Eurostat NACE scope. Archive/data-only; no current Irish plot, default 2019 growth or 2000-2006/2024 value inferred. Earlier NACE scope and confidential nulls remain separate.",
+      "id": "eurostat_ireland_legacy:china",
+      "status": "partial_history"
+    },
+    {
+      "description": "Reported foreign affiliate enterprises, not unique Irish parents or office locations. CSO expressly compares 2010-2022; no generic 2021 unit break is invented. 2023 continuity remains independently unreviewed and is not a merged endpoint. Background 51% capital wording and compilation exclusion below 50% remain distinct published rules, not silently reconciled or backdated. Inactive zero-employment/zero-turnover affiliates are excluded. 2022 parent-survey response was 52%; prior responders may be imputed, newly nonresponding units are not. Consolidated returns can understate affiliate counts; this is not a census of all Irish firms. National agriculture-inclusive descriptions do not replace selected Eurostat NACE scope. Archive/data-only; no current Irish plot, default 2019 growth or 2000-2006/2024 value inferred.",
+      "id": "eurostat_ireland:china",
+      "status": "partial_history"
+    },
+    {
+      "description": "Reported foreign affiliate enterprises, not unique Irish parents or office locations. CSO expressly compares 2010-2022; no generic 2021 unit break is invented. 2023 continuity remains independently unreviewed and is not a merged endpoint. Background 51% capital wording and compilation exclusion below 50% remain distinct published rules, not silently reconciled or backdated. Inactive zero-employment/zero-turnover affiliates are excluded. 2022 parent-survey response was 52%; prior responders may be imputed, newly nonresponding units are not. Consolidated returns can understate affiliate counts; this is not a census of all Irish firms. National agriculture-inclusive descriptions do not replace selected Eurostat NACE scope. Archive/data-only; no current Irish plot, default 2019 growth or 2000-2006/2024 value inferred. One separately retained 2023 source count, not a connected trend.",
+      "id": "eurostat_ireland_unreviewed:china",
+      "status": "partial_history"
+    },
+    {
+      "description": "Banka Slovenije SN11/FATS; source item Number of enterprises*. Direct/indirect control exceeds 50%, not unique Slovenian parents or all Chinese registrations. National China (CN), not a certified CN_X_HK equivalent. Resident-reporter balance-sheet cutoff EUR2m from 2017 and EUR5m from 2023; no comparable current 2019 change. Pre-2017 coverage is not backdated. Source revision/estimate flags are not supplied; published counts do not establish final/census status. Native '..' and '...' are unclassified masked values, never zero or an assumed confidentiality reason. Other native fractional cells retain their precision. Eurostat's separate 2007-2023 archive is downloadable, not spliced into this national series; no 2000-2008 or 2026 padding.",
+      "id": "bsi_slovenia:china",
+      "status": "partial_history"
+    },
+    {
+      "description": "Download-only Slovenian-resident UCI enterprises/branches in China except Hong Kong. Keep the 2010 NACE transition, 2017 source break flag and 2021 EBS dataset lineage distinct; no unverified legal-unit conversion is invented. 2009 is confidential, not replaced by the separate national count. Numerical overlap does not establish identical geography/populations. Current national reporting cutoffs are not assumed historically constant; no pre-2007 count.",
+      "id": "eurostat_slovenia:china",
       "status": "partial_history"
     }
   ],
@@ -415,6 +455,159 @@
       "status": "observed",
       "value": 1134,
       "year": 2019
+    },
+    {
+      "comparability": "bsi:SN11:CN:pre2017:levels-only",
+      "notes": "Banka Slovenije SN11/FATS; source item Number of enterprises*. Direct/indirect control exceeds 50%, not unique Slovenian parents or all Chinese registrations. National China (CN), not a certified CN_X_HK equivalent. Resident-reporter balance-sheet cutoff EUR2m from 2017 and EUR5m from 2023; no comparable current 2019 change. Pre-2017 coverage is not backdated. Source revision/estimate flags are not supplied; published counts do not establish final/census status. Native '..' and '...' are unclassified masked values, never zero or an assumed confidentiality reason. Other native fractional cells retain their precision. Eurostat's separate 2007-2023 archive is downloadable, not spliced into this national series; no 2000-2008 or 2026 padding. Source count literal: 7.",
+      "series_id": "bsi_slovenia:china",
+      "source_id": "bsi_oc_fatse_20260907",
+      "status": "observed",
+      "value": 7,
+      "year": 2009
+    },
+    {
+      "comparability": "bsi:SN11:CN:pre2017:levels-only",
+      "notes": "Banka Slovenije SN11/FATS; source item Number of enterprises*. Direct/indirect control exceeds 50%, not unique Slovenian parents or all Chinese registrations. National China (CN), not a certified CN_X_HK equivalent. Resident-reporter balance-sheet cutoff EUR2m from 2017 and EUR5m from 2023; no comparable current 2019 change. Pre-2017 coverage is not backdated. Source revision/estimate flags are not supplied; published counts do not establish final/census status. Native '..' and '...' are unclassified masked values, never zero or an assumed confidentiality reason. Other native fractional cells retain their precision. Eurostat's separate 2007-2023 archive is downloadable, not spliced into this national series; no 2000-2008 or 2026 padding. Source count literal: 5.",
+      "series_id": "bsi_slovenia:china",
+      "source_id": "bsi_oc_fatse_20260907",
+      "status": "observed",
+      "value": 5,
+      "year": 2010
+    },
+    {
+      "comparability": "bsi:SN11:CN:pre2017:levels-only",
+      "notes": "Banka Slovenije SN11/FATS; source item Number of enterprises*. Direct/indirect control exceeds 50%, not unique Slovenian parents or all Chinese registrations. National China (CN), not a certified CN_X_HK equivalent. Resident-reporter balance-sheet cutoff EUR2m from 2017 and EUR5m from 2023; no comparable current 2019 change. Pre-2017 coverage is not backdated. Source revision/estimate flags are not supplied; published counts do not establish final/census status. Native '..' and '...' are unclassified masked values, never zero or an assumed confidentiality reason. Other native fractional cells retain their precision. Eurostat's separate 2007-2023 archive is downloadable, not spliced into this national series; no 2000-2008 or 2026 padding. Source count literal: 6.",
+      "series_id": "bsi_slovenia:china",
+      "source_id": "bsi_oc_fatse_20260907",
+      "status": "observed",
+      "value": 6,
+      "year": 2011
+    },
+    {
+      "comparability": "bsi:SN11:CN:pre2017:levels-only",
+      "notes": "Banka Slovenije SN11/FATS; source item Number of enterprises*. Direct/indirect control exceeds 50%, not unique Slovenian parents or all Chinese registrations. National China (CN), not a certified CN_X_HK equivalent. Resident-reporter balance-sheet cutoff EUR2m from 2017 and EUR5m from 2023; no comparable current 2019 change. Pre-2017 coverage is not backdated. Source revision/estimate flags are not supplied; published counts do not establish final/census status. Native '..' and '...' are unclassified masked values, never zero or an assumed confidentiality reason. Other native fractional cells retain their precision. Eurostat's separate 2007-2023 archive is downloadable, not spliced into this national series; no 2000-2008 or 2026 padding. Source count literal: 7.",
+      "series_id": "bsi_slovenia:china",
+      "source_id": "bsi_oc_fatse_20260907",
+      "status": "observed",
+      "value": 7,
+      "year": 2012
+    },
+    {
+      "comparability": "bsi:SN11:CN:pre2017:levels-only",
+      "notes": "Banka Slovenije SN11/FATS; source item Number of enterprises*. Direct/indirect control exceeds 50%, not unique Slovenian parents or all Chinese registrations. National China (CN), not a certified CN_X_HK equivalent. Resident-reporter balance-sheet cutoff EUR2m from 2017 and EUR5m from 2023; no comparable current 2019 change. Pre-2017 coverage is not backdated. Source revision/estimate flags are not supplied; published counts do not establish final/census status. Native '..' and '...' are unclassified masked values, never zero or an assumed confidentiality reason. Other native fractional cells retain their precision. Eurostat's separate 2007-2023 archive is downloadable, not spliced into this national series; no 2000-2008 or 2026 padding. Source count literal: 7.",
+      "series_id": "bsi_slovenia:china",
+      "source_id": "bsi_oc_fatse_20260907",
+      "status": "observed",
+      "value": 7,
+      "year": 2013
+    },
+    {
+      "comparability": "bsi:SN11:CN:pre2017:levels-only",
+      "notes": "Banka Slovenije SN11/FATS; source item Number of enterprises*. Direct/indirect control exceeds 50%, not unique Slovenian parents or all Chinese registrations. National China (CN), not a certified CN_X_HK equivalent. Resident-reporter balance-sheet cutoff EUR2m from 2017 and EUR5m from 2023; no comparable current 2019 change. Pre-2017 coverage is not backdated. Source revision/estimate flags are not supplied; published counts do not establish final/census status. Native '..' and '...' are unclassified masked values, never zero or an assumed confidentiality reason. Other native fractional cells retain their precision. Eurostat's separate 2007-2023 archive is downloadable, not spliced into this national series; no 2000-2008 or 2026 padding. Source count literal: 7.",
+      "series_id": "bsi_slovenia:china",
+      "source_id": "bsi_oc_fatse_20260907",
+      "status": "observed",
+      "value": 7,
+      "year": 2014
+    },
+    {
+      "comparability": "bsi:SN11:CN:pre2017:levels-only",
+      "notes": "Banka Slovenije SN11/FATS; source item Number of enterprises*. Direct/indirect control exceeds 50%, not unique Slovenian parents or all Chinese registrations. National China (CN), not a certified CN_X_HK equivalent. Resident-reporter balance-sheet cutoff EUR2m from 2017 and EUR5m from 2023; no comparable current 2019 change. Pre-2017 coverage is not backdated. Source revision/estimate flags are not supplied; published counts do not establish final/census status. Native '..' and '...' are unclassified masked values, never zero or an assumed confidentiality reason. Other native fractional cells retain their precision. Eurostat's separate 2007-2023 archive is downloadable, not spliced into this national series; no 2000-2008 or 2026 padding. Source count literal: 7.",
+      "series_id": "bsi_slovenia:china",
+      "source_id": "bsi_oc_fatse_20260907",
+      "status": "observed",
+      "value": 7,
+      "year": 2015
+    },
+    {
+      "comparability": "bsi:SN11:CN:pre2017:levels-only",
+      "notes": "Banka Slovenije SN11/FATS; source item Number of enterprises*. Direct/indirect control exceeds 50%, not unique Slovenian parents or all Chinese registrations. National China (CN), not a certified CN_X_HK equivalent. Resident-reporter balance-sheet cutoff EUR2m from 2017 and EUR5m from 2023; no comparable current 2019 change. Pre-2017 coverage is not backdated. Source revision/estimate flags are not supplied; published counts do not establish final/census status. Native '..' and '...' are unclassified masked values, never zero or an assumed confidentiality reason. Other native fractional cells retain their precision. Eurostat's separate 2007-2023 archive is downloadable, not spliced into this national series; no 2000-2008 or 2026 padding. Source count literal: 7.",
+      "series_id": "bsi_slovenia:china",
+      "source_id": "bsi_oc_fatse_20260907",
+      "status": "observed",
+      "value": 7,
+      "year": 2016
+    },
+    {
+      "comparability": "bsi:SN11:CN:EUR2m2017:levels-only",
+      "notes": "Banka Slovenije SN11/FATS; source item Number of enterprises*. Direct/indirect control exceeds 50%, not unique Slovenian parents or all Chinese registrations. National China (CN), not a certified CN_X_HK equivalent. Resident-reporter balance-sheet cutoff EUR2m from 2017 and EUR5m from 2023; no comparable current 2019 change. Pre-2017 coverage is not backdated. Source revision/estimate flags are not supplied; published counts do not establish final/census status. Native '..' and '...' are unclassified masked values, never zero or an assumed confidentiality reason. Other native fractional cells retain their precision. Eurostat's separate 2007-2023 archive is downloadable, not spliced into this national series; no 2000-2008 or 2026 padding. Source count literal: 8.",
+      "series_id": "bsi_slovenia:china",
+      "source_id": "bsi_oc_fatse_20260907",
+      "status": "observed",
+      "value": 8,
+      "year": 2017
+    },
+    {
+      "comparability": "bsi:SN11:CN:EUR2m2017:levels-only",
+      "notes": "Banka Slovenije SN11/FATS; source item Number of enterprises*. Direct/indirect control exceeds 50%, not unique Slovenian parents or all Chinese registrations. National China (CN), not a certified CN_X_HK equivalent. Resident-reporter balance-sheet cutoff EUR2m from 2017 and EUR5m from 2023; no comparable current 2019 change. Pre-2017 coverage is not backdated. Source revision/estimate flags are not supplied; published counts do not establish final/census status. Native '..' and '...' are unclassified masked values, never zero or an assumed confidentiality reason. Other native fractional cells retain their precision. Eurostat's separate 2007-2023 archive is downloadable, not spliced into this national series; no 2000-2008 or 2026 padding. Source count literal: 20.",
+      "series_id": "bsi_slovenia:china",
+      "source_id": "bsi_oc_fatse_20260907",
+      "status": "observed",
+      "value": 20,
+      "year": 2018
+    },
+    {
+      "comparability": "bsi:SN11:CN:EUR2m2017:levels-only",
+      "notes": "Banka Slovenije SN11/FATS; source item Number of enterprises*. Direct/indirect control exceeds 50%, not unique Slovenian parents or all Chinese registrations. National China (CN), not a certified CN_X_HK equivalent. Resident-reporter balance-sheet cutoff EUR2m from 2017 and EUR5m from 2023; no comparable current 2019 change. Pre-2017 coverage is not backdated. Source revision/estimate flags are not supplied; published counts do not establish final/census status. Native '..' and '...' are unclassified masked values, never zero or an assumed confidentiality reason. Other native fractional cells retain their precision. Eurostat's separate 2007-2023 archive is downloadable, not spliced into this national series; no 2000-2008 or 2026 padding. Source count literal: 12.",
+      "series_id": "bsi_slovenia:china",
+      "source_id": "bsi_oc_fatse_20260907",
+      "status": "observed",
+      "value": 12,
+      "year": 2019
+    },
+    {
+      "comparability": "bsi:SN11:CN:EUR2m2017:levels-only",
+      "notes": "Banka Slovenije SN11/FATS; source item Number of enterprises*. Direct/indirect control exceeds 50%, not unique Slovenian parents or all Chinese registrations. National China (CN), not a certified CN_X_HK equivalent. Resident-reporter balance-sheet cutoff EUR2m from 2017 and EUR5m from 2023; no comparable current 2019 change. Pre-2017 coverage is not backdated. Source revision/estimate flags are not supplied; published counts do not establish final/census status. Native '..' and '...' are unclassified masked values, never zero or an assumed confidentiality reason. Other native fractional cells retain their precision. Eurostat's separate 2007-2023 archive is downloadable, not spliced into this national series; no 2000-2008 or 2026 padding. Source count literal: 12.",
+      "series_id": "bsi_slovenia:china",
+      "source_id": "bsi_oc_fatse_20260907",
+      "status": "observed",
+      "value": 12,
+      "year": 2020
+    },
+    {
+      "comparability": "bsi:SN11:CN:EUR2m2017:levels-only",
+      "notes": "Banka Slovenije SN11/FATS; source item Number of enterprises*. Direct/indirect control exceeds 50%, not unique Slovenian parents or all Chinese registrations. National China (CN), not a certified CN_X_HK equivalent. Resident-reporter balance-sheet cutoff EUR2m from 2017 and EUR5m from 2023; no comparable current 2019 change. Pre-2017 coverage is not backdated. Source revision/estimate flags are not supplied; published counts do not establish final/census status. Native '..' and '...' are unclassified masked values, never zero or an assumed confidentiality reason. Other native fractional cells retain their precision. Eurostat's separate 2007-2023 archive is downloadable, not spliced into this national series; no 2000-2008 or 2026 padding. Source count literal: 11.",
+      "series_id": "bsi_slovenia:china",
+      "source_id": "bsi_oc_fatse_20260907",
+      "status": "observed",
+      "value": 11,
+      "year": 2021
+    },
+    {
+      "comparability": "bsi:SN11:CN:EUR2m2017:levels-only",
+      "notes": "Banka Slovenije SN11/FATS; source item Number of enterprises*. Direct/indirect control exceeds 50%, not unique Slovenian parents or all Chinese registrations. National China (CN), not a certified CN_X_HK equivalent. Resident-reporter balance-sheet cutoff EUR2m from 2017 and EUR5m from 2023; no comparable current 2019 change. Pre-2017 coverage is not backdated. Source revision/estimate flags are not supplied; published counts do not establish final/census status. Native '..' and '...' are unclassified masked values, never zero or an assumed confidentiality reason. Other native fractional cells retain their precision. Eurostat's separate 2007-2023 archive is downloadable, not spliced into this national series; no 2000-2008 or 2026 padding. Source count literal: 13.",
+      "series_id": "bsi_slovenia:china",
+      "source_id": "bsi_oc_fatse_20260907",
+      "status": "observed",
+      "value": 13,
+      "year": 2022
+    },
+    {
+      "comparability": "bsi:SN11:CN:EUR5m2023:levels-only",
+      "notes": "Banka Slovenije SN11/FATS; source item Number of enterprises*. Direct/indirect control exceeds 50%, not unique Slovenian parents or all Chinese registrations. National China (CN), not a certified CN_X_HK equivalent. Resident-reporter balance-sheet cutoff EUR2m from 2017 and EUR5m from 2023; no comparable current 2019 change. Pre-2017 coverage is not backdated. Source revision/estimate flags are not supplied; published counts do not establish final/census status. Native '..' and '...' are unclassified masked values, never zero or an assumed confidentiality reason. Other native fractional cells retain their precision. Eurostat's separate 2007-2023 archive is downloadable, not spliced into this national series; no 2000-2008 or 2026 padding. Source count literal: 13.",
+      "series_id": "bsi_slovenia:china",
+      "source_id": "bsi_oc_fatse_20260907",
+      "status": "observed",
+      "value": 13,
+      "year": 2023
+    },
+    {
+      "comparability": "bsi:SN11:CN:EUR5m2023:levels-only",
+      "notes": "Banka Slovenije SN11/FATS; source item Number of enterprises*. Direct/indirect control exceeds 50%, not unique Slovenian parents or all Chinese registrations. National China (CN), not a certified CN_X_HK equivalent. Resident-reporter balance-sheet cutoff EUR2m from 2017 and EUR5m from 2023; no comparable current 2019 change. Pre-2017 coverage is not backdated. Source revision/estimate flags are not supplied; published counts do not establish final/census status. Native '..' and '...' are unclassified masked values, never zero or an assumed confidentiality reason. Other native fractional cells retain their precision. Eurostat's separate 2007-2023 archive is downloadable, not spliced into this national series; no 2000-2008 or 2026 padding. Source count literal: 9.",
+      "series_id": "bsi_slovenia:china",
+      "source_id": "bsi_oc_fatse_20260907",
+      "status": "observed",
+      "value": 9,
+      "year": 2024
+    },
+    {
+      "comparability": "bsi:SN11:CN:EUR5m2023:levels-only",
+      "notes": "Banka Slovenije SN11/FATS; source item Number of enterprises*. Direct/indirect control exceeds 50%, not unique Slovenian parents or all Chinese registrations. National China (CN), not a certified CN_X_HK equivalent. Resident-reporter balance-sheet cutoff EUR2m from 2017 and EUR5m from 2023; no comparable current 2019 change. Pre-2017 coverage is not backdated. Source revision/estimate flags are not supplied; published counts do not establish final/census status. Native '..' and '...' are unclassified masked values, never zero or an assumed confidentiality reason. Other native fractional cells retain their precision. Eurostat's separate 2007-2023 archive is downloadable, not spliced into this national series; no 2000-2008 or 2026 padding. Source count literal: 11.",
+      "series_id": "bsi_slovenia:china",
+      "source_id": "bsi_oc_fatse_20260907",
+      "status": "observed",
+      "value": 11,
+      "year": 2025
     },
     {
       "comparability": "bundesbank:BTSXO:CN:EUR3m",
@@ -1758,6 +1951,312 @@
       "year": 2013
     },
     {
+      "comparability": "hungary:uci-enterprises:2022",
+      "notes": "Hungarian ultimate control; China except Hong Kong. HCSO outward-FATS methods and table footnote specify legal units through 2021 and enterprises from 2022. Eurostat's broader 2010-2023 comparable-window claim conflicts with this unit boundary; no harmonization or cross-unit 2019 growth. Keep 2010 NACE and 2021 EBS reference-population/source boundaries. Current FDI screening exceeds EUR 40k and 10% of capital; separate source wording says HUF 10m. These are reporting-frame limits, not verified constant historical cutoffs or an all-firm census. Individual minority-control checks apply; no equally shared control in the target population; nonrespondents are omitted. Primary/secondary confidentiality is retained. Unreported experimental 2004-2006 cells stay source-only. The national table's 2024 EU/outside-EU/all-host totals are not China counts. Source flags: none",
+      "series_id": "eurostat_hungary:china",
+      "source_id": "fats_out_part_HU",
+      "status": "observed",
+      "value": 6,
+      "year": 2022
+    },
+    {
+      "comparability": "hungary:uci-enterprises:2022",
+      "notes": "Hungarian ultimate control; China except Hong Kong. HCSO outward-FATS methods and table footnote specify legal units through 2021 and enterprises from 2022. Eurostat's broader 2010-2023 comparable-window claim conflicts with this unit boundary; no harmonization or cross-unit 2019 growth. Keep 2010 NACE and 2021 EBS reference-population/source boundaries. Current FDI screening exceeds EUR 40k and 10% of capital; separate source wording says HUF 10m. These are reporting-frame limits, not verified constant historical cutoffs or an all-firm census. Individual minority-control checks apply; no equally shared control in the target population; nonrespondents are omitted. Primary/secondary confidentiality is retained. Unreported experimental 2004-2006 cells stay source-only. The national table's 2024 EU/outside-EU/all-host totals are not China counts. Source flags: none",
+      "series_id": "eurostat_hungary:china",
+      "source_id": "fats_out_part_HU",
+      "status": "observed",
+      "value": 6,
+      "year": 2023
+    },
+    {
+      "comparability": "hungary:uci-legal:2007",
+      "notes": "Hungarian ultimate control; China except Hong Kong. HCSO outward-FATS methods and table footnote specify legal units through 2021 and enterprises from 2022. Eurostat's broader 2010-2023 comparable-window claim conflicts with this unit boundary; no harmonization or cross-unit 2019 growth. Keep 2010 NACE and 2021 EBS reference-population/source boundaries. Current FDI screening exceeds EUR 40k and 10% of capital; separate source wording says HUF 10m. These are reporting-frame limits, not verified constant historical cutoffs or an all-firm census. Individual minority-control checks apply; no equally shared control in the target population; nonrespondents are omitted. Primary/secondary confidentiality is retained. Unreported experimental 2004-2006 cells stay source-only. The national table's 2024 EU/outside-EU/all-host totals are not China counts. Source flags: |C",
+      "series_id": "eurostat_hungary_legal:china",
+      "source_id": "fats_out2_HU",
+      "status": "suppressed",
+      "value": null,
+      "year": 2007
+    },
+    {
+      "comparability": "hungary:uci-legal:2007",
+      "notes": "Hungarian ultimate control; China except Hong Kong. HCSO outward-FATS methods and table footnote specify legal units through 2021 and enterprises from 2022. Eurostat's broader 2010-2023 comparable-window claim conflicts with this unit boundary; no harmonization or cross-unit 2019 growth. Keep 2010 NACE and 2021 EBS reference-population/source boundaries. Current FDI screening exceeds EUR 40k and 10% of capital; separate source wording says HUF 10m. These are reporting-frame limits, not verified constant historical cutoffs or an all-firm census. Individual minority-control checks apply; no equally shared control in the target population; nonrespondents are omitted. Primary/secondary confidentiality is retained. Unreported experimental 2004-2006 cells stay source-only. The national table's 2024 EU/outside-EU/all-host totals are not China counts. Source flags: |C",
+      "series_id": "eurostat_hungary_legal:china",
+      "source_id": "fats_out2_HU",
+      "status": "suppressed",
+      "value": null,
+      "year": 2008
+    },
+    {
+      "comparability": "hungary:uci-legal:2007",
+      "notes": "Hungarian ultimate control; China except Hong Kong. HCSO outward-FATS methods and table footnote specify legal units through 2021 and enterprises from 2022. Eurostat's broader 2010-2023 comparable-window claim conflicts with this unit boundary; no harmonization or cross-unit 2019 growth. Keep 2010 NACE and 2021 EBS reference-population/source boundaries. Current FDI screening exceeds EUR 40k and 10% of capital; separate source wording says HUF 10m. These are reporting-frame limits, not verified constant historical cutoffs or an all-firm census. Individual minority-control checks apply; no equally shared control in the target population; nonrespondents are omitted. Primary/secondary confidentiality is retained. Unreported experimental 2004-2006 cells stay source-only. The national table's 2024 EU/outside-EU/all-host totals are not China counts. Source flags: |C",
+      "series_id": "eurostat_hungary_legal:china",
+      "source_id": "fats_out2_HU",
+      "status": "suppressed",
+      "value": null,
+      "year": 2009
+    },
+    {
+      "comparability": "hungary:uci-legal:2010",
+      "notes": "Hungarian ultimate control; China except Hong Kong. HCSO outward-FATS methods and table footnote specify legal units through 2021 and enterprises from 2022. Eurostat's broader 2010-2023 comparable-window claim conflicts with this unit boundary; no harmonization or cross-unit 2019 growth. Keep 2010 NACE and 2021 EBS reference-population/source boundaries. Current FDI screening exceeds EUR 40k and 10% of capital; separate source wording says HUF 10m. These are reporting-frame limits, not verified constant historical cutoffs or an all-firm census. Individual minority-control checks apply; no equally shared control in the target population; nonrespondents are omitted. Primary/secondary confidentiality is retained. Unreported experimental 2004-2006 cells stay source-only. The national table's 2024 EU/outside-EU/all-host totals are not China counts. Source flags: none",
+      "series_id": "eurostat_hungary_legal:china",
+      "source_id": "fats_out2_r2_HU",
+      "status": "observed",
+      "value": 4,
+      "year": 2010
+    },
+    {
+      "comparability": "hungary:uci-legal:2010",
+      "notes": "Hungarian ultimate control; China except Hong Kong. HCSO outward-FATS methods and table footnote specify legal units through 2021 and enterprises from 2022. Eurostat's broader 2010-2023 comparable-window claim conflicts with this unit boundary; no harmonization or cross-unit 2019 growth. Keep 2010 NACE and 2021 EBS reference-population/source boundaries. Current FDI screening exceeds EUR 40k and 10% of capital; separate source wording says HUF 10m. These are reporting-frame limits, not verified constant historical cutoffs or an all-firm census. Individual minority-control checks apply; no equally shared control in the target population; nonrespondents are omitted. Primary/secondary confidentiality is retained. Unreported experimental 2004-2006 cells stay source-only. The national table's 2024 EU/outside-EU/all-host totals are not China counts. Source flags: |C",
+      "series_id": "eurostat_hungary_legal:china",
+      "source_id": "fats_out2_r2_HU",
+      "status": "suppressed",
+      "value": null,
+      "year": 2011
+    },
+    {
+      "comparability": "hungary:uci-legal:2010",
+      "notes": "Hungarian ultimate control; China except Hong Kong. HCSO outward-FATS methods and table footnote specify legal units through 2021 and enterprises from 2022. Eurostat's broader 2010-2023 comparable-window claim conflicts with this unit boundary; no harmonization or cross-unit 2019 growth. Keep 2010 NACE and 2021 EBS reference-population/source boundaries. Current FDI screening exceeds EUR 40k and 10% of capital; separate source wording says HUF 10m. These are reporting-frame limits, not verified constant historical cutoffs or an all-firm census. Individual minority-control checks apply; no equally shared control in the target population; nonrespondents are omitted. Primary/secondary confidentiality is retained. Unreported experimental 2004-2006 cells stay source-only. The national table's 2024 EU/outside-EU/all-host totals are not China counts. Source flags: |C",
+      "series_id": "eurostat_hungary_legal:china",
+      "source_id": "fats_out2_r2_HU",
+      "status": "suppressed",
+      "value": null,
+      "year": 2012
+    },
+    {
+      "comparability": "hungary:uci-legal:2010",
+      "notes": "Hungarian ultimate control; China except Hong Kong. HCSO outward-FATS methods and table footnote specify legal units through 2021 and enterprises from 2022. Eurostat's broader 2010-2023 comparable-window claim conflicts with this unit boundary; no harmonization or cross-unit 2019 growth. Keep 2010 NACE and 2021 EBS reference-population/source boundaries. Current FDI screening exceeds EUR 40k and 10% of capital; separate source wording says HUF 10m. These are reporting-frame limits, not verified constant historical cutoffs or an all-firm census. Individual minority-control checks apply; no equally shared control in the target population; nonrespondents are omitted. Primary/secondary confidentiality is retained. Unreported experimental 2004-2006 cells stay source-only. The national table's 2024 EU/outside-EU/all-host totals are not China counts. Source flags: |C",
+      "series_id": "eurostat_hungary_legal:china",
+      "source_id": "fats_out2_r2_HU",
+      "status": "suppressed",
+      "value": null,
+      "year": 2013
+    },
+    {
+      "comparability": "hungary:uci-legal:2010",
+      "notes": "Hungarian ultimate control; China except Hong Kong. HCSO outward-FATS methods and table footnote specify legal units through 2021 and enterprises from 2022. Eurostat's broader 2010-2023 comparable-window claim conflicts with this unit boundary; no harmonization or cross-unit 2019 growth. Keep 2010 NACE and 2021 EBS reference-population/source boundaries. Current FDI screening exceeds EUR 40k and 10% of capital; separate source wording says HUF 10m. These are reporting-frame limits, not verified constant historical cutoffs or an all-firm census. Individual minority-control checks apply; no equally shared control in the target population; nonrespondents are omitted. Primary/secondary confidentiality is retained. Unreported experimental 2004-2006 cells stay source-only. The national table's 2024 EU/outside-EU/all-host totals are not China counts. Source flags: |C",
+      "series_id": "eurostat_hungary_legal:china",
+      "source_id": "fats_out2_r2_HU",
+      "status": "suppressed",
+      "value": null,
+      "year": 2014
+    },
+    {
+      "comparability": "hungary:uci-legal:2010",
+      "notes": "Hungarian ultimate control; China except Hong Kong. HCSO outward-FATS methods and table footnote specify legal units through 2021 and enterprises from 2022. Eurostat's broader 2010-2023 comparable-window claim conflicts with this unit boundary; no harmonization or cross-unit 2019 growth. Keep 2010 NACE and 2021 EBS reference-population/source boundaries. Current FDI screening exceeds EUR 40k and 10% of capital; separate source wording says HUF 10m. These are reporting-frame limits, not verified constant historical cutoffs or an all-firm census. Individual minority-control checks apply; no equally shared control in the target population; nonrespondents are omitted. Primary/secondary confidentiality is retained. Unreported experimental 2004-2006 cells stay source-only. The national table's 2024 EU/outside-EU/all-host totals are not China counts. Source flags: |C",
+      "series_id": "eurostat_hungary_legal:china",
+      "source_id": "fats_out2_r2_HU",
+      "status": "suppressed",
+      "value": null,
+      "year": 2015
+    },
+    {
+      "comparability": "hungary:uci-legal:2010",
+      "notes": "Hungarian ultimate control; China except Hong Kong. HCSO outward-FATS methods and table footnote specify legal units through 2021 and enterprises from 2022. Eurostat's broader 2010-2023 comparable-window claim conflicts with this unit boundary; no harmonization or cross-unit 2019 growth. Keep 2010 NACE and 2021 EBS reference-population/source boundaries. Current FDI screening exceeds EUR 40k and 10% of capital; separate source wording says HUF 10m. These are reporting-frame limits, not verified constant historical cutoffs or an all-firm census. Individual minority-control checks apply; no equally shared control in the target population; nonrespondents are omitted. Primary/secondary confidentiality is retained. Unreported experimental 2004-2006 cells stay source-only. The national table's 2024 EU/outside-EU/all-host totals are not China counts. Source flags: |C",
+      "series_id": "eurostat_hungary_legal:china",
+      "source_id": "fats_out2_r2_HU",
+      "status": "suppressed",
+      "value": null,
+      "year": 2016
+    },
+    {
+      "comparability": "hungary:uci-legal:2010",
+      "notes": "Hungarian ultimate control; China except Hong Kong. HCSO outward-FATS methods and table footnote specify legal units through 2021 and enterprises from 2022. Eurostat's broader 2010-2023 comparable-window claim conflicts with this unit boundary; no harmonization or cross-unit 2019 growth. Keep 2010 NACE and 2021 EBS reference-population/source boundaries. Current FDI screening exceeds EUR 40k and 10% of capital; separate source wording says HUF 10m. These are reporting-frame limits, not verified constant historical cutoffs or an all-firm census. Individual minority-control checks apply; no equally shared control in the target population; nonrespondents are omitted. Primary/secondary confidentiality is retained. Unreported experimental 2004-2006 cells stay source-only. The national table's 2024 EU/outside-EU/all-host totals are not China counts. Source flags: |C",
+      "series_id": "eurostat_hungary_legal:china",
+      "source_id": "fats_out2_r2_HU",
+      "status": "suppressed",
+      "value": null,
+      "year": 2017
+    },
+    {
+      "comparability": "hungary:uci-legal:2010",
+      "notes": "Hungarian ultimate control; China except Hong Kong. HCSO outward-FATS methods and table footnote specify legal units through 2021 and enterprises from 2022. Eurostat's broader 2010-2023 comparable-window claim conflicts with this unit boundary; no harmonization or cross-unit 2019 growth. Keep 2010 NACE and 2021 EBS reference-population/source boundaries. Current FDI screening exceeds EUR 40k and 10% of capital; separate source wording says HUF 10m. These are reporting-frame limits, not verified constant historical cutoffs or an all-firm census. Individual minority-control checks apply; no equally shared control in the target population; nonrespondents are omitted. Primary/secondary confidentiality is retained. Unreported experimental 2004-2006 cells stay source-only. The national table's 2024 EU/outside-EU/all-host totals are not China counts. Source flags: none",
+      "series_id": "eurostat_hungary_legal:china",
+      "source_id": "fats_out2_r2_HU",
+      "status": "observed",
+      "value": 3,
+      "year": 2018
+    },
+    {
+      "comparability": "hungary:uci-legal:2010",
+      "notes": "Hungarian ultimate control; China except Hong Kong. HCSO outward-FATS methods and table footnote specify legal units through 2021 and enterprises from 2022. Eurostat's broader 2010-2023 comparable-window claim conflicts with this unit boundary; no harmonization or cross-unit 2019 growth. Keep 2010 NACE and 2021 EBS reference-population/source boundaries. Current FDI screening exceeds EUR 40k and 10% of capital; separate source wording says HUF 10m. These are reporting-frame limits, not verified constant historical cutoffs or an all-firm census. Individual minority-control checks apply; no equally shared control in the target population; nonrespondents are omitted. Primary/secondary confidentiality is retained. Unreported experimental 2004-2006 cells stay source-only. The national table's 2024 EU/outside-EU/all-host totals are not China counts. Source flags: none",
+      "series_id": "eurostat_hungary_legal:china",
+      "source_id": "fats_out2_r2_HU",
+      "status": "observed",
+      "value": 4,
+      "year": 2019
+    },
+    {
+      "comparability": "hungary:uci-legal:2010",
+      "notes": "Hungarian ultimate control; China except Hong Kong. HCSO outward-FATS methods and table footnote specify legal units through 2021 and enterprises from 2022. Eurostat's broader 2010-2023 comparable-window claim conflicts with this unit boundary; no harmonization or cross-unit 2019 growth. Keep 2010 NACE and 2021 EBS reference-population/source boundaries. Current FDI screening exceeds EUR 40k and 10% of capital; separate source wording says HUF 10m. These are reporting-frame limits, not verified constant historical cutoffs or an all-firm census. Individual minority-control checks apply; no equally shared control in the target population; nonrespondents are omitted. Primary/secondary confidentiality is retained. Unreported experimental 2004-2006 cells stay source-only. The national table's 2024 EU/outside-EU/all-host totals are not China counts. Source flags: none",
+      "series_id": "eurostat_hungary_legal:china",
+      "source_id": "fats_out2_r2_HU",
+      "status": "observed",
+      "value": 8,
+      "year": 2020
+    },
+    {
+      "comparability": "hungary:uci-legal:2021",
+      "notes": "Hungarian ultimate control; China except Hong Kong. HCSO outward-FATS methods and table footnote specify legal units through 2021 and enterprises from 2022. Eurostat's broader 2010-2023 comparable-window claim conflicts with this unit boundary; no harmonization or cross-unit 2019 growth. Keep 2010 NACE and 2021 EBS reference-population/source boundaries. Current FDI screening exceeds EUR 40k and 10% of capital; separate source wording says HUF 10m. These are reporting-frame limits, not verified constant historical cutoffs or an all-firm census. Individual minority-control checks apply; no equally shared control in the target population; nonrespondents are omitted. Primary/secondary confidentiality is retained. Unreported experimental 2004-2006 cells stay source-only. The national table's 2024 EU/outside-EU/all-host totals are not China counts. Source flags: none",
+      "series_id": "eurostat_hungary_legal:china",
+      "source_id": "fats_out_part_HU",
+      "status": "observed",
+      "value": 9,
+      "year": 2021
+    },
+    {
+      "comparability": "ireland:uci_nace2_2010_2022",
+      "notes": "Reported foreign affiliate enterprises, not unique Irish parents or office locations. CSO expressly compares 2010-2022; no generic 2021 unit break is invented. 2023 continuity remains independently unreviewed and is not a merged endpoint. Background 51% capital wording and compilation exclusion below 50% remain distinct published rules, not silently reconciled or backdated. Inactive zero-employment/zero-turnover affiliates are excluded. 2022 parent-survey response was 52%; prior responders may be imputed, newly nonresponding units are not. Consolidated returns can understate affiliate counts; this is not a census of all Irish firms. National agriculture-inclusive descriptions do not replace selected Eurostat NACE scope. Archive/data-only; no current Irish plot, default 2019 growth or 2000-2006/2024 value inferred. Native collection lineage: fats_out2_r2:IE:0; source flags: none",
+      "series_id": "eurostat_ireland:china",
+      "source_id": "fats_out2_r2_IE",
+      "status": "observed",
+      "value": 36,
+      "year": 2010
+    },
+    {
+      "comparability": "ireland:uci_nace2_2010_2022",
+      "notes": "Reported foreign affiliate enterprises, not unique Irish parents or office locations. CSO expressly compares 2010-2022; no generic 2021 unit break is invented. 2023 continuity remains independently unreviewed and is not a merged endpoint. Background 51% capital wording and compilation exclusion below 50% remain distinct published rules, not silently reconciled or backdated. Inactive zero-employment/zero-turnover affiliates are excluded. 2022 parent-survey response was 52%; prior responders may be imputed, newly nonresponding units are not. Consolidated returns can understate affiliate counts; this is not a census of all Irish firms. National agriculture-inclusive descriptions do not replace selected Eurostat NACE scope. Archive/data-only; no current Irish plot, default 2019 growth or 2000-2006/2024 value inferred. Native collection lineage: fats_out2_r2:IE:0; source flags: none",
+      "series_id": "eurostat_ireland:china",
+      "source_id": "fats_out2_r2_IE",
+      "status": "observed",
+      "value": 27,
+      "year": 2011
+    },
+    {
+      "comparability": "ireland:uci_nace2_2010_2022",
+      "notes": "Reported foreign affiliate enterprises, not unique Irish parents or office locations. CSO expressly compares 2010-2022; no generic 2021 unit break is invented. 2023 continuity remains independently unreviewed and is not a merged endpoint. Background 51% capital wording and compilation exclusion below 50% remain distinct published rules, not silently reconciled or backdated. Inactive zero-employment/zero-turnover affiliates are excluded. 2022 parent-survey response was 52%; prior responders may be imputed, newly nonresponding units are not. Consolidated returns can understate affiliate counts; this is not a census of all Irish firms. National agriculture-inclusive descriptions do not replace selected Eurostat NACE scope. Archive/data-only; no current Irish plot, default 2019 growth or 2000-2006/2024 value inferred. Native collection lineage: fats_out2_r2:IE:0; source flags: none",
+      "series_id": "eurostat_ireland:china",
+      "source_id": "fats_out2_r2_IE",
+      "status": "observed",
+      "value": 26,
+      "year": 2012
+    },
+    {
+      "comparability": "ireland:uci_nace2_2010_2022",
+      "notes": "Reported foreign affiliate enterprises, not unique Irish parents or office locations. CSO expressly compares 2010-2022; no generic 2021 unit break is invented. 2023 continuity remains independently unreviewed and is not a merged endpoint. Background 51% capital wording and compilation exclusion below 50% remain distinct published rules, not silently reconciled or backdated. Inactive zero-employment/zero-turnover affiliates are excluded. 2022 parent-survey response was 52%; prior responders may be imputed, newly nonresponding units are not. Consolidated returns can understate affiliate counts; this is not a census of all Irish firms. National agriculture-inclusive descriptions do not replace selected Eurostat NACE scope. Archive/data-only; no current Irish plot, default 2019 growth or 2000-2006/2024 value inferred. Native collection lineage: fats_out2_r2:IE:0; source flags: none",
+      "series_id": "eurostat_ireland:china",
+      "source_id": "fats_out2_r2_IE",
+      "status": "observed",
+      "value": 27,
+      "year": 2013
+    },
+    {
+      "comparability": "ireland:uci_nace2_2010_2022",
+      "notes": "Reported foreign affiliate enterprises, not unique Irish parents or office locations. CSO expressly compares 2010-2022; no generic 2021 unit break is invented. 2023 continuity remains independently unreviewed and is not a merged endpoint. Background 51% capital wording and compilation exclusion below 50% remain distinct published rules, not silently reconciled or backdated. Inactive zero-employment/zero-turnover affiliates are excluded. 2022 parent-survey response was 52%; prior responders may be imputed, newly nonresponding units are not. Consolidated returns can understate affiliate counts; this is not a census of all Irish firms. National agriculture-inclusive descriptions do not replace selected Eurostat NACE scope. Archive/data-only; no current Irish plot, default 2019 growth or 2000-2006/2024 value inferred. Native collection lineage: fats_out2_r2:IE:0; source flags: none",
+      "series_id": "eurostat_ireland:china",
+      "source_id": "fats_out2_r2_IE",
+      "status": "observed",
+      "value": 30,
+      "year": 2014
+    },
+    {
+      "comparability": "ireland:uci_nace2_2010_2022",
+      "notes": "Reported foreign affiliate enterprises, not unique Irish parents or office locations. CSO expressly compares 2010-2022; no generic 2021 unit break is invented. 2023 continuity remains independently unreviewed and is not a merged endpoint. Background 51% capital wording and compilation exclusion below 50% remain distinct published rules, not silently reconciled or backdated. Inactive zero-employment/zero-turnover affiliates are excluded. 2022 parent-survey response was 52%; prior responders may be imputed, newly nonresponding units are not. Consolidated returns can understate affiliate counts; this is not a census of all Irish firms. National agriculture-inclusive descriptions do not replace selected Eurostat NACE scope. Archive/data-only; no current Irish plot, default 2019 growth or 2000-2006/2024 value inferred. Native collection lineage: fats_out2_r2:IE:0; source flags: none",
+      "series_id": "eurostat_ireland:china",
+      "source_id": "fats_out2_r2_IE",
+      "status": "observed",
+      "value": 36,
+      "year": 2015
+    },
+    {
+      "comparability": "ireland:uci_nace2_2010_2022",
+      "notes": "Reported foreign affiliate enterprises, not unique Irish parents or office locations. CSO expressly compares 2010-2022; no generic 2021 unit break is invented. 2023 continuity remains independently unreviewed and is not a merged endpoint. Background 51% capital wording and compilation exclusion below 50% remain distinct published rules, not silently reconciled or backdated. Inactive zero-employment/zero-turnover affiliates are excluded. 2022 parent-survey response was 52%; prior responders may be imputed, newly nonresponding units are not. Consolidated returns can understate affiliate counts; this is not a census of all Irish firms. National agriculture-inclusive descriptions do not replace selected Eurostat NACE scope. Archive/data-only; no current Irish plot, default 2019 growth or 2000-2006/2024 value inferred. Native collection lineage: fats_out2_r2:IE:0; source flags: none",
+      "series_id": "eurostat_ireland:china",
+      "source_id": "fats_out2_r2_IE",
+      "status": "observed",
+      "value": 79,
+      "year": 2016
+    },
+    {
+      "comparability": "ireland:uci_nace2_2010_2022",
+      "notes": "Reported foreign affiliate enterprises, not unique Irish parents or office locations. CSO expressly compares 2010-2022; no generic 2021 unit break is invented. 2023 continuity remains independently unreviewed and is not a merged endpoint. Background 51% capital wording and compilation exclusion below 50% remain distinct published rules, not silently reconciled or backdated. Inactive zero-employment/zero-turnover affiliates are excluded. 2022 parent-survey response was 52%; prior responders may be imputed, newly nonresponding units are not. Consolidated returns can understate affiliate counts; this is not a census of all Irish firms. National agriculture-inclusive descriptions do not replace selected Eurostat NACE scope. Archive/data-only; no current Irish plot, default 2019 growth or 2000-2006/2024 value inferred. Native collection lineage: fats_out2_r2:IE:0; source flags: none",
+      "series_id": "eurostat_ireland:china",
+      "source_id": "fats_out2_r2_IE",
+      "status": "observed",
+      "value": 93,
+      "year": 2017
+    },
+    {
+      "comparability": "ireland:uci_nace2_2010_2022",
+      "notes": "Reported foreign affiliate enterprises, not unique Irish parents or office locations. CSO expressly compares 2010-2022; no generic 2021 unit break is invented. 2023 continuity remains independently unreviewed and is not a merged endpoint. Background 51% capital wording and compilation exclusion below 50% remain distinct published rules, not silently reconciled or backdated. Inactive zero-employment/zero-turnover affiliates are excluded. 2022 parent-survey response was 52%; prior responders may be imputed, newly nonresponding units are not. Consolidated returns can understate affiliate counts; this is not a census of all Irish firms. National agriculture-inclusive descriptions do not replace selected Eurostat NACE scope. Archive/data-only; no current Irish plot, default 2019 growth or 2000-2006/2024 value inferred. Native collection lineage: fats_out2_r2:IE:0; source flags: none",
+      "series_id": "eurostat_ireland:china",
+      "source_id": "fats_out2_r2_IE",
+      "status": "observed",
+      "value": 111,
+      "year": 2018
+    },
+    {
+      "comparability": "ireland:uci_nace2_2010_2022",
+      "notes": "Reported foreign affiliate enterprises, not unique Irish parents or office locations. CSO expressly compares 2010-2022; no generic 2021 unit break is invented. 2023 continuity remains independently unreviewed and is not a merged endpoint. Background 51% capital wording and compilation exclusion below 50% remain distinct published rules, not silently reconciled or backdated. Inactive zero-employment/zero-turnover affiliates are excluded. 2022 parent-survey response was 52%; prior responders may be imputed, newly nonresponding units are not. Consolidated returns can understate affiliate counts; this is not a census of all Irish firms. National agriculture-inclusive descriptions do not replace selected Eurostat NACE scope. Archive/data-only; no current Irish plot, default 2019 growth or 2000-2006/2024 value inferred. Native collection lineage: fats_out2_r2:IE:0; source flags: none",
+      "series_id": "eurostat_ireland:china",
+      "source_id": "fats_out2_r2_IE",
+      "status": "observed",
+      "value": 109,
+      "year": 2019
+    },
+    {
+      "comparability": "ireland:uci_nace2_2010_2022",
+      "notes": "Reported foreign affiliate enterprises, not unique Irish parents or office locations. CSO expressly compares 2010-2022; no generic 2021 unit break is invented. 2023 continuity remains independently unreviewed and is not a merged endpoint. Background 51% capital wording and compilation exclusion below 50% remain distinct published rules, not silently reconciled or backdated. Inactive zero-employment/zero-turnover affiliates are excluded. 2022 parent-survey response was 52%; prior responders may be imputed, newly nonresponding units are not. Consolidated returns can understate affiliate counts; this is not a census of all Irish firms. National agriculture-inclusive descriptions do not replace selected Eurostat NACE scope. Archive/data-only; no current Irish plot, default 2019 growth or 2000-2006/2024 value inferred. Native collection lineage: fats_out2_r2:IE:0; source flags: none",
+      "series_id": "eurostat_ireland:china",
+      "source_id": "fats_out2_r2_IE",
+      "status": "observed",
+      "value": 98,
+      "year": 2020
+    },
+    {
+      "comparability": "ireland:uci_nace2_2010_2022",
+      "notes": "Reported foreign affiliate enterprises, not unique Irish parents or office locations. CSO expressly compares 2010-2022; no generic 2021 unit break is invented. 2023 continuity remains independently unreviewed and is not a merged endpoint. Background 51% capital wording and compilation exclusion below 50% remain distinct published rules, not silently reconciled or backdated. Inactive zero-employment/zero-turnover affiliates are excluded. 2022 parent-survey response was 52%; prior responders may be imputed, newly nonresponding units are not. Consolidated returns can understate affiliate counts; this is not a census of all Irish firms. National agriculture-inclusive descriptions do not replace selected Eurostat NACE scope. Archive/data-only; no current Irish plot, default 2019 growth or 2000-2006/2024 value inferred. Native collection lineage: fats_out_part:IE:0; source flags: none",
+      "series_id": "eurostat_ireland:china",
+      "source_id": "fats_out_part_IE",
+      "status": "observed",
+      "value": 101,
+      "year": 2021
+    },
+    {
+      "comparability": "ireland:uci_nace2_2010_2022",
+      "notes": "Reported foreign affiliate enterprises, not unique Irish parents or office locations. CSO expressly compares 2010-2022; no generic 2021 unit break is invented. 2023 continuity remains independently unreviewed and is not a merged endpoint. Background 51% capital wording and compilation exclusion below 50% remain distinct published rules, not silently reconciled or backdated. Inactive zero-employment/zero-turnover affiliates are excluded. 2022 parent-survey response was 52%; prior responders may be imputed, newly nonresponding units are not. Consolidated returns can understate affiliate counts; this is not a census of all Irish firms. National agriculture-inclusive descriptions do not replace selected Eurostat NACE scope. Archive/data-only; no current Irish plot, default 2019 growth or 2000-2006/2024 value inferred. Native collection lineage: fats_out_part:IE:0; source flags: none",
+      "series_id": "eurostat_ireland:china",
+      "source_id": "fats_out_part_IE",
+      "status": "observed",
+      "value": 98,
+      "year": 2022
+    },
+    {
+      "comparability": "ireland:legacy_nace1",
+      "notes": "Reported foreign affiliate enterprises, not unique Irish parents or office locations. CSO expressly compares 2010-2022; no generic 2021 unit break is invented. 2023 continuity remains independently unreviewed and is not a merged endpoint. Background 51% capital wording and compilation exclusion below 50% remain distinct published rules, not silently reconciled or backdated. Inactive zero-employment/zero-turnover affiliates are excluded. 2022 parent-survey response was 52%; prior responders may be imputed, newly nonresponding units are not. Consolidated returns can understate affiliate counts; this is not a census of all Irish firms. National agriculture-inclusive descriptions do not replace selected Eurostat NACE scope. Archive/data-only; no current Irish plot, default 2019 growth or 2000-2006/2024 value inferred. Native collection lineage: fats_out2:IE:0; source flags: |C",
+      "series_id": "eurostat_ireland_legacy:china",
+      "source_id": "fats_out2_IE",
+      "status": "suppressed",
+      "value": null,
+      "year": 2007
+    },
+    {
+      "comparability": "ireland:legacy_nace1",
+      "notes": "Reported foreign affiliate enterprises, not unique Irish parents or office locations. CSO expressly compares 2010-2022; no generic 2021 unit break is invented. 2023 continuity remains independently unreviewed and is not a merged endpoint. Background 51% capital wording and compilation exclusion below 50% remain distinct published rules, not silently reconciled or backdated. Inactive zero-employment/zero-turnover affiliates are excluded. 2022 parent-survey response was 52%; prior responders may be imputed, newly nonresponding units are not. Consolidated returns can understate affiliate counts; this is not a census of all Irish firms. National agriculture-inclusive descriptions do not replace selected Eurostat NACE scope. Archive/data-only; no current Irish plot, default 2019 growth or 2000-2006/2024 value inferred. Native collection lineage: fats_out2:IE:0; source flags: |C",
+      "series_id": "eurostat_ireland_legacy:china",
+      "source_id": "fats_out2_IE",
+      "status": "suppressed",
+      "value": null,
+      "year": 2008
+    },
+    {
+      "comparability": "ireland:legacy_nace1",
+      "notes": "Reported foreign affiliate enterprises, not unique Irish parents or office locations. CSO expressly compares 2010-2022; no generic 2021 unit break is invented. 2023 continuity remains independently unreviewed and is not a merged endpoint. Background 51% capital wording and compilation exclusion below 50% remain distinct published rules, not silently reconciled or backdated. Inactive zero-employment/zero-turnover affiliates are excluded. 2022 parent-survey response was 52%; prior responders may be imputed, newly nonresponding units are not. Consolidated returns can understate affiliate counts; this is not a census of all Irish firms. National agriculture-inclusive descriptions do not replace selected Eurostat NACE scope. Archive/data-only; no current Irish plot, default 2019 growth or 2000-2006/2024 value inferred. Native collection lineage: fats_out2:IE:0; source flags: |C",
+      "series_id": "eurostat_ireland_legacy:china",
+      "source_id": "fats_out2_IE",
+      "status": "suppressed",
+      "value": null,
+      "year": 2009
+    },
+    {
+      "comparability": "ireland:2023_continuity_unreviewed",
+      "notes": "Reported foreign affiliate enterprises, not unique Irish parents or office locations. CSO expressly compares 2010-2022; no generic 2021 unit break is invented. 2023 continuity remains independently unreviewed and is not a merged endpoint. Background 51% capital wording and compilation exclusion below 50% remain distinct published rules, not silently reconciled or backdated. Inactive zero-employment/zero-turnover affiliates are excluded. 2022 parent-survey response was 52%; prior responders may be imputed, newly nonresponding units are not. Consolidated returns can understate affiliate counts; this is not a census of all Irish firms. National agriculture-inclusive descriptions do not replace selected Eurostat NACE scope. Archive/data-only; no current Irish plot, default 2019 growth or 2000-2006/2024 value inferred. Native collection lineage: fats_out_part:IE:0; source flags: none",
+      "series_id": "eurostat_ireland_unreviewed:china",
+      "source_id": "fats_out_part_IE",
+      "status": "observed",
+      "value": 122,
+      "year": 2023
+    },
+    {
       "comparability": "fats_out_part:IT:0",
       "notes": "Eurostat changes from legal units to grouped enterprises in 2021; ISTAT national reports continue counting legal units. The national 2019/2020 controls match both older Eurostat values. Keep the 2010 NACE and 2021 source boundaries, original estimated flags and separate enterprise population. No pre-2007 count or cross-source 2019 change is inferred. Source flags: none",
       "series_id": "eurostat_italy:china",
@@ -1935,6 +2434,141 @@
       "source_id": "istat_italy_legal_2023",
       "status": "estimated",
       "value": 1122,
+      "year": 2023
+    },
+    {
+      "comparability": "luxembourg:uci2009:continuous",
+      "notes": "Luxembourg-resident ultimate control; enterprises or branches in China except Hong Kong, not all resident immediate parents or an all-firm census. SPEs are excluded from the underlying FDI survey; the frame covers all large and medium enterprises and many small entities. The country report declares comparability from 2009 with no methodological break, not an independent audit of every historical vintage. Retain the 2010 NACE and 2021 dataset lineage without inventing a country-unit break. 2007/2008 are unreported, not zero; no earlier or unpublished current-year observations are inferred. Luxembourg overlaps EU aggregates. Source flags: none",
+      "series_id": "eurostat_luxembourg:china",
+      "source_id": "fats_out2_LU",
+      "status": "observed",
+      "value": 8,
+      "year": 2009
+    },
+    {
+      "comparability": "luxembourg:uci2009:continuous",
+      "notes": "Luxembourg-resident ultimate control; enterprises or branches in China except Hong Kong, not all resident immediate parents or an all-firm census. SPEs are excluded from the underlying FDI survey; the frame covers all large and medium enterprises and many small entities. The country report declares comparability from 2009 with no methodological break, not an independent audit of every historical vintage. Retain the 2010 NACE and 2021 dataset lineage without inventing a country-unit break. 2007/2008 are unreported, not zero; no earlier or unpublished current-year observations are inferred. Luxembourg overlaps EU aggregates. Source flags: none",
+      "series_id": "eurostat_luxembourg:china",
+      "source_id": "fats_out2_r2_LU",
+      "status": "observed",
+      "value": 10,
+      "year": 2010
+    },
+    {
+      "comparability": "luxembourg:uci2009:continuous",
+      "notes": "Luxembourg-resident ultimate control; enterprises or branches in China except Hong Kong, not all resident immediate parents or an all-firm census. SPEs are excluded from the underlying FDI survey; the frame covers all large and medium enterprises and many small entities. The country report declares comparability from 2009 with no methodological break, not an independent audit of every historical vintage. Retain the 2010 NACE and 2021 dataset lineage without inventing a country-unit break. 2007/2008 are unreported, not zero; no earlier or unpublished current-year observations are inferred. Luxembourg overlaps EU aggregates. Source flags: none",
+      "series_id": "eurostat_luxembourg:china",
+      "source_id": "fats_out2_r2_LU",
+      "status": "observed",
+      "value": 7,
+      "year": 2011
+    },
+    {
+      "comparability": "luxembourg:uci2009:continuous",
+      "notes": "Luxembourg-resident ultimate control; enterprises or branches in China except Hong Kong, not all resident immediate parents or an all-firm census. SPEs are excluded from the underlying FDI survey; the frame covers all large and medium enterprises and many small entities. The country report declares comparability from 2009 with no methodological break, not an independent audit of every historical vintage. Retain the 2010 NACE and 2021 dataset lineage without inventing a country-unit break. 2007/2008 are unreported, not zero; no earlier or unpublished current-year observations are inferred. Luxembourg overlaps EU aggregates. Source flags: none",
+      "series_id": "eurostat_luxembourg:china",
+      "source_id": "fats_out2_r2_LU",
+      "status": "observed",
+      "value": 13,
+      "year": 2012
+    },
+    {
+      "comparability": "luxembourg:uci2009:continuous",
+      "notes": "Luxembourg-resident ultimate control; enterprises or branches in China except Hong Kong, not all resident immediate parents or an all-firm census. SPEs are excluded from the underlying FDI survey; the frame covers all large and medium enterprises and many small entities. The country report declares comparability from 2009 with no methodological break, not an independent audit of every historical vintage. Retain the 2010 NACE and 2021 dataset lineage without inventing a country-unit break. 2007/2008 are unreported, not zero; no earlier or unpublished current-year observations are inferred. Luxembourg overlaps EU aggregates. Source flags: none",
+      "series_id": "eurostat_luxembourg:china",
+      "source_id": "fats_out2_r2_LU",
+      "status": "observed",
+      "value": 13,
+      "year": 2013
+    },
+    {
+      "comparability": "luxembourg:uci2009:continuous",
+      "notes": "Luxembourg-resident ultimate control; enterprises or branches in China except Hong Kong, not all resident immediate parents or an all-firm census. SPEs are excluded from the underlying FDI survey; the frame covers all large and medium enterprises and many small entities. The country report declares comparability from 2009 with no methodological break, not an independent audit of every historical vintage. Retain the 2010 NACE and 2021 dataset lineage without inventing a country-unit break. 2007/2008 are unreported, not zero; no earlier or unpublished current-year observations are inferred. Luxembourg overlaps EU aggregates. Source flags: none",
+      "series_id": "eurostat_luxembourg:china",
+      "source_id": "fats_out2_r2_LU",
+      "status": "observed",
+      "value": 7,
+      "year": 2014
+    },
+    {
+      "comparability": "luxembourg:uci2009:continuous",
+      "notes": "Luxembourg-resident ultimate control; enterprises or branches in China except Hong Kong, not all resident immediate parents or an all-firm census. SPEs are excluded from the underlying FDI survey; the frame covers all large and medium enterprises and many small entities. The country report declares comparability from 2009 with no methodological break, not an independent audit of every historical vintage. Retain the 2010 NACE and 2021 dataset lineage without inventing a country-unit break. 2007/2008 are unreported, not zero; no earlier or unpublished current-year observations are inferred. Luxembourg overlaps EU aggregates. Source flags: none",
+      "series_id": "eurostat_luxembourg:china",
+      "source_id": "fats_out2_r2_LU",
+      "status": "observed",
+      "value": 7,
+      "year": 2015
+    },
+    {
+      "comparability": "luxembourg:uci2009:continuous",
+      "notes": "Luxembourg-resident ultimate control; enterprises or branches in China except Hong Kong, not all resident immediate parents or an all-firm census. SPEs are excluded from the underlying FDI survey; the frame covers all large and medium enterprises and many small entities. The country report declares comparability from 2009 with no methodological break, not an independent audit of every historical vintage. Retain the 2010 NACE and 2021 dataset lineage without inventing a country-unit break. 2007/2008 are unreported, not zero; no earlier or unpublished current-year observations are inferred. Luxembourg overlaps EU aggregates. Source flags: none",
+      "series_id": "eurostat_luxembourg:china",
+      "source_id": "fats_out2_r2_LU",
+      "status": "observed",
+      "value": 7,
+      "year": 2016
+    },
+    {
+      "comparability": "luxembourg:uci2009:continuous",
+      "notes": "Luxembourg-resident ultimate control; enterprises or branches in China except Hong Kong, not all resident immediate parents or an all-firm census. SPEs are excluded from the underlying FDI survey; the frame covers all large and medium enterprises and many small entities. The country report declares comparability from 2009 with no methodological break, not an independent audit of every historical vintage. Retain the 2010 NACE and 2021 dataset lineage without inventing a country-unit break. 2007/2008 are unreported, not zero; no earlier or unpublished current-year observations are inferred. Luxembourg overlaps EU aggregates. Source flags: none",
+      "series_id": "eurostat_luxembourg:china",
+      "source_id": "fats_out2_r2_LU",
+      "status": "observed",
+      "value": 7,
+      "year": 2017
+    },
+    {
+      "comparability": "luxembourg:uci2009:continuous",
+      "notes": "Luxembourg-resident ultimate control; enterprises or branches in China except Hong Kong, not all resident immediate parents or an all-firm census. SPEs are excluded from the underlying FDI survey; the frame covers all large and medium enterprises and many small entities. The country report declares comparability from 2009 with no methodological break, not an independent audit of every historical vintage. Retain the 2010 NACE and 2021 dataset lineage without inventing a country-unit break. 2007/2008 are unreported, not zero; no earlier or unpublished current-year observations are inferred. Luxembourg overlaps EU aggregates. Source flags: none",
+      "series_id": "eurostat_luxembourg:china",
+      "source_id": "fats_out2_r2_LU",
+      "status": "observed",
+      "value": 8,
+      "year": 2018
+    },
+    {
+      "comparability": "luxembourg:uci2009:continuous",
+      "notes": "Luxembourg-resident ultimate control; enterprises or branches in China except Hong Kong, not all resident immediate parents or an all-firm census. SPEs are excluded from the underlying FDI survey; the frame covers all large and medium enterprises and many small entities. The country report declares comparability from 2009 with no methodological break, not an independent audit of every historical vintage. Retain the 2010 NACE and 2021 dataset lineage without inventing a country-unit break. 2007/2008 are unreported, not zero; no earlier or unpublished current-year observations are inferred. Luxembourg overlaps EU aggregates. Source flags: none",
+      "series_id": "eurostat_luxembourg:china",
+      "source_id": "fats_out2_r2_LU",
+      "status": "observed",
+      "value": 10,
+      "year": 2019
+    },
+    {
+      "comparability": "luxembourg:uci2009:continuous",
+      "notes": "Luxembourg-resident ultimate control; enterprises or branches in China except Hong Kong, not all resident immediate parents or an all-firm census. SPEs are excluded from the underlying FDI survey; the frame covers all large and medium enterprises and many small entities. The country report declares comparability from 2009 with no methodological break, not an independent audit of every historical vintage. Retain the 2010 NACE and 2021 dataset lineage without inventing a country-unit break. 2007/2008 are unreported, not zero; no earlier or unpublished current-year observations are inferred. Luxembourg overlaps EU aggregates. Source flags: none",
+      "series_id": "eurostat_luxembourg:china",
+      "source_id": "fats_out2_r2_LU",
+      "status": "observed",
+      "value": 10,
+      "year": 2020
+    },
+    {
+      "comparability": "luxembourg:uci2009:continuous",
+      "notes": "Luxembourg-resident ultimate control; enterprises or branches in China except Hong Kong, not all resident immediate parents or an all-firm census. SPEs are excluded from the underlying FDI survey; the frame covers all large and medium enterprises and many small entities. The country report declares comparability from 2009 with no methodological break, not an independent audit of every historical vintage. Retain the 2010 NACE and 2021 dataset lineage without inventing a country-unit break. 2007/2008 are unreported, not zero; no earlier or unpublished current-year observations are inferred. Luxembourg overlaps EU aggregates. Source flags: none",
+      "series_id": "eurostat_luxembourg:china",
+      "source_id": "fats_out_part_LU",
+      "status": "observed",
+      "value": 9,
+      "year": 2021
+    },
+    {
+      "comparability": "luxembourg:uci2009:continuous",
+      "notes": "Luxembourg-resident ultimate control; enterprises or branches in China except Hong Kong, not all resident immediate parents or an all-firm census. SPEs are excluded from the underlying FDI survey; the frame covers all large and medium enterprises and many small entities. The country report declares comparability from 2009 with no methodological break, not an independent audit of every historical vintage. Retain the 2010 NACE and 2021 dataset lineage without inventing a country-unit break. 2007/2008 are unreported, not zero; no earlier or unpublished current-year observations are inferred. Luxembourg overlaps EU aggregates. Source flags: none",
+      "series_id": "eurostat_luxembourg:china",
+      "source_id": "fats_out_part_LU",
+      "status": "observed",
+      "value": 11,
+      "year": 2022
+    },
+    {
+      "comparability": "luxembourg:uci2009:continuous",
+      "notes": "Luxembourg-resident ultimate control; enterprises or branches in China except Hong Kong, not all resident immediate parents or an all-firm census. SPEs are excluded from the underlying FDI survey; the frame covers all large and medium enterprises and many small entities. The country report declares comparability from 2009 with no methodological break, not an independent audit of every historical vintage. Retain the 2010 NACE and 2021 dataset lineage without inventing a country-unit break. 2007/2008 are unreported, not zero; no earlier or unpublished current-year observations are inferred. Luxembourg overlaps EU aggregates. Source flags: none",
+      "series_id": "eurostat_luxembourg:china",
+      "source_id": "fats_out_part_LU",
+      "status": "observed",
+      "value": 11,
       "year": 2023
     },
     {
@@ -2530,6 +3164,159 @@
       "status": "observed",
       "value": 3,
       "year": 2007
+    },
+    {
+      "comparability": "fats_out2:SI:0",
+      "notes": "Download-only Slovenian-resident UCI enterprises/branches in China except Hong Kong. Keep the 2010 NACE transition, 2017 source break flag and 2021 EBS dataset lineage distinct; no unverified legal-unit conversion is invented. 2009 is confidential, not replaced by the separate national count. Numerical overlap does not establish identical geography/populations. Current national reporting cutoffs are not assumed historically constant; no pre-2007 count. Source flags: ",
+      "series_id": "eurostat_slovenia:china",
+      "source_id": "fats_out2_SI",
+      "status": "observed",
+      "value": 4,
+      "year": 2007
+    },
+    {
+      "comparability": "fats_out2:SI:0",
+      "notes": "Download-only Slovenian-resident UCI enterprises/branches in China except Hong Kong. Keep the 2010 NACE transition, 2017 source break flag and 2021 EBS dataset lineage distinct; no unverified legal-unit conversion is invented. 2009 is confidential, not replaced by the separate national count. Numerical overlap does not establish identical geography/populations. Current national reporting cutoffs are not assumed historically constant; no pre-2007 count. Source flags: ",
+      "series_id": "eurostat_slovenia:china",
+      "source_id": "fats_out2_SI",
+      "status": "observed",
+      "value": 6,
+      "year": 2008
+    },
+    {
+      "comparability": "fats_out2:SI:0",
+      "notes": "Download-only Slovenian-resident UCI enterprises/branches in China except Hong Kong. Keep the 2010 NACE transition, 2017 source break flag and 2021 EBS dataset lineage distinct; no unverified legal-unit conversion is invented. 2009 is confidential, not replaced by the separate national count. Numerical overlap does not establish identical geography/populations. Current national reporting cutoffs are not assumed historically constant; no pre-2007 count. Source flags: |C",
+      "series_id": "eurostat_slovenia:china",
+      "source_id": "fats_out2_SI",
+      "status": "suppressed",
+      "value": null,
+      "year": 2009
+    },
+    {
+      "comparability": "fats_out2_r2:SI:0",
+      "notes": "Download-only Slovenian-resident UCI enterprises/branches in China except Hong Kong. Keep the 2010 NACE transition, 2017 source break flag and 2021 EBS dataset lineage distinct; no unverified legal-unit conversion is invented. 2009 is confidential, not replaced by the separate national count. Numerical overlap does not establish identical geography/populations. Current national reporting cutoffs are not assumed historically constant; no pre-2007 count. Source flags: ",
+      "series_id": "eurostat_slovenia:china",
+      "source_id": "fats_out2_r2_SI",
+      "status": "observed",
+      "value": 5,
+      "year": 2010
+    },
+    {
+      "comparability": "fats_out2_r2:SI:0",
+      "notes": "Download-only Slovenian-resident UCI enterprises/branches in China except Hong Kong. Keep the 2010 NACE transition, 2017 source break flag and 2021 EBS dataset lineage distinct; no unverified legal-unit conversion is invented. 2009 is confidential, not replaced by the separate national count. Numerical overlap does not establish identical geography/populations. Current national reporting cutoffs are not assumed historically constant; no pre-2007 count. Source flags: ",
+      "series_id": "eurostat_slovenia:china",
+      "source_id": "fats_out2_r2_SI",
+      "status": "observed",
+      "value": 6,
+      "year": 2011
+    },
+    {
+      "comparability": "fats_out2_r2:SI:0",
+      "notes": "Download-only Slovenian-resident UCI enterprises/branches in China except Hong Kong. Keep the 2010 NACE transition, 2017 source break flag and 2021 EBS dataset lineage distinct; no unverified legal-unit conversion is invented. 2009 is confidential, not replaced by the separate national count. Numerical overlap does not establish identical geography/populations. Current national reporting cutoffs are not assumed historically constant; no pre-2007 count. Source flags: ",
+      "series_id": "eurostat_slovenia:china",
+      "source_id": "fats_out2_r2_SI",
+      "status": "observed",
+      "value": 7,
+      "year": 2012
+    },
+    {
+      "comparability": "fats_out2_r2:SI:0",
+      "notes": "Download-only Slovenian-resident UCI enterprises/branches in China except Hong Kong. Keep the 2010 NACE transition, 2017 source break flag and 2021 EBS dataset lineage distinct; no unverified legal-unit conversion is invented. 2009 is confidential, not replaced by the separate national count. Numerical overlap does not establish identical geography/populations. Current national reporting cutoffs are not assumed historically constant; no pre-2007 count. Source flags: ",
+      "series_id": "eurostat_slovenia:china",
+      "source_id": "fats_out2_r2_SI",
+      "status": "observed",
+      "value": 7,
+      "year": 2013
+    },
+    {
+      "comparability": "fats_out2_r2:SI:0",
+      "notes": "Download-only Slovenian-resident UCI enterprises/branches in China except Hong Kong. Keep the 2010 NACE transition, 2017 source break flag and 2021 EBS dataset lineage distinct; no unverified legal-unit conversion is invented. 2009 is confidential, not replaced by the separate national count. Numerical overlap does not establish identical geography/populations. Current national reporting cutoffs are not assumed historically constant; no pre-2007 count. Source flags: ",
+      "series_id": "eurostat_slovenia:china",
+      "source_id": "fats_out2_r2_SI",
+      "status": "observed",
+      "value": 7,
+      "year": 2014
+    },
+    {
+      "comparability": "fats_out2_r2:SI:0",
+      "notes": "Download-only Slovenian-resident UCI enterprises/branches in China except Hong Kong. Keep the 2010 NACE transition, 2017 source break flag and 2021 EBS dataset lineage distinct; no unverified legal-unit conversion is invented. 2009 is confidential, not replaced by the separate national count. Numerical overlap does not establish identical geography/populations. Current national reporting cutoffs are not assumed historically constant; no pre-2007 count. Source flags: ",
+      "series_id": "eurostat_slovenia:china",
+      "source_id": "fats_out2_r2_SI",
+      "status": "observed",
+      "value": 7,
+      "year": 2015
+    },
+    {
+      "comparability": "fats_out2_r2:SI:0",
+      "notes": "Download-only Slovenian-resident UCI enterprises/branches in China except Hong Kong. Keep the 2010 NACE transition, 2017 source break flag and 2021 EBS dataset lineage distinct; no unverified legal-unit conversion is invented. 2009 is confidential, not replaced by the separate national count. Numerical overlap does not establish identical geography/populations. Current national reporting cutoffs are not assumed historically constant; no pre-2007 count. Source flags: ",
+      "series_id": "eurostat_slovenia:china",
+      "source_id": "fats_out2_r2_SI",
+      "status": "observed",
+      "value": 7,
+      "year": 2016
+    },
+    {
+      "comparability": "fats_out2_r2:SI:1",
+      "notes": "Download-only Slovenian-resident UCI enterprises/branches in China except Hong Kong. Keep the 2010 NACE transition, 2017 source break flag and 2021 EBS dataset lineage distinct; no unverified legal-unit conversion is invented. 2009 is confidential, not replaced by the separate national count. Numerical overlap does not establish identical geography/populations. Current national reporting cutoffs are not assumed historically constant; no pre-2007 count. Source flags: b",
+      "series_id": "eurostat_slovenia:china",
+      "source_id": "fats_out2_r2_SI",
+      "status": "observed",
+      "value": 8,
+      "year": 2017
+    },
+    {
+      "comparability": "fats_out2_r2:SI:1",
+      "notes": "Download-only Slovenian-resident UCI enterprises/branches in China except Hong Kong. Keep the 2010 NACE transition, 2017 source break flag and 2021 EBS dataset lineage distinct; no unverified legal-unit conversion is invented. 2009 is confidential, not replaced by the separate national count. Numerical overlap does not establish identical geography/populations. Current national reporting cutoffs are not assumed historically constant; no pre-2007 count. Source flags: ",
+      "series_id": "eurostat_slovenia:china",
+      "source_id": "fats_out2_r2_SI",
+      "status": "observed",
+      "value": 20,
+      "year": 2018
+    },
+    {
+      "comparability": "fats_out2_r2:SI:1",
+      "notes": "Download-only Slovenian-resident UCI enterprises/branches in China except Hong Kong. Keep the 2010 NACE transition, 2017 source break flag and 2021 EBS dataset lineage distinct; no unverified legal-unit conversion is invented. 2009 is confidential, not replaced by the separate national count. Numerical overlap does not establish identical geography/populations. Current national reporting cutoffs are not assumed historically constant; no pre-2007 count. Source flags: ",
+      "series_id": "eurostat_slovenia:china",
+      "source_id": "fats_out2_r2_SI",
+      "status": "observed",
+      "value": 12,
+      "year": 2019
+    },
+    {
+      "comparability": "fats_out2_r2:SI:1",
+      "notes": "Download-only Slovenian-resident UCI enterprises/branches in China except Hong Kong. Keep the 2010 NACE transition, 2017 source break flag and 2021 EBS dataset lineage distinct; no unverified legal-unit conversion is invented. 2009 is confidential, not replaced by the separate national count. Numerical overlap does not establish identical geography/populations. Current national reporting cutoffs are not assumed historically constant; no pre-2007 count. Source flags: ",
+      "series_id": "eurostat_slovenia:china",
+      "source_id": "fats_out2_r2_SI",
+      "status": "observed",
+      "value": 12,
+      "year": 2020
+    },
+    {
+      "comparability": "fats_out_part:SI:0",
+      "notes": "Download-only Slovenian-resident UCI enterprises/branches in China except Hong Kong. Keep the 2010 NACE transition, 2017 source break flag and 2021 EBS dataset lineage distinct; no unverified legal-unit conversion is invented. 2009 is confidential, not replaced by the separate national count. Numerical overlap does not establish identical geography/populations. Current national reporting cutoffs are not assumed historically constant; no pre-2007 count. Source flags: ",
+      "series_id": "eurostat_slovenia:china",
+      "source_id": "fats_out_part_SI",
+      "status": "observed",
+      "value": 11,
+      "year": 2021
+    },
+    {
+      "comparability": "fats_out_part:SI:0",
+      "notes": "Download-only Slovenian-resident UCI enterprises/branches in China except Hong Kong. Keep the 2010 NACE transition, 2017 source break flag and 2021 EBS dataset lineage distinct; no unverified legal-unit conversion is invented. 2009 is confidential, not replaced by the separate national count. Numerical overlap does not establish identical geography/populations. Current national reporting cutoffs are not assumed historically constant; no pre-2007 count. Source flags: ",
+      "series_id": "eurostat_slovenia:china",
+      "source_id": "fats_out_part_SI",
+      "status": "observed",
+      "value": 13,
+      "year": 2022
+    },
+    {
+      "comparability": "fats_out_part:SI:0",
+      "notes": "Download-only Slovenian-resident UCI enterprises/branches in China except Hong Kong. Keep the 2010 NACE transition, 2017 source break flag and 2021 EBS dataset lineage distinct; no unverified legal-unit conversion is invented. 2009 is confidential, not replaced by the separate national count. Numerical overlap does not establish identical geography/populations. Current national reporting cutoffs are not assumed historically constant; no pre-2007 count. Source flags: ",
+      "series_id": "eurostat_slovenia:china",
+      "source_id": "fats_out_part_SI",
+      "status": "observed",
+      "value": 13,
+      "year": 2023
     },
     {
       "comparability": "fats_out2:ES:0",
@@ -3649,6 +4436,15 @@
       "scope": "Distinct U.S.-resident parent companies with affiliates in China; at least 10% foreign-affiliate ownership; BEA reporting exclusions apply",
       "unit": "U.S. parents"
     },
+    "bsi_slovenia:china": {
+      "cadence": "annual",
+      "label": "Slovenia, national controlled enterprises",
+      "measure": "controlled_enterprises",
+      "notes": "Banka Slovenije SN11/FATS; source item Number of enterprises*. Direct/indirect control exceeds 50%, not unique Slovenian parents or all Chinese registrations. National China (CN), not a certified CN_X_HK equivalent. Resident-reporter balance-sheet cutoff EUR2m from 2017 and EUR5m from 2023; no comparable current 2019 change. Pre-2017 coverage is not backdated. Source revision/estimate flags are not supplied; published counts do not establish final/census status. Native '..' and '...' are unclassified masked values, never zero or an assumed confidentiality reason. Other native fractional cells retain their precision. Eurostat's separate 2007-2023 archive is downloadable, not spliced into this national series; no 2000-2008 or 2026 padding.",
+      "period_basis": "reference year",
+      "scope": "Slovenia-resident ultimate control; direct/indirect majority enterprises/branches; thresholded SN11 resident balance-sheet reporting frame; national China (CN); CN_X_HK equivalence not established",
+      "unit": "enterprises"
+    },
     "bundesbank_germany:china": {
       "cadence": "annual",
       "label": "Germany (Bundesbank)",
@@ -3766,6 +4562,51 @@
       "scope": "China except Hong Kong; EU27_2007 control, including the UK and excluding Croatia",
       "unit": "enterprises"
     },
+    "eurostat_hungary:china": {
+      "cadence": "annual",
+      "label": "Hungary (enterprise definition)",
+      "measure": "controlled_enterprises",
+      "notes": "Hungarian ultimate control; China except Hong Kong. HCSO outward-FATS methods and table footnote specify legal units through 2021 and enterprises from 2022. Eurostat's broader 2010-2023 comparable-window claim conflicts with this unit boundary; no harmonization or cross-unit 2019 growth. Keep 2010 NACE and 2021 EBS reference-population/source boundaries. Current FDI screening exceeds EUR 40k and 10% of capital; separate source wording says HUF 10m. These are reporting-frame limits, not verified constant historical cutoffs or an all-firm census. Individual minority-control checks apply; no equally shared control in the target population; nonrespondents are omitted. Primary/secondary confidentiality is retained. Unreported experimental 2004-2006 cells stay source-only. The national table's 2024 EU/outside-EU/all-host totals are not China counts. Current supplement starts 2022.",
+      "period_basis": "reference year",
+      "scope": "Hungary-resident UCI; China except Hong Kong; thresholded FDI reporting-unit frame; NACE B-S except O; enterprise unit from 2022",
+      "unit": "enterprises"
+    },
+    "eurostat_hungary_legal:china": {
+      "cadence": "annual",
+      "label": "Hungary, historical UCI legal units",
+      "measure": "controlled_legal_units",
+      "notes": "Hungarian ultimate control; China except Hong Kong. HCSO outward-FATS methods and table footnote specify legal units through 2021 and enterprises from 2022. Eurostat's broader 2010-2023 comparable-window claim conflicts with this unit boundary; no harmonization or cross-unit 2019 growth. Keep 2010 NACE and 2021 EBS reference-population/source boundaries. Current FDI screening exceeds EUR 40k and 10% of capital; separate source wording says HUF 10m. These are reporting-frame limits, not verified constant historical cutoffs or an all-firm census. Individual minority-control checks apply; no equally shared control in the target population; nonrespondents are omitted. Primary/secondary confidentiality is retained. Unreported experimental 2004-2006 cells stay source-only. The national table's 2024 EU/outside-EU/all-host totals are not China counts. Historical legal units are download-only.",
+      "period_basis": "reference year",
+      "scope": "Hungary-resident UCI; China except Hong Kong; thresholded FDI reporting-unit frame; NACE C-O except L, then B-S except O",
+      "unit": "legal units"
+    },
+    "eurostat_ireland:china": {
+      "cadence": "annual",
+      "label": "Ireland, comparable UCI enterprise archive",
+      "measure": "controlled_enterprises",
+      "notes": "Reported foreign affiliate enterprises, not unique Irish parents or office locations. CSO expressly compares 2010-2022; no generic 2021 unit break is invented. 2023 continuity remains independently unreviewed and is not a merged endpoint. Background 51% capital wording and compilation exclusion below 50% remain distinct published rules, not silently reconciled or backdated. Inactive zero-employment/zero-turnover affiliates are excluded. 2022 parent-survey response was 52%; prior responders may be imputed, newly nonresponding units are not. Consolidated returns can understate affiliate counts; this is not a census of all Irish firms. National agriculture-inclusive descriptions do not replace selected Eurostat NACE scope. Archive/data-only; no current Irish plot, default 2019 growth or 2000-2006/2024 value inferred.",
+      "period_basis": "reference year",
+      "scope": "Irish-resident UCI; China except Hong Kong; NACE B-S except O; declared 2010-2022 comparable window",
+      "unit": "enterprises"
+    },
+    "eurostat_ireland_legacy:china": {
+      "cadence": "annual",
+      "label": "Ireland, confidential legacy source cells",
+      "measure": "historical_affiliates",
+      "notes": "Reported foreign affiliate enterprises, not unique Irish parents or office locations. CSO expressly compares 2010-2022; no generic 2021 unit break is invented. 2023 continuity remains independently unreviewed and is not a merged endpoint. Background 51% capital wording and compilation exclusion below 50% remain distinct published rules, not silently reconciled or backdated. Inactive zero-employment/zero-turnover affiliates are excluded. 2022 parent-survey response was 52%; prior responders may be imputed, newly nonresponding units are not. Consolidated returns can understate affiliate counts; this is not a census of all Irish firms. National agriculture-inclusive descriptions do not replace selected Eurostat NACE scope. Archive/data-only; no current Irish plot, default 2019 growth or 2000-2006/2024 value inferred. Earlier NACE scope and confidential nulls remain separate.",
+      "period_basis": "reference year",
+      "scope": "Ireland-reported; China except Hong Kong; NACE C-O except L; pre-2010 UCI attribution unreviewed",
+      "unit": "enterprises"
+    },
+    "eurostat_ireland_unreviewed:china": {
+      "cadence": "annual",
+      "label": "Ireland, separately retained 2023 source count",
+      "measure": "controlled_enterprises",
+      "notes": "Reported foreign affiliate enterprises, not unique Irish parents or office locations. CSO expressly compares 2010-2022; no generic 2021 unit break is invented. 2023 continuity remains independently unreviewed and is not a merged endpoint. Background 51% capital wording and compilation exclusion below 50% remain distinct published rules, not silently reconciled or backdated. Inactive zero-employment/zero-turnover affiliates are excluded. 2022 parent-survey response was 52%; prior responders may be imputed, newly nonresponding units are not. Consolidated returns can understate affiliate counts; this is not a census of all Irish firms. National agriculture-inclusive descriptions do not replace selected Eurostat NACE scope. Archive/data-only; no current Irish plot, default 2019 growth or 2000-2006/2024 value inferred. One separately retained 2023 source count, not a connected trend.",
+      "period_basis": "reference year",
+      "scope": "Irish-resident UCI framework; China except Hong Kong; NACE B-S except O; 2023 continuity unreviewed",
+      "unit": "enterprises"
+    },
     "eurostat_italy:china": {
       "cadence": "annual",
       "label": "Italy (Eurostat enterprises)",
@@ -3783,6 +4624,15 @@
       "period_basis": "reference year",
       "scope": "Italy-resident UCI; China except Hong Kong; market producers in the selected NACE sectors; NACE C-O except L before 2010, B-S except O thereafter; legal units",
       "unit": "legal units"
+    },
+    "eurostat_luxembourg:china": {
+      "cadence": "annual",
+      "label": "Luxembourg",
+      "measure": "controlled_enterprises",
+      "notes": "Luxembourg-resident ultimate control; enterprises or branches in China except Hong Kong, not all resident immediate parents or an all-firm census. SPEs are excluded from the underlying FDI survey; the frame covers all large and medium enterprises and many small entities. The country report declares comparability from 2009 with no methodological break, not an independent audit of every historical vintage. Retain the 2010 NACE and 2021 dataset lineage without inventing a country-unit break. 2007/2008 are unreported, not zero; no earlier or unpublished current-year observations are inferred. Luxembourg overlaps EU aggregates.",
+      "period_basis": "reference year",
+      "scope": "Luxembourg-resident UCI; statistical enterprises/branches in China except Hong Kong; selected legacy NACE C-O except L, then market producers in NACE B-N and P-S",
+      "unit": "enterprises"
     },
     "eurostat_netherlands:china": {
       "cadence": "annual",
@@ -3827,6 +4677,15 @@
       "notes": "Portugal first implemented UCI in 2008; the 2007 count has a separately qualified control basis. The selected legacy NACE table changes in 2010. In 2014 the annual FDI sample was replaced by mandatory IES reporting; additional companies entered the compilation in 2020. Preserve those coverage boundaries and the confidential 2012 cell. The 2021 dataset transition does not override Portugal's documented 2020-onward comparable block. No current 2019 change, pre-2007 count, regional total or unreported current-year count is inferred. The single 2007 count is archive-only, not a Portuguese-UCI point.",
       "period_basis": "reference year",
       "scope": "Portugal-reported affiliates; China except Hong Kong; 2007 UCI not established; NACE C-O except L",
+      "unit": "enterprises"
+    },
+    "eurostat_slovenia:china": {
+      "cadence": "annual",
+      "label": "Slovenia, separate Eurostat archive",
+      "measure": "controlled_enterprises",
+      "notes": "Download-only Slovenian-resident UCI enterprises/branches in China except Hong Kong. Keep the 2010 NACE transition, 2017 source break flag and 2021 EBS dataset lineage distinct; no unverified legal-unit conversion is invented. 2009 is confidential, not replaced by the separate national count. Numerical overlap does not establish identical geography/populations. Current national reporting cutoffs are not assumed historically constant; no pre-2007 count.",
+      "period_basis": "reference year",
+      "scope": "Slovenia-resident UCI; enterprises/branches; China except Hong Kong; legacy NACE C-O except L then B-S except O; separate archive, not a national-series extension",
       "unit": "enterprises"
     },
     "eurostat_spain:china": {
@@ -4346,6 +5205,32 @@
       "notes": "",
       "vintage": "Reviewed source definitions"
     },
+    "bsi_oc_fatse_20260907": {
+      "assets": [
+        {
+          "request_url": "https://px.bsi.si/Resources/PX/Databases/serije_ang/30_EOT/60_KAZALCI_POSLOVANJA/oc-fatse.px",
+          "retrieved_at": "2026-10-25T12:33:03.199581+00:00",
+          "sha256": "948ec7ac5f06d7fabbf3e7c4118ebf829374404389a8ea5fb6dce4d2451f1f75",
+          "url": "https://px.bsi.si/Resources/PX/Databases/serije_ang/30_EOT/60_KAZALCI_POSLOVANJA/oc-fatse.px"
+        },
+        {
+          "request_url": "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_si.htm",
+          "retrieved_at": "2026-10-25T12:30:51.920821+00:00",
+          "sha256": "46d5b20f023369263eeafbc673b7e6fe02a73bb9bc6e8bf781ee5e24876846fe",
+          "url": "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_si.htm"
+        },
+        {
+          "request_url": "https://www.bsi.si/storage/uploads/d014bd85-80f5-4790-b0f5-bc121ac89983/Direct-Investment-2025_ENG_kon%C4%8Dna.pdf",
+          "retrieved_at": "2026-10-25T12:33:04.135625+00:00",
+          "sha256": "a58c39f09aa1691646be4ca7d80757af82ff475a0204508f9b78de02cff2f210",
+          "url": "https://www.bsi.si/storage/uploads/d014bd85-80f5-4790-b0f5-bc121ac89983/Direct-Investment-2025_ENG_kon%C4%8Dna.pdf"
+        }
+      ],
+      "locator": "oc-fatse; China (CN); Number of enterprises*; full 17x1x57x2 native query reviewed; SN11 threshold notes and Direct Investment 2025 methods",
+      "name": "Banka Slovenije",
+      "notes": "Banka Slovenije SN11/FATS; source item Number of enterprises*. Direct/indirect control exceeds 50%, not unique Slovenian parents or all Chinese registrations. National China (CN), not a certified CN_X_HK equivalent. Resident-reporter balance-sheet cutoff EUR2m from 2017 and EUR5m from 2023; no comparable current 2019 change. Pre-2017 coverage is not backdated. Source revision/estimate flags are not supplied; published counts do not establish final/census status. Native '..' and '...' are unclassified masked values, never zero or an assumed confidentiality reason. Other native fractional cells retain their precision. Eurostat's separate 2007-2023 archive is downloadable, not spliced into this national series; no 2000-2008 or 2026 padding.",
+      "vintage": "Native table updated 2026-09-07 09:42; reference years 2009-2025"
+    },
     "bundesbank_outward_fats": {
       "assets": [
         {
@@ -4606,6 +5491,70 @@
       "notes": "French-controlled enterprises in the source category China except Hong Kong; not unique parents, offices or INSEE's rounded broader count. Retain the 2007 pilot/2009 frame, 2010 NACE, 2016 source-flag and 2021 EBS boundaries; 2008 is unreported. No invented 2000-2006 history or growth across those population changes. Original country/category index and observation flags are retained.",
       "vintage": "fats_out2; France; source updated 2024-04-25T11:00:00+0200"
     },
+    "fats_out2_HU": {
+      "assets": [
+        {
+          "request_url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out2?lang=EN&freq=A&geo=HU&partner=CN_X_HK&indic_bp=ENT&nace_r1=C-O_X_L",
+          "retrieved_at": "2026-10-25T08:55:56+00:00",
+          "sha256": "f637e80472d427bd36b6ba55a7782e9eaeedb20a32e72fca998223eefccdfa9e",
+          "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out2?lang=EN&freq=A&geo=HU&partner=CN_X_HK&indic_bp=ENT&nace_r1=C-O_X_L"
+        },
+        {
+          "request_url": "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_hu.htm",
+          "retrieved_at": "2026-10-25T08:55:55+00:00",
+          "sha256": "f1db610ad8c7e6417a996d95c61ae62a391cf04af64a0a05f64ceff57b078f9e",
+          "url": "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_hu.htm"
+        },
+        {
+          "request_url": "http://www.ksh.hu/docs/eng/modsz/gsz_meth.html",
+          "retrieved_at": "2026-10-25T09:04:19+00:00",
+          "sha256": "455dd1915380a0dced82f225b30fe792a12406ce973e2d3ccd1cb785f672814a",
+          "url": "https://www.ksh.hu/docs/eng/modsz/gsz_meth.html"
+        },
+        {
+          "request_url": "https://www.ksh.hu/stadat_files/gsz/en/gsz0034.html",
+          "retrieved_at": "2026-10-25T09:04:17+00:00",
+          "sha256": "4b04a0bb128df4d5a45379efadc75eaf7153e212162d7f43b4bd58950a0a67d6",
+          "url": "https://www.ksh.hu/stadat_files/gsz/en/gsz0034.html"
+        }
+      ],
+      "locator": "geo=HU; partner=CN_X_HK; indic_bp=ENT; nace_r1=C-O_X_L",
+      "name": "Eurostat / Hungarian Central Statistical Office / Hungarian National Bank",
+      "notes": "Hungarian ultimate control; China except Hong Kong. HCSO outward-FATS methods and table footnote specify legal units through 2021 and enterprises from 2022. Eurostat's broader 2010-2023 comparable-window claim conflicts with this unit boundary; no harmonization or cross-unit 2019 growth. Keep 2010 NACE and 2021 EBS reference-population/source boundaries. Current FDI screening exceeds EUR 40k and 10% of capital; separate source wording says HUF 10m. These are reporting-frame limits, not verified constant historical cutoffs or an all-firm census. Individual minority-control checks apply; no equally shared control in the target population; nonrespondents are omitted. Primary/secondary confidentiality is retained. Unreported experimental 2004-2006 cells stay source-only. The national table's 2024 EU/outside-EU/all-host totals are not China counts.",
+      "vintage": "fats_out2; Hungary; source updated 2024-04-25T11:00:00+0200"
+    },
+    "fats_out2_IE": {
+      "assets": [
+        {
+          "request_url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out2?lang=EN&freq=A&geo=IE&partner=CN_X_HK&indic_bp=ENT&nace_r1=C-O_X_L",
+          "retrieved_at": "2026-10-25T09:26:13.566726+00:00",
+          "sha256": "b1369d1cc1c46b7b7f9275d702df42f3dd314c2fb1a24eae4259f3dc229aeb69",
+          "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out2?lang=EN&freq=A&geo=IE&partner=CN_X_HK&indic_bp=ENT&nace_r1=C-O_X_L"
+        },
+        {
+          "request_url": "https://ec.europa.eu/eurostat/api/dissemination/sdmx/2.1/data/fats_out2/A.C-O_X_L.ENT.CN_X_HK.IE?format=TSV&compressed=false",
+          "retrieved_at": "2026-10-25T09:27:55.512163+00:00",
+          "sha256": "c9af5f36471ced0f10935dfdf826f1efe100113333dd7ec26ce62acc5caaab08",
+          "url": "https://ec.europa.eu/eurostat/api/dissemination/sdmx/2.1/data/fats_out2/A.C-O_X_L.ENT.CN_X_HK.IE?format=TSV&compressed=false"
+        },
+        {
+          "request_url": "https://www.cso.ie/en/methods/surveybackgroundnotes/outwardforeignaffiliatessurvey/",
+          "retrieved_at": "2026-10-25T09:28:58.866811+00:00",
+          "sha256": "4359588cb5473596ad3c600080ae6c372bdc7451e0d3f9afe13b41877c4b5798",
+          "url": "https://www.cso.ie/en/methods/surveybackgroundnotes/outwardforeignaffiliatessurvey/"
+        },
+        {
+          "request_url": "https://www.cso.ie/en/media/csoie/methods/outwardforeignaffiliatessurvey/Standard_SIMS_Report_Outward_Foreign_Affiliates_Survey_2022.pdf",
+          "retrieved_at": "2026-10-25T09:29:47.400577+00:00",
+          "sha256": "206f74fcd3dc7c977c02f38c1509c493801341dbacdbff1dd667cfa4b2392ead",
+          "url": "https://www.cso.ie/en/media/csoie/methods/outwardforeignaffiliatessurvey/Standard_SIMS_Report_Outward_Foreign_Affiliates_Survey_2022.pdf"
+        }
+      ],
+      "locator": "geo=IE; partner=CN_X_HK; indic_bp=ENT; nace_r1=C-O_X_L; independent native TSV; CSO 2022 quality pp7/14/17.",
+      "name": "Eurostat / Central Statistics Office Ireland",
+      "notes": "Reported foreign affiliate enterprises, not unique Irish parents or office locations. CSO expressly compares 2010-2022; no generic 2021 unit break is invented. 2023 continuity remains independently unreviewed and is not a merged endpoint. Background 51% capital wording and compilation exclusion below 50% remain distinct published rules, not silently reconciled or backdated. Inactive zero-employment/zero-turnover affiliates are excluded. 2022 parent-survey response was 52%; prior responders may be imputed, newly nonresponding units are not. Consolidated returns can understate affiliate counts; this is not a census of all Irish firms. National agriculture-inclusive descriptions do not replace selected Eurostat NACE scope. Archive/data-only; no current Irish plot, default 2019 growth or 2000-2006/2024 value inferred.",
+      "vintage": "fats_out2; Ireland; source updated 2024-04-25T11:00:00+0200"
+    },
     "fats_out2_IT": {
       "assets": [
         {
@@ -4625,6 +5574,26 @@
       "name": "Eurostat / ISTAT",
       "notes": "Eurostat changes from legal units to grouped enterprises in 2021; ISTAT national reports continue counting legal units. The national 2019/2020 controls match both older Eurostat values. Keep the 2010 NACE and 2021 source boundaries, original estimated flags and separate enterprise population. No pre-2007 count or cross-source 2019 change is inferred. Original Italy-specific metadata explicitly rejects comparison across 2021.",
       "vintage": "fats_out2; Italy; source updated 2024-04-25T11:00:00+0200"
+    },
+    "fats_out2_LU": {
+      "assets": [
+        {
+          "request_url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out2?lang=EN&freq=A&geo=LU&partner=CN_X_HK&indic_bp=ENT&nace_r1=C-O_X_L",
+          "retrieved_at": "2026-10-25T09:06:09.791946+00:00",
+          "sha256": "6468cac5ae53bdb2ff021701e919dc07f60e41b790519df4d35b1a98b66416ef",
+          "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out2?lang=EN&freq=A&geo=LU&partner=CN_X_HK&indic_bp=ENT&nace_r1=C-O_X_L"
+        },
+        {
+          "request_url": "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_lu.htm",
+          "retrieved_at": "2026-10-25T09:06:13.051569+00:00",
+          "sha256": "290deb835c342b62aed4dea11367145483e5327c1e4937570418d36e1017d55e",
+          "url": "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_lu.htm"
+        }
+      ],
+      "locator": "geo=LU; partner=CN_X_HK; indic_bp=ENT; nace_r1=C-O_X_L",
+      "name": "Eurostat (Luxembourg reporting)",
+      "notes": "Luxembourg-resident ultimate control; enterprises or branches in China except Hong Kong, not all resident immediate parents or an all-firm census. SPEs are excluded from the underlying FDI survey; the frame covers all large and medium enterprises and many small entities. The country report declares comparability from 2009 with no methodological break, not an independent audit of every historical vintage. Retain the 2010 NACE and 2021 dataset lineage without inventing a country-unit break. 2007/2008 are unreported, not zero; no earlier or unpublished current-year observations are inferred. Luxembourg overlaps EU aggregates.",
+      "vintage": "fats_out2; source updated 2024-04-25T11:00:00+0200"
     },
     "fats_out2_NL": {
       "assets": [
@@ -4699,6 +5668,32 @@
       "name": "Eurostat / Statistics Sweden",
       "notes": "Swedish-UCI controlled enterprises in China except Hong Kong; a separate population from the national subsidiary table. Preserve the metadata's 2008 classification break and original legacy NACE label/2010 table transition, 2018 legal-unit-to-enterprise/EGR change and 2021 EBS boundary. Official compilation can include imputation. 2009 is confidential, not zero; no national-series splice or cross-regime growth. GGH is the source's UCI proxy. The original dataset dimensions and flags are retained.",
       "vintage": "fats_out2; Sweden; source updated 2024-04-25T11:00:00+0200"
+    },
+    "fats_out2_SI": {
+      "assets": [
+        {
+          "request_url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out2?lang=EN&freq=A&geo=SI&partner=CN_X_HK&indic_bp=ENT&nace_r1=C-O_X_L",
+          "retrieved_at": "2026-10-25T12:30:47.169157+00:00",
+          "sha256": "3c26ee99ca64a3bf045e72346893f24b3cd612f0003f3f89a71226bdf44bdb18",
+          "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out2?lang=EN&freq=A&geo=SI&partner=CN_X_HK&indic_bp=ENT&nace_r1=C-O_X_L"
+        },
+        {
+          "request_url": "https://ec.europa.eu/eurostat/api/dissemination/sdmx/2.1/data/fats_out2/A.C-O_X_L.ENT.CN_X_HK.SI?format=TSV&compressed=false",
+          "retrieved_at": "2026-10-25T12:30:47.676278+00:00",
+          "sha256": "db522fb5a7eccad85051dfb79a975fcb550f4859de969bc45c865f6ab9123863",
+          "url": "https://ec.europa.eu/eurostat/api/dissemination/sdmx/2.1/data/fats_out2/A.C-O_X_L.ENT.CN_X_HK.SI?format=TSV&compressed=false"
+        },
+        {
+          "request_url": "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_si.htm",
+          "retrieved_at": "2026-10-25T12:30:51.920821+00:00",
+          "sha256": "46d5b20f023369263eeafbc673b7e6fe02a73bb9bc6e8bf781ee5e24876846fe",
+          "url": "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_si.htm"
+        }
+      ],
+      "locator": "geo=SI; partner=CN_X_HK; indic_bp=ENT; nace_r1=C-O_X_L",
+      "name": "Eurostat / Banka Slovenije",
+      "notes": "Download-only Slovenian-resident UCI enterprises/branches in China except Hong Kong. Keep the 2010 NACE transition, 2017 source break flag and 2021 EBS dataset lineage distinct; no unverified legal-unit conversion is invented. 2009 is confidential, not replaced by the separate national count. Numerical overlap does not establish identical geography/populations. Current national reporting cutoffs are not assumed historically constant; no pre-2007 count.",
+      "vintage": "fats_out2; Slovenia; source updated 2024-04-25T11:00:00+0200"
     },
     "fats_out2_UK": {
       "assets": [
@@ -4870,6 +5865,70 @@
       "notes": "French-controlled enterprises in the source category China except Hong Kong; not unique parents, offices or INSEE's rounded broader count. Retain the 2007 pilot/2009 frame, 2010 NACE, 2016 source-flag and 2021 EBS boundaries; 2008 is unreported. No invented 2000-2006 history or growth across those population changes. Original country/category index and observation flags are retained.",
       "vintage": "fats_out2_r2; France; source updated 2024-04-25T11:00:00+0200"
     },
+    "fats_out2_r2_HU": {
+      "assets": [
+        {
+          "request_url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out2_r2?lang=EN&freq=A&geo=HU&partner=CN_X_HK&indic_bp=ENT&nace_r2=B-S_X_O",
+          "retrieved_at": "2026-10-25T08:55:57+00:00",
+          "sha256": "32718941f7b04c75cf0abe8c91ec8714bf14b3bc593710163c771a291a80a919",
+          "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out2_r2?lang=EN&freq=A&geo=HU&partner=CN_X_HK&indic_bp=ENT&nace_r2=B-S_X_O"
+        },
+        {
+          "request_url": "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_hu.htm",
+          "retrieved_at": "2026-10-25T08:55:55+00:00",
+          "sha256": "f1db610ad8c7e6417a996d95c61ae62a391cf04af64a0a05f64ceff57b078f9e",
+          "url": "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_hu.htm"
+        },
+        {
+          "request_url": "http://www.ksh.hu/docs/eng/modsz/gsz_meth.html",
+          "retrieved_at": "2026-10-25T09:04:19+00:00",
+          "sha256": "455dd1915380a0dced82f225b30fe792a12406ce973e2d3ccd1cb785f672814a",
+          "url": "https://www.ksh.hu/docs/eng/modsz/gsz_meth.html"
+        },
+        {
+          "request_url": "https://www.ksh.hu/stadat_files/gsz/en/gsz0034.html",
+          "retrieved_at": "2026-10-25T09:04:17+00:00",
+          "sha256": "4b04a0bb128df4d5a45379efadc75eaf7153e212162d7f43b4bd58950a0a67d6",
+          "url": "https://www.ksh.hu/stadat_files/gsz/en/gsz0034.html"
+        }
+      ],
+      "locator": "geo=HU; partner=CN_X_HK; indic_bp=ENT; nace_r2=B-S_X_O",
+      "name": "Eurostat / Hungarian Central Statistical Office / Hungarian National Bank",
+      "notes": "Hungarian ultimate control; China except Hong Kong. HCSO outward-FATS methods and table footnote specify legal units through 2021 and enterprises from 2022. Eurostat's broader 2010-2023 comparable-window claim conflicts with this unit boundary; no harmonization or cross-unit 2019 growth. Keep 2010 NACE and 2021 EBS reference-population/source boundaries. Current FDI screening exceeds EUR 40k and 10% of capital; separate source wording says HUF 10m. These are reporting-frame limits, not verified constant historical cutoffs or an all-firm census. Individual minority-control checks apply; no equally shared control in the target population; nonrespondents are omitted. Primary/secondary confidentiality is retained. Unreported experimental 2004-2006 cells stay source-only. The national table's 2024 EU/outside-EU/all-host totals are not China counts.",
+      "vintage": "fats_out2_r2; Hungary; source updated 2024-04-25T11:00:00+0200"
+    },
+    "fats_out2_r2_IE": {
+      "assets": [
+        {
+          "request_url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out2_r2?lang=EN&freq=A&geo=IE&partner=CN_X_HK&indic_bp=ENT&nace_r2=B-S_X_O",
+          "retrieved_at": "2026-10-25T09:26:14.735811+00:00",
+          "sha256": "c66cefa67bc546cd9b014b0cbccb0ba71b77c753d714724e95bc033bb4871951",
+          "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out2_r2?lang=EN&freq=A&geo=IE&partner=CN_X_HK&indic_bp=ENT&nace_r2=B-S_X_O"
+        },
+        {
+          "request_url": "https://ec.europa.eu/eurostat/api/dissemination/sdmx/2.1/data/fats_out2_r2/A.B-S_X_O.ENT.CN_X_HK.IE?format=TSV&compressed=false",
+          "retrieved_at": "2026-10-25T09:27:56.084794+00:00",
+          "sha256": "767787215ec9fa858eb5ae27ffc32ea87bd8c4b73904f64a6af3e5db9de99492",
+          "url": "https://ec.europa.eu/eurostat/api/dissemination/sdmx/2.1/data/fats_out2_r2/A.B-S_X_O.ENT.CN_X_HK.IE?format=TSV&compressed=false"
+        },
+        {
+          "request_url": "https://www.cso.ie/en/methods/surveybackgroundnotes/outwardforeignaffiliatessurvey/",
+          "retrieved_at": "2026-10-25T09:28:58.866811+00:00",
+          "sha256": "4359588cb5473596ad3c600080ae6c372bdc7451e0d3f9afe13b41877c4b5798",
+          "url": "https://www.cso.ie/en/methods/surveybackgroundnotes/outwardforeignaffiliatessurvey/"
+        },
+        {
+          "request_url": "https://www.cso.ie/en/media/csoie/methods/outwardforeignaffiliatessurvey/Standard_SIMS_Report_Outward_Foreign_Affiliates_Survey_2022.pdf",
+          "retrieved_at": "2026-10-25T09:29:47.400577+00:00",
+          "sha256": "206f74fcd3dc7c977c02f38c1509c493801341dbacdbff1dd667cfa4b2392ead",
+          "url": "https://www.cso.ie/en/media/csoie/methods/outwardforeignaffiliatessurvey/Standard_SIMS_Report_Outward_Foreign_Affiliates_Survey_2022.pdf"
+        }
+      ],
+      "locator": "geo=IE; partner=CN_X_HK; indic_bp=ENT; nace_r2=B-S_X_O; independent native TSV; CSO 2022 quality pp7/14/17.",
+      "name": "Eurostat / Central Statistics Office Ireland",
+      "notes": "Reported foreign affiliate enterprises, not unique Irish parents or office locations. CSO expressly compares 2010-2022; no generic 2021 unit break is invented. 2023 continuity remains independently unreviewed and is not a merged endpoint. Background 51% capital wording and compilation exclusion below 50% remain distinct published rules, not silently reconciled or backdated. Inactive zero-employment/zero-turnover affiliates are excluded. 2022 parent-survey response was 52%; prior responders may be imputed, newly nonresponding units are not. Consolidated returns can understate affiliate counts; this is not a census of all Irish firms. National agriculture-inclusive descriptions do not replace selected Eurostat NACE scope. Archive/data-only; no current Irish plot, default 2019 growth or 2000-2006/2024 value inferred.",
+      "vintage": "fats_out2_r2; Ireland; source updated 2024-04-25T11:00:00+0200"
+    },
     "fats_out2_r2_IT": {
       "assets": [
         {
@@ -4889,6 +5948,26 @@
       "name": "Eurostat / ISTAT",
       "notes": "Eurostat changes from legal units to grouped enterprises in 2021; ISTAT national reports continue counting legal units. The national 2019/2020 controls match both older Eurostat values. Keep the 2010 NACE and 2021 source boundaries, original estimated flags and separate enterprise population. No pre-2007 count or cross-source 2019 change is inferred. Original Italy-specific metadata explicitly rejects comparison across 2021.",
       "vintage": "fats_out2_r2; Italy; source updated 2024-04-25T11:00:00+0200"
+    },
+    "fats_out2_r2_LU": {
+      "assets": [
+        {
+          "request_url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out2_r2?lang=EN&freq=A&geo=LU&partner=CN_X_HK&indic_bp=ENT&nace_r2=B-S_X_O",
+          "retrieved_at": "2026-10-25T09:06:10.896216+00:00",
+          "sha256": "abd572bdd3465d07e8e56f66a949eb09672d3dff9481db7cd582716a24b4359c",
+          "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out2_r2?lang=EN&freq=A&geo=LU&partner=CN_X_HK&indic_bp=ENT&nace_r2=B-S_X_O"
+        },
+        {
+          "request_url": "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_lu.htm",
+          "retrieved_at": "2026-10-25T09:06:13.051569+00:00",
+          "sha256": "290deb835c342b62aed4dea11367145483e5327c1e4937570418d36e1017d55e",
+          "url": "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_lu.htm"
+        }
+      ],
+      "locator": "geo=LU; partner=CN_X_HK; indic_bp=ENT; nace_r2=B-S_X_O",
+      "name": "Eurostat (Luxembourg reporting)",
+      "notes": "Luxembourg-resident ultimate control; enterprises or branches in China except Hong Kong, not all resident immediate parents or an all-firm census. SPEs are excluded from the underlying FDI survey; the frame covers all large and medium enterprises and many small entities. The country report declares comparability from 2009 with no methodological break, not an independent audit of every historical vintage. Retain the 2010 NACE and 2021 dataset lineage without inventing a country-unit break. 2007/2008 are unreported, not zero; no earlier or unpublished current-year observations are inferred. Luxembourg overlaps EU aggregates.",
+      "vintage": "fats_out2_r2; source updated 2024-04-25T11:00:00+0200"
     },
     "fats_out2_r2_NL": {
       "assets": [
@@ -4977,6 +6056,32 @@
       "name": "Eurostat / Statistics Sweden",
       "notes": "Swedish-UCI controlled enterprises in China except Hong Kong; a separate population from the national subsidiary table. Preserve the metadata's 2008 classification break and original legacy NACE label/2010 table transition, 2018 legal-unit-to-enterprise/EGR change and 2021 EBS boundary. Official compilation can include imputation. 2009 is confidential, not zero; no national-series splice or cross-regime growth. GGH is the source's UCI proxy. The original dataset dimensions and flags are retained.",
       "vintage": "fats_out2_r2; Sweden; source updated 2024-04-25T11:00:00+0200"
+    },
+    "fats_out2_r2_SI": {
+      "assets": [
+        {
+          "request_url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out2_r2?lang=EN&freq=A&geo=SI&partner=CN_X_HK&indic_bp=ENT&nace_r2=B-S_X_O",
+          "retrieved_at": "2026-10-25T12:30:48.918446+00:00",
+          "sha256": "8689db3a9bad65b9c0d3554922282d2f8929bb5e022bd0e47147308ef44a1077",
+          "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out2_r2?lang=EN&freq=A&geo=SI&partner=CN_X_HK&indic_bp=ENT&nace_r2=B-S_X_O"
+        },
+        {
+          "request_url": "https://ec.europa.eu/eurostat/api/dissemination/sdmx/2.1/data/fats_out2_r2/A.B-S_X_O.ENT.CN_X_HK.SI?format=TSV&compressed=false",
+          "retrieved_at": "2026-10-25T12:30:49.443596+00:00",
+          "sha256": "53b6056073c4c3d6739ce38db8754749e8fe9e755a0f8f579e1cbd81b383bf8d",
+          "url": "https://ec.europa.eu/eurostat/api/dissemination/sdmx/2.1/data/fats_out2_r2/A.B-S_X_O.ENT.CN_X_HK.SI?format=TSV&compressed=false"
+        },
+        {
+          "request_url": "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_si.htm",
+          "retrieved_at": "2026-10-25T12:30:51.920821+00:00",
+          "sha256": "46d5b20f023369263eeafbc673b7e6fe02a73bb9bc6e8bf781ee5e24876846fe",
+          "url": "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_si.htm"
+        }
+      ],
+      "locator": "geo=SI; partner=CN_X_HK; indic_bp=ENT; nace_r2=B-S_X_O",
+      "name": "Eurostat / Banka Slovenije",
+      "notes": "Download-only Slovenian-resident UCI enterprises/branches in China except Hong Kong. Keep the 2010 NACE transition, 2017 source break flag and 2021 EBS dataset lineage distinct; no unverified legal-unit conversion is invented. 2009 is confidential, not replaced by the separate national count. Numerical overlap does not establish identical geography/populations. Current national reporting cutoffs are not assumed historically constant; no pre-2007 count.",
+      "vintage": "fats_out2_r2; Slovenia; source updated 2024-04-25T11:00:00+0200"
     },
     "fats_out2_r2_UK": {
       "assets": [
@@ -5134,6 +6239,70 @@
       "notes": "French-controlled enterprises in the source category China except Hong Kong; not unique parents, offices or INSEE's rounded broader count. Retain the 2007 pilot/2009 frame, 2010 NACE, 2016 source-flag and 2021 EBS boundaries; 2008 is unreported. No invented 2000-2006 history or growth across those population changes. Original country/category index and observation flags are retained.",
       "vintage": "fats_out_part; France; source updated 2026-03-31T23:00:00+0200"
     },
+    "fats_out_part_HU": {
+      "assets": [
+        {
+          "request_url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out_part?lang=EN&freq=A&geo=HU&partner=CN_X_HK&indic_sbs=ENT_NR&nace_r2=B-S_X_O",
+          "retrieved_at": "2026-10-25T08:55:59+00:00",
+          "sha256": "c4de8817176f027e2cd1a9d385d32ae821bb9bb8fd363395530b873c1f2b81e3",
+          "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out_part?lang=EN&freq=A&geo=HU&partner=CN_X_HK&indic_sbs=ENT_NR&nace_r2=B-S_X_O"
+        },
+        {
+          "request_url": "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_hu.htm",
+          "retrieved_at": "2026-10-25T08:55:55+00:00",
+          "sha256": "f1db610ad8c7e6417a996d95c61ae62a391cf04af64a0a05f64ceff57b078f9e",
+          "url": "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_hu.htm"
+        },
+        {
+          "request_url": "http://www.ksh.hu/docs/eng/modsz/gsz_meth.html",
+          "retrieved_at": "2026-10-25T09:04:19+00:00",
+          "sha256": "455dd1915380a0dced82f225b30fe792a12406ce973e2d3ccd1cb785f672814a",
+          "url": "https://www.ksh.hu/docs/eng/modsz/gsz_meth.html"
+        },
+        {
+          "request_url": "https://www.ksh.hu/stadat_files/gsz/en/gsz0034.html",
+          "retrieved_at": "2026-10-25T09:04:17+00:00",
+          "sha256": "4b04a0bb128df4d5a45379efadc75eaf7153e212162d7f43b4bd58950a0a67d6",
+          "url": "https://www.ksh.hu/stadat_files/gsz/en/gsz0034.html"
+        }
+      ],
+      "locator": "geo=HU; partner=CN_X_HK; indic_sbs=ENT_NR; nace_r2=B-S_X_O",
+      "name": "Eurostat / Hungarian Central Statistical Office / Hungarian National Bank",
+      "notes": "Hungarian ultimate control; China except Hong Kong. HCSO outward-FATS methods and table footnote specify legal units through 2021 and enterprises from 2022. Eurostat's broader 2010-2023 comparable-window claim conflicts with this unit boundary; no harmonization or cross-unit 2019 growth. Keep 2010 NACE and 2021 EBS reference-population/source boundaries. Current FDI screening exceeds EUR 40k and 10% of capital; separate source wording says HUF 10m. These are reporting-frame limits, not verified constant historical cutoffs or an all-firm census. Individual minority-control checks apply; no equally shared control in the target population; nonrespondents are omitted. Primary/secondary confidentiality is retained. Unreported experimental 2004-2006 cells stay source-only. The national table's 2024 EU/outside-EU/all-host totals are not China counts.",
+      "vintage": "fats_out_part; Hungary; source updated 2026-03-31T23:00:00+0200"
+    },
+    "fats_out_part_IE": {
+      "assets": [
+        {
+          "request_url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out_part?lang=EN&freq=A&geo=IE&partner=CN_X_HK&indic_sbs=ENT_NR&nace_r2=B-S_X_O",
+          "retrieved_at": "2026-10-25T09:26:15.847464+00:00",
+          "sha256": "2283c55148f0ee17e51a8ba3cb78bb6d816000a24080b8ba1954b01e8c04989c",
+          "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out_part?lang=EN&freq=A&geo=IE&partner=CN_X_HK&indic_sbs=ENT_NR&nace_r2=B-S_X_O"
+        },
+        {
+          "request_url": "https://ec.europa.eu/eurostat/api/dissemination/sdmx/2.1/data/fats_out_part/A.B-S_X_O.ENT_NR.CN_X_HK.IE?format=TSV&compressed=false",
+          "retrieved_at": "2026-10-25T09:27:56.602733+00:00",
+          "sha256": "5af3a86ef572db2654457e3c7d4796368e5d62630e15ce86bc8ecc8dee4330bc",
+          "url": "https://ec.europa.eu/eurostat/api/dissemination/sdmx/2.1/data/fats_out_part/A.B-S_X_O.ENT_NR.CN_X_HK.IE?format=TSV&compressed=false"
+        },
+        {
+          "request_url": "https://www.cso.ie/en/methods/surveybackgroundnotes/outwardforeignaffiliatessurvey/",
+          "retrieved_at": "2026-10-25T09:28:58.866811+00:00",
+          "sha256": "4359588cb5473596ad3c600080ae6c372bdc7451e0d3f9afe13b41877c4b5798",
+          "url": "https://www.cso.ie/en/methods/surveybackgroundnotes/outwardforeignaffiliatessurvey/"
+        },
+        {
+          "request_url": "https://www.cso.ie/en/media/csoie/methods/outwardforeignaffiliatessurvey/Standard_SIMS_Report_Outward_Foreign_Affiliates_Survey_2022.pdf",
+          "retrieved_at": "2026-10-25T09:29:47.400577+00:00",
+          "sha256": "206f74fcd3dc7c977c02f38c1509c493801341dbacdbff1dd667cfa4b2392ead",
+          "url": "https://www.cso.ie/en/media/csoie/methods/outwardforeignaffiliatessurvey/Standard_SIMS_Report_Outward_Foreign_Affiliates_Survey_2022.pdf"
+        }
+      ],
+      "locator": "geo=IE; partner=CN_X_HK; indic_sbs=ENT_NR; nace_r2=B-S_X_O; independent native TSV; CSO 2022 quality pp7/14/17.",
+      "name": "Eurostat / Central Statistics Office Ireland",
+      "notes": "Reported foreign affiliate enterprises, not unique Irish parents or office locations. CSO expressly compares 2010-2022; no generic 2021 unit break is invented. 2023 continuity remains independently unreviewed and is not a merged endpoint. Background 51% capital wording and compilation exclusion below 50% remain distinct published rules, not silently reconciled or backdated. Inactive zero-employment/zero-turnover affiliates are excluded. 2022 parent-survey response was 52%; prior responders may be imputed, newly nonresponding units are not. Consolidated returns can understate affiliate counts; this is not a census of all Irish firms. National agriculture-inclusive descriptions do not replace selected Eurostat NACE scope. Archive/data-only; no current Irish plot, default 2019 growth or 2000-2006/2024 value inferred.",
+      "vintage": "fats_out_part; Ireland; source updated 2026-03-31T23:00:00+0200"
+    },
     "fats_out_part_IT": {
       "assets": [
         {
@@ -5153,6 +6322,26 @@
       "name": "Eurostat / ISTAT",
       "notes": "Eurostat changes from legal units to grouped enterprises in 2021; ISTAT national reports continue counting legal units. The national 2019/2020 controls match both older Eurostat values. Keep the 2010 NACE and 2021 source boundaries, original estimated flags and separate enterprise population. No pre-2007 count or cross-source 2019 change is inferred. Original Italy-specific metadata explicitly rejects comparison across 2021.",
       "vintage": "fats_out_part; Italy; source updated 2026-03-31T23:00:00+0200"
+    },
+    "fats_out_part_LU": {
+      "assets": [
+        {
+          "request_url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out_part?lang=EN&freq=A&geo=LU&partner=CN_X_HK&indic_sbs=ENT_NR&nace_r2=B-S_X_O",
+          "retrieved_at": "2026-10-25T09:06:11.990637+00:00",
+          "sha256": "68e332876db027a390d50052c618a3360a7e1ef6f695cb2d57e6f35c7984d492",
+          "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out_part?lang=EN&freq=A&geo=LU&partner=CN_X_HK&indic_sbs=ENT_NR&nace_r2=B-S_X_O"
+        },
+        {
+          "request_url": "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_lu.htm",
+          "retrieved_at": "2026-10-25T09:06:13.051569+00:00",
+          "sha256": "290deb835c342b62aed4dea11367145483e5327c1e4937570418d36e1017d55e",
+          "url": "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_lu.htm"
+        }
+      ],
+      "locator": "geo=LU; partner=CN_X_HK; indic_sbs=ENT_NR; nace_r2=B-S_X_O",
+      "name": "Eurostat (Luxembourg reporting)",
+      "notes": "Luxembourg-resident ultimate control; enterprises or branches in China except Hong Kong, not all resident immediate parents or an all-firm census. SPEs are excluded from the underlying FDI survey; the frame covers all large and medium enterprises and many small entities. The country report declares comparability from 2009 with no methodological break, not an independent audit of every historical vintage. Retain the 2010 NACE and 2021 dataset lineage without inventing a country-unit break. 2007/2008 are unreported, not zero; no earlier or unpublished current-year observations are inferred. Luxembourg overlaps EU aggregates.",
+      "vintage": "fats_out_part; source updated 2026-03-31T23:00:00+0200"
     },
     "fats_out_part_NL": {
       "assets": [
@@ -5241,6 +6430,32 @@
       "name": "Eurostat / Statistics Sweden",
       "notes": "Swedish-UCI controlled enterprises in China except Hong Kong; a separate population from the national subsidiary table. Preserve the metadata's 2008 classification break and original legacy NACE label/2010 table transition, 2018 legal-unit-to-enterprise/EGR change and 2021 EBS boundary. Official compilation can include imputation. 2009 is confidential, not zero; no national-series splice or cross-regime growth. GGH is the source's UCI proxy. The original dataset dimensions and flags are retained.",
       "vintage": "fats_out_part; Sweden; source updated 2026-03-31T23:00:00+0200"
+    },
+    "fats_out_part_SI": {
+      "assets": [
+        {
+          "request_url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out_part?lang=EN&freq=A&geo=SI&partner=CN_X_HK&indic_sbs=ENT_NR&nace_r2=B-S_X_O",
+          "retrieved_at": "2026-10-25T12:30:50.640097+00:00",
+          "sha256": "baec919b40ae4bde6046d230795294ac99c67efa56b2c4dc1ece987e6d71fed3",
+          "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/fats_out_part?lang=EN&freq=A&geo=SI&partner=CN_X_HK&indic_sbs=ENT_NR&nace_r2=B-S_X_O"
+        },
+        {
+          "request_url": "https://ec.europa.eu/eurostat/api/dissemination/sdmx/2.1/data/fats_out_part/A.B-S_X_O.ENT_NR.CN_X_HK.SI?format=TSV&compressed=false",
+          "retrieved_at": "2026-10-25T12:30:51.118607+00:00",
+          "sha256": "3294038e9c16fb5f03ca6fd678d59e844eb67601bd17c011253685898be201b4",
+          "url": "https://ec.europa.eu/eurostat/api/dissemination/sdmx/2.1/data/fats_out_part/A.B-S_X_O.ENT_NR.CN_X_HK.SI?format=TSV&compressed=false"
+        },
+        {
+          "request_url": "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_si.htm",
+          "retrieved_at": "2026-10-25T12:30:51.920821+00:00",
+          "sha256": "46d5b20f023369263eeafbc673b7e6fe02a73bb9bc6e8bf781ee5e24876846fe",
+          "url": "https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_si.htm"
+        }
+      ],
+      "locator": "geo=SI; partner=CN_X_HK; indic_sbs=ENT_NR; nace_r2=B-S_X_O",
+      "name": "Eurostat / Banka Slovenije",
+      "notes": "Download-only Slovenian-resident UCI enterprises/branches in China except Hong Kong. Keep the 2010 NACE transition, 2017 source break flag and 2021 EBS dataset lineage distinct; no unverified legal-unit conversion is invented. 2009 is confidential, not replaced by the separate national count. Numerical overlap does not establish identical geography/populations. Current national reporting cutoffs are not assumed historically constant; no pre-2007 count.",
+      "vintage": "fats_out_part; Slovenia; source updated 2026-03-31T23:00:00+0200"
     },
     "finland_13k8": {
       "assets": [

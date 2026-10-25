@@ -1,7 +1,7 @@
 {
   "as_of": "2026-10-25",
   "context": {
-    "archive": "Affiliate/enterprise counts form a separate complete dataset. Newly recovered Swedish/Finnish/French histories are distinct from earlier U.S./German/Norwegian reference series; stale counts remain download-only.",
+    "archive": "Affiliate/enterprise counts form a separate complete dataset. UK observations are also shown in a clearly labelled historical table, not a current chart. Other older source histories remain separate from current evidence.",
     "interpretation": "Company decisions and investment are separate measures. Neither is a census of businesses or offices.",
     "investment": "U.S. outward direct investment only, on a historical-cost basis and by immediate host. Includes equity and net intercompany debt, not just new projects. Position changes are not investment flows.",
     "survey_comparison": "Different member populations and questions: these are not matched U.S.-European estimates. Germany is not an EU-wide sample."

@@ -21,6 +21,90 @@ def data():
     return json.loads((ROOT / "data/site/opinions.json").read_text())
 
 
+def test_c100_reported_age_panel_preserves_country_geometry_and_literal_bins():
+    events = [dict(x=x, y=y, values=values) for x, y, values in (
+        (165, 145, [50, 40]), (250, 145, [55, 54]),
+        (165, 195, [48, 57]), (250, 195, [43, 44]),
+        (355, 145, [39, 36, 39, 44]), (355, 195, [55, 60, 55, 48]))]
+    text = ("2017 GENERAL PUBLIC AGE BREAKDOWN 18-34 35-49 50+ "
+            "How would you describe your impression of China? "
+            "How would you describe your impression of the U.S.?")
+    points = sources.parse_c100_age_panel(events, text)
+    assert len(points) == 16
+    assert [(row["age"], row["value"]) for row in points
+            if row["country"] == "USA" and row["response"] == "favorable"] == [
+                ("General Population", 48), ("18-34", 57), ("35-49", 43), ("50+", 44)]
+    for changed_events, changed_text in (
+        (events[:-1], text), ([*events, events[0]], text),
+        ([dict(events[0], x=355), *events[1:]], text),
+        ([dict(events[0], values=[True, 40]), *events[1:]], text),
+        ([*events, dict(x=400, y=150, values=[6, 4, 6, 8])], text),
+        (events, text.replace("35-49", "35-54")),
+        (events, text.replace("impression of the U.S.?", "impression of the U.S. government?")),
+    ):
+        with pytest.raises(ValueError):
+            sources.parse_c100_age_panel(changed_events, changed_text)
+    assert sources.parse_c100_age_panel([*events, dict(x=800, y=150, values=[99] * 4)], text) == points
+    with pytest.raises(ValueError, match="edition changed"):
+        sources.parse_c100_reported_ages(b"unreviewed edition", b"unreviewed translation", b"earlier")
+
+
+def test_c100_reported_age_archive_retains_actual_interviews_unknown_dates_and_unharmonized_bins():
+    d = sources.validate_opinion_data(data())
+    rows = [row for row in d["observations"] if row["series_id"].startswith("c100_reported_age_")]
+    assert len(rows) == 17
+    assert sum(row["series_id"].startswith("c100_reported_age_us:") for row in rows) == 8
+    assert sum(row["series_id"].startswith("c100_reported_age_china:") for row in rows) == 8
+    assert not any(row["series_id"].endswith("not_sure") for row in rows)
+    us = d["surveys"]["c100_reported_age_us_2016"]
+    china = d["surveys"]["c100_reported_age_china_2017"]
+    assert (us["year"], us["field_start"], us["field_end"], us["n_total"], us["n_item"]) == (
+        2016, "2016-11-18", "2016-12-20", 1019, None)
+    assert (china["year"], china["field_start"], china["field_end"], china["n_total"], china["n_item"]) == (
+        2017, None, None, 3696, None)
+    assert sources.C100_CHINA_DATE_CONFLICT in china["notes"]
+    assert {d["series"][row["series_id"]]["age"] for row in rows
+            if not row["series_id"].startswith("c100_reported_age_2007:")} == {"18+", "18-34", "35-49", "50+"}
+    assert all(not sid.startswith("c100_reported_age_") for chart in CHARTS.values() for sid in chart["series"])
+    earlier = next(row for row in rows if row["year"] == 2007)
+    assert earlier["value"] == 69 and d["series"][earlier["series_id"]]["age"] == "18-29"
+
+
+def test_c100_reported_age_archive_rejects_rebins_selected_dates_item_bases_and_source_substitution():
+    for case in ("age", "sampling", "exact_china_dates", "report_year_as_us_interview_year",
+                 "item_base", "discard_date_conflicts", "source", "publication", "bridge", "edition"):
+        d = data()
+        row = next(row for row in d["observations"]
+                   if row["series_id"] == "c100_reported_age_china:35-49:favorable")
+        survey = d["surveys"][row["survey_id"]]
+        if case == "age":
+            d["series"][row["series_id"]]["age"] = "35-54"
+        elif case == "sampling":
+            d["series"][row["series_id"]]["sampling"] = "All China residents, matched to Pew"
+        elif case == "exact_china_dates":
+            survey.update(field_start="2016-12-12", field_end="2017-01-09")
+        elif case == "report_year_as_us_interview_year":
+            survey = d["surveys"]["c100_reported_age_us_2016"]
+            survey.update(year=2017, field_start="2017-11-18", field_end="2017-12-20")
+            for point in d["observations"]:
+                if point["survey_id"] == "c100_reported_age_us_2016":
+                    point["year"] = 2017
+        elif case == "item_base":
+            survey["n_item"] = survey["n_total"]
+        elif case == "discard_date_conflicts":
+            survey["notes"] = "Exact national all-adult survey"
+        elif case == "source":
+            row["source_id"] = "c100_china_2007"
+        elif case == "publication":
+            d["sources"][row["source_id"]]["published"] = "2026"
+        elif case == "bridge":
+            row["comparability"] = "pew_china_telephone"
+        else:
+            d["sources"][row["source_id"]]["assets"][1]["sha256"] = "0" * 64
+        with pytest.raises(ValueError):
+            sources.validate_opinion_data(d)
+
+
 def test_primary_source_checkpoints_keep_two_directions_and_scales_separate():
     d = sources.validate_opinion_data(data())
     values = {(r["series_id"], r["year"]): r["value"] for r in d["observations"]}
@@ -154,20 +238,27 @@ def test_early_china_parser_uses_the_china_nets_and_both_original_methods(monkey
         documents[key][index] = original
 
 
-def test_beijing_archive_keeps_original_precision_and_unknown_population_details():
+def test_beijing_archive_keeps_original_precision_and_qualified_urban_population():
     d = sources.validate_opinion_data(data())
     rows = [row for row in d["observations"] if row["series_id"] == "bas_beijing:us_warmth"]
     assert [(r["year"], r["value"]) for r in rows] == [
         (1998, 62), (1999, 53), (2000, 57), (2001, 47), (2002, 52)]
     assert d["sources"]["bas_beijing_history"]["published"] == "2003"
-    assert d["series"]["bas_beijing:us_warmth"]["age"] == "Not specified"
+    assert d["series"]["bas_beijing:us_warmth"]["age"] == "18-65"
+    sampling = d["series"]["bas_beijing:us_warmth"]["sampling"]
+    assert all(token in sampling for token in
+               ("eight urban districts", "fixed residence", "non-agricultural Beijing hukou"))
     for row in rows:
         survey = d["surveys"][row["survey_id"]]
         assert survey["field_start"] is None and survey["field_end"] is None
-        assert survey["n_total"] == {2000: 757, 2001: 615, 2002: 662}.get(row["year"])
+        assert survey["n_total"] == {1998: 756, 1999: 712, 2000: 757, 2001: 615, 2002: 662}[row["year"]]
         assert survey["n_item"] is None
+        assert "month precision" in survey["notes"]
         assert ("Approximate mean" in row["notes"]) == (row["year"] in (1998, 1999, 2002))
         assert row["comparability"] == "bas_beijing_coverage_" + str(row["year"])
+    assert "2001-12 to 2002-02" in d["surveys"]["bas_beijing_2001"]["notes"]
+    assert {sources.beijing_methods_url(year) for year in range(1998, 2003)} <= {
+        asset["request_url"] for asset in d["sources"]["bas_beijing_history"]["assets"]}
     assert all(not sid.startswith("bas_beijing:")
                for chart in CHARTS.values() for sid in chart["series"])
 
@@ -203,6 +294,60 @@ def test_beijing_parser_requires_the_original_wave_country_and_sample_evidence(m
     Reader.pages = [Page(methods.replace("Beijing citizens", "national adults")), Page(footnote)]
     with pytest.raises(ValueError):
         sources.parse_beijing_history(b"wrong population")
+
+
+def test_beijing_original_method_parser_checks_wave_registration_and_month_precision():
+    fields = {
+        "Dataset Persistent ID": "doi:10.18170/DVN/ARBTMK",
+        "Title": "Beijing Area Study-2001",
+        "Date of Collection": "Start: 2001-12 ; End: 2002-02",
+        "Publication Date": "2016-09-06",
+        "\u603b\u4f53\u4eba\u7fa4": (
+            "\u4e1c\u57ce\u3001\u897f\u57ce\u3001\u5d07\u6587\u3001\u5ba3\u6b66\u3001\u671d\u9633\u3001"
+            "\u4e30\u53f0\u3001\u77f3\u666f\u5c71\u3001\u6d77\u6dc0\u516b\u4e2a\u5e02\u533a\u3002"
+            "\u6709\u56fa\u5b9a\u4f4f\u6240\u3002\u5317\u4eac\u5e02\u6b63\u5f0f\u7684\u975e\u519c\u4e1a\u6237\u53e3"
+            "\u300218\u5c81\u81f365\u5c81"),
+        "\u5e94\u7b54\u7387": "\u6709\u6548\u6837\u672c\u6570\u4e3a615\u4e2a\uff0c\u5e94\u7b54\u7387\u4e3a72%\u3002",
+        "\u62bd\u6837\u65b9\u6cd5": "PPS\u5206\u4e24\u9636\u6bb5\u62bd\u53d6",
+        "\u6536\u96c6\u6a21\u5f0f": "\u7eb8\u7248\u95ee\u5377\u9762\u8bbf",
+        "\u6743\u91cd": "WEIGHT PSU",
+    }
+    body = ('<div class="metadata-panel-body">'
+            + "".join('<div class="form-group"><label>' + key + "</label><div>"
+                      + value + "</div></div>" for key, value in fields.items()) + "</div>")
+    assert sources.parse_beijing_methods(body.encode(), 2001) == {
+        "start_month": "2001-12", "end_month": "2002-02",
+        "n_total": 615, "metadata_published": "2016-09-06"}
+    for old, new in (
+            ("ARBTMK", "OXOAFT"), ("Beijing Area Study", "National China Study"),
+            ("2016-09-06", "2016-02-30"), ("2002-02", "2002-01"),
+            ("2001-12", "2001-12-01"), ("18\u5c81\u81f365\u5c81", "18+"),
+            ("\u975e\u519c\u4e1a\u6237\u53e3", "\u6240\u6709\u5c45\u6c11"),
+            ("\u516b\u4e2a\u5e02\u533a", "\u4e5d\u4e2a\u5e02\u533a"),
+            ("\u77f3\u666f\u5c71", "\u5168\u56fd"),
+            ("\u6709\u6548\u6837\u672c\u6570\u4e3a615", "\u6709\u6548\u6837\u672c\u6570\u4e3a662"),
+            ("WEIGHT", "unweighted")):
+        with pytest.raises(ValueError):
+            sources.parse_beijing_methods(body.replace(old, new).encode(), 2001)
+    with pytest.raises(ValueError):
+        sources.parse_beijing_methods(body.encode(), 2015)
+
+
+def test_beijing_qualification_requires_primary_sources_and_honest_unknown_days():
+    for change in ("missing_source", "missing_month_precision", "fabricated_days", "erased_registration"):
+        d = data()
+        if change == "missing_source":
+            d["sources"]["bas_beijing_history"]["assets"].pop()
+        elif change == "missing_month_precision":
+            d["surveys"]["bas_beijing_2001"]["notes"] = "Survey conducted in 2001."
+        elif change == "fabricated_days":
+            d["surveys"]["bas_beijing_1998"].update(field_start="1998-12-01", field_end="1999-01-31")
+        else:
+            d["series"]["bas_beijing:us_warmth"]["sampling"] = (
+                d["series"]["bas_beijing:us_warmth"]["sampling"].replace(
+                    "non-agricultural Beijing hukou", "all residents"))
+        with pytest.raises(ValueError):
+            sources.validate_opinion_data(d)
 
 
 def test_beijing_archive_rejects_splicing_exactness_and_fabricated_dates():
@@ -241,7 +386,7 @@ def test_beijing_source_cannot_be_relabelled_as_a_pew_favorable_percentage():
 
 def test_c100_archive_is_only_the_chinese_2007_general_public_country_totals():
     d = sources.validate_opinion_data(data())
-    rows = [r for r in d["observations"] if r["series_id"].startswith("c100_")]
+    rows = [r for r in d["observations"] if r["series_id"].startswith("c100_china_18_60:")]
     assert {r["series_id"]: r["value"] for r in rows} == {
         "c100_china_18_60:favorable": 60, "c100_china_18_60:unfavorable": 26,
         "c100_china_18_60:not_sure": 14}

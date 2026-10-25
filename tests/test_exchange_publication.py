@@ -253,12 +253,19 @@ def test_collective_export_preserves_complete_inputs_and_native_plot_boundaries(
     assert "business-current" in manifest["datasets"]
     assert "business-inward" in manifest["datasets"]
     cards = business.select(".business-card")
-    assert len(cards) == 25
+    assert len(cards) == 28
     references = business.select_one("#business-count-references")
     assert references.get("open") is None and len(references.select(".business-card")) == 4
-    assert len([card for card in cards if card.find_parent(id="business-count-references") is None]) == 21
+    assert len([card for card in cards if card.find_parent(id="business-count-references") is None]) == 24
     assert business.select_one("#us-affiliates-china").find_parent("details")["id"] == "business-count-references"
     assert not business.select("#module-chart,#us-parent-companies-china,#uk-affiliates-china,#eu-affiliates-china,.covid-band,.covid-context")
+    uk = business.select_one("#uk-business-coverage")
+    assert uk is not None and "historical" in uk.h3.text.lower()
+    assert len(uk.select("tbody tr")) == 14
+    assert uk.select_one('#uk-business-history').get("open") is None
+    assert not uk.select("svg,img,.native-chart,.plot-data")
+    assert {a["href"].split("?")[0] for a in uk.select("a[download]")} == {
+        "downloads/business-presence.json", "downloads/business-observations.csv"}
     for chart, years in [("sweden-affiliates-china", range(2010, 2025)),
                          ("finland-affiliates-china", range(2020, 2025)),
                          ("france-affiliates-china", [y for y in range(2007, 2024) if y != 2008]),
@@ -270,10 +277,13 @@ def test_collective_export_preserves_complete_inputs_and_native_plot_boundaries(
                          ("denmark-affiliates-china", range(2007, 2025)),
                          ("austria-affiliates-china", range(2021, 2024)),
                          ("poland-affiliates-china", range(2008, 2024)),
+                         ("luxembourg-affiliates-china", range(2009, 2024)),
                          ("portugal-affiliates-china", [year for year in range(2008, 2024) if year != 2012]),
                          ("czechia-affiliates-china", [year for year in range(2007, 2024) if year != 2021]),
                          ("belgium-affiliates-china", range(2022, 2024)),
-                         ("swiss-liechtenstein-affiliates-china", range(2014, 2025))]:
+                         ("swiss-liechtenstein-affiliates-china", range(2014, 2025)),
+                         ("hungary-affiliates-china", range(2022, 2024)),
+                         ("slovenia-affiliates-china", range(2009, 2026))]:
         country = json.loads(business.select_one(f"#{chart} .plot-data").string)
         assert country["columns"] and [p["year"] for p in country["groups"][0]["points"]] == list(years)
         assert (country["first"], country["last"]) == (min(years), max(years))

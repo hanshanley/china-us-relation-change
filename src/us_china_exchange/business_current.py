@@ -137,7 +137,7 @@ def reviewed_snapshot(bea_client, survey_client):
             "interpretation": "Company decisions and investment are separate measures. Neither is a census of businesses or offices.",
             "survey_comparison": "Different member populations and questions: these are not matched U.S.-European estimates. Germany is not an EU-wide sample.",
             "investment": "U.S. outward direct investment only, on a historical-cost basis and by immediate host. Includes equity and net intercompany debt, not just new projects. Position changes are not investment flows.",
-            "archive": "Affiliate/enterprise counts form a separate complete dataset. Newly recovered Swedish/Finnish/French histories are distinct from earlier U.S./German/Norwegian reference series; stale counts remain download-only."},
+            "archive": "Affiliate/enterprise counts form a separate complete dataset. UK observations are also shown in a clearly labelled historical table, not a current chart. Other older source histories remain separate from current evidence."},
         "sources": {
             "amcham_2026": source("AmCham Shanghai / PwC China, 2026 China Business Report public release",
                                   "2026-09-10", [us_asset], "Public findings and methodology paragraph.",
@@ -284,6 +284,56 @@ def csv_text(rows):
     return stream.getvalue()
 
 
+def uk_historical_coverage(archive):
+    from .public_freshness import eligible
+    from .render import esc
+
+    rows = sorted((r for r in archive["observations"] if r["series_id"] == "eurostat_uk:china"),
+                  key=lambda r: r["year"])
+    if not rows or eligible(rows, snapshot=False):
+        return ""
+    reported = [r for r in rows if r["value"] is not None]
+    description = (
+        f'Published UK-controlled enterprise counts in China, excluding Hong Kong, end in {reported[-1]["year"]}. '
+        'This is historical coverage, not a current company census.'
+        if reported else
+        "No UK enterprise counts are reported in this snapshot; missing values are not zero.")
+    period = f' ({reported[0]["year"]}-{reported[-1]["year"]} reported)' if reported else ""
+    cells = []
+    previous_group = None
+    for row in rows:
+        value = (f'{row["value"]:,}' if row["value"] is not None else
+                 "Confidential" if row["status"] == "suppressed" else "Not reported")
+        raw = "" if row["value"] is None else str(row["value"])
+        boundary = (row["value"] is not None and previous_group is not None
+                    and row["comparability"] != previous_group)
+        status = row["status"].replace("_", " ").title() + (" (break)" if boundary else "")
+        if row["value"] is not None:
+            previous_group = row["comparability"]
+        cells.append(
+            f'<tr data-uk-year="{row["year"]}" data-uk-break="{str(boundary).lower()}">'
+            f'<th scope="row">{row["year"]}</th>'
+            f'<td data-uk-value="{esc(raw)}">{esc(value)}</td>'
+            f'<td>{esc(status)}</td></tr>')
+    explanation = archive["sources"]["ons_coverage"]["assets"][0]["url"]
+    return (
+        '<aside class="business-coverage" id="uk-business-coverage" aria-labelledby="uk-business-title">'
+        '<h3 id="uk-business-title">United Kingdom: historical data only</h3>'
+        f'<p class="chart-context">{esc(description)}</p>'
+        '<details id="uk-business-history">'
+        f'<summary>View UK enterprise-count records{esc(period)}</summary>'
+        '<p class="chart-note">Classification, survey and source changes mean this is not one like-for-like trend. '
+        'Eurostat uses a different classification before 2010; ONS estimates for 2018-2019 include agriculture. '
+        'A break label marks a change from the preceding reported comparability group. '
+        'These are controlled enterprises, not unique UK parent companies or office locations.</p>'
+        '<div class="table-scroll"><table><caption>UK-controlled enterprises in China, excluding Hong Kong</caption>'
+        '<thead><tr><th>Reference year</th><th>Enterprises</th><th>Source status</th></tr></thead><tbody>'
+        + "".join(cells) + '</tbody></table></div></details>'
+        f'<p><a href="{esc(explanation)}">ONS explanation of the later-data gap</a> · '
+        '<a href="downloads/business-presence.json" download>Complete count data and provenance · JSON</a> · '
+        '<a href="downloads/business-observations.csv" download>Every count observation · CSV</a></p></aside>')
+
+
 def build_current_business(root, archive, gallery):
     from . import business_inward
     from .business_analysis import CHARTS as COUNT_CHARTS, build_business, validate_business_data
@@ -318,9 +368,11 @@ def build_current_business(root, archive, gallery):
                              "netherlands-affiliates-china", "finland-affiliates-china-eurostat",
                              "italy-affiliates-china", "sweden-affiliates-china-eurostat", "spain-affiliates-china",
                              "denmark-affiliates-china", "austria-affiliates-china", "poland-affiliates-china",
+                             "luxembourg-affiliates-china",
                              "portugal-affiliates-china", "czechia-affiliates-china",
                              "belgium-affiliates-china",
-                             "swiss-liechtenstein-affiliates-china"}:
+                             "swiss-liechtenstein-affiliates-china", "hungary-affiliates-china",
+                             "slovenia-affiliates-china"}:
             count_cards.append(str(section))
         else:
             config = COUNT_CHARTS[section["id"]]
@@ -333,18 +385,21 @@ def build_current_business(root, archive, gallery):
                               f'{source["name"]}; {source["vintage"]}.')
             section.h3.insert_after(vintage)
             reference_cards.append(str(section))
+    uk_coverage = uk_historical_coverage(archive)
     count_section = (
         '<section class="series-panel" id="affiliate-presence"><h2>Affiliates operating in China</h2>'
-        '<p class="chart-context">Swedish/Finnish/Danish 2024, provisional Dutch 2024 and French/Spanish 2023 counts, with every reported historical year. '
+        '<p class="chart-context">Slovenian 2025, Swedish/Finnish/Danish 2024, provisional Dutch 2024 and French/Spanish 2023 counts, with every reported historical year. '
         'Separate Finnish- and Swedish-UCI Eurostat histories reach 2007; neither is spliced into the broader national counts. '
         'Italian legal-unit counts run from 2007 to 2023; newer grouped-enterprise counts remain separate in downloads. '
         'Portuguese-UCI counts start in 2008 and Czech-UCI counts in 2007; their coverage changes and confidential gaps remain explicit. '
+        'Hungarian enterprise counts start only in 2022; the older legal-unit archive remains separate in downloads. '
         'These count subsidiary or affiliate '
         'entities, not unique parent companies or offices. Country sources have different ownership, sector '
         'and reporting thresholds: they are not a matched ranking or a total to add together. '
         'Shorter histories and methodology changes remain explicit.</p>'
+        + uk_coverage +
         '<div class="comparison-panels business-counts">' + "".join(count_cards) + '</div></section>'
-    ) if count_cards else ""
+    ) if count_cards or uk_coverage else ""
     reference_section = (
         '<details class="series-panel" id="business-count-references">'
         '<summary>Earlier U.S., German and Norwegian count references</summary>'
@@ -422,7 +477,8 @@ def build_current_business(root, archive, gallery):
         '<div class="table-scroll"><table><thead><tr><th>Measure</th><th>Reference period</th><th>Reported value</th><th>Unit</th></tr></thead><tbody>' +
         exact + '</tbody></table></div><h3>Primary sources</h3><ul>' + sources +
         '</ul><h3>Complete company-count data</h3><p>The new country histories and earlier reference histories remain distinct. '
-        'Older UK/EU and parent-company benchmarks remain download-only; they are not a current business census. '
+        'Older EU and parent-company benchmarks remain download-only; UK records also appear in the labelled historical table above. '
+        'These are not a current business census. '
         'Missing years and source/ownership changes remain explicit.</p>'
         '<p><a href="downloads/business-presence.json" download>All count data and provenance · JSON</a> · '
         '<a href="downloads/business-observations.csv" download>Every count observation · CSV</a> · '

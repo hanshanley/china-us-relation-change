@@ -159,9 +159,10 @@ institution-level workbook, report artwork or exam questions are redistributed.
 
 ## Business-presence sources
 
-`data/site/business_presence.json` retains 385 China-hosted observations, including
-all 355 prior records, three earlier German counts, eleven qualified SNB counts
-and sixteen separately defined INE national observations,
+`data/site/business_presence.json` retains 468 China-hosted observations, including
+all 385 prior records, 32 separately qualified Luxembourg/Hungary observations,
+seventeen Irish source cells (fourteen reported counts and three confidential
+nulls), and 34 separately defined Slovenian national/Eurostat observations,
 explicit confidential/unavailable cells, series definitions, source URLs,
 selected table members, retrieval timestamps and SHA-256 checksums.
 
@@ -223,6 +224,28 @@ the canonical status is `reported`. The 2025-12-12 publication describes
 reference years through 2024, not a 2025 observation. No pre-2014 history,
 pure-Swiss equivalence, unique-parent count or default 2019 growth is inferred.
 
+The [Banka Slovenije national country table](https://px.bsi.si/Resources/PX/Databases/serije_ang/30_EOT/60_KAZALCI_POSLOVANJA/oc-fatse.px)
+supplies seventeen China (CN) enterprise counts for 2009-2025, ending 11.
+Its exact `Number of enterprises*` item is not a parent-company count or
+employee measure. Direct/indirect control exceeds 50%; the source uses
+Slovenia-resident ultimate control and a thresholded SN11 reporting frame.
+Resident-reporter balance-sheet assets exceed EUR2m from 2017 and EUR5m
+from 2023. Both cutoffs remain explicit; no default 2019-to-2025 change is
+computed. The complete 1,938-cell native query retains fractional values
+outside the selected enterprise counts and literal `..`/`...` masking symbols.
+Individual revision flags and the reason for each masked cell are not supplied.
+[National reporter metadata](https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_si.htm)
+and the original 2025 report accompany the national observations.
+
+Seventeen separate 2007-2023 Slovenian Eurostat observations independently
+reconcile to three native TSVs and stay download-only. The confidential 2009
+cell is not filled with the national value. Preserve the 2010 classification,
+2017 source break and 2021 EBS lineage without inventing a legal-unit change.
+Fourteen overlapping count values agree, but this does not certify equivalence
+between national CN and Eurostat CN_X_HK populations or authorize a splice.
+All nine selected original body checksums are pinned; a changed release requires
+review before replacement. No pre-2007, national pre-2009 or 2026 count is inferred.
+
 Italian Eurostat queries select `geo=IT`, `partner=CN_X_HK` and enterprise
 indicators in `fats_out2`, `fats_out2_r2` and `fats_out_part`.
 All seventeen2007-2023 values independently reconcile to original native TSVs.
@@ -252,6 +275,33 @@ that release is still in the future as of October25,2026.
 | Portuguese counts, `geo=PT`, `partner=CN_X_HK`; [national methods](https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_pt.htm) | Three exact Eurostat datasets retain every 2007-2023 source cell. The 2007 count of 3 predates the documented 2008 UCI implementation and is a separate qualified archive, not a Portuguese-UCI observation. The 2008-2023 UCI population has fifteen counts, ending at 41, and a confidential 2012 null. Keep the selected 2010 classification transition, 2014 sample-to-IES source change and 2020 coverage expansion. The national producer declares 2020-2023 comparable; the 2021 dataset change is not a fabricated extra unit break. No current 2019 denominator across the 2020 boundary or allocation from an EU total. |
 | Czech counts, `geo=CZ`, `partner=CN_X_HK`; [national methods](https://ec.europa.eu/eurostat/cache/metadata/EN/fats_out_simsofat_cz.htm) | Three exact Eurostat datasets retain seventeen 2007-2023 source cells: sixteen counts, ending at 7, and a confidential 2021 null. Czech National Bank metadata identifies UCI introduction in 2007, NACE Rev. 2 in 2008 and EBS coverage/definition changes in 2021. Preserve the selected 2010 legacy-dataset transition too. These are controlled enterprises/branches, not a count of all minority FDI interests. No cross-2021 comparison to 2019, pre-2007 padding, unreported later year or sum with overlapping EU aggregates. |
 
+Irish archive-only observations select `geo=IE`, `partner=CN_X_HK` and the
+enterprise-count metric in all three original Eurostat collections. All
+17 source cells independently match native TSVs: confidential 2007-2009
+nulls, thirteen reported 2010-2022 counts, and a separately retained 2023
+count of 122. The older NACE C-O-except-L cells have their own historical
+attribution qualification; they are not backdated Irish-UCI observations.
+The NACE B-S-except-O series follows the
+[CSO 2022 quality report](https://www.cso.ie/en/media/csoie/methods/outwardforeignaffiliatessurvey/Standard_SIMS_Report_Outward_Foreign_Affiliates_Survey_2022.pdf),
+page 14, which expressly compares 2010-2022. The 2021 collection change is
+not a fabricated statistical-unit break. Independently unreviewed 2023
+continuity remains in a separate archive population, not a new endpoint
+or 2019 growth.
+
+The unit is a foreign affiliate enterprise, not a surveyed Irish parent,
+office or census of Irish-incorporated firms. Preserve the
+[background's](https://www.cso.ie/en/methods/surveybackgroundnotes/outwardforeignaffiliatessurvey/)
+Irish-resident UCI and 51%-capital wording alongside the compilation
+exclusion below 50%, without silently reconciling or backdating them.
+Inactive zero-employment/zero-turnover affiliates are excluded. The 2022
+parent-survey response was 52%; limited prior-response imputation does not
+cover newly nonresponding units. Consolidated returns may understate the
+number of affiliates. National agriculture-inclusive descriptions do not
+replace the narrower selected Eurostat NACE total. All source flags and
+both JSON/native fingerprints remain in complete downloads. No new
+current Irish model, unreported 2000-2006/2024 value, growth comparison or
+addition to overlapping EU aggregates is implied.
+
 Raw source archives, workbooks, publication text and artwork remain local.
 Only numerical aggregates, original definitions and our figures are published.
 All indicators are business-presence stocks, not border crossings, investment
@@ -272,8 +322,10 @@ average or social-media sample is substituted.
 | The Carter Center / Emory University, October 2026 China Pulse report and its published Datawrapper LU2Fb dataset | Means on a 0-100 cold-to-warm scale, not percent favorable. Fieldwork October 27, 2025-January 1, 2026 (2,506) and April 16-June 26, 2026 (2,500). Both waves are reweighted in this release, yielding overall means 33 and 32. Keep original Chinese age bands and do not claim a matched U.S. probability sample. The PDF supplies a publication month, not an exact day. |
 | Pew, October 5, 2016 China report, page 13, Q10a | Direct published net favorable/unfavorable percentages, 2007-2016. Do not sum separately rounded component percentages. Sample coverage varied historically; disconnected bars do not imply a continuous current national trend. |
 | Pew, September 21, 2006 Asia report, PDF pages 11-12, Q2a; November 16, 2005 China report, PDF pages 6-7 | Published favorable/unfavorable nets: 42/53 in 2005 and 47/43 in 2006. Ages 18-60 in six city areas and surrounding rural areas, disproportionately urban, not nationally representative. Fieldwork May 21-31, 2005 (n=2,191) and April 7-18, 2006 (n=2,180). Keep the differing city sets, exact dates, unknown question-specific bases and separate per-round coverage keys. Archive in complete downloads, not the later all-adult series, current charts or China Pulse warmth scale. |
-| Alastair Iain Johnston, RSIS Working Paper 50 (2003), original PDF page 13 footnote 33; methods page 8 footnote 20 | Five historical Beijing means in 1998-2002: 62/53/57/47/52 on a 0-100 warmth scale, not favorable percentages or national Chinese estimates. The source says "around" for 1998, 1999 and 2002. Full-wave samples 757/615/662 for 2000/2001/2002 are not item denominators; exact field dates and age coverage remain unknown. Publication year only, not an invented month/day. Separate coverage keys, archive-only complete downloads, no new public chart or link to Pew/China Pulse. The original publisher's indexed catalogue identifies 2003, but its direct body returns 403 and is not claimed retrieved. |
+| Alastair Iain Johnston, RSIS Working Paper 50 (2003), original PDF page 13 footnote 33; methods page 8 footnote 20 | Five historical Beijing means in 1998-2002: 62/53/57/47/52 on a 0-100 warmth scale, not favorable percentages or national Chinese estimates. The source says "around" for 1998, 1999 and 2002. Full-wave samples 757/615/662 for 2000/2001/2002 are not item denominators. Original provider metadata below supplements the sampling frame and collection months, not the numerical precision. Exact days, thermometer-item bases and weighting of these published means remain unverified. Publication year only, not an invented month/day. Separate coverage keys, archive-only complete downloads, no new public chart or link to Pew/China Pulse. The original publisher's indexed catalogue identifies 2003, but its direct body returns 403 and is not claimed retrieved. |
+| Peking University China Survey Data Archive, original BAS 1998-2002 public dataset metadata | Ages18-65, fixed residence and formal non-agricultural Beijing household registration in eight urban districts, not all Beijing residents or national China. Whole-wave n=756/712/757/615/662. Collection months: 1998Dec-1999Jan, 1999Dec-2000Jan, 2000Dec-2001Jan, 2001Dec-2002Feb, 2002Dec-2003Jan; no exact day is fabricated. Retain the provider's February2002 endpoint alongside RSIS's generic December/January summary. Paper face-to-face, two-stage PPS; provider WEIGHT/PSU documentation does not establish the thermometer-item base or independently reproduce mean weighting. These separately published 2016 catalogue records qualify methods, not new warmth observations or later broader18+resident frames. Five public HTML assets are preserved in complete JSON/CSV source provenance. Restricted questionnaires/codebooks/microdata are not retrieved; the public metadata-export API returned403 and is held without client/alias retries. Public metadata is not a complete numeric survey download. |
 | Committee of 100 / Horizon Research, December 10, 2007 report, PDF page 14 / printed12 Q1; PDF page62 / printed60 methods | Only the Chinese general-public totals: 60% favorable, 26% unfavorable and 14% not sure about the United States as a country. Fieldwork August18-September7,2007; full-wave n=4,104, ages18-60, face-to-face multistage sampling in seven cities, seven towns and ten villages. Retain the publisher's national description within that age/sample frame, not unrestricted all-adult coverage. Item denominator remains unknown; elite86/94% and historical U.S. columns are not substituted or imported. Separate archive-only series, never a Pew/BAS/ChinaPulse splice, new current chart or uninterrupted national history. Full original77-cell source-query evidence remains separately retained for verification. |
+| Committee of 100 original English/Chinese 2017 reports, Q1.2 printed16 and methods104-106; separate 2007 Q1 age narrative PDF15 | Seventeen additional archive-only, source-reported cells: sixteen favorable/unfavorable values for each country's general public and literal18-34/35-49/50+ question bins, plus the explicit2007Chinese18-29 favorable69%. These are not verified underlying age coding or harmonized cohorts: English U.S.profile instead prints18-34/35-54/55+, and the actual Chinese profile image literally prints18-34/45-54/55+. Preserve all three statements, not a guessed correction. U.S.interviews are November18-December20,2016, n1019, weighted landline/cell telephone. China is a December2016-January2017 cross-year round, n3696,18+,70PSUs, face-to-face, excluding Tibet/Xinjiang/Hong Kong/Macao/Taiwan. English summary saysDecember6-January9, both country appendices December12-January9, Chinese overall-table image December6-January8, and its introduction combinedNovember18-December23. Neither exact-day interval is selected: both canonical Chinese date fields stay null, with all alternatives preserved;2017is an explicitly stated ending-year index, not all interviews in that calendar year. Full-wave samples are not age/item bases. Hidden/not-printed not-sure values are not reconstructed. Pin exact reviewed report/image editions, keep2007's18-29/frame18-60 separate, and add no current chart or Pew/ChinaPulse/continuous national trend. |
 
 The 2025 Pew age figure relevant to the cited social-media commentary uses ages
 **18-34**, not "under 34." It displays 17 statistically significant age gaps
@@ -282,7 +334,7 @@ It is not the full set of countries polled. The dashboard uses the newer verifie
 U.S. data and does not treat the existence or motivation of a social-media trend
 as something an opinion survey establishes.
 
-Complete public CSV/JSON retain all 160 estimates, not just favorable observations
+Complete public CSV/JSON retain all 177 estimates, not just favorable observations
 or the default chart, plus source fingerprints, actual or explicitly unknown
 field dates, original age bands and question-specific sample bases. Reviewed
 transcription checksums are distinguished from publisher download checksums.
