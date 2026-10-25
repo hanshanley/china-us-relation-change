@@ -485,9 +485,12 @@ The third natural invocation, at 03:35 Mac local time on October 24
 at 09:35 Mac local time on October 24 (13:35 UTC), failed before Python
 initialized as well. The fifth natural invocation, at 15:35 Mac local time
 on October 24 (19:35 UTC), failed at the same startup stage.
-Actual stderr now records five
+The sixth failure's actual stderr modification time was
+`2026-10-25T01:35:05.101180+00:00`; the seventh was
+`2026-10-25T07:35:03.785821+00:00`. Both failed before site initialization.
+Actual stderr now records seven
 `PermissionError: [Errno 1]` startup failures reading
-the repository's `.venv/pyvenv.cfg` under Documents; `launchctl` records five
+the repository's `.venv/pyvenv.cfg` under Documents; `launchctl` records seven
 runs and last exit code 1. No collector code or network collection started.
 This is consistent with macOS Documents-folder access protection, not a Sina
 denial. Schedule registration, successful local tests and the earlier bounded
@@ -501,12 +504,14 @@ settings were changed, permission database reset, alternate launcher tried
 or protected data relocated to evade the denial. Approval must be followed
 by a successful real scheduled-process run before this is marked operational.
 Private evidence is in `data/local/automation/scheduler-health.json` and
-`refresh.stderr.log`. Published refresh status now records this startup block
+`refresh.stderr.log`. The seventh-failure refresh-status snapshot records this startup block
 with zero attempted feeds while retaining the last successful bounded manual
-collection time and cutoff. The fifth failure's attempt timestamp comes from
-the actual stderr modification time, `2026-10-24T19:35:05.213988+00:00`,
+collection time and cutoff. Its attempt timestamp comes from
+the actual stderr modification time, `2026-10-25T07:35:03.785821+00:00`,
 not an observed feed-request start. Zero new records for
 this failed invocation is not an inactivity finding or a fresh collection.
+Source promotion and actual website publication require separate receipts;
+this status snapshot does not establish successful unattended execution.
 
 The first command is a private, non-promoting preview. The installed per-user
 LaunchAgent is configured for 03:35, 09:35, 15:35 and 21:35 local time when the Mac is
