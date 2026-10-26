@@ -247,7 +247,7 @@ def test_hong_kong_recovery_keeps_population_break_and_matched_halves():
     assert annual[2023]["value"] == 596958
     assert change(annual[2025], annual[2020])["reason"] == "Definitions or periods differ"
     chart = BeautifulSoup(svg_chart(hk), "html.parser")
-    assert "Population-definition breaks: 2023" in chart.get_text(" ", strip=True)
+    assert "Population-definition changes: 2023" in chart.get_text(" ", strip=True)
     assert not chart.select_one(".data-line")
     assert len(chart.select(".annual-column")) == len(annual)
     assert "Definitions differ" in svg_chart(hk, indexed=True)
