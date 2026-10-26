@@ -311,7 +311,10 @@ before staging figure changes. This copies the actual published PNG/SVG
 versions, removes unreferenced archive exports and updates the generated
 Git allow-list. The refresh workflow runs the same curation step.
 Duplicate `site/figures/` copies are generated locally and ignored by Git.
-Complete research figures can still be rebuilt with `scripts/build_site.py`;
+Retired chart choices are removed from controls, related links and all essay
+variants, including split panels. Their source observations remain in the
+complete raw CSV/JSON downloads; plotted-value exports describe only kept charts.
+Active research figures can still be rebuilt with `scripts/build_site.py`;
 source observations and full numerical downloads are retained.
 
 `resvg-py` rasterizes the SVGs entirely offline using bundled, unmodified
@@ -1286,11 +1289,12 @@ confidential cells stay distinct from zero; raw source files are not published.
 
 ### Public opinion in both directions
 
-`opinions.html` compares U.S. favorable/unfavorable opinions, Chinese warmth
+`opinions.html` compares the long-run Gallup U.S. favorable/unfavorable opinions, Chinese warmth
 toward the U.S. and each public's actual age bands. Earlier U.S. telephone and
 Chinese Pew histories remain separate in the research data. The four-round
 "Americans' feelings toward China" warmth history is retired from the chart
-selection and exports; all four estimates remain in the complete
+selection and exports, as are the Pew probability-panel favorability history
+and September U.S. warmth-by-age snapshot. All estimates remain in the complete
 `data/site/opinions.json` and observation downloads. All observations, survey
 dates, definitions and source identities remain downloadable, including those
 not selected in the public charts.
@@ -1305,7 +1309,7 @@ keyboard and touch; static figures and complete tables work without JavaScript.
 Pew's U.S. favorable/unfavorable telephone and probability-panel histories remain
 separate even in their overlapping 2020 year. The current favorable-opinion age
 bands are **18-34, 35-49 and 50+**, from March 23-29, 2026, though published in
-July. The newer warmth question uses **18-49 and 50+**, from September 14-20.
+July. The archived newer warmth question uses **18-49 and 50+**, from September 14-20.
 The China Pulse age bands are **18-29, 30-39, 40-49 and 50+**, from April 16-June
 26. They are not rebinned into allegedly matched generations.
 

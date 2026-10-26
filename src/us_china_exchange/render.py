@@ -19,7 +19,7 @@ from .model import START_YEAR, GEOGRAPHIES, MEASURES, change, coverage, gap_reas
 from .business_analysis import CHARTS as BUSINESS_CHARTS, RETIRED_CHARTS as BUSINESS_RETIRED_CHARTS, validate_business_data
 from .business_current import CHARTS as CURRENT_BUSINESS_CHARTS, build_current_business, validate as validate_current_business
 from .business_inward import CHARTS as INWARD_BUSINESS_CHARTS, validate as validate_inward_business
-from .immigration_analysis import CHARTS as IMMIGRATION_CHARTS, build_immigration, validate_immigration_data
+from .immigration_analysis import CHARTS as IMMIGRATION_CHARTS, RETIRED_CHARTS as IMMIGRATION_RETIRED_CHARTS, build_immigration, validate_immigration_data
 from .language_analysis import CHARTS as LANGUAGE_CHARTS, RETIRED_CHARTS as LANGUAGE_RETIRED_CHARTS, chart_points, svg_language_chart, validate_language_data
 from .pipeline import load, write_atomic
 from . import student_estimates
@@ -1006,9 +1006,10 @@ def build(root):
                          "downloads/us-states.geojson", "assets/state-map.js", "assets/state-map.css"):
             (site / relative).unlink(missing_ok=True)
     if immigration_data is None:
-        for chart_id in IMMIGRATION_CHARTS:
+        for chart_id in set(IMMIGRATION_CHARTS) | IMMIGRATION_RETIRED_CHARTS:
             for theme in CHART_THEMES:
-                remove_figure(root, Path("immigration") / theme / chart_id)
+                for suffix in ("", "-chn", "-hkg-mac"):
+                    remove_figure(root, Path("immigration") / theme / (chart_id + suffix))
         for name in ["immigration.html", "downloads/immigration.json", "downloads/immigration-observations.csv", "downloads/immigration-chart-values.csv"]:
             (site / name).unlink(missing_ok=True)
     if business_data is None:

@@ -119,7 +119,7 @@ def test_arrivals_history_reaches_2000_without_splicing_or_imputing():
     groups = chart_groups(data, "new-permanent-resident-arrivals")
     assert groups[0]["id"] == "ohss_birth_arrivals:CHN"
     assert [p["year"] for p in groups[0]["points"]] == [2000, 2001, 2002, *range(2006, 2025)]
-    assert chart_groups(data, "new-permanent-resident-arrivals-nationality")[0]["id"] == "ohss_nationality:new_arrivals"
+    assert any(r["series_id"] == "ohss_nationality:new_arrivals" for r in data["observations"])
     rows[2004].update(value=0, status="observed")
     with pytest.raises(ValueError, match="not imputed or zero"):
         validate_immigration_data(data)
@@ -155,20 +155,20 @@ def test_arrivals_parser_requires_birthplace_new_arrivals_and_full_class_total()
 def test_regional_panels_keep_an_unavailable_population_missing(tmp_path):
     data = published()
     for row in data["observations"]:
-        if row["series_id"] == "un_stock:CHN:USA":
+        if row["series_id"] == "un_stock:USA:CHN":
             row.update(value=None, status="missing")
     build_immigration(tmp_path, data, defaultdict(list))
     page = BeautifulSoup((tmp_path / "site/immigration.html").read_text(), "html.parser")
     archive = page.select('a[href="https://doi.org/10.17632/r2r444tpzs.2"]')
     assert len(archive) == 3
     assert all("Original table:" in a.text and "extracted XLS member" in a.parent.text for a in archive)
-    panes = page.select("#migrant-stock-to-us > .comparison-panels > .comparison-pane")
+    panes = page.select("#migrant-stock-from-us > .comparison-panels > .comparison-pane")
     assert len(panes) == 2
     assert "No reported observations" in panes[0].select_one(".gap").text
     assert not panes[0].select("img")
     assert panes[1].select_one(".comparison-chart img")
     rows = list(csv.DictReader((tmp_path / "site/downloads/immigration-observations.csv").open()))
-    assert all(row["value"] == "" for row in rows if row["series_id"] == "un_stock:CHN:USA")
+    assert all(row["value"] == "" for row in rows if row["series_id"] == "un_stock:USA:CHN")
 
 
 def test_birthplace_and_nationality_counts_are_separate_fiscal_populations():
@@ -381,8 +381,18 @@ def test_admission_source_retains_the_explicit_nationality_correction(year, monk
 
 
 def test_immigration_exports_include_all_counts_and_fiscal_dates(tmp_path):
+    from us_china_exchange.immigration_analysis import RETIRED_CHARTS
+
     data = published()
+    retired_paths = [tmp_path / directory / "immigration" / theme / f"{chart_id}{suffix}.{extension}"
+                     for directory in ("site/figures", "outputs/figures")
+                     for theme in CHART_THEMES for chart_id in RETIRED_CHARTS
+                     for suffix in ("", "-chn", "-hkg-mac") for extension in ("svg", "png")]
+    for path in retired_paths:
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text("Previously published chart")
     assert build_immigration(tmp_path, data, defaultdict(list)) == len(CHARTS)
+    assert all(not path.exists() for path in retired_paths)
     assert json.loads((tmp_path / "site/downloads/immigration.json").read_text()) == data
     with (tmp_path / "site/downloads/immigration-observations.csv").open() as stream:
         raw = list(csv.DictReader(stream))
@@ -398,12 +408,9 @@ def test_immigration_exports_include_all_counts_and_fiscal_dates(tmp_path):
     assert all(arrival_rows[y]["value"] == "" and arrival_rows[y]["status"] == "missing"
                for y in (2003, 2004, 2005))
     page = BeautifulSoup((tmp_path / "site/immigration.html").read_text(), "html.parser")
-    assert "nationality" in page.select_one("#latest-admissions").text.lower()
-    assert "September 2019" in page.select_one("#new-permanent-resident-arrivals-nationality > .chart-note").text
-    for theme in CHART_THEMES:
-        annual = ElementTree.fromstring(
-            (tmp_path / f"site/figures/immigration/{theme}/new-permanent-resident-arrivals-nationality.svg").read_text())
-        assert "FY2016-2018 tables corrected to nationality" in " ".join(annual.itertext())
+    assert all(not page.select("#" + chart_id) for chart_id in RETIRED_CHARTS)
+    assert not any(chart_id in link["href"] for chart_id in RETIRED_CHARTS for link in page.select("a[href]"))
+    assert {r["series_id"] for r in raw} == set(data["series"])
     assert "not_verified" in page.text
     svg = ElementTree.fromstring((tmp_path / "site/figures/immigration/themarginoferror/green-card-grants.svg").read_text())
     points = [n for n in svg.iter() if n.get("class") == "immigration-point"]

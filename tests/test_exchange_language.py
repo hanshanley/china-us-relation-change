@@ -236,10 +236,11 @@ def test_school_pulse_requires_national_denominator_and_keeps_unreportable_korea
     book["About"].title = "OA_About"
     with pytest.raises(ValueError, match="outlying-area"):
         parse()
-    groups = chart_points(published(), "school-language-availability")
-    assert [[p["value"] for p in g["points"]] for g in groups] == [[3], [1], []]
-    assert groups[2]["unavailable_label"] == "Not reportable"
-    assert all(p["reported_unit"] == "percent" and p["year"] == 2024 for g in groups for p in g["points"])
+    rows = [r for r in published()["observations"] if r["series_id"].startswith("spp_availability:")]
+    assert {r["series_id"]: r["value"] for r in rows} == {
+        "spp_availability:chinese": 3, "spp_availability:japanese": 1, "spp_availability:korean": None}
+    assert next(r for r in rows if r["series_id"] == "spp_availability:korean")["status"] == "suppressed"
+    assert all(r["year"] == 2024 for r in rows)
     assert any(r["series_id"] == "school_availability:korean" and r["value"] == 43
                for r in published()["observations"])
 
@@ -324,24 +325,26 @@ def test_review_client_distinguishes_get_and_different_public_query_bodies(tmp_p
 def test_nationwide_comparisons_keep_chinese_japanese_and_korean_separate():
     data = published()
     charts = ["college-enrollments", "college-share", "college-benchmarks", "matched-college-benchmarks",
-              "chinese-bachelors", "chinese-graduate-awards", "language-doctorates"]
+              "chinese-bachelors", "chinese-graduate-awards"]
     for chart in charts:
         groups = chart_points(data, chart)
         assert len(groups) == 3
         assert [group["color"] for group in groups] == ["#7B2D26", "#3D6F8C", "#4A7C59"]
         assert not any("all_languages" in group["id"] for group in groups)
     for chart, expected in [("chinese-bachelors", [292, 464, 44]),
-                            ("chinese-graduate-awards", [28, 21, 1]),
-                            ("language-doctorates", [11, 6, 1])]:
+                            ("chinese-graduate-awards", [28, 21, 1])]:
         groups = chart_points(data, chart)
         assert [g["label"] for g in groups] == ["Chinese", "Japanese", "Korean"]
         assert [next(p["value"] for p in g["points"] if p["year"] == 2025) for g in groups] == expected
         assert all(g["period_basis"] == "academic ending year" for g in groups)
     assert not any(sid.startswith("nsc_program:") for sid in data["series"])
+    assert [next(r["value"] for r in data["observations"]
+                 if r["series_id"] == sid and r["year"] == 2025)
+            for sid in ("ipeds:doctorates", "ipeds_japanese:doctorates", "ipeds_korean:doctorates")] == [11, 6, 1]
 
 
 @pytest.mark.parametrize("chart", [
-    "chinese-bachelors", "chinese-graduate-awards", "language-doctorates", "ap-chinese-global"])
+    "chinese-bachelors", "chinese-graduate-awards", "ap-chinese-global"])
 @pytest.mark.parametrize("theme", ["themarginoferror", "substack"])
 def test_degree_charts_remove_dots_but_retain_every_interactive_observation(chart, theme):
     data = published()
@@ -362,8 +365,6 @@ def test_degree_charts_remove_dots_but_retain_every_interactive_observation(char
             (p["year"], p["plotted_value"]) for p in expected["points"]]
         if not markers:
             assert not any(p["connect"] for p in actual["points"] if p["year"] == 2001)
-            if chart == "language-doctorates":
-                assert not any(p["connect"] for p in actual["points"] if p["year"] == 2010)
 
 
 def test_language_population_validation_rejects_global_to_us_relabelling_and_bad_subsets():
@@ -400,9 +401,10 @@ def test_zero_baselines_missing_rounds_and_doctoral_breaks_are_not_silently_conn
     doc = ElementTree.fromstring(svg_language_chart(data, "college-enrollments"))
     path = next(n for n in doc.iter() if n.get("class") == "data-line")
     assert path.get("d").count("M") == 2
-    doc = ElementTree.fromstring(svg_language_chart(published(), "language-doctorates"))
-    path = next(n for n in doc.iter() if n.get("data-series-id") == "ipeds:doctorates" and n.get("class") == "data-line")
-    assert path.get("d").count("M") == 3
+    doctoral_rows = {r["year"]: r for r in published()["observations"] if r["series_id"] == "ipeds:doctorates"}
+    assert doctoral_rows[2000]["comparability"] != doctoral_rows[2001]["comparability"]
+    assert doctoral_rows[2001]["comparability"] == doctoral_rows[2009]["comparability"]
+    assert doctoral_rows[2009]["comparability"] != doctoral_rows[2010]["comparability"]
 
 
 def test_all_language_exports_and_complete_csv_round_trip(tmp_path):

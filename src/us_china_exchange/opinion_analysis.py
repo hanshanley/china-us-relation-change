@@ -14,7 +14,7 @@ from .theme import BLUE, CHART_THEMES, PARTNER_COLORS
 
 
 FAVORABILITY_COLORS = {"favorable": BLUE, "unfavorable": "#A34035"}
-RETIRED_CHARTS = {"us-china-warmth"}
+RETIRED_CHARTS = {"us-china-warmth", "us-china-panel-favorability", "us-china-age-warmth"}
 
 
 CHARTS = {
@@ -26,13 +26,6 @@ CHARTS = {
         "unit": "Percent of U.S. adults",
         "summary": "The first reported poll in each year, not annual averages. Every survey round is retained in the complete downloads.",
         "note": "Gallup, March 2026 topline. First poll per year; 2000 uses January 25-26, 2026 February 2-16. Telephone sampling and weights evolved."},
-    "us-china-panel-favorability": {
-        "title": "U.S. views of China: Pew Research",
-        "subtitle": "Pew Research Center | American Trends Panel, 2020-2026",
-        "series": ["pew_us_atp:favorable", "pew_us_atp:unfavorable"], "mode": "levels",
-        "unit": "Percent of U.S. adults",
-        "summary": "The question asks about China overall, not separately about its people or government.",
-        "note": "Pew Research Center, April 2026 release. Survey rounds, not annual averages. March 2026 fieldwork: March 23-29, n=3,507. Nonresponses are not shown. Earlier telephone surveys remain separate."},
     "china-us-warmth": {
         "title": "Chinese views of the U.S.",
         "subtitle": "China Pulse | October 2025-January 2026 and April-June 2026",
@@ -54,13 +47,6 @@ CHARTS = {
         "mode": "bars", "latest": True, "unit": "Mean warmth (0-100)",
         "summary": "Original Chinese survey age bands; 50 is a neutral rating, not 50% favorable.",
         "note": "The Carter Center / Emory University, October 2026 weighted results. Quota respondent panel, full wave n=2,500; age-specific bases are not supplied. The 18-29 group is not interchangeable with the U.S. 18-34 group."},
-    "us-china-age-warmth": {
-        "title": "Americans' feelings toward China by age",
-        "subtitle": "Pew Research Center | September 14-20, 2026",
-        "series": ["pew_warmth_age:18-49", "pew_warmth_age:50+"],
-        "mode": "bars", "unit": "Mean warmth (0-100)",
-        "summary": "The newer warmth question reports ages 18-49 and 50+, not the earlier 18-34 bands.",
-        "note": "Pew Research Center, September 2026. Published mean ratings, with 50 neutral. This question and its age bands differ from the March favorability question. The figures do not measure participation in a social-media trend."},
     "us-china-earlier-favorability": {
         "title": "Earlier U.S. views of China",
         "subtitle": "Pew Research Center | telephone surveys, 2005-2020",

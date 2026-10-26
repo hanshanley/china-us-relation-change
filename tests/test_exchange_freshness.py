@@ -126,18 +126,25 @@ def test_publication_retires_all_stale_surfaces_but_keeps_complete_data(tmp_path
                 path.parent.mkdir(parents=True, exist_ok=True)
                 path.write_text("Previously published retired graph")
                 previous[str(path.relative_to(tmp_path))] = "old-sha"
-    retired_opinions = [
-        tmp_path / f"figures/opinions/{theme}/us-china-warmth.{extension}"
+    retired_families = {
+        "language_learning": module.LANGUAGE_RETIRED_CHARTS,
+        "opinions": module.OPINION_RETIRED_CHARTS,
+        "immigration": {chart_id + suffix for chart_id in module.IMMIGRATION_RETIRED_CHARTS
+                        for suffix in ("", "-chn", "-hkg-mac")},
+    }
+    retired_paths = [
+        tmp_path / f"figures/{family}/{theme}/{chart_id}.{extension}"
+        for family, identifiers in retired_families.items() for chart_id in identifiers
         for theme in ("substack", "themarginoferror")
         for extension in ("png", "svg", "website.png")]
-    for path in retired_opinions:
+    for path in retired_paths:
         path.parent.mkdir(parents=True, exist_ok=True)
-        path.write_text("Retired warmth graph not listed in the old manifest")
+        path.write_text("Retired graph not listed in the old manifest")
     (tmp_path / "publication-manifest.json").write_text(json.dumps({"files": previous}))
     manifest = module.build_publication(ROOT, tmp_path, "freshness-test")
     assert not old.exists() and custom.read_text() == "Unrelated user graphic"
     assert all(not (tmp_path / path).exists() for path in previous)
-    assert all(not path.exists() for path in retired_opinions)
+    assert all(not path.exists() for path in retired_paths)
     assert stale not in manifest["files"]
     assert manifest["chart_freshness"] == {"history_since": 2023, "snapshot_from": 2024, "snapshot_through": 2026}
     raw = json.loads((tmp_path / "downloads/exchange.json").read_text())
@@ -174,9 +181,11 @@ def test_publication_retires_all_stale_surfaces_but_keeps_complete_data(tmp_path
             assert pane.select_one(".comparison-chart"), "Do not leave empty stale comparison panes"
     removed = {
         "language-learning.html": {"college-enrollments", "college-share", "college-benchmarks",
-                                   "matched-college-benchmarks", "school-language-enrollments", "ap-chinese-us-cohorts"},
+                                   "matched-college-benchmarks", "school-language-enrollments", "ap-chinese-us-cohorts"}
+                                  | module.LANGUAGE_RETIRED_CHARTS,
         "business-presence.html": {"eu-affiliates-china", "uk-affiliates-china", "us-parent-companies-china"},
-        "opinions.html": {"us-china-earlier-favorability", "china-us-earlier-favorability", "us-china-warmth"},
+        "opinions.html": {"us-china-earlier-favorability", "china-us-earlier-favorability"} | module.OPINION_RETIRED_CHARTS,
+        "immigration.html": module.IMMIGRATION_RETIRED_CHARTS,
         "confucius.html": {"confucius-classrooms"},
     }
     for name, identifiers in removed.items():
@@ -200,13 +209,13 @@ def test_publication_retires_all_stale_surfaces_but_keeps_complete_data(tmp_path
         assert max(r["observation_year"] for r in model["rows"]) == 2023
     languages = BeautifulSoup((tmp_path / "language-learning.html").read_text(), "html.parser")
     assert languages.select_one('#module-chart option[selected]')["value"] == "chinese-bachelors"
-    inventory = json.loads(languages.select_one("#school-program-inventories .plot-data").string)
-    assert [bar["year"] for bar in inventory["bars"]] == [2025]
+    assert {o["value"] for o in languages.select("#module-chart option")} == {
+        "chinese-bachelors", "chinese-graduate-awards", "ap-chinese-global"}
     opinions = BeautifulSoup((tmp_path / "opinions.html").read_text(), "html.parser")
-    warmth = json.loads(opinions.select_one("#us-china-age-warmth .plot-data").string)
-    assert warmth["unit"] == "Mean warmth (0-100)"
-    assert all(bar["year"] == 2026 for bar in warmth["bars"])
-    for source, target in (("language_learning", "language-learning"), ("opinions", "opinions")):
+    assert {o["value"] for o in opinions.select("#module-chart option")} == {
+        "us-china-favorability", "china-us-warmth", "us-china-age", "china-us-age"}
+    for source, target in (("language_learning", "language-learning"), ("opinions", "opinions"),
+                           ("immigration", "immigration")):
         assert json.loads((tmp_path / f"downloads/{target}.json").read_text()) == json.loads(
             (ROOT / f"data/site/{source}.json").read_text())
     spec = importlib.util.spec_from_file_location("freshness_checker", ROOT / "scripts/check_public_freshness.py")

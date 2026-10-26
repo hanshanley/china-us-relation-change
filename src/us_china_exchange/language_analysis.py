@@ -6,13 +6,14 @@ from datetime import datetime
 from urllib.parse import urlsplit
 
 from .indicator_charts import svg_indicator_chart
-from .public_freshness import current_groups, public
+from .public_freshness import current_groups
 from .theme import PARTNER_COLORS
 
 
 LANGUAGE_COLORS = {"chinese": PARTNER_COLORS["CHN"], "japanese": "#3D6F8C",
                    "korean": "#4A7C59", "all_languages": "#6B6B6B", "spanish": "#C2993E"}
-RETIRED_CHARTS = {"ap-language-standard-group"}
+RETIRED_CHARTS = {"ap-language-standard-group", "school-language-availability",
+                  "language-doctorates", "school-program-inventories"}
 CHARTS = {
     "college-enrollments": {
         "title": "College language-course enrollments",
@@ -23,13 +24,6 @@ CHARTS = {
         "title": "K-12 language-enrollment estimates", "subtitle": "2014–15-era reference period | published in 2017",
         "series": ["schools:k12_estimate", "schools:k12_japanese_estimate"], "unit": "Enrollments", "mode": "bars",
         "note": "American Councils Table 2. Chinese/Japanese state reports plus modeled estimates for missing data; not unique people. No comparable national Korean total is supplied. Its 936 respondent enrollments are not mixed into these national estimates."},
-    "school-language-availability": {
-        "title": "Language classes in public schools", "subtitle": "Nationwide NCES sample | January 2024",
-        "series": ["spp_availability:chinese", "spp_availability:japanese", "spp_availability:korean"],
-        "unit": "Percent", "mode": "bars",
-        "note": "NCES School Pulse Panel, January 2024; experimental national estimates. All U.S. public schools "
-        "are the denominator; Chinese includes Mandarin or Cantonese. Standard errors: Chinese 0.4pp, "
-        "Japanese 0.3pp. Korean estimates are not reportable. Course offerings are not student enrollments."},
     "college-share": {
         "title": "Each language's share of college language study",
         "subtitle": "Share of all non-English language course registrations",
@@ -71,18 +65,6 @@ CHARTS = {
         "unit": "Awards", "mode": "levels", "point_markers": False,
         "note": "NCES IPEDS, U.S. degree-granting institutions. First-major language and literature degrees. "
         "Reporting definitions changed in 2001; 2025 is provisional."},
-    "language-doctorates": {
-        "title": "Doctoral degrees by language",
-        "subtitle": "Nationwide IPEDS | Chinese, Japanese and Korean | academic year ending",
-        "series": ["ipeds:doctorates", "ipeds_japanese:doctorates", "ipeds_korean:doctorates"],
-        "unit": "Awards", "mode": "levels", "point_markers": False,
-        "note": "NCES IPEDS, U.S. degree-granting institutions. Language and literature doctorates. "
-        "Reporting categories changed in 2001 and 2010; 2025 is provisional."},
-    "school-program-inventories": {
-        "title": "Mandarin immersion programs",
-        "subtitle": "Different coverage definitions - not a comparable growth series",
-        "series": ["schools:cal_directory", "schools:arc_public", "schools:nexus_all"], "unit": "Programs", "mode": "bars",
-        "note": "CAL: immersion directory. ARC: public-school dual-language survey. Nexus: compiled inventory including private schools. The inventories cover different types of programs."},
 }
 
 
@@ -265,7 +247,7 @@ def chart_points(data, chart_id):
                                reported_unit=data["series"][sid]["unit"], plotted_unit=config["unit"]))
         language = ("japanese" if "japanese" in sid else "chinese") if (
             sid.startswith("ap:") or chart_id == "school-language-enrollments") else sid.split(":")[-1]
-        degrees = chart_id in {"chinese-bachelors", "chinese-graduate-awards", "language-doctorates"}
+        degrees = chart_id in {"chinese-bachelors", "chinese-graduate-awards"}
         if degrees:
             language = "japanese" if sid.startswith("ipeds_japanese:") else "korean" if sid.startswith("ipeds_korean:") else "chinese"
         color = LANGUAGE_COLORS.get(language, ["#7B2D26", "#3D6F8C", "#C2993E"][index % 3])
@@ -283,11 +265,6 @@ def svg_language_chart(data, chart_id, theme="themarginoferror"):
     config = dict(CHARTS[chart_id])
     groups = chart_points(data, chart_id)
     points = [r for group in groups for r in group["points"]]
-    if public() and chart_id == "school-program-inventories":
-        config.update(title="Mandarin immersion programs",
-                      subtitle="Nexus compiled inventory | 2025 snapshot",
-                      note="Nexus compiled inventory including private schools. A program count, not enrolled students. "
-                           "Older inventories used different universes and are retained only in the complete data archive.")
     if any(r["source_id"].startswith("mla") for r in points) and "permission" not in config["note"]:
         config["note"] += " MLA commercial reuse permission unverified."
     return svg_indicator_chart(

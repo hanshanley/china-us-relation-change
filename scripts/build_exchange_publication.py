@@ -18,7 +18,9 @@ sys.path.insert(0, str(ROOT / "src"))
 from bs4 import BeautifulSoup
 from us_china_exchange.model import GEOGRAPHIES, json_text, travel_title
 from us_china_exchange.language_analysis import RETIRED_CHARTS as LANGUAGE_RETIRED_CHARTS
-from us_china_exchange.opinion_analysis import RETIRED_CHARTS as OPINION_RETIRED_CHARTS
+from us_china_exchange.opinion_analysis import CHARTS as OPINION_CHARTS, RETIRED_CHARTS as OPINION_RETIRED_CHARTS
+from us_china_exchange.immigration_analysis import RETIRED_CHARTS as IMMIGRATION_RETIRED_CHARTS
+from us_china_exchange.immigration_sources import ARRIVAL_SERIES
 from us_china_exchange.render import SPLIT_REGIONAL_MEASURES, annual_table, build, figure_links, initial_panel, svg_chart
 from us_china_exchange.theme import figure_category
 from us_china_exchange.confucius_analysis import CHARTS as CONFUCIUS_CHARTS
@@ -37,13 +39,13 @@ PAGES = {
     "travel.html": ("Travel & tourism", "Visitor trips between the U.S., mainland China, Hong Kong and Macau.",
                     "Arrivals are trips, not unique people or necessarily leisure tourists"),
     "immigration.html": ("Immigration", "Annual U.S. green-card grants, including status adjustments by people already in the U.S. New arrivals and resident stocks are shown separately.",
-                         "Annual grants by birthplace · New arrivals by nationality"),
+                         "U.S. green-card grants and new arrivals by birthplace"),
     "opinions.html": ("Public opinion", "How Americans view China, how Chinese respondents view the U.S., and the differences by age.",
                       "Reported survey rounds · Different questions kept separate"),
     "comparisons.html": ("Regional comparisons", "Comparisons are organized within Students, Travel and Trade.",
                          "Existing chart links lead to their topic"),
-    "language-learning.html": ("Language learning", "Chinese, Japanese and Korean language learning: degrees, school classes, and Advanced Placement (AP) exams.",
-                              "AP exams through 2025 · Degree awards through 2024 · College census through 2021"),
+    "language-learning.html": ("Language learning", "Chinese, Japanese and Korean language degrees, plus Chinese and Japanese Advanced Placement (AP) exams.",
+                              "National degree awards · Global AP exam participants"),
     "confucius.html": ("Confucius Institutes & Classrooms", "U.S. institutes, school programs and documented replacements, counted separately.",
                        "Dated historical reports · Operator listings are not an operating census"),
     "business-presence.html": ("Business links", "U.S. and European affiliates in China, China-linked affiliates in the U.S., investment and recent company decisions. Each measure and geography kept separate.",
@@ -311,7 +313,7 @@ def decorate(site, name, labels, revision):
     elif name == "language-learning.html":
         rows = json.loads((site / "downloads/language-learning.json").read_text())["observations"]
         latest = lambda prefix: max(r["year"] for r in rows if r["series_id"].startswith(prefix) and r["value"] is not None)
-        scope = f"Degree awards through {latest('ipeds:')} · AP exams through {latest('ap:')} · School offerings: January 2024"
+        scope = f"Degree awards through {latest('ipeds:')} · AP exams through {latest('ap:')}"
     elif name == "business-presence.html":
         inward_path = site / "downloads/business-inward.json"
         if inward_path.is_file():
@@ -322,9 +324,9 @@ def decorate(site, name, labels, revision):
         birthplace_years = [r["year"] for r in immigration["observations"]
                            if r["series_id"] == "ohss_birth:CHN" and r["value"] is not None]
         arrival_years = [r["year"] for r in immigration["observations"]
-                        if r["series_id"] == "ohss_nationality:new_arrivals" and r["value"] is not None]
+                        if r["series_id"] == ARRIVAL_SERIES and r["value"] is not None]
         scope = (f"Birthplace grants: {min(birthplace_years)}-{max(birthplace_years)}"
-                 f" · Nationality new arrivals: {min(arrival_years)}-{max(arrival_years)}")
+                 f" · Birthplace new arrivals: {min(arrival_years)}-{max(arrival_years)}")
         if (site / "downloads/state-immigration.json").is_file():
             state_data = json.loads((site / "downloads/state-immigration.json").read_text())
             scope += f" · State populations: {state_data['start_year']}–{state_data['end_year']} ACS"
@@ -346,8 +348,12 @@ def decorate(site, name, labels, revision):
         from datetime import date
 
         opinions = json.loads((site / "downloads/opinions.json").read_text())
+        visible_series = {sid for chart_id, config in OPINION_CHARTS.items()
+                          if soup.select_one("#" + chart_id) for sid in config["series"]}
         latest = {}
         for row in opinions["observations"]:
+            if row["series_id"] not in visible_series:
+                continue
             country = opinions["series"][row["series_id"]]["respondent_country"]
             end = opinions["surveys"][row["survey_id"]]["field_end"]
             if row["value"] is not None and end:
@@ -579,7 +585,7 @@ def decorate(site, name, labels, revision):
                 groups = {section["id"]: (
                     "Where people live" if section["id"].startswith(("state-", "migrant-stock")) else
                     "Long-run green-card grants" if section["id"] == "green-card-grants" else
-                    "New arrivals and adjustments" if section["id"] in {"new-permanent-resident-arrivals", "annual-china-adjustments"} else
+                    "New arrivals" if section["id"] == "new-permanent-resident-arrivals" else
                     "Single-region reference" if section["id"] in {"hong-kong-green-cards", "macau-green-cards"} else
                     "Macau residence approvals" if section["id"] == "macau-residence-approvals" else
                     "U.S. permanent-residency grants") for section in charts}
@@ -782,14 +788,17 @@ def build_publication(source, output, revision):
             for theme in ("themarginoferror", "substack"):
                 for extension in ("png", "svg", "website.png"):
                     (output / "figures/opinions" / theme / f"{chart_id}.{extension}").unlink(missing_ok=True)
+        for chart_id in IMMIGRATION_RETIRED_CHARTS:
+            for theme in ("themarginoferror", "substack"):
+                for suffix in ("", "-chn", "-hkg-mac"):
+                    for extension in ("png", "svg", "website.png"):
+                        (output / "figures/immigration" / theme / f"{chart_id}{suffix}.{extension}").unlink(missing_ok=True)
         for old in ["business-publication.css", "business-publication.js"]:
             (output / "assets" / old).unlink(missing_ok=True)
         if "business-inward" not in manifest["datasets"]:
             for name in ("business-inward.json", "business-inward-observations.csv", "business-inward-chart-values.csv"):
                 (output / "downloads" / name).unlink(missing_ok=True)
         if "opinions" not in manifest["datasets"]:
-            from us_china_exchange.opinion_analysis import CHARTS as OPINION_CHARTS
-
             for relative in ("opinions.html", "downloads/opinions.json", "downloads/opinion-observations.csv",
                              "downloads/opinion-chart-values.csv"):
                 (output / relative).unlink(missing_ok=True)

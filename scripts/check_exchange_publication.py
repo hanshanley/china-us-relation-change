@@ -13,6 +13,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 from playwright.sync_api import expect, sync_playwright
 
 from us_china_exchange.model import primary_observations
+from us_china_exchange.immigration_analysis import RETIRED_CHARTS as IMMIGRATION_RETIRED_CHARTS
+from us_china_exchange.language_analysis import RETIRED_CHARTS as LANGUAGE_RETIRED_CHARTS
 
 
 def check_exchange_toggles(page, data, screenshots=None):
@@ -423,9 +425,9 @@ def check(site, url=None, screenshots=None):
                     expect(page.locator("#migrant-stock-from-us")).to_contain_text("citizenship")
                     page.select_option("#module-chart", "green-card-grants")
                     assert page.locator("#green-card-grants .screen-point").count() == len(birthplace)
-                    page.select_option("#module-chart", "latest-admissions")
-                    assert page.locator("#latest-admissions .screen-bar").evaluate_all(
-                        "nodes=>nodes.map(n=>Number(n.dataset.value))") == [27020, 38650]
+                    for chart_id in IMMIGRATION_RETIRED_CHARTS:
+                        assert not page.locator("#" + chart_id).count()
+                        assert not page.locator(f'#module-chart option[value="{chart_id}"]').count()
                     page.select_option("#module-chart", "macau-residence-approvals")
                     assert page.locator("#macau-residence-approvals .screen-point").count() == len(approvals)
                     expect(page.locator("#macau-residence-approvals .screen-unit")).to_have_text("People approved")
@@ -435,12 +437,11 @@ def check(site, url=None, screenshots=None):
                     expect(page.locator("#module-chart")).to_have_value("chinese-bachelors")
                     assert page.locator("#chinese-bachelors .screen-point").count() == 75
                     assert not page.locator("#college-enrollments,#school-language-enrollments").count()
-                    page.select_option("#module-chart", "school-language-availability")
-                    assert page.locator("#school-language-availability .screen-bar").evaluate_all(
-                        "nodes=>nodes.map(n=>Number(n.dataset.value))") == [3, 1]
-                    assert "Korean" not in page.locator("#school-language-availability .screen-chart").text_content()
+                    for chart_id in LANGUAGE_RETIRED_CHARTS:
+                        assert not page.locator("#" + chart_id).count()
+                        assert not page.locator(f'#module-chart option[value="{chart_id}"]').count()
                     if screenshots:
-                        page.locator("#school-language-availability").screenshot(path=str(screenshots / f"school-availability-{width}.png"))
+                        page.locator("#chinese-bachelors").screenshot(path=str(screenshots / f"language-bachelors-{width}.png"))
                     page.select_option("#module-chart", "ap-chinese-global")
                     assert page.locator("#ap-chinese-global .screen-point").count() == 38
                     years = page.locator("#ap-chinese-global .screen-year").all_text_contents()

@@ -12,7 +12,7 @@ from us_china_exchange.theme import png_dimensions
 from bs4 import BeautifulSoup
 
 from us_china_exchange import opinion_sources as sources
-from us_china_exchange.opinion_analysis import CHARTS, build_opinions, chart_groups, svg_opinion_chart
+from us_china_exchange.opinion_analysis import CHARTS, RETIRED_CHARTS, build_opinions, chart_groups, svg_opinion_chart
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -24,7 +24,7 @@ def data():
 
 @pytest.mark.parametrize("theme", ["themarginoferror", "substack"])
 @pytest.mark.parametrize("chart_id", [
-    "us-china-favorability", "us-china-panel-favorability",
+    "us-china-favorability",
     "us-china-earlier-favorability", "china-us-earlier-favorability",
 ])
 def test_sentiment_colors_are_distinct_in_exports_and_interactive_models(chart_id, theme):
@@ -182,9 +182,10 @@ def test_long_run_history_preserves_every_poll_and_selects_first_round_not_an_av
                for group in groups for r in group["points"])
     assert min(r["year"] for r in d["observations"] if r["series_id"] == "pew_us_phone:favorable") == 2005
     assert min(r["year"] for r in d["observations"] if r["series_id"] == "pew_china:favorable") == 2007
-    panel = chart_groups(d, "us-china-panel-favorability")
-    assert [group["points"][-1]["value"] for group in panel] == [27, 71]
-    assert min(r["year"] for group in panel for r in group["points"]) == 2020
+    panel = [r for r in d["observations"] if r["series_id"].startswith("pew_us_atp:")]
+    assert min(r["year"] for r in panel) == 2020
+    assert {r["series_id"]: r["value"] for r in panel if r["year"] == 2026} == {
+        "pew_us_atp:favorable": 27, "pew_us_atp:unfavorable": 71}
 
 
 def test_plot_audit_reconciles_each_survey_round_instead_of_overwriting_its_year():
@@ -637,9 +638,10 @@ def test_complete_downloads_and_bounded_graphics(tmp_path):
 
     d = data()
     retired_paths = [
-        tmp_path / directory / "opinions" / theme / ("us-china-warmth." + extension)
+        tmp_path / directory / "opinions" / theme / (chart_id + "." + extension)
         for directory in ("site/figures", "outputs/figures")
         for theme in ("themarginoferror", "substack")
+        for chart_id in RETIRED_CHARTS
         for extension in ("svg", "png")]
     for path in retired_paths:
         path.parent.mkdir(parents=True, exist_ok=True)
@@ -647,9 +649,9 @@ def test_complete_downloads_and_bounded_graphics(tmp_path):
     assert build_opinions(tmp_path, d, defaultdict(list)) == len(CHARTS)
     assert all(not path.exists() for path in retired_paths)
     page = BeautifulSoup((tmp_path / "site/opinions.html").read_text(), "html.parser")
-    assert not page.select("#us-china-warmth")
+    assert all(not page.select("#" + chart_id) for chart_id in RETIRED_CHARTS)
     assert page.select_one("#us-china-favorability")
-    assert page.select_one("#us-china-age-warmth")
+    assert page.select_one("#us-china-age")
     assert json.loads((tmp_path / "site/downloads/opinions.json").read_text()) == d
     raw = list(csv.DictReader((tmp_path / "site/downloads/opinion-observations.csv").open()))
     plotted = list(csv.DictReader((tmp_path / "site/downloads/opinion-chart-values.csv").open()))

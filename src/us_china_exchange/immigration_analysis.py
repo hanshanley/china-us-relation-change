@@ -19,6 +19,10 @@ from .immigration_sources import (
 )
 
 
+RETIRED_CHARTS = {"new-permanent-resident-arrivals-nationality", "annual-china-adjustments",
+                  "migrant-stock-to-us", "latest-admissions"}
+
+
 CHARTS = {
     "green-card-grants": {
         "title": "U.S. green-card grants by birthplace", "subtitle": "Arrivals and adjustments | fiscal years",
@@ -34,35 +38,7 @@ CHARTS = {
         "Fiscal years; FY2023-2024 rounded to ten.",
         "note": "INS/DHS/OHSS original arrivals tables and China birthplace profile. " + ARRIVAL_NOTE
         + " Fiscal years end September 30. FY2023-2024 rounded to ten. "
-        "The separately labelled nationality series extends through FY2025; it is not appended here."},
-    "new-permanent-resident-arrivals-nationality": {
-        "title": "New permanent residents: Chinese nationals",
-        "subtitle": "Chinese nationality | U.S. fiscal years",
-        "series": ["ohss_nationality:new_arrivals"],
-        "unit": "People per fiscal year", "mode": "levels",
-        "covid_context": True,
-        "figure_note": "DHS/OHSS Q4 tables. FY2016-2018 tables corrected to nationality in September 2019. "
-        "New arrivals by nationality, not birthplace; "
-        "excludes in-country adjustments. Fiscal years end September 30; later counts rounded to ten.",
-        "note": "DHS/OHSS Table 1A, reviewed Q4 report versions. FY2016-FY2018 tables were corrected "
-        "from birthplace to nationality in September 2019; the observation fiscal years are unchanged. "
-        "New arrivals enter as permanent residents; adjustments concern people "
-        "already in the U.S. Nationality is not birthplace or previous residence. Later releases round to ten; "
-        "earlier releases retain reported counts. "
-        "No comparable annual U.S.-to-mainland-China count has been verified; resident stocks are separate."},
-    "annual-china-adjustments": {
-        "title": "Permanent residency granted within the U.S.",
-        "subtitle": "Chinese nationals | status adjustments | U.S. fiscal years",
-        "series": ["ohss_nationality:adjustments"], "unit": "People per fiscal year", "mode": "levels",
-        "pandemic_note": True,
-        "note": "DHS/OHSS. Chinese nationals already in the U.S. gaining permanent residency; "
-        "fiscal years refer to approval, not arrival. "
-        "FY2016-FY2018 tables were corrected from birthplace to nationality in September 2019; "
-        "the observation fiscal years are unchanged."},
-    "migrant-stock-to-us": {
-        "title": "China- and Hong Kong-born residents in the U.S.", "subtitle": "UN estimates | actual 1 July benchmarks, 2000–2024",
-        "series": ["un_stock:CHN:USA", "un_stock:HKG:USA"], "unit": "Estimated residents", "mode": "levels",
-        "note": "UN DESA, International Migrant Stock 2024, Table 1 (CC BY 3.0 IGO). Foreign-born residents at each July 1 benchmark, not annual arrivals."},
+        "Nationality-based counts through FY2025 remain in the complete downloads; they are not appended here."},
     "migrant-stock-from-us": {
         "title": "U.S. citizens in China; U.S.-born in Hong Kong", "subtitle": "UN estimates | distinct citizenship and birthplace populations",
         "series": ["un_stock:USA:CHN", "un_stock:USA:HKG"], "unit": "Estimated residents", "mode": "levels",
@@ -88,10 +64,6 @@ CHARTS = {
         "in Macau. Calendar-year approvals, not resident stocks, U.S. departures or U.S. green-card grants. "
         "The source category does not establish citizenship or a permanent-resident legal status. "
         "The revised compilation begins in 2007; earlier-method figures are not joined."},
-    "latest-admissions": {
-        "title": "2025 green cards: arrivals and adjustments", "subtitle": "Chinese nationals | U.S. fiscal year",
-        "series": ["ohss_nationality:new_arrivals", "ohss_nationality:adjustments"], "unit": "Status grants", "mode": "bars",
-        "note": "DHS/OHSS. Chinese nationality: 27,020 new arrivals and 38,650 adjustments within the U.S. in FY2025. Rounded to nearest ten; nationality, not birthplace."},
 }
 
 IMMIGRATION_COVID_NOTE = (
@@ -231,9 +203,13 @@ def chart_groups(data, chart_id):
 
 
 def build_immigration(root, data, gallery, state_data=None, state_geometry=None):
-    from .render import esc, export_figure, figure_links
+    from .render import esc, export_figure, figure_links, remove_figure
 
     validate_immigration_data(data)
+    for chart_id in RETIRED_CHARTS:
+        for theme in CHART_THEMES:
+            for suffix in ("", "-chn", "-hkg-mac"):
+                remove_figure(root, Path("immigration") / theme / (chart_id + suffix))
     cards, plotted = [], []
     if state_data is not None:
         from .state_immigration_map import build_state_map
@@ -243,8 +219,7 @@ def build_immigration(root, data, gallery, state_data=None, state_geometry=None)
         groups = chart_groups(data, chart_id)
         if not groups:
             continue
-        if chart_id in {"new-permanent-resident-arrivals", "new-permanent-resident-arrivals-nationality",
-                        "annual-china-adjustments", "macau-residence-approvals",
+        if chart_id in {"new-permanent-resident-arrivals", "macau-residence-approvals",
                         "green-card-grants", "hong-kong-green-cards", "macau-green-cards"}:
             years = [p["year"] for g in groups for p in g["points"]]
             config = dict(config, subtitle=f"{config['subtitle']} {min(years)}-{max(years)}")
@@ -330,9 +305,7 @@ def build_immigration(root, data, gallery, state_data=None, state_geometry=None)
                 '<p class="immigration-history-link">Separate measure: '
                 '<a href="immigration.html?indicator=green-card-grants">U.S. green-card grants by birthplace, '
                 f'FY{min(birthplace_years)}-FY{max(birthplace_years)}</a>. '
-                'Includes new arrivals and in-country status adjustments, not new arrivals alone. '
-                '<a href="immigration.html?indicator=new-permanent-resident-arrivals-nationality">'
-                'Chinese-nationality arrivals, FY2016-FY2025</a>, use a different population.</p>')
+                'Includes new arrivals and in-country status adjustments, not new arrivals alone.</p>')
         cards.append(f'<section class="series-panel" id="{chart_id}"><h2>{esc(config["title"])}</h2>'
                      + history_link + chart_markup + f'<p class="chart-note">{esc(config["note"])}</p>'
                      + (f'<p class="chart-note immigration-covid-note">{esc(covid_note)}</p>'
@@ -347,9 +320,7 @@ def build_immigration(root, data, gallery, state_data=None, state_geometry=None)
         if chart_id == "new-permanent-resident-arrivals":
             cards[-1] = cards[-1].replace("</section>",
                 '<p class="chart-note annual-reverse-note"><strong>U.S. → mainland China:</strong> '
-                'a comparable annual count has not been verified. The resident-stock charts below are not annual arrivals.</p>'
-                '<p class="chart-note"><a href="immigration.html?indicator=annual-china-adjustments">'
-                'View residency adjustments for people already in the U.S.</a></p></section>')
+                'a comparable annual count has not been verified. Resident-stock estimates are not annual arrivals.</p></section>')
         relative = {theme: {kind: path.removeprefix("figures/") for kind, path in files.items()}
                     for theme, files in paths.items()}
         gallery["immigration"].append(f'<article><h3>{esc(config["title"])}</h3>{figure_links(relative)}</article>')
