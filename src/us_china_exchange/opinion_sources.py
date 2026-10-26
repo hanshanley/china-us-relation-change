@@ -368,6 +368,16 @@ def parse_c100_age_panel(events, visible_text):
             for age, value in zip(C100_AGE_BINS, numbers)]
 
 
+def c100_original_image_fingerprints(page):
+    # PNG re-encoding varies across Pillow/zlib builds; verify original PDF streams.
+    images = {}
+    for name, reference in page["/Resources"]["/XObject"].items():
+        image = reference.get_object()
+        if image.get("/Subtype") == "/Image":
+            images[str(name)] = digest(image.get_data())
+    return images
+
+
 def parse_c100_reported_ages(english_body, chinese_body, earlier_body):
     expected = (
         (english_body, "009e65debd1f52c20913a6b0f968ea5ba4ecf19a86dee4a24e46e6f7feb52879"),
@@ -402,8 +412,10 @@ def parse_c100_reported_ages(english_body, chinese_body, earlier_body):
         raise ValueError("Changed C100 country-specific fieldwork or sampling frame")
     chinese = PdfReader(io.BytesIO(chinese_body))
     if (len(chinese.pages) != 59
-            or digest(chinese.pages[54].images[0].data) != "2b749debb1489535186237b623f78db59dda3f31c49f6cb95f18704cb4bad91a"
-            or digest(chinese.pages[54].images[1].data) != "6417ce273e11a8fd72b85520436753122092a18f5e3626de424c55c5b4197f59"):
+            or c100_original_image_fingerprints(chinese.pages[54]) != {
+                "/Im0": "cf86741e6928b5392623ccc8e066fc89175e3c00882a62b059a8b2b60fa28287",
+                "/Im1": "d494fa1ae65d8371e9c418406c6ac36bf07176bf5c959182694f37be31e26d29",
+                "/Im2": "7a2fc05fd65a0dfff12569e2a517b1984320d7f478ca6fe481c4e33eac5573fa"}):
         raise ValueError("Changed Chinese original table/profile images require visual review")
     earlier = normalize(PdfReader(io.BytesIO(earlier_body)).pages[14].extract_text(extraction_mode="layout"))
     section = earlier.split("China:", 1)[1].split("Assessment of General Public", 1)[0]

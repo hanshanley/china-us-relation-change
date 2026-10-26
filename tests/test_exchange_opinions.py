@@ -88,6 +88,33 @@ def test_c100_reported_age_panel_preserves_country_geometry_and_literal_bins():
         sources.parse_c100_reported_ages(b"unreviewed edition", b"unreviewed translation", b"earlier")
 
 
+def test_c100_image_review_uses_original_streams_not_platform_png_encodings():
+    from pypdf.generic import DecodedStreamObject, NameObject
+
+    class OriginalPage(dict):
+        @property
+        def images(self):
+            raise AssertionError("Re-encoded PNG bytes are not a source fingerprint")
+
+    image = DecodedStreamObject()
+    image[NameObject("/Subtype")] = NameObject("/Image")
+    image.set_data(b"reviewed table pixels")
+    form = DecodedStreamObject()
+    form[NameObject("/Subtype")] = NameObject("/Form")
+    form.set_data(b"page drawing commands")
+    objects = {"/Im0": image, "/Fm0": form}
+    page = OriginalPage({"/Resources": {"/XObject": objects}})
+    reviewed = sources.c100_original_image_fingerprints(page)
+    assert reviewed == {"/Im0": sources.digest(b"reviewed table pixels")}
+    objects["/Im0"] = image.flate_encode()
+    assert sources.c100_original_image_fingerprints(page) == reviewed
+    image.set_data(b"changed table pixels")
+    objects["/Im0"] = image
+    assert sources.c100_original_image_fingerprints(page) != reviewed
+    del objects["/Im0"]
+    assert sources.c100_original_image_fingerprints(page) != reviewed
+
+
 def test_c100_reported_age_archive_retains_actual_interviews_unknown_dates_and_unharmonized_bins():
     d = sources.validate_opinion_data(data())
     rows = [row for row in d["observations"] if row["series_id"].startswith("c100_reported_age_")]
