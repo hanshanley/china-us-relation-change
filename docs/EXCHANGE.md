@@ -790,9 +790,10 @@ continue the legal-unit definition after Eurostat switches to grouped
 enterprises in2021; both2019/2020 controls match. The2010 classification and
 2021 source boundaries remain explicit. The three differently counted
 Eurostat enterprise observations stay separate in the complete downloads.
-Earlier U.S., German and Norwegian count histories are explicitly labelled
-secondary references in a closed disclosure, not newly recovered current
-evidence. The United Kingdom has a visible historical-coverage entry and an
+U.S., German and Norwegian count histories appear alongside the other country
+histories under "Affiliates operating in China", with each source's reporting
+years and population preserved. There is no separate earlier-reference drawer.
+The United Kingdom has a visible historical-coverage entry and an
 expandable source-record table: eleven reported 2009-2019 counts and explicit
 missing 2007/2008/2020 cells. It is not a current chart or census; source and
 classification boundaries remain explicit, and complete CSV/JSON downloads
@@ -881,9 +882,9 @@ every raw/derived chart point in `business-chart-values.csv`. Every displayed
 count chart has 3000-pixel-wide, content-fitted essay PNGs and SVGs under
 `outputs/figures/business_presence/<background>/` and the mirrored site tree.
 Annual count charts use bars, including separate Eurostat/Bundesbank German
-source panels. The nine primary panels retain the six investment/reverse-count/
-survey panels and add the three new country histories; earlier reference bars
-remain secondary and no source population is summed into an all-Europe total.
+source panels. All 22 eligible country-count panels are visible alongside the
+six investment/reverse-count/survey panels; no source population is summed into
+an all-Europe total.
 Obsolete U.S.-in-Europe plots are withdrawn from both figure trees and catalogs.
 
 ```sh

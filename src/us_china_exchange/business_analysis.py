@@ -65,7 +65,7 @@ ORIGINS = {"bea_affiliates:china": "us", "bea_parents:china": "us",
 CHARTS = {
     "us-affiliates-china": {
         "title": "U.S.-parent affiliates in China",
-        "subtitle": "Earlier reference | 2000-2023 | fiscal year ending",
+        "subtitle": "BEA | 2000-2023 | fiscal year ending",
         "series": ["bea_affiliates:china"], "unit": "Affiliates", "mode": "levels",
         "note": "BEA. Nonbank coverage before 2009; reporting cutoffs $7m through 2003, $10m in 2004-08, $25m from 2009. Entity counts include holding companies."},
     "eu-affiliates-china": {
@@ -80,7 +80,7 @@ CHARTS = {
         "note": "Eurostat and ONS. Industry classification changed in 2010; survey and sector coverage changed in 2018. ONS revised the 2018/2019 estimates."},
     "norway-affiliates-china": {
         "title": "Norwegian-controlled enterprises in China",
-        "subtitle": "Earlier reference | From 2008 | Statistics Norway",
+        "subtitle": "Annual observations from 2008 | Statistics Norway",
         "series": ["ssb_norway:china"], "unit": "Enterprises", "mode": "levels",
         "note": "Statistics Norway, all industries. Enterprises under direct or indirect Norwegian control; Hong Kong and Macao reported separately."},
     "germany-affiliates-china": {
@@ -90,7 +90,7 @@ CHARTS = {
         "note": "Bundesbank. German majority control, assets above EUR 3m; includes branches. Hong Kong and Macau are separate. The 2018 and 2024 observations are provisional in their source releases."},
     "germany-affiliates-china-eurostat": {
         "title": "German enterprises: the longer Eurostat history",
-        "subtitle": "Earlier reference | Eurostat | 2007-2023",
+        "subtitle": "Eurostat | Annual observations, 2007-2023",
         "series": ["eurostat_germany:china"], "unit": "Enterprises", "mode": "levels",
         "note": "Eurostat; China except Hong Kong. Industry coverage changed in 2010 and the reporting framework changed in 2021."},
     "sweden-affiliates-china": {

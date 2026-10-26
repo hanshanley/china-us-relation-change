@@ -150,6 +150,20 @@ def test_component_exports_complete_counts_and_current_evidence_without_stale_ch
     assert len(page.select(".business-card")) == 26
     count_cards = page.select(".business-count-card")
     assert len(count_cards) == 22
+    assert not page.select("#business-count-references")
+    assert page.select("#affiliate-presence .business-count-card") == count_cards
+    assert all(card.find_parent("details") is None for card in count_cards)
+    assert "Earlier reference" not in page.text
+    for cid, period, source in (
+        ("us-affiliates-china", "2000-2023", "BEA"),
+        ("germany-affiliates-china", "2015-2024", "Bundesbank"),
+        ("germany-affiliates-china-eurostat", "2007-2023", "Eurostat"),
+        ("norway-affiliates-china", "2008", "Statistics Norway"),
+    ):
+        card = page.select_one("#" + cid)
+        assert card.find_parent(id="affiliate-presence")
+        assert period in card.select_one(".chart-context").text
+        assert source in card.select_one(".chart-context").text
     for card in count_cards:
         figure = tmp_path / "site" / card.img["src"].replace(".png", ".svg")
         svg = BeautifulSoup(figure.read_text(), "html.parser")

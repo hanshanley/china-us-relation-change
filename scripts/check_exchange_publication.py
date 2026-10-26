@@ -453,6 +453,8 @@ def check(site, url=None, screenshots=None):
                     primary_ids = {
                         "us-investment-mainland", "us-investment-hong-kong",
                         "china-ubo-us-affiliates", "hong-kong-ubo-us-affiliates",
+                        "us-affiliates-china", "germany-affiliates-china",
+                        "germany-affiliates-china-eurostat", "norway-affiliates-china",
                         "sweden-affiliates-china", "finland-affiliates-china",
                         "france-affiliates-china", "netherlands-affiliates-china",
                         "finland-affiliates-china-eurostat",
@@ -471,8 +473,8 @@ def check(site, url=None, screenshots=None):
                         "us-company-decisions", "german-company-risk"}
                     assert primary_cards.count() == len(primary_ids)
                     assert set(primary_cards.evaluate_all("nodes=>nodes.map(n=>n.id)")) == primary_ids
-                    assert page.locator("#business-count-references").get_attribute("open") is None
-                    assert page.locator("#business-count-references .business-card").count() == 4
+                    assert not page.locator("#business-count-references").count()
+                    assert page.locator("#affiliate-presence .business-count-card:visible").count() == 22
                     assert page.locator("#us-investment-mainland .screen-column").count() == 26
                     assert page.locator("#us-investment-hong-kong .screen-column").count() == 26
                     assert page.locator("#german-company-risk .screen-bar").count() == 3

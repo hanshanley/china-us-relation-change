@@ -315,10 +315,14 @@ def test_collective_export_preserves_complete_inputs_and_native_plot_boundaries(
     assert "business-inward" in manifest["datasets"]
     cards = business.select(".business-card")
     assert len(cards) == 28
-    references = business.select_one("#business-count-references")
-    assert references.get("open") is None and len(references.select(".business-card")) == 4
-    assert len([card for card in cards if card.find_parent(id="business-count-references") is None]) == 24
-    assert business.select_one("#us-affiliates-china").find_parent("details")["id"] == "business-count-references"
+    assert not business.select("#business-count-references")
+    count_cards = business.select("#affiliate-presence .business-count-card")
+    assert len(count_cards) == 22
+    assert all(card.find_parent("details") is None for card in cards)
+    for cid in ("us-affiliates-china", "germany-affiliates-china",
+                "germany-affiliates-china-eurostat", "norway-affiliates-china"):
+        assert business.select_one("#" + cid) in count_cards
+    assert "Earlier reference" not in business.text
     assert not business.select("#module-chart,#us-parent-companies-china,#uk-affiliates-china,#eu-affiliates-china,.covid-band,.covid-context")
     uk = business.select_one("#uk-business-coverage")
     assert uk is not None and "historical" in uk.h3.text.lower()

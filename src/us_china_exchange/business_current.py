@@ -355,7 +355,7 @@ def build_current_business(root, archive, gallery):
     with public_charts():
         count_charts = build_business(root, archive, gallery)
     counts_page = BeautifulSoup((root / "site/business-presence.html").read_text(), "html.parser")
-    count_cards, reference_cards = [], []
+    count_cards = []
     for section in counts_page.select("main > section.series-panel"):
         if not section.select_one(".comparison-chart"):
             continue
@@ -364,51 +364,19 @@ def build_current_business(root, archive, gallery):
         context = counts_page.new_tag("p", attrs={"class": "chart-context"})
         context.string = COUNT_CHARTS[section["id"]]["subtitle"]
         section.h3.insert_after(context)
-        if section["id"] in {"sweden-affiliates-china", "finland-affiliates-china", "france-affiliates-china",
-                             "netherlands-affiliates-china", "finland-affiliates-china-eurostat",
-                             "italy-affiliates-china", "sweden-affiliates-china-eurostat", "spain-affiliates-china",
-                             "denmark-affiliates-china", "austria-affiliates-china", "poland-affiliates-china",
-                             "luxembourg-affiliates-china",
-                             "portugal-affiliates-china", "czechia-affiliates-china",
-                             "belgium-affiliates-china",
-                             "swiss-liechtenstein-affiliates-china", "hungary-affiliates-china",
-                             "slovenia-affiliates-china"}:
-            count_cards.append(str(section))
-        else:
-            config = COUNT_CHARTS[section["id"]]
-            latest = max((row for row in archive["observations"]
-                          if row["series_id"] in config["series"] and row["value"] is not None),
-                         key=lambda row: row["year"])
-            source = archive["sources"][latest["source_id"]]
-            vintage = counts_page.new_tag("p", attrs={"class": "business-source"})
-            vintage.string = (f'Previously available reference: latest period {latest["year"]}. '
-                              f'{source["name"]}; {source["vintage"]}.')
-            section.h3.insert_after(vintage)
-            reference_cards.append(str(section))
+        count_cards.append(str(section))
     uk_coverage = uk_historical_coverage(archive)
     count_section = (
         '<section class="series-panel" id="affiliate-presence"><h2>Affiliates operating in China</h2>'
-        '<p class="chart-context">Slovenian 2025, Swedish/Finnish/Danish 2024, provisional Dutch 2024 and French/Spanish 2023 counts, with every reported historical year. '
-        'Separate Finnish- and Swedish-UCI Eurostat histories reach 2007; neither is spliced into the broader national counts. '
-        'Italian legal-unit counts run from 2007 to 2023; newer grouped-enterprise counts remain separate in downloads. '
-        'Portuguese-UCI counts start in 2008 and Czech-UCI counts in 2007; their coverage changes and confidential gaps remain explicit. '
-        'Hungarian enterprise counts start only in 2022; the older legal-unit archive remains separate in downloads. '
-        'These count subsidiary or affiliate '
-        'entities, not unique parent companies or offices. Country sources have different ownership, sector '
+        '<p class="chart-context">Separate annual country histories, with each source&#39;s actual reporting years and population. '
+        'These count subsidiary or affiliate entities, not unique parent companies or offices. '
+        'Country sources have different ownership, sector '
         'and reporting thresholds: they are not a matched ranking or a total to add together. '
-        'Shorter histories and methodology changes remain explicit.</p>'
+        'The German source histories and the national/Eurostat Finnish and Swedish histories remain separate, not spliced. '
+        'Shorter histories, missing or confidential values and methodology changes remain explicit.</p>'
         + uk_coverage +
         '<div class="comparison-panels business-counts">' + "".join(count_cards) + '</div></section>'
     ) if count_cards or uk_coverage else ""
-    reference_section = (
-        '<details class="series-panel" id="business-count-references">'
-        '<summary>Earlier U.S., German and Norwegian count references</summary>'
-        '<p class="chart-context">Previously available source histories, not newly recovered current evidence. '
-        'The U.S. outward count still ends in 2023 and does not supply 2024/2025 counts. '
-        'German sources have different reporting populations and remain separate. '
-        'These reference histories are not a matched country ranking.</p>'
-        '<div class="comparison-panels business-counts">' + "".join(reference_cards) + '</div></details>'
-    ) if reference_cards else ""
     write_atomic(root / "site/downloads/business-presence.json", json_text(archive))
     historical = [dict(r, **{k: v for k, v in archive["series"][r["series_id"]].items() if k != "notes"},
                        definition_notes=archive["series"][r["series_id"]]["notes"],
@@ -469,14 +437,13 @@ def build_current_business(root, archive, gallery):
         '<div class="comparison-panels business-surveys">' + cards["us-company-decisions"] + cards["german-company-risk"] + '</div>'
         '<p class="chart-note">The German finding is not an EU-wide survey. Its full report is scheduled for 7 December 2026; '
         'only the published preliminary question is shown here.</p></section>'
-        + reference_section +
         '<details id="business-data"><summary>Data, sources & historical archive</summary>'
         '<p><a href="downloads/business-current.json" download>Complete current evidence and provenance · JSON</a> · '
         '<a href="downloads/business-current-observations.csv" download>Every current observation · CSV</a> · '
         '<a href="downloads/business-current-chart-values.csv" download>Every plotted value · CSV</a></p>'
         '<div class="table-scroll"><table><thead><tr><th>Measure</th><th>Reference period</th><th>Reported value</th><th>Unit</th></tr></thead><tbody>' +
         exact + '</tbody></table></div><h3>Primary sources</h3><ul>' + sources +
-        '</ul><h3>Complete company-count data</h3><p>The new country histories and earlier reference histories remain distinct. '
+        '</ul><h3>Complete company-count data</h3><p>Country and source populations remain distinct. '
         'Older EU and parent-company benchmarks remain download-only; UK records also appear in the labelled historical table above. '
         'These are not a current business census. '
         'Missing years and source/ownership changes remain explicit.</p>'
