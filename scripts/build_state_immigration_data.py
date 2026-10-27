@@ -14,7 +14,7 @@ sys.path.insert(0, str(ROOT / "src"))
 from us_china_exchange.language_sources import ReviewClient
 from us_china_exchange.model import json_text
 from us_china_exchange.pipeline import write_atomic
-from us_china_exchange.state_immigration_sources import collect, geometry_text, released_directory
+from us_china_exchange.state_immigration_sources import collect, fetch_released_directory, geometry_text
 
 
 def stable(data):
@@ -38,13 +38,12 @@ def main():
             current = datetime.now(timezone.utc).year
             first = prior["end_year"] if prior else current - 3
             for candidate in range(current - 1, first - 1, -1):
-                url = f"https://www.census.gov/programs-surveys/acs/data/summary-file.{candidate}.html"
                 try:
-                    page, _ = client.get(url)
+                    directory, _ = fetch_released_directory(client, candidate)
                 except Exception as exc:
                     check["warnings"].append(f"{candidate} release page: {type(exc).__name__}")
                     continue
-                if released_directory(page, candidate):
+                if directory:
                     year = candidate
                     break
             if year is None:

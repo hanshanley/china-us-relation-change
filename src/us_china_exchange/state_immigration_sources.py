@@ -6,6 +6,7 @@ import io
 import json
 import math
 import re
+import subprocess
 from datetime import datetime
 from urllib.parse import urlencode, urlsplit
 
@@ -40,11 +41,30 @@ def geometry_text(geometry):
     return json.dumps(geometry, ensure_ascii=True, sort_keys=True, separators=(",", ":")) + "\n"
 
 
+def summary_directory_url(year):
+    return f"https://www2.census.gov/programs-surveys/acs/summary_file/{year}/table-based-SF/data/5YRData/"
+
+
 def released_directory(content, year):
     soup = BeautifulSoup(content, "html.parser")
-    expected = f"https://www2.census.gov/programs-surveys/acs/summary_file/{year}/table-based-SF/data/5YRData/"
+    expected = summary_directory_url(year)
+    if soup.title and soup.title.get_text(strip=True).rstrip("/") == "Index of " + urlsplit(expected).path.rstrip("/"):
+        filename = f"acsdt5y{year}-b05006.dat"
+        files = [a for a in soup.select("a[href]")
+                 if a["href"] in (filename, expected + filename) and a.get_text(strip=True) == filename]
+        return expected if len(files) == 1 else None
     return next((a["href"] for a in soup.select("a[href]")
                  if a.get_text(" ", strip=True) == "5-Year Summary File" and a["href"] == expected), None)
+
+
+def fetch_released_directory(client, year):
+    try:
+        page, asset = client.get(summary_directory_url(year))
+    except subprocess.CalledProcessError as exc:
+        if exc.returncode == 22 and re.search(rb"returned error: 404\b", exc.stderr or b""):
+            return None, None
+        raise
+    return released_directory(page, year), asset
 
 
 def validate_variables(metadata):
@@ -126,9 +146,7 @@ def parse_states(content, geometry):
 
 
 def collect(client, year):
-    release_url = f"https://www.census.gov/programs-surveys/acs/data/summary-file.{year}.html"
-    page, release_asset = client.get(release_url)
-    directory = released_directory(page, year)
+    directory, release_asset = fetch_released_directory(client, year)
     if directory is None:
         raise ValueError(f"The {year} ACS five-year summary file is not yet released")
     metadata, variable_asset = client.get(f"https://api.census.gov/data/{year}/acs/acs5/groups/B05006.json")
@@ -220,26 +238,27 @@ def validate(data, geometry):
                         len(p) != 2 or not all(math.isfinite(v) for v in p) or
                         not -180 <= p[0] <= 180 or not -90 <= p[1] <= 90 for p in ring):
                     raise ValueError("Invalid geographic ring")
-    for key, host in (("release", "www.census.gov"), ("variables", "api.census.gov"),
-                      ("table", "www2.census.gov"), ("geometry", "tigerweb.geo.census.gov")):
+    for key, hosts in (("release", {"www.census.gov", "www2.census.gov"}), ("variables", {"api.census.gov"}),
+                       ("table", {"www2.census.gov"}), ("geometry", {"tigerweb.geo.census.gov"})):
         asset = data["sources"][key]
         if not re.fullmatch("[0-9a-f]{64}", asset["sha256"]) or datetime.fromisoformat(asset["retrieved_at"]).tzinfo is None:
             raise ValueError("State map provenance is incomplete")
         for field in ("url", "request_url"):
             parsed = urlsplit(asset[field])
-            if parsed.scheme != "https" or parsed.netloc != host:
+            if parsed.scheme != "https" or parsed.netloc not in hosts:
                 raise ValueError("State map requires official Census sources")
     table = data["sources"]["table"]
     if table.get("byte_range") != f"bytes=0-{PREFIX_BYTES - 1}" or not table.get("sha256_scope"):
         raise ValueError("Partial-file checksum scope must be explicit")
     year = data["end_year"]
     expected = {
-        "release": f"https://www.census.gov/programs-surveys/acs/data/summary-file.{year}.html",
-        "variables": f"https://api.census.gov/data/{year}/acs/acs5/groups/B05006.json",
-        "table": f"https://www2.census.gov/programs-surveys/acs/summary_file/{year}/table-based-SF/data/5YRData/acsdt5y{year}-b05006.dat",
-        "geometry": GEOMETRY_URL,
+        "release": {f"https://www.census.gov/programs-surveys/acs/data/summary-file.{year}.html",
+                    summary_directory_url(year)},
+        "variables": {f"https://api.census.gov/data/{year}/acs/acs5/groups/B05006.json"},
+        "table": {summary_directory_url(year) + f"acsdt5y{year}-b05006.dat"},
+        "geometry": {GEOMETRY_URL},
     }
-    if any(data["sources"][key]["request_url"] != url for key, url in expected.items()):
+    if any(data["sources"][key]["request_url"] not in urls for key, urls in expected.items()):
         raise ValueError("Source vintage or Census table does not match the map period")
     if data["geometry_file"] != "us-states.geojson" or data["geometry_vintage"] != 2024:
         raise ValueError("State geometry vintage and filename must remain explicit")

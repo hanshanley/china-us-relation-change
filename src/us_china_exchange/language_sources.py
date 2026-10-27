@@ -11,7 +11,7 @@ import zipfile
 from collections import Counter, defaultdict
 from datetime import datetime, timezone
 from pathlib import Path
-from urllib.parse import urljoin
+from urllib.parse import urljoin, urlsplit
 
 from bs4 import BeautifulSoup
 from openpyxl import load_workbook
@@ -75,8 +75,10 @@ class ReviewClient:
             path = self.cache / prior["sha256"]
             if path.is_file() and digest(path.read_bytes()) == prior["sha256"]:
                 return path.read_bytes(), prior
+        # Census HTTP/2 can stall or fail before completing error responses.
+        protocol = ["--http1.1"] if urlsplit(url).hostname in {"api.census.gov", "www2.census.gov"} else []
         result = subprocess.run(
-            ["curl", "--fail", "--location", "--silent", "--show-error", "--retry", "2",
+            ["curl", *protocol, "--fail", "--location", "--silent", "--show-error", "--retry", "2",
              "--max-time", "180", "--write-out", "\n%{url_effective}", url],
             capture_output=True, check=True)
         content, effective = result.stdout.rsplit(b"\n", 1)

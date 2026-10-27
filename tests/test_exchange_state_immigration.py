@@ -3,6 +3,7 @@ import csv
 import hashlib
 import io
 import json
+import subprocess
 from pathlib import Path
 
 import pytest
@@ -11,7 +12,8 @@ from bs4 import BeautifulSoup
 
 from us_china_exchange.state_immigration_map import build_state_map, fill, map_paths
 from us_china_exchange.state_immigration_sources import (
-    FIELDS, STATE_FIPS, geometry_text, parse_states, released_directory, validate,
+    FIELDS, STATE_FIPS, fetch_released_directory, geometry_text, parse_states,
+    released_directory, summary_directory_url, validate,
 )
 
 
@@ -76,6 +78,113 @@ def test_unreleased_year_or_metadata_link_does_not_select_a_new_vintage():
     assert released_directory(f'<a href="{url}">5-Year Summary File</a>', 2025) is None
     assert released_directory('<a href="https://api.census.gov/data/2025/acs/acs5/groups.json">Metadata</a>', 2025) is None
     assert released_directory(f'<a href="{url}">1-Year Summary File</a>', 2024) is None
+
+
+def test_official_download_index_requires_the_correct_period_and_published_birthplace_file():
+    url = summary_directory_url(2024)
+    title = '<title>Index of /programs-surveys/acs/summary_file/2024/table-based-SF/data/5YRData</title>'
+    link = '<a href="acsdt5y2024-b05006.dat">acsdt5y2024-b05006.dat</a>'
+    body = title + link
+    assert released_directory(body, 2024) == url
+    assert released_directory(body, 2025) is None
+    for changed in (body.replace("/2024/", "/2025/"), body.replace("5YRData", "1YRData"),
+                    body.replace("b05006.dat", "b05007.dat"), link, body + link):
+        assert released_directory(changed, 2024) is None
+
+
+@pytest.mark.parametrize("returncode,stderr,unreleased", [
+    (22, b"curl: (22) The requested URL returned error: 404", True),
+    (22, b"curl: (22) The requested URL returned error: 403", False),
+    (28, b"curl: (28) Operation timed out", False),
+])
+def test_only_a_confirmed_not_found_response_means_the_directory_is_unreleased(returncode, stderr, unreleased):
+    class Client:
+        def get(self, url):
+            assert url == summary_directory_url(2025)
+            raise subprocess.CalledProcessError(returncode, ["curl", url], stderr=stderr)
+
+    if unreleased:
+        assert fetch_released_directory(Client(), 2025) == (None, None)
+    else:
+        with pytest.raises(subprocess.CalledProcessError):
+            fetch_released_directory(Client(), 2025)
+
+
+@pytest.mark.parametrize("url,http1", [
+    ("https://api.census.gov/data/2024/acs/acs5/groups/B05006.json", True),
+    ("https://www2.census.gov/programs-surveys/acs/", True),
+    ("https://example.test/table", False),
+])
+def test_census_transport_avoids_http2_failures_without_changing_other_sources_or_cache(
+        tmp_path, monkeypatch, url, http1):
+    from types import SimpleNamespace
+    from us_china_exchange import language_sources
+
+    commands = []
+
+    def run(command, **kwargs):
+        commands.append(command)
+        assert ("--http1.1" in command) is http1
+        return SimpleNamespace(stdout=b"{}\n" + url.encode())
+
+    monkeypatch.setattr(language_sources.subprocess, "run", run)
+    client = language_sources.ReviewClient(tmp_path)
+    body, asset = client.get(url)
+    assert body == b"{}" and asset["request_url"] == asset["url"] == url
+    assert client.get(url) == (body, asset)
+    assert len(commands) == 1
+
+
+def test_download_directory_provenance_requires_the_same_official_vintage():
+    data, geometry = published()
+    url = summary_directory_url(data["end_year"])
+    data["sources"]["release"].update(url=url, request_url=url)
+    assert validate(data, geometry) is data
+    wrong = summary_directory_url(data["end_year"] + 1)
+    data["sources"]["release"].update(url=wrong, request_url=wrong)
+    with pytest.raises(ValueError, match="vintage"):
+        validate(data, geometry)
+
+
+def test_auto_discovery_skips_an_unreleased_year_without_using_blocked_marketing_pages(monkeypatch, tmp_path):
+    import importlib.util
+    import sys
+
+    spec = importlib.util.spec_from_file_location("state_collector", ROOT / "scripts/build_state_immigration_data.py")
+    collector = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(collector)
+    data, geometry = published()
+    year = data["end_year"]
+    target = tmp_path / "data/site/state_immigration.json"
+    target.parent.mkdir(parents=True)
+    original = json.dumps(data)
+    target.write_text(original)
+    calls = []
+
+    class Client:
+        def get(self, url):
+            calls.append(url)
+            if url != summary_directory_url(year):
+                raise subprocess.CalledProcessError(
+                    22, ["curl", url], stderr=b"curl: (22) The requested URL returned error: 404")
+            return (f'<title>Index of /programs-surveys/acs/summary_file/{year}/table-based-SF/data/5YRData</title>'
+                    f'<a href="acsdt5y{year}-b05006.dat">acsdt5y{year}-b05006.dat</a>').encode(), {}
+
+    def collect(client, selected):
+        assert selected == year
+        return data, geometry
+
+    monkeypatch.setattr(collector, "ROOT", tmp_path)
+    monkeypatch.setattr(collector, "ReviewClient", lambda *args, **kwargs: Client())
+    monkeypatch.setattr(collector, "collect", collect)
+    monkeypatch.setattr(sys, "argv", ["build_state_immigration_data.py"])
+    collector.main()
+    check = json.loads((tmp_path / "data/local/state-immigration/check.json").read_text())
+    assert check["status"] == "ok" and check["warnings"] == []
+    assert check["end_year"] == year and check["states"] == 51 and check["changed"] is False
+    assert calls[-1] == summary_directory_url(year)
+    assert all(url.startswith("https://www2.census.gov/") for url in calls)
+    assert target.read_text() == original
 
 
 def test_frozen_states_reconcile_with_national_control_and_source_cells():
