@@ -5,6 +5,7 @@ import io
 import json
 import math
 import re
+import subprocess
 from datetime import date, datetime, timezone
 from urllib.parse import urlsplit
 
@@ -239,19 +240,74 @@ def beijing_methods_url(year):
             + BAS_METHODS[year][0])
 
 
+def beijing_methods_api_url(year):
+    return ("https://opendata.pku.edu.cn/api/datasets/:persistentId/"
+            "?persistentId=doi:10.18170/DVN/" + BAS_METHODS[year][0])
+
+
+def fetch_beijing_methods(client, year):
+    try:
+        body, asset = client.get(beijing_methods_url(year))
+    except subprocess.CalledProcessError:
+        body, asset = client.get(beijing_methods_api_url(year))
+    return parse_beijing_methods(body, year), asset
+
+
+def beijing_api_fields(body):
+    payload = json.loads(body)
+    if payload.get("status") != "OK":
+        raise ValueError("Original Beijing metadata API request failed")
+    record = payload["data"]
+    version = record["latestVersion"]
+    if version["versionState"] != "RELEASED":
+        raise ValueError("Original Beijing metadata must be a released version")
+
+    def metadata(block, name):
+        matches = [f["value"] for f in version["metadataBlocks"].get(block, {}).get("fields", [])
+                   if f.get("typeName") == name]
+        if len(matches) != 1:
+            raise ValueError("Original Beijing API field missing or ambiguous: " + name)
+        return matches[0]
+
+    periods = metadata("citation", "dateOfCollection")
+    if len(periods) != 1:
+        raise ValueError("Original Beijing collection window missing or ambiguous")
+    fields = {
+        "Dataset Persistent ID": record["protocol"] + ":" + record["authority"] + "/" + record["identifier"],
+        "Title": metadata("citation", "title"),
+        "Publication Date": record["publicationDate"],
+        "Date of Collection": ("Start: " + periods[0]["dateOfCollectionStart"]["value"]
+                               + " ; End: " + periods[0]["dateOfCollectionEnd"]["value"])}
+    for label, name in (
+            ("\u603b\u4f53\u4eba\u7fa4", "universe_zh"), ("\u5e94\u7b54\u7387", "responseRate_zh"),
+            ("\u62bd\u6837\u65b9\u6cd5", "samplingProcedure_zh"), ("\u6536\u96c6\u6a21\u5f0f", "collectionMode_zh"),
+            ("\u6743\u91cd", "weighting_zh")):
+        value = metadata("socialscience_zh", name)
+        if isinstance(value, list):
+            if len(value) != 1:
+                raise ValueError("Original Beijing API field missing or ambiguous: " + name)
+            value = value[0]
+        fields[label] = value
+    return {label: [normalize(BeautifulSoup(value, "html.parser").get_text(" ", strip=True))]
+            for label, value in fields.items()}
+
+
 def parse_beijing_methods(body, year):
     if year not in BAS_METHODS:
         raise ValueError("Only the reviewed early Beijing waves may qualify this archive")
-    soup = BeautifulSoup(body, "html.parser")
-    fields = {}
-    for panel in soup.select(".metadata-panel-body"):
-        for group in panel.select("div.form-group"):
-            label = group.find("label", recursive=False)
-            if label is not None:
-                key = label.get_text(" ", strip=True)
-                value = normalize(" ".join(child.get_text(" ", strip=True)
-                                          for child in group.find_all("div", recursive=False)))
-                fields.setdefault(key, []).append(value)
+    if body.lstrip().startswith(b"{"):
+        fields = beijing_api_fields(body)
+    else:
+        soup = BeautifulSoup(body, "html.parser")
+        fields = {}
+        for panel in soup.select(".metadata-panel-body"):
+            for group in panel.select("div.form-group"):
+                label = group.find("label", recursive=False)
+                if label is not None:
+                    key = label.get_text(" ", strip=True)
+                    value = normalize(" ".join(child.get_text(" ", strip=True)
+                                              for child in group.find_all("div", recursive=False)))
+                    fields.setdefault(key, []).append(value)
 
     def field(label):
         values = fields.get(label, [])
@@ -483,10 +539,12 @@ def validate_opinion_data(data):
         raise ValueError("Invalid public-opinion schema")
     if not all(data[k] for k in ("series", "surveys", "observations", "sources", "context")):
         raise ValueError("Opinion values, definitions and provenance are required")
-    method_urls = {beijing_methods_url(year) for year in BAS_METHODS}
+    method_urls = {url for year in BAS_METHODS
+                   for url in (beijing_methods_url(year), beijing_methods_api_url(year))}
     bas_urls = {asset.get("request_url", asset["url"])
                 for asset in data["sources"].get("bas_beijing_history", {}).get("assets", [])}
-    bas_qualified = method_urls <= bas_urls
+    bas_qualified = all(bas_urls.intersection((beijing_methods_url(year), beijing_methods_api_url(year)))
+                        for year in BAS_METHODS)
     if bas_urls.intersection(method_urls) and not bas_qualified:
         raise ValueError("All five original Beijing method records are required for the qualified frame")
     for sid, s in data["series"].items():
@@ -829,8 +887,7 @@ def collect(client, reviewed_body):
     body, asset = client.get(BAS_HISTORY)
     bas_methods, method_assets = {}, []
     for year in BAS_METHODS:
-        method_body, method_asset = client.get(beijing_methods_url(year))
-        bas_methods[year] = parse_beijing_methods(method_body, year)
+        bas_methods[year], method_asset = fetch_beijing_methods(client, year)
         method_assets.append(method_asset)
     source("bas_beijing_history", "Alastair Iain Johnston / RSIS, Beijing Area Study", "2003",
            BAS_HISTORY, [asset] + method_assets,

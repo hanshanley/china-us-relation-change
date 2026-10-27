@@ -364,8 +364,8 @@ def test_beijing_parser_requires_the_original_wave_country_and_sample_evidence(m
         sources.parse_beijing_history(b"wrong population")
 
 
-def test_beijing_original_method_parser_checks_wave_registration_and_month_precision():
-    fields = {
+def beijing_method_fields():
+    return {
         "Dataset Persistent ID": "doi:10.18170/DVN/ARBTMK",
         "Title": "Beijing Area Study-2001",
         "Date of Collection": "Start: 2001-12 ; End: 2002-02",
@@ -380,7 +380,32 @@ def test_beijing_original_method_parser_checks_wave_registration_and_month_preci
         "\u6536\u96c6\u6a21\u5f0f": "\u7eb8\u7248\u95ee\u5377\u9762\u8bbf",
         "\u6743\u91cd": "WEIGHT PSU",
     }
-    body = ('<div class="metadata-panel-body">'
+
+
+def beijing_method_api(fields):
+    start, end = fields["Date of Collection"].removeprefix("Start: ").split(" ; End: ")
+    citation = [{"typeName": "title", "value": fields["Title"]},
+                {"typeName": "dateOfCollection", "value": [{
+                    "dateOfCollectionStart": {"value": start},
+                    "dateOfCollectionEnd": {"value": end}}]}]
+    social = [{"typeName": name, "value": [fields[label]] if name == "universe_zh" else fields[label]}
+              for label, name in (
+                  ("\u603b\u4f53\u4eba\u7fa4", "universe_zh"), ("\u5e94\u7b54\u7387", "responseRate_zh"),
+                  ("\u62bd\u6837\u65b9\u6cd5", "samplingProcedure_zh"), ("\u6536\u96c6\u6a21\u5f0f", "collectionMode_zh"),
+                  ("\u6743\u91cd", "weighting_zh"))]
+    return {"status": "OK", "data": {
+        "protocol": "doi", "authority": "10.18170",
+        "identifier": fields["Dataset Persistent ID"].removeprefix("doi:10.18170/"),
+        "publicationDate": fields["Publication Date"],
+        "latestVersion": {"versionState": "RELEASED", "metadataBlocks": {
+            "citation": {"fields": citation}, "socialscience_zh": {"fields": social}}}}}
+
+
+@pytest.mark.parametrize("representation", ["html", "api"])
+def test_beijing_original_method_parser_checks_wave_registration_and_month_precision(representation):
+    fields = beijing_method_fields()
+    body = (json.dumps(beijing_method_api(fields), ensure_ascii=False) if representation == "api" else
+            '<div class="metadata-panel-body">'
             + "".join('<div class="form-group"><label>' + key + "</label><div>"
                       + value + "</div></div>" for key, value in fields.items()) + "</div>")
     assert sources.parse_beijing_methods(body.encode(), 2001) == {
@@ -399,6 +424,67 @@ def test_beijing_original_method_parser_checks_wave_registration_and_month_preci
             sources.parse_beijing_methods(body.replace(old, new).encode(), 2001)
     with pytest.raises(ValueError):
         sources.parse_beijing_methods(body.encode(), 2015)
+
+
+def test_beijing_api_rejects_unreleased_duplicate_or_missing_method_evidence():
+    original = beijing_method_api(beijing_method_fields())
+    for problem in ("request_error", "draft", "duplicate_title", "missing_population", "multiple_windows"):
+        payload = copy.deepcopy(original)
+        version = payload["data"]["latestVersion"]
+        if problem == "request_error":
+            payload["status"] = "ERROR"
+        elif problem == "draft":
+            version["versionState"] = "DRAFT"
+        elif problem == "duplicate_title":
+            version["metadataBlocks"]["citation"]["fields"].append({"typeName": "title", "value": "Other"})
+        elif problem == "missing_population":
+            version["metadataBlocks"]["socialscience_zh"]["fields"][0]["value"] = []
+        else:
+            period = version["metadataBlocks"]["citation"]["fields"][1]["value"]
+            period.append(copy.deepcopy(period[0]))
+        with pytest.raises(ValueError):
+            sources.parse_beijing_methods(json.dumps(payload).encode(), 2001)
+
+
+def test_beijing_metadata_http_failure_uses_public_api_with_actual_provenance():
+    import subprocess
+
+    calls = []
+    api_url = sources.beijing_methods_api_url(2001)
+    asset = {"url": api_url, "request_url": api_url, "sha256": "reviewed-api-response"}
+    body = json.dumps(beijing_method_api(beijing_method_fields())).encode()
+    html_available = False
+
+    class Client:
+        def get(self, url):
+            calls.append(url)
+            if url == sources.beijing_methods_url(2001):
+                if html_available:
+                    return body, {"url": url, "request_url": url}
+                raise subprocess.CalledProcessError(22, ["curl", url])
+            assert url == api_url
+            return body, asset
+
+    method, provenance = sources.fetch_beijing_methods(Client(), 2001)
+    assert method == {"start_month": "2001-12", "end_month": "2002-02",
+                      "n_total": 615, "metadata_published": "2016-09-06"}
+    assert provenance is asset
+    assert calls == [sources.beijing_methods_url(2001), api_url]
+    d = data()
+    for item in d["sources"]["bas_beijing_history"]["assets"]:
+        if item["request_url"] == sources.beijing_methods_url(2001):
+            item.update(url=api_url, request_url=api_url)
+    sources.validate_opinion_data(d)
+    body = b"<html>Changed original survey metadata</html>"
+    calls.clear()
+    with pytest.raises(ValueError):
+        sources.fetch_beijing_methods(Client(), 2001)
+    assert calls == [sources.beijing_methods_url(2001), api_url]
+    html_available = True
+    calls.clear()
+    with pytest.raises(ValueError):
+        sources.fetch_beijing_methods(Client(), 2001)
+    assert calls == [sources.beijing_methods_url(2001)]
 
 
 def test_beijing_qualification_requires_primary_sources_and_honest_unknown_days():
