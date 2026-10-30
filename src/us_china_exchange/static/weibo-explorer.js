@@ -375,7 +375,8 @@
   window.addEventListener("resize", () => update({writeUrl: false}));
   if (selectedPublisher) {
     reveal(selectedPublisher, selected);
-    requestAnimationFrame(scrollToDetail);
+    // Let native fragment scrolling finish before positioning the whole detail.
+    window.addEventListener("load", () => requestAnimationFrame(scrollToDetail), {once: true});
   } else {
     update({writeUrl: false});
     if (coverage && Object.hasOwn(payload.coverage.modes, parameters.get("coverage"))) {

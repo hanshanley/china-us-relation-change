@@ -302,6 +302,11 @@ def check(site, url=None, screenshots=None):
         browser = playwright.chromium.launch()
         for width in (1360, 768, 390, 320):
             page = browser.new_page(viewport={"width": width, "height": 1000})
+            # Replay a late native fragment scroll to expose the initial-load race.
+            page.add_init_script("""addEventListener("load", () => {
+              if (location.hash.startsWith("#weibo-account-"))
+                document.getElementById(location.hash.slice(1))?.scrollIntoView();
+            }, {once: true});""")
             errors = []
             page.on("pageerror", lambda exc: errors.append(str(exc)))
             page.goto(url)
@@ -315,12 +320,17 @@ def check(site, url=None, screenshots=None):
                 page.screenshot(path=str(screenshots / f"weibo-directory-{width}.png"), full_page=True)
             last = page.locator(".weibo-channel-link").last.get_attribute("data-account-id")
             base = url.split("#")[0].split("?")[0]
-            page.goto(base + "?q=__conflicting_filter__#weibo-account-" + last)
-            expect(page.locator(".weibo-channel-detail:visible")).to_have_attribute("data-account-id", last)
-            expect(page.locator("#weibo-search")).to_have_value("")
-            expect(page.locator(f'.weibo-channel-link[data-account-id="{last}"]')).to_have_attribute("aria-current", "true")
-            expect(page.locator(".weibo-channel-detail:visible h4")).to_be_in_viewport()
-            expect(page.locator(".weibo-publisher-detail:visible .weibo-close-publisher")).to_be_in_viewport()
+            deep_link = base + "?q=__conflicting_filter__#weibo-account-" + last
+            for reload in (False, True):
+                if reload:
+                    page.reload()
+                else:
+                    page.goto(deep_link)
+                expect(page.locator(".weibo-channel-detail:visible")).to_have_attribute("data-account-id", last)
+                expect(page.locator("#weibo-search")).to_have_value("")
+                expect(page.locator(f'.weibo-channel-link[data-account-id="{last}"]')).to_have_attribute("aria-current", "true")
+                expect(page.locator(".weibo-channel-detail:visible h4")).to_be_in_viewport()
+                expect(page.locator(".weibo-publisher-detail:visible .weibo-close-publisher")).to_be_in_viewport()
             page.locator(".weibo-publisher-detail:visible .weibo-close-publisher").click()
             publisher = next(a["outlet_id"] for a in summary["accounts"] if a["account_id"] == last)
             expect(page.locator(f'.weibo-publisher-link[data-outlet-id="{publisher}"]')).to_be_visible()
