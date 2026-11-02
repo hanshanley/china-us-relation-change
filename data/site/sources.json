@@ -64,12 +64,12 @@
     "vintage": "NBS/MCT historical visitor tables, 2000\u20132018"
   },
   "ntto": {
-    "last_recorded_check": "2026-10-21T15:37:28+00:00",
-    "last_successful_retrieval": "2026-10-21T15:37:28+00:00",
+    "last_recorded_check": "2026-11-02T21:07:38+00:00",
+    "last_successful_retrieval": "2026-11-02T21:07:38+00:00",
     "notes": "Workbook modification dates are not official publication dates.",
     "observations": 1496,
     "status": "available",
-    "vintage": "Workbook modified 2026-03-24 14:05:25; Workbook modified 2026-10-20 13:51:14"
+    "vintage": "Workbook modified 2026-03-24 14:05:25; Workbook modified 2026-10-28 14:24:46"
   },
   "ntto_siat": {
     "last_recorded_check": "2026-10-25T03:00:28+00:00",
