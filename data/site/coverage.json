@@ -863,14 +863,15 @@
       2021,
       2022,
       2023,
-      2024
+      2024,
+      2025
     ],
     "baseline_2019": true,
     "destination": "HKG",
     "first_year": 2001,
-    "last_year": 2024,
+    "last_year": 2025,
     "measure": "degree_students",
-    "observations": 24,
+    "observations": 25,
     "origin": "USA",
     "reason": "",
     "source_ids": [
@@ -1411,14 +1412,15 @@
       2021,
       2022,
       2023,
-      2024
+      2024,
+      2025
     ],
     "baseline_2019": true,
     "destination": "MAC",
     "first_year": 2003,
-    "last_year": 2024,
+    "last_year": 2025,
     "measure": "degree_students",
-    "observations": 22,
+    "observations": 23,
     "origin": "USA",
     "reason": "",
     "source_ids": [

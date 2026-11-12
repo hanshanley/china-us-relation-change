@@ -88,12 +88,12 @@
     "vintage": "Official annual CSV through 2025"
   },
   "uis": {
-    "last_recorded_check": "2026-10-22T01:27:39+00:00",
-    "last_successful_retrieval": "2026-10-22T01:27:39+00:00",
+    "last_recorded_check": "2026-11-12T19:16:45+00:00",
+    "last_successful_retrieval": "2026-11-12T19:16:45+00:00",
     "notes": "Taiwan not separately listed; U.S.-to-mainland records may be absent.",
-    "observations": 82,
+    "observations": 84,
     "status": "available",
-    "vintage": "February 2026 Data Release"
+    "vintage": "November 2026 Data Release"
   },
   "ustr": {
     "last_recorded_check": "2026-10-23T11:30:15+00:00",
